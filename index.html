@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System – Ruhige Energie</title>
+<style>
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local('Montserrat'), local('Montserrat-Regular');
+}
+:root {
+  --color-primary:#00BEBE; --color-primary-light:#E0F7F7;
+  --color-primary-mid:#009E9E; --color-primary-dark:#007575; --color-primary-deeper:#004F4F;
+  --aa-500:#00D296; --aa-50:#E0FAF3; --aa-100:#B3F2E0; --aa-200:#80E8C9;
+  --aa-300:#4DDDAF; --aa-400:#26D8A0; --aa-600:#00A878; --aa-700:#007D59;
+  --aa-800:#005239; --aa-900:#002E20;
+  --va-500:#009696; --va-50:#E0F5F5; --va-100:#B3E5E5; --va-200:#80D4D4;
+  --va-300:#4DC3C3; --va-400:#26B5B5; --va-600:#007878; --va-700:#005A5A;
+  --va-800:#003C3C; --va-900:#001E1E;
+  --pd-500:#00B4FF; --pd-50:#E0F5FF; --pd-100:#B3E7FF; --pd-200:#80D8FF;
+  --pd-300:#4DC9FF; --pd-400:#26BEFF; --pd-600:#0090CC; --pd-700:#006C99;
+  --pd-800:#004866; --pd-900:#002433;
+  --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
+  --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
+  --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
+  --c-success:#1DB87A; --c-success-bg:#E6F9F1;
+  --c-warning:#E8A020; --c-warning-bg:#FEF4E0;
+  --c-error:#E84040; --c-error-bg:#FDEAEA;
+  --bg-page:var(--n-50); --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:var(--n-300);
+  --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;
+  --s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:20px;--r-full:9999px;
+  --e1:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
+  --e2:0 3px 6px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.07);
+  --e3:0 8px 16px rgba(0,0,0,.10),0 3px 6px rgba(0,0,0,.07);
+  --e4:0 16px 24px rgba(0,0,0,.10),0 6px 8px rgba(0,0,0,.07);
+  --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1); --m-slow:400ms cubic-bezier(.4,0,.2,1);
+  --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
+  --focus-ring:0 0 0 3px var(--color-primary-light),0 0 0 5px var(--color-primary);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--color-primary);
+}
+[data-theme="dark"] {
+  --bg-page:#0A1515; --bg-surface:#112020; --bg-overlay:rgba(0,190,190,.08);
+  --tx-primary:#E0EDED; --tx-secondary:#8AAFAF; --tx-muted:#4A6565;
+  --n-100:#1C2E2E; --n-200:#243838; --n-50:#0A1515;
+  --bd:1px solid #1C2E2E; --bd-strong:1px solid #243838;
+  --e1:0 1px 3px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.3);
+  --e2:0 3px 6px rgba(0,0,0,.4),0 2px 4px rgba(0,0,0,.3);
+  --e3:0 8px 16px rgba(0,0,0,.4),0 3px 6px rgba(0,0,0,.3);
+}
+[data-theme="hc"] {
+  --color-primary:#007575; --color-primary-light:#D0F0F0; --color-primary-dark:#004040;
+  --aa-500:#007A55; --aa-50:#D0F5E8; --va-500:#005A5A; --va-50:#D0ECEC;
+  --pd-500:#006B99; --pd-50:#D0EEFF;
+  --bg-page:#FFFFFF; --bg-surface:#FFFFFF; --tx-primary:#000000; --tx-secondary:#111111;
+  --n-100:#C0C0C0; --n-200:#808080;
+  --bd:2px solid #000000; --bd-strong:2px solid #000000;
+  --focus-ring:0 0 0 3px #FFFFFF,0 0 0 6px #000000;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:16px;font-weight:400;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
+.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--color-primary);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:14px;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
+.skip-link:focus{top:var(--s4)}
+.ds-page{display:flex;min-height:100vh}
+.ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.ds-content{flex:1;padding:var(--s10) var(--s8);max-width:920px}
+.nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5)}
+.nav-logo-text{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--color-primary)}
+.nav-section{padding:var(--s3) var(--s6) var(--s1);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+.nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font-size:14px;color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--font)}
+.nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:var(--r-sm)}
+.nav-item.active{color:var(--color-primary);background:var(--color-primary-light);border-left-color:var(--color-primary);font-weight:600}
+.nav-icon{width:16px;height:16px;flex-shrink:0;opacity:.7;fill:currentColor}
+.nav-item.active .nav-icon{opacity:1}
+.area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ds-section{display:none}
+.ds-section.visible{display:block}
+.sec-title{font-size:28px;font-weight:700;color:var(--tx-primary);margin-bottom:var(--s2)}
+.sec-sub{font-size:16px;color:var(--tx-secondary);margin-bottom:var(--s8);line-height:1.6}
+.group-title{font-size:18px;font-weight:600;color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
+.lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
+.row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
+.token{font-family:'Courier New',monospace;font-size:12px;color:var(--color-primary-dark);background:var(--color-primary-light);padding:2px 7px;border-radius:var(--r-sm)}
+.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
+.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast);display:flex;align-items:center;gap:4px}
+.tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.tbtn.active{background:var(--color-primary);color:#fff}
+.pal-group{margin-bottom:var(--s8)}
+.pal-label{font-size:14px;font-weight:600;color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
+.pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
+.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px;transition:transform var(--m-fast);position:relative}
+.swatch span{font-size:9px;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+.contrast-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:var(--r-full);font-size:11px;font-weight:700}
+.c-pass-aa{background:#E6F9F1;color:#0a5c38}
+.c-pass-aaa{background:#D0F0FF;color:#004466}
+.c-fail{background:var(--c-error-bg);color:#9b2020}
+.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;flex:1;min-width:240px}
+.area-header{padding:var(--s5) var(--s6);color:#fff}
+.area-header h3{font-size:16px;font-weight:700;margin-bottom:4px}
+.area-header p{font-size:12px;opacity:.85}
+.area-body{padding:var(--s4) var(--s6);background:var(--bg-surface)}
+.area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
+.area-swatch{width:28px;height:28px;border-radius:var(--r-sm)}
+.area-meta{font-size:12px;color:var(--tx-secondary);line-height:1.8}
+.area-meta code{font-size:11px;font-family:'Courier New',monospace}
+.type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
+.type-row:last-child{border-bottom:none}
+.type-meta{width:150px;flex-shrink:0}
+.type-name{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
+.type-spec{font-size:11px;color:var(--tx-muted);margin-top:2px}
+.type-sample{flex:1;color:var(--tx-primary)}
+.sp-item{display:flex;align-items:center;gap:var(--s4);padding:var(--s2) 0}
+.sp-bar{height:20px;background:var(--color-primary-light);border:1px solid var(--color-primary);border-radius:2px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast),filter var(--m-fast);min-height:44px;position:relative}
+.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
+.btn-sm{padding:6px 16px;font-size:12px;min-height:36px}
+.btn-lg{padding:14px 32px;font-size:16px;min-height:52px}
+.btn-contained{background:var(--area-500,var(--color-primary));color:#fff;box-shadow:var(--e1)}
+.btn-contained:hover{filter:brightness(.92);box-shadow:var(--e2)}
+.btn-outlined{background:transparent;color:var(--area-500,var(--color-primary));border:2px solid var(--area-500,var(--color-primary))}
+.btn-outlined:hover{background:var(--area-50,var(--color-primary-light))}
+.btn-text{background:transparent;color:var(--area-500,var(--color-primary));padding:10px 12px}
+.btn-text:hover{background:var(--area-50,var(--color-primary-light))}
+.fab{width:56px;height:56px;border-radius:var(--r-full);background:var(--area-500,var(--color-primary));color:#fff;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;box-shadow:var(--e2);transition:box-shadow var(--m-fast),transform var(--m-fast);min-height:56px}
+.fab:hover{box-shadow:var(--e3)}
+.fab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.fab:active{transform:scale(.95)}
+.field{margin-bottom:var(--s6)}
+.field label{display:flex;align-items:center;gap:var(--s2);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+.req{color:var(--c-error);font-size:14px;line-height:1}
+.field input,.field textarea,.field select{width:100%;padding:12px var(--s4);font-family:var(--font);font-size:16px;color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--n-400)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px var(--color-primary-light)}
+.helper{font-size:12px;color:var(--tx-muted);margin-top:var(--s1)}
+.error-msg{font-size:12px;color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:4px;font-weight:600}
+.field.has-error input{border-color:var(--c-error)}
+.field.has-error input:focus{box-shadow:0 0 0 3px var(--c-error-bg)}
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+.card-el{box-shadow:var(--e1);border:none}
+.card-el:hover{box-shadow:var(--e3);transform:translateY(-2px)}
+.card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.card-body{padding:var(--s5)}
+.card-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--area-500,var(--color-primary));margin-bottom:var(--s2)}
+.card-title{font-size:18px;font-weight:600;color:var(--tx-primary);margin-bottom:var(--s2)}
+.card-text{font-size:14px;color:var(--tx-secondary);line-height:1.6}
+.card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:14px;border:1.5px solid var(--n-200);cursor:pointer;transition:background var(--m-fast),border-color var(--m-fast);background:var(--bg-surface);color:var(--tx-primary);min-height:36px;font-family:var(--font)}
+.chip:hover{background:var(--bg-overlay)}
+.chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.chip.sel{background:var(--area-50,var(--color-primary-light));border-color:var(--area-500,var(--color-primary));color:var(--area-800,var(--color-primary-dark));font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:700;letter-spacing:.04em}
+.badge-area{background:var(--area-50,var(--color-primary-light));color:var(--area-800,var(--color-primary-dark))}
+.badge-ok{background:var(--c-success-bg);color:#0e6644}
+.badge-warn{background:var(--c-warning-bg);color:#8a5e0a}
+.badge-err{background:var(--c-error-bg);color:#9b2020}
+.badge-neu{background:var(--n-100);color:var(--n-600)}
+.snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font-size:14px;max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
+.snack-def{background:var(--n-700);color:var(--n-0)}
+.snack-ok{background:#0d5e39;color:#d6f5e8}
+.snack-err{background:#7a1515;color:#fde8e8}
+.snack-act{margin-left:auto;background:none;border:none;color:var(--area-300,#80DEDE);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0;min-height:auto}
+.nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.nav-bar{display:flex;align-items:center;padding:0 var(--s8);height:64px;border-bottom:var(--bd);gap:var(--s8)}
+.logo-text{font-size:18px;font-weight:700;letter-spacing:.03em;flex-shrink:0}
+.nav-links{display:flex;gap:var(--s2);flex:1}
+.nav-link{padding:var(--s2) var(--s3);border-radius:var(--r-md);font-size:14px;font-weight:500;color:var(--tx-secondary);cursor:pointer;transition:background var(--m-fast),color var(--m-fast);min-height:36px;display:flex;align-items:center;white-space:nowrap;background:none;border:none;font-family:var(--font)}
+.nav-link:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.nav-link.act{color:var(--area-500,var(--color-primary));background:var(--area-50,var(--color-primary-light));font-weight:700}
+.hero-section{padding:var(--s16) var(--s8) var(--s12);text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--area-500,var(--color-primary));margin-bottom:var(--s4);display:block}
+.hero-h1{font-size:40px;font-weight:700;line-height:1.15;color:var(--tx-primary);margin-bottom:var(--s4)}
+.hero-sub{font-size:16px;color:var(--tx-secondary);max-width:480px;margin:0 auto var(--s8);line-height:1.6}
+.hero-actions{display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap}
+.footer{background:var(--n-700);color:var(--n-200);border-radius:var(--r-lg);padding:var(--s10) var(--s8) var(--s6)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:var(--s8);margin-bottom:var(--s8)}
+.footer-brand{font-size:20px;font-weight:700;margin-bottom:var(--s3)}
+.footer-desc{font-size:14px;color:var(--n-300);line-height:1.6}
+.footer-htitle{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-300);margin-bottom:var(--s4)}
+.footer-link{display:block;font-size:14px;color:var(--n-400);margin-bottom:var(--s2);cursor:pointer;background:none;border:none;padding:0;font-family:var(--font);text-align:left}
+.footer-link:hover{color:var(--area-400,var(--color-primary))}
+.footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;font-size:12px;color:var(--n-500);flex-wrap:wrap;gap:var(--s2)}
+.area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
+.atab{padding:var(--s2) var(--s4);font-size:14px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--tx-secondary);transition:color var(--m-fast),border-color var(--m-fast);min-height:40px;display:flex;align-items:center;gap:var(--s2);background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
+.atab:hover{color:var(--tx-primary)}
+.atab:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.atab.active{color:var(--area-active-500);border-bottom-color:var(--area-active-500)}
+.atab-content{display:none}
+.atab-content.visible{display:block}
+.grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
+.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
+.gcol{border-radius:var(--r-sm);padding:var(--s3);background:var(--color-primary-light);border:1px solid var(--color-primary);font-size:11px;font-weight:700;color:var(--color-primary-dark);text-align:center}
+.a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
+.a11y-card h3{font-size:16px;font-weight:700;margin-bottom:var(--s2);display:flex;align-items:center;gap:var(--s2)}
+.a11y-card p{font-size:14px;color:var(--tx-secondary);line-height:1.6;margin-bottom:var(--s3)}
+.code-block{background:var(--bg-code);color:#a8d8ae;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
+.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
+.contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
+.contrast-row:last-child{border-bottom:none}
+.contrast-swatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.contrast-info{flex:1;min-width:180px}
+.contrast-name{font-size:14px;font-weight:600}
+.contrast-ratio{font-size:13px;color:var(--tx-secondary);font-family:'Courier New',monospace}
+.token-section{margin-bottom:var(--s8)}
+.token-section h3{font-size:15px;font-weight:700;margin-bottom:var(--s3);color:var(--tx-primary)}
+.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:150px;text-align:center;font-size:14px;color:var(--tx-secondary)}
+.el-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
+.ico{display:inline-block;width:16px;height:16px;vertical-align:middle;fill:currentColor;flex-shrink:0}
+.ico-48{width:48px;height:48px}
+</style>
+</head>
+<body>
+
+<button class="skip-link" id="skip-btn">Zum Hauptinhalt springen</button>
+
+<div class="theme-bar" role="group" aria-label="Farbthema wählen">
+  <button class="tbtn active" id="tb-light" aria-pressed="true">☀ Light</button>
+  <button class="tbtn" id="tb-dark" aria-pressed="false">◑ Dark</button>
+  <button class="tbtn" id="tb-hc" aria-pressed="false">◐ HC</button>
+</div>
+
+<div class="ds-page">
+  <nav class="ds-sidebar" aria-label="Design System Navigation">
+    <div class="nav-logo"><span class="nav-logo-text">Ruhige Energie DS</span></div>
+    <div class="nav-section">Bereiche</div>
+    <button class="nav-item" data-section="areas">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Brand Areas
+    </button>
+    <div class="nav-section">Foundations</div>
+    <button class="nav-item active" data-section="colors">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a7 7 0 0 1-7-7c0-3.87 3.13-7 7-7s7 3.13 7 7a7 7 0 0 1-7 7z" fill-opacity=".3"/></svg>Colors
+    </button>
+    <button class="nav-item" data-section="typography">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>Typography
+    </button>
+    <button class="nav-item" data-section="spacing">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M3 5h2V3a2 2 0 0 0-2 2zm0 8h2v-2H3v2zm4 8h2v-2H7v2zm-4-4h2v-2H3v2zm8-16H9v2h2V1zm8 0v2h2a2 2 0 0 0-2-2zM3 1v2h2V1H3zm12 16h2v-2h-2v2zM17 1h-2v2h2V1zM7 5h2V3H7v2zm-4 12h2v-2H3v2zm14 4v-2h-2v2h2zm2-8h2v-2h-2v2zm0-8v2h2a2 2 0 0 0-2-2zm0 16a2 2 0 0 0 2-2h-2v2zm-8 0h2v-2h-2v2zm4 0h2v-2h-2v2z"/></svg>Spacing & Grid
+    </button>
+    <button class="nav-item" data-section="elevation">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/></svg>Elevation
+    </button>
+    <div class="nav-section">Components</div>
+    <button class="nav-item" data-section="navigation">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>Navigation & Hero
+    </button>
+    <button class="nav-item" data-section="buttons">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Buttons
+    </button>
+    <button class="nav-item" data-section="inputs">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 3c1.93 0 3.5 1.57 3.5 3.5S13.93 14 12 14s-3.5-1.57-3.5-3.5S10.07 7 12 7zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 17.12 9.64 16.5 12 16.5s4.53.62 6.24 1.69c.48.38.76.97.76 1.58V20z"/></svg>Inputs & Forms
+    </button>
+    <button class="nav-item" data-section="cards">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 2.75c1.24 0 2.25 1.01 2.25 2.25S13.24 11.25 12 11.25 9.75 10.24 9.75 9 10.76 6.75 12 6.75zM17 17H7v-.75c0-1.67 3.33-2.5 5-2.5s5 .83 5 2.5V17z"/></svg>Cards & Teaser
+    </button>
+    <button class="nav-item" data-section="chips">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips & Badges
+    </button>
+    <button class="nav-item" data-section="feedback">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/></svg>Feedback
+    </button>
+    <button class="nav-item" data-section="footer">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z"/></svg>Footer
+    </button>
+    <div class="nav-section">Barrierefreiheit</div>
+    <button class="nav-item" data-section="a11y">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M19 9l-7 1-7-1-1 2 6 1-2 8 3-1 3 1-2-8 6-1z"/></svg>WCAG &amp; Accessibility
+    </button>
+    <div class="nav-section">Tokens</div>
+    <button class="nav-item" data-section="tokens">
+      <svg class="nav-icon ico" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>CSS Tokens
+    </button>
+  </nav>
+
+  <main class="ds-content" id="main-content" tabindex="-1">
+
+    <!-- BRAND AREAS -->
+    <section class="ds-section" id="sec-areas" aria-labelledby="areas-h">
+      <h1 class="sec-title" id="areas-h">Brand Areas</h1>
+      <p class="sec-sub">Drei Unternehmensbereiche – jeder mit eigenem Farbsystem, alle aus der gleichen Teal-Familie.</p>
+      <div class="row" style="align-items:stretch">
+        <div class="area-card">
+          <div class="area-header" style="background:var(--aa-500)">
+            <h3>Agile Advisory</h3><p>Beratung · Strategie · Transformation</p>
+          </div>
+          <div class="area-body">
+            <div class="area-swatch-row">
+              <div class="area-swatch" style="background:var(--aa-50)"></div><div class="area-swatch" style="background:var(--aa-200)"></div>
+              <div class="area-swatch" style="background:var(--aa-400)"></div><div class="area-swatch" style="background:var(--aa-500)"></div>
+              <div class="area-swatch" style="background:var(--aa-700)"></div><div class="area-swatch" style="background:var(--aa-900)"></div>
+            </div>
+            <div class="area-meta">Primär: <code>#00D296</code> · Semantik: Wachstum · Fortschritt</div>
+            <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge badge-area" style="--area-50:var(--aa-50);--area-800:var(--aa-800)">Advisory</span>
+              <button class="btn btn-contained btn-sm" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Learn more</button>
+            </div>
+          </div>
+        </div>
+        <div class="area-card">
+          <div class="area-header" style="background:var(--va-500)">
+            <h3>Viable Architecture</h3><p>Systeme · Strukturen · Skalierung</p>
+          </div>
+          <div class="area-body">
+            <div class="area-swatch-row">
+              <div class="area-swatch" style="background:var(--va-50)"></div><div class="area-swatch" style="background:var(--va-200)"></div>
+              <div class="area-swatch" style="background:var(--va-400)"></div><div class="area-swatch" style="background:var(--va-500)"></div>
+              <div class="area-swatch" style="background:var(--va-700)"></div><div class="area-swatch" style="background:var(--va-900)"></div>
+            </div>
+            <div class="area-meta">Primär: <code>#009696</code> · Semantik: Stabilität · Tiefe</div>
+            <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge badge-area" style="--area-50:var(--va-50);--area-800:var(--va-800)">Architecture</span>
+              <button class="btn btn-contained btn-sm" style="--area-500:var(--va-500);--area-50:var(--va-50)">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--area-500:var(--va-500);--area-50:var(--va-50)">Learn more</button>
+            </div>
+          </div>
+        </div>
+        <div class="area-card">
+          <div class="area-header" style="background:var(--pd-500)">
+            <h3>Pragmatic Development</h3><p>Code · Qualität · Lieferung</p>
+          </div>
+          <div class="area-body">
+            <div class="area-swatch-row">
+              <div class="area-swatch" style="background:var(--pd-50)"></div><div class="area-swatch" style="background:var(--pd-200)"></div>
+              <div class="area-swatch" style="background:var(--pd-400)"></div><div class="area-swatch" style="background:var(--pd-500)"></div>
+              <div class="area-swatch" style="background:var(--pd-700)"></div><div class="area-swatch" style="background:var(--pd-900)"></div>
+            </div>
+            <div class="area-meta">Primär: <code>#00B4FF</code> · Semantik: Klarheit · Präzision</div>
+            <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge badge-area" style="--area-50:var(--pd-50);--area-800:var(--pd-800)">Development</span>
+              <button class="btn btn-contained btn-sm" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Learn more</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="group-title">Bereichs-Komponenten (alle 3 Varianten)</h2>
+      <div class="area-tabs" role="tablist" aria-label="Bereich wählen">
+        <button class="atab active" role="tab" aria-selected="true" aria-controls="at-aa" data-area="aa" style="--area-active-500:var(--aa-500)"><span class="area-dot" style="background:var(--aa-500)"></span>Agile Advisory</button>
+        <button class="atab" role="tab" aria-selected="false" aria-controls="at-va" data-area="va" style="--area-active-500:var(--va-500)"><span class="area-dot" style="background:var(--va-500)"></span>Viable Architecture</button>
+        <button class="atab" role="tab" aria-selected="false" aria-controls="at-pd" data-area="pd" style="--area-active-500:var(--pd-500)"><span class="area-dot" style="background:var(--pd-500)"></span>Pragmatic Development</button>
+      </div>
+      <div id="at-aa" class="atab-content visible" role="tabpanel">
+        <div class="row" style="align-items:center;flex-wrap:wrap">
+          <button class="btn btn-contained" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Contained</button>
+          <button class="btn btn-outlined" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Outlined</button>
+          <button class="btn btn-text" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Text</button>
+          <span class="badge badge-area" style="--area-50:var(--aa-50);--area-800:var(--aa-800)">Advisory</span>
+          <button class="chip sel" style="--area-50:var(--aa-50);--area-500:var(--aa-500);--area-800:var(--aa-800)" role="checkbox" aria-checked="true">Agile</button>
+          <button class="chip" style="--area-50:var(--aa-50);--area-500:var(--aa-500)" role="checkbox" aria-checked="false">Scrum</button>
+        </div>
+      </div>
+      <div id="at-va" class="atab-content" role="tabpanel">
+        <div class="row" style="align-items:center;flex-wrap:wrap">
+          <button class="btn btn-contained" style="--area-500:var(--va-500);--area-50:var(--va-50)">Contained</button>
+          <button class="btn btn-outlined" style="--area-500:var(--va-500);--area-50:var(--va-50)">Outlined</button>
+          <button class="btn btn-text" style="--area-500:var(--va-500);--area-50:var(--va-50)">Text</button>
+          <span class="badge badge-area" style="--area-50:var(--va-50);--area-800:var(--va-800)">Architecture</span>
+          <button class="chip sel" style="--area-50:var(--va-50);--area-500:var(--va-500);--area-800:var(--va-800)" role="checkbox" aria-checked="true">System</button>
+          <button class="chip" style="--area-50:var(--va-50);--area-500:var(--va-500)" role="checkbox" aria-checked="false">Cloud</button>
+        </div>
+      </div>
+      <div id="at-pd" class="atab-content" role="tabpanel">
+        <div class="row" style="align-items:center;flex-wrap:wrap">
+          <button class="btn btn-contained" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Contained</button>
+          <button class="btn btn-outlined" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Outlined</button>
+          <button class="btn btn-text" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Text</button>
+          <span class="badge badge-area" style="--area-50:var(--pd-50);--area-800:var(--pd-800)">Development</span>
+          <button class="chip sel" style="--area-50:var(--pd-50);--area-500:var(--pd-500);--area-800:var(--pd-800)" role="checkbox" aria-checked="true">React</button>
+          <button class="chip" style="--area-50:var(--pd-50);--area-500:var(--pd-500)" role="checkbox" aria-checked="false">TypeScript</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLORS -->
+    <section class="ds-section visible" id="sec-colors" aria-labelledby="col-h">
+      <h1 class="sec-title" id="col-h">Color System</h1>
+      <p class="sec-sub">Material Design 2 Farbsystem. Alle drei Bereichsfarben plus globale Brand-Teal-Palette.</p>
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:var(--color-primary)"></span>Global Brand — Teal #00BEBE</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E0F7F7"><span style="color:#004F4F">50</span></div>
+          <div class="swatch" style="background:#B3ECEC"><span style="color:#004F4F">100</span></div>
+          <div class="swatch" style="background:#80DEDE"><span style="color:#004F4F">200</span></div>
+          <div class="swatch" style="background:#4DD0D0"><span style="color:#fff">300</span></div>
+          <div class="swatch" style="background:#26C2C2"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#00BEBE"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#009E9E"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#007575"><span style="color:#fff">700</span></div>
+          <div class="swatch" style="background:#004F4F"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#002B2B"><span style="color:#fff">900</span></div>
+        </div>
+      </div>
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:var(--aa-500)"></span>Agile Advisory — #00D296</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E0FAF3"><span style="color:#005239">50</span></div>
+          <div class="swatch" style="background:#B3F2E0"><span style="color:#005239">100</span></div>
+          <div class="swatch" style="background:#80E8C9"><span style="color:#005239">200</span></div>
+          <div class="swatch" style="background:#4DDDAF"><span style="color:#005239">300</span></div>
+          <div class="swatch" style="background:#26D8A0"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#00D296"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#00A878"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#007D59"><span style="color:#fff">700</span></div>
+          <div class="swatch" style="background:#005239"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#002E20"><span style="color:#fff">900</span></div>
+        </div>
+      </div>
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:var(--va-500)"></span>Viable Architecture — #009696</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E0F5F5"><span style="color:#003C3C">50</span></div>
+          <div class="swatch" style="background:#B3E5E5"><span style="color:#003C3C">100</span></div>
+          <div class="swatch" style="background:#80D4D4"><span style="color:#003C3C">200</span></div>
+          <div class="swatch" style="background:#4DC3C3"><span style="color:#003C3C">300</span></div>
+          <div class="swatch" style="background:#26B5B5"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#009696"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#007878"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#005A5A"><span style="color:#fff">700</span></div>
+          <div class="swatch" style="background:#003C3C"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#001E1E"><span style="color:#fff">900</span></div>
+        </div>
+      </div>
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:var(--pd-500)"></span>Pragmatic Development — #00B4FF</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E0F5FF"><span style="color:#004866">50</span></div>
+          <div class="swatch" style="background:#B3E7FF"><span style="color:#004866">100</span></div>
+          <div class="swatch" style="background:#80D8FF"><span style="color:#004866">200</span></div>
+          <div class="swatch" style="background:#4DC9FF"><span style="color:#004866">300</span></div>
+          <div class="swatch" style="background:#26BEFF"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#00B4FF"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#0090CC"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#006C99"><span style="color:#fff">700</span></div>
+          <div class="swatch" style="background:#004866"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#002433"><span style="color:#fff">900</span></div>
+        </div>
+      </div>
+      <div class="pal-group">
+        <div class="pal-label">Neutrals — Cool Grey</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#F5F7F7"><span style="color:#1A2E2E">50</span></div>
+          <div class="swatch" style="background:#E8EDED"><span style="color:#1A2E2E">100</span></div>
+          <div class="swatch" style="background:#C9D3D3"><span style="color:#1A2E2E">200</span></div>
+          <div class="swatch" style="background:#A0B0B0"><span style="color:#fff">300</span></div>
+          <div class="swatch" style="background:#6E8585"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#4A6565"><span style="color:#fff">500</span></div>
+          <div class="swatch" style="background:#2E4545"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#1A2E2E"><span style="color:#fff">700</span></div>
+          <div class="swatch" style="background:#0D1F1F"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#060F0F"><span style="color:#fff">900</span></div>
+        </div>
+      </div>
+      <div class="pal-group">
+        <div class="pal-label">Text Brand — #333E48</div>
+        <div class="pal-row" style="max-width:120px">
+          <div class="swatch" style="background:#333E48;min-width:120px"><span style="color:#fff">--tx-brand<br>#333E48</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="ds-section" id="sec-typography" aria-labelledby="typo-h">
+      <h1 class="sec-title" id="typo-h">Typography</h1>
+      <p class="sec-sub">Montserrat – eine Familie, alle Rollen. Alle Schnitte WCAG-konform (min. 1.5× Zeilenabstand).</p>
+      <div class="type-row"><div class="type-meta"><span class="type-name">H1</span><span class="type-spec">56px · 700 · 1.1</span></div><div class="type-sample" style="font:700 56px/1.1 var(--font)">Ruhige Energie</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">H2</span><span class="type-spec">40px · 700 · 1.2</span></div><div class="type-sample" style="font:700 40px/1.2 var(--font)">Klarheit in Bewegung</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">H3</span><span class="type-spec">28px · 700 · 1.3</span></div><div class="type-sample" style="font:700 28px/1.3 var(--font)">Fokus schafft Raum</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">H4</span><span class="type-spec">22px · 600 · 1.35</span></div><div class="type-sample" style="font:600 22px/1.35 var(--font)">Technologie im Fluss</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">H5</span><span class="type-spec">18px · 600 · 1.4</span></div><div class="type-sample" style="font:600 18px/1.4 var(--font)">Einfachheit als Prinzip</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body 1</span><span class="type-spec">16px · 400 · 1.7</span></div><div class="type-sample" style="font:400 16px/1.7 var(--font)">Ein Design System ist kein Regelwerk – es ist eine gemeinsame Sprache, die Teams die Freiheit gibt, schnell zu handeln, ohne Kohärenz zu verlieren.</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body 2</span><span class="type-spec">14px · 400 · 1.6</span></div><div class="type-sample" style="font:400 14px/1.6 var(--font)">Sekundärer Text für Labels, Metadaten und Komponentenbeschreibungen.</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Caption</span><span class="type-spec">12px · 400 · 1.5</span></div><div class="type-sample" style="font:400 12px/1.5 var(--font)">Hinweistexte · Zeitstempel · Metadaten</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Overline</span><span class="type-spec">11px · 700 · UC</span></div><div class="type-sample" style="font:700 11px/1.5 var(--font);text-transform:uppercase;letter-spacing:.09em">Section Label / Eyebrow</div></div>
+    </section>
+
+    <!-- SPACING -->
+    <section class="ds-section" id="sec-spacing" aria-labelledby="sp-h">
+      <h1 class="sec-title" id="sp-h">Spacing & Grid</h1>
+      <p class="sec-sub">8pt-System. Alle Abstände sind Vielfache von 4 oder 8. 12-Spalten Grid, 24px Gutter.</p>
+      <h2 class="group-title">Spacing Scale</h2>
+      <div class="sp-item"><div class="sp-bar" style="width:4px"></div><code class="token">--s1</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">4px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:8px"></div><code class="token">--s2</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">8px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:12px"></div><code class="token">--s3</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">12px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:16px"></div><code class="token">--s4</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">16px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:24px"></div><code class="token">--s6</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">24px · Grid Gutter</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:32px"></div><code class="token">--s8</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">32px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:48px"></div><code class="token">--s12</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">48px</span></div>
+      <div class="sp-item"><div class="sp-bar" style="width:64px"></div><code class="token">--s16</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">64px</span></div>
+      <h2 class="group-title">12-Spalten Grid</h2>
+      <div class="grid-vis">
+        <div class="grid-12">
+          <div class="gcol">1</div><div class="gcol">2</div><div class="gcol">3</div><div class="gcol">4</div>
+          <div class="gcol">5</div><div class="gcol">6</div><div class="gcol">7</div><div class="gcol">8</div>
+          <div class="gcol">9</div><div class="gcol">10</div><div class="gcol">11</div><div class="gcol">12</div>
+        </div>
+        <div style="padding:10px var(--s4);font-size:12px;color:var(--tx-muted);border-top:var(--bd)">Gutter: 24px · Margin: 24px · Container LG: 1280px</div>
+      </div>
+    </section>
+
+    <!-- ELEVATION -->
+    <section class="ds-section" id="sec-elevation" aria-labelledby="el-h">
+      <h1 class="sec-title" id="el-h">Elevation</h1>
+      <p class="sec-sub">Material Design 2 Schattensystem – 5 Ebenen.</p>
+      <div class="row" style="padding:var(--s8) 0">
+        <div class="el-card" style="box-shadow:none;border:var(--bd)"><span class="el-lbl">0 · Flat</span>Outlined</div>
+        <div class="el-card" style="box-shadow:var(--e1)"><span class="el-lbl">1 · Card</span>Resting</div>
+        <div class="el-card" style="box-shadow:var(--e2)"><span class="el-lbl">2 · Hover</span>Raised</div>
+        <div class="el-card" style="box-shadow:var(--e3)"><span class="el-lbl">3 · Nav</span>Drawer</div>
+        <div class="el-card" style="box-shadow:var(--e4)"><span class="el-lbl">4 · Modal</span>Dialog</div>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <section class="ds-section" id="sec-navigation" aria-labelledby="nav-h">
+      <h1 class="sec-title" id="nav-h">Navigation & Hero</h1>
+      <p class="sec-sub">Top App Bar (64px) mit Logo, Links und CTA. Hier: Agile Advisory.</p>
+      <div class="nav-demo">
+        <div class="nav-bar">
+          <span class="logo-text" style="color:var(--aa-500)">product.</span>
+          <div class="nav-links">
+            <button class="nav-link act" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Advisory</button>
+            <button class="nav-link">Architecture</button>
+            <button class="nav-link">Development</button>
+            <button class="nav-link">Blog</button>
+          </div>
+          <button class="btn btn-contained btn-sm" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Kontakt</button>
+        </div>
+        <div class="hero-section" style="background:linear-gradient(135deg,var(--aa-50) 0%,transparent 55%)">
+          <span class="eyebrow" style="--area-500:var(--aa-500)">Agile Advisory</span>
+          <h1 class="hero-h1">Strategie,<br><span style="color:var(--aa-500)">die wirkt.</span></h1>
+          <p class="hero-sub">Agilität ist kein Buzzword. Wir helfen euch, echte Veränderung zu gestalten – ruhig, klar, messbar.</p>
+          <div class="hero-actions">
+            <button class="btn btn-contained btn-lg" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Beratung anfragen</button>
+            <button class="btn btn-outlined btn-lg" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Mehr erfahren</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="ds-section" id="sec-buttons" aria-labelledby="btn-h">
+      <h1 class="sec-title" id="btn-h">Buttons</h1>
+      <p class="sec-sub">Alle Varianten in allen drei Bereichsfarben. Min. Touch-Target 44px. Focus-Ring WCAG AA.</p>
+      <h2 class="group-title">Agile Advisory</h2>
+      <div class="row" style="align-items:center">
+        <button class="btn btn-contained" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Contained</button>
+        <button class="btn btn-outlined" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Outlined</button>
+        <button class="btn btn-text" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Text</button>
+        <button class="btn btn-sm btn-contained" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Small</button>
+        <button class="btn btn-lg btn-contained" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Large</button>
+        <button class="btn btn-contained" style="--area-500:var(--aa-500);--area-50:var(--aa-50)" disabled>Disabled</button>
+      </div>
+      <h2 class="group-title">Viable Architecture</h2>
+      <div class="row" style="align-items:center">
+        <button class="btn btn-contained" style="--area-500:var(--va-500);--area-50:var(--va-50)">Contained</button>
+        <button class="btn btn-outlined" style="--area-500:var(--va-500);--area-50:var(--va-50)">Outlined</button>
+        <button class="btn btn-text" style="--area-500:var(--va-500);--area-50:var(--va-50)">Text</button>
+        <button class="btn btn-sm btn-contained" style="--area-500:var(--va-500);--area-50:var(--va-50)">Small</button>
+        <button class="btn btn-lg btn-contained" style="--area-500:var(--va-500);--area-50:var(--va-50)">Large</button>
+        <button class="btn btn-contained" style="--area-500:var(--va-500);--area-50:var(--va-50)" disabled>Disabled</button>
+      </div>
+      <h2 class="group-title">Pragmatic Development</h2>
+      <div class="row" style="align-items:center">
+        <button class="btn btn-contained" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Contained</button>
+        <button class="btn btn-outlined" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Outlined</button>
+        <button class="btn btn-text" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Text</button>
+        <button class="btn btn-sm btn-contained" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Small</button>
+        <button class="btn btn-lg btn-contained" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Large</button>
+        <button class="btn btn-contained" style="--area-500:var(--pd-500);--area-50:var(--pd-50)" disabled>Disabled</button>
+      </div>
+      <h2 class="group-title">Neutral</h2>
+      <div class="row" style="align-items:center">
+        <button class="btn btn-contained" style="--area-500:var(--n-700);--area-50:var(--n-100)">Contained</button>
+        <button class="btn btn-outlined" style="--area-500:var(--n-500);--area-50:var(--n-50)">Outlined</button>
+        <button class="btn btn-text" style="--area-500:var(--n-500);--area-50:var(--n-100)">Text</button>
+        <button class="btn btn-sm btn-contained" style="--area-500:var(--n-700);--area-50:var(--n-100)">Small</button>
+        <button class="btn btn-lg btn-contained" style="--area-500:var(--n-700);--area-50:var(--n-100)">Large</button>
+        <button class="btn btn-contained" style="--area-500:var(--n-700);--area-50:var(--n-100)" disabled>Disabled</button>
+      </div>
+      <h2 class="group-title">Danger</h2>
+      <div class="row" style="align-items:center">
+        <button class="btn btn-contained" style="--area-500:#E84040;--area-50:var(--c-error-bg)">Contained</button>
+        <button class="btn btn-outlined" style="--area-500:#E84040;--area-50:var(--c-error-bg)">Outlined</button>
+        <button class="btn btn-text" style="--area-500:#E84040;--area-50:var(--c-error-bg)">Text</button>
+        <button class="btn btn-contained" style="--area-500:#E84040;--area-50:var(--c-error-bg)" disabled>Disabled</button>
+      </div>
+    </section>
+
+    <!-- INPUTS -->
+    <section class="ds-section" id="sec-inputs" aria-labelledby="inp-h">
+      <h1 class="sec-title" id="inp-h">Inputs & Forms</h1>
+      <p class="sec-sub">WCAG AA: Jedes Input hat ein programmatisch verknüpftes Label. Pflichtfelder mit aria-required.</p>
+      <div style="max-width:480px">
+        <div class="field">
+          <label for="f-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="f-email" placeholder="name@company.com" aria-required="true" autocomplete="email">
+          <span class="helper">Wir senden keinen Spam.</span>
+        </div>
+        <div class="field has-error">
+          <label for="f-pw">Passwort <span class="req" aria-hidden="true">*</span></label>
+          <input type="password" id="f-pw" value="abc" aria-required="true" aria-invalid="true" aria-describedby="f-pw-err">
+          <span class="error-msg" id="f-pw-err" role="alert">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c-error)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Mindestens 8 Zeichen erforderlich
+          </span>
+        </div>
+        <div class="field">
+          <label for="f-area">Bereich</label>
+          <select id="f-area">
+            <option>Agile Advisory</option>
+            <option>Viable Architecture</option>
+            <option>Pragmatic Development</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-msg">Nachricht</label>
+          <textarea id="f-msg" rows="3" placeholder="Wie können wir helfen?"></textarea>
+        </div>
+        <button class="btn btn-contained" style="width:100%;justify-content:center;--area-500:var(--color-primary);--area-50:var(--color-primary-light)">Absenden</button>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="ds-section" id="sec-cards" aria-labelledby="card-h">
+      <h1 class="sec-title" id="card-h">Cards & Teaser</h1>
+      <p class="sec-sub">Jeder Bereich nutzt seine Primärfarbe für Eyebrow und Akzente.</p>
+      <div class="row">
+        <article class="card card-el" style="width:260px">
+          <div class="card-media" style="background:var(--aa-50)">
+            <svg class="ico-48" viewBox="0 0 24 24" fill="var(--aa-500)"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-eyebrow" style="--area-500:var(--aa-500)">Agile Advisory</div>
+            <div class="card-title">Transformation gestalten</div>
+            <div class="card-text">Echte Agilität entsteht nicht durch Frameworks allein – sondern durch Menschen, die verstehen, warum sie sich verändern.</div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-text btn-sm" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Mehr</button>
+            <button class="btn btn-contained btn-sm" style="--area-500:var(--aa-500);--area-50:var(--aa-50)">Anfragen</button>
+          </div>
+        </article>
+        <article class="card card-el" style="width:260px">
+          <div class="card-media" style="background:var(--va-50)">
+            <svg class="ico-48" viewBox="0 0 24 24" fill="var(--va-500)"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-eyebrow" style="--area-500:var(--va-500)">Viable Architecture</div>
+            <div class="card-title">Systeme, die halten</div>
+            <div class="card-text">Architektur, die wächst ohne zu brechen. Wir entwerfen technische Strukturen für Langlebigkeit und Klarheit.</div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-text btn-sm" style="--area-500:var(--va-500);--area-50:var(--va-50)">Mehr</button>
+            <button class="btn btn-contained btn-sm" style="--area-500:var(--va-500);--area-50:var(--va-50)">Anfragen</button>
+          </div>
+        </article>
+        <article class="card card-el" style="width:260px">
+          <div class="card-media" style="background:var(--pd-50)">
+            <svg class="ico-48" viewBox="0 0 24 24" fill="var(--pd-500)"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+          </div>
+          <div class="card-body">
+            <div class="card-eyebrow" style="--area-500:var(--pd-500)">Pragmatic Development</div>
+            <div class="card-title">Code mit Haltung</div>
+            <div class="card-text">Lieferung, die zählt. Kein Over-Engineering – pragmatische Lösungen, die in Produktion funktionieren.</div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-text btn-sm" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Mehr</button>
+            <button class="btn btn-contained btn-sm" style="--area-500:var(--pd-500);--area-50:var(--pd-50)">Anfragen</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHIPS -->
+    <section class="ds-section" id="sec-chips" aria-labelledby="chip-h">
+      <h1 class="sec-title" id="chip-h">Chips & Badges</h1>
+      <h2 class="group-title">Chips pro Bereich</h2>
+      <div class="row" style="flex-direction:column;gap:var(--s3)">
+        <div><span class="lbl">Agile Advisory</span>
+          <div class="row">
+            <button class="chip sel" style="--area-50:var(--aa-50);--area-500:var(--aa-500);--area-800:var(--aa-800)" role="checkbox" aria-checked="true">Scrum</button>
+            <button class="chip" style="--area-50:var(--aa-50);--area-500:var(--aa-500)" role="checkbox" aria-checked="false">Kanban</button>
+            <button class="chip" style="--area-50:var(--aa-50);--area-500:var(--aa-500)" role="checkbox" aria-checked="false">OKRs</button>
+          </div>
+        </div>
+        <div><span class="lbl">Viable Architecture</span>
+          <div class="row">
+            <button class="chip sel" style="--area-50:var(--va-50);--area-500:var(--va-500);--area-800:var(--va-800)" role="checkbox" aria-checked="true">Cloud Native</button>
+            <button class="chip" style="--area-50:var(--va-50);--area-500:var(--va-500)" role="checkbox" aria-checked="false">Microservices</button>
+            <button class="chip" style="--area-50:var(--va-50);--area-500:var(--va-500)" role="checkbox" aria-checked="false">API Design</button>
+          </div>
+        </div>
+        <div><span class="lbl">Pragmatic Development</span>
+          <div class="row">
+            <button class="chip sel" style="--area-50:var(--pd-50);--area-500:var(--pd-500);--area-800:var(--pd-800)" role="checkbox" aria-checked="true">TypeScript</button>
+            <button class="chip" style="--area-50:var(--pd-50);--area-500:var(--pd-500)" role="checkbox" aria-checked="false">React</button>
+            <button class="chip" style="--area-50:var(--pd-50);--area-500:var(--pd-500)" role="checkbox" aria-checked="false">CI/CD</button>
+          </div>
+        </div>
+      </div>
+      <h2 class="group-title">Status Badges</h2>
+      <div class="row">
+        <span class="badge badge-area" style="--area-50:var(--aa-50);--area-800:var(--aa-800)">Advisory</span>
+        <span class="badge badge-area" style="--area-50:var(--va-50);--area-800:var(--va-800)">Architecture</span>
+        <span class="badge badge-area" style="--area-50:var(--pd-50);--area-800:var(--pd-800)">Development</span>
+        <span class="badge badge-ok">Live</span>
+        <span class="badge badge-warn">Beta</span>
+        <span class="badge badge-err">Deprecated</span>
+        <span class="badge badge-neu">Draft</span>
+      </div>
+    </section>
+
+    <!-- FEEDBACK -->
+    <section class="ds-section" id="sec-feedback" aria-labelledby="fb-h">
+      <h1 class="sec-title" id="fb-h">Feedback — Snackbars</h1>
+      <div class="snack snack-def" role="status" aria-live="polite">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#80DEDE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        Änderungen wurden gespeichert.
+        <button class="snack-act" style="--area-300:var(--aa-300)">Rückgängig</button>
+      </div>
+      <div class="snack snack-ok" role="status" aria-live="polite">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#88f0c4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+        Deployment erfolgreich abgeschlossen.
+      </div>
+      <div class="snack snack-err" role="alert" aria-live="assertive">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#f9a8a8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        Verbindung fehlgeschlagen.
+        <button class="snack-act" style="--area-300:#f9a8a8">Retry</button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="ds-section" id="sec-footer" aria-labelledby="ft-h">
+      <h1 class="sec-title" id="ft-h">Footer</h1>
+      <footer class="footer" role="contentinfo">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-brand" style="color:var(--color-primary)">product.</div>
+            <div class="footer-desc">Agile Advisory · Viable Architecture · Pragmatic Development</div>
+          </div>
+          <div>
+            <div class="footer-htitle">Advisory</div>
+            <button class="footer-link" style="--area-400:var(--aa-400)">Strategie</button>
+            <button class="footer-link" style="--area-400:var(--aa-400)">Transformation</button>
+            <button class="footer-link" style="--area-400:var(--aa-400)">Coaching</button>
+          </div>
+          <div>
+            <div class="footer-htitle">Architecture</div>
+            <button class="footer-link" style="--area-400:var(--va-400)">Cloud & Infra</button>
+            <button class="footer-link" style="--area-400:var(--va-400)">API Design</button>
+            <button class="footer-link" style="--area-400:var(--va-400)">Skalierung</button>
+          </div>
+          <div>
+            <div class="footer-htitle">Development</div>
+            <button class="footer-link" style="--area-400:var(--pd-400)">Engineering</button>
+            <button class="footer-link" style="--area-400:var(--pd-400)">CI/CD</button>
+            <button class="footer-link" style="--area-400:var(--pd-400)">Quality</button>
+          </div>
+        </div>
+        <div class="footer-btm">
+          <span>© 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </footer>
+    </section>
+
+    <!-- A11Y -->
+    <section class="ds-section" id="sec-a11y" aria-labelledby="a11y-h">
+      <h1 class="sec-title" id="a11y-h">WCAG 2.1 AA & Accessibility</h1>
+      <p class="sec-sub">Dokumentierte Patterns für Screen Reader, Tastaturnavigation und Kontrastprüfung.</p>
+      <h2 class="group-title">Kontrastverhältnisse</h2>
+      <div class="contrast-row">
+        <div class="contrast-swatch" style="background:#333E48;color:#fff">Aa</div>
+        <div class="contrast-info"><div class="contrast-name">Brand Text #333E48 auf Weiß</div><div class="contrast-ratio">Ratio: 10.4:1 · --tx-brand</div></div>
+        <span class="contrast-badge c-pass-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="contrast-swatch" style="background:#009696;color:#fff">Aa</div>
+        <div class="contrast-info"><div class="contrast-name">VA #009696 auf Weiß</div><div class="contrast-ratio">Ratio: 4.53:1</div></div>
+        <span class="contrast-badge c-pass-aa">AA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="contrast-swatch" style="background:#007D59;color:#fff">Aa</div>
+        <div class="contrast-info"><div class="contrast-name">AA-700 #007D59 auf Weiß</div><div class="contrast-ratio">Ratio: 7.2:1</div></div>
+        <span class="contrast-badge c-pass-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="contrast-swatch" style="background:#0090CC;color:#fff">Aa</div>
+        <div class="contrast-info"><div class="contrast-name">PD #0090CC auf Weiß</div><div class="contrast-ratio">Ratio: 4.6:1</div></div>
+        <span class="contrast-badge c-pass-aa">AA ✓</span>
+      </div>
+      <h2 class="group-title">ARIA Patterns</h2>
+      <div class="a11y-card">
+        <h3>Focus-Ring</h3>
+        <div class="code-block"><span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--color-primary-light), 0 0 0 5px var(--color-primary)</span>;
+<span class="k">:focus-visible</span> { outline: none; box-shadow: <span class="v">var(--focus-ring)</span>; }</div>
+      </div>
+      <div class="a11y-card">
+        <h3>Form Errors</h3>
+        <div class="code-block">&lt;input <span class="k">aria-invalid</span>=<span class="s">"true"</span> <span class="k">aria-describedby</span>=<span class="s">"err-id"</span>&gt;
+&lt;span <span class="k">id</span>=<span class="s">"err-id"</span> <span class="k">role</span>=<span class="s">"alert"</span>&gt;Fehlermeldung&lt;/span&gt;</div>
+      </div>
+    </section>
+
+    <!-- TOKENS -->
+    <section class="ds-section" id="sec-tokens" aria-labelledby="tok-h">
+      <h1 class="sec-title" id="tok-h">CSS Design Tokens</h1>
+      <p class="sec-sub">Alle Tokens als CSS Custom Properties – Framework-unabhängig.</p>
+      <div class="token-section">
+        <h3>Brand & Bereiche</h3>
+        <div class="code-block"><span class="c">/* Global */</span>
+<span class="k">--color-primary:</span> <span class="v">#00BEBE</span>; <span class="k">--tx-brand:</span> <span class="v">#333E48</span>;
+
+<span class="c">/* Agile Advisory */</span>
+<span class="k">--aa-500:</span> <span class="v">#00D296</span>; <span class="k">--aa-50:</span> <span class="v">#E0FAF3</span>; <span class="k">--aa-800:</span> <span class="v">#005239</span>;
+
+<span class="c">/* Viable Architecture */</span>
+<span class="k">--va-500:</span> <span class="v">#009696</span>; <span class="k">--va-50:</span> <span class="v">#E0F5F5</span>; <span class="k">--va-800:</span> <span class="v">#003C3C</span>;
+
+<span class="c">/* Pragmatic Development */</span>
+<span class="k">--pd-500:</span> <span class="v">#00B4FF</span>; <span class="k">--pd-50:</span> <span class="v">#E0F5FF</span>; <span class="k">--pd-800:</span> <span class="v">#004866</span>;</div>
+      </div>
+      <div class="token-section">
+        <h3>Spacing, Radii, Motion</h3>
+        <div class="code-block"><span class="k">--s4:</span> <span class="v">16px</span>; <span class="k">--s6:</span> <span class="v">24px</span>; <span class="k">--s8:</span> <span class="v">32px</span>;
+<span class="k">--r-md:</span> <span class="v">8px</span>; <span class="k">--r-lg:</span> <span class="v">12px</span>; <span class="k">--r-full:</span> <span class="v">9999px</span>;
+<span class="k">--m-fast:</span> <span class="v">150ms cubic-bezier(.4,0,.2,1)</span>;
+<span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--color-primary-light), 0 0 0 5px var(--color-primary)</span>;</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function() {
+  // Navigation
+  document.querySelectorAll('.nav-item[data-section]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.ds-section').forEach(function(s) { s.classList.remove('visible'); });
+      document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+      var sec = document.getElementById('sec-' + btn.dataset.section);
+      if (sec) sec.classList.add('visible');
+      btn.classList.add('active');
+    });
+  });
+
+  // Theme
+  document.querySelectorAll('.tbtn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var t = btn.id.replace('tb-', '');
+      document.documentElement.removeAttribute('data-theme');
+      if (t !== 'light') document.documentElement.setAttribute('data-theme', t);
+      document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    });
+  });
+
+  // Area Tabs
+  document.querySelectorAll('.atab[data-area]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.atab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      document.querySelectorAll('.atab-content').forEach(function(c) { c.classList.remove('visible'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      var panel = document.getElementById('at-' + btn.dataset.area);
+      if (panel) panel.classList.add('visible');
+    });
+  });
+
+  // Chips
+  document.querySelectorAll('.chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var checked = chip.classList.toggle('sel');
+      chip.setAttribute('aria-checked', String(checked));
+    });
+  });
+
+  // Skip link
+  document.getElementById('skip-btn').addEventListener('click', function() {
+    document.getElementById('main-content').focus();
+  });
+})();
+</script>
+</body>
+</html>
