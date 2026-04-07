@@ -23,6 +23,11 @@
   --wo-300:#5DCA86; --wo-400:#40BC73; --wo-600:#228050; --wo-700:#1A6840;
   --wo-800:#104228; --wo-900:#071F12;
 
+  /* ── Effektive Software ── */
+  --es-500:#2B7DE9; --es-50:#E8F0FD; --es-100:#C5D9FA; --es-200:#95B8F6;
+  --es-300:#6497F2; --es-400:#4285F0; --es-600:#1F63CC; --es-700:#1A4FA8;
+  --es-800:#103070; --es-900:#071830;
+
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
   --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
@@ -338,7 +343,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ BRAND AREAS ═══ -->
     <section class="ds-section" id="sec-areas">
       <h1 class="sec-title">Brand Areas</h1>
-      <p class="sec-sub">Drei Unternehmensbereiche mit eigenem Farbsystem – alle konsistent und stimmig als System.</p>
+      <p class="sec-sub">Vier Unternehmensbereiche mit eigenem Farbsystem – alle konsistent und stimmig als System.</p>
 
       <div class="areas-grid">
         <!-- Corporate -->
@@ -387,6 +392,29 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           </div>
         </div>
 
+        <!-- Effektive Software -->
+        <div class="area-card">
+          <div class="area-header" style="background:#1A4FA8">
+            <h3>Effektive Software</h3><p>Technologie · Qualität · Verlässlichkeit</p>
+          </div>
+          <div class="area-body">
+            <div class="area-swatch-row">
+              <div class="area-swatch" style="background:#E8F0FD"></div>
+              <div class="area-swatch" style="background:#95B8F6"></div>
+              <div class="area-swatch" style="background:#4285F0"></div>
+              <div class="area-swatch" style="background:#2B7DE9"></div>
+              <div class="area-swatch" style="background:#1A4FA8"></div>
+              <div class="area-swatch" style="background:#071830"></div>
+            </div>
+            <div class="area-meta">Primär: <code>#2B7DE9</code> · Text: <code>#1A4FA8</code> (700)<br>Ratio 700 auf Weiß: 6.9:1 (AA ✓)<br>Semantik: Präzision · Stabilität · Vertrauen</div>
+            <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge" style="background:#E8F0FD;color:#103070">Effektive SW</span>
+              <button class="btn btn-contained btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Learn more</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Wirksame Organisation -->
         <div class="area-card">
           <div class="area-header" style="background:#1A6840">
@@ -419,6 +447,9 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <button class="atab" role="tab" aria-selected="false" data-area="ai" style="--atab-color:#6B8208">
           <span class="area-dot" style="background:#B5E61C"></span>AI.Applied
         </button>
+        <button class="atab" role="tab" aria-selected="false" data-area="es" style="--atab-color:#1A4FA8">
+          <span class="area-dot" style="background:#2B7DE9"></span>Effektive Software
+        </button>
         <button class="atab" role="tab" aria-selected="false" data-area="wo" style="--atab-color:#1A6840">
           <span class="area-dot" style="background:#2DA862"></span>Wirksame Organisation
         </button>
@@ -442,6 +473,16 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <span class="badge" style="background:#F4FCD5;color:#475705">AI.Applied</span>
           <button class="chip" style="border-color:#6B8208;color:#475705">LLM</button>
           <button class="chip">Automation</button>
+        </div>
+      </div>
+      <div id="at-es" class="atab-content" role="tabpanel">
+        <div class="row" style="align-items:center;flex-wrap:wrap">
+          <button class="btn btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD">Contained</button>
+          <button class="btn btn-outlined" style="--c500:#1A4FA8;--c50:#E8F0FD">Outlined</button>
+          <button class="btn btn-text" style="--c500:#1A4FA8;--c50:#E8F0FD">Text</button>
+          <span class="badge" style="background:#E8F0FD;color:#103070">Effektive SW</span>
+          <button class="chip" style="border-color:#2B7DE9;color:#1A4FA8">Engineering</button>
+          <button class="chip">Deployment</button>
         </div>
       </div>
       <div id="at-wo" class="atab-content" role="tabpanel">
@@ -492,6 +533,22 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#242C02"><span style="color:#fff">900</span></div>
         </div>
         <div class="ai-warning">⚠ 500 (#B5E61C) nur als Akzent-/Hintergrundfläche · Für Text immer 700 (#6B8208) oder dunkler · Ratio 7.1:1 (AAA ✓)</div>
+      </div>
+
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:#2B7DE9"></span>Effektive Software — #2B7DE9 · Text: #1A4FA8</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E8F0FD"><span style="color:#103070">50</span></div>
+          <div class="swatch" style="background:#C5D9FA"><span style="color:#103070">100</span></div>
+          <div class="swatch" style="background:#95B8F6"><span style="color:#103070">200</span></div>
+          <div class="swatch" style="background:#6497F2"><span style="color:#fff">300</span></div>
+          <div class="swatch" style="background:#4285F0"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#2B7DE9"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#1F63CC"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#1A4FA8"><span style="color:#fff">700 T</span></div>
+          <div class="swatch" style="background:#103070"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#071830"><span style="color:#fff">900</span></div>
+        </div>
       </div>
 
       <div class="pal-group">
@@ -847,6 +904,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <span class="cbadge c-fail-badge">Fläche only</span>
       </div>
       <div class="contrast-row">
+        <div class="cswatch" style="background:#1A4FA8;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Effektive SW 700 #1A4FA8 auf Weiß</div><div class="cratio">6.9:1</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
+      </div>
+      <div class="contrast-row">
         <div class="cswatch" style="background:#1A6840;color:#fff">Aa</div>
         <div class="cinfo"><div class="cname">Wirksame Org. 700 #1A6840 auf Weiß</div><div class="cratio">6.2:1</div></div>
         <span class="cbadge c-aa">AA ✓</span>
@@ -880,6 +942,9 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
 <span class="c">/* AI.Applied — Akzent 500, Text ab 700 */</span>
 <span class="k">--ai-500:</span> <span class="v">#B5E61C</span>; <span class="k">--ai-700:</span> <span class="v">#6B8208</span>; <span class="k">--ai-50:</span> <span class="v">#F4FCD5</span>; <span class="k">--ai-800:</span> <span class="v">#475705</span>;
+
+<span class="c">/* Effektive Software */</span>
+<span class="k">--es-500:</span> <span class="v">#2B7DE9</span>; <span class="k">--es-700:</span> <span class="v">#1A4FA8</span>; <span class="k">--es-50:</span> <span class="v">#E8F0FD</span>; <span class="k">--es-800:</span> <span class="v">#103070</span>;
 
 <span class="c">/* Wirksame Organisation */</span>
 <span class="k">--wo-500:</span> <span class="v">#2DA862</span>; <span class="k">--wo-700:</span> <span class="v">#1A6840</span>; <span class="k">--wo-50:</span> <span class="v">#E8F7EE</span>; <span class="k">--wo-800:</span> <span class="v">#104228</span>;</div>
