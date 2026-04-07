@@ -18,6 +18,11 @@
   --ai-300:#C8EA42; --ai-400:#BEE82D; --ai-600:#8FAF0E; --ai-700:#6B8208;
   --ai-800:#475705; --ai-900:#242C02;
 
+  /* ── Wirksame Organisation ── */
+  --wo-500:#2DA862; --wo-50:#E8F7EE; --wo-100:#C2EACF; --wo-200:#90D9AA;
+  --wo-300:#5DCA86; --wo-400:#40BC73; --wo-600:#228050; --wo-700:#1A6840;
+  --wo-800:#104228; --wo-900:#071F12;
+
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
   --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
@@ -122,7 +127,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ai-50);border-radius:var(--r-md);font-size:12px;color:var(--ai-800);border:1px solid var(--ai-200)}
 
 /* ── Area cards ── */
-.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin-bottom:var(--s8)}
+.areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
 .area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
 .area-header h3{font-size:16px;font-weight:700;font-family:var(--font-display);margin-bottom:4px}
@@ -333,7 +338,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ BRAND AREAS ═══ -->
     <section class="ds-section" id="sec-areas">
       <h1 class="sec-title">Brand Areas</h1>
-      <p class="sec-sub">Zwei Unternehmensbereiche mit eigenem Farbsystem – beide konsistent und stimmig als System.</p>
+      <p class="sec-sub">Drei Unternehmensbereiche mit eigenem Farbsystem – alle konsistent und stimmig als System.</p>
 
       <div class="areas-grid">
         <!-- Corporate -->
@@ -381,6 +386,29 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
             </div>
           </div>
         </div>
+
+        <!-- Wirksame Organisation -->
+        <div class="area-card">
+          <div class="area-header" style="background:#1A6840">
+            <h3>Wirksame Organisation</h3><p>Struktur · Wirkung · Wandel</p>
+          </div>
+          <div class="area-body">
+            <div class="area-swatch-row">
+              <div class="area-swatch" style="background:#E8F7EE"></div>
+              <div class="area-swatch" style="background:#90D9AA"></div>
+              <div class="area-swatch" style="background:#40BC73"></div>
+              <div class="area-swatch" style="background:#2DA862"></div>
+              <div class="area-swatch" style="background:#1A6840"></div>
+              <div class="area-swatch" style="background:#071F12"></div>
+            </div>
+            <div class="area-meta">Primär: <code>#2DA862</code> · Text: <code>#1A6840</code> (700)<br>Ratio 700 auf Weiß: 6.2:1 (AA ✓)<br>Semantik: Struktur · Verlässlichkeit · Wachstum</div>
+            <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge" style="background:#E8F7EE;color:#104228">Wirksame Org.</span>
+              <button class="btn btn-contained btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Learn more</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <h2 class="group-title">Bereichs-Komponenten Vergleich</h2>
@@ -390,6 +418,9 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         </button>
         <button class="atab" role="tab" aria-selected="false" data-area="ai" style="--atab-color:#6B8208">
           <span class="area-dot" style="background:#B5E61C"></span>AI.Applied
+        </button>
+        <button class="atab" role="tab" aria-selected="false" data-area="wo" style="--atab-color:#1A6840">
+          <span class="area-dot" style="background:#2DA862"></span>Wirksame Organisation
         </button>
       </div>
 
@@ -411,6 +442,16 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <span class="badge" style="background:#F4FCD5;color:#475705">AI.Applied</span>
           <button class="chip" style="border-color:#6B8208;color:#475705">LLM</button>
           <button class="chip">Automation</button>
+        </div>
+      </div>
+      <div id="at-wo" class="atab-content" role="tabpanel">
+        <div class="row" style="align-items:center;flex-wrap:wrap">
+          <button class="btn btn-contained" style="--c500:#1A6840;--c50:#E8F7EE">Contained</button>
+          <button class="btn btn-outlined" style="--c500:#1A6840;--c50:#E8F7EE">Outlined</button>
+          <button class="btn btn-text" style="--c500:#1A6840;--c50:#E8F7EE">Text</button>
+          <span class="badge" style="background:#E8F7EE;color:#104228">Wirksame Org.</span>
+          <button class="chip" style="border-color:#2DA862;color:#1A6840">Change</button>
+          <button class="chip">Leadership</button>
         </div>
       </div>
     </section>
@@ -451,6 +492,22 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#242C02"><span style="color:#fff">900</span></div>
         </div>
         <div class="ai-warning">⚠ 500 (#B5E61C) nur als Akzent-/Hintergrundfläche · Für Text immer 700 (#6B8208) oder dunkler · Ratio 7.1:1 (AAA ✓)</div>
+      </div>
+
+      <div class="pal-group">
+        <div class="pal-label"><span class="area-dot" style="background:#2DA862"></span>Wirksame Organisation — #2DA862 · Text: #1A6840</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:#E8F7EE"><span style="color:#104228">50</span></div>
+          <div class="swatch" style="background:#C2EACF"><span style="color:#104228">100</span></div>
+          <div class="swatch" style="background:#90D9AA"><span style="color:#104228">200</span></div>
+          <div class="swatch" style="background:#5DCA86"><span style="color:#104228">300</span></div>
+          <div class="swatch" style="background:#40BC73"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#2DA862"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#228050"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#1A6840"><span style="color:#fff">700 T</span></div>
+          <div class="swatch" style="background:#104228"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#071F12"><span style="color:#fff">900</span></div>
+        </div>
       </div>
 
       <div class="pal-group">
@@ -789,6 +846,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <div class="cinfo"><div class="cname">AI #B5E61C – nur Fläche</div><div class="cratio">1.7:1 – nicht für Text</div></div>
         <span class="cbadge c-fail-badge">Fläche only</span>
       </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#1A6840;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Wirksame Org. 700 #1A6840 auf Weiß</div><div class="cratio">6.2:1</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
+      </div>
       <h2 class="group-title">ARIA Patterns</h2>
       <div class="a11y-card">
         <h3>Focus-Ring</h3>
@@ -817,7 +879,10 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 <span class="k">--co-500:</span> <span class="v">#00BEBE</span>; <span class="k">--co-700:</span> <span class="v">#007575</span>; <span class="k">--co-50:</span> <span class="v">#E0F7F7</span>; <span class="k">--co-800:</span> <span class="v">#004F4F</span>;
 
 <span class="c">/* AI.Applied — Akzent 500, Text ab 700 */</span>
-<span class="k">--ai-500:</span> <span class="v">#B5E61C</span>; <span class="k">--ai-700:</span> <span class="v">#6B8208</span>; <span class="k">--ai-50:</span> <span class="v">#F4FCD5</span>; <span class="k">--ai-800:</span> <span class="v">#475705</span>;</div>
+<span class="k">--ai-500:</span> <span class="v">#B5E61C</span>; <span class="k">--ai-700:</span> <span class="v">#6B8208</span>; <span class="k">--ai-50:</span> <span class="v">#F4FCD5</span>; <span class="k">--ai-800:</span> <span class="v">#475705</span>;
+
+<span class="c">/* Wirksame Organisation */</span>
+<span class="k">--wo-500:</span> <span class="v">#2DA862</span>; <span class="k">--wo-700:</span> <span class="v">#1A6840</span>; <span class="k">--wo-50:</span> <span class="v">#E8F7EE</span>; <span class="k">--wo-800:</span> <span class="v">#104228</span>;</div>
       </div>
       <div class="token-section">
         <h3>Spacing, Radii, Motion, Focus</h3>
