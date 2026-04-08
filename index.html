@@ -49,14 +49,20 @@
   /* ── Spacing ── */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
 
-  /* ── Radii ── */
-  --r-sm:4px; --r-md:8px; --r-lg:12px; --r-full:9999px;
+  /* ── Shape (M3: 5 Stufen) ── */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px; --r-full:9999px;
 
-  /* ── Elevation ── */
-  --e1:0 1px 3px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.06);
-  --e2:0 3px 6px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.07);
-  --e3:0 8px 16px rgba(0,0,0,.10),0 3px 6px rgba(0,0,0,.07);
-  --e4:0 16px 24px rgba(0,0,0,.10),0 6px 8px rgba(0,0,0,.07);
+  /* ── Elevation M3 (Shadow + Tonal Overlay) ── */
+  --e0:none;
+  --e1:0 1px 2px rgba(0,0,0,.30),0 1px 3px 1px rgba(0,0,0,.15);
+  --e2:0 1px 2px rgba(0,0,0,.30),0 2px 6px 2px rgba(0,0,0,.15);
+  --e3:0 1px 3px rgba(0,0,0,.30),0 4px 8px 3px rgba(0,0,0,.15);
+  --e4:0 2px 3px rgba(0,0,0,.30),0 6px 10px 4px rgba(0,0,0,.15);
+  --e5:0 4px 4px rgba(0,0,0,.30),0 8px 12px 6px rgba(0,0,0,.15);
+  /* Tonal overlay: primärfarbe auf Oberfläche aufgebracht */
+  --tonal-1:rgba(0,190,190,.05); --tonal-2:rgba(0,190,190,.08);
+  --tonal-3:rgba(0,190,190,.11); --tonal-4:rgba(0,190,190,.12);
+  --tonal-5:rgba(0,190,190,.14);
 
   /* ── Motion ── */
   --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
@@ -73,7 +79,7 @@
   --tx-primary:#E0EDED; --tx-secondary:#8AAFAF; --tx-muted:#4A6565;
   --n-50:#0A1515; --n-100:#1C2E2E; --n-200:#243838;
   --bd:1px solid #1C2E2E; --bd-strong:1px solid #243838;
-  --e1:0 1px 3px rgba(0,0,0,.4); --e2:0 3px 6px rgba(0,0,0,.4); --e3:0 8px 16px rgba(0,0,0,.4);
+  --e1:0 1px 2px rgba(0,0,0,.6),0 1px 3px 1px rgba(0,0,0,.4); --e2:0 1px 2px rgba(0,0,0,.6),0 2px 6px 2px rgba(0,0,0,.4); --e3:0 1px 3px rgba(0,0,0,.6),0 4px 8px 3px rgba(0,0,0,.4);
 }
 [data-theme="hc"] {
   --co-500:#007575; --co-50:#D0F0F0;
@@ -115,7 +121,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .group-title{font-size:18px;font-weight:600;color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
 .lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
 .row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
-.token{font-family:'Courier New',monospace;font-size:12px;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-sm)}
+.token{font-family:'Courier New',monospace;font-size:12px;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
@@ -139,7 +145,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .area-header p{font-size:12px;opacity:.85}
 .area-body{padding:var(--s4) var(--s6);background:var(--bg-surface)}
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
-.area-swatch{width:28px;height:28px;border-radius:var(--r-sm)}
+.area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
 .area-meta{font-size:12px;color:var(--tx-secondary);line-height:1.8}
 .area-meta code{font-size:11px;font-family:'Courier New',monospace}
 
@@ -150,8 +156,14 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
 .btn-sm{padding:6px 16px;font-size:12px;min-height:36px}
 .btn-lg{padding:14px 32px;font-size:16px;min-height:52px}
+.btn-filled{background:var(--c500);color:#fff;box-shadow:var(--e1)}
+.btn-filled:hover{filter:brightness(.92);box-shadow:var(--e2)}
 .btn-contained{background:var(--c500);color:#fff;box-shadow:var(--e1)}
 .btn-contained:hover{filter:brightness(.92);box-shadow:var(--e2)}
+.btn-tonal{background:var(--c50);color:var(--c500)}
+.btn-tonal:hover{filter:brightness(.96);box-shadow:var(--e1)}
+.btn-elevated{background:var(--bg-surface);color:var(--c500);box-shadow:var(--e1)}
+.btn-elevated:hover{box-shadow:var(--e2)}
 .btn-outlined{background:transparent;color:var(--c500);border:2px solid var(--c500)}
 .btn-outlined:hover{background:var(--c50)}
 .btn-text{background:transparent;color:var(--c500);padding:10px 12px}
@@ -163,7 +175,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .badge-warn{background:var(--c-warning-bg);color:#8a5e0a}
 .badge-err{background:var(--c-error-bg);color:#9b2020}
 .badge-neu{background:var(--n-100);color:var(--n-600)}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:14px;border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:36px;font-family:var(--font);transition:background var(--m-fast),border-color var(--m-fast)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;border-radius:var(--r-sm);font-size:14px;font-weight:500;border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;font-family:var(--font);transition:background var(--m-fast),border-color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 
@@ -177,9 +189,15 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .atab-content.visible{display:block}
 
 /* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+.card{background:var(--bg-surface);border-radius:var(--r-md);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+/* M3 Card-Varianten */
+.card-elevated{box-shadow:var(--e1);border:none;background:color-mix(in srgb,var(--co-500) 5%,var(--bg-surface))}
+.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+.card-filled{background:var(--co-50);border:none}
+.card-outlined{border:var(--bd-strong)}
+/* Compat alias */
 .card-el{box-shadow:var(--e1);border:none}
-.card-el:hover{box-shadow:var(--e3);transform:translateY(-2px)}
+.card-el:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
 .card-body{padding:var(--s5)}
 .card-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
@@ -263,7 +281,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 /* ── Grid ── */
 .grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
 .grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
-.gcol{border-radius:var(--r-sm);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font-size:11px;font-weight:700;color:var(--co-700);text-align:center}
+.gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font-size:11px;font-weight:700;color:var(--co-700);text-align:center}
 
 /* ── Token ── */
 .token-section{margin-bottom:var(--s8)}
@@ -457,7 +475,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
       <div id="at-co" class="atab-content visible" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-contained" style="--c500:#007575;--c50:#E0F7F7">Contained</button>
+          <button class="btn btn-filled" style="--c500:#007575;--c50:#E0F7F7">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#007575;--c50:#E0F7F7">Tonal</button>
           <button class="btn btn-outlined" style="--c500:#007575;--c50:#E0F7F7">Outlined</button>
           <button class="btn btn-text" style="--c500:#007575;--c50:#E0F7F7">Text</button>
           <span class="badge" style="background:#E0F7F7;color:#004F4F">Corporate</span>
@@ -467,7 +486,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
       <div id="at-ai" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-contained" style="--c500:#6B8208;--c50:#F4FCD5">Contained</button>
+          <button class="btn btn-filled" style="--c500:#6B8208;--c50:#F4FCD5">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#6B8208;--c50:#F4FCD5">Tonal</button>
           <button class="btn btn-outlined" style="--c500:#6B8208;--c50:#F4FCD5">Outlined</button>
           <button class="btn btn-text" style="--c500:#6B8208;--c50:#F4FCD5">Text</button>
           <span class="badge" style="background:#F4FCD5;color:#475705">AI.Applied</span>
@@ -477,7 +497,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
       <div id="at-es" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD">Contained</button>
+          <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#1A4FA8;--c50:#E8F0FD">Tonal</button>
           <button class="btn btn-outlined" style="--c500:#1A4FA8;--c50:#E8F0FD">Outlined</button>
           <button class="btn btn-text" style="--c500:#1A4FA8;--c50:#E8F0FD">Text</button>
           <span class="badge" style="background:#E8F0FD;color:#103070">Effektive SW</span>
@@ -487,7 +508,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
       <div id="at-wo" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-contained" style="--c500:#1A6840;--c50:#E8F7EE">Contained</button>
+          <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#1A6840;--c50:#E8F7EE">Tonal</button>
           <button class="btn btn-outlined" style="--c500:#1A6840;--c50:#E8F7EE">Outlined</button>
           <button class="btn btn-text" style="--c500:#1A6840;--c50:#E8F7EE">Text</button>
           <span class="badge" style="background:#E8F7EE;color:#104228">Wirksame Org.</span>
@@ -588,30 +610,47 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ TYPOGRAPHY ═══ -->
     <section class="ds-section" id="sec-typography">
       <h1 class="sec-title">Typography</h1>
-      <p class="sec-sub">Libre Baskerville für H1–H3 · Montserrat für H4–H6, Body und UI.</p>
-      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin-bottom:var(--s6)">
+      <p class="sec-sub">M3 Type Scale · 15 Tokens in 5 Kategorien · Libre Baskerville (Display/Headline) · Montserrat (Title/Body/Label).</p>
+      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s6);margin-bottom:var(--s6)">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx-muted);margin-bottom:var(--s4)">Pairing-Vorschau</div>
-        <div style="font:700 40px/1.2 var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Gelassenheit trifft Präzision.</div>
-        <div style="font:400 16px/1.7 var(--font);color:var(--tx-secondary)">Libre Baskerville setzt die Akzente, Montserrat trägt den Fließtext – robuste Serifen, optimiert für Bildschirmlesbarkeit.</div>
+        <div style="font:700 45px/52px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Gelassenheit trifft Präzision.</div>
+        <div style="font:400 16px/24px var(--font);color:var(--tx-secondary)">Libre Baskerville setzt die Akzente, Montserrat trägt den Fließtext – robuste Serifen, optimiert für Bildschirmlesbarkeit.</div>
       </div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">H1 · Display</span><span class="type-spec">Libre Baskerville · 56px · 700</span></div><div class="type-sample" style="font:700 56px/1.1 var(--font-display)">Ruhige Energie</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">H2</span><span class="type-spec">Libre Baskerville · 40px · 700</span></div><div class="type-sample" style="font:700 40px/1.2 var(--font-display)">Klarheit in Bewegung</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">H3</span><span class="type-spec">Libre Baskerville · 28px · 700</span></div><div class="type-sample" style="font:700 28px/1.3 var(--font-display)">Fokus schafft Raum</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">H4</span><span class="type-spec">Montserrat · 22px · 600</span></div><div class="type-sample" style="font:600 22px/1.35 var(--font)">Technologie im Fluss</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">H5</span><span class="type-spec">Montserrat · 18px · 600</span></div><div class="type-sample" style="font:600 18px/1.4 var(--font)">Einfachheit als Prinzip</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">Body 1</span><span class="type-spec">Montserrat · 16px · 400</span></div><div class="type-sample" style="font:400 16px/1.7 var(--font)">Ein Design System ist kein Regelwerk – es ist eine gemeinsame Sprache, die Teams die Freiheit gibt, schnell zu handeln, ohne Kohärenz zu verlieren.</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">Body 2</span><span class="type-spec">Montserrat · 14px · 400</span></div><div class="type-sample" style="font:400 14px/1.6 var(--font)">Sekundärer Text für Labels, Metadaten und Beschreibungen.</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">Caption</span><span class="type-spec">Montserrat · 12px · 400</span></div><div class="type-sample" style="font:400 12px/1.5 var(--font)">Hinweistexte · Zeitstempel · Metadaten</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">Overline</span><span class="type-spec">Montserrat · 11px · 700 UC</span></div><div class="type-sample" style="font:700 11px/1.5 var(--font);text-transform:uppercase;letter-spacing:.09em">Section Label / Eyebrow</div></div>
+
+      <h2 class="group-title">Display</h2>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Display Large</span><span class="type-spec">Libre Baskerville · 57px / 64px · 400</span></div><div class="type-sample" style="font:400 57px/64px var(--font-display)">Ruhige Energie</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Display Medium</span><span class="type-spec">Libre Baskerville · 45px / 52px · 400</span></div><div class="type-sample" style="font:400 45px/52px var(--font-display)">Klarheit in Bewegung</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Display Small</span><span class="type-spec">Libre Baskerville · 36px / 44px · 400</span></div><div class="type-sample" style="font:400 36px/44px var(--font-display)">Fokus schafft Raum</div></div>
+
+      <h2 class="group-title">Headline</h2>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Headline Large</span><span class="type-spec">Libre Baskerville · 32px / 40px · 400</span></div><div class="type-sample" style="font:400 32px/40px var(--font-display)">Technologie im Fluss</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Headline Medium</span><span class="type-spec">Libre Baskerville · 28px / 36px · 400</span></div><div class="type-sample" style="font:400 28px/36px var(--font-display)">Einfachheit als Prinzip</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Headline Small</span><span class="type-spec">Libre Baskerville · 24px / 32px · 400</span></div><div class="type-sample" style="font:400 24px/32px var(--font-display)">Systeme, die tragen</div></div>
+
+      <h2 class="group-title">Title</h2>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Title Large</span><span class="type-spec">Montserrat · 22px / 28px · 500</span></div><div class="type-sample" style="font:500 22px/28px var(--font)">Komponenten & Tokens</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Title Medium</span><span class="type-spec">Montserrat · 16px / 24px · 500</span></div><div class="type-sample" style="font:500 16px/24px var(--font)">Card-Titel und Abschnitte</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Title Small</span><span class="type-spec">Montserrat · 14px / 20px · 500</span></div><div class="type-sample" style="font:500 14px/20px var(--font)">Listeneinträge · Menüpunkte</div></div>
+
+      <h2 class="group-title">Body</h2>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body Large</span><span class="type-spec">Montserrat · 16px / 24px · 400</span></div><div class="type-sample" style="font:400 16px/24px var(--font)">Ein Design System ist kein Regelwerk – es ist eine gemeinsame Sprache, die Teams die Freiheit gibt, schnell zu handeln, ohne Kohärenz zu verlieren.</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body Medium</span><span class="type-spec">Montserrat · 14px / 20px · 400</span></div><div class="type-sample" style="font:400 14px/20px var(--font)">Sekundärer Text für Beschreibungen, Metadaten und Hinweise in Komponenten.</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body Small</span><span class="type-spec">Montserrat · 12px / 16px · 400</span></div><div class="type-sample" style="font:400 12px/16px var(--font)">Captions · Zeitstempel · Fußnoten · Zusatzinfos</div></div>
+
+      <h2 class="group-title">Label</h2>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Label Large</span><span class="type-spec">Montserrat · 14px / 20px · 500</span></div><div class="type-sample" style="font:500 14px/20px var(--font)">Button · Navigation · Tab-Label</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Label Medium</span><span class="type-spec">Montserrat · 12px / 16px · 500</span></div><div class="type-sample" style="font:500 12px/16px var(--font)">Chip · Badge · Overline</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Label Small</span><span class="type-spec">Montserrat · 11px / 16px · 500 UC</span></div><div class="type-sample" style="font:500 11px/16px var(--font);text-transform:uppercase;letter-spacing:.08em">Section Label / Eyebrow</div></div>
+
       <h2 class="group-title">Verwendungsregel</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)">
-        <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
+        <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5)">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--co-600);margin-bottom:var(--s3)">Libre Baskerville</div>
-          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">H1 · H2 · H3<br>Hero Headlines · Section Titles · Pull Quotes</div>
+          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">Display L/M/S · Headline L/M/S<br>Hero Headlines · Section Titles · Pull Quotes</div>
         </div>
-        <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
+        <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5)">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--co-600);margin-bottom:var(--s3)">Montserrat</div>
-          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">H4–H6 · Body · Labels<br>Buttons · Navigation · Captions</div>
+          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">Title L/M/S · Body L/M/S · Label L/M/S<br>Buttons · Navigation · Captions · UI</div>
         </div>
       </div>
     </section>
@@ -641,13 +680,25 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ ELEVATION ═══ -->
     <section class="ds-section" id="sec-elevation">
       <h1 class="sec-title">Elevation</h1>
-      <p class="sec-sub">Material Design 2 – 5 Ebenen.</p>
-      <div class="row" style="padding:var(--s8) 0">
-        <div class="el-card" style="border:var(--bd)"><span class="el-lbl">0 · Flat</span>Outlined</div>
-        <div class="el-card" style="box-shadow:var(--e1)"><span class="el-lbl">1 · Card</span>Resting</div>
-        <div class="el-card" style="box-shadow:var(--e2)"><span class="el-lbl">2 · Hover</span>Raised</div>
-        <div class="el-card" style="box-shadow:var(--e3)"><span class="el-lbl">3 · Nav</span>Drawer</div>
-        <div class="el-card" style="box-shadow:var(--e4)"><span class="el-lbl">4 · Modal</span>Dialog</div>
+      <p class="sec-sub">Material Design 3 – 6 Ebenen · Shadow + Tonal Overlay (primärfarbe auf Oberfläche).</p>
+      <h2 class="group-title">Shadow Elevation</h2>
+      <div class="row" style="padding:var(--s6) 0;flex-wrap:wrap">
+        <div class="el-card" style="border:var(--bd)"><span class="el-lbl">Level 0</span>Flat · Outlined</div>
+        <div class="el-card" style="box-shadow:var(--e1)"><span class="el-lbl">Level 1</span>Card · FAB</div>
+        <div class="el-card" style="box-shadow:var(--e2)"><span class="el-lbl">Level 2</span>Chip · Hover</div>
+        <div class="el-card" style="box-shadow:var(--e3)"><span class="el-lbl">Level 3</span>Nav Drawer</div>
+        <div class="el-card" style="box-shadow:var(--e4)"><span class="el-lbl">Level 4</span>Modal · Sheet</div>
+        <div class="el-card" style="box-shadow:var(--e5)"><span class="el-lbl">Level 5</span>Tooltip · Dialog</div>
+      </div>
+      <h2 class="group-title">Tonal Elevation (M3-Neu)</h2>
+      <p style="font-size:14px;color:var(--tx-secondary);margin-bottom:var(--s4);line-height:1.6">M3 legt zusätzlich zur Shadow-Elevation eine semitransparente Schicht der Primärfarbe auf Oberflächen. Je höher das Level, desto stärker die Tönung – Tiefe durch Farbe statt nur Schatten.</p>
+      <div class="row" style="flex-wrap:wrap;gap:var(--s3)">
+        <div class="el-card" style="background:var(--bg-surface)"><span class="el-lbl">0 % Tonal</span>Level 0</div>
+        <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 5%,var(--bg-surface))"><span class="el-lbl">5 % Tonal</span>Level 1</div>
+        <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 8%,var(--bg-surface))"><span class="el-lbl">8 % Tonal</span>Level 2</div>
+        <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 11%,var(--bg-surface))"><span class="el-lbl">11 % Tonal</span>Level 3</div>
+        <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 12%,var(--bg-surface))"><span class="el-lbl">12 % Tonal</span>Level 4</div>
+        <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 14%,var(--bg-surface))"><span class="el-lbl">14 % Tonal</span>Level 5</div>
       </div>
     </section>
 
@@ -681,64 +732,75 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ BUTTONS ═══ -->
     <section class="ds-section" id="sec-buttons">
       <h1 class="sec-title">Buttons</h1>
-      <p class="sec-sub">Alle Varianten in allen Bereichsfarben + Neutral + Danger. Min. Touch-Target 44px.</p>
+      <p class="sec-sub">M3 Button-Typen: Filled · Tonal · Elevated · Outlined · Text. Min. Touch-Target 44px.</p>
 
       <h2 class="group-title">Corporate</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#007575;--c50:#E0F7F7">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#007575;--c50:#E0F7F7">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#007575;--c50:#E0F7F7">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#007575;--c50:#E0F7F7">Elevated</button>
         <button class="btn btn-outlined" style="--c500:#007575;--c50:#E0F7F7">Outlined</button>
         <button class="btn btn-text" style="--c500:#007575;--c50:#E0F7F7">Text</button>
-        <button class="btn btn-sm btn-contained" style="--c500:#007575;--c50:#E0F7F7">Small</button>
-        <button class="btn btn-lg btn-contained" style="--c500:#007575;--c50:#E0F7F7">Large</button>
-        <button class="btn btn-contained" style="--c500:#007575;--c50:#E0F7F7" disabled>Disabled</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#007575;--c50:#E0F7F7">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#007575;--c50:#E0F7F7">Large</button>
+        <button class="btn btn-filled" style="--c500:#007575;--c50:#E0F7F7" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">AI.Applied</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#6B8208;--c50:#F4FCD5">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#6B8208;--c50:#F4FCD5">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#6B8208;--c50:#F4FCD5">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#6B8208;--c50:#F4FCD5">Elevated</button>
         <button class="btn btn-outlined" style="--c500:#6B8208;--c50:#F4FCD5">Outlined</button>
         <button class="btn btn-text" style="--c500:#6B8208;--c50:#F4FCD5">Text</button>
-        <button class="btn btn-sm btn-contained" style="--c500:#6B8208;--c50:#F4FCD5">Small</button>
-        <button class="btn btn-lg btn-contained" style="--c500:#6B8208;--c50:#F4FCD5">Large</button>
-        <button class="btn btn-contained" style="--c500:#6B8208;--c50:#F4FCD5" disabled>Disabled</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#6B8208;--c50:#F4FCD5">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#6B8208;--c50:#F4FCD5">Large</button>
+        <button class="btn btn-filled" style="--c500:#6B8208;--c50:#F4FCD5" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Effektive Software</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#1A4FA8;--c50:#E8F0FD">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#1A4FA8;--c50:#E8F0FD">Elevated</button>
         <button class="btn btn-outlined" style="--c500:#1A4FA8;--c50:#E8F0FD">Outlined</button>
         <button class="btn btn-text" style="--c500:#1A4FA8;--c50:#E8F0FD">Text</button>
-        <button class="btn btn-sm btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD">Small</button>
-        <button class="btn btn-lg btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD">Large</button>
-        <button class="btn btn-contained" style="--c500:#1A4FA8;--c50:#E8F0FD" disabled>Disabled</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Large</button>
+        <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Wirksame Organisation</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#1A6840;--c50:#E8F7EE">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#1A6840;--c50:#E8F7EE">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#1A6840;--c50:#E8F7EE">Elevated</button>
         <button class="btn btn-outlined" style="--c500:#1A6840;--c50:#E8F7EE">Outlined</button>
         <button class="btn btn-text" style="--c500:#1A6840;--c50:#E8F7EE">Text</button>
-        <button class="btn btn-sm btn-contained" style="--c500:#1A6840;--c50:#E8F7EE">Small</button>
-        <button class="btn btn-lg btn-contained" style="--c500:#1A6840;--c50:#E8F7EE">Large</button>
-        <button class="btn btn-contained" style="--c500:#1A6840;--c50:#E8F7EE" disabled>Disabled</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Large</button>
+        <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Text Brand</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#333E48;--c50:#F1F3F5">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#333E48;--c50:#F1F3F5">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#333E48;--c50:#F1F3F5">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#333E48;--c50:#F1F3F5">Elevated</button>
         <button class="btn btn-outlined" style="--c500:#333E48;--c50:#F1F3F5">Outlined</button>
         <button class="btn btn-text" style="--c500:#333E48;--c50:#F1F3F5">Text</button>
-        <button class="btn btn-sm btn-contained" style="--c500:#333E48;--c50:#F1F3F5">Small</button>
-        <button class="btn btn-lg btn-contained" style="--c500:#333E48;--c50:#F1F3F5">Large</button>
-        <button class="btn btn-contained" style="--c500:#333E48;--c50:#F1F3F5" disabled>Disabled</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#333E48;--c50:#F1F3F5">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#333E48;--c50:#F1F3F5">Large</button>
+        <button class="btn btn-filled" style="--c500:#333E48;--c50:#F1F3F5" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Danger</h2>
-      <div class="row" style="align-items:center">
-        <button class="btn btn-contained" style="--c500:#E84040;--c50:#FDEAEA">Contained</button>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled" style="--c500:#E84040;--c50:#FDEAEA">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#E84040;--c50:#FDEAEA">Tonal</button>
         <button class="btn btn-outlined" style="--c500:#E84040;--c50:#FDEAEA">Outlined</button>
         <button class="btn btn-text" style="--c500:#E84040;--c50:#FDEAEA">Text</button>
-        <button class="btn btn-contained" style="--c500:#E84040;--c50:#FDEAEA" disabled>Disabled</button>
+        <button class="btn btn-filled" style="--c500:#E84040;--c50:#FDEAEA" disabled>Disabled</button>
       </div>
     </section>
 
@@ -777,7 +839,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ CARDS ═══ -->
     <section class="ds-section" id="sec-cards">
       <h1 class="sec-title">Cards & Teaser</h1>
-      <p class="sec-sub">Elevation 1 resting · Elevation 3 on hover · Eyebrow in Bereichsfarbe.</p>
+      <p class="sec-sub">M3 Card-Varianten: Elevated (Level 1 + Tonal) · Filled (Container-Farbe) · Outlined (Border). Border-Radius: medium (12dp).</p>
       <div class="row">
         <article class="card card-el" style="width:280px">
           <div class="card-media" style="background:var(--co-50)">
@@ -1044,9 +1106,40 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 <span class="k">--wo-500:</span> <span class="v">#2DA862</span>; <span class="k">--wo-700:</span> <span class="v">#1A6840</span>; <span class="k">--wo-50:</span> <span class="v">#E8F7EE</span>; <span class="k">--wo-800:</span> <span class="v">#104228</span>;</div>
       </div>
       <div class="token-section">
-        <h3>Spacing, Radii, Motion, Focus</h3>
+        <h3>Shape (M3 – 5 Stufen)</h3>
+        <div class="code-block"><span class="c">/* M3 Corner Radius Scale */</span>
+<span class="k">--r-xs:</span>   <span class="v">4px</span>;    <span class="c">/* extraSmall – kleine Icons, Swatches */</span>
+<span class="k">--r-sm:</span>   <span class="v">8px</span>;    <span class="c">/* small – Chips, Text Fields, Menus */</span>
+<span class="k">--r-md:</span>  <span class="v">12px</span>;    <span class="c">/* medium – Cards, FABs */</span>
+<span class="k">--r-lg:</span>  <span class="v">16px</span>;    <span class="c">/* large – große Cards, Sheets */</span>
+<span class="k">--r-xl:</span>  <span class="v">28px</span>;    <span class="c">/* extraLarge – Drawers, Dialoge */</span>
+<span class="k">--r-full:</span> <span class="v">9999px</span>; <span class="c">/* full – Buttons, Badges, Pills */</span></div>
+      </div>
+      <div class="token-section">
+        <h3>Elevation (M3 – 6 Ebenen)</h3>
+        <div class="code-block"><span class="c">/* Shadow Elevation */</span>
+<span class="k">--e0:</span> <span class="v">none</span>;           <span class="c">/* Flat / Outlined */</span>
+<span class="k">--e1:</span> <span class="v">0 1px 2px rgba(0,0,0,.30), 0 1px 3px 1px rgba(0,0,0,.15)</span>; <span class="c">/* Cards, FAB */</span>
+<span class="k">--e2:</span> <span class="v">0 1px 2px rgba(0,0,0,.30), 0 2px 6px 2px rgba(0,0,0,.15)</span>; <span class="c">/* Chips, Hover */</span>
+<span class="k">--e3:</span> <span class="v">0 1px 3px rgba(0,0,0,.30), 0 4px 8px 3px rgba(0,0,0,.15)</span>; <span class="c">/* Nav Drawer */</span>
+
+<span class="c">/* Tonal Elevation – Primärfarbe auf Surface */</span>
+<span class="k">color-mix(in srgb, var(--co-500) 5%,  var(--bg-surface))</span>; <span class="c">/* Level 1 */</span>
+<span class="k">color-mix(in srgb, var(--co-500) 8%,  var(--bg-surface))</span>; <span class="c">/* Level 2 */</span>
+<span class="k">color-mix(in srgb, var(--co-500) 11%, var(--bg-surface))</span>; <span class="c">/* Level 3 */</span></div>
+      </div>
+      <div class="token-section">
+        <h3>M3 Button-Typen</h3>
+        <div class="code-block"><span class="c">/* 5 Varianten */</span>
+<span class="k">.btn-filled</span>   → <span class="v">background: primary</span>; color: on-primary; <span class="c">/* höchste Betonung */</span>
+<span class="k">.btn-tonal</span>    → <span class="v">background: primary-container</span>; <span class="c">/* mittlere Betonung */</span>
+<span class="k">.btn-elevated</span> → <span class="v">background: surface + shadow</span>; <span class="c">/* leichte Betonung */</span>
+<span class="k">.btn-outlined</span> → <span class="v">border: primary</span>; <span class="c">/* niedrige Betonung */</span>
+<span class="k">.btn-text</span>     → <span class="v">color: primary only</span>; <span class="c">/* minimale Betonung */</span></div>
+      </div>
+      <div class="token-section">
+        <h3>Spacing & Motion</h3>
         <div class="code-block"><span class="k">--s4:</span> <span class="v">16px</span>; <span class="k">--s6:</span> <span class="v">24px</span>; <span class="k">--s8:</span> <span class="v">32px</span>; <span class="k">--s16:</span> <span class="v">64px</span>;
-<span class="k">--r-md:</span> <span class="v">8px</span>; <span class="k">--r-lg:</span> <span class="v">12px</span>; <span class="k">--r-full:</span> <span class="v">9999px</span>;
 <span class="k">--m-fast:</span> <span class="v">150ms cubic-bezier(.4,0,.2,1)</span>;
 <span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--co-50), 0 0 0 5px var(--co-500)</span>;</div>
       </div>
