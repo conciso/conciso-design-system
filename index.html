@@ -255,11 +255,19 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .footer{background:var(--n-700);color:var(--n-200);border-radius:var(--r-lg);padding:var(--s10) var(--s8) var(--s6)}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)}
 .footer-brand{font-size:20px;font-weight:700;font-family:var(--font-display);margin-bottom:var(--s3)}
-.footer-desc{font-size:14px;color:var(--n-300);line-height:1.6}
-.footer-htitle{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-300);margin-bottom:var(--s4)}
-.footer-link{display:block;font-size:14px;color:var(--n-400);margin-bottom:var(--s2);cursor:pointer;background:none;border:none;padding:0;font-family:var(--font);text-align:left}
-.footer-link:hover{color:var(--n-200)}
-.footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;font-size:12px;color:var(--n-500);flex-wrap:wrap;gap:var(--s2)}
+.footer-desc{font-size:14px;color:var(--n-300);line-height:1.6;margin:0}
+/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
+.footer-htitle{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-300);margin:0 0 var(--s4) 0}
+.footer-nav-list{list-style:none;padding:0;margin:0}
+/* --n-200 (#C9D3D3) auf --n-700 (#1A2E2E) ≈ 12:1 AAA ✓ */
+.footer-link{display:block;font-size:14px;color:var(--n-200);margin-bottom:var(--s2);text-decoration:none}
+.footer-link:hover{color:var(--n-0);text-decoration:underline}
+.footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
+.footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--n-300);flex-wrap:wrap;gap:var(--s2)}
+.footer-btm-link{color:var(--n-300);text-decoration:none}
+.footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
+.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 
 /* ── A11y ── */
 .a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
@@ -991,40 +999,62 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ FOOTER ═══ -->
     <section class="ds-section" id="sec-footer">
       <h1 class="sec-title">Footer</h1>
-      <footer class="footer" role="contentinfo">
+      <footer class="footer" aria-label="Seitenfuß">
         <div class="footer-grid">
           <div>
-            <div class="footer-brand" style="color:var(--co-500)">product.</div>
-            <div class="footer-desc">Corporate · AI.Applied · Effektive Software · Wirksame Organisation</div>
+            <div class="footer-brand" style="color:var(--co-500)" aria-hidden="true">product.</div>
+            <p class="footer-desc">Corporate · AI.Applied · Effektive Software · Wirksame Organisation</p>
           </div>
           <div>
-            <div class="footer-htitle">Corporate</div>
-            <button class="footer-link">Strategie</button>
-            <button class="footer-link">Kommunikation</button>
-            <button class="footer-link">Brand</button>
+            <h3 class="footer-htitle">Corporate</h3>
+            <nav aria-label="Corporate">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Strategie</a></li>
+                <li><a class="footer-link" href="#">Kommunikation</a></li>
+                <li><a class="footer-link" href="#">Brand</a></li>
+              </ul>
+            </nav>
           </div>
           <div>
-            <div class="footer-htitle">AI.Applied</div>
-            <button class="footer-link">LLM Integration</button>
-            <button class="footer-link">Automation</button>
-            <button class="footer-link">AI Strategy</button>
+            <h3 class="footer-htitle">AI.Applied</h3>
+            <nav aria-label="AI.Applied">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">LLM Integration</a></li>
+                <li><a class="footer-link" href="#">Automation</a></li>
+                <li><a class="footer-link" href="#">AI Strategy</a></li>
+              </ul>
+            </nav>
           </div>
           <div>
-            <div class="footer-htitle">Effektive Software</div>
-            <button class="footer-link">Engineering</button>
-            <button class="footer-link">Deployment</button>
-            <button class="footer-link">Qualität</button>
+            <h3 class="footer-htitle">Effektive Software</h3>
+            <nav aria-label="Effektive Software">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Engineering</a></li>
+                <li><a class="footer-link" href="#">Deployment</a></li>
+                <li><a class="footer-link" href="#">Qualität</a></li>
+              </ul>
+            </nav>
           </div>
           <div>
-            <div class="footer-htitle">Wirksame Organisation</div>
-            <button class="footer-link">Change</button>
-            <button class="footer-link">Leadership</button>
-            <button class="footer-link">Struktur</button>
+            <h3 class="footer-htitle">Wirksame Organisation</h3>
+            <nav aria-label="Wirksame Organisation">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Change</a></li>
+                <li><a class="footer-link" href="#">Leadership</a></li>
+                <li><a class="footer-link" href="#">Struktur</a></li>
+              </ul>
+            </nav>
           </div>
         </div>
         <div class="footer-btm">
           <span>© 2026 Ruhige Energie GmbH · Berlin</span>
-          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+          <nav aria-label="Rechtliche Hinweise">
+            <a class="footer-btm-link" href="#">Datenschutz</a>
+            <span aria-hidden="true"> · </span>
+            <a class="footer-btm-link" href="#">Impressum</a>
+            <span aria-hidden="true"> · </span>
+            <a class="footer-btm-link" href="#">Barrierefreiheit</a>
+          </nav>
         </div>
       </footer>
     </section>
