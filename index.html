@@ -120,78 +120,6 @@
 [data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
 [data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
 
-/* ════════════════════════════════════════════
-   HIGH CONTRAST MODE (manual toggle)
-   ════════════════════════════════════════════ */
-[data-theme="hc"] {
-  /* Surfaces */
-  --bg-page:#FFFFFF; --bg-surface:#FFFFFF; --bg-overlay:transparent; --bg-code:#000000;
-  /* Text – black on white (21:1) */
-  --tx-brand:#000000; --tx-primary:#000000; --tx-secondary:#000000; --tx-muted:#1A1A1A;
-  /* Borders – thick, always black */
-  --bd:2px solid #000000; --bd-strong:2px solid #000000;
-  /* Focus */
-  --focus-ring:0 0 0 2px #FFFFFF,0 0 0 5px #000000;
-  --focus-aa:0 0 0 2px #FFFFFF,0 0 0 4px #000000;
-  /* Elevation – flat (shadows hide structure in HC) */
-  --e0:none;--e1:none;--e2:none;--e3:none;--e4:none;--e5:none;
-  /* Brand – use 700 (AAA ≥ 7:1 on white) */
-  --co-500:#007575; --co-50:#D0F0F0;
-  --ai-500:#6B8208; --ai-50:#EAF7B0;
-  --wo-500:#1A6840; --wo-50:#D8F0E2;
-  --es-500:#1A4FA8; --es-50:#D8E8FF;
-  /* Semantic */
-  --c-success:#0a5c38; --c-success-bg:#DFF7EC;
-  --c-warning:#7A5200; --c-warning-bg:#FFF0CC;
-  --c-error:#9b2020;  --c-error-bg:#FDEAEA;
-  /* Tonal overlays – off */
-  --tonal-1:transparent;--tonal-2:transparent;--tonal-3:transparent;--tonal-4:transparent;--tonal-5:transparent;
-  /* Badge */
-  --badge-ok-text:#0a5c38; --badge-warn-text:#7A5200; --badge-err-text:#9b2020;
-  --badge-neu-bg:#F0F0F0; --badge-neu-text:#000000;
-  --cbadge-aa-bg:#DFF7EC; --cbadge-aa-text:#0a5c38;
-  --cbadge-aaa-bg:#D0EEFF; --cbadge-aaa-text:#003A5E;
-  --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
-}
-/* HC: component borders, shadows, colors */
-[data-theme="hc"] .btn { box-shadow:none }
-[data-theme="hc"] .btn-filled,
-[data-theme="hc"] .btn-contained { border:2px solid #000 }
-[data-theme="hc"] .btn-tonal { border:2px solid #000 }
-[data-theme="hc"] .btn-elevated { box-shadow:none; border:2px solid #000 }
-[data-theme="hc"] .card { border:2px solid #000 }
-[data-theme="hc"] .card-elevated { box-shadow:none; background:#fff; border:2px solid #000 }
-[data-theme="hc"] .card-filled { background:#fff; border:2px solid #000 }
-[data-theme="hc"] .el-card { border:2px solid #000; box-shadow:none }
-[data-theme="hc"] .chip { border:2px solid #000 }
-[data-theme="hc"] .chip.sel { background:#000; color:#fff }
-[data-theme="hc"] .nav-item.active { border-left-width:4px }
-[data-theme="hc"] .atab.active { border-bottom-width:4px }
-[data-theme="hc"] .field input,
-[data-theme="hc"] .field select,
-[data-theme="hc"] .field textarea { border:2px solid #000 }
-[data-theme="hc"] .field input:focus,
-[data-theme="hc"] .field select:focus,
-[data-theme="hc"] .field textarea:focus { border-color:#000; box-shadow:0 0 0 2px #fff,0 0 0 4px #000 }
-[data-theme="hc"] .snack-def { background:#000; color:#fff }
-[data-theme="hc"] .snack-ok  { background:#0a5c38; color:#fff }
-[data-theme="hc"] .snack-err { background:#9b2020; color:#fff }
-[data-theme="hc"] .ai-warning { border-width:2px; color:#000 }
-[data-theme="hc"] .code-block { background:#000; color:#fff }
-[data-theme="hc"] .code-block .k,
-[data-theme="hc"] .code-block .v,
-[data-theme="hc"] .code-block .s,
-[data-theme="hc"] .code-block .c { color:#fff }
-[data-theme="hc"] .footer { background:#000; color:#fff; border-radius:var(--r-lg) }
-[data-theme="hc"] .footer-desc,
-[data-theme="hc"] .footer-htitle { color:#ccc }
-[data-theme="hc"] .footer-link { color:#fff }
-[data-theme="hc"] .footer-link:hover { color:#fff }
-[data-theme="hc"] .footer-btm { border-top-color:#555; color:#ccc }
-[data-theme="hc"] .footer-btm-link { color:#ccc }
-[data-theme="hc"] .nav-demo { border:2px solid #000 }
-[data-theme="hc"] .sp-bar { border:2px solid #000 }
-[data-theme="hc"] .area-card { border:2px solid #000 }
 
 /* ════════════════════════════════════════════
    SYSTEM HIGH CONTRAST (Windows / OS level)
@@ -461,7 +389,6 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 <div class="theme-bar" role="group" aria-label="Farbthema">
   <button class="tbtn active" id="tb-light">☀ Light</button>
   <button class="tbtn" id="tb-dark">◑ Dark</button>
-  <button class="tbtn" id="tb-hc">◐ HC</button>
 </div>
 
 <div class="ds-page">
