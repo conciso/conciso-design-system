@@ -19,14 +19,14 @@
   --ai-800:#475705; --ai-900:#242C02;
 
   /* ── Wirksame Organisation ── */
-  --wo-500:#2DA862; --wo-50:#E8F7EE; --wo-100:#C2EACF; --wo-200:#90D9AA;
-  --wo-300:#5DCA86; --wo-400:#40BC73; --wo-600:#228050; --wo-700:#1A6840;
-  --wo-800:#104228; --wo-900:#071F12;
+  --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
+  --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
+  --wo-800:#183A0E; --wo-900:#0A1F05;
 
   /* ── Effektive Software ── */
-  --es-500:#2B7DE9; --es-50:#E8F0FD; --es-100:#C5D9FA; --es-200:#95B8F6;
-  --es-300:#6497F2; --es-400:#4285F0; --es-600:#1F63CC; --es-700:#1A4FA8;
-  --es-800:#103070; --es-900:#071830;
+  --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
+  --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
+  --es-800:#112568; --es-900:#071035;
 
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
@@ -105,7 +105,7 @@
   /* Semantic backgrounds – darkened */
   --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
   /* Brand tints – very dark for dark surfaces */
-  --co-50:#071616; --ai-50:#111A04; --wo-50:#061310; --es-50:#060C1C;
+  --co-50:#071616; --ai-50:#111A04; --wo-50:#060F03; --es-50:#060A1A;
   /* Badge text – lighter for dark backgrounds */
   --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
   --badge-neu-bg:#1E3030; --badge-neu-text:#C4D8D8;
@@ -119,6 +119,74 @@
 [data-theme="dark"] .ai-warning { color:var(--ai-300) }
 [data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
 [data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
+/* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
+/* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
+[data-theme="dark"] .btn-tonal {
+  background: color-mix(in srgb, var(--c50) 25%, var(--bg-surface));
+  color: color-mix(in srgb, var(--c500) 40%, white);
+}
+[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-outlined {
+  color: color-mix(in srgb, var(--c500) 40%, white);
+  border-color: color-mix(in srgb, var(--c500) 40%, white);
+}
+[data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+
+/* ════════════════════════════════════════════
+   DARK MODE: Beispielseiten
+   ════════════════════════════════════════════ */
+/* Shared structural overrides */
+[data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-section { background: var(--bg-page) !important }
+[data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-card { background: var(--bg-surface) !important; box-shadow: var(--e2) }
+[data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-card-icon { filter: brightness(.75) saturate(1.3) }
+[data-theme="dark"] .ep-stats { background: var(--bg-surface) !important }
+[data-theme="dark"] .ep-stat-label { color: var(--tx-secondary) !important }
+
+/* Landing: hero already dark – no change needed */
+
+/* Corporate: light teal → dark teal */
+[data-theme="dark"] #ep-co .ep-hero {
+  background: linear-gradient(140deg,#071616 0%,#0A2E2E 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-eyebrow { color: var(--co-300) !important }
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-sub { color: var(--tx-secondary) !important }
+
+/* AI.Applied: light lime → dark lime (original dark style) */
+[data-theme="dark"] #ep-ai .ep-hero {
+  background: linear-gradient(140deg,#0A0F00 0%,#1C2800 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ai-400) !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-h1 { color: #F4FCD5 !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ai-300) !important }
+
+/* Effektive Software: light blue → dark blue */
+[data-theme="dark"] #ep-es .ep-hero {
+  background: linear-gradient(140deg,#071035 0%,#0D1A50 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-eyebrow { color: var(--es-300) !important }
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-sub { color: var(--es-200) !important }
+
+/* Wirksame Organisation: light green → dark green */
+[data-theme="dark"] #ep-wo .ep-hero {
+  background: linear-gradient(140deg,#0A1F05 0%,#152D0A 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-eyebrow { color: var(--wo-300) !important }
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-sub { color: var(--wo-200) !important }
 
 
 /* ════════════════════════════════════════════
@@ -133,8 +201,7 @@
     box-shadow: none !important;
   }
   /* Custom button backgrounds need explicit forced-color mapping */
-  .btn-filled,
-  .btn-contained {
+  .btn-filled {
     forced-color-adjust: none;
     background: ButtonText;
     color: ButtonFace;
@@ -224,11 +291,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
 /* ── Area cards ── */
 .areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
-.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden}
+.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
 .area-header h3{font-size:16px;font-weight:700;font-family:var(--font-display);margin-bottom:4px}
 .area-header p{font-size:12px;opacity:.85}
-.area-body{padding:var(--s4) var(--s6);background:var(--bg-surface)}
+.area-body{padding:var(--s4) var(--s6);background:var(--bg-surface);flex:1}
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
 .area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
 .area-meta{font-size:12px;color:var(--tx-secondary);line-height:1.8}
@@ -243,8 +310,6 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .btn-lg{padding:14px 32px;font-size:16px;min-height:52px}
 .btn-filled{background:var(--c500);color:#fff;box-shadow:var(--e1)}
 .btn-filled:hover{filter:brightness(.92);box-shadow:var(--e2)}
-.btn-contained{background:var(--c500);color:#fff;box-shadow:var(--e1)}
-.btn-contained:hover{filter:brightness(.92);box-shadow:var(--e2)}
 .btn-tonal{background:var(--c50);color:var(--c500)}
 .btn-tonal:hover{filter:brightness(.96);box-shadow:var(--e1)}
 .btn-elevated{background:var(--bg-surface);color:var(--c500);box-shadow:var(--e1)}
@@ -280,9 +345,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-filled{background:var(--co-50);border:none}
 .card-outlined{border:var(--bd-strong)}
-/* Compat alias */
-.card-el{box-shadow:var(--e1);border:none}
-.card-el:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
 .card-body{padding:var(--s5)}
 .card-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
@@ -380,6 +443,40 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .token-section{margin-bottom:var(--s8)}
 .token-section h3{font-size:15px;font-weight:700;margin-bottom:var(--s3)}
 .ico-48{width:48px;height:48px}
+
+/* ── Example Pages ── */
+.ep-tabs{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s6)}
+.ep-tab{padding:6px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font-size:13px;font-weight:600;cursor:pointer;background:none;font-family:var(--font);color:var(--tx-secondary);transition:all var(--m-fast)}
+.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500)}
+.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd)}
+.ep-page.visible{display:block}
+.ep-topnav{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:1px solid var(--n-100);gap:var(--s4);flex-wrap:wrap}
+.ep-logo{font-family:var(--font-display);font-size:18px;font-weight:700;flex-shrink:0}
+.ep-nav-links{display:flex;gap:var(--s5);font-size:13px;font-weight:500}
+.ep-hero{padding:80px var(--s8) 72px}
+.ep-hero-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3);font-weight:600}
+.ep-hero-h1{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);line-height:1.15;font-weight:700;margin-bottom:var(--s4);max-width:680px}
+.ep-hero-sub{font-size:16px;line-height:1.7;opacity:.85;margin-bottom:var(--s8);max-width:520px}
+.ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
+.ep-section{padding:var(--s12) var(--s8)}
+.ep-section-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:var(--s2)}
+.ep-section-h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:var(--s2)}
+.ep-section-sub{font-size:14px;line-height:1.7;margin-bottom:var(--s8);max-width:540px}
+.ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
+.ep-card{border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
+.ep-card-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+.ep-card-icon svg{width:22px;height:22px}
+.ep-card-title{font-size:14px;font-weight:700;margin-bottom:var(--s2)}
+.ep-card-text{font-size:13px;line-height:1.6}
+.ep-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s6);padding:var(--s10) var(--s8);text-align:center}
+.ep-stat-num{font-family:var(--font-display);font-size:36px;font-weight:700;margin-bottom:var(--s1)}
+.ep-stat-label{font-size:12px;line-height:1.4}
+.ep-cta-band{padding:var(--s12) var(--s8);text-align:center}
+.ep-cta-h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:var(--s2)}
+.ep-cta-sub{font-size:14px;line-height:1.7;opacity:.85;margin-bottom:var(--s6)}
+.ep-page-footer{padding:var(--s5) var(--s8);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s2)}
 </style>
 </head>
 <body>
@@ -446,6 +543,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <button class="nav-item" data-section="tokens">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>CSS Tokens
     </button>
+
+    <div class="nav-section">Beispielseiten</div>
+    <button class="nav-item" data-section="examples">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Beispielseiten
+    </button>
   </nav>
 
   <main class="ds-content" id="main-content" tabindex="-1">
@@ -473,7 +575,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
             <div class="area-meta">Primär: <code>#00BEBE</code> · Text: <code>#007575</code> (700)<br>Ratio 700 auf Weiß: 5.3:1 (AA ✓)<br>Semantik: Vertrauen · Klarheit · Gelassenheit</div>
             <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
               <span class="badge" style="background:#E0F7F7;color:#004F4F">Corporate</span>
-              <button class="btn btn-contained btn-sm" style="--c500:#007575;--c50:#E0F7F7">Get started</button>
+              <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Get started</button>
               <button class="btn btn-outlined btn-sm" style="--c500:#007575;--c50:#E0F7F7">Learn more</button>
             </div>
           </div>
@@ -496,7 +598,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
             <div class="area-meta">Akzent: <code>#B5E61C</code> · Text: <code>#6B8208</code> (700)<br>Ratio 700 auf Weiß: 7.1:1 (AAA ✓)<br>Semantik: Innovation · Energie · Wirkung</div>
             <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
               <span class="badge" style="background:#F4FCD5;color:#475705">AI.Applied</span>
-              <button class="btn btn-contained btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Get started</button>
+              <button class="btn btn-filled btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Get started</button>
               <button class="btn btn-outlined btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Learn more</button>
             </div>
           </div>
@@ -504,46 +606,46 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
         <!-- Effektive Software -->
         <div class="area-card">
-          <div class="area-header" style="background:#1A4FA8">
+          <div class="area-header" style="background:#1B3D9A">
             <h3>Effektive Software</h3><p>Technologie · Qualität · Verlässlichkeit</p>
           </div>
           <div class="area-body">
             <div class="area-swatch-row">
-              <div class="area-swatch" style="background:#E8F0FD"></div>
-              <div class="area-swatch" style="background:#95B8F6"></div>
-              <div class="area-swatch" style="background:#4285F0"></div>
-              <div class="area-swatch" style="background:#2B7DE9"></div>
-              <div class="area-swatch" style="background:#1A4FA8"></div>
-              <div class="area-swatch" style="background:#071830"></div>
+              <div class="area-swatch" style="background:#EAF0FB"></div>
+              <div class="area-swatch" style="background:#98B7EE"></div>
+              <div class="area-swatch" style="background:#4677DC"></div>
+              <div class="area-swatch" style="background:#2F5FD4"></div>
+              <div class="area-swatch" style="background:#1B3D9A"></div>
+              <div class="area-swatch" style="background:#071035"></div>
             </div>
-            <div class="area-meta">Primär: <code>#2B7DE9</code> · Text: <code>#1A4FA8</code> (700)<br>Ratio 700 auf Weiß: 6.9:1 (AA ✓)<br>Semantik: Präzision · Stabilität · Vertrauen</div>
+            <div class="area-meta">Primär: <code>#2F5FD4</code> · Text: <code>#1B3D9A</code> (700)<br>Ratio 700 auf Weiß: 8.5:1 (AAA ✓)<br>Semantik: Präzision · Stabilität · Vertrauen</div>
             <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
-              <span class="badge" style="background:#E8F0FD;color:#103070">Effektive SW</span>
-              <button class="btn btn-contained btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Get started</button>
-              <button class="btn btn-outlined btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Learn more</button>
+              <span class="badge" style="background:#EAF0FB;color:#112568">Effektive SW</span>
+              <button class="btn btn-filled btn-sm" style="--c500:#1B3D9A;--c50:#EAF0FB">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--c500:#1B3D9A;--c50:#EAF0FB">Learn more</button>
             </div>
           </div>
         </div>
 
         <!-- Wirksame Organisation -->
         <div class="area-card">
-          <div class="area-header" style="background:#1A6840">
+          <div class="area-header" style="background:#285E1A">
             <h3>Wirksame Organisation</h3><p>Struktur · Wirkung · Wandel</p>
           </div>
           <div class="area-body">
             <div class="area-swatch-row">
-              <div class="area-swatch" style="background:#E8F7EE"></div>
-              <div class="area-swatch" style="background:#90D9AA"></div>
-              <div class="area-swatch" style="background:#40BC73"></div>
-              <div class="area-swatch" style="background:#2DA862"></div>
-              <div class="area-swatch" style="background:#1A6840"></div>
-              <div class="area-swatch" style="background:#071F12"></div>
+              <div class="area-swatch" style="background:#EBF5E6"></div>
+              <div class="area-swatch" style="background:#A3D48E"></div>
+              <div class="area-swatch" style="background:#55AD3F"></div>
+              <div class="area-swatch" style="background:#44A030"></div>
+              <div class="area-swatch" style="background:#285E1A"></div>
+              <div class="area-swatch" style="background:#0A1F05"></div>
             </div>
-            <div class="area-meta">Primär: <code>#2DA862</code> · Text: <code>#1A6840</code> (700)<br>Ratio 700 auf Weiß: 6.2:1 (AA ✓)<br>Semantik: Struktur · Verlässlichkeit · Wachstum</div>
+            <div class="area-meta">Primär: <code>#44A030</code> · Text: <code>#285E1A</code> (700)<br>Ratio 700 auf Weiß: 7.0:1 (AAA ✓)<br>Semantik: Struktur · Verlässlichkeit · Wachstum</div>
             <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
-              <span class="badge" style="background:#E8F7EE;color:#104228">Wirksame Org.</span>
-              <button class="btn btn-contained btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Get started</button>
-              <button class="btn btn-outlined btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Learn more</button>
+              <span class="badge" style="background:#EBF5E6;color:#183A0E">Wirksame Org.</span>
+              <button class="btn btn-filled btn-sm" style="--c500:#285E1A;--c50:#EBF5E6">Get started</button>
+              <button class="btn btn-outlined btn-sm" style="--c500:#285E1A;--c50:#EBF5E6">Learn more</button>
             </div>
           </div>
         </div>
@@ -557,11 +659,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <button class="atab" role="tab" aria-selected="false" data-area="ai" style="--atab-color:#6B8208">
           <span class="area-dot" style="background:#B5E61C"></span>AI.Applied
         </button>
-        <button class="atab" role="tab" aria-selected="false" data-area="es" style="--atab-color:#1A4FA8">
-          <span class="area-dot" style="background:#2B7DE9"></span>Effektive Software
+        <button class="atab" role="tab" aria-selected="false" data-area="es" style="--atab-color:#1B3D9A">
+          <span class="area-dot" style="background:#2F5FD4"></span>Effektive Software
         </button>
-        <button class="atab" role="tab" aria-selected="false" data-area="wo" style="--atab-color:#1A6840">
-          <span class="area-dot" style="background:#2DA862"></span>Wirksame Organisation
+        <button class="atab" role="tab" aria-selected="false" data-area="wo" style="--atab-color:#285E1A">
+          <span class="area-dot" style="background:#44A030"></span>Wirksame Organisation
         </button>
       </div>
 
@@ -589,23 +691,23 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
       <div id="at-es" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Filled</button>
-          <button class="btn btn-tonal" style="--c500:#1A4FA8;--c50:#E8F0FD">Tonal</button>
-          <button class="btn btn-outlined" style="--c500:#1A4FA8;--c50:#E8F0FD">Outlined</button>
-          <button class="btn btn-text" style="--c500:#1A4FA8;--c50:#E8F0FD">Text</button>
-          <span class="badge" style="background:#E8F0FD;color:#103070">Effektive SW</span>
-          <button class="chip" style="border-color:#2B7DE9;color:#1A4FA8">Engineering</button>
+          <button class="btn btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#1B3D9A;--c50:#EAF0FB">Tonal</button>
+          <button class="btn btn-outlined" style="--c500:#1B3D9A;--c50:#EAF0FB">Outlined</button>
+          <button class="btn btn-text" style="--c500:#1B3D9A;--c50:#EAF0FB">Text</button>
+          <span class="badge" style="background:#EAF0FB;color:#112568">Effektive SW</span>
+          <button class="chip" style="border-color:#2F5FD4;color:#1B3D9A">Engineering</button>
           <button class="chip">Deployment</button>
         </div>
       </div>
       <div id="at-wo" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Filled</button>
-          <button class="btn btn-tonal" style="--c500:#1A6840;--c50:#E8F7EE">Tonal</button>
-          <button class="btn btn-outlined" style="--c500:#1A6840;--c50:#E8F7EE">Outlined</button>
-          <button class="btn btn-text" style="--c500:#1A6840;--c50:#E8F7EE">Text</button>
-          <span class="badge" style="background:#E8F7EE;color:#104228">Wirksame Org.</span>
-          <button class="chip" style="border-color:#2DA862;color:#1A6840">Change</button>
+          <button class="btn btn-filled" style="--c500:#285E1A;--c50:#EBF5E6">Filled</button>
+          <button class="btn btn-tonal" style="--c500:#285E1A;--c50:#EBF5E6">Tonal</button>
+          <button class="btn btn-outlined" style="--c500:#285E1A;--c50:#EBF5E6">Outlined</button>
+          <button class="btn btn-text" style="--c500:#285E1A;--c50:#EBF5E6">Text</button>
+          <span class="badge" style="background:#EBF5E6;color:#183A0E">Wirksame Org.</span>
+          <button class="chip" style="border-color:#44A030;color:#285E1A">Change</button>
           <button class="chip">Leadership</button>
         </div>
       </div>
@@ -614,7 +716,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ COLORS ═══ -->
     <section class="ds-section visible" id="sec-colors">
       <h1 class="sec-title">Color System</h1>
-      <p class="sec-sub">Material Design 2 · Vier Bereichspaletten + Text Brand.</p>
+      <p class="sec-sub">M3 Color System · Vier Bereichspaletten mit Tonal-Skala (50–900) + Text Brand.</p>
 
       <div class="pal-group">
         <div class="pal-label"><span class="area-dot" style="background:#00BEBE"></span>Corporate — #00BEBE</div>
@@ -650,34 +752,34 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
 
       <div class="pal-group">
-        <div class="pal-label"><span class="area-dot" style="background:#2B7DE9"></span>Effektive Software — #2B7DE9 · Text: #1A4FA8</div>
+        <div class="pal-label"><span class="area-dot" style="background:#2F5FD4"></span>Effektive Software — #2F5FD4 · Text: #1B3D9A</div>
         <div class="pal-row">
-          <div class="swatch" style="background:#E8F0FD"><span style="color:#103070">50</span></div>
-          <div class="swatch" style="background:#C5D9FA"><span style="color:#103070">100</span></div>
-          <div class="swatch" style="background:#95B8F6"><span style="color:#103070">200</span></div>
-          <div class="swatch" style="background:#6497F2"><span style="color:#fff">300</span></div>
-          <div class="swatch" style="background:#4285F0"><span style="color:#fff">400</span></div>
-          <div class="swatch" style="background:#2B7DE9"><span style="color:#fff">500★</span></div>
-          <div class="swatch" style="background:#1F63CC"><span style="color:#fff">600</span></div>
-          <div class="swatch" style="background:#1A4FA8"><span style="color:#fff">700 T</span></div>
-          <div class="swatch" style="background:#103070"><span style="color:#fff">800</span></div>
-          <div class="swatch" style="background:#071830"><span style="color:#fff">900</span></div>
+          <div class="swatch" style="background:#EAF0FB"><span style="color:#112568">50</span></div>
+          <div class="swatch" style="background:#C8D9F5"><span style="color:#112568">100</span></div>
+          <div class="swatch" style="background:#98B7EE"><span style="color:#112568">200</span></div>
+          <div class="swatch" style="background:#6593E5"><span style="color:#fff">300</span></div>
+          <div class="swatch" style="background:#4677DC"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#2F5FD4"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#2249B2"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#1B3D9A"><span style="color:#fff">700 T</span></div>
+          <div class="swatch" style="background:#112568"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#071035"><span style="color:#fff">900</span></div>
         </div>
       </div>
 
       <div class="pal-group">
-        <div class="pal-label"><span class="area-dot" style="background:#2DA862"></span>Wirksame Organisation — #2DA862 · Text: #1A6840</div>
+        <div class="pal-label"><span class="area-dot" style="background:#44A030"></span>Wirksame Organisation — #44A030 · Text: #285E1A</div>
         <div class="pal-row">
-          <div class="swatch" style="background:#E8F7EE"><span style="color:#104228">50</span></div>
-          <div class="swatch" style="background:#C2EACF"><span style="color:#104228">100</span></div>
-          <div class="swatch" style="background:#90D9AA"><span style="color:#104228">200</span></div>
-          <div class="swatch" style="background:#5DCA86"><span style="color:#104228">300</span></div>
-          <div class="swatch" style="background:#40BC73"><span style="color:#fff">400</span></div>
-          <div class="swatch" style="background:#2DA862"><span style="color:#fff">500★</span></div>
-          <div class="swatch" style="background:#228050"><span style="color:#fff">600</span></div>
-          <div class="swatch" style="background:#1A6840"><span style="color:#fff">700 T</span></div>
-          <div class="swatch" style="background:#104228"><span style="color:#fff">800</span></div>
-          <div class="swatch" style="background:#071F12"><span style="color:#fff">900</span></div>
+          <div class="swatch" style="background:#EBF5E6"><span style="color:#183A0E">50</span></div>
+          <div class="swatch" style="background:#CEEAC3"><span style="color:#183A0E">100</span></div>
+          <div class="swatch" style="background:#A3D48E"><span style="color:#183A0E">200</span></div>
+          <div class="swatch" style="background:#72BD58"><span style="color:#183A0E">300</span></div>
+          <div class="swatch" style="background:#55AD3F"><span style="color:#fff">400</span></div>
+          <div class="swatch" style="background:#44A030"><span style="color:#fff">500★</span></div>
+          <div class="swatch" style="background:#347A22"><span style="color:#fff">600</span></div>
+          <div class="swatch" style="background:#285E1A"><span style="color:#fff">700 T</span></div>
+          <div class="swatch" style="background:#183A0E"><span style="color:#fff">800</span></div>
+          <div class="swatch" style="background:#0A1F05"><span style="color:#fff">900</span></div>
         </div>
       </div>
 
@@ -807,14 +909,14 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
             <button class="nav-link">Effektive Software</button>
             <button class="nav-link">Wirksame Organisation</button>
           </div>
-          <button class="btn btn-contained btn-sm" style="--c500:#007575;--c50:#E0F7F7">Starten</button>
+          <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Starten</button>
         </div>
         <div class="hero-section" style="background:linear-gradient(135deg,var(--co-50) 0%,transparent 55%)">
           <span class="eyebrow" style="color:var(--co-700)">Ruhige Energie</span>
           <h1 class="hero-h1">Gelassenheit.<br><span style="color:var(--co-500)">Jetzt in Produktion.</span></h1>
           <p class="hero-sub">Weniger Komplexität, mehr Fokus. Das System, das dein Team braucht – ohne den Overhead, den ihr nicht wollt.</p>
           <div class="hero-actions">
-            <button class="btn btn-contained btn-lg" style="--c500:#007575;--c50:#E0F7F7">Jetzt starten</button>
+            <button class="btn btn-filled btn-lg" style="--c500:#007575;--c50:#E0F7F7">Jetzt starten</button>
             <button class="btn btn-outlined btn-lg" style="--c500:#007575;--c50:#E0F7F7">Mehr erfahren</button>
           </div>
         </div>
@@ -852,26 +954,26 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
       <h2 class="group-title">Effektive Software</h2>
       <div class="row" style="align-items:center;flex-wrap:wrap">
-        <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Filled</button>
-        <button class="btn btn-tonal" style="--c500:#1A4FA8;--c50:#E8F0FD">Tonal</button>
-        <button class="btn btn-elevated" style="--c500:#1A4FA8;--c50:#E8F0FD">Elevated</button>
-        <button class="btn btn-outlined" style="--c500:#1A4FA8;--c50:#E8F0FD">Outlined</button>
-        <button class="btn btn-text" style="--c500:#1A4FA8;--c50:#E8F0FD">Text</button>
-        <button class="btn btn-sm btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Small</button>
-        <button class="btn btn-lg btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD">Large</button>
-        <button class="btn btn-filled" style="--c500:#1A4FA8;--c50:#E8F0FD" disabled>Disabled</button>
+        <button class="btn btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#1B3D9A;--c50:#EAF0FB">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#1B3D9A;--c50:#EAF0FB">Elevated</button>
+        <button class="btn btn-outlined" style="--c500:#1B3D9A;--c50:#EAF0FB">Outlined</button>
+        <button class="btn btn-text" style="--c500:#1B3D9A;--c50:#EAF0FB">Text</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB">Large</button>
+        <button class="btn btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Wirksame Organisation</h2>
       <div class="row" style="align-items:center;flex-wrap:wrap">
-        <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Filled</button>
-        <button class="btn btn-tonal" style="--c500:#1A6840;--c50:#E8F7EE">Tonal</button>
-        <button class="btn btn-elevated" style="--c500:#1A6840;--c50:#E8F7EE">Elevated</button>
-        <button class="btn btn-outlined" style="--c500:#1A6840;--c50:#E8F7EE">Outlined</button>
-        <button class="btn btn-text" style="--c500:#1A6840;--c50:#E8F7EE">Text</button>
-        <button class="btn btn-sm btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Small</button>
-        <button class="btn btn-lg btn-filled" style="--c500:#1A6840;--c50:#E8F7EE">Large</button>
-        <button class="btn btn-filled" style="--c500:#1A6840;--c50:#E8F7EE" disabled>Disabled</button>
+        <button class="btn btn-filled" style="--c500:#285E1A;--c50:#EBF5E6">Filled</button>
+        <button class="btn btn-tonal" style="--c500:#285E1A;--c50:#EBF5E6">Tonal</button>
+        <button class="btn btn-elevated" style="--c500:#285E1A;--c50:#EBF5E6">Elevated</button>
+        <button class="btn btn-outlined" style="--c500:#285E1A;--c50:#EBF5E6">Outlined</button>
+        <button class="btn btn-text" style="--c500:#285E1A;--c50:#EBF5E6">Text</button>
+        <button class="btn btn-sm btn-filled" style="--c500:#285E1A;--c50:#EBF5E6">Small</button>
+        <button class="btn btn-lg btn-filled" style="--c500:#285E1A;--c50:#EBF5E6">Large</button>
+        <button class="btn btn-filled" style="--c500:#285E1A;--c50:#EBF5E6" disabled>Disabled</button>
       </div>
 
       <h2 class="group-title">Text Brand</h2>
@@ -924,7 +1026,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <label for="f-msg">Nachricht</label>
           <textarea id="f-msg" rows="3" placeholder="Wie können wir helfen?"></textarea>
         </div>
-        <button class="btn btn-contained" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">Absenden</button>
+        <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">Absenden</button>
       </div>
     </section>
 
@@ -933,9 +1035,9 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       <h1 class="sec-title">Cards & Teaser</h1>
       <p class="sec-sub">M3 Card-Varianten: Elevated (Level 1 + Tonal) · Filled (Container-Farbe) · Outlined (Border). Border-Radius: medium (12dp).</p>
       <div class="row">
-        <article class="card card-el" style="width:280px">
+        <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:var(--co-50)">
-            <svg class="ico-48" viewBox="0 0 24 24" fill="#007575"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+            <svg class="ico-48" viewBox="0 0 24 24" fill="#007575" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
           </div>
           <div class="card-body">
             <div class="card-eyebrow" style="color:#007575">Corporate</div>
@@ -944,12 +1046,12 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           </div>
           <div class="card-footer">
             <button class="btn btn-text btn-sm" style="--c500:#007575;--c50:#E0F7F7">Mehr</button>
-            <button class="btn btn-contained btn-sm" style="--c500:#007575;--c50:#E0F7F7">Anfragen</button>
+            <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Anfragen</button>
           </div>
         </article>
-        <article class="card card-el" style="width:280px">
+        <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:var(--ai-50)">
-            <svg class="ico-48" viewBox="0 0 24 24" fill="#6B8208"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <svg class="ico-48" viewBox="0 0 24 24" fill="#6B8208" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
           </div>
           <div class="card-body">
             <div class="card-eyebrow" style="color:#6B8208">AI.Applied</div>
@@ -958,40 +1060,40 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           </div>
           <div class="card-footer">
             <button class="btn btn-text btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Mehr</button>
-            <button class="btn btn-contained btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Anfragen</button>
+            <button class="btn btn-filled btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Anfragen</button>
           </div>
         </article>
-        <article class="card card-el" style="width:280px">
+        <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:var(--es-50)">
-            <svg class="ico-48" viewBox="0 0 24 24" fill="#1A4FA8"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            <svg class="ico-48" viewBox="0 0 24 24" fill="#1B3D9A" aria-hidden="true" focusable="false"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
           </div>
           <div class="card-body">
-            <div class="card-eyebrow" style="color:#1A4FA8">Effektive Software</div>
+            <div class="card-eyebrow" style="color:#1B3D9A">Effektive Software</div>
             <div class="card-title">Software mit Präzision</div>
             <div class="card-text">Verlässliche Systeme, die halten was sie versprechen – stabil, wartbar, skalierbar.</div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-text btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Mehr</button>
-            <button class="btn btn-contained btn-sm" style="--c500:#1A4FA8;--c50:#E8F0FD">Anfragen</button>
+            <button class="btn btn-text btn-sm" style="--c500:#1B3D9A;--c50:#EAF0FB">Mehr</button>
+            <button class="btn btn-filled btn-sm" style="--c500:#1B3D9A;--c50:#EAF0FB">Anfragen</button>
           </div>
         </article>
-        <article class="card card-el" style="width:280px">
+        <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:var(--wo-50)">
-            <svg class="ico-48" viewBox="0 0 24 24" fill="#1A6840"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            <svg class="ico-48" viewBox="0 0 24 24" fill="#285E1A" aria-hidden="true" focusable="false"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
           </div>
           <div class="card-body">
-            <div class="card-eyebrow" style="color:#1A6840">Wirksame Organisation</div>
+            <div class="card-eyebrow" style="color:#285E1A">Wirksame Organisation</div>
             <div class="card-title">Wandel gestalten</div>
             <div class="card-text">Strukturen, die tragen – Veränderung, die nachhaltig wirkt und Menschen mitnimmt.</div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-text btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Mehr</button>
-            <button class="btn btn-contained btn-sm" style="--c500:#1A6840;--c50:#E8F7EE">Anfragen</button>
+            <button class="btn btn-text btn-sm" style="--c500:#285E1A;--c50:#EBF5E6">Mehr</button>
+            <button class="btn btn-filled btn-sm" style="--c500:#285E1A;--c50:#EBF5E6">Anfragen</button>
           </div>
         </article>
-        <article class="card card-el" style="width:280px">
+        <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:#F1F3F5">
-            <svg class="ico-48" viewBox="0 0 24 24" fill="#333E48"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+            <svg class="ico-48" viewBox="0 0 24 24" fill="#333E48" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
           </div>
           <div class="card-body">
             <div class="card-eyebrow" style="color:#333E48">Text Brand</div>
@@ -1000,7 +1102,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           </div>
           <div class="card-footer">
             <button class="btn btn-text btn-sm" style="--c500:#333E48;--c50:#F1F3F5">Mehr</button>
-            <button class="btn btn-contained btn-sm" style="--c500:#333E48;--c50:#F1F3F5">Anfragen</button>
+            <button class="btn btn-filled btn-sm" style="--c500:#333E48;--c50:#F1F3F5">Anfragen</button>
           </div>
         </article>
       </div>
@@ -1065,16 +1167,16 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <section class="ds-section" id="sec-feedback">
       <h1 class="sec-title">Feedback — Snackbars</h1>
       <div class="snack snack-def" role="status" aria-live="polite">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#80DEDE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#80DEDE" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
         Änderungen wurden gespeichert.
         <button class="snack-act">Rückgängig</button>
       </div>
       <div class="snack snack-ok" role="status" aria-live="polite">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#88f0c4"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#88f0c4" aria-hidden="true" focusable="false"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
         Deployment erfolgreich abgeschlossen.
       </div>
       <div class="snack snack-err" role="alert" aria-live="assertive">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#f9a8a8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#f9a8a8" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
         Verbindung fehlgeschlagen.
         <button class="snack-act">Retry</button>
       </div>
@@ -1174,14 +1276,14 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <span class="cbadge c-fail-badge">Fläche only</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#1A4FA8;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Effektive SW 700 #1A4FA8 auf Weiß</div><div class="cratio">6.9:1</div></div>
-        <span class="cbadge c-aa">AA ✓</span>
+        <div class="cswatch" style="background:#1B3D9A;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Effektive SW 700 #1B3D9A auf Weiß</div><div class="cratio">8.5:1</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#1A6840;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Wirksame Org. 700 #1A6840 auf Weiß</div><div class="cratio">6.2:1</div></div>
-        <span class="cbadge c-aa">AA ✓</span>
+        <div class="cswatch" style="background:#285E1A;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Wirksame Org. 700 #285E1A auf Weiß</div><div class="cratio">7.0:1</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <h2 class="group-title">ARIA Patterns</h2>
       <div class="a11y-card">
@@ -1214,10 +1316,10 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 <span class="k">--ai-500:</span> <span class="v">#B5E61C</span>; <span class="k">--ai-700:</span> <span class="v">#6B8208</span>; <span class="k">--ai-50:</span> <span class="v">#F4FCD5</span>; <span class="k">--ai-800:</span> <span class="v">#475705</span>;
 
 <span class="c">/* Effektive Software */</span>
-<span class="k">--es-500:</span> <span class="v">#2B7DE9</span>; <span class="k">--es-700:</span> <span class="v">#1A4FA8</span>; <span class="k">--es-50:</span> <span class="v">#E8F0FD</span>; <span class="k">--es-800:</span> <span class="v">#103070</span>;
+<span class="k">--es-500:</span> <span class="v">#2F5FD4</span>; <span class="k">--es-700:</span> <span class="v">#1B3D9A</span>; <span class="k">--es-50:</span> <span class="v">#EAF0FB</span>; <span class="k">--es-800:</span> <span class="v">#112568</span>;
 
 <span class="c">/* Wirksame Organisation */</span>
-<span class="k">--wo-500:</span> <span class="v">#2DA862</span>; <span class="k">--wo-700:</span> <span class="v">#1A6840</span>; <span class="k">--wo-50:</span> <span class="v">#E8F7EE</span>; <span class="k">--wo-800:</span> <span class="v">#104228</span>;</div>
+<span class="k">--wo-500:</span> <span class="v">#44A030</span>; <span class="k">--wo-700:</span> <span class="v">#285E1A</span>; <span class="k">--wo-50:</span> <span class="v">#EBF5E6</span>; <span class="k">--wo-800:</span> <span class="v">#183A0E</span>;</div>
       </div>
       <div class="token-section">
         <h3>Shape (M3 – 5 Stufen)</h3>
@@ -1256,6 +1358,365 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
         <div class="code-block"><span class="k">--s4:</span> <span class="v">16px</span>; <span class="k">--s6:</span> <span class="v">24px</span>; <span class="k">--s8:</span> <span class="v">32px</span>; <span class="k">--s16:</span> <span class="v">64px</span>;
 <span class="k">--m-fast:</span> <span class="v">150ms cubic-bezier(.4,0,.2,1)</span>;
 <span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--co-50), 0 0 0 5px var(--co-500)</span>;</div>
+      </div>
+    </section>
+
+    <!-- ═══ BEISPIELSEITEN ═══ -->
+    <section class="ds-section" id="sec-examples">
+      <h1 class="sec-title">Beispielseiten</h1>
+      <p class="sec-sub">Generierte Seiten pro Brand Area – und eine gemischte Landingpage, die alle vier Bereiche vereint.</p>
+
+      <div class="ep-tabs" role="tablist" aria-label="Beispielseite wählen">
+        <button class="ep-tab active" role="tab" aria-selected="true" data-ep="landing" id="eptab-landing" aria-controls="ep-landing">Landingpage</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="co" id="eptab-co" aria-controls="ep-co">Corporate</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai" id="eptab-ai" aria-controls="ep-ai">AI.Applied</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="wo" id="eptab-wo" aria-controls="ep-wo">Wirksame Organisation</button>
+      </div>
+
+      <!-- ── SHARED TOPNAV MACRO (repeated per page for clarity) ── -->
+
+      <!-- ── LANDINGPAGE ── -->
+      <div class="ep-page visible" id="ep-landing" role="tabpanel" aria-labelledby="eptab-landing" tabindex="0">
+        <!-- Topnav -->
+        <div class="ep-topnav">
+          <div class="ep-logo" style="color:#333E48">product<span style="color:#00BEBE">.</span></div>
+          <div class="ep-nav-links" style="color:#4A6565">
+            <span style="color:#007575;font-weight:700">Corporate</span>
+            <span>AI.Applied</span>
+            <span>Effektive Software</span>
+            <span>Wirksame Organisation</span>
+          </div>
+          <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Kontakt</button>
+        </div>
+        <!-- Hero -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,#071616 0%,#0A2E2E 60%,#007575 100%);color:#fff">
+          <p class="ep-hero-eyebrow" style="color:#80DEDE">Ruhige Energie GmbH · Berlin</p>
+          <h1 class="ep-hero-h1">Wirksam. Präzise.<br>Nachhaltig.</h1>
+          <p class="ep-hero-sub" style="opacity:.9">Wir verbinden Marke, Technologie und Organisation – und schaffen echten, messbaren Mehrwert für Ihr Unternehmen.</p>
+          <div class="ep-hero-ctas">
+            <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Unsere Leistungen</button>
+            <button class="btn btn-outlined" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Kontakt aufnehmen</button>
+          </div>
+        </div>
+        <!-- Vier Bereiche – farbig differenziert -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:#007575">Was wir tun</div>
+          <h2 class="ep-section-h2" style="color:#333E48">Vier Bereiche. Ein Anspruch.</h2>
+          <p class="ep-section-sub" style="color:#4A6565">Jeder Bereich für sich stark – zusammen ein kohärentes System, das greift.</p>
+          <div class="ep-cards">
+            <!-- Corporate -->
+            <div class="ep-card" style="border-top:4px solid #00BEBE">
+              <div class="ep-card-icon" style="background:#E0F7F7"><svg viewBox="0 0 24 24" fill="#007575" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#007575;margin-bottom:4px">Corporate</div>
+              <div class="ep-card-title" style="color:#333E48">Marke mit Haltung</div>
+              <div class="ep-card-text" style="color:#4A6565">Kommunikation, die vertraut und bewegt – ruhig, präzise, nachhaltig.</div>
+            </div>
+            <!-- AI.Applied -->
+            <div class="ep-card" style="border-top:4px solid #B5E61C">
+              <div class="ep-card-icon" style="background:#F4FCD5"><svg viewBox="0 0 24 24" fill="#6B8208" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6B8208;margin-bottom:4px">AI.Applied</div>
+              <div class="ep-card-title" style="color:#333E48">KI mit Wirkung</div>
+              <div class="ep-card-text" style="color:#4A6565">Intelligente Automatisierung ohne Hype – messbar, skalierbar, sicher.</div>
+            </div>
+            <!-- Effektive Software -->
+            <div class="ep-card" style="border-top:4px solid #2F5FD4">
+              <div class="ep-card-icon" style="background:#EAF0FB"><svg viewBox="0 0 24 24" fill="#1B3D9A" aria-hidden="true" focusable="false"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#1B3D9A;margin-bottom:4px">Effektive Software</div>
+              <div class="ep-card-title" style="color:#333E48">Präzise Systeme</div>
+              <div class="ep-card-text" style="color:#4A6565">Verlässliche Software, die hält was sie verspricht – stabil, wartbar, zukunftsfest.</div>
+            </div>
+            <!-- Wirksame Organisation -->
+            <div class="ep-card" style="border-top:4px solid #44A030">
+              <div class="ep-card-icon" style="background:#EBF5E6"><svg viewBox="0 0 24 24" fill="#285E1A" aria-hidden="true" focusable="false"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#285E1A;margin-bottom:4px">Wirksame Organisation</div>
+              <div class="ep-card-title" style="color:#333E48">Wandel, der trägt</div>
+              <div class="ep-card-text" style="color:#4A6565">Strukturen für nachhaltiges Wachstum – Veränderung, die Menschen mitnimmt.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="ep-stats" style="background:#F5F7F7">
+          <div><div class="ep-stat-num" style="color:#007575">120+</div><div class="ep-stat-label" style="color:#4A6565">abgeschlossene Projekte</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">8</div><div class="ep-stat-label" style="color:#4A6565">Jahre Erfahrung</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">4</div><div class="ep-stat-label" style="color:#4A6565">Spezialbereiche</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">96 %</div><div class="ep-stat-label" style="color:#4A6565">Weiterempfehlung</div></div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:#007575;color:#fff">
+          <h2 class="ep-cta-h2">Bereit für den nächsten Schritt?</h2>
+          <p class="ep-cta-sub">Sprechen Sie mit uns – unverbindlich und auf Augenhöhe.</p>
+          <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Gespräch vereinbaren</button>
+        </div>
+        <!-- Footer -->
+        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+          <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </div>
+
+      <!-- ── CORPORATE ── -->
+      <div class="ep-page" id="ep-co" role="tabpanel" aria-labelledby="eptab-co" tabindex="0">
+        <!-- Topnav – gleiche Struktur, Corporate hervorgehoben -->
+        <div class="ep-topnav">
+          <div class="ep-logo" style="color:#333E48">product<span style="color:#00BEBE">.</span></div>
+          <div class="ep-nav-links" style="color:#4A6565">
+            <span style="color:#007575;font-weight:700;border-bottom:2px solid #00BEBE;padding-bottom:2px">Corporate</span>
+            <span>AI.Applied</span>
+            <span>Effektive Software</span>
+            <span>Wirksame Organisation</span>
+          </div>
+          <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Anfragen</button>
+        </div>
+        <!-- Hero – heller Teal-Hintergrund, dunkler Text -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,#E0F7F7 0%,#B3ECEC 100%)">
+          <p class="ep-hero-eyebrow" style="color:#007575">Corporate · Marke · Kommunikation · Strategie</p>
+          <h1 class="ep-hero-h1" style="color:#002B2B">Ihre Marke.<br>Klar und wirkungsvoll.</h1>
+          <p class="ep-hero-sub" style="color:#004F4F">Wir gestalten Unternehmensidentitäten, die nicht nur gut aussehen – sondern wirken. Ruhig, präzise, nachhaltig.</p>
+          <div class="ep-hero-ctas">
+            <button class="btn btn-filled" style="--c500:#007575;--c50:#E0F7F7">Markenprojekt starten</button>
+            <button class="btn btn-outlined" style="--c500:#007575;--c50:#E0F7F7">Portfolio ansehen</button>
+          </div>
+        </div>
+        <!-- Leistungen -->
+        <div class="ep-section" style="background:#fff">
+          <div class="ep-section-label" style="color:#007575">Leistungen</div>
+          <h2 class="ep-section-h2" style="color:#333E48">Strategie trifft Gestaltung</h2>
+          <p class="ep-section-sub" style="color:#4A6565">Von der Positionierung bis zum fertigen Markensystem – wir begleiten Sie ganzheitlich.</p>
+          <div class="ep-cards">
+            <div class="ep-card" style="border-top:4px solid #00BEBE">
+              <div class="ep-card-icon" style="background:#E0F7F7"><svg viewBox="0 0 24 24" fill="#007575" aria-hidden="true" focusable="false"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Markenstrategie</div>
+              <div class="ep-card-text" style="color:#4A6565">Positionierung, Kernbotschaften und strategischer Rahmen für eine klare, konsistente Markenführung.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #00BEBE">
+              <div class="ep-card-icon" style="background:#E0F7F7"><svg viewBox="0 0 24 24" fill="#007575" aria-hidden="true" focusable="false"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Unternehmenskommunikation</div>
+              <div class="ep-card-text" style="color:#4A6565">Konsistente Botschaften über alle Kanäle – intern wie extern, analog wie digital.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #00BEBE">
+              <div class="ep-card-icon" style="background:#E0F7F7"><svg viewBox="0 0 24 24" fill="#007575" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Brand Design</div>
+              <div class="ep-card-text" style="color:#4A6565">Visuelles Identitätssystem: Logo, Farben, Typografie und Gestaltungsregeln aus einem Guss.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="ep-stats" style="background:#F5F7F7">
+          <div><div class="ep-stat-num" style="color:#007575">80+</div><div class="ep-stat-label" style="color:#4A6565">betreute Marken</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">12</div><div class="ep-stat-label" style="color:#4A6565">Branchen</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">15 J.</div><div class="ep-stat-label" style="color:#4A6565">Brand-Building-Erfahrung</div></div>
+          <div><div class="ep-stat-num" style="color:#007575">3</div><div class="ep-stat-label" style="color:#4A6565">Designpreise</div></div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:#007575;color:#fff">
+          <h2 class="ep-cta-h2">Ihre Marke verdient Klarheit.</h2>
+          <p class="ep-cta-sub">Lassen Sie uns gemeinsam herausfinden, was Ihre Marke wirklich ausmacht.</p>
+          <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Erstgespräch buchen</button>
+        </div>
+        <!-- Footer -->
+        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+          <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </div>
+
+      <!-- ── AI.APPLIED ── -->
+      <div class="ep-page" id="ep-ai" role="tabpanel" aria-labelledby="eptab-ai" tabindex="0">
+        <!-- Topnav – einheitlich hell -->
+        <div class="ep-topnav">
+          <div class="ep-logo" style="color:#333E48">product<span style="color:#00BEBE">.</span></div>
+          <div class="ep-nav-links" style="color:#4A6565">
+            <span>Corporate</span>
+            <span style="color:#6B8208;font-weight:700;border-bottom:2px solid #B5E61C;padding-bottom:2px">AI.Applied</span>
+            <span>Effektive Software</span>
+            <span>Wirksame Organisation</span>
+          </div>
+          <button class="btn btn-filled btn-sm" style="--c500:#6B8208;--c50:#F4FCD5">Demo anfragen</button>
+        </div>
+        <!-- Hero – heller Lime-Hintergrund -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,#F4FCD5 0%,#E6F8A0 100%)">
+          <p class="ep-hero-eyebrow" style="color:#475705">AI.Applied · Intelligenz · Automatisierung · Wirkung</p>
+          <h1 class="ep-hero-h1" style="color:#242C02">KI, die echte<br>Ergebnisse liefert.</h1>
+          <p class="ep-hero-sub" style="color:#475705">Kein Hype, keine Demo-Ware. Wir implementieren KI-Lösungen, die funktionieren – messbar, skalierbar, sicher.</p>
+          <div class="ep-hero-ctas">
+            <button class="btn btn-filled" style="--c500:#6B8208;--c50:#F4FCD5">Use Case analysieren</button>
+            <button class="btn btn-outlined" style="--c500:#6B8208;--c50:#F4FCD5">Fallstudien ansehen</button>
+          </div>
+        </div>
+        <!-- Leistungen -->
+        <div class="ep-section" style="background:#fff">
+          <div class="ep-section-label" style="color:#6B8208">Lösungen</div>
+          <h2 class="ep-section-h2" style="color:#333E48">Von der Idee zur Produktion</h2>
+          <p class="ep-section-sub" style="color:#4A6565">Wir begleiten Sie durch den gesamten KI-Lifecycle – von der Strategiefindung bis zum produktiven System.</p>
+          <div class="ep-cards">
+            <div class="ep-card" style="border-top:4px solid #B5E61C">
+              <div class="ep-card-icon" style="background:#F4FCD5"><svg viewBox="0 0 24 24" fill="#6B8208" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">LLM-Lösungen</div>
+              <div class="ep-card-text" style="color:#4A6565">GPT, Claude & Co. sicher integriert – mit RAG, Fine-Tuning und Enterprise-Guardrails.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #B5E61C">
+              <div class="ep-card-icon" style="background:#F4FCD5"><svg viewBox="0 0 24 24" fill="#6B8208" aria-hidden="true" focusable="false"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.32-1.82c.21-.16.27-.46.13-.69l-2.2-3.82c-.13-.24-.42-.32-.67-.24l-2.73 1.1c-.57-.44-1.18-.81-1.86-1.08L14 2.42C13.96 2.18 13.74 2 13.5 2h-3c-.24 0-.46.18-.49.42l-.41 2.74c-.68.27-1.29.64-1.86 1.08L5 5.14c-.25-.09-.54 0-.67.24L2.13 9.2c-.14.23-.07.53.13.69l2.32 1.82c-.04.34-.07.67-.07 1.08s.03.74.07 1.08L2.26 15.69c-.21.16-.27.46-.13.69l2.2 3.82c.13.24.42.32.67.24l2.73-1.1c.57.44 1.18.81 1.86 1.08l.41 2.74c.03.24.25.42.49.42h3c.24 0 .46-.18.49-.42l.41-2.74c.68-.27 1.29-.64 1.86-1.08l2.73 1.1c.25.09.54 0 .67-.24l2.2-3.82c.14-.23.07-.53-.13-.69L19.43 12.58z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Prozessautomatisierung</div>
+              <div class="ep-card-text" style="color:#4A6565">Repetitive Aufgaben automatisieren – mit KI-Agenten und intelligenten Workflows.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #B5E61C">
+              <div class="ep-card-icon" style="background:#F4FCD5"><svg viewBox="0 0 24 24" fill="#6B8208" aria-hidden="true" focusable="false"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3l5 3-5 3V6zm-5 9v-3l5 3-5 3v-3z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">KI-Strategie</div>
+              <div class="ep-card-text" style="color:#4A6565">Roadmap, Governance und Kompetenzaufbau – damit KI in Ihrer Organisation wirklich ankommt.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="ep-stats" style="background:#F5F7F7">
+          <div><div class="ep-stat-num" style="color:#6B8208">200+</div><div class="ep-stat-label" style="color:#4A6565">KI-Projekte</div></div>
+          <div><div class="ep-stat-num" style="color:#6B8208">40 %</div><div class="ep-stat-label" style="color:#4A6565">Ø Effizienzgewinn</div></div>
+          <div><div class="ep-stat-num" style="color:#6B8208">14</div><div class="ep-stat-label" style="color:#4A6565">Branchen</div></div>
+          <div><div class="ep-stat-num" style="color:#6B8208">3 Wo.</div><div class="ep-stat-label" style="color:#4A6565">Ø PoC bis Produktion</div></div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:#6B8208;color:#fff">
+          <h2 class="ep-cta-h2">Welchen Prozess könnten Sie automatisieren?</h2>
+          <p class="ep-cta-sub">Sagen Sie es uns – wir bringen das nötige KI-Know-how mit.</p>
+          <button class="btn btn-filled" style="--c500:#B5E61C;--c50:#F4FCD5;color:#242C02">KI-Potenzial analysieren</button>
+        </div>
+        <!-- Footer -->
+        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+          <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </div>
+
+      <!-- ── EFFEKTIVE SOFTWARE ── -->
+      <div class="ep-page" id="ep-es" role="tabpanel" aria-labelledby="eptab-es" tabindex="0">
+        <!-- Topnav -->
+        <div class="ep-topnav">
+          <div class="ep-logo" style="color:#333E48">product<span style="color:#00BEBE">.</span></div>
+          <div class="ep-nav-links" style="color:#4A6565">
+            <span>Corporate</span>
+            <span>AI.Applied</span>
+            <span style="color:#1B3D9A;font-weight:700;border-bottom:2px solid #2F5FD4;padding-bottom:2px">Effektive Software</span>
+            <span>Wirksame Organisation</span>
+          </div>
+          <button class="btn btn-filled btn-sm" style="--c500:#1B3D9A;--c50:#EAF0FB">Projekt starten</button>
+        </div>
+        <!-- Hero – heller Blau-Hintergrund -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,#EAF0FB 0%,#C8D9F5 100%)">
+          <p class="ep-hero-eyebrow" style="color:#1B3D9A">Effektive Software · Präzision · Verlässlichkeit · Qualität</p>
+          <h1 class="ep-hero-h1" style="color:#071035">Software, die hält,<br>was sie verspricht.</h1>
+          <p class="ep-hero-sub" style="color:#112568">Wir entwickeln Systeme, auf die Sie sich verlassen können – stabil, wartbar und für die Zukunft gebaut.</p>
+          <div class="ep-hero-ctas">
+            <button class="btn btn-filled" style="--c500:#1B3D9A;--c50:#EAF0FB">Technologie-Assessment</button>
+            <button class="btn btn-outlined" style="--c500:#1B3D9A;--c50:#EAF0FB">Referenzprojekte</button>
+          </div>
+        </div>
+        <!-- Leistungen -->
+        <div class="ep-section" style="background:#fff">
+          <div class="ep-section-label" style="color:#1B3D9A">Leistungen</div>
+          <h2 class="ep-section-h2" style="color:#333E48">Technologie, die funktioniert</h2>
+          <p class="ep-section-sub" style="color:#4A6565">Von der Architektur bis zum laufenden Betrieb – wir tragen Verantwortung für Ihren Tech-Stack.</p>
+          <div class="ep-cards">
+            <div class="ep-card" style="border-top:4px solid #2F5FD4">
+              <div class="ep-card-icon" style="background:#EAF0FB"><svg viewBox="0 0 24 24" fill="#1B3D9A" aria-hidden="true" focusable="false"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Software Engineering</div>
+              <div class="ep-card-text" style="color:#4A6565">Clean Code, SOLID-Prinzipien und Domain-Driven Design – für Software, die wächst ohne zu brechen.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #2F5FD4">
+              <div class="ep-card-icon" style="background:#EAF0FB"><svg viewBox="0 0 24 24" fill="#1B3D9A" aria-hidden="true" focusable="false"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">DevOps & Deployment</div>
+              <div class="ep-card-text" style="color:#4A6565">CI/CD-Pipelines, Container-Orchestrierung und automatisierte Deployments für maximale Reliabilität.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #2F5FD4">
+              <div class="ep-card-icon" style="background:#EAF0FB"><svg viewBox="0 0 24 24" fill="#1B3D9A" aria-hidden="true" focusable="false"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Qualitätssicherung</div>
+              <div class="ep-card-text" style="color:#4A6565">Automatisierte Tests, Code Reviews und Monitoring – für 99,9 % Uptime und null kritische Incidents.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="ep-stats" style="background:#F5F7F7">
+          <div><div class="ep-stat-num" style="color:#1B3D9A">500k+</div><div class="ep-stat-label" style="color:#4A6565">Codezeilen in Produktion</div></div>
+          <div><div class="ep-stat-num" style="color:#1B3D9A">99,9 %</div><div class="ep-stat-label" style="color:#4A6565">Uptime</div></div>
+          <div><div class="ep-stat-num" style="color:#1B3D9A">50+</div><div class="ep-stat-label" style="color:#4A6565">Releases pro Jahr</div></div>
+          <div><div class="ep-stat-num" style="color:#1B3D9A">0</div><div class="ep-stat-label" style="color:#4A6565">kritische Security-Vorfälle</div></div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:#1B3D9A;color:#fff">
+          <h2 class="ep-cta-h2">Ihr nächstes Software-Projekt.</h2>
+          <p class="ep-cta-sub">Wir starten mit einem ehrlichen Technologie-Assessment – ohne Verkaufsdruck.</p>
+          <button class="btn btn-filled" style="--c500:#2F5FD4;--c50:#EAF0FB">Assessment anfragen</button>
+        </div>
+        <!-- Footer -->
+        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+          <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </div>
+
+      <!-- ── WIRKSAME ORGANISATION ── -->
+      <div class="ep-page" id="ep-wo" role="tabpanel" aria-labelledby="eptab-wo" tabindex="0">
+        <!-- Topnav -->
+        <div class="ep-topnav">
+          <div class="ep-logo" style="color:#333E48">product<span style="color:#00BEBE">.</span></div>
+          <div class="ep-nav-links" style="color:#4A6565">
+            <span>Corporate</span>
+            <span>AI.Applied</span>
+            <span>Effektive Software</span>
+            <span style="color:#285E1A;font-weight:700;border-bottom:2px solid #44A030;padding-bottom:2px">Wirksame Organisation</span>
+          </div>
+          <button class="btn btn-filled btn-sm" style="--c500:#285E1A;--c50:#EBF5E6">Erstgespräch</button>
+        </div>
+        <!-- Hero – heller Grün-Hintergrund -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,#EBF5E6 0%,#CEEAC3 100%)">
+          <p class="ep-hero-eyebrow" style="color:#285E1A">Wirksame Organisation · Struktur · Wirkung · Wandel</p>
+          <h1 class="ep-hero-h1" style="color:#0A1F05">Wandel, der<br>wirklich trägt.</h1>
+          <p class="ep-hero-sub" style="color:#183A0E">Wir begleiten Unternehmen durch Veränderung – mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
+          <div class="ep-hero-ctas">
+            <button class="btn btn-filled" style="--c500:#285E1A;--c50:#EBF5E6">Transformation starten</button>
+            <button class="btn btn-outlined" style="--c500:#285E1A;--c50:#EBF5E6">Ansatz kennenlernen</button>
+          </div>
+        </div>
+        <!-- Leistungen -->
+        <div class="ep-section" style="background:#fff">
+          <div class="ep-section-label" style="color:#285E1A">Leistungen</div>
+          <h2 class="ep-section-h2" style="color:#333E48">Organisation neu denken</h2>
+          <p class="ep-section-sub" style="color:#4A6565">Wir verbinden strategische Klarheit mit menschlicher Wärme – für Transformationen, die ankommen.</p>
+          <div class="ep-cards">
+            <div class="ep-card" style="border-top:4px solid #44A030">
+              <div class="ep-card-icon" style="background:#EBF5E6"><svg viewBox="0 0 24 24" fill="#285E1A" aria-hidden="true" focusable="false"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Change Management</div>
+              <div class="ep-card-text" style="color:#4A6565">Strukturierte Transformationsbegleitung – mit klarem Fahrplan, messbaren Meilensteinen und echtem Commitment.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #44A030">
+              <div class="ep-card-icon" style="background:#EBF5E6"><svg viewBox="0 0 24 24" fill="#285E1A" aria-hidden="true" focusable="false"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Leadership Development</div>
+              <div class="ep-card-text" style="color:#4A6565">Führungskräfte stärken – mit Coaching, Workshops und Programmen, die auf Ihren Kontext zugeschnitten sind.</div>
+            </div>
+            <div class="ep-card" style="border-top:4px solid #44A030">
+              <div class="ep-card-icon" style="background:#EBF5E6"><svg viewBox="0 0 24 24" fill="#285E1A" aria-hidden="true" focusable="false"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></div>
+              <div class="ep-card-title" style="color:#333E48">Organisationsdesign</div>
+              <div class="ep-card-text" style="color:#4A6565">Strukturen, Prozesse und Rollen neu gestalten – für mehr Agilität, Klarheit und Handlungsfähigkeit.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Stats -->
+        <div class="ep-stats" style="background:#F5F7F7">
+          <div><div class="ep-stat-num" style="color:#285E1A">200+</div><div class="ep-stat-label" style="color:#4A6565">Transformationen begleitet</div></div>
+          <div><div class="ep-stat-num" style="color:#285E1A">15.000</div><div class="ep-stat-label" style="color:#4A6565">Menschen im Wandel gestärkt</div></div>
+          <div><div class="ep-stat-num" style="color:#285E1A">92 %</div><div class="ep-stat-label" style="color:#4A6565">Zielerreichung</div></div>
+          <div><div class="ep-stat-num" style="color:#285E1A">18 Mo.</div><div class="ep-stat-label" style="color:#4A6565">Ø Transformationsdauer</div></div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:#285E1A;color:#fff">
+          <h2 class="ep-cta-h2">Was steht in Ihrer Organisation an?</h2>
+          <p class="ep-cta-sub">Ein offenes Gespräch genügt – wir hören erst zu, bevor wir empfehlen.</p>
+          <button class="btn btn-filled" style="--c500:#44A030;--c50:#EBF5E6;color:#0A1F05">Erstgespräch vereinbaren</button>
+        </div>
+        <!-- Footer -->
+        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+          <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
+          <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
       </div>
     </section>
 
@@ -1304,6 +1765,17 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
   document.getElementById('skip-btn').addEventListener('click', function() {
     document.getElementById('main-content').focus();
+  });
+
+  document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      var page = document.getElementById('ep-' + btn.dataset.ep);
+      if (page) page.classList.add('visible');
+    });
   });
 })();
 </script>
