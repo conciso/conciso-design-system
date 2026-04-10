@@ -1,0 +1,80 @@
+/* ── Design Tokens ── */
+:root {
+  /* ── Corporate (Global Brand) ── */
+  --co-500:#00BEBE; --co-50:#E0F7F7; --co-100:#B3ECEC; --co-200:#80DEDE;
+  --co-300:#4DD0D0; --co-400:#26C2C2; --co-600:#009E9E; --co-700:#007575;
+  --co-800:#004F4F; --co-900:#002B2B;
+
+  /* ── AI.Applied ── */
+  --ai-500:#B5E61C; --ai-50:#F4FCD5; --ai-100:#E6F8A0; --ai-200:#D6F06D;
+  --ai-300:#C8EA42; --ai-400:#BEE82D; --ai-600:#8FAF0E; --ai-700:#6B8208;
+  --ai-800:#475705; --ai-900:#242C02;
+
+  /* ── Wirksame Organisation ── */
+  --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
+  --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
+  --wo-800:#183A0E; --wo-900:#0A1F05;
+
+  /* ── Effektive Software ── */
+  --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
+  --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
+  --es-800:#112568; --es-900:#071035;
+
+  /* ── Rosé ── */
+  --ro-500:#C23060; --ro-50:#FDEDF2; --ro-100:#F9CEDD; --ro-200:#F0A0BE;
+  --ro-300:#E06898; --ro-400:#CF4478; --ro-600:#A02050; --ro-700:#7E1639;
+  --ro-800:#560E26; --ro-900:#2E0513;
+
+  /* ── Neutrals ── */
+  --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
+  --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
+  --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
+
+  /* ── Semantic ── */
+  --c-success:#1DB87A; --c-success-bg:#E6F9F1;
+  --c-warning:#E8A020; --c-warning-bg:#FEF4E0;
+  --c-error:#E84040;   --c-error-bg:#FDEAEA;
+
+  /* ── Component color tokens (theme-overridable) ── */
+  --badge-ok-text:#0e6644; --badge-warn-text:#8a5e0a; --badge-err-text:#9b2020;
+  --badge-neu-bg:var(--n-100); --badge-neu-text:var(--n-600);
+  --cbadge-aa-bg:#E6F9F1; --cbadge-aa-text:#0a5c38;
+  --cbadge-aaa-bg:#D0F0FF; --cbadge-aaa-text:#004466;
+  --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
+
+  /* ── Surfaces & Text ── */
+  --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:var(--n-300);
+
+  /* ── Typography ── */
+  --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-display:'Libre Baskerville','Georgia',serif;
+
+  /* ── Spacing ── */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
+
+  /* ── Shape (M3: 5 Stufen) ── */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px; --r-full:9999px;
+
+  /* ── Elevation M3 (Shadow + Tonal Overlay) ── */
+  --e0:none;
+  --e1:0 1px 2px rgba(0,0,0,.30),0 1px 3px 1px rgba(0,0,0,.15);
+  --e2:0 1px 2px rgba(0,0,0,.30),0 2px 6px 2px rgba(0,0,0,.15);
+  --e3:0 1px 3px rgba(0,0,0,.30),0 4px 8px 3px rgba(0,0,0,.15);
+  --e4:0 2px 3px rgba(0,0,0,.30),0 6px 10px 4px rgba(0,0,0,.15);
+  --e5:0 4px 4px rgba(0,0,0,.30),0 8px 12px 6px rgba(0,0,0,.15);
+  /* Tonal overlay: primärfarbe auf Oberfläche aufgebracht */
+  --tonal-1:rgba(0,190,190,.05); --tonal-2:rgba(0,190,190,.08);
+  --tonal-3:rgba(0,190,190,.11); --tonal-4:rgba(0,190,190,.12);
+  --tonal-5:rgba(0,190,190,.14);
+
+  /* ── Motion ── */
+  --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
+
+  /* ── Borders ── */
+  --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
+
+  /* ── Focus ── */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
+}

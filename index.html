@@ -4,499 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design System – Ruhige Energie</title>
-<style>
-@font-face { font-family:'Montserrat'; font-style:normal; font-weight:300 700; font-display:swap; src:local('Montserrat'),local('Montserrat-Regular'); }
-@font-face { font-family:'Libre Baskerville'; font-style:normal; font-weight:400 700; font-display:swap; src:local('Libre Baskerville'),local('LibreBaskerville-Regular'); }
-:root {
-  /* ── Corporate (Global Brand) ── */
-  --co-500:#00BEBE; --co-50:#E0F7F7; --co-100:#B3ECEC; --co-200:#80DEDE;
-  --co-300:#4DD0D0; --co-400:#26C2C2; --co-600:#009E9E; --co-700:#007575;
-  --co-800:#004F4F; --co-900:#002B2B;
-
-  /* ── AI.Applied ── */
-  --ai-500:#B5E61C; --ai-50:#F4FCD5; --ai-100:#E6F8A0; --ai-200:#D6F06D;
-  --ai-300:#C8EA42; --ai-400:#BEE82D; --ai-600:#8FAF0E; --ai-700:#6B8208;
-  --ai-800:#475705; --ai-900:#242C02;
-
-  /* ── Wirksame Organisation ── */
-  --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
-  --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
-  --wo-800:#183A0E; --wo-900:#0A1F05;
-
-  /* ── Effektive Software ── */
-  --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
-  --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
-  --es-800:#112568; --es-900:#071035;
-
-  /* ── Rosé ── */
-  --ro-500:#C23060; --ro-50:#FDEDF2; --ro-100:#F9CEDD; --ro-200:#F0A0BE;
-  --ro-300:#E06898; --ro-400:#CF4478; --ro-600:#A02050; --ro-700:#7E1639;
-  --ro-800:#560E26; --ro-900:#2E0513;
-
-  /* ── Neutrals ── */
-  --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
-  --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
-  --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
-
-  /* ── Semantic ── */
-  --c-success:#1DB87A; --c-success-bg:#E6F9F1;
-  --c-warning:#E8A020; --c-warning-bg:#FEF4E0;
-  --c-error:#E84040;   --c-error-bg:#FDEAEA;
-
-  /* ── Component color tokens (theme-overridable) ── */
-  --badge-ok-text:#0e6644; --badge-warn-text:#8a5e0a; --badge-err-text:#9b2020;
-  --badge-neu-bg:var(--n-100); --badge-neu-text:var(--n-600);
-  --cbadge-aa-bg:#E6F9F1; --cbadge-aa-text:#0a5c38;
-  --cbadge-aaa-bg:#D0F0FF; --cbadge-aaa-text:#004466;
-  --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
-
-  /* ── Surfaces & Text ── */
-  --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
-  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:var(--n-300);
-
-  /* ── Typography ── */
-  --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
-  --font-display:'Libre Baskerville','Georgia',serif;
-
-  /* ── Spacing ── */
-  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
-
-  /* ── Shape (M3: 5 Stufen) ── */
-  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px; --r-full:9999px;
-
-  /* ── Elevation M3 (Shadow + Tonal Overlay) ── */
-  --e0:none;
-  --e1:0 1px 2px rgba(0,0,0,.30),0 1px 3px 1px rgba(0,0,0,.15);
-  --e2:0 1px 2px rgba(0,0,0,.30),0 2px 6px 2px rgba(0,0,0,.15);
-  --e3:0 1px 3px rgba(0,0,0,.30),0 4px 8px 3px rgba(0,0,0,.15);
-  --e4:0 2px 3px rgba(0,0,0,.30),0 6px 10px 4px rgba(0,0,0,.15);
-  --e5:0 4px 4px rgba(0,0,0,.30),0 8px 12px 6px rgba(0,0,0,.15);
-  /* Tonal overlay: primärfarbe auf Oberfläche aufgebracht */
-  --tonal-1:rgba(0,190,190,.05); --tonal-2:rgba(0,190,190,.08);
-  --tonal-3:rgba(0,190,190,.11); --tonal-4:rgba(0,190,190,.12);
-  --tonal-5:rgba(0,190,190,.14);
-
-  /* ── Motion ── */
-  --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
-
-  /* ── Borders ── */
-  --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
-
-  /* ── Focus ── */
-  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
-}
-/* ════════════════════════════════════════════
-   DARK MODE
-   ════════════════════════════════════════════ */
-[data-theme="dark"] {
-  /* Surfaces */
-  --bg-page:#0A1515; --bg-surface:#112020; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
-  /* Text */
-  --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#8AAFAF; --tx-muted:#547070;
-  /* Neutrals (only lowest, used as bg/border) */
-  --n-50:#0A1515; --n-100:#1C2E2E;
-  /* Borders */
-  --bd:1px solid #1E3030; --bd-strong:1px solid #2B4040;
-  /* Focus – inner ring = surface color for "cutout" effect */
-  --focus-ring:0 0 0 3px #112020,0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px #112020,0 0 0 4px var(--co-500);
-  /* Elevation – heavier shadows on dark */
-  --e1:0 1px 2px rgba(0,0,0,.60),0 1px 3px 1px rgba(0,0,0,.40);
-  --e2:0 1px 2px rgba(0,0,0,.60),0 2px 6px 2px rgba(0,0,0,.40);
-  --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
-  --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
-  --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
-  /* Semantic backgrounds – darkened */
-  --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
-  /* Brand tints – very dark for dark surfaces */
-  --co-50:#071616; --ai-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
-  /* Badge text – lighter for dark backgrounds */
-  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
-  --badge-neu-bg:#1E3030; --badge-neu-text:#C4D8D8;
-  /* Contrast badge (dark) */
-  --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
-  --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
-  --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
-}
-/* Dark: targeted component fixes that can't be token-driven */
-[data-theme="dark"] .chip { border-color:#2B4040 }
-[data-theme="dark"] .ai-warning { color:var(--ai-300) }
-[data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
-[data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
-[data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
-/* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
-/* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
-[data-theme="dark"] .btn-tonal {
-  background: color-mix(in srgb, var(--c50) 25%, var(--bg-surface));
-  color: color-mix(in srgb, var(--c500) 40%, white);
-}
-[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 40%, white) }
-[data-theme="dark"] .btn-outlined {
-  color: color-mix(in srgb, var(--c500) 40%, white);
-  border-color: color-mix(in srgb, var(--c500) 40%, white);
-}
-[data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
-[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 40%, white) }
-[data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
-
-/* ════════════════════════════════════════════
-   DARK MODE: Beispielseiten
-   ════════════════════════════════════════════ */
-/* Shared structural overrides */
-[data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
-[data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
-[data-theme="dark"] .ep-section { background: var(--bg-page) !important }
-[data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
-[data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
-[data-theme="dark"] .ep-card { background: var(--bg-surface) !important; box-shadow: var(--e2) }
-[data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
-[data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
-[data-theme="dark"] .ep-card-icon { filter: brightness(.75) saturate(1.3) }
-[data-theme="dark"] .ep-stats { background: var(--bg-surface) !important }
-[data-theme="dark"] .ep-stat-label { color: var(--tx-secondary) !important }
-
-/* Landing: hero already dark – no change needed */
-
-/* Corporate: light teal → dark teal */
-[data-theme="dark"] #ep-co .ep-hero {
-  background: linear-gradient(140deg,#071616 0%,#0A2E2E 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-eyebrow { color: var(--co-300) !important }
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-sub { color: var(--tx-secondary) !important }
-
-/* AI.Applied: light lime → dark lime (original dark style) */
-[data-theme="dark"] #ep-ai .ep-hero {
-  background: linear-gradient(140deg,#0A0F00 0%,#1C2800 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ai-400) !important }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-h1 { color: #F4FCD5 !important }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ai-300) !important }
-
-/* Effektive Software: light blue → dark blue */
-[data-theme="dark"] #ep-es .ep-hero {
-  background: linear-gradient(140deg,#071035 0%,#0D1A50 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-eyebrow { color: var(--es-300) !important }
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-sub { color: var(--es-200) !important }
-
-/* Wirksame Organisation: light green → dark green */
-[data-theme="dark"] #ep-wo .ep-hero {
-  background: linear-gradient(140deg,#0A1F05 0%,#152D0A 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-eyebrow { color: var(--wo-300) !important }
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-sub { color: var(--wo-200) !important }
-
-
-/* ════════════════════════════════════════════
-   SYSTEM HIGH CONTRAST (Windows / OS level)
-   @media (forced-colors: active)
-   ════════════════════════════════════════════ */
-@media (forced-colors: active) {
-  /* box-shadow is suppressed by OS – replace focus rings with outline */
-  :focus-visible {
-    outline: 3px solid Highlight !important;
-    outline-offset: 2px !important;
-    box-shadow: none !important;
-  }
-  /* Custom button backgrounds need explicit forced-color mapping */
-  .btn-filled {
-    forced-color-adjust: none;
-    background: ButtonText;
-    color: ButtonFace;
-    border: 2px solid ButtonText;
-  }
-  .btn-tonal,
-  .btn-elevated,
-  .btn-text,
-  .btn-outlined {
-    color: ButtonText;
-    border-color: ButtonText;
-    background: ButtonFace;
-    box-shadow: none;
-  }
-  /* Restore borders that forced-colors removes */
-  .chip { border: 2px solid ButtonText }
-  .card,
-  .card-elevated,
-  .card-filled,
-  .card-outlined { border: 2px solid CanvasText }
-  .badge { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText }
-  /* Active states */
-  .nav-item.active { border-left-color: Highlight; color: Highlight }
-  .atab.active { border-bottom-color: Highlight; color: Highlight }
-  .tbtn.active { forced-color-adjust: none; background: Highlight; color: HighlightText }
-  /* Links in footer */
-  .footer-link,
-  .footer-btm-link { color: LinkText }
-  /* Skip link */
-  .skip-link { background: Highlight; color: HighlightText; border: 2px solid ButtonText }
-  /* Form inputs */
-  .field input,
-  .field select,
-  .field textarea { border: 2px solid ButtonText; color: CanvasText; background: Canvas }
-  /* Code blocks */
-  .code-block { border: 1px solid CanvasText }
-}
-
-/* ── Reset ── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
-
-/* ── Skip link ── */
-.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:14px;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
-.skip-link:focus{top:var(--s4)}
-
-/* ── Layout ── */
-.ds-page{display:flex;min-height:100vh}
-.ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto}
-.ds-content{flex:1;padding:var(--s10) var(--s8);max-width:960px}
-
-/* ── Sidebar ── */
-.nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5)}
-.nav-logo-text{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--co-500)}
-.nav-section{padding:var(--s3) var(--s6) var(--s1);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
-.nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font-size:14px;color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--font)}
-.nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
-.nav-icon{width:16px;height:16px;flex-shrink:0;opacity:.7;fill:currentColor}
-.nav-item.active .nav-icon{opacity:1}
-.area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
-
-/* ── Sections ── */
-.ds-section{display:none}
-.ds-section.visible{display:block}
-.sec-title{font-size:28px;font-weight:700;font-family:var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)}
-.sec-sub{font-size:16px;color:var(--tx-secondary);margin-bottom:var(--s8);line-height:1.6}
-.group-title{font-size:18px;font-weight:600;color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
-.lbl{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
-.row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
-.token{font-family:'Courier New',monospace;font-size:12px;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
-
-/* ── Theme switcher ── */
-.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
-.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
-.tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.tbtn.active{background:var(--co-500);color:#fff}
-
-/* ── Color palettes ── */
-.pal-group{margin-bottom:var(--s8)}
-.pal-label{font-size:14px;font-weight:600;color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
-.pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
-.swatch span{font-size:9px;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
-.ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ai-50);border-radius:var(--r-md);font-size:12px;color:var(--ai-800);border:1px solid var(--ai-200)}
-.pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:12px;color:#5a3e00;border:1px solid #e8d080}
-
-/* ── Area cards ── */
-.areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
-.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
-.area-header{padding:var(--s5) var(--s6);color:#fff}
-.area-header h3{font-size:16px;font-weight:700;font-family:var(--font-display);margin-bottom:4px}
-.area-header p{font-size:12px;opacity:.85}
-.area-body{padding:var(--s4) var(--s6);background:var(--bg-surface);flex:1}
-.area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
-.area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
-.area-meta{font-size:12px;color:var(--tx-secondary);line-height:1.8}
-.area-meta code{font-size:11px;font-family:'Courier New',monospace}
-
-/* ── Buttons ── */
-.btn{display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px}
-.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
-.btn:active{transform:scale(.97)}
-.btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
-.btn-sm{padding:6px 16px;font-size:12px;min-height:36px}
-.btn-lg{padding:14px 32px;font-size:16px;min-height:52px}
-.btn-filled{background:var(--c500);color:#fff;box-shadow:var(--e1)}
-.btn-filled:hover{filter:brightness(.92);box-shadow:var(--e2)}
-.btn-tonal{background:var(--c50);color:var(--c500)}
-.btn-tonal:hover{filter:brightness(.96);box-shadow:var(--e1)}
-.btn-elevated{background:var(--bg-surface);color:var(--c500);box-shadow:var(--e1)}
-.btn-elevated:hover{box-shadow:var(--e2)}
-.btn-outlined{background:transparent;color:var(--c500);border:2px solid var(--c500)}
-.btn-outlined:hover{background:var(--c50)}
-.btn-text{background:transparent;color:var(--c500);padding:10px 12px}
-.btn-text:hover{background:var(--c50)}
-
-/* ── Badges & Chips ── */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:700;letter-spacing:.04em}
-.badge-ok{background:var(--c-success-bg);color:var(--badge-ok-text)}
-.badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
-.badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
-.badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;border-radius:var(--r-sm);font-size:14px;font-weight:500;border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;font-family:var(--font);transition:background var(--m-fast),border-color var(--m-fast)}
-.chip:hover{background:var(--bg-overlay)}
-.chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-
-/* ── Area Tabs ── */
-.area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
-.atab{padding:var(--s2) var(--s4);font-size:14px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--tx-secondary);transition:color var(--m-fast),border-color var(--m-fast);min-height:40px;display:flex;align-items:center;gap:var(--s2);background:none;border-top:none;border-left:none;border-right:none;font-family:var(--font)}
-.atab:hover{color:var(--tx-primary)}
-.atab:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.atab.active{color:var(--atab-color);border-bottom-color:var(--atab-color)}
-.atab-content{display:none}
-.atab-content.visible{display:block}
-
-/* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-md);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
-/* M3 Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:color-mix(in srgb,var(--co-500) 5%,var(--bg-surface))}
-.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
-.card-filled{background:var(--co-50);border:none}
-.card-outlined{border:var(--bd-strong)}
-
-.card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
-.card-body{padding:var(--s5)}
-.card-eyebrow{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
-.card-title{font-size:18px;font-weight:600;font-family:var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)}
-.card-text{font-size:14px;color:var(--tx-secondary);line-height:1.6}
-.card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
-
-/* ── Forms ── */
-.field{margin-bottom:var(--s6)}
-.field label{display:flex;align-items:center;gap:var(--s2);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
-.req{color:var(--c-error);font-size:14px}
-.field input,.field textarea,.field select{width:100%;padding:12px var(--s4);font-family:var(--font);font-size:16px;color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:0 0 0 3px var(--co-50)}
-.field.has-error input{border-color:var(--c-error)}
-.helper{font-size:12px;color:var(--tx-muted);margin-top:var(--s1)}
-.error-msg{font-size:12px;color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:4px;font-weight:600}
-
-/* ── Typography specimens ── */
-.type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
-.type-row:last-child{border-bottom:none}
-.type-meta{width:200px;flex-shrink:0}
-.type-name{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
-.type-spec{font-size:11px;color:var(--tx-muted);margin-top:2px}
-.type-sample{flex:1;color:var(--tx-primary)}
-
-/* ── Spacing ── */
-.sp-item{display:flex;align-items:center;gap:var(--s4);padding:var(--s2) 0}
-.sp-bar{height:20px;background:var(--co-50);border:1px solid var(--co-500);border-radius:2px;flex-shrink:0}
-
-/* ── Elevation ── */
-.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:150px;text-align:center;font-size:14px;color:var(--tx-secondary)}
-.el-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
-
-/* ── Nav demo ── */
-.nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
-.nav-bar{display:flex;align-items:center;padding:0 var(--s8);height:64px;border-bottom:var(--bd);gap:var(--s8)}
-.logo-text{font-size:18px;font-weight:700;font-family:var(--font-display);letter-spacing:.03em;flex-shrink:0}
-.nav-links{display:flex;gap:var(--s2);flex:1}
-.nav-link{padding:var(--s2) var(--s3);border-radius:var(--r-md);font-size:14px;font-weight:500;color:var(--tx-secondary);cursor:pointer;min-height:36px;display:flex;align-items:center;white-space:nowrap;background:none;border:none;font-family:var(--font);transition:background var(--m-fast),color var(--m-fast)}
-.nav-link:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.hero-section{padding:var(--s16) var(--s8) var(--s12);text-align:center}
-.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--s4);display:block}
-.hero-h1{font-size:40px;font-weight:700;font-family:var(--font-display);line-height:1.15;color:var(--tx-primary);margin-bottom:var(--s4)}
-.hero-sub{font-size:16px;color:var(--tx-secondary);max-width:480px;margin:0 auto var(--s8);line-height:1.6}
-.hero-actions{display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap}
-
-/* ── Snackbar ── */
-.snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font-size:14px;max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
-.snack-def{background:var(--n-700);color:var(--n-0)}
-.snack-ok{background:#0d5e39;color:#d6f5e8}
-.snack-err{background:#7a1515;color:#fde8e8}
-.snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
-
-/* ── Footer ── */
-.footer{background:var(--n-700);color:var(--n-200);border-radius:var(--r-lg);padding:var(--s10) var(--s8) var(--s6)}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)}
-.footer-brand{font-size:20px;font-weight:700;font-family:var(--font-display);margin-bottom:var(--s3)}
-.footer-desc{font-size:14px;color:var(--n-300);line-height:1.6;margin:0}
-/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
-.footer-htitle{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-300);margin:0 0 var(--s4) 0}
-.footer-nav-list{list-style:none;padding:0;margin:0}
-/* --n-200 (#C9D3D3) auf --n-700 (#1A2E2E) ≈ 12:1 AAA ✓ */
-.footer-link{display:block;font-size:14px;color:var(--n-200);margin-bottom:var(--s2);text-decoration:none}
-.footer-link:hover{color:var(--n-0);text-decoration:underline}
-.footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
-/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
-.footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--n-300);flex-wrap:wrap;gap:var(--s2)}
-.footer-btm-link{color:var(--n-300);text-decoration:none}
-.footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
-.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
-
-/* ── A11y ── */
-.a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
-.a11y-card h3{font-size:16px;font-weight:700;margin-bottom:var(--s2)}
-.a11y-card p{font-size:14px;color:var(--tx-secondary);line-height:1.6;margin-bottom:var(--s3)}
-.a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
-.a11y-grid .a11y-card{margin-bottom:0}
-.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:'Courier New',monospace;font-size:12px;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
-.a11y-table{width:100%;border-collapse:collapse;font-size:13px;margin:var(--s3) 0}
-.a11y-table th{text-align:left;padding:var(--s2) var(--s3);background:var(--n-50);border-bottom:2px solid var(--n-200);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
-.a11y-table td{padding:var(--s2) var(--s3);border-bottom:var(--bd);vertical-align:top;line-height:1.5}
-.a11y-table tr:last-child td{border-bottom:none}
-.a11y-rule{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3) 0;border-bottom:var(--bd)}
-.a11y-rule:last-child{border-bottom:none}
-.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
-.a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
-.a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
-.code-block{background:var(--bg-code);color:#a8d8ae;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
-.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
-.contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
-.contrast-row:last-child{border-bottom:none}
-.cswatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-.cinfo{flex:1;min-width:160px}
-.cname{font-size:14px;font-weight:600}
-.cratio{font-size:13px;color:var(--tx-secondary);font-family:'Courier New',monospace}
-.cbadge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:var(--r-full);font-size:11px;font-weight:700}
-.c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
-.c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}
-.c-fail-badge{background:var(--cbadge-fail-bg);color:var(--cbadge-fail-text)}
-
-/* ── Grid ── */
-.grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
-.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
-.gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font-size:11px;font-weight:700;color:var(--co-700);text-align:center}
-
-/* ── Token ── */
-.token-section{margin-bottom:var(--s8)}
-.token-section h3{font-size:15px;font-weight:700;margin-bottom:var(--s3)}
-.ico-48{width:48px;height:48px}
-
-/* ── Example Pages ── */
-.ep-tabs{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s6)}
-.ep-tab{padding:6px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font-size:13px;font-weight:600;cursor:pointer;background:none;font-family:var(--font);color:var(--tx-secondary);transition:all var(--m-fast)}
-.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
-.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500)}
-.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd)}
-.ep-page.visible{display:block}
-.ep-topnav{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:1px solid var(--n-100);gap:var(--s4);flex-wrap:wrap}
-.ep-logo{font-family:var(--font-display);font-size:18px;font-weight:700;flex-shrink:0}
-.ep-nav-links{display:flex;gap:var(--s5);font-size:13px;font-weight:500}
-.ep-hero{padding:80px var(--s8) 72px}
-.ep-hero-eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3);font-weight:600}
-.ep-hero-h1{font-family:var(--font-display);font-size:clamp(28px,3.5vw,46px);line-height:1.15;font-weight:700;margin-bottom:var(--s4);max-width:680px}
-.ep-hero-sub{font-size:16px;line-height:1.7;opacity:.85;margin-bottom:var(--s8);max-width:520px}
-.ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
-.ep-section{padding:var(--s12) var(--s8)}
-.ep-section-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:var(--s2)}
-.ep-section-h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:var(--s2)}
-.ep-section-sub{font-size:14px;line-height:1.7;margin-bottom:var(--s8);max-width:540px}
-.ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
-.ep-card{border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
-.ep-card-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
-.ep-card-icon svg{width:22px;height:22px}
-.ep-card-title{font-size:14px;font-weight:700;margin-bottom:var(--s2)}
-.ep-card-text{font-size:13px;line-height:1.6}
-.ep-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s6);padding:var(--s10) var(--s8);text-align:center}
-.ep-stat-num{font-family:var(--font-display);font-size:36px;font-weight:700;margin-bottom:var(--s1)}
-.ep-stat-label{font-size:12px;line-height:1.4}
-.ep-cta-band{padding:var(--s12) var(--s8);text-align:center}
-.ep-cta-h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:var(--s2)}
-.ep-cta-sub{font-size:14px;line-height:1.7;opacity:.85;margin-bottom:var(--s6)}
-.ep-page-footer{padding:var(--s5) var(--s8);font-size:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s2)}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/dark-mode.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<script src="js/main.js" defer></script>
 </head>
 <body>
 
@@ -736,6 +251,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <section class="ds-section visible" id="sec-colors">
       <h1 class="sec-title">Color System</h1>
       <p class="sec-sub">M3 Color System · Vier Bereichspaletten mit Tonal-Skala (50–900) + Text Brand.</p>
+      <p class="sec-sub" style="margin-top:var(--s2);font-size:12px;color:var(--tx-secondary)">Kontrast-Schwellen (auf Weiß): <span style="display:inline-block;background:#c3f0e8;color:#0a4a38;border-radius:3px;padding:1px 6px;font-weight:700;font-size:11px">AA</span> ≥ 4,5:1 — Fließtext &nbsp;·&nbsp; <span style="display:inline-block;background:#dbeeff;color:#1a3a6b;border-radius:3px;padding:1px 6px;font-weight:700;font-size:11px">AA Large</span> ≥ 3,0:1 — großer Text (≥ 24 px) &amp; UI-Komponenten &nbsp;·&nbsp; <span style="display:inline-block;background:#e8d0ff;color:#3a1070;border-radius:3px;padding:1px 6px;font-weight:700;font-size:11px">AAA</span> ≥ 7,0:1 — erhöhte Barrierefreiheit</p>
 
       <div class="pal-group">
         <div class="pal-label"><span class="area-dot" style="background:#00BEBE"></span>Corporate — #00BEBE · Text: #007575</div>
@@ -751,7 +267,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#004F4F"><span style="color:#fff">800</span></div>
           <div class="swatch" style="background:#002B2B"><span style="color:#fff">900</span></div>
         </div>
-        <div class="pal-note">⚠ 400–600 (#26C2C2–#009E9E) haben nur 2.2:1–3.3:1 Kontrast — nicht für Buttons mit weißer Schrift geeignet · Für weiße Schrift mind. 700 (#007575, 5.5:1 AA ✓) verwenden · 500 (#00BEBE) ausschließlich als Akzentfläche</div>
+        <div class="pal-note">⚠ 400–500 (#26C2C2–#00BEBE, 2.2:1–2.3:1) — weiße Schrift nicht zulässig · 600 (#009E9E, 3.3:1) — weiße Schrift nur bei großem Text (≥ 24 px regular oder ≥ 19 px fett), nicht für normale Button-Labels · Für Fließtext und Standard-Buttons mind. 700 (#007575, 5.5:1 AA ✓) · 500 ausschließlich als Akzentfläche</div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> ab Stufe 700 (5.5:1) &nbsp;·&nbsp; <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 600 (3.3:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 800 (9.4:1)</div>
       </div>
 
       <div class="pal-group">
@@ -769,6 +286,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#242C02"><span style="color:#fff">900</span></div>
         </div>
         <div class="ai-warning">⚠ 500 (#B5E61C) nur als Akzent-/Hintergrundfläche · 700 (#6B8208) unterschreitet mit 4.4:1 knapp AA — für Text mind. 800 (#475705, 8.1:1 AAA ✓) verwenden</div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> + <span class="thr-badge thr-aaa">AAA</span> ab Stufe 800 (8.0:1) &nbsp;·&nbsp; <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 700 (4.4:1)</div>
       </div>
 
       <div class="pal-group">
@@ -786,6 +304,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#071035"><span style="color:#fff">900</span></div>
         </div>
         <div class="pal-note">⚠ 300–400 (#6593E5 / #4677DC) haben mit weißer Schrift nur 3.1:1 / 4.3:1 — für Buttons mit weißer Schrift mind. 500 (#2F5FD4, 5.7:1 AA ✓) verwenden</div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> ab Stufe 500 (5.7:1) &nbsp;·&nbsp; <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 300 (3.1:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 600 (7.9:1)</div>
       </div>
 
       <div class="pal-group">
@@ -802,7 +321,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#183A0E"><span style="color:#fff">800</span></div>
           <div class="swatch" style="background:#0A1F05"><span style="color:#fff">900</span></div>
         </div>
-        <div class="pal-note">⚠ 400–500 (#55AD3F / #44A030) haben mit weißer Schrift nur 2.8:1 / 3.5:1 — Buttons mit weißer Schrift mind. 600 (#347A22, 5.3:1 AA ✓) verwenden</div>
+        <div class="pal-note">⚠ 400–500 (#55AD3F / #44A030) haben mit weißer Schrift nur 2.8:1 / 3.3:1 — Buttons mit weißer Schrift mind. 600 (#347A22, 5.3:1 AA ✓) verwenden</div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> ab Stufe 600 (5.3:1) &nbsp;·&nbsp; <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 500 (3.3:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 700 (7.8:1)</div>
       </div>
 
       <div class="pal-group">
@@ -820,14 +340,15 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#2E0513"><span style="color:#fff">900</span></div>
         </div>
         <div class="pal-note">⚠ 300–400 (#E06898 / #CF4478) haben mit weißer Schrift nur 3.2:1 / 4.4:1 — für Buttons mit weißer Schrift mind. 500 (#C23060, 5.3:1 AA ✓) verwenden</div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> ab Stufe 500 (5.4:1) &nbsp;·&nbsp; <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 300 (3.2:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 600 (7.5:1)</div>
       </div>
 
       <div class="pal-group">
         <div class="pal-label">Text Brand — #333E48★</div>
         <div class="pal-row">
-          <div class="swatch" style="background:#F1F3F5"><span style="color:var(--tx-brand)">50</span></div>
-          <div class="swatch" style="background:#DDE1E6"><span style="color:var(--tx-brand)">100</span></div>
-          <div class="swatch" style="background:#B9C2CB"><span style="color:var(--tx-brand)">200</span></div>
+          <div class="swatch" style="background:#F1F3F5"><span style="color:#333E48">50</span></div>
+          <div class="swatch" style="background:#DDE1E6"><span style="color:#333E48">100</span></div>
+          <div class="swatch" style="background:#B9C2CB"><span style="color:#333E48">200</span></div>
           <div class="swatch" style="background:#8C9BAA"><span style="color:#fff">300</span></div>
           <div class="swatch" style="background:#607585"><span style="color:#fff">400</span></div>
           <div class="swatch" style="background:#485A6B"><span style="color:#fff">500</span></div>
@@ -836,6 +357,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
           <div class="swatch" style="background:#1D2730"><span style="color:#fff">800</span></div>
           <div class="swatch" style="background:#0D1318"><span style="color:#fff">900</span></div>
         </div>
+        <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> + <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 400 (4.8:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 500 (7.1:1)</div>
       </div>
 
     </section>
@@ -845,8 +367,10 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       <h1 class="sec-title">Typography</h1>
       <p class="sec-sub">M3 Type Scale · 15 Tokens in 5 Kategorien · Libre Baskerville (Display/Headline) · Montserrat (Title/Body/Label).</p>
       <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s6);margin-bottom:var(--s6)">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx-muted);margin-bottom:var(--s4)">Pairing-Vorschau</div>
-        <div style="font:700 45px/52px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Gelassenheit trifft Präzision.</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx-muted);margin-bottom:var(--s5)">Pairing-Vorschau</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-muted);margin-bottom:var(--s1)">Libre Baskerville · Display Medium · 400</div>
+        <div style="font:400 45px/52px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s4)">Gelassenheit trifft Präzision.</div>
+        <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--tx-muted);margin-bottom:var(--s1)">Montserrat · Body Large · 400</div>
         <div style="font:400 16px/24px var(--font);color:var(--tx-secondary)">Libre Baskerville setzt die Akzente, Montserrat trägt den Fließtext – robuste Serifen, optimiert für Bildschirmlesbarkeit.</div>
       </div>
 
@@ -1356,7 +880,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#44A030;color:#0A1F05">Aa</div>
-        <div class="cinfo"><div class="cname">Wirksame Organisation 500 #44A030</div><div class="cratio">3.5:1 auf Weiß — nur Large Text / UI-Komponenten · weiße Schrift: 3.5:1 ✗ → mind. 600 verwenden</div></div>
+        <div class="cinfo"><div class="cname">Wirksame Organisation 500 #44A030</div><div class="cratio">3.3:1 auf Weiß — nur Large Text / UI-Komponenten · weiße Schrift: 3.3:1 ✗ → mind. 600 verwenden</div></div>
         <span class="cbadge c-aa">AA Large ✓</span>
       </div>
 
@@ -1956,61 +1480,5 @@ document.documentElement
   </main>
 </div>
 
-<script>
-(function() {
-  document.querySelectorAll('.nav-item[data-section]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.ds-section').forEach(function(s) { s.classList.remove('visible'); });
-      document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
-      var sec = document.getElementById('sec-' + btn.dataset.section);
-      if (sec) sec.classList.add('visible');
-      btn.classList.add('active');
-    });
-  });
-
-  document.querySelectorAll('.tbtn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var t = btn.id.replace('tb-', '');
-      document.documentElement.removeAttribute('data-theme');
-      if (t !== 'light') document.documentElement.setAttribute('data-theme', t);
-      document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
-    });
-  });
-
-  document.querySelectorAll('.atab[data-area]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.atab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      document.querySelectorAll('.atab-content').forEach(function(c) { c.classList.remove('visible'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      var panel = document.getElementById('at-' + btn.dataset.area);
-      if (panel) panel.classList.add('visible');
-    });
-  });
-
-  document.querySelectorAll('.chip').forEach(function(chip) {
-    chip.addEventListener('click', function() {
-      chip.classList.toggle('sel');
-    });
-  });
-
-  document.getElementById('skip-btn').addEventListener('click', function() {
-    document.getElementById('main-content').focus();
-  });
-
-  document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      var page = document.getElementById('ep-' + btn.dataset.ep);
-      if (page) page.classList.add('visible');
-    });
-  });
-})();
-</script>
 </body>
 </html>

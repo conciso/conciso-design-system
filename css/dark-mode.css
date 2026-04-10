@@ -1,0 +1,117 @@
+/* ── Dark Mode & Theme Overrides ── */
+
+/* ════════════════════════════════════════════
+   DARK MODE
+   ════════════════════════════════════════════ */
+[data-theme="dark"] {
+  /* Surfaces */
+  --bg-page:#333E48; --bg-surface:#3F4B56; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
+  /* Text */
+  --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#8AAFAF; --tx-muted:#7A9E9E;
+  /* Neutrals (only lowest, used as bg/border) */
+  --n-50:#0A1515; --n-100:#1C2E2E;
+  /* Borders */
+  --bd:1px solid #818C99; --bd-strong:1px solid #9DA8B6;
+  /* Focus – inner ring = bg-page color for "cutout" effect */
+  --focus-ring:0 0 0 3px #333E48,0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px #333E48,0 0 0 4px var(--co-500);
+  /* Elevation – heavier shadows on dark */
+  --e1:0 1px 2px rgba(0,0,0,.60),0 1px 3px 1px rgba(0,0,0,.40);
+  --e2:0 1px 2px rgba(0,0,0,.60),0 2px 6px 2px rgba(0,0,0,.40);
+  --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
+  --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
+  --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
+  /* Semantic backgrounds – darkened */
+  --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
+  /* Brand tints – very dark for dark surfaces */
+  --co-50:#071616; --ai-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
+  /* Badge text – lighter for dark backgrounds */
+  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
+  --badge-neu-bg:#445060; --badge-neu-text:#C4D8D8;
+  /* Contrast badge (dark) */
+  --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
+  --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
+  --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
+}
+/* Dark: targeted component fixes that can't be token-driven */
+[data-theme="dark"] .chip { border-color:#818C99 }
+[data-theme="dark"] .ai-warning { color:var(--ai-300) }
+[data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
+[data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
+[data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
+[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
+[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
+/* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
+/* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
+[data-theme="dark"] .btn-tonal {
+  background: color-mix(in srgb, var(--c50) 25%, var(--bg-surface));
+  color: color-mix(in srgb, var(--c500) 40%, white);
+}
+[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-outlined {
+  color: color-mix(in srgb, var(--c500) 40%, white);
+  border-color: color-mix(in srgb, var(--c500) 40%, white);
+}
+[data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+
+/* ════════════════════════════════════════════
+   DARK MODE: Beispielseiten
+   ════════════════════════════════════════════ */
+/* Shared structural overrides */
+[data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-section { background: var(--bg-page) !important }
+[data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-card { background: var(--bg-surface) !important; box-shadow: var(--e2) }
+[data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
+[data-theme="dark"] .ep-card-icon { filter: brightness(.75) saturate(1.3) }
+[data-theme="dark"] .ep-stats { background: var(--bg-surface) !important }
+[data-theme="dark"] .ep-stat-label { color: var(--tx-secondary) !important }
+
+/* Landing: hero already dark – no change needed */
+
+/* Corporate: light teal → dark teal */
+[data-theme="dark"] #ep-co .ep-hero {
+  background: linear-gradient(140deg,#071616 0%,#0A2E2E 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-eyebrow { color: var(--co-300) !important }
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-co .ep-hero .ep-hero-sub { color: var(--tx-secondary) !important }
+
+/* AI.Applied: light lime → dark lime (original dark style) */
+[data-theme="dark"] #ep-ai .ep-hero {
+  background: linear-gradient(140deg,#0A0F00 0%,#1C2800 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ai-400) !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-h1 { color: #F4FCD5 !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ai-300) !important }
+
+/* Effektive Software: light blue → dark blue */
+[data-theme="dark"] #ep-es .ep-hero {
+  background: linear-gradient(140deg,#071035 0%,#0D1A50 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-eyebrow { color: var(--es-300) !important }
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-es .ep-hero .ep-hero-sub { color: var(--es-200) !important }
+
+/* Wirksame Organisation: light green → dark green */
+[data-theme="dark"] #ep-wo .ep-hero {
+  background: linear-gradient(140deg,#0A1F05 0%,#152D0A 100%) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-eyebrow { color: var(--wo-300) !important }
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
+[data-theme="dark"] #ep-wo .ep-hero .ep-hero-sub { color: var(--wo-200) !important }
+
+/* ── Palette threshold badges (dark) ── */
+[data-theme="dark"] .pal-thresholds{background:#0d1f3a;color:#90bcf0;border-color:#1e3f6b}
+[data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}
+[data-theme="dark"] .thr-aa{background:#0a3028;color:#80e8c8}
+[data-theme="dark"] .thr-aaa{background:#2a1050;color:#c890ff}
