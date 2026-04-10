@@ -428,6 +428,18 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
 .a11y-card h3{font-size:16px;font-weight:700;margin-bottom:var(--s2)}
 .a11y-card p{font-size:14px;color:var(--tx-secondary);line-height:1.6;margin-bottom:var(--s3)}
+.a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
+.a11y-grid .a11y-card{margin-bottom:0}
+.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:'Courier New',monospace;font-size:12px;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
+.a11y-table{width:100%;border-collapse:collapse;font-size:13px;margin:var(--s3) 0}
+.a11y-table th{text-align:left;padding:var(--s2) var(--s3);background:var(--n-50);border-bottom:2px solid var(--n-200);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
+.a11y-table td{padding:var(--s2) var(--s3);border-bottom:var(--bd);vertical-align:top;line-height:1.5}
+.a11y-table tr:last-child td{border-bottom:none}
+.a11y-rule{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3) 0;border-bottom:var(--bd)}
+.a11y-rule:last-child{border-bottom:none}
+.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
+.a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
 .code-block{background:var(--bg-code);color:#a8d8ae;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
 .code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
@@ -1275,54 +1287,248 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
     <!-- ═══ A11Y ═══ -->
     <section class="ds-section" id="sec-a11y">
       <h1 class="sec-title">WCAG 2.1 AA & Accessibility</h1>
-      <p class="sec-sub">Kontrastverhältnisse, Focus Management, ARIA Patterns.</p>
-      <h2 class="group-title">Kontrastverhältnisse</h2>
+      <p class="sec-sub">Kontrastverhältnisse aller Brand-Farben · Tastaturnavigation · ARIA Patterns · Touch Targets · Reduced Motion — nach WCAG 2.1 Level AA.</p>
+
+      <!-- ── Kontrast: Textfarben auf Weiß ── -->
+      <h2 class="group-title">Kontrastverhältnisse — Textfarben auf Weiß</h2>
       <div class="contrast-row">
         <div class="cswatch" style="background:#333E48;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Brand Text #333E48 auf Weiß</div><div class="cratio">10.4:1</div></div>
+        <div class="cinfo"><div class="cname">Brand Text #333E48 auf Weiß</div><div class="cratio">10.4:1 — Fließtext, Headlines, UI-Labels</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#00BEBE;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Corporate #00BEBE auf Weiß</div><div class="cratio">3.0:1 – nur Large Text / UI</div></div>
-        <span class="cbadge c-aa">AA Large ✓</span>
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#007575;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Corporate 700 #007575 auf Weiß</div><div class="cratio">5.3:1</div></div>
+        <div class="cinfo"><div class="cname">Corporate 700 #007575 auf Weiß</div><div class="cratio">5.5:1 — Links, farbige Überschriften</div></div>
         <span class="cbadge c-aa">AA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#6B8208;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">AI.Applied 700 #6B8208 auf Weiß</div><div class="cratio">7.1:1</div></div>
+        <div class="cswatch" style="background:#475705;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">AI.Applied 800 #475705 auf Weiß</div><div class="cratio">8.1:1 — Texteinsatz (700 mit 4.4:1 nicht ausreichend)</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#B5E61C;color:#475705">Aa</div>
-        <div class="cinfo"><div class="cname">AI #B5E61C – nur Fläche</div><div class="cratio">1.7:1 – nicht für Text</div></div>
-        <span class="cbadge c-fail-badge">Fläche only</span>
+        <div class="cswatch" style="background:#6B8208;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">AI.Applied 700 #6B8208 auf Weiß</div><div class="cratio">4.4:1 — knapp unter 4.5:1 AA-Schwelle</div></div>
+        <span class="cbadge c-fail-badge">Fail ✗</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#2F5FD4;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Effektive Software 500 #2F5FD4 auf Weiß</div><div class="cratio">5.7:1 — Links, farbige Überschriften, Buttons</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#1B3D9A;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Effektive SW 700 #1B3D9A auf Weiß</div><div class="cratio">8.5:1</div></div>
+        <div class="cinfo"><div class="cname">Effektive Software 700 #1B3D9A auf Weiß</div><div class="cratio">9.7:1 — Fließtext, dunkle Überschriften</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
+        <div class="cswatch" style="background:#347A22;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Wirksame Organisation 600 #347A22 auf Weiß</div><div class="cratio">5.3:1 — Buttons mit weißer Schrift (mind. 600)</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
+      </div>
+      <div class="contrast-row">
         <div class="cswatch" style="background:#285E1A;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Wirksame Org. 700 #285E1A auf Weiß</div><div class="cratio">7.0:1</div></div>
+        <div class="cinfo"><div class="cname">Wirksame Organisation 700 #285E1A auf Weiß</div><div class="cratio">7.8:1 — Texteinsatz, Links</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#C23060;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Rosé 500 #C23060 auf Weiß</div><div class="cratio">5.3:1 — Links, Buttons, farbige Labels</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#7E1639;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname">Rosé 700 #7E1639 auf Weiß</div><div class="cratio">10.2:1 — Texteinsatz, dunkle Überschriften</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
+      </div>
+
+      <!-- ── Kontrast: Akzentfarben (Fläche only) ── -->
+      <h2 class="group-title">Kontrastverhältnisse — Akzentfarben (nicht für Text)</h2>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#00BEBE;color:#002B2B">Aa</div>
+        <div class="cinfo"><div class="cname">Corporate 500 #00BEBE — Akzentfläche</div><div class="cratio">2.3:1 auf Weiß — nur als Hintergrundfläche · dunkler Text: #002B2B (6.0:1 ✓)</div></div>
+        <span class="cbadge c-fail-badge">Fläche only</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#B5E61C;color:#475705">Aa</div>
+        <div class="cinfo"><div class="cname">AI.Applied 500 #B5E61C — Akzentfläche</div><div class="cratio">1.4:1 auf Weiß — ausschließlich als Akzent · Text: #475705 auf Fläche (5.6:1 ✓)</div></div>
+        <span class="cbadge c-fail-badge">Fläche only</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#44A030;color:#0A1F05">Aa</div>
+        <div class="cinfo"><div class="cname">Wirksame Organisation 500 #44A030</div><div class="cratio">3.5:1 auf Weiß — nur Large Text / UI-Komponenten · weiße Schrift: 3.5:1 ✗ → mind. 600 verwenden</div></div>
+        <span class="cbadge c-aa">AA Large ✓</span>
+      </div>
+
+      <!-- ── Tastaturnavigation ── -->
+      <h2 class="group-title">Tastaturnavigation</h2>
+      <p style="font-size:14px;color:var(--tx-secondary);margin-bottom:var(--s4)">Alle interaktiven Elemente müssen per Tastatur erreichbar und bedienbar sein (WCAG 2.1.1). Die Tab-Reihenfolge folgt der visuellen Leserichtung (WCAG 1.3.2).</p>
+      <table class="a11y-table">
+        <thead>
+          <tr><th>Komponente</th><th>Taste(n)</th><th>Verhalten</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Button, Link</td><td><span class="a11y-kbd">Tab</span> / <span class="a11y-kbd">Shift+Tab</span></td><td>Fokus vorwärts / rückwärts bewegen</td></tr>
+          <tr><td>Button</td><td><span class="a11y-kbd">Enter</span> / <span class="a11y-kbd">Space</span></td><td>Aktion auslösen</td></tr>
+          <tr><td>Link</td><td><span class="a11y-kbd">Enter</span></td><td>Navigation ausführen</td></tr>
+          <tr><td>Tabs (Tablist)</td><td><span class="a11y-kbd">←</span> / <span class="a11y-kbd">→</span></td><td>Zwischen Tabs wechseln (roving tabindex)</td></tr>
+          <tr><td>Select / Dropdown</td><td><span class="a11y-kbd">↑</span> / <span class="a11y-kbd">↓</span> + <span class="a11y-kbd">Enter</span></td><td>Option auswählen</td></tr>
+          <tr><td>Dialog / Modal</td><td><span class="a11y-kbd">Esc</span></td><td>Schließen, Fokus zurück zum Auslöser</td></tr>
+          <tr><td>Checkbox</td><td><span class="a11y-kbd">Space</span></td><td>An-/abwählen</td></tr>
+          <tr><td>Alle Seiten</td><td><span class="a11y-kbd">Tab</span> (erstes Element)</td><td>Skip-Link zum Hauptinhalt anzeigen</td></tr>
+        </tbody>
+      </table>
+      <div class="a11y-card" style="margin-top:var(--s4)">
+        <h3>Skip Navigation</h3>
+        <p>Ermöglicht Tastaturnutzern, repetitive Navigation zu überspringen (WCAG 2.4.1).</p>
+        <div class="code-block">&lt;a <span class="k">href</span>=<span class="s">"#main-content"</span> <span class="k">class</span>=<span class="s">"skip-link"</span>&gt;Zum Inhalt springen&lt;/a&gt;
+
+<span class="c">/* CSS: sichtbar nur bei Fokus */</span>
+<span class="k">.skip-link</span> { position: <span class="v">absolute</span>; top: <span class="v">-40px</span>; left: <span class="v">0</span>; }
+<span class="k">.skip-link:focus</span> { top: <span class="v">0</span>; }</div>
+      </div>
+
+      <!-- ── ARIA Patterns ── -->
       <h2 class="group-title">ARIA Patterns</h2>
-      <div class="a11y-card">
-        <h3>Focus-Ring</h3>
-        <div class="code-block"><span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--co-50), 0 0 0 5px var(--co-500)</span>;
-<span class="k">:focus-visible</span> { outline: none; box-shadow: <span class="v">var(--focus-ring)</span>; }</div>
+      <div class="a11y-grid">
+        <div class="a11y-card">
+          <h3>Focus-Ring</h3>
+          <p>Sichtbarer Fokusindikator für alle interaktiven Elemente (WCAG 2.4.7).</p>
+          <div class="code-block"><span class="k">--focus-ring:</span> <span class="v">0 0 0 3px var(--co-50),
+  0 0 0 5px var(--co-500)</span>;
+<span class="k">:focus-visible</span> {
+  outline: <span class="v">none</span>;
+  box-shadow: <span class="v">var(--focus-ring)</span>;
+}</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Formulare & Fehler</h3>
+          <p>Fehlermeldungen programmatisch mit dem Feld verknüpfen (WCAG 1.3.1, 3.3.1).</p>
+          <div class="code-block">&lt;input <span class="k">aria-invalid</span>=<span class="s">"true"</span>
+       <span class="k">aria-describedby</span>=<span class="s">"err-id"</span>&gt;
+&lt;span <span class="k">id</span>=<span class="s">"err-id"</span> <span class="k">role</span>=<span class="s">"alert"</span>&gt;
+  Pflichtfeld
+&lt;/span&gt;</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Dekorative Icons</h3>
+          <p>SVGs ohne inhaltliche Bedeutung vor Screenreadern verbergen (WCAG 1.1.1).</p>
+          <div class="code-block">&lt;svg <span class="k">aria-hidden</span>=<span class="s">"true"</span>
+     <span class="k">focusable</span>=<span class="s">"false"</span>
+     viewBox=<span class="s">"0 0 24 24"</span>&gt;
+  &lt;path d=<span class="s">"…"</span>/&gt;
+&lt;/svg&gt;</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Icon-only Buttons</h3>
+          <p>Buttons ohne sichtbares Label brauchen ein zugängliches Textalternativ (WCAG 1.1.1).</p>
+          <div class="code-block">&lt;button <span class="k">aria-label</span>=<span class="s">"Menü öffnen"</span>&gt;
+  &lt;svg <span class="k">aria-hidden</span>=<span class="s">"true"</span>
+       <span class="k">focusable</span>=<span class="s">"false"</span>&gt;…&lt;/svg&gt;
+&lt;/button&gt;</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Tab Panels</h3>
+          <p>Tabs als Tablist mit vollständigen ARIA-Relationen (WCAG 4.1.2).</p>
+          <div class="code-block">&lt;div <span class="k">role</span>=<span class="s">"tablist"</span>&gt;
+  &lt;button <span class="k">role</span>=<span class="s">"tab"</span>
+          <span class="k">aria-selected</span>=<span class="s">"true"</span>
+          <span class="k">aria-controls</span>=<span class="s">"panel-1"</span>
+          <span class="k">id</span>=<span class="s">"tab-1"</span>&gt;Tab 1&lt;/button&gt;
+&lt;/div&gt;
+&lt;div <span class="k">role</span>=<span class="s">"tabpanel"</span>
+     <span class="k">id</span>=<span class="s">"panel-1"</span>
+     <span class="k">aria-labelledby</span>=<span class="s">"tab-1"</span>
+     <span class="k">tabindex</span>=<span class="s">"0"</span>&gt;…&lt;/div&gt;</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Live Regions</h3>
+          <p>Dynamische Inhalte für Screenreader ankündigen (WCAG 4.1.3).</p>
+          <div class="code-block"><span class="c">/* Status (höflich, unterbricht nicht) */</span>
+&lt;div <span class="k">role</span>=<span class="s">"status"</span>
+     <span class="k">aria-live</span>=<span class="s">"polite"</span>&gt;
+  Gespeichert.
+&lt;/div&gt;
+
+<span class="c">/* Alert (sofort, unterbricht) */</span>
+&lt;div <span class="k">role</span>=<span class="s">"alert"</span>
+     <span class="k">aria-live</span>=<span class="s">"assertive"</span>&gt;
+  Verbindungsfehler.
+&lt;/div&gt;</div>
+        </div>
       </div>
-      <div class="a11y-card">
-        <h3>Form Errors</h3>
-        <div class="code-block">&lt;input <span class="k">aria-invalid</span>=<span class="s">"true"</span> <span class="k">aria-describedby</span>=<span class="s">"err-id"</span>&gt;
-&lt;span <span class="k">id</span>=<span class="s">"err-id"</span> <span class="k">role</span>=<span class="s">"alert"</span>&gt;Fehlermeldung&lt;/span&gt;</div>
+
+      <!-- ── Touch Targets ── -->
+      <h2 class="group-title">Touch Targets & Interaktionsflächen</h2>
+      <p style="font-size:14px;color:var(--tx-secondary);margin-bottom:var(--s4)">Interaktive Elemente müssen mindestens 44 × 44 CSS-Pixel groß sein (WCAG 2.5.5 Level AAA / 2.5.8 Level AA in WCAG 2.2).</p>
+      <div class="a11y-grid">
+        <div class="a11y-card">
+          <div class="a11y-rule a11y-ok"><div class="a11y-rule-icon">✓</div><div><strong>Buttons &amp; Links:</strong> min. 44 × 44px via Padding erreichen, auch wenn der sichtbare Bereich kleiner ist.</div></div>
+          <div class="a11y-rule a11y-ok"><div class="a11y-rule-icon">✓</div><div><strong>Icon-Buttons:</strong> min. 48px (M3-Standard) empfohlen, sichtbares Icon kann kleiner sein.</div></div>
+          <div class="a11y-rule a11y-fail"><div class="a11y-rule-icon">✗</div><div><strong>Kleine Chips/Badges:</strong> Nicht klickbar machen ohne ausreichende Trefferfläche. Padding erhöhen oder Wrapper verwenden.</div></div>
+        </div>
+        <div class="a11y-card">
+          <h3>Mindestgröße per CSS</h3>
+          <div class="code-block"><span class="k">.btn</span> {
+  min-height: <span class="v">44px</span>;
+  min-width: <span class="v">44px</span>;
+  padding: <span class="v">10px 20px</span>;
+}
+
+<span class="c">/* Icon-only: Fläche über padding */</span>
+<span class="k">.icon-btn</span> {
+  width: <span class="v">48px</span>;
+  height: <span class="v">48px</span>;
+  display: <span class="v">flex</span>;
+  align-items: <span class="v">center</span>;
+  justify-content: <span class="v">center</span>;
+}</div>
+        </div>
       </div>
+
+      <!-- ── Reduced Motion ── -->
+      <h2 class="group-title">Reduzierte Bewegung & High Contrast</h2>
+      <div class="a11y-grid">
+        <div class="a11y-card">
+          <h3>prefers-reduced-motion</h3>
+          <p>Nutzer mit Gleichgewichts- oder Aufmerksamkeitsstörungen können Animationen deaktivieren (WCAG 2.3.3 AAA).</p>
+          <div class="code-block"><span class="k">@media</span> (prefers-reduced-motion: reduce) {
+  <span class="k">*, *::before, *::after</span> {
+    animation-duration: <span class="v">0.01ms</span> !important;
+    transition-duration: <span class="v">0.01ms</span> !important;
+    scroll-behavior: <span class="v">auto</span> !important;
+  }
+}</div>
+        </div>
+        <div class="a11y-card">
+          <h3>forced-colors (High Contrast)</h3>
+          <p>Windows High Contrast Mode ersetzt Farben durch Systemfarben. Grenzen durch Borders statt nur Farbe ausdrücken.</p>
+          <div class="code-block"><span class="k">@media</span> (forced-colors: active) {
+  <span class="k">.btn-filled</span> {
+    <span class="c">/* Border sichert Sichtbarkeit */</span>
+    border: <span class="v">2px solid ButtonText</span>;
+    forced-color-adjust: <span class="v">none</span>;
+  }
+  <span class="k">.btn-outlined</span> {
+    border-color: <span class="v">ButtonText</span>;
+  }
+}</div>
+        </div>
+        <div class="a11y-card">
+          <h3>prefers-color-scheme</h3>
+          <p>Dark Mode folgt der Betriebssystem-Präferenz. Alle Farb-Tokens werden über <code>[data-theme="dark"]</code> überschrieben.</p>
+          <div class="code-block"><span class="k">@media</span> (prefers-color-scheme: dark) {
+  <span class="c">/* Automatisch anwenden: */</span>
+  <span class="k">:root</span> {
+    color-scheme: <span class="v">dark</span>;
+  }
+}
+<span class="c">/* Oder manuell per JS: */</span>
+document.documentElement
+  .dataset.theme = <span class="s">'dark'</span>;</div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ═══ TOKENS ═══ -->
