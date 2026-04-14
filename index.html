@@ -1237,6 +1237,62 @@
         </div>
 
       </div>
+
+      <h2 class="group-title">Newsletter-Anmeldung</h2>
+      <p style="font:400 14px/22px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Zwei Varianten: eine eigenständige Karte für Landingpages und Sektionen sowie ein kompaktes Widget für Footer oder Inline-Bereiche.</p>
+      <div class="layout-grid" style="align-items:start">
+
+        <!-- ── Karte ── -->
+        <div class="col-7">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e2)">
+            <div style="background:linear-gradient(120deg,var(--co-700) 0%,var(--co-500) 100%);padding:var(--s5) var(--s6);display:flex;align-items:center;gap:var(--s3)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span style="font:500 13px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85)">Newsletter</span>
+            </div>
+            <div style="padding:var(--s6);background:var(--bg-surface)">
+              <div style="font:400 24px/32px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Immer auf dem Laufenden</div>
+              <div style="font:400 14px/22px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Einmal im Monat — Insights, Neuigkeiten und Praxistipps aus allen Bereichen. Kein Spam, jederzeit abmeldbar.</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
+                <div class="field">
+                  <label for="f-nl-fn">Vorname <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--tx-muted)">(optional)</span></label>
+                  <input type="text" id="f-nl-fn" placeholder="Maria" autocomplete="given-name">
+                </div>
+                <div class="field">
+                  <label for="f-nl-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                  <input type="email" id="f-nl-email" placeholder="maria@unternehmen.de" aria-required="true" autocomplete="email">
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s5)">
+                <input type="checkbox" id="f-nl-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
+                <label for="f-nl-consent" style="font:400 13px/20px var(--font);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird. <span style="color:var(--co-600);text-decoration:underline;cursor:pointer">Datenschutzhinweise</span></label>
+              </div>
+              <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Jetzt anmelden
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Kompakt-Widget ── -->
+        <div class="col-5">
+          <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);box-shadow:var(--e1)">
+            <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s2)">Newsletter</div>
+            <div style="font:400 18px/26px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s1)">Auf dem Laufenden bleiben</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Monatliche Updates direkt ins Postfach.</div>
+            <div class="field">
+              <label for="f-nl-compact-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="f-nl-compact-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:var(--s2);margin-bottom:var(--s4)">
+              <input type="checkbox" id="f-nl-compact-consent" style="width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
+              <label for="f-nl-compact-consent" style="font:400 12px/18px var(--font);color:var(--tx-muted);cursor:pointer">Einverstanden mit den <span style="color:var(--co-600);text-decoration:underline">Datenschutzhinweisen</span></label>
+            </div>
+            <button class="btn btn-outlined" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">Anmelden</button>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- ═══ CARDS ═══ -->
