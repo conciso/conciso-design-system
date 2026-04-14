@@ -102,10 +102,15 @@
       <a class="nav-sub-item" href="#gt-inputs-felder">Feldkomponenten</a>
       <a class="nav-sub-item" href="#gt-inputs-kontakt">Kontaktformulare</a>
       <a class="nav-sub-item" href="#gt-inputs-newsletter">Newsletter-Anmeldung</a>
+      <a class="nav-sub-item" href="#gt-inputs-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="cards">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 2.75c1.24 0 2.25 1.01 2.25 2.25S13.24 11.25 12 11.25 9.75 10.24 9.75 9 10.76 6.75 12 6.75zM17 17H7v-.75c0-1.67 3.33-2.5 5-2.5s5 .83 5 2.5V17z"/></svg>Cards & Teaser
     </button>
+    <div class="nav-subnav" data-for="cards">
+      <a class="nav-sub-item" href="#gt-cards-varianten">Kartentypen</a>
+      <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="chips">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips & Badges
     </button>
@@ -1570,12 +1575,103 @@
         </div>
 
       </div>
+
+      <h2 id="gt-inputs-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Feldtypen-Übersicht -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Feldkomponenten</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Feld</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Text Input</td><td style="padding:var(--s3);color:var(--tx-secondary)">Name, Firma, Betreff — alle einzeiligen Freitextangaben</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">E-Mail Input</td><td style="padding:var(--s3);color:var(--tx-secondary)">Immer <code class="token">type="email"</code> für automatische Formatvalidierung und Mobile-Keyboard</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Select</td><td style="padding:var(--s3);color:var(--tx-secondary)">Vorgegebene Optionsliste (z.B. Bereich, Anliegen) — max. 8 Optionen, sonst Freitext</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Textarea</td><td style="padding:var(--s3);color:var(--tx-secondary)">Freitext-Nachrichten — mindestens 3 Zeilen Höhe, kein festes Maxlength</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Checkbox</td><td style="padding:var(--s3);color:var(--tx-secondary)">Einwilligung (Newsletter, DSGVO) — immer mit verlinktem Datenschutzhinweis</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit & Validierung</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Attribut</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Pflicht / Zweck</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">label</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Jedes Feld braucht ein sichtbares Label — kein Placeholder als Ersatz</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">aria-required</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Pflichtfelder mit <code class="token">aria-required="true"</code> und sichtbarem <code class="token">*</code> kennzeichnen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">aria-invalid</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Bei Validierungsfehler <code class="token">aria-invalid="true"</code> setzen — Screenreader meldet Fehlerfeld</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">role="alert"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Fehlermeldung erhält <code class="token">role="alert"</code> — wird sofort vorgelesen, ohne Fokusverschiebung</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">autocomplete</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Passende Werte setzen (<code class="token">name</code>, <code class="token">email</code>, …) — erleichtert Ausfüllen auf Mobile</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Bereichsformulare Hinweis -->
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)">
+        <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Bereichsspezifische Formulare</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)">
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--co-700);margin-bottom:4px">Corporate</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Header in <code class="token">--co-500</code> · Submit <code class="token">.btn-co</code> · Fokusring in Teal</div>
+          </div>
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--ai-700);margin-bottom:4px">AI.Applied</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Header in <code class="token">--ai-500</code> · Submit <code class="token">.btn-ai</code> · Fokusring in Lime</div>
+          </div>
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--es-700);margin-bottom:4px">Effektive SW</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Header in <code class="token">--es-500</code> · Submit <code class="token">.btn-es</code> · Fokusring in Blau</div>
+          </div>
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--wo-700);margin-bottom:4px">Wirksame Org.</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Header in <code class="token">--wo-500</code> · Submit <code class="token">.btn-wo</code> · Fokusring in Grün</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Jedes Feld mit sichtbarem Label versehen — Placeholder allein ist keine barrierefreie Beschriftung</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehlermeldungen direkt unter dem betroffenen Feld anzeigen — kontextnah und sofort lesbar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarbe konsequent für Header und Submit-Button nutzen — Formular gehört zum Bereichskontext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Nur Pflichtfelder mit <code class="token">*</code> markieren — unnötige Pflichtfelder reduzieren die Konversionsrate</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Genau ein Submit-Button pro Formular — klare Primäraktion, kein zweiter Filled-Button daneben</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Placeholder als einzige Feldbeschriftung — verschwindet beim Tippen und ist nicht barrierefrei</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Disabled-Felder ohne Erklärung — Nutzerin versteht nicht, warum das Feld nicht ausfüllbar ist</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarben in einem Formular mischen — jedes Formular gehört zu genau einer Brand Area</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehlermeldung nur per Farbe signalisieren — immer auch Text und Icon für farbenblinde Nutzende</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 7–8 Formularfelder ohne Abschnitte — lieber in Schritte oder Gruppen aufteilen</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ CARDS ═══ -->
     <section class="ds-section" id="sec-cards">
       <h1 class="sec-title">Cards & Teaser</h1>
       <p class="sec-sub">Elevated (Level 1 + Tonal) · Filled (Container-Farbe) · Outlined (Border). Border-Radius: medium (12dp).</p>
+      <h2 id="gt-cards-varianten" class="group-title">Kartentypen</h2>
       <div class="row">
         <article class="card card-elevated" style="width:280px">
           <div class="card-media" style="background:var(--co-50)">
@@ -1647,6 +1743,70 @@
             <button class="btn btn-filled btn-sm btn-brand">Anfragen</button>
           </div>
         </article>
+      </div>
+
+      <h2 id="gt-cards-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Kartentypen-Tabelle -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-7">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Drei Varianten</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Variante</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Elevation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Elevated</td><td style="padding:var(--s3);color:var(--tx-secondary)">Standard-Teaser, Feature-Karten, Inhaltsübersichten</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">--e1</code> + Tonal Overlay</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Filled</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bereichskacheln auf farbigem Hintergrund, Hero-Elemente</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">--e0</code> (Bereichsfarbe trägt)</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Outlined</td><td style="padding:var(--s3);color:var(--tx-secondary)">Listen, Tabellen, kompakte Darstellungen ohne visuelle Schwere</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-5">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Anatomie</div>
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
+            <div style="height:60px;background:var(--co-50);display:flex;align-items:center;justify-content:center;border-bottom:var(--bd)">
+              <span style="font:400 11px/16px var(--font);color:var(--tx-muted)">① Media — Bereichsfarbe <code class="token">-50</code></span>
+            </div>
+            <div style="padding:var(--s4)">
+              <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s1)">② Eyebrow — Bereichsname</div>
+              <div style="font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s1)">③ Title — Kernaussage</div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">④ Text — max. 2 Sätze, konkret</div>
+              <div style="display:flex;justify-content:flex-end;gap:var(--s2);border-top:var(--bd);padding-top:var(--s3)">
+                <span style="font:400 11px/16px var(--font);color:var(--tx-muted)">⑤ Footer — max. 2 Aktionen</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Eyebrow und Media konsequent in der Bereichsfarbe halten — Karte ist immer einem Bereich zugehörig</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Elevated für Standard-Teaser — Level 1 Schatten und Tonal Overlay sorgen für ruhige Tiefe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Max. 2 Aktionen im Card-Footer: Text-Button (sekundär) + Filled-Button (primär)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Card-Text auf max. 2 Sätze begrenzen — prägnant und scanbar, kein Fließtext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Gleichartige Karten in einem Grid konsistent halten — gleiche Variante, gleiche Breite</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Kartentypen in derselben Reihe mischen — Elevated und Outlined nebeneinander wirken inkonsistent</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 2 Filled Buttons im Footer — die Hierarchie wird unklar, eine Hauptaktion reicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarben einer Karte und ihrer Nachbarkarte mischen — jede Karte gehört zu einem Bereich</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Elevated Karten ohne Tonal Overlay verwenden — der Schatten allein reicht nicht für die Markenzugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Langen Fließtext in Card-Body — statt dessen Teaser formulieren und auf eine Detailseite verlinken</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 
