@@ -81,6 +81,10 @@
     <button class="nav-item" data-section="navigation">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>Navigation & Hero
     </button>
+    <div class="nav-subnav" data-for="navigation">
+      <a class="nav-sub-item" href="#gt-nav-verwendung">Verwendung</a>
+      <a class="nav-sub-item" href="#gt-nav-hinweise">Hinweise</a>
+    </div>
     <button class="nav-item" data-section="buttons">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Buttons
     </button>
@@ -904,7 +908,9 @@
     <!-- ═══ NAVIGATION ═══ -->
     <section class="ds-section" id="sec-navigation">
       <h1 class="sec-title">Navigation & Hero</h1>
-      <p class="sec-sub">Top App Bar (64px) mit Logo, Links und CTA.</p>
+      <p class="sec-sub">Top App Bar (64px) mit Logo, Bereichslinks und CTA · Hero mit Eyebrow, Headline, Sub-Text und max. 2 Aktionen.</p>
+
+      <!-- ── Demo ── -->
       <div class="nav-demo">
         <div class="nav-bar">
           <span class="logo-text" style="color:var(--co-500)">product.</span>
@@ -924,6 +930,124 @@
             <button class="btn btn-filled btn-lg btn-co">Jetzt starten</button>
             <button class="btn btn-outlined btn-lg btn-co">Mehr erfahren</button>
           </div>
+        </div>
+      </div>
+
+      <!-- ── Verwendung ── -->
+      <h2 class="group-title">Verwendung</h2>
+
+      <!-- Markenwerte-Verbindung -->
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)">
+        <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Verbindung zum Markenrad</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)">
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--tx-primary);margin-bottom:4px">Ruhig</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Die Navigation ist aufgeräumt und verlässlich — immer am selben Ort, nie überladen. Keine Ablenkung von der eigentlichen Aussage.</div>
+          </div>
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--tx-primary);margin-bottom:4px">Klar</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Eyebrow und Headline sind präzise und aufmerksam — eine Botschaft, ein Fokus. Kein überflüssiges Wort, kein zweiter Handlungsaufruf auf gleicher Ebene.</div>
+          </div>
+          <div>
+            <div style="font:600 13px/18px var(--font);color:var(--tx-primary);margin-bottom:4px">Energiegeladen</div>
+            <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Der Hero erzeugt kraftvollen ersten Eindruck. Die primäre CTA ist direkt und leidenschaftlich — sie lädt ein zu handeln, nicht nur zu lesen.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regeln: Nav + Hero nebeneinander -->
+      <div id="gt-nav-verwendung" class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Top App Bar</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Element</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Logo</td><td style="padding:var(--s3);color:var(--tx-secondary)">Immer ganz links, immer sichtbar — Verlässlichkeit in der ersten Sekunde</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Bereichslinks</td><td style="padding:var(--s3);color:var(--tx-secondary)">Maximal 4 Einträge · kurze, prägnante Labels · aktiver Bereich visuell hervorgehoben</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">CTA-Button</td><td style="padding:var(--s3);color:var(--tx-secondary)">Genau ein Filled Button · max. 2 Wörter · Bereichsfarbe (<code class="token">btn-co</code> etc.)</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Höhe & Hintergrund</td><td style="padding:var(--s3);color:var(--tx-secondary)">64px fix · <code class="token">--bg-surface</code> · sticky im Scroll (z-index ≥ 100)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Hero-Sektion</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Element</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Eyebrow</td><td style="padding:var(--s3);color:var(--tx-secondary)">Label Small · Bereichsname oder kurzer Kontext · Bereichsfarbe <code class="token">-700</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Headline</td><td style="padding:var(--s3);color:var(--tx-secondary)">Libre Baskerville · Display oder Headline Large · 1–2 Zeilen · eine klare Aussage</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Sub-Text</td><td style="padding:var(--s3);color:var(--tx-secondary)">Montserrat Body Large · max. 2 Sätze · <code class="token">--tx-secondary</code> · konkret, kein Marketingsprech</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Aktionen</td><td style="padding:var(--s3);color:var(--tx-secondary)">Exakt 2 Buttons · Filled (primär) + Outlined (sekundär) · Bereichsfarbe</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Hintergrund</td><td style="padding:var(--s3);color:var(--tx-secondary)">Tonal-Gradient aus <code class="token">--c50</code> · nie vollflächige Volltonfarbe im Hero</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Anatomie-Schematic -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Anatomie</div>
+      <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s8)">
+        <!-- Nav Bar Schematic -->
+        <div style="display:flex;align-items:center;gap:var(--s4);padding:0 var(--s6);height:48px;background:var(--bg-surface);border-bottom:var(--bd)">
+          <div style="background:var(--co-500);border-radius:var(--r-xs);padding:3px 10px;font:700 11px/16px var(--font);color:#fff;flex-shrink:0">Logo</div>
+          <div style="display:flex;gap:var(--s2);flex:1">
+            <div style="background:var(--co-50);border-radius:var(--r-xs);padding:3px 10px;font:600 11px/16px var(--font);color:var(--co-700)">Aktiver Bereich</div>
+            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 2</div>
+            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 3</div>
+            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 4</div>
+          </div>
+          <div style="background:var(--co-700);border-radius:var(--r-full);padding:3px 12px;font:600 11px/16px var(--font);color:#fff;flex-shrink:0">CTA</div>
+        </div>
+        <!-- Callout labels for nav -->
+        <div style="display:flex;align-items:flex-start;gap:var(--s4);padding:var(--s3) var(--s6);background:var(--bg-overlay);border-bottom:var(--bd)">
+          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex-shrink:0;width:80px">① Logo<br>immer links</div>
+          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex:1">② Bereichslinks · max. 4 · aktiver Zustand in Bereichsfarbe<br><code class="token" style="font-size:10px">btn-co / btn-ai / btn-es / btn-wo</code></div>
+          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex-shrink:0;text-align:right">③ Filled CTA<br>ganz rechts</div>
+        </div>
+        <!-- Hero Schematic -->
+        <div style="padding:var(--s8) var(--s8) var(--s6);background:linear-gradient(135deg,var(--co-50) 0%,transparent 60%)">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)">④ Eyebrow — Bereichskontext</div>
+          <div style="font:400 36px/44px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s3)">⑤ Headline: eine klare,<br>ruhige Aussage.</div>
+          <div style="font:400 16px/24px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:520px">⑥ Sub-Text: konkret und prägnant — max. 2 Sätze, kein Fülltext. Was bekommt die Nutzerin? Was ändert sich?</div>
+          <div style="display:flex;gap:var(--s4);flex-wrap:wrap">
+            <div style="background:var(--co-700);border-radius:var(--r-full);padding:8px 20px;font:600 13px/20px var(--font);color:#fff">⑦ Primäraktion (Filled)</div>
+            <div style="border:2px solid var(--co-700);border-radius:var(--r-full);padding:8px 20px;font:600 13px/20px var(--font);color:var(--co-700)">⑧ Sekundäraktion (Outlined)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hinweise -->
+      <h2 id="gt-nav-hinweise" class="group-title">Hinweise</h2>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Die Headline trägt den Kernwert <strong>Gelassenheit</strong> — ruhig, selbstsicher, ohne Ausrufezeichen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Eyebrow und aktiver Nav-Link zeigen den Bereich — Nutzerin versteht sofort, wo sie ist</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Primäraktion mit einem Verb — konkret, direkt, energiegeladen (<em>Starten</em>, <em>Anfragen</em>, <em>Entdecken</em>)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Hero-Hintergrund als tonal Gradient aus <code class="token">--c50</code> — passt sich dem Bereich an, ohne zu überwältigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Nav sticky, damit Nutzerinnen jederzeit den Kontext und die Hauptnavigation sehen</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 2 CTAs im Hero — das widerspricht dem Markenwert <em>Klar</em> und verwirrt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Reißerische Headlines mit Ausrufezeichen oder Superlativketten — verstößt gegen <em>Gelassenheit</em></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Navigationspunkte — pragmatisch heißt auch: nicht alles auf einmal zeigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Vollflächige Bereichsfarbe als Hero-Hintergrund — zu dominant, überschreibt das Ruhig-Gefühl</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">CTA-Text mit mehr als 3 Wörtern im Nav-Button — zerstört die Kompaktheit der App Bar</span></li>
+          </ul>
         </div>
       </div>
     </section>
