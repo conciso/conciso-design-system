@@ -11,7 +11,7 @@
 .bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
 .bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
 .bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:10px;font-weight:600;letter-spacing:.8px}
-.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--co-50);border:1px solid var(--co-200)}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd)}
 .bw-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2)}
 .bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
 
@@ -55,7 +55,7 @@
 /* ── Cards ── */
 .card{background:var(--bg-surface);border-radius:var(--r-md);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* M3 Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:color-mix(in srgb,var(--co-500) 5%,var(--bg-surface))}
+.card-elevated{box-shadow:var(--e1);border:none;background:#ffffff}
 .card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-filled{background:var(--co-50);border:none}
 .card-outlined{border:var(--bd-strong)}

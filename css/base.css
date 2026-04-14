@@ -110,10 +110,10 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
 .area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
-.area-header h3{font-size:16px;font-weight:700;font-family:var(--font-display);margin-bottom:4px}
-.area-header p{font-size:12px;opacity:.85}
+.area-header h2{font-size:16px;font-weight:700;font-family:var(--font-display);margin-bottom:4px}
+.area-header p{font-size:12px}
 .area-body{padding:var(--s4) var(--s6);background:var(--bg-surface);flex:1}
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
 .area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
 .area-meta{font-size:12px;color:var(--tx-secondary);line-height:1.8}
-.area-meta code{font-size:11px;font-family:'Courier New',monospace}
+.area-meta code{font-size:12px;font-family:'Courier New',monospace}

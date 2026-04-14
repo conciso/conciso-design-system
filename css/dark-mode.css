@@ -40,7 +40,7 @@
 [data-theme="dark"] .bw-ring-outline { stroke: var(--bg-page) }
 [data-theme="dark"] .bw-label-segment { fill: var(--co-200) }
 [data-theme="dark"] .bw-label-attr { fill: var(--co-300) }
-[data-theme="dark"] .bw-pillar-card { background: var(--bg-surface); border-color: var(--co-800) }
+[data-theme="dark"] .bw-pillar-card { background: var(--bg-surface) }
 
 /* Dark: targeted component fixes that can't be token-driven */
 [data-theme="dark"] .chip { border-color:#818C99 }
