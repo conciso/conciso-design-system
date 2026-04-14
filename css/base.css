@@ -113,7 +113,8 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 [data-area="wo"] .area-specimen-text{color:var(--wo-700)}
 
 /* ── Area cards ── */
-.areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
+.areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6);margin-bottom:var(--s8)}
+@media(max-width:768px){.areas-grid{grid-template-columns:1fr}}
 .area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
 .area-header h2{font:400 16px/24px var(--font-display);margin-bottom:4px}
