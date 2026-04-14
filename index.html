@@ -86,6 +86,11 @@
     <button class="nav-item" data-section="examples">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>Beispielseiten
     </button>
+
+    <div class="nav-section">Referenzen</div>
+    <button class="nav-item" data-section="sources">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6V5h12v14zm-4-8H9v-2h6v2zm2 4H9v-2h8v2zm-2-8H9V5h6v2z"/></svg>Quellen
+    </button>
   </nav>
 
   <main class="ds-content" id="main-content" tabindex="-1">
@@ -1240,12 +1245,6 @@
         </div>
         <div class="footer-btm">
           <span>© 2026 Ruhige Energie GmbH · Berlin</span>
-          <nav aria-label="Quellen">
-            <span style="margin-right:4px">Quellen:</span>
-            <a class="footer-btm-link" href="https://m3.material.io" target="_blank" rel="noopener noreferrer">Material Design</a>
-            <span aria-hidden="true"> · </span>
-            <a class="footer-btm-link" href="https://fonts.google.com" target="_blank" rel="noopener noreferrer">Google Fonts</a>
-          </nav>
           <nav aria-label="Rechtliche Hinweise">
             <a class="footer-btm-link" href="#">Datenschutz</a>
             <span aria-hidden="true"> · </span>
@@ -1922,6 +1921,32 @@ document.documentElement
         <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Berlin</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ QUELLEN ═══ -->
+    <section class="ds-section" id="sec-sources">
+      <h1 class="sec-title">Quellen</h1>
+      <p class="sec-sub">Externe Referenzen, die als Grundlage für Entscheidungen in diesem Design System dienten.</p>
+      <div class="layout-grid">
+        <div class="col-6" style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s3)">Komponentensystem</div>
+          <div style="font:400 22px/28px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Material Design</div>
+          <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Grundlage für Komponentenarchitektur, Elevationssystem, Button-Typen, Card-Varianten und Spacing-Prinzipien.</div>
+          <a href="https://m3.material.io" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px var(--font);color:var(--co-500);text-decoration:none;display:inline-flex;align-items:center;gap:var(--s2)">
+            m3.material.io
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          </a>
+        </div>
+        <div class="col-6" style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s3)">Typografie</div>
+          <div style="font:400 22px/28px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Google Fonts</div>
+          <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Quelle für Libre Baskerville (Display/Headline) und Montserrat (Title/Body/Label) — beide frei lizenziert (SIL Open Font License).</div>
+          <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" style="font:500 14px/20px var(--font);color:var(--co-500);text-decoration:none;display:inline-flex;align-items:center;gap:var(--s2)">
+            fonts.google.com
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          </a>
         </div>
       </div>
     </section>
