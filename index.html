@@ -112,6 +112,7 @@
     <div class="nav-subnav" data-for="chips">
       <a class="nav-sub-item" href="#gt-chips-chips">Chips pro Bereich</a>
       <a class="nav-sub-item" href="#gt-chips-badges">Status Badges</a>
+      <a class="nav-sub-item" href="#gt-chips-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="feedback">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/></svg>Feedback
@@ -1701,6 +1702,113 @@
         <span class="badge badge-warn">Beta</span>
         <span class="badge badge-err">Deprecated</span>
         <span class="badge badge-neu">Draft</span>
+      </div>
+
+      <h2 id="gt-chips-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Chip vs. Badge -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Chip</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Chips sind <strong>interaktive</strong> Filter- und Auswahlkomponenten. Die Nutzerin schaltet sie aktiv ein oder aus — der Zustand <code class="token">.sel</code> zeigt die aktive Auswahl in der jeweiligen Bereichsfarbe an.</p>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Interaktion</td><td style="padding:var(--s3);color:var(--tx-secondary)">Toggle — Klick wechselt zwischen aktiv (<code class="token">.sel</code>) und inaktiv</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Label</td><td style="padding:var(--s3);color:var(--tx-secondary)">Max. 3 Wörter · prägnante Kategorie- oder Filterbegriffe</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Bereichsfarbe</td><td style="padding:var(--s3);color:var(--tx-secondary)">Aktiver Chip nutzt <code class="token">border-color</code> und <code class="token">background</code> der jeweiligen Brand Area</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Menge</td><td style="padding:var(--s3);color:var(--tx-secondary)">Max. 5–7 Chips pro Gruppe — mehr überfordert, weniger ist meist genug</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Badge</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Badges sind <strong>passive</strong> Statuskennzeichnungen. Sie informieren über den Zustand eines Elements — ohne Klickverhalten. Statusbadges (Live, Beta, Deprecated) folgen dem semantischen Farbsystem.</p>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Interaktion</td><td style="padding:var(--s3);color:var(--tx-secondary)">Keine — Badges sind reine Informationsträger</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Label</td><td style="padding:var(--s3);color:var(--tx-secondary)">1–2 Wörter · Zustand oder Kategorie · kein Verb</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Statusfarben</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">badge-ok</code> Grün · <code class="token">badge-warn</code> Gelb · <code class="token">badge-err</code> Rot · <code class="token">badge-neu</code> Neutral</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Bereichsbadges</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bereichsfarbe <code class="token">-50</code> Hintergrund · <code class="token">-800</code> Textfarbe — nie reiner Bereichston</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Kontext-Beispiele -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Typische Kontexte</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-4">
+          <span class="lbl">Chips als Filter</span>
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface)">
+            <div style="font:400 13px/20px var(--font);color:var(--tx-muted);margin-bottom:var(--s3)">Themen filtern</div>
+            <div class="row" style="gap:var(--s2)">
+              <button class="chip sel" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Strategie</button>
+              <button class="chip">Brand</button>
+              <button class="chip sel" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Kommunikation</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <span class="lbl">Badge als Statuskennzeichnung</span>
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s3)">
+              <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">API-Modul v2</span>
+              <span class="badge badge-ok">Live</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">Reporting</span>
+              <span class="badge badge-warn">Beta</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <span class="lbl">Badge als Bereichskennzeichnung</span>
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface)">
+            <div style="display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap">
+              <span class="badge" style="background:var(--co-50);color:var(--co-800)">Corporate</span>
+              <span class="badge" style="background:var(--ai-50);color:var(--ai-800)">AI.Applied</span>
+              <span class="badge" style="background:var(--es-50);color:var(--es-800)">Effektive SW</span>
+              <span class="badge" style="background:var(--wo-50);color:var(--wo-800)">Wirksame Org.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Chips für aktive Filterauswahl — die Nutzerin steuert selbst, was sichtbar ist</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Badge für reinen Status — <em>Live, Beta, Deprecated, Draft</em> — immer ohne Klick-Handler</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarbe konsequent einhalten: aktiver Chip einer Brand Area nutzt nur deren Farbtoken</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Chip-Labels auf max. 3 Wörter begrenzen — klare, scanbare Begriffe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Semantische Statusfarben bei Badges einhalten — Grün für positiv, Gelb für Warnung, Rot für Fehler</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Chips rein dekorativ einsetzen ohne Toggle-Funktion — verwirrt Nutzerinnen über Interaktivität</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Badges klickbar machen ohne visuelles Feedback — Badges sind keine Buttons</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarben im selben Kontext mischen — <code class="token">.co</code> und <code class="token">.ai</code> Chips nicht gemeinsam in einer Filterleiste</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Chip-Labels als vollständige Sätze — zu lang, passt nicht zur kompakten Form</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 7 Chips in einer Gruppe — lieber kategorisieren oder eine Auswahlliste verwenden</span></li>
+          </ul>
+        </div>
       </div>
     </section>
 
