@@ -585,6 +585,60 @@
       <div class="sp-item"><div class="sp-bar" style="width:24px"></div><code class="token">--s6</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">24px · Card Padding / Gutter</span></div>
       <div class="sp-item"><div class="sp-bar" style="width:32px"></div><code class="token">--s8</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">32px · Section Gap S</span></div>
       <div class="sp-item"><div class="sp-bar" style="width:64px"></div><code class="token">--s16</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">64px · Hero Rhythm</span></div>
+
+      <h2 class="group-title">Verwendung Spacing</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-5">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s3) var(--s5);align-items:baseline">
+            <code class="token">--s1</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Icon-Gap · enge Abstände zwischen direkt verwandten Elementen</span>
+            <code class="token">--s2</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Badge-Padding · Icon-Text-Abstand in Buttons und Tags</span>
+            <code class="token">--s4</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Internes Komponenten-Padding · Abstände zwischen Karten-Elementen</span>
+            <code class="token">--s6</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Card-Padding · Grid-Gutter · Abstände zwischen Komponenten</span>
+            <code class="token">--s8</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Abstand zwischen zusammengehörigen Sektionsblöcken</span>
+            <code class="token">--s10</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Seiten-Content-Padding oben/unten</span>
+            <code class="token">--s16</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Hero-Bereiche · großer vertikaler Rhythmus</span>
+          </div>
+        </div>
+        <div class="col-7">
+          <span class="lbl">Schematisches Beispiel – Karte</span>
+          <div style="border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
+            <div style="height:24px;background:var(--bg-overlay);border-bottom:1px dashed var(--co-500);display:flex;align-items:center;gap:var(--s2);padding:0 var(--s3)">
+              <code class="token">--s6</code><span style="font:400 11px/16px var(--font);color:var(--tx-muted)">Padding oben</span>
+            </div>
+            <div style="display:flex">
+              <div style="width:24px;flex-shrink:0;background:var(--bg-overlay);border-right:1px dashed var(--co-500);display:flex;align-items:center;justify-content:center">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg)"><code class="token" style="font-size:10px;padding:1px 3px">--s6</code></span>
+              </div>
+              <div style="flex:1;background:var(--bg-surface);padding:var(--s4)">
+                <div style="background:var(--bg-overlay);border-radius:var(--r-sm);padding:var(--s2) var(--s3)">
+                  <div style="font:500 16px/24px var(--font);color:var(--tx-primary)">Kartenüberschrift</div>
+                </div>
+                <div style="height:16px;background:var(--bg-overlay);border-top:1px dashed var(--co-500);border-bottom:1px dashed var(--co-500);display:flex;align-items:center;gap:var(--s2);padding:0 var(--s2)">
+                  <code class="token">--s4</code><span style="font:400 10px/1 var(--font);color:var(--tx-muted)">Gap</span>
+                </div>
+                <div style="background:var(--bg-overlay);border-radius:var(--r-sm);padding:var(--s2) var(--s3)">
+                  <div style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Beschreibungstext (Body Medium)</div>
+                </div>
+                <div style="height:16px;background:var(--bg-overlay);border-top:1px dashed var(--co-500);border-bottom:1px dashed var(--co-500);display:flex;align-items:center;gap:var(--s2);padding:0 var(--s2)">
+                  <code class="token">--s4</code><span style="font:400 10px/1 var(--font);color:var(--tx-muted)">Gap</span>
+                </div>
+                <div style="display:flex;align-items:center">
+                  <div style="background:var(--co-500);border-radius:var(--r-full);padding:6px var(--s4);font:500 13px/18px var(--font);color:var(--co-900)">Primär</div>
+                  <div style="width:8px;height:30px;flex-shrink:0;background:var(--bg-overlay);border-left:1px dashed var(--co-500);border-right:1px dashed var(--co-500)"></div>
+                  <code class="token" style="font-size:10px;padding:1px 3px">--s2</code>
+                  <div style="width:8px;height:30px;flex-shrink:0;background:var(--bg-overlay);border-left:1px dashed var(--co-500);border-right:1px dashed var(--co-500)"></div>
+                  <div style="background:var(--co-100);border-radius:var(--r-full);padding:6px var(--s4);font:500 13px/18px var(--font);color:var(--co-800)">Sekundär</div>
+                </div>
+              </div>
+              <div style="width:24px;flex-shrink:0;background:var(--bg-overlay);border-left:1px dashed var(--co-500)"></div>
+            </div>
+            <div style="height:24px;background:var(--bg-overlay);border-top:1px dashed var(--co-500);display:flex;align-items:center;gap:var(--s2);padding:0 var(--s3)">
+              <code class="token">--s6</code><span style="font:400 11px/16px var(--font);color:var(--tx-muted)">Padding unten</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <h2 class="group-title">12-Spalten Grid</h2>
       <div class="grid-vis">
         <div class="grid-12">
@@ -593,6 +647,61 @@
           <div class="gcol">9</div><div class="gcol">10</div><div class="gcol">11</div><div class="gcol">12</div>
         </div>
         <div style="padding:10px var(--s4);font-size:12px;color:var(--tx-muted);border-top:var(--bd)">Gutter: 24px · Margin: 24px · Container LG: 1280px</div>
+      </div>
+
+      <h2 class="group-title">Typische Layouts</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Spaltenbreiten werden als Vielfache von <code class="token">col-N</code> (1–12) angegeben. Bei ≤ 768 px bricht das Grid auf eine Spalte um.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s6)">
+        <div>
+          <span class="lbl">Vollbreite — 12 Spalten</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 12;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hero · Banner · Seiten-Header</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Maximale Breite für Hero-Bereiche und Page-Banner</span>
+        </div>
+        <div>
+          <span class="lbl">Content + Aside — 8 + 4</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 8;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hauptinhalt</div>
+            <div style="grid-column:span 4;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Sidebar</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Artikel und Dokumentationsseiten mit Sidebar</span>
+        </div>
+        <div>
+          <span class="lbl">Zweispaltig — 6 + 6</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte A</div>
+            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte B</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Vergleiche, Feature-Gegenüberstellungen, Formulare</span>
+        </div>
+        <div>
+          <span class="lbl">Dreispaltig — 4 + 4 + 4</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Feature-Karten, Produkt-Highlights, Service-Raster</span>
+        </div>
+        <div>
+          <span class="lbl">Sidebar-Navigation — 3 + 9</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 3;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Nav</div>
+            <div style="grid-column:span 9;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Content</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Design-System-Layout · Einstellungsseiten · Dashboards</span>
+        </div>
+        <div>
+          <span class="lbl">Vierspaltig — 3 + 3 + 3 + 3</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Team-Übersichten · Produkt-Kataloge · Icon-Grids</span>
+        </div>
       </div>
     </section>
 
