@@ -33,6 +33,21 @@
 .btn-text{background:transparent;color:var(--c500);padding:10px 12px}
 .btn-text:hover{background:var(--c50)}
 
+/* ── Button brand-area color variants ── */
+.btn-co   {--c500:var(--co-700);--c50:var(--co-50)}
+.btn-ai   {--c500:var(--ai-700);--c50:var(--ai-50)}
+.btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
+.btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
+.btn-brand{--c500:#333E48;--c50:#F1F3F5}
+/* Full-width centered submit button */
+.btn-full {width:100%;justify-content:center}
+
+/* ── Showcase containers ── */
+.ds-card   {border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
+.ds-inner  {padding:var(--s6);background:var(--bg-surface)}
+.clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
+
 /* ── Badges & Chips ── */
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font:500 11px/16px var(--font);letter-spacing:.04em}
 .badge-ok{background:var(--c-success-bg);color:var(--badge-ok-text)}
