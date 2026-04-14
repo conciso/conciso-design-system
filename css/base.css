@@ -106,6 +106,12 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .thr-aa{background:#c3f0e8;color:#0a4a38}
 .thr-aaa{background:#e8d0ff;color:#3a1070}
 
+/* ── Area specimen text (default: dark brand shade for light bg) ── */
+[data-area="co"] .area-specimen-text{color:var(--co-700)}
+[data-area="ai"] .area-specimen-text{color:var(--ai-800)}
+[data-area="es"] .area-specimen-text{color:var(--es-700)}
+[data-area="wo"] .area-specimen-text{color:var(--wo-700)}
+
 /* ── Area cards ── */
 .areas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s4);margin-bottom:var(--s8)}
 .area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}

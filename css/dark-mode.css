@@ -119,6 +119,32 @@
 [data-theme="dark"] #ep-wo .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
 [data-theme="dark"] #ep-wo .ep-hero .ep-hero-sub { color: var(--wo-200) !important }
 
+/* ── Bereichs-Komponenten Vergleich ── */
+/* Active tabs: --atab-color inline style is dark → override with light palette shades */
+[data-theme="dark"] .atab[data-area="co"].active { color: var(--co-200); border-bottom-color: var(--co-200) }
+[data-theme="dark"] .atab[data-area="ai"].active { color: var(--ai-200); border-bottom-color: var(--ai-200) }
+[data-theme="dark"] .atab[data-area="es"].active { color: var(--es-100); border-bottom-color: var(--es-100) }
+[data-theme="dark"] .atab[data-area="wo"].active { color: var(--wo-200); border-bottom-color: var(--wo-200) }
+/* Branded chips: override inline color/border that are hardcoded dark palette shades */
+[data-theme="dark"] #at-co .chip[style] { color: var(--co-200) !important; border-color: var(--co-300) !important }
+[data-theme="dark"] #at-ai .chip[style] { color: var(--ai-200) !important; border-color: var(--ai-400) !important }
+[data-theme="dark"] #at-es .chip[style] { color: var(--es-100) !important; border-color: var(--es-300) !important }
+[data-theme="dark"] #at-wo .chip[style] { color: var(--wo-200) !important; border-color: var(--wo-300) !important }
+
+/* ── Spacing & Grid + Code tokens ── */
+/* co-700 (#007575) on co-50 (#071616) = ~3:1 in dark → co-300 (#4DD0D0) = ~9.3:1 */
+[data-theme="dark"] .gcol  { color: var(--co-300) }
+[data-theme="dark"] .token { color: var(--co-300) }
+
+/* ── Cards ── */
+[data-theme="dark"] .card-elevated { background: var(--bg-surface) }
+
+/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
+[data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
+[data-theme="dark"] [data-area="ai"] .area-specimen-text { color: var(--ai-200) }   /* #D6F06D · 6.10:1 */
+[data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
+[data-theme="dark"] [data-area="wo"] .area-specimen-text { color: var(--wo-200) }   /* #A3D48E · 4.57:1 */
+
 /* ── Palette threshold badges (dark) ── */
 [data-theme="dark"] .pal-thresholds{background:#0d1f3a;color:#90bcf0;border-color:#1e3f6b}
 [data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}
