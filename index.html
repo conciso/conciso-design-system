@@ -1020,21 +1020,31 @@
     <!-- ═══ INPUTS ═══ -->
     <section class="ds-section" id="sec-inputs">
       <h1 class="sec-title">Inputs & Forms</h1>
-      <p class="sec-sub">WCAG AA: Labels, aria-required, aria-invalid, role="alert".</p>
+      <p class="sec-sub">WCAG AA: Labels, aria-required, aria-invalid, role="alert". Primär für Kontaktformulare der vier Brand Areas eingesetzt.</p>
+
+      <h2 class="group-title">Feldkomponenten</h2>
       <div style="max-width:480px">
         <div class="field">
-          <label for="f-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
-          <input type="email" id="f-email" placeholder="name@company.com" aria-required="true" autocomplete="email">
+          <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="f-name-demo" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="f-email-demo">E-Mail <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="f-email-demo" placeholder="name@company.com" aria-required="true" autocomplete="email">
           <span class="helper">Wir senden keinen Spam.</span>
         </div>
         <div class="field has-error">
-          <label for="f-pw">Passwort <span class="req" aria-hidden="true">*</span></label>
-          <input type="password" id="f-pw" value="abc" aria-required="true" aria-invalid="true" aria-describedby="f-pw-err">
-          <span class="error-msg" id="f-pw-err" role="alert">Mindestens 8 Zeichen erforderlich</span>
+          <label for="f-email-err">E-Mail <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="f-email-err" value="ungültig@" aria-required="true" aria-invalid="true" aria-describedby="f-email-err-msg">
+          <span class="error-msg" id="f-email-err-msg" role="alert">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Bitte eine gültige E-Mail-Adresse eingeben
+          </span>
         </div>
         <div class="field">
-          <label for="f-area">Bereich</label>
-          <select id="f-area">
+          <label for="f-select-demo">Bereich</label>
+          <select id="f-select-demo">
+            <option>Bitte wählen…</option>
             <option>Corporate</option>
             <option>AI.Applied</option>
             <option>Effektive Software</option>
@@ -1042,10 +1052,190 @@
           </select>
         </div>
         <div class="field">
-          <label for="f-msg">Nachricht</label>
-          <textarea id="f-msg" rows="3" placeholder="Wie können wir helfen?"></textarea>
+          <label for="f-msg-demo">Nachricht</label>
+          <textarea id="f-msg-demo" rows="3" placeholder="Wie können wir helfen?"></textarea>
         </div>
-        <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">Absenden</button>
+        <div class="field">
+          <label for="f-disabled-demo">Bereich (deaktiviert)</label>
+          <input type="text" id="f-disabled-demo" value="Corporate" disabled>
+        </div>
+      </div>
+
+      <h2 class="group-title">Kontaktformulare je Bereich</h2>
+      <p style="font:400 14px/22px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Jedes Formular trägt die Akzentfarbe der Brand Area – Header und Submit-Button passen sich an. Die Felder orientieren sich am jeweiligen Anwendungskontext.</p>
+      <div class="layout-grid" style="align-items:start">
+
+        <!-- ── Corporate ── -->
+        <div class="col-6">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="background:var(--co-700);padding:var(--s4) var(--s6)">
+              <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--co-200);margin-bottom:2px">Corporate</div>
+              <div style="font:400 20px/28px var(--font-display);color:#fff">Kontakt aufnehmen</div>
+            </div>
+            <div style="padding:var(--s6);background:var(--bg-surface)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
+                <div class="field">
+                  <label for="f-co-fn">Vorname <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="f-co-fn" placeholder="Maria" aria-required="true" autocomplete="given-name">
+                </div>
+                <div class="field">
+                  <label for="f-co-ln">Nachname <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="f-co-ln" placeholder="Müller" aria-required="true" autocomplete="family-name">
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-co-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="f-co-email" placeholder="maria.mueller@unternehmen.de" aria-required="true" autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="f-co-topic">Betreff</label>
+                <select id="f-co-topic">
+                  <option>Bitte wählen…</option>
+                  <option>Allgemeine Anfrage</option>
+                  <option>Strategie-Workshop</option>
+                  <option>Partnerschaft</option>
+                  <option>Presse & Medien</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-co-msg">Nachricht <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="f-co-msg" rows="3" placeholder="Wie können wir Ihnen helfen?" aria-required="true"></textarea>
+              </div>
+              <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#007575;--c50:#E0F7F7">Anfrage senden</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── AI.Applied ── -->
+        <div class="col-6">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="background:var(--ai-800);padding:var(--s4) var(--s6)">
+              <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--ai-300);margin-bottom:2px">AI.Applied</div>
+              <div style="font:400 20px/28px var(--font-display);color:var(--ai-100)">KI-Projekt besprechen</div>
+            </div>
+            <div style="padding:var(--s6);background:var(--bg-surface)">
+              <div class="field">
+                <label for="f-ai-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="f-ai-name" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="f-ai-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="f-ai-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="f-ai-company">Unternehmen</label>
+                <input type="text" id="f-ai-company" placeholder="Muster GmbH" autocomplete="organization">
+              </div>
+              <div class="field">
+                <label for="f-ai-usecase">Anwendungsfall</label>
+                <select id="f-ai-usecase">
+                  <option>Bitte wählen…</option>
+                  <option>Prozessautomatisierung</option>
+                  <option>Datenanalyse & Reporting</option>
+                  <option>KI-gestützte Beratung</option>
+                  <option>Individuelle KI-Lösung</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-ai-msg">Projektbeschreibung <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="f-ai-msg" rows="3" placeholder="Kurze Beschreibung Ihres KI-Vorhabens…" aria-required="true"></textarea>
+              </div>
+              <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#6B8208;--c50:#F4FCD5">KI-Projekt besprechen</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Effektive Software ── -->
+        <div class="col-6">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="background:var(--es-700);padding:var(--s4) var(--s6)">
+              <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--es-200);margin-bottom:2px">Effektive Software</div>
+              <div style="font:400 20px/28px var(--font-display);color:#fff">Projekt anfragen</div>
+            </div>
+            <div style="padding:var(--s6);background:var(--bg-surface)">
+              <div class="field">
+                <label for="f-es-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="f-es-name" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="f-es-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="f-es-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="f-es-type">Projektart</label>
+                <select id="f-es-type">
+                  <option>Bitte wählen…</option>
+                  <option>Neuentwicklung</option>
+                  <option>Modernisierung / Refactoring</option>
+                  <option>API & Integrationen</option>
+                  <option>Code-Review & Audit</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-es-url">Projekt-URL <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--tx-muted)">(optional)</span></label>
+                <input type="url" id="f-es-url" placeholder="https://github.com/…" autocomplete="url">
+                <span class="helper">Repo, Confluence oder bestehende App</span>
+              </div>
+              <div class="field">
+                <label for="f-es-msg">Anforderungen <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="f-es-msg" rows="3" placeholder="Was soll die Software leisten?" aria-required="true"></textarea>
+              </div>
+              <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#1B3D9A;--c50:#EAF0FB">Projekt besprechen</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Wirksame Organisation ── -->
+        <div class="col-6">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="background:var(--wo-700);padding:var(--s4) var(--s6)">
+              <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--wo-200);margin-bottom:2px">Wirksame Organisation</div>
+              <div style="font:400 20px/28px var(--font-display);color:#fff">Gespräch vereinbaren</div>
+            </div>
+            <div style="padding:var(--s6);background:var(--bg-surface)">
+              <div class="field">
+                <label for="f-wo-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input type="text" id="f-wo-name" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
+                <div class="field">
+                  <label for="f-wo-role">Position</label>
+                  <input type="text" id="f-wo-role" placeholder="z. B. HR-Leitung" autocomplete="organization-title">
+                </div>
+                <div class="field">
+                  <label for="f-wo-size">Teamgröße</label>
+                  <select id="f-wo-size">
+                    <option>Bitte wählen…</option>
+                    <option>1–10</option>
+                    <option>11–50</option>
+                    <option>51–250</option>
+                    <option>250+</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-wo-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                <input type="email" id="f-wo-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="f-wo-topic">Thema</label>
+                <select id="f-wo-topic">
+                  <option>Bitte wählen…</option>
+                  <option>Change Management</option>
+                  <option>Führungskräfteentwicklung</option>
+                  <option>Kulturwandel</option>
+                  <option>Organisations-Audit</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-wo-msg">Ihr Anliegen <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="f-wo-msg" rows="3" placeholder="Welche Veränderung möchten Sie anstoßen?" aria-required="true"></textarea>
+              </div>
+              <button class="btn btn-filled" style="width:100%;justify-content:center;--c500:#285E1A;--c50:#EBF5E6">Gespräch vereinbaren</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
