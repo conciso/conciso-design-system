@@ -80,7 +80,7 @@
 /* ── Typography specimens ── */
 .type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
 .type-row:last-child{border-bottom:none}
-.type-meta{width:200px;flex-shrink:0}
+.type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
 .type-name{font:500 11px/16px var(--font);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
 .type-spec{font:500 11px/16px var(--font);color:var(--tx-muted);margin-top:2px}
 .type-sample{flex:1;color:var(--tx-primary)}

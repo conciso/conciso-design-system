@@ -561,15 +561,44 @@
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Medium</span><span class="type-spec">Montserrat · 12px / 16px · 500</span></div><div class="type-sample" style="font:500 12px/16px var(--font)">Chip · Badge · Overline</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Small</span><span class="type-spec">Montserrat · 11px / 16px · 500 UC</span></div><div class="type-sample" style="font:500 11px/16px var(--font);text-transform:uppercase;letter-spacing:.08em">Section Label / Eyebrow</div></div>
 
-      <h2 class="group-title">Verwendungsregel</h2>
-      <div class="layout-grid">
+      <h2 class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="margin-bottom:var(--s6)">
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5)">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--co-600);margin-bottom:var(--s3)">Libre Baskerville</div>
-          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">Display L/M/S · Headline L/M/S<br>Hero Headlines · Section Titles · Pull Quotes</div>
+          <div style="font:500 11px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Libre Baskerville — Serifenschrift</div>
+          <div style="font:400 14px/22px var(--font);color:var(--tx-secondary)">Display · Headline<br>Hero-Überschriften · Seitentitel · Pull Quotes · emotionale Akzente</div>
         </div>
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5)">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--co-600);margin-bottom:var(--s3)">Montserrat</div>
-          <div style="font-size:14px;color:var(--tx-secondary);line-height:1.8">Title L/M/S · Body L/M/S · Label L/M/S<br>Buttons · Navigation · Captions · UI</div>
+          <div style="font:500 11px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Montserrat — Grotesk</div>
+          <div style="font:400 14px/22px var(--font);color:var(--tx-secondary)">Title · Body · Label<br>UI-Text · Fließtext · Buttons · Navigation · Captions</div>
+        </div>
+      </div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-5">
+          <span class="lbl">Token-Übersicht</span>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s3) var(--s5);align-items:baseline">
+            <code class="token">Display</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Hero Texter · Landing Pages · große Kampagnentitel (57 · 45 · 36px)</span>
+            <code class="token">Headline</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Seiten-Überschriften · Abschnittstitel (32 · 28 · 24px)</span>
+            <code class="token">Title</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Karten-Titel · Komponenten-Header · Navigation (22 · 16 · 14px)</span>
+            <code class="token">Body</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Fließtext · Beschreibungen · Artikel-Content (16 · 14 · 12px)</span>
+            <code class="token">Label</code><span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Buttons · Badges · Eyebrows · UI-Beschriftungen (14 · 12 · 11px)</span>
+          </div>
+        </div>
+        <div class="col-7">
+          <span class="lbl">Schematisches Beispiel – Seitenhierarchie</span>
+          <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)">
+            <span style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-500)">Label Small · Eyebrow</span>
+            <div style="font:400 36px/44px var(--font-display);color:var(--tx-primary);margin:var(--s2) 0 var(--s3)">Display Small · Seitentitel</div>
+            <div style="font:400 16px/24px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Body Large · Einleitungstext für Kontext und Beschreibung der Seiteninhalte.</div>
+            <div style="border-top:var(--bd);padding-top:var(--s5);margin-bottom:var(--s3)">
+              <div style="font:400 24px/32px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Headline Small · Abschnittstitel</div>
+              <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Body Medium · Sekundärer Text für Beschreibungen und Hinweise in Komponenten.</div>
+            </div>
+            <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s4)">
+              <div style="font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s1)">Title Medium · Karten-Titel</div>
+              <div style="font:400 12px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s4)">Body Small · Caption · Metadaten · Zeitstempel</div>
+              <div style="display:inline-block;background:var(--co-500);border-radius:var(--r-full);padding:8px var(--s4);font:500 14px/20px var(--font);color:var(--co-900)">Label Large · Button</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
