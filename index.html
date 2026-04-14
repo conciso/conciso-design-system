@@ -728,6 +728,82 @@
         <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 12%,var(--bg-surface))"><span class="el-lbl">12 % Tonal</span>Level 4</div>
         <div class="el-card" style="background:color-mix(in srgb,var(--co-500) 14%,var(--bg-surface))"><span class="el-lbl">14 % Tonal</span>Level 5</div>
       </div>
+
+      <h2 class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-5">
+          <span class="lbl">Ebenen-Übersicht</span>
+          <div style="display:grid;grid-template-columns:1.5rem auto 1fr;gap:var(--s2) var(--s4);align-items:baseline;margin-bottom:var(--s6)">
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">0</span>
+            <code class="token">--e0</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Seiten-Hintergrund · Tabellen · Outlined Cards</span>
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">1</span>
+            <code class="token">--e1</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Standard-Cards · Floating Action Button · Listen-Karten</span>
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">2</span>
+            <code class="token">--e2</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Chip-Hover · Dropdown-Anker · interaktiver Hover-State</span>
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">3</span>
+            <code class="token">--e3</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Navigation Drawer · Side Sheet · persistente Panels</span>
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">4</span>
+            <code class="token">--e4</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Modal · Bottom Sheet · Dialoge mit Scrim</span>
+            <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">5</span>
+            <code class="token">--e5</code>
+            <span style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Tooltip · Snackbar · Autocomplete-Dropdown</span>
+          </div>
+          <span class="lbl">Kombinationsregel</span>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary)">Level 1–2 können Schatten <em>oder</em> Tonal Overlay einsetzen. Level 3–5 kombinieren beide — der Schatten signalisiert Abstand zur Seite, die Tönung verstärkt die visuelle Zugehörigkeit zur Primärfarbe.</p>
+        </div>
+        <div class="col-7">
+          <span class="lbl">Schematische Beispiele</span>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s4)">
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 0</div>
+              <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Outlined Card</span>
+                <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Tabelle · Listeneintrag</div>
+              </div>
+            </div>
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 1</div>
+              <div style="box-shadow:var(--e1);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Standard-Card</span>
+                <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Produktkarte · FAB</div>
+              </div>
+            </div>
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 2</div>
+              <div style="box-shadow:var(--e2);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Chip · Hover</span>
+                <div style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:var(--r-full);background:var(--bg-overlay);box-shadow:var(--e2);font:500 12px/16px var(--font);color:var(--tx-primary)">Chip</div>
+              </div>
+            </div>
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 3</div>
+              <div style="box-shadow:var(--e3);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Nav Drawer</span>
+                <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Sidebar · Panel</div>
+              </div>
+            </div>
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 4</div>
+              <div style="box-shadow:var(--e4);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Modal · Sheet</span>
+                <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Dialog · Overlay</div>
+              </div>
+            </div>
+            <div>
+              <div style="font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);margin-bottom:var(--s2)">Level 5</div>
+              <div style="box-shadow:var(--e5);border-radius:var(--r-lg);padding:var(--s4);background:var(--bg-surface)">
+                <span class="el-lbl">Tooltip · Dialog</span>
+                <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Snackbar · Autocomplete</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ NAVIGATION ═══ -->
