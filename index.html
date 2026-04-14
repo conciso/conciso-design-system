@@ -47,6 +47,7 @@
     </button>
     <div class="nav-subnav" data-for="colors">
       <a class="nav-sub-item" href="#gt-colors-tonal">Tonal-Paletten</a>
+      <a class="nav-sub-item" href="#gt-colors-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="typography">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/></svg>Typography
@@ -595,6 +596,72 @@
           <div class="swatch" style="background:#0D1318"><span style="color:#fff">900</span></div>
         </div>
         <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> + <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 400 (4.8:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 500 (7.1:1)</div>
+      </div>
+
+      <h2 id="gt-colors-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Stufenregel-Tabelle -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Farbstufen — Wofür?</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Stufe</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Verwendungszweck</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">-50</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Tonal Overlay, Chip-Hintergrund, Badge-Hintergrund — sehr helle Fläche</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">-100 – -300</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Dezente UI-Akzente, Media-Hintergründe in Cards, Hero-Gradient</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">-500</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Brand-Element: Filled-Button, aktive Nav, Icon — <strong>nicht</strong> für Text auf Weiß</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">-700</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Farbiger Text auf weißem Hintergrund — WCAG AA erfüllt (≥ 4,5:1)</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500"><code class="token">-800 – -900</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Dunkle Kontexte, Text auf Bereichsfarbe (<code class="token">-500</code>), Hover-Zustände</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Semantische Farben</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Token</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;font-weight:500"><code class="token" style="color:var(--c-success)">--c-success</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Erfolgreiche Aktionen, OK-Snackbar, Bestätigungs-Badge</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;font-weight:500"><code class="token" style="color:var(--c-warning)">--c-warning</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Hinweise, Beta-Zustände, nicht-kritische Warnungen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;font-weight:500"><code class="token" style="color:var(--c-error)">--c-error</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Fehler-Snackbar, Validierungsfehler im Formular, Deprecated-Badge</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;font-weight:500"><code class="token">--tx-primary / --tx-secondary</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Fließtext und UI-Labels — immer Neutral, nie Bereichsfarbe für Mengentext</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarbe <code class="token">-700</code> für farbigen Text — die einzige Stufe, die WCAG AA auf Weiß erfüllt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Stufe <code class="token">-50</code> für Hintergründe und Tonal Overlays — sie wirkt, ohne zu dominieren</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Semantische Tokens <code class="token">--c-success</code>, <code class="token">--c-warning</code>, <code class="token">--c-error</code> konsequent für Status einsetzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Jede Seite gehört zu genau einer Brand Area — deren Farbpalette durchgängig verwenden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Neutrals (<code class="token">--tx-primary</code>, <code class="token">--tx-secondary</code>) für Fließtext — Bereichsfarben nur für Akzente</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Stufe <code class="token">-500</code> als Textfarbe auf Weiß — Corporate und AI.Applied unterschreiten den AA-Schwellenwert</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Paletten verschiedener Bereiche auf derselben Seite mischen — bricht die Markenzugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarbe für Fließtext — lange Texte in Farbe ermüden und verringern die Lesbarkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Semantische Farben zweckfremden — <code class="token">--c-success</code> nicht für dekorative grüne Elemente</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Hardcodierte Hex-Werte statt Tokens — verhindert Dark-Mode-Unterstützung und Theme-Wechsel</span></li>
+          </ul>
+        </div>
       </div>
 
     </section>
