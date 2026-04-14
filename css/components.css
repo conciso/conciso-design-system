@@ -1,5 +1,20 @@
 /* ── Components ── */
 
+/* ── Brand Wheel ── */
+.bw-wrap{display:flex;justify-content:center;padding:var(--s8) 0}
+.bw-svg{width:100%;max-width:480px;display:block}
+.bw-outer{fill:var(--co-50)}
+.bw-middle{fill:var(--co-200)}
+.bw-inner{fill:var(--co-400)}
+.bw-divider{stroke:#fff;stroke-width:2;fill:none}
+.bw-ring-outline{fill:none;stroke:#fff;stroke-width:2}
+.bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
+.bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
+.bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:10px;font-weight:600;letter-spacing:.8px}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--co-50);border:1px solid var(--co-200)}
+.bw-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2)}
+.bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
+
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px}
 .btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}

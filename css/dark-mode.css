@@ -33,6 +33,15 @@
   --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
   --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
 }
+/* Dark: Brand Wheel */
+[data-theme="dark"] .bw-outer { fill: #071616 }
+[data-theme="dark"] .bw-middle { fill: #0A2626 }
+[data-theme="dark"] .bw-divider { stroke: var(--bg-page) }
+[data-theme="dark"] .bw-ring-outline { stroke: var(--bg-page) }
+[data-theme="dark"] .bw-label-segment { fill: var(--co-200) }
+[data-theme="dark"] .bw-label-attr { fill: var(--co-300) }
+[data-theme="dark"] .bw-pillar-card { background: var(--bg-surface); border-color: var(--co-800) }
+
 /* Dark: targeted component fixes that can't be token-driven */
 [data-theme="dark"] .chip { border-color:#818C99 }
 [data-theme="dark"] .ai-warning { color:var(--ai-300) }

@@ -31,6 +31,10 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Brand Areas
     </button>
 
+    <button class="nav-item" data-section="brand">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 5.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>Markenrad
+    </button>
+
     <div class="nav-section">Foundations</div>
     <button class="nav-item active" data-section="colors">
       <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a7 7 0 0 1-7-7c0-3.87 3.13-7 7-7s7 3.13 7 7a7 7 0 0 1-7 7z" fill-opacity=".3"/></svg>Colors
@@ -243,6 +247,80 @@
           <span class="badge" style="background:#EBF5E6;color:#183A0E">Wirksame Org.</span>
           <button class="chip" style="border-color:#44A030;color:#285E1A">Change</button>
           <button class="chip">Leadership</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ MARKENRAD ═══ -->
+    <section class="ds-section" id="sec-brand">
+      <h1 class="sec-title">Markenrad</h1>
+      <p class="sec-sub">Der Kernwert <strong>Gelassenheit</strong> entfaltet sich in drei Markenpfeilern – Ruhig, Klar und Energiegeladen – mit je drei charakterisierenden Eigenschaften.</p>
+      <p style="font:400 22px/1.4 var(--font-display);color:var(--tx-primary);margin-bottom:var(--s8)">Das Unternehmen erzeugt Gelassenheit.<br><span style="color:var(--tx-secondary)">Auf ruhige, klare und energiegeladene Weise.</span></p>
+
+      <div class="bw-wrap">
+        <svg viewBox="0 0 520 520" class="bw-svg" role="img" aria-labelledby="bw-title bw-desc">
+          <title id="bw-title">Markenrad – Ruhige Energie</title>
+          <desc id="bw-desc">Kreisdiagramm mit Kernwert Gelassenheit im Zentrum. Pfeiler Ruhig mit den Eigenschaften Verlässlich, Selbstsicher, Kompetent. Pfeiler Klar mit Aufmerksam, Präzise, Pragmatisch. Pfeiler Energiegeladen mit Kraftvoll, Agil, Leidenschaftlich.</desc>
+
+          <!-- Outer ring segments -->
+          <path class="bw-outer" d="M 73.8 367.5 A 215 215 0 0 1 260 45 L 260 100 A 160 160 0 0 0 121.4 340 Z"/>
+          <path class="bw-outer" d="M 260 45 A 215 215 0 0 1 446.2 367.5 L 398.6 340 A 160 160 0 0 0 260 100 Z"/>
+          <path class="bw-outer" d="M 446.2 367.5 A 215 215 0 0 1 73.8 367.5 L 121.4 340 A 160 160 0 0 0 398.6 340 Z"/>
+
+          <!-- Middle ring segments -->
+          <path class="bw-middle" d="M 121.4 340 A 160 160 0 0 1 260 100 L 260 175 A 85 85 0 0 0 186.4 302.5 Z"/>
+          <path class="bw-middle" d="M 260 100 A 160 160 0 0 1 398.6 340 L 333.6 302.5 A 85 85 0 0 0 260 175 Z"/>
+          <path class="bw-middle" d="M 398.6 340 A 160 160 0 0 1 121.4 340 L 186.4 302.5 A 85 85 0 0 0 333.6 302.5 Z"/>
+
+          <!-- Inner circle -->
+          <circle class="bw-inner" cx="260" cy="260" r="85"/>
+
+          <!-- Divider lines -->
+          <line class="bw-divider" x1="260" y1="260" x2="260" y2="45"/>
+          <line class="bw-divider" x1="260" y1="260" x2="446.2" y2="367.5"/>
+          <line class="bw-divider" x1="260" y1="260" x2="73.8" y2="367.5"/>
+
+          <!-- Outer ring border -->
+          <circle class="bw-ring-outline" cx="260" cy="260" r="215"/>
+
+          <!-- Core label -->
+          <text class="bw-label-core" x="260" y="260" text-anchor="middle" dominant-baseline="middle">GELASSENHEIT</text>
+
+          <!-- Segment labels -->
+          <text class="bw-label-segment" x="154" y="199" text-anchor="middle" dominant-baseline="middle">RUHIG</text>
+          <text class="bw-label-segment" x="366" y="199" text-anchor="middle" dominant-baseline="middle">KLAR</text>
+          <text class="bw-label-segment" x="260" y="382" text-anchor="middle" dominant-baseline="middle">ENERGIEGELADEN</text>
+
+          <!-- Attribute labels – RUHIG -->
+          <text class="bw-label-attr" x="75.8" y="292.5" text-anchor="middle" dominant-baseline="middle">VERLÄSSLICH</text>
+          <text class="bw-label-attr" x="98" y="166.5" text-anchor="middle" dominant-baseline="middle">SELBSTSICHER</text>
+          <text class="bw-label-attr" x="196" y="84" text-anchor="middle" dominant-baseline="middle">KOMPETENT</text>
+
+          <!-- Attribute labels – KLAR -->
+          <text class="bw-label-attr" x="324" y="84" text-anchor="middle" dominant-baseline="middle">AUFMERKSAM</text>
+          <text class="bw-label-attr" x="422" y="166.5" text-anchor="middle" dominant-baseline="middle">PRÄZISE</text>
+          <text class="bw-label-attr" x="444" y="292.5" text-anchor="middle" dominant-baseline="middle">PRAGMATISCH</text>
+
+          <!-- Attribute labels – ENERGIEGELADEN -->
+          <text class="bw-label-attr" x="380" y="403" text-anchor="middle" dominant-baseline="middle">KRAFTVOLL</text>
+          <text class="bw-label-attr" x="260" y="447" text-anchor="middle" dominant-baseline="middle">AGIL</text>
+          <text class="bw-label-attr" x="140" y="403" text-anchor="middle" dominant-baseline="middle">LEIDENSCHAFTLICH</text>
+        </svg>
+      </div>
+
+      <h2 class="group-title">Drei Markenpfeiler</h2>
+      <div class="row">
+        <div class="bw-pillar-card">
+          <div class="bw-pillar-title" style="color:var(--co-700)">Ruhig</div>
+          <div class="bw-pillar-attrs">Verlässlich · Selbstsicher · Kompetent</div>
+        </div>
+        <div class="bw-pillar-card">
+          <div class="bw-pillar-title" style="color:var(--co-700)">Klar</div>
+          <div class="bw-pillar-attrs">Aufmerksam · Präzise · Pragmatisch</div>
+        </div>
+        <div class="bw-pillar-card">
+          <div class="bw-pillar-title" style="color:var(--co-700)">Energiegeladen</div>
+          <div class="bw-pillar-attrs">Kraftvoll · Agil · Leidenschaftlich</div>
         </div>
       </div>
     </section>
