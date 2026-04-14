@@ -133,7 +133,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .col-10{grid-column:span 10}.col-11{grid-column:span 11}.col-12{grid-column:span 12}
 @media(max-width:768px){.layout-grid{grid-template-columns:1fr}}
 
-/* ── Type Scale Utilities (M3 · 15 Tokens) ── */
+/* ── Type Scale Utilities (15 Tokens) ── */
 .type-display-lg{font:400 57px/64px var(--font-display)}
 .type-display-md{font:400 45px/52px var(--font-display)}
 .type-display-sm{font:400 36px/44px var(--font-display)}
