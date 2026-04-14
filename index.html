@@ -927,13 +927,80 @@
         <button class="btn btn-filled" style="--c500:#333E48;--c50:#F1F3F5" disabled>Disabled</button>
       </div>
 
-      <h2 class="group-title">Danger</h2>
-      <div class="row" style="align-items:center;flex-wrap:wrap">
-        <button class="btn btn-filled" style="--c500:#E84040;--c50:#FDEAEA">Filled</button>
-        <button class="btn btn-tonal" style="--c500:#E84040;--c50:#FDEAEA">Tonal</button>
-        <button class="btn btn-outlined" style="--c500:#E84040;--c50:#FDEAEA">Outlined</button>
-        <button class="btn btn-text" style="--c500:#E84040;--c50:#FDEAEA">Text</button>
-        <button class="btn btn-filled" style="--c500:#E84040;--c50:#FDEAEA" disabled>Disabled</button>
+      <h2 class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-5">
+          <span class="lbl">Typen &amp; Hierarchie</span>
+          <div style="display:flex;flex-direction:column;gap:var(--s4)">
+            <div>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s1)">
+                <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7;pointer-events:none;cursor:default">Filled</button>
+                <span style="font:500 13px/20px var(--font);color:var(--tx-primary)">Primäre Hauptaktion</span>
+              </div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Max. 1–2 pro Kontext · Speichern · Absenden · Starten</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s1)">
+                <button class="btn btn-tonal btn-sm" style="--c500:#007575;--c50:#E0F7F7;pointer-events:none;cursor:default">Tonal</button>
+                <span style="font:500 13px/20px var(--font);color:var(--tx-primary)">Sekundäre Bestätigung</span>
+              </div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Weiter · Übernehmen · neben Filled oder eigenständig</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s1)">
+                <button class="btn btn-elevated btn-sm" style="--c500:#007575;--c50:#E0F7F7;pointer-events:none;cursor:default">Elevated</button>
+                <span style="font:500 13px/20px var(--font);color:var(--tx-primary)">Freistehende Aktion</span>
+              </div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Schwebende Elemente · FAB · visuelle Trennung vom Hintergrund</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s1)">
+                <button class="btn btn-outlined btn-sm" style="--c500:#007575;--c50:#E0F7F7;pointer-events:none;cursor:default">Outlined</button>
+                <span style="font:500 13px/20px var(--font);color:var(--tx-primary)">Gleichwertige Alternative</span>
+              </div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Vorschau · Exportieren · Alternativaktion ohne Primärfokus</div>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s1)">
+                <button class="btn btn-text btn-sm" style="--c500:#007575;--c50:#E0F7F7;pointer-events:none;cursor:default">Text</button>
+                <span style="font:500 13px/20px var(--font);color:var(--tx-primary)">Nebenaktion / Abbrechen</span>
+              </div>
+              <div style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Abbrechen · Mehr erfahren · link-ähnliche Funktion · niedrigste Priorität</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-7">
+          <span class="lbl">Schematische Beispiele</span>
+          <div style="display:flex;flex-direction:column;gap:var(--s4)">
+            <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface)">
+              <div style="font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Aktion bestätigen</div>
+              <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Möchtest du die Änderungen wirklich speichern?</div>
+              <div style="display:flex;justify-content:flex-end;gap:var(--s2);margin-bottom:var(--s3)">
+                <button class="btn btn-text btn-sm" style="--c500:#007575;--c50:#E0F7F7">Abbrechen</button>
+                <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Speichern</button>
+              </div>
+              <div style="font:400 11px/16px var(--font);color:var(--tx-secondary);text-align:right">Text → Abbrechen &nbsp;·&nbsp; Filled → Hauptaktion</div>
+            </div>
+            <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface)">
+              <div style="font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s4)">Formular einreichen</div>
+              <div style="height:32px;background:var(--bg-overlay);border-radius:var(--r-sm);border:var(--bd);margin-bottom:var(--s5)"></div>
+              <div style="display:flex;gap:var(--s2);margin-bottom:var(--s3)">
+                <button class="btn btn-outlined btn-sm" style="--c500:#007575;--c50:#E0F7F7">Vorschau</button>
+                <button class="btn btn-filled btn-sm" style="--c500:#007575;--c50:#E0F7F7">Absenden</button>
+              </div>
+              <div style="font:400 11px/16px var(--font);color:var(--tx-secondary)">Outlined → Alternativaktion &nbsp;·&nbsp; Filled → Primäraktion</div>
+            </div>
+            <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface)">
+              <div style="font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Feature entdecken</div>
+              <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Drei Bereiche, ein Ziel — Gelassenheit durch klare Struktur.</div>
+              <div style="display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s3)">
+                <button class="btn btn-text btn-sm" style="--c500:#007575;--c50:#E0F7F7">Mehr erfahren</button>
+                <button class="btn btn-tonal btn-sm" style="--c500:#007575;--c50:#E0F7F7">Jetzt starten</button>
+              </div>
+              <div style="font:400 11px/16px var(--font);color:var(--tx-secondary)">Text → Nebenaktion &nbsp;·&nbsp; Tonal → unterstützende Aktion</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
