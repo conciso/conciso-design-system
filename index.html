@@ -64,9 +64,9 @@
     </button>
     <div class="nav-subnav" data-for="spacing">
       <a class="nav-sub-item" href="#gt-spacing-scale">Spacing Scale</a>
-      <a class="nav-sub-item" href="#gt-spacing-verwendung">Verwendung Spacing</a>
       <a class="nav-sub-item" href="#gt-spacing-grid">12-Spalten Grid</a>
       <a class="nav-sub-item" href="#gt-spacing-layouts">Typische Layouts</a>
+      <a class="nav-sub-item" href="#gt-spacing-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="elevation">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/></svg>Elevation
@@ -709,7 +709,72 @@
       <div class="sp-item"><div class="sp-bar" style="width:32px"></div><code class="token">--s8</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">32px · Section Gap S</span></div>
       <div class="sp-item"><div class="sp-bar" style="width:64px"></div><code class="token">--s16</code><span style="font-size:13px;color:var(--tx-secondary);margin-left:8px">64px · Hero Rhythm</span></div>
 
-      <h2 id="gt-spacing-verwendung" class="group-title">Verwendung Spacing</h2>
+      <h2 id="gt-spacing-grid" class="group-title">12-Spalten Grid</h2>
+      <div class="grid-vis">
+        <div class="grid-12">
+          <div class="gcol">1</div><div class="gcol">2</div><div class="gcol">3</div><div class="gcol">4</div>
+          <div class="gcol">5</div><div class="gcol">6</div><div class="gcol">7</div><div class="gcol">8</div>
+          <div class="gcol">9</div><div class="gcol">10</div><div class="gcol">11</div><div class="gcol">12</div>
+        </div>
+        <div style="padding:10px var(--s4);font-size:12px;color:var(--tx-muted);border-top:var(--bd)">Gutter: 24px · Margin: 24px · Container LG: 1280px</div>
+      </div>
+
+      <h2 id="gt-spacing-layouts" class="group-title">Typische Layouts</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Spaltenbreiten werden als Vielfache von <code class="token">col-N</code> (1–12) angegeben. Bei ≤ 768 px bricht das Grid auf eine Spalte um.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s6)">
+        <div>
+          <span class="lbl">Vollbreite — 12 Spalten</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 12;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hero · Banner · Seiten-Header</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Maximale Breite für Hero-Bereiche und Page-Banner</span>
+        </div>
+        <div>
+          <span class="lbl">Content + Aside — 8 + 4</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 8;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hauptinhalt</div>
+            <div style="grid-column:span 4;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Sidebar</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Artikel und Dokumentationsseiten mit Sidebar</span>
+        </div>
+        <div>
+          <span class="lbl">Zweispaltig — 6 + 6</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte A</div>
+            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte B</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Vergleiche, Feature-Gegenüberstellungen, Formulare</span>
+        </div>
+        <div>
+          <span class="lbl">Dreispaltig — 4 + 4 + 4</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Feature-Karten, Produkt-Highlights, Service-Raster</span>
+        </div>
+        <div>
+          <span class="lbl">Sidebar-Navigation — 3 + 9</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 3;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Nav</div>
+            <div style="grid-column:span 9;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Content</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Design-System-Layout · Einstellungsseiten · Dashboards</span>
+        </div>
+        <div>
+          <span class="lbl">Vierspaltig — 3 + 3 + 3 + 3</span>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
+          </div>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Team-Übersichten · Produkt-Kataloge · Icon-Grids</span>
+        </div>
+      </div>
+
+      <h2 id="gt-spacing-verwendung" class="group-title">Verwendung</h2>
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
         <div class="col-5">
           <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s3) var(--s5);align-items:baseline">
@@ -784,71 +849,6 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Inkonsistente Padding-Werte in gleichartigen Komponenten (eine Card <code class="token">--s4</code>, die andere <code class="token">--s6</code>)</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Spacing-Tokens für Wort- oder Zeichenabstände im Text — dafür ist <code class="token">letter-spacing</code> zuständig</span></li>
           </ul>
-        </div>
-      </div>
-
-      <h2 id="gt-spacing-grid" class="group-title">12-Spalten Grid</h2>
-      <div class="grid-vis">
-        <div class="grid-12">
-          <div class="gcol">1</div><div class="gcol">2</div><div class="gcol">3</div><div class="gcol">4</div>
-          <div class="gcol">5</div><div class="gcol">6</div><div class="gcol">7</div><div class="gcol">8</div>
-          <div class="gcol">9</div><div class="gcol">10</div><div class="gcol">11</div><div class="gcol">12</div>
-        </div>
-        <div style="padding:10px var(--s4);font-size:12px;color:var(--tx-muted);border-top:var(--bd)">Gutter: 24px · Margin: 24px · Container LG: 1280px</div>
-      </div>
-
-      <h2 id="gt-spacing-layouts" class="group-title">Typische Layouts</h2>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Spaltenbreiten werden als Vielfache von <code class="token">col-N</code> (1–12) angegeben. Bei ≤ 768 px bricht das Grid auf eine Spalte um.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s6)">
-        <div>
-          <span class="lbl">Vollbreite — 12 Spalten</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 12;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hero · Banner · Seiten-Header</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Maximale Breite für Hero-Bereiche und Page-Banner</span>
-        </div>
-        <div>
-          <span class="lbl">Content + Aside — 8 + 4</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 8;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hauptinhalt</div>
-            <div style="grid-column:span 4;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Sidebar</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Artikel und Dokumentationsseiten mit Sidebar</span>
-        </div>
-        <div>
-          <span class="lbl">Zweispaltig — 6 + 6</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte A</div>
-            <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte B</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Vergleiche, Feature-Gegenüberstellungen, Formulare</span>
-        </div>
-        <div>
-          <span class="lbl">Dreispaltig — 4 + 4 + 4</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
-            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
-            <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Feature-Karten, Produkt-Highlights, Service-Raster</span>
-        </div>
-        <div>
-          <span class="lbl">Sidebar-Navigation — 3 + 9</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 3;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Nav</div>
-            <div style="grid-column:span 9;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Content</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Design-System-Layout · Einstellungsseiten · Dashboards</span>
-        </div>
-        <div>
-          <span class="lbl">Vierspaltig — 3 + 3 + 3 + 3</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
-            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
-            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
-            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
-            <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
-          </div>
-          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Team-Übersichten · Produkt-Kataloge · Icon-Grids</span>
         </div>
       </div>
     </section>
