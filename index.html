@@ -122,9 +122,17 @@
     <button class="nav-item" data-section="feedback">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/></svg>Feedback
     </button>
+    <div class="nav-subnav" data-for="feedback">
+      <a class="nav-sub-item" href="#gt-feedback-varianten">Snackbar-Varianten</a>
+      <a class="nav-sub-item" href="#gt-feedback-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="footer">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z"/></svg>Footer
     </button>
+    <div class="nav-subnav" data-for="footer">
+      <a class="nav-sub-item" href="#gt-footer-demo">Footer-Demo</a>
+      <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
+    </div>
 
     <div class="nav-section">Barrierefreiheit</div>
     <button class="nav-item" data-section="a11y">
@@ -1975,6 +1983,7 @@
     <!-- ═══ FEEDBACK ═══ -->
     <section class="ds-section" id="sec-feedback">
       <h1 class="sec-title">Feedback — Snackbars</h1>
+      <h2 id="gt-feedback-varianten" class="group-title">Snackbar-Varianten</h2>
       <div class="snack snack-def" role="status" aria-live="polite">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="#80DEDE" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
         Änderungen wurden gespeichert.
@@ -1989,11 +1998,77 @@
         Verbindung fehlgeschlagen.
         <button class="snack-act">Retry</button>
       </div>
+
+      <h2 id="gt-feedback-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Varianten-Tabelle -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-7">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Drei Varianten</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Variante</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">ARIA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Default</td><td style="padding:var(--s3);color:var(--tx-secondary)">Neutrale Statusmeldung mit optionaler Aktion — z.B. Speichern, Rückgängig</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">OK / Erfolg</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bestätigung einer abgeschlossenen Aktion — z.B. Deployment, Speichern, Versand</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Fehler</td><td style="padding:var(--s3);color:var(--tx-secondary)">Kritischer Fehler der sofortiges Handeln erfordert — bleibt sichtbar bis zur Dismiss-Aktion</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="alert"</code> <code class="token">aria-live="assertive"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-5">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Verhalten</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Auto-Dismiss</td><td style="padding:var(--s3);color:var(--tx-secondary)">Default & OK nach 4–6 Sek. — Fehler-Snackbar bleibt offen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Position</td><td style="padding:var(--s3);color:var(--tx-secondary)">Unten links oder zentriert — nie über primären Aktionsschaltflächen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Menge</td><td style="padding:var(--s3);color:var(--tx-secondary)">Max. 1 Snackbar gleichzeitig — neue verdrängt die vorherige</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Aktion</td><td style="padding:var(--s3);color:var(--tx-secondary)">Max. 1 Aktion pro Snackbar — kurzes Verb, max. 2 Wörter</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Snackbar-Text kurz und konkret halten — max. 1 Satz, keine Erklärungen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">role="alert"</code> nur für echte Fehler — nicht für Erfolgs- oder Infomeldungen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehler-Snackbar offen lassen bis die Nutzerin aktiv schließt oder das Problem behoben ist</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Aktions-Label als Verb formulieren — <em>Rückgängig</em>, <em>Retry</em>, <em>Anzeigen</em></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Icon immer verwenden — visuelle Unterscheidung der Varianten auch ohne Farbe erkennbar</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehrere Snackbars gleichzeitig anzeigen — stapeln verwirrt und überlastet die Aufmerksamkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Snackbars für kritische Entscheidungen verwenden — dafür ist ein Modal oder Dialog zuständig</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">OK-Snackbar für Fehlerszenarien nutzen — die Farbe signalisiert Erfolg, das wäre irreführend</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Lange Erklärungstexte im Snackbar — bei komplexen Fehlern lieber eine Inline-Fehlermeldung zeigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Default-Snackbar mit <code class="token">aria-live="assertive"</code> — unterbricht Screenreader unnötig bei nicht-kritischen Meldungen</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ FOOTER ═══ -->
     <section class="ds-section" id="sec-footer">
       <h1 class="sec-title">Footer</h1>
+      <h2 id="gt-footer-demo" class="group-title">Footer-Demo</h2>
       <footer class="footer" aria-label="Seitenfuß">
         <div class="footer-grid">
           <div>
@@ -2052,6 +2127,85 @@
           </nav>
         </div>
       </footer>
+
+      <h2 id="gt-footer-verwendung" class="group-title">Verwendung</h2>
+
+      <!-- Struktur-Tabelle -->
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Aufbau</div>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Bereich</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Inhalt & Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Markenbereich</td><td style="padding:var(--s3);color:var(--tx-secondary)">Produktname in aktiver Bereichsfarbe + kurze Beschreibung der vier Brand Areas</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Navigationsspalten</td><td style="padding:var(--s3);color:var(--tx-secondary)">Max. 4 Spalten (je Brand Area) · max. 3–4 Links pro Spalte · prägnante Linkbezeichnungen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Legal-Bar</td><td style="padding:var(--s3);color:var(--tx-secondary)">Copyright · Datenschutz · Impressum · Barrierefreiheit — alle Pflichtangaben</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Barrierefreiheit</td><td style="padding:var(--s3);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> braucht ein <code class="token">aria-label</code> — Screenreader unterscheiden so Haupt- und Footer-Nav</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Anatomie</div>
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;font:400 12px/16px var(--font)">
+            <div style="display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:0;border-bottom:var(--bd)">
+              <div style="padding:var(--s4);background:var(--bg-overlay);border-right:var(--bd)">
+                <div style="color:var(--co-500);font-weight:700;margin-bottom:4px">① Marke</div>
+                <div style="color:var(--tx-muted)">Name + Bereichsfarbe</div>
+              </div>
+              <div style="padding:var(--s4);border-right:var(--bd)">
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">② Bereich 1</div>
+                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+              </div>
+              <div style="padding:var(--s4);border-right:var(--bd)">
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">③ Bereich 2</div>
+                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+              </div>
+              <div style="padding:var(--s4);border-right:var(--bd)">
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">④ Bereich 3</div>
+                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+              </div>
+              <div style="padding:var(--s4)">
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">⑤ Bereich 4</div>
+                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+              </div>
+            </div>
+            <div style="padding:var(--s3) var(--s4);background:var(--bg-overlay);display:flex;justify-content:space-between;align-items:center">
+              <span style="color:var(--tx-muted)">⑥ © Jahr Firma</span>
+              <span style="color:var(--tx-muted)">⑦ Datenschutz · Impressum · Barrierefreiheit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Produktname in der aktiven Bereichsfarbe — verankert die Brand Area auch im Footer</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Alle vier Brand Areas als Navigationsspalten — gibt den Bereichen gleichwertigen Platz</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> mit eindeutigem <code class="token">aria-label</code> versehen — Navigation muss benannt sein</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Legal-Bar vollständig halten — Datenschutz, Impressum und Barrierefreiheit sind Pflicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Footer-Links kurz und treffend — Nutzerinnen scannen, sie lesen nicht</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Navigationsspalten — wirkt überladen und bricht das Grid auf kleineren Screens</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Footer als primäre Navigation verwenden — er ist eine Ergänzung, nicht Ersatz für die Top App Bar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Links pro Spalte — konzentriert bleiben, die wichtigsten Einstiegspunkte nennen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Legal-Links in der Haupt-Spaltennavigation platzieren — sie gehören ausschließlich in die Legal-Bar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Footer ohne Copyright-Jahr und Firmennamen — beide sind rechtlich relevant und müssen aktuell sein</span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- ═══ A11Y ═══ -->
