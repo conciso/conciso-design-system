@@ -82,6 +82,21 @@
     document.getElementById('main-content').focus();
   });
 
+  /* ── Sidebar toggle ── */
+  var sidebarToggleBtn = document.getElementById('sidebar-toggle');
+  var dsSidebar = document.querySelector('.ds-sidebar');
+  sidebarToggleBtn.addEventListener('click', function() {
+    var isCollapsed = dsSidebar.classList.toggle('collapsed');
+    sidebarToggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+    sidebarToggleBtn.setAttribute('aria-label', isCollapsed ? 'Navigation ausklappen' : 'Navigation einklappen');
+    if (isCollapsed) {
+      document.querySelectorAll('.nav-subnav.visible').forEach(function(nav) { nav.classList.remove('visible'); });
+    } else {
+      var active = document.querySelector('.nav-item.active[data-section]');
+      if (active) updateSubNav(active.dataset.section);
+    }
+  });
+
   /* ── Example page tabs ── */
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
     btn.addEventListener('click', function() {
