@@ -2317,21 +2317,21 @@
     <!-- ═══ FEEDBACK ═══ -->
     <section class="ds-section" id="sec-feedback">
       <h1 class="sec-title">Feedback — Snackbars</h1>
-      <p class="sec-sub">3 Varianten: Default · OK · Fehler — mit ARIA Live Region und Auto-Dismiss-Verhalten.</p>
+      <p class="sec-sub">3 Varianten: Default · OK · Fehler — für Kontaktformular, Newsletter-Anmeldung und Validierungsfehler auf Landingpages.</p>
       <h2 id="gt-feedback-varianten" class="group-title">Snackbar-Varianten</h2>
       <div class="snack snack-def" role="status" aria-live="polite">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#80DEDE" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
-        Änderungen wurden gespeichert.
-        <button class="snack-act">Rückgängig</button>
+        Formular gespeichert — noch nicht abgesendet.
+        <button class="snack-act">Jetzt senden</button>
       </div>
       <div class="snack snack-ok" role="status" aria-live="polite">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#88f0c4" aria-hidden="true" focusable="false"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-        Deployment erfolgreich abgeschlossen.
+        Nachricht gesendet. Wir melden uns in 1–2 Werktagen.
       </div>
       <div class="snack snack-err" role="alert" aria-live="assertive">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#f9a8a8" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        Verbindung fehlgeschlagen.
-        <button class="snack-act">Retry</button>
+        Senden fehlgeschlagen — bitte Verbindung prüfen.
+        <button class="snack-act">Erneut versuchen</button>
       </div>
 
       <h2 id="gt-feedback-verwendung" class="group-title">Verwendung</h2>
@@ -2349,9 +2349,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Default</td><td style="padding:var(--s3);color:var(--tx-secondary)">Neutrale Statusmeldung mit optionaler Aktion — z.B. Speichern, Rückgängig</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">OK / Erfolg</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bestätigung einer abgeschlossenen Aktion — z.B. Deployment, Speichern, Versand</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
-              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Fehler</td><td style="padding:var(--s3);color:var(--tx-secondary)">Kritischer Fehler der sofortiges Handeln erfordert — bleibt sichtbar bis zur Dismiss-Aktion</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="alert"</code> <code class="token">aria-live="assertive"</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Default</td><td style="padding:var(--s3);color:var(--tx-secondary)">Neutrale Statusmeldung mit optionaler Aktion — Formular zwischengespeichert, Cookie-Einwilligung bestätigt</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">OK / Erfolg</td><td style="padding:var(--s3);color:var(--tx-secondary)">Abgeschlossene Landingpage-Aktion — Kontaktformular gesendet, Newsletter-Anmeldung bestätigt</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="status"</code> <code class="token">aria-live="polite"</code></td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Fehler</td><td style="padding:var(--s3);color:var(--tx-secondary)">Versand oder Serverfehler nach Submit — bleibt sichtbar bis die Nutzerin aktiv reagiert</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">role="alert"</code> <code class="token">aria-live="assertive"</code></td></tr>
             </tbody>
           </table>
         </div>
@@ -2374,27 +2374,62 @@
         </div>
       </div>
 
+      <!-- Landingpage-Kontexte -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Typische Landingpage-Kontexte</div>
+      <div class="layout-grid" style="align-items:stretch;margin-bottom:var(--s6)">
+        <div class="col-4" style="display:flex;flex-direction:column">
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
+            <div style="font:500 13px/18px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Kontaktformular</div>
+            <div style="font:400 12px/18px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Nutzerin sendet Anfrage über das Kontaktformular.</div>
+            <div style="display:flex;flex-direction:column;gap:var(--s2)">
+              <div style="display:flex;align-items:center;gap:var(--s2)"><span style="background:var(--c-success-bg);color:var(--c-success);font:500 11px/16px var(--font);padding:2px 8px;border-radius:var(--r-xs)">OK</span><span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Formular erfolgreich gesendet</span></div>
+              <div style="display:flex;align-items:center;gap:var(--s2)"><span style="background:var(--c-error-bg);color:var(--c-error);font:500 11px/16px var(--font);padding:2px 8px;border-radius:var(--r-xs)">Fehler</span><span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Serverfehler beim Senden</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4" style="display:flex;flex-direction:column">
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
+            <div style="font:500 13px/18px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Newsletter-Anmeldung</div>
+            <div style="font:400 12px/18px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Nutzerin trägt E-Mail-Adresse ein und bestätigt.</div>
+            <div style="display:flex;flex-direction:column;gap:var(--s2)">
+              <div style="display:flex;align-items:center;gap:var(--s2)"><span style="background:var(--c-success-bg);color:var(--c-success);font:500 11px/16px var(--font);padding:2px 8px;border-radius:var(--r-xs)">OK</span><span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Anmeldung bestätigt, E-Mail folgt</span></div>
+              <div style="display:flex;align-items:center;gap:var(--s2)"><span style="background:var(--c-warning-bg);color:var(--c-warning);font:500 11px/16px var(--font);padding:2px 8px;border-radius:var(--r-xs)">Default</span><span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Bereits registriert — kein Duplikat</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4" style="display:flex;flex-direction:column">
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
+            <div style="font:500 13px/18px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)">Formularvalidierung</div>
+            <div style="font:400 12px/18px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Pflichtfeld fehlt oder Format ist ungültig.</div>
+            <div style="display:flex;flex-direction:column;gap:var(--s2)">
+              <div style="display:flex;align-items:center;gap:var(--s2)"><span style="background:var(--c-error-bg);color:var(--c-error);font:500 11px/16px var(--font);padding:2px 8px;border-radius:var(--r-xs)">Fehler</span><span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Globaler Submit-Fehler als Snackbar</span></div>
+              <div style="font:400 12px/16px var(--font);color:var(--tx-muted);padding-left:2px">Feldfehler → immer inline unter dem Feld, nicht als Snackbar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start">
         <div class="col-6">
           <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Snackbar-Text kurz und konkret halten — max. 1 Satz, keine Erklärungen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">role="alert"</code> nur für echte Fehler — nicht für Erfolgs- oder Infomeldungen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehler-Snackbar offen lassen bis die Nutzerin aktiv schließt oder das Problem behoben ist</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Aktions-Label als Verb formulieren — <em>Rückgängig</em>, <em>Retry</em>, <em>Anzeigen</em></span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Icon immer verwenden — visuelle Unterscheidung der Varianten auch ohne Farbe erkennbar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">OK-Snackbar nach erfolgreichem Formularversand — Nutzerin bekommt klare Rückmeldung ohne Seitenwechsel</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Feldfehler inline direkt unter dem Eingabefeld zeigen — Snackbar nur für globale Submit-Fehler</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehler-Snackbar offen lassen bis die Nutzerin aktiv reagiert — kein Auto-Dismiss bei kritischen Meldungen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Aktions-Label als konkretes Verb — <em>Erneut versuchen</em>, <em>Jetzt senden</em>, <em>Schließen</em></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">role="alert"</code> nur für Versand- oder Serverfehler — nicht für Bestätigungen und Hinweise</span></li>
           </ul>
         </div>
         <div class="col-6">
           <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehrere Snackbars gleichzeitig anzeigen — stapeln verwirrt und überlastet die Aufmerksamkeit</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Snackbars für kritische Entscheidungen verwenden — dafür ist ein Modal oder Dialog zuständig</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">OK-Snackbar für Fehlerszenarien nutzen — die Farbe signalisiert Erfolg, das wäre irreführend</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Lange Erklärungstexte im Snackbar — bei komplexen Fehlern lieber eine Inline-Fehlermeldung zeigen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Default-Snackbar mit <code class="token">aria-live="assertive"</code> — unterbricht Screenreader unnötig bei nicht-kritischen Meldungen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Feldfehler als Snackbar — Nutzerin verliert den Bezug zum betroffenen Feld</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">OK-Snackbar auto-dismissen bevor Nutzerin sie gelesen hat — bei langen Erfolgstexten Timer auf 6 Sek. setzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Snackbar für nächste Schritte nutzen — nach Formularversand lieber per E-Mail oder Folgeseite bestätigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehrere Snackbars gleichzeitig anzeigen — neue Meldung verdrängt immer die vorherige</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Fehler-Snackbar als einzige Validierung verwenden — Pflichtfelder müssen schon vor Submit markiert sein</span></li>
           </ul>
         </div>
       </div>
