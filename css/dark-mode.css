@@ -45,6 +45,8 @@
 [data-theme="dark"] .bw-pillar-title { color: var(--co-300) }
 
 /* Dark: targeted component fixes that can't be token-driven */
+/* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
+[data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%238AAFAF'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") }
 [data-theme="dark"] .chip { border-color:#818C99 }
 [data-theme="dark"] .ai-warning { color:var(--ai-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
