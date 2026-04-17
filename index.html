@@ -2909,22 +2909,38 @@ document.documentElement
         <!-- Topnav -->
         <div class="ep-topnav">
           <div class="ep-logo" style="color:var(--tx-brand)">product<span style="color:#00BEBE">.</span></div>
-          <div class="ep-nav-links" style="color:#4A6565">
-            <span style="color:#007575;font-weight:700">Corporate</span>
-            <span>Angewandte KI</span>
-            <span>Effektive Software</span>
-            <span>Wirksame Organisationen</span>
-          </div>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:#4A6565">
+            <button class="ep-nav-btn" type="button" aria-current="page" style="color:#007575;font-weight:700">Corporate</button>
+            <button class="ep-nav-btn" type="button">Angewandte KI</button>
+            <button class="ep-nav-btn" type="button">Effektive Software</button>
+            <button class="ep-nav-btn" type="button">Wirksame Organisationen</button>
+          </nav>
           <button class="btn btn-filled btn-sm btn-co">Kontakt</button>
         </div>
         <!-- Hero -->
         <div class="ep-hero" style="background:linear-gradient(140deg,#071616 0%,#0A2E2E 60%,#007575 100%);color:#fff">
-          <p class="ep-hero-eyebrow" style="color:#80DEDE">Ruhige Energie GmbH · Berlin</p>
-          <h1 class="ep-hero-h1">Wirksam. Präzise.<br>Nachhaltig.</h1>
-          <p class="ep-hero-sub" style="opacity:.9">Wir verbinden Marke, Technologie und Organisation – und schaffen echten, messbaren Mehrwert für Ihr Unternehmen.</p>
-          <div class="ep-hero-ctas">
-            <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Unsere Leistungen</button>
-            <button class="btn btn-outlined" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Kontakt aufnehmen</button>
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:#80DEDE">Ruhige Energie GmbH · Berlin</p>
+            <h1 class="ep-hero-h1">Wirksam. Präzise.<br>Nachhaltig.</h1>
+            <p class="ep-hero-sub" style="opacity:.9">Wir verbinden Marke, Technologie und Organisation – und schaffen echten, messbaren Mehrwert für Ihr Unternehmen.</p>
+            <div class="ep-hero-ctas">
+              <button class="btn btn-filled" type="button" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Unsere Leistungen</button>
+              <button class="btn btn-outlined" type="button" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Kontakt aufnehmen</button>
+            </div>
+          </div>
+          <div class="ep-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 260 220" fill="none" focusable="false">
+              <circle cx="82" cy="82" r="58" stroke="#00BEBE" stroke-width="1.5" opacity=".35"/>
+              <circle cx="82" cy="82" r="28" fill="#00BEBE" opacity=".14"/>
+              <circle cx="178" cy="82" r="58" stroke="#B5E61C" stroke-width="1.5" opacity=".35"/>
+              <circle cx="178" cy="82" r="28" fill="#B5E61C" opacity=".14"/>
+              <circle cx="82" cy="158" r="42" stroke="#44A030" stroke-width="1.5" opacity=".35"/>
+              <circle cx="82" cy="158" r="20" fill="#44A030" opacity=".14"/>
+              <circle cx="178" cy="158" r="42" stroke="#2F5FD4" stroke-width="1.5" opacity=".35"/>
+              <circle cx="178" cy="158" r="20" fill="#2F5FD4" opacity=".14"/>
+              <path d="M82 82L178 82M82 82L82 158M178 82L178 158M82 158L178 158M82 82L178 158M178 82L82 158" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+              <circle cx="130" cy="120" r="8" fill="rgba(255,255,255,.3)"/>
+            </svg>
           </div>
         </div>
         <!-- Vier Bereiche – farbig differenziert -->
@@ -2977,10 +2993,10 @@ document.documentElement
           <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Gespräch vereinbaren</button>
         </div>
         <!-- Footer -->
-        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+        <footer class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Dortmund</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
-        </div>
+        </footer>
       </div>
 
       <!-- ── CORPORATE ── -->
@@ -2988,22 +3004,36 @@ document.documentElement
         <!-- Topnav – gleiche Struktur, Corporate hervorgehoben -->
         <div class="ep-topnav">
           <div class="ep-logo" style="color:var(--tx-brand)">product<span style="color:#00BEBE">.</span></div>
-          <div class="ep-nav-links" style="color:#4A6565">
-            <span style="color:#007575;font-weight:700;border-bottom:2px solid #00BEBE;padding-bottom:2px">Corporate</span>
-            <span>Angewandte KI</span>
-            <span>Effektive Software</span>
-            <span>Wirksame Organisationen</span>
-          </div>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:#4A6565">
+            <button class="ep-nav-btn" type="button" aria-current="page" style="color:#007575;font-weight:700;border-bottom:2px solid #00BEBE;padding-bottom:2px">Corporate</button>
+            <button class="ep-nav-btn" type="button">Angewandte KI</button>
+            <button class="ep-nav-btn" type="button">Effektive Software</button>
+            <button class="ep-nav-btn" type="button">Wirksame Organisationen</button>
+          </nav>
           <button class="btn btn-filled btn-sm btn-co">Anfragen</button>
         </div>
         <!-- Hero – heller Teal-Hintergrund, dunkler Text -->
         <div class="ep-hero" style="background:linear-gradient(140deg,#E0F7F7 0%,#B3ECEC 100%)">
-          <p class="ep-hero-eyebrow" style="color:#007575">Corporate · Marke · Kommunikation · Strategie</p>
-          <h1 class="ep-hero-h1" style="color:#002B2B">Ihre Marke.<br>Klar und wirkungsvoll.</h1>
-          <p class="ep-hero-sub" style="color:#004F4F">Wir gestalten Unternehmensidentitäten, die nicht nur gut aussehen – sondern wirken. Ruhig, präzise, nachhaltig.</p>
-          <div class="ep-hero-ctas">
-            <button class="btn btn-filled btn-co">Markenprojekt starten</button>
-            <button class="btn btn-outlined btn-co">Portfolio ansehen</button>
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:#007575">Corporate · Marke · Kommunikation · Strategie</p>
+            <h1 class="ep-hero-h1" style="color:#002B2B">Ihre Marke.<br>Klar und wirkungsvoll.</h1>
+            <p class="ep-hero-sub" style="color:#004F4F">Wir gestalten Unternehmensidentitäten, die nicht nur gut aussehen – sondern wirken. Ruhig, präzise, nachhaltig.</p>
+            <div class="ep-hero-ctas">
+              <button class="btn btn-filled btn-co" type="button">Markenprojekt starten</button>
+              <button class="btn btn-outlined btn-co" type="button">Portfolio ansehen</button>
+            </div>
+          </div>
+          <div class="ep-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 260 220" fill="none" focusable="false">
+              <circle cx="130" cy="110" r="96" stroke="#00BEBE" stroke-width="1" opacity=".2"/>
+              <circle cx="130" cy="110" r="68" stroke="#009E9E" stroke-width="1.5" opacity=".3"/>
+              <circle cx="130" cy="110" r="40" fill="#80DEDE" opacity=".25"/>
+              <circle cx="130" cy="110" r="18" fill="#009E9E" opacity=".5"/>
+              <line x1="130" y1="14" x2="130" y2="206" stroke="#007575" stroke-width=".75" opacity=".18"/>
+              <line x1="34" y1="110" x2="226" y2="110" stroke="#007575" stroke-width=".75" opacity=".18"/>
+              <line x1="62" y1="42" x2="198" y2="178" stroke="#007575" stroke-width=".75" opacity=".1"/>
+              <line x1="198" y1="42" x2="62" y2="178" stroke="#007575" stroke-width=".75" opacity=".1"/>
+            </svg>
           </div>
         </div>
         <!-- Leistungen -->
@@ -3043,10 +3073,10 @@ document.documentElement
           <button class="btn btn-filled" style="--c500:#00BEBE;--c50:#E0F7F7;color:#002B2B">Erstgespräch buchen</button>
         </div>
         <!-- Footer -->
-        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+        <footer class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Dortmund</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
-        </div>
+        </footer>
       </div>
 
       <!-- ── AI.APPLIED ── -->
@@ -3054,22 +3084,38 @@ document.documentElement
         <!-- Topnav – einheitlich hell -->
         <div class="ep-topnav">
           <div class="ep-logo" style="color:var(--tx-brand)">product<span style="color:#00BEBE">.</span></div>
-          <div class="ep-nav-links" style="color:#4A6565">
-            <span>Corporate</span>
-            <span style="color:#6B8208;font-weight:700;border-bottom:2px solid #B5E61C;padding-bottom:2px">Angewandte KI</span>
-            <span>Effektive Software</span>
-            <span>Wirksame Organisationen</span>
-          </div>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:#4A6565">
+            <button class="ep-nav-btn" type="button">Corporate</button>
+            <button class="ep-nav-btn" type="button" aria-current="page" style="color:#6B8208;font-weight:700;border-bottom:2px solid #B5E61C;padding-bottom:2px">Angewandte KI</button>
+            <button class="ep-nav-btn" type="button">Effektive Software</button>
+            <button class="ep-nav-btn" type="button">Wirksame Organisationen</button>
+          </nav>
           <button class="btn btn-filled btn-sm btn-ai">Demo anfragen</button>
         </div>
         <!-- Hero – heller Lime-Hintergrund -->
         <div class="ep-hero" style="background:linear-gradient(140deg,#F4FCD5 0%,#E6F8A0 100%)">
-          <p class="ep-hero-eyebrow" style="color:#475705">Angewandte KI · Intelligenz · Automatisierung · Wirkung</p>
-          <h1 class="ep-hero-h1" style="color:#242C02">KI, die echte<br>Ergebnisse liefert.</h1>
-          <p class="ep-hero-sub" style="color:#475705">Kein Hype, keine Demo-Ware. Wir implementieren KI-Lösungen, die funktionieren – messbar, skalierbar, sicher.</p>
-          <div class="ep-hero-ctas">
-            <button class="btn btn-filled btn-ai">Use Case analysieren</button>
-            <button class="btn btn-outlined btn-ai">Fallstudien ansehen</button>
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:#475705">Angewandte KI · Intelligenz · Automatisierung · Wirkung</p>
+            <h1 class="ep-hero-h1" style="color:#242C02">KI, die echte<br>Ergebnisse liefert.</h1>
+            <p class="ep-hero-sub" style="color:#475705">Kein Hype, keine Demo-Ware. Wir implementieren KI-Lösungen, die funktionieren – messbar, skalierbar, sicher.</p>
+            <div class="ep-hero-ctas">
+              <button class="btn btn-filled btn-ai" type="button">Use Case analysieren</button>
+              <button class="btn btn-outlined btn-ai" type="button">Fallstudien ansehen</button>
+            </div>
+          </div>
+          <div class="ep-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 260 220" fill="none" focusable="false">
+              <path d="M50 70L130 50M50 70L130 110M50 70L130 170M50 115L130 50M50 115L130 110M50 115L130 170M50 160L130 50M50 160L130 110M50 160L130 170" stroke="#8FAF0E" stroke-width="1" opacity=".35"/>
+              <path d="M130 50L210 85M130 50L210 145M130 110L210 85M130 110L210 145M130 170L210 85M130 170L210 145" stroke="#8FAF0E" stroke-width="1" opacity=".35"/>
+              <circle cx="50" cy="70" r="10" fill="#B5E61C" opacity=".75"/>
+              <circle cx="50" cy="115" r="10" fill="#B5E61C" opacity=".75"/>
+              <circle cx="50" cy="160" r="10" fill="#B5E61C" opacity=".75"/>
+              <circle cx="130" cy="50" r="13" fill="#8FAF0E" opacity=".65"/>
+              <circle cx="130" cy="110" r="13" fill="#8FAF0E" opacity=".65"/>
+              <circle cx="130" cy="170" r="13" fill="#8FAF0E" opacity=".65"/>
+              <circle cx="210" cy="85" r="16" fill="#6B8208" opacity=".7"/>
+              <circle cx="210" cy="145" r="16" fill="#6B8208" opacity=".7"/>
+            </svg>
           </div>
         </div>
         <!-- Leistungen -->
@@ -3109,10 +3155,10 @@ document.documentElement
           <button class="btn btn-filled" style="--c500:#B5E61C;--c50:#F4FCD5;color:#242C02">KI-Potenzial analysieren</button>
         </div>
         <!-- Footer -->
-        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+        <footer class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Dortmund</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
-        </div>
+        </footer>
       </div>
 
       <!-- ── EFFEKTIVE SOFTWARE ── -->
@@ -3120,22 +3166,42 @@ document.documentElement
         <!-- Topnav -->
         <div class="ep-topnav">
           <div class="ep-logo" style="color:var(--tx-brand)">product<span style="color:#00BEBE">.</span></div>
-          <div class="ep-nav-links" style="color:#4A6565">
-            <span>Corporate</span>
-            <span>Angewandte KI</span>
-            <span style="color:#1B3D9A;font-weight:700;border-bottom:2px solid #2F5FD4;padding-bottom:2px">Effektive Software</span>
-            <span>Wirksame Organisationen</span>
-          </div>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:#4A6565">
+            <button class="ep-nav-btn" type="button">Corporate</button>
+            <button class="ep-nav-btn" type="button">Angewandte KI</button>
+            <button class="ep-nav-btn" type="button" aria-current="page" style="color:#1B3D9A;font-weight:700;border-bottom:2px solid #2F5FD4;padding-bottom:2px">Effektive Software</button>
+            <button class="ep-nav-btn" type="button">Wirksame Organisationen</button>
+          </nav>
           <button class="btn btn-filled btn-sm btn-es">Projekt starten</button>
         </div>
         <!-- Hero – heller Blau-Hintergrund -->
         <div class="ep-hero" style="background:linear-gradient(140deg,#EAF0FB 0%,#C8D9F5 100%)">
-          <p class="ep-hero-eyebrow" style="color:#1B3D9A">Effektive Software · Präzision · Verlässlichkeit · Qualität</p>
-          <h1 class="ep-hero-h1" style="color:#071035">Software, die hält,<br>was sie verspricht.</h1>
-          <p class="ep-hero-sub" style="color:#112568">Wir entwickeln Systeme, auf die Sie sich verlassen können – stabil, wartbar und für die Zukunft gebaut.</p>
-          <div class="ep-hero-ctas">
-            <button class="btn btn-filled btn-es">Technologie-Assessment</button>
-            <button class="btn btn-outlined btn-es">Referenzprojekte</button>
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:#1B3D9A">Effektive Software · Präzision · Verlässlichkeit · Qualität</p>
+            <h1 class="ep-hero-h1" style="color:#071035">Software, die hält,<br>was sie verspricht.</h1>
+            <p class="ep-hero-sub" style="color:#112568">Wir entwickeln Systeme, auf die Sie sich verlassen können – stabil, wartbar und für die Zukunft gebaut.</p>
+            <div class="ep-hero-ctas">
+              <button class="btn btn-filled btn-es" type="button">Technologie-Assessment</button>
+              <button class="btn btn-outlined btn-es" type="button">Referenzprojekte</button>
+            </div>
+          </div>
+          <div class="ep-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 260 220" fill="none" focusable="false">
+              <rect x="16" y="24" width="228" height="172" rx="10" fill="#C8D9F5" fill-opacity=".4" stroke="#4677DC" stroke-width="1.5" opacity=".3"/>
+              <rect x="16" y="24" width="228" height="32" rx="10" fill="#98B7EE" fill-opacity=".45"/>
+              <circle cx="40" cy="40" r="5" fill="#E84040" opacity=".5"/>
+              <circle cx="58" cy="40" r="5" fill="#E8A020" opacity=".5"/>
+              <circle cx="76" cy="40" r="5" fill="#1DB87A" opacity=".5"/>
+              <rect x="36" y="72" width="88" height="5" rx="2.5" fill="#2F5FD4" opacity=".4"/>
+              <rect x="36" y="86" width="148" height="5" rx="2.5" fill="#1B3D9A" opacity=".3"/>
+              <rect x="52" y="100" width="108" height="5" rx="2.5" fill="#4677DC" opacity=".25"/>
+              <rect x="52" y="114" width="128" height="5" rx="2.5" fill="#2F5FD4" opacity=".3"/>
+              <rect x="36" y="128" width="64" height="5" rx="2.5" fill="#2F5FD4" opacity=".4"/>
+              <rect x="36" y="142" width="112" height="5" rx="2.5" fill="#1B3D9A" opacity=".25"/>
+              <rect x="52" y="156" width="88" height="5" rx="2.5" fill="#4677DC" opacity=".3"/>
+              <rect x="36" y="170" width="44" height="5" rx="2.5" fill="#2F5FD4" opacity=".4"/>
+              <rect x="88" y="170" width="10" height="5" rx="2.5" fill="#2249B2" opacity=".7"/>
+            </svg>
           </div>
         </div>
         <!-- Leistungen -->
@@ -3175,10 +3241,10 @@ document.documentElement
           <button class="btn btn-filled" style="--c500:#2F5FD4;--c50:#EAF0FB">Assessment anfragen</button>
         </div>
         <!-- Footer -->
-        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+        <footer class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Dortmund</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
-        </div>
+        </footer>
       </div>
 
       <!-- ── WIRKSAME ORGANISATION ── -->
@@ -3186,22 +3252,47 @@ document.documentElement
         <!-- Topnav -->
         <div class="ep-topnav">
           <div class="ep-logo" style="color:var(--tx-brand)">product<span style="color:#00BEBE">.</span></div>
-          <div class="ep-nav-links" style="color:#4A6565">
-            <span>Corporate</span>
-            <span>Angewandte KI</span>
-            <span>Effektive Software</span>
-            <span style="color:#285E1A;font-weight:700;border-bottom:2px solid #44A030;padding-bottom:2px">Wirksame Organisationen</span>
-          </div>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:#4A6565">
+            <button class="ep-nav-btn" type="button">Corporate</button>
+            <button class="ep-nav-btn" type="button">Angewandte KI</button>
+            <button class="ep-nav-btn" type="button">Effektive Software</button>
+            <button class="ep-nav-btn" type="button" aria-current="page" style="color:#285E1A;font-weight:700;border-bottom:2px solid #44A030;padding-bottom:2px">Wirksame Organisationen</button>
+          </nav>
           <button class="btn btn-filled btn-sm btn-wo">Erstgespräch</button>
         </div>
         <!-- Hero – heller Grün-Hintergrund -->
         <div class="ep-hero" style="background:linear-gradient(140deg,#EBF5E6 0%,#CEEAC3 100%)">
-          <p class="ep-hero-eyebrow" style="color:#285E1A">Wirksame Organisationen · Struktur · Wirkung · Wandel</p>
-          <h1 class="ep-hero-h1" style="color:#0A1F05">Wandel, der<br>wirklich trägt.</h1>
-          <p class="ep-hero-sub" style="color:#183A0E">Wir begleiten Unternehmen durch Veränderung – mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
-          <div class="ep-hero-ctas">
-            <button class="btn btn-filled btn-wo">Transformation starten</button>
-            <button class="btn btn-outlined btn-wo">Ansatz kennenlernen</button>
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:#285E1A">Wirksame Organisationen · Struktur · Wirkung · Wandel</p>
+            <h1 class="ep-hero-h1" style="color:#0A1F05">Wandel, der<br>wirklich trägt.</h1>
+            <p class="ep-hero-sub" style="color:#183A0E">Wir begleiten Unternehmen durch Veränderung – mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
+            <div class="ep-hero-ctas">
+              <button class="btn btn-filled btn-wo" type="button">Transformation starten</button>
+              <button class="btn btn-outlined btn-wo" type="button">Ansatz kennenlernen</button>
+            </div>
+          </div>
+          <div class="ep-hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 260 220" fill="none" focusable="false">
+              <line x1="130" y1="54" x2="130" y2="84" stroke="#347A22" stroke-width="1.5" opacity=".4"/>
+              <line x1="76" y1="84" x2="184" y2="84" stroke="#347A22" stroke-width="1.5" opacity=".4"/>
+              <line x1="76" y1="84" x2="76" y2="114" stroke="#347A22" stroke-width="1.5" opacity=".4"/>
+              <line x1="184" y1="84" x2="184" y2="114" stroke="#347A22" stroke-width="1.5" opacity=".4"/>
+              <line x1="76" y1="142" x2="76" y2="164" stroke="#347A22" stroke-width="1.5" opacity=".35"/>
+              <line x1="40" y1="164" x2="112" y2="164" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <line x1="40" y1="164" x2="40" y2="182" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <line x1="112" y1="164" x2="112" y2="182" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <line x1="184" y1="142" x2="184" y2="164" stroke="#347A22" stroke-width="1.5" opacity=".35"/>
+              <line x1="148" y1="164" x2="220" y2="164" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <line x1="148" y1="164" x2="148" y2="182" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <line x1="220" y1="164" x2="220" y2="182" stroke="#347A22" stroke-width="1.5" opacity=".3"/>
+              <circle cx="130" cy="36" r="18" fill="#44A030" opacity=".6"/>
+              <circle cx="76" cy="128" r="14" fill="#55AD3F" opacity=".55"/>
+              <circle cx="184" cy="128" r="14" fill="#55AD3F" opacity=".55"/>
+              <circle cx="40" cy="190" r="10" fill="#72BD58" opacity=".5"/>
+              <circle cx="112" cy="190" r="10" fill="#72BD58" opacity=".5"/>
+              <circle cx="148" cy="190" r="10" fill="#72BD58" opacity=".5"/>
+              <circle cx="220" cy="190" r="10" fill="#72BD58" opacity=".5"/>
+            </svg>
           </div>
         </div>
         <!-- Leistungen -->
@@ -3241,10 +3332,10 @@ document.documentElement
           <button class="btn btn-filled" style="--c500:#44A030;--c50:#EBF5E6;color:#0A1F05">Erstgespräch vereinbaren</button>
         </div>
         <!-- Footer -->
-        <div class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
+        <footer class="ep-page-footer" style="background:#002B2B;color:#80DEDE">
           <span>product. — © 2026 Ruhige Energie GmbH · Dortmund</span>
           <span>Datenschutz · Impressum · Barrierefreiheit</span>
-        </div>
+        </footer>
       </div>
     </section>
 
