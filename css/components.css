@@ -209,7 +209,7 @@
 .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
 .ep-card{border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
 .ep-card-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
-.ep-card-icon svg{width:22px;height:22px}
+.ep-card-icon svg{width:24px;height:24px}
 .ep-card-title{font:500 14px/20px var(--font);margin-bottom:var(--s2)}
 .ep-card-text{font:400 14px/20px var(--font)}
 .ep-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s6);padding:var(--s10) var(--s8);text-align:center}
