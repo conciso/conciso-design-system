@@ -43,9 +43,9 @@
 .btn-full {width:100%;justify-content:center}
 
 /* ── Showcase containers ── */
-.ds-card   {border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.ds-card   {border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1);display:flex;flex-direction:column;flex:1}
 .ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
-.ds-inner  {padding:var(--s6);background:var(--bg-surface)}
+.ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
 .clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
 
 /* ── Badges & Chips ── */
