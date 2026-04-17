@@ -106,7 +106,7 @@
 .sp-bar{height:20px;background:var(--co-50);border:1px solid var(--co-500);border-radius:2px;flex-shrink:0}
 
 /* ── Elevation ── */
-.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:150px;text-align:center;font:400 14px/20px var(--font);color:var(--tx-secondary)}
+.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:100%;text-align:center;font:400 14px/20px var(--font);color:var(--tx-secondary)}
 .el-lbl{font:500 11px/16px var(--font);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
 
 /* ── Nav demo ── */
