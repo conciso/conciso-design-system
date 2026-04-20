@@ -78,6 +78,15 @@
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
 .card-body{padding:var(--s5)}
 .card-eyebrow{font:500 11px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+/* Area-branded card media + eyebrow (token-driven, dark-mode overridable) */
+.card[data-area="co"] .card-media{background:var(--co-50);color:var(--co-700)}
+.card[data-area="ai"] .card-media{background:var(--ai-50);color:var(--ai-700)}
+.card[data-area="es"] .card-media{background:var(--es-50);color:var(--es-600)}
+.card[data-area="wo"] .card-media{background:var(--wo-50);color:var(--wo-700)}
+.card[data-area="co"] .card-eyebrow{color:var(--co-700)}
+.card[data-area="ai"] .card-eyebrow{color:var(--ai-700)}
+.card[data-area="es"] .card-eyebrow{color:var(--es-700)}
+.card[data-area="wo"] .card-eyebrow{color:var(--wo-700)}
 .card-title{font:500 16px/24px var(--font);color:var(--tx-primary);margin-bottom:var(--s2)}
 .card-text{font:400 14px/20px var(--font);color:var(--tx-secondary)}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}

@@ -142,6 +142,16 @@
 
 /* ── Cards ── */
 [data-theme="dark"] .card-elevated { background: var(--bg-surface) }
+/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
+/* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
+[data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}
+[data-theme="dark"] .card[data-area="ai"] .card-media{color:var(--ai-200)}
+[data-theme="dark"] .card[data-area="es"] .card-media{color:var(--es-100)}
+[data-theme="dark"] .card[data-area="wo"] .card-media{color:var(--wo-200)}
+[data-theme="dark"] .card[data-area="co"] .card-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .card[data-area="ai"] .card-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .card[data-area="es"] .card-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .card[data-area="wo"] .card-eyebrow{color:var(--wo-200)}
 
 /* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
 [data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
