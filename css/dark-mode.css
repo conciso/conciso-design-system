@@ -159,6 +159,25 @@
 [data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
 [data-theme="dark"] [data-area="wo"] .area-specimen-text { color: var(--wo-200) }   /* #A3D48E · 4.57:1 */
 
+/* ── Download CTA (dark) ── */
+/* Icon colors: area-50 wird sehr dunkel → helle Palette-Shades wie area-specimen-text */
+[data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-icon{color:var(--co-200)}
+[data-theme="dark"] .cta-dl[data-area="ai"] .cta-dl-icon{color:var(--ai-200)}
+[data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-icon{color:var(--es-100)}
+[data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-icon{color:var(--wo-200)}
+[data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .cta-dl[data-area="ai"] .cta-dl-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-200)}
+[data-theme="dark"] .cta-strip[data-area="co"] .cta-strip-icon{color:var(--co-200)}
+[data-theme="dark"] .cta-strip[data-area="ai"] .cta-strip-icon{color:var(--ai-200)}
+[data-theme="dark"] .cta-strip[data-area="es"] .cta-strip-icon{color:var(--es-100)}
+[data-theme="dark"] .cta-strip[data-area="wo"] .cta-strip-icon{color:var(--wo-200)}
+[data-theme="dark"] .cta-link[data-area="co"]{color:var(--co-200)}
+[data-theme="dark"] .cta-link[data-area="ai"]{color:var(--ai-200)}
+[data-theme="dark"] .cta-link[data-area="es"]{color:var(--es-100)}
+[data-theme="dark"] .cta-link[data-area="wo"]{color:var(--wo-200)}
+
 /* ── Palette threshold badges (dark) ── */
 [data-theme="dark"] .pal-thresholds{background:#0d1f3a;color:#90bcf0;border-color:#1e3f6b}
 [data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}

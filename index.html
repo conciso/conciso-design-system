@@ -144,6 +144,15 @@
       <a class="nav-sub-item" href="#gt-chips-badges">Status Badges</a>
       <a class="nav-sub-item" href="#gt-chips-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="cta">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Download CTA
+    </button>
+    <div class="nav-subnav" data-for="cta">
+      <a class="nav-sub-item" href="#gt-cta-hero">Hero</a>
+      <a class="nav-sub-item" href="#gt-cta-kompakt">Kompakt</a>
+      <a class="nav-sub-item" href="#gt-cta-minimal">Minimal</a>
+      <a class="nav-sub-item" href="#gt-cta-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="feedback">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 9h-2V5h2v6zm0 4h-2v-2h2v2z"/></svg>Feedback
     </button>
@@ -2514,6 +2523,145 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarben im selben Kontext mischen — <code class="token">.co</code> und <code class="token">.ai</code> Chips nicht gemeinsam in einer Filterleiste</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Chip-Labels als vollständige Sätze — zu lang, passt nicht zur kompakten Form</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 7 Chips in einer Gruppe — lieber kategorisieren oder eine Auswahlliste verwenden</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DOWNLOAD CTA ═══ -->
+    <section class="ds-section" id="sec-cta">
+      <h1 class="sec-title">Download Call to Action</h1>
+      <p class="sec-sub">Drei Varianten · Hero · Kompakt · Minimal · alle Brand Areas · barrierefrei.</p>
+
+      <h2 id="gt-cta-hero" class="group-title">Hero</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Für die Hauptressource einer Seite — Landing Pages, Ressourcenseiten und Kampagnen. Eyebrow, Titel, Beschreibung und Metadaten mit einer primären Aktion.</p>
+      <div class="cta-dl" data-area="co" style="margin-bottom:var(--s8)">
+        <div class="cta-dl-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        </div>
+        <div class="cta-dl-body">
+          <p class="cta-dl-eyebrow">Conciso Design System</p>
+          <h3 class="cta-dl-title">Figma-Bibliothek herunterladen</h3>
+          <p class="cta-dl-desc">Alle Komponenten, Tokens, Icons und Brand Assets — direkt einsatzbereit als Figma-Bibliothek.</p>
+          <div class="cta-dl-meta">
+            <span class="cta-dl-chip">Figma</span>
+            <span class="cta-dl-chip">Version 1.0</span>
+            <span class="cta-dl-chip">48 MB</span>
+          </div>
+        </div>
+        <div class="cta-dl-actions">
+          <button class="btn btn-filled" style="--c50:var(--co-50);--c500:var(--co-500);--c600:var(--co-600);--c700:var(--co-700);--c900:var(--co-900)" aria-label="Figma-Bibliothek herunterladen (Figma, 48 MB)">Herunterladen</button>
+          <button class="btn btn-text" style="--c50:var(--co-50);--c500:var(--co-600);--c600:var(--co-700)">Vorschau ansehen</button>
+        </div>
+      </div>
+
+      <h2 id="gt-cta-kompakt" class="group-title">Kompakt</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Für Ressourcenlisten mit mehreren Downloads — Icon, Dateiname und Metadaten in einer kompakten Zeile.</p>
+      <div class="layout-grid" style="margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div class="cta-strip" data-area="co">
+            <div class="cta-strip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+            <div class="cta-strip-body">
+              <span class="cta-strip-title">Brand Guidelines</span>
+              <span class="cta-strip-meta">PDF · 4,2 MB · Corporate</span>
+            </div>
+            <button class="btn btn-outlined" style="--c500:var(--co-700);--c50:var(--co-50)" aria-label="Brand Guidelines herunterladen (PDF, 4,2 MB)">Laden</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="cta-strip" data-area="ai">
+            <div class="cta-strip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+            <div class="cta-strip-body">
+              <span class="cta-strip-title">KI-Strategie Whitepaper</span>
+              <span class="cta-strip-meta">PDF · 2,8 MB · Angewandte KI</span>
+            </div>
+            <button class="btn btn-outlined" style="--c500:var(--ai-700);--c50:var(--ai-50)" aria-label="KI-Strategie Whitepaper herunterladen (PDF, 2,8 MB)">Laden</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="cta-strip" data-area="es">
+            <div class="cta-strip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+            <div class="cta-strip-body">
+              <span class="cta-strip-title">Dev-Onboarding Guide</span>
+              <span class="cta-strip-meta">PDF · 1,6 MB · Effektive Software</span>
+            </div>
+            <button class="btn btn-outlined" style="--c500:var(--es-700);--c50:var(--es-50)" aria-label="Dev-Onboarding Guide herunterladen (PDF, 1,6 MB)">Laden</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="cta-strip" data-area="wo">
+            <div class="cta-strip-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></div>
+            <div class="cta-strip-body">
+              <span class="cta-strip-title">Organisations-Handbuch</span>
+              <span class="cta-strip-meta">PDF · 3,1 MB · Wirksame Org.</span>
+            </div>
+            <button class="btn btn-outlined" style="--c500:var(--wo-700);--c50:var(--wo-50)" aria-label="Organisations-Handbuch herunterladen (PDF, 3,1 MB)">Laden</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="gt-cta-minimal" class="group-title">Minimal</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Für Quellenangaben, Fließtext-Links oder Nebenbereiche — dezent, klar erkennbar als Download-Link.</p>
+      <div style="display:flex;flex-direction:column;gap:var(--s1);margin-bottom:var(--s8)">
+        <a href="#" class="cta-link" data-area="co"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Brand Guidelines<span class="cta-link-meta">PDF · 4,2 MB</span></a>
+        <a href="#" class="cta-link" data-area="ai"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>KI-Strategie Whitepaper<span class="cta-link-meta">PDF · 2,8 MB</span></a>
+        <a href="#" class="cta-link" data-area="es"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Dev-Onboarding Guide<span class="cta-link-meta">PDF · 1,6 MB</span></a>
+        <a href="#" class="cta-link" data-area="wo"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Organisations-Handbuch<span class="cta-link-meta">PDF · 3,1 MB</span></a>
+      </div>
+
+      <h2 id="gt-cta-verwendung" class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Variante</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Beispiel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Hero</td><td style="padding:var(--s3);color:var(--tx-secondary)">Hauptressource einer Seite, max. 1×</td><td style="padding:var(--s3);color:var(--tx-secondary)">Figma-Bibliothek, Style Guide</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Kompakt</td><td style="padding:var(--s3);color:var(--tx-secondary)">Mehrere Downloads, Ressourcenlisten</td><td style="padding:var(--s3);color:var(--tx-secondary)">Mediathek, Ressourcen-Seite</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Minimal</td><td style="padding:var(--s3);color:var(--tx-secondary)">Fließtext, Quellenangaben, Footer</td><td style="padding:var(--s3);color:var(--tx-secondary)">Blog, Dokumentation, Fußnoten</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Format</td><td style="padding:var(--s3);color:var(--tx-secondary)">Dateiformat immer sichtbar angeben (PDF, Figma, ZIP …)</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Größe</td><td style="padding:var(--s3);color:var(--tx-secondary)">Dateigröße als Orientierung für Nutzer nennen</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Brand Area</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bereichsfarbe des zugehörigen Dokuments nutzen</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Barrierefreiheit</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">aria-label</code> mit Dateiname + Format auf dem Button</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Dateiformat und -größe immer angeben — Nutzer sollen vor dem Download wissen, was sie erhalten</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Brand-Area-Farbe des zugehörigen Dokuments verwenden — stärkt die visuelle Zugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">aria-label</code> auf dem Button setzen — z.B. <em>„Figma-Bibliothek herunterladen (Figma, 48 MB)"</em></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Pro Seite maximal einen Hero-CTA — mehrere Hero-Blöcke erzeugen visuelle Konkurrenz</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Download-Button ohne Format und Größe — erhöht die kognitive Last und bricht Vertrauen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Hero-Variante für unwichtige Sekundär-Downloads — die Größe signalisiert Wichtigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Generisches „Herunterladen" ohne Dateinamen — schlecht für Screenreader und Kontext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfremde Farbe für ein Dokument verwenden — bricht den thematischen Zusammenhang</span></li>
           </ul>
         </div>
       </div>
