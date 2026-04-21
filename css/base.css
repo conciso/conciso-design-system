@@ -68,7 +68,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-.nav-logo-text{font:500 12px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+.nav-logo-text{font:500 11px/16px var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
 
 /* ── Sidebar toggle button ── */
 .sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
