@@ -159,6 +159,13 @@
 [data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
 [data-theme="dark"] [data-area="wo"] .area-specimen-text { color: var(--wo-200) }   /* #A3D48E · 4.57:1 */
 
+/* ── Testimonial Card (dark) ── */
+/* Avatare: dunkle Bereichsfläche + heller Text — alle ≥4.5:1 auf --bg-surface (#3F4B56) */
+[data-theme="dark"] .testimonial[data-area="co"]{--t-avatar-bg:var(--co-900);--t-avatar-text:var(--co-200)}
+[data-theme="dark"] .testimonial[data-area="ai"]{--t-avatar-bg:var(--ai-900);--t-avatar-text:var(--ai-200)}
+[data-theme="dark"] .testimonial[data-area="es"]{--t-avatar-bg:var(--es-900);--t-avatar-text:var(--es-100)}
+[data-theme="dark"] .testimonial[data-area="wo"]{--t-avatar-bg:var(--wo-900);--t-avatar-text:var(--wo-200)}
+
 /* ── Palette threshold badges (dark) ── */
 [data-theme="dark"] .pal-thresholds{background:#0d1f3a;color:#90bcf0;border-color:#1e3f6b}
 [data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}

@@ -91,6 +91,32 @@
 .card-text{font:400 14px/20px var(--font);color:var(--tx-secondary)}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
 
+/* ── Blockquote ── */
+.bq{padding:var(--s5) var(--s6);border-left:4px solid var(--bq-accent,var(--co-500));background:var(--bq-bg,var(--co-50));border-radius:0 var(--r-md) var(--r-md) 0;margin:0}
+.bq[data-area="co"]{--bq-accent:var(--co-500);--bq-bg:var(--co-50)}
+.bq[data-area="ai"]{--bq-accent:var(--ai-500);--bq-bg:var(--ai-50)}
+.bq[data-area="es"]{--bq-accent:var(--es-500);--bq-bg:var(--es-50)}
+.bq[data-area="wo"]{--bq-accent:var(--wo-500);--bq-bg:var(--wo-50)}
+.bq-icon{display:block;width:20px;height:20px;color:var(--bq-accent,var(--co-500));opacity:.35;margin-bottom:var(--s3)}
+.bq blockquote{font:400 20px/32px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none}
+.bq-caption{display:flex;flex-direction:column;gap:2px}
+.bq-name{font:600 13px/18px var(--font);color:var(--tx-primary)}
+.bq-role{font:400 12px/16px var(--font);color:var(--tx-secondary);font-style:normal}
+
+/* ── Testimonial Card ── */
+.testimonial{position:relative;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin:0;box-shadow:var(--e1);overflow:hidden;display:flex;flex-direction:column;gap:var(--s4)}
+.testimonial::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--t-accent,var(--co-500))}
+.testimonial[data-area="co"]{--t-accent:var(--co-500);--t-avatar-bg:var(--co-100);--t-avatar-text:var(--co-800)}
+.testimonial[data-area="ai"]{--t-accent:var(--ai-500);--t-avatar-bg:var(--ai-100);--t-avatar-text:var(--ai-800)}
+.testimonial[data-area="es"]{--t-accent:var(--es-500);--t-avatar-bg:var(--es-100);--t-avatar-text:var(--es-700)}
+.testimonial[data-area="wo"]{--t-accent:var(--wo-500);--t-avatar-bg:var(--wo-100);--t-avatar-text:var(--wo-700)}
+.testimonial-icon{width:32px;height:32px;color:var(--t-accent,var(--co-500));opacity:.2;flex-shrink:0}
+.testimonial blockquote{font:400 17px/28px var(--font-display);color:var(--tx-primary);margin:0;quotes:none;flex:1}
+.testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}
+.testimonial-avatar{width:40px;height:40px;border-radius:var(--r-full);background:var(--t-avatar-bg,var(--co-100));color:var(--t-avatar-text,var(--co-800));font:600 14px/40px var(--font);text-align:center;flex-shrink:0;user-select:none}
+.testimonial-name{font:600 13px/18px var(--font);color:var(--tx-primary);margin:0}
+.testimonial-role{font:400 12px/16px var(--font);color:var(--tx-secondary);margin:0;font-style:normal}
+
 /* ── Forms ── */
 .field{margin-bottom:var(--s6)}
 .field label{display:flex;align-items:center;gap:var(--s2);font:500 12px/16px var(--font);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}

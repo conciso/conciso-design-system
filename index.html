@@ -117,6 +117,14 @@
       <a class="nav-sub-item" href="#gt-cards-varianten">Kartentypen</a>
       <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="quotes">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>Zitate &amp; Testimonials
+    </button>
+    <div class="nav-subnav" data-for="quotes">
+      <a class="nav-sub-item" href="#gt-quotes-blockquote">Blockquote</a>
+      <a class="nav-sub-item" href="#gt-quotes-testimonial">Testimonial-Card</a>
+      <a class="nav-sub-item" href="#gt-quotes-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="icons">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>Icons
     </button>
@@ -1886,6 +1894,203 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarben einer Karte und ihrer Nachbarkarte mischen — jede Karte gehört zu einem Bereich</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Elevated Karten ohne Tonal Overlay verwenden — der Schatten allein reicht nicht für die Markenzugehörigkeit</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Langen Fließtext in Card-Body — statt dessen Teaser formulieren und auf eine Detailseite verlinken</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ICONS ═══ -->
+    <!-- ═══ ZITATE & TESTIMONIALS ═══ -->
+    <section class="ds-section" id="sec-quotes">
+      <h1 class="sec-title">Zitate &amp; Testimonials</h1>
+      <p class="sec-sub">Blockquote mit Akzentlinie · Testimonial-Card mit Avatar — semantisch korrekt via &lt;figure&gt; + &lt;blockquote&gt; + &lt;figcaption&gt;.</p>
+
+      <h2 id="gt-quotes-blockquote" class="group-title">Blockquote</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--s5);margin-bottom:var(--s8)">
+
+        <div>
+          <span class="lbl">Corporate</span>
+          <figure class="bq" data-area="co">
+            <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote>„Klare Kommunikation schafft Vertrauen – lange bevor das erste Meeting stattfindet."</blockquote>
+            <figcaption class="bq-caption">
+              <span class="bq-name">Maria Schneider</span>
+              <span class="bq-role">Head of Marketing, Musterunternehmen GmbH</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div>
+          <span class="lbl">Angewandte KI</span>
+          <figure class="bq" data-area="ai">
+            <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote>„Der Pilot war live in vier Wochen. Das war so nicht geplant – aber genau das hat uns überzeugt."</blockquote>
+            <figcaption class="bq-caption">
+              <span class="bq-name">Thomas Bauer</span>
+              <span class="bq-role">CTO, Logistik Solutions AG</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div>
+          <span class="lbl">Effektive Software</span>
+          <figure class="bq" data-area="es">
+            <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote>„Endlich Software, die nicht nur funktioniert – sondern auch morgen noch wartbar ist."</blockquote>
+            <figcaption class="bq-caption">
+              <span class="bq-name">Julia Meyer</span>
+              <span class="bq-role">Engineering Lead, FinTech Startup GmbH</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div>
+          <span class="lbl">Wirksame Organisationen</span>
+          <figure class="bq" data-area="wo">
+            <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote>„Die Veränderung war tiefgreifend – aber das Team hat sie mitgetragen. Das hat uns überrascht."</blockquote>
+            <figcaption class="bq-caption">
+              <span class="bq-name">Andreas Hofmann</span>
+              <span class="bq-role">COO, Mittelständisches Produktionsunternehmen</span>
+            </figcaption>
+          </figure>
+        </div>
+
+      </div>
+
+      <h2 id="gt-quotes-testimonial" class="group-title">Testimonial-Card</h2>
+      <div class="layout-grid" style="align-items:stretch;margin-bottom:var(--s8)">
+
+        <figure class="testimonial col-6" data-area="co">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Mit conciso haben wir unsere Kommunikation neu ausgerichtet. Das Ergebnis: Mehr Anfragen, klarere Positionierung – und ein Team, das endlich eine gemeinsame Sprache spricht."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">MS</div>
+            <div>
+              <p class="testimonial-name">Maria Schneider</p>
+              <p class="testimonial-role">Head of Marketing, Musterunternehmen GmbH</p>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial col-6" data-area="ai">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Wir haben KI-Einsatz nicht mehr als Experiment, sondern als strategischen Hebel erlebt. Der Unterschied war messbar und kam schneller als erwartet."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">TB</div>
+            <div>
+              <p class="testimonial-name">Thomas Bauer</p>
+              <p class="testimonial-role">CTO, Logistik Solutions AG</p>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial col-6" data-area="es">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Die Architektur, die wir gemeinsam entwickelt haben, trägt heute vier Mal mehr Last – und unser internes Team versteht sie vollständig."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">JM</div>
+            <div>
+              <p class="testimonial-name">Julia Meyer</p>
+              <p class="testimonial-role">Engineering Lead, FinTech Startup GmbH</p>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial col-6" data-area="wo">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Der Wandel hat Reibung erzeugt – aber genau das war nötig. Heute agieren unsere Teams eigenverantwortlicher als je zuvor."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div class="testimonial-avatar" aria-hidden="true">AH</div>
+            <div>
+              <p class="testimonial-name">Andreas Hofmann</p>
+              <p class="testimonial-role">COO, Mittelständisches Produktionsunternehmen</p>
+            </div>
+          </figcaption>
+        </figure>
+
+      </div>
+
+      <h2 id="gt-quotes-verwendung" class="group-title">Verwendung</h2>
+
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Blockquote</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Für kürzere Zitate im redaktionellen Kontext — als eingebetteter Textblock innerhalb von Fließtext oder Abschnitten. Die farbige Akzentlinie signalisiert die Bereichszugehörigkeit.</p>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Element</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;figure&gt;</code> + <code class="token">&lt;blockquote&gt;</code> + <code class="token">&lt;figcaption&gt;</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Zitattext</td><td style="padding:var(--s3);color:var(--tx-secondary)">1–3 Sätze, max. 200 Zeichen — prägnant und konkret</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Attribution</td><td style="padding:var(--s3);color:var(--tx-secondary)">Name + Rolle/Position — keine E-Mail oder Telefonnummer</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Bereichsfarbe</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">data-area</code> passend zur Brand Area des Kontexts wählen</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Testimonial-Card</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Für Kundenreferenzen als eigenständige visuelle Einheit — typisch in Referenz-Sektionen, Hero-nahen Bereichen oder als Abschluss von Leistungsbeschreibungen.</p>
+          <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Eigenschaft</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Element</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;figure&gt;</code> + <code class="token">&lt;blockquote&gt;</code> + <code class="token">&lt;figcaption&gt;</code></td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Zitattext</td><td style="padding:var(--s3);color:var(--tx-secondary)">2–5 Sätze — darf länger sein, da die Karte visuell abgeschlossen ist</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Avatar</td><td style="padding:var(--s3);color:var(--tx-secondary)">2 Initialen, <code class="token">aria-hidden="true"</code> — kein Foto nötig, skaliert barrierefrei</td></tr>
+              <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Grid</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">col-6</code> für 2 nebeneinander · <code class="token">col-4</code> für 3 in einer Reihe</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead>
+          <tr style="border-bottom:var(--bd-strong)">
+            <th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th>
+            <th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Semantik</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;blockquote&gt;</code> korrekt für Zitate — Screenreader kündigen es als „Blockzitat" an</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Dekoration</td><td style="padding:var(--s3);color:var(--tx-secondary)">SVG-Anführungszeichen und Avatar-Initialen mit <code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code> ausblenden</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Attribution</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;figcaption&gt;</code> verknüpft die Quellenangabe semantisch mit dem Zitat — kein zusätzliches ARIA nötig</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Kontrast</td><td style="padding:var(--s3);color:var(--tx-secondary)">Zitattext + Name: <code class="token">--tx-primary</code> · Rolle: <code class="token">--tx-secondary</code> · Avatar-Text: geprüft ≥4.5:1 auf Bereichshintergrund in Light &amp; Dark</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Anführungszeichen</td><td style="padding:var(--s3);color:var(--tx-secondary)">Im Zitattext direkt eingebettet („…") · <code class="token">quotes: none</code> verhindert doppelte Browser-Anführungszeichen</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">&lt;figure&gt;</code> + <code class="token">&lt;blockquote&gt;</code> + <code class="token">&lt;figcaption&gt;</code> als semantisches Grundgerüst nutzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Echte Kundenstimmen verwenden — keine KI-generierten Platzhalter in der Produktion</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bereichsfarbe über <code class="token">data-area</code> steuern — keine hardcodierten Farbwerte</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Zitate authentisch halten: gesprochene Sprache, konkrete Ergebnisse, keine Marketingfloskeln</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Testimonial-Cards auf gleiche Höhe bringen: <code class="token">align-items:stretch</code> im Grid + <code class="token">flex:1</code> auf dem Zitattext</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">&lt;blockquote&gt;</code> für eingerückte Aufzählungen oder rein visuell hervorgehobenen Text verwenden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Anführungszeichen doppelt setzen — entweder im Text oder via CSS <code class="token">content</code>, nicht beides</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Attribution weglassen — jedes Zitat braucht eine überprüfbare Quelle</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 3 Testimonials in einer Reihe — Lesbarkeit und visuelle Balance leiden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Dekorative Icons mit <code class="token">role="img"</code> oder <code class="token">alt</code> versehen — sie sind <code class="token">aria-hidden</code> und übermitteln keine Information</span></li>
           </ul>
         </div>
       </div>
