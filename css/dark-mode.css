@@ -141,7 +141,6 @@
 [data-theme="dark"] .token { color: var(--co-300) }
 
 /* ── Cards ── */
-[data-theme="dark"] .card-elevated { background: var(--bg-surface) }
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
 /* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
 [data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}

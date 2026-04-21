@@ -68,9 +68,9 @@
 .atab-content.visible{display:block}
 
 /* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-md);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:#ffffff}
+.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 .card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-filled{background:var(--co-50);border:none}
 .card-outlined{border:var(--bd-strong)}
