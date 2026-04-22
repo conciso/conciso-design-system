@@ -73,7 +73,8 @@
   /* ── Chip toggle ── */
   document.querySelectorAll('.chip').forEach(function(chip) {
     chip.addEventListener('click', function() {
-      chip.classList.toggle('sel');
+      var selected = chip.classList.toggle('sel');
+      chip.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
   });
 

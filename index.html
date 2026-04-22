@@ -402,8 +402,8 @@
           <button class="btn btn-outlined btn-co">Outlined</button>
           <button class="btn btn-text btn-co">Text</button>
           <span class="badge" style="background:#E0F7F7;color:#004F4F">Corporate</span>
-          <button class="chip" style="border-color:#00BEBE;color:#007575">Strategie</button>
-          <button class="chip">Kommunikation</button>
+          <button class="chip" aria-pressed="false" style="border-color:#00BEBE;color:#007575">Strategie</button>
+          <button class="chip" aria-pressed="false">Kommunikation</button>
         </div>
       </div>
       <div id="at-ai" class="atab-content" role="tabpanel">
@@ -413,8 +413,8 @@
           <button class="btn btn-outlined btn-ai">Outlined</button>
           <button class="btn btn-text btn-ai">Text</button>
           <span class="badge" style="background:#F4FCD5;color:#475705">Angewandte KI</span>
-          <button class="chip" style="border-color:#6B8208;color:#475705">LLM</button>
-          <button class="chip">Automation</button>
+          <button class="chip" aria-pressed="false" style="border-color:#6B8208;color:#475705">LLM</button>
+          <button class="chip" aria-pressed="false">Automation</button>
         </div>
       </div>
       <div id="at-es" class="atab-content" role="tabpanel">
@@ -424,8 +424,8 @@
           <button class="btn btn-outlined btn-es">Outlined</button>
           <button class="btn btn-text btn-es">Text</button>
           <span class="badge" style="background:#EAF0FB;color:#112568">Effektive SW</span>
-          <button class="chip" style="border-color:#2F5FD4;color:#1B3D9A">Engineering</button>
-          <button class="chip">Deployment</button>
+          <button class="chip" aria-pressed="false" style="border-color:#2F5FD4;color:#1B3D9A">Engineering</button>
+          <button class="chip" aria-pressed="false">Deployment</button>
         </div>
       </div>
       <div id="at-wo" class="atab-content" role="tabpanel">
@@ -435,8 +435,8 @@
           <button class="btn btn-outlined btn-wo">Outlined</button>
           <button class="btn btn-text btn-wo">Text</button>
           <span class="badge" style="background:#EBF5E6;color:#183A0E">Wirksame Org.</span>
-          <button class="chip" style="border-color:#44A030;color:#285E1A">Change</button>
-          <button class="chip">Leadership</button>
+          <button class="chip" aria-pressed="false" style="border-color:#44A030;color:#285E1A">Change</button>
+          <button class="chip" aria-pressed="false">Leadership</button>
         </div>
       </div>
     </section>
@@ -3235,37 +3235,30 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
         <div><span class="lbl">Corporate</span>
           <div class="row">
-            <button class="chip" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Strategie</button>
-            <button class="chip">Kommunikation</button>
-            <button class="chip">Brand</button>
+            <button class="chip" aria-pressed="false" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Strategie</button>
+            <button class="chip" aria-pressed="false">Kommunikation</button>
+            <button class="chip" aria-pressed="false">Brand</button>
           </div>
         </div>
         <div><span class="lbl">Angewandte KI</span>
           <div class="row">
-            <button class="chip" style="border-color:var(--ki-700);color:var(--ki-700);background:var(--ki-50)">LLM</button>
-            <button class="chip">Automation</button>
-            <button class="chip">AI Strategy</button>
+            <button class="chip" aria-pressed="false" style="border-color:var(--ki-700);color:var(--ki-700);background:var(--ki-50)">LLM</button>
+            <button class="chip" aria-pressed="false">Automation</button>
+            <button class="chip" aria-pressed="false">AI Strategy</button>
           </div>
         </div>
         <div><span class="lbl">Effektive Software</span>
           <div class="row">
-            <button class="chip" style="border-color:var(--es-500);color:var(--es-700);background:var(--es-50)">Engineering</button>
-            <button class="chip">Deployment</button>
-            <button class="chip">Qualität</button>
+            <button class="chip" aria-pressed="false" style="border-color:var(--es-500);color:var(--es-700);background:var(--es-50)">Engineering</button>
+            <button class="chip" aria-pressed="false">Deployment</button>
+            <button class="chip" aria-pressed="false">Qualität</button>
           </div>
         </div>
         <div><span class="lbl">Wirksame Organisationen</span>
           <div class="row">
-            <button class="chip" style="border-color:var(--wo-500);color:var(--wo-700);background:var(--wo-50)">Change</button>
-            <button class="chip">Leadership</button>
-            <button class="chip">Struktur</button>
-          </div>
-        </div>
-        <div><span class="lbl">Text Brand</span>
-          <div class="row">
-            <button class="chip" style="border-color:var(--tx-brand);color:var(--tx-brand);background:#F1F3F5">Kommunikation</button>
-            <button class="chip">Sprache</button>
-            <button class="chip">Typografie</button>
+            <button class="chip" aria-pressed="false" style="border-color:var(--wo-500);color:var(--wo-700);background:var(--wo-50)">Change</button>
+            <button class="chip" aria-pressed="false">Leadership</button>
+            <button class="chip" aria-pressed="false">Struktur</button>
           </div>
         </div>
       </div>
@@ -3333,7 +3326,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             <div style="font:400 13px/20px var(--font);color:var(--tx-muted);margin-bottom:var(--s3)">Themen filtern</div>
             <div class="row" style="gap:var(--s2)">
               <button class="chip sel" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Strategie</button>
-              <button class="chip">Brand</button>
+              <button class="chip" aria-pressed="false">Brand</button>
               <button class="chip sel" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Kommunikation</button>
             </div>
           </div>
@@ -4098,7 +4091,10 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
       <!-- Light -->
       <span class="lbl" style="margin-bottom:var(--s3)">Light</span>
-      <div class="logo-slider" role="region" aria-label="Referenzkunden" style="margin-bottom:var(--s8);border:var(--bd);border-radius:var(--r-lg)">
+      <div class="logo-slider" role="region" aria-label="Referenzkunden" style="position:relative;margin-bottom:var(--s8);border:var(--bd);border-radius:var(--r-lg)">
+        <button class="logo-pause" aria-label="Animation pausieren" aria-pressed="false" onclick="this.closest('.logo-slider').classList.toggle('paused');this.setAttribute('aria-pressed',this.closest('.logo-slider').classList.contains('paused'))">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="3.5" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3.5" height="10" rx="1" fill="currentColor"/></svg>
+        </button>
         <div class="logo-track">
           <!-- Set A -->
           <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
@@ -4123,7 +4119,10 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
       <!-- Dark -->
       <span class="lbl" style="margin-bottom:var(--s3)">Dark</span>
-      <div class="logo-slider logo-slider-dark" role="region" aria-label="Referenzkunden" style="margin-bottom:var(--s8)">
+      <div class="logo-slider logo-slider-dark" role="region" aria-label="Referenzkunden" style="position:relative;margin-bottom:var(--s8)">
+        <button class="logo-pause" aria-label="Animation pausieren" aria-pressed="false" onclick="this.closest('.logo-slider').classList.toggle('paused');this.setAttribute('aria-pressed',this.closest('.logo-slider').classList.contains('paused'))">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="3.5" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3.5" height="10" rx="1" fill="currentColor"/></svg>
+        </button>
         <div class="logo-track">
           <!-- Set A -->
           <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
