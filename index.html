@@ -130,6 +130,13 @@
       <a class="nav-sub-item" href="#gt-cards-stat">Stat-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="slider">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12H1m22 0h-2"/></svg>Slider & Carousel
+    </button>
+    <div class="nav-subnav" data-for="slider">
+      <a class="nav-sub-item" href="#gt-carousel-demo">Bild-Carousel</a>
+      <a class="nav-sub-item" href="#gt-logo-marquee">Logo-Marquee</a>
+    </div>
     <button class="nav-item" data-section="quotes">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>Zitate &amp; Testimonials
     </button>
@@ -138,15 +145,13 @@
       <a class="nav-sub-item" href="#gt-quotes-testimonial">Testimonial-Card</a>
       <a class="nav-sub-item" href="#gt-quotes-verwendung">Verwendung</a>
     </div>
-    <button class="nav-item" data-section="code">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Code-Block
+    <button class="nav-item" data-section="chips">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips & Badges
     </button>
-    <div class="nav-subnav" data-for="code">
-      <a class="nav-sub-item" href="#gt-code-standard">Standard</a>
-      <a class="nav-sub-item" href="#gt-code-numbered">Mit Zeilennummern</a>
-      <a class="nav-sub-item" href="#gt-code-terminal">Terminal</a>
-      <a class="nav-sub-item" href="#gt-code-inline">Inline-Code</a>
-      <a class="nav-sub-item" href="#gt-code-verwendung">Verwendung</a>
+    <div class="nav-subnav" data-for="chips">
+      <a class="nav-sub-item" href="#gt-chips-chips">Chips pro Bereich</a>
+      <a class="nav-sub-item" href="#gt-chips-badges">Status Badges</a>
+      <a class="nav-sub-item" href="#gt-chips-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="icons">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>Icons
@@ -158,14 +163,6 @@
       <a class="nav-sub-item" href="#gt-icons-wirksame-organisation">Wirksame Organisationen</a>
       <a class="nav-sub-item" href="#gt-icons-effektive-software">Effektive Software</a>
       <a class="nav-sub-item" href="#gt-icons-verwendung">Verwendung</a>
-    </div>
-    <button class="nav-item" data-section="chips">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips & Badges
-    </button>
-    <div class="nav-subnav" data-for="chips">
-      <a class="nav-sub-item" href="#gt-chips-chips">Chips pro Bereich</a>
-      <a class="nav-sub-item" href="#gt-chips-badges">Status Badges</a>
-      <a class="nav-sub-item" href="#gt-chips-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="cta">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Download CTA
@@ -184,20 +181,22 @@
       <a class="nav-sub-item" href="#gt-feedback-varianten">Snackbar-Varianten</a>
       <a class="nav-sub-item" href="#gt-feedback-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="code">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Code-Block
+    </button>
+    <div class="nav-subnav" data-for="code">
+      <a class="nav-sub-item" href="#gt-code-standard">Standard</a>
+      <a class="nav-sub-item" href="#gt-code-numbered">Mit Zeilennummern</a>
+      <a class="nav-sub-item" href="#gt-code-terminal">Terminal</a>
+      <a class="nav-sub-item" href="#gt-code-inline">Inline-Code</a>
+      <a class="nav-sub-item" href="#gt-code-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="footer">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 3h18v2H3V3zm0 16h18v2H3v-2zm0-8h18v2H3v-2z"/></svg>Footer
     </button>
     <div class="nav-subnav" data-for="footer">
       <a class="nav-sub-item" href="#gt-footer-demo">Footer-Demo</a>
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
-    </div>
-
-    <button class="nav-item" data-section="slider">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 12H1m22 0h-2"/></svg>Slider & Carousel
-    </button>
-    <div class="nav-subnav" data-for="slider">
-      <a class="nav-sub-item" href="#gt-carousel-demo">Bild-Carousel</a>
-      <a class="nav-sub-item" href="#gt-logo-marquee">Logo-Marquee</a>
     </div>
 
     <div class="nav-section">Barrierefreiheit</div>
