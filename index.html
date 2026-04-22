@@ -2560,27 +2560,40 @@
             <div><strong style="font:var(--ty-label-md);color:var(--tx-primary)">Gestreift (.tbl--striped)</strong><br><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ab ca. 7 Zeilen — der alternierende Hintergrund verbessert die Lesbarkeit ohne zusätzliche Rahmen.</span></div>
           </div>
         </div>
+        <div class="col-6" style="display:flex;flex-direction:column;gap:var(--s3)">
+          <div style="display:flex;gap:var(--s3);align-items:flex-start">
+            <div style="width:4px;border-radius:2px;background:var(--n-300);flex-shrink:0;align-self:stretch"></div>
+            <div><strong style="font:var(--ty-label-md);color:var(--tx-primary)">Sortierbar (.tbl-sort)</strong><br><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Wenn Nutzer die Reihenfolge selbst bestimmen müssen — Klick auf die Spaltenüberschrift sortiert auf- oder absteigend.</span></div>
+          </div>
+          <div style="display:flex;gap:var(--s3);align-items:flex-start">
+            <div style="width:4px;border-radius:2px;background:var(--n-300);flex-shrink:0;align-self:stretch"></div>
+            <div><strong style="font:var(--ty-label-md);color:var(--tx-primary)">Kombination möglich</strong><br><span style="font:var(--ty-body-md);color:var(--tx-secondary)">.tbl--striped und .tbl-sort lassen sich kombinieren — gestreift + sortierbar für datenintensive Ansichten.</span></div>
+          </div>
+        </div>
       </div>
 
       <!-- Barrierefreiheit -->
       <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit</div>
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
         <div class="col-8">
-          <table style="width:100%;border-collapse:collapse;font:var(--ty-body-md)">
-            <thead>
-              <tr style="border-bottom:var(--bd-strong)">
-                <th style="text-align:left;padding:var(--s2) var(--s4) var(--s2) 0;font:var(--ty-label-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);width:28%">Attribut / Element</th>
-                <th style="text-align:left;padding:var(--s2) var(--s3);font:var(--ty-label-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Zweck</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">&lt;caption&gt;</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Pflicht — Screenreader lesen den Titel vor, bevor die Zellen vorgelesen werden</td></tr>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">scope="col"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf alle <code class="token">&lt;th&gt;</code> im <code class="token">&lt;thead&gt;</code> — ordnet Spaltenüberschriften den Zellen darunter zu</td></tr>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">scope="row"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Wenn die erste Spalte eine Zeilenüberschrift ist — ordnet die Überschrift den Zellen rechts davon zu</td></tr>
-              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">tabindex="0"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf dem Scroll-Container — macht horizontales Scrollen per Tastatur erreichbar</td></tr>
-              <tr><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">role="region"</code> + <code class="token">aria-label</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf dem Scroll-Container — kennzeichnet ihn als benannten Landmark für Screenreader</td></tr>
-            </tbody>
-          </table>
+          <div class="tbl-wrap" tabindex="0" role="region" aria-label="Barrierefreiheits-Attribute Tabelle">
+            <table class="tbl">
+              <caption>Pflichtattribute für barrierefreie Tabellen</caption>
+              <thead>
+                <tr>
+                  <th scope="col" style="width:28%">Attribut / Element</th>
+                  <th scope="col">Zweck</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code class="token">&lt;caption&gt;</code></th><td>Pflicht — Screenreader lesen den Titel vor, bevor die Zellen vorgelesen werden</td></tr>
+                <tr><th scope="row"><code class="token">scope="col"</code></th><td>Auf alle <code class="token">&lt;th&gt;</code> im <code class="token">&lt;thead&gt;</code> — ordnet Spaltenüberschriften den Zellen darunter zu</td></tr>
+                <tr><th scope="row"><code class="token">scope="row"</code></th><td>Wenn die erste Spalte eine Zeilenüberschrift ist — ordnet die Überschrift den Zellen rechts davon zu</td></tr>
+                <tr><th scope="row"><code class="token">tabindex="0"</code></th><td>Auf dem Scroll-Container — macht horizontales Scrollen per Tastatur erreichbar</td></tr>
+                <tr><th scope="row"><code class="token">role="region"</code> + <code class="token">aria-label</code></th><td>Auf dem Scroll-Container — kennzeichnet ihn als benannten Landmark für Screenreader</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
