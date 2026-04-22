@@ -3744,7 +3744,9 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       </div>
 
       <h2 id="gt-carousel-verwendung" class="group-title">Verwendung</h2>
-      <div class="layout-grid" style="align-items:start">
+
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit & ARIA</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
         <div class="col-6">
           <table class="a11y-table">
             <thead><tr><th>Attribut</th><th>Zweck</th></tr></thead>
@@ -3759,16 +3761,35 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           </table>
         </div>
         <div class="col-6">
+          <table class="a11y-table">
+            <thead><tr><th>Taste</th><th>Funktion</th></tr></thead>
+            <tbody>
+              <tr><td><kbd class="a11y-kbd">←</kbd></td><td>Vorherige Folie</td></tr>
+              <tr><td><kbd class="a11y-kbd">→</kbd></td><td>Nächste Folie</td></tr>
+              <tr><td><kbd class="a11y-kbd">Tab</kbd></td><td>Fokus auf Prev/Next-Button oder Dot</td></tr>
+              <tr><td><kbd class="a11y-kbd">Enter</kbd> / <kbd class="a11y-kbd">Space</kbd></td><td>Dot oder Button aktivieren</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
           <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
-          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s5)">
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Immer aussagekräftiges <code class="token">alt</code>-Attribut bei echten Bildern — kein <code class="token">alt=""</code> bei inhaltlichen Fotos</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Caption für jede Folie — gibt dem Inhalt ohne Bild ausreichend Kontext</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bilder mit <code class="token">object-fit: cover</code> und fester Höhe — verhindert Layout-Sprünge beim Laden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Caption für jede Folie — gibt dem Inhalt auch ohne Bild ausreichend Kontext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bilder mit <code class="token">object-fit: cover</code> und fester Höhe einsetzen — verhindert Layout-Sprünge beim Laden</span></li>
           </ul>
+        </div>
+        <div class="col-6">
           <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Kein Auto-Play ohne Pause-Button — WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 6–7 Slides — Nutzende verlieren die Orientierung, lieber eine separate Galerie verwenden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Kartentypen oder Seitenverhältnisse innerhalb eines Carousels mischen — einheitliche Bildgröße halten</span></li>
           </ul>
         </div>
       </div>
