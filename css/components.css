@@ -264,10 +264,10 @@
 .slider-wo,.field-slider-output.slider-wo{--sl-color:var(--wo-500)}
 
 /* ── Bild-Slider (Carousel) ── */
-.img-slider{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--n-100);user-select:none}
+.img-slider{position:relative;border-radius:var(--r-lg);overflow:hidden;user-select:none}
 .img-slider-track{display:flex;transition:transform var(--m-std)}
 .img-slide{min-width:100%;flex-shrink:0}
-.img-slide-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.img-slide-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--n-100)}
 .img-slide-media img{width:100%;height:100%;object-fit:cover;display:block}
 .img-slide-caption{padding:var(--s5) var(--s6);background:var(--bg-surface);border-top:var(--bd)}
 .img-slide-caption-title{font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s1)}
