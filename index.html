@@ -192,6 +192,13 @@
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
     </div>
 
+    <button class="nav-item" data-section="carousel">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M9 12l2 2 4-4M3 12H1m22 0h-2"/></svg>Bild-Slider
+    </button>
+    <div class="nav-subnav" data-for="carousel">
+      <a class="nav-sub-item" href="#gt-carousel-demo">Carousel-Demo</a>
+      <a class="nav-sub-item" href="#gt-carousel-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="logoslider">
       <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Logo-Slider
     </button>
@@ -3634,6 +3641,141 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Links pro Spalte — konzentriert bleiben, die wichtigsten Einstiegspunkte nennen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Legal-Links in der Haupt-Spaltennavigation platzieren — sie gehören ausschließlich in die Legal-Bar</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Footer ohne Copyright-Jahr und Firmennamen — beide sind rechtlich relevant und müssen aktuell sein</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BILD-SLIDER (CAROUSEL) ═══ -->
+    <section class="ds-section" id="sec-carousel">
+      <h1 class="sec-title">Bild-Slider</h1>
+      <p class="sec-sub">Interaktives Carousel mit Prev/Next-Pfeilen, Dot-Indikatoren und Tastaturnavigation. Folgt dem ARIA-Carousel-Pattern (APG) — barrierefrei nach WCAG 2.1 AA.</p>
+
+      <h2 id="gt-carousel-demo" class="group-title">Carousel-Demo</h2>
+      <p style="font:400 14px/22px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Vier Slides mit Bild-Placeholder (16:9) und Caption. Navigation via Klick, Pfeiltasten oder Dots. In der Produktion ersetzt du die farbigen Flächen einfach durch <code class="token">&lt;img&gt;</code>-Tags.</p>
+
+      <div style="max-width:780px;margin-bottom:var(--s8)">
+        <div class="img-slider"
+             role="region"
+             aria-roledescription="Bildschirmpräsentation"
+             aria-label="Kundenprojekte">
+
+          <!-- Slides -->
+          <div class="img-slider-track">
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--co-700) 0%,var(--co-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M19.9159 36C17.6732 36 15.64 35.4917 13.8165 34.4751C12.0139 33.4365 10.5886 32.011 9.54058 30.1989C8.51353 28.3646 8 26.2983 8 24C8 21.7017 8.51353 19.6464 9.54058 17.8343C10.5886 16 12.0139 14.5746 13.8165 13.558C15.64 12.5193 17.6837 12 19.9474 12C21.8547 12 23.5735 12.3536 25.1036 13.0608C26.3765 13.6411 27.48 14.4299 28.4141 15.4269C28.7644 15.8009 28.7231 16.3821 28.3558 16.7396L26.5121 18.5339C26.0925 18.9423 25.4176 18.8985 24.9933 18.4951C23.6469 17.2147 22.0488 16.5746 20.1989 16.5746C18.8365 16.5746 17.6208 16.895 16.5518 17.5359C15.4828 18.1547 14.6444 19.0276 14.0366 20.1547C13.4497 21.2818 13.1562 22.5635 13.1562 24C13.1562 25.4365 13.4497 26.7182 14.0366 27.8453C14.6444 28.9724 15.4828 29.8564 16.5518 30.4972C17.6208 31.116 18.8365 31.4254 20.1989 31.4254C22.049 31.4254 23.6473 30.7773 24.9938 29.4811C25.4173 29.0734 26.0955 29.0274 26.5168 29.4374L28.361 31.2323C28.7261 31.5876 28.7695 32.1645 28.4246 32.5393C27.4882 33.5567 26.3812 34.3567 25.1036 34.9392C23.5525 35.6464 21.8233 36 19.9159 36Z" fill="white"/><path d="M35.8498 35.9519C34.6804 35.9519 33.6963 35.5309 32.8977 34.6888C32.099 33.8467 31.6997 32.7942 31.6997 31.5311C31.6997 30.2379 32.099 29.2004 32.8977 28.4185C33.6963 27.6065 34.6804 27.2005 35.8498 27.2005C37.0193 27.2005 38.0034 27.6065 38.802 28.4185C39.6007 29.2004 40 30.2379 40 31.5311C40 32.7942 39.6007 33.8467 38.802 34.6888C38.0034 35.5309 37.0193 35.9519 35.8498 35.9519Z" fill="white"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Markenstrategie für die Energiewende</p>
+                <p class="img-slide-caption-text">Corporate · Rebranding und Kommunikationssystem für einen regionalen Energieversorger.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--ki-800) 0%,var(--ki-500) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M34.9392 21.6837C34.9392 20.0269 33.5959 18.6839 31.9392 18.6837H16.0613C14.4044 18.6837 13.0613 20.0268 13.0613 21.6837V34.5001C13.0613 36.1569 14.4045 37.5001 16.0613 37.5001H31.9392C33.5959 37.4999 34.9392 36.1568 34.9392 34.5001V21.6837Z" stroke="white" stroke-width="2"/><circle cx="23.69" cy="11.95" r="3" stroke="white" stroke-width="2"/><circle cx="17.88" cy="25.64" r="3" stroke="white" stroke-width="2"/><circle cx="29.82" cy="25.64" r="3" stroke="white" stroke-width="2"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">KI-gestütztes Berichtswesen</p>
+                <p class="img-slide-caption-text">Angewandte KI · Automatisierte Auswertung von Produktionsdaten für ein Fertigungsunternehmen.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--es-700) 0%,var(--es-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><rect x="9" y="9" width="30" height="30" rx="4" stroke="white" stroke-width="2"/><path d="M10 19h28M19 10v28" stroke="white" stroke-width="2"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Cloud-Migration einer Versicherungsplattform</p>
+                <p class="img-slide-caption-text">Effektive Software · Ablösung eines Legacy-Systems durch eine skalierbare Microservice-Architektur.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 4 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--wo-700) 0%,var(--wo-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><circle cx="24" cy="20" r="8" stroke="white" stroke-width="2"/><path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Kulturwandel im Gesundheitswesen</p>
+                <p class="img-slide-caption-text">Wirksame Organisationen · Begleitung einer Klinikgruppe durch einen strukturellen Transformationsprozess.</p>
+              </div>
+            </div>
+
+          </div><!-- /track -->
+
+          <!-- Prev / Next -->
+          <button class="img-slider-btn img-slider-prev" aria-label="Vorherige Folie">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="img-slider-btn img-slider-next" aria-label="Nächste Folie">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <!-- Dot-Navigation -->
+          <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
+            <button class="img-dot" role="tab" aria-selected="true"  aria-label="Folie 1 von 4" tabindex="0"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 2 von 4" tabindex="-1"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 3 von 4" tabindex="-1"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 4 von 4" tabindex="-1"></button>
+          </div>
+
+        </div><!-- /img-slider -->
+      </div>
+
+      <!-- Code-Beispiel -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider"</span>
+     <span class="v">role</span>=<span class="s">"region"</span> <span class="v">aria-roledescription</span>=<span class="s">"Bildschirmpräsentation"</span> <span class="v">aria-label</span>=<span class="s">"Kundenprojekte"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-track"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide"</span> <span class="v">role</span>=<span class="s">"group"</span> <span class="v">aria-roledescription</span>=<span class="s">"Folie"</span> <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-media"</span><span class="k">&gt;</span>
+        <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"bild.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span><span class="k">&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-caption"</span><span class="k">&gt;</span>
+        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-title"</span><span class="k">&gt;</span>Titel<span class="k">&lt;/p&gt;</span>
+        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-text"</span><span class="k">&gt;</span>Beschreibung<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- weitere .img-slide … --&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-prev"</span> <span class="v">aria-label</span>=<span class="s">"Vorherige Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-next"</span> <span class="v">aria-label</span>=<span class="s">"Nächste Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-dots"</span> <span class="v">role</span>=<span class="s">"tablist"</span> <span class="v">aria-label</span>=<span class="s">"Folien-Navigation"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"true"</span>  <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"false"</span> <span class="v">aria-label</span>=<span class="s">"Folie 2 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <h2 id="gt-carousel-verwendung" class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <table class="a11y-table">
+            <thead><tr><th>Attribut</th><th>Zweck</th></tr></thead>
+            <tbody>
+              <tr><td><code class="token">role="region"</code></td><td>Semantischer Landmark für den gesamten Slider</td></tr>
+              <tr><td><code class="token">aria-roledescription</code></td><td>«Bildschirmpräsentation» — Screenreader liest den Typ vor</td></tr>
+              <tr><td><code class="token">role="group"</code> auf Slide</td><td>Fasst Bild + Caption je Folie zusammen</td></tr>
+              <tr><td><code class="token">aria-hidden="true"</code></td><td>Inaktive Slides werden übersprungen (setzt JS)</td></tr>
+              <tr><td><code class="token">aria-label</code> auf Button</td><td>«Vorherige / Nächste Folie» — kein Icon-only</td></tr>
+              <tr><td><code class="token">role="tablist"</code> Dots</td><td>Dot-Nav als Tab-Gruppe — bekanntes Tastatur-Pattern</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s5)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Immer aussagekräftiges <code class="token">alt</code>-Attribut bei echten Bildern — kein <code class="token">alt=""</code> bei inhaltlichen Fotos</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Caption für jede Folie — gibt dem Inhalt ohne Bild ausreichend Kontext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Bilder mit <code class="token">object-fit: cover</code> und fester Höhe — verhindert Layout-Sprünge beim Laden</span></li>
+          </ul>
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Kein Auto-Play ohne Pause-Button — WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 6–7 Slides — Nutzende verlieren die Orientierung, lieber eine separate Galerie verwenden</span></li>
           </ul>
         </div>
       </div>

@@ -263,6 +263,25 @@
 .slider-es,.field-slider-output.slider-es{--sl-color:var(--es-500)}
 .slider-wo,.field-slider-output.slider-wo{--sl-color:var(--wo-500)}
 
+/* ── Bild-Slider (Carousel) ── */
+.img-slider{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--n-100);user-select:none}
+.img-slider-track{display:flex;transition:transform var(--m-std)}
+.img-slide{min-width:100%;flex-shrink:0}
+.img-slide-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.img-slide-media img{width:100%;height:100%;object-fit:cover;display:block}
+.img-slide-caption{padding:var(--s5) var(--s6);background:var(--bg-surface);border-top:var(--bd)}
+.img-slide-caption-title{font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s1)}
+.img-slide-caption-text{font:400 14px/20px var(--font);color:var(--tx-secondary);margin:0}
+.img-slider-btn{position:absolute;top:calc(50% - 28px);transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(4px);border:none;box-shadow:var(--e2);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background var(--m-fast),box-shadow var(--m-fast);color:var(--tx-primary)}
+.img-slider-btn:hover{background:#fff;box-shadow:var(--e3)}
+.img-slider-btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.img-slider-prev{left:var(--s4)}
+.img-slider-next{right:var(--s4)}
+.img-slider-dots{display:flex;justify-content:center;gap:var(--s2);padding:var(--s4) 0;background:var(--bg-surface);border-top:var(--bd)}
+.img-dot{width:8px;height:8px;border-radius:50%;background:var(--n-200);border:2px solid transparent;cursor:pointer;padding:0;transition:background var(--m-fast),transform var(--m-fast)}
+.img-dot.active{background:var(--co-500);transform:scale(1.35)}
+.img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
 /* ── Logo-Slider (Marquee) ── */
 .logo-slider{overflow:hidden;position:relative;padding:var(--s4) 0}
 .logo-slider::before,.logo-slider::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:1;pointer-events:none}
