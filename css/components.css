@@ -422,8 +422,8 @@
 .tbl-wrap{overflow-x:auto}
 .tbl-wrap:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
 .tbl{width:100%;border-collapse:collapse;font:var(--ty-body-md);color:var(--tx-primary)}
-.tbl caption{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0 0 var(--s4);text-align:left;border-bottom:2px solid var(--n-200)}
-.tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s4) var(--s5) var(--s3);background:transparent;border-bottom:2px solid var(--n-200);text-align:left;white-space:nowrap}
+.tbl caption{font:var(--ty-title-sm);color:var(--tx-primary);padding:0 0 var(--s5);text-align:left}
+.tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s3) var(--s5);background:var(--n-50);border-bottom:2px solid var(--n-200);border-top:var(--bd);text-align:left;white-space:nowrap}
 .tbl tbody td,.tbl tbody th{padding:var(--s4) var(--s5);border-bottom:var(--bd);vertical-align:top}
 .tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
 .tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--bg-overlay)}
