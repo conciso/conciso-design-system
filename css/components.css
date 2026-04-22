@@ -417,3 +417,26 @@
 .ep-cta-h2{font:var(--ty-display-md);margin-bottom:var(--s2)}
 .ep-cta-sub{font:var(--ty-body-md);opacity:.85;margin-bottom:var(--s6)}
 .ep-page-footer{padding:var(--s5) var(--s8);font:var(--ty-body-xs);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s2)}
+
+/* ── Tabelle ── */
+.tbl-wrap{overflow-x:auto;border-radius:var(--r-lg);border:var(--bd);box-shadow:var(--e1)}
+.tbl-wrap:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.tbl{width:100%;border-collapse:collapse;font:var(--ty-body-md);color:var(--tx-primary)}
+.tbl caption{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s4) var(--s5);text-align:left;border-bottom:var(--bd-strong);background:var(--bg-surface)}
+.tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s3) var(--s5);background:var(--n-50);border-bottom:2px solid var(--n-200);text-align:left;white-space:nowrap}
+.tbl tbody td,.tbl tbody th{padding:var(--s4) var(--s5);border-bottom:var(--bd);vertical-align:top;background:var(--bg-surface)}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
+.tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--bg-overlay)}
+.tbl tbody th{font:var(--ty-label-md);color:var(--tx-primary);text-align:left}
+.tbl tfoot td,.tbl tfoot th{padding:var(--s3) var(--s5);font:var(--ty-label-sm);color:var(--tx-primary);background:var(--n-50);border-top:2px solid var(--n-200);text-align:left}
+.tbl td[data-num],.tbl th[data-num]{text-align:right;font-variant-numeric:tabular-nums}
+/* Striped variant */
+.tbl--striped tbody tr:nth-child(even) td,.tbl--striped tbody tr:nth-child(even) th{background:var(--n-50)}
+.tbl--striped tbody tr:hover td,.tbl--striped tbody tr:hover th{background:var(--bg-overlay)}
+/* Sortierbare Spalten */
+.tbl-sort{display:inline-flex;align-items:center;gap:var(--s1);background:none;border:none;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;padding:0}
+.tbl-sort:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.tbl-sort svg{opacity:.3;transition:opacity var(--m-fast)}
+.tbl-sort:hover svg{opacity:.7}
+thead th[aria-sort="ascending"] .tbl-sort svg,
+thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
