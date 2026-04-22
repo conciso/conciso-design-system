@@ -192,6 +192,14 @@
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
     </div>
 
+    <button class="nav-item" data-section="logoslider">
+      <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Logo-Slider
+    </button>
+    <div class="nav-subnav" data-for="logoslider">
+      <a class="nav-sub-item" href="#gt-logo-marquee">Marquee · Kundenlogos</a>
+      <a class="nav-sub-item" href="#gt-logo-verwendung">Verwendung</a>
+    </div>
+
     <div class="nav-section">Barrierefreiheit</div>
     <button class="nav-item" data-section="a11y">
       <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M19 9l-7 1-7-1-1 2 6 1-2 8 3-1 3 1-2-8 6-1z"/></svg>WCAG &amp; Accessibility
@@ -3626,6 +3634,111 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Links pro Spalte — konzentriert bleiben, die wichtigsten Einstiegspunkte nennen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Legal-Links in der Haupt-Spaltennavigation platzieren — sie gehören ausschließlich in die Legal-Bar</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Footer ohne Copyright-Jahr und Firmennamen — beide sind rechtlich relevant und müssen aktuell sein</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ LOGO-SLIDER ═══ -->
+    <section class="ds-section" id="sec-logoslider">
+      <h1 class="sec-title">Logo-Slider</h1>
+      <p class="sec-sub">Horizontales Laufband für Kunden- und Partnerlogos. CSS-Animation · Fade-Kanten · pausiert bei Hover &amp; Fokus · <code class="token">prefers-reduced-motion</code>-konform.</p>
+
+      <h2 id="gt-logo-marquee" class="group-title">Marquee · Kundenlogos</h2>
+      <p style="font:400 14px/22px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:680px">Der Track wird doppelt gerendert — so entsteht ein nahtloser Loop ohne JavaScript. Fahre mit der Maus drüber oder setze den Fokus hinein, um die Animation zu pausieren.</p>
+
+      <!-- Light -->
+      <span class="lbl" style="margin-bottom:var(--s3)">Light</span>
+      <div class="logo-slider" role="region" aria-label="Referenzkunden" style="margin-bottom:var(--s8);border:var(--bd);border-radius:var(--r-lg)">
+        <div class="logo-track">
+          <!-- Set A -->
+          <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Digital<br>Hub</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Infra<br>Base SE</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Build<br>GmbH</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">KI<br>Ventures</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Dev<br>Works</span></div>
+          <!-- Set B — dupliziert für nahtlosen Loop, vor Screenreadern verborgen -->
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Muster<br>AG</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Digital<br>Hub</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Infra<br>Base SE</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Build<br>GmbH</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">KI<br>Ventures</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Dev<br>Works</span></div>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <span class="lbl" style="margin-bottom:var(--s3)">Dark</span>
+      <div class="logo-slider logo-slider-dark" role="region" aria-label="Referenzkunden" style="margin-bottom:var(--s8)">
+        <div class="logo-track">
+          <!-- Set A -->
+          <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Digital<br>Hub</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Infra<br>Base SE</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Build<br>GmbH</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">KI<br>Ventures</span></div>
+          <div class="logo-tile"><span class="logo-placeholder">Dev<br>Works</span></div>
+          <!-- Set B -->
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Muster<br>AG</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Digital<br>Hub</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Infra<br>Base SE</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Build<br>GmbH</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">KI<br>Ventures</span></div>
+          <div class="logo-tile" aria-hidden="true"><span class="logo-placeholder">Dev<br>Works</span></div>
+        </div>
+      </div>
+
+      <!-- Code-Beispiel -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Set A + Set B identisch → nahtloser CSS-Loop --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"logo-slider"</span> <span class="v">role</span>=<span class="s">"region"</span> <span class="v">aria-label</span>=<span class="s">"Referenzkunden"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"logo-track"</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- Set A --&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"logo-tile"</span><span class="k">&gt;</span>
+      <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"logo-kunde.svg"</span> <span class="v">alt</span>=<span class="s">"Kundenname AG"</span> <span class="v">width</span>=<span class="s">"120"</span> <span class="v">height</span>=<span class="s">"40"</span><span class="k">&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- … weitere Logos … --&gt;</span>
+    <span class="c">&lt;!-- Set B — exakte Kopie, aria-hidden="true" --&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"logo-tile"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>
+      <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"logo-kunde.svg"</span> <span class="v">alt</span>=<span class="s">""</span> <span class="v">width</span>=<span class="s">"120"</span> <span class="v">height</span>=<span class="s">"40"</span><span class="k">&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <h2 id="gt-logo-verwendung" class="group-title">Verwendung</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit</div>
+          <table class="a11y-table">
+            <thead><tr><th>Attribut</th><th>Zweck</th></tr></thead>
+            <tbody>
+              <tr><td><code class="token">role="region"</code></td><td>Semantischer Landmark — Screenreader kann zum Bereich springen</td></tr>
+              <tr><td><code class="token">aria-label</code></td><td>Beschreibt den Bereich («Referenzkunden»)</td></tr>
+              <tr><td><code class="token">aria-hidden="true"</code></td><td>Duplikate (Set B) werden von Screenreadern übersprungen</td></tr>
+              <tr><td><code class="token">alt=""</code></td><td>Leeres Alt bei duplizierten Logo-Images (dekorativ)</td></tr>
+              <tr><td><code class="token">prefers-reduced-motion</code></td><td>Animation stoppt automatisch — keine manuelle Pause nötig</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Set B als exakte Kopie von Set A — gleiche Anzahl, gleiche Reihenfolge für nahtlosen Loop</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Logos als SVG einbinden — skalieren verlustfrei auf jede Displaydichte</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Einheitliche Tile-Höhe (72 px) — unterschiedliche Logo-Proportionen über <code class="token">object-fit: contain</code> angleichen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Keine Kundennamen in bunten Markenfarben — Logos einheitlich grau oder schwarz halten</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Nicht mehr als 12 einzigartige Logos — bei mehr lieber zwei langsamere Reihen</span></li>
           </ul>
         </div>
       </div>

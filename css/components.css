@@ -263,6 +263,27 @@
 .slider-es,.field-slider-output.slider-es{--sl-color:var(--es-500)}
 .slider-wo,.field-slider-output.slider-wo{--sl-color:var(--wo-500)}
 
+/* ── Logo-Slider (Marquee) ── */
+.logo-slider{overflow:hidden;position:relative;padding:var(--s4) 0}
+.logo-slider::before,.logo-slider::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:1;pointer-events:none}
+.logo-slider::before{left:0;background:linear-gradient(to right,var(--bg-surface),transparent)}
+.logo-slider::after{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
+.logo-track{display:flex;gap:var(--s5);width:max-content;animation:logo-marquee 36s linear infinite}
+.logo-slider:hover .logo-track,.logo-slider:focus-within .logo-track{animation-play-state:paused}
+@keyframes logo-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.logo-track{animation:none;flex-wrap:wrap;width:auto;gap:var(--s3)}}
+.logo-tile{width:148px;height:72px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:var(--r-md);border:var(--bd);background:var(--bg-surface);padding:var(--s3) var(--s4);transition:border-color var(--m-fast),box-shadow var(--m-fast)}
+.logo-tile:hover{border-color:var(--n-300);box-shadow:var(--e1)}
+.logo-placeholder{font:700 13px/1.2 var(--font);letter-spacing:.04em;color:var(--n-300);text-align:center;transition:color var(--m-fast);user-select:none}
+.logo-tile:hover .logo-placeholder{color:var(--n-500)}
+.logo-slider-dark{background:var(--n-700);border-radius:var(--r-lg);padding:var(--s5) 0}
+.logo-slider-dark::before{background:linear-gradient(to right,var(--n-700),transparent)}
+.logo-slider-dark::after{background:linear-gradient(to left,var(--n-700),transparent)}
+.logo-slider-dark .logo-tile{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.logo-slider-dark .logo-tile:hover{border-color:rgba(255,255,255,.2);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.logo-slider-dark .logo-placeholder{color:rgba(255,255,255,.3)}
+.logo-slider-dark .logo-tile:hover .logo-placeholder{color:rgba(255,255,255,.75)}
+
 /* ── Grid ── */
 .grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
 .grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
