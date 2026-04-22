@@ -50,6 +50,30 @@
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
   --font-display:'Libre Baskerville','Georgia',serif;
 
+  /* ── Typography Scale ── */
+  /* Sans-serif (Montserrat) */
+  --ty-micro:        400 10px/14px var(--font);
+  --ty-caption:      400 11px/14px var(--font);
+  --ty-body-xs:      400 12px/16px var(--font);
+  --ty-body-md:      400 14px/20px var(--font);
+  --ty-body-lg:      400 16px/24px var(--font);
+  --ty-label-xs:     500 11px/16px var(--font);
+  --ty-label-sm:     500 12px/16px var(--font);
+  --ty-label-md:     500 14px/20px var(--font);
+  --ty-title-sm:     500 16px/24px var(--font);
+  --ty-title-lg:     500 22px/28px var(--font);
+  --ty-label-xs-strong: 600 11px/16px var(--font);
+  --ty-name:         600 13px/18px var(--font);
+  /* Display / serif (Libre Baskerville) */
+  --ty-serif-sm:     400 17px/28px var(--font-display);
+  --ty-serif-md:     400 20px/28px var(--font-display);
+  --ty-serif-lg:     400 20px/32px var(--font-display);
+  --ty-display-sm:   400 22px/30px var(--font-display);
+  --ty-display-md:   400 24px/32px var(--font-display);
+  --ty-heading-sm:   400 36px/44px var(--font-display);
+  --ty-heading-lg:   400 40px/48px var(--font-display);
+  --ty-heading-xl:   400 clamp(28px,3.5vw,46px)/1.15 var(--font-display);
+
   /* ── Spacing ── */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
 
