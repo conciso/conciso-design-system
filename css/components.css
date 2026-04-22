@@ -281,6 +281,17 @@
 .img-dot{width:8px;height:8px;border-radius:50%;background:var(--n-200);border:2px solid transparent;cursor:pointer;padding:0;transition:background var(--m-fast),transform var(--m-fast)}
 .img-dot.active{background:var(--co-500);transform:scale(1.35)}
 .img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Hero-Variante — vollflächig, Caption als Overlay */
+.img-slider-hero{border-radius:0}
+.img-slider-hero .img-slide{position:relative}
+.img-slider-hero .img-slide-media{aspect-ratio:21/9;min-height:300px}
+.img-slider-hero .img-slide-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,transparent 100%);border-top:none;padding:var(--s10) var(--s8) var(--s6)}
+.img-slider-hero .img-slide-caption-title{color:#fff;font-size:clamp(20px,2.5vw,32px)}
+.img-slider-hero .img-slide-caption-text{color:rgba(255,255,255,.8)}
+.img-slider-hero .img-slider-btn{top:50%}
+.img-slider-hero .img-slider-dots{position:absolute;bottom:var(--s5);left:0;right:0;background:none;border:none;padding:0}
+.img-slider-hero .img-dot{background:rgba(255,255,255,.35)}
+.img-slider-hero .img-dot.active{background:#fff}
 
 /* ── Logo-Slider (Marquee) ── */
 .logo-slider{overflow:hidden;position:relative;padding:var(--s4) 0}
