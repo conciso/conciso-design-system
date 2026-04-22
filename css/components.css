@@ -305,6 +305,10 @@
 .logo-pause{position:absolute;top:50%;right:var(--s4);transform:translateY(-50%);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0}
 .logo-slider:hover .logo-pause,.logo-slider:focus-within .logo-pause{opacity:1}
 .logo-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-pause .icon-play{display:none}
+.logo-slider.paused .logo-pause{opacity:1}
+.logo-slider.paused .logo-pause .icon-pause{display:none}
+.logo-slider.paused .logo-pause .icon-play{display:block}
 @keyframes logo-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.logo-track{animation:none;flex-wrap:wrap;width:auto;gap:var(--s3)}}
 .logo-tile{width:148px;height:72px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:var(--r-md);border:var(--bd);background:var(--bg-surface);padding:var(--s3) var(--s4);transition:border-color var(--m-fast),box-shadow var(--m-fast)}
