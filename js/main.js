@@ -9,21 +9,33 @@
   }
 
   /* ── Section navigation ── */
+  function activateSection(section) {
+    document.querySelectorAll('.ds-section').forEach(function(s) { s.classList.remove('visible'); });
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+    var sec = document.getElementById('sec-' + section);
+    var btn = document.querySelector('.nav-item[data-section="' + section + '"]');
+    if (sec) sec.classList.add('visible');
+    if (btn) btn.classList.add('active');
+    updateSubNav(section);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
   document.querySelectorAll('.nav-item[data-section]').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      document.querySelectorAll('.ds-section').forEach(function(s) { s.classList.remove('visible'); });
-      document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
-      var sec = document.getElementById('sec-' + btn.dataset.section);
-      if (sec) sec.classList.add('visible');
-      btn.classList.add('active');
-      updateSubNav(btn.dataset.section);
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      activateSection(btn.dataset.section);
+      localStorage.setItem('ds-active-section', btn.dataset.section);
     });
   });
 
-  /* Show sub-nav for the initially active section */
-  var initialActive = document.querySelector('.nav-item.active[data-section]');
-  if (initialActive) updateSubNav(initialActive.dataset.section);
+  /* Restore last active section or fall back to HTML default */
+  var saved = localStorage.getItem('ds-active-section');
+  var savedBtn = saved && document.querySelector('.nav-item[data-section="' + saved + '"]');
+  if (savedBtn) {
+    activateSection(saved);
+  } else {
+    var initialActive = document.querySelector('.nav-item.active[data-section]');
+    if (initialActive) updateSubNav(initialActive.dataset.section);
+  }
 
   /* ── Sub-nav anchor clicks: smooth scroll ── */
   document.querySelectorAll('.nav-sub-item').forEach(function(link) {

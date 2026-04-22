@@ -449,3 +449,14 @@
 .tbl-sort:hover svg{opacity:.7}
 thead th[aria-sort="ascending"] .tbl-sort svg,
 thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
+
+/* ── Documentation tables (Verwendung, Barrierefreiheit, etc.) ── */
+.doc-table{width:100%;border-collapse:collapse;font:var(--ty-body-sm)}
+.doc-table thead tr{border-bottom:var(--bd-strong)}
+.doc-table th{text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)}
+.doc-table th:last-child{padding-left:var(--s3)}
+.doc-table tbody tr{border-bottom:var(--bd)}
+.doc-table tbody tr:last-child{border-bottom:none}
+.doc-table td{padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-secondary);vertical-align:top}
+.doc-table td:first-child{color:var(--tx-primary);font-weight:500}
+.doc-table td:last-child{padding-left:var(--s3)}

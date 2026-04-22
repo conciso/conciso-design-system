@@ -172,7 +172,7 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 /* ── Sub-navigation ── */
 .nav-subnav{display:none;padding-bottom:var(--s2)}
 .nav-subnav.visible{display:block}
-.nav-sub-item{display:block;padding:5px var(--s6) 5px 36px;font:400 12px/18px var(--font);color:var(--tx-secondary);text-decoration:none;transition:background var(--m-fast),color var(--m-fast);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub-item{display:block;padding:5px var(--s6) 5px 36px;font:var(--ty-body-xs);color:var(--tx-secondary);text-decoration:none;transition:background var(--m-fast),color var(--m-fast);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-sub-item::before{content:"–";opacity:.4;margin-right:6px;font-size:11px}
 .nav-sub-item:hover{color:var(--tx-primary);background:var(--bg-overlay)}
 .nav-sub-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
