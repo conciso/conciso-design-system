@@ -424,14 +424,11 @@
 .tbl{width:100%;border-collapse:collapse;font:var(--ty-body-md);color:var(--tx-primary)}
 .tbl caption{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0 0 var(--s4);text-align:left;border-bottom:2px solid var(--n-200)}
 .tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s4) var(--s5) var(--s3);background:transparent;border-bottom:2px solid var(--n-200);text-align:left;white-space:nowrap}
-.tbl thead th:first-child{padding-left:0}
 .tbl tbody td,.tbl tbody th{padding:var(--s4) var(--s5);border-bottom:var(--bd);vertical-align:top}
-.tbl tbody td:first-child,.tbl tbody th:first-child{padding-left:0}
 .tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
 .tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--bg-overlay)}
 .tbl tbody th{font:var(--ty-label-md);color:var(--tx-primary);text-align:left}
 .tbl tfoot td,.tbl tfoot th{padding:var(--s4) var(--s5) 0;font:var(--ty-label-sm);color:var(--tx-primary);border-top:2px solid var(--n-200);text-align:left}
-.tbl tfoot td:first-child,.tbl tfoot th:first-child{padding-left:0}
 .tbl td[data-num],.tbl th[data-num]{text-align:right;font-variant-numeric:tabular-nums}
 /* Striped variant */
 .tbl--striped tbody tr:nth-child(even) td,.tbl--striped tbody tr:nth-child(even) th{background:var(--n-50)}
