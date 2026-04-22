@@ -2546,24 +2546,63 @@
 
       <!-- Verwendung -->
       <h2 id="gt-table-verwendung" class="group-title" style="margin-top:var(--s12)">Verwendung</h2>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)">
-        <div>
-          <p style="font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s3)">Barrierefreiheit</p>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Barrierefreiheit</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-8">
+          <table style="width:100%;border-collapse:collapse;font:var(--ty-body-md)">
+            <thead>
+              <tr style="border-bottom:var(--bd-strong)">
+                <th style="text-align:left;padding:var(--s2) var(--s4) var(--s2) 0;font:var(--ty-label-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted);width:28%">Attribut / Element</th>
+                <th style="text-align:left;padding:var(--s2) var(--s3);font:var(--ty-label-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Zweck</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">&lt;caption&gt;</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Pflicht — Screenreader lesen den Titel vor, bevor die Zellen vorgelesen werden</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">scope="col"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf alle <code class="token">&lt;th&gt;</code> im <code class="token">&lt;thead&gt;</code> — ordnet Spaltenüberschriften den Zellen darunter zu</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">scope="row"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Wenn die erste Spalte eine Zeilenüberschrift ist — ordnet die Überschrift den Zellen rechts davon zu</td></tr>
+              <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">tabindex="0"</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf dem Scroll-Container — macht horizontales Scrollen per Tastatur erreichbar</td></tr>
+              <tr><td style="padding:var(--s3) var(--s4) var(--s3) 0"><code class="token">role="region"</code> + <code class="token">aria-label</code></td><td style="padding:var(--s3);color:var(--tx-secondary)">Auf dem Scroll-Container — kennzeichnet ihn als benannten Landmark für Screenreader</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Wann welche Variante -->
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Wann welche Variante?</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6" style="display:flex;flex-direction:column;gap:var(--s3)">
+          <div style="display:flex;gap:var(--s3);align-items:flex-start">
+            <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
+            <div><strong style="font:var(--ty-label-md);color:var(--tx-primary)">Standard</strong><br><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Für Tabellen mit bis zu 6 Zeilen — klare Zeilentrenner reichen zur Orientierung.</span></div>
+          </div>
+          <div style="display:flex;gap:var(--s3);align-items:flex-start">
+            <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
+            <div><strong style="font:var(--ty-label-md);color:var(--tx-primary)">Gestreift (.tbl--striped)</strong><br><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ab ca. 7 Zeilen — der alternierende Hintergrund verbessert die Lesbarkeit ohne zusätzliche Rahmen.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">&lt;caption&gt;</code> immer verwenden — Screenreader lesen den Titel vor</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">scope="col"</code> auf alle <code class="token">&lt;th&gt;</code> im Header setzen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">scope="row"</code> wenn die erste Spalte eine Zeilenüberschrift ist</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Scroll-Container mit <code class="token">tabindex="0"</code> und <code class="token">role="region"</code> + <code class="token">aria-label</code></span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Nummerische Spalten: <code class="token">data-num</code> für rechtsbündige Ausrichtung und <code class="token">font-variant-numeric:tabular-nums</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">&lt;caption&gt;</code> und <code class="token">scope</code>-Attribute immer setzen — auch bei einfachen Tabellen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Nummerische Spalten rechtsbündig ausrichten — erleichtert den Vergleich von Zahlen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Scroll-Container verwenden statt die Tabelle zu verkleinern — Lesbarkeit hat Vorrang</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Spaltenüberschriften kurz und eindeutig benennen — max. 2–3 Wörter</span></li>
           </ul>
         </div>
-        <div>
-          <p style="font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s3)">Einsatz</p>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Standard für Vergleichs- und Übersichtsdaten mit klaren Spalten</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Gestreift bei &gt; 6 Zeilen — verbessert die Zuordnung über die Zeile</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Tabellen für Layouts verwenden — dafür CSS Grid oder Flexbox nutzen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 7–8 Spalten — bei zu breiten Tabellen Prioritäten setzen oder aufteilen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Tabellen für Seiten-Layouts verwenden — dafür CSS Grid oder Flexbox nutzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 7–8 Spalten — lieber aufteilen oder Prioritäten setzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Langen Fließtext in Zellen — Tabellen sind für strukturierte, scannbare Daten gedacht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Nur Farbe zur Bedeutungsvermittlung nutzen — Status-Badges zusätzlich mit Text kennzeichnen</span></li>
           </ul>
         </div>
       </div>
