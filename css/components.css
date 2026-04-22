@@ -301,7 +301,7 @@
 .logo-slider::before{left:0;background:linear-gradient(to right,var(--bg-surface),transparent)}
 .logo-slider::after{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
 .logo-track{display:flex;gap:var(--s5);width:max-content;animation:logo-marquee 36s linear infinite}
-.logo-slider:hover .logo-track,.logo-slider:focus-within .logo-track,.logo-slider.paused .logo-track{animation-play-state:paused}
+.logo-slider.paused .logo-track{animation-play-state:paused}
 .logo-pause{position:absolute;top:50%;right:var(--s4);transform:translateY(-50%);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0}
 .logo-slider:hover .logo-pause,.logo-slider:focus-within .logo-pause{opacity:1}
 .logo-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
