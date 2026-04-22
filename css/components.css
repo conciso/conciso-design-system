@@ -296,7 +296,7 @@
 @media(prefers-reduced-motion:reduce){.img-slider-track{transition:none}}
 
 /* ── Logo-Slider (Marquee) ── */
-.logo-slider{overflow:hidden;position:relative;padding:var(--s4) 0}
+.logo-slider{overflow:hidden;position:relative;padding:var(--s4) 0;margin-left:calc(-1 * var(--s6));margin-right:calc(-1 * var(--s6))}
 .logo-slider::before,.logo-slider::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:1;pointer-events:none}
 .logo-slider::before{left:0;background:linear-gradient(to right,var(--bg-surface),transparent)}
 .logo-slider::after{right:0;background:linear-gradient(to left,var(--bg-surface),transparent)}
