@@ -24,7 +24,7 @@
   /* Semantic backgrounds – darkened */
   --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
   /* Brand tints – very dark for dark surfaces */
-  --co-50:#071616; --ai-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
+  --co-50:#071616; --ki-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
   /* Badge text – lighter for dark backgrounds */
   --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
   --badge-neu-bg:#445060; --badge-neu-text:#C4D8D8;
@@ -48,7 +48,7 @@
 /* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
 [data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%238AAFAF'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") }
 [data-theme="dark"] .chip { border-color:#818C99 }
-[data-theme="dark"] .ai-warning { color:var(--ai-300) }
+[data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
 [data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
 [data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
@@ -101,9 +101,9 @@
   background: linear-gradient(140deg,#0A0F00 0%,#1C2800 100%) !important;
   color: #fff !important;
 }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ai-400) !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ki-400) !important }
 [data-theme="dark"] #ep-ai .ep-hero .ep-hero-h1 { color: #F4FCD5 !important }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ai-300) !important }
+[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ki-300) !important }
 
 /* Effektive Software: light blue → dark blue */
 [data-theme="dark"] #ep-es .ep-hero {
@@ -126,12 +126,12 @@
 /* ── Bereichs-Komponenten Vergleich ── */
 /* Active tabs: --atab-color inline style is dark → override with light palette shades */
 [data-theme="dark"] .atab[data-area="co"].active { color: var(--co-200); border-bottom-color: var(--co-200) }
-[data-theme="dark"] .atab[data-area="ai"].active { color: var(--ai-200); border-bottom-color: var(--ai-200) }
+[data-theme="dark"] .atab[data-area="ki"].active { color: var(--ki-200); border-bottom-color: var(--ki-200) }
 [data-theme="dark"] .atab[data-area="es"].active { color: var(--es-100); border-bottom-color: var(--es-100) }
 [data-theme="dark"] .atab[data-area="wo"].active { color: var(--wo-200); border-bottom-color: var(--wo-200) }
 /* Branded chips: override inline color/border that are hardcoded dark palette shades */
 [data-theme="dark"] #at-co .chip[style] { color: var(--co-200) !important; border-color: var(--co-300) !important }
-[data-theme="dark"] #at-ai .chip[style] { color: var(--ai-200) !important; border-color: var(--ai-400) !important }
+[data-theme="dark"] #at-ai .chip[style] { color: var(--ki-200) !important; border-color: var(--ki-400) !important }
 [data-theme="dark"] #at-es .chip[style] { color: var(--es-100) !important; border-color: var(--es-300) !important }
 [data-theme="dark"] #at-wo .chip[style] { color: var(--wo-200) !important; border-color: var(--wo-300) !important }
 
@@ -144,45 +144,45 @@
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
 /* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
 [data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}
-[data-theme="dark"] .card[data-area="ai"] .card-media{color:var(--ai-200)}
+[data-theme="dark"] .card[data-area="ki"] .card-media{color:var(--ki-200)}
 [data-theme="dark"] .card[data-area="es"] .card-media{color:var(--es-100)}
 [data-theme="dark"] .card[data-area="wo"] .card-media{color:var(--wo-200)}
 [data-theme="dark"] .card[data-area="co"] .card-eyebrow{color:var(--co-200)}
-[data-theme="dark"] .card[data-area="ai"] .card-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .card[data-area="ki"] .card-eyebrow{color:var(--ki-200)}
 [data-theme="dark"] .card[data-area="es"] .card-eyebrow{color:var(--es-100)}
 [data-theme="dark"] .card[data-area="wo"] .card-eyebrow{color:var(--wo-200)}
 /* Stat Card values: co-700 (#007575) ~1.6:1 on dark → lighter shades (verified ≥4.5:1) */
 [data-theme="dark"] .card-stat[data-area="co"] .card-stat-value{color:var(--co-200)}
-[data-theme="dark"] .card-stat[data-area="ai"] .card-stat-value{color:var(--ai-200)}
+[data-theme="dark"] .card-stat[data-area="ki"] .card-stat-value{color:var(--ki-200)}
 [data-theme="dark"] .card-stat[data-area="es"] .card-stat-value{color:var(--es-100)}
 [data-theme="dark"] .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-200)}
 
 /* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
 [data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
-[data-theme="dark"] [data-area="ai"] .area-specimen-text { color: var(--ai-200) }   /* #D6F06D · 6.10:1 */
+[data-theme="dark"] [data-area="ki"] .area-specimen-text { color: var(--ki-200) }   /* #D6F06D · 6.10:1 */
 [data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
 [data-theme="dark"] [data-area="wo"] .area-specimen-text { color: var(--wo-200) }   /* #A3D48E · 4.57:1 */
 
 /* ── Download CTA (dark) ── */
 /* Icon colors: area-50 wird sehr dunkel → helle Palette-Shades wie area-specimen-text */
 [data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-icon{color:var(--co-200)}
-[data-theme="dark"] .cta-dl[data-area="ai"] .cta-dl-icon{color:var(--ai-200)}
+[data-theme="dark"] .cta-dl[data-area="ki"] .cta-dl-icon{color:var(--ki-200)}
 [data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-icon{color:var(--es-100)}
 [data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-icon{color:var(--wo-200)}
 [data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-200)}
-[data-theme="dark"] .cta-dl[data-area="ai"] .cta-dl-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-200)}
 [data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-100)}
 [data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-200)}
 [data-theme="dark"] .cta-strip[data-area="co"] .cta-strip-icon{color:var(--co-200)}
-[data-theme="dark"] .cta-strip[data-area="ai"] .cta-strip-icon{color:var(--ai-200)}
+[data-theme="dark"] .cta-strip[data-area="ki"] .cta-strip-icon{color:var(--ki-200)}
 [data-theme="dark"] .cta-strip[data-area="es"] .cta-strip-icon{color:var(--es-100)}
 [data-theme="dark"] .cta-strip[data-area="wo"] .cta-strip-icon{color:var(--wo-200)}
 [data-theme="dark"] .cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-200)}
-[data-theme="dark"] .cta-visual[data-area="ai"] .cta-visual-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-200)}
 [data-theme="dark"] .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-100)}
 [data-theme="dark"] .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-200)}
 [data-theme="dark"] .cta-link[data-area="co"]{color:var(--co-200)}
-[data-theme="dark"] .cta-link[data-area="ai"]{color:var(--ai-200)}
+[data-theme="dark"] .cta-link[data-area="ki"]{color:var(--ki-200)}
 [data-theme="dark"] .cta-link[data-area="es"]{color:var(--es-100)}
 [data-theme="dark"] .cta-link[data-area="wo"]{color:var(--wo-200)}
 
