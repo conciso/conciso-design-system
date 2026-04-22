@@ -38,7 +38,7 @@
 .btn-ai   {--c500:var(--ki-700);--c50:var(--ki-50)}
 .btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
 .btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
-.btn-brand{--c500:#333E48;--c50:#F1F3F5}
+.btn-brand{--c500:var(--tx-brand);--c50:var(--n-50)}
 /* Full-width centered submit button */
 .btn-full {width:100%;justify-content:center}
 
