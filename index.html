@@ -114,7 +114,9 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 2.75c1.24 0 2.25 1.01 2.25 2.25S13.24 11.25 12 11.25 9.75 10.24 9.75 9 10.76 6.75 12 6.75zM17 17H7v-.75c0-1.67 3.33-2.5 5-2.5s5 .83 5 2.5V17z"/></svg>Cards & Teaser
     </button>
     <div class="nav-subnav" data-for="cards">
-      <a class="nav-sub-item" href="#gt-cards-varianten">Kartentypen</a>
+      <a class="nav-sub-item" href="#gt-cards-varianten">Generische Karten</a>
+      <a class="nav-sub-item" href="#gt-cards-testimonial">Testimonial-Karte</a>
+      <a class="nav-sub-item" href="#gt-cards-stat">Stat-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="quotes">
@@ -124,6 +126,16 @@
       <a class="nav-sub-item" href="#gt-quotes-blockquote">Blockquote</a>
       <a class="nav-sub-item" href="#gt-quotes-testimonial">Testimonial-Card</a>
       <a class="nav-sub-item" href="#gt-quotes-verwendung">Verwendung</a>
+    </div>
+    <button class="nav-item" data-section="code">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Code-Block
+    </button>
+    <div class="nav-subnav" data-for="code">
+      <a class="nav-sub-item" href="#gt-code-standard">Standard</a>
+      <a class="nav-sub-item" href="#gt-code-numbered">Mit Zeilennummern</a>
+      <a class="nav-sub-item" href="#gt-code-terminal">Terminal</a>
+      <a class="nav-sub-item" href="#gt-code-inline">Inline-Code</a>
+      <a class="nav-sub-item" href="#gt-code-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="icons">
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>Icons
@@ -149,6 +161,7 @@
     </button>
     <div class="nav-subnav" data-for="cta">
       <a class="nav-sub-item" href="#gt-cta-hero">Hero</a>
+      <a class="nav-sub-item" href="#gt-cta-visual">Mit Vorschaubild</a>
       <a class="nav-sub-item" href="#gt-cta-kompakt">Kompakt</a>
       <a class="nav-sub-item" href="#gt-cta-minimal">Minimal</a>
       <a class="nav-sub-item" href="#gt-cta-verwendung">Verwendung</a>
@@ -789,6 +802,18 @@
         </div>
       </div>
 
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Hierarchie</td><td style="padding:var(--s3);color:var(--tx-secondary)">Überschriften-Ebenen nie überspringen (h1→h2→h3) — Screenreader navigieren anhand der Heading-Struktur</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">rem statt px</td><td style="padding:var(--s3);color:var(--tx-secondary)">rem-Werte respektieren die Browser-Schriftgröße des Nutzers; px ignoriert sie — wichtig für Sehschwäche und Zoom-Einstellungen</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Zeilenhöhe</td><td style="padding:var(--s3);color:var(--tx-secondary)">Body-Text mindestens <code class="token">line-height: 1.5</code> (WCAG 1.4.8) — erleichtert das Lesen bei Dyslexie und Sehschwäche</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Nicht nur Stil</td><td style="padding:var(--s3);color:var(--tx-secondary)">Bedeutung nie ausschließlich durch Schriftschnitt (fett, kursiv) vermitteln — der Kontext muss auch ohne Formatierung erkennbar sein</td></tr>
+        </tbody>
+      </table>
+
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start">
@@ -945,6 +970,17 @@
         </div>
       </div>
 
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Touch-Target</td><td style="padding:var(--s3);color:var(--tx-secondary)">Interaktive Elemente mindestens 44×44 px groß halten (WCAG 2.5.5) — Spacing-Tokens helfen, ausreichend Padding zu setzen</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Aktionsdichte</td><td style="padding:var(--s3);color:var(--tx-secondary)">Mindestens <code class="token">--s2</code> (8 px) Abstand zwischen benachbarten Touch-Targets — verhindert versehentliche Aktivierung (WCAG 2.5.8)</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Focus-Ring</td><td style="padding:var(--s3);color:var(--tx-secondary)">Kein <code class="token">overflow: hidden</code> auf fokussierbaren Elementen — der Focus-Ring (<code class="token">box-shadow</code>) wird sonst abgeschnitten und ist nicht mehr sichtbar</td></tr>
+        </tbody>
+      </table>
+
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s4)">
@@ -1070,6 +1106,17 @@
           </div>
         </div>
       </div>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Forced Colors</td><td style="padding:var(--s3);color:var(--tx-secondary)">Windows High Contrast unterdrückt Schatten vollständig — Elevation nie als einziges Unterscheidungsmerkmal einsetzen; immer auch Border oder Hintergrundfarbe nutzen</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Nicht allein</td><td style="padding:var(--s3);color:var(--tx-secondary)">Elevation allein kommuniziert keine Bedeutung für Screenreader — strukturelle Hierarchie muss zusätzlich durch Semantik (<code class="token">&lt;header&gt;</code>, <code class="token">&lt;main&gt;</code>, Überschriften) ausgedrückt werden</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Kontrast</td><td style="padding:var(--s3);color:var(--tx-secondary)">Oberflächen-Kontrast zwischen <code class="token">--bg-page</code> und <code class="token">--bg-surface</code> prüfen — auch ohne Schatten müssen Karten und Panels erkennbar sein</td></tr>
+        </tbody>
+      </table>
 
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
@@ -1218,17 +1265,29 @@
         </div>
       </div>
 
-      <!-- Hinweise -->
-      <div id="gt-nav-hinweise" style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Semantik</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;nav&gt;</code> mit <code class="token">aria-label="Hauptnavigation"</code> wenn mehrere Navigationsbereiche auf einer Seite — Screenreader listen alle Landmarks auf</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Aktiver Eintrag</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">aria-current="page"</code> auf dem aktiven Nav-Link setzen — visueller active-State allein ist für Screenreader nicht erkennbar</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Tastatur</td><td style="padding:var(--s3);color:var(--tx-secondary)">Alle Nav-Items per <kbd>Tab</kbd> erreichbar · <kbd>Enter</kbd> aktiviert · Untermenüs mit <kbd>Esc</kbd> schließbar — ohne Maus vollständig bedienbar</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Skip-Link</td><td style="padding:var(--s3);color:var(--tx-secondary)">„Zum Inhalt springen"-Link als erstes fokussierbares Element — ermöglicht Tastaturnutzern das Überspringen langer Navigationen</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start">
         <div class="col-6">
           <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Die Headline trägt den Kernwert <strong>Gelassenheit</strong> — ruhig, selbstsicher, ohne Ausrufezeichen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Eyebrow und aktiver Nav-Link zeigen den Bereich — Nutzerin versteht sofort, wo sie ist</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Primäraktion mit einem Verb — konkret, direkt, energiegeladen (<em>Starten</em>, <em>Anfragen</em>, <em>Entdecken</em>)</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Hero-Hintergrund als tonal Gradient aus <code class="token">--c50</code> — passt sich dem Bereich an, ohne zu überwältigen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Nav sticky, damit Nutzerinnen jederzeit den Kontext und die Hauptnavigation sehen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Primäraktion im Hero mit einem Verb — konkret, direkt (<em>Starten</em>, <em>Anfragen</em>, <em>Entdecken</em>)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Hero-Hintergrund als tonaler Gradient aus <code class="token">--c50</code> — passt sich dem Bereich an, ohne zu überwältigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Nav sticky und Brand Area konsequent von Nav bis Hero — Nutzerin verliert nie Kontext oder Bereichszugehörigkeit</span></li>
           </ul>
         </div>
         <div class="col-6">
@@ -1237,8 +1296,8 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 2 CTAs im Hero — das widerspricht dem Markenwert <em>Klar</em> und verwirrt</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Reißerische Headlines mit Ausrufezeichen oder Superlativketten — verstößt gegen <em>Gelassenheit</em></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 4 Navigationspunkte — pragmatisch heißt auch: nicht alles auf einmal zeigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Dropdown-Menüs rein via CSS <code class="token">:hover</code> — nicht per Tastatur erreichbar; <code class="token">aria-expanded</code> für Toggle nutzen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Vollflächige Bereichsfarbe als Hero-Hintergrund — zu dominant, überschreibt das Ruhig-Gefühl</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">CTA-Text mit mehr als 3 Wörtern im Nav-Button — zerstört die Kompaktheit der App Bar</span></li>
           </ul>
         </div>
       </div>
@@ -1384,6 +1443,18 @@
           </div>
         </div>
       </div>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Icon-only</td><td style="padding:var(--s3);color:var(--tx-secondary)">Buttons ohne sichtbaren Text benötigen <code class="token">aria-label</code> — der SVG-Inhalt ist für Screenreader nicht ausreichend</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Disabled</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">aria-disabled="true"</code> statt HTML <code class="token">disabled</code> wenn der Button im Fokus-Flow bleiben soll — <code class="token">disabled</code> entfernt das Element aus der Tastaturreihenfolge</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Touch-Target</td><td style="padding:var(--s3);color:var(--tx-secondary)">Mindestgröße 44×44 px für alle Button-Varianten (WCAG 2.5.5) — <code class="token">btn-sm</code> ggf. mit zusätzlichem Padding kompensieren</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Focus-Ring</td><td style="padding:var(--s3);color:var(--tx-secondary)">Nie <code class="token">outline: none</code> ohne sichtbaren Ersatz — der Design-System-Focus-Ring (<code class="token">--focus-aa</code>) muss für alle Buttons erhalten bleiben</td></tr>
+        </tbody>
+      </table>
 
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
@@ -1782,8 +1853,8 @@
     <!-- ═══ CARDS ═══ -->
     <section class="ds-section" id="sec-cards">
       <h1 class="sec-title">Cards & Teaser</h1>
-      <p class="sec-sub">Elevated (Level 1 + Tonal) · Filled (Container-Farbe) · Outlined (Border). Border-Radius: medium (12dp).</p>
-      <h2 id="gt-cards-varianten" class="group-title">Kartentypen</h2>
+      <p class="sec-sub">Generische Karten (Elevated · Filled · Outlined) · Inhaltskarten (Testimonial · Stat) · alle Brand Areas · barrierefrei.</p>
+      <h2 id="gt-cards-varianten" class="group-title">Generische Karten</h2>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <article class="card card-elevated col-3" data-area="co">
           <div class="card-media">
@@ -1843,6 +1914,69 @@
         </article>
       </div>
 
+      <h2 id="gt-cards-testimonial" class="group-title">Testimonial-Karte</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Zitat mit Quellenangabe — farbiger Top-Border signalisiert die Brand Area. Verwendet <code style="font-family:'Courier New',monospace;font-size:13px">&lt;figure&gt;</code> + <code style="font-family:'Courier New',monospace;font-size:13px">&lt;blockquote&gt;</code> für korrekte Semantik.</p>
+      <button class="btn btn-text btn-sm" style="--c50:var(--co-50);--c500:var(--co-600);--c600:var(--co-700);margin-bottom:var(--s6)" onclick="document.querySelector('[data-section=quotes]').click()">Weitere Beispiele → Zitate &amp; Testimonials</button>
+      <div class="layout-grid" style="align-items:stretch;margin-bottom:var(--s8)">
+        <figure class="testimonial col-6" data-area="co">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Mit conciso haben wir unsere Kommunikation neu ausgerichtet. Das Ergebnis: Mehr Anfragen, klarere Positionierung – und ein Team, das endlich eine gemeinsame Sprache spricht."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div>
+              <p class="testimonial-name">Maria Schneider</p>
+              <p class="testimonial-role">Head of Marketing, Musterunternehmen GmbH</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="testimonial col-6" data-area="wo">
+          <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+          <blockquote>„Der Wandel hat Reibung erzeugt – aber genau das war nötig. Heute agieren unsere Teams eigenverantwortlicher als je zuvor."</blockquote>
+          <figcaption class="testimonial-footer">
+            <div>
+              <p class="testimonial-name">Andreas Hofmann</p>
+              <p class="testimonial-role">COO, Mittelständisches Produktionsunternehmen</p>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+
+      <h2 id="gt-cards-stat" class="group-title">Stat-Karte</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Für Kennzahlen und KPIs — auf Landing Pages, Jahresberichten oder Dashboards. Farbiger Top-Border und Metrik in der Bereichsfarbe, optionaler Trend-Badge.</p>
+      <div class="layout-grid" style="align-items:stretch;margin-bottom:var(--s8)">
+        <div class="card-stat col-3" data-area="co">
+          <p class="card-stat-value">94 %</p>
+          <p class="card-stat-label">Kundenzufriedenheit</p>
+          <span class="card-stat-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>
+            +7 % zum Vorjahr
+          </span>
+        </div>
+        <div class="card-stat col-3" data-area="ai">
+          <p class="card-stat-value">3×</p>
+          <p class="card-stat-label">Schnellere Prozesse durch KI</p>
+          <span class="card-stat-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>
+            Gemessen über 12 Monate
+          </span>
+        </div>
+        <div class="card-stat col-3" data-area="es">
+          <p class="card-stat-value">99,9 %</p>
+          <p class="card-stat-label">System-Uptime</p>
+          <span class="card-stat-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>
+            Letztes Quartal
+          </span>
+        </div>
+        <div class="card-stat col-3" data-area="wo">
+          <p class="card-stat-value">280+</p>
+          <p class="card-stat-label">Transformationsprojekte</p>
+          <span class="card-stat-trend up">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 14l5-5 5 5z"/></svg>
+            Seit Gründung 2010
+          </span>
+        </div>
+      </div>
+
       <h2 id="gt-cards-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Kartentypen-Tabelle -->
@@ -1881,6 +2015,61 @@
           </div>
         </div>
       </div>
+
+      <!-- Farbige Top-Border-Regel -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Wann die farbige Linie oben?</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-8" style="font:400 14px/22px var(--font);color:var(--tx-secondary);display:flex;flex-direction:column;gap:var(--s4)">
+          <p>Jede Karte gehört zu einer Brand Area — das muss auf einen Blick erkennbar sein. Wie das Signal transportiert wird, hängt davon ab, ob die Karte einen <strong style="color:var(--tx-primary);font-weight:600">Media-Bereich</strong> hat oder nicht:</p>
+          <div style="display:flex;flex-direction:column;gap:var(--s3)">
+            <div style="display:flex;gap:var(--s3);align-items:flex-start">
+              <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
+              <div><strong style="color:var(--tx-primary);font-weight:600">Mit Media-Bereich</strong> (Generische Karten: Elevated, Filled, Outlined) — die großflächige Fläche in der Bereichsfarbe <code style="font-family:'Courier New',monospace;font-size:12px">-50</code> trägt das Farbsignal bereits. Eine zusätzliche Linie wäre redundant und würde das ruhige Erscheinungsbild stören.</div>
+            </div>
+            <div style="display:flex;gap:var(--s3);align-items:flex-start">
+              <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
+              <div><strong style="color:var(--tx-primary);font-weight:600">Ohne Media-Bereich</strong> (Inhaltskarten: Testimonial, Stat, Download CTA) — die Karte besteht nur aus Text und Aktionen. Ohne die 4 px Linie oben fehlt jeder visuelle Hinweis auf die Zugehörigkeit. Der Top-Border ist dann das einzige Farbsignal.</div>
+            </div>
+          </div>
+          <p><strong style="color:var(--tx-primary);font-weight:600">Warum oben und nicht links?</strong> Die Leserichtung ist von links nach rechts, von oben nach unten — der oberste Kartenrand ist der erste Fixpunkt beim Scannen einer Seite. Die Linie links eignet sich für redaktionellen Fließinhalt (Blockquote), weil der Text direkt daneben beginnt und die Linie als Begleiter wirkt. Bei einer abgeschlossenen Karte würde ein linker Rand mit dem Layout-Raster kollidieren und die Außenkante der Karte unruhig machen.</p>
+        </div>
+        <div class="col-4" style="display:flex;flex-direction:column;gap:var(--s4)">
+          <div>
+            <div style="font:500 11px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s2)">Mit Media-Bereich → keine Linie</div>
+            <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+              <div style="height:40px;background:var(--co-50);display:flex;align-items:center;justify-content:center">
+                <span style="font:400 11px/16px var(--font);color:var(--co-400)">Media</span>
+              </div>
+              <div style="padding:var(--s3) var(--s4)">
+                <div style="height:6px;border-radius:3px;background:var(--n-200);margin-bottom:6px;width:55%"></div>
+                <div style="height:8px;border-radius:3px;background:var(--n-100);margin-bottom:4px"></div>
+                <div style="height:8px;border-radius:3px;background:var(--n-100);width:80%"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font:500 11px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s2)">Ohne Media-Bereich → Linie oben</div>
+            <div style="border:var(--bd);border-top:4px solid var(--co-500);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+              <div style="padding:var(--s3) var(--s4)">
+                <div style="height:6px;border-radius:3px;background:var(--n-200);margin-bottom:6px;width:55%"></div>
+                <div style="height:8px;border-radius:3px;background:var(--n-100);margin-bottom:4px"></div>
+                <div style="height:8px;border-radius:3px;background:var(--n-100);width:80%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Semantik</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;article&gt;</code> für eigenständige Cards — Screenreader listen Artikel als navigierbare Landmark; Überschriften-Hierarchie einhalten (card-title als <code class="token">h3</code> unter einer Section-<code class="token">h2</code>)</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Klickbereich</td><td style="padding:var(--s3);color:var(--tx-secondary)">Nie die gesamte Karte als klickbares Element umsetzen — Link oder Button im Card-Footer ist das einzige Interaktionselement; verhindert versehentliche Aktivierung und mehrdeutige Screenreader-Ansagen</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Bilder &amp; Icons</td><td style="padding:var(--s3);color:var(--tx-secondary)">Card-Media-Bilder mit beschreibendem <code class="token">alt</code>-Text versehen · dekorative SVGs mit <code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code> ausblenden</td></tr>
+        </tbody>
+      </table>
 
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
@@ -2100,6 +2289,168 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Attribution weglassen — jedes Zitat braucht eine überprüfbare Quelle</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Mehr als 3 Testimonials in einer Reihe — Lesbarkeit und visuelle Balance leiden</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Dekorative Icons mit <code class="token">role="img"</code> oder <code class="token">alt</code> versehen — sie sind <code class="token">aria-hidden</code> und übermitteln keine Information</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CODE-BLOCK ═══ -->
+    <section class="ds-section" id="sec-code">
+      <h1 class="sec-title">Code-Block</h1>
+      <p class="sec-sub">Standard · Mit Zeilennummern · Terminal · Inline-Code — für Wissens- und Technikbeiträge.</p>
+
+      <h2 id="gt-code-standard" class="group-title">Standard</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Header mit Sprachkennung und Copy-Button, Syntax-Highlighting mit 5 Token-Klassen (<code class="token">.k</code> Keyword · <code class="token">.fn</code> Funktion · <code class="token">.s</code> String · <code class="token">.v</code> Wert · <code class="token">.c</code> Kommentar).</p>
+      <div style="max-width:720px;margin-bottom:var(--s8)">
+        <div class="cb-wrap">
+          <div class="cb-header">
+            <span class="cb-lang">JavaScript</span>
+            <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+          </div>
+<pre class="cb-body"><span class="c">// Design Token aus CSS abrufen</span>
+<span class="k">function</span> <span class="fn">getToken</span>(name) {
+  <span class="k">return</span> getComputedStyle(document.documentElement)
+    .getPropertyValue(name).trim();
+}
+
+<span class="k">const</span> brandColor = <span class="fn">getToken</span>(<span class="s">'--co-500'</span>); <span class="c">// #00BEBE</span>
+console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor);</pre>
+        </div>
+      </div>
+
+      <h2 id="gt-code-numbered" class="group-title">Mit Zeilennummern</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Für längere Snippets oder wenn im Text auf bestimmte Zeilen verwiesen wird. Jede Zeile ist ein <code class="token">&lt;span class="cb-ln" data-n="N"&gt;</code>.</p>
+      <div style="max-width:720px;margin-bottom:var(--s8)">
+        <div class="cb-wrap">
+          <div class="cb-header">
+            <span class="cb-lang">CSS</span>
+            <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+          </div>
+<pre class="cb-body cb-numbered"><span class="cb-ln" data-n="1"><span class="fn">.article-body</span> {</span>
+<span class="cb-ln" data-n="2">  <span class="k">font:</span> <span class="v">400 16px/1.7 var(--font)</span>;</span>
+<span class="cb-ln" data-n="3">  <span class="k">color:</span> <span class="v">var(--tx-primary)</span>;</span>
+<span class="cb-ln" data-n="4">  <span class="k">max-width:</span> <span class="v">68ch</span>;</span>
+<span class="cb-ln" data-n="5">}</span>
+<span class="cb-ln" data-n="6"></span>
+<span class="cb-ln" data-n="7"><span class="fn">.article-body code</span> {</span>
+<span class="cb-ln" data-n="8">  <span class="k">background:</span> <span class="v">var(--co-50)</span>;</span>
+<span class="cb-ln" data-n="9">  <span class="k">color:</span> <span class="v">var(--co-700)</span>;</span>
+<span class="cb-ln" data-n="10">  <span class="k">border-radius:</span> <span class="v">4px</span>;</span>
+<span class="cb-ln" data-n="11">}</span></pre>
+        </div>
+      </div>
+
+      <h2 id="gt-code-terminal" class="group-title">Terminal</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Für Befehle und Shell-Ausgaben. Grüner Prompt (<code class="token">.cb-prompt</code>) hebt interaktive Eingaben von Ausgaben (<code class="token">.cb-out</code>) ab.</p>
+      <div style="max-width:720px;margin-bottom:var(--s8)">
+        <div class="cb-wrap cb-terminal">
+          <div class="cb-header">
+            <span class="cb-lang">Shell</span>
+            <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.replace(/^\$/gm,'').trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+          </div>
+<pre class="cb-body"><span class="cb-prompt">$ </span>npm install @conciso/design-system
+<span class="cb-out">added 142 packages in 3.8s</span>
+
+<span class="cb-prompt">$ </span>npx conciso-ds tokens --check
+<span class="cb-out">✓ 47 Tokens geprüft — keine Konflikte gefunden</span></pre>
+        </div>
+      </div>
+
+      <h2 id="gt-code-inline" class="group-title">Inline-Code</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5)">Für Code-Erwähnungen innerhalb von Fließtext. Klasse <code class="token">.cb-prose</code> am umgebenden Element aktiviert das Styling für alle <code class="token">&lt;code&gt;</code>-Elemente darin.</p>
+      <div style="max-width:720px;margin-bottom:var(--s8);padding:var(--s6);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg)">
+        <p class="cb-prose" style="font:400 16px/1.7 var(--font);color:var(--tx-primary);margin:0 0 var(--s4)">Um die Hintergrundfarbe einer Seite zu ändern, überschreibe den Token <code>--bg-page</code> innerhalb eines <code>[data-theme]</code>-Selektors. Der Token <code>--bg-surface</code> sollte dabei immer einen leicht höheren Kontrast zu <code>--bg-page</code> bieten, damit Karten und Panels sichtbar bleiben.</p>
+        <p class="cb-prose" style="font:400 16px/1.7 var(--font);color:var(--tx-secondary);margin:0">Inline-Code eignet sich für kurze Bezeichner wie <code>className</code>, <code>data-area</code> oder CSS-Variablen wie <code>--co-500</code> — nicht für mehrzeilige Snippets.</p>
+      </div>
+
+      <h2 id="gt-code-verwendung" class="group-title">Verwendung</h2>
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Wann welche Variante</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead>
+          <tr style="border-bottom:var(--bd-strong)">
+            <th style="text-align:left;padding:var(--s2) var(--s4) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Variante</th>
+            <th style="text-align:left;padding:var(--s2) var(--s4);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Wann einsetzen</th>
+            <th style="text-align:left;padding:var(--s2) 0 var(--s2) var(--s4);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Nicht geeignet für</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)">
+            <td style="padding:var(--s3) var(--s4) var(--s3) 0;color:var(--tx-primary);font-weight:500">Standard</td>
+            <td style="padding:var(--s3) var(--s4);color:var(--tx-secondary)">Einzelne Funktionen, Konfigurationen, kurze Snippets</td>
+            <td style="padding:var(--s3) 0 var(--s3) var(--s4);color:var(--tx-secondary)">Shell-Befehle, langen Fließtext-Kontext</td>
+          </tr>
+          <tr style="border-bottom:var(--bd)">
+            <td style="padding:var(--s3) var(--s4) var(--s3) 0;color:var(--tx-primary);font-weight:500">Mit Zeilennummern</td>
+            <td style="padding:var(--s3) var(--s4);color:var(--tx-secondary)">Wenn im Begleittext auf bestimmte Zeilen verwiesen wird</td>
+            <td style="padding:var(--s3) 0 var(--s3) var(--s4);color:var(--tx-secondary)">Snippets unter 5 Zeilen, Terminal-Ausgaben</td>
+          </tr>
+          <tr style="border-bottom:var(--bd)">
+            <td style="padding:var(--s3) var(--s4) var(--s3) 0;color:var(--tx-primary);font-weight:500">Terminal</td>
+            <td style="padding:var(--s3) var(--s4);color:var(--tx-secondary)">Installations- und Setup-Befehle, CLI-Workflows</td>
+            <td style="padding:var(--s3) 0 var(--s3) var(--s4);color:var(--tx-secondary)">Programm-Code mit Syntax-Highlighting</td>
+          </tr>
+          <tr>
+            <td style="padding:var(--s3) var(--s4) var(--s3) 0;color:var(--tx-primary);font-weight:500">Inline-Code</td>
+            <td style="padding:var(--s3) var(--s4);color:var(--tx-secondary)">Bezeichner, Tokens, Klassen im Fließtext — max. eine Zeile</td>
+            <td style="padding:var(--s3) 0 var(--s3) var(--s4);color:var(--tx-secondary)">Mehrzeilige Snippets, vollständige Statements</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Sprache immer im Header angeben — erleichtert das Lesen und ermöglicht späteres Syntax-Highlighting per Library</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Zeilennummern nur wenn der Begleittext explizit auf Zeilen verweist (z. B. „Zeile 8 setzt den Radius")</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Terminal-Variante für alle Shell-Befehle — der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Copy-Button immer einbauen — Leser kopieren Code häufiger als sie ihn abtippen</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Inline-Code für mehrzeilige Snippets — ab 2 Zeilen immer den Standard-Block verwenden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Highlight-Klassen (<code class="token">.k</code>, <code class="token">.s</code> …) für rein dekorative Farben nutzen — sie tragen Bedeutung und sollten semantisch korrekt eingesetzt werden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Terminal und Code-Block mischen — Shell-Befehle und Programm-Code gehören in getrennte Blöcke</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Zu lange Zeilen ohne Umbruch — lieber aufteilen als horizontal scrollen lassen</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Semantik</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">&lt;pre&gt;&lt;code&gt;</code> als Grundgerüst — Screenreader kündigen den Inhalt als „Code" an; <code class="token">&lt;pre&gt;</code> allein reicht nicht</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Scrollbarkeit</td><td style="padding:var(--s3);color:var(--tx-secondary)">Scrollbare <code class="token">&lt;pre&gt;</code>-Blöcke mit <code class="token">tabindex="0"</code> versehen — sonst nicht per Tastatur erreichbar und der Inhalt bleibt für Tastaturnutzer verborgen</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Copy-Button</td><td style="padding:var(--s3);color:var(--tx-secondary)"><code class="token">aria-label="Code kopieren"</code> auf dem Copy-Button — der Text „Kopieren" allein gibt keinen Kontext welcher Code kopiert wird; nach dem Kopieren den Label aktualisieren (<code class="token">aria-live</code>)</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Dos & Don'ts -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)"><code class="token">&lt;pre&gt;&lt;code&gt;</code> als Grundgerüst — gibt dem Code semantische Bedeutung für Screenreader und Suchmaschinen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Programmiersprache als sichtbares Label im Header anzeigen — Leserin erkennt sofort den Kontext</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Zeilennummern ab ca. 10 Zeilen einsetzen — erleichtert Referenzierung im Text daneben</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Terminal-Variante für Shell-Befehle und Ausgaben — visuell klar unterscheidbar von Quellcode</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Code-Block immer mit einer kurzen Einleitung im Fließtext versehen — Kontext vor dem Block, nicht danach</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:600 13px/18px var(--font);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Screenshots von Code statt echtem Text — nicht kopierbar, nicht zugänglich für Screenreader</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Inline-Code für mehrzeilige Beispiele — ab 2 Zeilen gehört der Inhalt in einen Block</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Eigene Hintergrundfarben außerhalb der Token — bricht Konsistenz und Dark-Mode-Kompatibilität</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Code ohne Sprachkennzeichnung — Syntax-Highlighting und Screenreader-Kontext fehlen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:400 13px/20px var(--font);color:var(--tx-secondary)">Block-Code direkt im Fließtext ohne visuellen Abstand — <code class="token">margin: var(--s3) 0</code> einhalten</span></li>
           </ul>
         </div>
       </div>
@@ -2502,6 +2853,17 @@
         </div>
       </div>
 
+      <!-- Barrierefreiheit -->
+      <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3);margin-top:var(--s8)">Barrierefreiheit</div>
+      <table style="width:100%;border-collapse:collapse;font:400 13px/20px var(--font);margin-bottom:var(--s8)">
+        <thead><tr style="border-bottom:var(--bd-strong)"><th style="text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Aspekt</th><th style="text-align:left;padding:var(--s2) var(--s3);font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)">Regel</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Interaktivität</td><td style="padding:var(--s3);color:var(--tx-secondary)">Klickbare Chips als <code class="token">&lt;button&gt;</code> oder <code class="token">&lt;a&gt;</code> implementieren — nie als <code class="token">&lt;div&gt;</code> mit <code class="token">onClick</code>; nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar</td></tr>
+          <tr style="border-bottom:var(--bd)"><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Auswahl-Zustand</td><td style="padding:var(--s3);color:var(--tx-secondary)">Toggle-Chips mit <code class="token">aria-pressed="true/false"</code> versehen — der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar</td></tr>
+          <tr><td style="padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-primary);font-weight:500">Kontrast</td><td style="padding:var(--s3);color:var(--tx-secondary)">Chip-Text auf Chip-Hintergrund ≥4.5:1 prüfen — besonders bei markierten/aktiven Chips, da sich Hintergrund und Textfarbe ändern</td></tr>
+        </tbody>
+      </table>
+
       <!-- Dos & Don'ts -->
       <div style="font:500 11px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-top:var(--s8);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start">
@@ -2531,7 +2893,7 @@
     <!-- ═══ DOWNLOAD CTA ═══ -->
     <section class="ds-section" id="sec-cta">
       <h1 class="sec-title">Download Call to Action</h1>
-      <p class="sec-sub">Drei Varianten · Hero · Kompakt · Minimal · alle Brand Areas · barrierefrei.</p>
+      <p class="sec-sub">Vier Varianten · Hero · Mit Vorschaubild · Kompakt · Minimal · alle Brand Areas · barrierefrei.</p>
 
       <h2 id="gt-cta-hero" class="group-title">Hero</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Für die Hauptressource einer Seite — Landing Pages, Ressourcenseiten und Kampagnen. Eyebrow, Titel, Beschreibung und Metadaten mit einer primären Aktion.</p>
@@ -2552,6 +2914,41 @@
         <div class="cta-dl-actions">
           <button class="btn btn-filled" style="--c50:var(--co-50);--c500:var(--co-500);--c600:var(--co-600);--c700:var(--co-700);--c900:var(--co-900)" aria-label="Figma-Bibliothek herunterladen (Figma, 48 MB)">Herunterladen</button>
           <button class="btn btn-text" style="--c50:var(--co-50);--c500:var(--co-600);--c600:var(--co-700)">Vorschau ansehen</button>
+        </div>
+      </div>
+
+      <h2 id="gt-cta-visual" class="group-title">Mit Vorschaubild</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:680px">Ideal für Whitepapers und Reports: Das Deckblatt als Vorschau macht den Inhalt sofort greifbar. Ersetze das Platzhalterbild mit einem <code style="font-family:'Courier New',monospace;font-size:13px">&lt;img src="deckblatt.jpg" alt="Vorschau: ..."&gt;</code>.</p>
+      <div class="cta-visual" data-area="co" style="max-width:720px;margin-bottom:var(--s8)">
+        <!-- Cover: Platzhalterbild – in Produktion durch <img> ersetzen -->
+        <div class="cta-visual-cover" aria-hidden="true" style="display:flex;flex-direction:column;justify-content:space-between;padding:var(--s4);min-height:220px;background:linear-gradient(160deg,var(--co-50) 0%,var(--n-100) 100%)">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="height:6px;border-radius:3px;background:var(--co-300);width:60%"></div>
+            <div style="height:4px;border-radius:2px;background:var(--n-200);width:80%"></div>
+            <div style="height:4px;border-radius:2px;background:var(--n-200);width:70%"></div>
+          </div>
+          <div style="flex:1;margin:var(--s4) 0;border-radius:var(--r-sm);background:var(--co-100);opacity:.5"></div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="height:4px;border-radius:2px;background:var(--n-200);width:90%"></div>
+            <div style="height:4px;border-radius:2px;background:var(--n-200);width:65%"></div>
+            <div style="height:10px;border-radius:2px;background:var(--co-200);width:40%;margin-top:var(--s2)"></div>
+          </div>
+        </div>
+        <div class="cta-visual-content">
+          <p class="cta-visual-eyebrow">Conciso Design System</p>
+          <h3 class="cta-visual-title">Brand Guidelines 2025</h3>
+          <p class="cta-visual-desc">Verbindliche Richtlinien für Logo, Farben, Typografie und Bildsprache — für alle Teams und Agenturen.</p>
+          <div class="cta-visual-footer">
+            <button class="btn btn-filled" style="--c50:var(--co-50);--c500:var(--co-500);--c600:var(--co-600);--c700:var(--co-700);--c900:var(--co-900)" aria-label="Brand Guidelines 2025 herunterladen (PDF, 8,4 MB)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              Herunterladen
+            </button>
+            <div class="cta-dl-meta">
+              <span class="cta-dl-chip">PDF</span>
+              <span class="cta-dl-chip">8,4 MB</span>
+              <span class="cta-dl-chip">Version 2025</span>
+            </div>
+          </div>
         </div>
       </div>
 

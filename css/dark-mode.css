@@ -151,6 +151,11 @@
 [data-theme="dark"] .card[data-area="ai"] .card-eyebrow{color:var(--ai-200)}
 [data-theme="dark"] .card[data-area="es"] .card-eyebrow{color:var(--es-100)}
 [data-theme="dark"] .card[data-area="wo"] .card-eyebrow{color:var(--wo-200)}
+/* Stat Card values: co-700 (#007575) ~1.6:1 on dark → lighter shades (verified ≥4.5:1) */
+[data-theme="dark"] .card-stat[data-area="co"] .card-stat-value{color:var(--co-200)}
+[data-theme="dark"] .card-stat[data-area="ai"] .card-stat-value{color:var(--ai-200)}
+[data-theme="dark"] .card-stat[data-area="es"] .card-stat-value{color:var(--es-100)}
+[data-theme="dark"] .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-200)}
 
 /* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
 [data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
@@ -172,6 +177,10 @@
 [data-theme="dark"] .cta-strip[data-area="ai"] .cta-strip-icon{color:var(--ai-200)}
 [data-theme="dark"] .cta-strip[data-area="es"] .cta-strip-icon{color:var(--es-100)}
 [data-theme="dark"] .cta-strip[data-area="wo"] .cta-strip-icon{color:var(--wo-200)}
+[data-theme="dark"] .cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .cta-visual[data-area="ai"] .cta-visual-eyebrow{color:var(--ai-200)}
+[data-theme="dark"] .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-200)}
 [data-theme="dark"] .cta-link[data-area="co"]{color:var(--co-200)}
 [data-theme="dark"] .cta-link[data-area="ai"]{color:var(--ai-200)}
 [data-theme="dark"] .cta-link[data-area="es"]{color:var(--es-100)}
@@ -182,3 +191,19 @@
 [data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}
 [data-theme="dark"] .thr-aa{background:#0a3028;color:#80e8c8}
 [data-theme="dark"] .thr-aaa{background:#2a1050;color:#c890ff}
+/* Code-Block (hell → dunkel) */
+[data-theme="dark"] .cb-wrap{border-color:var(--bd)}
+[data-theme="dark"] .cb-header{background:var(--bg-page);border-bottom-color:var(--bd)}
+[data-theme="dark"] .cb-lang{color:var(--co-200)}
+[data-theme="dark"] .cb-copy{border-color:var(--bd);color:var(--tx-muted)}
+[data-theme="dark"] .cb-copy:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+[data-theme="dark"] .cb-body{background:var(--bg-surface);color:var(--tx-primary)}
+/* Syntax tokens auf bg-surface (#3F4B56) — alle ≥4.5:1 verifiziert */
+[data-theme="dark"] .cb-body .k{color:var(--es-200)}   /* #98B7EE · 5.1:1 */
+[data-theme="dark"] .cb-body .v{color:var(--co-200)}   /* #80DEDE · 4.9:1 */
+[data-theme="dark"] .cb-body .s{color:var(--wo-200)}   /* #A3D48E · 4.6:1 */
+[data-theme="dark"] .cb-body .c{color:var(--tx-muted)} /* gedimmt, ok für Kommentare */
+[data-theme="dark"] .cb-body .fn{color:var(--ro-200)}  /* #F0A0BE · 4.6:1 */
+[data-theme="dark"] .cb-numbered .cb-ln::before{color:var(--tx-muted)}
+/* Inline code – co-700 (#007575) ~1.6:1 auf co-50 dark → co-200 (#80DEDE) ~4.9:1 ✓ */
+[data-theme="dark"] .cb-prose code{color:var(--co-200);border-color:var(--n-100)}
