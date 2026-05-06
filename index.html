@@ -1701,7 +1701,8 @@
 
       <h2 id="gt-nav-hero-image" class="group-title">Hero-Image mit Caption-Overlay</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Variante des Heros, die exakt einer Folie aus der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero-Variante</a> entspricht — vollbreit, 21:9-Format, Caption als Gradient-Overlay über dem Bild — aber ohne Track-Mechanik, ohne Buttons und Dots, ohne JavaScript. Klasse <code class="token">.hero-image</code> als <code class="token">&lt;figure&gt;</code>-Container; semantisch ist Bild + Caption ein <code class="token">figure/figcaption</code>-Pattern.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre — und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig": ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre — und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig": ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Optionale Eyebrow-Zeile <code class="token">.hero-image-caption-eyebrow</code> direkt vor dem Title — uppercase mit Letter-Spacing, identisch zur Eyebrow-Logik im Standard-Hero. Auf Bereichs-Pages enthält sie typischerweise die drei Werte des Bereichs („Intelligenz · Automatisierung · Wirkung"), auf der Landing den Zeit-Ort-Anker („Seit 2016 · Dortmund").</p>
 
       <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
         <figure class="hero-image">
@@ -1709,8 +1710,9 @@
             <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="lazy">
           </div>
           <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
             <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
-            <p class="hero-image-caption-text">Über uns · Marke, Kommunikation und Strategie aus Dortmund — seit 2016.</p>
+            <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund.</p>
           </figcaption>
         </figure>
       </div>
@@ -1718,14 +1720,15 @@
       <!-- Code-Beispiel hero-image -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: 21:9, Caption als Gradient-Overlay, kein Slider --&gt;</span>
+        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: 21:9, Eyebrow + Title + Text als Gradient-Overlay --&gt;</span>
 <span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span>
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"hero-image-media"</span><span class="k">&gt;</span>
     <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span> <span class="v">loading</span>=<span class="s">"lazy"</span><span class="k">&gt;</span>
   <span class="k">&lt;/div&gt;</span>
   <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"hero-image-caption"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
     <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-title"</span><span class="k">&gt;</span>Klare Köpfe. Ruhige Energie.<span class="k">&lt;/p&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>Über uns · Marke, Kommunikation und Strategie aus Dortmund.<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund.<span class="k">&lt;/p&gt;</span>
   <span class="k">&lt;/figcaption&gt;</span>
 <span class="k">&lt;/figure&gt;</span></pre>
       </div>
@@ -5037,7 +5040,7 @@ document.documentElement
     <!-- ═══ BEISPIELSEITEN ═══ -->
     <section class="ds-section" id="sec-examples">
       <h1 class="sec-title">Beispielseiten</h1>
-      <p class="sec-sub">Generierte Seiten pro Brand Area – und eine gemischte Landingpage, die alle vier Bereiche vereint.</p>
+      <p class="sec-sub">Generierte Seiten pro Brand Area, plus eine gemischte Landingpage, die alle vier Bereiche vereint.</p>
 
       <div class="ep-tabs" role="tablist" aria-label="Beispielseite wählen">
         <button class="ep-tab active" role="tab" aria-selected="true" data-ep="landing" id="eptab-landing" aria-controls="ep-landing">Landingpage</button>
@@ -5074,6 +5077,7 @@ document.documentElement
             <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="eager">
           </div>
           <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
             <h1 class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</h1>
             <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.</p>
           </figcaption>
@@ -5081,7 +5085,7 @@ document.documentElement
         <!-- Sub-Sektion direkt unter Hero: Markenrad-Eyebrow + CTAs -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
           <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Ruhig · Klar · Energiegeladen</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Schau Dir an, wie wir arbeiten — oder buch direkt ein Erstgespräch.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Schau Dir an, wie wir arbeiten. Oder buch direkt ein Erstgespräch.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
             <button class="btn btn-filled" type="button" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Unsere Leistungen</button>
             <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Gespräch vereinbaren</button>
@@ -5098,7 +5102,7 @@ document.documentElement
               <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
               <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin-bottom:var(--s2)">Angewandte KI</div>
               <div class="ep-card-title">KI mit Wirkung</div>
-              <div class="ep-card-text">KI-Lösungen, die im Alltag ankommen. <strong>Pragmatisch</strong> geplant, <strong>kraftvoll</strong> umgesetzt — ohne den Hype-Lärm der Branche.</div>
+              <div class="ep-card-text">KI-Lösungen, die im Alltag ankommen. <strong>Pragmatisch</strong> geplant, <strong>kraftvoll</strong> umgesetzt. Ohne den Hype-Lärm der Branche.</div>
               <div class="ep-card-cta">Mehr erfahren →</div>
             </a>
             <!-- Effektive Software -->
@@ -5106,7 +5110,7 @@ document.documentElement
               <div class="ep-card-icon" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
               <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--es-700);margin-bottom:var(--s2)">Effektive Software</div>
               <div class="ep-card-title">Präzise Systeme</div>
-              <div class="ep-card-text">Software, die hält, was sie verspricht. <strong>Verlässlich</strong> gebaut, <strong>präzise</strong> dokumentiert — und in fünf Jahren noch wartbar.</div>
+              <div class="ep-card-text">Software, die hält, was sie verspricht. <strong>Verlässlich</strong> gebaut, <strong>präzise</strong> dokumentiert. In fünf Jahren noch wartbar.</div>
               <div class="ep-card-cta">Mehr erfahren →</div>
             </a>
             <!-- Wirksame Organisationen -->
@@ -5114,7 +5118,7 @@ document.documentElement
               <div class="ep-card-icon" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
               <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--wo-700);margin-bottom:var(--s2)">Wirksame Organisationen</div>
               <div class="ep-card-title">Wandel, der trägt</div>
-              <div class="ep-card-text">Veränderung, die Menschen mitnimmt. <strong>Aufmerksam</strong> zugehört, <strong>leidenschaftlich</strong> begleitet — und am Ende auch ohne uns weiterläuft.</div>
+              <div class="ep-card-text">Veränderung, die Menschen mitnimmt. <strong>Aufmerksam</strong> zugehört, <strong>leidenschaftlich</strong> begleitet. Am Ende läuft sie auch ohne uns weiter.</div>
               <div class="ep-card-cta">Mehr erfahren →</div>
             </a>
           </div>
@@ -5261,31 +5265,36 @@ document.documentElement
           </nav>
           <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero – dunkler Teal-Verlauf, heller Text -->
-        <div class="ep-hero" style="background:linear-gradient(140deg,var(--co-900) 0%,var(--co-800) 60%,var(--co-700) 100%);color:#fff">
-          <div class="ep-hero-body">
-            <p class="ep-hero-eyebrow" style="color:var(--co-200)">Marke · Kommunikation · Strategie</p>
-            <h1 class="ep-hero-h1">Klare Köpfe.<br>Ruhige Energie.</h1>
-            <p class="ep-hero-sub" style="opacity:.9">Seit 2016 verbinden wir Beratung und Umsetzung in drei Bereichen — KI, Software, Organisation. Aus Dortmund, mit Gelassenheit und Haltung.</p>
-            <div class="ep-hero-ctas">
-              <button class="btn btn-filled" type="button" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Team kennenlernen</button>
-              <button class="btn btn-outlined" type="button" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Karriere</button>
-            </div>
+        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="eager" style="object-position:center 30%">
           </div>
-          <div class="ep-hero-visual has-photo">
-            <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="lazy">
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Marke · Kommunikation · Strategie</p>
+            <h1 class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</h1>
+            <p class="hero-image-caption-text">Seit 2016 verbinden wir Beratung und Umsetzung in drei Bereichen: KI, Software, Organisation. Aus Dortmund, mit Gelassenheit und Haltung.</p>
+          </figcaption>
+        </figure>
+        <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
+        <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
+          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Team · Karriere · Referenzen</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Lerne unser Team kennen. Oder schick uns Deine Bewerbung.</p>
+          <div class="ep-hero-ctas" style="justify-content:center">
+            <button class="btn btn-filled" type="button" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Team kennenlernen</button>
+            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Karriere</button>
           </div>
         </div>
         <!-- Drei Pfeiler -->
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--co-700)">Wer wir sind</div>
           <h2 class="ep-section-h2">Drei Pfeiler. Eine Marke.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten — übersetzt in jeden Kontakt mit unseren Kunden.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten. Übersetzt in jeden Kontakt mit unseren Kunden.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="var(--co-700)" aria-hidden="true" focusable="false"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
               <div class="ep-card-title">Ruhig</div>
-              <div class="ep-card-text">Verlässlich, selbstsicher, kompetent. Wir versprechen nicht zu viel — und halten, was wir zusagen.</div>
+              <div class="ep-card-text">Verlässlich, selbstsicher, kompetent. Wir versprechen nicht zu viel und halten, was wir zusagen.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="var(--co-700)" aria-hidden="true" focusable="false"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg></div>
@@ -5295,7 +5304,7 @@ document.documentElement
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="var(--co-700)" aria-hidden="true" focusable="false"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
               <div class="ep-card-title">Energiegeladen</div>
-              <div class="ep-card-text">Kraftvoll, agil, leidenschaftlich. Wir packen mit an, wo es zählt — und bleiben am Ball, bis es wirkt.</div>
+              <div class="ep-card-text">Kraftvoll, agil, leidenschaftlich. Wir packen mit an, wo es zählt, und bleiben am Ball, bis es wirkt.</div>
             </div>
           </div>
         </div>
@@ -5350,7 +5359,7 @@ document.documentElement
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Bereit zum Kennenlernen?</h2>
-          <p class="ep-cta-sub">Komm bei uns in Dortmund vorbei — wir kochen meistens guten Kaffee.</p>
+          <p class="ep-cta-sub">Komm bei uns in Dortmund vorbei. Wir kochen meistens guten Kaffee.</p>
           <button class="btn btn-filled" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Team kennenlernen</button>
         </div>
         <!-- Footer -->
@@ -5409,41 +5418,46 @@ document.documentElement
           </nav>
           <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero – dunkler Lime-Verlauf, heller Text -->
-        <div class="ep-hero" style="background:linear-gradient(140deg,var(--ki-900) 0%,var(--ki-800) 60%,var(--ki-700) 100%);color:#fff">
-          <div class="ep-hero-body">
-            <p class="ep-hero-eyebrow" style="color:var(--ki-200)">Intelligenz · Automatisierung · Wirkung</p>
-            <h1 class="ep-hero-h1">KI, die echte<br>Ergebnisse liefert.</h1>
-            <p class="ep-hero-sub" style="opacity:.9">Kein Hype, keine Demo-Ware. Wir implementieren KI-Lösungen, die funktionieren – messbar, skalierbar, sicher.</p>
-            <div class="ep-hero-ctas">
-              <button class="btn btn-filled" type="button" style="--c500:var(--ki-500);--c50:var(--ki-50);color:var(--ki-900)">Use Case analysieren</button>
-              <button class="btn btn-outlined" type="button" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Fallstudien ansehen</button>
-            </div>
+        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="eager" style="object-position:center 20%">
           </div>
-          <div class="ep-hero-visual has-photo">
-            <img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="lazy">
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Intelligenz · Automatisierung · Wirkung</p>
+            <h1 class="hero-image-caption-title">KI, die echte Ergebnisse liefert.</h1>
+            <p class="hero-image-caption-text">Kein Hype, keine Demo-Ware. Wir implementieren KI-Lösungen, die funktionieren: messbar, skalierbar, sicher.</p>
+          </figcaption>
+        </figure>
+        <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
+        <div class="ep-section" style="background:var(--ki-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--ki-100)">
+          <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">AI.Engineering · AI.Automation · AI.Box</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Erzähl uns Dein Vorhaben. Oder schau Dir erst Fallstudien an.</p>
+          <div class="ep-hero-ctas" style="justify-content:center">
+            <button class="btn btn-filled" type="button" style="--c500:var(--ki-500);--c50:var(--ki-50);color:var(--ki-900)">Use Case analysieren</button>
+            <button class="btn btn-outlined" type="button" style="--c500:var(--ki-800)">Fallstudien ansehen</button>
           </div>
         </div>
         <!-- Lösungen -->
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--ki-800)">Lösungen</div>
           <h2 class="ep-section-h2">Von der Idee zur Produktion</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Wir begleiten Dich durch den gesamten KI-Lifecycle – von der Strategiefindung bis zum produktiven System.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Wir begleiten Dich durch den gesamten KI-Lifecycle, von der Strategiefindung bis zum produktiven System.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="var(--ki-700)" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
               <div class="ep-card-title">AI.Engineering</div>
-              <div class="ep-card-text">GPT, Claude & Co. sicher integriert — mit RAG, Fine-Tuning und Enterprise-Guardrails.</div>
+              <div class="ep-card-text">GPT, Claude & Co. sicher integriert. Mit RAG, Fine-Tuning und Enterprise-Guardrails.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="var(--ki-700)" aria-hidden="true" focusable="false"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.92c.04-.34.07-.68.07-1.08s-.03-.74-.07-1.08l2.32-1.82c.21-.16.27-.46.13-.69l-2.2-3.82c-.13-.24-.42-.32-.67-.24l-2.73 1.1c-.57-.44-1.18-.81-1.86-1.08L14 2.42C13.96 2.18 13.74 2 13.5 2h-3c-.24 0-.46.18-.49.42l-.41 2.74c-.68.27-1.29.64-1.86 1.08L5 5.14c-.25-.09-.54 0-.67.24L2.13 9.2c-.14.23-.07.53.13.69l2.32 1.82c-.04.34-.07.67-.07 1.08s.03.74.07 1.08L2.26 15.69c-.21.16-.27.46-.13.69l2.2 3.82c.13.24.42.32.67.24l2.73-1.1c.57.44 1.18.81 1.86 1.08l.41 2.74c.03.24.25.42.49.42h3c.24 0 .46-.18.49-.42l.41-2.74c.68-.27 1.29-.64 1.86-1.08l2.73 1.1c.25.09.54 0 .67-.24l2.2-3.82c.14-.23.07-.53-.13-.69L19.43 12.58z"/></svg></div>
               <div class="ep-card-title">AI.Automation</div>
-              <div class="ep-card-text">Repetitive Aufgaben automatisieren — mit KI-Agenten und intelligenten Workflows.</div>
+              <div class="ep-card-text">Repetitive Aufgaben automatisieren. Mit KI-Agenten und intelligenten Workflows.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="var(--ki-700)" aria-hidden="true" focusable="false"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3l5 3-5 3V6zm-5 9v-3l5 3-5 3v-3z"/></svg></div>
               <div class="ep-card-title">AI.Box</div>
-              <div class="ep-card-text">Schlüsselfertige KI-Bausteine — vorkonfiguriert, sicher in Deine Infrastruktur deployed, mit klarem Funktionsumfang.</div>
+              <div class="ep-card-text">Schlüsselfertige KI-Bausteine: vorkonfiguriert, sicher in Deine Infrastruktur deployed, mit klarem Funktionsumfang.</div>
             </div>
           </div>
         </div>
@@ -5469,7 +5483,7 @@ document.documentElement
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
           <h2 class="ep-cta-h2">Welchen Prozess könntest Du automatisieren?</h2>
-          <p class="ep-cta-sub">Sag es uns – wir bringen das nötige KI-Know-how mit.</p>
+          <p class="ep-cta-sub">Sag es uns. Wir bringen das nötige KI-Know-how mit.</p>
           <button class="btn btn-filled" style="--c500:var(--ki-500);--c50:var(--ki-50);color:var(--ki-900)">KI-Potenzial analysieren</button>
         </div>
         <!-- Footer -->
@@ -5528,31 +5542,36 @@ document.documentElement
           </nav>
           <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero – dunkler Blau-Verlauf, heller Text -->
-        <div class="ep-hero" style="background:linear-gradient(140deg,var(--es-900) 0%,var(--es-800) 60%,var(--es-700) 100%);color:#fff">
-          <div class="ep-hero-body">
-            <p class="ep-hero-eyebrow" style="color:var(--es-200)">Präzision · Verlässlichkeit · Qualität</p>
-            <h1 class="ep-hero-h1">Software, die hält,<br>was sie verspricht.</h1>
-            <p class="ep-hero-sub" style="opacity:.9">Wir entwickeln Systeme, auf die Du Dich verlassen kannst – stabil, wartbar, zukunftsfest.</p>
-            <div class="ep-hero-ctas">
-              <button class="btn btn-filled" type="button" style="--c500:var(--es-300);--c50:var(--es-50);color:var(--es-900)">Stack analysieren</button>
-              <button class="btn btn-outlined" type="button" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Referenzen ansehen</button>
-            </div>
+        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="eager" style="object-position:center 30%">
           </div>
-          <div class="ep-hero-visual has-photo">
-            <img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="lazy">
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Präzision · Verlässlichkeit · Qualität</p>
+            <h1 class="hero-image-caption-title">Software, die hält, was sie verspricht.</h1>
+            <p class="hero-image-caption-text">Wir entwickeln Systeme, auf die Du Dich verlassen kannst: stabil, wartbar, zukunftsfest.</p>
+          </figcaption>
+        </figure>
+        <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
+        <div class="ep-section" style="background:var(--es-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--es-100)">
+          <p class="ep-hero-eyebrow" style="color:var(--es-700);margin-bottom:var(--s4)">Engineering · Deployment · Qualität</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Lass uns Deinen Stack ansehen. Oder schau Dir unsere Referenzen an.</p>
+          <div class="ep-hero-ctas" style="justify-content:center">
+            <button class="btn btn-filled" type="button" style="--c500:var(--es-700);--c50:var(--es-50);color:#fff">Stack analysieren</button>
+            <button class="btn btn-outlined" type="button" style="--c500:var(--es-700)">Referenzen ansehen</button>
           </div>
         </div>
         <!-- Leistungen -->
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--es-700)">Leistungen</div>
           <h2 class="ep-section-h2">Technologie, die funktioniert</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Von der Architektur bis zum laufenden Betrieb – wir tragen Verantwortung für Deinen Tech-Stack.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Wir tragen Verantwortung für Deinen Tech-Stack: von der Architektur bis zum laufenden Betrieb.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="var(--es-700)" aria-hidden="true" focusable="false"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
               <div class="ep-card-title">Software Engineering</div>
-              <div class="ep-card-text">Clean Code, SOLID-Prinzipien und Domain-Driven Design – für Software, die wächst ohne zu brechen.</div>
+              <div class="ep-card-text">Clean Code, SOLID-Prinzipien und Domain-Driven Design. Software, die wächst, ohne zu brechen.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="var(--es-700)" aria-hidden="true" focusable="false"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg></div>
@@ -5562,7 +5581,7 @@ document.documentElement
             <div class="ep-card" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="var(--es-700)" aria-hidden="true" focusable="false"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
               <div class="ep-card-title">Qualitätssicherung</div>
-              <div class="ep-card-text">Automatisierte Tests, Code Reviews und Monitoring – für 99,9 % Uptime und null kritische Incidents.</div>
+              <div class="ep-card-text">Automatisierte Tests, Code Reviews und Monitoring. 99,9 % Uptime, null kritische Incidents.</div>
             </div>
           </div>
         </div>
@@ -5588,7 +5607,7 @@ document.documentElement
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--es-700);color:#fff">
           <h2 class="ep-cta-h2">Dein nächstes Software-Projekt.</h2>
-          <p class="ep-cta-sub">Wir starten mit einem ehrlichen Technologie-Assessment – ohne Verkaufsdruck.</p>
+          <p class="ep-cta-sub">Wir starten mit einem ehrlichen Technologie-Assessment. Ohne Verkaufsdruck.</p>
           <button class="btn btn-filled" style="--c500:var(--es-300);--c50:var(--es-50);color:var(--es-900)">Assessment anfragen</button>
         </div>
         <!-- Footer -->
@@ -5647,41 +5666,46 @@ document.documentElement
           </nav>
           <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero – dunkler Grün-Verlauf, heller Text -->
-        <div class="ep-hero" style="background:linear-gradient(140deg,var(--wo-900) 0%,var(--wo-800) 60%,var(--wo-700) 100%);color:#fff">
-          <div class="ep-hero-body">
-            <p class="ep-hero-eyebrow" style="color:var(--wo-200)">Struktur · Wirkung · Wandel</p>
-            <h1 class="ep-hero-h1">Wandel, der<br>wirklich trägt.</h1>
-            <p class="ep-hero-sub" style="opacity:.9">Wir begleiten Unternehmen durch Veränderung – mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
-            <div class="ep-hero-ctas">
-              <button class="btn btn-filled" type="button" style="--c500:var(--wo-500);--c50:var(--wo-50);color:var(--wo-900)">Transformation starten</button>
-              <button class="btn btn-outlined" type="button" style="--c500:#fff;--c50:rgba(255,255,255,.1)">Ansatz kennenlernen</button>
-            </div>
+        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="eager" style="object-position:center 20%">
           </div>
-          <div class="ep-hero-visual has-photo">
-            <img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="lazy">
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Struktur · Wirkung · Wandel</p>
+            <h1 class="hero-image-caption-title">Wandel, der wirklich trägt.</h1>
+            <p class="hero-image-caption-text">Wir begleiten Unternehmen durch Veränderung. Mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
+          </figcaption>
+        </figure>
+        <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
+        <div class="ep-section" style="background:var(--wo-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--wo-100)">
+          <p class="ep-hero-eyebrow" style="color:var(--wo-700);margin-bottom:var(--s4)">Change · Leadership · Struktur</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Starte Deine Transformation. Oder lerne erst unseren Ansatz kennen.</p>
+          <div class="ep-hero-ctas" style="justify-content:center">
+            <button class="btn btn-filled" type="button" style="--c500:var(--wo-500);--c50:var(--wo-50);color:var(--wo-900)">Transformation starten</button>
+            <button class="btn btn-outlined" type="button" style="--c500:var(--wo-700)">Ansatz kennenlernen</button>
           </div>
         </div>
         <!-- Leistungen -->
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--wo-700)">Leistungen</div>
           <h2 class="ep-section-h2">Organisation neu denken</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Wir verbinden strategische Klarheit mit menschlicher Wärme – für Transformationen, die ankommen.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Wir verbinden strategische Klarheit mit menschlicher Wärme. Für Transformationen, die ankommen.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="var(--wo-700)" aria-hidden="true" focusable="false"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg></div>
               <div class="ep-card-title">Change Management</div>
-              <div class="ep-card-text">Strukturierte Transformationsbegleitung – mit klarem Fahrplan, messbaren Meilensteinen und echtem Commitment.</div>
+              <div class="ep-card-text">Strukturierte Transformationsbegleitung mit klarem Fahrplan, messbaren Meilensteinen und echtem Commitment.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="var(--wo-700)" aria-hidden="true" focusable="false"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
               <div class="ep-card-title">Leadership Development</div>
-              <div class="ep-card-text">Führungskräfte stärken – mit Coaching, Workshops und Programmen, die auf Deinen Kontext zugeschnitten sind.</div>
+              <div class="ep-card-text">Wir stärken Führungskräfte mit Coaching, Workshops und Programmen, die auf Deinen Kontext zugeschnitten sind.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="var(--wo-700)" aria-hidden="true" focusable="false"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></div>
               <div class="ep-card-title">Organisationsdesign</div>
-              <div class="ep-card-text">Strukturen, Prozesse und Rollen neu gestalten – für mehr Agilität, Klarheit und Handlungsfähigkeit.</div>
+              <div class="ep-card-text">Strukturen, Prozesse und Rollen neu gestalten. Für mehr Agilität, Klarheit und Handlungsfähigkeit.</div>
             </div>
           </div>
         </div>
@@ -5707,7 +5731,7 @@ document.documentElement
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
           <h2 class="ep-cta-h2">Was steht in Deiner Organisation an?</h2>
-          <p class="ep-cta-sub">Ein offenes Gespräch genügt – wir hören erst zu, bevor wir empfehlen.</p>
+          <p class="ep-cta-sub">Ein offenes Gespräch genügt. Wir hören erst zu, bevor wir empfehlen.</p>
           <button class="btn btn-filled" style="--c500:var(--wo-500);--c50:var(--wo-50);color:var(--wo-900)">Erstgespräch vereinbaren</button>
         </div>
         <!-- Footer -->
