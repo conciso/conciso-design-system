@@ -110,15 +110,25 @@
     }
   });
 
-  /* ── Example page tabs ── */
+  /* ── Beispielseiten: Tab-Wechsel ── */
+  function activateExamplePage(epKey) {
+    document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
+    var tab = document.querySelector('.ep-tab[data-ep="' + epKey + '"]');
+    var page = document.getElementById('ep-' + epKey);
+    if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
+    if (page) page.classList.add('visible');
+  }
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      var page = document.getElementById('ep-' + btn.dataset.ep);
-      if (page) page.classList.add('visible');
+    btn.addEventListener('click', function() { activateExamplePage(btn.dataset.ep); });
+  });
+  /* In-Page-Topnav-Links und Logo wechseln ebenfalls die Tabs */
+  document.querySelectorAll('.ep-page .ep-nav-btn[data-ep], .ep-page .ep-logo[data-ep]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      activateExamplePage(link.dataset.ep);
+      var sec = document.getElementById('sec-examples');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
@@ -135,6 +145,7 @@
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
       slides.forEach(function(s, i) {
         s.setAttribute('aria-hidden', i !== current ? 'true' : 'false');
+        s.classList.toggle('active', i === current);
       });
       dots.forEach(function(d, i) {
         d.classList.toggle('active', i === current);
