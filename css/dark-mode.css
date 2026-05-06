@@ -82,8 +82,11 @@
 [data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
 [data-theme="dark"] .ep-card-icon { filter: brightness(.75) saturate(1.3) }
-[data-theme="dark"] .ep-stats { background: var(--bg-surface) !important }
-[data-theme="dark"] .ep-stat-label { color: var(--tx-secondary) !important }
+[data-theme="dark"] .card-stat-strip { background: var(--bg-surface) }
+[data-theme="dark"] .card-stat-flat[data-area="co"] .card-stat-flat-value { color: var(--co-200) }
+[data-theme="dark"] .card-stat-flat[data-area="ki"] .card-stat-flat-value { color: var(--ki-200) }
+[data-theme="dark"] .card-stat-flat[data-area="es"] .card-stat-flat-value { color: var(--es-100) }
+[data-theme="dark"] .card-stat-flat[data-area="wo"] .card-stat-flat-value { color: var(--wo-200) }
 
 /* Landing: hero already dark – no change needed */
 
