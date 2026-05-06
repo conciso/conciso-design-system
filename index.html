@@ -110,6 +110,10 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>Navigation & Hero
     </button>
     <div class="nav-subnav" data-for="navigation">
+      <a class="nav-sub-item" href="#gt-nav-hero-static">Statischer Hero</a>
+      <a class="nav-sub-item" href="#gt-nav-hero-image">Hero-Image</a>
+      <a class="nav-sub-item" href="#gt-nav-hero-substrip">Reduzierte Sub-Sektion</a>
+      <a class="nav-sub-item" href="#gt-nav-topnav">Customer-Topnav</a>
       <a class="nav-sub-item" href="#gt-nav-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="buttons">
@@ -138,6 +142,7 @@
     </button>
     <div class="nav-subnav" data-for="cards">
       <a class="nav-sub-item" href="#gt-cards-varianten">Generische Karten</a>
+      <a class="nav-sub-item" href="#gt-cards-link">Klickbare Karte</a>
       <a class="nav-sub-item" href="#gt-cards-testimonial">Testimonial-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-stat">Stat-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-stat-strip">Bandstreifen</a>
@@ -218,6 +223,8 @@
     </button>
     <div class="nav-subnav" data-for="footer">
       <a class="nav-sub-item" href="#gt-footer-demo">Footer-Demo</a>
+      <a class="nav-sub-item" href="#gt-footer-struktur">Spalten-Struktur</a>
+      <a class="nav-sub-item" href="#gt-footer-subtitle">Verschachtelung</a>
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
     </div>
 
@@ -1687,6 +1694,108 @@
 
       </div><!-- /Demos -->
 
+      <!-- ── Hero-Pattern auf Customer-Pages ── -->
+      <h2 id="gt-nav-hero-static" class="group-title">Hero-Pattern: statisch statt Slider</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Page-Hero (Klasse <code class="token">.ep-hero</code>) ist <strong>statisch</strong> — eine starke Botschaft, ein starkes Bild, optional bis zu zwei CTAs. Kein Karussell, keine automatischen Übergänge: Aufmerksamkeits-Konkurrenz schwächt die Marken-Aussage und steht gegen das „Ruhig"-Markenrad-Feld.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Die Headline ist die Marken-Verdichtung („Klare Köpfe. Ruhige Energie."), die Subline sachlich-konkret. Eyebrow trägt Ortsangabe oder Zeitanker. CTAs wandern <strong>nicht</strong> in den Hero, sondern in eine reduzierte Sub-Sektion direkt darunter — das gibt dem Hero visuell Luft und verhindert die Konkurrenz zwischen Bild, Headline und Buttons.</p>
+
+      <h2 id="gt-nav-hero-image" class="group-title">Hero-Image mit Caption-Overlay</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Variante des Heros, die exakt einer Folie aus der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero-Variante</a> entspricht — vollbreit, 21:9-Format, Caption als Gradient-Overlay über dem Bild — aber ohne Track-Mechanik, ohne Buttons und Dots, ohne JavaScript. Klasse <code class="token">.hero-image</code> als <code class="token">&lt;figure&gt;</code>-Container; semantisch ist Bild + Caption ein <code class="token">figure/figcaption</code>-Pattern.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre — und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig": ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
+
+      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="lazy">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
+            <p class="hero-image-caption-text">Über uns · Marke, Kommunikation und Strategie aus Dortmund — seit 2016.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- Code-Beispiel hero-image -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: 21:9, Caption als Gradient-Overlay, kein Slider --&gt;</span>
+<span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"hero-image-media"</span><span class="k">&gt;</span>
+    <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span> <span class="v">loading</span>=<span class="s">"lazy"</span><span class="k">&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"hero-image-caption"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-title"</span><span class="k">&gt;</span>Klare Köpfe. Ruhige Energie.<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>Über uns · Marke, Kommunikation und Strategie aus Dortmund.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;/figcaption&gt;</span>
+<span class="k">&lt;/figure&gt;</span></pre>
+      </div>
+
+      <h2 id="gt-nav-hero-substrip" class="group-title">Reduzierte Sub-Sektion mit CTAs</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Direkt unterhalb des Heros sitzt eine schmale, getönte Sektion (Hintergrund <code class="token">var(--co-50)</code>, Padding <code class="token">var(--s10)</code>) mit Markenrad-Eyebrow, kurzer Lead-Zeile und zwei CTAs. Sie übernimmt die Funktion „Was tun?" ohne mit der Hero-Headline zu konkurrieren — Hero macht das Versprechen, Sub-Strip macht das Angebot.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Eyebrow nimmt die drei Markenrad-Achsen direkt auf („Ruhig · Klar · Energiegeladen") als ständigen Verweis auf den Marken-Ton. Der primäre CTA verweist auf Selbst-Erschließung („Unsere Leistungen"), der sekundäre auf Direkt-Kontakt („Gespräch vereinbaren") — outline für visuelle Sekundär-Position.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> tragen — sonst entstehen zwei konkurrierende Marken-Statements direkt untereinander. Eyebrow + Lead-Zeile reichen.</p>
+
+      <!-- Code-Beispiel Hero + Sub-Strip -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Statischer Hero mit Markenverdichtung --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero"</span> <span class="v">style</span>=<span class="s">"background:linear-gradient(…);color:#fff"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-body"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;h1</span> <span class="v">class</span>=<span class="s">"ep-hero-h1"</span><span class="k">&gt;</span>Klare Köpfe.<span class="k">&lt;br&gt;</span>Ruhige Energie.<span class="k">&lt;/h1&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-sub"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-visual has-photo"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span> <span class="v">alt</span>=<span class="s">"…"</span><span class="k">&gt;&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Reduzierte Sub-Sektion mit Markenrad-Eyebrow + CTAs --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section"</span> <span class="v">style</span>=<span class="s">"background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)"</span><span class="k">&gt;</span>
+  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-eyebrow"</span><span class="k">&gt;</span>Ruhig · Klar · Energiegeladen<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;p&gt;</span>KI, Software und Organisation in einer Hand — aus Dortmund, seit 2016.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-ctas"</span> <span class="v">style</span>=<span class="s">"justify-content:center"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled"</span><span class="k">&gt;</span>Unsere Leistungen<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined"</span><span class="k">&gt;</span>Gespräch vereinbaren<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- ── Topnav-Pattern für Beispielseiten ── -->
+      <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf den Beispielseiten wird ein eigener Topnav-Pattern verwendet (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>), der das oben gezeigte interne Bereichs-Pattern für Customer-Pages adaptiert. Die Reihenfolge folgt dem festgelegten IA-Schema:</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Leistungen · Wissen · Über uns</strong> + Kontakt-Button (sekundär, outlined). „Leistungen" bündelt die drei Bereiche in einem Hover-Submenü, „Über uns" ist der Profil-Hub mit Team, Jobs, Referenzen, Events, Presse.</p>
+
+      <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktiv-Markierung</h3>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Navigationspunkt wird ausschließlich über <code class="token">aria-current="page"</code> markiert; das CSS setzt dann nur die Brand-Petrol-Farbe (<code class="token">var(--co-700)</code>) — kein Fett, kein Border-Bottom, keine zusätzliche visuelle Eigenschaft. Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der „Leistungen"-Toggle erbt zusätzlich die Brand-Farbe als visueller Hinweis.</p>
+
+      <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Hover-Submenü</h3>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü unter „Leistungen" öffnet sich auf <code class="token">:hover</code> und <code class="token">:focus-within</code> (Tastatur-Bedienung über die fokussierbaren Sub-Items). Zwischen Toggle und Submenü liegt ein 8-px-Spalt — überbrückt von einem unsichtbaren Pseudo-Element <code class="token">.ep-nav-sub::before</code>, damit der Hover-Status beim Wandern in den Spalt nicht zusammenbricht.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Mobile: Das Submenü ist als Hover-Pattern für Desktop konzipiert. Auf Touch-Devices sollte ein Tap auf „Leistungen" eine Übersichtsseite öffnen statt das Submenü auszuklappen — die HTML-Struktur unterstützt beides, indem das übergeordnete Element keinen <code class="token">href</code> trägt und der Toggle ein <code class="token">&lt;button&gt;</code> ist.</p>
+
+      <!-- Code-Beispiel Topnav -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Customer-Topnav: Logo, drei Top-Items, Hover-Submenü, Outline-CTA --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-topnav"</span><span class="k">&gt;</span>
+  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-logo"</span> <span class="v">href</span>=<span class="s">"/"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span><span class="k">&gt;&lt;/a&gt;</span>
+  <span class="k">&lt;nav</span> <span class="v">class</span>=<span class="s">"ep-nav-links"</span> <span class="v">aria-label</span>=<span class="s">"Hauptnavigation"</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- Leistungen mit Hover-Submenü --&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-item ep-nav-has-sub"</span><span class="k">&gt;</span>
+      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-btn ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-haspopup</span>=<span class="s">"true"</span><span class="k">&gt;</span>
+        Leistungen<span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
+      <span class="k">&lt;/button&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-sub"</span><span class="k">&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/ki"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/software"</span><span class="k">&gt;</span>Effektive Software<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/organisation"</span><span class="k">&gt;</span>Wirksame Organisationen<span class="k">&lt;/a&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/wissen"</span><span class="k">&gt;</span>Wissen<span class="k">&lt;/a&gt;</span>
+    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/ueber-uns"</span> <span class="v">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Über uns<span class="k">&lt;/a&gt;</span>
+  <span class="k">&lt;/nav&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined btn-sm"</span><span class="k">&gt;</span>Kontakt<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
       <!-- ── Verwendung ── -->
       <h2 id="gt-nav-verwendung" class="group-title">Verwendung</h2>
 
@@ -2530,6 +2639,34 @@
             <button class="btn btn-filled btn-sm btn-wo">Anfragen</button>
           </div>
         </article>
+      </div>
+
+      <h2 id="gt-cards-link" class="group-title">Klickbare Karte</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Wenn die ganze Karte zu einem Ziel führen soll: Modifier-Klasse <code class="token">.ep-card-link</code> zur Basis-<code class="token">.ep-card</code> ergänzen und das umschließende Element auf <code class="token">&lt;a&gt;</code> umstellen. Hover hebt die Karte mit <code class="token">var(--e3)</code> an und verschiebt sie um 2 px nach oben — eindeutige Click-Affordance, ohne dass die Beschreibung in einen Pseudo-Button gepresst werden muss.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Am unteren Rand sitzt eine optionale <code class="token">.ep-card-cta</code>-Zeile mit Pfeil-Suffix („Mehr erfahren →"). Sie macht die Verlinkung visuell explizit, auch wenn die ganze Fläche klickbar ist. Ganzes Element ist fokussierbar; Focus-Ring kombiniert <code class="token">var(--focus-ring)</code> mit der Hover-Elevation.</p>
+
+      <div class="ep-cards" style="margin-bottom:var(--s8)">
+        <a class="ep-card ep-card-link" href="#sec-cards" style="border-top:4px solid var(--ki-500)">
+          <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/></svg></div>
+          <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin-bottom:var(--s2)">Demo-Eyebrow</div>
+          <div class="ep-card-title">Beispiel-Karten-Titel</div>
+          <div class="ep-card-text">Beschreibung mit <strong>Markenrad-Adjektiv</strong> als Hervorhebung — Beispiel für die Adjektiv-Pattern in Karten-Texten.</div>
+          <div class="ep-card-cta">Mehr erfahren →</div>
+        </a>
+      </div>
+
+      <!-- Code-Beispiel klickbare Karte -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Komplette Karte als Link mit Hover-Elevation und Mehr-erfahren-CTA --&gt;</span>
+<span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-card ep-card-link"</span> <span class="v">href</span>=<span class="s">"/leistungen/ki"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-icon"</span><span class="k">&gt;</span>…<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-title"</span><span class="k">&gt;</span>Titel<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-text"</span><span class="k">&gt;</span>
+    Beschreibung mit <span class="k">&lt;strong&gt;</span>Markenrad-Adjektiv<span class="k">&lt;/strong&gt;</span> als Hervorhebung.
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-cta"</span><span class="k">&gt;</span>Mehr erfahren →<span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/a&gt;</span></pre>
       </div>
 
       <h2 id="gt-cards-testimonial" class="group-title">Testimonial-Karte</h2>
@@ -4095,6 +4232,40 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         </div>
       </footer>
 
+      <h2 id="gt-footer-struktur" class="group-title">Spalten-Struktur</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die fünf Spalten folgen einer festen Reihenfolge — analog zur Header-Navigation, damit Nutzer:innen denselben mentalen Plan im Top und Bottom der Seite haben.</p>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Spalte</th><th>Inhalt</th><th>Hinweis</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 — Brand</strong></td><td>Logo + Tagline „Klare Köpfe. Ruhige Energie." + Markensatz</td><td>Breitere Spalte (1.5fr), gibt der Marke optische Wucht</td></tr>
+          <tr><td><strong>2 — Leistungen</strong></td><td>Drei Sub-Areas (KI, Software, Organisation) mit je drei Sub-Items</td><td>Verschachtelt mit <code class="token">.footer-subtitle</code> als Sub-Heading</td></tr>
+          <tr><td><strong>3 — Wissen</strong></td><td>Beiträge, Newsletter</td><td>Substanz-Beleg, mittelgroße Tiefe</td></tr>
+          <tr><td><strong>4 — Über uns</strong></td><td>Über uns, Team, Jobs, Referenzen, Events, Presse</td><td>Profil-Hub, sechs flache Items</td></tr>
+          <tr><td><strong>5 — Rechtliches</strong></td><td>Datenschutz, Impressum, Barrierefreiheit</td><td>Pflichtangaben — bewusst nur hier (nicht doppelt in der Copyright-Zeile)</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-footer-subtitle" class="group-title">Verschachtelung in „Leistungen"</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Die Leistungen-Spalte ist die einzige mit Sub-Hierarchie. Klasse <code class="token">.footer-subtitle</code> liefert eine ruhige Zwischen-Überschrift (Label-Größe, helle Neutralfarbe, kein Uppercase) zwischen den drei Sub-Areas. Sie hebt sich klar von <code class="token">.footer-htitle</code> (Spalten-Titel, Uppercase + Letter-Spacing) ab und vermeidet eine zweite, konkurrierende Caps-Ebene.</p>
+
+      <!-- Code-Beispiel Footer-Struktur -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Spalte „Leistungen" mit Sub-Areas --&gt;</span>
+<span class="k">&lt;div&gt;</span>
+  <span class="k">&lt;h3</span> <span class="v">class</span>=<span class="s">"footer-htitle"</span><span class="k">&gt;</span>Leistungen<span class="k">&lt;/h3&gt;</span>
+  <span class="k">&lt;nav</span> <span class="v">aria-label</span>=<span class="s">"Leistungen"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"footer-subtitle"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;ul</span> <span class="v">class</span>=<span class="s">"footer-nav-list"</span><span class="k">&gt;</span>
+      <span class="k">&lt;li&gt;&lt;a</span> <span class="v">class</span>=<span class="s">"footer-link"</span><span class="k">&gt;</span>AI.Engineering<span class="k">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">&lt;!-- … --&gt;</span>
+    <span class="k">&lt;/ul&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"footer-subtitle"</span><span class="k">&gt;</span>Effektive Software<span class="k">&lt;/p&gt;</span>
+    <span class="c">&lt;!-- … --&gt;</span>
+  <span class="k">&lt;/nav&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
       <h2 id="gt-footer-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Struktur-Tabelle -->
@@ -4894,17 +5065,16 @@ document.documentElement
           </nav>
           <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero — statisch, ein starkes Bild + Marken-Headline (Markenrad-Verdichtung) -->
-        <div class="ep-hero" style="background:linear-gradient(140deg,var(--co-900) 0%,var(--co-800) 60%,var(--co-700) 100%);color:#fff">
-          <div class="ep-hero-body">
-            <p class="ep-hero-eyebrow" style="color:var(--co-200)">Seit 2016 · Dortmund</p>
-            <h1 class="ep-hero-h1">Klare Köpfe.<br>Ruhige Energie.</h1>
-            <p class="ep-hero-sub" style="opacity:.9">KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.</p>
-          </div>
-          <div class="ep-hero-visual has-photo">
+        <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
+        <figure class="hero-image">
+          <div class="hero-image-media">
             <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="eager">
           </div>
-        </div>
+          <figcaption class="hero-image-caption">
+            <h1 class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</h1>
+            <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.</p>
+          </figcaption>
+        </figure>
         <!-- Sub-Sektion direkt unter Hero: Markenrad-Eyebrow + CTAs -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
           <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Ruhig · Klar · Energiegeladen</p>
