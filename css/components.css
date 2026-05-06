@@ -373,7 +373,9 @@
 .ep-page .ep-cta-band,
 .ep-page .footer,
 .ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
-.ep-topnav{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s4);flex-wrap:wrap}
+.ep-topnav{display:flex;align-items:center;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s8);flex-wrap:wrap}
+/* Kontakt-Button (letztes Direct-Child) wird nach rechts gedrückt; Nav hängt direkt am Logo */
+.ep-topnav > :last-child{margin-left:auto}
 .ep-logo{font:var(--ty-title-lg);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center;color:inherit;text-decoration:none;border-radius:var(--r-xs)}
 a.ep-logo{cursor:pointer}
 a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
