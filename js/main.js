@@ -122,8 +122,8 @@
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
     btn.addEventListener('click', function() { activateExamplePage(btn.dataset.ep); });
   });
-  /* In-Page-Topnav-Links und Logo wechseln ebenfalls die Tabs */
-  document.querySelectorAll('.ep-page .ep-nav-btn[data-ep], .ep-page .ep-logo[data-ep]').forEach(function(link) {
+  /* In-Page-Topnav-Links, Logo, Submenu-Items und klickbare Karten wechseln ebenfalls die Tabs */
+  document.querySelectorAll('.ep-page .ep-nav-btn[data-ep], .ep-page .ep-nav-sub-btn[data-ep], .ep-page .ep-logo[data-ep], .ep-page .ep-card-link[data-ep]').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       activateExamplePage(link.dataset.ep);

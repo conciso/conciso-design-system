@@ -2079,7 +2079,7 @@
               </div>
               <div class="field">
                 <label for="f-co-msg">Nachricht <span class="req" aria-hidden="true">*</span></label>
-                <textarea id="f-co-msg" rows="3" placeholder="Wie können wir Ihnen helfen?" aria-required="true"></textarea>
+                <textarea id="f-co-msg" rows="3" placeholder="Wie können wir Dir helfen?" aria-required="true"></textarea>
               </div>
               <button class="btn btn-filled btn-co btn-full">Anfrage senden</button>
             </div>
@@ -2208,8 +2208,8 @@
                 </select>
               </div>
               <div class="field">
-                <label for="f-wo-msg">Ihr Anliegen <span class="req" aria-hidden="true">*</span></label>
-                <textarea id="f-wo-msg" rows="3" placeholder="Welche Veränderung möchten Sie anstoßen?" aria-required="true"></textarea>
+                <label for="f-wo-msg">Dein Anliegen <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="f-wo-msg" rows="3" placeholder="Welche Veränderung möchtest Du anstoßen?" aria-required="true"></textarea>
               </div>
               <button class="btn btn-filled btn-wo btn-full">Gespräch vereinbaren</button>
             </div>
@@ -4026,47 +4026,30 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
     <!-- ═══ FOOTER ═══ -->
     <section class="ds-section" id="sec-footer">
       <h1 class="sec-title">Footer</h1>
-      <p class="sec-sub">5-Spalten-Grid: Markenbereich + 4 Brand-Area-Spalten · Legal-Bar mit Pflichtangaben.</p>
+      <p class="sec-sub">5-Spalten-Grid: Markenbereich + Leistungen · Wissen · Über uns · Rechtliches. Die Reihenfolge spiegelt die Header-Navigation.</p>
       <h2 id="gt-footer-demo" class="group-title">Footer-Demo</h2>
       <footer class="footer" aria-label="Seitenfuß">
         <div class="footer-grid">
           <div>
-            <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-            <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+            <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+            <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
           </div>
           <div>
-            <h3 class="footer-htitle">Über uns</h3>
-            <nav aria-label="Über uns">
-              <ul class="footer-nav-list">
-                <li><a class="footer-link" href="#">Strategie</a></li>
-                <li><a class="footer-link" href="#">Kommunikation</a></li>
-                <li><a class="footer-link" href="#">Brand</a></li>
-              </ul>
-            </nav>
-          </div>
-          <div>
-            <h3 class="footer-htitle">Angewandte KI</h3>
-            <nav aria-label="Angewandte KI">
+            <h3 class="footer-htitle">Leistungen</h3>
+            <nav aria-label="Leistungen">
+              <p class="footer-subtitle">Angewandte KI</p>
               <ul class="footer-nav-list">
                 <li><a class="footer-link" href="#">AI.Engineering</a></li>
                 <li><a class="footer-link" href="#">AI.Automation</a></li>
                 <li><a class="footer-link" href="#">AI.Box</a></li>
               </ul>
-            </nav>
-          </div>
-          <div>
-            <h3 class="footer-htitle">Effektive Software</h3>
-            <nav aria-label="Effektive Software">
+              <p class="footer-subtitle">Effektive Software</p>
               <ul class="footer-nav-list">
                 <li><a class="footer-link" href="#">Engineering</a></li>
                 <li><a class="footer-link" href="#">Deployment</a></li>
                 <li><a class="footer-link" href="#">Qualität</a></li>
               </ul>
-            </nav>
-          </div>
-          <div>
-            <h3 class="footer-htitle">Wirksame Organisationen</h3>
-            <nav aria-label="Wirksame Organisationen">
+              <p class="footer-subtitle">Wirksame Organisationen</p>
               <ul class="footer-nav-list">
                 <li><a class="footer-link" href="#">Change</a></li>
                 <li><a class="footer-link" href="#">Leadership</a></li>
@@ -4074,16 +4057,41 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               </ul>
             </nav>
           </div>
+          <div>
+            <h3 class="footer-htitle">Wissen</h3>
+            <nav aria-label="Wissen">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Beiträge</a></li>
+                <li><a class="footer-link" href="#">Newsletter</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div>
+            <h3 class="footer-htitle">Über uns</h3>
+            <nav aria-label="Über uns">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Über uns</a></li>
+                <li><a class="footer-link" href="#">Unser Team</a></li>
+                <li><a class="footer-link" href="#">Jobs</a></li>
+                <li><a class="footer-link" href="#">Referenzen</a></li>
+                <li><a class="footer-link" href="#">Events</a></li>
+                <li><a class="footer-link" href="#">Presse</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div>
+            <h3 class="footer-htitle">Rechtliches</h3>
+            <nav aria-label="Rechtliche Hinweise">
+              <ul class="footer-nav-list">
+                <li><a class="footer-link" href="#">Datenschutz</a></li>
+                <li><a class="footer-link" href="#">Impressum</a></li>
+                <li><a class="footer-link" href="#">Barrierefreiheit</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
         <div class="footer-btm">
           <span>© 2026 Conciso GmbH · Dortmund</span>
-          <nav aria-label="Rechtliche Hinweise">
-            <a class="footer-btm-link" href="#">Datenschutz</a>
-            <span aria-hidden="true"> · </span>
-            <a class="footer-btm-link" href="#">Impressum</a>
-            <span aria-hidden="true"> · </span>
-            <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-          </nav>
         </div>
       </footer>
 
@@ -4873,97 +4881,69 @@ document.documentElement
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
           </nav>
-          <button class="btn btn-filled btn-sm btn-co">Kontakt</button>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-        <!-- Hero — vollbreite Slider-Komponente, ein Slide pro Bereich -->
-        <div class="img-slider img-slider-hero"
-             role="region"
-             aria-roledescription="Bildschirmpräsentation"
-             aria-label="Conciso · vier Bereiche im Überblick">
-          <div class="img-slider-track">
-            <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
-              <div class="img-slide-media"><img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="eager" style="object-position:center 45%"></div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Klare Köpfe. Ruhige Energie.</p>
-                <p class="img-slide-caption-text">Über uns · Marke, Kommunikation und Strategie aus Dortmund — seit 2016.</p>
-              </div>
-            </div>
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 4">
-              <div class="img-slide-media"><img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="lazy" style="object-position:center 20%"></div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">KI, die echte Ergebnisse liefert.</p>
-                <p class="img-slide-caption-text">Angewandte KI · Intelligente Automatisierung ohne Hype – messbar, skalierbar, sicher.</p>
-              </div>
-            </div>
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 4">
-              <div class="img-slide-media"><img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="lazy" style="object-position:center 30%"></div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Software, die hält, was sie verspricht.</p>
-                <p class="img-slide-caption-text">Effektive Software · Stabile, wartbare Systeme – Engineering mit Verantwortung.</p>
-              </div>
-            </div>
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 4 von 4">
-              <div class="img-slide-media"><img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="lazy" style="object-position:center 20%"></div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Wandel, der wirklich trägt.</p>
-                <p class="img-slide-caption-text">Wirksame Organisationen · Strukturen für nachhaltiges Wachstum, das Menschen mitnimmt.</p>
-              </div>
-            </div>
+        <!-- Hero — statisch, ein starkes Bild + Marken-Headline (Markenrad-Verdichtung) -->
+        <div class="ep-hero" style="background:linear-gradient(140deg,var(--co-900) 0%,var(--co-800) 60%,var(--co-700) 100%);color:#fff">
+          <div class="ep-hero-body">
+            <p class="ep-hero-eyebrow" style="color:var(--co-200)">Seit 2016 · Dortmund</p>
+            <h1 class="ep-hero-h1">Klare Köpfe.<br>Ruhige Energie.</h1>
+            <p class="ep-hero-sub" style="opacity:.9">KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.</p>
           </div>
-          <button class="img-slider-btn img-slider-prev" aria-label="Vorherige Folie">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="img-slider-btn img-slider-next" aria-label="Nächste Folie">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
-            <button class="img-dot" role="tab" aria-selected="true"  aria-label="Folie 1 von 4" tabindex="0"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 2 von 4" tabindex="-1"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 3 von 4" tabindex="-1"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 4 von 4" tabindex="-1"></button>
+          <div class="ep-hero-visual has-photo">
+            <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="eager">
           </div>
         </div>
-        <!-- Tagline-Strip mit CTAs unterhalb des Sliders -->
+        <!-- Sub-Sektion direkt unter Hero: Markenrad-Eyebrow + CTAs -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Wirksam · Präzise · Nachhaltig</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Marke, Technologie und Organisation in einer&nbsp;Hand — aus&nbsp;Dortmund, seit&nbsp;2016.</p>
+          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Ruhig · Klar · Energiegeladen</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">KI, Software und Organisation in einer&nbsp;Hand — aus&nbsp;Dortmund, seit&nbsp;2016.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
             <button class="btn btn-filled" type="button" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Unsere Leistungen</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Kontakt aufnehmen</button>
+            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Gespräch vereinbaren</button>
           </div>
         </div>
         <!-- Drei Bereiche – farbig differenziert -->
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label" style="color:var(--co-700)">Was wir tun</div>
           <h2 class="ep-section-h2">Drei Bereiche. Ein Anspruch.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Jeder Bereich für sich stark – zusammen ein kohärentes System, das greift.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Drei Disziplinen, die sich gegenseitig stärken. Wir denken sie zusammen, nicht nebeneinander.</p>
           <div class="ep-cards">
             <!-- Angewandte KI -->
-            <div class="ep-card" style="border-top:4px solid var(--ki-500)">
+            <a class="ep-card ep-card-link" href="#sec-examples" data-ep="ai" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
-              <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-700);margin-bottom:var(--s2)">Angewandte KI</div>
+              <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin-bottom:var(--s2)">Angewandte KI</div>
               <div class="ep-card-title">KI mit Wirkung</div>
-              <div class="ep-card-text">Intelligente Automatisierung ohne Hype – messbar, skalierbar, sicher.</div>
-            </div>
+              <div class="ep-card-text">KI-Lösungen, die im Alltag ankommen. <strong>Pragmatisch</strong> geplant, <strong>kraftvoll</strong> umgesetzt — ohne den Hype-Lärm der Branche.</div>
+              <div class="ep-card-cta">Mehr erfahren →</div>
+            </a>
             <!-- Effektive Software -->
-            <div class="ep-card" style="border-top:4px solid var(--es-500)">
+            <a class="ep-card ep-card-link" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-icon" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
               <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--es-700);margin-bottom:var(--s2)">Effektive Software</div>
               <div class="ep-card-title">Präzise Systeme</div>
-              <div class="ep-card-text">Verlässliche Software, die hält was sie verspricht – stabil, wartbar, zukunftsfest.</div>
-            </div>
+              <div class="ep-card-text">Software, die hält, was sie verspricht. <strong>Verlässlich</strong> gebaut, <strong>präzise</strong> dokumentiert — und in fünf Jahren noch wartbar.</div>
+              <div class="ep-card-cta">Mehr erfahren →</div>
+            </a>
             <!-- Wirksame Organisationen -->
-            <div class="ep-card" style="border-top:4px solid var(--wo-500)">
+            <a class="ep-card ep-card-link" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
               <div style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--wo-700);margin-bottom:var(--s2)">Wirksame Organisationen</div>
               <div class="ep-card-title">Wandel, der trägt</div>
-              <div class="ep-card-text">Strukturen für nachhaltiges Wachstum – Veränderung, die Menschen mitnimmt.</div>
-            </div>
+              <div class="ep-card-text">Veränderung, die Menschen mitnimmt. <strong>Aufmerksam</strong> zugehört, <strong>leidenschaftlich</strong> begleitet — und am Ende auch ohne uns weiterläuft.</div>
+              <div class="ep-card-cta">Mehr erfahren →</div>
+            </a>
           </div>
         </div>
         <!-- Stats -->
@@ -5016,50 +4996,33 @@ document.documentElement
         </div>
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
-          <h2 class="ep-cta-h2">Bereit für den nächsten Schritt?</h2>
-          <p class="ep-cta-sub">Sprich mit uns – unverbindlich und auf Augenhöhe.</p>
-          <button class="btn btn-filled" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Gespräch vereinbaren</button>
+          <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
+          <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Deine Situation, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
+          <button class="btn btn-filled" style="--c500:var(--co-500);--c50:var(--co-50);color:var(--co-900)">Termin buchen</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
           <div class="footer-grid">
             <div>
-              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-              <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+              <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
             </div>
             <div>
-              <h3 class="footer-htitle">Über uns</h3>
-              <nav aria-label="Über uns">
-                <ul class="footer-nav-list">
-                  <li><a class="footer-link" href="#">Strategie</a></li>
-                  <li><a class="footer-link" href="#">Kommunikation</a></li>
-                  <li><a class="footer-link" href="#">Brand</a></li>
-                </ul>
-              </nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Angewandte KI</h3>
-              <nav aria-label="Angewandte KI">
+              <h3 class="footer-htitle">Leistungen</h3>
+              <nav aria-label="Leistungen">
+                <p class="footer-subtitle">Angewandte KI</p>
                 <ul class="footer-nav-list">
                   <li><a class="footer-link" href="#">AI.Engineering</a></li>
                   <li><a class="footer-link" href="#">AI.Automation</a></li>
                   <li><a class="footer-link" href="#">AI.Box</a></li>
                 </ul>
-              </nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Effektive Software</h3>
-              <nav aria-label="Effektive Software">
+                <p class="footer-subtitle">Effektive Software</p>
                 <ul class="footer-nav-list">
                   <li><a class="footer-link" href="#">Engineering</a></li>
                   <li><a class="footer-link" href="#">Deployment</a></li>
                   <li><a class="footer-link" href="#">Qualität</a></li>
                 </ul>
-              </nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Wirksame Organisationen</h3>
-              <nav aria-label="Wirksame Organisationen">
+                <p class="footer-subtitle">Wirksame Organisationen</p>
                 <ul class="footer-nav-list">
                   <li><a class="footer-link" href="#">Change</a></li>
                   <li><a class="footer-link" href="#">Leadership</a></li>
@@ -5067,32 +5030,63 @@ document.documentElement
                 </ul>
               </nav>
             </div>
+            <div>
+              <h3 class="footer-htitle">Wissen</h3>
+              <nav aria-label="Wissen">
+                <ul class="footer-nav-list">
+                  <li><a class="footer-link" href="#">Beiträge</a></li>
+                  <li><a class="footer-link" href="#">Newsletter</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Über uns</h3>
+              <nav aria-label="Über uns">
+                <ul class="footer-nav-list">
+                  <li><a class="footer-link" href="#">Über uns</a></li>
+                  <li><a class="footer-link" href="#">Unser Team</a></li>
+                  <li><a class="footer-link" href="#">Jobs</a></li>
+                  <li><a class="footer-link" href="#">Referenzen</a></li>
+                  <li><a class="footer-link" href="#">Events</a></li>
+                  <li><a class="footer-link" href="#">Presse</a></li>
+                </ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Rechtliches</h3>
+              <nav aria-label="Rechtliche Hinweise">
+                <ul class="footer-nav-list">
+                  <li><a class="footer-link" href="#">Datenschutz</a></li>
+                  <li><a class="footer-link" href="#">Impressum</a></li>
+                  <li><a class="footer-link" href="#">Barrierefreiheit</a></li>
+                </ul>
+              </nav>
+            </div>
           </div>
           <div class="footer-btm">
             <span>© 2026 Conciso GmbH · Dortmund</span>
-            <nav aria-label="Rechtliche Hinweise">
-              <a class="footer-btm-link" href="#">Datenschutz</a>
-              <span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Impressum</a>
-              <span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-            </nav>
           </div>
         </footer>
       </div>
 
       <!-- ── ÜBER UNS ── -->
       <div class="ep-page" id="ep-co" role="tabpanel" aria-labelledby="eptab-co" tabindex="0">
-        <!-- Topnav – gleiche Struktur, Über uns hervorgehoben -->
+        <!-- Topnav – Über uns hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
-            <a class="ep-nav-btn" aria-current="page" style="color:var(--co-700);font-weight:700;border-bottom:2px solid var(--co-500);padding-bottom:2px" href="#sec-examples" data-ep="co">Über uns</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-filled btn-sm btn-co">Anfragen</button>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
         <!-- Hero – dunkler Teal-Verlauf, heller Text -->
         <div class="ep-hero" style="background:linear-gradient(140deg,var(--co-900) 0%,var(--co-800) 60%,var(--co-700) 100%);color:#fff">
@@ -5190,49 +5184,57 @@ document.documentElement
         <footer class="footer" aria-label="Seitenfuß">
           <div class="footer-grid">
             <div>
-              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-              <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+              <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Leistungen</h3>
+              <nav aria-label="Leistungen">
+                <p class="footer-subtitle">Angewandte KI</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul>
+                <p class="footer-subtitle">Effektive Software</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul>
+                <p class="footer-subtitle">Wirksame Organisationen</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Wissen</h3>
+              <nav aria-label="Wissen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Beiträge</a></li><li><a class="footer-link" href="#">Newsletter</a></li></ul></nav>
             </div>
             <div>
               <h3 class="footer-htitle">Über uns</h3>
-              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Strategie</a></li><li><a class="footer-link" href="#">Kommunikation</a></li><li><a class="footer-link" href="#">Brand</a></li></ul></nav>
+              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Über uns</a></li><li><a class="footer-link" href="#">Unser Team</a></li><li><a class="footer-link" href="#">Jobs</a></li><li><a class="footer-link" href="#">Referenzen</a></li><li><a class="footer-link" href="#">Events</a></li><li><a class="footer-link" href="#">Presse</a></li></ul></nav>
             </div>
             <div>
-              <h3 class="footer-htitle">Angewandte KI</h3>
-              <nav aria-label="Angewandte KI"><ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Effektive Software</h3>
-              <nav aria-label="Effektive Software"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Wirksame Organisationen</h3>
-              <nav aria-label="Wirksame Organisationen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul></nav>
+              <h3 class="footer-htitle">Rechtliches</h3>
+              <nav aria-label="Rechtliche Hinweise"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Datenschutz</a></li><li><a class="footer-link" href="#">Impressum</a></li><li><a class="footer-link" href="#">Barrierefreiheit</a></li></ul></nav>
             </div>
           </div>
           <div class="footer-btm">
             <span>© 2026 Conciso GmbH · Dortmund</span>
-            <nav aria-label="Rechtliche Hinweise">
-              <a class="footer-btm-link" href="#">Datenschutz</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Impressum</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-            </nav>
           </div>
         </footer>
       </div>
 
       <!-- ── ANGEWANDTE KI ── -->
       <div class="ep-page" id="ep-ai" role="tabpanel" aria-labelledby="eptab-ai" tabindex="0">
-        <!-- Topnav – KI hervorgehoben -->
+        <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true" style="color:var(--co-700)">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
-            <a class="ep-nav-btn" aria-current="page" style="color:var(--ki-700);font-weight:700;border-bottom:2px solid var(--ki-500);padding-bottom:2px" href="#sec-examples" data-ep="ai">Angewandte KI</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
           </nav>
-          <button class="btn btn-filled btn-sm btn-ai">Kontakt</button>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
         <!-- Hero – dunkler Lime-Verlauf, heller Text -->
         <div class="ep-hero" style="background:linear-gradient(140deg,var(--ki-900) 0%,var(--ki-800) 60%,var(--ki-700) 100%);color:#fff">
@@ -5251,7 +5253,7 @@ document.documentElement
         </div>
         <!-- Lösungen -->
         <div class="ep-section" style="background:#fff">
-          <div class="ep-section-label" style="color:var(--ki-700)">Lösungen</div>
+          <div class="ep-section-label" style="color:var(--ki-800)">Lösungen</div>
           <h2 class="ep-section-h2">Von der Idee zur Produktion</h2>
           <p class="ep-section-sub" style="color:var(--n-500)">Wir begleiten Dich durch den gesamten KI-Lifecycle – von der Strategiefindung bis zum produktiven System.</p>
           <div class="ep-cards">
@@ -5301,49 +5303,57 @@ document.documentElement
         <footer class="footer" aria-label="Seitenfuß">
           <div class="footer-grid">
             <div>
-              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-              <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+              <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Leistungen</h3>
+              <nav aria-label="Leistungen">
+                <p class="footer-subtitle">Angewandte KI</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul>
+                <p class="footer-subtitle">Effektive Software</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul>
+                <p class="footer-subtitle">Wirksame Organisationen</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Wissen</h3>
+              <nav aria-label="Wissen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Beiträge</a></li><li><a class="footer-link" href="#">Newsletter</a></li></ul></nav>
             </div>
             <div>
               <h3 class="footer-htitle">Über uns</h3>
-              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Strategie</a></li><li><a class="footer-link" href="#">Kommunikation</a></li><li><a class="footer-link" href="#">Brand</a></li></ul></nav>
+              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Über uns</a></li><li><a class="footer-link" href="#">Unser Team</a></li><li><a class="footer-link" href="#">Jobs</a></li><li><a class="footer-link" href="#">Referenzen</a></li><li><a class="footer-link" href="#">Events</a></li><li><a class="footer-link" href="#">Presse</a></li></ul></nav>
             </div>
             <div>
-              <h3 class="footer-htitle">Angewandte KI</h3>
-              <nav aria-label="Angewandte KI"><ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Effektive Software</h3>
-              <nav aria-label="Effektive Software"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Wirksame Organisationen</h3>
-              <nav aria-label="Wirksame Organisationen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul></nav>
+              <h3 class="footer-htitle">Rechtliches</h3>
+              <nav aria-label="Rechtliche Hinweise"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Datenschutz</a></li><li><a class="footer-link" href="#">Impressum</a></li><li><a class="footer-link" href="#">Barrierefreiheit</a></li></ul></nav>
             </div>
           </div>
           <div class="footer-btm">
             <span>© 2026 Conciso GmbH · Dortmund</span>
-            <nav aria-label="Rechtliche Hinweise">
-              <a class="footer-btm-link" href="#">Datenschutz</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Impressum</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-            </nav>
           </div>
         </footer>
       </div>
 
       <!-- ── EFFEKTIVE SOFTWARE ── -->
       <div class="ep-page" id="ep-es" role="tabpanel" aria-labelledby="eptab-es" tabindex="0">
-        <!-- Topnav – Software hervorgehoben -->
+        <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true" style="color:var(--co-700)">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
-            <a class="ep-nav-btn" aria-current="page" style="color:var(--es-700);font-weight:700;border-bottom:2px solid var(--es-500);padding-bottom:2px" href="#sec-examples" data-ep="es">Effektive Software</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
           </nav>
-          <button class="btn btn-filled btn-sm btn-es">Kontakt</button>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
         <!-- Hero – dunkler Blau-Verlauf, heller Text -->
         <div class="ep-hero" style="background:linear-gradient(140deg,var(--es-900) 0%,var(--es-800) 60%,var(--es-700) 100%);color:#fff">
@@ -5412,49 +5422,57 @@ document.documentElement
         <footer class="footer" aria-label="Seitenfuß">
           <div class="footer-grid">
             <div>
-              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-              <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+              <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Leistungen</h3>
+              <nav aria-label="Leistungen">
+                <p class="footer-subtitle">Angewandte KI</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul>
+                <p class="footer-subtitle">Effektive Software</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul>
+                <p class="footer-subtitle">Wirksame Organisationen</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Wissen</h3>
+              <nav aria-label="Wissen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Beiträge</a></li><li><a class="footer-link" href="#">Newsletter</a></li></ul></nav>
             </div>
             <div>
               <h3 class="footer-htitle">Über uns</h3>
-              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Strategie</a></li><li><a class="footer-link" href="#">Kommunikation</a></li><li><a class="footer-link" href="#">Brand</a></li></ul></nav>
+              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Über uns</a></li><li><a class="footer-link" href="#">Unser Team</a></li><li><a class="footer-link" href="#">Jobs</a></li><li><a class="footer-link" href="#">Referenzen</a></li><li><a class="footer-link" href="#">Events</a></li><li><a class="footer-link" href="#">Presse</a></li></ul></nav>
             </div>
             <div>
-              <h3 class="footer-htitle">Angewandte KI</h3>
-              <nav aria-label="Angewandte KI"><ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Effektive Software</h3>
-              <nav aria-label="Effektive Software"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Wirksame Organisationen</h3>
-              <nav aria-label="Wirksame Organisationen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul></nav>
+              <h3 class="footer-htitle">Rechtliches</h3>
+              <nav aria-label="Rechtliche Hinweise"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Datenschutz</a></li><li><a class="footer-link" href="#">Impressum</a></li><li><a class="footer-link" href="#">Barrierefreiheit</a></li></ul></nav>
             </div>
           </div>
           <div class="footer-btm">
             <span>© 2026 Conciso GmbH · Dortmund</span>
-            <nav aria-label="Rechtliche Hinweise">
-              <a class="footer-btm-link" href="#">Datenschutz</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Impressum</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-            </nav>
           </div>
         </footer>
       </div>
 
       <!-- ── WIRKSAME ORGANISATIONEN ── -->
       <div class="ep-page" id="ep-wo" role="tabpanel" aria-labelledby="eptab-wo" tabindex="0">
-        <!-- Topnav – Organisation hervorgehoben -->
+        <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true" style="color:var(--co-700)">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
-            <a class="ep-nav-btn" aria-current="page" style="color:var(--wo-700);font-weight:700;border-bottom:2px solid var(--wo-500);padding-bottom:2px" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
           </nav>
-          <button class="btn btn-filled btn-sm btn-wo">Kontakt</button>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
         <!-- Hero – dunkler Grün-Verlauf, heller Text -->
         <div class="ep-hero" style="background:linear-gradient(140deg,var(--wo-900) 0%,var(--wo-800) 60%,var(--wo-700) 100%);color:#fff">
@@ -5523,33 +5541,35 @@ document.documentElement
         <footer class="footer" aria-label="Seitenfuß">
           <div class="footer-grid">
             <div>
-              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block"></div>
-              <p class="footer-desc">Über uns · Angewandte KI · Effektive Software · Wirksame Organisationen</p>
+              <div class="footer-brand"><img src="images/logo-conciso-light.svg" alt="Conciso" style="height:32px;display:block;margin-bottom:var(--s3)"></div>
+              <p class="footer-desc">Klare Köpfe. Ruhige Energie. KI, Software und Organisation aus Dortmund.</p>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Leistungen</h3>
+              <nav aria-label="Leistungen">
+                <p class="footer-subtitle">Angewandte KI</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul>
+                <p class="footer-subtitle">Effektive Software</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul>
+                <p class="footer-subtitle">Wirksame Organisationen</p>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul>
+              </nav>
+            </div>
+            <div>
+              <h3 class="footer-htitle">Wissen</h3>
+              <nav aria-label="Wissen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Beiträge</a></li><li><a class="footer-link" href="#">Newsletter</a></li></ul></nav>
             </div>
             <div>
               <h3 class="footer-htitle">Über uns</h3>
-              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Strategie</a></li><li><a class="footer-link" href="#">Kommunikation</a></li><li><a class="footer-link" href="#">Brand</a></li></ul></nav>
+              <nav aria-label="Über uns"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Über uns</a></li><li><a class="footer-link" href="#">Unser Team</a></li><li><a class="footer-link" href="#">Jobs</a></li><li><a class="footer-link" href="#">Referenzen</a></li><li><a class="footer-link" href="#">Events</a></li><li><a class="footer-link" href="#">Presse</a></li></ul></nav>
             </div>
             <div>
-              <h3 class="footer-htitle">Angewandte KI</h3>
-              <nav aria-label="Angewandte KI"><ul class="footer-nav-list"><li><a class="footer-link" href="#">AI.Engineering</a></li><li><a class="footer-link" href="#">AI.Automation</a></li><li><a class="footer-link" href="#">AI.Box</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Effektive Software</h3>
-              <nav aria-label="Effektive Software"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Engineering</a></li><li><a class="footer-link" href="#">Deployment</a></li><li><a class="footer-link" href="#">Qualität</a></li></ul></nav>
-            </div>
-            <div>
-              <h3 class="footer-htitle">Wirksame Organisationen</h3>
-              <nav aria-label="Wirksame Organisationen"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Change</a></li><li><a class="footer-link" href="#">Leadership</a></li><li><a class="footer-link" href="#">Struktur</a></li></ul></nav>
+              <h3 class="footer-htitle">Rechtliches</h3>
+              <nav aria-label="Rechtliche Hinweise"><ul class="footer-nav-list"><li><a class="footer-link" href="#">Datenschutz</a></li><li><a class="footer-link" href="#">Impressum</a></li><li><a class="footer-link" href="#">Barrierefreiheit</a></li></ul></nav>
             </div>
           </div>
           <div class="footer-btm">
             <span>© 2026 Conciso GmbH · Dortmund</span>
-            <nav aria-label="Rechtliche Hinweise">
-              <a class="footer-btm-link" href="#">Datenschutz</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Impressum</a><span aria-hidden="true"> · </span>
-              <a class="footer-btm-link" href="#">Barrierefreiheit</a>
-            </nav>
           </div>
         </footer>
       </div>
