@@ -351,7 +351,12 @@
 .ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd)}
 .ep-page.visible{display:block}
 .ep-topnav{display:flex;align-items:center;justify-content:space-between;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s4);flex-wrap:wrap}
-.ep-logo{font:var(--ty-title-lg);letter-spacing:.03em;flex-shrink:0}
+.ep-logo{font:var(--ty-title-lg);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center}
+.ep-logo img{display:block;height:24px;width:auto}
+/* Theme-aware logo swap: default für hellen, light für dunklen Hintergrund */
+.logo-themed-light{display:none}
+[data-theme="dark"] .logo-themed-default{display:none}
+[data-theme="dark"] .logo-themed-light{display:block}
 .ep-nav-links{display:flex;gap:var(--s5);font:var(--ty-label-md)}
 .ep-nav-btn{background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;transition:opacity var(--m-fast)}
 .ep-nav-btn:hover{opacity:.75}
