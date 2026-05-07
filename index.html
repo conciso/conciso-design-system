@@ -173,11 +173,12 @@
       <a class="nav-sub-item" href="#gt-quotes-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="chips">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips & Badges
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>Chips, Badges & Pills
     </button>
     <div class="nav-subnav" data-for="chips">
       <a class="nav-sub-item" href="#gt-chips-chips">Chips pro Bereich</a>
       <a class="nav-sub-item" href="#gt-chips-badges">Status Badges</a>
+      <a class="nav-sub-item" href="#gt-chips-pill">Pill</a>
       <a class="nav-sub-item" href="#gt-chips-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="icons">
@@ -2130,6 +2131,7 @@
       <p class="sec-sub">WCAG AA: Labels, aria-required, aria-invalid, role="alert". Primär für Kontaktformulare der vier Brand Areas eingesetzt.</p>
 
       <h2 id="gt-inputs-felder" class="group-title">Feldkomponenten</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Select-Platzhalter:</strong> Die erste Option („Bitte wählen…") trägt <code class="token">value=""</code> + <code class="token">disabled</code> + <code class="token">selected</code>. So zählt der Platzhalter als unerlaubter Wert — Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet.</p>
       <div style="max-width:480px">
         <div class="field">
           <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
@@ -2151,7 +2153,7 @@
         <div class="field">
           <label for="f-select-demo">Bereich</label>
           <select id="f-select-demo">
-            <option>Bitte wählen…</option>
+            <option value="" disabled selected>Bitte wählen…</option>
             <option>Corporate</option>
             <option>Angewandte KI</option>
             <option>Effektive Software</option>
@@ -2661,7 +2663,8 @@
 
       <h2 id="gt-cards-link" class="group-title">Klickbare Karte</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Wenn die ganze Karte zu einem Ziel führen soll: Modifier-Klasse <code class="token">.ep-card-link</code> zur Basis-<code class="token">.ep-card</code> ergänzen und das umschließende Element auf <code class="token">&lt;a&gt;</code> umstellen. Hover hebt die Karte mit <code class="token">var(--e3)</code> an und verschiebt sie um 2 px nach oben — eindeutige Click-Affordance, ohne dass die Beschreibung in einen Pseudo-Button gepresst werden muss.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Am unteren Rand sitzt eine optionale <code class="token">.ep-card-cta</code>-Zeile mit Pfeil-Suffix („Mehr erfahren →"). Sie macht die Verlinkung visuell explizit, auch wenn die ganze Fläche klickbar ist. Ganzes Element ist fokussierbar; Focus-Ring kombiniert <code class="token">var(--focus-ring)</code> mit der Hover-Elevation.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Am unteren Rand sitzt eine optionale <code class="token">.ep-card-cta</code>-Zeile mit Pfeil-Suffix („Mehr erfahren →"). Sie macht die Verlinkung visuell explizit, auch wenn die ganze Fläche klickbar ist. Ganzes Element ist fokussierbar; Focus-Ring kombiniert <code class="token">var(--focus-ring)</code> mit der Hover-Elevation.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Barrierefreiheit:</strong> Der Pfeil ist visuelle Affordanz, kein Inhalt — er wird in <code class="token">&lt;span aria-hidden="true"&gt;→&lt;/span&gt;</code> umschlossen. Sonst lesen Screenreader „nach rechts zeigender Pfeil" oder „Pfeil rechts" laut, was den Link-Text verlängert ohne Mehrwert.</p>
 
       <div class="ep-cards" style="margin-bottom:var(--s8)">
         <a class="ep-card ep-card-link" href="#sec-cards" style="border-top:4px solid var(--ki-500)">
@@ -2669,7 +2672,7 @@
           <div class="ep-card-eyebrow" data-area="ki">Demo-Eyebrow</div>
           <div class="ep-card-title">Beispiel-Karten-Titel</div>
           <div class="ep-card-text">Beschreibung mit <strong>Markenrad-Adjektiv</strong> als Hervorhebung — Beispiel für die Adjektiv-Pattern in Karten-Texten.</div>
-          <div class="ep-card-cta">Mehr erfahren →</div>
+          <div class="ep-card-cta">Mehr erfahren <span aria-hidden="true">→</span></div>
         </a>
       </div>
 
@@ -2684,7 +2687,7 @@
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-text"</span><span class="k">&gt;</span>
     Beschreibung mit <span class="k">&lt;strong&gt;</span>Markenrad-Adjektiv<span class="k">&lt;/strong&gt;</span> als Hervorhebung.
   <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-cta"</span><span class="k">&gt;</span>Mehr erfahren →<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-card-cta"</span><span class="k">&gt;</span>Mehr erfahren <span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>→<span class="k">&lt;/span&gt;&lt;/div&gt;</span>
 <span class="k">&lt;/a&gt;</span></pre>
       </div>
 
@@ -3719,8 +3722,8 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
     <!-- ═══ CHIPS ═══ -->
     <section class="ds-section" id="sec-chips">
-      <h1 class="sec-title">Chips & Badges</h1>
-      <p class="sec-sub">Interaktive Filter-Chips (toggle) · passive Status-Badges · je Brand Area farblich codiert.</p>
+      <h1 class="sec-title">Chips, Badges & Pills</h1>
+      <p class="sec-sub">Interaktive Filter-Chips (toggle) · passive Status-Badges · redaktionelle Pills · je Brand Area farblich codiert.</p>
       <h2 id="gt-chips-chips" class="group-title">Chips pro Bereich</h2>
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
         <div><span class="lbl">Corporate</span>
@@ -3765,11 +3768,47 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <span class="badge badge-neu">Draft</span>
       </div>
 
+      <h2 id="gt-chips-pill" class="group-title">Pill</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Passive, kompakte Markierung mit Bereichston — typografisch als Eyebrow ausgeführt (uppercase, <code class="token">letter-spacing: .09em</code>, label-xs). Sitzt typischerweise oberhalb eines Titels und ordnet ihn einer Brand Area zu. Wie der Bereichs-Badge zeigt die Pill keine Interaktion, hebt sich aber typografisch deutlicher ab.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Standard-Hintergrund ist der 50er-Bereichston, Text der 700er- bzw. 800er-Ton (KI/CO/WO 800, ES 700) — die KI-AA-Compliance ist im Token-System hinterlegt. <code class="token">data-area</code> auf der Pill schaltet die Bereichsfarbe; ohne Attribut greift der Corporate-Default.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--s4);margin-bottom:var(--s5)">
+        <span class="pill" data-area="co" aria-label="Bereich Corporate">Corporate</span>
+        <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI">Angewandte KI</span>
+        <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
+        <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen">Wirksame Organisationen</span>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-label</span>=<span class="s">"Bereich Angewandte KI"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/span&gt;</span></pre>
+      </div>
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--co-700)" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> Wenn die Pill kombinierte Meta-Information mit Trennzeichen führt (z.&nbsp;B. <code class="token">Bereich · Lesezeit</code>), wird das mittige Punktzeichen von Screenreadern oft verschluckt oder als „Punkt" gelesen. Pflicht-Pattern: <code class="token">aria-label</code> mit ausgeschriebener Form (<code class="token">aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"</code>) — sichtbarer Text bleibt kompakt, vorgelesener Text wird klar.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei einfachen Pills ohne Trennzeichen reicht ein <code class="token">aria-label</code>, das die Bereichszuordnung explizit macht (<code class="token">aria-label="Bereich Angewandte KI"</code>) — der reine Bereichsname allein klingt im Screenreader-Fluss leicht wie eine Überschrift.</p>
+        </div>
+      </div>
+
+      <!-- Pill vs. Badge -->
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Abgrenzung</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Pill</th><th>Bereichs-Badge</th></tr></thead>
+        <tbody>
+          <tr><td>Rolle</td><td>Redaktionelle Meta-Markierung — ordnet einen Inhalt einer Brand Area zu, oft als Eyebrow vor Titeln</td><td>Status- oder Bereichs-Kennzeichnung neben Inhalts-Elementen (z.&nbsp;B. neben einem Modulnamen)</td></tr>
+          <tr><td>Typografie</td><td>label-xs · uppercase · <code class="token">letter-spacing: .09em</code></td><td>label-xs · gemischte Schreibweise · <code class="token">letter-spacing: .04em</code></td></tr>
+          <tr><td>Position</td><td>Im Lesefluss, vor dem Titel — bringt einen ruhigen visuellen Anker</td><td>Inline mit Listen-/Tabellenelementen oder neben Karten-Titeln</td></tr>
+          <tr><td>Wahl-Indiz</td><td>„Was für eine Art Inhalt ist das?" — kategorisch und thematisch</td><td>„In welchem Zustand / Bereich ist <em>dieses Element</em>?" — punktuell</td></tr>
+        </tbody>
+      </table>
+
       <h2 id="gt-chips-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Chip vs. Badge -->
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
-        <div class="col-6">
+        <div class="col-4">
           <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Chip</div>
           <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Chips sind <strong>interaktive</strong> Filter- und Auswahlkomponenten. Die Nutzerin schaltet sie aktiv ein oder aus — der Zustand <code class="token">.sel</code> zeigt die aktive Auswahl in der jeweiligen Bereichsfarbe an.</p>
           <table class="doc-table">
@@ -3787,7 +3826,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             </tbody>
           </table>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Badge</div>
           <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Badges sind <strong>passive</strong> Statuskennzeichnungen. Sie informieren über den Zustand eines Elements — ohne Klickverhalten. Statusbadges (Live, Beta, Deprecated) folgen dem semantischen Farbsystem.</p>
           <table class="doc-table">
@@ -3805,12 +3844,39 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             </tbody>
           </table>
         </div>
+        <div class="col-4">
+          <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Pill</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Pills sind <strong>passive</strong> redaktionelle Markierungen mit Bereichston — typografisch als Eyebrow ausgeführt. Sie ordnen einen Inhalt einer Brand Area zu und sitzen typischerweise oberhalb eines Titels im Lesefluss.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Eigenschaft</th>
+                <th>Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Interaktion</td><td>Keine — Pills sind reine Kategoriemarker</td></tr>
+              <tr><td>Label</td><td>1–4 Wörter · Bereichsname, optional mit Meta (z.&nbsp;B. Lesezeit), getrennt durch <code class="token">·</code></td></tr>
+              <tr><td>Typografie</td><td>label-xs · uppercase · <code class="token">letter-spacing: .09em</code> — sichtbar getrennt von Chip und Badge</td></tr>
+              <tr><td>Bereichsfarbe</td><td>50er-Hintergrund · 700/800er-Text der Brand Area · nie ohne Bereichston</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Faustregel: Pill vs. Bereichs-Badge -->
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--co-700)" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Faustregel — Pill vs. Bereichs-Badge.</strong> Beide nutzen 50er-Hintergrund und 700/800er-Text der Brand Area, beide haben die abgerundete Form. Der spürbare Unterschied entsteht durch <strong>uppercase + Letter-Spacing</strong>: Die Pill wirkt feierlicher, die Badge alltäglicher.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Wenn du unsicher bist: Steht <em>unter</em> der Markierung etwas, das ich erklären oder bewerben will (Titel, Beitrag)? → <code class="token">.pill</code>. Sitzt die Markierung <em>neben</em> einem Element (Modulname, Tabellenzelle, Kartenkopf)? → <code class="token">.badge</code>. Status (Live, Beta, Deprecated, Draft) ist <em>immer</em> Badge — Pill hat keine Status-Variants.</p>
+        </div>
       </div>
 
       <!-- Kontext-Beispiele -->
       <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Typische Kontexte</div>
       <div class="layout-grid" style="align-items:stretch;margin-bottom:var(--s6)">
-        <div class="col-4" style="display:flex;flex-direction:column">
+        <div class="col-3" style="display:flex;flex-direction:column">
           <span class="lbl">Chips als Filter</span>
           <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
             <div style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Themen filtern</div>
@@ -3821,7 +3887,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             </div>
           </div>
         </div>
-        <div class="col-4" style="display:flex;flex-direction:column">
+        <div class="col-3" style="display:flex;flex-direction:column">
           <span class="lbl">Badge als Statuskennzeichnung</span>
           <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s3)">
@@ -3834,7 +3900,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             </div>
           </div>
         </div>
-        <div class="col-4" style="display:flex;flex-direction:column">
+        <div class="col-3" style="display:flex;flex-direction:column">
           <span class="lbl">Badge als Bereichskennzeichnung</span>
           <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1">
             <div style="display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap">
@@ -3842,6 +3908,19 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               <span class="badge" style="background:var(--ki-50);color:var(--ki-800)">Angewandte KI</span>
               <span class="badge" style="background:var(--es-50);color:var(--es-800)">Effektive Software</span>
               <span class="badge" style="background:var(--wo-50);color:var(--wo-800)">Wirksame Organisationen</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-3" style="display:flex;flex-direction:column">
+          <span class="lbl">Pill als Beitragsmarker</span>
+          <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+            <div>
+              <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten" style="margin-bottom:var(--s2)">Angewandte KI · 8 min Lesezeit</span>
+              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Warum 60 % der KI-Piloten nie in Produktion gehen</div>
+            </div>
+            <div>
+              <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 10 Minuten" style="margin-bottom:var(--s2)">Wirksame Organisationen · 10 min Lesezeit</span>
+              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Drei Muster, an denen Veränderung scheitert</div>
             </div>
           </div>
         </div>
@@ -3854,7 +3933,8 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <tbody>
           <tr><td>Interaktivität</td><td>Klickbare Chips als <code class="token">&lt;button&gt;</code> oder <code class="token">&lt;a&gt;</code> implementieren — nie als <code class="token">&lt;div&gt;</code> mit <code class="token">onClick</code>; nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar</td></tr>
           <tr><td>Auswahl-Zustand</td><td>Toggle-Chips mit <code class="token">aria-pressed="true/false"</code> versehen — der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar</td></tr>
-          <tr><td>Kontrast</td><td>Chip-Text auf Chip-Hintergrund ≥4.5:1 prüfen — besonders bei markierten/aktiven Chips, da sich Hintergrund und Textfarbe ändern</td></tr>
+          <tr><td>Kontrast</td><td>Chip-/Badge-/Pill-Text auf jeweiligem Hintergrund ≥4.5:1 prüfen — besonders bei markierten/aktiven Chips, da sich Hintergrund und Textfarbe ändern</td></tr>
+          <tr><td>Pill-aria-label</td><td>Pflicht bei Pills mit Trennzeichen (<code class="token">·</code>) — Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt". <code class="token">aria-label</code> mit ausgeschriebener Form (z.&nbsp;B. „Bereich Angewandte KI, Lesezeit 8 Minuten") schreibt die Aussprache vor</td></tr>
         </tbody>
       </table>
 
@@ -3866,9 +3946,11 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Chips für aktive Filterauswahl — die Nutzerin steuert selbst, was sichtbar ist</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Badge für reinen Status — <em>Live, Beta, Deprecated, Draft</em> — immer ohne Klick-Handler</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Pill als redaktionellen Eyebrow vor einem Titel einsetzen — ordnet den Beitrag thematisch ein und stiftet Erwartung</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsfarbe konsequent einhalten: aktiver Chip einer Brand Area nutzt nur deren Farbtoken</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Chip-Labels auf max. 3 Wörter begrenzen — klare, scanbare Begriffe</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Semantische Statusfarben bei Badges einhalten — Grün für positiv, Gelb für Warnung, Rot für Fehler</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Pills mit Trennzeichen (<code class="token">·</code>) immer ein <code class="token">aria-label</code> mit ausgeschriebener Form mitgeben</span></li>
           </ul>
         </div>
         <div class="col-6">
@@ -3876,9 +3958,11 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Chips rein dekorativ einsetzen ohne Toggle-Funktion — verwirrt Nutzerinnen über Interaktivität</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Badges klickbar machen ohne visuelles Feedback — Badges sind keine Buttons</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Pills für Status verwenden (Live, Beta, …) — dafür gibt es Status-Badges; Pill ist redaktioneller Eyebrow, nicht Statusmarker</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsfarben im selben Kontext mischen — <code class="token">.co</code> und <code class="token">.ai</code> Chips nicht gemeinsam in einer Filterleiste</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Chip-Labels als vollständige Sätze — zu lang, passt nicht zur kompakten Form</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 7 Chips in einer Gruppe — lieber kategorisieren oder eine Auswahlliste verwenden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehrere Pills nebeneinander an demselben Inhalt — eine Pill pro Beitrag reicht; mehrere wirken wie Filter und kollidieren mit der Chip-Semantik</span></li>
           </ul>
         </div>
       </div>
@@ -5057,7 +5141,7 @@ document.documentElement
 
       <h2 id="gt-article-header" class="group-title">Article Header</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Header-Pattern für die obere Sektion eines Beitrags. Wrapper <code class="token">.article-header</code> bündelt Breadcrumb, optionale Pill, H1, Lead und Meta-Strip auf einer zentrierten Achse (max. 880&nbsp;px). Der Header sitzt typischerweise direkt unter dem Topnav und über dem Hero-Bild.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Der Meta-Strip nutzt einen 1-px-Trenner zwischen Autor-Block und Datum (<code class="token">.article-meta-sep</code>); die Author-Text-Spalte bleibt links-bündig (<code class="token">.article-meta-text</code>), damit Name und Rolle nicht zwischen Avatar und Trenner zerrissen wirken.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Der Meta-Strip nutzt einen 1-px-Trenner zwischen Autor-Block und Datum (<code class="token">.article-meta-sep</code>); die Author-Text-Spalte bleibt links-bündig (<code class="token">.article-meta-text</code>), damit Name und Rolle nicht zwischen Avatar und Trenner zerrissen wirken. Das Datum wird als <code class="token">&lt;time datetime="YYYY-MM-TT"&gt;</code> ausgezeichnet — maschinenlesbar für Suchmaschinen und Assistenztechnologie, visuell unverändert.</p>
       <div class="nav-demo" style="padding:var(--s10) var(--s8);margin-bottom:var(--s5)">
         <header class="article-header">
           <nav class="article-breadcrumb" aria-label="Breadcrumb">
@@ -5065,7 +5149,7 @@ document.documentElement
             <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
             <a href="#" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
           </nav>
-          <span class="article-pill" data-area="ki">Praxisbericht · 8 min Lesezeit</span>
+          <span class="pill" data-area="ki" aria-label="Lesezeit 8 Minuten">8 min Lesezeit</span>
           <h1 class="article-title">Warum 60 % der KI-Piloten nie in Produktion gehen</h1>
           <p class="article-lead">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.</p>
           <div class="article-meta">
@@ -5077,7 +5161,7 @@ document.documentElement
               </div>
             </div>
             <span class="article-meta-sep" aria-hidden="true"></span>
-            <p class="article-meta-date">12. April 2026</p>
+            <time class="article-meta-date" datetime="2026-04-12">12. April 2026</time>
           </div>
         </header>
       </div>
@@ -5092,7 +5176,7 @@ document.documentElement
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-breadcrumb-sep"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>/<span class="k">&lt;/span&gt;</span>
     <span class="k">&lt;a</span> <span class="v">href</span>=<span class="s">"/ki"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/a&gt;</span>
   <span class="k">&lt;/nav&gt;</span>
-  <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span><span class="k">&gt;</span>Praxisbericht · 8 min Lesezeit<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-label</span>=<span class="s">"Lesezeit 8 Minuten"</span><span class="k">&gt;</span>8 min Lesezeit<span class="k">&lt;/span&gt;</span>
   <span class="k">&lt;h1</span> <span class="v">class</span>=<span class="s">"article-title"</span><span class="k">&gt;</span>Warum 60 % der KI-Piloten nie in Produktion gehen<span class="k">&lt;/h1&gt;</span>
   <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"article-lead"</span><span class="k">&gt;</span>Demos überzeugen, Use-Cases scheitern. …<span class="k">&lt;/p&gt;</span>
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-meta"</span><span class="k">&gt;</span>
@@ -5104,25 +5188,33 @@ document.documentElement
       <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-meta-sep"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;/span&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"article-meta-date"</span><span class="k">&gt;</span>12. April 2026<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;time</span> <span class="v">class</span>=<span class="s">"article-meta-date"</span> <span class="v">datetime</span>=<span class="s">"2026-04-12"</span><span class="k">&gt;</span>12. April 2026<span class="k">&lt;/time&gt;</span>
   <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/header&gt;</span></pre>
       </div>
 
-      <h2 id="gt-article-pill" class="group-title">Pill — Kategorie · Format · Lesezeit</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Kompakte Markierung für Beitragsmetadaten. <code class="token">data-area</code> setzt Hintergrund (50er-Token) und Schriftfarbe (700/800er-Token) der entsprechenden Brand Area. Funktioniert auch ohne <code class="token">data-area</code> (Default = Corporate).</p>
+      <h2 id="gt-article-pill" class="group-title">Pill — Lesezeit</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Im Wissensbeitrag wird die <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-chips-pill">Pill-Komponente</a> auf reine <strong>Lesezeit-Information</strong> reduziert. Die Bereichszuordnung trägt bereits der Breadcrumb („Wissen / Angewandte KI") — der Bereichsname zusätzlich in der Pill wäre Doppelung. Der Bereichston der Pill (über <code class="token">data-area</code>) sorgt für die visuelle Verklammerung, ohne Text zu verdoppeln.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Auf <em>Übersichtsseiten</em> (Beitragslisten ohne Breadcrumb pro Karte) bleibt die generische Pill-Form „Bereich · Lesezeit" zulässig — siehe <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-chips-pill">Pill-Komponente</a>. Der Constraint hier gilt nur für den einzelnen Wissensbeitrag mit Breadcrumb im Header.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Constraint</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Inhalt</td><td>Nur <strong>Lesezeit</strong> (z.&nbsp;B. „8 min Lesezeit") — kein Bereichsname, kein Format, kein Beitragstyp</td></tr>
+          <tr><td>Bereich</td><td>Über <code class="token">data-area</code> — nur die drei Disziplinen <strong>ki</strong> · <strong>es</strong> · <strong>wo</strong>. Corporate ist keine Wissens-Kategorie</td></tr>
+          <tr><td>aria-label</td><td><code class="token">aria-label="Lesezeit X Minuten"</code> — schreibt das ausgesprochene „min" aus und liefert den Wert eindeutig</td></tr>
+        </tbody>
+      </table>
       <div style="display:flex;flex-wrap:wrap;gap:var(--s4);margin-bottom:var(--s5)">
-        <span class="article-pill" data-area="co">Standpunkt · 6 min Lesezeit</span>
-        <span class="article-pill" data-area="ki">Praxisbericht · 8 min Lesezeit</span>
-        <span class="article-pill" data-area="es">How-To · 12 min Lesezeit</span>
-        <span class="article-pill" data-area="wo">Fallstudie · 10 min Lesezeit</span>
+        <span class="pill" data-area="ki" aria-label="Lesezeit 8 Minuten">8 min Lesezeit</span>
+        <span class="pill" data-area="es" aria-label="Lesezeit 12 Minuten">12 min Lesezeit</span>
+        <span class="pill" data-area="wo" aria-label="Lesezeit 10 Minuten">10 min Lesezeit</span>
       </div>
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header">
           <span class="cb-lang">HTML</span>
           <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
         </div>
-<pre class="cb-body"><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span><span class="k">&gt;</span>Praxisbericht · 8 min Lesezeit<span class="k">&lt;/span&gt;</span></pre>
+<pre class="cb-body"><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-label</span>=<span class="s">"Lesezeit 8 Minuten"</span><span class="k">&gt;</span>8 min Lesezeit<span class="k">&lt;/span&gt;</span></pre>
       </div>
 
       <h2 id="gt-article-body" class="group-title">Article Body</h2>
@@ -5162,8 +5254,8 @@ document.documentElement
         <div>
           <span class="lbl">Corporate</span>
           <aside class="article-callout" data-area="co">
-            <p class="article-callout-eyebrow">Aus dem Conciso-Alltag</p>
-            <p>Wir veröffentlichen jeden Mittwoch einen Beitrag aus einem der vier Bereiche. Das diszipliniert das Team, schafft sichtbaren Output und macht den Redaktionsplan zur Selbstverpflichtung.</p>
+            <p class="article-callout-eyebrow">Aus dem Markenrad</p>
+            <p>Drei Pfeiler — Ruhig, Klar, Energiegeladen — als Prüfstein für jeden Beitrag. Das ist nicht Pflicht, sondern Erleichterung: Wenn der Text gegen alle drei besteht, klingt er nach Conciso.</p>
           </aside>
         </div>
         <div>
@@ -5257,16 +5349,17 @@ document.documentElement
       </div>
 
       <h2 id="gt-article-author" class="group-title">Author Card</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Bio-Strip am Ende des Beitrags. Avatar als Initialen-Kreis (<code class="token">.article-avatar.article-avatar-lg</code>) plus Bio-Text. <code class="token">data-area</code> auf <code class="token">.author-card</code> färbt nur den Avatar — Text-Tokens bleiben neutral, damit der Strip auf jedem Hintergrund (typischerweise <code class="token">var(--n-50)</code>) lesbar bleibt.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Sitzt zwischen Article-Body und der nächsten Sektion (Download-CTA, Weiterlesen oder Kontaktformular). Die <code class="token">max-width</code> ist mit 720&nbsp;px identisch zum Article-Body, damit Avatar und Bio auf der gleichen Achse sitzen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Bio-Strip am Ende des Beitrags. Avatar (<code class="token">.article-avatar.article-avatar-lg</code>) als Initialen-Kreis oder mit Foto — ein <code class="token">&lt;img&gt;</code> als Kind ersetzt die Initialen, der Bereichston bleibt als Fallback. Daneben der Bio-Text. <code class="token">data-area</code> auf <code class="token">.author-card</code> färbt nur den Avatar — Text-Tokens bleiben neutral, damit der Strip auf jedem Hintergrund (typischerweise <code class="token">var(--n-50)</code>) lesbar bleibt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Sitzt zwischen Article-Body und der nächsten Sektion (Download-CTA, Weiterlesen oder Kontaktformular). Die <code class="token">max-width</code> ist mit 720&nbsp;px identisch zum Article-Body, damit Avatar und Bio auf der gleichen Achse sitzen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Barrierefreiheit:</strong> Der Eyebrow („Über den Autor" / „Über die Autorin") wird als <code class="token">&lt;h3&gt;</code> ausgezeichnet (eine Ebene unter den H2 des Article-Body). So erscheint die Author-Sektion in der Heading-Übersicht von Screenreadern und ist per Tastatur direkt anspringbar. Die Klasse <code class="token">.author-card-eyebrow</code> setzt <code class="token">font</code>, <code class="token">font-weight</code> und <code class="token">margin</code> explizit — visuell unverändert zu einem <code class="token">&lt;p&gt;</code>.</p>
       <div style="display:flex;flex-direction:column;gap:var(--s5);margin-bottom:var(--s5)">
         <div>
-          <span class="lbl">Angewandte KI</span>
+          <span class="lbl">Angewandte KI · mit Foto</span>
           <div style="background:var(--n-50);border-block:var(--bd);padding:var(--s8) var(--s6)">
             <div class="author-card" data-area="ki">
-              <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">LB</div>
+              <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true"><img src="images/whiteboard-ai-matrix.jpg" alt="" style="object-position:center 15%">LB</div>
               <div>
-                <p class="author-card-eyebrow">Über den Autor</p>
+                <h3 class="author-card-eyebrow">Über den Autor</h3>
                 <p class="author-card-name">Lukas Brandt</p>
                 <p class="author-card-role">Senior AI Engineer · bei Conciso seit 2019</p>
                 <p class="author-card-bio">Begleitet KI-Projekte von der Strategie bis in die Produktion. Schwerpunkt: RAG-Systeme und LLM-Integration in regulierten Branchen.</p>
@@ -5275,12 +5368,12 @@ document.documentElement
           </div>
         </div>
         <div>
-          <span class="lbl">Wirksame Organisationen</span>
+          <span class="lbl">Wirksame Organisationen · Initialen-Fallback</span>
           <div style="background:var(--n-50);border-block:var(--bd);padding:var(--s8) var(--s6)">
             <div class="author-card" data-area="wo">
               <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">SK</div>
               <div>
-                <p class="author-card-eyebrow">Über die Autorin</p>
+                <h3 class="author-card-eyebrow">Über die Autorin</h3>
                 <p class="author-card-name">Sarah Kühn</p>
                 <p class="author-card-role">Lead Organisationsentwicklung · bei Conciso seit 2021</p>
                 <p class="author-card-bio">Begleitet Veränderungsprojekte in Mittelstand und Konzern. Arbeitet am Schnittpunkt von Struktur, Führung und Kultur — mit besonderem Fokus auf nachhaltige Verankerung.</p>
@@ -5295,9 +5388,16 @@ document.documentElement
           <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
         </div>
 <pre class="cb-body"><span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"author-card"</span> <span class="v">data-area</span>=<span class="s">"ki"</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- Variante A: Initialen-Kreis --&gt;</span>
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>LB<span class="k">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- Variante B: Foto (Initialen bleiben als Fallback im DOM) --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>
+    <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span> <span class="v">alt</span>=<span class="s">""</span><span class="k">&gt;</span>LB
+  <span class="k">&lt;/div&gt;</span>
+
   <span class="k">&lt;div&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-eyebrow"</span><span class="k">&gt;</span>Über den Autor<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;h3</span> <span class="v">class</span>=<span class="s">"author-card-eyebrow"</span><span class="k">&gt;</span>Über den Autor<span class="k">&lt;/h3&gt;</span>
     <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-name"</span><span class="k">&gt;</span>Lukas Brandt<span class="k">&lt;/p&gt;</span>
     <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-role"</span><span class="k">&gt;</span>Senior AI Engineer · bei Conciso seit 2019<span class="k">&lt;/p&gt;</span>
     <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-bio"</span><span class="k">&gt;</span>Begleitet KI-Projekte von der Strategie bis in die Produktion. …<span class="k">&lt;/p&gt;</span>
@@ -5320,7 +5420,7 @@ document.documentElement
           </thead>
           <tbody>
             <tr><td data-num>1</td><th scope="row">Topnav</th><td><code class="token">.ep-topnav</code> mit <code class="token">aria-current="page"</code> auf „Wissen"</td><td>Globale Navigation, kennzeichnet Wissens-Bereich</td></tr>
-            <tr><td data-num>2</td><th scope="row">Article Header</th><td><code class="token">.article-header</code> · <code class="token">.article-pill</code> · <code class="token">.article-meta</code></td><td>Einordnung, Versprechen und Autor:in</td></tr>
+            <tr><td data-num>2</td><th scope="row">Article Header</th><td><code class="token">.article-header</code> · <code class="token">.pill</code> · <code class="token">.article-meta</code></td><td>Einordnung, Versprechen und Autor:in</td></tr>
             <tr><td data-num>3</td><th scope="row">Hero-Bild</th><td><code class="token">.hero-image</code> ohne <code class="token">.hero-image-caption</code></td><td>Visuelles Versprechen ohne Marketing-Overlay</td></tr>
             <tr><td data-num>4</td><th scope="row">Article Body</th><td><code class="token">.article-body</code> mit <code class="token">.article-pullquote</code> · <code class="token">.bq</code> · <code class="token">.tbl</code> · <code class="token">.cb-wrap</code> · <code class="token">.article-callout</code></td><td>Lauftext mit eingebetteten Spezial-Bausteinen</td></tr>
             <tr><td data-num>5</td><th scope="row">Download-CTA</th><td><code class="token">.cta-dl</code> mit passendem <code class="token">data-area</code></td><td>Topische Verlängerung des Beitrags als PDF/Asset</td></tr>
@@ -5404,7 +5504,7 @@ document.documentElement
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
               <div class="ep-card-title">KI mit Wirkung</div>
               <div class="ep-card-text">KI-Lösungen, die im Alltag ankommen. <strong>Pragmatisch</strong> geplant, <strong>kraftvoll</strong> umgesetzt. Ohne den Hype-Lärm der Branche.</div>
-              <div class="ep-card-cta">Mehr erfahren →</div>
+              <div class="ep-card-cta">Mehr erfahren <span aria-hidden="true">→</span></div>
             </a>
             <!-- Effektive Software -->
             <a class="ep-card ep-card-link" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
@@ -5412,7 +5512,7 @@ document.documentElement
               <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
               <div class="ep-card-title">Präzise Systeme</div>
               <div class="ep-card-text">Software, die hält, was sie verspricht. <strong>Verlässlich</strong> gebaut, <strong>präzise</strong> dokumentiert. In fünf Jahren noch wartbar.</div>
-              <div class="ep-card-cta">Mehr erfahren →</div>
+              <div class="ep-card-cta">Mehr erfahren <span aria-hidden="true">→</span></div>
             </a>
             <!-- Wirksame Organisationen -->
             <a class="ep-card ep-card-link" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
@@ -5420,7 +5520,7 @@ document.documentElement
               <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
               <div class="ep-card-title">Wandel, der trägt</div>
               <div class="ep-card-text">Veränderung, die Menschen mitnimmt. <strong>Aufmerksam</strong> zugehört, <strong>leidenschaftlich</strong> begleitet. Am Ende läuft sie auch ohne uns weiter.</div>
-              <div class="ep-card-cta">Mehr erfahren →</div>
+              <div class="ep-card-cta">Mehr erfahren <span aria-hidden="true">→</span></div>
             </a>
           </div>
         </div>
@@ -6100,19 +6200,19 @@ document.documentElement
               <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
             </nav>
-            <span class="article-pill" data-area="ki">Praxisbericht · 8 min Lesezeit</span>
+            <span class="pill" data-area="ki" aria-label="Lesezeit 8 Minuten">8 min Lesezeit</span>
             <h1 class="article-title">Warum 60 % der KI-Piloten nie in Produktion gehen</h1>
             <p class="article-lead">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben. Und warum AI Readiness wichtiger ist als KI-Begeisterung.</p>
             <div class="article-meta">
               <div class="article-meta-author">
-                <div class="article-avatar" data-area="ki" aria-hidden="true">LB</div>
+                <div class="article-avatar" data-area="ki" aria-hidden="true"><img src="images/whiteboard-ai-matrix.jpg" alt="" style="object-position:center 15%">LB</div>
                 <div class="article-meta-text">
                   <p class="article-meta-name">Lukas Brandt</p>
                   <p class="article-meta-role">Senior AI Engineer · Conciso</p>
                 </div>
               </div>
               <span class="article-meta-sep" aria-hidden="true"></span>
-              <p class="article-meta-date">12. April 2026</p>
+              <time class="article-meta-date" datetime="2026-04-12">12. April 2026</time>
             </div>
           </div>
         </header>
@@ -6146,7 +6246,7 @@ document.documentElement
 
             <div class="tbl-wrap" style="margin:var(--s8) 0">
               <table class="tbl tbl--striped">
-                <caption style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);text-align:left;padding-bottom:var(--s3)">Readiness-Check: drei Fragen, drei Indizien</caption>
+                <caption>Readiness-Check: drei Fragen, drei Indizien</caption>
                 <thead>
                   <tr>
                     <th scope="col">Frage</th>
@@ -6241,9 +6341,9 @@ document.documentElement
         <!-- Author Card: Glaubwürdigkeit als Übergang vom Artikel zu den weiteren Beiträgen -->
         <div class="ep-section" style="background:var(--n-50);border-block:var(--bd);padding-block:var(--s8)">
           <div class="author-card" data-area="ki">
-            <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">LB</div>
+            <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true"><img src="images/whiteboard-ai-matrix.jpg" alt="" style="object-position:center 15%">LB</div>
             <div>
-              <p class="author-card-eyebrow">Über den Autor</p>
+              <h3 class="author-card-eyebrow">Über den Autor</h3>
               <p class="author-card-name">Lukas Brandt</p>
               <p class="author-card-role">Senior AI Engineer · bei Conciso seit 2019</p>
               <p class="author-card-bio">Begleitet KI-Projekte von der Strategie bis in die Produktion. Schwerpunkt: RAG-Systeme und LLM-Integration in regulierten Branchen.</p>
@@ -6275,7 +6375,7 @@ document.documentElement
               <div class="field">
                 <label for="f-wb-stage">Wo steht Dein Use-Case?</label>
                 <select id="f-wb-stage">
-                  <option>Bitte wählen…</option>
+                  <option value="" disabled selected>Bitte wählen…</option>
                   <option>Idee, noch keine Validierung</option>
                   <option>PoC läuft, Produktion offen</option>
                   <option>Pilot in Produktion, Skalierung offen</option>
@@ -6295,31 +6395,25 @@ document.documentElement
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label" style="color:var(--co-700)">Mehr aus unserem Wissen</div>
           <h2 class="ep-section-h2">Weiterlesen</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Ein Beitrag aus jedem Bereich. Plus ein Blick hinter die Kulissen.</p>
+          <p class="ep-section-sub" style="color:var(--n-500)">Ein Beitrag aus jedem Bereich.</p>
           <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
             <a class="ep-card ep-card-link" href="#" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
               <div class="ep-card-title">Eval-Strategien für RAG-Systeme</div>
               <div class="ep-card-text">Was Du wirklich misst, wenn Du Genauigkeit misst. Und was Du dabei übersiehst.</div>
-              <div class="ep-card-cta" style="color:var(--ki-800)">Lesen →</div>
+              <div class="ep-card-cta" style="color:var(--ki-800)">Lesen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
               <div class="ep-card-title">Refactoring-Schulden ehrlich rechnen</div>
               <div class="ep-card-text">Wann der Umbau billiger ist als der nächste Workaround. Inklusive Tabelle.</div>
-              <div class="ep-card-cta" style="color:var(--es-700)">Lesen →</div>
+              <div class="ep-card-cta" style="color:var(--es-700)">Lesen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
               <div class="ep-card-title">Drei Muster, an denen Veränderung scheitert</div>
               <div class="ep-card-text">Über Heldengeschichten, Schuldzuschreibungen und das Schweigen in der Mitte.</div>
-              <div class="ep-card-cta" style="color:var(--wo-700)">Lesen →</div>
-            </a>
-            <a class="ep-card ep-card-link" href="#" style="border-top:4px solid var(--co-500)">
-              <div class="ep-card-eyebrow" data-area="co">Aus dem Conciso-Alltag</div>
-              <div class="ep-card-title">Conciso-Camp 2026: Zwei Tage abseits des Büros</div>
-              <div class="ep-card-text">Was passiert, wenn 40 Köpfe ohne Slack, aber mit Kaffeeautomat zwei Tage an der eigenen Marke arbeiten.</div>
-              <div class="ep-card-cta" style="color:var(--co-700)">Lesen →</div>
+              <div class="ep-card-cta" style="color:var(--wo-700)">Lesen <span aria-hidden="true">→</span></div>
             </a>
           </div>
         </div>
@@ -6346,7 +6440,7 @@ document.documentElement
               <h3 class="footer-htitle">Wissen</h3>
               <nav aria-label="Wissen">
                 <p class="footer-subtitle">Beiträge</p>
-                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Angewandte KI</a></li><li><a class="footer-link" href="#">Effektive Software</a></li><li><a class="footer-link" href="#">Wirksame Organisationen</a></li><li><a class="footer-link" href="#">Aus dem Conciso-Alltag</a></li></ul>
+                <ul class="footer-nav-list"><li><a class="footer-link" href="#">Angewandte KI</a></li><li><a class="footer-link" href="#">Effektive Software</a></li><li><a class="footer-link" href="#">Wirksame Organisationen</a></li></ul>
                 <p class="footer-subtitle">Newsletter</p>
                 <ul class="footer-nav-list"><li><a class="footer-link" href="#">Anmelden</a></li></ul>
               </nav>
