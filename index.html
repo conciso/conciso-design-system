@@ -1124,9 +1124,20 @@
               <tr><td><code class="token" style="color:var(--c-success)">--c-success</code></td><td>Erfolgreiche Aktionen, OK-Snackbar, Bestätigungs-Badge</td></tr>
               <tr><td><code class="token" style="color:var(--c-warning)">--c-warning</code></td><td>Hinweise, Beta-Zustände, nicht-kritische Warnungen</td></tr>
               <tr><td><code class="token" style="color:var(--c-error)">--c-error</code></td><td>Fehler-Snackbar, Validierungsfehler im Formular, Deprecated-Badge</td></tr>
-              <tr><td><code class="token">--tx-primary / --tx-secondary</code></td><td>Fließtext und UI-Labels — immer Neutral, nie Bereichsfarbe für Mengentext</td></tr>
+              <tr><td><code class="token">--tx-primary</code></td><td>Fließtext, Headlines, UI-Labels — <code class="token">#333E48</code> (10.4:1, AAA)</td></tr>
+              <tr><td><code class="token">--tx-secondary</code></td><td>Sekundärer Text: Lead, Sub-Titel, Captions — <code class="token">var(--n-500)</code> (5.8:1, AA)</td></tr>
+              <tr><td><code class="token">--tx-muted</code></td><td>Inhaltlich-leise Texte: Eyebrow, Meta, Counter — <code class="token">var(--n-400)</code> (4.7:1, AA)</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Faustregel: Text-Tokens vs. Dekoration -->
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s6)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Text-Tokens vs. dekorative Neutrals.</strong> <code class="token">--tx-muted</code> ist für inhaltlich-leise, aber <strong>AA-konforme</strong> Texte gedacht (Eyebrow, Counter, Meta-Angaben). Rein <strong>dekorative Elemente</strong> (Trenner, Ornament, Disabled-Hintergrund) nutzen direkt das Neutral-Token <code class="token">var(--n-300)</code> oder heller — diese sind absichtlich unter AA, weil sie keinen Textinhalt tragen.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Faustregel:</strong> Wenn ein Screenreader den Text vorlesen soll, mindestens <code class="token">--tx-muted</code> verwenden. Wenn das Element rein visuell ist und Screenreader es ignorieren (<code class="token">aria-hidden</code>, dekorative Border), darf es heller sein.</p>
         </div>
       </div>
 
@@ -4935,8 +4946,18 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <h2 id="gt-a11y-kontrast" class="group-title">Kontrastverhältnisse — Textfarben auf Weiß</h2>
       <div class="contrast-row">
         <div class="cswatch" style="background:#333E48;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname">Brand Text #333E48 auf Weiß</div><div class="cratio">10.4:1 — Fließtext, Headlines, UI-Labels</div></div>
+        <div class="cinfo"><div class="cname"><code class="token">--tx-primary</code> #333E48 auf Weiß</div><div class="cratio">10.4:1 — Fließtext, Headlines, UI-Labels</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#4A6565;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname"><code class="token">--tx-secondary</code> #4A6565 auf Weiß</div><div class="cratio">5.8:1 — Lead, Sub-Titel, Captions</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#6E8585;color:#fff">Aa</div>
+        <div class="cinfo"><div class="cname"><code class="token">--tx-muted</code> #6E8585 auf Weiß</div><div class="cratio">4.7:1 — inhaltlich-leise Texte: Eyebrow, Counter, Meta-Angaben</div></div>
+        <span class="cbadge c-aa">AA ✓</span>
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#007575;color:#fff">Aa</div>
