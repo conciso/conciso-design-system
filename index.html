@@ -5368,11 +5368,20 @@ document.documentElement
         </tbody>
       </table>
 
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Designentscheidung — minimaler Stil statt Container.</strong> Das TOC trägt bewusst <em>keine</em> Container-Box (kein Hintergrund, keine Border, kein Border-Radius). Stattdessen nur dünne Trennlinien oben und unten, kompakte Liste in <code class="token">body-sm</code>.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Begründung:</strong> Eine Container-Box mit <code class="token">n-50</code>-Hintergrund würde das TOC visuell auf die Stufe eines <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-article-callout">Article-Callouts</a> heben — also wie ein <em>Inhaltselement</em> wirken. Das TOC ist aber ein <strong>Werkzeug</strong>, kein Inhalt: der Beitrag spielt den Star, das TOC ist Hilfsmittel zur Orientierung.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marken-Ton-Bezug:</strong> Conciso-Pfeiler „Ruhig" verlangt zurückhaltende Werkzeuge. Eine prominente Box im Lesefluss würde den ruhigen Einstieg unterbrechen — eine schmale, fast unsichtbare Trennlinien-Lösung respektiert ihn.</p>
+        </div>
+      </div>
+
       <div class="nav-demo" style="padding:var(--s8) var(--s6);margin-bottom:var(--s5)">
         <div class="article-body">
           <details class="article-toc">
             <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
-              <span><span class="article-toc-eyebrow">Inhalt</span>5 Abschnitte</span>
+              <span>Inhalt</span>
               <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
             </summary>
             <ol class="article-toc-list">
@@ -5393,7 +5402,7 @@ document.documentElement
 <pre class="cb-body"><span class="k">&lt;details</span> <span class="v">class</span>=<span class="s">"article-toc"</span><span class="k">&gt;</span>
   <span class="k">&lt;summary</span> <span class="v">class</span>=<span class="s">"article-toc-summary"</span>
            <span class="v">aria-label</span>=<span class="s">"Inhaltsverzeichnis ein- und ausklappen"</span><span class="k">&gt;</span>
-    <span class="k">&lt;span&gt;</span><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-toc-eyebrow"</span><span class="k">&gt;</span>Inhalt<span class="k">&lt;/span&gt;</span>5 Abschnitte<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;span&gt;</span>Inhalt<span class="k">&lt;/span&gt;</span>
     <span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"article-toc-caret"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>…<span class="k">&lt;/svg&gt;</span>
   <span class="k">&lt;/summary&gt;</span>
   <span class="k">&lt;ol</span> <span class="v">class</span>=<span class="s">"article-toc-list"</span><span class="k">&gt;</span>
@@ -6395,7 +6404,7 @@ document.documentElement
 
             <details class="article-toc">
               <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
-                <span><span class="article-toc-eyebrow">Inhalt</span>5 Abschnitte</span>
+                <span>Inhalt</span>
                 <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
               </summary>
               <ol class="article-toc-list">
