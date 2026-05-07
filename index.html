@@ -232,6 +232,7 @@
       <a class="nav-sub-item" href="#gt-nav-hero-image">Hero-Image</a>
       <a class="nav-sub-item" href="#gt-nav-hero-substrip">Reduzierte Sub-Sektion</a>
       <a class="nav-sub-item" href="#gt-nav-topnav">Customer-Topnav</a>
+      <a class="nav-sub-item" href="#gt-nav-back-to-top">Back-to-Top-Button</a>
       <a class="nav-sub-item" href="#gt-nav-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="footer">
@@ -1858,6 +1859,62 @@
   <span class="k">&lt;/nav&gt;</span>
   <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined btn-sm"</span><span class="k">&gt;</span>Kontakt<span class="k">&lt;/button&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- ── Back-to-Top-Button ── -->
+      <h2 id="gt-nav-back-to-top" class="group-title">Back-to-Top-Button</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Globaler Page-Button, der nach <code class="token">scrollY &gt; 400 px</code> sanft eingeblendet wird (<code class="token">opacity</code>-Fade) und beim Klick smooth zum Seitenanfang scrollt. Sitzt sticky unten rechts (<code class="token">position:fixed</code>), damit er auf langen Seiten ohne Scrollen erreichbar bleibt — typischer Anwendungsfall: Wissensbeiträge, Bereichsseiten, Listen-Übersichten.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">44×44 px Touch-Target (WCAG 2.5.5), Brand-Petrol-Background mit weißem Caret-Icon, <code class="token">box-shadow:var(--e3)</code> für klare Schwebewirkung. Gehört auf <strong>jede</strong> Customer-Page — auch Landing-Pages, Detailseiten und Beispielartikel.</p>
+
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s8);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:center;min-height:120px">
+        <button class="back-to-top visible" type="button" aria-label="Nach oben scrollen" style="position:static;opacity:1;pointer-events:auto;width:44px;height:44px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="c">&lt;!-- Direkt vor &lt;/body&gt; platzieren — fixed-positioniert, immer erreichbar --&gt;</span>
+<span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"back-to-top"</span> <span class="v">id</span>=<span class="s">"back-to-top"</span>
+        <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-label</span>=<span class="s">"Nach oben scrollen"</span><span class="k">&gt;</span>
+  <span class="k">&lt;svg</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;…&lt;/svg&gt;</span> <span class="c">&lt;!-- Caret nach oben --&gt;</span>
+<span class="k">&lt;/button&gt;</span></pre>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">JavaScript</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="c">// Sichtbarkeit ab 400 px Scroll, smooth scroll bei Klick</span>
+<span class="v">var</span> btn = document.getElementById(<span class="s">'back-to-top'</span>);
+<span class="v">var</span> reduce = window.matchMedia(<span class="s">'(prefers-reduced-motion: reduce)'</span>).matches;
+
+window.addEventListener(<span class="s">'scroll'</span>, function() {
+  btn.classList.toggle(<span class="s">'visible'</span>, window.scrollY &gt; 400);
+}, { passive: true });
+
+btn.addEventListener(<span class="s">'click'</span>, function() {
+  window.scrollTo({ top: 0, behavior: reduce ? <span class="s">'auto'</span> : <span class="s">'smooth'</span> });
+});</pre>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong></p>
+          <ul style="margin:0;padding-left:var(--s5);font:var(--ty-body-md);color:var(--tx-primary)">
+            <li><code class="token">aria-label="Nach oben scrollen"</code> — der reine Caret-Icon-Button braucht eine textuelle Beschriftung, damit Screenreader die Aktion ankündigen.</li>
+            <li><code class="token">type="button"</code> — verhindert Submit-Verhalten, falls der Button in einem Form-Kontext landet.</li>
+            <li><strong>Tastatur:</strong> per <code class="token">Tab</code> erreichbar, Enter/Space löst aus — keine zusätzliche ARIA-Rolle nötig (native <code class="token">&lt;button&gt;</code>).</li>
+            <li><strong>Reduced Motion:</strong> bei <code class="token">prefers-reduced-motion: reduce</code> springt die Seite ohne Smooth-Scroll-Animation an den Anfang — wichtig für vestibuläre Reizempfindlichkeit (WCAG 2.3.3).</li>
+            <li><strong>Touch-Target:</strong> 44×44 px erfüllt WCAG 2.5.5 (Target Size).</li>
+            <li><strong>Fokus-Ring:</strong> <code class="token">var(--focus-ring)</code> bei Tastaturfokus — sichtbar gegen den weißen Hintergrund <em>und</em> gegen farbige Inhalte (Petrol-Background-Button).</li>
+          </ul>
+        </div>
       </div>
 
       <!-- ── Verwendung ── -->

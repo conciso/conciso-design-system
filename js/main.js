@@ -51,11 +51,12 @@
 
   /* ── Back-to-top button ── */
   var backBtn = document.getElementById('back-to-top');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.addEventListener('scroll', function() {
     backBtn.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
   backBtn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
   /* ── Theme switcher ── */
