@@ -134,7 +134,6 @@
 
   /* ── Bild-Slider (Carousel) ── */
   document.querySelectorAll('.img-slider').forEach(function(slider) {
-    var track   = slider.querySelector('.img-slider-track');
     var slides  = Array.from(slider.querySelectorAll('.img-slide'));
     var dots    = Array.from(slider.querySelectorAll('.img-dot'));
     var total   = slides.length;
@@ -142,7 +141,6 @@
 
     function goTo(index) {
       current = (index + total) % total;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
       slides.forEach(function(s, i) {
         s.setAttribute('aria-hidden', i !== current ? 'true' : 'false');
         s.classList.toggle('active', i === current);
