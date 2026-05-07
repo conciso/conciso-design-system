@@ -6300,7 +6300,7 @@ document.documentElement
         </div>
 
         <!-- Article Header: Breadcrumb · Title · Lead · Meta. Zentriert, redaktionell -->
-        <header class="ep-section" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8)">
+        <header class="ep-section" style="background:var(--bg-surface);padding-block:var(--s10) var(--s6)">
           <div class="article-header">
             <nav class="article-breadcrumb" aria-label="Breadcrumb">
               <a href="#">Wissen</a>
@@ -6324,15 +6324,15 @@ document.documentElement
           </div>
         </header>
 
-        <!-- Hero-Bild: bewusst ohne Caption-Overlay (Artikel statt Marketing-Hero) -->
-        <figure class="hero-image" style="margin:0">
-          <div class="hero-image-media">
-            <img src="images/whiteboard-ai-matrix.jpg" alt="Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness, mit eingezeichneten Use-Case-Punkten" loading="lazy" style="object-position:center 30%">
-          </div>
-        </figure>
+        <!-- Hero-Bild auf Body-Breite (720 px) — typografisch in den Lesefluss integriert; identisches Bild wie Vorschaubild für Wiedererkennung -->
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:0">
+          <figure class="article-figure" style="max-width:720px;margin:0 auto">
+            <img src="images/whiteboard-ai-matrix.jpg" alt="Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness, mit eingezeichneten Use-Case-Punkten" loading="eager" fetchpriority="high" style="object-position:center 30%">
+          </figure>
+        </div>
 
         <!-- Article Body: zentriert, max. 720px -->
-        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s12)">
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s8) var(--s12)">
           <div class="article-body">
             <p>Wer in den letzten Jahren mit Vorstand oder Bereichsleitung über KI gesprochen hat, kennt das Bild: Die Demo läuft, alle nicken, das Pilotbudget wird freigegeben. Sechs Monate später steht das System irgendwo zwischen Sandbox und Produktivumgebung: funktional, aber niemand traut sich, den Stecker umzustecken. <strong>Aus unseren 200+ KI-Projekten sehen wir: Etwa 60 % aller Piloten bleiben dort hängen.</strong> Nicht, weil die Technologie versagt, sondern weil Readiness und Begeisterung verwechselt wurden.</p>
 
