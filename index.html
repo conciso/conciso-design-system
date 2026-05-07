@@ -587,7 +587,7 @@
       </div>
 
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Das Du wird konsequent <strong>großgeschrieben</strong> (Du, Dir, Dein, Deinem) — Conciso behandelt das Du wie eine direkte Anrede in einem persönlichen Gespräch, nicht als Pronomen unter vielen. Das ist eine Stilentscheidung, kein Tippfehler.</p>
       </div>
     </section>
@@ -2190,7 +2190,7 @@
           <label for="f-email-err">E-Mail <span class="req" aria-hidden="true">*</span></label>
           <input type="email" id="f-email-err" value="ungültig@" aria-required="true" aria-invalid="true" aria-describedby="f-email-err-msg">
           <span class="error-msg" id="f-email-err-msg" role="alert">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
             Bitte eine gültige E-Mail-Adresse eingeben
           </span>
         </div>
@@ -3829,7 +3829,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 <pre class="cb-body"><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-label</span>=<span class="s">"Bereich Angewandte KI"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/span&gt;</span></pre>
       </div>
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> Wenn die Pill kombinierte Meta-Information mit Trennzeichen führt (z.&nbsp;B. <code class="token">Bereich · Lesezeit</code>), wird das mittige Punktzeichen von Screenreadern oft verschluckt oder als „Punkt" gelesen. Pflicht-Pattern: <code class="token">aria-label</code> mit ausgeschriebener Form (<code class="token">aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"</code>) — sichtbarer Text bleibt kompakt, vorgelesener Text wird klar.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei einfachen Pills ohne Trennzeichen reicht ein <code class="token">aria-label</code>, das die Bereichszuordnung explizit macht (<code class="token">aria-label="Bereich Angewandte KI"</code>) — der reine Bereichsname allein klingt im Screenreader-Fluss leicht wie eine Überschrift.</p>
@@ -3910,7 +3910,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
       <!-- Faustregel: Pill vs. Bereichs-Badge -->
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Faustregel — Pill vs. Bereichs-Badge.</strong> Beide nutzen 50er-Hintergrund und 700/800er-Text der Brand Area, beide haben die abgerundete Form. Der spürbare Unterschied entsteht durch <strong>uppercase + Letter-Spacing</strong>: Die Pill wirkt feierlicher, die Badge alltäglicher.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Wenn du unsicher bist: Steht <em>unter</em> der Markierung etwas, das ich erklären oder bewerben will (Titel, Beitrag)? → <code class="token">.pill</code>. Sitzt die Markierung <em>neben</em> einem Element (Modulname, Tabellenzelle, Kartenkopf)? → <code class="token">.badge</code>. Status (Live, Beta, Deprecated, Draft) ist <em>immer</em> Badge — Pill hat keine Status-Variants.</p>
@@ -4192,16 +4192,16 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <p class="sec-sub">3 Varianten: Default · OK · Fehler — für Kontaktformular, Newsletter-Anmeldung und Validierungsfehler auf Landingpages.</p>
       <h2 id="gt-feedback-varianten" class="group-title">Snackbar-Varianten</h2>
       <div class="snack snack-def" role="status" aria-live="polite">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#80DEDE" aria-hidden="true" focusable="false"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#80DEDE" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>
         Formular gespeichert — noch nicht abgesendet.
         <button class="snack-act">Jetzt senden</button>
       </div>
       <div class="snack snack-ok" role="status" aria-live="polite">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#88f0c4" stroke-width="1.75" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#88f0c4" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
         Nachricht gesendet. Wir melden uns in 1–2 Werktagen.
       </div>
       <div class="snack snack-err" role="alert" aria-live="assertive">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f9a8a8" stroke-width="1.75" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f9a8a8" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
         Senden fehlgeschlagen — bitte Verbindung prüfen.
         <button class="snack-act">Erneut versuchen</button>
       </div>
@@ -5323,7 +5323,7 @@ document.documentElement
       </div>
 
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit — alt vs. figcaption.</strong> Die beiden Texte tun unterschiedliche Jobs und sollten nicht denselben Inhalt tragen, sonst lesen Screenreader doppelt vor:</p>
           <ul style="margin:0;padding-left:var(--s5);font:var(--ty-body-md);color:var(--tx-primary)">
@@ -5451,7 +5451,7 @@ document.documentElement
 <span class="k">&lt;/figure&gt;</span></pre>
       </div>
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Faustregel: Wenn der Satz aus dem Lauftext stammt und du ihn nur visuell hervorheben willst, nimm <code class="token">.article-pullquote</code> ohne Attribution. Sobald eine externe Person zitiert wird (Kunde, Studie, Branchen-Statement), nimm <code class="token">.bq</code> mit Name und Rolle. Ein Self-Quote im eigenen Beitrag wirkt sonst absurd — der Autor zitiert die Person, die den Beitrag schreibt.</p>
       </div>
 
@@ -5539,7 +5539,7 @@ document.documentElement
         </table>
       </div>
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4)">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Die Sequenz <strong>Download-CTA → Author → Formular → Weiterlesen</strong> hat sich für Conciso-Wissensbeiträge bewährt: Der Download bleibt nah am Inhalt (höchste topische Relevanz), das Formular sitzt am Punkt höchsten Interesses, und Weiterlesen fängt alle ab, die noch nicht buchen wollen. Vermeide es, Weiterlesen vor das Formular zu setzen — die Karten sind eine Exit-Rampe und führen vom Conversion-Punkt weg.</p>
       </div>
     </section>
