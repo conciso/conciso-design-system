@@ -558,6 +558,10 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-body ul,.article-body ol{padding-left:var(--s5);margin:0 0 var(--s5)}
 .article-body ul li{margin-bottom:var(--s4)}
 .article-body ol li{margin-bottom:var(--s3)}
+/* In-Article Figure: redaktionelles Inline-Bild mit Bildunterschrift; alt beschreibt, figcaption ordnet ein */
+.article-figure{margin:var(--s8) 0}
+.article-figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);display:block;background:var(--n-100)}
+.article-figcaption{font:var(--ty-body-sm);color:var(--tx-secondary);text-align:center;margin:var(--s3) 0 0;text-wrap:balance}
 /* Callout: Aside im Body, area-aware. Border-Akzent in 500 (wie .bq), Eyebrow in 700 (wie .cta-dl-eyebrow) */
 .article-callout{background:var(--co-50);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin:var(--s8) 0}
 .article-callout[data-area="co"]{background:var(--co-50);border-left-color:var(--co-500)}

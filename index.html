@@ -252,6 +252,7 @@
       <a class="nav-sub-item" href="#gt-article-header">Article Header</a>
       <a class="nav-sub-item" href="#gt-article-pill">Pill</a>
       <a class="nav-sub-item" href="#gt-article-body">Article Body</a>
+      <a class="nav-sub-item" href="#gt-article-figure">In-Article Figure</a>
       <a class="nav-sub-item" href="#gt-article-callout">In-Article Callout</a>
       <a class="nav-sub-item" href="#gt-article-pullquote">Pull-Quote vs. Blockquote</a>
       <a class="nav-sub-item" href="#gt-article-author">Author Card</a>
@@ -5290,6 +5291,69 @@ document.documentElement
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
 
+      <h2 id="gt-article-figure" class="group-title">In-Article Figure</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Inline-Bild mit Bildunterschrift im Lauftext. Klassen-Paar <code class="token">.article-figure</code> (Wrapper als <code class="token">&lt;figure&gt;</code>) und <code class="token">.article-figcaption</code> (Caption als <code class="token">&lt;figcaption&gt;</code>) — semantisch standardkonformes <code class="token">figure/figcaption</code>-Pattern, das Screenreader als zusammengehörig erkennen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Das Bild rendert als <code class="token">aspect-ratio:16/9</code> mit <code class="token">object-fit:cover</code> — verhindert Layout-Shift beim Laden und füllt den Body-Bereich auf 720&nbsp;px Breite. Die Caption sitzt zentriert unter dem Bild in <code class="token">body-sm</code>, mit <code class="token">text-wrap:balance</code> für gleichmäßigen Umbruch. Sitzt typischerweise zwischen zwei Argumentations-Abschnitten und markiert einen Themenwechsel oder eine Atemzäsur.</p>
+
+      <div class="nav-demo" style="padding:var(--s8) var(--s6);margin-bottom:var(--s5)">
+        <div class="article-body">
+          <p>Erfolgreiche KI-Projekte starten mit einer ehrlichen Bestandsaufnahme: Wie sauber sind die relevanten Daten? Wie reif ist der zugehörige Prozess?</p>
+
+          <figure class="article-figure">
+            <img src="images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
+            <figcaption class="article-figcaption">Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass — sondern die Datenpipeline drumherum.</figcaption>
+          </figure>
+
+          <p>Aus diesen drei Fragen lässt sich eine Matrix bauen: <em>AI Value</em> auf der einen Achse, <em>AI Readiness</em> auf der anderen.</p>
+        </div>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"article-figure"</span><span class="k">&gt;</span>
+  <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"bild.jpg"</span>
+       <span class="v">alt</span>=<span class="s">"Faktische Bildbeschreibung — was zu sehen ist"</span>
+       <span class="v">loading</span>=<span class="s">"lazy"</span><span class="k">&gt;</span>
+  <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"article-figcaption"</span><span class="k">&gt;</span>
+    Redaktionelle Einordnung — was das Bild zum Beitrag beiträgt.
+  <span class="k">&lt;/figcaption&gt;</span>
+<span class="k">&lt;/figure&gt;</span></pre>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit — alt vs. figcaption.</strong> Die beiden Texte tun unterschiedliche Jobs und sollten nicht denselben Inhalt tragen, sonst lesen Screenreader doppelt vor:</p>
+          <ul style="margin:0;padding-left:var(--s5);font:var(--ty-body-md);color:var(--tx-primary)">
+            <li><strong>alt</strong> = faktische Bildbeschreibung („was zu sehen ist"). Für Screenreader gedacht, visuell unsichtbar.</li>
+            <li><strong>figcaption</strong> = redaktionelle Einordnung („was das Bild im Beitrag tut"). Sichtbar für alle, vom Screenreader nach dem alt vorgelesen.</li>
+          </ul>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><strong>Kontrast:</strong> Caption nutzt <code class="token">var(--tx-secondary)</code> (~5.8:1 auf Surface, AA-konform). <code class="token">var(--tx-muted)</code> ist für inhaltlich essentielle Texte zu hell (~2.1:1) — nur für Hilfsangaben.</p>
+        </div>
+      </div>
+
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Alt-Text rein faktisch halten — keine Interpretation, keine Pointe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Caption als redaktionellen Mehrwert nutzen — Brücke zwischen Bild und Beitragsthema</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)"><code class="token">loading="lazy"</code> für Bilder im Beitragskörper — sie sind below-the-fold</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Alt-Text und Caption inhaltlich identisch — Screenreader liest doppelt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)"><code class="token">alt=""</code> bei inhaltlichen Beitragsbildern — nur für rein dekorative Bilder zulässig</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Caption in <code class="token">var(--tx-muted)</code> — fällt unter WCAG AA, nicht für inhaltliche Texte</span></li>
+          </ul>
+        </div>
+      </div>
+
       <h2 id="gt-article-callout" class="group-title">In-Article Callout</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aside-Block für Praxis-Beispiele, Hinweise oder „In der Realität"-Einschübe innerhalb des Lauftextes. Hellster Bereichston (50) als Hintergrund, 4-px-Linke-Border in 500er-Stärke (analog zu <code class="token">.bq</code>), Eyebrow analog zu <code class="token">.cta-dl-eyebrow</code> mit <code class="token">.08em</code> Letter-Spacing — 700er-Ton bei CO/ES/WO, <strong>800er-Ton bei KI</strong> (Foundation: KI-700 erreicht 4,4:1 und unterschreitet AA auf Weiß).</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Abgrenzung zur <code class="token">.bq</code>: Callout ist redaktionelle Anmerkung im eigenen Stil, Blockquote ist ein wörtliches Zitat von einer benannten Person.</p>
@@ -5465,7 +5529,7 @@ document.documentElement
             <tr><td data-num>1</td><th scope="row">Topnav</th><td><code class="token">.ep-topnav</code> mit <code class="token">aria-current="page"</code> auf „Wissen"</td><td>Globale Navigation, kennzeichnet Wissens-Bereich</td></tr>
             <tr><td data-num>2</td><th scope="row">Article Header</th><td><code class="token">.article-header</code> · <code class="token">.pill</code> · <code class="token">.article-meta</code></td><td>Einordnung, Versprechen und Autor:in</td></tr>
             <tr><td data-num>3</td><th scope="row">Hero-Bild</th><td><code class="token">.hero-image</code> ohne <code class="token">.hero-image-caption</code></td><td>Visuelles Versprechen ohne Marketing-Overlay</td></tr>
-            <tr><td data-num>4</td><th scope="row">Article Body</th><td><code class="token">.article-body</code> mit <code class="token">.article-pullquote</code> · <code class="token">.bq</code> · <code class="token">.tbl</code> · <code class="token">.cb-wrap</code> · <code class="token">.article-callout</code></td><td>Lauftext mit eingebetteten Spezial-Bausteinen</td></tr>
+            <tr><td data-num>4</td><th scope="row">Article Body</th><td><code class="token">.article-body</code> mit <code class="token">.article-pullquote</code> · <code class="token">.bq</code> · <code class="token">.tbl</code> · <code class="token">.cb-wrap</code> · <code class="token">.article-callout</code> · <code class="token">.article-figure</code></td><td>Lauftext mit eingebetteten Spezial-Bausteinen</td></tr>
             <tr><td data-num>5</td><th scope="row">Download-CTA</th><td><code class="token">.cta-dl</code> mit passendem <code class="token">data-area</code></td><td>Topische Verlängerung des Beitrags als PDF/Asset</td></tr>
             <tr><td data-num>6</td><th scope="row">Author-Card</th><td><code class="token">.author-card</code></td><td>Glaubwürdigkeit, Übergang zu nächsten Schritten</td></tr>
             <tr><td data-num>7</td><th scope="row">Kontaktformular</th><td><code class="token">.field</code>-Felder im <code class="token">.ds-card</code> mit <code class="token">.btn-{area}</code></td><td>High-Intent-Aktion am Punkt höchsten Interesses</td></tr>
@@ -6321,6 +6385,11 @@ document.documentElement
               <p class="article-callout-eyebrow">In der Praxis</p>
               <p>Bei einem mittelständischen Versicherer haben wir vor dem Pilot-Start sechs Wochen lang nur Daten und Prozesse aufgeräumt. Das Pilotmodell selbst war anschließend in zwei Wochen produktiv. Ohne Drama, ohne Bypass. Das ist die unspektakuläre Variante des Erfolgs, die selten in Vorträgen vorkommt.</p>
             </aside>
+
+            <figure class="article-figure">
+              <img src="images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
+              <figcaption class="article-figcaption">Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass — sondern die Datenpipeline drumherum.</figcaption>
+            </figure>
 
             <h2>Pragmatischer Pfad: Konzept → Validierung → Produktion</h2>
             <p>Der Weg dorthin ist kein Geheimnis, aber er ist unbequem, weil er die Erwartungen entzerrt. Wir arbeiten in drei Schritten und schreiben die Gates schon vor dem Pilot-Start fest, damit später niemand „leise verschiebt":</p>
