@@ -253,6 +253,7 @@
       <a class="nav-sub-item" href="#gt-article-pill">Pill</a>
       <a class="nav-sub-item" href="#gt-article-body">Article Body</a>
       <a class="nav-sub-item" href="#gt-article-figure">In-Article Figure</a>
+      <a class="nav-sub-item" href="#gt-article-toc">Inhaltsverzeichnis</a>
       <a class="nav-sub-item" href="#gt-article-callout">In-Article Callout</a>
       <a class="nav-sub-item" href="#gt-article-pullquote">Pull-Quote vs. Blockquote</a>
       <a class="nav-sub-item" href="#gt-article-author">Author Card</a>
@@ -5354,6 +5355,63 @@ document.documentElement
         </div>
       </div>
 
+      <h2 id="gt-article-toc" class="group-title">Inhaltsverzeichnis</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aufklappbares Inhaltsverzeichnis für längere Beiträge — sitzt typischerweise als erstes Element im <code class="token">.article-body</code>, vor dem Lead-Absatz. <strong>Default zugeklappt</strong>, damit der Lesefluss ungestört bleibt; wer scannen will, klappt mit einem Klick auf.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Implementiert mit nativem <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> — dadurch out-of-the-box per Tastatur (Enter/Space) bedienbar, vom Screenreader als „Disclosure" angesagt, ohne JavaScript. Die Anker-Links zeigen auf die <code class="token">id</code> der jeweiligen H2 im Body.</p>
+
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Faustregel</th><th>Empfehlung</th></tr></thead>
+        <tbody>
+          <tr><td>Lesezeit &lt; 6 min</td><td><strong>Kein TOC</strong> — Lesefluss schlägt Scanability</td></tr>
+          <tr><td>Lesezeit 6–10 min</td><td><strong>TOC optional</strong>, default zugeklappt — Nutzer entscheidet</td></tr>
+          <tr><td>Lesezeit &gt; 10 min oder Tutorial</td><td><strong>TOC empfohlen</strong>, ggf. später als Sticky-Sidebar</td></tr>
+        </tbody>
+      </table>
+
+      <div class="nav-demo" style="padding:var(--s8) var(--s6);margin-bottom:var(--s5)">
+        <div class="article-body">
+          <details class="article-toc">
+            <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
+              <span><span class="article-toc-eyebrow">Inhalt</span>5 Abschnitte</span>
+              <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </summary>
+            <ol class="article-toc-list">
+              <li><a href="#gt-article-toc">Demo-Magie schlägt Produktions-Realität</a></li>
+              <li><a href="#gt-article-toc">Drei Stolpersteine, die wir immer wieder sehen</a></li>
+              <li><a href="#gt-article-toc">Was den Unterschied macht: Readiness statt Begeisterung</a></li>
+              <li><a href="#gt-article-toc">Pragmatischer Pfad: Konzept → Validierung → Produktion</a></li>
+              <li><a href="#gt-article-toc">Fazit</a></li>
+            </ol>
+          </details>
+        </div>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="k">&lt;details</span> <span class="v">class</span>=<span class="s">"article-toc"</span><span class="k">&gt;</span>
+  <span class="k">&lt;summary</span> <span class="v">class</span>=<span class="s">"article-toc-summary"</span>
+           <span class="v">aria-label</span>=<span class="s">"Inhaltsverzeichnis ein- und ausklappen"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span&gt;</span><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-toc-eyebrow"</span><span class="k">&gt;</span>Inhalt<span class="k">&lt;/span&gt;</span>5 Abschnitte<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"article-toc-caret"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>…<span class="k">&lt;/svg&gt;</span>
+  <span class="k">&lt;/summary&gt;</span>
+  <span class="k">&lt;ol</span> <span class="v">class</span>=<span class="s">"article-toc-list"</span><span class="k">&gt;</span>
+    <span class="k">&lt;li&gt;&lt;a</span> <span class="v">href</span>=<span class="s">"#wb-demo"</span><span class="k">&gt;</span>Demo-Magie schlägt Produktions-Realität<span class="k">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="c">&lt;!-- weitere Listenpunkte --&gt;</span>
+  <span class="k">&lt;/ol&gt;</span>
+<span class="k">&lt;/details&gt;</span></pre>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.5" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> ist nativ — Tastaturbedienung (Enter/Space toggelt), Screenreader-Ansage („Disclosure: collapsed/expanded"), kein JavaScript nötig. Der zusätzliche <code class="token">aria-label</code> auf <code class="token">&lt;summary&gt;</code> macht den Toggle-Zweck explizit, falls der sichtbare Text knapp ist.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Anker:</strong> Jede H2 im Body braucht eine eindeutige <code class="token">id</code>. Konvention: <code class="token">wb-{slug}-{thema}</code> (z.&nbsp;B. <code class="token">wb-ki-pfad</code>) — vermeidet Kollisionen mit anderen Beitrags-IDs auf derselben Seite.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marker:</strong> Der native Disclosure-Marker (<code class="token">▶</code>) wird via <code class="token">::-webkit-details-marker</code> + <code class="token">list-style:none</code> ausgeblendet, ein eigener Caret-SVG übernimmt die Funktion.</p>
+        </div>
+      </div>
+
       <h2 id="gt-article-callout" class="group-title">In-Article Callout</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aside-Block für Praxis-Beispiele, Hinweise oder „In der Realität"-Einschübe innerhalb des Lauftextes. Hellster Bereichston (50) als Hintergrund, 4-px-Linke-Border in 500er-Stärke (analog zu <code class="token">.bq</code>), Eyebrow analog zu <code class="token">.cta-dl-eyebrow</code> mit <code class="token">.08em</code> Letter-Spacing — 700er-Ton bei CO/ES/WO, <strong>800er-Ton bei KI</strong> (Foundation: KI-700 erreicht 4,4:1 und unterschreitet AA auf Weiß).</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Abgrenzung zur <code class="token">.bq</code>: Callout ist redaktionelle Anmerkung im eigenen Stil, Blockquote ist ein wörtliches Zitat von einer benannten Person.</p>
@@ -5529,7 +5587,7 @@ document.documentElement
             <tr><td data-num>1</td><th scope="row">Topnav</th><td><code class="token">.ep-topnav</code> mit <code class="token">aria-current="page"</code> auf „Wissen"</td><td>Globale Navigation, kennzeichnet Wissens-Bereich</td></tr>
             <tr><td data-num>2</td><th scope="row">Article Header</th><td><code class="token">.article-header</code> · <code class="token">.pill</code> · <code class="token">.article-meta</code></td><td>Einordnung, Versprechen und Autor:in</td></tr>
             <tr><td data-num>3</td><th scope="row">Hero-Bild</th><td><code class="token">.hero-image</code> ohne <code class="token">.hero-image-caption</code></td><td>Visuelles Versprechen ohne Marketing-Overlay</td></tr>
-            <tr><td data-num>4</td><th scope="row">Article Body</th><td><code class="token">.article-body</code> mit <code class="token">.article-pullquote</code> · <code class="token">.bq</code> · <code class="token">.tbl</code> · <code class="token">.cb-wrap</code> · <code class="token">.article-callout</code> · <code class="token">.article-figure</code></td><td>Lauftext mit eingebetteten Spezial-Bausteinen</td></tr>
+            <tr><td data-num>4</td><th scope="row">Article Body</th><td><code class="token">.article-body</code> mit <code class="token">.article-toc</code> · <code class="token">.article-pullquote</code> · <code class="token">.bq</code> · <code class="token">.tbl</code> · <code class="token">.cb-wrap</code> · <code class="token">.article-callout</code> · <code class="token">.article-figure</code></td><td>Lauftext mit eingebetteten Spezial-Bausteinen</td></tr>
             <tr><td data-num>5</td><th scope="row">Download-CTA</th><td><code class="token">.cta-dl</code> mit passendem <code class="token">data-area</code></td><td>Topische Verlängerung des Beitrags als PDF/Asset</td></tr>
             <tr><td data-num>6</td><th scope="row">Author-Card</th><td><code class="token">.author-card</code></td><td>Glaubwürdigkeit, Übergang zu nächsten Schritten</td></tr>
             <tr><td data-num>7</td><th scope="row">Kontaktformular</th><td><code class="token">.field</code>-Felder im <code class="token">.ds-card</code> mit <code class="token">.btn-{area}</code></td><td>High-Intent-Aktion am Punkt höchsten Interesses</td></tr>
@@ -6334,12 +6392,27 @@ document.documentElement
         <!-- Article Body: zentriert, max. 720px -->
         <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s8) var(--s12)">
           <div class="article-body">
+
+            <details class="article-toc">
+              <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
+                <span><span class="article-toc-eyebrow">Inhalt</span>5 Abschnitte</span>
+                <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+              </summary>
+              <ol class="article-toc-list">
+                <li><a href="#wb-ki-demo">Demo-Magie schlägt Produktions-Realität</a></li>
+                <li><a href="#wb-ki-stolpersteine">Drei Stolpersteine, die wir immer wieder sehen</a></li>
+                <li><a href="#wb-ki-readiness">Was den Unterschied macht: Readiness statt Begeisterung</a></li>
+                <li><a href="#wb-ki-pfad">Pragmatischer Pfad: Konzept → Validierung → Produktion</a></li>
+                <li><a href="#wb-ki-fazit">Fazit</a></li>
+              </ol>
+            </details>
+
             <p>Wer in den letzten Jahren mit Vorstand oder Bereichsleitung über KI gesprochen hat, kennt das Bild: Die Demo läuft, alle nicken, das Pilotbudget wird freigegeben. Sechs Monate später steht das System irgendwo zwischen Sandbox und Produktivumgebung: funktional, aber niemand traut sich, den Stecker umzustecken. <strong>Aus unseren 200+ KI-Projekten sehen wir: Etwa 60 % aller Piloten bleiben dort hängen.</strong> Nicht, weil die Technologie versagt, sondern weil Readiness und Begeisterung verwechselt wurden.</p>
 
-            <h2>Demo-Magie schlägt Produktions-Realität</h2>
+            <h2 id="wb-ki-demo">Demo-Magie schlägt Produktions-Realität</h2>
             <p>In der Demo arbeitet das Modell mit einem sauber kuratierten Datensatz, einem klar abgegrenzten Use-Case und einem Stakeholder, der jeden Output wohlwollend interpretiert. In der Produktion trifft dasselbe Modell auf eine über fünfzehn Jahre gewachsene Datenlandschaft, drei konkurrierende Source-of-Truth-Systeme und Anwender, die unter Zeitdruck Entscheidungen treffen müssen. Diese Lücke ist nicht technisch, sie ist organisatorisch.</p>
 
-            <h2>Drei Stolpersteine, die wir immer wieder sehen</h2>
+            <h2 id="wb-ki-stolpersteine">Drei Stolpersteine, die wir immer wieder sehen</h2>
             <ul>
               <li><strong>Datenqualität wird unterschätzt.</strong> Im PoC reichen 200 sauber annotierte Beispiele. In der Produktion braucht es Pipelines, Governance und ein Team, das sich für die Daten verantwortlich fühlt.</li>
               <li><strong>Verantwortung bleibt unklar.</strong> Wer entscheidet, wenn das Modell sich nicht sicher ist? Wer überwacht Drift? Wer trägt das Risiko bei einer falschen Antwort? Ohne diese Antworten kein Go-Live.</li>
@@ -6348,7 +6421,7 @@ document.documentElement
 
             <blockquote class="article-pullquote" data-area="ki">„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird."</blockquote>
 
-            <h2>Was den Unterschied macht: Readiness statt Begeisterung</h2>
+            <h2 id="wb-ki-readiness">Was den Unterschied macht: Readiness statt Begeisterung</h2>
             <p>Erfolgreiche KI-Projekte starten mit einer ehrlichen Bestandsaufnahme: Wie sauber sind die relevanten Daten? Wie reif ist der zugehörige Prozess? Welche Entscheidung soll am Ende anders getroffen werden, und wer trifft sie heute? Aus diesen drei Fragen lässt sich eine Matrix bauen, die im Hero-Bild dieses Beitrags angedeutet ist: <em>AI Value</em> auf der einen Achse, <em>AI Readiness</em> auf der anderen. Use-Cases im rechten oberen Quadranten haben Priorität. Use-Cases im linken oberen sind interessant, aber nicht startklar.</p>
 
             <div class="tbl-wrap" style="margin:var(--s8) 0">
@@ -6391,7 +6464,7 @@ document.documentElement
               <figcaption class="article-figcaption">Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass — sondern die Datenpipeline drumherum.</figcaption>
             </figure>
 
-            <h2>Pragmatischer Pfad: Konzept → Validierung → Produktion</h2>
+            <h2 id="wb-ki-pfad">Pragmatischer Pfad: Konzept → Validierung → Produktion</h2>
             <p>Der Weg dorthin ist kein Geheimnis, aber er ist unbequem, weil er die Erwartungen entzerrt. Wir arbeiten in drei Schritten und schreiben die Gates schon vor dem Pilot-Start fest, damit später niemand „leise verschiebt":</p>
 
             <div class="cb-wrap" style="margin:var(--s5) 0 var(--s8)">
@@ -6420,7 +6493,7 @@ document.documentElement
               <li><strong>Produktion (4–8 Wochen).</strong> Integration, Monitoring, Übergabe an einen verantwortlichen Owner. Nicht an „das Team".</li>
             </ol>
 
-            <h2>Fazit</h2>
+            <h2 id="wb-ki-fazit">Fazit</h2>
             <p>Die Frage ist nicht, ob KI funktioniert. Das tut sie inzwischen verlässlicher, als die Branche selbst gerne zugibt. Die Frage ist, ob Dein Unternehmen bereit ist, sie konsequent in den Alltag zu lassen. Das ist eine ruhige, technisch unspektakuläre Arbeit. Sie macht den Unterschied zwischen einem weiteren Pilot in der Schublade und einem System, das morgen Entscheidungen besser macht.</p>
           </div>
         </div>

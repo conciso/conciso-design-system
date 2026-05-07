@@ -562,6 +562,20 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-figure{margin:var(--s8) 0}
 .article-figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);display:block;background:var(--n-100)}
 .article-figcaption{font:var(--ty-body-sm);color:var(--tx-secondary);text-align:center;margin:var(--s3) 0 0;text-wrap:balance}
+/* Inhaltsverzeichnis: aufklappbar via native <details>/<summary>, default zugeklappt */
+.article-toc{max-width:720px;margin:var(--s6) auto var(--s8);background:var(--n-50);border:var(--bd);border-radius:var(--r-md)}
+.article-toc-summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s3) var(--s5);font:var(--ty-label-md);color:var(--tx-primary);cursor:pointer;list-style:none;border-radius:var(--r-md)}
+.article-toc-summary::-webkit-details-marker{display:none}
+.article-toc-summary:hover{background:var(--bg-overlay)}
+.article-toc-summary:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.article-toc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin-right:var(--s2)}
+.article-toc-caret{width:16px;height:16px;flex-shrink:0;color:var(--tx-secondary);transition:transform var(--m-fast)}
+.article-toc[open] .article-toc-caret{transform:rotate(180deg)}
+.article-toc-list{list-style:decimal;padding:0 var(--s5) var(--s4) var(--s8);margin:var(--s1) 0 0;color:var(--tx-muted)}
+.article-toc-list li{padding:4px 0}
+.article-toc-list a{color:var(--tx-primary);text-decoration:none;font:var(--ty-body-md);line-height:1.5}
+.article-toc-list a:hover{text-decoration:underline;text-underline-offset:3px}
+.article-toc-list a:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
 /* Callout: Aside im Body, area-aware. Border-Akzent in 500 (wie .bq), Eyebrow in 700 (wie .cta-dl-eyebrow) */
 .article-callout{background:var(--co-50);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin:var(--s8) 0}
 .article-callout[data-area="co"]{background:var(--co-50);border-left-color:var(--co-500)}
