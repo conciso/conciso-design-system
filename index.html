@@ -252,9 +252,9 @@
     <div class="nav-subnav" data-for="article">
       <a class="nav-sub-item" href="#gt-article-header">Article Header</a>
       <a class="nav-sub-item" href="#gt-article-pill">Pill</a>
+      <a class="nav-sub-item" href="#gt-article-toc">Inhaltsverzeichnis</a>
       <a class="nav-sub-item" href="#gt-article-body">Article Body</a>
       <a class="nav-sub-item" href="#gt-article-figure">In-Article Figure</a>
-      <a class="nav-sub-item" href="#gt-article-toc">Inhaltsverzeichnis</a>
       <a class="nav-sub-item" href="#gt-article-callout">In-Article Callout</a>
       <a class="nav-sub-item" href="#gt-article-pullquote">Pull-Quote vs. Blockquote</a>
       <a class="nav-sub-item" href="#gt-article-author">Author Card</a>
@@ -266,8 +266,8 @@
     </button>
     <div class="nav-subnav" data-for="listing">
       <a class="nav-sub-item" href="#gt-listing-aufbau">Aufbau</a>
-      <a class="nav-sub-item" href="#gt-listing-featured">Filter-aware Featured</a>
       <a class="nav-sub-item" href="#gt-listing-suche">Such-Verhalten</a>
+      <a class="nav-sub-item" href="#gt-listing-featured">Filter-aware Featured</a>
       <a class="nav-sub-item" href="#gt-listing-verwendung">Verwendung</a>
     </div>
 
@@ -5336,6 +5336,72 @@ document.documentElement
 <pre class="cb-body"><span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-label</span>=<span class="s">"Lesezeit 8 Minuten"</span><span class="k">&gt;</span>8 min Lesezeit<span class="k">&lt;/span&gt;</span></pre>
       </div>
 
+      <h2 id="gt-article-toc" class="group-title">Inhaltsverzeichnis</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aufklappbares Inhaltsverzeichnis für längere Beiträge, sitzt typischerweise als erstes Element im <code class="token">.article-body</code>, vor dem Lead-Absatz. <strong>Default zugeklappt</strong>, damit der Lesefluss ungestört bleibt; wer scannen will, klappt mit einem Klick auf.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Implementiert mit nativem <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code>, dadurch out-of-the-box per Tastatur (Enter/Space) bedienbar, vom Screenreader als „Disclosure" angesagt, ohne JavaScript. Die Anker-Links zeigen auf die <code class="token">id</code> der jeweiligen H2 im Body.</p>
+
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Faustregel</th><th>Empfehlung</th></tr></thead>
+        <tbody>
+          <tr><td>Lesezeit &lt; 6 min</td><td><strong>Kein TOC</strong>, Lesefluss schlägt Scanability</td></tr>
+          <tr><td>Lesezeit 6 bis 10 min</td><td><strong>TOC optional</strong>, default zugeklappt, Nutzer entscheidet</td></tr>
+          <tr><td>Lesezeit &gt; 10 min oder Tutorial</td><td><strong>TOC empfohlen</strong>, ggf. später als Sticky-Sidebar</td></tr>
+        </tbody>
+      </table>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Designentscheidung, minimaler Stil statt Container.</strong> Das TOC trägt bewusst <em>keine</em> Container-Box (kein Hintergrund, keine Border, kein Border-Radius). Stattdessen nur dünne Trennlinien oben und unten, kompakte Liste in <code class="token">body-sm</code>.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Begründung:</strong> Eine Container-Box mit <code class="token">n-50</code>-Hintergrund würde das TOC visuell auf die Stufe eines <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-article-callout">Article-Callouts</a> heben, also wie ein <em>Inhaltselement</em> wirken. Das TOC ist aber ein <strong>Werkzeug</strong>, kein Inhalt: der Beitrag spielt den Star, das TOC ist Hilfsmittel zur Orientierung.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marken-Ton-Bezug:</strong> Conciso-Pfeiler „Ruhig" verlangt zurückhaltende Werkzeuge. Eine prominente Box im Lesefluss würde den ruhigen Einstieg unterbrechen, eine schmale, fast unsichtbare Trennlinien-Lösung respektiert ihn.</p>
+        </div>
+      </div>
+
+      <div class="nav-demo" style="padding:var(--s8) var(--s6);margin-bottom:var(--s5)">
+        <div class="article-body">
+          <details class="article-toc">
+            <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
+              <span>Inhalt</span>
+              <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+            </summary>
+            <ol class="article-toc-list">
+              <li><a href="#gt-article-toc">Demo-Magie schlägt Produktions-Realität</a></li>
+              <li><a href="#gt-article-toc">Drei Stolpersteine, die wir immer wieder sehen</a></li>
+              <li><a href="#gt-article-toc">Was den Unterschied macht: Readiness statt Begeisterung</a></li>
+              <li><a href="#gt-article-toc">Pragmatischer Pfad: Konzept → Validierung → Produktion</a></li>
+              <li><a href="#gt-article-toc">Fazit</a></li>
+            </ol>
+          </details>
+        </div>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="k">&lt;details</span> <span class="v">class</span>=<span class="s">"article-toc"</span><span class="k">&gt;</span>
+  <span class="k">&lt;summary</span> <span class="v">class</span>=<span class="s">"article-toc-summary"</span>
+           <span class="v">aria-label</span>=<span class="s">"Inhaltsverzeichnis ein- und ausklappen"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span&gt;</span>Inhalt<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"article-toc-caret"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>…<span class="k">&lt;/svg&gt;</span>
+  <span class="k">&lt;/summary&gt;</span>
+  <span class="k">&lt;ol</span> <span class="v">class</span>=<span class="s">"article-toc-list"</span><span class="k">&gt;</span>
+    <span class="k">&lt;li&gt;&lt;a</span> <span class="v">href</span>=<span class="s">"#wb-demo"</span><span class="k">&gt;</span>Demo-Magie schlägt Produktions-Realität<span class="k">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="c">&lt;!-- weitere Listenpunkte --&gt;</span>
+  <span class="k">&lt;/ol&gt;</span>
+<span class="k">&lt;/details&gt;</span></pre>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> ist nativ, Tastaturbedienung (Enter/Space toggelt), Screenreader-Ansage („Disclosure: collapsed/expanded"), kein JavaScript nötig. Der zusätzliche <code class="token">aria-label</code> auf <code class="token">&lt;summary&gt;</code> macht den Toggle-Zweck explizit, falls der sichtbare Text knapp ist.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Anker:</strong> Jede H2 im Body braucht eine eindeutige <code class="token">id</code>. Konvention: <code class="token">wb-{slug}-{thema}</code> (z.&nbsp;B. <code class="token">wb-ki-pfad</code>), vermeidet Kollisionen mit anderen Beitrags-IDs auf derselben Seite.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marker:</strong> Der native Disclosure-Marker (<code class="token">▶</code>) wird via <code class="token">::-webkit-details-marker</code> + <code class="token">list-style:none</code> ausgeblendet, ein eigener Caret-SVG übernimmt die Funktion.</p>
+        </div>
+      </div>
+
       <h2 id="gt-article-body" class="group-title">Article Body</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">720-px-Spalte für redaktionellen Lauftext. <code class="token">.article-body</code> setzt die Lese-Typografie (<code class="token">--ty-body-lg</code>, <code class="token">line-height: 1.7</code>) und die Abstände der Block-Kinder: <code class="token">&lt;p&gt;</code>, <code class="token">&lt;h2&gt;</code>, <code class="token">&lt;ul&gt;</code>, <code class="token">&lt;ol&gt;</code> brauchen keine Inline-Styles mehr.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Eingebettete Komponenten (<code class="token">.bq</code>, <code class="token">.tbl</code>, <code class="token">.cb-wrap</code>, <code class="token">.article-callout</code>) bringen ihre eigenen Abstände mit und überschreiben die Body-Defaults nicht.</p>
@@ -5426,72 +5492,6 @@ document.documentElement
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)"><code class="token">alt=""</code> bei inhaltlichen Beitragsbildern, nur für rein dekorative Bilder zulässig</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Caption in <code class="token">var(--tx-muted)</code>, fällt unter WCAG AA, nicht für inhaltliche Texte</span></li>
           </ul>
-        </div>
-      </div>
-
-      <h2 id="gt-article-toc" class="group-title">Inhaltsverzeichnis</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aufklappbares Inhaltsverzeichnis für längere Beiträge, sitzt typischerweise als erstes Element im <code class="token">.article-body</code>, vor dem Lead-Absatz. <strong>Default zugeklappt</strong>, damit der Lesefluss ungestört bleibt; wer scannen will, klappt mit einem Klick auf.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Implementiert mit nativem <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code>, dadurch out-of-the-box per Tastatur (Enter/Space) bedienbar, vom Screenreader als „Disclosure" angesagt, ohne JavaScript. Die Anker-Links zeigen auf die <code class="token">id</code> der jeweiligen H2 im Body.</p>
-
-      <table class="doc-table" style="margin-bottom:var(--s6)">
-        <thead><tr><th>Faustregel</th><th>Empfehlung</th></tr></thead>
-        <tbody>
-          <tr><td>Lesezeit &lt; 6 min</td><td><strong>Kein TOC</strong>, Lesefluss schlägt Scanability</td></tr>
-          <tr><td>Lesezeit 6 bis 10 min</td><td><strong>TOC optional</strong>, default zugeklappt, Nutzer entscheidet</td></tr>
-          <tr><td>Lesezeit &gt; 10 min oder Tutorial</td><td><strong>TOC empfohlen</strong>, ggf. später als Sticky-Sidebar</td></tr>
-        </tbody>
-      </table>
-
-      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-        <div>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Designentscheidung, minimaler Stil statt Container.</strong> Das TOC trägt bewusst <em>keine</em> Container-Box (kein Hintergrund, keine Border, kein Border-Radius). Stattdessen nur dünne Trennlinien oben und unten, kompakte Liste in <code class="token">body-sm</code>.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Begründung:</strong> Eine Container-Box mit <code class="token">n-50</code>-Hintergrund würde das TOC visuell auf die Stufe eines <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-article-callout">Article-Callouts</a> heben, also wie ein <em>Inhaltselement</em> wirken. Das TOC ist aber ein <strong>Werkzeug</strong>, kein Inhalt: der Beitrag spielt den Star, das TOC ist Hilfsmittel zur Orientierung.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marken-Ton-Bezug:</strong> Conciso-Pfeiler „Ruhig" verlangt zurückhaltende Werkzeuge. Eine prominente Box im Lesefluss würde den ruhigen Einstieg unterbrechen, eine schmale, fast unsichtbare Trennlinien-Lösung respektiert ihn.</p>
-        </div>
-      </div>
-
-      <div class="nav-demo" style="padding:var(--s8) var(--s6);margin-bottom:var(--s5)">
-        <div class="article-body">
-          <details class="article-toc">
-            <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
-              <span>Inhalt</span>
-              <svg class="article-toc-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
-            </summary>
-            <ol class="article-toc-list">
-              <li><a href="#gt-article-toc">Demo-Magie schlägt Produktions-Realität</a></li>
-              <li><a href="#gt-article-toc">Drei Stolpersteine, die wir immer wieder sehen</a></li>
-              <li><a href="#gt-article-toc">Was den Unterschied macht: Readiness statt Begeisterung</a></li>
-              <li><a href="#gt-article-toc">Pragmatischer Pfad: Konzept → Validierung → Produktion</a></li>
-              <li><a href="#gt-article-toc">Fazit</a></li>
-            </ol>
-          </details>
-        </div>
-      </div>
-      <div class="cb-wrap" style="margin-bottom:var(--s6)">
-        <div class="cb-header">
-          <span class="cb-lang">HTML</span>
-          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
-        </div>
-<pre class="cb-body"><span class="k">&lt;details</span> <span class="v">class</span>=<span class="s">"article-toc"</span><span class="k">&gt;</span>
-  <span class="k">&lt;summary</span> <span class="v">class</span>=<span class="s">"article-toc-summary"</span>
-           <span class="v">aria-label</span>=<span class="s">"Inhaltsverzeichnis ein- und ausklappen"</span><span class="k">&gt;</span>
-    <span class="k">&lt;span&gt;</span>Inhalt<span class="k">&lt;/span&gt;</span>
-    <span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"article-toc-caret"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>…<span class="k">&lt;/svg&gt;</span>
-  <span class="k">&lt;/summary&gt;</span>
-  <span class="k">&lt;ol</span> <span class="v">class</span>=<span class="s">"article-toc-list"</span><span class="k">&gt;</span>
-    <span class="k">&lt;li&gt;&lt;a</span> <span class="v">href</span>=<span class="s">"#wb-demo"</span><span class="k">&gt;</span>Demo-Magie schlägt Produktions-Realität<span class="k">&lt;/a&gt;&lt;/li&gt;</span>
-    <span class="c">&lt;!-- weitere Listenpunkte --&gt;</span>
-  <span class="k">&lt;/ol&gt;</span>
-<span class="k">&lt;/details&gt;</span></pre>
-      </div>
-
-      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-        <div>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> ist nativ, Tastaturbedienung (Enter/Space toggelt), Screenreader-Ansage („Disclosure: collapsed/expanded"), kein JavaScript nötig. Der zusätzliche <code class="token">aria-label</code> auf <code class="token">&lt;summary&gt;</code> macht den Toggle-Zweck explizit, falls der sichtbare Text knapp ist.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Anker:</strong> Jede H2 im Body braucht eine eindeutige <code class="token">id</code>. Konvention: <code class="token">wb-{slug}-{thema}</code> (z.&nbsp;B. <code class="token">wb-ki-pfad</code>), vermeidet Kollisionen mit anderen Beitrags-IDs auf derselben Seite.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marker:</strong> Der native Disclosure-Marker (<code class="token">▶</code>) wird via <code class="token">::-webkit-details-marker</code> + <code class="token">list-style:none</code> ausgeblendet, ein eigener Caret-SVG übernimmt die Funktion.</p>
         </div>
       </div>
 
@@ -5950,36 +5950,6 @@ document.documentElement
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Header-Pattern: Editorial, nicht Marketing.</strong> Der Page-Header der Beitragsübersicht ist bewusst <strong>zentriert</strong>, weil die Seite zum Lesen und Stöbern einlädt, nicht zum Scannen einer Service-Übersicht. Damit folgt sie der gleichen Logik wie der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-article-header">Article-Header</a>: ruhiger Fokuspunkt vor dem Listenfluss. Marketing-Sektionen wie „Was wir tun" oder „Drei Pfeiler" (<code class="token">.ep-section-*</code>) sind hingegen linksbündig und scan-tauglich. Auf Listing-Seiten wird Editorial-Konvention angewendet, auf Service-/Marketing-Seiten Marketing-Konvention.</p>
       </div>
 
-      <h2 id="gt-listing-featured" class="group-title">Filter-aware Featured</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Der Featured-Block enthält pro Bereich eine eigene Hero-Card. Alle drei Cards liegen im selben <code class="token">&lt;section id="wb-featured-section"&gt;</code> und tragen <code class="token">data-area="ki|es|wo"</code>. Per Default ist eine sichtbar, die anderen mit <code class="token">.is-hidden</code> verborgen. Beim Klick auf einen Filter-Chip blendet das JS die passende Variante ein. Für den Filter „Alle" zeigt der Default-Editorial-Pick (im Demo: der KI-Beitrag).</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum diese Variante:</strong> Ein statisches Featured wäre simpler, würde aber beim Filtern auf andere Bereiche thematisch nicht zur Auswahl passen (etwa KI-Beitrag oben sichtbar, obwohl „Effektive Software" aktiv ist). Eine versteckte Featured-Section wiederum lässt das Layout beim Filterwechsel um die Höhe der Card springen. Ein Featured pro Bereich erhält die topische Kohärenz und vermeidet zugleich Layout-Sprünge.</p>
-
-      <div class="cb-wrap" style="margin-bottom:var(--s8)">
-        <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Featured-Block mit drei Varianten; JS toggelt .is-hidden je nach Filter --&gt;</span>
-<span class="k">&lt;section</span> <span class="v">id</span>=<span class="s">"wb-featured-section"</span><span class="k">&gt;</span>
-  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-section-label"</span><span class="k">&gt;</span>Featured<span class="k">&lt;/p&gt;</span>
-
-  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
-  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated is-hidden"</span> <span class="v">data-area</span>=<span class="s">"es"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
-  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated is-hidden"</span> <span class="v">data-area</span>=<span class="s">"wo"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
-<span class="k">&lt;/section&gt;</span></pre>
-      </div>
-      <div class="cb-wrap" style="margin-bottom:var(--s8)">
-        <div class="cb-header"><span class="cb-lang">JS</span></div>
-        <pre class="cb-body"><span class="c">// Filter-Klick: Featured und Grid in einer Operation umschalten</span>
-chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
-  const filter = chip.dataset.filter;          <span class="c">// 'all' | 'ki' | 'es' | 'wo'</span>
-  const target = filter === <span class="s">'all'</span> ? <span class="s">'ki'</span> : filter;
-
-  featuredCards.forEach(c =&gt;
-    c.classList.toggle(<span class="s">'is-hidden'</span>, c.dataset.area !== target));
-
-  gridCards.forEach(c =&gt;
-    c.classList.toggle(<span class="s">'is-hidden'</span>, filter !== <span class="s">'all'</span> &amp;&amp; c.dataset.area !== filter));
-});</pre>
-      </div>
-
       <h2 id="gt-listing-suche" class="group-title">Such-Verhalten</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Such-Konzept als Phase-1-Implementierung: vollständig client-side, ohne Backend. Funktioniert verlässlich bis ca. 100 Beiträge, danach lohnt eine indexierte Lösung (Algolia, Meilisearch, eigener Service).</p>
 
@@ -6027,6 +5997,36 @@ input.addEventListener(<span class="s">'input'</span>, () =&gt; {
     state.query = input.value;
     applyFilters();
   }, 300);
+});</pre>
+      </div>
+
+      <h2 id="gt-listing-featured" class="group-title">Filter-aware Featured</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Der Featured-Block enthält pro Bereich eine eigene Hero-Card. Alle drei Cards liegen im selben <code class="token">&lt;section id="wb-featured-section"&gt;</code> und tragen <code class="token">data-area="ki|es|wo"</code>. Per Default ist eine sichtbar, die anderen mit <code class="token">.is-hidden</code> verborgen. Beim Klick auf einen Filter-Chip blendet das JS die passende Variante ein. Für den Filter „Alle" zeigt der Default-Editorial-Pick (im Demo: der KI-Beitrag).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum diese Variante:</strong> Ein statisches Featured wäre simpler, würde aber beim Filtern auf andere Bereiche thematisch nicht zur Auswahl passen (etwa KI-Beitrag oben sichtbar, obwohl „Effektive Software" aktiv ist). Eine versteckte Featured-Section wiederum lässt das Layout beim Filterwechsel um die Höhe der Card springen. Ein Featured pro Bereich erhält die topische Kohärenz und vermeidet zugleich Layout-Sprünge.</p>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Featured-Block mit drei Varianten; JS toggelt .is-hidden je nach Filter --&gt;</span>
+<span class="k">&lt;section</span> <span class="v">id</span>=<span class="s">"wb-featured-section"</span><span class="k">&gt;</span>
+  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-section-label"</span><span class="k">&gt;</span>Featured<span class="k">&lt;/p&gt;</span>
+
+  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
+  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated is-hidden"</span> <span class="v">data-area</span>=<span class="s">"es"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
+  <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated is-hidden"</span> <span class="v">data-area</span>=<span class="s">"wo"</span> <span class="v">href</span>=<span class="s">"…"</span><span class="k">&gt;</span>…<span class="k">&lt;/a&gt;</span>
+<span class="k">&lt;/section&gt;</span></pre>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">JS</span></div>
+        <pre class="cb-body"><span class="c">// Filter-Klick: Featured und Grid in einer Operation umschalten</span>
+chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
+  const filter = chip.dataset.filter;          <span class="c">// 'all' | 'ki' | 'es' | 'wo'</span>
+  const target = filter === <span class="s">'all'</span> ? <span class="s">'ki'</span> : filter;
+
+  featuredCards.forEach(c =&gt;
+    c.classList.toggle(<span class="s">'is-hidden'</span>, c.dataset.area !== target));
+
+  gridCards.forEach(c =&gt;
+    c.classList.toggle(<span class="s">'is-hidden'</span>, filter !== <span class="s">'all'</span> &amp;&amp; c.dataset.area !== filter));
 });</pre>
       </div>
 
