@@ -5937,7 +5937,7 @@ document.documentElement
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Seite folgt einem Lesefluss von „Orientierung" über „kuratierte Empfehlung" zur „freien Erkundung":</p>
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
         <li><strong>Topnav</strong> (siehe&nbsp;<a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#sec-navigation">Navigation</a>): „Wissen" mit <code class="token">aria-current="page"</code>.</li>
-        <li><strong>Page-Header</strong>: Eyebrow, H1, Lead, Filter-Chips, optionales Such-Feld (<code class="token">role="search"</code> mit Magnifier-Icon und <code class="token">&lt;input type="search"&gt;</code>). Zentriert, max. 720 px für die Lead-Breite.</li>
+        <li><strong>Page-Header</strong>: Eyebrow, H1, Lead, optionales Such-Feld (<code class="token">role="search"</code> mit Magnifier-Icon und <code class="token">&lt;input type="search"&gt;</code>), Filter-Chips. Zentriert, max. 720 px für die Lead-Breite. Reihenfolge folgt der User-Intent: spezifische Suche zuerst, Browse-Filter danach.</li>
         <li><strong>Featured-Beitrag</strong>: zweispaltige Hero-Card (Bild links, Inhalt rechts). Bereichsspezifisch, Details im nächsten Abschnitt.</li>
         <li><strong>Beitrags-Grid</strong>: <code class="token">.card.card-elevated</code> in <code class="token">.col-4</code> mit Bild oben, Pill „Bereich · Lesezeit", Titel, Lead und CTA „Beitrag lesen →" am Karten-Unterrand.</li>
         <li><strong>„Mehr laden"-Block</strong> (optional, ab vielen Beiträgen): zentrierter Outline-Button mit Counter darunter (<code class="token">aria-live="polite"</code>), lädt die nächste Beitragsseite nach. Alternative zu Pagination oder Infinite-Scroll: Footer bleibt erreichbar, deterministisch zugänglich.</li>
@@ -6742,17 +6742,17 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s3)">Wissen</p>
             <h1 style="font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance">Wissensbeiträge</h1>
             <p style="font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 0 var(--s10);text-wrap:balance">Praxis-Insights aus den drei Bereichen: Angewandte KI, Effektive Software und Wirksame Organisationen. Klar geschrieben, ohne Hype.</p>
+            <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;margin:0 auto var(--s6);position:relative">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25" aria-hidden="true" focusable="false" style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+              </svg>
+              <input type="search" placeholder="Beitrag suchen" aria-label="Beiträge nach Stichwort durchsuchen" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
+            </div>
             <div style="display:flex;gap:var(--s2);justify-content:center;flex-wrap:wrap" role="toolbar" aria-label="Beiträge nach Bereich filtern">
               <button class="chip" type="button" aria-pressed="true" data-filter="all" data-area="co">Alle</button>
               <button class="chip" type="button" aria-pressed="false" data-filter="ki" data-area="ki">Angewandte KI</button>
               <button class="chip" type="button" aria-pressed="false" data-filter="es" data-area="es">Effektive Software</button>
               <button class="chip" type="button" aria-pressed="false" data-filter="wo" data-area="wo">Wirksame Organisationen</button>
-            </div>
-            <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;margin:var(--s6) auto 0;position:relative">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25" aria-hidden="true" focusable="false" style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
-              </svg>
-              <input type="search" placeholder="Beitrag suchen" aria-label="Beiträge nach Stichwort durchsuchen" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
             </div>
           </div>
         </header>
