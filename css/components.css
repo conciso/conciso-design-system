@@ -297,10 +297,13 @@
 .img-slider-btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .img-slider-prev{left:var(--s4)}
 .img-slider-next{right:var(--s4)}
-.img-slider-dots{display:flex;justify-content:center;gap:var(--s2);padding:var(--s4) 0;background:var(--bg-surface);position:relative;z-index:2}
-.img-dot{width:8px;height:8px;border-radius:50%;background:var(--n-200);border:2px solid transparent;cursor:pointer;padding:0;transition:background var(--m-fast),transform var(--m-fast)}
-.img-dot.active{background:var(--co-500);transform:scale(1.35)}
-.img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.img-slider-dots{display:flex;justify-content:center;padding:var(--s4) 0;background:var(--bg-surface);position:relative;z-index:2}
+/* Dot-Pattern: 24×24 Hit-Area (WCAG 2.5.5 AA) + 12×12 sichtbarer Punkt via ::before, gap:0 */
+.img-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.img-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.img-dot:hover::before{background:var(--n-400)}
+.img-dot.active::before{background:var(--co-500);transform:scale(1.25)}
+.img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
 /* Hero-Variante — vollflächig, 21:9-Format, Caption als Overlay über dem Bild */
 .img-slider-hero{border-radius:0}
 .img-slider-hero .img-slider-track{aspect-ratio:21/9;min-height:300px}
@@ -310,8 +313,8 @@
 .img-slider-hero .img-slide-caption-text{color:rgba(255,255,255,.8);height:auto;overflow:visible}
 .img-slider-hero .img-slider-btn{top:50%}
 .img-slider-hero .img-slider-dots{position:absolute;bottom:var(--s4);left:0;right:0;background:none;border:none;padding:0}
-.img-slider-hero .img-dot{background:rgba(255,255,255,.35)}
-.img-slider-hero .img-dot.active{background:#fff}
+.img-slider-hero .img-dot::before{background:rgba(255,255,255,.35)}
+.img-slider-hero .img-dot.active::before{background:#fff}
 
 /* ── Hero-Image (statische Variante der Slider-Hero, ohne Track/Buttons/Dots) ── */
 .hero-image{position:relative;overflow:hidden;margin:0}
@@ -358,10 +361,11 @@
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
 .logo-carousel .logo-tile{width:auto;min-width:0}
 .logo-carousel-dots{display:flex;justify-content:center;margin-top:var(--s5)}
-.logo-carousel-dot{width:16px;height:16px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
-.logo-carousel-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+/* Identischer Pattern wie .img-dot: 24×24 Hit-Area + 12×12 sichtbarer Punkt, gap:0 */
+.logo-carousel-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.logo-carousel-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
 .logo-carousel-dot:hover::before{background:var(--n-400)}
-.logo-carousel-dot[aria-selected="true"]::before{background:var(--co-500);transform:scale(1.4)}
+.logo-carousel-dot[aria-selected="true"]::before{background:var(--co-500);transform:scale(1.25)}
 .logo-carousel-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
 .logo-carousel-pause{position:absolute;top:var(--s2);right:var(--s2);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0;color:var(--n-500)}
 .logo-carousel:hover .logo-carousel-pause,.logo-carousel:focus-within .logo-carousel-pause{opacity:1}
