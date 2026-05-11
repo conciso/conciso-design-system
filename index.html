@@ -446,7 +446,7 @@
           <button class="btn btn-outlined btn-co">Outlined</button>
           <button class="btn btn-text btn-co">Text</button>
           <span class="badge" style="background:#E0F7F7;color:#004F4F">Corporate</span>
-          <button class="chip" aria-pressed="false" style="border-color:#00BEBE;color:#007575">Strategie</button>
+          <button class="chip" aria-pressed="false" data-area="co">Strategie</button>
           <button class="chip" aria-pressed="false">Kommunikation</button>
         </div>
       </div>
@@ -457,7 +457,7 @@
           <button class="btn btn-outlined btn-ai">Outlined</button>
           <button class="btn btn-text btn-ai">Text</button>
           <span class="badge" style="background:#F4FCD5;color:#475705">Angewandte KI</span>
-          <button class="chip" aria-pressed="false" style="border-color:#6B8208;color:#475705">LLM</button>
+          <button class="chip" aria-pressed="false" data-area="ki">LLM</button>
           <button class="chip" aria-pressed="false">Automation</button>
         </div>
       </div>
@@ -468,7 +468,7 @@
           <button class="btn btn-outlined btn-es">Outlined</button>
           <button class="btn btn-text btn-es">Text</button>
           <span class="badge" style="background:#EAF0FB;color:#112568">Effektive Software</span>
-          <button class="chip" aria-pressed="false" style="border-color:#2F5FD4;color:#1B3D9A">Engineering</button>
+          <button class="chip" aria-pressed="false" data-area="es">Engineering</button>
           <button class="chip" aria-pressed="false">Deployment</button>
         </div>
       </div>
@@ -479,7 +479,7 @@
           <button class="btn btn-outlined btn-wo">Outlined</button>
           <button class="btn btn-text btn-wo">Text</button>
           <span class="badge" style="background:#EBF5E6;color:#183A0E">Wirksame Organisationen</span>
-          <button class="chip" aria-pressed="false" style="border-color:#44A030;color:#285E1A">Change</button>
+          <button class="chip" aria-pressed="false" data-area="wo">Change</button>
           <button class="chip" aria-pressed="false">Leadership</button>
         </div>
       </div>
@@ -3870,28 +3870,28 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <div style="display:flex;flex-direction:column;gap:var(--s4)">
         <div><span class="lbl">Corporate</span>
           <div class="row">
-            <button class="chip" aria-pressed="false" style="border-color:var(--co-500);color:var(--co-700);background:var(--co-50)">Strategie</button>
+            <button class="chip" aria-pressed="false" data-area="co">Strategie</button>
             <button class="chip" aria-pressed="false">Kommunikation</button>
             <button class="chip" aria-pressed="false">Brand</button>
           </div>
         </div>
         <div><span class="lbl">Angewandte KI</span>
           <div class="row">
-            <button class="chip" aria-pressed="false" style="border-color:var(--ki-700);color:var(--ki-800);background:var(--ki-50)">AI.Engineering</button>
+            <button class="chip" aria-pressed="false" data-area="ki">AI.Engineering</button>
             <button class="chip" aria-pressed="false">AI.Automation</button>
             <button class="chip" aria-pressed="false">AI.Box</button>
           </div>
         </div>
         <div><span class="lbl">Effektive Software</span>
           <div class="row">
-            <button class="chip" aria-pressed="false" style="border-color:var(--es-500);color:var(--es-700);background:var(--es-50)">Engineering</button>
+            <button class="chip" aria-pressed="false" data-area="es">Engineering</button>
             <button class="chip" aria-pressed="false">Deployment</button>
             <button class="chip" aria-pressed="false">Qualität</button>
           </div>
         </div>
         <div><span class="lbl">Wirksame Organisationen</span>
           <div class="row">
-            <button class="chip" aria-pressed="false" style="border-color:var(--wo-500);color:var(--wo-700);background:var(--wo-50)">Change</button>
+            <button class="chip" aria-pressed="false" data-area="wo">Change</button>
             <button class="chip" aria-pressed="false">Leadership</button>
             <button class="chip" aria-pressed="false">Struktur</button>
           </div>
@@ -6743,9 +6743,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p style="font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 0 var(--s8);text-wrap:balance">Praxis-Insights aus den drei Bereichen: Angewandte KI, Effektive Software und Wirksame Organisationen. Klar geschrieben, ohne Hype.</p>
             <div style="display:flex;gap:var(--s2);justify-content:center;flex-wrap:wrap" role="toolbar" aria-label="Beiträge nach Bereich filtern">
               <button class="chip" type="button" aria-pressed="true" data-filter="all">Alle</button>
-              <button class="chip" type="button" aria-pressed="false" data-filter="ki">Angewandte KI</button>
-              <button class="chip" type="button" aria-pressed="false" data-filter="es">Effektive Software</button>
-              <button class="chip" type="button" aria-pressed="false" data-filter="wo">Wirksame Organisationen</button>
+              <button class="chip" type="button" aria-pressed="false" data-filter="ki" data-area="ki">Angewandte KI</button>
+              <button class="chip" type="button" aria-pressed="false" data-filter="es" data-area="es">Effektive Software</button>
+              <button class="chip" type="button" aria-pressed="false" data-filter="wo" data-area="wo">Wirksame Organisationen</button>
             </div>
           </div>
         </header>

@@ -60,6 +60,20 @@
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .chip[aria-pressed="true"]{background:var(--co-700);border-color:var(--co-700);color:#fff}
 .chip[aria-pressed="true"]:hover{background:var(--co-800);border-color:var(--co-800)}
+/* Area-aware Chips: Border + Text in Bereichsfarbe mit dezentem Tonal-Fill (inaktiv), gefüllt in dunklerer Variante mit weißer Schrift (aktiv, AA-konform) */
+.chip[data-area="co"]{border-color:var(--co-500);color:var(--co-700);background:var(--co-50)}
+.chip[data-area="ki"]{border-color:var(--ki-700);color:var(--ki-800);background:var(--ki-50)}
+.chip[data-area="es"]{border-color:var(--es-500);color:var(--es-700);background:var(--es-50)}
+.chip[data-area="wo"]{border-color:var(--wo-500);color:var(--wo-700);background:var(--wo-50)}
+.chip[data-area="co"]:hover{background:var(--co-100)}
+.chip[data-area="ki"]:hover{background:var(--ki-100)}
+.chip[data-area="es"]:hover{background:var(--es-100)}
+.chip[data-area="wo"]:hover{background:var(--wo-100)}
+.chip[data-area="co"][aria-pressed="true"]{background:var(--co-700);border-color:var(--co-700);color:#fff}
+.chip[data-area="ki"][aria-pressed="true"]{background:var(--ki-800);border-color:var(--ki-800);color:#fff}
+.chip[data-area="es"][aria-pressed="true"]{background:var(--es-700);border-color:var(--es-700);color:#fff}
+.chip[data-area="wo"][aria-pressed="true"]{background:var(--wo-700);border-color:var(--wo-700);color:#fff}
+.chip[data-area][aria-pressed="true"]:hover{filter:brightness(.92)}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
