@@ -16,7 +16,8 @@
 .bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
 
 /* ── Buttons ── */
-.btn{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px}
+.btn{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px;text-decoration:none}
+.btn:hover,.btn:focus,.btn:active{text-decoration:none}
 .btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .btn:active{transform:scale(.97)}
 .btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
@@ -54,9 +55,11 @@
 .badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
 .badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
 .badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast)}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.chip[aria-pressed="true"]{background:var(--co-700);border-color:var(--co-700);color:#fff}
+.chip[aria-pressed="true"]:hover{background:var(--co-800);border-color:var(--co-800)}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
@@ -188,7 +191,7 @@
 
 /* ── Footer ── */
 .footer{background:var(--n-700);color:var(--n-200);padding:var(--s10) var(--s8) var(--s6)}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)}
 .footer-brand{font:var(--ty-title-lg);margin-bottom:var(--s3)}
 .footer-desc{font:var(--ty-body-md);color:var(--n-200);margin:0}
 /* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
@@ -197,13 +200,17 @@
 .footer-subtitle:first-child{margin-top:0}
 .footer-nav-list{list-style:none;padding:0;margin:0}
 /* --n-200 (#C9D3D3) auf --n-700 (#1A2E2E) ≈ 12:1 AAA ✓ */
-.footer-link{display:block;font:var(--ty-body-md);color:var(--n-200);margin-bottom:var(--s2);text-decoration:none}
+/* padding:6px 0 vergrößert die Tap-Area auf ≈ 32 px, ohne den Textfluss zu stören */
+.footer-link{font:var(--ty-body-md);color:var(--n-200);text-decoration:none;padding:6px 0}
 .footer-link:hover{color:var(--n-0);text-decoration:underline}
 .footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* Block-Layout nur innerhalb der Footer-Listen, damit dieselbe Klasse auch inline in Body-Texten ohne Zeilenumbruch funktioniert; das Padding ersetzt das alte margin-bottom als visueller Abstand */
+.footer-nav-list .footer-link{display:block}
 /* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
 .footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;align-items:center;font:var(--ty-body-xs);color:var(--n-300);flex-wrap:wrap;gap:var(--s2)}
-.footer-btm-link{color:var(--n-300);text-decoration:none}
+.footer-btm-link{color:var(--n-300);text-decoration:none;padding:6px 0}
 .footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
+.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 .footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 
 /* ── A11y ── */
@@ -343,6 +350,29 @@
 .logo-slider-dark .logo-tile{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
 .logo-slider-dark .logo-tile:hover{border-color:rgba(255,255,255,.2);box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .logo-slider-dark .logo-placeholder{color:rgba(255,255,255,.3)}
+
+/* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
+.logo-carousel{position:relative;padding:var(--s4) 0}
+.logo-carousel-track{position:relative;display:grid;align-items:center;min-height:96px}
+.logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
+.logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.logo-carousel .logo-tile{width:auto;min-width:0}
+.logo-carousel-dots{display:flex;justify-content:center;margin-top:var(--s5)}
+.logo-carousel-dot{width:16px;height:16px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.logo-carousel-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.logo-carousel-dot:hover::before{background:var(--n-400)}
+.logo-carousel-dot[aria-selected="true"]::before{background:var(--co-500);transform:scale(1.4)}
+.logo-carousel-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+.logo-carousel-pause{position:absolute;top:var(--s2);right:var(--s2);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0;color:var(--n-500)}
+.logo-carousel:hover .logo-carousel-pause,.logo-carousel:focus-within .logo-carousel-pause{opacity:1}
+.logo-carousel.paused .logo-carousel-pause{opacity:1}
+.logo-carousel-pause:hover{color:var(--n-700);box-shadow:var(--e2)}
+.logo-carousel-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-carousel-pause .icon-play{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-pause{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-play{display:block}
+/* Reduced Motion: Transition aus, Autoplay wird per JS deaktiviert */
+@media(prefers-reduced-motion:reduce){.logo-carousel-slide{transition:none}}
 .logo-slider-dark .logo-tile:hover .logo-placeholder{color:rgba(255,255,255,.75)}
 
 /* ── Grid ── */
@@ -416,12 +446,12 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-hero-sub{font:var(--ty-body-lg);opacity:.85;margin-bottom:var(--s8);max-width:520px}
 .ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
 @media(max-width:900px){.ep-hero{flex-direction:column}.ep-hero-visual{display:none}}
-.ep-section{padding:var(--s12) var(--s8)}
+.ep-section{padding:var(--s12) var(--s8);text-align:left}
 .ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
 .ep-section-h2{font:var(--ty-display-md);color:var(--tx-primary);margin-bottom:var(--s2)}
 .ep-section-sub{font:var(--ty-body-md);margin-bottom:var(--s8)}
 .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
-.ep-card{border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
+.ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
 .ep-card-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
 .ep-card-icon svg{width:24px;height:24px}
 /* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
@@ -433,11 +463,15 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2)}
 .ep-card-text{font:var(--ty-body-md);color:var(--tx-secondary)}
 /* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
-.ep-card-link{display:block;text-decoration:none;color:inherit;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast)}
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast)}
 .ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
 .ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
-.ep-card-cta{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s4);display:inline-flex;align-items:center;gap:var(--s1)}
-.ep-card-link:hover .ep-card-cta{color:var(--co-800)}
+/* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
+.ep-card-cta{font:var(--ty-label-md);color:var(--co-700);margin-top:auto;padding-top:var(--s4);display:inline-flex;align-items:center;gap:var(--s1)}
+.ep-card[data-area="co"] .ep-card-cta{color:var(--co-700)}
+.ep-card[data-area="ki"] .ep-card-cta{color:var(--ki-800)}
+.ep-card[data-area="es"] .ep-card-cta{color:var(--es-700)}
+.ep-card[data-area="wo"] .ep-card-cta{color:var(--wo-700)}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
@@ -550,6 +584,20 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-avatar[data-area="es"]{background:var(--es-100);color:var(--es-700)}
 .article-avatar[data-area="wo"]{background:var(--wo-100);color:var(--wo-800)}
 .article-avatar-lg{width:64px;height:64px;font-size:20px}
+/* Multi-Author: Avatare gestapelt mit weißem Border-Halo zur visuellen Überlappung */
+.article-avatar-stack{display:inline-flex;align-items:center;flex-shrink:0}
+.article-avatar-stack .article-avatar{border:2px solid var(--bg-surface)}
+.article-avatar-stack .article-avatar + .article-avatar,
+.article-avatar-stack .article-avatar + .article-avatar-more{margin-left:-12px}
+.article-avatar-stack .article-avatar-lg + .article-avatar-lg,
+.article-avatar-stack .article-avatar-lg + .article-avatar-more{margin-left:-16px}
+/* "+N"-Indikator für 4+ Autor:innen */
+.article-avatar-more{width:40px;height:40px;border-radius:var(--r-full);background:var(--n-100);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--font);letter-spacing:.02em;flex-shrink:0;border:2px solid var(--bg-surface)}
+/* Author-Card-Group: mehrere Author-Cards untereinander am Artikelende */
+.author-card-group{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
+.author-card-group .author-card{margin:0;max-width:none}
+/* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
+.author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
 /* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
 .article-body{max-width:720px;margin:0 auto;font:var(--ty-body-lg);color:var(--tx-primary);line-height:1.7}
 .article-body > p{margin:0 0 var(--s5)}

@@ -96,6 +96,13 @@
   /* ── Motion ── */
   --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
 
+  /* ── Icon Stroke-Width ── */
+  --icon-stroke-micro:1;
+  --icon-stroke-sm:1.25;
+  --icon-stroke-md:1.5;
+  --icon-stroke-lg:2;
+  --icon-stroke-xl:2.5;
+
   /* ── Borders ── */
   --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
 

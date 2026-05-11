@@ -123,14 +123,111 @@
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
     btn.addEventListener('click', function() { activateExamplePage(btn.dataset.ep); });
   });
-  /* In-Page-Topnav-Links, Logo, Submenu-Items und klickbare Karten wechseln ebenfalls die Tabs */
-  document.querySelectorAll('.ep-page .ep-nav-btn[data-ep], .ep-page .ep-nav-sub-btn[data-ep], .ep-page .ep-logo[data-ep], .ep-page .ep-card-link[data-ep]').forEach(function(link) {
+  /* In-Page-Links mit data-ep (Topnav, Logo, Submenus, klickbare Karten, Breadcrumbs, Article-Cards) wechseln den Tab */
+  document.querySelectorAll('.ep-page a[data-ep]').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
       activateExamplePage(link.dataset.ep);
       var sec = document.getElementById('sec-examples');
       if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  });
+
+  /* ── Wissens-Übersicht: Filter-Chips (Mock) ── */
+  (function() {
+    var page = document.getElementById('ep-wb-uebersicht');
+    if (!page) return;
+    var chips = page.querySelectorAll('.chip[data-filter]');
+    var featuredCards = page.querySelectorAll('#wb-featured-section .card[data-area]');
+    var gridCards = page.querySelectorAll('.layout-grid > .card[data-area]');
+    chips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var filter = chip.dataset.filter;
+        chips.forEach(function(c) {
+          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+        });
+        // Featured: zeige Variante zum Filter („Alle" => KI als Default-Editor's-Pick)
+        var featuredTarget = (filter === 'all') ? 'ki' : filter;
+        featuredCards.forEach(function(card) {
+          card.classList.toggle('is-hidden', card.dataset.area !== featuredTarget);
+        });
+        // Grid: filtere Karten anhand data-area
+        gridCards.forEach(function(card) {
+          var match = (filter === 'all') || (card.dataset.area === filter);
+          card.classList.toggle('is-hidden', !match);
+        });
+      });
+    });
+  })();
+
+  /* ── Logo-Carousel (Crossfade, pausierbar, Tastatur-zugänglich) ── */
+  document.querySelectorAll('.logo-carousel').forEach(function(carousel) {
+    var slides = Array.from(carousel.querySelectorAll('.logo-carousel-slide'));
+    var dots = Array.from(carousel.querySelectorAll('.logo-carousel-dot'));
+    var pauseBtn = carousel.querySelector('.logo-carousel-pause');
+    var total = slides.length;
+    if (total < 2) return;
+    var current = 0;
+    var timer = null;
+    var DURATION = 6000;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function goTo(index) {
+      current = (index + total) % total;
+      slides.forEach(function(s, i) {
+        s.setAttribute('aria-hidden', i !== current ? 'true' : 'false');
+      });
+      dots.forEach(function(d, i) {
+        d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+        d.setAttribute('tabindex', i === current ? '0' : '-1');
+      });
+    }
+    function start() {
+      if (reducedMotion) return;
+      stop();
+      timer = setInterval(function() { goTo(current + 1); }, DURATION);
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function setPaused(paused) {
+      if (paused) {
+        stop();
+        carousel.classList.add('paused');
+        if (pauseBtn) { pauseBtn.setAttribute('aria-pressed', 'true'); pauseBtn.setAttribute('aria-label', 'Logo-Animation fortsetzen'); }
+      } else {
+        start();
+        carousel.classList.remove('paused');
+        if (pauseBtn) { pauseBtn.setAttribute('aria-pressed', 'false'); pauseBtn.setAttribute('aria-label', 'Logo-Animation pausieren'); }
+      }
+    }
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() { goTo(i); setPaused(true); });
+    });
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function() {
+        setPaused(!carousel.classList.contains('paused'));
+      });
+    }
+    carousel.addEventListener('keydown', function(e) {
+      if (!e.target.classList.contains('logo-carousel-dot')) return;
+      var handled = true;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { goTo(current - 1); }
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { goTo(current + 1); }
+      else if (e.key === 'Home') { goTo(0); }
+      else if (e.key === 'End') { goTo(total - 1); }
+      else { handled = false; }
+      if (handled) { e.preventDefault(); dots[current].focus(); setPaused(true); }
+    });
+    /* Pause bei Hover und Tastatur-Fokus (Best Practice für Auto-Karussells) */
+    carousel.addEventListener('mouseenter', function() { if (!carousel.classList.contains('paused')) stop(); });
+    carousel.addEventListener('mouseleave', function() { if (!carousel.classList.contains('paused')) start(); });
+    carousel.addEventListener('focusin', function() { if (!carousel.classList.contains('paused')) stop(); });
+    carousel.addEventListener('focusout', function(e) {
+      if (!carousel.classList.contains('paused') && !carousel.contains(e.relatedTarget)) start();
+    });
+
+    goTo(0);
+    start();
   });
 
   /* ── Bild-Slider (Carousel) ── */
