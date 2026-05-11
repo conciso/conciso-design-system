@@ -267,6 +267,7 @@
     <div class="nav-subnav" data-for="listing">
       <a class="nav-sub-item" href="#gt-listing-aufbau">Aufbau</a>
       <a class="nav-sub-item" href="#gt-listing-featured">Filter-aware Featured</a>
+      <a class="nav-sub-item" href="#gt-listing-suche">Such-Verhalten</a>
       <a class="nav-sub-item" href="#gt-listing-verwendung">Verwendung</a>
     </div>
 
@@ -5979,6 +5980,56 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 });</pre>
       </div>
 
+      <h2 id="gt-listing-suche" class="group-title">Such-Verhalten</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Such-Konzept als Phase-1-Implementierung: vollständig client-side, ohne Backend. Funktioniert verlässlich bis ca. 100 Beiträge, danach lohnt eine indexierte Lösung (Algolia, Meilisearch, eigener Service).</p>
+
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Such-Logik</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Aspekt</th><th>Verhalten</th></tr></thead>
+        <tbody>
+          <tr><td>Instant-Search</td><td>Filtert beim Tippen mit 300&nbsp;ms Debounce. Kein Submit, keine separate Result-Page, Cards aktualisieren sich live im Grid.</td></tr>
+          <tr><td>Such-Scope</td><td>Pro Card werden <strong>Title + Lead + Pill</strong> durchsucht (case-insensitive Substring-Match). Body-Text bewusst ausgespart: zu teuer client-side, erzeugt False Positives.</td></tr>
+          <tr><td>Kombination mit Filter</td><td><strong>AND-Logik</strong>: aktiver Bereichs-Filter + Suche ergibt die engere Schnittmenge. Wenn nichts mehr passt, erscheint der Empty State mit Reset-CTA.</td></tr>
+          <tr><td>Featured-Verhalten</td><td>Featured-Section wird bei aktiver Suche <strong>komplett ausgeblendet</strong>. Featured ist redaktionell kuratiert, nicht algorithmisch, daher nicht such-relevant.</td></tr>
+          <tr><td>Live-Count</td><td><code class="token">.wb-result-count</code> mit <code class="token">role="status" aria-live="polite"</code> kündigt Treffer-Anzahl Screenreader-seitig an. Nur während aktiver Suche sichtbar.</td></tr>
+          <tr><td>Empty State</td><td>Eigener Block ersetzt das Grid, kontextueller Detailtext („Für 'XYZ' in Bereich Y …"), zwei Exit-Pfade: Reset und Newsletter.</td></tr>
+          <tr><td>„Mehr laden"-Verhalten</td><td>Block wird bei aktiver Suche ausgeblendet (Such-Treffer sind in der Regel überschaubar). Bei Filter-only bleibt er aktiv.</td></tr>
+        </tbody>
+      </table>
+
+      <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Tastatur &amp; A11y</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Eingabe</th><th>Aktion</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">/</code></td><td>Global-Shortcut: fokussiert das Such-Feld, wenn die Wissens-Übersicht aktiv ist und der Fokus nicht in einem anderen Eingabefeld liegt. Im Placeholder als Hint („Beitrag suchen   /") angedeutet.</td></tr>
+          <tr><td><code class="token">Esc</code></td><td>Leert das Such-Feld, Fokus bleibt im Feld. Filter werden nicht zurückgesetzt.</td></tr>
+          <tr><td><code class="token">role="search"</code></td><td>Landmark um das gesamte Such-Feld, Screenreader können direkt dorthin springen.</td></tr>
+          <tr><td><code class="token">&lt;input type="search"&gt;</code></td><td>Natives Such-Input mit Browser-X-Button zum Leeren, aria-label statt sichtbarem Label.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">JS · Such-Filter-Logik (vereinfacht)</span></div>
+<pre class="cb-body"><span class="c">// Title + Lead + Pill als Haystack pro Card</span>
+function matchesQuery(card, q) {
+  if (!q) return true;
+  const title = card.querySelector(<span class="s">'.card-title, h2'</span>)?.textContent ?? <span class="s">''</span>;
+  const lead  = card.querySelector(<span class="s">'.card-text, p'</span>)?.textContent ?? <span class="s">''</span>;
+  const pill  = card.querySelector(<span class="s">'.pill'</span>)?.textContent ?? <span class="s">''</span>;
+  return (title + <span class="s">' '</span> + lead + <span class="s">' '</span> + pill)
+    .toLowerCase().includes(q.toLowerCase());
+}
+
+<span class="c">// AND aus Filter + Suche, live mit 300ms Debounce</span>
+input.addEventListener(<span class="s">'input'</span>, () =&gt; {
+  clearTimeout(timer);
+  timer = setTimeout(() =&gt; {
+    state.query = input.value;
+    applyFilters();
+  }, 300);
+});</pre>
+      </div>
+
       <h2 id="gt-listing-verwendung" class="group-title">Verwendung</h2>
       <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Technische Regeln</div>
       <table class="doc-table" style="margin-bottom:var(--s8)">
@@ -6742,12 +6793,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s3)">Wissen</p>
             <h1 style="font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance">Wissensbeiträge</h1>
             <p style="font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 0 var(--s10);text-wrap:balance">Praxis-Insights aus den drei Bereichen: Angewandte KI, Effektive Software und Wirksame Organisationen. Klar geschrieben, ohne Hype.</p>
-            <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;margin:0 auto var(--s6);position:relative">
+            <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;margin:0 auto var(--s4);position:relative">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25" aria-hidden="true" focusable="false" style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
               </svg>
-              <input type="search" placeholder="Beitrag suchen" aria-label="Beiträge nach Stichwort durchsuchen" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
+              <input id="wb-search-input" type="search" placeholder="Beitrag suchen   /" aria-label="Beiträge nach Stichwort durchsuchen" autocomplete="off" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
             </div>
+            <p class="wb-result-count" role="status" aria-live="polite" style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 auto var(--s6);min-height:1.5em;text-align:center"></p>
             <div style="display:flex;gap:var(--s2);justify-content:center;flex-wrap:wrap" role="toolbar" aria-label="Beiträge nach Bereich filtern">
               <button class="chip" type="button" aria-pressed="true" data-filter="all" data-area="co">Alle</button>
               <button class="chip" type="button" aria-pressed="false" data-filter="ki" data-area="ki">Angewandte KI</button>
@@ -6873,9 +6925,17 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
 
           </div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin-top:var(--s10)">
+          <div class="wb-empty-state is-hidden" style="text-align:center;padding:var(--s10) var(--s5)">
+            <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Keine Beiträge gefunden.</p>
+            <p class="wb-empty-state-detail" style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5);max-width:480px;margin-left:auto;margin-right:auto"></p>
+            <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap">
+              <button class="btn btn-outlined wb-reset-search" type="button" style="--c500:var(--co-700)">Suche &amp; Filter zurücksetzen</button>
+              <button class="btn btn-text" type="button" style="--c500:var(--co-700)">Newsletter abonnieren <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+          <div class="wb-load-more" style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin-top:var(--s10)">
             <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Mehr Beiträge laden</button>
-            <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0" aria-live="polite">6 von 24 Beiträgen</p>
+            <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">6 von 24 Beiträgen</p>
           </div>
         </section>
 

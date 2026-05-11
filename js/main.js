@@ -133,31 +133,154 @@
     });
   });
 
-  /* ── Wissens-Übersicht: Filter-Chips (Mock) ── */
+  /* ── Wissens-Übersicht: Filter-Chips + Suche (Phase 1: client-side, Title+Lead+Pill) ── */
   (function() {
     var page = document.getElementById('ep-wb-uebersicht');
     if (!page) return;
     var chips = page.querySelectorAll('.chip[data-filter]');
+    var searchInput = page.querySelector('#wb-search-input');
+    var featuredSection = page.querySelector('#wb-featured-section');
     var featuredCards = page.querySelectorAll('#wb-featured-section .card[data-area]');
     var gridCards = page.querySelectorAll('.layout-grid > .card[data-area]');
-    chips.forEach(function(chip) {
-      chip.addEventListener('click', function() {
-        var filter = chip.dataset.filter;
-        chips.forEach(function(c) {
-          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-        });
-        // Featured: zeige Variante zum Filter („Alle" => KI als Default-Editor's-Pick)
-        var featuredTarget = (filter === 'all') ? 'ki' : filter;
+    var resultCount = page.querySelector('.wb-result-count');
+    var emptyState = page.querySelector('.wb-empty-state');
+    var emptyDetail = page.querySelector('.wb-empty-state-detail');
+    var loadMore = page.querySelector('.wb-load-more');
+    var resetBtn = page.querySelector('.wb-reset-search');
+
+    var state = { filter: 'all', query: '' };
+    var debounceTimer = null;
+
+    function cardSearchHaystack(card) {
+      // Liest Title + Lead + Pill aus der Card (für Grid- und Featured-Cards)
+      var title = (card.querySelector('.card-title, h2') || {}).textContent || '';
+      var lead = (card.querySelector('.card-text, p') || {}).textContent || '';
+      var pill = (card.querySelector('.pill') || {}).textContent || '';
+      return (title + ' ' + lead + ' ' + pill).toLowerCase();
+    }
+    function matchesQuery(card, q) {
+      if (!q) return true;
+      return cardSearchHaystack(card).indexOf(q.toLowerCase()) !== -1;
+    }
+
+    function applyFilters() {
+      var q = state.query.trim();
+      var f = state.filter;
+      var hasQuery = q.length > 0;
+      var visibleGridCount = 0;
+
+      // Featured-Section: bei aktiver Suche komplett ausblenden, sonst Filter-aware
+      if (hasQuery) {
+        if (featuredSection) featuredSection.classList.add('is-hidden');
+      } else {
+        if (featuredSection) featuredSection.classList.remove('is-hidden');
+        var featuredTarget = (f === 'all') ? 'ki' : f;
         featuredCards.forEach(function(card) {
           card.classList.toggle('is-hidden', card.dataset.area !== featuredTarget);
         });
-        // Grid: filtere Karten anhand data-area
-        gridCards.forEach(function(card) {
-          var match = (filter === 'all') || (card.dataset.area === filter);
-          card.classList.toggle('is-hidden', !match);
+      }
+
+      // Grid: AND-Logik aus Filter + Suche
+      gridCards.forEach(function(card) {
+        var areaMatch = (f === 'all') || (card.dataset.area === f);
+        var searchMatch = matchesQuery(card, q);
+        var show = areaMatch && searchMatch;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visibleGridCount++;
+      });
+
+      // Empty State und Load-More
+      var isEmpty = visibleGridCount === 0;
+      if (emptyState) emptyState.classList.toggle('is-hidden', !isEmpty);
+      if (loadMore) loadMore.classList.toggle('is-hidden', isEmpty || hasQuery);
+
+      // Empty-State-Detail-Text
+      if (isEmpty && emptyDetail) {
+        if (hasQuery && f !== 'all') {
+          emptyDetail.textContent = 'Für „' + q + '" im Bereich ' + chipLabel(f) + ' gibt es aktuell keine Beiträge.';
+        } else if (hasQuery) {
+          emptyDetail.textContent = 'Für „' + q + '" gibt es aktuell keine Beiträge.';
+        } else if (f !== 'all') {
+          emptyDetail.textContent = 'Im Bereich ' + chipLabel(f) + ' sind aktuell keine Beiträge hinterlegt.';
+        } else {
+          emptyDetail.textContent = '';
+        }
+      }
+
+      // Live-Count: nur während aktiver Suche
+      if (resultCount) {
+        if (hasQuery) {
+          resultCount.textContent = visibleGridCount + ' ' + (visibleGridCount === 1 ? 'Treffer' : 'Treffer') + ' für „' + q + '"';
+        } else {
+          resultCount.textContent = '';
+        }
+      }
+    }
+
+    function chipLabel(f) {
+      var labels = { ki: 'Angewandte KI', es: 'Effektive Software', wo: 'Wirksame Organisationen' };
+      return labels[f] || '';
+    }
+
+    // Filter-Chip-Klicks
+    chips.forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        state.filter = chip.dataset.filter;
+        chips.forEach(function(c) {
+          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
         });
+        applyFilters();
       });
     });
+
+    // Such-Input mit Debounce (300 ms)
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(function() {
+          state.query = searchInput.value;
+          applyFilters();
+        }, 300);
+      });
+      // Escape leert die Suche, Fokus bleibt
+      searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && searchInput.value) {
+          searchInput.value = '';
+          state.query = '';
+          applyFilters();
+          e.preventDefault();
+        }
+      });
+    }
+
+    // Global „/"-Shortcut fokussiert die Suche, wenn die Wissens-Übersicht aktiv ist
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== '/') return;
+      var active = document.activeElement;
+      if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) return;
+      if (!page.classList.contains('visible')) return;
+      if (searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+
+    // Reset-Button im Empty State
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function() {
+        if (searchInput) searchInput.value = '';
+        state.query = '';
+        state.filter = 'all';
+        chips.forEach(function(c) {
+          c.setAttribute('aria-pressed', c.dataset.filter === 'all' ? 'true' : 'false');
+        });
+        applyFilters();
+        if (searchInput) searchInput.focus();
+      });
+    }
+
+    // Init: setze initial-State
+    applyFilters();
   })();
 
   /* ── Logo-Carousel (Crossfade, pausierbar, Tastatur-zugänglich) ── */
