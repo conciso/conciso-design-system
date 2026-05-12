@@ -164,26 +164,49 @@
     });
   });
 
-  /* ── Wissens-Übersicht: Filter-Chips + Suche (Phase 1: client-side, Title+Lead+Pill) ── */
-  (function() {
-    var page = document.getElementById('ep-wb-uebersicht');
+  /* In-Page-Anker innerhalb derselben ep-page (z. B. „Platz sichern" → #ev-anmeldung):
+     Browser-Default ist Hard-Jump und bricht den „Ruhig"-Markenwert. Hier sanftes Scrollen,
+     respektiert prefers-reduced-motion und greift nur, wenn das Ziel in derselben ep-page liegt. */
+  document.querySelectorAll('.ep-page a[href^="#"]:not([data-ep])').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = link.getAttribute('href');
+      if (href.length < 2) return;
+      var target = document.getElementById(href.slice(1));
+      if (!target) return;
+      var ownPage = link.closest('.ep-page');
+      if (!ownPage || !ownPage.contains(target)) return;
+      e.preventDefault();
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  /* ── Listing-Pages (Wissen-Übersicht, Veranstaltungen-Übersicht): Filter-Chips + Suche ──
+     Client-side Suche über Title + Lead + Pill, AND-Logik mit Bereichs-Filter.
+     Featured-Section ist filter-aware (eine Variante pro Bereich) und wird bei Suche ausgeblendet. */
+  function setupListPage(opts) {
+    var page = document.getElementById(opts.pageId);
     if (!page) return;
+    var prefix = opts.prefix;
+    var defaultFeaturedArea = opts.defaultFeaturedArea || 'ki';
+    var noun = opts.noun;
+    var nounPluralDat = opts.nounPluralDat; // für „keine X hinterlegt"
+
     var chips = page.querySelectorAll('.chip[data-filter]');
-    var searchInput = page.querySelector('#wb-search-input');
-    var featuredSection = page.querySelector('#wb-featured-section');
-    var featuredCards = page.querySelectorAll('#wb-featured-section .card[data-area]');
+    var searchInput = page.querySelector('#' + prefix + '-search-input');
+    var featuredSection = page.querySelector('#' + prefix + '-featured-section');
+    var featuredCards = featuredSection ? featuredSection.querySelectorAll('.card[data-area]') : [];
     var gridCards = page.querySelectorAll('.layout-grid > .card[data-area]');
-    var resultCount = page.querySelector('.wb-result-count');
-    var emptyState = page.querySelector('.wb-empty-state');
-    var emptyDetail = page.querySelector('.wb-empty-state-detail');
-    var loadMore = page.querySelector('.wb-load-more');
-    var resetBtn = page.querySelector('.wb-reset-search');
+    var resultCount = page.querySelector('.' + prefix + '-result-count');
+    var emptyState = page.querySelector('.' + prefix + '-empty-state');
+    var emptyDetail = page.querySelector('.' + prefix + '-empty-state-detail');
+    var loadMore = page.querySelector('.' + prefix + '-load-more');
+    var resetBtn = page.querySelector('.' + prefix + '-reset-search');
 
     var state = { filter: 'all', query: '' };
     var debounceTimer = null;
 
     function cardSearchHaystack(card) {
-      // Liest Title + Lead + Pill aus der Card (für Grid- und Featured-Cards)
       var title = (card.querySelector('.card-title, h2') || {}).textContent || '';
       var lead = (card.querySelector('.card-text, p') || {}).textContent || '';
       var pill = (card.querySelector('.pill') || {}).textContent || '';
@@ -193,6 +216,10 @@
       if (!q) return true;
       return cardSearchHaystack(card).indexOf(q.toLowerCase()) !== -1;
     }
+    function chipLabel(f) {
+      var labels = { ki: 'Angewandte KI', es: 'Effektive Software', wo: 'Wirksame Organisationen' };
+      return labels[f] || '';
+    }
 
     function applyFilters() {
       var q = state.query.trim();
@@ -200,18 +227,16 @@
       var hasQuery = q.length > 0;
       var visibleGridCount = 0;
 
-      // Featured-Section: bei aktiver Suche komplett ausblenden, sonst Filter-aware
       if (hasQuery) {
         if (featuredSection) featuredSection.classList.add('is-hidden');
       } else {
         if (featuredSection) featuredSection.classList.remove('is-hidden');
-        var featuredTarget = (f === 'all') ? 'ki' : f;
+        var featuredTarget = (f === 'all') ? defaultFeaturedArea : f;
         featuredCards.forEach(function(card) {
           card.classList.toggle('is-hidden', card.dataset.area !== featuredTarget);
         });
       }
 
-      // Grid: AND-Logik aus Filter + Suche
       gridCards.forEach(function(card) {
         var areaMatch = (f === 'all') || (card.dataset.area === f);
         var searchMatch = matchesQuery(card, q);
@@ -220,40 +245,31 @@
         if (show) visibleGridCount++;
       });
 
-      // Empty State und Load-More
       var isEmpty = visibleGridCount === 0;
       if (emptyState) emptyState.classList.toggle('is-hidden', !isEmpty);
       if (loadMore) loadMore.classList.toggle('is-hidden', isEmpty || hasQuery);
 
-      // Empty-State-Detail-Text
       if (isEmpty && emptyDetail) {
         if (hasQuery && f !== 'all') {
-          emptyDetail.textContent = 'Für „' + q + '" im Bereich ' + chipLabel(f) + ' gibt es aktuell keine Beiträge.';
+          emptyDetail.textContent = 'Für „' + q + '" im Bereich ' + chipLabel(f) + ' gibt es aktuell keine ' + nounPluralDat + '.';
         } else if (hasQuery) {
-          emptyDetail.textContent = 'Für „' + q + '" gibt es aktuell keine Beiträge.';
+          emptyDetail.textContent = 'Für „' + q + '" gibt es aktuell keine ' + nounPluralDat + '.';
         } else if (f !== 'all') {
-          emptyDetail.textContent = 'Im Bereich ' + chipLabel(f) + ' sind aktuell keine Beiträge hinterlegt.';
+          emptyDetail.textContent = 'Im Bereich ' + chipLabel(f) + ' sind aktuell keine ' + nounPluralDat + ' hinterlegt.';
         } else {
           emptyDetail.textContent = '';
         }
       }
 
-      // Live-Count: nur während aktiver Suche
       if (resultCount) {
         if (hasQuery) {
-          resultCount.textContent = visibleGridCount + ' ' + (visibleGridCount === 1 ? 'Treffer' : 'Treffer') + ' für „' + q + '"';
+          resultCount.textContent = visibleGridCount + ' Treffer für „' + q + '"';
         } else {
           resultCount.textContent = '';
         }
       }
     }
 
-    function chipLabel(f) {
-      var labels = { ki: 'Angewandte KI', es: 'Effektive Software', wo: 'Wirksame Organisationen' };
-      return labels[f] || '';
-    }
-
-    // Filter-Chip-Klicks
     chips.forEach(function(chip) {
       chip.addEventListener('click', function() {
         state.filter = chip.dataset.filter;
@@ -264,7 +280,6 @@
       });
     });
 
-    // Such-Input mit Debounce (300 ms)
     if (searchInput) {
       searchInput.addEventListener('input', function() {
         clearTimeout(debounceTimer);
@@ -273,7 +288,6 @@
           applyFilters();
         }, 300);
       });
-      // Escape leert die Suche, Fokus bleibt
       searchInput.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && searchInput.value) {
           searchInput.value = '';
@@ -284,7 +298,7 @@
       });
     }
 
-    // Global „/"-Shortcut fokussiert die Suche, wenn die Wissens-Übersicht aktiv ist
+    // Global „/"-Shortcut fokussiert die Suche, wenn diese Listing-Page aktiv ist
     document.addEventListener('keydown', function(e) {
       if (e.key !== '/') return;
       var active = document.activeElement;
@@ -296,7 +310,6 @@
       }
     });
 
-    // Reset-Button im Empty State
     if (resetBtn) {
       resetBtn.addEventListener('click', function() {
         if (searchInput) searchInput.value = '';
@@ -310,9 +323,11 @@
       });
     }
 
-    // Init: setze initial-State
     applyFilters();
-  })();
+  }
+
+  setupListPage({ pageId: 'ep-wb-uebersicht', prefix: 'wb', defaultFeaturedArea: 'ki', noun: 'Beitrag', nounPluralDat: 'Beiträge' });
+  setupListPage({ pageId: 'ep-ev-uebersicht', prefix: 'ev', defaultFeaturedArea: 'es', noun: 'Veranstaltung', nounPluralDat: 'Veranstaltungen' });
 
   /* ── Logo-Carousel (Crossfade, pausierbar, Tastatur-zugänglich) ── */
   document.querySelectorAll('.logo-carousel').forEach(function(carousel) {
