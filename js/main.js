@@ -142,7 +142,10 @@
     }
   });
 
-  /* ── Beispielseiten: Tab-Wechsel ── */
+  /* ── Beispielseiten: Tab-Wechsel ──
+     Scroll an den Anfang von sec-examples, damit der User die neue ep-page von oben sieht.
+     Ohne Scroll bleibt die alte Scroll-Y-Position erhalten und der User landet je nach
+     Höhe der neuen ep-page mitten in der Seite (z. B. direkt im Anmeldeformular). */
   function activateExamplePage(epKey) {
     document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
@@ -150,6 +153,11 @@
     var page = document.getElementById('ep-' + epKey);
     if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
     if (page) page.classList.add('visible');
+    var sec = document.getElementById('sec-examples');
+    if (sec) {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      sec.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+    }
   }
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
     btn.addEventListener('click', function() { activateExamplePage(btn.dataset.ep); });
@@ -159,8 +167,6 @@
     link.addEventListener('click', function(e) {
       e.preventDefault();
       activateExamplePage(link.dataset.ep);
-      var sec = document.getElementById('sec-examples');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
