@@ -49,6 +49,37 @@
     });
   });
 
+  /* ── Prose anchor links to other sections ──
+     A plain <a href="#X"> can't reach a target whose parent .ds-section is currently hidden.
+     This handler resolves the target's section, switches to it if needed, scrolls to X, and
+     if the link carries data-ep (Beispielseiten-Tab), also activates that example tab. */
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    if (a.classList.contains('nav-sub-item') || a.classList.contains('nav-item')) return;
+    if (a.closest('.ep-page')) return; // Links inside example pages are handled separately
+    var href = a.getAttribute('href');
+    if (href.length < 2) return;
+    var target = document.getElementById(href.slice(1));
+    if (!target) return;
+    var section = target.classList.contains('ds-section') ? target : target.closest('.ds-section');
+    if (!section || !section.id) return;
+    var key = section.id.replace(/^sec-/, '');
+    var sectionAlreadyVisible = section.classList.contains('visible');
+    var epKey = a.dataset.ep;
+    if (!sectionAlreadyVisible || epKey) {
+      e.preventDefault();
+      if (!sectionAlreadyVisible) {
+        activateSection(key);
+        localStorage.setItem('ds-active-section', key);
+      }
+      if (epKey) activateExamplePage(epKey);
+      if (target !== section) {
+        requestAnimationFrame(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      }
+    }
+  });
+
   /* ── Back-to-top button ── */
   var backBtn = document.getElementById('back-to-top');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

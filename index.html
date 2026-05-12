@@ -219,20 +219,24 @@
       <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6"/></svg>Slider & Carousel
     </button>
     <div class="nav-subnav" data-for="slider">
-      <a class="nav-sub-item" href="#gt-carousel-hero">Hero-Variante</a>
       <a class="nav-sub-item" href="#gt-carousel-inline">Seiten-Integration</a>
       <a class="nav-sub-item" href="#gt-logo-carousel">Logo-Karussell</a>
     </div>
     <button class="nav-item" data-section="navigation">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>Navigation & Hero
+      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>Navigation
     </button>
     <div class="nav-subnav" data-for="navigation">
-      <a class="nav-sub-item" href="#gt-nav-hero-static">Statischer Hero</a>
-      <a class="nav-sub-item" href="#gt-nav-hero-image">Hero-Image</a>
-      <a class="nav-sub-item" href="#gt-nav-hero-substrip">Reduzierte Sub-Sektion</a>
       <a class="nav-sub-item" href="#gt-nav-topnav">Customer-Topnav</a>
       <a class="nav-sub-item" href="#gt-nav-back-to-top">Back-to-Top-Button</a>
       <a class="nav-sub-item" href="#gt-nav-verwendung">Verwendung</a>
+    </div>
+    <button class="nav-item" data-section="hero">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"/></svg>Hero-Patterns
+    </button>
+    <div class="nav-subnav" data-for="hero">
+      <a class="nav-sub-item" href="#gt-nav-hero-image">Hero-Image</a>
+      <a class="nav-sub-item" href="#gt-carousel-hero">Slider-Hero</a>
+      <a class="nav-sub-item" href="#gt-nav-hero-substrip">Reduzierte Sub-Sektion</a>
     </div>
     <button class="nav-item" data-section="footer">
       <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"/></svg>Footer
@@ -1661,189 +1665,78 @@
 
     <!-- ═══ NAVIGATION ═══ -->
     <section class="ds-section" id="sec-navigation">
-      <h1 class="sec-title">Navigation & Hero</h1>
-      <p class="sec-sub">Top App Bar (64px) mit Logo, Bereichslinks und CTA · Hero mit Eyebrow, Headline, Sub-Text und max. 2 Aktionen.</p>
+      <h1 class="sec-title">Navigation</h1>
+      <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, drei Top-Items (Leistungen · Wissen · Über uns) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#sec-hero">Hero</a>.</p>
 
-      <!-- ── Demos ── -->
-      <div style="display:flex;flex-direction:column;gap:var(--s6)">
+      <!-- ── Live-Demo: ep-topnav (Produktion) ── -->
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Über uns), Kontakt-Button rechts. Aktiver Eintrag wird ausschließlich über <code class="token">aria-current="page"</code> + Brand-Petrol-Farbe markiert.</p>
 
-        <!-- Corporate -->
-        <div>
-          <span class="lbl" style="margin-bottom:var(--s3)">Corporate</span>
-          <div class="nav-demo">
-            <div class="nav-bar">
-              <span class="logo-text" style="color:var(--co-500)">conciso.</span>
-              <div class="nav-links">
-                <button class="nav-link" style="color:var(--co-700);background:var(--co-50);font-weight:700">Corporate</button>
-                <button class="nav-link">Angewandte KI</button>
-                <button class="nav-link">Effektive Software</button>
-                <button class="nav-link">Wirksame Organisationen</button>
-              </div>
-              <button class="btn btn-filled btn-sm btn-co">Kontakt</button>
-            </div>
-            <div class="hero-section" style="background:linear-gradient(135deg,var(--co-50) 0%,var(--bg-surface) 55%)">
-              <span class="eyebrow" style="color:var(--co-700)">Marke &amp; Kommunikation</span>
-              <h1 class="hero-h1">Gelassenheit.<br><span style="color:var(--co-700)">Als Wettbewerbsvorteil.</span></h1>
-              <p class="hero-sub">Klare Positionierung, starke Marke, konsistente Kommunikation, damit dein Unternehmen auch morgen noch überzeugt.</p>
-              <div class="hero-actions">
-                <button class="btn btn-filled btn-lg btn-co">Beratung anfragen</button>
-                <button class="btn btn-outlined btn-lg btn-co">Referenzen ansehen</button>
+      <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
+      <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
+        <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
               </div>
             </div>
-          </div>
+            <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
+          </nav>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
         </div>
-
-        <!-- Angewandte KI -->
-        <div>
-          <span class="lbl" style="margin-bottom:var(--s3)">Angewandte KI</span>
-          <div class="nav-demo">
-            <div class="nav-bar">
-              <span class="logo-text" style="color:var(--ki-800)">conciso.</span>
-              <div class="nav-links">
-                <button class="nav-link">Corporate</button>
-                <button class="nav-link" style="color:var(--ki-800);background:var(--ki-50);font-weight:700">Angewandte KI</button>
-                <button class="nav-link">Effektive Software</button>
-                <button class="nav-link">Wirksame Organisationen</button>
-              </div>
-              <button class="btn btn-filled btn-sm btn-ai">Kontakt</button>
-            </div>
-            <div class="hero-section" style="background:linear-gradient(135deg,var(--ki-50) 0%,var(--bg-surface) 55%)">
-              <span class="eyebrow" style="color:var(--ki-800)">Strategie &amp; Umsetzung</span>
-              <h1 class="hero-h1">KI, die wirkt.<br><span style="color:var(--ki-800)">Heute.</span></h1>
-              <p class="hero-sub">Vom Piloten in die Produktion, mit klarer Methodik, echtem Mehrwert und einem Team, das KI wirklich versteht.</p>
-              <div class="hero-actions">
-                <button class="btn btn-filled btn-lg btn-ai">KI-Readiness prüfen</button>
-                <button class="btn btn-outlined btn-lg btn-ai">Referenzen ansehen</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Effektive Software -->
-        <div>
-          <span class="lbl" style="margin-bottom:var(--s3)">Effektive Software</span>
-          <div class="nav-demo">
-            <div class="nav-bar">
-              <span class="logo-text" style="color:var(--es-500)">conciso.</span>
-              <div class="nav-links">
-                <button class="nav-link">Corporate</button>
-                <button class="nav-link">Angewandte KI</button>
-                <button class="nav-link" style="color:var(--es-700);background:var(--es-50);font-weight:700">Effektive Software</button>
-                <button class="nav-link">Wirksame Organisationen</button>
-              </div>
-              <button class="btn btn-filled btn-sm btn-es">Kontakt</button>
-            </div>
-            <div class="hero-section" style="background:linear-gradient(135deg,var(--es-50) 0%,var(--bg-surface) 55%)">
-              <span class="eyebrow" style="color:var(--es-700)">Architektur &amp; Delivery</span>
-              <h1 class="hero-h1">Software, die <span style="color:var(--es-500)">morgen noch trägt.</span></h1>
-              <p class="hero-sub">Architektur, die skaliert. Code, den dein Team versteht. Delivery, auf die du zählen kannst, ohne Kompromisse.</p>
-              <div class="hero-actions">
-                <button class="btn btn-filled btn-lg btn-es">Architektur besprechen</button>
-                <button class="btn btn-outlined btn-lg btn-es">Mehr erfahren</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Wirksame Organisationen -->
-        <div>
-          <span class="lbl" style="margin-bottom:var(--s3)">Wirksame Organisationen</span>
-          <div class="nav-demo">
-            <div class="nav-bar">
-              <span class="logo-text" style="color:var(--wo-500)">conciso.</span>
-              <div class="nav-links">
-                <button class="nav-link">Corporate</button>
-                <button class="nav-link">Angewandte KI</button>
-                <button class="nav-link">Effektive Software</button>
-                <button class="nav-link" style="color:var(--wo-700);background:var(--wo-50);font-weight:700">Wirksame Organisationen</button>
-              </div>
-              <button class="btn btn-filled btn-sm btn-wo">Kontakt</button>
-            </div>
-            <div class="hero-section" style="background:linear-gradient(135deg,var(--wo-50) 0%,var(--bg-surface) 55%)">
-              <span class="eyebrow" style="color:var(--wo-700)">Transformation &amp; Führung</span>
-              <h1 class="hero-h1">Wandel, <span style="color:var(--wo-500)">der ankommt.</span></h1>
-              <p class="hero-sub">Veränderung gelingt, wenn Menschen sie mitgestalten. Wir begleiten dein Team, von der Diagnose bis zur nachhaltigen Wirkung.</p>
-              <div class="hero-actions">
-                <button class="btn btn-filled btn-lg btn-wo">Transformation starten</button>
-                <button class="btn btn-outlined btn-lg btn-wo">Methodik kennenlernen</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /Demos -->
-
-      <!-- ── Hero-Pattern auf Customer-Pages ── -->
-      <h2 id="gt-nav-hero-static" class="group-title">Hero-Pattern: statisch statt Slider</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Page-Hero (Klasse <code class="token">.ep-hero</code>) ist <strong>statisch</strong>, eine starke Botschaft, ein starkes Bild, optional bis zu zwei CTAs. Kein Karussell, keine automatischen Übergänge: Aufmerksamkeits-Konkurrenz schwächt die Marken-Aussage und steht gegen das „Ruhig"-Markenrad-Feld.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Die Headline ist die Marken-Verdichtung („Klare Köpfe. Ruhige Energie."), die Subline sachlich-konkret. Eyebrow trägt Ortsangabe oder Zeitanker. CTAs wandern <strong>nicht</strong> in den Hero, sondern in eine reduzierte Sub-Sektion direkt darunter, das gibt dem Hero visuell Luft und verhindert die Konkurrenz zwischen Bild, Headline und Buttons.</p>
-
-      <h2 id="gt-nav-hero-image" class="group-title">Hero-Image mit Caption-Overlay</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Variante des Heros, die exakt einer Folie aus der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero-Variante</a> entspricht, vollbreit, 21:9-Format, Caption als Gradient-Overlay über dem Bild, aber ohne Track-Mechanik, ohne Buttons und Dots, ohne JavaScript. Klasse <code class="token">.hero-image</code> als <code class="token">&lt;figure&gt;</code>-Container; semantisch ist Bild + Caption ein <code class="token">figure/figcaption</code>-Pattern.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre, und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig": ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Optionale Eyebrow-Zeile <code class="token">.hero-image-caption-eyebrow</code> direkt vor dem Title, uppercase mit Letter-Spacing, identisch zur Eyebrow-Logik im Standard-Hero. Auf Bereichs-Pages enthält sie typischerweise die drei Werte des Bereichs („Intelligenz · Automatisierung · Wirkung"), auf der Landing den Zeit-Ort-Anker („Seit 2016 · Dortmund").</p>
-
-      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
-        <figure class="hero-image">
-          <div class="hero-image-media">
-            <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="lazy">
-          </div>
-          <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
-            <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
-            <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund.</p>
-          </figcaption>
-        </figure>
       </div>
 
-      <!-- Code-Beispiel hero-image -->
-      <div class="cb-wrap" style="margin-bottom:var(--s8)">
-        <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: 21:9, Eyebrow + Title + Text als Gradient-Overlay --&gt;</span>
-<span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"hero-image-media"</span><span class="k">&gt;</span>
-    <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span> <span class="v">loading</span>=<span class="s">"lazy"</span><span class="k">&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"hero-image-caption"</span><span class="k">&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-title"</span><span class="k">&gt;</span>Klare Köpfe. Ruhige Energie.<span class="k">&lt;/p&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund.<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;/figcaption&gt;</span>
-<span class="k">&lt;/figure&gt;</span></pre>
+      <span class="lbl" style="margin-bottom:var(--s3)">Bereichs-Zustand · Angewandte KI</span>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der „Leistungen"-Toggle bekommt zusätzlich die Brand-Petrol-Farbe als Hinweis. Hover, um das Submenü zu öffnen.</p>
+      <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
+        <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true" style="color:var(--co-700)">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
+          </nav>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+        </div>
       </div>
 
-      <h2 id="gt-nav-hero-substrip" class="group-title">Reduzierte Sub-Sektion mit CTAs</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Direkt unterhalb des Heros sitzt eine schmale, getönte Sektion (Hintergrund <code class="token">var(--co-50)</code>, Padding <code class="token">var(--s10)</code>) mit Markenrad-Eyebrow, kurzer Lead-Zeile und zwei CTAs. Sie übernimmt die Funktion „Was tun?" ohne mit der Hero-Headline zu konkurrieren, Hero macht das Versprechen, Sub-Strip macht das Angebot.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Eyebrow nimmt die drei Markenrad-Achsen direkt auf („Ruhig · Klar · Energiegeladen") als ständigen Verweis auf den Marken-Ton. Der primäre CTA verweist auf Selbst-Erschließung („Unsere Leistungen"), der sekundäre auf Direkt-Kontakt („Gespräch vereinbaren"), outline für visuelle Sekundär-Position.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> und <em>keine wiederholte Was/Wo-Aussage</em> tragen, sonst entstehen Doppel-Informationen direkt untereinander. Die Lead-Zeile soll Brücke zu den CTAs sein („Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch."), nicht das Hero-Versprechen echoen.</p>
-
-      <!-- Code-Beispiel Hero + Sub-Strip -->
-      <div class="cb-wrap" style="margin-bottom:var(--s8)">
-        <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Statischer Hero mit Markenverdichtung --&gt;</span>
-<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero"</span> <span class="v">style</span>=<span class="s">"background:linear-gradient(…);color:#fff"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-body"</span><span class="k">&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
-    <span class="k">&lt;h1</span> <span class="v">class</span>=<span class="s">"ep-hero-h1"</span><span class="k">&gt;</span>Klare Köpfe.<span class="k">&lt;br&gt;</span>Ruhige Energie.<span class="k">&lt;/h1&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-sub"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-visual has-photo"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span> <span class="v">alt</span>=<span class="s">"…"</span><span class="k">&gt;&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span>
-
-<span class="c">&lt;!-- Reduzierte Sub-Sektion mit Markenrad-Eyebrow + CTAs --&gt;</span>
-<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section"</span> <span class="v">style</span>=<span class="s">"background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)"</span><span class="k">&gt;</span>
-  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-eyebrow"</span><span class="k">&gt;</span>Ruhig · Klar · Energiegeladen<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;p&gt;</span>Schau Dir an, wie wir arbeiten — oder buch direkt ein Erstgespräch.<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-ctas"</span> <span class="v">style</span>=<span class="s">"justify-content:center"</span><span class="k">&gt;</span>
-    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled"</span><span class="k">&gt;</span>Unsere Leistungen<span class="k">&lt;/button&gt;</span>
-    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined"</span><span class="k">&gt;</span>Gespräch vereinbaren<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
+      <span class="lbl" style="margin-bottom:var(--s3)">Top-Item-Zustand · Über uns</span>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Direkte Top-Items (Wissen, Über uns) ohne Submenü tragen <code class="token">aria-current="page"</code> selbst.</p>
+      <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s8)">
+        <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
+            <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Über uns</a>
+          </nav>
+          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+        </div>
       </div>
+
 
       <!-- ── Topnav-Pattern für Beispielseiten ── -->
       <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf den Beispielseiten wird ein eigener Topnav-Pattern verwendet (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>), der das oben gezeigte interne Bereichs-Pattern für Customer-Pages adaptiert. Die Reihenfolge folgt dem festgelegten IA-Schema:</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Topnav-Pattern (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>) folgt dem festgelegten IA-Schema:</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Leistungen · Wissen · Über uns</strong> + Kontakt-Button (sekundär, outlined). „Leistungen" bündelt die drei Bereiche in einem Hover-Submenü, „Über uns" ist der Profil-Hub mit Team, Jobs, Referenzen, Events, Presse.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Layout-Anker</h3>
@@ -1972,14 +1865,14 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </thead>
             <tbody>
               <tr><td>Logo</td><td>Immer ganz links, immer sichtbar, Verlässlichkeit in der ersten Sekunde</td></tr>
-              <tr><td>Bereichslinks</td><td>Maximal 4 Einträge · kurze, prägnante Labels · aktiver Bereich visuell hervorgehoben</td></tr>
-              <tr><td>CTA-Button</td><td>Genau ein Filled Button · max. 2 Wörter · Bereichsfarbe (<code class="token">btn-co</code> etc.)</td></tr>
-              <tr><td>Höhe & Hintergrund</td><td>64px fix · <code class="token">--bg-surface</code> · sticky im Scroll (z-index ≥ 100)</td></tr>
+              <tr><td>Top-Items</td><td>Drei Einträge: <strong>Leistungen</strong> (Hover-Submenü mit den drei Bereichen), <strong>Wissen</strong>, <strong>Über uns</strong> · kurze, prägnante Labels · aktiver Eintrag in Brand-Petrol via <code class="token">aria-current="page"</code></td></tr>
+              <tr><td>CTA-Button</td><td>Genau ein <strong>Outlined</strong> Button · Label „Kontakt" · Brand-Petrol (<code class="token">--co-700</code>) · ganz rechts via <code class="token">margin-left:auto</code></td></tr>
+              <tr><td>Layout & Hintergrund</td><td><code class="token">.ep-topnav</code> mit <code class="token">--bg-surface</code> · <code class="token">border-bottom:var(--bd)</code> · Padding <code class="token">var(--s4) var(--s8)</code> (~64&nbsp;px hoch)</td></tr>
             </tbody>
           </table>
         </div>
         <div class="col-6">
-          <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Hero-Sektion</div>
+          <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Hero-Image + Sub-Strip</div>
           <table class="doc-table">
             <thead>
               <tr>
@@ -1988,11 +1881,11 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               </tr>
             </thead>
             <tbody>
-              <tr><td>Eyebrow</td><td>Label Small · kurzer Service-Kontext (nicht nur Bereichsname) · Bereichsfarbe <code class="token">-700</code> oder <code class="token">-800</code></td></tr>
-              <tr><td>Headline</td><td>Libre Baskerville · Display oder Headline Large · 1 bis 2 Zeilen · eine klare Aussage</td></tr>
-              <tr><td>Sub-Text</td><td>Montserrat Body Large · max. 2 Sätze · <code class="token">--tx-secondary</code> · konkret, kein Marketingsprech</td></tr>
-              <tr><td>Aktionen</td><td>Exakt 2 Buttons · Filled (primär) + Outlined (sekundär) · Bereichsfarbe</td></tr>
-              <tr><td>Hintergrund</td><td>Tonal-Gradient aus <code class="token">--c50</code> · nie vollflächige Volltonfarbe im Hero</td></tr>
+              <tr><td>Hero-Image</td><td>Vollbreit, 21:9 (<code class="token">.hero-image</code>) · Bild via <code class="token">object-fit:cover</code> · <code class="token">max-height</code> auf breiten Screens gedeckelt</td></tr>
+              <tr><td>Caption-Eyebrow</td><td>Label Small · kurzer Service-Kontext oder Zeit-Ort-Anker · <code class="token">rgba(255,255,255,.85)</code> mit text-shadow</td></tr>
+              <tr><td>Caption-Headline</td><td>Libre Baskerville · <code class="token">clamp(20px,2.5vw,32px)</code> · 1 bis 2 Zeilen · weiß, text-shadow</td></tr>
+              <tr><td>Caption-Sub-Text</td><td>Montserrat Body Md · max. 2 Sätze · <code class="token">rgba(255,255,255,.92)</code> · konkret, kein Marketingsprech</td></tr>
+              <tr><td>Sub-Strip</td><td>Tonal <code class="token">--co-50</code> direkt unter dem Hero · Markenrad-Eyebrow + Lead + 2 CTAs (Filled + Outlined, Brand-Petrol)</td></tr>
             </tbody>
           </table>
         </div>
@@ -2004,28 +1897,36 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <!-- Nav Bar Schematic -->
         <div style="display:flex;align-items:center;gap:var(--s4);padding:0 var(--s6);height:64px;background:var(--bg-surface);border-bottom:var(--bd)">
           <div style="background:var(--co-500);border-radius:var(--r-xs);padding:3px 10px;font:700 11px/16px var(--font);color:#fff;flex-shrink:0">Logo</div>
-          <div style="display:flex;gap:var(--s2);flex:1">
-            <div style="background:var(--co-50);border-radius:var(--r-xs);padding:3px 10px;font:600 11px/16px var(--font);color:var(--co-700)">Aktiver Bereich</div>
-            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 2</div>
-            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 3</div>
-            <div style="background:var(--bg-overlay);border-radius:var(--r-xs);padding:3px 10px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Bereich 4</div>
+          <div style="display:flex;gap:var(--s5);flex:1;align-items:center">
+            <div style="display:inline-flex;align-items:center;gap:4px;font:400 11px/16px var(--font);color:var(--tx-secondary)">Leistungen <span style="opacity:.5">▾</span></div>
+            <div style="font:400 11px/16px var(--font);color:var(--tx-secondary)">Wissen</div>
+            <div style="font:600 11px/16px var(--font);color:var(--co-700)">Über uns</div>
           </div>
-          <div style="background:var(--co-700);border-radius:var(--r-full);padding:3px 12px;font:600 11px/16px var(--font);color:#fff;flex-shrink:0">CTA</div>
+          <div style="border:1.5px solid var(--co-700);border-radius:var(--r-full);padding:2px 12px;font:600 11px/16px var(--font);color:var(--co-700);flex-shrink:0">Kontakt</div>
         </div>
         <!-- Callout labels for nav -->
         <div style="display:flex;align-items:flex-start;gap:var(--s4);padding:var(--s3) var(--s6);background:var(--bg-overlay);border-bottom:var(--bd)">
           <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex-shrink:0;width:80px">① Logo<br>immer links</div>
-          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex:1">② Bereichslinks · max. 4 · aktiver Zustand in Bereichsfarbe<br><code class="token" style="font-size:10px">btn-co / btn-ai / btn-es / btn-wo</code></div>
-          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex-shrink:0;text-align:right">③ Filled CTA<br>ganz rechts</div>
+          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex:1">② Top-Items · 3 Einträge · „Leistungen" mit Hover-Submenü (die drei Bereiche) · aktiver Eintrag in Brand-Petrol via <code class="token" style="font-size:10px">aria-current="page"</code></div>
+          <div style="font:400 11px/16px var(--font);color:var(--tx-muted);flex-shrink:0;text-align:right">③ Outlined „Kontakt"<br>ganz rechts</div>
         </div>
-        <!-- Hero Schematic -->
-        <div style="padding:var(--s8) var(--s8) var(--s6);background:linear-gradient(135deg,var(--co-50) 0%,var(--bg-surface) 55%)">
-          <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)">④ Eyebrow, Bereichskontext</div>
-          <div style="font:400 36px/44px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s3)">⑤ Headline: eine klare,<br>ruhige Aussage.</div>
-          <div style="font:400 16px/24px var(--font);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:520px">⑥ Sub-Text: konkret und prägnant, max. 2 Sätze, kein Fülltext. Was bekommt die Nutzerin? Was ändert sich?</div>
-          <div style="display:flex;gap:var(--s4);flex-wrap:wrap">
-            <div style="background:var(--co-700);border-radius:var(--r-full);padding:8px 20px;font:600 13px/20px var(--font);color:#fff">⑦ Primäraktion (Filled)</div>
-            <div style="border:2px solid var(--co-700);border-radius:var(--r-full);padding:8px 20px;font:600 13px/20px var(--font);color:var(--co-700)">⑧ Sekundäraktion (Outlined)</div>
+        <!-- Hero-Image Schematic: Image-Fläche mit Caption-Overlay -->
+        <div style="position:relative;min-height:240px;background:linear-gradient(135deg,var(--n-300) 0%,var(--n-200) 55%,var(--n-300) 100%);border-bottom:var(--bd)">
+          <div style="position:absolute;top:var(--s4);left:var(--s5);font:500 10px/14px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--n-500)">Bildfläche · 21:9 · object-fit:cover</div>
+          <!-- Caption-Overlay (.hero-image-caption) -->
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:var(--s7) var(--s6) var(--s5);background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.65) 50%,transparent 100%)">
+            <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:var(--s2)">④ Eyebrow, Bereichskontext oder Zeit-Ort</div>
+            <div style="font:400 28px/34px var(--font-display);color:#fff;margin-bottom:var(--s2)">⑤ Headline (Caption-Title)</div>
+            <div style="font:400 14px/20px var(--font);color:rgba(255,255,255,.92);max-width:520px">⑥ Sub-Text: konkret und prägnant, max. 2 Sätze.</div>
+          </div>
+        </div>
+        <!-- Sub-Strip Schematic: Markenrad-Eyebrow + Lead + 2 CTAs -->
+        <div style="background:var(--co-50);text-align:center;padding:var(--s7) var(--s6);border-top:1px solid var(--co-100)">
+          <div style="font:500 11px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)">⑦ Markenrad-Eyebrow „Ruhig · Klar · Energiegeladen"</div>
+          <div style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:520px;margin-left:auto;margin-right:auto">⑧ Lead-Zeile: Brücke zu den CTAs, nicht das Hero-Versprechen echoen.</div>
+          <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap">
+            <div style="background:var(--co-700);border-radius:var(--r-full);padding:8px 20px;font:600 13px/20px var(--font);color:#fff">⑨ Primäraktion (Filled)</div>
+            <div style="border:2px solid var(--co-700);border-radius:var(--r-full);padding:6px 18px;font:600 13px/20px var(--font);color:var(--co-700)">⑩ Sekundäraktion (Outlined)</div>
           </div>
         </div>
       </div>
@@ -2050,22 +1951,223 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Die Headline trägt den Kernwert <strong>Gelassenheit</strong>, ruhig, selbstsicher, ohne Ausrufezeichen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Eyebrow und aktiver Nav-Link zeigen den Bereich, Nutzerin versteht sofort, wo sie ist</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Primäraktion im Hero mit einem Verb, konkret, direkt (<em>Starten</em>, <em>Anfragen</em>, <em>Entdecken</em>)</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Hero-Hintergrund als tonaler Gradient aus <code class="token">--c50</code>, passt sich dem Bereich an, ohne zu überwältigen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Nav sticky und Brand Area konsequent von Nav bis Hero, Nutzerin verliert nie Kontext oder Bereichszugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Primäraktion im Sub-Strip mit einem Verb, konkret, direkt (<em>Starten</em>, <em>Anfragen</em>, <em>Entdecken</em>)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Hero als vollbreites Bild mit dunklem Caption-Overlay · der getönte Sub-Strip darunter trägt <code class="token">--co-50</code> als ruhige Brand-Klammer</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Topnav als ruhige Konstante, Brand-Klammer konsequent von Nav über Hero-Caption bis Sub-Strip, Nutzerin verliert nie Kontext oder Bereichszugehörigkeit</span></li>
           </ul>
         </div>
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 2 CTAs im Hero, das widerspricht dem Markenwert <em>Klar</em> und verwirrt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 2 CTAs im Sub-Strip oder CTAs in den Hero-Caption-Overlay ziehen, das widerspricht dem Markenwert <em>Klar</em> und konkurriert mit der Headline</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Reißerische Headlines mit Ausrufezeichen oder Superlativketten, verstößt gegen <em>Gelassenheit</em></span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 4 Navigationspunkte, pragmatisch heißt auch: nicht alles auf einmal zeigen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Vom IA-Schema „Leistungen · Wissen · Über uns" abweichen oder weitere Top-Items hinzufügen, das verwässert die Customer-Page-Navigation</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Dropdown-Menüs rein via CSS <code class="token">:hover</code>, nicht per Tastatur erreichbar; <code class="token">aria-expanded</code> für Toggle nutzen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Vollflächige Bereichsfarbe als Hero-Hintergrund, zu dominant, überschreibt das Ruhig-Gefühl</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Vollflächige Bereichsfarbe als Sub-Strip-Hintergrund (statt <code class="token">--co-50</code>) oder als Caption-Overlay-Farbe, zu dominant, überschreibt das Ruhig-Gefühl</span></li>
           </ul>
         </div>
       </div>
+    </section>
+
+    <!-- ═══ HERO-PATTERNS ═══ -->
+    <section class="ds-section" id="sec-hero">
+      <h1 class="sec-title">Hero-Patterns</h1>
+      <p class="sec-sub">Drei Hero-Varianten für den Seitenkopf: Hero-Image mit Caption-Overlay (21:9, Standard auf allen Customer-Pages), Slider-Hero mit Crossfade-Rotation (optional), sowie eine reduzierte Sub-Sektion direkt unter dem Hero für CTAs (auf jeder Customer-Page Pflicht). Übergreifende Regeln zum Zusammenspiel mit der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#sec-navigation">Navigation</a> stehen dort im Abschnitt „Verwendung".</p>
+
+      <!-- ── Hero-Image (.hero-image) ── -->
+      <h2 id="gt-nav-hero-image" class="group-title">Hero-Image mit Caption-Overlay</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Variante des Heros, die exakt einer Folie aus dem <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero</a> entspricht, vollbreit, 21:9-Format, Caption als Gradient-Overlay über dem Bild, aber ohne Track-Mechanik, ohne Buttons und Dots, ohne JavaScript. Klasse <code class="token">.hero-image</code> als <code class="token">&lt;figure&gt;</code>-Container; semantisch ist Bild + Caption ein <code class="token">figure/figcaption</code>-Pattern.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre, und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig": ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Optionale Eyebrow-Zeile <code class="token">.hero-image-caption-eyebrow</code> direkt vor dem Title, uppercase mit Letter-Spacing, identisch zur Eyebrow-Logik im Standard-Hero. Auf Bereichs-Pages enthält sie typischerweise die drei Werte des Bereichs („Intelligenz · Automatisierung · Wirkung"), auf der Landing den Zeit-Ort-Anker („Seit 2016 · Dortmund").</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Skalierung auf breiten Bildschirmen:</strong> Das 21:9-Format würde auf 4K- oder Ultrawide-Monitoren rechnerisch sehr hoch werden (auf 3840&nbsp;px Breite wären das 1646&nbsp;px Höhe, also fast die gesamte Viewport-Höhe). Damit Gesichter nicht gigantisch wirken und der Hero den ersten Eindruck nicht dominiert, ist <code class="token">.hero-image-media</code> via <code class="token">max-height: clamp(420px, 64vh, 680px)</code> gedeckelt. Der Cap greift ab ca. 1133&nbsp;px Viewport-Breite; darunter dominiert weiter das 21:9-Seitenverhältnis. Dieselbe Logik liegt auf dem <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero</a>. Die Caption bleibt durch <code class="token">padding-inline: max(var(--s8), calc(50% - 640px))</code> in einer 1280-px-Spalte zentriert.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Object-Position pro Bild:</strong> Sobald der Cap greift, beschneidet <code class="token">object-fit: cover</code> das Bild zusätzlich vertikal. Für Bilder mit zentralen Gesichtern oder asymmetrischer Komposition den passenden <code class="token">object-position</code>-Wert direkt am <code class="token">&lt;img&gt;</code>-Element setzen (z.&nbsp;B. <code class="token">style="object-position: center 20%"</code>). Default ist <code class="token">center center</code>.</p>
+
+      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
+        <figure class="hero-image">
+          <div class="hero-image-media">
+            <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="lazy">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
+            <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
+            <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- Code-Beispiel hero-image -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: 21:9, Eyebrow + Title + Text als Gradient-Overlay --&gt;</span>
+<span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"hero-image-media"</span><span class="k">&gt;</span>
+    <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span> <span class="v">loading</span>=<span class="s">"eager"</span><span class="k">&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"hero-image-caption"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;h1</span> <span class="v">class</span>=<span class="s">"hero-image-caption-title"</span><span class="k">&gt;</span>Klare Köpfe. Ruhige Energie.<span class="k">&lt;/h1&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;/figcaption&gt;</span>
+<span class="k">&lt;/figure&gt;</span></pre>
+      </div>
+
+      <!-- ── Slider-Hero ── -->
+      <h2 id="gt-carousel-hero" class="group-title">Slider-Hero</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Status:</strong> aktuell auf keiner Beispielseite produktiv eingesetzt — der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-nav-hero-image">statische Hero-Image</a> ist der Standard. Der Slider-Hero ist eine optionale Alternative, wenn mehrere gleichwertige Aussagen rotieren sollen (z.&nbsp;B. wechselnde Kundenprojekte auf einer Referenz-Übersicht). Aufmerksamkeits-Konkurrenz mit der Marken-Headline einplanen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollbreit, randlos, 21:9-Format, ideal für den oberen Seitenbereich. Caption liegt als Gradient-Overlay über dem Bild. Modifier-Klasse <code class="token">.img-slider-hero</code> zum Basis-Element hinzufügen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Übergang:</strong> Crossfade über 600 ms, passt zum Marken-Ton „Ruhig · Klar". Slides liegen absolut übereinander; die aktive Slide trägt die Klasse <code class="token">.active</code> (initial im HTML auf der ersten Slide setzen, damit beim Page-Load nichts unsichtbar ist). Unter <code class="token">prefers-reduced-motion: reduce</code> entfällt die Transition automatisch.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Skalierung auf breiten Bildschirmen:</strong> <code class="token">.img-slider-hero .img-slider-track</code> ist via <code class="token">max-height: clamp(420px, 64vh, 680px)</code> gedeckelt, damit der Hero auf 4K- und Ultrawide-Monitoren nicht die gesamte Viewport-Höhe einnimmt. Gleiche Logik und Details wie beim statischen <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-nav-hero-image">Hero-Image</a>.</p>
+
+      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
+        <div class="img-slider img-slider-hero"
+             role="region"
+             aria-roledescription="Bildschirmpräsentation"
+             aria-label="Hero-Bildstrecke">
+
+          <div class="img-slider-track">
+
+            <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--co-700) 0%,var(--co-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M19.9159 36C17.6732 36 15.64 35.4917 13.8165 34.4751C12.0139 33.4365 10.5886 32.011 9.54058 30.1989C8.51353 28.3646 8 26.2983 8 24C8 21.7017 8.51353 19.6464 9.54058 17.8343C10.5886 16 12.0139 14.5746 13.8165 13.558C15.64 12.5193 17.6837 12 19.9474 12C21.8547 12 23.5735 12.3536 25.1036 13.0608C26.3765 13.6411 27.48 14.4299 28.4141 15.4269C28.7644 15.8009 28.7231 16.3821 28.3558 16.7396L26.5121 18.5339C26.0925 18.9423 25.4176 18.8985 24.9933 18.4951C23.6469 17.2147 22.0488 16.5746 20.1989 16.5746C18.8365 16.5746 17.6208 16.895 16.5518 17.5359C15.4828 18.1547 14.6444 19.0276 14.0366 20.1547C13.4497 21.2818 13.1562 22.5635 13.1562 24C13.1562 25.4365 13.4497 26.7182 14.0366 27.8453C14.6444 28.9724 15.4828 29.8564 16.5518 30.4972C17.6208 31.116 18.8365 31.4254 20.1989 31.4254C22.049 31.4254 23.6473 30.7773 24.9938 29.4811C25.4173 29.0734 26.0955 29.0274 26.5168 29.4374L28.361 31.2323C28.7261 31.5876 28.7695 32.1645 28.4246 32.5393C27.4882 33.5567 26.3812 34.3567 25.1036 34.9392C23.5525 35.6464 21.8233 36 19.9159 36Z" fill="white"/><path d="M35.8498 35.9519C34.6804 35.9519 33.6963 35.5309 32.8977 34.6888C32.099 33.8467 31.6997 32.7942 31.6997 31.5311C31.6997 30.2379 32.099 29.2004 32.8977 28.4185C33.6963 27.6065 34.6804 27.2005 35.8498 27.2005C37.0193 27.2005 38.0034 27.6065 38.802 28.4185C39.6007 29.2004 40 30.2379 40 31.5311C40 32.7942 39.6007 33.8467 38.802 34.6888C38.0034 35.5309 37.0193 35.9519 35.8498 35.9519Z" fill="white"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Markenstrategie für die Energiewende</p>
+                <p class="img-slide-caption-text">Corporate · Rebranding und Kommunikationssystem für einen regionalen Energieversorger.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--ki-800) 0%,var(--ki-500) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M34.9392 21.6837C34.9392 20.0269 33.5959 18.6839 31.9392 18.6837H16.0613C14.4044 18.6837 13.0613 20.0268 13.0613 21.6837V34.5001C13.0613 36.1569 14.4045 37.5001 16.0613 37.5001H31.9392C33.5959 37.4999 34.9392 36.1568 34.9392 34.5001V21.6837Z" stroke="white" stroke-width="2"/><circle cx="23.69" cy="11.95" r="3" stroke="white" stroke-width="2"/><circle cx="17.88" cy="25.64" r="3" stroke="white" stroke-width="2"/><circle cx="29.82" cy="25.64" r="3" stroke="white" stroke-width="2"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">KI-gestütztes Berichtswesen</p>
+                <p class="img-slide-caption-text">Angewandte KI · Automatisierte Auswertung von Produktionsdaten für ein Fertigungsunternehmen.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--es-700) 0%,var(--es-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><rect x="9" y="9" width="30" height="30" rx="4" stroke="white" stroke-width="2"/><path d="M10 19h28M19 10v28" stroke="white" stroke-width="2"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Cloud-Migration einer Versicherungsplattform</p>
+                <p class="img-slide-caption-text">Effektive Software · Ablösung eines Legacy-Systems durch eine skalierbare Microservice-Architektur.</p>
+              </div>
+            </div>
+
+            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 4 von 4">
+              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--wo-700) 0%,var(--wo-400) 100%)">
+                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><circle cx="24" cy="20" r="8" stroke="white" stroke-width="2"/><path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="img-slide-caption">
+                <p class="img-slide-caption-title">Kulturwandel im Gesundheitswesen</p>
+                <p class="img-slide-caption-text">Wirksame Organisationen · Kulturwandel und Neuausrichtung einer Klinikgruppe.</p>
+              </div>
+            </div>
+
+          </div><!-- /track -->
+
+          <button class="img-slider-btn img-slider-prev" aria-label="Vorherige Folie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="img-slider-btn img-slider-next" aria-label="Nächste Folie">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
+            <button class="img-dot" role="tab" aria-selected="true"  aria-label="Folie 1 von 4" tabindex="0"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 2 von 4" tabindex="-1"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 3 von 4" tabindex="-1"></button>
+            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 4 von 4" tabindex="-1"></button>
+          </div>
+
+        </div><!-- /img-slider -->
+      </div>
+
+      <!-- Code-Beispiel Hero -->
+      <div class="cb-wrap" style="margin-bottom:var(--s10)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Modifier .img-slider-hero für Vollbild-Darstellung mit Crossfade --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider img-slider-hero"</span>
+     <span class="v">role</span>=<span class="s">"region"</span> <span class="v">aria-roledescription</span>=<span class="s">"Bildschirmpräsentation"</span> <span class="v">aria-label</span>=<span class="s">"Hero-Bildstrecke"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-track"</span><span class="k">&gt;</span>
+    <span class="c">&lt;!-- erste Slide trägt .active, damit sie ohne JS sofort sichtbar ist --&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide active"</span> <span class="v">role</span>=<span class="s">"group"</span> <span class="v">aria-roledescription</span>=<span class="s">"Folie"</span> <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-media"</span><span class="k">&gt;</span>
+        <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span><span class="k">&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-caption"</span><span class="k">&gt;</span>
+        <span class="c">&lt;!-- Caption liegt als Overlay über dem Bild --&gt;</span>
+        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-title"</span><span class="k">&gt;</span>Titel<span class="k">&lt;/p&gt;</span>
+        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-text"</span><span class="k">&gt;</span>Beschreibung<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="c">&lt;!-- weitere .img-slide … --&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-prev"</span> <span class="v">aria-label</span>=<span class="s">"Vorherige Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-next"</span> <span class="v">aria-label</span>=<span class="s">"Nächste Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-dots"</span> <span class="v">role</span>=<span class="s">"tablist"</span> <span class="v">aria-label</span>=<span class="s">"Folien-Navigation"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"true"</span>  <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"false"</span> <span class="v">aria-label</span>=<span class="s">"Folie 2 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- ── Reduzierte Sub-Sektion mit CTAs ── -->
+      <h2 id="gt-nav-hero-substrip" class="group-title">Reduzierte Sub-Sektion mit CTAs</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Direkt unterhalb des Heros sitzt eine schmale, getönte Sektion (<code class="token">.ep-section</code>, zentriert, Padding <code class="token">var(--s10)</code>) mit Eyebrow, kurzer Lead-Zeile und zwei CTAs. Sie übernimmt die Funktion „Was tun?" ohne mit der Hero-Headline zu konkurrieren, Hero macht das Versprechen, Sub-Strip macht das Angebot. Auf jeder Customer-Page Pflicht direkt unter dem Hero-Image.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Bereichs-Tinting:</strong> Hintergrund und untere Trennlinie folgen dem Page-Bereich, nicht pauschal Corporate. Auf Landing und Über-uns: <code class="token">--co-50</code>/<code class="token">--co-100</code>; auf den Bereichs-Pages: <code class="token">--ki-50</code>, <code class="token">--es-50</code>, <code class="token">--wo-50</code> (jeweils mit der passenden <code class="token">-100</code>-Trennlinie). Die Brand-Klammer zieht sich so von Topnav-Active-State über Hero-Caption-Eyebrow bis in den Sub-Strip durch.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Eyebrow-Inhalt pro Page-Typ:</strong></p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Page</th><th>Eyebrow-Text</th><th>Eyebrow-Farbe</th></tr></thead>
+        <tbody>
+          <tr><td>Landing</td><td>Markenrad-Achsen: „Ruhig · Klar · Energiegeladen"</td><td><code class="token">--co-700</code></td></tr>
+          <tr><td>Angewandte KI</td><td>Leistungs-Achsen: „AI.Engineering · AI.Automation · AI.Box"</td><td><code class="token">--ki-800</code></td></tr>
+          <tr><td>Effektive Software</td><td>Leistungs-Achsen: „Engineering · Deployment · Qualität"</td><td><code class="token">--es-700</code></td></tr>
+          <tr><td>Wirksame Organisationen</td><td>Leistungs-Achsen: „Change · Leadership · Struktur"</td><td><code class="token">--wo-700</code></td></tr>
+          <tr><td>Über uns</td><td>Profil-Hub-Achsen: „Team · Karriere · Referenzen"</td><td><code class="token">--co-700</code></td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>CTAs pro Page-Typ:</strong> Filled (primär, Selbst-Erschließung) + Outlined (sekundär, Direkt-Kontakt oder Belege), beide in der Bereichsfarbe. Konkrete Verb-Wahl variiert mit der Page, nicht Floskel-Doppel:</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Page</th><th>Primär (Filled)</th><th>Sekundär (Outlined)</th></tr></thead>
+        <tbody>
+          <tr><td>Landing</td><td>Unsere Leistungen</td><td>Gespräch vereinbaren</td></tr>
+          <tr><td>Angewandte KI</td><td>Use Case analysieren</td><td>Fallstudien ansehen</td></tr>
+          <tr><td>Effektive Software</td><td>Stack analysieren</td><td>Referenzen ansehen</td></tr>
+          <tr><td>Wirksame Organisationen</td><td>Transformation starten</td><td>Ansatz kennenlernen</td></tr>
+          <tr><td>Über uns</td><td>Team kennenlernen</td><td>Karriere</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> und <em>keine wiederholte Was/Wo-Aussage</em> tragen, sonst entstehen Doppel-Informationen direkt untereinander. Die Lead-Zeile soll Brücke zu den CTAs sein („Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch."), nicht das Hero-Versprechen echoen.</p>
+
+      <!-- Code-Beispiel Hero + Sub-Strip -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Hero-Image: vollbreit 21:9, Caption als Overlay (siehe Hero-Image-Sektion oben) --&gt;</span>
+<span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"hero-image-media"</span><span class="k">&gt;</span>
+    <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"…"</span> <span class="v">loading</span>=<span class="s">"eager"</span><span class="k">&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;figcaption</span> <span class="v">class</span>=<span class="s">"hero-image-caption"</span><span class="k">&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-eyebrow"</span><span class="k">&gt;</span>Seit 2016 · Dortmund<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;h1</span> <span class="v">class</span>=<span class="s">"hero-image-caption-title"</span><span class="k">&gt;</span>Klare Köpfe. Ruhige Energie.<span class="k">&lt;/h1&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"hero-image-caption-text"</span><span class="k">&gt;</span>KI, Software und Organisationsentwicklung aus Dortmund.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;/figcaption&gt;</span>
+<span class="k">&lt;/figure&gt;</span>
+
+<span class="c">&lt;!-- Sub-Strip: Bereichs-Tint, Eyebrow, Lead, 2 CTAs (Werte hier: Landing/Corporate) --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section"</span> <span class="v">style</span>=<span class="s">"background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)"</span><span class="k">&gt;</span>
+  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-hero-eyebrow"</span> <span class="v">style</span>=<span class="s">"color:var(--co-700)"</span><span class="k">&gt;</span>Ruhig · Klar · Energiegeladen<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;p&gt;</span>Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-hero-ctas"</span> <span class="v">style</span>=<span class="s">"justify-content:center"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled"</span> <span class="v">style</span>=<span class="s">"--c500:var(--co-700)"</span><span class="k">&gt;</span>Unsere Leistungen<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined"</span> <span class="v">style</span>=<span class="s">"--c500:var(--co-700)"</span><span class="k">&gt;</span>Gespräch vereinbaren<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
     </section>
 
     <!-- ═══ BUTTONS ═══ -->
@@ -4561,113 +4663,12 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
     <!-- ═══ SLIDER & CAROUSEL ═══ -->
     <section class="ds-section" id="sec-slider">
       <h1 class="sec-title">Slider & Carousel</h1>
-      <p class="sec-sub">Bild-Carousel in zwei Varianten: Hero (Vollbreite, Caption-Overlay) und Seiten-Integration (max. 780 px, Caption darunter) · Logo-Marquee als CSS-Laufband · alle WCAG 2.1 AA konform.</p>
-
-      <!-- ── Hero-Variante ── -->
-      <h2 id="gt-carousel-hero" class="group-title">Hero-Variante</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollbreit, randlos, 21:9-Format, ideal für den oberen Seitenbereich. Caption liegt als Gradient-Overlay über dem Bild. Modifier-Klasse <code class="token">.img-slider-hero</code> zum Basis-Element hinzufügen.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Übergang:</strong> Crossfade über 600 ms, passt zum Marken-Ton „Ruhig · Klar". Slides liegen absolut übereinander; die aktive Slide trägt die Klasse <code class="token">.active</code> (initial im HTML auf der ersten Slide setzen, damit beim Page-Load nichts unsichtbar ist). Unter <code class="token">prefers-reduced-motion: reduce</code> entfällt die Transition automatisch.</p>
-
-      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
-        <div class="img-slider img-slider-hero"
-             role="region"
-             aria-roledescription="Bildschirmpräsentation"
-             aria-label="Hero-Bildstrecke">
-
-          <div class="img-slider-track">
-
-            <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
-              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--co-700) 0%,var(--co-400) 100%)">
-                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M19.9159 36C17.6732 36 15.64 35.4917 13.8165 34.4751C12.0139 33.4365 10.5886 32.011 9.54058 30.1989C8.51353 28.3646 8 26.2983 8 24C8 21.7017 8.51353 19.6464 9.54058 17.8343C10.5886 16 12.0139 14.5746 13.8165 13.558C15.64 12.5193 17.6837 12 19.9474 12C21.8547 12 23.5735 12.3536 25.1036 13.0608C26.3765 13.6411 27.48 14.4299 28.4141 15.4269C28.7644 15.8009 28.7231 16.3821 28.3558 16.7396L26.5121 18.5339C26.0925 18.9423 25.4176 18.8985 24.9933 18.4951C23.6469 17.2147 22.0488 16.5746 20.1989 16.5746C18.8365 16.5746 17.6208 16.895 16.5518 17.5359C15.4828 18.1547 14.6444 19.0276 14.0366 20.1547C13.4497 21.2818 13.1562 22.5635 13.1562 24C13.1562 25.4365 13.4497 26.7182 14.0366 27.8453C14.6444 28.9724 15.4828 29.8564 16.5518 30.4972C17.6208 31.116 18.8365 31.4254 20.1989 31.4254C22.049 31.4254 23.6473 30.7773 24.9938 29.4811C25.4173 29.0734 26.0955 29.0274 26.5168 29.4374L28.361 31.2323C28.7261 31.5876 28.7695 32.1645 28.4246 32.5393C27.4882 33.5567 26.3812 34.3567 25.1036 34.9392C23.5525 35.6464 21.8233 36 19.9159 36Z" fill="white"/><path d="M35.8498 35.9519C34.6804 35.9519 33.6963 35.5309 32.8977 34.6888C32.099 33.8467 31.6997 32.7942 31.6997 31.5311C31.6997 30.2379 32.099 29.2004 32.8977 28.4185C33.6963 27.6065 34.6804 27.2005 35.8498 27.2005C37.0193 27.2005 38.0034 27.6065 38.802 28.4185C39.6007 29.2004 40 30.2379 40 31.5311C40 32.7942 39.6007 33.8467 38.802 34.6888C38.0034 35.5309 37.0193 35.9519 35.8498 35.9519Z" fill="white"/></svg>
-              </div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Markenstrategie für die Energiewende</p>
-                <p class="img-slide-caption-text">Corporate · Rebranding und Kommunikationssystem für einen regionalen Energieversorger.</p>
-              </div>
-            </div>
-
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 4">
-              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--ki-800) 0%,var(--ki-500) 100%)">
-                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><path d="M34.9392 21.6837C34.9392 20.0269 33.5959 18.6839 31.9392 18.6837H16.0613C14.4044 18.6837 13.0613 20.0268 13.0613 21.6837V34.5001C13.0613 36.1569 14.4045 37.5001 16.0613 37.5001H31.9392C33.5959 37.4999 34.9392 36.1568 34.9392 34.5001V21.6837Z" stroke="white" stroke-width="2"/><circle cx="23.69" cy="11.95" r="3" stroke="white" stroke-width="2"/><circle cx="17.88" cy="25.64" r="3" stroke="white" stroke-width="2"/><circle cx="29.82" cy="25.64" r="3" stroke="white" stroke-width="2"/></svg>
-              </div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">KI-gestütztes Berichtswesen</p>
-                <p class="img-slide-caption-text">Angewandte KI · Automatisierte Auswertung von Produktionsdaten für ein Fertigungsunternehmen.</p>
-              </div>
-            </div>
-
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 4">
-              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--es-700) 0%,var(--es-400) 100%)">
-                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><rect x="9" y="9" width="30" height="30" rx="4" stroke="white" stroke-width="2"/><path d="M10 19h28M19 10v28" stroke="white" stroke-width="2"/></svg>
-              </div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Cloud-Migration einer Versicherungsplattform</p>
-                <p class="img-slide-caption-text">Effektive Software · Ablösung eines Legacy-Systems durch eine skalierbare Microservice-Architektur.</p>
-              </div>
-            </div>
-
-            <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 4 von 4">
-              <div class="img-slide-media" style="background:linear-gradient(135deg,var(--wo-700) 0%,var(--wo-400) 100%)">
-                <svg width="64" height="64" viewBox="0 0 48 48" fill="none" aria-hidden="true" opacity=".35"><circle cx="24" cy="20" r="8" stroke="white" stroke-width="2"/><path d="M8 40c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
-              </div>
-              <div class="img-slide-caption">
-                <p class="img-slide-caption-title">Kulturwandel im Gesundheitswesen</p>
-                <p class="img-slide-caption-text">Wirksame Organisationen · Kulturwandel und Neuausrichtung einer Klinikgruppe.</p>
-              </div>
-            </div>
-
-          </div><!-- /track -->
-
-          <button class="img-slider-btn img-slider-prev" aria-label="Vorherige Folie">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="img-slider-btn img-slider-next" aria-label="Nächste Folie">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-
-          <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
-            <button class="img-dot" role="tab" aria-selected="true"  aria-label="Folie 1 von 4" tabindex="0"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 2 von 4" tabindex="-1"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 3 von 4" tabindex="-1"></button>
-            <button class="img-dot" role="tab" aria-selected="false" aria-label="Folie 4 von 4" tabindex="-1"></button>
-          </div>
-
-        </div><!-- /img-slider -->
-      </div>
-
-      <!-- Code-Beispiel Hero -->
-      <div class="cb-wrap" style="margin-bottom:var(--s10)">
-        <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Modifier .img-slider-hero für Vollbild-Darstellung mit Crossfade --&gt;</span>
-<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider img-slider-hero"</span>
-     <span class="v">role</span>=<span class="s">"region"</span> <span class="v">aria-roledescription</span>=<span class="s">"Bildschirmpräsentation"</span> <span class="v">aria-label</span>=<span class="s">"Hero-Bildstrecke"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-track"</span><span class="k">&gt;</span>
-    <span class="c">&lt;!-- erste Slide trägt .active, damit sie ohne JS sofort sichtbar ist --&gt;</span>
-    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide active"</span> <span class="v">role</span>=<span class="s">"group"</span> <span class="v">aria-roledescription</span>=<span class="s">"Folie"</span> <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;</span>
-      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-media"</span><span class="k">&gt;</span>
-        <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">"Kurze Bildbeschreibung"</span><span class="k">&gt;</span>
-      <span class="k">&lt;/div&gt;</span>
-      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slide-caption"</span><span class="k">&gt;</span>
-        <span class="c">&lt;!-- Caption liegt als Overlay über dem Bild --&gt;</span>
-        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-title"</span><span class="k">&gt;</span>Titel<span class="k">&lt;/p&gt;</span>
-        <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"img-slide-caption-text"</span><span class="k">&gt;</span>Beschreibung<span class="k">&lt;/p&gt;</span>
-      <span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;/div&gt;</span>
-    <span class="c">&lt;!-- weitere .img-slide … --&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-prev"</span> <span class="v">aria-label</span>=<span class="s">"Vorherige Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-slider-btn img-slider-next"</span> <span class="v">aria-label</span>=<span class="s">"Nächste Folie"</span><span class="k">&gt;</span>…<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"img-slider-dots"</span> <span class="v">role</span>=<span class="s">"tablist"</span> <span class="v">aria-label</span>=<span class="s">"Folien-Navigation"</span><span class="k">&gt;</span>
-    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"true"</span>  <span class="v">aria-label</span>=<span class="s">"Folie 1 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
-    <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"img-dot"</span> <span class="v">role</span>=<span class="s">"tab"</span> <span class="v">aria-selected</span>=<span class="s">"false"</span> <span class="v">aria-label</span>=<span class="s">"Folie 2 von 4"</span><span class="k">&gt;&lt;/button&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-      </div>
+      <p class="sec-sub">Bild-Carousel zur Seiten-Integration (max. 780 px, Caption darunter) · Logo-Marquee als CSS-Laufband · alle WCAG 2.1 AA konform. Die Slider-Hero-Variante für den Seitenkopf ist in den <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#sec-hero">Hero-Patterns</a> dokumentiert.</p>
 
       <!-- ── Seiten-Integration ── -->
       <h2 id="gt-carousel-inline" class="group-title">Seiten-Integration</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Eingebettet in Seiteninhalt, max. 780 px breit, abgerundete Ecken (16:9). Caption erscheint unterhalb des Bildes auf weißem Grund. Keine Modifier-Klasse nötig, nur die Basis-Klasse <code class="token">.img-slider</code> verwenden.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Übergang:</strong> Crossfade über 600 ms, gleiches Animations-Muster wie die Hero-Variante, passt zum Marken-Ton „Ruhig · Klar". Slides liegen als Grid-Items in derselben Zelle übereinander; die aktive Slide trägt <code class="token">.active</code> (initial im HTML auf der ersten Slide setzen). Unter <code class="token">prefers-reduced-motion: reduce</code> entfällt die Transition automatisch.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Übergang:</strong> Crossfade über 600 ms, gleiches Animations-Muster wie der <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-carousel-hero">Slider-Hero</a>, passt zum Marken-Ton „Ruhig · Klar". Slides liegen als Grid-Items in derselben Zelle übereinander; die aktive Slide trägt <code class="token">.active</code> (initial im HTML auf der ersten Slide setzen). Unter <code class="token">prefers-reduced-motion: reduce</code> entfällt die Transition automatisch.</p>
 
       <div style="max-width:780px;margin-bottom:var(--s8)">
         <div class="img-slider"
@@ -6841,7 +6842,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/team-coffee.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 6 Minuten" style="width:fit-content">Angewandte KI · 6 min Lesezeit</span>
@@ -6865,7 +6866,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 10 Minuten" style="width:fit-content">Wirksame Organisationen · 10 min Lesezeit</span>
@@ -6889,7 +6890,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="es" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software, Lesezeit 8 Minuten" style="width:fit-content">Effektive Software · 8 min Lesezeit</span>
@@ -6901,7 +6902,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/beratung-tasse.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 6 Minuten" style="width:fit-content">Wirksame Organisationen · 6 min Lesezeit</span>
