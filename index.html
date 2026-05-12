@@ -1197,6 +1197,27 @@
         <div style="font:400 16px/24px var(--font);color:var(--tx-secondary)">Libre Baskerville setzt die Akzente, Montserrat trägt den Fließtext, robuste Serifen, optimiert für Bildschirmlesbarkeit.</div>
       </div>
 
+      <!-- Lese-Legende für alle Type-Rows -->
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
+        <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s4)">So liest Du die Token-Zeilen</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:var(--s5);padding:var(--s4) var(--s5);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-sm)">
+          <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">Display Large</span>
+          <span style="font:400 13px/18px var(--font);color:var(--tx-secondary)">Libre Baskerville · 57px / 64px · 400</span>
+          <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">3.5625rem / 4rem</span>
+        </div>
+        <table class="doc-table" style="margin:0">
+          <thead><tr><th style="width:32%">Position</th><th>Bedeutung</th></tr></thead>
+          <tbody>
+            <tr><td><code class="token">Display Large</code></td><td>Name des Typografie-Tokens. Konvention: Kategorie + Größe (Large · Medium · Small).</td></tr>
+            <tr><td><code class="token">Libre Baskerville</code></td><td>Font-Family. Display- und Headline-Tokens nutzen Libre Baskerville (Serif), Title- / Body- / Label-Tokens nutzen Montserrat (Sans).</td></tr>
+            <tr><td><code class="token">57px / 64px</code></td><td>Font-Size <strong>/</strong> Line-Height in Pixel. Folgt der CSS-Shorthand-Syntax <code class="token">font-size/line-height</code>.</td></tr>
+            <tr><td><code class="token">400</code></td><td>Font-Weight numerisch: <code class="token">400</code> = Regular · <code class="token">500</code> = Medium · <code class="token">700</code> = Bold.</td></tr>
+            <tr><td><code class="token">UC</code></td><td><em>Optional, nur bei einigen Label-Tokens:</em> Token ist als Uppercase gedacht, zusätzlich <code class="token">text-transform:uppercase</code> + Letter-Spacing setzen.</td></tr>
+            <tr><td><code class="token">3.5625rem / 4rem</code></td><td>rem-Äquivalente derselben Font-Size / Line-Height, basierend auf 16&nbsp;px Browser-Basis. Für fluide, zoom-feste Layouts.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <h2 id="gt-type-display" class="group-title">Display</h2>
       <div class="type-row"><div class="type-meta"><span class="type-name">Display Large</span><span class="type-spec">Libre Baskerville · 57px / 64px · 400</span><span class="type-rem">3.5625rem / 4rem</span></div><div class="type-sample" style="font:400 57px/64px var(--font-display)">Ruhige Energie</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Display Medium</span><span class="type-spec">Libre Baskerville · 45px / 52px · 400</span><span class="type-rem">2.8125rem / 3.25rem</span></div><div class="type-sample" style="font:400 45px/52px var(--font-display)">Klarheit in Bewegung</div></div>
