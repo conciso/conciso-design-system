@@ -137,9 +137,11 @@
     </button>
     <div class="nav-subnav" data-for="buttons">
       <a class="nav-sub-item" href="#gt-btns-co">Corporate</a>
-      <a class="nav-sub-item" href="#gt-btns-ai">Angewandte KI</a>
+      <a class="nav-sub-item" href="#gt-btns-ki">Angewandte KI</a>
       <a class="nav-sub-item" href="#gt-btns-es">Effektive Software</a>
       <a class="nav-sub-item" href="#gt-btns-wo">Wirksame Organisationen</a>
+      <a class="nav-sub-item" href="#gt-btns-on-band">On-Band-Modifier</a>
+      <a class="nav-sub-item" href="#gt-btns-tokens">Token-Override-Pattern</a>
       <a class="nav-sub-item" href="#gt-btns-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="chips">
@@ -157,6 +159,7 @@
     <div class="nav-subnav" data-for="inputs">
       <a class="nav-sub-item" href="#gt-inputs-felder">Feldkomponenten</a>
       <a class="nav-sub-item" href="#gt-inputs-kontakt">Kontaktformulare</a>
+      <a class="nav-sub-item" href="#gt-inputs-suche">Such-Feld</a>
       <a class="nav-sub-item" href="#gt-inputs-newsletter">Newsletter-Anmeldung</a>
       <a class="nav-sub-item" href="#gt-inputs-slider">Slider</a>
       <a class="nav-sub-item" href="#gt-inputs-verwendung">Verwendung</a>
@@ -180,13 +183,14 @@
       <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="cta">
-      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>Download CTA
+      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>Call to Action
     </button>
     <div class="nav-subnav" data-for="cta">
-      <a class="nav-sub-item" href="#gt-cta-hero">Hero</a>
-      <a class="nav-sub-item" href="#gt-cta-visual">Mit Vorschaubild</a>
-      <a class="nav-sub-item" href="#gt-cta-kompakt">Kompakt</a>
-      <a class="nav-sub-item" href="#gt-cta-minimal">Minimal</a>
+      <a class="nav-sub-item" href="#gt-cta-band">Page-End-CTA-Band</a>
+      <a class="nav-sub-item" href="#gt-cta-hero">Download · Hero</a>
+      <a class="nav-sub-item" href="#gt-cta-visual">Download · Mit Vorschaubild</a>
+      <a class="nav-sub-item" href="#gt-cta-kompakt">Download · Kompakt</a>
+      <a class="nav-sub-item" href="#gt-cta-minimal">Download · Minimal</a>
       <a class="nav-sub-item" href="#gt-cta-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="table">
@@ -354,8 +358,8 @@
             </div>
             <div style="margin-top:var(--s3);display:flex;gap:var(--s2);flex-wrap:wrap">
               <span class="badge" style="background:#F4FCD5;color:#475705">Angewandte KI</span>
-              <button class="btn btn-filled btn-sm btn-ai">Starten</button>
-              <button class="btn btn-outlined btn-sm btn-ai">Mehr erfahren</button>
+              <button class="btn btn-filled btn-sm btn-ki">Starten</button>
+              <button class="btn btn-outlined btn-sm btn-ki">Mehr erfahren</button>
             </div>
           </div>
         </div>
@@ -456,10 +460,10 @@
       </div>
       <div id="at-ki" class="atab-content" role="tabpanel">
         <div class="row" style="align-items:center;flex-wrap:wrap">
-          <button class="btn btn-filled btn-ai">Filled</button>
-          <button class="btn btn-tonal btn-ai">Tonal</button>
-          <button class="btn btn-outlined btn-ai">Outlined</button>
-          <button class="btn btn-text btn-ai">Text</button>
+          <button class="btn btn-filled btn-ki">Filled</button>
+          <button class="btn btn-tonal btn-ki">Tonal</button>
+          <button class="btn btn-outlined btn-ki">Outlined</button>
+          <button class="btn btn-text btn-ki">Text</button>
           <span class="badge" style="background:#F4FCD5;color:#475705">Angewandte KI</span>
           <button class="chip" aria-pressed="false" data-area="ki">LLM</button>
           <button class="chip" aria-pressed="false">Automation</button>
@@ -1687,7 +1691,7 @@
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
             <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
       </div>
 
@@ -1708,7 +1712,7 @@
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
             <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
       </div>
 
@@ -1729,7 +1733,7 @@
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
             <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
       </div>
 
@@ -2173,7 +2177,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ BUTTONS ═══ -->
     <section class="ds-section" id="sec-buttons">
       <h1 class="sec-title">Buttons</h1>
-      <p class="sec-sub">Filled · Tonal · Elevated · Outlined · Text. Min. Touch-Target 44px.</p>
+      <p class="sec-sub">Fünf Stil-Varianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Default · Small · Large) und ein Inversions-Modifier (<code class="token">.btn-on-band</code>) für Buttons auf farbigen Bereichs-Bändern. Min. Touch-Target 44&nbsp;px.</p>
 
       <h2 id="gt-btns-co" class="group-title">Corporate</h2>
       <div class="row" style="align-items:center;flex-wrap:wrap">
@@ -2187,16 +2191,16 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <button class="btn btn-filled btn-co" disabled>Disabled</button>
       </div>
 
-      <h2 id="gt-btns-ai" class="group-title">Angewandte KI</h2>
+      <h2 id="gt-btns-ki" class="group-title">Angewandte KI</h2>
       <div class="row" style="align-items:center;flex-wrap:wrap">
-        <button class="btn btn-filled btn-ai">Filled</button>
-        <button class="btn btn-tonal btn-ai">Tonal</button>
-        <button class="btn btn-elevated btn-ai">Elevated</button>
-        <button class="btn btn-outlined btn-ai">Outlined</button>
-        <button class="btn btn-text btn-ai">Text</button>
-        <button class="btn btn-sm btn-filled btn-ai">Small</button>
-        <button class="btn btn-lg btn-filled btn-ai">Large</button>
-        <button class="btn btn-filled btn-ai" disabled>Disabled</button>
+        <button class="btn btn-filled btn-ki">Filled</button>
+        <button class="btn btn-tonal btn-ki">Tonal</button>
+        <button class="btn btn-elevated btn-ki">Elevated</button>
+        <button class="btn btn-outlined btn-ki">Outlined</button>
+        <button class="btn btn-text btn-ki">Text</button>
+        <button class="btn btn-sm btn-filled btn-ki">Small</button>
+        <button class="btn btn-lg btn-filled btn-ki">Large</button>
+        <button class="btn btn-filled btn-ki" disabled>Disabled</button>
       </div>
 
       <h2 id="gt-btns-es" class="group-title">Effektive Software</h2>
@@ -2222,6 +2226,54 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <button class="btn btn-lg btn-filled btn-wo">Large</button>
         <button class="btn btn-filled btn-wo" disabled>Disabled</button>
       </div>
+
+      <h2 id="gt-btns-on-band" class="group-title">On-Band-Modifier · invertiert auf Bereichs-Bändern</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5)"><code class="token">.btn-on-band</code> wird mit der jeweiligen Bereichs-Klasse kombiniert und kehrt die Farben um: weißer Button-Hintergrund, Text in der Bereichsfarbe, Hover semitransparent. Anwendung: <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-cta-band">Page-End-CTA-Band</a> am Ende jeder Customer-Page.</p>
+      <div style="display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s8)">
+        <div style="background:var(--co-700);padding:var(--s5) var(--s6);border-radius:var(--r-md);display:flex;align-items:center;gap:var(--s4)">
+          <span style="font:500 12px/16px var(--font);color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0">.btn-co · Corporate</span>
+          <button class="btn btn-filled btn-co btn-on-band" style="margin-left:auto">Termin buchen</button>
+        </div>
+        <div style="background:var(--ki-800);padding:var(--s5) var(--s6);border-radius:var(--r-md);display:flex;align-items:center;gap:var(--s4)">
+          <span style="font:500 12px/16px var(--font);color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0">.btn-ki · Angewandte KI</span>
+          <button class="btn btn-filled btn-ki btn-on-band" style="margin-left:auto">KI-Potenzial analysieren</button>
+        </div>
+        <div style="background:var(--es-700);padding:var(--s5) var(--s6);border-radius:var(--r-md);display:flex;align-items:center;gap:var(--s4)">
+          <span style="font:500 12px/16px var(--font);color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0">.btn-es · Effektive Software</span>
+          <button class="btn btn-filled btn-es btn-on-band" style="margin-left:auto">Assessment anfragen</button>
+        </div>
+        <div style="background:var(--wo-700);padding:var(--s5) var(--s6);border-radius:var(--r-md);display:flex;align-items:center;gap:var(--s4)">
+          <span style="font:500 12px/16px var(--font);color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;flex-shrink:0">.btn-wo · Wirksame Organisationen</span>
+          <button class="btn btn-filled btn-wo btn-on-band" style="margin-left:auto">Erstgespräch vereinbaren</button>
+        </div>
+      </div>
+
+      <h2 id="gt-btns-tokens" class="group-title">Token-Override-Pattern</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Button-Stile lesen ihre Farbe aus zwei CSS-Custom-Properties: <code class="token">--c500</code> (Akzentfarbe, z.&nbsp;B. <code class="token">background</code> beim Filled, <code class="token">color</code> und <code class="token">border-color</code> beim Outlined) und <code class="token">--c50</code> (sanfter Hover-Hintergrund auf Outlined und Text-Buttons). Die vier Bereichs-Modifier-Klassen setzen diese Tokens als Shortcut:</p>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header"><span class="cb-lang">CSS</span></div>
+        <pre class="cb-body"><span class="v">.btn-co</span>   { --c500: var(--co-700); --c50: var(--co-50);  }  <span class="c">/* Corporate */</span>
+<span class="v">.btn-ki</span>   { --c500: var(--ki-800); --c50: var(--ki-50);  }  <span class="c">/* Angewandte KI */</span>
+<span class="v">.btn-es</span>   { --c500: var(--es-700); --c50: var(--es-50);  }  <span class="c">/* Effektive Software */</span>
+<span class="v">.btn-wo</span>   { --c500: var(--wo-700); --c50: var(--wo-50);  }  <span class="c">/* Wirksame Organisationen */</span></pre>
+      </div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Regel:</strong> Für Standard-Bereichsfarben immer die Modifier-Klasse verwenden. Erst wenn die benötigte Farbkombination außerhalb der vier Bereiche liegt und kein anderer Modifier sie deckt, die Tokens inline setzen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Wiederkehrender Spezialfall · invertierter Button auf farbigem Band</strong> (siehe <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-cta-band">Page-End-CTA-Band</a>): Background weiß, Text in der Bereichsfarbe, Hover dezent semitransparent. Dafür gibt es die zusammengesetzte Modifier-Klasse <code class="token">.btn-on-band</code>, die mit der jeweiligen Bereichs-Klasse kombiniert wird.</p>
+      <div class="cb-wrap" style="margin-bottom:var(--s6)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Standard: Modifier-Klasse --&gt;</span>
+<span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-ki"</span><span class="k">&gt;</span>Use Case analysieren<span class="k">&lt;/button&gt;</span>
+
+<span class="c">&lt;!-- Invertiert auf dunklem Bereichs-Band: zwei Modifier kombinieren --&gt;</span>
+<span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-co btn-on-band"</span><span class="k">&gt;</span>Termin buchen<span class="k">&lt;/button&gt;</span>
+
+<span class="c">&lt;!-- Echter Sonderfall: Inline-Override nur, wenn keine Modifier-Klasse passt --&gt;</span>
+<span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled"</span>
+        <span class="v">style</span>=<span class="s">"--c50:var(--ki-50);--c500:var(--ki-500);--c600:var(--ki-600);--c700:var(--ki-700);--c900:var(--ki-900);color:var(--ki-900)"</span><span class="k">&gt;</span>
+  Herunterladen
+<span class="k">&lt;/button&gt;</span></pre>
+      </div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)"><strong>Anti-Pattern:</strong> Inline-Style verwenden, der nur die Token-Werte einer Modifier-Klasse dupliziert (z.&nbsp;B. <code class="token">style="--c500:var(--co-700);--c50:var(--co-50)"</code> statt <code class="token">.btn-co</code>). Macht das Markup laut, das Refactoring teuer und verlangsamt das Lesen. Wenn eine Wiederholung auftaucht, lieber einen neuen Modifier definieren (wie <code class="token">.btn-on-band</code>) statt das Pattern an mehreren Stellen inline zu kopieren.</p>
 
       <h2 id="gt-btns-verwendung" class="group-title">Verwendung</h2>
       <div class="layout-grid" style="align-items:start">
@@ -2308,7 +2360,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td>Disabled</td><td><code class="token">aria-disabled="true"</code> statt HTML <code class="token">disabled</code> wenn der Button im Fokus-Flow bleiben soll, <code class="token">disabled</code> entfernt das Element aus der Tastaturreihenfolge</td></tr>
           <tr><td>Touch-Target</td><td>Mindestgröße 44×44 px für alle Button-Varianten (WCAG 2.5.5), <code class="token">btn-sm</code> ggf. mit zusätzlichem Padding kompensieren</td></tr>
           <tr><td>Focus-Ring</td><td>Nie <code class="token">outline: none</code> ohne sichtbaren Ersatz, der Design-System-Focus-Ring (<code class="token">--focus-aa</code>) muss für alle Buttons erhalten bleiben</td></tr>
-          <tr><td>Filled auf Bereichs-Section</td><td><strong>Filled-Buttons auf hellen Bereichs-Hintergründen</strong> (<code class="token">--co-50</code>, <code class="token">--ki-50</code>, <code class="token">--wo-50</code>) brauchen die dunklere Bereichs-Variante mit weißer Schrift, nicht <code class="token">-500</code>. Sonst fehlt der UI-Komponenten-Kontrast (WCAG 1.4.11, ≥ 3:1) zwischen Button-Fläche und Section. Pro Bereich (laut <a href="#sec-colors" style="color:var(--co-700);text-decoration:underline">Farbpalette</a>): <code class="token">--co-700</code> · <code class="token">--ki-800</code> · <code class="token">--wo-600</code> · <code class="token">--es-700</code>. Hintergrund <code class="token">--c500</code> setzen, <code class="token">color</code>-Override weglassen, der Default <code class="token">#fff</code> aus <code class="token">.btn-filled</code> greift</td></tr>
+          <tr><td>Filled auf Bereichs-Section</td><td><strong>Filled-Buttons auf hellen Bereichs-Hintergründen</strong> (<code class="token">--co-50</code>, <code class="token">--ki-50</code>, <code class="token">--wo-50</code>, <code class="token">--es-50</code>) brauchen eine ausreichend dunkle Variante mit weißer Schrift, sonst fehlt der UI-Komponenten-Kontrast (WCAG 1.4.11, ≥ 3:1) zwischen Button-Fläche und Section. Drei von vier Bereichen sind durch die Modifier-Klasse bereits korrekt abgedeckt: <code class="token">.btn-co</code> → <code class="token">--co-700</code>, <code class="token">.btn-ki</code> → <code class="token">--ki-800</code>, <code class="token">.btn-es</code> → <code class="token">--es-700</code>. <strong>Ausnahme WO:</strong> die <code class="token">.btn-wo</code>-Default-Farbe <code class="token">--wo-700</code> ist im Allgemeinen passend, verfehlt aber auf <code class="token">--wo-50</code>-Sub-Strips den Kontrast. Dort die Bereichs-Klasse mit minimalem Inline-Override kombinieren: <code class="token">&lt;button class="btn btn-filled btn-wo" style="--c500:var(--wo-600)"&gt;</code>. <code class="token">--c50</code> erbt korrekt von <code class="token">.btn-wo</code>, <code class="token">color</code>-Override entfällt (Default <code class="token">#fff</code> aus <code class="token">.btn-filled</code> greift)</td></tr>
         </tbody>
       </table>
 
@@ -2321,7 +2373,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Pro Kontext max. 1 Filled Button, klare Priorisierung der Hauptaktion für die Nutzerin</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Verb-Labels: konkret und handlungsorientiert, <em>Starten, Speichern, Anfragen, Absenden</em></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Hierarchie konsequent einhalten: Filled → Tonal oder Outlined → Text</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsklasse passend zum Seitenkontext: <code class="token">.btn-co</code> <code class="token">.btn-ai</code> <code class="token">.btn-es</code> <code class="token">.btn-wo</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsklasse passend zum Seitenkontext: <code class="token">.btn-co</code> <code class="token">.btn-ki</code> <code class="token">.btn-es</code> <code class="token">.btn-wo</code></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Touch Target min. 44px einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung</span></li>
           </ul>
         </div>
@@ -2331,7 +2383,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehrere Filled Buttons nebeneinander, lässt keine klare Primäraktion erkennen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Substantive oder lange Phrasen als Labels, <em>Antragsformular einreichen</em> → lieber <em>Absenden</em></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Disabled-State ohne sichtbare Begründung, nutze Helper-Text oder Tooltip um zu erklären warum</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer <code class="token">.btn-co</code>, nie <code class="token">.btn-ai</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer <code class="token">.btn-co</code>, nie <code class="token">.btn-ki</code></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Button-Farben aus verschiedenen Bereichen mischen, bricht die Markenkohärenz der Seite</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Filled-Button mit <code class="token">--area-500</code> auf hellem Bereichs-Hintergrund (<code class="token">--area-50</code>): Button-Fläche hebt sich nur 1.4 bis 3.0:1 ab und verfehlt WCAG 1.4.11. Stattdessen die dunklere Bereichs-Variante nutzen (siehe Barrierefreiheit-Tabelle oben)</span></li>
           </ul>
@@ -2463,7 +2515,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
                 <label for="f-ai-msg">Projektbeschreibung <span class="req" aria-hidden="true">*</span></label>
                 <textarea id="f-ai-msg" rows="3" placeholder="Kurze Beschreibung Ihres KI-Vorhabens…" aria-required="true"></textarea>
               </div>
-              <button class="btn btn-filled btn-ai btn-full">KI-Projekt besprechen</button>
+              <button class="btn btn-filled btn-ki btn-full">KI-Projekt besprechen</button>
             </div>
           </div>
         </div>
@@ -2559,6 +2611,34 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </div>
         </div>
 
+      </div>
+
+      <h2 id="gt-inputs-suche" class="group-title">Such-Feld</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten (z.&nbsp;B. <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#sec-listing">Wissens-Übersicht</a>). Kein sichtbares <code class="token">&lt;label&gt;</code>: Icon und Placeholder tragen den visuellen Kontext, ein <code class="token">aria-label</code> liefert den semantischen Namen für Screenreader.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Struktur:</strong> Wrapper-<code class="token">&lt;div role="search"&gt;</code> mit eigenem <code class="token">aria-label</code> (z.&nbsp;B. „Beiträge durchsuchen") macht das Such-Feld zur Landmark, die Screenreader-Nutzerinnen direkt anspringen können. Darin: ein absolut positioniertes <code class="token">&lt;svg aria-hidden="true"&gt;</code> bei <code class="token">left:var(--s4)</code> und ein <code class="token">&lt;input type="search"&gt;</code> mit Padding-Left von 44&nbsp;px, damit das Icon nicht in den Text läuft.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Stil-Konventionen:</strong> Pill-Radius (<code class="token">--r-full</code>), Border <code class="token">1.5px solid var(--n-200)</code>, <code class="token">background:var(--bg-surface)</code>, Font <code class="token">var(--ty-body-md)</code>. Auf der Wissens-Übersicht: <code class="token">max-width:480px</code>, zentriert mittels <code class="token">margin:0 auto</code>. <code class="token">autocomplete="off"</code> verhindert Browser-Vorschläge in einer Filterung.</p>
+
+      <div style="display:flex;justify-content:center;margin-bottom:var(--s6)">
+        <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;width:100%;position:relative">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25" aria-hidden="true" focusable="false" style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+          </svg>
+          <input type="search" placeholder="Beitrag suchen" aria-label="Beiträge nach Stichwort durchsuchen" autocomplete="off" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
+        </div>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Such-Feld als Landmark, Magnifier-Icon links, kein sichtbares Label --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">role</span>=<span class="s">"search"</span> <span class="v">aria-label</span>=<span class="s">"Beiträge durchsuchen"</span>
+     <span class="v">style</span>=<span class="s">"max-width:480px;position:relative"</span><span class="k">&gt;</span>
+  <span class="k">&lt;svg</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span> <span class="v">focusable</span>=<span class="s">"false"</span>
+       <span class="v">style</span>=<span class="s">"position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none"</span><span class="k">&gt;</span>…<span class="k">&lt;/svg&gt;</span>
+  <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"search"</span> <span class="v">aria-label</span>=<span class="s">"Beiträge nach Stichwort durchsuchen"</span>
+         <span class="v">placeholder</span>=<span class="s">"Beitrag suchen"</span> <span class="v">autocomplete</span>=<span class="s">"off"</span>
+         <span class="v">style</span>=<span class="s">"width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--n-200);
+                border-radius:var(--r-full);background:var(--bg-surface)"</span><span class="k">&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
       </div>
 
       <h2 id="gt-inputs-newsletter" class="group-title">Newsletter-Anmeldung</h2>
@@ -2772,7 +2852,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </div>
           <div>
             <div style="font:600 13px/18px var(--font);color:var(--ki-800);margin-bottom:4px">Angewandte KI</div>
-            <div style="font:var(--ty-body-sm);color:var(--tx-secondary)">Header in <code class="token">--ki-500</code> · Submit <code class="token">.btn-ai</code> · Fokusring in Lime</div>
+            <div style="font:var(--ty-body-sm);color:var(--tx-secondary)">Header in <code class="token">--ki-500</code> · Submit <code class="token">.btn-ki</code> · Fokusring in Lime</div>
           </div>
           <div>
             <div style="font:600 13px/18px var(--font);color:var(--es-700);margin-bottom:4px">Effektive Software</div>
@@ -2841,8 +2921,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <div class="card-text">Intelligenz, die echten Mehrwert schafft, kein Hype, sondern messbares Ergebnis.</div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-text btn-sm btn-ai">Mehr</button>
-            <button class="btn btn-filled btn-sm btn-ai">Anfragen</button>
+            <button class="btn btn-text btn-sm btn-ki">Mehr</button>
+            <button class="btn btn-filled btn-sm btn-ki">Anfragen</button>
           </div>
         </article>
         <article class="card card-elevated col-3" data-area="es">
@@ -4042,7 +4122,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
         <div class="col-4">
           <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Chip</div>
-          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Chips sind <strong>interaktive</strong> Filter- und Auswahlkomponenten. Die Nutzerin schaltet sie aktiv ein oder aus, der Zustand <code class="token">.sel</code> zeigt die aktive Auswahl in der jeweiligen Bereichsfarbe an.</p>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Chips sind <strong>interaktive</strong> Filter- und Auswahlkomponenten. Die Nutzerin schaltet sie aktiv ein oder aus, der Zustand <code class="token">aria-pressed="true"</code> zeigt die aktive Auswahl in der jeweiligen Bereichsfarbe an (CSS stylt den Pressed-State ausschließlich über das ARIA-Attribut, keine separate Klasse).</p>
           <table class="doc-table">
             <thead>
               <tr>
@@ -4051,7 +4131,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               </tr>
             </thead>
             <tbody>
-              <tr><td>Interaktion</td><td>Toggle, Klick wechselt zwischen aktiv (<code class="token">.sel</code>) und inaktiv</td></tr>
+              <tr><td>Interaktion</td><td>Toggle, Klick wechselt zwischen <code class="token">aria-pressed="true"</code> und <code class="token">aria-pressed="false"</code></td></tr>
               <tr><td>Label</td><td>Max. 3 Wörter · prägnante Kategorie- oder Filterbegriffe</td></tr>
               <tr><td>Bereichsfarbe</td><td>Aktiver Chip nutzt <code class="token">border-color</code> und <code class="token">background</code> der jeweiligen Brand Area</td></tr>
               <tr><td>Menge</td><td>Max. 5 bis 7 Chips pro Gruppe, mehr überfordert, weniger ist meist genug</td></tr>
@@ -4202,10 +4282,31 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
     <!-- ═══ DOWNLOAD CTA ═══ -->
     <section class="ds-section" id="sec-cta">
-      <h1 class="sec-title">Download Call to Action</h1>
-      <p class="sec-sub">Vier Varianten · Hero · Mit Vorschaubild · Kompakt · Minimal · alle Brand Areas · barrierefrei.</p>
+      <h1 class="sec-title">Call to Action</h1>
+      <p class="sec-sub">Zwei Pattern-Familien: das <strong>Page-End-CTA-Band</strong> (vollflächiger Streifen am Ende jeder Customer-Page mit einer konkreten Einladung) und vier <strong>Download-CTA-Varianten</strong> für Ressourcen-Downloads (Hero · Mit Vorschaubild · Kompakt · Minimal). Beide Familien decken alle Brand Areas ab, sind barrierefrei und folgen dem Markenton „Ruhig · Klar".</p>
 
-      <h2 id="gt-cta-hero" class="group-title">Hero</h2>
+      <h2 id="gt-cta-band" class="group-title">Page-End-CTA-Band</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollflächiger CTA-Streifen am Ende jeder Customer-Page, direkt vor dem Footer. Trägt eine konkrete Headline, eine erklärende Subline und einen einzelnen Button auf der Bereichsfarbe als Hintergrund. Übernimmt die Funktion „letzte Einladung", wenn die Nutzerin die Page durchgelesen hat, soll der Schritt zur Kontaktaufnahme leichtfallen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Klassen:</strong> Container <code class="token">.ep-cta-band</code> (Padding <code class="token">var(--s12) var(--s8)</code>, zentriert), Headline <code class="token">.ep-cta-h2</code> (Display Md), Subline <code class="token">.ep-cta-sub</code> (Body Md, <code class="token">opacity:.85</code>). Hintergrund per Inline-Style auf <code class="token">--co-700</code>/<code class="token">--ki-800</code>/<code class="token">--es-700</code>/<code class="token">--wo-700</code> (dem Page-Bereich folgend), Schrift <code class="token">color:#fff</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Button-Inversion:</strong> Auf der dunklen Bereichs-Fläche wird der Filled-Button invertiert: Background weiß, Text in der Bereichsfarbe. Dafür gibt es die zusammengesetzte Modifier-Klasse <a class="footer-link" style="color:var(--co-700);text-decoration:underline" href="#gt-btns-tokens"><code class="token">.btn-on-band</code></a>, die mit der Bereichs-Klasse kombiniert wird (<code class="token">.btn-co</code>/<code class="token">.btn-ki</code>/<code class="token">.btn-es</code>/<code class="token">.btn-wo</code>). Headline ist ein konkretes Angebot („Erstgespräch, 30 Minuten, kostenfrei."), keine Marketing-Floskel; Button-Label ein Verb mit klarem Ziel.</p>
+
+      <div class="ep-cta-band" style="background:var(--co-700);color:#fff;border-radius:var(--r-lg);margin-bottom:var(--s6)">
+        <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
+        <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Deine Situation, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
+        <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Page-End-CTA-Band: Bereichsfarbe als Hintergrund, invertierter Button --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-cta-band"</span> <span class="v">style</span>=<span class="s">"background:var(--co-700);color:#fff"</span><span class="k">&gt;</span>
+  <span class="k">&lt;h2</span> <span class="v">class</span>=<span class="s">"ep-cta-h2"</span><span class="k">&gt;</span>Erstgespräch, 30 Minuten, kostenfrei.<span class="k">&lt;/h2&gt;</span>
+  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-cta-sub"</span> <span class="v">style</span>=<span class="s">"max-width:680px;margin-inline:auto"</span><span class="k">&gt;</span>Du schilderst Deine Situation, wir geben eine erste Einschätzung.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-co btn-on-band"</span><span class="k">&gt;</span>Termin buchen<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <h2 id="gt-cta-hero" class="group-title">Download · Hero</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für die Hauptressource einer Seite, Landing Pages, Ressourcenseiten und Kampagnen. Eyebrow, Titel, Beschreibung und Metadaten mit einer primären Aktion.</p>
       <div class="cta-dl" data-area="co" style="margin-bottom:var(--s8)">
         <div class="cta-dl-icon">
@@ -4227,7 +4328,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         </div>
       </div>
 
-      <h2 id="gt-cta-visual" class="group-title">Mit Vorschaubild</h2>
+      <h2 id="gt-cta-visual" class="group-title">Download · Mit Vorschaubild</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Ideal für Whitepapers und Reports: Das Deckblatt als Vorschau macht den Inhalt sofort greifbar. Ersetze das Platzhalterbild mit einem <code style="font-family:'Courier New',monospace;font-size:13px">&lt;img src="deckblatt.jpg" alt="Vorschau: ..."&gt;</code>.</p>
       <div class="cta-visual" data-area="co" style="max-width:720px;margin-bottom:var(--s8)">
         <!-- Cover: Platzhalterbild – in Produktion durch <img> ersetzen -->
@@ -4262,7 +4363,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         </div>
       </div>
 
-      <h2 id="gt-cta-kompakt" class="group-title">Kompakt</h2>
+      <h2 id="gt-cta-kompakt" class="group-title">Download · Kompakt</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für Ressourcenlisten mit mehreren Downloads, Icon, Dateiname und Metadaten in einer kompakten Zeile.</p>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <div class="col-6">
@@ -4307,7 +4408,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         </div>
       </div>
 
-      <h2 id="gt-cta-minimal" class="group-title">Minimal</h2>
+      <h2 id="gt-cta-minimal" class="group-title">Download · Minimal</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für Quellenangaben, Fließtext-Links oder Nebenbereiche, dezent, klar erkennbar als Download-Link.</p>
       <div style="display:flex;flex-direction:column;gap:var(--s1);margin-bottom:var(--s8)">
         <a href="#" class="cta-link" data-area="co"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Brand Guidelines<span class="cta-link-meta">PDF · 4,2 MB</span></a>
@@ -4604,31 +4705,27 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <div class="col-6">
           <div style="font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-600);margin-bottom:var(--s3)">Anatomie</div>
           <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;font:400 12px/16px var(--font)">
-            <div style="display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:0;border-bottom:var(--bd)">
+            <div style="display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:0;border-bottom:var(--bd)">
               <div style="padding:var(--s4);background:var(--bg-overlay);border-right:var(--bd)">
                 <div style="color:var(--co-500);font-weight:700;margin-bottom:4px">① Marke</div>
-                <div style="color:var(--tx-muted)">Name + Bereichsfarbe</div>
+                <div style="color:var(--tx-muted)">Logo + Adresse + Kontakt</div>
               </div>
               <div style="padding:var(--s4);border-right:var(--bd)">
-                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">② Bereich 1</div>
-                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">② Leistungen</div>
+                <div style="color:var(--tx-muted)">Angewandte KI<br>Effektive Software<br>Wirksame Organisationen</div>
               </div>
               <div style="padding:var(--s4);border-right:var(--bd)">
-                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">③ Bereich 2</div>
-                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
-              </div>
-              <div style="padding:var(--s4);border-right:var(--bd)">
-                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">④ Bereich 3</div>
-                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">③ Wissen</div>
+                <div style="color:var(--tx-muted)">Beiträge<br>Newsletter</div>
               </div>
               <div style="padding:var(--s4)">
-                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">⑤ Bereich 4</div>
-                <div style="color:var(--tx-muted)">Link<br>Link<br>Link</div>
+                <div style="font-weight:600;color:var(--tx-primary);margin-bottom:4px">④ Über uns</div>
+                <div style="color:var(--tx-muted)">Über uns<br>Jobs<br>Referenzen</div>
               </div>
             </div>
             <div style="padding:var(--s3) var(--s4);background:var(--bg-overlay);display:flex;justify-content:space-between;align-items:center">
-              <span style="color:var(--tx-muted)">⑥ © Jahr Firma</span>
-              <span style="color:var(--tx-muted)">⑦ Datenschutz · Impressum · Barrierefreiheit</span>
+              <span style="color:var(--tx-muted)">⑤ © Jahr Firma · Standort</span>
+              <span style="color:var(--tx-muted)">⑥ Datenschutz · Impressum</span>
             </div>
           </div>
         </div>
@@ -4641,7 +4738,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Produktname in der aktiven Bereichsfarbe, verankert die Brand Area auch im Footer</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Alle vier Brand Areas als Navigationsspalten, gibt den Bereichen gleichwertigen Platz</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer-Struktur folgt dem Topnav-IA: <strong>Leistungen · Wissen · Über uns</strong> als drei Nav-Spalten plus die Marke-Spalte, Nutzerin erkennt die gleiche Ordnung</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> mit eindeutigem <code class="token">aria-label</code> versehen, Navigation muss benannt sein</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Legal-Bar vollständig halten, Datenschutz, Impressum und Barrierefreiheit sind Pflicht</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer-Links kurz und treffend, Nutzerinnen scannen, sie lesen nicht</span></li>
@@ -4650,7 +4747,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 4 Navigationsspalten, wirkt überladen und bricht das Grid auf kleineren Screens</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Vom IA-Schema „Leistungen · Wissen · Über uns" abweichen oder weitere Nav-Spalten hinzufügen, der Footer muss die Topnav spiegeln</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer als primäre Navigation verwenden, er ist eine Ergänzung, nicht Ersatz für die Top App Bar</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 4 Links pro Spalte, konzentriert bleiben, die wichtigsten Einstiegspunkte nennen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Legal-Links in der Haupt-Spaltennavigation platzieren, sie gehören ausschließlich in die Legal-Bar</span></li>
@@ -6088,7 +6185,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
         <figure class="hero-image">
@@ -6106,8 +6203,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Ruhig · Klar · Energiegeladen</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Schau Dir an, wie wir arbeiten. Oder buch direkt ein Erstgespräch.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled" type="button" style="--c500:var(--co-700);--c50:var(--co-50)">Unsere Leistungen</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Gespräch vereinbaren</button>
+            <button class="btn btn-filled btn-co" type="button">Unsere Leistungen</button>
+            <button class="btn btn-outlined btn-co" type="button">Gespräch vereinbaren</button>
           </div>
         </div>
         <!-- Drei Bereiche – farbig differenziert -->
@@ -6196,7 +6293,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
           <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Deine Situation, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--co-700)">Termin buchen</button>
+          <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -6262,7 +6359,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image">
@@ -6280,8 +6377,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Team · Karriere · Referenzen</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Lerne unser Team kennen. Oder schick uns Deine Bewerbung.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled" type="button" style="--c500:var(--co-700);--c50:var(--co-50)">Team kennenlernen</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Karriere</button>
+            <button class="btn btn-filled btn-co" type="button">Team kennenlernen</button>
+            <button class="btn btn-outlined btn-co" type="button">Karriere</button>
           </div>
         </div>
         <!-- Drei Pfeiler -->
@@ -6361,7 +6458,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Bereit zum Kennenlernen?</h2>
           <p class="ep-cta-sub">Komm bei uns in Dortmund vorbei. Wir kochen meistens guten Kaffee.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--co-700)">Team kennenlernen</button>
+          <button class="btn btn-filled btn-co btn-on-band">Team kennenlernen</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -6412,7 +6509,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image">
@@ -6430,8 +6527,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">AI.Engineering · AI.Automation · AI.Box</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Erzähl uns Dein Vorhaben. Oder schau Dir erst Fallstudien an.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled" type="button" style="--c500:var(--ki-800);--c50:var(--ki-50)">Use Case analysieren</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--ki-800)">Fallstudien ansehen</button>
+            <button class="btn btn-filled btn-ki" type="button">Use Case analysieren</button>
+            <button class="btn btn-outlined btn-ki" type="button">Fallstudien ansehen</button>
           </div>
         </div>
         <!-- Lösungen -->
@@ -6483,7 +6580,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
           <h2 class="ep-cta-h2">Welchen Prozess könntest Du automatisieren?</h2>
           <p class="ep-cta-sub">Sag es uns. Wir bringen das nötige KI-Know-how mit.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--ki-800)">KI-Potenzial analysieren</button>
+          <button class="btn btn-filled btn-ki btn-on-band">KI-Potenzial analysieren</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -6534,7 +6631,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image">
@@ -6552,8 +6649,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--es-700);margin-bottom:var(--s4)">Engineering · Deployment · Qualität</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Lass uns Deinen Stack ansehen. Oder schau Dir unsere Referenzen an.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled" type="button" style="--c500:var(--es-700);--c50:var(--es-50);color:#fff">Stack analysieren</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--es-700)">Referenzen ansehen</button>
+            <button class="btn btn-filled btn-es" type="button">Stack analysieren</button>
+            <button class="btn btn-outlined btn-es" type="button">Referenzen ansehen</button>
           </div>
         </div>
         <!-- Leistungen -->
@@ -6602,7 +6699,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--es-700);color:#fff">
           <h2 class="ep-cta-h2">Dein nächstes Software-Projekt.</h2>
           <p class="ep-cta-sub">Wir starten mit einem ehrlichen Technologie-Assessment. Ohne Verkaufsdruck.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--es-700)">Assessment anfragen</button>
+          <button class="btn btn-filled btn-es btn-on-band">Assessment anfragen</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -6653,7 +6750,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" href="#">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image">
@@ -6671,8 +6768,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--wo-700);margin-bottom:var(--s4)">Change · Leadership · Struktur</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Starte Deine Transformation. Oder lerne erst unseren Ansatz kennen.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled" type="button" style="--c500:var(--wo-600);--c50:var(--wo-50)">Transformation starten</button>
-            <button class="btn btn-outlined" type="button" style="--c500:var(--wo-700)">Ansatz kennenlernen</button>
+            <button class="btn btn-filled btn-wo" type="button" style="--c500:var(--wo-600)">Transformation starten</button>
+            <button class="btn btn-outlined btn-wo" type="button">Ansatz kennenlernen</button>
           </div>
         </div>
         <!-- Leistungen -->
@@ -6721,7 +6818,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
           <h2 class="ep-cta-h2">Was steht in Deiner Organisation an?</h2>
           <p class="ep-cta-sub">Ein offenes Gespräch genügt. Wir hören erst zu, bevor wir empfehlen.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--wo-700)">Erstgespräch vereinbaren</button>
+          <button class="btn btn-filled btn-wo btn-on-band">Erstgespräch vereinbaren</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -6772,7 +6869,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
 
         <!-- Page Header – Titel · Lead · Filter -->
@@ -6917,12 +7014,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Keine Beiträge gefunden.</p>
             <p class="wb-empty-state-detail" style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5);max-width:480px;margin-left:auto;margin-right:auto"></p>
             <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap">
-              <button class="btn btn-outlined wb-reset-search" type="button" style="--c500:var(--co-700)">Suche &amp; Filter zurücksetzen</button>
-              <button class="btn btn-text" type="button" style="--c500:var(--co-700)">Newsletter abonnieren <span aria-hidden="true">→</span></button>
+              <button class="btn btn-outlined btn-co wb-reset-search" type="button">Suche &amp; Filter zurücksetzen</button>
+              <button class="btn btn-text btn-co" type="button">Newsletter abonnieren <span aria-hidden="true">→</span></button>
             </div>
           </div>
           <div class="wb-load-more" style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin-top:var(--s10)">
-            <button class="btn btn-outlined" type="button" style="--c500:var(--co-700)">Mehr Beiträge laden</button>
+            <button class="btn btn-outlined btn-co" type="button">Mehr Beiträge laden</button>
             <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">6 von 24 Beiträgen</p>
           </div>
         </section>
@@ -6931,7 +7028,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Beiträge frei Haus.</h2>
           <p class="ep-cta-sub">Einmal im Monat die wichtigsten Insights: kurz, klar und ohne Marketing-Geschwurbel.</p>
-          <button class="btn btn-filled" style="--c500:#fff;--c50:rgba(255,255,255,.1);color:var(--co-700)">Newsletter abonnieren</button>
+          <button class="btn btn-filled btn-co btn-on-band">Newsletter abonnieren</button>
         </div>
 
         <!-- Footer -->
@@ -6983,7 +7080,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
           </nav>
-          <button class="btn btn-outlined btn-sm" type="button" style="--c500:var(--co-700)">Kontakt</button>
+          <button class="btn btn-outlined btn-sm btn-co" type="button">Kontakt</button>
         </div>
 
         <!-- Article Header: Breadcrumb · Title · Lead · Meta. Zentriert, redaktionell -->
@@ -7200,7 +7297,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <label for="f-wb-msg">Use-Case in zwei, drei Sätzen <span class="req" aria-hidden="true">*</span></label>
                 <textarea id="f-wb-msg" rows="4" placeholder="Was möchtest Du mit KI lösen, und was hält Dich heute davon ab?" aria-required="true"></textarea>
               </div>
-              <button class="btn btn-filled btn-ai btn-full">Erstgespräch anfragen</button>
+              <button class="btn btn-filled btn-ki btn-full">Erstgespräch anfragen</button>
             </div>
           </div>
         </div>

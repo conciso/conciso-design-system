@@ -36,10 +36,15 @@
 
 /* ── Button brand-area color variants ── */
 .btn-co   {--c500:var(--co-700);--c50:var(--co-50)}
-.btn-ai   {--c500:var(--ki-800);--c50:var(--ki-50)}
+.btn-ki   {--c500:var(--ki-800);--c50:var(--ki-50)}
 .btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
 .btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
-.btn-brand{--c500:var(--tx-brand);--c50:var(--n-50)}
+/* Modifier: invertiert auf dunklem Bereichs-Band (z. B. .ep-cta-band) — kombiniert mit .btn-co/.btn-ki/.btn-es/.btn-wo. Background wird weiß, Text trägt die Bereichsfarbe. */
+.btn-on-band{--c500:#fff;--c50:rgba(255,255,255,.1)}
+.btn-co.btn-on-band{color:var(--co-700)}
+.btn-ki.btn-on-band{color:var(--ki-800)}
+.btn-es.btn-on-band{color:var(--es-700)}
+.btn-wo.btn-on-band{color:var(--wo-700)}
 /* Full-width centered submit button */
 .btn-full {width:100%;justify-content:center}
 
