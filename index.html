@@ -2728,7 +2728,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       </div>
 
       <h2 id="gt-inputs-newsletter" class="group-title">Newsletter-Anmeldung</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Zwei Varianten: eine eigenständige Karte für Landingpages und Sektionen sowie ein kompaktes Widget für Footer oder Inline-Bereiche.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Zwei generische Varianten für Landingpages und Inline-Bereiche: eine eigenständige Karte und ein kompaktes Widget. Die Footer-Variante „Contentletter abonnieren" ist als eigenes Pattern im <a class="body-link" href="#sec-footer">Footer</a> dokumentiert — sie nutzt eigene Klassen (<code class="token">.footer-newsletter-form</code>) für die Integration ins helle Main-Band.</p>
       <div class="layout-grid" style="align-items:start">
 
         <!-- ── Karte ── -->
@@ -2740,7 +2740,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </div>
             <div class="ds-inner">
               <div style="font:400 24px/32px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)">Immer auf dem Laufenden</div>
-              <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Einmal im Monat, Insights, Neuigkeiten und Praxistipps aus allen Bereichen. Kein Spam, jederzeit abmeldbar.</div>
+              <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Alle drei Monate neue Beiträge aus den Bereichen Angewandte KI, Effektive Software und Wirksame Organisationen. Jederzeit abmeldbar.</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
                 <div class="field">
                   <label for="f-nl-fn">Vorname <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--tx-muted)">(optional)</span></label>
@@ -4876,20 +4876,20 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Produktname in der aktiven Bereichsfarbe, verankert die Brand Area auch im Footer</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer-Struktur folgt dem Topnav-IA: <strong>Leistungen · Wissen · Über uns</strong> als drei Nav-Spalten plus die Marke-Spalte, Nutzerin erkennt die gleiche Ordnung</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> mit eindeutigem <code class="token">aria-label</code> versehen, Navigation muss benannt sein</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Legal-Bar vollständig halten, Datenschutz, Impressum und Barrierefreiheit sind Pflicht</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer-Links kurz und treffend, Nutzerinnen scannen, sie lesen nicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Wortmarke „Conciso GmbH" als Brand-Anker im Main-Band verwenden — die sticky Topnav trägt das Logo schon, ein Logo-Bild hier wäre Doppelung</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Navigation als <strong>konsolidierte Spalte „Wichtige Inhalte"</strong> mit max. 6–8 Top-Level-Zielen — der Footer ist Wiederfindungs-Anker, keine zweite Hauptnavigation</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> mit eindeutigem <code class="token">aria-label</code> versehen (<em>Wichtige Inhalte · Rechtliche Hinweise · Soziale Netzwerke</em>)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Datenschutz und Impressum linksbündig in der Bottom-Bar — verhindert Kollision mit dem sticky Back-to-Top-Button rechts unten</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Consent vor Submit in der Contentletter-Form — Tab- und Klickpfad führt durch die Einwilligung, bevor abgesendet wird (DSGVO + Trust)</span></li>
           </ul>
         </div>
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Vom IA-Schema „Leistungen · Wissen · Über uns“ abweichen oder weitere Nav-Spalten hinzufügen, der Footer muss die Topnav spiegeln</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer als primäre Navigation verwenden, er ist eine Ergänzung, nicht Ersatz für die Top App Bar</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als 4 Links pro Spalte, konzentriert bleiben, die wichtigsten Einstiegspunkte nennen</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Legal-Links in der Haupt-Spaltennavigation platzieren, sie gehören ausschließlich in die Legal-Bar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Logo-Bild im Brand-Bereich — redundant zur sticky Topnav, die die Marke bereits trägt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer als primäre Navigation verwenden, er ist eine Ergänzung, nicht Ersatz für die Topnav</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als ~8 Items in der Wichtige-Inhalte-Liste — der Footer würde zur Mini-Sitemap, tiefere Inhalte gehören auf den jeweiligen Bereichs-Hub</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Datenschutz und Impressum rechts in der Bottom-Bar oder in der Wichtige-Inhalte-Spalte — sie gehören in den dunklen Bottom-Streifen linksbündig</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer ohne Copyright-Jahr und Firmennamen, beide sind rechtlich relevant und müssen aktuell sein</span></li>
           </ul>
         </div>
@@ -6561,7 +6561,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <li><strong>Card-Meta:</strong> Datum (mit Wochentag) und Ort sitzen <em>oberhalb</em> des Titels, nicht am Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment. Details unter <a class="body-link" href="#gt-events-card">Event-Card</a>.</li>
         <li><strong>Default-Featured:</strong> „Effektive Software" statt „Angewandte KI" (Conciso veranstaltet Tech-Meet-Ups häufiger als KI-Workshops).</li>
         <li><strong>Counter:</strong> „6 anstehend · 18 im Archiv" statt „6 von 24 Beiträgen", weil Veranstaltungen zeitlich gebunden sind und Vergangenes nicht im Default-View erscheint.</li>
-        <li><strong>Empty-State-Sekundär-CTA:</strong> „Veranstaltungs-Newsletter" statt „Newsletter abonnieren" (Differenzierung Beitrags- vs. Veranstaltungs-Newsletter).</li>
+        <li><strong>Empty-State-Sekundär-CTA:</strong> „Veranstaltungs-Newsletter" statt „Contentletter abonnieren" (Differenzierung Beitrags-Contentletter vs. Veranstaltungs-Newsletter).</li>
       </ul>
 
       <h2 id="gt-events-card" class="group-title">Event-Card</h2>
@@ -7646,7 +7646,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="wb-empty-state-detail" style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5);max-width:480px;margin-left:auto;margin-right:auto"></p>
             <div style="display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap">
               <button class="btn btn-outlined btn-co wb-reset-search" type="button">Suche &amp; Filter zurücksetzen</button>
-              <button class="btn btn-text btn-co" type="button">Newsletter abonnieren <span aria-hidden="true">→</span></button>
+              <button class="btn btn-text btn-co" type="button">Contentletter abonnieren <span aria-hidden="true">→</span></button>
             </div>
           </div>
           <div class="wb-load-more" style="display:flex;flex-direction:column;align-items:center;gap:var(--s2);margin-top:var(--s10)">
@@ -7655,11 +7655,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </section>
 
-        <!-- CTA-Band: Newsletter -->
+        <!-- CTA-Band: Contentletter -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Beiträge frei Haus.</h2>
-          <p class="ep-cta-sub">Einmal im Monat die wichtigsten Insights: kurz, klar und ohne Marketing-Geschwurbel.</p>
-          <button class="btn btn-filled btn-co btn-on-band">Newsletter abonnieren</button>
+          <p class="ep-cta-sub">Alle drei Monate die wichtigsten Insights: kurz, klar und ohne Marketing-Geschwurbel.</p>
+          <button class="btn btn-filled btn-co btn-on-band">Contentletter abonnieren</button>
         </div>
 
         <!-- Footer -->
@@ -8261,8 +8261,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- CTA-Band: Veranstaltungs-Newsletter -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Keine Veranstaltung verpassen.</h2>
-          <p class="ep-cta-sub">Einmal im Monat eine Vorschau auf kommende Meet-Ups, Trainings und Webinare. Kein Marketing-Geschwurbel.</p>
-          <button class="btn btn-filled btn-co btn-on-band">Newsletter abonnieren</button>
+          <p class="ep-cta-sub">Alle drei Monate eine Vorschau auf kommende Meet-Ups, Trainings und Webinare. Kein Marketing-Geschwurbel.</p>
+          <button class="btn btn-filled btn-co btn-on-band">Veranstaltungs-Newsletter abonnieren</button>
         </div>
 
         <!-- Footer -->
