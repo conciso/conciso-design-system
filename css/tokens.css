@@ -30,10 +30,14 @@
   --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
   --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
 
-  /* ── Semantic ── */
-  --c-success:#1DB87A; --c-success-bg:#E6F9F1;
-  --c-warning:#E8A020; --c-warning-bg:#FEF4E0;
-  --c-error:#E84040;   --c-error-bg:#FDEAEA;
+  /* ── Semantic ──
+     --c-* sind Text-Farben (Required-Asterisk, Inline-Fehlertext, Do/Don't-Marker).
+     Werte sind in beiden Modi auf AA-Lesbarkeit auf der jeweiligen page-bg ausgelegt.
+     Light: dunklere/gedeckte Sättigung für Kontrast auf weiß. Dark-Overrides in dark-mode.css.
+     --c-*-bg sind Tint-Hintergründe für Callouts; Text darauf via --badge-*-text. */
+  --c-success:#0E6644; --c-success-bg:#E6F9F1;  /* Text auf #fff: 6.99:1 ✓ AAA */
+  --c-warning:#8A5E0A; --c-warning-bg:#FEF4E0;  /* Text auf #fff: 5.70:1 ✓ AA */
+  --c-error:#B22020;   --c-error-bg:#FDEAEA;    /* Text auf #fff: 6.73:1 ✓ AAA */
 
   /* ── Component color tokens (theme-overridable) ── */
   --badge-ok-text:#0e6644; --badge-warn-text:#8a5e0a; --badge-err-text:#9b2020;

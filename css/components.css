@@ -5,13 +5,15 @@
 .bw-svg{width:100%;max-width:480px;display:block}
 .bw-outer{fill:var(--co-50)}
 .bw-middle{fill:var(--co-200)}
-.bw-inner{fill:var(--co-400)}
+/* #fff on co-400 (#26C2C2) = 2.19:1 ❌. co-800 (#004F4F) = 9.42:1 ✓ AAA in beiden Modi.
+   Inhaltlich getrieben (GELASSENHEIT muss lesbar sein); visuell wird das Rad damit dunkler im Zentrum. */
+.bw-inner{fill:var(--co-800)}
 .bw-divider{stroke:#fff;stroke-width:2;fill:none}
 .bw-ring-outline{fill:none;stroke:#fff;stroke-width:2}
 .bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
 .bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
 .bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:10px;font-weight:600;letter-spacing:.8px}
-.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd)}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd);box-shadow:var(--e1)}
 .bw-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
 .bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
 
@@ -197,6 +199,7 @@
 .nav-link:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .hero-section{padding:var(--s16) var(--s8) var(--s12);text-align:center}
 .eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--s4);display:block}
+.doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 .hero-h1{font:var(--ty-heading-sm);color:var(--tx-primary);margin-bottom:var(--s4)}
 .hero-sub{font:var(--ty-body-lg);color:var(--tx-secondary);max-width:480px;margin:0 auto var(--s8)}
 .hero-actions{display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap}
@@ -208,29 +211,84 @@
 .snack-err{background:#7a1515;color:#fde8e8}
 .snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
 
-/* ── Footer ── */
-.footer{background:var(--n-700);color:var(--n-200);padding:var(--s10) var(--s8) var(--s6)}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:var(--s6);margin-bottom:var(--s8)}
-.footer-brand{font:var(--ty-title-lg);margin-bottom:var(--s3)}
-.footer-desc{font:var(--ty-body-md);color:var(--n-200);margin:0}
-/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
-.footer-htitle{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--n-300);margin:0 0 var(--s4) 0}
-.footer-subtitle{font:var(--ty-label-md);color:var(--n-100);margin:var(--s4) 0 var(--s2);padding:0}
-.footer-subtitle:first-child{margin-top:0}
+/* ── Footer ──
+   Zwei-Band-Layout: heller Main-Bereich (.footer-main) + dunkler Bottom-Streifen (.footer-btm).
+   Beide Bänder voll-breit; Inhalt jeweils auf 1280 px gedeckelt + zentriert
+   (analog zum oberen Inhaltsbereich in .ep-page, components.css:454). */
+.footer{display:flex;flex-direction:column}
+
+/* Main-Band: neutrales Hellgrau mit dunklem Text. --n-50 #F5F7F7 grenzt sich subtil von der weißen Page-bg ab. */
+.footer-main{background:var(--n-50);color:var(--tx-primary);padding-block:var(--s10);padding-inline:max(var(--s8), calc(50% - 640px))}
+
+/* 3-Spalten-Grid: Brand+Kontakt | Wichtige Inhalte | Contentletter (etwas breiter für das Formular) */
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:var(--s10)}
+
+/* Section-Headlines im Display-Serif. Gleicher Style für Brand, Nav-Header und Contentletter-Header. */
+.footer-brand{font:600 22px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s4)}
+.footer-htitle{font:600 22px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s4);text-transform:none;letter-spacing:0}
+
 .footer-nav-list{list-style:none;padding:0;margin:0}
-/* --n-200 (#C9D3D3) auf --n-700 (#1A2E2E) ≈ 12:1 AAA ✓ */
-/* padding:6px 0 vergrößert die Tap-Area auf ≈ 32 px, ohne den Textfluss zu stören */
-.footer-link{font:var(--ty-body-md);color:var(--n-200);text-decoration:none;padding:6px 0}
-.footer-link:hover{color:var(--n-0);text-decoration:underline}
+/* Inline-Links auf hellem Footer-bg. --tx-primary auf --n-50 ≈ 9.8:1 ✓ AAA. */
+.footer-link{font:var(--ty-body-md);color:var(--tx-primary);text-decoration:underline;text-underline-offset:3px;padding:0}
+.footer-link:hover{color:var(--co-700)}
 .footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
-/* Block-Layout nur innerhalb der Footer-Listen, damit dieselbe Klasse auch inline in Body-Texten ohne Zeilenumbruch funktioniert; das Padding ersetzt das alte margin-bottom als visueller Abstand */
-.footer-nav-list .footer-link{display:block}
-/* --n-300 (#A0B0B0) auf --n-700 (#1A2E2E) ≈ 6.5:1 AA ✓ */
-.footer-btm{border-top:1px solid var(--n-600);padding-top:var(--s4);display:flex;justify-content:space-between;align-items:center;font:var(--ty-body-xs);color:var(--n-300);flex-wrap:wrap;gap:var(--s2)}
+/* In Nav-Listen: Block-Layout + vertikale Tap-Area. padding 6px 0 ≈ 32 px Tap-Area. */
+.footer-nav-list .footer-link{display:block;padding:6px 0}
+
+/* Address-Block: semantisch <address>, Stack aus Adresse / Maps-Links / Telefon-Block. */
+.footer-address{font-style:normal;color:var(--tx-primary);margin:0}
+.footer-address p{font:var(--ty-body-md);margin:0 0 var(--s3)}
+.footer-address-maps{font:var(--ty-body-sm)}
+
+/* Body-Link: Inline-Link im Fließtext (Querverweise zwischen Doku-Abschnitten).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css → --co-200. */
+.body-link{color:var(--co-700);text-decoration:underline;text-underline-offset:2px}
+.body-link:hover{color:var(--co-800)}
+.body-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* Utility: Corporate-Brand-Text mit Dark-Override. */
+.t-co{color:var(--co-700)}
+
+/* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
+.footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
 .footer-btm-link{color:var(--n-300);text-decoration:none;padding:6px 0}
 .footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
 .footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
-.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Social-Icons rechtsbündig in der Bottom-Bar. Klick-Target 40x40 (WCAG 2.5.8 AAA), Icon 22x22 px. */
+.footer-social{display:flex;align-items:center;gap:var(--s2)}
+.footer-btm .footer-social{margin-left:auto}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--r-sm);transition:background var(--m-fast)}
+.footer-social a:hover{background:rgba(255,255,255,.08)}
+.footer-social a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-sm)}
+.footer-social img{max-width:22px;max-height:22px;object-fit:contain;display:block}
+
+/* Contentletter-Form (3. Spalte). Sichtbare Labels über jedem Input (Ihr Name / Ihre E-Mail-Adresse).
+   Consent vor Submit (DSGVO). Inputs auf weißem Background für ruhigen Kontrast im hellen Main-Band. */
+.footer-newsletter-desc{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s5)}
+.footer-newsletter-form{display:flex;flex-direction:column}
+/* In flex-direction:column streckt der Default align-items:stretch jeden Block auf die volle Spaltenbreite.
+   Inputs sollen das (width:100%), aber der Submit-Button soll auf seine natürliche Pill-Breite zurückfallen. */
+.footer-newsletter-form button[type="submit"]{align-self:flex-start}
+.footer-field{display:block;margin-bottom:var(--s4)}
+.footer-field-label{display:block;font:var(--ty-label-md);color:var(--tx-primary);margin-bottom:var(--s2)}
+.footer-newsletter-form input[type="text"],
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--n-200);background:#fff;padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+/* tx-secondary (#4A6565) auf weiß = 6,28:1 ✓ AA. tx-muted wäre 3,92:1 — knapp unter AA-Schwelle. */
+.footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
+.footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:0 0 0 2px rgba(0,190,190,.2)}
+/* Consent als <label> mit Checkbox + Text — implizite Verknüpfung, keine IDs nötig (Footer in 10 Tabpanels). */
+.footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
+.footer-newsletter-consent input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer}
+/* Konsistenter Focus-Ring (Cutout-Effekt) statt Browser-Default — passt zu Footer-Links und Submit-Button. */
+.footer-newsletter-consent input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Mobile (< 768px): Footer-Grid stapelt einspaltig, Bottom-Bar bleibt Flex-Wrap.
+   Padding-block etwas reduziert für kompakte Höhe auf Mobile. */
+@media (max-width: 768px) {
+  .footer-grid{grid-template-columns:1fr;gap:var(--s8)}
+  .footer-main{padding-block:var(--s8)}
+  .footer-btm .footer-social{margin-left:0}
+}
 
 /* ── A11y ── */
 .a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
@@ -281,6 +339,9 @@
 .c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
 .c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}
 .c-fail-badge{background:var(--cbadge-fail-bg);color:var(--cbadge-fail-text)}
+/* Modus-Pill für Kontrast-Zeilen. Macht explizit, ob ein Kontrast-Wert sich auf Light, Dark oder beide Themes bezieht.
+   Neutral gestaltet (Border statt Fill), damit das WCAG-Badge daneben optisch dominiert. */
+.a11y-mode{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em;border:var(--bd);background:transparent;color:var(--tx-secondary);margin-right:var(--s2);vertical-align:middle;white-space:nowrap}
 
 /* ── Slider ── */
 .field-slider{display:flex;flex-direction:column;gap:var(--s2)}
@@ -425,8 +486,10 @@
 .ep-page .ep-section,
 .ep-page .card-stat-strip,
 .ep-page .ep-cta-band,
-.ep-page .footer,
 .ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
+/* .footer hat eigene Bänder (.footer-main/.footer-btm) mit eigenem padding-inline.
+   Auf .footer hier kein Padding setzen — sonst doppelte Einrückung und der Background-Streifen
+   reicht nicht bis zur .ep-page-Kante. */
 .ep-topnav{display:flex;align-items:center;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s8);flex-wrap:wrap}
 /* Kontakt-Button (letztes Direct-Child) wird nach rechts gedrückt; Nav hängt direkt am Logo */
 .ep-topnav > :last-child{margin-left:auto}
@@ -495,6 +558,11 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-card[data-area="ki"] .ep-card-cta{color:var(--ki-800)}
 .ep-card[data-area="es"] .ep-card-cta{color:var(--es-700)}
 .ep-card[data-area="wo"] .ep-card-cta{color:var(--wo-700)}
+/* Card-CTA-Link (z.B. „Beitrag lesen →" am Karten-Fuß).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
+   --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
+.card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
+.card-cta-link--pinned{margin-top:auto;padding-top:var(--s2)}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
@@ -674,7 +742,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* ── Documentation tables (Verwendung, Barrierefreiheit, etc.) ── */
 .doc-table{width:100%;border-collapse:collapse;font:var(--ty-body-sm)}
 .doc-table thead tr{border-bottom:var(--bd-strong)}
-.doc-table th{text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-muted)}
+.doc-table th{text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 11px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary)}
 .doc-table th:last-child{padding-left:var(--s3)}
 .doc-table tbody tr{border-bottom:var(--bd)}
 .doc-table tbody tr:last-child{border-bottom:none}

@@ -23,6 +23,11 @@
   --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
   /* Semantic backgrounds – darkened */
   --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
+  /* Semantic text colors – hellere Pendants für Lesbarkeit auf bg-page (#333E48).
+     Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
+  --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
+  --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
+  --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
   /* Brand tints – very dark for dark surfaces */
   --co-50:#071616; --ki-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
   /* Badge text – lighter for dark backgrounds */
@@ -43,6 +48,10 @@
 [data-theme="dark"] .bw-pillar-card { background: var(--bg-surface) }
 /* co-700 (#007575) on bg-surface (#3F4B56) = ~1.6:1 → co-300 (#4DD0D0) = ~4.8:1 ✓ AA */
 [data-theme="dark"] .bw-pillar-title { color: var(--co-300) }
+/* Dark-only: tx-secondary (#8AAFAF) on bg-surface (#3F4B56) = 3.76:1 ❌ → tx-primary = 7.19:1 ✓ AAA. (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
+[data-theme="dark"] .bw-pillar-attrs { color: var(--tx-primary) }
+/* co-700 (#007575) on bg-page (#333E48) = ~1.97:1 → co-200 (#80DEDE) = ~8.3:1 ✓ AAA */
+[data-theme="dark"] .doc-eyebrow { color: var(--co-200) }
 
 /* Dark: targeted component fixes that can't be token-driven */
 /* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
@@ -142,6 +151,12 @@
 /* co-700 (#007575) on co-50 (#071616) = ~3:1 in dark → co-300 (#4DD0D0) = ~9.3:1 */
 [data-theme="dark"] .gcol  { color: var(--co-300) }
 [data-theme="dark"] .token { color: var(--co-300) }
+
+/* Body-Link / Card-CTA-Link / t-co: --co-700 auf bg-page = 1.97:1 ❌ → --co-200 = 6.97:1 ✓ AA */
+[data-theme="dark"] .body-link { color: var(--co-200) }
+[data-theme="dark"] .body-link:hover { color: var(--co-100) }
+[data-theme="dark"] .card-cta-link { color: var(--co-200) }
+[data-theme="dark"] .t-co { color: var(--co-200) }
 
 /* ── Cards ── */
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
