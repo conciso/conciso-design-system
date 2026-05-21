@@ -54,20 +54,23 @@
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
   --font-display:'Libre Baskerville','Georgia',serif;
 
-  /* ── Typography Scale ── */
+  /* ── Typography Scale ──
+     Minimum-Font-Size systemweit: 12 px. Tokens darunter wurden eliminiert oder angehoben,
+     damit Inhalte unter allen Bedingungen gut lesbar bleiben (Bildschirm, Mobile, Print). */
   /* Sans-serif (Montserrat) */
-  --ty-micro:        400 10px/14px var(--font);
-  --ty-caption:      400 11px/14px var(--font);
+  --ty-caption:      400 12px/16px var(--font);
   --ty-body-xs:      400 12px/16px var(--font);
   --ty-body-sm:      400 13px/20px var(--font);
   --ty-body-md:      400 14px/20px var(--font);
   --ty-body-lg:      400 16px/24px var(--font);
-  --ty-label-xs:     500 11px/16px var(--font);
+  /* label-xs und label-sm haben dieselben Metriken — label-xs ist die "Eyebrow"-Variante,
+     mit text-transform:uppercase + letter-spacing am Use-Site. label-sm ist für Mixed-Case-Labels. */
+  --ty-label-xs:     500 12px/16px var(--font);
   --ty-label-sm:     500 12px/16px var(--font);
   --ty-label-md:     500 14px/20px var(--font);
-  --ty-title-sm:     500 16px/24px var(--font);
+  --ty-title-sm:     500 18px/26px var(--font);
   --ty-title-lg:     500 22px/28px var(--font);
-  --ty-label-xs-strong: 600 11px/16px var(--font);
+  --ty-label-xs-strong: 600 12px/16px var(--font);
   --ty-name:         600 13px/18px var(--font);
   /* Display / serif (Libre Baskerville) */
   --ty-serif-sm:     400 17px/28px var(--font-display);
