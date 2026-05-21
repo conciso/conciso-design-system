@@ -3046,7 +3046,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <thead><tr><th>Pattern</th><th>Wrapping</th><th>Wann einsetzen</th><th>Beispiel in Produktion</th></tr></thead>
         <tbody>
           <tr><td><code class="token">.ep-card.ep-card-link</code></td><td><code class="token">&lt;a class="ep-card ep-card-link"&gt;</code></td><td>Kompakte Teaser-Kacheln mit Icon + Eyebrow + Title + kurzem Text + CTA-Pfeil-Zeile. Auto-Fit-Grid mit min. 200&nbsp;px, ohne Card-Footer-Buttons.</td><td>Bereichs-Teaser auf Landing / Bereichsseiten („Drei Bereiche“)</td></tr>
-          <tr><td><code class="token">a.card.card-elevated</code></td><td><code class="token">&lt;a class="card card-elevated"&gt;</code></td><td>Textreiche Listing-Cards mit Card-Media (Bild oder Visual), Card-Body (Pill + Title + Text) und implizitem „Beitrag lesen →“-Anker am Ende. Festes Grid (col-4, col-6).</td><td>wb-uebersicht-Listing-Grid, Featured-Beitrag</td></tr>
+          <tr><td><code class="token">a.card.card-elevated</code></td><td><code class="token">&lt;a class="card card-elevated"&gt;</code></td><td>Textreiche Listing-Cards mit Card-Media (Bild oder Visual), Card-Body (Pill + Title + Text + Meta-Zeile mit Lesezeit · Datum) und implizitem „Beitrag lesen →“-Anker am Ende. Festes Grid (col-4, col-6).</td><td>wb-uebersicht-Listing-Grid, Featured-Beitrag</td></tr>
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Variante A · <code class="token">.ep-card-link</code>:</strong> Modifier-Klasse zur Basis-<code class="token">.ep-card</code> ergänzen und das umschließende Element auf <code class="token">&lt;a&gt;</code> umstellen. Hover hebt die Karte mit <code class="token">var(--e3)</code> an und verschiebt sie um 2 px nach oben, eindeutige Click-Affordance, ohne dass die Beschreibung in einen Pseudo-Button gepresst werden muss.</p>
@@ -3079,16 +3079,17 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 <span class="k">&lt;/a&gt;</span></pre>
       </div>
 
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);margin-top:var(--s8)"><strong>Variante B · <code class="token">a.card.card-elevated</code>:</strong> Das Basis-<code class="token">.card</code>-System (mit <code class="token">.card-elevated</code>-Modifier) direkt als Anker rendern. Die Card-Media trägt das Bild oder Visual, die Card-Body trägt Pill + Titel + Text, die letzte Zeile im Body ist ein typografischer „Beitrag lesen →“-Anker in Brand-Petrol. Kein extra CSS-Modifier nötig, das Hover-Verhalten erbt direkt von <code class="token">.card-elevated:hover</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);margin-top:var(--s8)"><strong>Variante B · <code class="token">a.card.card-elevated</code>:</strong> Das Basis-<code class="token">.card</code>-System (mit <code class="token">.card-elevated</code>-Modifier) direkt als Anker rendern. Die Card-Media trägt das Bild oder Visual, die Card-Body trägt fünf Elemente in dieser Reihenfolge: <strong>Pill</strong> (nur Bereich, ohne Lesezeit) · <strong>Titel</strong> · kurzer <strong>Anreißer</strong> · <strong>Meta-Zeile</strong> mit Lesezeit und <code class="token">&lt;time&gt;</code>-Datum · typografischer „Beitrag lesen →“-Anker am Ende in Brand-Petrol. <code class="token">.card-title</code> und <code class="token">.card-text</code> sind global mit <code class="token">line-clamp</code> + <code class="token">min-height</code> versehen, damit Karten im Grid auf einheitlicher Höhe bleiben — unabhängig von individueller Titel-Länge. Kein extra CSS-Modifier nötig, das Hover-Verhalten erbt direkt von <code class="token">.card-elevated:hover</code>.</p>
       <div style="max-width:340px;margin-bottom:var(--s8)">
         <a class="card card-elevated" data-area="ki" href="#sec-cards" style="display:flex;flex-direction:column;text-decoration:none;color:inherit">
           <div class="card-media" style="aspect-ratio:16/9;background:linear-gradient(135deg,var(--ki-100),var(--ki-50));display:flex;align-items:center;justify-content:center">
             <span style="font:500 12px/16px var(--font);color:var(--ki-700);letter-spacing:.08em;text-transform:uppercase">Bildfläche · 16:9</span>
           </div>
           <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-            <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten" style="width:fit-content;margin-bottom:0">Angewandte KI · 8 min Lesezeit</span>
+            <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
             <div class="card-title">Warum 60 % der KI-Piloten nie in Produktion gehen</div>
             <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen gelernt haben.</div>
+            <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
             <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
           </div>
         </a>
@@ -3103,10 +3104,11 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
   <span class="k">&lt;/div&gt;</span>
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"card-body"</span><span class="k">&gt;</span>
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"ki"</span>
-          <span class="v">aria-label</span>=<span class="s">"Bereich Angewandte KI, Lesezeit 8 Minuten"</span><span class="k">&gt;</span>Angewandte KI · 8 min Lesezeit<span class="k">&lt;/span&gt;</span>
+          <span class="v">aria-label</span>=<span class="s">"Bereich Angewandte KI"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/span&gt;</span>
     <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"card-title"</span><span class="k">&gt;</span>Beitragstitel<span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"card-text"</span><span class="k">&gt;</span>Kurzer Lead, max. 2 Sätze.<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;span&gt;</span>Beitrag lesen <span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>→<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"card-meta"</span><span class="k">&gt;</span>8 min Lesezeit · <span class="k">&lt;time</span> <span class="v">datetime</span>=<span class="s">"2026-05-13"</span><span class="k">&gt;</span>13. Mai 2026<span class="k">&lt;/time&gt;&lt;/p&gt;</span>
+    <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"card-cta-link card-cta-link--pinned"</span><span class="k">&gt;</span>Beitrag lesen <span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>→<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
   <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/a&gt;</span></pre>
       </div>
@@ -4353,12 +4355,14 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <span class="lbl">Pill als Beitragsmarker</span>
           <div style="border:var(--bd);border-radius:var(--r-md);padding:var(--s4);background:var(--bg-surface);flex:1;display:flex;flex-direction:column;gap:var(--s3)">
             <div>
-              <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten" style="margin-bottom:var(--s2)">Angewandte KI · 8 min Lesezeit</span>
-              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Warum 60 % der KI-Piloten nie in Produktion gehen</div>
+              <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="margin-bottom:var(--s2)">Angewandte KI</span>
+              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Warum 60 % der KI-Piloten nie in Produktion gehen</div>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
             </div>
             <div>
-              <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 10 Minuten" style="margin-bottom:var(--s2)">Wirksame Organisationen · 10 min Lesezeit</span>
-              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Drei Muster, an denen Veränderung scheitert</div>
+              <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="margin-bottom:var(--s2)">Wirksame Organisationen</span>
+              <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Drei Muster, an denen Veränderung scheitert</div>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">10 min Lesezeit · <time datetime="2026-02-25">25. Februar 2026</time></p>
             </div>
           </div>
         </div>
@@ -4372,7 +4376,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <tr><td>Interaktivität</td><td>Klickbare Chips als <code class="token">&lt;button&gt;</code> oder <code class="token">&lt;a&gt;</code> implementieren, nie als <code class="token">&lt;div&gt;</code> mit <code class="token">onClick</code>; nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar</td></tr>
           <tr><td>Auswahl-Zustand</td><td>Toggle-Chips mit <code class="token">aria-pressed="true/false"</code> versehen, der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar</td></tr>
           <tr><td>Kontrast</td><td>Chip-/Badge-/Pill-Text auf jeweiligem Hintergrund ≥4.5:1 prüfen, besonders bei markierten/aktiven Chips, da sich Hintergrund und Textfarbe ändern</td></tr>
-          <tr><td>Pill-aria-label</td><td>Pflicht bei Pills mit Trennzeichen (<code class="token">·</code>), Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“. <code class="token">aria-label</code> mit ausgeschriebener Form (z.&nbsp;B. „Bereich Angewandte KI, Lesezeit 8 Minuten“) schreibt die Aussprache vor</td></tr>
+          <tr><td>Pill-aria-label</td><td>Pflicht bei Pills mit Trennzeichen (<code class="token">·</code>), Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“. <code class="token">aria-label</code> mit ausgeschriebener Form (z.&nbsp;B. „Bereich Effektive Software, Format Meet-Up“) schreibt die Aussprache vor. Bei Pills ohne Trennzeichen (z.&nbsp;B. Beitragsmarker mit nur „Angewandte KI“) kann das <code class="token">aria-label</code> entfallen — der sichtbare Text reicht.</td></tr>
         </tbody>
       </table>
 
@@ -5627,7 +5631,7 @@ document.querySelectorAll(
               </div>
             </div>
             <span class="article-meta-sep" aria-hidden="true"></span>
-            <time class="article-meta-date" datetime="2026-04-12">12. April 2026</time>
+            <time class="article-meta-date" datetime="2026-05-13">13. Mai 2026</time>
           </div>
         </header>
       </div>
@@ -5654,14 +5658,14 @@ document.querySelectorAll(
       <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"article-meta-sep"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;/span&gt;</span>
-    <span class="k">&lt;time</span> <span class="v">class</span>=<span class="s">"article-meta-date"</span> <span class="v">datetime</span>=<span class="s">"2026-04-12"</span><span class="k">&gt;</span>12. April 2026<span class="k">&lt;/time&gt;</span>
+    <span class="k">&lt;time</span> <span class="v">class</span>=<span class="s">"article-meta-date"</span> <span class="v">datetime</span>=<span class="s">"2026-05-13"</span><span class="k">&gt;</span>13. Mai 2026<span class="k">&lt;/time&gt;</span>
   <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/header&gt;</span></pre>
       </div>
 
       <h2 id="gt-article-pill" class="group-title">Pill: Lesezeit</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Im Wissensbeitrag wird die <a class="body-link" href="#gt-chips-pill">Pill-Komponente</a> auf reine <strong>Lesezeit-Information</strong> reduziert. Die Bereichszuordnung trägt bereits der Breadcrumb („Wissen / Angewandte KI“), der Bereichsname zusätzlich in der Pill wäre Doppelung. Der Bereichston der Pill (über <code class="token">data-area</code>) sorgt für die visuelle Verklammerung, ohne Text zu verdoppeln.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Auf <em>Übersichtsseiten</em> (Beitragslisten ohne Breadcrumb pro Karte) bleibt die generische Pill-Form „Bereich · Lesezeit“ zulässig, siehe <a class="body-link" href="#gt-chips-pill">Pill-Komponente</a>. Der Constraint hier gilt nur für den einzelnen Wissensbeitrag mit Breadcrumb im Header.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Auf <em>Übersichtsseiten</em> (Beitragslisten) trägt die Pill nur den <strong>Bereich</strong>, Lesezeit und Datum stehen darunter in einer eigenen <strong>Meta-Zeile</strong> (siehe <a class="body-link" href="#sec-examples" data-ep="wb-uebersicht">wb-uebersicht-Listing</a>). Auf der einzelnen Beitrags-Detail-Seite mit Breadcrumb (hier dokumentiert) ist die Pill auf reine Lesezeit reduziert, weil der Breadcrumb den Bereich bereits trägt.</p>
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Constraint</th><th>Regel</th></tr></thead>
         <tbody>
@@ -6029,7 +6033,7 @@ document.querySelectorAll(
                   </div>
                 </div>
                 <span class="article-meta-sep" aria-hidden="true"></span>
-                <time class="article-meta-date" datetime="2026-04-12">12. April 2026</time>
+                <time class="article-meta-date" datetime="2026-05-13">13. Mai 2026</time>
               </div>
             </header>
           </div>
@@ -6673,15 +6677,15 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="eager">
           </div>
           <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
-            <h1 class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</h1>
-            <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund. Seit 2016.</p>
+            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund · für den Mittelstand</p>
+            <h1 class="hero-image-caption-title">KI, Software und Organisation für den Mittelstand.</h1>
+            <p class="hero-image-caption-text">Pragmatisch geplant, kraftvoll umgesetzt. Drei Disziplinen, ein Team.</p>
           </figcaption>
         </figure>
-        <!-- Sub-Sektion direkt unter Hero: Markenrad-Eyebrow + CTAs -->
+        <!-- Sub-Sektion direkt unter Hero: Positionierung + CTAs -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Ruhig · Klar · Energiegeladen</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Schau Dir an, wie wir arbeiten. Oder buch direkt ein Erstgespräch.</p>
+          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Drei Disziplinen, ein Anspruch</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:560px;text-wrap:balance">Wir denken KI, Software und Organisation zusammen, weil moderne Vorhaben sie alle drei brauchen, nicht nur eine davon.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
             <button class="btn btn-filled btn-co" type="button">Unsere Leistungen</button>
             <button class="btn btn-outlined btn-co" type="button">Gespräch vereinbaren</button>
@@ -6698,7 +6702,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
               <div class="ep-card-title">KI mit Wirkung</div>
-              <div class="ep-card-text">KI-Lösungen, die im Alltag ankommen. <strong>Pragmatisch</strong> geplant, <strong>kraftvoll</strong> umgesetzt. Ohne den Hype-Lärm der Branche.</div>
+              <div class="ep-card-text">Liefert, wenn die Demo vorbei ist.</div>
               <div class="ep-card-cta">Angewandte KI entdecken <span aria-hidden="true">→</span></div>
             </a>
             <!-- Effektive Software -->
@@ -6706,7 +6710,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-card-icon" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
               <div class="ep-card-title">Präzise Systeme</div>
-              <div class="ep-card-text">Software, die hält, was sie verspricht. <strong>Verlässlich</strong> gebaut, <strong>präzise</strong> dokumentiert. In fünf Jahren noch wartbar.</div>
+              <div class="ep-card-text">Lebt, wenn der Hype vorbei ist.</div>
               <div class="ep-card-cta">Effektive Software ansehen <span aria-hidden="true">→</span></div>
             </a>
             <!-- Wirksame Organisationen -->
@@ -6714,33 +6718,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-card-icon" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
               <div class="ep-card-title">Wandel, der trägt</div>
-              <div class="ep-card-text">Veränderung, die Menschen mitnimmt. <strong>Aufmerksam</strong> zugehört, <strong>leidenschaftlich</strong> begleitet. Am Ende läuft sie auch ohne uns weiter.</div>
+              <div class="ep-card-text">Bleibt, wenn wir gehen.</div>
               <div class="ep-card-cta">Wirksame Organisationen kennenlernen <span aria-hidden="true">→</span></div>
             </a>
           </div>
         </div>
-        <!-- Stats -->
-        <div class="card-stat-strip">
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">120+</p>
-            <p class="card-stat-flat-label">abgeschlossene Projekte</p>
-          </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">10</p>
-            <p class="card-stat-flat-label">Jahre Erfahrung</p>
-          </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">3</p>
-            <p class="card-stat-flat-label">Bereiche</p>
-          </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">70+</p>
-            <p class="card-stat-flat-label">Mitarbeitende</p>
-          </div>
-        </div>
-        <!-- Kundenlogos -->
-        <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label t-co">Vertrauen</div>
+        <!-- Referenzen (Kundenlogos) -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label t-co">Referenzen</div>
           <h2 class="ep-section-h2">Mit diesen Unternehmen arbeiten wir.</h2>
           <div class="logo-carousel" role="region" aria-roledescription="Logo-Karussell" aria-label="Kundenlogos" style="margin-top:var(--s6)">
             <button class="logo-carousel-pause" type="button" aria-pressed="false" aria-label="Logo-Animation pausieren">
@@ -6769,10 +6754,147 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
           </div>
         </div>
+        <!-- Vorschau Wissensbeiträge -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Wissen</div>
+          <h2 class="ep-section-h2">Aktuelle Beiträge.</h2>
+          <p class="ep-section-sub" style="color:var(--n-500)">Drei Perspektiven aus unserer Praxis, kompakt zum Mitdenken.</p>
+          <div class="layout-grid">
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
+                <div class="card-title">Warum 60 % der KI-Piloten nie in Produktion gehen</div>
+                <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
+                <div class="card-title">Refactoring-Schulden ehrlich rechnen</div>
+                <div class="card-text">Wann der Umbau billiger ist als der nächste Workaround. Praxis-Anleitung mit Entscheidungsmatrix für mittelgroße Codebasen.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
+                <div class="card-title">Wandel, der wirklich bleibt</div>
+                <div class="card-text">Transformationen scheitern selten am Plan, fast immer an der Kultur. Was 200 Begleitungen darüber gelehrt haben.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">12 min Lesezeit · <time datetime="2026-04-08">8. April 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          </div>
+          <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="wb-uebersicht">Alle Beiträge ansehen <span aria-hidden="true">→</span></a></p>
+        </div>
+        <!-- Vorschau Veranstaltungen -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label t-co">Treffen</div>
+          <h2 class="ep-section-h2">Komm vorbei, hör zu, frag nach.</h2>
+          <p class="ep-section-sub" style="color:var(--n-500)">Meet-Ups, Trainings und Webinare in Dortmund und online.</p>
+          <div class="layout-grid">
+            <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="es" aria-label="Bereich Effektive Software, Format Meet-Up, kostenlos" style="width:fit-content;margin-bottom:0">Effektive Software · Meet-Up · kostenlos</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-secondary);font:var(--ty-body-sm);font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Do, 3. Dezember 2026 · 18:00</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>WORKGARDEN Dortmund</span>
+                <div class="card-title">Effizienz durch n8n.</div>
+                <div class="card-text">Drei kurze Inputs aus der Conciso-Praxis und eine offene Runde: warum n8n als Plattform für Workflow-Automatisierung trägt.</div>
+                <span class="card-cta-link card-cta-link--pinned">Zur Veranstaltung <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="ev-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Format Training" style="width:fit-content;margin-bottom:0">Angewandte KI · Training</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-secondary);font:var(--ty-body-sm);font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Do, 27. Mai 2027 · ganztägig</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>Dortmund</span>
+                <div class="card-title">Prompt Engineering für Teams</div>
+                <div class="card-text">Wie Teams gemeinsam mit LLMs arbeiten, ohne in den Tool-Wildwuchs zu rutschen. Patterns, Workflows, Qualitätssicherung.</div>
+                <span class="card-cta-link card-cta-link--pinned">Zur Veranstaltung <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="ev-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Format Meet-Up" style="width:fit-content;margin-bottom:0">Wirksame Organisationen · Meet-Up</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-secondary);font:var(--ty-body-sm);font-weight:500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Mi, 7. April 2027 · 18:00</span>
+                <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>Dortmund</span>
+                <div class="card-title">Führung im Wandel</div>
+                <div class="card-text">Wie Führung in Transformationen leiser wird und gerade dadurch wirksamer. Vier Werkzeuge, die in unserer Praxis tragen.</div>
+                <span class="card-cta-link card-cta-link--pinned">Zur Veranstaltung <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          </div>
+          <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="ev-uebersicht">Alle Veranstaltungen ansehen <span aria-hidden="true">→</span></a></p>
+        </div>
+        <!-- Team -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Wer wir sind</div>
+          <h2 class="ep-section-h2">Klare Köpfe hinter den Projekten.</h2>
+          <p class="ep-section-sub" style="color:var(--n-500)">Vier von 70+ Conciso-Köpfen, die Du bei einem Projekt treffen könntest.</p>
+          <div class="layout-grid" style="margin-top:var(--s8)">
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">LB</div>
+              <div>
+                <p class="author-card-name">Lukas Brandt</p>
+                <p class="author-card-role">Senior AI Engineer</p>
+              </div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-lg" data-area="es" aria-hidden="true">TW</div>
+              <div>
+                <p class="author-card-name">Tim Westphal</p>
+                <p class="author-card-role">Lead Software Engineer</p>
+              </div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">SK</div>
+              <div>
+                <p class="author-card-name">Sarah Kühn</p>
+                <p class="author-card-role">Lead Organisationsentwicklung</p>
+              </div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-lg" data-area="co" aria-hidden="true">AV</div>
+              <div>
+                <p class="author-card-name">Anja Voss</p>
+                <p class="author-card-role">Geschäftsführung</p>
+              </div>
+            </div>
+          </div>
+          <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="co">Team kennenlernen <span aria-hidden="true">→</span></a></p>
+        </div>
+        <!-- Karriere -->
+        <div class="ep-section" style="background:var(--n-50);text-align:center">
+          <div class="ep-section-label t-co">Karriere</div>
+          <h2 class="ep-section-h2" style="text-wrap:balance">Bei Conciso arbeiten.</h2>
+          <p class="ep-section-sub" style="color:var(--n-500);max-width:680px;margin-inline:auto;text-wrap:pretty">Wir suchen Menschen, die genau hinschauen, klar denken und Verantwortung tragen wollen. Unsere Teams arbeiten cross-funktional, lernen voneinander und nehmen Pausen ernst. Wer hier länger bleibt, prägt mit.</p>
+          <button class="btn btn-filled btn-co" type="button">Offene Stellen ansehen</button>
+        </div>
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
-          <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Deine Situation, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
+          <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Dein Vorhaben, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
           <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
         </div>
         <!-- Footer -->
@@ -7532,9 +7654,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="card card-elevated" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
             <div style="min-height:340px;background:url('images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
-              <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten" style="width:fit-content;margin-bottom:0">Angewandte KI · 8 min Lesezeit</span>
+              <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
               <h2 style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0;text-wrap:balance">Warum 60 % der KI-Piloten nie in Produktion gehen</h2>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben. Und warum AI Readiness wichtiger ist als KI-Begeisterung.</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -7543,9 +7666,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="card card-elevated is-hidden" data-area="es" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
             <div style="min-height:340px;background:url('images/pair-laptop.jpg') center 50%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
-              <span class="pill" data-area="es" aria-label="Bereich Effektive Software, Lesezeit 7 Minuten" style="width:fit-content;margin-bottom:0">Effektive Software · 7 min Lesezeit</span>
+              <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <h2 style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0;text-wrap:balance">Refactoring-Schulden ehrlich rechnen</h2>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wann der Umbau billiger ist als der nächste Workaround. Eine Praxis-Anleitung mit Entscheidungs­matrix für mittelgroße Codebasen, inklusive Beispielrechnung aus einem realen Migrations-Projekt.</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -7554,9 +7678,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="card card-elevated is-hidden" data-area="wo" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
             <div style="min-height:340px;background:url('images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
-              <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 12 Minuten" style="width:fit-content;margin-bottom:0">Wirksame Organisationen · 12 min Lesezeit</span>
+              <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
               <h2 style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0;text-wrap:balance">Wandel, der wirklich bleibt</h2>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Transformationen scheitern selten am Plan, fast immer an der Kultur. Was 200 Begleitungen darüber gelehrt haben, was Veränderung wirklich trägt, und woran man frühzeitig erkennt, dass sie kippt.</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">12 min Lesezeit · <time datetime="2026-04-08">8. April 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -7572,9 +7697,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 6 Minuten" style="width:fit-content;margin-bottom:0">Angewandte KI · 6 min Lesezeit</span>
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
                 <div class="card-title">RAG vs. Fine-Tuning: Wann was sinnvoll ist</div>
                 <div class="card-text">Beide Wege führen zum Ziel, aber selten zum gleichen. Wann RAG die bessere Wahl ist und wann Fine-Tuning sich wirklich rechnet.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">6 min Lesezeit · <time datetime="2026-03-25">25. März 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7584,9 +7710,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="es" aria-label="Bereich Effektive Software, Lesezeit 9 Minuten" style="width:fit-content;margin-bottom:0">Effektive Software · 9 min Lesezeit</span>
+                <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
                 <div class="card-title">Microservice-Migration: Wo der ROI wirklich liegt</div>
                 <div class="card-text">Die Versprechen sind groß, die Komplexität auch. Vier Kriterien, die zeigen, ob Euer System reif für Microservices ist.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">9 min Lesezeit · <time datetime="2026-03-11">11. März 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7596,9 +7723,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 10 Minuten" style="width:fit-content;margin-bottom:0">Wirksame Organisationen · 10 min Lesezeit</span>
+                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
                 <div class="card-title">Drei Muster, an denen Veränderung scheitert</div>
                 <div class="card-text">Über Heldengeschichten, Schuldzuschreibungen und das Schweigen in der Mitte. Was diese Muster gemeinsam haben. Und wie Ihr sie durchbrecht.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">10 min Lesezeit · <time datetime="2026-02-25">25. Februar 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7608,9 +7736,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI, Lesezeit 7 Minuten" style="width:fit-content;margin-bottom:0">Angewandte KI · 7 min Lesezeit</span>
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
                 <div class="card-title">Vom Pilot zum Produktiv: Die Übergabe-Lücke schließen</div>
                 <div class="card-text">Zwischen funktionierendem Prototyp und stabilem Produktivsystem klafft oft eine Lücke. So überbrückt Ihr sie ohne Reibungsverluste.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-02-11">11. Februar 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7620,9 +7749,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="es" aria-label="Bereich Effektive Software, Lesezeit 8 Minuten" style="width:fit-content;margin-bottom:0">Effektive Software · 8 min Lesezeit</span>
+                <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
                 <div class="card-title">Clean Architecture: Drei Fragen vor jedem Service-Schnitt</div>
                 <div class="card-text">Service-Grenzen ziehen ist keine reine Architektur-Entscheidung, sondern eine fachliche. Drei Fragen, die helfen, und ein Anti-Pattern, das immer wieder auftaucht.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-01-28">28. Januar 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7632,9 +7762,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen, Lesezeit 6 Minuten" style="width:fit-content;margin-bottom:0">Wirksame Organisationen · 6 min Lesezeit</span>
+                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
                 <div class="card-title">Führung im Wandel: Mehr zuhören, weniger anordnen</div>
                 <div class="card-text">Wirksame Führung in Transformationen ist leiser, als viele denken. Vier Werkzeuge, die in unserer Praxis nachweislich tragen.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">6 min Lesezeit · <time datetime="2026-01-14">14. Januar 2026</time></p>
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
@@ -7765,7 +7896,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 </div>
               </div>
               <span class="article-meta-sep" aria-hidden="true"></span>
-              <time class="article-meta-date" datetime="2026-04-12">12. April 2026</time>
+              <time class="article-meta-date" datetime="2026-05-13">13. Mai 2026</time>
             </div>
           </div>
         </header>
@@ -7974,18 +8105,21 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
               <div class="ep-card-title">Eval-Strategien für RAG-Systeme</div>
               <div class="ep-card-text">Was Du wirklich misst, wenn Du Genauigkeit misst. Und was Du dabei übersiehst.</div>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">9 min Lesezeit · <time datetime="2026-03-18">18. März 2026</time></p>
               <div class="ep-card-cta">Lesen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="es" href="#" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
               <div class="ep-card-title">Refactoring-Schulden ehrlich rechnen</div>
               <div class="ep-card-text">Wann der Umbau billiger ist als der nächste Workaround. Inklusive Tabelle.</div>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
               <div class="ep-card-cta">Lesen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="wo" href="#" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
               <div class="ep-card-title">Drei Muster, an denen Veränderung scheitert</div>
               <div class="ep-card-text">Über Heldengeschichten, Schuldzuschreibungen und das Schweigen in der Mitte.</div>
+              <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">10 min Lesezeit · <time datetime="2026-02-25">25. Februar 2026</time></p>
               <div class="ep-card-cta">Lesen <span aria-hidden="true">→</span></div>
             </a>
           </div>

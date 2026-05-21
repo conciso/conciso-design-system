@@ -111,8 +111,10 @@
 .card[data-area="ki"] .card-eyebrow{color:var(--ki-800)}
 .card[data-area="es"] .card-eyebrow{color:var(--es-700)}
 .card[data-area="wo"] .card-eyebrow{color:var(--wo-700)}
-.card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2)}
-.card-text{font:var(--ty-body-md);color:var(--tx-secondary)}
+/* card-title und card-text: line-clamp + min-height halten Karten in Grids auf einheitlicher Höhe,
+   unabhängig von individueller Titel-/Anreißer-Länge. Editoriale Inhalte (CMS) variieren — das Layout darf nicht. */
+.card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2lh}
+.card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
 
 /* ── Blockquote ── */
@@ -562,7 +564,9 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
    Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
    --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
 .card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
-.card-cta-link--pinned{margin-top:auto;padding-top:var(--s2)}
+/* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
+   padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
+.card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
