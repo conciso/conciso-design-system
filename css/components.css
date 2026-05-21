@@ -111,10 +111,17 @@
 .card[data-area="ki"] .card-eyebrow{color:var(--ki-800)}
 .card[data-area="es"] .card-eyebrow{color:var(--es-700)}
 .card[data-area="wo"] .card-eyebrow{color:var(--wo-700)}
-/* card-title und card-text: line-clamp + min-height halten Karten in Grids auf einheitlicher Höhe,
-   unabhängig von individueller Titel-/Anreißer-Länge. Editoriale Inhalte (CMS) variieren — das Layout darf nicht. */
-.card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2lh}
+/* card-title und card-text: line-clamp + min-height halten Karten in Grids visuell ausgerichtet,
+   unabhängig davon ob Titel/Anreißer im aktuellen CMS-Stand 1, 2 oder 3 Zeilen lang sind.
+   line-clamp kappt zu lange Inhalte; min-height (in lh-Units, skaliert mit Typografie-Tokens)
+   reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen".
+   Trade-Off: bei aktuell kurzem Content sieht das wie ein Hohlraum aus, ist aber gewollt — das Layout
+   muss morgen mit einer 2-zeiligen Headline umgehen, ohne dass jemand CSS-Klassen umtauschen muss. */
+.card-title{font:var(--ty-title-lg);color:var(--tx-primary);margin-bottom:var(--s2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2lh}
 .card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
+/* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
+   nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
+.card-meta{display:flex;flex-direction:column;gap:var(--s1)}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
 
 /* ── Blockquote ── */
@@ -182,6 +189,7 @@
 .type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
 .type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
 .type-rem{font:var(--ty-body-xs);color:var(--co-600);margin-top:1px}
+.type-token{font:400 12px/16px 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
 .type-sample{flex:1;color:var(--tx-primary)}
 
 /* ── Spacing ── */
@@ -536,7 +544,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 @media(max-width:900px){.ep-hero{flex-direction:column}.ep-hero-visual{display:none}}
 .ep-section{padding:var(--s12) var(--s8);text-align:left}
 .ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
-.ep-section-h2{font:var(--ty-display-md);color:var(--tx-primary);margin-bottom:var(--s2)}
+.ep-section-h2{font:var(--ty-display-lg);color:var(--tx-primary);margin-bottom:var(--s2)}
 .ep-section-sub{font:var(--ty-body-md);margin-bottom:var(--s8)}
 .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface);box-shadow:var(--e1)}
@@ -621,7 +629,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .cta-visual-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0;flex:1}
 .cta-visual-footer{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;margin-top:auto;padding-top:var(--s4);border-top:var(--bd)}
 .ep-cta-band{padding:var(--s12) var(--s8);text-align:center}
-.ep-cta-h2{font:var(--ty-display-md);margin-bottom:var(--s2)}
+.ep-cta-h2{font:var(--ty-display-lg);margin-bottom:var(--s2)}
 .ep-cta-sub{font:var(--ty-body-md);opacity:.85;margin-bottom:var(--s6)}
 /* Beispielseiten: iframes der Prototypen (volle Breite, kein Border) */
 
