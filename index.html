@@ -743,6 +743,7 @@
       <h2 id="gt-logo-schutzraum" class="group-title">Schutzraum</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Um das Logo herum bleibt mindestens die Höhe des „C“ als freier Raum, keine konkurrierenden Elemente, kein Beschnitt durch andere Layout-Komponenten.</p>
       <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s10);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s8)">
+        <!-- Padding 36px = exakte Logo-Image-Höhe (1:1-Clearance, Schutzraum-Regel der Brand Guidelines) -->
         <div style="position:relative;display:inline-block;padding:36px">
           <div style="position:absolute;inset:0;border:1px dashed var(--co-300);border-radius:var(--r-sm);pointer-events:none"></div>
           <img src="images/logo-conciso.svg" alt="" aria-hidden="true" style="height:36px;width:auto;display:block">
@@ -1270,7 +1271,7 @@
       <!-- Lese-Legende für alle Type-Rows -->
       <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
         <div class="doc-eyebrow" style="margin-bottom:var(--s4)">So liest Du die Token-Zeilen</div>
-        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:var(--s5);padding:var(--s4) var(--s5);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-sm)">
+        <div style="display:flex;flex-direction:column;gap:var(--s1);margin-bottom:var(--s5);padding:var(--s4) var(--s5);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-sm)">
           <span style="font:500 14px/20px var(--font);color:var(--tx-primary)">Display Large</span>
           <span style="font:400 13px/18px var(--font);color:var(--tx-secondary)">Libre Baskerville · 57px / 64px · 400</span>
           <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">3.5625rem / 4rem</span>
@@ -1409,7 +1410,7 @@
             <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s4)">
               <div style="font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s1)">Title Small · Karten-Titel</div>
               <div style="font:var(--ty-body-xs);color:var(--tx-muted);margin-bottom:var(--s4)">Body Small · Caption · Metadaten · Zeitstempel</div>
-              <div style="display:inline-block;background:var(--co-500);border-radius:var(--r-full);padding:8px var(--s4);font:var(--ty-label-md);color:var(--co-900)">Label Large · Button</div>
+              <div style="display:inline-block;background:var(--co-500);border-radius:var(--r-full);padding:var(--s2) var(--s4);font:var(--ty-label-md);color:var(--co-900)">Label Large · Button</div>
             </div>
           </div>
         </div>
@@ -1480,14 +1481,14 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s6)">
         <div>
           <span class="lbl">Vollbreite, 12 Spalten</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 12;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hero · Banner · Seiten-Header</div>
           </div>
           <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">Maximale Breite für Hero-Bereiche und Page-Banner</span>
         </div>
         <div>
           <span class="lbl">Content + Aside, 8 + 4</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 8;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Hauptinhalt</div>
             <div style="grid-column:span 4;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Sidebar</div>
           </div>
@@ -1495,7 +1496,7 @@
         </div>
         <div>
           <span class="lbl">Zweispaltig, 6 + 6</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte A</div>
             <div style="grid-column:span 6;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Spalte B</div>
           </div>
@@ -1503,7 +1504,7 @@
         </div>
         <div>
           <span class="lbl">Dreispaltig, 4 + 4 + 4</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
             <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
             <div style="grid-column:span 4;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Feature</div>
@@ -1512,7 +1513,7 @@
         </div>
         <div>
           <span class="lbl">Sidebar-Navigation, 3 + 9</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 3;background:var(--co-100);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-800);text-align:center">Nav</div>
             <div style="grid-column:span 9;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Content</div>
           </div>
@@ -1520,7 +1521,7 @@
         </div>
         <div>
           <span class="lbl">Vierspaltig, 3 + 3 + 3 + 3</span>
-          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:4px;padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s1);padding:var(--s3);background:var(--bg-overlay);border-radius:var(--r-sm);margin-bottom:var(--s2)">
             <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
             <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
             <div style="grid-column:span 3;background:var(--co-500);border-radius:2px;padding:var(--s3) var(--s2);font:500 12px/16px var(--font);color:var(--co-900);text-align:center">Karte</div>
@@ -1593,6 +1594,22 @@
           <tr><td>Focus-Ring</td><td>Kein <code class="token">overflow: hidden</code> auf fokussierbaren Elementen, der Focus-Ring (<code class="token">box-shadow</code>) wird sonst abgeschnitten und ist nicht mehr sichtbar</td></tr>
         </tbody>
       </table>
+
+      <!-- Strict-Scale-Konvention -->
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Strict-Scale-Konvention</div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Alle Spacing-Werte (<code class="token">padding</code>, <code class="token">margin</code>, <code class="token">gap</code>, <code class="token">top/right/bottom/left</code>) nutzen ausschließlich die Token aus der 8pt-Skala (<code class="token">--s1</code> bis <code class="token">--s16</code>). Hardcoded-Pixel-Werte sind ein Code-Smell, sie unterbrechen den 8pt-Rhythmus und erschweren spätere Theme-Anpassungen. Bei Code-Review: jeder Pixel-Wert ohne Token-Referenz ist erklärungsbedürftig.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px"><strong>Erlaubte Ausnahmen</strong> (jede mit CSS-Kommentar im Code begründet):</p>
+      <table class="doc-table" style="margin-bottom:var(--s4)">
+        <thead><tr><th>Ausnahme</th><th>Wert</th><th>Grund</th></tr></thead>
+        <tbody>
+          <tr><td>Touch-Targets</td><td><code class="token">44 px</code> (min)</td><td>WCAG 2.5.5 / 2.5.8: interaktive Elemente brauchen mindestens 44 × 44 px Tap-Area. Im Spacing-Scale gibt es kein 44-px-Token. Form-Inputs, Buttons, Icon-Buttons setzen <code class="token">min-height:44px</code> hartcodiert.</td></tr>
+          <tr><td>Hairlines &amp; Borders</td><td><code class="token">1 px</code>, <code class="token">2 px</code>, <code class="token">4 px</code></td><td>Border-Width hat eigene Logik (nicht 8pt). Conciso nutzt <code class="token">--bd</code> (1 px) und <code class="token">--bd-strong</code> als Tokens, aber <code class="token">border-top:4px solid</code> für Card-Bereichs-Akzent ist hartcodiert akzeptabel.</td></tr>
+          <tr><td>Icon-Größen</td><td><code class="token">16</code>, <code class="token">24</code>, <code class="token">32</code>, <code class="token">48 px</code></td><td>Icons folgen eigenem Sizing-System (siehe <a class="body-link" href="#gt-icons-groessen">Icon-Größen</a>). Width/Height von SVG-Icons wird hartcodiert gesetzt, das ist kein Spacing.</td></tr>
+          <tr><td>Optische Korrekturen</td><td><code class="token">2 px</code>, <code class="token">3 px</code></td><td>Manchmal sitzt ein Element 1–3 px „daneben" und braucht eine Korrektur (z.&nbsp;B. <code class="token">margin-top:2px</code> auf einem SVG, um die Baseline mit dem Nebentext zu treffen). Diese Mikro-Shifts liegen unter der Skala. Pflicht: CSS-Kommentar warum.</td></tr>
+          <tr><td>Container-Max-Widths</td><td>z.&nbsp;B. <code class="token">600 px</code>, <code class="token">720 px</code>, <code class="token">1280 px</code></td><td>Lesbarkeits-Breiten (Article-Lead 600, Article-Body 720, Layout-Grid 1280) folgen Reading-Optimum-Regeln (45–75 Zeichen pro Zeile), nicht dem 8pt-Raster.</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Faustregel:</strong> Wenn der Wert <strong>visuelle Rhythmik</strong> betrifft (Abstand zwischen Elementen, Innen-Padding, Sektion-Gap) → Token-Pflicht. Wenn der Wert <strong>physische Größe</strong> betrifft (Border, Icon, Touch-Target, Container-Breite) → eigene Logik, Hardcoded-Wert mit Kommentar OK.</p>
 
       <!-- Dos & Don'ts -->
       <div class="doc-eyebrow" style="margin-top:var(--s8)">Dos &amp; Don'ts</div>
@@ -1769,7 +1786,7 @@
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -1790,7 +1807,7 @@
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -1811,7 +1828,7 @@
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s8)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -1992,7 +2009,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <div style="display:flex;align-items:center;gap:var(--s4);padding:0 var(--s6);height:64px;background:var(--bg-surface);border-bottom:var(--bd)">
           <div style="background:var(--co-500);border-radius:var(--r-xs);padding:3px 10px;font:700 12px/16px var(--font);color:#fff;flex-shrink:0">Logo</div>
           <div style="display:flex;gap:var(--s5);flex:1;align-items:center">
-            <div style="display:inline-flex;align-items:center;gap:4px;font:400 12px/16px var(--font);color:var(--tx-secondary)">Leistungen <span style="opacity:.5">▾</span></div>
+            <div style="display:inline-flex;align-items:center;gap:var(--s1);font:400 12px/16px var(--font);color:var(--tx-secondary)">Leistungen <span style="opacity:.5">▾</span></div>
             <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Wissen</div>
             <div style="font:600 12px/16px var(--font);color:var(--co-700)">Über uns</div>
           </div>
@@ -4485,7 +4502,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <div class="col-6">
             <div class="ep-section-label t-co">Karriere</div>
             <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso.</h2>
-            <p class="ep-section-sub" style="color:var(--n-500);max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
+            <p class="ep-section-sub" style="max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
             <button class="btn btn-filled btn-co" type="button">Stellen entdecken</button>
           </div>
         </div>
@@ -6866,7 +6883,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -6883,7 +6900,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
         <figure class="hero-image" id="ep-landing-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/flipchart-diskussion.jpg" alt="Conciso-Team am Flipchart in offener Diskussion, ein Whiteboard mit Notizen im Hintergrund" loading="eager" style="object-position:center 25%">
+            <img src="images/flipchart-diskussion.jpg" alt="Conciso-Team am Flipchart in offener Diskussion, ein Whiteboard mit Notizen im Hintergrund" loading="eager" style="object-position:center 5%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -6917,7 +6934,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-co">Was wir tun</div>
           <h2 class="ep-section-h2">Drei Bereiche. Ein Maßstab.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Sie stärken sich gegenseitig. Wir denken sie zusammen, nicht nebeneinander.</p>
+          <p class="ep-section-sub">Sie stärken sich gegenseitig. Wir denken sie zusammen, nicht nebeneinander.</p>
           <div class="ep-cards">
             <!-- Angewandte KI -->
             <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai" style="border-top:4px solid var(--ki-500)">
@@ -6999,7 +7016,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-co">Wer wir sind</div>
           <h2 class="ep-section-h2">Klare Köpfe hinter den Projekten.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500);max-width:680px;text-wrap:pretty">Rund 70 Spezialistinnen und Spezialisten. Ein Ziel: Software, die wirkt. Wir sind Entwicklerinnen, Architekten, Beraterinnen und AI-Expertinnen. Wir bauen, beraten und begleiten. Verbunden durch den Anspruch, Wirkung zu erzielen.</p>
+          <p class="ep-section-sub" style="max-width:680px;text-wrap:pretty">Rund 70 Spezialistinnen und Spezialisten. Ein Ziel: Software, die wirkt.</p>
           <div class="layout-grid" data-team-tiles style="margin-top:var(--s8)">
             <div class="col-3" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
               <div class="article-avatar article-avatar-xl" data-area="ki" aria-hidden="true">LB</div>
@@ -7032,11 +7049,26 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
           <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="co">Team kennenlernen <span aria-hidden="true">→</span></a></p>
         </div>
-        <!-- Vorschau Wissensbeiträge -->
+        <!-- Karriere — Editorial Split, semantisch direkt nach Team („du könntest einer dieser klaren Köpfe werden").
+             Background n-50 für Rhythmus-Alternation: Team bg-surface → Karriere n-50 → Wissen bg-surface → … -->
         <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-6">
+              <img src="images/team-coffee.jpg" alt="Conciso-Team beim Pausenkaffee, fünf Personen mit blauen Conciso-Tassen am Tresen" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
+            </div>
+            <div class="col-6">
+              <div class="ep-section-label t-co">Karriere</div>
+              <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso.</h2>
+              <p class="ep-section-sub" style="max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
+              <button class="btn btn-filled btn-co" type="button">Stellen entdecken</button>
+            </div>
+          </div>
+        </div>
+        <!-- Vorschau Wissensbeiträge -->
+        <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-co">Wissen</div>
           <h2 class="ep-section-h2">Was wir zuletzt verstanden haben.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Drei Perspektiven aus unserer Praxis, kompakt zum Mitdenken.</p>
+          <p class="ep-section-sub">Drei Perspektiven aus unserer Praxis, kompakt zum Mitdenken.</p>
           <div class="layout-grid">
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
@@ -7078,12 +7110,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="wb-uebersicht">Alle Beiträge ansehen <span aria-hidden="true">→</span></a></p>
         </div>
         <!-- Vorschau Veranstaltungen — nur das nächste Highlight als Featured horizontale Card -->
-        <div class="ep-section" style="background:var(--bg-surface)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-co">Treffen</div>
           <h2 class="ep-section-h2">Komm vorbei, hör zu, frag nach.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Der nächste Termin aus unserer Praxis.</p>
+          <p class="ep-section-sub">Der nächste Termin aus unserer Praxis.</p>
           <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden;margin-top:var(--s8)">
-            <div style="min-height:320px;background:url('images/meetup-publikum.jpg') center 35%/cover" aria-hidden="true"></div>
+            <div style="min-height:320px;background:url('images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm)">
@@ -7098,27 +7130,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </a>
           <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="ev-uebersicht">Alle Veranstaltungen ansehen <span aria-hidden="true">→</span></a></p>
         </div>
-        <!-- Erstgespräch CTA — Primary Conversion. Sitzt jetzt VOR Karriere im Pfad,
-             damit Karriere (tertiäre Zielgruppe) den C-Level-Pfad nicht unterbricht. -->
+        <!-- Erstgespräch CTA — Primary Conversion + Page-End-Statement.
+             Sitzt direkt vor dem Footer, damit der letzte Eindruck der Landing das Angebot ist. -->
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
           <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
           <p class="ep-cta-sub" style="max-width:680px;margin-inline:auto">Du schilderst Dein Vorhaben, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.</p>
           <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
-        </div>
-        <!-- Karriere — Editorial Split, ans Page-Ende verschoben.
-             Tertiäre Zielgruppe (potenzielle Mitarbeitende) bekommt eigene Bühne nach dem primären CTA. -->
-        <div class="ep-section" style="background:var(--co-50)">
-          <div class="layout-grid" style="align-items:center">
-            <div class="col-6">
-              <img src="images/team-coffee.jpg" alt="Conciso-Team beim Pausenkaffee, fünf Personen mit blauen Conciso-Tassen am Tresen" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
-            </div>
-            <div class="col-6">
-              <div class="ep-section-label t-co">Karriere</div>
-              <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso.</h2>
-              <p class="ep-section-sub" style="color:var(--n-500);max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
-              <button class="btn btn-filled btn-co" type="button">Stellen entdecken</button>
-            </div>
-          </div>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -7190,7 +7207,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Über uns hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -7228,7 +7245,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" id="co-pfeiler" style="background:#fff">
           <div class="ep-section-label t-co">Wer wir sind</div>
           <h2 class="ep-section-h2">Drei Pfeiler. Eine Marke.</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten. Übersetzt in jeden Kontakt mit unseren Kunden.</p>
+          <p class="ep-section-sub">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten. Übersetzt in jeden Kontakt mit unseren Kunden.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
@@ -7373,7 +7390,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -7411,7 +7428,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--ki-800)">Lösungen</div>
           <h2 class="ep-section-h2">Von der Idee zur Produktion</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Wir begleiten Dich durch den gesamten KI-Lifecycle, von der Strategiefindung bis zum produktiven System.</p>
+          <p class="ep-section-sub">Wir begleiten Dich durch den gesamten KI-Lifecycle, von der Strategiefindung bis zum produktiven System.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
@@ -7528,7 +7545,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -7566,7 +7583,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--es-700)">Leistungen</div>
           <h2 class="ep-section-h2">Technologie, die funktioniert</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Wir tragen Verantwortung für Deinen Tech-Stack: von der Architektur bis zum laufenden Betrieb.</p>
+          <p class="ep-section-sub">Wir tragen Verantwortung für Deinen Tech-Stack: von der Architektur bis zum laufenden Betrieb.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--es-500)">
               <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></div>
@@ -7683,7 +7700,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -7700,7 +7717,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-wo-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="eager" style="object-position:center 20%">
+            <img src="images/workshop-zuhoeren.jpg" alt="Workshop-Teilnehmende in einer Conciso-Session, aufmerksam zuhörend" loading="eager" style="object-position:center 5%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Struktur · Wirkung · Wandel</p>
@@ -7721,7 +7738,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:#fff">
           <div class="ep-section-label" style="color:var(--wo-700)">Leistungen</div>
           <h2 class="ep-section-h2">Organisation neu denken</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Wir verbinden strategische Klarheit mit menschlicher Wärme. Für Transformationen, die ankommen.</p>
+          <p class="ep-section-sub">Wir verbinden strategische Klarheit mit menschlicher Wärme. Für Transformationen, die ankommen.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
@@ -7838,7 +7855,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -8090,7 +8107,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -8328,7 +8345,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-co">Mehr aus unserem Wissen</div>
           <h2 class="ep-section-h2">Weiterlesen</h2>
-          <p class="ep-section-sub" style="color:var(--n-500)">Ein Beitrag aus jedem Bereich.</p>
+          <p class="ep-section-sub">Ein Beitrag aus jedem Bereich.</p>
           <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
@@ -8431,7 +8448,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav – Über uns hervorgehoben (Veranstaltungen liegen dort) -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
@@ -8473,7 +8490,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Effektive Software (Default für „Alle" und „ES") -->
           <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/meetup-publikum.jpg') center 35%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
@@ -8719,7 +8736,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Topnav -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
-          <nav class="ep-nav-links" aria-label="Hauptnavigation" style="color:var(--n-500)">
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">

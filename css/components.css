@@ -57,12 +57,12 @@
 .clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
 
 /* ── Badges & Chips ── */
-.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em}
+.badge{display:inline-flex;align-items:center;gap:var(--s1);padding:3px 10px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em}
 .badge-ok{background:var(--c-success-bg);color:var(--badge-ok-text)}
 .badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
 .badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
 .badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:6px 16px;border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
@@ -167,7 +167,7 @@
 .card-stat[data-area="es"] .card-stat-value{color:var(--es-700)}
 .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-700)}
 .card-stat-label{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
-.card-stat-trend{display:inline-flex;align-items:center;gap:4px;font:600 12px/16px var(--font);border-radius:var(--r-full);padding:2px var(--s2);margin-top:var(--s1)}
+.card-stat-trend{display:inline-flex;align-items:center;gap:var(--s1);font:600 12px/16px var(--font);border-radius:var(--r-full);padding:2px var(--s2);margin-top:var(--s1)}
 .card-stat-trend.up{background:var(--c-success-bg);color:var(--badge-ok-text)}
 .card-stat-trend.down{background:var(--c-error-bg);color:var(--badge-err-text)}
 /* Stat-Strip — flache Bandstreifen-Variante (ohne Border, ohne Shadow) */
@@ -184,12 +184,12 @@
 .field{margin-bottom:var(--s6)}
 .field label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .req{color:var(--c-error);font-size:14px}
-.field input,.field textarea,.field select{width:100%;padding:12px var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field input,.field textarea,.field select{width:100%;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%234A6565'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field.has-error input{border-color:var(--c-error)}
 .helper{font:var(--ty-body-xs);color:var(--tx-muted);margin-top:var(--s1)}
-.error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:4px}
+.error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
 
 /* ── Typography specimens ── */
 .type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
@@ -364,7 +364,7 @@
 .cinfo{flex:1;min-width:160px}
 .cname{font:var(--ty-label-md)}
 .cratio{font-size:13px;color:var(--tx-secondary);font-family:'Courier New',monospace}
-.cbadge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:var(--r-full);font:var(--ty-label-xs)}
+.cbadge{display:inline-flex;align-items:center;padding:3px var(--s2);border-radius:var(--r-full);font:var(--ty-label-xs)}
 .c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
 .c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}
 .c-fail-badge{background:var(--cbadge-fail-bg);color:var(--cbadge-fail-text)}
@@ -540,11 +540,11 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-nav-btn:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
 .ep-nav-btn[aria-current="page"]{color:var(--co-700)}
 /* Submenü unter "Leistungen" — Hover/Focus-Within zeigt die drei Bereiche */
-.ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:4px}
+.ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
 .ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;line-height:1}
 .ep-nav-item-caret{width:10px;height:10px;display:inline-block;margin-left:4px;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
 .ep-nav-has-sub:hover .ep-nav-item-caret,.ep-nav-has-sub:focus-within .ep-nav-item-caret{transform:rotate(180deg)}
-.ep-nav-sub{display:none;position:absolute;top:calc(100% + 8px);left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
+.ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s2));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 /* Unsichtbare Hover-Brücke über den 8px-Spalt zwischen Button und Submenü —
    verhindert, dass das Menü beim Mausweg über den Spalt zuklappt. */
 .ep-nav-sub::before{content:"";position:absolute;top:-8px;left:0;right:0;height:8px}
@@ -569,8 +569,9 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-section-h2{font:var(--ty-headline-md);color:var(--tx-primary);margin-bottom:var(--s2)}
 /* margin-bottom --s8 (32 px): Sub-Cards-Gap (32) ist bewusst kleiner als section-padding-bottom (48),
    damit das Auge die Card-Reihe als „optisch mittig" wahrnimmt (psychologische Mitte liegt über der
-   geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2. */
-.ep-section-sub{font:var(--ty-body-md);margin-bottom:var(--s8)}
+   geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
+   Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
+.ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
 /* Gap --s6 (24 px) statt --s4 (16 px), damit der Card-Rhythmus konsistent zu .layout-grid bleibt
    (Wissensbeiträge, Veranstaltungen, Team nutzen ebenfalls --s6). Border-Radius und Box-Shadow
    der Cards tragen das Container-Gefühl, auch wenn padding ≈ gap ist. */
@@ -578,8 +579,10 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 /* Padding 24 (--s6) statt 20 (--s5), damit Innen-Atem ≥ 1,5× Außen-Gap (--s4 = 16 px).
    Sonst lösen sich die Cards visuell auf — Innen- und Außenabstand wären zu nah beieinander. */
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);box-shadow:var(--e1)}
-.ep-card-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
-.ep-card-icon svg{width:24px;height:24px}
+/* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
+   Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+.ep-card-icon svg{width:32px;height:32px}
 /* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
 .ep-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)}
 .ep-card-eyebrow[data-area="co"]{color:var(--co-700)}
@@ -694,7 +697,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-breadcrumb a[aria-current="page"]{color:var(--tx-primary)}
 .article-breadcrumb-sep{margin:0 var(--s2)}
 /* Pill: Kategorie · Format · Lesezeit, area-aware */
-.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:4px var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
+.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
 .pill[data-area="co"]{background:var(--co-50);color:var(--co-800)}
 .pill[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
 .pill[data-area="es"]{background:var(--es-50);color:var(--es-700)}
