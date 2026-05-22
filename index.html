@@ -2217,7 +2217,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Page</th><th>Eyebrow-Text</th><th>Eyebrow-Farbe</th></tr></thead>
         <tbody>
-          <tr><td>Landing</td><td>Markenrad-Achsen: „Ruhig · Klar · Energiegeladen“</td><td><code class="token">--co-700</code></td></tr>
+          <tr><td>Landing</td><td>„Verbunden gedacht" (Brücke-Variante B, siehe unten)</td><td><code class="token">--co-700</code></td></tr>
           <tr><td>Angewandte KI</td><td>Leistungs-Achsen: „AI.Engineering · AI.Automation · AI.Box“</td><td><code class="token">--ki-800</code></td></tr>
           <tr><td>Effektive Software</td><td>Leistungs-Achsen: „Engineering · Deployment · Qualität“</td><td><code class="token">--es-700</code></td></tr>
           <tr><td>Wirksame Organisationen</td><td>Leistungs-Achsen: „Change · Leadership · Struktur“</td><td><code class="token">--wo-700</code></td></tr>
@@ -2228,7 +2228,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Page</th><th>Primär (Filled)</th><th>Sekundär (Outlined)</th></tr></thead>
         <tbody>
-          <tr><td>Landing</td><td>Unsere Leistungen</td><td>Gespräch vereinbaren</td></tr>
+          <tr><td>Landing</td><td colspan="2"><em>Keine CTAs (Brücke-Variante B, siehe unten)</em></td></tr>
           <tr><td>Angewandte KI</td><td>Use Case analysieren</td><td>Fallstudien ansehen</td></tr>
           <tr><td>Effektive Software</td><td>Stack analysieren</td><td>Referenzen ansehen</td></tr>
           <tr><td>Wirksame Organisationen</td><td>Transformation starten</td><td>Ansatz kennenlernen</td></tr>
@@ -2236,6 +2236,16 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> und <em>keine wiederholte Was/Wo-Aussage</em> tragen, sonst entstehen Doppel-Informationen direkt untereinander. Die Lead-Zeile soll Brücke zu den CTAs sein („Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch.“), nicht das Hero-Versprechen echoen.</p>
+
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Zwei Sub-Strip-Varianten</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Variante</th><th>Inhalt</th><th>Wann einsetzen</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A · mit CTAs</strong></td><td>Eyebrow + Lead + zwei Buttons (Filled primär, Outlined sekundär)</td><td>Standard. Wenn die Sub-Sektion zwei direkte Aktionen anbieten soll (Self-Service + Direkt-Kontakt). Funktioniert auf jeder Customer-Page, auch wenn der Topnav-Kontakt-Button am rechten Rand sitzt.</td></tr>
+          <tr><td><strong>B · Brücke ohne CTAs</strong></td><td>Eyebrow + Lead + Drei-Spalter mit Bereichs-Eyebrows und Spektrum-Statement pro Spalte</td><td>Wenn der Sticky-Topnav-Kontakt-Button bereits die primäre Konversion trägt und die Sub-Sektion stattdessen den Inhalt darunter ankündigen soll. Die Bereichs-Eyebrows nutzen die gleichen Farben wie die Drei-Bereiche-Cards weiter unten und schaffen so ein Farb-Echo. Beispiel: Landing („Verbunden gedacht" + 3-Spalter über die Drei Bereiche).</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Wann B statt A?</strong> Wenn die Page eine deutliche Architektur mit mehreren thematischen Sektionen darunter hat (z.&nbsp;B. Drei Bereiche), kündigt B diese Architektur als ruhige Vorschau an. CTAs würden hier mit der Erstgespräch-CTA-Band-Sektion am Page-Ende konkurrieren. A bleibt richtig auf Bereichs-Pages, wo die Sub-Sektion die einzige direkte Konversions-Stelle vor dem Page-Ende ist.</p>
 
       <!-- Code-Beispiel Hero + Sub-Strip -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
@@ -5446,10 +5456,14 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <h3>Skip Navigation</h3>
         <p>Ermöglicht Tastaturnutzern, repetitive Navigation zu überspringen (WCAG 2.4.1).</p>
         <div class="code-block">&lt;a <span class="k">href</span>=<span class="s">"#main-content"</span> <span class="k">class</span>=<span class="s">"skip-link"</span>&gt;Zum Inhalt springen&lt;/a&gt;
+…
+&lt;main <span class="k">id</span>=<span class="s">"main-content"</span> <span class="k">tabindex</span>=<span class="s">"-1"</span>&gt;…&lt;/main&gt;
 
 <span class="c">/* CSS: sichtbar nur bei Fokus */</span>
 <span class="k">.skip-link</span> { position: <span class="v">absolute</span>; top: <span class="v">-40px</span>; left: <span class="v">0</span>; }
 <span class="k">.skip-link:focus</span> { top: <span class="v">0</span>; }</div>
+        <p style="margin-top:var(--s3)"><strong>Pflicht-Detail:</strong> Das Ziel-Element muss <code class="token">tabindex="-1"</code> tragen. Sonst scrollt der Browser zwar zum Anchor, der Tastatur-Fokus bleibt aber auf dem Skip-Link, und das nächste <span class="a11y-kbd">Tab</span> springt zur Navigation zurück — der Skip-Effekt verpufft. Mit <code class="token">tabindex="-1"</code> wird das Ziel programmatisch fokussierbar, der Browser bewegt den Fokus dorthin, und das nächste <span class="a11y-kbd">Tab</span> landet auf dem ersten interaktiven Element im Hauptinhalt.</p>
+        <p><strong>Container mit overflow:hidden:</strong> Wenn der Skip-Link in einem Container mit <code class="token">overflow:hidden</code> sitzt (z.&nbsp;B. einer Preview-Karte), muss der Container <code class="token">position:relative</code> bekommen — sonst clipped der Container die negative <code class="token">top</code>-Position und der Skip-Link bleibt auch im Fokus unsichtbar. Beispiel: die Beispielseiten-Container <code class="token">.ep-page</code> sind <code class="token">position:relative</code>, damit ihre Skip-Links beim Fokus innerhalb der Preview-Karte poppen.</p>
       </div>
 
       <!-- ── Touch Targets ── -->
@@ -6444,7 +6458,7 @@ document.querySelectorAll(
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Seite folgt einem Lesefluss von „Orientierung“ über „kuratierte Empfehlung“ zur „freien Erkundung“:</p>
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
         <li><strong>Topnav</strong> (siehe&nbsp;<a class="body-link" href="#sec-navigation">Navigation</a>): „Wissen“ mit <code class="token">aria-current="page"</code>.</li>
-        <li><strong>Page-Header</strong>: Eyebrow, H1, Lead, optionales Such-Feld (<code class="token">role="search"</code> mit Magnifier-Icon und <code class="token">&lt;input type="search"&gt;</code>), Filter-Chips. Zentriert, max. 720 px für die Lead-Breite. Reihenfolge folgt der User-Intent: spezifische Suche zuerst, Browse-Filter danach.</li>
+        <li><strong>Page-Header</strong>: H1, Lead, optionales Such-Feld (<code class="token">role="search"</code> mit Magnifier-Icon und <code class="token">&lt;input type="search"&gt;</code>), Filter-Chips. Zentriert, max. 720 px für die Lead-Breite. Reihenfolge folgt der User-Intent: spezifische Suche zuerst, Browse-Filter danach. <strong>Page-H1 trägt <code class="token">--ty-display-sm</code></strong> (36&nbsp;px Serif), nicht <code class="token">--ty-headline-sm</code> oder kleiner — der H1 ist der alleinige Page-Anker (Listings haben kein Hero-Image) und muss visuell klar dominieren. Damit entsteht die Treppe 36 px H1 → 22 px Featured-Card-Hero → 18 px Standard-Card-Titel.</li>
         <li><strong>Featured-Beitrag</strong>: zweispaltige Hero-Card (Bild links, Inhalt rechts). Bereichsspezifisch, Details im nächsten Abschnitt.</li>
         <li><strong>Beitrags-Grid</strong>: <code class="token">.card.card-elevated</code> in <code class="token">.col-4</code> mit Bild oben, Pill „Bereich · Lesezeit“, Titel, Lead und CTA „Beitrag lesen →“ am Karten-Unterrand.</li>
         <li><strong>„Mehr laden“-Block</strong> (optional, ab vielen Beiträgen): zentrierter Outline-Button mit Counter darunter (<code class="token">aria-live="polite"</code>), lädt die nächste Beitragsseite nach. Alternative zu Pagination oder Infinite-Scroll: Footer bleibt erreichbar, deterministisch zugänglich.</li>
@@ -6848,6 +6862,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── LANDINGPAGE ── -->
       <div class="ep-page visible" id="ep-landing" role="tabpanel" aria-labelledby="eptab-landing" tabindex="0">
+        <a class="skip-link" href="#ep-landing-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -6866,7 +6881,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-landing-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/flipchart-diskussion.jpg" alt="Conciso-Team am Flipchart in offener Diskussion, ein Whiteboard mit Notizen im Hintergrund" loading="eager" style="object-position:center 25%">
           </div>
@@ -6881,20 +6896,20 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
              kündigt die folgenden Bereichs-Cards typografisch an (Bereichsfarben
              als Mini-Vorschau, kein vollständiges Card-Treatment hier). -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Verbunden gedacht</p>
+          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s2)">Verbunden gedacht</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s10);max-width:520px;text-wrap:balance">Substanz im Vorhaben? Wir hören zu, bevor wir etwas vorschlagen.</p>
           <div class="layout-grid" style="max-width:960px;margin:0 auto;text-align:center">
             <div class="col-4">
               <p class="ep-card-eyebrow" data-area="ki" style="margin-bottom:var(--s2)">Angewandte KI</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Idee bis in den Produktivbetrieb.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Von der Idee bis in den Produktivbetrieb.</p>
             </div>
             <div class="col-4">
               <p class="ep-card-eyebrow" data-area="es" style="margin-bottom:var(--s2)">Effektive Software</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Architektur bis zum Betrieb.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Von der Architektur bis zum Betrieb.</p>
             </div>
             <div class="col-4">
               <p class="ep-card-eyebrow" data-area="wo" style="margin-bottom:var(--s2)">Wirksame Organisationen</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Analyse bis zur Verankerung.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Von der Analyse bis zur Verankerung.</p>
             </div>
           </div>
         </div>
@@ -7185,6 +7200,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── ÜBER UNS ── -->
       <div class="ep-page" id="ep-co" role="tabpanel" aria-labelledby="eptab-co" tabindex="0">
+        <a class="skip-link" href="#ep-co-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Über uns hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -7203,7 +7219,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-co-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="eager" style="object-position:center 10%">
           </div>
@@ -7367,6 +7383,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── ANGEWANDTE KI ── -->
       <div class="ep-page" id="ep-ai" role="tabpanel" aria-labelledby="eptab-ai" tabindex="0">
+        <a class="skip-link" href="#ep-ai-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -7385,7 +7402,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-ai-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="eager" style="object-position:center 20%">
           </div>
@@ -7521,6 +7538,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── EFFEKTIVE SOFTWARE ── -->
       <div class="ep-page" id="ep-es" role="tabpanel" aria-labelledby="eptab-es" tabindex="0">
+        <a class="skip-link" href="#ep-es-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -7539,7 +7557,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-es-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="eager" style="object-position:center 30%">
           </div>
@@ -7675,6 +7693,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── WIRKSAME ORGANISATIONEN ── -->
       <div class="ep-page" id="ep-wo" role="tabpanel" aria-labelledby="eptab-wo" tabindex="0">
+        <a class="skip-link" href="#ep-wo-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -7693,7 +7712,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-wo-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="eager" style="object-position:center 20%">
           </div>
@@ -7829,6 +7848,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── WISSEN · ÜBERSICHT ── -->
       <div class="ep-page" id="ep-wb-uebersicht" role="tabpanel" aria-labelledby="eptab-wb-uebersicht" tabindex="0">
+        <a class="skip-link" href="#ep-wb-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -7848,7 +7868,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
 
         <!-- Page Header – Titel · Lead · Filter -->
-        <header class="ep-section" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8);text-align:center;border-bottom:1px solid var(--n-100)">
+        <header class="ep-section" id="ep-wb-uebersicht-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8);text-align:center;border-bottom:1px solid var(--n-100)">
           <div style="max-width:720px;margin:0 auto">
             <h1 style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance">Wissensbeiträge</h1>
             <p style="font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 0 var(--s10);text-wrap:balance">Praxis-Insights aus den drei Bereichen: Angewandte KI, Effektive Software und Wirksame Organisationen. Klar geschrieben, ohne Hype.</p>
@@ -8080,6 +8100,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── WISSENSBEITRAG · ANGEWANDTE KI ── -->
       <div class="ep-page" id="ep-wb-ki" role="tabpanel" aria-labelledby="eptab-wb-ki" tabindex="0">
+        <a class="skip-link" href="#ep-wb-ki-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -8099,7 +8120,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
 
         <!-- Article Header: Breadcrumb · Title · Lead · Meta. Zentriert, redaktionell -->
-        <header class="ep-section" style="background:var(--bg-surface);padding-block:var(--s10) var(--s6)">
+        <header class="ep-section" id="ep-wb-ki-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s10) var(--s6)">
           <div class="article-header">
             <nav class="article-breadcrumb" aria-label="Breadcrumb">
               <a href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
@@ -8420,6 +8441,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── VERANSTALTUNGEN · ÜBERSICHT ── -->
       <div class="ep-page" id="ep-ev-uebersicht" role="tabpanel" aria-labelledby="eptab-ev-uebersicht" tabindex="0">
+        <a class="skip-link" href="#ep-ev-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Über uns hervorgehoben (Veranstaltungen liegen dort) -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -8439,7 +8461,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
 
         <!-- Page Header – Titel · Lead · Suche · Filter -->
-        <header class="ep-section" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8);text-align:center;border-bottom:1px solid var(--n-100)">
+        <header class="ep-section" id="ep-ev-uebersicht-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8);text-align:center;border-bottom:1px solid var(--n-100)">
           <div style="max-width:720px;margin:0 auto">
             <h1 style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance">Veranstaltungen</h1>
             <p style="font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 0 var(--s10);text-wrap:balance">Meet-Ups, Trainings und Webinare aus der Conciso-Praxis. Komm vorbei, hör zu, frag nach.</p>
@@ -8707,6 +8729,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <!-- ── VERANSTALTUNG · n8n Meet-Up (ES) ── -->
       <div class="ep-page" id="ep-veranstaltung" role="tabpanel" aria-labelledby="eptab-veranstaltung" tabindex="0">
+        <a class="skip-link" href="#ep-veranstaltung-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -8726,7 +8749,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
 
         <!-- Hero-Image · Meet-Up-Stimmung -->
-        <figure class="hero-image">
+        <figure class="hero-image" id="ep-veranstaltung-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/meetup-publikum.jpg" alt="Konferenzpublikum bei einem Conciso-Meet-Up im WORKGARDEN Dortmund, ein Teilnehmer mit grauem Vollbart hört aufmerksam zu, Wasserflaschen im Vordergrund" loading="eager" style="object-position:center 35%">
           </div>

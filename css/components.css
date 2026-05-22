@@ -504,7 +504,10 @@
 .ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500)}
-.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd)}
+/* position:relative, damit .skip-link (position:absolute) sich am ep-Page-Frame orientiert
+   und nicht außerhalb der Preview-Karte erscheint. overflow:hidden clipped die negative
+   top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
+.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
 .ep-page.visible{display:block}
 /* Beispielseiten dürfen über den 1280-Spec hinaus auf 1500px breit werden */
 .ds-content:has(#sec-examples.visible){max-width:1500px}
