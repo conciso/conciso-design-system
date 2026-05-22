@@ -252,6 +252,7 @@
       <a class="nav-sub-item" href="#gt-footer-demo">Footer-Demo</a>
       <a class="nav-sub-item" href="#gt-footer-struktur">Spalten-Struktur</a>
       <a class="nav-sub-item" href="#gt-footer-typo">Typografie</a>
+      <a class="nav-sub-item" href="#gt-footer-form">Contentletter-Form</a>
       <a class="nav-sub-item" href="#gt-footer-subtitle">Verschachtelung</a>
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
     </div>
@@ -2732,7 +2733,22 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       </div>
 
       <h2 id="gt-inputs-newsletter" class="group-title">Newsletter-Anmeldung</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Zwei generische Varianten für Landingpages und Inline-Bereiche: eine eigenständige Karte und ein kompaktes Widget. Die Footer-Variante „Contentletter abonnieren" ist als eigenes Pattern im <a class="body-link" href="#sec-footer">Footer</a> dokumentiert — sie nutzt eigene Klassen (<code class="token">.footer-newsletter-form</code>) für die Integration ins helle Main-Band.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Zwei generische Varianten für Landingpages und Inline-Bereiche: eine eigenständige Karte und ein kompaktes Widget. Die Footer-Variante „Contentletter abonnieren" ist als <strong>eigenes Field-Pattern</strong> im <a class="body-link" href="#sec-footer">Footer</a> dokumentiert. Sie nutzt eigene Klassen (<code class="token">.footer-newsletter-form</code>, <code class="token">.footer-field</code>) für die Integration ins helle Main-Band.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Microcopy-Konvention:</strong> Alle drei Varianten sprechen die Nutzerin in Du-Form an („Dein Vorname", „Deine E-Mail"), das Name-Feld fragt explizit nach dem <em>Vornamen</em> (nicht dem vollen Namen), damit der Zweck klar ist: persönliche Anrede im Contentletter („Hallo Maria"). Optional-Marker entfallen, weil die Required-Asterisks (<code class="token">*</code>) bereits Pflicht- und Optional-Felder voneinander trennen. Eine zweite redundante „(optional)"-Auszeichnung würde das Form unnötig laut machen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Warum zwei Field-Patterns?</strong> Die Standard-Form (<code class="token">.field</code>) sitzt im Lesefluss als Konversions-Komponente und ist visuell „laut" (16 px Body-Text, 2 px Border). Das Footer-Field sitzt in der <em>Utility-Zone</em>: kompaktere Felder mit 14 px Body und 1 px Border passen zur „ruhig"-Tonalität des Footers und konkurrieren nicht mit dem Erstgespräch-CTA-Band darüber. <strong>Labels sind in beiden Patterns identisch</strong> (UPPERCASE, <code class="token">--ty-label-sm</code>, <code class="token">--tx-secondary</code>), damit die Form-Sprache des Systems über Konversions- und Utility-Zonen hinweg konsistent bleibt. Token-Brücken sind ebenfalls gleich: <code class="token">--bg-surface</code>, <code class="token">--focus-ring</code> und <code class="token">--c-error</code> für den has-error-State.</p>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th><code class="token">.field</code> (Standard-Form)</th><th><code class="token">.footer-field</code> (Utility-Form)</th></tr></thead>
+        <tbody>
+          <tr><td>Container-margin</td><td><code class="token">var(--s6)</code></td><td><code class="token">var(--s4)</code></td></tr>
+          <tr><td>Label-Token</td><td><code class="token">--ty-label-sm</code> · UPPERCASE · letter-spacing .06em · <code class="token">--tx-secondary</code></td><td>identisch (<code class="token">--ty-label-sm</code> · UPPERCASE · letter-spacing .06em · <code class="token">--tx-secondary</code>)</td></tr>
+          <tr><td>Input-Border</td><td><code class="token">2px solid --n-200</code></td><td><code class="token">1px solid --n-200</code></td></tr>
+          <tr><td>Input-Padding · Font</td><td><code class="token">12px var(--s4)</code> · <code class="token">--ty-body-lg</code> (16 px)</td><td><code class="token">0 var(--s3)</code> · <code class="token">--ty-body-md</code> (14 px)</td></tr>
+          <tr><td>Input-Höhe</td><td><code class="token">min-height:44px</code></td><td><code class="token">height:44px</code></td></tr>
+          <tr><td>Background</td><td><code class="token">var(--bg-surface)</code></td><td><code class="token">var(--bg-surface)</code></td></tr>
+          <tr><td>Focus-Ring</td><td><code class="token">var(--focus-ring)</code></td><td><code class="token">var(--focus-ring)</code></td></tr>
+          <tr><td>Error-State</td><td><code class="token">.field.has-error</code></td><td><code class="token">.footer-field.has-error</code></td></tr>
+        </tbody>
+      </table>
       <div class="layout-grid" style="align-items:start">
 
         <!-- ── Karte ── -->
@@ -2747,11 +2763,11 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Alle drei Monate neue Beiträge aus den Bereichen Angewandte KI, Effektive Software und Wirksame Organisationen. Jederzeit abmeldbar.</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
                 <div class="field">
-                  <label for="f-nl-fn">Vorname <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;color:var(--tx-muted)">(optional)</span></label>
+                  <label for="f-nl-fn">Dein Vorname</label>
                   <input type="text" id="f-nl-fn" placeholder="Maria" autocomplete="given-name">
                 </div>
                 <div class="field">
-                  <label for="f-nl-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                  <label for="f-nl-email">Deine E-Mail <span class="req" aria-hidden="true">*</span></label>
                   <input type="email" id="f-nl-email" placeholder="maria@unternehmen.de" aria-required="true" autocomplete="email">
                 </div>
               </div>
@@ -2774,8 +2790,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <div style="font:400 18px/26px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s1)">Auf dem Laufenden bleiben</div>
             <div style="font:var(--ty-body-sm);color:var(--tx-secondary);margin-bottom:var(--s4)">Alle drei Monate neue Beiträge direkt ins Postfach.</div>
             <div class="field">
-              <label for="f-nl-compact-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
-              <input type="email" id="f-nl-compact-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+              <label for="f-nl-compact-email">Deine E-Mail <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="f-nl-compact-email" placeholder="maria@unternehmen.de" aria-required="true" autocomplete="email">
             </div>
             <div style="display:flex;align-items:flex-start;gap:var(--s2);margin-bottom:var(--s4)">
               <input type="checkbox" id="f-nl-compact-consent" style="width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
@@ -4817,11 +4833,11 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
               <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                 <label class="footer-field">
-                  <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                  <input type="text" placeholder="Maria Müller" autocomplete="name">
+                  <span class="footer-field-label">Dein Vorname</span>
+                  <input type="text" placeholder="Maria" autocomplete="given-name">
                 </label>
                 <label class="footer-field">
-                  <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                  <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                   <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                 </label>
                 <label class="footer-newsletter-consent">
@@ -4873,6 +4889,39 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <tr><td><code class="token">.footer-subtitle</code></td><td>Label-Größe</td><td>Sans 500, 12&nbsp;px, helle Neutralfarbe, Mixed Case</td><td>Optionale Zwischen-Überschrift bei Sub-Area-Aufgliederung</td></tr>
         </tbody>
       </table>
+
+      <h2 id="gt-footer-form" class="group-title">Contentletter-Form · Utility-Field-Pattern</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Form in der dritten Spalte nutzt eigene Klassen (<code class="token">.footer-newsletter-form</code> als Container, <code class="token">.footer-field</code> pro Feld, <code class="token">.footer-field-label</code> für sichtbare Labels, <code class="token">.footer-newsletter-consent</code> für die DSGVO-Checkbox): eine bewusst <strong>leisere</strong> Variante der dokumentierten <a class="body-link" href="#gt-inputs-felder">Form-Komponente</a>. Im Footer sind Felder kompakter (14 px Body statt 16 px) und Border 1 px statt 2 px, passend zur Utility-Zone, in der der Footer als Wiederfindungs-Anker sitzt, nicht als primäres Konversions-Element.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Token-Konsistenz mit der Standard-Form:</strong> <strong>Labels sind identisch</strong> mit <code class="token">.field label</code> (UPPERCASE, <code class="token">--ty-label-sm</code>, letter-spacing .06em, <code class="token">--tx-secondary</code>), damit die Form-Sprache zonen­übergreifend gleich liest. Background nutzt <code class="token">--bg-surface</code> (Dark-Mode-tauglich), Focus-Ring den standardisierten <code class="token">--focus-ring</code>-Token (Dual-Shadow, AA-kompatibel), Error-State (<code class="token">.footer-field.has-error</code>) den <code class="token">--c-error</code>-Border. Die volle Vergleichs-Matrix steht im <a class="body-link" href="#gt-inputs-newsletter">Newsletter-Anmeldung</a>-Abschnitt.</p>
+      <table class="doc-table" style="margin-bottom:var(--s4)">
+        <thead><tr><th>Klasse</th><th>Rolle</th><th>Hinweis</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">.footer-newsletter-form</code></td><td>Form-Container (Flex-Column)</td><td>Submit-Button via <code class="token">align-self:flex-start</code> auf natürliche Pill-Breite zurücksetzen</td></tr>
+          <tr><td><code class="token">.footer-newsletter-desc</code></td><td>Lead über dem Form</td><td>Body-sm, <code class="token">--tx-secondary</code></td></tr>
+          <tr><td><code class="token">.footer-field</code></td><td>Feld-Wrapper (<code class="token">&lt;label&gt;</code>)</td><td>Implizite Label-Input-Verknüpfung, keine <code class="token">for</code>/<code class="token">id</code>-Paare nötig, relevant weil der Footer in mehreren ep-Tabpanels gleichzeitig im DOM steht</td></tr>
+          <tr><td><code class="token">.footer-field-label</code></td><td>Sichtbarer Label-Text</td><td><code class="token">--ty-label-sm</code> · UPPERCASE · letter-spacing .06em · <code class="token">--tx-secondary</code>, identisch mit <code class="token">.field label</code></td></tr>
+          <tr><td><code class="token">.footer-field.has-error</code></td><td>Inline-Validierungs-State</td><td>Border kippt auf <code class="token">--c-error</code>; Fehlertext via <code class="token">.error-msg</code> direkt unter dem Input</td></tr>
+          <tr><td><code class="token">.footer-newsletter-consent</code></td><td>DSGVO-Checkbox-Zeile</td><td>Sitzt zwingend vor dem Submit, damit der Tab- und Klickpfad durch die Einwilligung führt</td></tr>
+        </tbody>
+      </table>
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="k">&lt;form</span> <span class="v">class</span>=<span class="s">"footer-newsletter-form"</span> <span class="v">aria-label</span>=<span class="s">"Contentletter-Anmeldung"</span><span class="k">&gt;</span>
+  <span class="k">&lt;label</span> <span class="v">class</span>=<span class="s">"footer-field"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"footer-field-label"</span><span class="k">&gt;</span>Dein Vorname<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"text"</span> <span class="v">placeholder</span>=<span class="s">"Maria"</span> <span class="v">autocomplete</span>=<span class="s">"given-name"</span><span class="k">&gt;</span>
+  <span class="k">&lt;/label&gt;</span>
+  <span class="k">&lt;label</span> <span class="v">class</span>=<span class="s">"footer-field"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"footer-field-label"</span><span class="k">&gt;</span>Deine E-Mail <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"req"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>*<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
+    <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"email"</span> <span class="v">placeholder</span>=<span class="s">"name@unternehmen.de"</span> <span class="v">aria-required</span>=<span class="s">"true"</span> <span class="v">required</span><span class="k">&gt;</span>
+  <span class="k">&lt;/label&gt;</span>
+  <span class="k">&lt;label</span> <span class="v">class</span>=<span class="s">"footer-newsletter-consent"</span><span class="k">&gt;</span>
+    <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"checkbox"</span> <span class="v">required</span><span class="k">&gt;</span>
+    <span class="k">&lt;span&gt;</span>Einverstanden mit den <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"body-link"</span> <span class="v">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>Datenschutzhinweisen<span class="k">&lt;/a&gt;&lt;/span&gt;</span>
+  <span class="k">&lt;/label&gt;</span>
+  <span class="k">&lt;button</span> <span class="v">type</span>=<span class="s">"submit"</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-co"</span><span class="k">&gt;</span>Abonnieren<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/form&gt;</span></pre>
+      </div>
 
       <h2 id="gt-footer-subtitle" class="group-title">Optional: Sub-Hierarchie per <code class="token">.footer-subtitle</code></h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aktuell nutzt keine Footer-Spalte eine Sub-Hierarchie. Falls in Zukunft eine Spalte (z.&nbsp;B. „Leistungen“ oder „Über uns“) in Sub-Areas mit eigenen Listen aufgegliedert werden soll, steht dafür die Klasse <code class="token">.footer-subtitle</code> bereit.</p>
@@ -7077,11 +7126,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -7259,11 +7308,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -7413,11 +7462,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -7567,11 +7616,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -7721,11 +7770,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -7972,11 +8021,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -8312,11 +8361,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -8599,11 +8648,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">
@@ -8923,11 +8972,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
                 <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
                   <label class="footer-field">
-                    <span class="footer-field-label">Dein Name <span style="color:var(--tx-muted);font-weight:400">(optional)</span></span>
-                    <input type="text" placeholder="Maria Müller" autocomplete="name">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
                   </label>
                   <label class="footer-field">
-                    <span class="footer-field-label">Deine E-Mail-Adresse <span class="req" aria-hidden="true">*</span></span>
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
                     <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
                   </label>
                   <label class="footer-newsletter-consent">

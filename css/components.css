@@ -285,12 +285,20 @@
    Inputs sollen das (width:100%), aber der Submit-Button soll auf seine natürliche Pill-Breite zurückfallen. */
 .footer-newsletter-form button[type="submit"]{align-self:flex-start}
 .footer-field{display:block;margin-bottom:var(--s4)}
-.footer-field-label{display:block;font:var(--ty-label-md);color:var(--tx-primary);margin-bottom:var(--s2)}
+/* Label folgt der Form-Komponente: uppercase + letter-spacing, --ty-label-sm, --tx-secondary.
+   So liest der Footer-Form identisch zu den Kontaktformularen (.field label) und unterscheidet
+   sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
+.footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .footer-newsletter-form input[type="text"],
-.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--n-200);background:#fff;padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
-/* tx-secondary (#4A6565) auf weiß = 6,28:1 ✓ AA. tx-muted wäre 3,92:1 — knapp unter AA-Schwelle. */
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--n-200);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+/* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
 .footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
-.footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:0 0 0 2px rgba(0,190,190,.2)}
+/* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und
+   AA-konsistent mit allen anderen Form-Komponenten (.field, .footer-link, .footer-btm-link). */
+.footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+/* Error-State, analog zu .field.has-error: --c-error-Border + Inline-Fehlertext mit Icon. */
+.footer-field.has-error input{border-color:var(--c-error)}
+.footer-field .error-msg{display:flex;gap:var(--s2);align-items:center;font:var(--ty-body-sm);color:var(--c-error);margin-top:var(--s2)}
 /* Consent als <label> mit Checkbox + Text — implizite Verknüpfung, keine IDs nötig (Footer in 10 Tabpanels). */
 .footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
 .footer-newsletter-consent input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer}
