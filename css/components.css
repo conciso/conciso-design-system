@@ -184,7 +184,7 @@
 .field{margin-bottom:var(--s6)}
 .field label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .req{color:var(--c-error);font-size:14px}
-.field input,.field textarea,.field select{width:100%;padding:12px var(--s4);font:var(--ty-body-lg);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field input,.field textarea,.field select{width:100%;padding:12px var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%234A6565'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field.has-error input{border-color:var(--c-error)}
@@ -212,7 +212,7 @@
 /* ── Nav demo ── */
 .nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
 .nav-bar{display:flex;align-items:center;padding:0 var(--s8);height:64px;border-bottom:var(--bd);gap:var(--s8)}
-.logo-text{font:var(--ty-title-lg);letter-spacing:.03em;flex-shrink:0}
+.logo-text{font:500 24px/32px var(--font);letter-spacing:.03em;flex-shrink:0}
 .nav-links{display:flex;gap:var(--s2);flex:1}
 .nav-link{padding:var(--s2) var(--s3);border-radius:var(--r-md);font:var(--ty-label-md);color:var(--tx-secondary);cursor:pointer;min-height:36px;display:flex;align-items:center;white-space:nowrap;background:none;border:none;transition:background var(--m-fast),color var(--m-fast)}
 .nav-link:hover{background:var(--bg-overlay);color:var(--tx-primary)}
@@ -220,7 +220,7 @@
 .eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;margin-bottom:var(--s4);display:block}
 .doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 .hero-h1{font:var(--ty-display-sm);color:var(--tx-primary);margin-bottom:var(--s4)}
-.hero-sub{font:var(--ty-body-lg);color:var(--tx-secondary);max-width:480px;margin:0 auto var(--s8)}
+.hero-sub{font:var(--ty-body-md);color:var(--tx-secondary);max-width:480px;margin:0 auto var(--s8)}
 .hero-actions{display:flex;gap:var(--s3);justify-content:center;flex-wrap:wrap}
 
 /* ── Snackbar ── */
@@ -259,7 +259,7 @@
 /* Address-Block: semantisch <address>, Stack aus Adresse / Maps-Links / Telefon-Block. */
 .footer-address{font-style:normal;color:var(--tx-primary);margin:0}
 .footer-address p{font:var(--ty-body-md);margin:0 0 var(--s3)}
-.footer-address-maps{font:var(--ty-body-md)}
+.footer-address-maps{font:var(--ty-body-sm)}
 
 /* Body-Link: Inline-Link im Fließtext (Querverweise zwischen Doku-Abschnitten).
    Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css → --co-200. */
@@ -304,9 +304,9 @@
 .footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
 /* Error-State, analog zu .field.has-error: --c-error-Border + Inline-Fehlertext mit Icon. */
 .footer-field.has-error input{border-color:var(--c-error)}
-.footer-field .error-msg{display:flex;gap:var(--s2);align-items:center;font:var(--ty-body-md);color:var(--c-error);margin-top:var(--s2)}
+.footer-field .error-msg{display:flex;gap:var(--s2);align-items:center;font:var(--ty-body-sm);color:var(--c-error);margin-top:var(--s2)}
 /* Consent als <label> mit Checkbox + Text — implizite Verknüpfung, keine IDs nötig (Footer in 10 Tabpanels). */
-.footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
+.footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
 .footer-newsletter-consent input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer}
 /* Konsistenter Focus-Ring (Cutout-Effekt) statt Browser-Default — passt zu Footer-Links und Submit-Button. */
 .footer-newsletter-consent input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
@@ -525,7 +525,7 @@
 .ep-topnav{display:flex;align-items:center;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s8);flex-wrap:wrap}
 /* Kontakt-Button (letztes Direct-Child) wird nach rechts gedrückt; Nav hängt direkt am Logo */
 .ep-topnav > :last-child{margin-left:auto}
-.ep-logo{font:var(--ty-title-lg);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center;color:inherit;text-decoration:none;border-radius:var(--r-xs)}
+.ep-logo{font:500 24px/32px var(--font);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center;color:inherit;text-decoration:none;border-radius:var(--r-xs)}
 a.ep-logo{cursor:pointer}
 a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-logo img{display:block;height:24px;width:auto}
@@ -561,7 +561,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-hero-visual.has-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .ep-hero-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3)}
 .ep-hero-h1{font:var(--ty-display-lg);margin-bottom:var(--s4);max-width:680px}
-.ep-hero-sub{font:var(--ty-body-lg);opacity:.85;margin-bottom:var(--s8);max-width:520px}
+.ep-hero-sub{font:var(--ty-body-md);opacity:.85;margin-bottom:var(--s8);max-width:520px}
 .ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
 @media(max-width:900px){.ep-hero{flex-direction:column}.ep-hero-visual{display:none}}
 .ep-section{padding:var(--s12) var(--s8);text-align:left}
@@ -681,7 +681,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* ── Wissensbeitrag (Article) ── */
 /* Header: zentrierter Block mit Breadcrumb · Pill · Titel · Lead · Meta */
 .article-header{max-width:880px;margin:0 auto;text-align:center}
-.article-breadcrumb{font:var(--ty-body-md);color:var(--tx-muted);margin-bottom:var(--s5)}
+.article-breadcrumb{font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s5)}
 .article-breadcrumb a{color:inherit;text-decoration:none}
 .article-breadcrumb a[aria-current="page"]{color:var(--tx-primary)}
 .article-breadcrumb-sep{margin:0 var(--s2)}
@@ -692,7 +692,9 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .pill[data-area="es"]{background:var(--es-50);color:var(--es-700)}
 .pill[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
 .article-title{font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance}
-.article-lead{font:var(--ty-body-lg);color:var(--tx-secondary);margin:0 auto;max-width:680px;text-wrap:pretty}
+/* Lead-Paragraph für Artikel-Header: 18 px, eine Stufe über Body-Md (16) und unter Title-Sm (20).
+   Bewusst hardcoded statt eigenes Token, weil Lead nur in einer Komponente vorkommt. */
+.article-lead{font:400 18px/28px var(--font);color:var(--tx-secondary);margin:0 auto;max-width:680px;text-wrap:pretty}
 /* Meta-Strip: Avatar · Name/Rolle · Trenner · Datum */
 .article-meta{display:flex;align-items:center;justify-content:center;gap:var(--s4);margin-top:var(--s8);flex-wrap:wrap}
 .article-meta-author{display:flex;align-items:center;gap:var(--s3)}
@@ -700,7 +702,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-meta-name{font:var(--ty-label-md);color:var(--tx-primary);margin:0}
 .article-meta-role{font:var(--ty-body-xs);color:var(--tx-muted);margin:0}
 .article-meta-sep{display:inline-block;width:1px;height:24px;background:var(--n-200)}
-.article-meta-date{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+.article-meta-date{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
 /* Avatar (Initialen-Kreis), area-aware; .article-avatar-lg für Author-Card-Größe; <img> als Kind ersetzt die Initialen */
 .article-avatar{width:40px;height:40px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;font:600 14px/1 var(--font);letter-spacing:.04em;flex-shrink:0;background:var(--co-100);color:var(--co-800);position:relative;overflow:hidden}
 .article-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -728,7 +730,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
 .author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
 /* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
-.article-body{max-width:720px;margin:0 auto;font:var(--ty-body-lg);color:var(--tx-primary);line-height:1.7}
+.article-body{max-width:720px;margin:0 auto;font:var(--ty-body-md);color:var(--tx-primary);line-height:1.7}
 .article-body > p{margin:0 0 var(--s5)}
 .article-body > p:last-child{margin-bottom:0}
 .article-body h2{font:var(--ty-headline-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);text-wrap:balance}
@@ -768,7 +770,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .author-card{max-width:720px;margin:0 auto;display:flex;gap:var(--s5);align-items:flex-start}
 .author-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s1)}
 .author-card-name{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
-.author-card-role{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s3)}
+.author-card-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s3)}
 .author-card-bio{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
 /* Pull-Quote: typografische Hervorhebung autoreigener Sätze im Body — area-aware Linksakzent in 500 (analog .bq), aber ohne Background und ohne Quote-Icon */
 .article-pullquote{margin:var(--s10) 0;padding:var(--s4) var(--s6);border-left:4px solid var(--co-500);font-family:var(--font-display);font-style:italic;font-size:clamp(22px,2.4vw,28px);line-height:1.4;color:var(--tx-primary);quotes:none}

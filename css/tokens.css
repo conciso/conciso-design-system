@@ -57,18 +57,23 @@
   /* ── Typography Scale ──
      Minimum-Font-Size systemweit: 12 px. Tokens darunter wurden eliminiert oder angehoben,
      damit Inhalte unter allen Bedingungen gut lesbar bleiben (Bildschirm, Mobile, Print). */
-  /* Sans-serif (Montserrat) */
+  /* Sans-serif (Montserrat)
+     Body-Skala (Mai 2026): 16 / 14 / 12 px. Body Md ist Standard-Fließtext (war 14, jetzt 16
+     für bessere Lesbarkeit auf C-Level-Mittelstand-Zielgruppe und iOS-Auto-Zoom-Fix bei Form-Inputs).
+     Body Sm = 14 px für Meta-Daten/Card-Meta. Body Xs = 12 px für Captions. */
   --ty-caption:      400 12px/16px var(--font);
   --ty-body-xs:      400 12px/16px var(--font);
-  --ty-body-md:      400 14px/20px var(--font);
-  --ty-body-lg:      400 16px/24px var(--font);
+  --ty-body-sm:      400 14px/20px var(--font);
+  --ty-body-md:      400 16px/24px var(--font);
   /* label-xs und label-sm haben dieselben Metriken — label-xs ist die "Eyebrow"-Variante,
      mit text-transform:uppercase + letter-spacing am Use-Site. label-sm ist für Mixed-Case-Labels. */
   --ty-label-xs:     500 12px/16px var(--font);
   --ty-label-sm:     500 12px/16px var(--font);
   --ty-label-md:     500 14px/20px var(--font);
-  --ty-title-sm:     500 18px/26px var(--font);
-  --ty-title-lg:     500 22px/28px var(--font);
+  /* Title-Sm (Mai 2026): 20 px statt 18 px, damit Card-Titel mit klarer 4-px-Stufe über
+     dem neuen 16-px-Body-Md sitzen. Title-Lg ist entfallen, das Logo nutzt jetzt eine eigene
+     Klasse .logo-text mit fest verdrahteten Metriken. */
+  --ty-title-sm:     500 20px/28px var(--font);
   --ty-label-xs-strong: 600 12px/16px var(--font);
   --ty-name:         600 13px/18px var(--font);
   /* Display / serif (Libre Baskerville) */
