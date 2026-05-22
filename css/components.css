@@ -117,7 +117,10 @@
    reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen".
    Trade-Off: bei aktuell kurzem Content sieht das wie ein Hohlraum aus, ist aber gewollt — das Layout
    muss morgen mit einer 2-zeiligen Headline umgehen, ohne dass jemand CSS-Klassen umtauschen muss. */
-.card-title{font:var(--ty-title-lg);color:var(--tx-primary);margin-bottom:var(--s2);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden;min-height:2lh}
+/* Äußerer Container: reserviert min. 2-Zeilen-Höhe und zentriert den Inhalt vertikal mittig.
+   Inneres <span> trägt das Line-Clamping (kappt zu lange Titel auf 2 Zeilen). */
+.card-title{font:var(--ty-title-lg);color:var(--tx-primary);min-height:2lh;display:grid;align-content:center}
+.card-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
 .card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
 /* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
    nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
