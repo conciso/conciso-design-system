@@ -237,8 +237,10 @@
 .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:var(--s10)}
 
 /* Section-Headlines im Display-Serif. Gleicher Style für Brand, Nav-Header und Contentletter-Header. */
-.footer-brand{font:600 22px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s4)}
-.footer-htitle{font:600 22px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s4);text-transform:none;letter-spacing:0}
+/* Footer-Headlines auf Title Medium (sans 500, 18/26 px) — der Footer rückt damit visuell in den Hintergrund:
+   keine editoriale Serifen-Prominenz mehr, sondern eine ruhige Utility-Typografie. */
+.footer-brand{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4)}
+.footer-htitle{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4);text-transform:none;letter-spacing:0}
 
 .footer-nav-list{list-style:none;padding:0;margin:0}
 /* Inline-Links auf hellem Footer-bg. --tx-primary auf --n-50 ≈ 9.8:1 ✓ AAA. */
