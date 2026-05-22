@@ -6128,7 +6128,7 @@ document.querySelectorAll(
       </div>
 
       <h2 id="gt-article-team-tiles" class="group-title">Team-Tile-Grid · rotierender Ausschnitt</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf der Landing („Wer wir sind“) und auf einer Über-Uns-Seite kommt das Avatar-Pattern in einer reduzierten Form als <strong>6-Kachel-Grid</strong> zum Einsatz: Foto-Avatar (<code class="token">.article-avatar.article-avatar-lg</code>) zentriert über Name (<code class="token">.author-card-name</code>) und Rolle (<code class="token">.author-card-role</code>), keine Bio. Conciso hat rund 70 Mitarbeitende; das Grid zeigt einen rotierenden Ausschnitt, kein vollständiges Roster.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf der Landing („Wer wir sind“) und auf einer Über-Uns-Seite kommt das Avatar-Pattern in einer reduzierten Form als <strong>6-Kachel-Grid</strong> zum Einsatz: Foto-Avatar (<code class="token">.article-avatar.article-avatar-xl</code>, 112 px) zentriert über Name (<code class="token">.author-card-name</code>) und Rolle (<code class="token">.author-card-role</code>), keine Bio. Conciso hat rund 70 Mitarbeitende; das Grid zeigt einen rotierenden Ausschnitt, kein vollständiges Roster. <strong>Größen-Begründung:</strong> Author-Card-Bios nutzen <code class="token">.article-avatar-lg</code> (64 px), weil der Avatar dort horizontal neben Bio-Text sitzt und ein 112-px-Kreis den Strip dominieren würde. Im Team-Tile-Grid sitzt der Avatar zentriert über dem Text. Hier macht 112 px die Gesichter erkennbar (Brand-Versprechen „Klare Köpfe") statt sie als Briefmarken-Stempel darzustellen.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>JS-Rotation:</strong> Pro Seitenaufruf werden 6 Mitarbeitende zufällig aus einem Pool von rund 13 Personen ausgewählt (Fisher-Yates-Shuffle in <code class="token">js/main.js</code>, <code class="token">data-team-tiles</code> als Container, <code class="token">data-team-tile</code> als Slot). Avatar, Name und Rolle werden bei <code class="token">DOMContentLoaded</code> ersetzt. Die initial im HTML hinterlegten Werte dienen als JS-off-Fallback, die Seite ist also auch ohne JavaScript inhaltlich vollständig.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Warum rotieren?</strong> Eine statische 6er-Auswahl wirkt entweder zu kurz (suggeriert „das ist die ganze Firma“) oder muss redaktionell gepflegt werden. Eine rotierende Auswahl zeigt Diversität ohne Pflege-Overhead und macht den Block bei jedem Besuch anders lebendig. Der Pool spiegelt das Bereichs-Verhältnis grob wider (4 KI, 4 ES, 3 WO, 2 CO), damit die zufällige Auswahl nicht versehentlich einseitig wird.</p>
 
@@ -6138,7 +6138,7 @@ document.querySelectorAll(
 <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"layout-grid"</span> <span class="v">data-team-tiles</span><span class="k">&gt;</span>
   <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"col-2"</span> <span class="v">data-team-tile</span>
        <span class="v">style</span>=<span class="s">"display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>LB<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-xl"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>LB<span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;div&gt;</span>
       <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-name"</span><span class="k">&gt;</span>Lukas Brandt<span class="k">&lt;/p&gt;</span>
       <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-role"</span><span class="k">&gt;</span>Senior AI Engineer<span class="k">&lt;/p&gt;</span>
@@ -6152,7 +6152,7 @@ document.querySelectorAll(
         <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
         <tbody>
           <tr><td>Slot-Anzahl</td><td>6 Tiles in einem <code class="token">.layout-grid</code> (3×2 auf Desktop, 2×3 auf Tablet, 1×6 auf Mobile via <code class="token">.col-2</code>)</td></tr>
-          <tr><td>Avatar</td><td><code class="token">.article-avatar.article-avatar-lg</code> mit Foto-<code class="token">&lt;img&gt;</code> als Kind. <code class="token">object-position</code> pro Person, da Mock-Portraits oft mehrere Köpfe zeigen</td></tr>
+          <tr><td>Avatar</td><td><code class="token">.article-avatar.article-avatar-xl</code> (112 px) mit Foto-<code class="token">&lt;img&gt;</code> als Kind. <code class="token">object-position</code> pro Person, da Mock-Portraits oft mehrere Köpfe zeigen</td></tr>
           <tr><td>Pool-Größe</td><td>circa 12 bis 15 Personen. Zu kleiner Pool wirkt repetitiv, zu großer Pool verwässert das Bereichs-Verhältnis</td></tr>
           <tr><td>JS-off</td><td>Die initiale HTML-Belegung bleibt sichtbar; Seite ist ohne JavaScript vollständig</td></tr>
           <tr><td>A11y</td><td>Avatar bleibt <code class="token">aria-hidden="true"</code>, Initialen-Text steht als JS-Fallback im DOM und wird vom Foto überlagert. Name und Rolle sind echte <code class="token">&lt;p&gt;</code>-Elemente, von Screenreadern lesbar</td></tr>
@@ -6876,10 +6876,27 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="hero-image-caption-text">Pragmatisch geplant, kraftvoll umgesetzt. Drei Disziplinen, eine Auftragslogik.</p>
           </figcaption>
         </figure>
-        <!-- Sub-Sektion direkt unter Hero: Positionierung + CTAs -->
+        <!-- Sub-Sektion direkt unter Hero: Brücke zu den Drei Bereichen.
+             Eyebrow + Lead positioniert die Hörhaltung, der Drei-Spalter darunter
+             kündigt die folgenden Bereichs-Cards typografisch an (Bereichsfarben
+             als Mini-Vorschau, kein vollständiges Card-Treatment hier). -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
           <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Verbunden gedacht</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Substanz im Vorhaben? Wir hören zu, bevor wir etwas vorschlagen.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s10);max-width:520px;text-wrap:balance">Substanz im Vorhaben? Wir hören zu, bevor wir etwas vorschlagen.</p>
+          <div class="layout-grid" style="max-width:960px;margin:0 auto;text-align:center">
+            <div class="col-4">
+              <p class="ep-card-eyebrow" data-area="ki" style="margin-bottom:var(--s2)">Angewandte KI</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Idee bis in den Produktivbetrieb.</p>
+            </div>
+            <div class="col-4">
+              <p class="ep-card-eyebrow" data-area="es" style="margin-bottom:var(--s2)">Effektive Software</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Architektur bis zum Betrieb.</p>
+            </div>
+            <div class="col-4">
+              <p class="ep-card-eyebrow" data-area="wo" style="margin-bottom:var(--s2)">Wirksame Organisationen</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0;text-wrap:balance">Von der Analyse bis zur Verankerung.</p>
+            </div>
+          </div>
         </div>
         <!-- Drei Bereiche – farbig differenziert -->
         <div class="ep-section" style="background:var(--bg-surface)">
@@ -6970,42 +6987,42 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub" style="color:var(--n-500);max-width:680px;text-wrap:pretty">Rund 70 Spezialistinnen und Spezialisten. Ein Ziel: Software, die wirkt. Wir sind Entwicklerinnen, Architekten, Beraterinnen und AI-Expertinnen. Wir bauen, beraten und begleiten. Verbunden durch den Anspruch, Wirkung zu erzielen.</p>
           <div class="layout-grid" data-team-tiles style="margin-top:var(--s8)">
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">LB</div>
+              <div class="article-avatar article-avatar-xl" data-area="ki" aria-hidden="true">LB</div>
               <div>
                 <p class="author-card-name">Lukas Brandt</p>
                 <p class="author-card-role">Senior AI Engineer</p>
               </div>
             </div>
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">MM</div>
+              <div class="article-avatar article-avatar-xl" data-area="ki" aria-hidden="true">MM</div>
               <div>
                 <p class="author-card-name">Maria Müller</p>
                 <p class="author-card-role">UX Lead</p>
               </div>
             </div>
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="es" aria-hidden="true">TW</div>
+              <div class="article-avatar article-avatar-xl" data-area="es" aria-hidden="true">TW</div>
               <div>
                 <p class="author-card-name">Tim Westphal</p>
                 <p class="author-card-role">Lead Software Engineer</p>
               </div>
             </div>
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="es" aria-hidden="true">MH</div>
+              <div class="article-avatar article-avatar-xl" data-area="es" aria-hidden="true">MH</div>
               <div>
                 <p class="author-card-name">Marc Hoffmann</p>
                 <p class="author-card-role">Senior Software Engineer</p>
               </div>
             </div>
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">SK</div>
+              <div class="article-avatar article-avatar-xl" data-area="wo" aria-hidden="true">SK</div>
               <div>
                 <p class="author-card-name">Sarah Kühn</p>
                 <p class="author-card-role">Lead Organisationsentwicklung</p>
               </div>
             </div>
             <div class="col-2" data-team-tile style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-lg" data-area="co" aria-hidden="true">AV</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true">AV</div>
               <div>
                 <p class="author-card-name">Anja Voss</p>
                 <p class="author-card-role">Geschäftsführung</p>

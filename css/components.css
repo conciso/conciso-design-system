@@ -706,6 +706,10 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-avatar[data-area="es"]{background:var(--es-100);color:var(--es-700)}
 .article-avatar[data-area="wo"]{background:var(--wo-100);color:var(--wo-800)}
 .article-avatar-lg{width:64px;height:64px;font-size:20px}
+/* XL für Team-Tile-Grid auf Landing/Über-uns: 112 px statt 64 px, damit Gesichter erkennbar
+   werden statt nur als Identifikations-Stempel zu wirken. Author-Card-Bios bleiben bei -lg,
+   weil sie horizontal neben Text sitzen und ein 112-px-Kreis dort dominieren würde. */
+.article-avatar-xl{width:112px;height:112px;font-size:36px}
 /* Multi-Author: Avatare gestapelt mit weißem Border-Halo zur visuellen Überlappung */
 .article-avatar-stack{display:inline-flex;align-items:center;flex-shrink:0}
 .article-avatar-stack .article-avatar{border:2px solid var(--bg-surface)}
