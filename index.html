@@ -189,6 +189,7 @@
     </button>
     <div class="nav-subnav" data-for="cta">
       <a class="nav-sub-item" href="#gt-cta-band">Page-End-CTA-Band</a>
+      <a class="nav-sub-item" href="#gt-cta-editorial">Editorial Split</a>
       <a class="nav-sub-item" href="#gt-cta-hero">Download · Hero</a>
       <a class="nav-sub-item" href="#gt-cta-visual">Download · Mit Vorschaubild</a>
       <a class="nav-sub-item" href="#gt-cta-kompakt">Download · Kompakt</a>
@@ -250,6 +251,7 @@
     <div class="nav-subnav" data-for="footer">
       <a class="nav-sub-item" href="#gt-footer-demo">Footer-Demo</a>
       <a class="nav-sub-item" href="#gt-footer-struktur">Spalten-Struktur</a>
+      <a class="nav-sub-item" href="#gt-footer-typo">Typografie</a>
       <a class="nav-sub-item" href="#gt-footer-subtitle">Verschachtelung</a>
       <a class="nav-sub-item" href="#gt-footer-verwendung">Verwendung</a>
     </div>
@@ -267,6 +269,7 @@
       <a class="nav-sub-item" href="#gt-article-callout">In-Article Callout</a>
       <a class="nav-sub-item" href="#gt-article-pullquote">Pull-Quote vs. Blockquote</a>
       <a class="nav-sub-item" href="#gt-article-author">Author Card</a>
+      <a class="nav-sub-item" href="#gt-article-team-tiles">Team-Tile-Grid</a>
       <a class="nav-sub-item" href="#gt-article-multi-author">Mehrere Autor:innen</a>
       <a class="nav-sub-item" href="#gt-article-verwendung">Verwendung</a>
     </div>
@@ -297,6 +300,7 @@
     <div class="nav-subnav" data-for="events">
       <a class="nav-sub-item" href="#gt-events-aufbau">Aufbau</a>
       <a class="nav-sub-item" href="#gt-events-card">Event-Card</a>
+      <a class="nav-sub-item" href="#gt-events-featured">Featured · horizontal</a>
       <a class="nav-sub-item" href="#gt-events-verwendung">Verwendung</a>
     </div>
 
@@ -3179,7 +3183,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       </div>
 
       <h2 id="gt-cards-stat-strip" class="group-title">Bandstreifen: flache Variante</h2>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Reduzierte Alternative ohne Border und Schatten, für kompakte KPI-Bänder, Footer-Stats oder Hero-Anschluss-Sektionen, in denen die Karten-Optik zu schwer wirken würde. Markenfarbe steckt nur noch in der Zahl, der Streifen selbst nutzt eine ruhige Neutralfläche.</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Reduzierte Alternative ohne Border und Schatten, für kompakte KPI-Bänder, Footer-Stats oder Hero-Anschluss-Sektionen, in denen die Karten-Optik zu schwer wirken würde. Markenfarbe steckt nur noch in der Zahl, der Streifen selbst nutzt eine ruhige Neutralfläche.</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Trust-Bar-Variante auf Sektion-Hintergrund:</strong> Auf einer Landing-Sektion mit eigenem Hintergrund (z.&nbsp;B. <code class="token">--n-50</code>) wird der Streifen mit <code class="token">style="background:transparent;text-align:center"</code> in den Sektion-Flow integriert: vier <code class="token">.card-stat-flat</code> mit denselben <code class="token">data-area="co"</code> als Reife-Signale für C-Level (Vorhaben · Jahre · Mitarbeitende · Disziplinen). Stats sprechen für sich; eine erklärende Subline ist nicht nötig und würde die Lautstärke erhöhen.</p>
       <div class="card-stat-strip" style="border-radius:var(--r-lg);margin-bottom:var(--s8)">
         <div class="card-stat-flat" data-area="co">
           <p class="card-stat-flat-value">94 %</p>
@@ -4211,7 +4216,8 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
       <h2 id="gt-chips-pill" class="group-title">Pill</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Passive, kompakte Markierung mit Bereichston, typografisch als Eyebrow ausgeführt (uppercase, <code class="token">letter-spacing: .09em</code>, label-xs). Sitzt typischerweise oberhalb eines Titels und ordnet ihn einer Brand Area zu. Wie der Bereichs-Badge zeigt die Pill keine Interaktion, hebt sich aber typografisch deutlicher ab.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Standard-Hintergrund ist der 50er-Bereichston, Text der 700er- bzw. 800er-Ton (KI/CO/WO 800, ES 700), die KI-AA-Compliance ist im Token-System hinterlegt. <code class="token">data-area</code> auf der Pill schaltet die Bereichsfarbe; ohne Attribut greift der Corporate-Default.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Standard-Hintergrund ist der 50er-Bereichston, Text der 700er- bzw. 800er-Ton (KI/CO/WO 800, ES 700), die KI-AA-Compliance ist im Token-System hinterlegt. <code class="token">data-area</code> auf der Pill schaltet die Bereichsfarbe; ohne Attribut greift der Corporate-Default.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Inhalts-Regel auf Cards:</strong> Die Pill trägt <strong>nur den Bereichsnamen</strong>. Meta-Daten wie Lesezeit, Datum oder Format gehören in eine separate <code class="token">.card-meta</code>-Zeile unterhalb von Titel und Anreißer. Diese Aufteilung macht die Pill zum reinen Bereichs-Anker (visueller Sortier-Signal), während die Meta-Zeile (Body-sm, <code class="token">--tx-muted</code>) die Fakten zur Karte trägt: Lesezeit und Datum gehören zur Karten-Anatomie, nicht zur Markenzuordnung. Sie reduziert auch die Screenreader-Last des verschluckten Mittelpunkts (siehe Barrierefreiheits-Hinweis unten).</p>
       <div style="display:flex;flex-wrap:wrap;gap:var(--s4);margin-bottom:var(--s5)">
         <span class="pill" data-area="co" aria-label="Bereich Corporate">Corporate</span>
         <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI">Angewandte KI</span>
@@ -4228,8 +4234,8 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <div>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> Wenn die Pill kombinierte Meta-Information mit Trennzeichen führt (z.&nbsp;B. <code class="token">Bereich · Lesezeit</code>), wird das mittige Punktzeichen von Screenreadern oft verschluckt oder als „Punkt“ gelesen. Pflicht-Pattern: <code class="token">aria-label</code> mit ausgeschriebener Form (<code class="token">aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"</code>), sichtbarer Text bleibt kompakt, vorgelesener Text wird klar.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei einfachen Pills ohne Trennzeichen reicht ein <code class="token">aria-label</code>, das die Bereichszuordnung explizit macht (<code class="token">aria-label="Bereich Angewandte KI"</code>), der reine Bereichsname allein klingt im Screenreader-Fluss leicht wie eine Überschrift.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Barrierefreiheit:</strong> Auf Cards trägt die Pill nur den Bereichsnamen, hier reicht ein <code class="token">aria-label</code>, das die Bereichszuordnung explizit macht (<code class="token">aria-label="Bereich Angewandte KI"</code>), der reine Bereichsname allein klingt im Screenreader-Fluss leicht wie eine Überschrift.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Legacy-Pattern:</strong> Falls eine Pill in Altbeständen kombinierte Meta-Information mit Trennzeichen führt (z.&nbsp;B. <code class="token">Bereich · Lesezeit</code>), wird das mittige Punktzeichen von Screenreadern oft verschluckt oder als „Punkt“ gelesen. Pflicht-Pattern dort: <code class="token">aria-label</code> mit ausgeschriebener Form (<code class="token">aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"</code>). Auf neuen Karten Meta in <code class="token">.card-meta</code> separat führen statt in die Pill zu falten.</p>
         </div>
       </div>
 
@@ -4297,7 +4303,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             </thead>
             <tbody>
               <tr><td>Interaktion</td><td>Keine, Pills sind reine Kategoriemarker</td></tr>
-              <tr><td>Label</td><td>1 bis 4 Wörter · Bereichsname, optional mit Meta (z.&nbsp;B. Lesezeit), getrennt durch <code class="token">·</code></td></tr>
+              <tr><td>Label</td><td>1 bis 3 Wörter · ausschließlich Bereichsname. Meta-Daten (Lesezeit, Datum, Format) gehören in <code class="token">.card-meta</code>, nicht in die Pill.</td></tr>
               <tr><td>Typografie</td><td>label-xs · uppercase · <code class="token">letter-spacing: .09em</code>, sichtbar getrennt von Chip und Badge</td></tr>
               <tr><td>Bereichsfarbe</td><td>50er-Hintergrund · 700/800er-Text der Brand Area · nie ohne Bereichston</td></tr>
             </tbody>
@@ -4436,6 +4442,56 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
   <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-co btn-on-band"</span><span class="k">&gt;</span>Termin buchen<span class="k">&lt;/button&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
+
+      <h2 id="gt-cta-editorial" class="group-title">Editorial Split · sekundärer CTA ohne Card-Chrome</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Für sekundäre und tertiäre Konversionsflächen, die <strong>neben</strong> dem primären Page-End-CTA stehen sollen (z.&nbsp;B. Karriere-Block auf der Landing). Eine ruhige 2-Spalten-Aufteilung in einer normalen <code class="token">.ep-section</code>: links ein Foto im 4:3-Format mit <code class="token">--r-md</code>, rechts Eyebrow + H2 + Lead + Button. Kein Card-Container, keine Box-Shadow, keine Border. Die Sektion ist Teil des Seitenflusses, nicht ein Stück „Werbung darin“.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Markenrad-Begründung:</strong> Card-Chrome (Border + Shadow + Border-Radius am Außenrand) erzeugt visuelles Gewicht und Geräusch, das widerspricht „Ruhig“ in der Conciso-Tonalität. Der Editorial Split nimmt stattdessen Bühne durch die <strong>Hintergrundfarbe</strong> der umschließenden <code class="token">.ep-section</code> (typischerweise <code class="token">--co-50</code> oder <code class="token">--n-50</code>) und durch das Foto links. Headline-Größe (<code class="token">--ty-headline-md</code>) bleibt eine Stufe unter dem Page-End-CTA, damit der primäre Konversionspfad oben bleibt.</p>
+
+      <div class="ep-section" style="background:var(--co-50);border-radius:var(--r-lg);margin-bottom:var(--s6)">
+        <div class="layout-grid" style="align-items:center">
+          <div class="col-6">
+            <div style="aspect-ratio:4/3;background:linear-gradient(135deg,var(--co-100),var(--co-50));border-radius:var(--r-md);display:flex;align-items:center;justify-content:center">
+              <span style="font:500 12px/16px var(--font);color:var(--co-700);letter-spacing:.08em;text-transform:uppercase">Foto · 4:3</span>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="ep-section-label t-co">Karriere</div>
+            <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso</h2>
+            <p class="ep-section-sub" style="color:var(--n-500);max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
+            <button class="btn btn-filled btn-co" type="button">Stellen entdecken</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s4)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Editorial Split: 2-Spalten-Sektion ohne Card-Chrome --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section"</span> <span class="v">style</span>=<span class="s">"background:var(--co-50)"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"layout-grid"</span> <span class="v">style</span>=<span class="s">"align-items:center"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"col-6"</span><span class="k">&gt;</span>
+      <span class="k">&lt;img</span> <span class="v">src</span>=<span class="s">"images/team-coffee.jpg"</span> <span class="v">alt</span>=<span class="s">"Beschreibend"</span>
+           <span class="v">style</span>=<span class="s">"width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md)"</span><span class="k">&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"col-6"</span><span class="k">&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section-label t-co"</span><span class="k">&gt;</span>Karriere<span class="k">&lt;/div&gt;</span>
+      <span class="k">&lt;h2</span> <span class="v">class</span>=<span class="s">"ep-section-h2"</span><span class="k">&gt;</span>Dein Fußabdruck bei Conciso<span class="k">&lt;/h2&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-section-sub"</span><span class="k">&gt;</span>Projekte mit Wirkung …<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-filled btn-co"</span><span class="k">&gt;</span>Stellen entdecken<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Eigenschaft</th><th>Wert</th><th>Hinweis</th></tr></thead>
+        <tbody>
+          <tr><td>Hintergrund</td><td><code class="token">--co-50</code> oder <code class="token">--n-50</code></td><td>Helle Bereichsfarbe trägt die Marke ohne Headline-Lautstärke; im Hintergrund-Rhythmus der Page ein „warmes“ Band</td></tr>
+          <tr><td>Bild-Verhältnis</td><td>4:3 (oder 3:2)</td><td>Quer-Format gibt der Sektion Ruhe; Hoch-Format würde das Grid sprengen</td></tr>
+          <tr><td>Bild-Radius</td><td><code class="token">--r-md</code></td><td>Weicher als <code class="token">--r-lg</code>: das Bild ist Element im Lesefluss, nicht eine Card-Media</td></tr>
+          <tr><td>Headline</td><td><code class="token">.ep-section-h2</code> → <code class="token">--ty-headline-md</code></td><td>Eine Stufe unter Page-End-CTA, damit primärer Konversionspfad gewinnt</td></tr>
+          <tr><td>Button</td><td>Filled, kein <code class="token">btn-on-band</code></td><td>Heller Hintergrund: Filled-Variante reicht; Inversion ist Page-End-CTA vorbehalten</td></tr>
+        </tbody>
+      </table>
 
       <h2 id="gt-cta-hero" class="group-title">Download · Hero</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für die Hauptressource einer Seite, Landing Pages, Ressourcenseiten und Kampagnen. Eyebrow, Titel, Beschreibung und Metadaten mit einer primären Aktion.</p>
@@ -4806,9 +4862,21 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         </tbody>
       </table>
 
+      <h2 id="gt-footer-typo" class="group-title">Typografie: ruhige Utility-Zone</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><code class="token">.footer-brand</code> und <code class="token">.footer-htitle</code> nutzen <code class="token">--ty-title-sm</code> (Montserrat 500, 18/26&nbsp;px) — bewusst ohne Uppercase und ohne Letter-Spacing. Der Footer ist eine Wiederfindungs- und Pflichtangaben-Zone, keine editoriale Bühne. Drei Achsen rücken die Headlines gegenüber Section-H2 in den Hintergrund: <strong>Familie</strong> (Sans statt Serif), <strong>Größe</strong> (18&nbsp;px statt 28&nbsp;px Headline-md) und <strong>Gewicht</strong> (500 statt 400 Serif). Das Ergebnis: lesbarer Spaltenkopf, aber ohne Aufmerksamkeit zu beanspruchen, die der Sticky-Topnav und der Page-End-CTA gehört.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Warum kein Uppercase?</strong> Caps + Letter-Spacing erzeugen Aufmerksamkeit (Eyebrow-Lautstärke). Im Footer wäre das ein zweites Konversions-Signal nach dem Erstgespräch-CTA-Band darüber — Reibung statt Ruhe. Klein-/Großschrift in Sans-500 liest sich wie eine Beschriftung, nicht wie eine Anrede.</p>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Klasse</th><th>Token</th><th>Erscheinung</th><th>Rolle</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">.footer-brand</code></td><td><code class="token">--ty-title-sm</code></td><td>Sans 500, 18/26&nbsp;px, Mixed Case</td><td>Wortmarke „Conciso GmbH“ in Spalte 1</td></tr>
+          <tr><td><code class="token">.footer-htitle</code></td><td><code class="token">--ty-title-sm</code></td><td>Sans 500, 18/26&nbsp;px, Mixed Case</td><td>Spalten-Titel („Wichtige Inhalte“, „Contentletter abonnieren“)</td></tr>
+          <tr><td><code class="token">.footer-subtitle</code></td><td>Label-Größe</td><td>Sans 500, 12&nbsp;px, helle Neutralfarbe, Mixed Case</td><td>Optionale Zwischen-Überschrift bei Sub-Area-Aufgliederung</td></tr>
+        </tbody>
+      </table>
+
       <h2 id="gt-footer-subtitle" class="group-title">Optional: Sub-Hierarchie per <code class="token">.footer-subtitle</code></h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aktuell nutzt keine Footer-Spalte eine Sub-Hierarchie. Falls in Zukunft eine Spalte (z.&nbsp;B. „Leistungen“ oder „Über uns“) in Sub-Areas mit eigenen Listen aufgegliedert werden soll, steht dafür die Klasse <code class="token">.footer-subtitle</code> bereit.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><code class="token">.footer-subtitle</code> liefert eine ruhige Zwischen-Überschrift (Label-Größe, helle Neutralfarbe, kein Uppercase) zwischen Sub-Areas. Sie hebt sich klar von <code class="token">.footer-htitle</code> (Spalten-Titel, Uppercase + Letter-Spacing) ab und vermeidet eine zweite, konkurrierende Caps-Ebene.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><code class="token">.footer-subtitle</code> liefert eine Zwischen-Überschrift auf Label-Größe (12&nbsp;px, helle Neutralfarbe) zwischen Sub-Areas. Sie sitzt eine Stufe unter <code class="token">.footer-htitle</code> (Title-sm) und vermeidet eine zweite, konkurrierende Headline-Ebene innerhalb einer Spalte.</p>
 
       <!-- Code-Beispiel Footer-Struktur -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
@@ -4885,12 +4953,14 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Jede <code class="token">&lt;nav&gt;</code> mit eindeutigem <code class="token">aria-label</code> versehen (<em>Wichtige Inhalte · Rechtliche Hinweise · Soziale Netzwerke</em>)</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Datenschutz und Impressum linksbündig in der Bottom-Bar — verhindert Kollision mit dem sticky Back-to-Top-Button rechts unten</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Consent vor Submit in der Contentletter-Form — Tab- und Klickpfad führt durch die Einwilligung, bevor abgesendet wird (DSGVO + Trust)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Spalten-Headlines (<code class="token">.footer-brand</code>, <code class="token">.footer-htitle</code>) in Title-sm halten — Mixed Case, sans 500, 18&nbsp;px — der Footer ist Wiederfindungs-Zone, keine Headline-Bühne</span></li>
           </ul>
         </div>
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Logo-Bild im Brand-Bereich — redundant zur sticky Topnav, die die Marke bereits trägt</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Spalten-Headlines auf Headline-Serifen-Token (<code class="token">--ty-headline-md</code>) oder Uppercase + Letter-Spacing setzen — sie würden mit dem Erstgespräch-CTA-Band darüber um Aufmerksamkeit konkurrieren</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Footer als primäre Navigation verwenden, er ist eine Ergänzung, nicht Ersatz für die Topnav</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Mehr als ~8 Items in der Wichtige-Inhalte-Liste — der Footer würde zur Mini-Sitemap, tiefere Inhalte gehören auf den jeweiligen Bereichs-Hub</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Datenschutz und Impressum rechts in der Bottom-Bar oder in der Wichtige-Inhalte-Spalte — sie gehören in den dunklen Bottom-Streifen linksbündig</span></li>
@@ -6006,6 +6076,38 @@ document.querySelectorAll(
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
 
+      <h2 id="gt-article-team-tiles" class="group-title">Team-Tile-Grid · rotierender Ausschnitt</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf der Landing („Wer wir sind“) und auf einer Über-Uns-Seite kommt das Avatar-Pattern in einer reduzierten Form als <strong>6-Kachel-Grid</strong> zum Einsatz: Foto-Avatar (<code class="token">.article-avatar.article-avatar-lg</code>) zentriert über Name (<code class="token">.author-card-name</code>) und Rolle (<code class="token">.author-card-role</code>), keine Bio. Conciso hat rund 70 Mitarbeitende; das Grid zeigt einen rotierenden Ausschnitt, kein vollständiges Roster.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>JS-Rotation:</strong> Pro Seitenaufruf werden 6 Mitarbeitende zufällig aus einem Pool von rund 13 Personen ausgewählt (Fisher-Yates-Shuffle in <code class="token">js/main.js</code>, <code class="token">data-team-tiles</code> als Container, <code class="token">data-team-tile</code> als Slot). Avatar, Name und Rolle werden bei <code class="token">DOMContentLoaded</code> ersetzt. Die initial im HTML hinterlegten Werte dienen als JS-off-Fallback, die Seite ist also auch ohne JavaScript inhaltlich vollständig.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Warum rotieren?</strong> Eine statische 6er-Auswahl wirkt entweder zu kurz (suggeriert „das ist die ganze Firma“) oder muss redaktionell gepflegt werden. Eine rotierende Auswahl zeigt Diversität ohne Pflege-Overhead und macht den Block bei jedem Besuch anders lebendig. Der Pool spiegelt das Bereichs-Verhältnis grob wider (4 KI, 4 ES, 3 WO, 2 CO), damit die zufällige Auswahl nicht versehentlich einseitig wird.</p>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s4)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Container mit data-team-tiles, 6× col-2 Slots --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"layout-grid"</span> <span class="v">data-team-tiles</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"col-2"</span> <span class="v">data-team-tile</span>
+       <span class="v">style</span>=<span class="s">"display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"ki"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>LB<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;div&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-name"</span><span class="k">&gt;</span>Lukas Brandt<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-role"</span><span class="k">&gt;</span>Senior AI Engineer<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 5 weitere Slots im selben Pattern --&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Slot-Anzahl</td><td>6 Tiles in einem <code class="token">.layout-grid</code> (3×2 auf Desktop, 2×3 auf Tablet, 1×6 auf Mobile via <code class="token">.col-2</code>)</td></tr>
+          <tr><td>Avatar</td><td><code class="token">.article-avatar.article-avatar-lg</code> mit Foto-<code class="token">&lt;img&gt;</code> als Kind. <code class="token">object-position</code> pro Person, da Mock-Portraits oft mehrere Köpfe zeigen</td></tr>
+          <tr><td>Pool-Größe</td><td>circa 12 bis 15 Personen. Zu kleiner Pool wirkt repetitiv, zu großer Pool verwässert das Bereichs-Verhältnis</td></tr>
+          <tr><td>JS-off</td><td>Die initiale HTML-Belegung bleibt sichtbar; Seite ist ohne JavaScript vollständig</td></tr>
+          <tr><td>A11y</td><td>Avatar bleibt <code class="token">aria-hidden="true"</code>, Initialen-Text steht als JS-Fallback im DOM und wird vom Foto überlagert. Name und Rolle sind echte <code class="token">&lt;p&gt;</code>-Elemente, von Screenreadern lesbar</td></tr>
+        </tbody>
+      </table>
+
       <h2 id="gt-article-multi-author" class="group-title">Mehrere Autor:innen</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Wird ein Beitrag von zwei oder mehr Personen verfasst, betrifft das zwei Stellen im Pattern: den Meta-Strip im Header (kompakt, Avatar-Stack) und die Author-Card am Artikelende (volle Bios, untereinander gestapelt). Die Avatare im Header bekommen einen weißen Halo-Border, damit die Überlappung visuell als „Gruppe“ lesbar ist und nicht als Fehler wirkt.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Sortierung:</strong> Lead-Autor:in zuerst, danach die Co-Autor:innen in Reihenfolge des Beitrags. Wer die Story getrieben hat, die Recherche geleitet oder den Beitrag finalisiert hat, steht vorne. Die Reihenfolge gilt konsequent für alle drei Ebenen: Avatar-Stack, Namens­zeile im Header und Author-Cards am Ende. Bei „+N“-Indikator sind die ersten zwei oder drei sichtbaren Personen die Lead-Persons, niemals zufällig ausgewählt.</p>
@@ -6591,6 +6693,42 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <tr><td>Ort</td><td><code class="token">color:var(--tx-muted)</code></td><td>Sekundär zum Datum. Bei Webinaren steht „Online", sonst Stadt-Name (nicht der Venue, der ist auf der Detail-Seite).</td></tr>
           <tr><td>Icons</td><td>Micro (16×16, Stroke 1)</td><td>Konvention für Inline-Meta-Icons (siehe <a class="body-link" href="#gt-icons-groessen">Icon-Größen</a>).</td></tr>
           <tr><td>CTA</td><td><code class="token">color:var(--co-700)</code>, <code class="token">margin-top:auto</code></td><td>Einheitliche Bereichs-übergreifende CTA-Farbe. Auto-Margin sorgt für gemeinsame Baseline bei variabler Title-Höhe.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-events-featured" class="group-title">Featured · horizontale Großkarte</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Für Landing-Sektionen und Bereichs-Hubs, wenn <strong>genau ein</strong> kommender Termin hervorgehoben werden soll (kein Grid, kein Listing). Eine horizontale <code class="token">.card.card-elevated</code> als Anker, links das Bild im 1:1-Verhältnis (über <code class="token">background-image: url(…) center 35%/cover</code> auf einer minHeight-Spalte), rechts der Content-Block: Pill, Meta-Strip (Datum · Ort · Format), Titel, Lead, CTA. Das Karten-Grid ist <code class="token">grid-template-columns: 1fr 1fr</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum nicht ein Grid mit drei Karten?</strong> Auf einer Landing ist die Frage „Was passiert als Nächstes?" wichtiger als „Welche Events laufen aktuell?". Ein einziges, atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die Übersichts-Seite (Listing) erfüllt die Breitenrolle, der Featured-Block auf der Landing erfüllt die Tiefenrolle. Ein Link unter der Karte („Alle Veranstaltungen ansehen →") führt ins Listing.</p>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Featured Veranstaltungs-Card, horizontal, 1:1 Bild + Content --&gt;</span>
+<span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated"</span> <span class="v">data-area</span>=<span class="s">"es"</span> <span class="v">href</span>=<span class="s">"/veranstaltungen/n8n"</span>
+   <span class="v">style</span>=<span class="s">"display:grid;grid-template-columns:1fr 1fr;overflow:hidden"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"min-height:320px;background:url('hero.jpg') center 35%/cover"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"es"</span><span class="k">&gt;</span>Effektive Software<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"display:flex;gap:var(--s5);flex-wrap:wrap;font:var(--ty-body-sm)"</span><span class="k">&gt;</span>
+      <span class="k">&lt;span&gt;</span><span class="c">&lt;!-- 📅 --&gt;</span>Do, 3. Dezember 2026 · 18:00<span class="k">&lt;/span&gt;</span>
+      <span class="k">&lt;span&gt;</span><span class="c">&lt;!-- 📍 --&gt;</span>WORKGARDEN Dortmund<span class="k">&lt;/span&gt;</span>
+      <span class="k">&lt;span&gt;</span><span class="c">&lt;!-- 👥 --&gt;</span>Meet-Up<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;h3</span> <span class="v">style</span>=<span class="s">"font:var(--ty-headline-xs)"</span><span class="k">&gt;</span>Effizienz durch n8n.<span class="k">&lt;/h3&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">style</span>=<span class="s">"font:var(--ty-body-md);color:var(--tx-secondary)"</span><span class="k">&gt;</span>Drei kurze Inputs …<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"card-cta-link"</span><span class="k">&gt;</span>Zur Veranstaltung <span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>→<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/a&gt;</span></pre>
+      </div>
+
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Featured (Landing)</th><th>Standard-Card (Listing)</th></tr></thead>
+        <tbody>
+          <tr><td>Anlass</td><td>Genau ein hervorgehobener Termin</td><td>Mehrere parallel sichtbare Termine</td></tr>
+          <tr><td>Layout</td><td>Horizontal, 1:1 Bild + Content</td><td>Vertikal, 16:9 Bild über Content</td></tr>
+          <tr><td>Bild-Geometrie</td><td>Linke Spalte mit <code class="token">min-height:320px</code>, <code class="token">background:url(…) center 35%/cover</code></td><td><code class="token">.card-media</code> mit <code class="token">aspect-ratio:16/9</code></td></tr>
+          <tr><td>Headline</td><td><code class="token">--ty-headline-xs</code> (22&nbsp;px Serif), <code class="token">text-wrap:balance</code></td><td><code class="token">.card-title</code> Sans 500, line-clamp:2</td></tr>
+          <tr><td>Meta-Reihenfolge</td><td>Datum · Ort · Format als horizontale Strip-Zeile mit Micro-Icons</td><td>Pill „Bereich · Format" über Datum + Ort gestapelt</td></tr>
+          <tr><td>CTA</td><td>„Zur Veranstaltung →"</td><td>„Zur Veranstaltung →"</td></tr>
         </tbody>
       </table>
 
