@@ -437,4 +437,69 @@
     goTo(0);
   });
 
+  /* ── Team-Tile-Rotation auf Landing ──
+     6 Slots werden bei jedem Page-Load zufällig aus dem Pool von 13 Personen gefüllt.
+     Der Pool ist absichtlich kein vollständiges Roster — Conciso hat ~70 Köpfe, gezeigt
+     werden 6 als rotierender Ausschnitt, damit der Eindruck dynamisch und nicht
+     hardcodiert wirkt. Wenn JS deaktiviert ist, bleibt die fallback-Initial-Belegung
+     aus dem HTML stehen.
+
+     photo + pos: Mock-Portraits aus dem images-Ordner. Jeder Eintrag zielt mit
+     object-position auf ein bestimmtes Gesicht im Foto (manche Fotos enthalten
+     mehrere Köpfe, die ich über pos voneinander trenne). In Produktion würde
+     pro Person ein dediziertes Portrait liegen. */
+  var teamPool = [
+    { initials: 'LB', name: 'Lukas Brandt',    role: 'Senior AI Engineer',           area: 'ki', photo: 'meetup-demo.jpg',         pos: '55% 28%' },
+    { initials: 'MM', name: 'Maria Müller',    role: 'UX Lead',                       area: 'ki', photo: 'team-tablet.jpg',         pos: '50% 35%' },
+    { initials: 'JB', name: 'Julia Becker',    role: 'Senior ML Engineer',            area: 'ki', photo: 'team-coffee.jpg',         pos: '35% 38%' },
+    { initials: 'JA', name: 'Jonas Albers',    role: 'AI Solutions Consultant',       area: 'ki', photo: 'meetup-vortrag.jpg',      pos: '38% 30%' },
+    { initials: 'TW', name: 'Tim Westphal',    role: 'Lead Software Engineer',        area: 'es', photo: 'meetup-speaker.jpg',      pos: '62% 30%' },
+    { initials: 'MH', name: 'Marc Hoffmann',   role: 'Senior Software Engineer',      area: 'es', photo: 'team-tablet.jpg',         pos: '18% 38%' },
+    { initials: 'DV', name: 'David Vogel',     role: 'Software Architect',            area: 'es', photo: 'beratung-gespraech.jpg',  pos: '40% 35%' },
+    { initials: 'SB', name: 'Selma Behrens',   role: 'DevOps & Platform Engineer',    area: 'es', photo: 'team-tablet.jpg',         pos: '78% 35%' },
+    { initials: 'SK', name: 'Sarah Kühn',      role: 'Lead Organisationsentwicklung', area: 'wo', photo: 'workshop-zuhoeren.jpg',   pos: '62% 25%' },
+    { initials: 'LS', name: 'Lara Schmitt',    role: 'Senior Change Coach',           area: 'wo', photo: 'team-coffee.jpg',         pos: '18% 35%' },
+    { initials: 'CR', name: 'Christoph Roth',  role: 'Lead Transformation',           area: 'wo', photo: 'team-coffee.jpg',         pos: '78% 32%' },
+    { initials: 'AV', name: 'Anja Voss',       role: 'Geschäftsführung',              area: 'co', photo: 'workshop-zuhoeren.jpg',   pos: '28% 40%' },
+    { initials: 'MB', name: 'Markus Bauer',    role: 'People & Culture',              area: 'co', photo: 'beratung-tasse.jpg',      pos: '50% 25%' }
+  ];
+
+  function shuffleArray(arr) {
+    var copy = arr.slice();
+    for (var i = copy.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = copy[i]; copy[i] = copy[j]; copy[j] = tmp;
+    }
+    return copy;
+  }
+
+  document.querySelectorAll('[data-team-tiles]').forEach(function(container) {
+    var tiles = container.querySelectorAll('[data-team-tile]');
+    if (!tiles.length) return;
+    var selected = shuffleArray(teamPool).slice(0, tiles.length);
+    tiles.forEach(function(tile, i) {
+      var member = selected[i];
+      if (!member) return;
+      var avatar = tile.querySelector('.article-avatar');
+      var name   = tile.querySelector('.author-card-name');
+      var role   = tile.querySelector('.author-card-role');
+      if (avatar) {
+        avatar.setAttribute('data-area', member.area);
+        if (member.photo) {
+          /* Bild rendern: bestehende Initials als Fallback im Textinhalt bleiben (von img überdeckt) */
+          avatar.textContent = member.initials;
+          var img = document.createElement('img');
+          img.src = 'images/' + member.photo;
+          img.alt = '';
+          img.style.objectPosition = member.pos || 'center';
+          avatar.appendChild(img);
+        } else {
+          avatar.textContent = member.initials;
+        }
+      }
+      if (name) name.textContent = member.name;
+      if (role) role.textContent = member.role;
+    });
+  });
+
 })();
