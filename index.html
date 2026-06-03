@@ -1229,6 +1229,15 @@
         </div>
       </div>
 
+      <!-- Faustregel: Hintergrundflächen & Rhythmus -->
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--n-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s6)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--tx-primary)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h12A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6Zm0 6h16.5"/></svg>
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Hintergrundflächen &amp; Rhythmus.</strong> Aufeinanderfolgende Sektionen wechseln im Standard zwischen Weiß (<code class="token">--bg-surface</code>) und ruhigem Grau (<code class="token">--n-50</code>). Das trennt die Abschnitte sichtbar, ohne Farbe einzubringen. Kein hartes <code class="token">#fff</code> verwenden, das schaltet im Dark Mode nicht mit, immer das Token <code class="token">--bg-surface</code>.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Marken-Tönung sparsam.</strong> Eine Bereichsfläche (<code class="token">-50</code>, z.&nbsp;B. <code class="token">--ki-50</code>) wirkt als <em>Akzent</em>, etwa als Aktions-Brücke direkt unter dem Hero, die dunkle <code class="token">-800</code> als CTA-Band am Seitenende bildet die Gegen-Klammer. Mehrere große getönte Bänder hintereinander lassen die Seite „bunt" wirken und schwächen die Bereichsfarbe dort, wo sie Bedeutung trägt (Kennzahlen, Akzentlinien). Faustregel: Tönung ist Akzent, nicht Standard-Grund.</p>
+        </div>
+      </div>
+
       <!-- Dos & Don'ts -->
       <div class="doc-eyebrow">Dos &amp; Don'ts</div>
       <div class="layout-grid" style="align-items:start">
@@ -3249,6 +3258,33 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         </div>
       </div>
 
+      <h2 id="gt-cards-stat-row" class="group-title">Editoriale Kennzahl-Zeile</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für Case- und Projektlisten ohne Karten-Chrome: große Kennzahl links (<code class="token">--ty-display-sm</code>, Bereichsfarbe <code class="token">-700</code>), rechts Kunde, Thema und kurze Beschreibung. Zeilen werden nur durch Haarlinien (<code class="token">border-top:var(--bd)</code>) getrennt, die Zahl trägt die Energie, die Linien die Ruhe. Sinnvoll, wenn auf der Seite ohnehin Karten-Grids stehen und ein weiterer Karten-Block zu schwer würde. <strong>Abgrenzung zur <a class="body-link" href="#gt-cards-stat">Stat-Karte</a>:</strong> die ist eine eigenständige, gerasterte KPI-Kachel, die Zeile hier ist redaktioneller Fließinhalt mit einer Story je Zeile.</p>
+      <div style="margin-bottom:var(--s8)">
+        <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-top:var(--bd);border-bottom:var(--bd)">
+          <div class="col-3">
+            <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">40 %</p>
+            <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s1) 0 0">weniger Bearbeitungszeit pro Sendung</p>
+          </div>
+          <div class="col-9">
+            <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Logistik Solutions AG</p>
+            <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Dokumenten-Triage automatisiert</h3>
+            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Eingehende Frachtpapiere werden automatisch klassifiziert und geroutet, mit Mensch im Prozess für die Zweifelsfälle.</p>
+          </div>
+        </div>
+        <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+          <div class="col-3">
+            <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">4 h</p>
+            <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s1) 0 0">Erstreaktion, vorher 48 Stunden</p>
+          </div>
+          <div class="col-9">
+            <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Versicherungsgruppe</p>
+            <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Schadenmeldungen vorqualifiziert</h3>
+            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ein KI-Agent liest eingehende Meldungen, prüft sie auf Vollständigkeit und schlägt die nächste Aktion vor.</p>
+          </div>
+        </div>
+      </div>
+
       <h2 id="gt-cards-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Kartentypen-Tabelle -->
@@ -3330,6 +3366,12 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Karte oder offen? -->
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Karte oder offen?</div>
+      <div style="max-width:760px;font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)">
+        <p style="margin:0">Karten sind für <strong style="color:var(--tx-primary);font-weight:600">Angebots-Menüs und Teaser</strong> da: Lösungs- und Leistungskacheln, Artikel-Vorschauen, also Elemente, die zu einem Ziel führen und als abgeschlossene, klickbare Einheit funktionieren. Für <strong style="color:var(--tx-primary);font-weight:600">Stimmen/Testimonials und Case-Listen</strong> ist meist eine offene, redaktionelle Darstellung die bessere Wahl (siehe <a class="body-link" href="#sec-quotes">Offenes Zitat</a> und <a class="body-link" href="#gt-cards-stat-row">Editoriale Kennzahl-Zeile</a>): direkt auf der Fläche, durch Haarlinien getrennt. Das hält inhaltsdichte Abschnitte luftig und vermeidet den „Kachelwand"-Eindruck, wenn mehrere Karten-Grids aufeinanderfolgen.</p>
       </div>
 
       <!-- Barrierefreiheit -->
@@ -3687,10 +3729,27 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       </div>
 
+      <h2 id="gt-quotes-offen" class="group-title">Offenes Zitat (redaktionell)</h2>
+      <p class="sec-sub" style="margin-bottom:var(--s5)">Ohne Karten-Chrome, direkt auf der Sektionsfläche. Mehrere gleichrangige Stimmen werden nur durch Haarlinien getrennt, aufrechte Serif-Schrift statt kursiv. Für „Chor"-Situationen wie Workshop-Stimmen, in denen ein Foto oder die Sektion selbst den Anker bildet.</p>
+      <div style="max-width:760px;margin-bottom:var(--s8)">
+        <figure style="margin:0;padding:0 0 var(--s5)">
+          <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Endlich jemand, der nicht die Technik feiert, sondern fragt, wo bei uns wirklich Zeit verloren geht.“</blockquote>
+          <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Sandra Vogel <span style="font:var(--ty-body-sm);color:var(--tx-secondary)">· Leiterin Operations, Mittelständischer Maschinenbauer</span></figcaption>
+        </figure>
+        <figure style="margin:0;padding:var(--s5) 0;border-top:var(--bd)">
+          <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Wir sind mit Buzzwords reingegangen und mit einer Roadmap rausgekommen, die wir am Montag umsetzen konnten.“</blockquote>
+          <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Markus Reinhardt <span style="font:var(--ty-body-sm);color:var(--tx-secondary)">· Teamlead Data, Industriezulieferer</span></figcaption>
+        </figure>
+        <figure style="margin:0;padding:var(--s5) 0 0;border-top:var(--bd)">
+          <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Nach zwei Tagen hatte das ganze Team dieselbe Sprache für KI.“</blockquote>
+          <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Daniel Kowalski <span style="font:var(--ty-body-sm);color:var(--tx-secondary)">· Bereichsleiter Digitalisierung, Versicherungsgruppe</span></figcaption>
+        </figure>
+      </div>
+
       <h2 id="gt-quotes-verwendung" class="group-title">Verwendung</h2>
 
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
-        <div class="col-6">
+        <div class="col-4">
           <div class="doc-eyebrow">Blockquote</div>
           <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Für kürzere Zitate im redaktionellen Kontext, als eingebetteter Textblock innerhalb von Fließtext oder Abschnitten. Die farbige Akzentlinie signalisiert die Bereichszugehörigkeit.</p>
           <table class="doc-table">
@@ -3708,7 +3767,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </tbody>
           </table>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="doc-eyebrow">Testimonial-Card</div>
           <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Für Kundenreferenzen als eigenständige visuelle Einheit, typisch in Referenz-Sektionen, Hero-nahen Bereichen oder als Abschluss von Leistungsbeschreibungen.</p>
           <table class="doc-table">
@@ -3723,6 +3782,24 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td>Zitattext</td><td>2 bis 5 Sätze, darf länger sein, da die Karte visuell abgeschlossen ist</td></tr>
               <tr><td>Attribution</td><td>Name + Rolle als Textzeilen in <code class="token">&lt;figcaption&gt;</code>, kein Avatar nötig</td></tr>
               <tr><td>Grid</td><td><code class="token">col-6</code> für 2 nebeneinander · <code class="token">col-4</code> für 3 in einer Reihe</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-4">
+          <div class="doc-eyebrow">Offenes Zitat</div>
+          <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4)">Für mehrere gleichrangige Stimmen in einer eigenen Sektion (z.&nbsp;B. Workshop-Stimmen). Kein Karten-Chrome, ein Foto oder die Sektionsfläche bildet den Anker.</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Eigenschaft</th>
+                <th>Regel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Element</td><td><code class="token">&lt;figure&gt;</code> + <code class="token">&lt;blockquote&gt;</code> + <code class="token">&lt;figcaption&gt;</code>, ohne Karte</td></tr>
+              <tr><td>Schrift</td><td>Serif aufrecht (<code class="token">--ty-serif-md</code>), <strong>nicht kursiv</strong>, Kursiv senkt die Lesbarkeit mehrzeiliger Zitate</td></tr>
+              <tr><td>Trenner</td><td>Haarlinie <code class="token">border-top:var(--bd)</code> zwischen den Stimmen, gleichrangig statt Leitzitat</td></tr>
+              <tr><td>Attribution</td><td>„Name · Rolle" inline, Name <code class="token">--ty-name</code>, Rolle <code class="token">--ty-body-sm</code></td></tr>
             </tbody>
           </table>
         </div>
