@@ -7743,10 +7743,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
-        <!-- Breadcrumb: Angewandte KI / AI.Box -->
-        <div class="ep-section" style="padding-block:var(--s4);background:var(--bg-surface)">
-          <nav class="article-breadcrumb" aria-label="Breadcrumb">
-            <a href="#sec-examples" data-ep="ai" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
+        <!-- Breadcrumb: Startseite / Angewandte KI / AI.Box -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="ai">Angewandte KI</a>
             <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
             <span aria-current="page">AI.Box</span>
           </nav>
@@ -7757,188 +7759,225 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <img src="images/team-tablet.jpg" alt="Team blickt gemeinsam auf ein Tablet mit einer laufenden KI-Anwendung" loading="eager" style="object-position:center 30%">
           </div>
           <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Schlüsselfertige KI-Bausteine</p>
-            <h1 class="hero-image-caption-title">AI.Box: KI, die einsatzbereit ankommt.</h1>
-            <p class="hero-image-caption-text">Vorkonfigurierte KI-Funktionen, sicher in Deiner Infrastruktur, mit klarem Funktionsumfang. Ohne monatelanges Projekt.</p>
+            <p class="hero-image-caption-eyebrow">Plattform für KI im Unternehmen</p>
+            <h1 class="hero-image-caption-title">AI.Box: KI, die mit Deinem Unternehmen wächst.</h1>
+            <p class="hero-image-caption-text">Eine Plattform, die alle Bausteine für Unternehmens-KI vereint: starke Modelle, Individualisierung, Automatisierung und eigene KI-Agenten. Sicher betrieben, im eigenen Rechenzentrum oder als zertifizierte Cloud aus Deutschland.</p>
           </figcaption>
         </figure>
         <!-- Aktions-Brücke + CTAs -->
         <div class="ep-section" style="background:var(--ki-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--ki-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">Vorkonfiguriert · Sicher deployed · Klarer Funktionsumfang</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:540px;text-wrap:balance">Sag uns Deinen Use-Case, wir empfehlen die passende Box. Oder schau Dir erst an, was drinsteckt.</p>
+          <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">Sicher · Leistungsstark · Mitwachsend</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:540px;text-wrap:balance">Erzähl uns Deinen Anwendungsfall, wir zeigen Dir, wie AI.Box ihn löst. Oder schau Dir erst an, was die Plattform kann.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled btn-ki" type="button">AI.Box konfigurieren</button>
+            <button class="btn btn-filled btn-ki" type="button">Gespräch vereinbaren</button>
             <button class="btn btn-outlined btn-ki" type="button">Demo anfragen</button>
           </div>
         </div>
-        <!-- Prinzip -->
+        <!-- Benefits -->
         <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label" style="color:var(--ki-800)">Das Prinzip</div>
-          <h2 class="ep-section-h2">Fertig statt Forschungsprojekt</h2>
-          <p class="ep-section-sub">Eine AI.Box kommt einsatzbereit, bleibt bei Dir und kann genau das, was draufsteht.</p>
-          <div class="ep-cards">
-            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
-              <div class="ep-card-title">Vorkonfiguriert</div>
-              <div class="ep-card-text">Erprobte KI-Funktionen, fertig eingerichtet. Kein Modell-Training, kein monatelanger Aufbau.</div>
-            </div>
+          <div class="ep-section-label" style="color:var(--ki-800)">Vorteile</div>
+          <h2 class="ep-section-h2">Fünf Vorteile auf einen Blick</h2>
+          <p class="ep-section-sub">Worauf es bei KI im Unternehmen ankommt, kompakt zusammengefasst.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
-              <div class="ep-card-title">Sicher deployed</div>
-              <div class="ep-card-text">Läuft in Deiner Infrastruktur, On-Prem oder Private Cloud. Deine Daten bleiben bei Dir.</div>
+              <div class="ep-card-title">Mehr Sicherheit</div>
+              <div class="ep-card-text">Deine Daten bleiben unter Deiner Kontrolle, ohne Umweg über fremde Clouds. Volle Datensouveränität, vom ersten Tag an.</div>
             </div>
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z"/></svg></div>
-              <div class="ep-card-title">Klarer Funktionsumfang</div>
-              <div class="ep-card-text">Jede Box kann genau eine Sache richtig gut. Fester Scope, planbarer Aufwand, keine Wundertüte.</div>
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+              <div class="ep-card-title">Mehr Leistung</div>
+              <div class="ep-card-text">Mehrere KI-Modelle, Automatisierung und autonome Agenten in einer Plattform. Für mehr als nur Chat.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/></svg></div>
+              <div class="ep-card-title">Mehr Flexibilität</div>
+              <div class="ep-card-text">Multi-Modell-fähig, erweiterbar und individualisierbar. AI.Box passt sich Deinen Anforderungen an, nicht umgekehrt.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
+              <div class="ep-card-title">Einfaches Management</div>
+              <div class="ep-card-text">Alle Bausteine über ein zentrales Interface steuern. Ein Ort für Konfiguration, Rollen und Betrieb.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.28m5.94 2.28-2.28 5.941"/></svg></div>
+              <div class="ep-card-title">Mehr Wertschöpfung</div>
+              <div class="ep-card-text">Schneller innovieren, Kosten senken. KI wird vom Projekt zum produktiven Werkzeug.</div>
             </div>
           </div>
         </div>
-        <!-- Verfügbare Boxen -->
+        <!-- Features -->
         <div class="ep-section" style="background:var(--n-50)">
-          <div class="ep-section-label" style="color:var(--ki-800)">Verfügbare Boxen</div>
-          <h2 class="ep-section-h2">Eine Box pro Aufgabe</h2>
-          <p class="ep-section-sub">Kombinierbar, einzeln einsetzbar. Du startest mit einer, ergänzt bei Bedarf weitere.</p>
-          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
-            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></div>
-              <div class="ep-card-title">Doc.Box</div>
-              <div class="ep-card-text">Dokumente und Wissen durchsuchbar machen. RAG über Handbücher, Verträge und Tickets, mit Quellenangabe.</div>
-            </div>
-            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"/></svg></div>
-              <div class="ep-card-title">Voice.Box</div>
-              <div class="ep-card-text">Gespräche und Calls automatisch transkribieren und zusammenfassen, DSGVO-konform im eigenen Haus.</div>
-            </div>
-            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"/></svg></div>
-              <div class="ep-card-title">Classify.Box</div>
-              <div class="ep-card-text">Eingänge automatisch klassifizieren und routen: E-Mails, Tickets, Dokumente, mit Mensch im Zweifelsfall.</div>
-            </div>
-            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/></svg></div>
-              <div class="ep-card-title">Assist.Box</div>
-              <div class="ep-card-text">Interner KI-Assistent auf Eurem Wissensstand, abgesichert mit Rollen und Guardrails.</div>
-            </div>
-          </div>
-        </div>
-        <!-- Einführung in vier Schritten -->
-        <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label" style="color:var(--ki-800)">Einführung</div>
-          <h2 class="ep-section-h2">In vier Schritten produktiv</h2>
-          <p class="ep-section-sub">Von der Auswahl bis zum laufenden Betrieb, mit klarem Übergabepunkt an jeder Stelle.</p>
-          <div style="margin-top:var(--s6)">
-            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-top:var(--bd);border-bottom:var(--bd)">
-              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">01</p></div>
-              <div class="col-9">
-                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Use-Case wählen</h3>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gemeinsam die passende Box und den konkreten Anwendungsfall festlegen, inklusive Erfolgskriterien.</p>
-              </div>
-            </div>
-            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
-              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">02</p></div>
-              <div class="col-9">
-                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Konfigurieren</h3>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Box auf Deine Daten, Rollen und Schnittstellen einstellen. Guardrails und Berechtigungen inklusive.</p>
-              </div>
-            </div>
-            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
-              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">03</p></div>
-              <div class="col-9">
-                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Deployen</h3>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Sicher in Deine Infrastruktur ausrollen, On-Prem oder Private Cloud. Daten verlassen das Haus nicht.</p>
-              </div>
-            </div>
-            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
-              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">04</p></div>
-              <div class="col-9">
-                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Betreiben</h3>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Monitoring, Updates und Support, mit klarem SLA. Bei Bedarf weitere Boxen ergänzen.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Im Lieferumfang -->
-        <div class="ep-section" style="background:var(--n-50)">
-          <div class="ep-section-label" style="color:var(--ki-800)">Im Lieferumfang</div>
-          <h2 class="ep-section-h2">Was immer dabei ist</h2>
-          <p class="ep-section-sub">Unabhängig von der Box, das Fundament ist bei jeder AI.Box gleich.</p>
-          <div class="layout-grid" style="margin-top:var(--s4)">
-            <div class="col-3">
-              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Deployment</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">On-Prem oder Private Cloud, Deine Wahl. Containerisiert und reproduzierbar.</p>
-            </div>
-            <div class="col-3">
-              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Sicherheit</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Rollen, Audit-Log und Guardrails gegen Fehlausgaben. SSO auf Wunsch.</p>
-            </div>
-            <div class="col-3">
-              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Betrieb</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Monitoring, Updates und Support inklusive, mit definiertem SLA.</p>
-            </div>
-            <div class="col-3">
-              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Datenschutz</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">DSGVO-konform. Deine Daten bleiben im Haus und werden nicht zum Training genutzt.</p>
-            </div>
-          </div>
-        </div>
-        <!-- Pakete -->
-        <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label" style="color:var(--ki-800)">Pakete</div>
-          <h2 class="ep-section-h2">Drei Stufen, ein Fundament</h2>
-          <p class="ep-section-sub">Jede Stufe enthält den vollen Lieferumfang. Du wählst nach Anzahl der Boxen und Betriebsanspruch.</p>
+          <div class="ep-section-label" style="color:var(--ki-800)">Funktionen</div>
+          <h2 class="ep-section-h2">Was die Plattform kann</h2>
+          <p class="ep-section-sub">Von sicherem Hosting bis zu eigenen KI-Agenten, der volle Funktionsumfang in einem System.</p>
           <div class="layout-grid" style="align-items:stretch">
-            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e1)">
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
-                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Starter</p>
-                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">1.900 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
-                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Eine Box, ein Use-Case, sauber produktiv.</p>
-                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>1 AI.Box nach Wahl</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Private-Cloud-Deployment</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Standard-Guardrails</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Support per E-Mail</span></li>
-                </ul>
-                <button class="btn btn-outlined btn-ki" type="button" style="margin-top:var(--s2)">Starter konfigurieren</button>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div class="card-title"><span>Höchste Sicherheit</span></div>
+                <div class="card-text">Hosting in Deiner eigenen Infrastruktur oder in einem ISO/IEC 27001-zertifizierten Rechenzentrum in Deutschland. Enterprise-Authentifizierung inklusive SSO.</div>
               </div>
             </div>
-            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e2);border-top:4px solid var(--ki-500)">
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
-                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Empfohlen</span>
-                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Pro</p>
-                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">4.900 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
-                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Mehrere Boxen, produktiv über Teams.</p>
-                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Bis zu 3 AI.Boxen</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>On-Prem oder Private Cloud</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Rollen, Audit-Log, SLA 99,9 %</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Priorisierter Support</span></li>
-                </ul>
-                <button class="btn btn-filled btn-ki" type="button" style="margin-top:var(--s2)">Pro konfigurieren</button>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div class="card-title"><span>Komfortable Multi-Modell-Verwaltung</span></div>
+                <div class="card-text">Mehrere KI-Modelle parallel nutzen, lokal oder cloud-basiert. Der Wechsel passiert nahtlos mitten im Chat.</div>
               </div>
             </div>
-            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e1)">
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
-                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Enterprise</p>
-                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">individuell</p>
-                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Skaliert über die ganze Organisation.</p>
-                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Unbegrenzte AI.Boxen</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Dediziertes Deployment</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>SSO, SCIM, Custom-Guardrails</span></li>
-                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Dedizierter Ansprechpartner</span></li>
-                </ul>
-                <button class="btn btn-outlined btn-ki" type="button" style="margin-top:var(--s2)">Gespräch vereinbaren</button>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div class="card-title"><span>Kontextspezifische und organisierte Chats</span></div>
+                <div class="card-text">Dateien hochladen und kontextbezogene Antworten erhalten. Ordner, Tags, Suche und Export halten alles geordnet.</div>
+              </div>
+            </div>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Pro</span>
+                <div class="card-title"><span>Unternehmensspezifische KI-Assistenten</span></div>
+                <div class="card-text">Maßgeschneiderte Assistenten mit eigenen Wissensdatenbanken und System-Prompts, passend zu Deinen Aufgaben.</div>
+              </div>
+            </div>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div class="card-title"><span>Flexible Datenanbindung</span></div>
+                <div class="card-text">Konnektoren für SharePoint, Confluence und Fileserver, mit granularen Berechtigungen bis auf Dokumentebene.</div>
+              </div>
+            </div>
+            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Pro</span>
+                <div class="card-title"><span>Maximale Individualisierung</span></div>
+                <div class="card-text">MCP-Server, Pipes, Actions und Filter für eigene Workflows und RAG-Systeme. Über die Anbindung an n8n entstehen autonome Agenten.</div>
               </div>
             </div>
           </div>
-          <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s6) 0 0;text-align:center">Alle Preise zzgl. einmaliger Einrichtung. Platzhalter, finale Konditionen nach Use-Case-Gespräch.</p>
+        </div>
+        <!-- Leistungspakete -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Leistungspakete</div>
+          <h2 class="ep-section-h2">Zwei Pakete, klare Preise</h2>
+          <p class="ep-section-sub">Core für den schnellen, sicheren Einstieg. Pro für die maßgeschneiderte, tief integrierte Lösung.</p>
+          <div class="layout-grid" style="align-items:stretch">
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e1)">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div>
+                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">AI.Box Core</p>
+                  <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Der einfache Weg, sicher und unkompliziert.</p>
+                </div>
+                <div style="padding:var(--s3) 0;border-top:var(--bd);border-bottom:var(--bd);display:flex;flex-direction:column;gap:var(--s1)">
+                  <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">490 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">Hosting in Deutschland inkl. Monitoring und Wartung, 2 Support-Units à 15 min.</p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Einmalig <strong>3.690 €</strong>: Einrichtung und Basis-Schulung (2 h online).</p>
+                </div>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Leistungsumfang</p>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Hosting in Deutschland</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>SSO sowie Nutzer-, Gruppen- und Rechtemanagement</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Drei lokale Modelle (bis ca. 24b)</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>OpenAI-Modelle über API-Key</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Chatbots mit Modellvergleich und Chat-Management</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Websuche</span></li>
+                </ul>
+                <button class="btn btn-outlined btn-ki" type="button" style="margin-top:var(--s2)">Core anfragen</button>
+              </div>
+            </div>
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e2);border-top:4px solid var(--ki-500)">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <div>
+                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">AI.Box Pro</p>
+                  <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Die maßgeschneiderte Lösung, nahtlos integriert.</p>
+                </div>
+                <div style="padding:var(--s3) 0;border-top:var(--bd);border-bottom:var(--bd);display:flex;flex-direction:column;gap:var(--s1)">
+                  <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">1.890 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">Hosting in Deutschland inkl. Monitoring und Wartung, 10 Support-Units à 15 min.</p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Einmalig <strong>7.990 €</strong>: Einrichtung und Aufbau-Schulung (2× 4 h online) plus beispielhafte Daten-Einrichtung (RAG).</p>
+                </div>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Leistungsumfang</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-primary);font-weight:600;margin:0">Alle Core-Features, plus:</p>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Lokale Modelle bis ca. 70b</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>LLM-Gateway für externe Cloud-LLMs (z.&nbsp;B. OpenAI, Anthropic Claude)</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Eigene KI-Assistenten</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Memory-Feature</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Confluence- und SharePoint-Connector</span></li>
+                </ul>
+                <button class="btn btn-filled btn-ki" type="button" style="margin-top:var(--s2)">Pro anfragen</button>
+              </div>
+            </div>
+          </div>
+          <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s6) 0 0;text-align:center">Die AI.Box lässt sich vollständig in Deinem eigenen Rechenzentrum betreiben (On-Premises). Sprich uns für Details an.</p>
+        </div>
+        <!-- Referenzen -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Referenzen</div>
+          <h2 class="ep-section-h2">Im Einsatz bei unseren Kunden</h2>
+          <p class="ep-section-sub">Zwei Beispiele, wie Unternehmen die AI.Box produktiv nutzen.</p>
+          <div class="layout-grid" style="align-items:stretch">
+            <div class="card card-elevated col-6" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Öffentlicher Sektor</span>
+                <div class="card-title"><span>Onboarding per KI-Chatbot</span></div>
+                <div class="card-text">Ein Unternehmen aus dem öffentlichen Sektor setzt für neue Mitarbeitende auf einen KI-gestützten Chatbot. Er beantwortet Fragen rund um die Uhr aus organisationsspezifischen Dokumenten, ergänzt um eine Bibliothek typischer Onboarding-Fragen.</div>
+                <div style="margin-top:auto;padding-top:var(--s3);border-top:var(--bd)">
+                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Ergebnis</p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0">Schnelleres Onboarding und ein spürbar entlastetes Bestandsteam.</p>
+                </div>
+              </div>
+            </div>
+            <div class="card card-elevated col-6" data-area="ki" style="display:flex;flex-direction:column">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Software-Entwicklung</span>
+                <div class="card-title"><span>Coding Assistant für Entwicklungsteams</span></div>
+                <div class="card-text">Ein KI-basierter Assistent automatisiert Code-Reviews, Dokumentation, Testfallerstellung, Fehlersuche und Code-Optimierung. Das Entwicklerteam konzentriert sich wieder auf Innovation.</div>
+                <div style="margin-top:auto;padding-top:var(--s3);border-top:var(--bd)">
+                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Ergebnis</p>
+                  <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0">Schnellere Abläufe, höhere Codequalität und volle Datensouveränität im eigenen Rechenzentrum.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Verweis auf andere Bereiche (Geschwister-Lösungen in Angewandte KI) -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Weitere KI-Lösungen</div>
+          <h2 class="ep-section-h2">Mehr aus Angewandte KI</h2>
+          <p class="ep-section-sub">AI.Box ist einer von drei Bausteinen. Diese beiden ergänzen sie.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+            <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
+              <div class="ep-card-title">KI sauber in Deine Software integrieren?</div>
+              <div class="ep-card-cta">AI.Engineering ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
+              <div class="ep-card-title">Mitarbeitende von Routineaufgaben entlasten?</div>
+              <div class="ep-card-cta">AI.Automation entdecken <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
         </div>
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
-          <h2 class="ep-cta-h2">Welche Box löst Dein Problem?</h2>
-          <p class="ep-cta-sub">Sag uns Deinen Use-Case. Wir empfehlen die passende AI.Box, ehrlich auch dann, wenn es keine braucht.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">AI.Box konfigurieren</button>
+          <h2 class="ep-cta-h2">Bereit für KI, die mitwächst?</h2>
+          <p class="ep-cta-sub">Erzähl uns Deinen Anwendungsfall. Wir zeigen Dir, wie AI.Box passt, ehrlich auch dann, wenn etwas anderes besser für Dich ist.</p>
+          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
