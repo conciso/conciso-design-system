@@ -203,6 +203,7 @@
       <a class="nav-sub-item" href="#gt-table-standard">Standard</a>
       <a class="nav-sub-item" href="#gt-table-striped">Gestreift</a>
       <a class="nav-sub-item" href="#gt-table-verwendung">Verwendung</a>
+      <a class="nav-sub-item" href="#gt-table-vergleich">Vergleichstabelle</a>
     </div>
     <button class="nav-item" data-section="quotes">
       <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>Zitate &amp; Testimonials
@@ -3615,6 +3616,29 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </ul>
         </div>
       </div>
+
+      <!-- Vergleichstabelle (aufklappbar) -->
+      <h2 id="gt-table-vergleich" class="group-title" style="margin-top:var(--s12)">Vergleichstabelle (aufklappbar)</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Für den zeilenweisen Vergleich zweier oder mehrerer Pakete/Tarife. Die Preiskarten darüber tragen Preis und drei bis vier Highlights (Konversion); die vollständige Merkmalsliste steckt in der aufklappbaren Tabelle (Tiefenvergleich auf Abruf). So bleibt der Schnell-Scan kurz und Karten und Tabelle überschneiden sich nicht. Erprobt auf der Beispielseite Angewandte KI · AI.Box (Leistungspakete).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Aufklappbar via nativem <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> (<code class="token">.ep-compare</code>, standardmäßig zu, gleiche Mechanik wie das <a class="body-link" href="#gt-article-toc">Inhaltsverzeichnis</a>). Tabelle <code class="token">.ep-compare-table</code> mit <code class="token">&lt;caption class="sr-only"&gt;</code> und <code class="token">scope</code>-Attributen. Die empfohlene Spalte wird über <code class="token">.ep-compare-pro</code> (bereichsgetönt) hervorgehoben. Enthalten/Nicht enthalten als <code class="token">.ep-compare-yes</code> (✓) bzw. <code class="token">.ep-compare-no</code> (−), jeweils mit <code class="token">.sr-only</code>-Text, da Farbe und Glyph allein keine Bedeutung tragen (WCAG 1.4.1).</p>
+      <div class="code-block">&lt;details <span class="k">class</span>=<span class="s">"ep-compare"</span>&gt;
+  &lt;summary <span class="k">class</span>=<span class="s">"ep-compare-summary"</span>&gt;Alle Funktionen vergleichen ▾&lt;/summary&gt;
+  &lt;div <span class="k">class</span>=<span class="s">"ep-compare-table-wrap"</span>&gt;
+    &lt;table <span class="k">class</span>=<span class="s">"ep-compare-table"</span>&gt;
+      &lt;caption <span class="k">class</span>=<span class="s">"sr-only"</span>&gt;Funktionsvergleich Core und Pro&lt;/caption&gt;
+      &lt;thead&gt;&lt;tr&gt;
+        &lt;th <span class="k">scope</span>=<span class="s">"col"</span>&gt;Funktion&lt;/th&gt;
+        &lt;th <span class="k">scope</span>=<span class="s">"col"</span>&gt;Core&lt;/th&gt;
+        &lt;th <span class="k">scope</span>=<span class="s">"col"</span> <span class="k">class</span>=<span class="s">"ep-compare-pro"</span>&gt;Pro&lt;/th&gt;
+      &lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;&lt;tr&gt;
+        &lt;th <span class="k">scope</span>=<span class="s">"row"</span>&gt;Hosting in Deutschland&lt;/th&gt;
+        &lt;td&gt;&lt;span <span class="k">class</span>=<span class="s">"ep-compare-yes"</span> <span class="k">aria-hidden</span>=<span class="s">"true"</span>&gt;✓&lt;/span&gt;<span class="c">&lt;!-- + .sr-only "Enthalten" --&gt;</span>&lt;/td&gt;
+        &lt;td <span class="k">class</span>=<span class="s">"ep-compare-pro"</span>&gt;…&lt;/td&gt;
+      &lt;/tr&gt;&lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/details&gt;</div>
     </section>
 
     <!-- ═══ ICONS ═══ -->
@@ -5402,8 +5426,8 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#6E8585;color:#fff">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Light</span><code class="token">--tx-muted</code> #6E8585 auf Weiß</div><div class="cratio">4.7:1, inhaltlich-leise Texte: Eyebrow, Counter, Meta-Angaben</div></div>
-        <span class="cbadge c-aa">AA ✓</span>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Light</span><code class="token">--tx-muted</code> #6E8585 auf Weiß</div><div class="cratio">3.9:1, verfehlt AA für Normaltext (4.5:1) — nur Large Text oder Grafik-Marker (mit <code class="token">.sr-only</code>-Text). Für leise Fließtexte/Meta (Eyebrow, Counter, Captions) <code class="token">--tx-secondary</code> verwenden.</div></div>
+        <span class="cbadge c-aa">AA Large ✓</span>
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#007575;color:#fff">Aa</div>
@@ -5691,6 +5715,22 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
 <span class="k">.ep-nav-btn[aria-current="page"]</span> {
   color: <span class="v">var(--co-700)</span>;
+}</div>
+        </div>
+        <div class="a11y-card">
+          <h3>Visuell versteckt (.sr-only)</h3>
+          <p>Text nur für Screenreader, visuell entfernt. Trägt die Bedeutung hinter rein grafischen Markern (✓ / −) in Vergleichstabellen oder ergänzt eine <code>&lt;caption&gt;</code> — Glyph allein reicht nicht (WCAG 1.1.1, 1.3.1). Utility in <code class="token">base.css</code>.</p>
+          <div class="code-block">&lt;td&gt;&lt;span <span class="k">class</span>=<span class="s">"ep-compare-yes"</span>
+           <span class="k">aria-hidden</span>=<span class="s">"true"</span>&gt;✓&lt;/span&gt;
+  &lt;span <span class="k">class</span>=<span class="s">"sr-only"</span>&gt;Enthalten&lt;/span&gt;&lt;/td&gt;
+
+<span class="k">.sr-only</span> {
+  position: <span class="v">absolute</span>;
+  width: <span class="v">1px</span>; height: <span class="v">1px</span>;
+  margin: <span class="v">-1px</span>; padding: <span class="v">0</span>;
+  overflow: <span class="v">hidden</span>;
+  clip: <span class="v">rect(0,0,0,0)</span>;
+  white-space: <span class="v">nowrap</span>; border: <span class="v">0</span>;
 }</div>
         </div>
       </div>
