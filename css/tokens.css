@@ -48,7 +48,7 @@
 
   /* ── Surfaces & Text ── */
   --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
-  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:var(--n-400);
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:#5E7676; /* AA 4.85:1; abgedunkelt von n-400 #6E8585 (3.9:1, AA-Fail für Normaltext) */
 
   /* ── Typography ── */
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
