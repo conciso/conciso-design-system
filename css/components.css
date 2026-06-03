@@ -694,7 +694,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-header{max-width:880px;margin:0 auto;text-align:center}
 .article-breadcrumb{font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s5)}
 .article-breadcrumb a{color:inherit;text-decoration:none}
-.article-breadcrumb a[aria-current="page"]{color:var(--tx-primary)}
+.article-breadcrumb [aria-current="page"]{color:var(--tx-primary);font-weight:500}
 .article-breadcrumb-sep{margin:0 var(--s2)}
 /* Pill: Kategorie · Format · Lesezeit, area-aware */
 .pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
