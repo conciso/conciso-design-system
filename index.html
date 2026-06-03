@@ -7421,11 +7421,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Erzähl uns Dein Vorhaben. Oder schau Dir erst Fallstudien an.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
             <button class="btn btn-filled btn-ki" type="button">Use Case analysieren</button>
-            <button class="btn btn-outlined btn-ki" type="button">Fallstudien ansehen</button>
+            <a class="btn btn-outlined btn-ki" href="#ai-projekte">Projekte ansehen</a>
           </div>
         </div>
         <!-- Lösungen -->
-        <div class="ep-section" style="background:#fff">
+        <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label" style="color:var(--ki-800)">Lösungen</div>
           <h2 class="ep-section-h2">Von der Idee zur Produktion</h2>
           <p class="ep-section-sub">Wir begleiten Dich durch den gesamten KI-Lifecycle, von der Strategiefindung bis zum produktiven System.</p>
@@ -7450,30 +7450,136 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
           </div>
         </div>
-        <!-- Stats -->
-        <div class="card-stat-strip">
-          <div class="card-stat-flat" data-area="ki">
-            <p class="card-stat-flat-value">200+</p>
-            <p class="card-stat-flat-label">KI-Projekte</p>
+        <!-- Stimmen aus den Workshops -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Aus der Praxis</div>
+          <h2 class="ep-section-h2">Stimmen aus den Workshops</h2>
+          <p class="ep-section-sub">Was Teams berichten, nachdem sie mit uns an ihren KI-Use-Cases gearbeitet haben.</p>
+          <div class="layout-grid" style="align-items:stretch">
+
+            <!-- Workshop-Foto für Wärme -->
+            <div class="col-5">
+              <img src="images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+
+            <!-- Offene Zitate, nur durch Haarlinien getrennt -->
+            <div class="col-7" style="display:flex;flex-direction:column;justify-content:center">
+              <figure style="margin:0;padding:0 0 var(--s5)">
+                <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Wir sind mit Buzzwords reingegangen und mit einer Roadmap rausgekommen, die wir am Montag umsetzen konnten.“</blockquote>
+                <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Markus Reinhardt <span style="font:var(--ty-body-sm);color:var(--tx-secondary);font-style:normal">· Teamlead Data, Industriezulieferer</span></figcaption>
+              </figure>
+              <figure style="margin:0;padding:var(--s5) 0;border-top:var(--bd)">
+                <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Endlich jemand, der nicht die Technik feiert, sondern fragt, wo bei uns wirklich Zeit verloren geht.“</blockquote>
+                <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Sandra Vogel <span style="font:var(--ty-body-sm);color:var(--tx-secondary);font-style:normal">· Leiterin Operations, Mittelständischer Maschinenbauer</span></figcaption>
+              </figure>
+              <figure style="margin:0;padding:var(--s5) 0 0;border-top:var(--bd)">
+                <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Nach zwei Tagen hatte das ganze Team dieselbe Sprache für KI. Das hat intern mehr bewegt als jedes Tool.“</blockquote>
+                <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Daniel Kowalski <span style="font:var(--ty-body-sm);color:var(--tx-secondary);font-style:normal">· Bereichsleiter Digitalisierung, Versicherungsgruppe</span></figcaption>
+              </figure>
+            </div>
+
           </div>
-          <div class="card-stat-flat" data-area="ki">
-            <p class="card-stat-flat-value">40 %</p>
-            <p class="card-stat-flat-label">Ø Effizienzgewinn in KPI-Auswertungen</p>
+        </div>
+        <!-- KI-Projekte (Kunde · Thema · Ergebnis) -->
+        <div class="ep-section" id="ai-projekte" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">KI-Projekte</div>
+          <h2 class="ep-section-h2">Ausgewählte Projekte.</h2>
+          <p class="ep-section-sub">Drei Vorhaben, drei messbare Ergebnisse.</p>
+          <div style="margin-top:var(--s6)">
+
+            <!-- Projekt-Zeile: große Kennzahl + Story, offen mit Haarlinien -->
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-top:var(--bd);border-bottom:var(--bd)">
+              <div class="col-3">
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">40 %</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s1) 0 0">weniger Bearbeitungszeit pro Sendung</p>
+              </div>
+              <div class="col-9">
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Logistik Solutions AG</p>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Dokumenten-Triage automatisiert</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Eingehende Frachtpapiere werden automatisch klassifiziert und geroutet, mit Mensch im Prozess für die Zweifelsfälle.</p>
+              </div>
+            </div>
+
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+              <div class="col-3">
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">4 h</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s1) 0 0">Erstreaktion, vorher 48 Stunden</p>
+              </div>
+              <div class="col-9">
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Versicherungsgruppe</p>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Schadenmeldungen vorqualifiziert</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ein KI-Agent liest eingehende Meldungen, prüft sie auf Vollständigkeit und schlägt die nächste Aktion vor.</p>
+              </div>
+            </div>
+
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+              <div class="col-3">
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">90 %</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s1) 0 0">weniger Suchzeit im Service</p>
+              </div>
+              <div class="col-9">
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Maschinenbau AG</p>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Service-Wissen sofort auffindbar</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Servicetechniker fragen Handbücher und alte Tickets in natürlicher Sprache ab, statt PDFs zu durchsuchen.</p>
+              </div>
+            </div>
+
           </div>
-          <div class="card-stat-flat" data-area="ki">
-            <p class="card-stat-flat-value">14</p>
-            <p class="card-stat-flat-label">Branchen</p>
+        </div>
+        <!-- Vorschau Wissensbeiträge (KI, 3 neueste) -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Wissen</div>
+          <h2 class="ep-section-h2">Was wir über KI in Produktion gelernt haben.</h2>
+          <p class="ep-section-sub">Drei Beiträge aus unserer Praxis, neueste zuerst.</p>
+          <div class="layout-grid">
+
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
+                <div class="card-title"><span>Warum 60 % der KI-Piloten nie in Produktion gehen</span></div>
+                <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
+                <div class="card-title"><span>RAG vs. Fine-Tuning: Wann was sinnvoll ist</span></div>
+                <div class="card-text">Beide Wege führen zum Ziel, aber selten zum gleichen. Wann RAG die bessere Wahl ist und wann Fine-Tuning sich wirklich rechnet.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">6 min Lesezeit · <time datetime="2026-03-25">25. März 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
+                <div class="card-title"><span>Vom Pilot zum Produktiv: Die Übergabe-Lücke schließen</span></div>
+                <div class="card-text">Zwischen funktionierendem Prototyp und stabilem Produktivsystem klafft oft eine Lücke. So überbrückt Ihr sie ohne Reibungsverluste.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-02-11">11. Februar 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+
           </div>
-          <div class="card-stat-flat" data-area="ki">
-            <p class="card-stat-flat-value">3 Wo.</p>
-            <p class="card-stat-flat-label">Ø Konzept bis Produktion</p>
-          </div>
+          <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="wb-uebersicht">Alle KI-Beiträge ansehen <span aria-hidden="true">→</span></a></p>
         </div>
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
           <h2 class="ep-cta-h2">Welchen Prozess könntest Du automatisieren?</h2>
           <p class="ep-cta-sub">Sag es uns. Wir bringen das nötige KI-Know-how mit.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">KI-Potenzial analysieren</button>
+          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
