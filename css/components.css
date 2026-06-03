@@ -572,6 +572,28 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
    geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
    Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
 .ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
+/* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
+   Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
+.ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}
+.ep-compare-summary{display:inline-flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;color:var(--ki-800);cursor:pointer;list-style:none}
+.ep-compare-summary::-webkit-details-marker{display:none}
+.ep-compare-summary:hover{color:var(--ki-900)}
+.ep-compare-summary:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.ep-compare-caret{width:16px;height:16px;flex-shrink:0;transition:transform var(--m-fast)}
+.ep-compare[open] .ep-compare-caret{transform:rotate(180deg)}
+.ep-compare-table-wrap{overflow-x:auto;margin-top:var(--s5)}
+.ep-compare-table{width:100%;border-collapse:collapse;font:var(--ty-body-sm)}
+.ep-compare-table th,.ep-compare-table td{padding:var(--s3);border-bottom:var(--bd)}
+.ep-compare-table thead th{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary);text-align:center}
+.ep-compare-table thead th:first-child{text-align:left}
+.ep-compare-table thead th:not(:first-child){width:8rem}
+.ep-compare-table tbody th{text-align:left;font:var(--ty-body-sm);font-weight:400;color:var(--tx-secondary)}
+.ep-compare-table tbody td{text-align:center;color:var(--tx-secondary)}
+.ep-compare-table tbody tr:last-child th,.ep-compare-table tbody tr:last-child td{border-bottom:none}
+.ep-compare-table .ep-compare-pro{background:var(--ki-50)}
+.ep-compare-table thead .ep-compare-pro{color:var(--ki-800);border-bottom:2px solid var(--ki-500)}
+.ep-compare-yes{color:var(--ki-800);font-weight:700}
+.ep-compare-no{color:var(--tx-muted)}
 /* Gap --s6 (24 px) statt --s4 (16 px), damit der Card-Rhythmus konsistent zu .layout-grid bleibt
    (Wissensbeiträge, Veranstaltungen, Team nutzen ebenfalls --s6). Border-Radius und Box-Shadow
    der Cards tragen das Container-Gefühl, auch wenn padding ≈ gap ist. */
