@@ -6944,6 +6944,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <button class="ep-tab active" role="tab" aria-selected="true" data-ep="landing" id="eptab-landing" aria-controls="ep-landing">Startseite</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="co" id="eptab-co" aria-controls="ep-co">Corporate</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai" id="eptab-ai" aria-controls="ep-ai">Angewandte KI</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai-box" id="eptab-ai-box" aria-controls="ep-ai-box">Angewandte KI · AI.Box</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="wo" id="eptab-wo" aria-controls="ep-wo">Wirksame Organisationen</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="wb-uebersicht" id="eptab-wb-uebersicht" aria-controls="ep-wb-uebersicht">Wissen · Übersicht</button>
@@ -7519,7 +7520,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-card-text">Repetitive Aufgaben automatisieren. Mit KI-Agenten und intelligenten Workflows.</div>
               <div class="ep-card-cta">Automation entdecken <span aria-hidden="true">→</span></div>
             </a>
-            <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
+            <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai-box" style="border-top:4px solid var(--ki-500)">
               <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
               <div class="ep-card-title">AI.Box</div>
               <div class="ep-card-text">Schlüsselfertige KI-Bausteine: vorkonfiguriert, sicher in Deine Infrastruktur deployed, mit klarem Funktionsumfang.</div>
@@ -7677,6 +7678,287 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <li><a class="footer-link" href="#">Angewandte KI</a></li>
                     <li><a class="footer-link" href="#">Effektive Software</a></li>
                     <li><a class="footer-link" href="#">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── ANGEWANDTE KI · AI.BOX ── -->
+      <div class="ep-page" id="ep-ai-box" role="tabpanel" aria-labelledby="eptab-ai-box" tabindex="0">
+        <a class="skip-link" href="#ep-ai-box-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + KI hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+          </nav>
+          <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
+        </div>
+        <!-- Breadcrumb: Angewandte KI / AI.Box -->
+        <div class="ep-section" style="padding-block:var(--s4);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb">
+            <a href="#sec-examples" data-ep="ai" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">AI.Box</span>
+          </nav>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-ai-box-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="images/team-tablet.jpg" alt="Team blickt gemeinsam auf ein Tablet mit einer laufenden KI-Anwendung" loading="eager" style="object-position:center 30%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Schlüsselfertige KI-Bausteine</p>
+            <h1 class="hero-image-caption-title">AI.Box: KI, die einsatzbereit ankommt.</h1>
+            <p class="hero-image-caption-text">Vorkonfigurierte KI-Funktionen, sicher in Deiner Infrastruktur, mit klarem Funktionsumfang. Ohne monatelanges Projekt.</p>
+          </figcaption>
+        </figure>
+        <!-- Aktions-Brücke + CTAs -->
+        <div class="ep-section" style="background:var(--ki-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--ki-100)">
+          <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">Vorkonfiguriert · Sicher deployed · Klarer Funktionsumfang</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:540px;text-wrap:balance">Sag uns Deinen Use-Case, wir empfehlen die passende Box. Oder schau Dir erst an, was drinsteckt.</p>
+          <div class="ep-hero-ctas" style="justify-content:center">
+            <button class="btn btn-filled btn-ki" type="button">AI.Box konfigurieren</button>
+            <button class="btn btn-outlined btn-ki" type="button">Demo anfragen</button>
+          </div>
+        </div>
+        <!-- Prinzip -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Das Prinzip</div>
+          <h2 class="ep-section-h2">Fertig statt Forschungsprojekt</h2>
+          <p class="ep-section-sub">Eine AI.Box kommt einsatzbereit, bleibt bei Dir und kann genau das, was draufsteht.</p>
+          <div class="ep-cards">
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
+              <div class="ep-card-title">Vorkonfiguriert</div>
+              <div class="ep-card-text">Erprobte KI-Funktionen, fertig eingerichtet. Kein Modell-Training, kein monatelanger Aufbau.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+              <div class="ep-card-title">Sicher deployed</div>
+              <div class="ep-card-text">Läuft in Deiner Infrastruktur, On-Prem oder Private Cloud. Deine Daten bleiben bei Dir.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z"/></svg></div>
+              <div class="ep-card-title">Klarer Funktionsumfang</div>
+              <div class="ep-card-text">Jede Box kann genau eine Sache richtig gut. Fester Scope, planbarer Aufwand, keine Wundertüte.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Verfügbare Boxen -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Verfügbare Boxen</div>
+          <h2 class="ep-section-h2">Eine Box pro Aufgabe</h2>
+          <p class="ep-section-sub">Kombinierbar, einzeln einsetzbar. Du startest mit einer, ergänzt bei Bedarf weitere.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg></div>
+              <div class="ep-card-title">Doc.Box</div>
+              <div class="ep-card-text">Dokumente und Wissen durchsuchbar machen. RAG über Handbücher, Verträge und Tickets, mit Quellenangabe.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"/></svg></div>
+              <div class="ep-card-title">Voice.Box</div>
+              <div class="ep-card-text">Gespräche und Calls automatisch transkribieren und zusammenfassen, DSGVO-konform im eigenen Haus.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z"/></svg></div>
+              <div class="ep-card-title">Classify.Box</div>
+              <div class="ep-card-text">Eingänge automatisch klassifizieren und routen: E-Mails, Tickets, Dokumente, mit Mensch im Zweifelsfall.</div>
+            </div>
+            <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/></svg></div>
+              <div class="ep-card-title">Assist.Box</div>
+              <div class="ep-card-text">Interner KI-Assistent auf Eurem Wissensstand, abgesichert mit Rollen und Guardrails.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Einführung in vier Schritten -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Einführung</div>
+          <h2 class="ep-section-h2">In vier Schritten produktiv</h2>
+          <p class="ep-section-sub">Von der Auswahl bis zum laufenden Betrieb, mit klarem Übergabepunkt an jeder Stelle.</p>
+          <div style="margin-top:var(--s6)">
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-top:var(--bd);border-bottom:var(--bd)">
+              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">01</p></div>
+              <div class="col-9">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Use-Case wählen</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gemeinsam die passende Box und den konkreten Anwendungsfall festlegen, inklusive Erfolgskriterien.</p>
+              </div>
+            </div>
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">02</p></div>
+              <div class="col-9">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Konfigurieren</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Box auf Deine Daten, Rollen und Schnittstellen einstellen. Guardrails und Berechtigungen inklusive.</p>
+              </div>
+            </div>
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">03</p></div>
+              <div class="col-9">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Deployen</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Sicher in Deine Infrastruktur ausrollen, On-Prem oder Private Cloud. Daten verlassen das Haus nicht.</p>
+              </div>
+            </div>
+            <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-bottom:var(--bd)">
+              <div class="col-3"><p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">04</p></div>
+              <div class="col-9">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Betreiben</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Monitoring, Updates und Support, mit klarem SLA. Bei Bedarf weitere Boxen ergänzen.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Im Lieferumfang -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Im Lieferumfang</div>
+          <h2 class="ep-section-h2">Was immer dabei ist</h2>
+          <p class="ep-section-sub">Unabhängig von der Box, das Fundament ist bei jeder AI.Box gleich.</p>
+          <div class="layout-grid" style="margin-top:var(--s4)">
+            <div class="col-3">
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Deployment</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">On-Prem oder Private Cloud, Deine Wahl. Containerisiert und reproduzierbar.</p>
+            </div>
+            <div class="col-3">
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Sicherheit</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Rollen, Audit-Log und Guardrails gegen Fehlausgaben. SSO auf Wunsch.</p>
+            </div>
+            <div class="col-3">
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Betrieb</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Monitoring, Updates und Support inklusive, mit definiertem SLA.</p>
+            </div>
+            <div class="col-3">
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s2)">Datenschutz</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">DSGVO-konform. Deine Daten bleiben im Haus und werden nicht zum Training genutzt.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Pakete -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--ki-800)">Pakete</div>
+          <h2 class="ep-section-h2">Drei Stufen, ein Fundament</h2>
+          <p class="ep-section-sub">Jede Stufe enthält den vollen Lieferumfang. Du wählst nach Anzahl der Boxen und Betriebsanspruch.</p>
+          <div class="layout-grid" style="align-items:stretch">
+            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e1)">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Starter</p>
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">1.900 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Eine Box, ein Use-Case, sauber produktiv.</p>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>1 AI.Box nach Wahl</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Private-Cloud-Deployment</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Standard-Guardrails</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Support per E-Mail</span></li>
+                </ul>
+                <button class="btn btn-outlined btn-ki" type="button" style="margin-top:var(--s2)">Starter konfigurieren</button>
+              </div>
+            </div>
+            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e2);border-top:4px solid var(--ki-500)">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
+                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Empfohlen</span>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Pro</p>
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">4.900 €<span style="font:var(--ty-body-sm);color:var(--tx-muted)"> / Monat</span></p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Mehrere Boxen, produktiv über Teams.</p>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Bis zu 3 AI.Boxen</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>On-Prem oder Private Cloud</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Rollen, Audit-Log, SLA 99,9 %</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Priorisierter Support</span></li>
+                </ul>
+                <button class="btn btn-filled btn-ki" type="button" style="margin-top:var(--s2)">Pro konfigurieren</button>
+              </div>
+            </div>
+            <div class="card col-4" data-area="ki" style="display:flex;flex-direction:column;border:none;box-shadow:var(--e1)">
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s2)">
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0">Enterprise</p>
+                <p style="font:var(--ty-display-sm);color:var(--ki-700);margin:0">individuell</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s2)">Skaliert über die ganze Organisation.</p>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);flex:1">
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Unbegrenzte AI.Boxen</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Dediziertes Deployment</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>SSO, SCIM, Custom-Guardrails</span></li>
+                  <li style="display:flex;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary)"><span style="color:var(--ki-700);font-weight:700" aria-hidden="true">✓</span><span>Dedizierter Ansprechpartner</span></li>
+                </ul>
+                <button class="btn btn-outlined btn-ki" type="button" style="margin-top:var(--s2)">Gespräch vereinbaren</button>
+              </div>
+            </div>
+          </div>
+          <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:var(--s6) 0 0;text-align:center">Alle Preise zzgl. einmaliger Einrichtung. Platzhalter, finale Konditionen nach Use-Case-Gespräch.</p>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
+          <h2 class="ep-cta-h2">Welche Box löst Dein Problem?</h2>
+          <p class="ep-cta-sub">Sag uns Deinen Use-Case. Wir empfehlen die passende AI.Box, ehrlich auch dann, wenn es keine braucht.</p>
+          <button class="btn btn-filled btn-ki btn-on-band">AI.Box konfigurieren</button>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
                     <li><a class="footer-link" href="#">Beiträge</a></li>
                     <li><a class="footer-link" href="#">Jobs</a></li>
                     <li><a class="footer-link" href="#">Kontakt</a></li>
