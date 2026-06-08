@@ -334,6 +334,7 @@
 
   setupListPage({ pageId: 'ep-wb-uebersicht', prefix: 'wb', defaultFeaturedArea: 'ki', noun: 'Beitrag', nounPluralDat: 'Beiträge' });
   setupListPage({ pageId: 'ep-ev-uebersicht', prefix: 'ev', defaultFeaturedArea: 'es', noun: 'Veranstaltung', nounPluralDat: 'Veranstaltungen' });
+  setupListPage({ pageId: 'ep-co-jobs', prefix: 'jobs', defaultFeaturedArea: 'es', noun: 'Stelle', nounPluralDat: 'Stellen' });
 
   /* ── Logo-Carousel (Crossfade, pausierbar, Tastatur-zugänglich) ── */
   document.querySelectorAll('.logo-carousel').forEach(function(carousel) {
