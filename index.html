@@ -183,6 +183,7 @@
       <a class="nav-sub-item" href="#gt-cards-testimonial">Testimonial-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-stat">Stat-Karte</a>
       <a class="nav-sub-item" href="#gt-cards-stat-strip">Bandstreifen</a>
+      <a class="nav-sub-item" href="#gt-cards-feature">Offene Feature-Liste</a>
       <a class="nav-sub-item" href="#gt-cards-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="cta">
@@ -1202,7 +1203,7 @@
           </table>
         </div>
         <div class="col-6">
-          <div class="doc-eyebrow">Semantische Farben</div>
+          <div class="doc-eyebrow" id="gt-colors-semantik">Semantische Farben</div>
           <table class="doc-table">
             <thead>
               <tr>
@@ -1215,8 +1216,9 @@
               <tr><td><code class="token" style="color:var(--c-warning)">--c-warning</code></td><td>Hinweise, Beta-Zustände, nicht-kritische Warnungen</td></tr>
               <tr><td><code class="token" style="color:var(--c-error)">--c-error</code></td><td>Fehler-Snackbar, Validierungsfehler im Formular, Deprecated-Badge</td></tr>
               <tr><td><code class="token">--tx-primary</code></td><td>Fließtext, Headlines, UI-Labels, <code class="token">#333E48</code> (10.4:1, AAA)</td></tr>
-              <tr><td><code class="token">--tx-secondary</code></td><td>Sekundärer Text: Lead, Sub-Titel, Captions, <code class="token">var(--n-500)</code> (5.8:1, AA)</td></tr>
-              <tr><td><code class="token">--tx-muted</code></td><td>Inhaltlich-leise Texte: Eyebrow, Meta, Counter, <code class="token">var(--n-400)</code> (4.7:1, AA)</td></tr>
+              <tr><td><code class="token">--tx-secondary</code></td><td>Sekundärer Text: Lead, Sub-Titel, Captions, <code class="token">var(--n-500)</code> #4A6565 (6.3:1, AA)</td></tr>
+              <tr><td><code class="token">--tx-muted</code></td><td>Inhaltlich-leise Texte: Eyebrow, Meta, Counter, <code class="token">#5E7676</code> (4.85:1, AA); abgedunkelt von <code class="token">--n-400</code>, das selbst nur 3,9:1 erreicht und daher nur für Nicht-Text gilt</td></tr>
+              <tr><td><code class="token">--ki-ink</code></td><td>Farbiger ki-Text/Icons (Preise, Häkchen, Akzentlabels), die im Dark-Mode lesbar bleiben müssen: flippt Light <code class="token">ki-800</code> / Dark <code class="token">ki-200</code>. Statt rohem <code class="token">ki-800</code>, das auf dunklem Grund durchfällt. Area-getönte Icon-Kacheln (<code class="token">.ep-card-icon</code> / <code class="token">.ep-feature-icon</code>) brauchen dafür <code class="token">data-area</code>, der Glyph wird im Dark auf <code class="token">-100</code> gehoben</td></tr>
             </tbody>
           </table>
         </div>
@@ -3314,6 +3316,42 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         </div>
       </div>
 
+      <h2 id="gt-cards-feature" class="group-title">Offene Feature-Liste</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Flaches, icon-geführtes Pattern für <strong>Funktions- und Capability-Listen</strong>, ohne Karten-Chrome (kein Rahmen, kein Schatten, keine Media-Fläche): Icon-Kachel links, Titel und Text rechts. Optional in Stufen gruppiert über einen <code class="token">.ep-tier</code>-Trenner (Label + Haarlinie, z.&nbsp;B. Core / Pro). Sinnvoll, wenn der volle Funktionsumfang aufgezählt wird und ein weiteres Karten-Grid die Seite überladen würde, gleiche „offen statt Kachel"-Logik wie die <a class="body-link" href="#gt-cards-stat-row">Editoriale Kennzahl-Zeile</a>. <strong>Abgrenzung zur <a class="body-link" href="#gt-cards-varianten">Feature-Karte</a>:</strong> Die Karte ist eine abgeschlossene, oft klickbare Einheit mit Bild, die Feature-Liste ist eine ruhige Aufzählung, die den Lesefluss nicht in Kacheln zerlegt.</p>
+      <div style="margin-bottom:var(--s6)">
+        <div class="ep-tier"><span class="ep-tier-label" data-area="ki">Zusätzlich mit Pro</span><span class="ep-tier-rule" aria-hidden="true"></span></div>
+        <div class="layout-grid">
+          <div class="ep-feature col-6">
+            <span class="ep-feature-icon" data-area="ki" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z"/></svg></span>
+            <div class="ep-feature-body"><h3 class="ep-feature-title">Eigene KI-Assistenten</h3><p class="ep-feature-text">Maßgeschneiderte Assistenten mit eigenen Wissensdatenbanken und System-Prompts.</p></div>
+          </div>
+          <div class="ep-feature col-6">
+            <span class="ep-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></span>
+            <div class="ep-feature-body"><h3 class="ep-feature-title">Höchste Sicherheit</h3><p class="ep-feature-text">Hosting im eigenen Rechenzentrum oder zertifiziert in Deutschland.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="doc-eyebrow">Klassen</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Klasse</th><th>Rolle</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">.ep-feature</code></td><td>Flex-Zeile (Icon-Kachel + Body). Im <code class="token">.layout-grid</code> mit <code class="token">.col-*</code> kombinieren</td></tr>
+          <tr><td><code class="token">.ep-feature-icon</code></td><td>48×48-Kachel. Neutral als Default; <code class="token">data-area="ki"</code> (co/es/wo) tönt sie in der Bereichsfarbe</td></tr>
+          <tr><td><code class="token">.ep-feature-title</code></td><td>Titel als <code class="token">&lt;h3&gt;</code> (<code class="token">--ty-title-sm</code>), Hierarchie unter der Section-<code class="token">h2</code></td></tr>
+          <tr><td><code class="token">.ep-feature-text</code></td><td>Beschreibung, <code class="token">--ty-body-md</code></td></tr>
+          <tr><td><code class="token">.ep-tier</code> · <code class="token">.ep-tier-label</code> · <code class="token">.ep-tier-rule</code></td><td>Optionaler Stufen-Trenner: area-awares Label + Haarlinie (<code class="token">--n-200</code>), gruppiert die Liste</td></tr>
+        </tbody>
+      </table>
+      <div class="doc-eyebrow">Barrierefreiheit &amp; Dark-Mode</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Icons</td><td>Rein dekorativ, <code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code>. Der Glyph hat AA-Kontrast zur Kachel (neutral 5,3:1, ki 7,5:1)</td></tr>
+          <tr><td>Dark-Mode</td><td>Neutrale Kachel ist theme-aware. Der <code class="token">data-area="ki"</code>-Glyph wird im Dark auf den hellen <code class="token">--ki-100</code> gehoben (sonst dunkel-auf-dunkel), gleiche Logik wie <a class="body-link" href="#gt-colors-semantik">--ki-ink</a>. Override in dark-mode.css</td></tr>
+          <tr><td>Hierarchie</td><td><code class="token">.ep-feature-title</code> ist <code class="token">&lt;h3&gt;</code>, kein <code class="token">&lt;div&gt;</code></td></tr>
+        </tbody>
+      </table>
+
       <h2 id="gt-cards-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Kartentypen-Tabelle -->
@@ -3400,7 +3438,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <!-- Karte oder offen? -->
       <div class="doc-eyebrow" style="margin-top:var(--s8)">Karte oder offen?</div>
       <div style="max-width:760px;font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)">
-        <p style="margin:0">Karten sind für <strong style="color:var(--tx-primary);font-weight:600">Angebots-Menüs und Teaser</strong> da: Lösungs- und Leistungskacheln, Artikel-Vorschauen, also Elemente, die zu einem Ziel führen und als abgeschlossene, klickbare Einheit funktionieren. Für <strong style="color:var(--tx-primary);font-weight:600">Stimmen/Testimonials und Case-Listen</strong> ist meist eine offene, redaktionelle Darstellung die bessere Wahl (siehe <a class="body-link" href="#sec-quotes">Offenes Zitat</a> und <a class="body-link" href="#gt-cards-stat-row">Editoriale Kennzahl-Zeile</a>): direkt auf der Fläche, durch Haarlinien getrennt. Das hält inhaltsdichte Abschnitte luftig und vermeidet den „Kachelwand"-Eindruck, wenn mehrere Karten-Grids aufeinanderfolgen.</p>
+        <p style="margin:0">Karten sind für <strong style="color:var(--tx-primary);font-weight:600">Angebots-Menüs und Teaser</strong> da: Lösungs- und Leistungskacheln, Artikel-Vorschauen, also Elemente, die zu einem Ziel führen und als abgeschlossene, klickbare Einheit funktionieren. Für <strong style="color:var(--tx-primary);font-weight:600">Stimmen/Testimonials, Funktions- und Case-Listen</strong> ist meist eine offene, redaktionelle Darstellung die bessere Wahl (siehe <a class="body-link" href="#sec-quotes">Offenes Zitat</a>, <a class="body-link" href="#gt-cards-feature">Offene Feature-Liste</a> und <a class="body-link" href="#gt-cards-stat-row">Editoriale Kennzahl-Zeile</a>): direkt auf der Fläche, durch Haarlinien getrennt. Das hält inhaltsdichte Abschnitte luftig und vermeidet den „Kachelwand"-Eindruck, wenn mehrere Karten-Grids aufeinanderfolgen.</p>
       </div>
 
       <!-- Barrierefreiheit -->
