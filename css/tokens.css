@@ -8,7 +8,7 @@
   /* ── AI.Applied ── */
   --ki-500:#B5E61C; --ki-50:#F4FCD5; --ki-100:#E6F8A0; --ki-200:#D6F06D;
   --ki-300:#C8EA42; --ki-400:#BEE82D; --ki-600:#8FAF0E; --ki-700:#6B8208;
-  --ki-800:#475705; --ki-900:#242C02;
+  --ki-800:#475705; --ki-900:#242C02; --ki-ink:var(--ki-800); /* farbiger ki-Text/Icons; flippt im Dark auf --ki-200 (dark-mode.css), da ki-800 dunkel-auf-dunkel wäre */
 
   /* ── Wirksame Organisationen ── */
   --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
