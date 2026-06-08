@@ -1817,10 +1817,10 @@
     <!-- ═══ NAVIGATION ═══ -->
     <section class="ds-section" id="sec-navigation">
       <h1 class="sec-title">Navigation</h1>
-      <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, drei Top-Items (Leistungen · Wissen · Über uns) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
+      <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, drei Top-Items (Leistungen · Wissen · Unternehmen) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
 
       <!-- ── Live-Demo: ep-topnav (Produktion) ── -->
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Über uns), Kontakt-Button rechts. Aktiver Eintrag wird ausschließlich über <code class="token">aria-current="page"</code> + Brand-Petrol-Farbe markiert.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Unternehmen), Kontakt-Button rechts. Aktiver Eintrag wird ausschließlich über <code class="token">aria-current="page"</code> + Brand-Petrol-Farbe markiert.</p>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
@@ -1836,7 +1836,7 @@
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
+            <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -1857,14 +1857,14 @@
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-navigation">Über uns</a>
+            <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
       </div>
 
-      <span class="lbl" style="margin-bottom:var(--s3)">Top-Item-Zustand · Über uns</span>
-      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Direkte Top-Items (Wissen, Über uns) ohne Submenü tragen <code class="token">aria-current="page"</code> selbst.</p>
+      <span class="lbl" style="margin-bottom:var(--s3)">Top-Item-Zustand · Unternehmen</span>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Direkte Top-Items (Wissen, Unternehmen) ohne Submenü tragen <code class="token">aria-current="page"</code> selbst.</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s8)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -1878,7 +1878,7 @@
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Über uns</a>
+            <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Unternehmen</a>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -1888,7 +1888,7 @@
       <!-- ── Topnav-Pattern für Beispielseiten ── -->
       <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Topnav-Pattern (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>) folgt dem festgelegten IA-Schema:</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Leistungen · Wissen · Über uns</strong> + Kontakt-Button (sekundär, outlined). „Leistungen“ bündelt die drei Bereiche in einem Hover-Submenü, „Über uns“ ist der Profil-Hub mit Team, Jobs, Referenzen, Events, Presse.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Leistungen“ bündelt die drei Bereiche in einem Hover-Submenü, „Unternehmen“ ist der Profil-Hub mit Team, Jobs, Referenzen, Events, Presse.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Layout-Anker</h3>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur drei Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
@@ -1919,7 +1919,7 @@
       <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/wissen"</span><span class="k">&gt;</span>Wissen<span class="k">&lt;/a&gt;</span>
-    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/ueber-uns"</span> <span class="v">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Über uns<span class="k">&lt;/a&gt;</span>
+    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/ueber-uns"</span> <span class="v">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Unternehmen<span class="k">&lt;/a&gt;</span>
   <span class="k">&lt;/nav&gt;</span>
   <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined btn-sm"</span><span class="k">&gt;</span>Kontakt<span class="k">&lt;/button&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
@@ -2016,7 +2016,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </thead>
             <tbody>
               <tr><td>Logo</td><td>Immer ganz links, immer sichtbar, Verlässlichkeit in der ersten Sekunde</td></tr>
-              <tr><td>Top-Items</td><td>Drei Einträge: <strong>Leistungen</strong> (Hover-Submenü mit den drei Bereichen), <strong>Wissen</strong>, <strong>Über uns</strong> · kurze, prägnante Labels · aktiver Eintrag in Brand-Petrol via <code class="token">aria-current="page"</code></td></tr>
+              <tr><td>Top-Items</td><td>Drei Einträge: <strong>Leistungen</strong> (Hover-Submenü mit den drei Bereichen), <strong>Wissen</strong>, <strong>Unternehmen</strong> · kurze, prägnante Labels · aktiver Eintrag in Brand-Petrol via <code class="token">aria-current="page"</code></td></tr>
               <tr><td>CTA-Button</td><td>Genau ein <strong>Outlined</strong> Button · Label „Kontakt“ · Brand-Petrol (<code class="token">--co-700</code>) · ganz rechts via <code class="token">margin-left:auto</code></td></tr>
               <tr><td>Layout & Hintergrund</td><td><code class="token">.ep-topnav</code> mit <code class="token">--bg-surface</code> · <code class="token">border-bottom:var(--bd)</code> · Padding <code class="token">var(--s4) var(--s8)</code> (~64&nbsp;px hoch)</td></tr>
             </tbody>
@@ -2051,7 +2051,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div style="display:flex;gap:var(--s5);flex:1;align-items:center">
             <div style="display:inline-flex;align-items:center;gap:var(--s1);font:400 12px/16px var(--font);color:var(--tx-secondary)">Leistungen <span style="opacity:.5">▾</span></div>
             <div style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Wissen</div>
-            <div style="font:600 12px/16px var(--font);color:var(--co-700)">Über uns</div>
+            <div style="font:600 12px/16px var(--font);color:var(--co-700)">Unternehmen</div>
           </div>
           <div style="border:1.5px solid var(--co-700);border-radius:var(--r-full);padding:2px 12px;font:600 12px/16px var(--font);color:var(--co-700);flex-shrink:0">Kontakt</div>
         </div>
@@ -2112,7 +2112,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 2 CTAs im Sub-Strip oder CTAs in den Hero-Caption-Overlay ziehen, das widerspricht dem Markenwert <em>Klar</em> und konkurriert mit der Headline</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Reißerische Headlines mit Ausrufezeichen oder Superlativketten, verstößt gegen <em>Gelassenheit</em></span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vom IA-Schema „Leistungen · Wissen · Über uns“ abweichen oder weitere Top-Items hinzufügen, das verwässert die Customer-Page-Navigation</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vom IA-Schema „Leistungen · Wissen · Unternehmen“ abweichen oder weitere Top-Items hinzufügen, das verwässert die Customer-Page-Navigation</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Dropdown-Menüs rein via CSS <code class="token">:hover</code>, nicht per Tastatur erreichbar; <code class="token">aria-expanded</code> für Toggle nutzen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vollflächige Bereichsfarbe als Sub-Strip-Hintergrund (statt <code class="token">--co-50</code>) oder als Caption-Overlay-Farbe, zu dominant, überschreibt das Ruhig-Gefühl</span></li>
           </ul>
@@ -2277,7 +2277,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td>Angewandte KI</td><td>Leistungs-Achsen: „AI.Engineering · AI.Automation · AI.Box“</td><td><code class="token">--ki-800</code></td></tr>
           <tr><td>Effektive Software</td><td>Leistungs-Achsen: „Engineering · Deployment · Qualität“</td><td><code class="token">--es-700</code></td></tr>
           <tr><td>Wirksame Organisationen</td><td>Leistungs-Achsen: „Change · Leadership · Struktur“</td><td><code class="token">--wo-700</code></td></tr>
-          <tr><td>Über uns</td><td>Profil-Hub-Achsen: „Team · Karriere · Referenzen“</td><td><code class="token">--co-700</code></td></tr>
+          <tr><td>Unternehmen</td><td>Profil-Hub-Achsen: „Team · Karriere · Referenzen“</td><td><code class="token">--co-700</code></td></tr>
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>CTAs pro Page-Typ:</strong> Filled (primär, Selbst-Erschließung) + Outlined (sekundär, Direkt-Kontakt oder Belege), beide in der Bereichsfarbe. Konkrete Verb-Wahl variiert mit der Page, nicht Floskel-Doppel:</p>
@@ -2288,7 +2288,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td>Angewandte KI</td><td>Use Case analysieren</td><td>Fallstudien ansehen</td></tr>
           <tr><td>Effektive Software</td><td>Stack analysieren</td><td>Referenzen ansehen</td></tr>
           <tr><td>Wirksame Organisationen</td><td>Transformation starten</td><td>Ansatz kennenlernen</td></tr>
-          <tr><td>Über uns</td><td>Team kennenlernen</td><td>Karriere</td></tr>
+          <tr><td>Unternehmen</td><td>Team kennenlernen</td><td>Karriere</td></tr>
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> und <em>keine wiederholte Was/Wo-Aussage</em> tragen, sonst entstehen Doppel-Informationen direkt untereinander. Die Lead-Zeile soll Brücke zu den CTAs sein („Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch.“), nicht das Hero-Versprechen echoen.</p>
@@ -5120,7 +5120,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       </div>
 
       <h2 id="gt-footer-subtitle" class="group-title">Optional: Sub-Hierarchie per <code class="token">.footer-subtitle</code></h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aktuell nutzt keine Footer-Spalte eine Sub-Hierarchie. Falls in Zukunft eine Spalte (z.&nbsp;B. „Leistungen“ oder „Über uns“) in Sub-Areas mit eigenen Listen aufgegliedert werden soll, steht dafür die Klasse <code class="token">.footer-subtitle</code> bereit.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Aktuell nutzt keine Footer-Spalte eine Sub-Hierarchie. Falls in Zukunft eine Spalte (z.&nbsp;B. „Leistungen“ oder „Unternehmen“) in Sub-Areas mit eigenen Listen aufgegliedert werden soll, steht dafür die Klasse <code class="token">.footer-subtitle</code> bereit.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><code class="token">.footer-subtitle</code> liefert eine Zwischen-Überschrift auf Label-Größe (12&nbsp;px, helle Neutralfarbe) zwischen Sub-Areas. Sie sitzt eine Stufe unter <code class="token">.footer-htitle</code> (Title-sm) und vermeidet eine zweite, konkurrierende Headline-Ebene innerhalb einer Spalte.</p>
 
       <!-- Code-Beispiel Footer-Struktur -->
@@ -5776,7 +5776,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <div class="code-block">&lt;a <span class="k">class</span>=<span class="s">"ep-nav-btn"</span>
    <span class="k">href</span>=<span class="s">"/ueber-uns"</span>
    <span class="k">aria-current</span>=<span class="s">"page"</span>&gt;
-  Über uns
+  Unternehmen
 &lt;/a&gt;
 
 <span class="k">.ep-nav-btn[aria-current="page"]</span> {
@@ -6790,12 +6790,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
     <!-- ═══ VERANSTALTUNG (DETAIL) ═══ -->
     <section class="ds-section" id="sec-event">
       <h1 class="sec-title">Veranstaltung</h1>
-      <p class="sec-sub">Page-Pattern für die Detail-Seite eines einzelnen Events: Hero-Image, Meta-Strip mit Key-Facts, Sub-Strip mit Anmeldungs-CTAs, Themen-Cards, Agenda, Speaker:innen und Anmeldungs-Form. Liegt in der Topnav unter „Über uns". Die vollständige Komposition steht als <a class="body-link" href="#sec-examples" data-ep="veranstaltung">Beispielseite Veranstaltung · Detail</a>. Die zugehörige Listing-Seite ist als <a class="body-link" href="#sec-events">Veranstaltungsübersicht</a> dokumentiert.</p>
+      <p class="sec-sub">Page-Pattern für die Detail-Seite eines einzelnen Events: Hero-Image, Meta-Strip mit Key-Facts, Sub-Strip mit Anmeldungs-CTAs, Themen-Cards, Agenda, Speaker:innen und Anmeldungs-Form. Liegt in der Topnav unter „Unternehmen". Die vollständige Komposition steht als <a class="body-link" href="#sec-examples" data-ep="veranstaltung">Beispielseite Veranstaltung · Detail</a>. Die zugehörige Listing-Seite ist als <a class="body-link" href="#sec-events">Veranstaltungsübersicht</a> dokumentiert.</p>
 
       <h2 id="gt-event-aufbau" class="group-title">Aufbau</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Detail-Seite hat einen festen Aufbau, der den User vom „Worum geht's?" über „Wann/Wo/Wieviel?" zur Anmeldung führt:</p>
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
-        <li><strong>Topnav</strong> mit „Über uns" als <code class="token">aria-current="page"</code>.</li>
+        <li><strong>Topnav</strong> mit „Unternehmen" als <code class="token">aria-current="page"</code>.</li>
         <li><strong>Hero-Image</strong> (siehe <a class="body-link" href="#gt-nav-hero-image">Hero-Image</a>) mit Eyebrow im Schema „Fokusevent · Format · Preis", H1 (Event-Titel), Lead.</li>
         <li><strong>Meta-Strip</strong>: vier Info-Badges in einem Strip (Datum, Ort, Format, Eintritt). Details unter <a class="body-link" href="#gt-event-meta-strip">Meta-Strip</a>.</li>
         <li><strong>Sub-Strip</strong> in Bereichsfarbe-50 mit Markenrad-Eyebrow, Lead und zwei CTAs („Platz sichern" + „Programm ansehen" als In-Page-Anker).</li>
@@ -7048,7 +7048,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <div class="ep-tabs" role="tablist" aria-label="Beispielseite wählen">
         <button class="ep-tab active" role="tab" aria-selected="true" data-ep="landing" id="eptab-landing" aria-controls="ep-landing">Startseite</button>
-        <button class="ep-tab" role="tab" aria-selected="false" data-ep="co" id="eptab-co" aria-controls="ep-co">Corporate</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="co" id="eptab-co" aria-controls="ep-co">Unternehmen · Überblick</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="co-ueber-uns" id="eptab-co-ueber-uns" aria-controls="ep-co-ueber-uns">Unternehmen · Über uns</button>
+        <button class="ep-tab" role="tab" aria-selected="false" data-ep="co-arbeitgeber" id="eptab-co-arbeitgeber" aria-controls="ep-co-arbeitgeber">Unternehmen · Conciso als Arbeitgeber</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai" id="eptab-ai" aria-controls="ep-ai">Angewandte KI</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai-box" id="eptab-ai-box" aria-controls="ep-ai-box">Angewandte KI · AI.Box</button>
         <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
@@ -7077,7 +7079,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -7385,10 +7394,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </footer>
       </div>
 
-      <!-- ── ÜBER UNS ── -->
+      <!-- ── UNTERNEHMEN · ÜBERBLICK ── -->
       <div class="ep-page" id="ep-co" role="tabpanel" aria-labelledby="eptab-co" tabindex="0">
         <a class="skip-link" href="#ep-co-main">Zum Hauptinhalt springen</a>
-        <!-- Topnav – Über uns hervorgehoben -->
+        <!-- Topnav – Unternehmen / Überblick hervorgehoben -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
@@ -7401,12 +7410,280 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
-        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <!-- Hero -->
         <figure class="hero-image" id="ep-co-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="images/team-coffee.jpg" alt="Conciso-Team im Gespräch an einem Tisch mit Kaffee" loading="eager" style="object-position:center 30%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Unternehmen</p>
+            <h1 class="hero-image-caption-title">Das Unternehmen hinter Conciso.</h1>
+            <p class="hero-image-caption-text">Seit 2016, mit Passion for Software. Unsere Geschichte, unsere Zahlen und die Bereiche dahinter.</p>
+          </figcaption>
+        </figure>
+        <!-- Conciso Story: Timeline in sechs Stationen (Editorial-Zeilen, durch Haarlinien getrennt) -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div style="max-width:840px;margin-inline:auto">
+          <div class="ep-section-label t-co">Unsere Geschichte</div>
+          <h2 class="ep-section-h2">Unsere Geschichte in sechs Stationen.</h2>
+          <p class="ep-section-sub">Von der Gründung 2016 bis zum zehnten Jahr, kurz erzählt.</p>
+          <ul style="list-style:none;margin:0;padding:0">
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2016</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Gründung</p>
+              </div>
+              <div style="padding-bottom:var(--s10)">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„Passion for Software: von Anfang an"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;max-width:640px">Drei Geschäftsführer und vier Mitarbeitende starten Conciso am Westfalendamm in Dortmund, zunächst bei einem Partnerunternehmen mitgenutzt. Tische und Stühle zusammengewürfelt, in Eigenregie zusammengeschraubt. Der Claim „Passion for Software" steht von Anfang an und gilt bis heute.</p>
+              </div>
+            </li>
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2018</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Markenrad</p>
+              </div>
+              <div style="padding-bottom:var(--s10)">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„Energiegeladen, ruhig, klar"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;max-width:640px">Mit 33 Mitarbeitenden wird es eng am Westfalendamm, die Suche nach einem neuen Büro beginnt. Im selben Jahr entsteht das Markenrad: energiegeladen, ruhig, klar. Drei Begriffe, die Conciso bis heute prägen.</p>
+              </div>
+            </li>
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2019</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Pariser Bogen</p>
+              </div>
+              <div style="padding-bottom:var(--s10)">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„Ein neues Zuhause"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s2);max-width:640px">Mit 40 Kolleginnen und Kollegen wird der Pariser Bogen unser neues Zuhause. Die Bauphase begleiten wir aktiv und gestalten unsere Räume mit. Ende 2019 ziehen wir ein.</p>
+                <a class="body-link" href="https://workgarden.de/" target="_blank" rel="noopener">Workgarden mieten <span aria-hidden="true">→</span></a>
+              </div>
+            </li>
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2020</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Rising Digital</p>
+              </div>
+              <div style="padding-bottom:var(--s10)">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„Wir gründen einen Start-up-Wettbewerb"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s2);max-width:640px">43 Mitarbeitende, eine weitere Etage am Pariser Bogen. Im selben Jahr starten wir Rising Digital, unseren Start-up-Wettbewerb. Bis heute fester Bestandteil: 2026 mit Bewerbungsrekord.</p>
+                <a class="body-link" href="https://www.rising-digital.de/" target="_blank" rel="noopener">Rising Digital ansehen <span aria-hidden="true">→</span></a>
+              </div>
+            </li>
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .37-.128.713-.349 1.003-.215.283-.4.604-.4.96v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0-.582-4.717.532.532 0 0 1 .533-.57v0c.355 0 .676.186.959.401.29.221.634.349 1.003.349 1.035 0 1.875-1.007 1.875-2.25s-.84-2.25-1.875-2.25c-.37 0-.713.128-1.003.349-.283.215-.604.401-.96.401v0a.656.656 0 0 1-.658-.663 48.422 48.422 0 0 0 .37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2025</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Orgenic</p>
+              </div>
+              <div style="padding-bottom:var(--s10)">
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„Wir bauen den Verbund aus"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s2);max-width:640px">Mit 70 Mitarbeitenden gründen wir Orgenic, unsere Schwestergesellschaft für Strategieberatung rund um Innovation und Projektführung. Orgenic erweitert das Conciso-Portfolio um eine eigenständige Beratungsperspektive, mit gemeinsamem Standort am Pariser Bogen und engem fachlichen Austausch.</p>
+                <a class="body-link" href="https://orgenic.de/" target="_blank" rel="noopener">orgenic.de besuchen <span aria-hidden="true">→</span></a>
+              </div>
+            </li>
+            <li style="display:grid;grid-template-columns:168px minmax(0,1fr);gap:var(--s8)">
+              <div style="position:relative;text-align:right;padding:0 var(--s10) 0 0">
+                <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"/></svg></span>
+                <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2026</p>
+                <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Jubiläum</p>
+              </div>
+              <div>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">„10 Jahre Passion for Software"</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s2);max-width:640px">Heute sind wir 73 Mitarbeitende und feiern 10 Jahre Conciso. Der Claim von 2016 trägt bis hier und über hier hinaus. Wir suchen weiter Menschen, die den Weg mit uns gehen wollen.</p>
+                <a class="body-link" href="#sec-examples" data-ep="co-arbeitgeber">Offene Stellen ansehen <span aria-hidden="true">→</span></a>
+              </div>
+            </li>
+          </ul>
+          <p style="margin:var(--s10) 0 0;padding-top:var(--s6);border-top:var(--bd)"><a class="body-link" href="#sec-examples" data-ep="co-ueber-uns">Mehr über uns <span aria-hidden="true">→</span></a></p>
+          </div>
+        </div>
+        <!-- Bild-Akzent: Team in Aktion (Übergang Story → Zahlen) -->
+        <figure style="margin:0;height:clamp(280px,32vw,420px);overflow:hidden">
+          <img src="images/workshop-zuhoeren.jpg" alt="Conciso-Team in einer gemeinsamen Arbeitssession am Pariser Bogen" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 18%">
+        </figure>
+        <!-- Zahlen -->
+        <div class="card-stat-strip">
+          <div class="card-stat-flat" data-area="co">
+            <p class="card-stat-flat-value">120+</p>
+            <p class="card-stat-flat-label">abgeschlossene Projekte</p>
+          </div>
+          <div class="card-stat-flat" data-area="co">
+            <p class="card-stat-flat-value">10</p>
+            <p class="card-stat-flat-label">Jahre Erfahrung</p>
+          </div>
+          <div class="card-stat-flat" data-area="co">
+            <p class="card-stat-flat-value">3</p>
+            <p class="card-stat-flat-label">Bereiche</p>
+          </div>
+          <div class="card-stat-flat" data-area="co">
+            <p class="card-stat-flat-value">∞</p>
+            <p class="card-stat-flat-label">Passion for Software</p>
+          </div>
+        </div>
+        <!-- Service-Bereiche -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Mehr entdecken</div>
+          <h2 class="ep-section-h2">Vier Service-Bereiche.</h2>
+          <p class="ep-section-sub">Einstieg in Jobs, Referenzen, Events und Presse.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+            <a class="ep-card ep-card-link" data-area="co" href="#sec-examples" data-ep="co-arbeitgeber" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg></div>
+              <div class="ep-card-title">Jobs</div>
+              <div class="ep-card-text">Offene Stellen bei Conciso.</div>
+              <div class="ep-card-cta">Offene Stellen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="co" href="#" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg></div>
+              <div class="ep-card-title">Referenzen</div>
+              <div class="ep-card-text">Projekte, die wir umgesetzt haben.</div>
+              <div class="ep-card-cta">Referenzen ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="co" href="#sec-examples" data-ep="ev-uebersicht" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
+              <div class="ep-card-title">Events</div>
+              <div class="ep-card-text">Wo Du uns triffst.</div>
+              <div class="ep-card-cta">Events ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="co" href="#" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg></div>
+              <div class="ep-card-title">Presse</div>
+              <div class="ep-card-text">Pressekontakt und Mitteilungen.</div>
+              <div class="ep-card-cta">Zur Presse <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--co-700);color:#fff;text-align:left">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s8);align-items:center;max-width:960px;margin-inline:auto">
+            <figure style="margin:0;position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:300px">
+              <img src="images/beratung-gespraech.jpg" alt="Zwei Personen im Gespräch an einem Tisch" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+            </figure>
+            <div>
+              <h2 class="ep-cta-h2">Lernen wir uns kennen?</h2>
+              <p class="ep-cta-sub">Erzähl uns, was Du vorhast, oder komm in Dortmund auf einen Kaffee vorbei.</p>
+              <button class="btn btn-filled btn-co btn-on-band">Gespräch vereinbaren</button>
+            </div>
+          </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── UNTERNEHMEN · ÜBER UNS ── -->
+      <div class="ep-page" id="ep-co-ueber-uns" role="tabpanel" aria-labelledby="eptab-co-ueber-uns" tabindex="0">
+        <a class="skip-link" href="#ep-co-ueber-uns-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Unternehmen / Über uns hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
+          </nav>
+          <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
+        </div>
+        <!-- Breadcrumb: Startseite / Unternehmen / Über uns -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="co">Unternehmen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Über uns</span>
+          </nav>
+        </div>
+        <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
+        <figure class="hero-image" id="ep-co-ueber-uns-main" tabindex="-1">
           <div class="hero-image-media">
             <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="eager" style="object-position:center 10%">
           </div>
@@ -7568,6 +7845,114 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </footer>
       </div>
 
+      <!-- ── UNTERNEHMEN · CONCISO ALS ARBEITGEBER (Stub – Copy folgt) ── -->
+      <div class="ep-page" id="ep-co-arbeitgeber" role="tabpanel" aria-labelledby="eptab-co-arbeitgeber" tabindex="0">
+        <a class="skip-link" href="#ep-co-arbeitgeber-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Unternehmen / Arbeitgeber hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
+          </nav>
+          <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
+        </div>
+        <!-- Breadcrumb: Startseite / Unternehmen / Conciso als Arbeitgeber -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="co">Unternehmen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Conciso als Arbeitgeber</span>
+          </nav>
+        </div>
+        <!-- Platzhalter: Inhalt folgt -->
+        <div class="ep-section" id="ep-co-arbeitgeber-main" tabindex="-1" style="background:var(--co-50);text-align:center;padding-block:var(--s12)">
+          <div class="ep-section-label t-co" style="justify-content:center">Unternehmen</div>
+          <h1 class="ep-section-h2">Conciso als Arbeitgeber</h1>
+          <p class="ep-section-sub" style="max-width:560px;margin-inline:auto">Diese Seite wird gerade aufgebaut. Kultur, Zusammenarbeit, Benefits und offene Stellen folgen in Kürze.</p>
+          <button class="btn btn-outlined btn-co" type="button">Initiativ bewerben</button>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
       <!-- ── ANGEWANDTE KI ── -->
       <div class="ep-page" id="ep-ai" role="tabpanel" aria-labelledby="eptab-ai" tabindex="0">
         <a class="skip-link" href="#ep-ai-main">Zum Hauptinhalt springen</a>
@@ -7584,7 +7969,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -7845,7 +8237,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -8281,7 +8680,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -8436,7 +8842,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -8591,7 +9004,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -8843,7 +9263,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -9171,7 +9598,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <!-- ── VERANSTALTUNGEN · ÜBERSICHT ── -->
       <div class="ep-page" id="ep-ev-uebersicht" role="tabpanel" aria-labelledby="eptab-ev-uebersicht" tabindex="0">
         <a class="skip-link" href="#ep-ev-uebersicht-main">Zum Hauptinhalt springen</a>
-        <!-- Topnav – Über uns hervorgehoben (Veranstaltungen liegen dort) -->
+        <!-- Topnav – Unternehmen hervorgehoben (Veranstaltungen liegen dort) -->
         <div class="ep-topnav">
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
@@ -9184,7 +9611,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
-            <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
@@ -9472,7 +9906,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
-            <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="co">Über uns</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+              </div>
+            </div>
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>

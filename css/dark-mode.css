@@ -99,6 +99,8 @@
    filter:brightness(.75) verschlimmerte das auf bis zu 1.7:1). Glyph daher bereichsweise auf den
    hellen --XX-100-Ton heben (13.8–15.6:1). CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
 [data-theme="dark"] .ep-card-icon[data-area="co"] svg { stroke: var(--co-100) }
+/* Timeline-Marker: co-50-Tile wird im Dark dunkel → Icon auf helles co-100 heben */
+[data-theme="dark"] .ep-tl-icon svg { stroke: var(--co-100) }
 [data-theme="dark"] .ep-card-icon[data-area="ki"] svg { stroke: var(--ki-100) }
 [data-theme="dark"] .ep-card-icon[data-area="es"] svg { stroke: var(--es-100) }
 [data-theme="dark"] .ep-card-icon[data-area="wo"] svg { stroke: var(--wo-100) }

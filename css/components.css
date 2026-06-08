@@ -652,6 +652,9 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
+/* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+.ep-tl-icon svg{width:20px;height:20px}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
