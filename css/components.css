@@ -682,7 +682,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
 .ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── FAQ-Accordion (native details/summary) ── */
-.ep-faq{max-width:760px}
+.ep-faq{max-width:none}
 .ep-faq details{border-top:var(--bd)}
 .ep-faq details:last-of-type{border-bottom:var(--bd)}
 .ep-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s4) 0;font:var(--ty-title-sm);color:var(--tx-primary)}
