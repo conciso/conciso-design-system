@@ -156,6 +156,29 @@
 .testimonial blockquote{font:var(--ty-serif-sm);color:var(--tx-primary);margin:0;quotes:none;flex:1}
 .testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}.testimonial-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
 .testimonial-role{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0;font-style:normal}
+/* Team-Stimmen: editoriale Reihen, Foto seitlich (abwechselnd L/R), fotostark für Repräsentation. Eigene Variante, lässt .testimonial unberührt. */
+.team-voices{display:flex;flex-direction:column;gap:var(--s6)}
+.team-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
+.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-200)}
+.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-200)}
+.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-200)}
+.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-200)}
+.team-voice-media{margin:0}
+.team-voice-media img{display:block;width:100%;height:100%;min-height:300px;object-fit:cover}
+.team-voice-body{padding:var(--s8);display:flex;flex-direction:column;gap:var(--s5);justify-content:center}
+.team-voice-icon{width:36px;height:36px;color:var(--t-accent,var(--co-500));opacity:.25;flex-shrink:0}
+.team-voice-quote{font:var(--ty-serif-md);color:var(--tx-primary);margin:0;quotes:none}
+.team-voice-footer{display:flex;flex-direction:column;gap:var(--s1)}
+.team-voice-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
+.team-voice-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
+.team-voice:nth-child(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.team-voice:nth-child(even) .team-voice-media{grid-column:2;grid-row:1}
+.team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:1}
+@media(max-width:768px){
+  .team-voice,.team-voice:nth-child(even){grid-template-columns:1fr}
+  .team-voice:nth-child(even) .team-voice-media{grid-column:1;grid-row:1}
+  .team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:2}
+}
 /* Stat Card */
 /* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
 .card-stat{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}

@@ -111,6 +111,10 @@
 [data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
+[data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
+[data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
+[data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
+[data-theme="dark"] .team-voice[data-area="wo"] { border-color: var(--wo-800) }
 [data-theme="dark"] .ep-tier-label[data-area="ki"] { color: var(--ki-100) }
 [data-theme="dark"] .card-stat-strip { background: var(--bg-surface) }
 [data-theme="dark"] .card-stat-flat[data-area="co"] .card-stat-flat-value { color: var(--co-200) }
