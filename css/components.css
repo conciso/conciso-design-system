@@ -13,7 +13,7 @@
 .bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
 .bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
 .bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.8px}
-.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd);box-shadow:var(--e1)}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd-strong)}
 .bw-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
 .bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
 
@@ -51,7 +51,7 @@
 .btn-full {width:100%;justify-content:center}
 
 /* ── Showcase containers ── */
-.ds-card   {border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1);display:flex;flex-direction:column;flex:1}
+.ds-card   {border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;flex:1}
 .ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
 .ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
 .clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
@@ -146,7 +146,8 @@
 .bq-role{font:var(--ty-body-xs);color:var(--tx-secondary);font-style:normal}
 
 /* ── Testimonial Card ── */
-.testimonial{background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--t-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6);margin:0;box-shadow:var(--e1);display:flex;flex-direction:column;gap:var(--s4)}
+/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.testimonial{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--t-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6);margin:0;display:flex;flex-direction:column;gap:var(--s4)}
 .testimonial[data-area="co"]{--t-accent:var(--co-500)}
 .testimonial[data-area="ki"]{--t-accent:var(--ki-500)}
 .testimonial[data-area="es"]{--t-accent:var(--es-500)}
@@ -156,7 +157,8 @@
 .testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}.testimonial-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
 .testimonial-role{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0;font-style:normal}
 /* Stat Card */
-.card-stat{background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);box-shadow:var(--e1);display:flex;flex-direction:column;gap:var(--s2)}
+/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.card-stat{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
 .card-stat[data-area="co"]{--st-accent:var(--co-500)}
 .card-stat[data-area="ki"]{--st-accent:var(--ki-500)}
 .card-stat[data-area="es"]{--st-accent:var(--es-500)}
@@ -600,7 +602,9 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6)}
 /* Padding 24 (--s6) statt 20 (--s5), damit Innen-Atem ≥ 1,5× Außen-Gap (--s4 = 16 px).
    Sonst lösen sich die Cards visuell auf — Innen- und Außenabstand wären zu nah beieinander. */
-.ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);box-shadow:var(--e1)}
+/* Konvention „Elevation = Interaktivität": statische Cards ruhen flach mit Rahmen (--bd-strong),
+   kein Schatten. Schatten ist interaktiven Cards (.ep-card-link) vorbehalten → eindeutiges Affordanz-Signal. */
+.ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
 .ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
@@ -614,7 +618,9 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2)}
 .ep-card-text{font:var(--ty-body-md);color:var(--tx-secondary)}
 /* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
-.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast)}
+/* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
+   border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast)}
 .ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
 .ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
 /* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
@@ -630,6 +636,22 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 /* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
    padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
 .card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
+/* ── Offene Feature-Liste (flaches Icon-Layout, gruppiert nach Tier; Alternative zu Bild-Cards) ── */
+.ep-feature{display:flex;gap:var(--s4)}
+/* Icon-Kachel: Glyph hat AA-Kontrast zur Kachel — Core tx-secondary/n-100 5.3:1, Pro ki-800/ki-50 7.5:1.
+   tx-secondary + n-100 sind theme-aware, Core flippt also automatisch (Dark 6.0:1).
+   Pro braucht einen Dark-Override, weil --ki-800 dunkel bleibt, --ki-50 aber dunkel wird → dark-mode.css. */
+.ep-feature-icon{flex:0 0 48px;width:48px;height:48px;border-radius:var(--r-sm);display:inline-flex;align-items:center;justify-content:center;background:var(--n-100);color:var(--tx-secondary)}
+.ep-feature-icon svg{width:26px;height:26px}
+.ep-feature-icon[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.ep-feature-body{display:flex;flex-direction:column;gap:var(--s1)}
+.ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
+.ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+/* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
+.ep-tier{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s6)}
+.ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
+.ep-tier-label[data-area="ki"]{color:var(--ki-800)}
+.ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}

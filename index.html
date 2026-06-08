@@ -106,6 +106,7 @@
       <a class="nav-sub-item" href="#gt-elev-shadow">Shadow Elevation</a>
       <a class="nav-sub-item" href="#gt-elev-tonal">Tonal Elevation</a>
       <a class="nav-sub-item" href="#gt-elev-verwendung">Verwendung</a>
+      <a class="nav-sub-item" href="#gt-elev-interaktiv">Interaktiv vs. statisch</a>
     </div>
     <button class="nav-item" data-section="icons">
       <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"/></svg>Icons
@@ -1747,6 +1748,33 @@
         </div>
       </div>
 
+      <h2 id="gt-elev-interaktiv" class="group-title">Interaktiv vs. statisch</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Elevation ist ein <strong>Affordanz-Signal, kein Dekor</strong>: Eine erhöhte Fläche suggeriert „anfassbar". Damit das Signal trägt, ruhen <strong>statische</strong> Karten flach mit Rahmen (<code class="token">--bd-strong</code>, Level <code class="token">--e0</code>); Schatten bleibt <strong>interaktiven</strong> Karten vorbehalten. Tragen beide denselben Ruhe-Schatten, ist Klickbarkeit erst per Hover erfahrbar, schlecht auffindbar und für die Schnell-Erfassung mehrdeutig.</p>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <span class="lbl">✓ Statisch · ruht flach</span>
+          <div style="border:var(--bd-strong);border-top:4px solid var(--ki-500);border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface)">
+            <span class="el-lbl">Rahmen, kein Schatten</span>
+            <div style="font:400 13px/18px var(--font);color:var(--tx-secondary)">Stat-Karte · Testimonial · Info-/Feature-Karte</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <span class="lbl">✓ Interaktiv · ruht auf --e1, hebt auf Hover</span>
+          <div style="box-shadow:var(--e1);border-top:4px solid var(--ki-500);border-radius:var(--r-lg);padding:var(--s5);background:var(--bg-surface)">
+            <span class="el-lbl">Schatten + Hover-Lift → --e3</span>
+            <div style="font:400 13px/18px var(--font);color:var(--tx-secondary)">Klickbare Karte / Link-Karte</div>
+          </div>
+        </div>
+      </div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Typ</th><th>Ruhezustand</th><th>Hover/Focus</th><th>Klassen</th></tr></thead>
+        <tbody>
+          <tr><td>Statisch</td><td><code class="token">--e0</code> + <code class="token">--bd-strong</code></td><td>unverändert</td><td><code class="token">.ep-card</code> · <code class="token">.card-stat</code> · <code class="token">.testimonial</code> · <code class="token">.ds-card</code> · <code class="token">.bw-pillar-card</code></td></tr>
+          <tr><td>Interaktiv</td><td><code class="token">--e1</code></td><td><code class="token">--e3</code> + <code class="token">translateY(-2px)</code></td><td><code class="token">.ep-card-link</code></td></tr>
+          <tr><td>Elevation-Opt-in</td><td><code class="token">--e1</code></td><td><code class="token">--e2</code> + Lift</td><td><code class="token">.card-elevated</code> (bewusst erhöht, überwiegend auf Links)</td></tr>
+        </tbody>
+      </table>
+
       <!-- Barrierefreiheit -->
       <div class="doc-eyebrow" style="margin-top:var(--s8)">Barrierefreiheit</div>
       <table class="doc-table" style="margin-bottom:var(--s8)">
@@ -3114,7 +3142,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       <div class="ep-cards" style="margin-bottom:var(--s8)">
         <a class="ep-card ep-card-link" data-area="ki" href="#sec-cards" style="border-top:4px solid var(--ki-500)">
-          <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/></svg></div>
+          <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="12" r="2.5"/></svg></div>
           <div class="ep-card-eyebrow" data-area="ki">Demo-Eyebrow</div>
           <div class="ep-card-title">Beispiel-Karten-Titel</div>
           <div class="ep-card-text">Beschreibung mit <strong>Markenrad-Adjektiv</strong> als Hervorhebung, Beispiel für die Adjektiv-Pattern in Karten-Texten.</div>
@@ -7056,7 +7084,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-cards">
             <!-- Angewandte KI -->
             <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
               <div class="ep-card-title">KI mit Wirkung</div>
               <div class="ep-card-text">Liefert, wenn die Demo vorbei ist.</div>
@@ -7064,7 +7092,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <!-- Effektive Software -->
             <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
-              <div class="ep-card-icon" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
               <div class="ep-card-title">Präzise Systeme</div>
               <div class="ep-card-text">Lebt, wenn der Hype vorbei ist.</div>
@@ -7072,7 +7100,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <!-- Wirksame Organisationen -->
             <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
               <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
               <div class="ep-card-title">Wandel, der trägt</div>
               <div class="ep-card-text">Bleibt, wenn wir gehen.</div>
@@ -7366,17 +7394,17 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten. Übersetzt in jeden Kontakt mit unseren Kunden.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
-              <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
               <div class="ep-card-title">Ruhig</div>
               <div class="ep-card-text">Verlässlich, selbstsicher, kompetent. Wir versprechen nicht zu viel und halten, was wir zusagen.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
-              <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
               <div class="ep-card-title">Klar</div>
               <div class="ep-card-text">Aufmerksam, präzise, pragmatisch. Wir kommen schnell zum Punkt, ohne wichtige Details zu überspringen.</div>
             </div>
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
-              <div class="ep-card-icon" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
               <div class="ep-card-title">Energiegeladen</div>
               <div class="ep-card-text">Kraftvoll, agil, leidenschaftlich. Wir packen mit an, wo es zählt, und bleiben am Ball, bis es wirkt.</div>
             </div>
@@ -7549,19 +7577,19 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Wir begleiten Dich durch den gesamten KI-Lifecycle, von der Strategiefindung bis zum produktiven System.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
               <div class="ep-card-title">AI.Engineering</div>
               <div class="ep-card-text">GPT, Claude & Co. sicher integriert. Mit RAG, Fine-Tuning und Enterprise-Guardrails.</div>
               <div class="ep-card-cta">AI.Engineering ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
               <div class="ep-card-title">AI.Automation</div>
               <div class="ep-card-text">Repetitive Aufgaben automatisieren. Mit KI-Agenten und intelligenten Workflows.</div>
               <div class="ep-card-cta">Automation entdecken <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai-box" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
               <div class="ep-card-title">AI.Box</div>
               <div class="ep-card-text">Schlüsselfertige KI-Bausteine: vorkonfiguriert, sicher in Deine Infrastruktur deployed, mit klarem Funktionsumfang.</div>
               <div class="ep-card-cta">AI.Box konfigurieren <span aria-hidden="true">→</span></div>
@@ -7820,27 +7848,27 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Worauf es bei KI im Unternehmen ankommt, kompakt zusammengefasst.</p>
           <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
               <div class="ep-card-title">Mehr Sicherheit</div>
               <div class="ep-card-text">Deine Daten bleiben unter Deiner Kontrolle, ohne Umweg über fremde Clouds. Volle Datensouveränität, vom ersten Tag an.</div>
             </div>
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
               <div class="ep-card-title">Mehr Leistung</div>
               <div class="ep-card-text">Mehrere KI-Modelle, Automatisierung und autonome Agenten in einer Plattform. Für mehr als nur Chat.</div>
             </div>
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"/></svg></div>
               <div class="ep-card-title">Mehr Flexibilität</div>
               <div class="ep-card-text">Multi-Modell-fähig, erweiterbar und individualisierbar. AI.Box passt sich Deinen Anforderungen an, nicht umgekehrt.</div>
             </div>
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
               <div class="ep-card-title">Einfaches Management</div>
               <div class="ep-card-text">Alle Bausteine über ein zentrales Interface steuern. Ein Ort für Konfiguration, Rollen und Betrieb.</div>
             </div>
             <div class="ep-card" data-area="ki" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.28m5.94 2.28-2.28 5.941"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.28m5.94 2.28-2.28 5.941"/></svg></div>
               <div class="ep-card-title">Mehr Wertschöpfung</div>
               <div class="ep-card-text">Schneller innovieren, Kosten senken. KI wird vom Projekt zum produktiven Werkzeug.</div>
             </div>
@@ -7851,61 +7879,59 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-section-label" style="color:var(--ki-800)">Funktionen</div>
           <h2 class="ep-section-h2">Was die Plattform kann</h2>
           <p class="ep-section-sub">Von sicherem Hosting bis zu eigenen KI-Agenten, der volle Funktionsumfang in einem System.</p>
-          <div class="layout-grid" style="align-items:stretch">
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <div class="card-title"><span>Höchste Sicherheit</span></div>
-                <div class="card-text">Hosting in Deiner eigenen Infrastruktur oder in einem ISO/IEC 27001-zertifizierten Rechenzentrum in Deutschland. Enterprise-Authentifizierung inklusive SSO.</div>
-              </div>
-            </div>
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <div class="card-title"><span>Komfortable Multi-Modell-Verwaltung</span></div>
-                <div class="card-text">Mehrere KI-Modelle parallel nutzen, lokal oder cloud-basiert. Der Wechsel passiert nahtlos mitten im Chat.</div>
+          <!-- Core-Funktionen: in jedem Paket enthalten. Offenes Icon-Layout statt Cards (keine Box/Schatten), gruppiert nach Tier. -->
+          <div class="ep-tier">
+            <span class="ep-tier-label">In jedem Paket enthalten</span>
+            <span class="ep-tier-rule" aria-hidden="true"></span>
+          </div>
+          <div class="layout-grid" style="margin-bottom:var(--s10)">
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Höchste Sicherheit</h3>
+                <p class="ep-feature-text">Hosting in Deiner eigenen Infrastruktur oder in einem ISO/IEC 27001-zertifizierten Rechenzentrum in Deutschland. Enterprise-Authentifizierung inklusive SSO.</p>
               </div>
             </div>
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <div class="card-title"><span>Kontextspezifische und organisierte Chats</span></div>
-                <div class="card-text">Dateien hochladen und kontextbezogene Antworten erhalten. Ordner, Tags, Suche und Export halten alles geordnet.</div>
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Komfortable Multi-Modell-Verwaltung</h3>
+                <p class="ep-feature-text">Mehrere KI-Modelle parallel nutzen, lokal oder cloud-basiert. Der Wechsel passiert nahtlos mitten im Chat.</p>
               </div>
             </div>
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Pro</span>
-                <div class="card-title"><span>Unternehmensspezifische KI-Assistenten</span></div>
-                <div class="card-text">Maßgeschneiderte Assistenten mit eigenen Wissensdatenbanken und System-Prompts, passend zu Deinen Aufgaben.</div>
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Kontextspezifische und organisierte Chats</h3>
+                <p class="ep-feature-text">Dateien hochladen und kontextbezogene Antworten erhalten. Ordner, Tags, Suche und Export halten alles geordnet.</p>
               </div>
             </div>
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-              </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <div class="card-title"><span>Flexible Datenanbindung</span></div>
-                <div class="card-text">Konnektoren für SharePoint, Confluence und Fileserver, mit granularen Berechtigungen bis auf Dokumentebene.</div>
+          </div>
+          <!-- Pro-Funktionen: zusätzlich im Pro-Paket. ki-Accent-Kacheln heben das Upsell-Tier ab. -->
+          <div class="ep-tier">
+            <span class="ep-tier-label" data-area="ki">Zusätzlich mit Pro</span>
+            <span class="ep-tier-rule" aria-hidden="true"></span>
+          </div>
+          <div class="layout-grid">
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" data-area="ki" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Unternehmensspezifische KI-Assistenten</h3>
+                <p class="ep-feature-text">Maßgeschneiderte Assistenten mit eigenen Wissensdatenbanken und System-Prompts, passend zu Deinen Aufgaben.</p>
               </div>
             </div>
-            <div class="card card-elevated col-4" data-area="ki" style="display:flex;flex-direction:column">
-              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" data-area="ki" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Flexible Datenanbindung</h3>
+                <p class="ep-feature-text">Konnektoren für SharePoint, Confluence und Fileserver, mit granularen Berechtigungen bis auf Dokumentebene.</p>
               </div>
-              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
-                <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Pro</span>
-                <div class="card-title"><span>Maximale Individualisierung</span></div>
-                <div class="card-text">MCP-Server, Pipes, Actions und Filter für eigene Workflows und RAG-Systeme. Über die Anbindung an n8n entstehen autonome Agenten.</div>
+            </div>
+            <div class="ep-feature col-4">
+              <span class="ep-feature-icon" data-area="ki" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.49l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Maximale Individualisierung</h3>
+                <p class="ep-feature-text">MCP-Server, Pipes, Actions und Filter für eigene Workflows und RAG-Systeme. Über die Anbindung an n8n entstehen autonome Agenten.</p>
               </div>
             </div>
           </div>
@@ -8076,15 +8102,17 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-section-label" style="color:var(--ki-800)">Weitere KI-Lösungen</div>
           <h2 class="ep-section-h2">Mehr aus Angewandte KI</h2>
           <p class="ep-section-sub">AI.Box ist einer von drei Bausteinen. Diese beiden ergänzen sie.</p>
-          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z"/></svg></div>
               <div class="ep-card-title">KI sauber in Deine Software integrieren?</div>
+              <div class="ep-card-text">GPT, Claude und Co. sicher integriert, mit RAG, Fine-Tuning und Enterprise-Guardrails.</div>
               <div class="ep-card-cta">AI.Engineering ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="ki" href="#" style="border-top:4px solid var(--ki-500)">
-              <div class="ep-card-icon" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></div>
               <div class="ep-card-title">Mitarbeitende von Routineaufgaben entlasten?</div>
+              <div class="ep-card-text">Repetitive Aufgaben automatisieren, mit KI-Agenten und intelligenten Workflows.</div>
               <div class="ep-card-cta">AI.Automation entdecken <span aria-hidden="true">→</span></div>
             </a>
           </div>
@@ -8206,19 +8234,19 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Wir tragen Verantwortung für Deinen Tech-Stack: von der Architektur bis zum laufenden Betrieb.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--es-500)">
-              <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></div>
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg></div>
               <div class="ep-card-title">Software Engineering</div>
               <div class="ep-card-text">Clean Code, SOLID-Prinzipien und Domain-Driven Design. Software, die wächst, ohne zu brechen.</div>
               <div class="ep-card-cta">Engineering ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--es-500)">
-              <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"/></svg></div>
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"/></svg></div>
               <div class="ep-card-title">DevOps & Deployment</div>
               <div class="ep-card-text">CI/CD-Pipelines, Container-Orchestrierung und automatisierte Deployments für maximale Reliabilität.</div>
               <div class="ep-card-cta">Deployment ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--es-500)">
-              <div class="ep-card-icon" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg></div>
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg></div>
               <div class="ep-card-title">Qualitätssicherung</div>
               <div class="ep-card-text">Automatisierte Tests, Code Reviews und Monitoring. 99,9 % Uptime, null kritische Incidents.</div>
               <div class="ep-card-cta">Qualitätssicherung ansehen <span aria-hidden="true">→</span></div>
@@ -8361,19 +8389,19 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Wir verbinden strategische Klarheit mit menschlicher Wärme. Für Transformationen, die ankommen.</p>
           <div class="ep-cards">
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
               <div class="ep-card-title">Change Management</div>
               <div class="ep-card-text">Strukturierte Transformationsbegleitung mit klarem Fahrplan, messbaren Meilensteinen und echtem Commitment.</div>
               <div class="ep-card-cta">Change-Begleitung ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
               <div class="ep-card-title">Leadership Development</div>
               <div class="ep-card-text">Wir stärken Führungskräfte mit Coaching, Workshops und Programmen, die auf Deinen Kontext zugeschnitten sind.</div>
               <div class="ep-card-cta">Leadership ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></div>
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></div>
               <div class="ep-card-title">Organisationsdesign</div>
               <div class="ep-card-text">Strukturen, Prozesse und Rollen neu gestalten. Für mehr Agilität, Klarheit und Handlungsfähigkeit.</div>
               <div class="ep-card-cta">Organisationsdesign ansehen <span aria-hidden="true">→</span></div>
