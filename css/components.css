@@ -608,7 +608,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
 .ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
-.ep-card-icon svg{width:32px;height:32px}
+.ep-card-icon svg{width:32px;height:32px;stroke-width:var(--icon-stroke-md)}
 /* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
 .ep-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)}
 .ep-card-eyebrow[data-area="co"]{color:var(--co-700)}
@@ -654,7 +654,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
 .ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
-.ep-tl-icon svg{width:20px;height:20px}
+.ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── Download CTA ── */
 .cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
