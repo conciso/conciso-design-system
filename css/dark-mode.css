@@ -108,6 +108,9 @@
    Pro-Glyph + Tier-Label daher auf das helle --ki-100 umstellen (Icon 15.6:1, Label 16.2:1).
    Core (tx-secondary/n-100) ist theme-aware und braucht keinen Override. */
 [data-theme="dark"] .ep-feature-icon[data-area="ki"] { color: var(--ki-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
 [data-theme="dark"] .ep-tier-label[data-area="ki"] { color: var(--ki-100) }
 [data-theme="dark"] .card-stat-strip { background: var(--bg-surface) }
 [data-theme="dark"] .card-stat-flat[data-area="co"] .card-stat-flat-value { color: var(--co-200) }
