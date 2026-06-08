@@ -278,6 +278,7 @@
       <a class="nav-sub-item" href="#gt-article-team-tiles">Team-Tile-Grid</a>
       <a class="nav-sub-item" href="#gt-article-multi-author">Mehrere Autor:innen</a>
       <a class="nav-sub-item" href="#gt-article-faq">FAQ-Akkordeon</a>
+      <a class="nav-sub-item" href="#gt-article-timeline">Story-Zeitstrahl</a>
       <a class="nav-sub-item" href="#gt-article-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="listing">
@@ -6736,6 +6737,55 @@ document.querySelectorAll(
           <tr><td>Fokus</td><td>Der Standard-Marker wird entfernt, der Chevron ersetzt ihn rein dekorativ (<code class="token">aria-hidden="true"</code>); <code class="token">summary:focus-visible</code> trägt den Focus-Ring</td></tr>
           <tr><td>Inhalt</td><td>Eine Frage je <code class="token">&lt;summary&gt;</code> (keine Doppelfragen), Antwort als <code class="token">&lt;p&gt;</code></td></tr>
           <tr><td>Dark-Mode</td><td>Theme-aware Tokens (Trennlinien, Text), keine Overrides nötig</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-article-timeline" class="group-title">Story-Zeitstrahl</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Editorialer vertikaler Zeitstrahl für Unternehmens-Historie oder mehrstufige Stories (erprobt auf <em>Unternehmen · Überblick</em>, „Conciso Story"). Aufbau: <code class="token">&lt;ul&gt;</code> mit einer <code class="token">&lt;li&gt;</code> je Station als zweispaltiges Grid (<code class="token">168px minmax(0,1fr)</code>). Die linke Spalte ist die <strong>Schiene</strong> (<code class="token">border-right</code> in <code class="token">--co-100</code>) mit Jahr (<code class="token">--ty-display-sm</code>, <code class="token">.t-co</code>), Kurzlabel und dem Marker <code class="token">.ep-tl-icon</code>, der per <code class="token">right:-20px</code> auf der Linie sitzt; rechts Titel und Text. In einer zentrierten Spalte (max.&nbsp;840&nbsp;px) ruhig lesbar.</p>
+      <div style="max-width:760px;margin-bottom:var(--s6)">
+        <ul style="list-style:none;margin:0;padding:0">
+          <li style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:var(--s8)">
+            <div style="position:relative;text-align:right;padding:0 var(--s10) var(--s10) 0;border-right:2px solid var(--co-100)">
+              <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span>
+              <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2016</p>
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Gründung</p>
+            </div>
+            <div style="padding-bottom:var(--s10)">
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Der Start</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Kurzer, beschreibender Text zur Station. Die Haarlinie und der Marker tragen die Struktur, die Jahreszahl die Energie.</p>
+            </div>
+          </li>
+          <li style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:var(--s8)">
+            <div style="position:relative;text-align:right;padding:0 var(--s10) 0 0;border-right:2px solid var(--co-100)">
+              <span class="ep-tl-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></span>
+              <p class="t-co" style="font:var(--ty-display-sm);line-height:1;margin:0">2026</p>
+              <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-muted);margin:var(--s1) 0 0">Heute</p>
+            </div>
+            <div>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Zehn Jahre</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Letzte Station ohne untere Innenabstand-Linie: <code class="token">padding</code> rechts statt unten, damit die Schiene am Inhalt endet.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="doc-eyebrow">Klassen &amp; Aufbau</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Baustein</th><th>Rolle</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">&lt;ul&gt;</code> / <code class="token">&lt;li&gt;</code></td><td>Stationen-Liste; je Station ein 2-Spalten-Grid (Schiene + Inhalt)</td></tr>
+          <tr><td>Schiene</td><td>Linke Spalte mit <code class="token">border-right:2px solid var(--co-100)</code> als durchgehende Linie; <code class="token">text-align:right</code></td></tr>
+          <tr><td><code class="token">.ep-tl-icon</code></td><td>38&nbsp;px-Marker (Kreis <code class="token">--co-50</code> + Icon <code class="token">--co-800</code>), <code class="token">position:absolute; right:-20px</code> auf der Schiene; Ring aus <code class="token">--bg-surface</code> hebt ihn von der Linie ab</td></tr>
+          <tr><td>Jahr + Label</td><td>Jahr <code class="token">.t-co</code> / <code class="token">--ty-display-sm</code>; Label darunter <code class="token">--ty-label-xs</code> uppercase, <code class="token">tx-muted</code></td></tr>
+          <tr><td>Inhalt</td><td>Titel als <code class="token">&lt;h3&gt;</code> (<code class="token">--ty-title-sm</code>) + Text <code class="token">--ty-body-md</code></td></tr>
+        </tbody>
+      </table>
+      <div class="doc-eyebrow">Barrierefreiheit &amp; Dark-Mode</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Semantik</td><td>Echte Liste (<code class="token">&lt;ul&gt;/&lt;li&gt;</code>); Marker-Icon dekorativ (<code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code>), die Jahreszahl trägt die Information als Text</td></tr>
+          <tr><td>Dark-Mode</td><td>Marker-Glyph wird im Dark auf <code class="token">--co-100</code> gehoben (sonst dunkel-auf-dunkel), Override in dark-mode.css; das <code class="token">.t-co</code>-Jahr flippt auf <code class="token">co-200</code></td></tr>
+          <tr><td>Bereichsfarbe</td><td>Standard <code class="token">co</code>. Das <code class="token">.t-co</code>-Jahr folgt <a class="body-link" href="#gt-areas-komponenten">data-accent</a>; der <code class="token">.ep-tl-icon</code>-Marker ist aktuell <code class="token">co</code>-fix (nicht <code class="token">data-area</code>-parametrisiert)</td></tr>
         </tbody>
       </table>
 
