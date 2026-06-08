@@ -665,7 +665,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
    tx-secondary + n-100 sind theme-aware, Core flippt also automatisch (Dark 6.0:1).
    Pro braucht einen Dark-Override, weil --ki-800 dunkel bleibt, --ki-50 aber dunkel wird → dark-mode.css. */
 .ep-feature-icon{flex:0 0 48px;width:48px;height:48px;border-radius:var(--r-sm);display:inline-flex;align-items:center;justify-content:center;background:var(--n-100);color:var(--tx-secondary)}
-.ep-feature-icon svg{width:26px;height:26px}
+.ep-feature-icon svg{width:26px;height:26px;stroke-width:var(--icon-stroke-md)}
 .ep-feature-icon[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
 .ep-feature-icon[data-area="co"]{background:var(--co-50);color:var(--co-800)}
 .ep-feature-icon[data-area="es"]{background:var(--es-50);color:var(--es-800)}

@@ -213,6 +213,8 @@
     <div class="nav-subnav" data-for="quotes">
       <a class="nav-sub-item" href="#gt-quotes-blockquote">Blockquote</a>
       <a class="nav-sub-item" href="#gt-quotes-testimonial">Testimonial-Card</a>
+      <a class="nav-sub-item" href="#gt-quotes-team-voice">Team-Stimme (mit Foto)</a>
+      <a class="nav-sub-item" href="#gt-quotes-offen">Offenes Zitat</a>
       <a class="nav-sub-item" href="#gt-quotes-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="code">
@@ -275,6 +277,7 @@
       <a class="nav-sub-item" href="#gt-article-author">Author Card</a>
       <a class="nav-sub-item" href="#gt-article-team-tiles">Team-Tile-Grid</a>
       <a class="nav-sub-item" href="#gt-article-multi-author">Mehrere Autor:innen</a>
+      <a class="nav-sub-item" href="#gt-article-faq">FAQ-Akkordeon</a>
       <a class="nav-sub-item" href="#gt-article-verwendung">Verwendung</a>
     </div>
     <button class="nav-item" data-section="listing">
@@ -3347,7 +3350,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
         <tbody>
           <tr><td>Icons</td><td>Rein dekorativ, <code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code>. Der Glyph hat AA-Kontrast zur Kachel (neutral 5,3:1, ki 7,5:1)</td></tr>
-          <tr><td>Dark-Mode</td><td>Neutrale Kachel ist theme-aware. Der <code class="token">data-area="ki"</code>-Glyph wird im Dark auf den hellen <code class="token">--ki-100</code> gehoben (sonst dunkel-auf-dunkel), gleiche Logik wie <a class="body-link" href="#gt-colors-semantik">--ki-ink</a>. Override in dark-mode.css</td></tr>
+          <tr><td>Dark-Mode</td><td>Neutrale Kachel ist theme-aware. Der area-getönte Glyph (<code class="token">co/ki/es/wo</code>) wird im Dark auf den hellen Bereichston <code class="token">-100</code> gehoben (sonst dunkel-auf-dunkel), gleiche Logik wie <a class="body-link" href="#gt-colors-semantik">--ki-ink</a>. Override in dark-mode.css</td></tr>
           <tr><td>Hierarchie</td><td><code class="token">.ep-feature-title</code> ist <code class="token">&lt;h3&gt;</code>, kein <code class="token">&lt;div&gt;</code></td></tr>
         </tbody>
       </table>
@@ -3818,6 +3821,57 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         </figure>
 
       </div>
+
+      <h2 id="gt-quotes-team-voice" class="group-title">Team-Stimme (editorial, mit Foto)</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Fotostarke, editoriale Variante der <a class="body-link" href="#gt-quotes-testimonial">Testimonial-Card</a>: volle Breite, untereinander, großes Foto seitlich, abwechselnd links/rechts (<code class="token">:nth-child(even)</code> dreht die Spalten). Für <strong>Repräsentation</strong>, wenn Gesichter und Präsenz zählen, z.&nbsp;B. Karriereseiten (erprobt auf <em>Unternehmen · Conciso als Arbeitgeber</em>). Statisch, also flacher area-getönter Rahmen statt Schatten (<a class="body-link" href="#gt-elev-interaktiv">Elevation-Konvention</a>); die Bereichsfarbe steckt nur noch im Quote-Icon.</p>
+      <div class="team-voices" style="margin-bottom:var(--s6)">
+        <figure class="team-voice" data-area="co">
+          <div class="team-voice-media"><img src="images/entwickler-gespraech.jpg" alt="Zwei Kolleg:innen im Gespräch" loading="lazy"></div>
+          <figcaption class="team-voice-body">
+            <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote class="team-voice-quote">„Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.“</blockquote>
+            <div class="team-voice-footer">
+              <p class="team-voice-name">Lena Brandt</p>
+              <p class="team-voice-role">Softwareentwicklerin, seit 2021</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="team-voice" data-area="co">
+          <div class="team-voice-media"><img src="images/beratung-tasse.jpg" alt="Kollege im Büro" loading="lazy"></div>
+          <figcaption class="team-voice-body">
+            <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+            <blockquote class="team-voice-quote">„Was mich hält, ist die Ehrlichkeit. Wir reden über das, was gut läuft, und genauso über das, was nicht klappt.“</blockquote>
+            <div class="team-voice-footer">
+              <p class="team-voice-name">Tobias Reuter</p>
+              <p class="team-voice-role">Lead Developer, seit 2018</p>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="doc-eyebrow">Klassen</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Klasse</th><th>Rolle</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">.team-voices</code></td><td>Wrapper, stapelt die Reihen mit Abstand</td></tr>
+          <tr><td><code class="token">.team-voice</code></td><td>Editoriale Reihe als <code class="token">&lt;figure&gt;</code> (Grid: Media + Body). <code class="token">data-area="co"</code> (ki/es/wo) tönt Quote-Icon und Rahmen; <code class="token">:nth-child(even)</code> dreht Foto/Text</td></tr>
+          <tr><td><code class="token">.team-voice-media</code> · <code class="token">img</code></td><td>Randloses Foto in seiner Zelle (<code class="token">object-fit:cover</code>, <code class="token">min-height:300px</code>)</td></tr>
+          <tr><td><code class="token">.team-voice-body</code></td><td>Textspalte als <code class="token">&lt;figcaption&gt;</code></td></tr>
+          <tr><td><code class="token">.team-voice-icon</code></td><td>Dekoratives Quote-Icon in der Bereichsfarbe</td></tr>
+          <tr><td><code class="token">.team-voice-quote</code></td><td>Zitat als <code class="token">&lt;blockquote&gt;</code>, <code class="token">--ty-serif-md</code></td></tr>
+          <tr><td><code class="token">.team-voice-name</code> · <code class="token">.team-voice-role</code></td><td>Quelle (Name + Rolle/Zugehörigkeit)</td></tr>
+        </tbody>
+      </table>
+      <div class="doc-eyebrow">Barrierefreiheit &amp; Dark-Mode</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Semantik</td><td><code class="token">&lt;figure&gt;</code> + <code class="token">&lt;blockquote&gt;</code> + <code class="token">&lt;figcaption&gt;</code>. Quote-Icon rein dekorativ (<code class="token">aria-hidden="true"</code> + <code class="token">focusable="false"</code>)</td></tr>
+          <tr><td>Bild-Alt</td><td>Beschreibendes <code class="token">alt</code>, das keine konkrete Identität behauptet, solange Platzhalter-/Stimmungsfotos genutzt werden</td></tr>
+          <tr><td>Elevation</td><td>Statisch, daher flacher Rahmen (<code class="token">--bd-strong</code>), kein Schatten, keine Klick-Affordanz. Rahmen area-getönt: Light <code class="token">-200</code>, Dark-Override auf <code class="token">-800</code> (dark-mode.css)</td></tr>
+          <tr><td>Responsive</td><td>Unter 768&nbsp;px stapelt das Grid zu Foto-oben / Text-unten</td></tr>
+          <tr><td>Abgrenzung</td><td>Die <a class="body-link" href="#gt-quotes-testimonial">Testimonial-Card</a> ist die kompakte, gerasterte Variante ohne Foto; <code class="token">.team-voice</code> ist die fotostarke Variante für Repräsentation</td></tr>
+        </tbody>
+      </table>
 
       <h2 id="gt-quotes-offen" class="group-title">Offenes Zitat (redaktionell)</h2>
       <p class="sec-sub" style="margin-bottom:var(--s5)">Ohne Karten-Chrome, direkt auf der Sektionsfläche. Mehrere gleichrangige Stimmen werden nur durch Haarlinien getrennt, aufrechte Serif-Schrift statt kursiv. Für „Chor"-Situationen wie Workshop-Stimmen, in denen ein Foto oder die Sektion selbst den Anker bildet.</p>
@@ -6649,6 +6703,39 @@ document.querySelectorAll(
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Barrierefreiheit:</strong> Der Avatar-Stack ist dekorativ und bleibt mit <code class="token">aria-hidden="true"</code> ausgeblendet. Die Namen stehen vollständig im Text und werden so von Screenreadern korrekt vorgelesen. Der <code class="token">.article-avatar-more</code>-Kreis enthält ebenfalls keine Textinformation, die Restzahl steht zusätzlich im <code class="token">.article-meta-name</code>-Text („… &amp; 3 weitere“), so dass die Information assistiv erreichbar bleibt.</p>
       </div>
+
+      <h2 id="gt-article-faq" class="group-title">FAQ-Akkordeon</h2>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Aufklappbare Frage-Antwort-Liste über natives <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code> (standardmäßig zu), gleiche Disclosure-Mechanik wie das <a class="body-link" href="#gt-article-toc">Inhaltsverzeichnis</a> und die <a class="body-link" href="#gt-table-vergleich">Vergleichstabelle</a>. Für FAQ-Sektionen auf Content- und Marketingseiten (erprobt auf <em>Unternehmen · Conciso als Arbeitgeber</em>). Liest sich am besten im <strong>editorialen Zwei-Spalten-Layout</strong>: Überschrift im <code class="token">.layout-grid</code> links (<code class="token">.col-4</code>), das <code class="token">.ep-faq</code> rechts (<code class="token">.col-8</code>), so entsteht rechts kein toter Leerraum.</p>
+      <div class="ep-faq" style="margin-bottom:var(--s6)">
+        <details>
+          <summary>Wie läuft die Bewerbung ab?<svg class="ep-faq-caret" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></summary>
+          <p class="ep-faq-a">Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.</p>
+        </details>
+        <details>
+          <summary>Wo und wie arbeitet ihr?<svg class="ep-faq-caret" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></summary>
+          <p class="ep-faq-a">Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.</p>
+        </details>
+      </div>
+      <div class="doc-eyebrow">Klassen</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Klasse</th><th>Rolle</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">.ep-faq</code></td><td>Container der Liste; Einträge werden nur durch Haarlinien getrennt</td></tr>
+          <tr><td><code class="token">&lt;details&gt;</code> · <code class="token">&lt;summary&gt;</code></td><td>Native Disclosure pro Eintrag; das <code class="token">&lt;summary&gt;</code> trägt die Frage (<code class="token">--ty-title-sm</code>)</td></tr>
+          <tr><td><code class="token">.ep-faq-caret</code></td><td>Chevron im <code class="token">&lt;summary&gt;</code>, dreht im <code class="token">[open]</code> um 180°</td></tr>
+          <tr><td><code class="token">.ep-faq-a</code></td><td>Antworttext als <code class="token">&lt;p&gt;</code> (<code class="token">--ty-body-md</code>, <code class="token">tx-secondary</code>), Zeilenlänge gekappt</td></tr>
+        </tbody>
+      </table>
+      <div class="doc-eyebrow">Barrierefreiheit &amp; Dark-Mode</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Bedienung</td><td>Natives <code class="token">&lt;details&gt;</code>/<code class="token">&lt;summary&gt;</code>: tastaturbedienbar und mit korrekten States ganz ohne JS</td></tr>
+          <tr><td>Fokus</td><td>Der Standard-Marker wird entfernt, der Chevron ersetzt ihn rein dekorativ (<code class="token">aria-hidden="true"</code>); <code class="token">summary:focus-visible</code> trägt den Focus-Ring</td></tr>
+          <tr><td>Inhalt</td><td>Eine Frage je <code class="token">&lt;summary&gt;</code> (keine Doppelfragen), Antwort als <code class="token">&lt;p&gt;</code></td></tr>
+          <tr><td>Dark-Mode</td><td>Theme-aware Tokens (Trennlinien, Text), keine Overrides nötig</td></tr>
+        </tbody>
+      </table>
 
       <h2 id="gt-article-verwendung" class="group-title">Verwendung &amp; Komposition</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Der Wissensbeitrag ist als Komposition gedacht: Die <code class="token">.article-*</code>- und <code class="token">.author-card</code>-Klassen liefern den redaktionellen Rahmen, die Inhalte werden mit bestehenden Komponenten gefüllt. Die folgende Reihenfolge folgt dem Lesefluss „Lesen → Vertrauen → Vertiefen → Handeln → Erkunden“.</p>
