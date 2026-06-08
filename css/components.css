@@ -293,6 +293,19 @@
 .body-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 /* Utility: Corporate-Brand-Text mit Dark-Override. */
 .t-co{color:var(--co-700)}
+/* Detail-/Stellenseiten können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows) auf ihre Bereichsfarbe umstellen: data-accent am .ep-page-Root. ki nutzt -800 (700 verfehlt AA). */
+.ep-page[data-accent="ki"] .t-co{color:var(--ki-800)}
+.ep-page[data-accent="es"] .t-co{color:var(--es-700)}
+.ep-page[data-accent="wo"] .t-co{color:var(--wo-700)}
+.ep-page[data-accent="ki"] .body-link{color:var(--ki-800)}
+.ep-page[data-accent="es"] .body-link{color:var(--es-700)}
+.ep-page[data-accent="wo"] .body-link{color:var(--wo-700)}
+.ep-page[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
+.ep-page[data-accent="es"] .body-link:hover{color:var(--es-800)}
+.ep-page[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
+/* Footer bleibt Chrome (co), auch auf area-getönten Seiten */
+.ep-page[data-accent] .footer .body-link{color:var(--co-700)}
+.ep-page[data-accent] .footer .body-link:hover{color:var(--co-800)}
 
 /* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
 .footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
