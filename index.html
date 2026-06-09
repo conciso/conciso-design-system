@@ -3296,7 +3296,10 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       </div>
 
       <h2 id="gt-cards-stat-row" class="group-title">Editoriale Kennzahl-Zeile</h2>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für Case- und Projektlisten ohne Karten-Chrome: große Kennzahl links (<code class="token">--ty-display-sm</code>, Bereichsfarbe <code class="token">-700</code>), rechts Kunde, Thema und kurze Beschreibung. Zeilen werden nur durch Haarlinien (<code class="token">border-top:var(--bd)</code>) getrennt, die Zahl trägt die Energie, die Linien die Ruhe. Sinnvoll, wenn auf der Seite ohnehin Karten-Grids stehen und ein weiterer Karten-Block zu schwer würde. <strong>Abgrenzung zur <a class="body-link" href="#gt-cards-stat">Stat-Karte</a>:</strong> die ist eine eigenständige, gerasterte KPI-Kachel, die Zeile hier ist redaktioneller Fließinhalt mit einer Story je Zeile.</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s6)">Für Case-, Projekt- und Leistungslisten ohne Karten-Chrome: eine Story je Zeile, nur durch Haarlinien (<code class="token">border-top:var(--bd)</code>) getrennt, die Linien tragen die Ruhe. Sinnvoll, wenn auf der Seite ohnehin Karten-Grids stehen und ein weiterer Karten-Block zu schwer würde. Zwei Varianten je nach Inhalt. <strong>Abgrenzung zur <a class="body-link" href="#gt-cards-stat">Stat-Karte</a>:</strong> die ist eine eigenständige, gerasterte KPI-Kachel, die Zeile hier ist redaktioneller Fließinhalt mit einer Story je Zeile.</p>
+
+      <div class="doc-eyebrow">Kennzahl-Variante</div>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin:var(--s2) 0 var(--s5)">Große Kennzahl links (<code class="token">--ty-display-sm</code>, Bereichsfarbe <code class="token">-700</code>), rechts Kunde, Thema und kurze Beschreibung. Die Zahl trägt die Energie. Nur einsetzen, wenn die Kennzahl belegbar ist.</p>
       <div style="margin-bottom:var(--s8)">
         <div class="layout-grid" style="align-items:start;padding:var(--s6) 0;border-top:var(--bd);border-bottom:var(--bd)">
           <div class="col-3">
@@ -3318,6 +3321,26 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Versicherungsgruppe</p>
             <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s1)">Schadenmeldungen vorqualifiziert</h3>
             <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ein KI-Agent liest eingehende Meldungen, prüft sie auf Vollständigkeit und schlägt die nächste Aktion vor.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Projekt-/Leistungs-Variante</div>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin:var(--s2) 0 var(--s5)">Ohne belegpflichtige Kennzahl: links Kunde (<code class="token">--ty-label-xs</code>) und Projekt-Titel (<code class="token">--ty-title-sm</code>), rechts eine Häkchen-Liste der Leistungen. Eine vertikale Bereichs-Akzentleiste (<code class="token">border-left:4px solid var(--ki-500)</code>, gleiche Farbe wie der <a class="body-link" href="#gt-cards-varianten">Karten-Top-Akzent</a>) fasst Kunde und Leistungen sichtbar als eine Einheit und ankert die sonst luftige linke Spalte, dazu Innenabstand links auf <code class="token">--s5</code>. Das Spalten-Label bewusst <strong>„Leistungen"</strong>, nicht „Ergebnisse", solange die Punkte Vorgehen und Deliverables beschreiben und keine gemessene Wirkung. So bleibt die Aussage belegbar, ohne in erfundene Kennzahlen zu rutschen.</p>
+      <div style="margin-bottom:var(--s8)">
+        <div class="layout-grid" style="align-items:start;padding:var(--s6) 0 var(--s6) var(--s5);border-top:var(--bd);border-bottom:var(--bd);border-left:4px solid var(--ki-500)">
+          <div class="col-4">
+            <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-800);margin:0 0 var(--s1)">Kunde</p>
+            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gesetzliche Krankenversicherung</p>
+            <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s2) 0 0">KI-Agenten-basierte Software-Migration</h3>
+          </div>
+          <div class="col-8">
+            <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary);margin:0 0 var(--s3)">Leistungen</p>
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)">
+              <li style="display:flex;gap:var(--s2);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--ki-800);font-weight:700;margin-top:1px">✓</span><span>Analyse der Ausgangs- und Zielarchitektur mit den Tech-Stacks des Unternehmens</span></li>
+              <li style="display:flex;gap:var(--s2);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--ki-800);font-weight:700;margin-top:1px">✓</span><span>Aufbau eines KI-Agentensystems als virtuelles Entwicklungsteam</span></li>
+              <li style="display:flex;gap:var(--s2);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--ki-800);font-weight:700;margin-top:1px">✓</span><span>Iterative Konfiguration des Agentensystems</span></li>
+            </ul>
           </div>
         </div>
       </div>
