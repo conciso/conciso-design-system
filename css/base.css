@@ -30,9 +30,7 @@
   /* Restore borders that forced-colors removes */
   .chip { border: 2px solid ButtonText }
   .card,
-  .card-elevated,
-  .card-filled,
-  .card-outlined { border: 2px solid CanvasText }
+  .card-elevated { border: 2px solid CanvasText }
   .badge { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText }
   /* Active states */
   .nav-item.active { border-left-color: Highlight; color: Highlight }

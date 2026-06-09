@@ -122,44 +122,6 @@
 [data-theme="dark"] .card-stat-flat[data-area="es"] .card-stat-flat-value { color: var(--es-100) }
 [data-theme="dark"] .card-stat-flat[data-area="wo"] .card-stat-flat-value { color: var(--wo-200) }
 
-/* Landing: hero already dark – no change needed */
-
-/* Corporate: light teal → dark teal */
-[data-theme="dark"] #ep-co .ep-hero {
-  background: linear-gradient(140deg,#071616 0%,#0A2E2E 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-eyebrow { color: var(--co-300) !important }
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-co .ep-hero .ep-hero-sub { color: var(--tx-secondary) !important }
-
-/* AI.Applied: light lime → dark lime (original dark style) */
-[data-theme="dark"] #ep-ai .ep-hero {
-  background: linear-gradient(140deg,#0A0F00 0%,#1C2800 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-eyebrow { color: var(--ki-400) !important }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-h1 { color: #F4FCD5 !important }
-[data-theme="dark"] #ep-ai .ep-hero .ep-hero-sub { color: var(--ki-300) !important }
-
-/* Effektive Software: light blue → dark blue */
-[data-theme="dark"] #ep-es .ep-hero {
-  background: linear-gradient(140deg,#071035 0%,#0D1A50 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-eyebrow { color: var(--es-300) !important }
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-es .ep-hero .ep-hero-sub { color: var(--es-200) !important }
-
-/* Wirksame Organisationen: light green → dark green */
-[data-theme="dark"] #ep-wo .ep-hero {
-  background: linear-gradient(140deg,#0A1F05 0%,#152D0A 100%) !important;
-  color: #fff !important;
-}
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-eyebrow { color: var(--wo-300) !important }
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-h1 { color: var(--tx-primary) !important }
-[data-theme="dark"] #ep-wo .ep-hero .ep-hero-sub { color: var(--wo-200) !important }
-
 /* ── Bereichs-Komponenten Vergleich ── */
 /* Active tabs: --atab-color inline style is dark → override with light palette shades */
 [data-theme="dark"] .atab[data-area="co"].active { color: var(--co-200); border-bottom-color: var(--co-200) }
