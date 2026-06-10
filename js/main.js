@@ -179,6 +179,99 @@
       if (node) setTabNodeOpen(node, !node.classList.contains('is-open'));
     });
   });
+
+  /* ── Topnav-Dropdowns (Leistungen/Unternehmen): Klick/Tap-Toggle mit aria-expanded ──
+     Maus öffnet weiterhin per CSS-Hover. Hier kommen Klick/Tap, Tastatur (Enter/Space),
+     Außenklick und Escape dazu — plus der korrekte aria-expanded-Zustand für Screenreader
+     und Touch-Geräte, die kein Hover kennen. */
+  function closeNavItem(item) {
+    item.classList.remove('is-open');
+    var t = item.querySelector('.ep-nav-item-toggle');
+    if (t) t.setAttribute('aria-expanded', 'false');
+  }
+  function closeAllNavItems(except) {
+    document.querySelectorAll('.ep-nav-has-sub.is-open').forEach(function(o) {
+      if (o !== except) closeNavItem(o);
+    });
+  }
+  document.querySelectorAll('.ep-nav-item-toggle').forEach(function(btn) {
+    var item = btn.closest('.ep-nav-has-sub');
+    if (!item) return;
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function() {
+      var open = !item.classList.contains('is-open');
+      closeAllNavItems(item);
+      item.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    /* Tab aus dem Menü heraus schließt es */
+    item.addEventListener('focusout', function(e) {
+      if (!item.contains(e.relatedTarget)) closeNavItem(item);
+    });
+    /* Tastatur: Escape schließt (+Fokus zurück), Pfeile/Home/End navigieren die Einträge */
+    item.addEventListener('keydown', function(e) {
+      var links = Array.prototype.slice.call(item.querySelectorAll('.ep-nav-sub-btn'));
+      if (e.key === 'Escape') {
+        if (item.classList.contains('is-open')) { closeNavItem(item); btn.focus(); }
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!item.classList.contains('is-open')) {
+          closeAllNavItems(item);
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+        var di = links.indexOf(document.activeElement);
+        (di === -1 || di === links.length - 1 ? links[0] : links[di + 1]).focus();
+        return;
+      }
+      if (e.key === 'ArrowUp' && item.classList.contains('is-open')) {
+        e.preventDefault();
+        var ui = links.indexOf(document.activeElement);
+        (ui <= 0 ? links[links.length - 1] : links[ui - 1]).focus();
+        return;
+      }
+      if ((e.key === 'Home' || e.key === 'End') && item.classList.contains('is-open') && links.length) {
+        e.preventDefault();
+        (e.key === 'Home' ? links[0] : links[links.length - 1]).focus();
+      }
+    });
+  });
+  /* Klick außerhalb schließt offene Dropdowns */
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
+  });
+
+  /* ── Mobile-Navigation: Hamburger-Button pro Topnav (per JS injiziert, kein Markup-Eingriff) ──
+     Greift nur unter dem CSS-Breakpoint; auf Desktop ist der Button ausgeblendet. */
+  document.querySelectorAll('.ep-topnav').forEach(function(bar, i) {
+    var links = bar.querySelector('.ep-nav-links');
+    if (!links) return;
+    if (!links.id) links.id = 'ep-nav-links-' + i;
+    var burger = document.createElement('button');
+    burger.type = 'button';
+    burger.className = 'ep-nav-burger';
+    burger.setAttribute('aria-label', 'Menü öffnen');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-controls', links.id);
+    burger.innerHTML = '<svg class="icon-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg><svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>';
+    bar.insertBefore(burger, links);
+    burger.addEventListener('click', function() {
+      var open = bar.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    /* Klick auf einen Navigationslink schließt das Mobile-Menü */
+    links.addEventListener('click', function(e) {
+      if (e.target.closest('a') && bar.classList.contains('nav-open')) {
+        bar.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Menü öffnen');
+      }
+    });
+  });
+
   /* In-Page-Links mit data-ep (Topnav, Logo, Submenus, klickbare Karten, Breadcrumbs, Article-Cards) wechseln den Tab */
   document.querySelectorAll('.ep-page a[data-ep]').forEach(function(link) {
     link.addEventListener('click', function(e) {

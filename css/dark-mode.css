@@ -85,6 +85,14 @@
 /* Shared structural overrides */
 [data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
+/* Topnav Hover/Aktiv: co-700 (Light) → co-200 im Dark (co-700 wäre dunkel-auf-dunkel).
+   co-200 (#80DEDE) auf bg-surface bzw. co-50-dark ≥ 4.9:1 ✓ AA; Unterstrich/Tönung bleiben co-500/co-50. */
+[data-theme="dark"] .ep-nav-btn:hover,
+[data-theme="dark"] .ep-nav-btn[aria-current="page"],
+[data-theme="dark"] .ep-nav-has-sub:hover .ep-nav-item-toggle,
+[data-theme="dark"] .ep-nav-has-sub.is-open .ep-nav-item-toggle,
+[data-theme="dark"] .ep-nav-sub-btn:hover,
+[data-theme="dark"] .ep-nav-sub-btn[aria-current="page"] { color: var(--co-200) }
 [data-theme="dark"] .ep-section { background: var(--bg-page) !important }
 [data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
