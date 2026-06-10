@@ -7241,12 +7241,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <h1 class="sec-title">Beispielseiten</h1>
       <p class="sec-sub">Generierte Seiten pro Brand Area, plus eine gemischte Startseite, die alle vier Bereiche vereint.</p>
 
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);max-width:840px;margin:0 0 var(--s4)">Der Bereich <strong>Angewandte KI</strong> bündelt drei Leistungs-Unterseiten, <em>AI.Engineering</em>, <em>AI.Automation</em> und <em>AI.Box</em>, deren Aufbau dem gleichen Schema folgt (Hero, Haltungstext, Themen-/Anwendungs-Cards, Tech-Verständnis, Workshop-Einstieg, Geschwister-Lösungen, CTA).</p>
-      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s6);max-width:840px">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Wiederkehrendes Muster „Prozess-Schritte / Ablauf":</strong> Für mehrstufige Abläufe (z.&nbsp;B. der Workshop-Einstieg auf <em>AI.Engineering</em> und <em>AI.Automation</em>) nummerierte Schritte im <code class="token">.layout-grid</code>: je Schritt eine große Ordinalzahl (<code class="token">--ty-display-sm</code>, <code class="token">--ki-ink</code>), darunter ein kurzer Akzentstrich (<code class="token">--ki-500</code>), Titel (<code class="token">--ty-title-sm</code>) und Text. In der Karten-Variante (AI.Automation-Agenda) sitzt die Ordinalzahl als Badge neben Phasen-Label und Titel, die Schritt-Card trägt eine Akzent-Oberkante. Anders als der chronologische <a class="body-link" href="#gt-article-timeline">Story-Zeitstrahl</a> ist das Muster für gleichrangige, parallele oder kurz-sequentielle Schritte gedacht.</p>
-      </div>
-
       <div class="ep-tabs" role="tablist" aria-label="Beispielseite wählen">
         <div class="ep-tab-group" role="presentation">
           <span class="ep-tab-group-label" aria-hidden="true">Allgemein</span>
@@ -7257,6 +7251,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-tab-group" role="presentation">
           <span class="ep-tab-group-label" aria-hidden="true">Leistungen</span>
           <div class="ep-tab-group-row is-tree" role="presentation">
+            <button class="ep-tab" role="tab" aria-selected="false" aria-label="Leistungen · Übersicht" data-ep="leistungen" id="eptab-leistungen" aria-controls="ep-leistungen">Übersicht</button>
             <div class="ep-tab-node">
               <div class="ep-tab-parent">
                 <button class="ep-tab" role="tab" aria-selected="false" data-ep="ai" id="eptab-ai" aria-controls="ep-ai">Angewandte KI</button>
@@ -8817,6 +8812,232 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <li><a class="footer-link" href="#">Angewandte KI</a></li>
                     <li><a class="footer-link" href="#">Effektive Software</a></li>
                     <li><a class="footer-link" href="#">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── LEISTUNGEN · ÜBERSICHT ── -->
+      <div class="ep-page" id="ep-leistungen" role="tabpanel" aria-labelledby="eptab-leistungen" tabindex="0">
+        <a class="skip-link" href="#ep-leistungen-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="leistungen">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+              </div>
+            </div>
+          </nav>
+          <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-leistungen-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="images/team-tablet.jpg" alt="Team blickt gemeinsam auf ein Tablet mit einer laufenden Anwendung" loading="eager" style="object-position:center 30%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Leistungen</p>
+            <h1 class="hero-image-caption-title">Wir denken Software und Organisation zusammen.</h1>
+            <p class="hero-image-caption-text">Gute Software, wirksame Strukturen und der richtige Einsatz von Künstlicher Intelligenz greifen ineinander. Einzeln lösen sie wenig, gemeinsam verändern sie, wie wir arbeiten.</p>
+          </figcaption>
+        </figure>
+        <!-- Unser Ansatz: Haltungstext -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-6">
+              <div class="ep-section-label t-co">Unser Ansatz</div>
+              <h2 class="ep-section-h2">Die meisten Probleme, die uns erreichen, sind selten nur technisch.</h2>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Eine Software läuft, aber die Organisation kommt nicht hinterher. Ein Prozess ist klar, aber kein System bildet ihn ab. KI verspricht viel, aber niemand weiß, wie sie wirklich funktionieren soll. Genau deshalb schauen wir nie nur auf einen Teil. Wir fragen immer, wie Software, Organisation und Künstliche Intelligenz zusammenspielen, weil sich an dieser Schnittstelle entscheidet, ob die Lösung im Alltag funktioniert oder im Konzept stecken bleibt.</p>
+            </div>
+            <div class="col-6">
+              <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
+                <img src="images/flipchart-diskussion.jpg" alt="Team erarbeitet eine Lösung gemeinsam an einem Flipchart" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              </figure>
+            </div>
+          </div>
+        </div>
+        <!-- Drei Bereiche – farbig differenziert (Inhalt 1:1 von der Startseite) -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label t-co">Was wir tun</div>
+          <h2 class="ep-section-h2">Drei Bereiche. Ein Maßstab.</h2>
+          <p class="ep-section-sub">Sie stärken sich gegenseitig. Wir denken sie zusammen, nicht nebeneinander.</p>
+          <div class="ep-cards">
+            <!-- Angewandte KI -->
+            <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-eyebrow" data-area="ki">Angewandte KI</div>
+              <div class="ep-card-title">KI mit Wirkung</div>
+              <div class="ep-card-text">Liefert, wenn die Demo vorbei ist.</div>
+              <div class="ep-card-cta">Entdecken <span aria-hidden="true">→</span></div>
+            </a>
+            <!-- Effektive Software -->
+            <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-eyebrow" data-area="es">Effektive Software</div>
+              <div class="ep-card-title">Präzise Systeme</div>
+              <div class="ep-card-text">Lebt, wenn der Hype vorbei ist.</div>
+              <div class="ep-card-cta">Ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <!-- Wirksame Organisationen -->
+            <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50);color:var(--wo-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M13.4753 7.64954C13.4751 6.83509 12.8143 6.17493 11.9998 6.17493C11.1855 6.17515 10.5254 6.83523 10.5251 7.64954C10.5251 8.46403 11.1853 9.1249 11.9998 9.12512C12.8144 9.12512 13.4753 8.46417 13.4753 7.64954ZM14.7253 7.64954C14.7253 9.15452 13.5047 10.3751 11.9998 10.3751C10.495 10.3749 9.27515 9.15439 9.27515 7.64954C9.27537 6.14488 10.4951 4.92515 11.9998 4.92493C13.5046 4.92493 14.7251 6.14474 14.7253 7.64954Z" fill="currentColor"/><path d="M8.0752 16.3497C8.07497 15.5352 7.4141 14.875 6.59961 14.875C5.7853 14.8753 5.12522 15.5354 5.125 16.3497C5.125 17.1641 5.78517 17.825 6.59961 17.8252C7.41424 17.8252 8.0752 17.1643 8.0752 16.3497ZM9.3252 16.3497C9.3252 17.8546 8.1046 19.0752 6.59961 19.0752C5.09481 19.075 3.875 17.8545 3.875 16.3497C3.87522 14.845 5.09495 13.6253 6.59961 13.625C8.10446 13.625 9.32497 14.8449 9.3252 16.3497Z" fill="currentColor"/><path d="M18.8753 16.3497C18.8751 15.5352 18.2142 14.875 17.3997 14.875C16.5854 14.8753 15.9253 15.5354 15.9251 16.3497C15.9251 17.1641 16.5853 17.825 17.3997 17.8252C18.2144 17.8252 18.8753 17.1643 18.8753 16.3497ZM20.1253 16.3497C20.1253 17.8546 18.9047 19.0752 17.3997 19.0752C15.8949 19.075 14.6751 17.8545 14.6751 16.3497C14.6753 14.845 15.8951 13.6253 17.3997 13.625C18.9046 13.625 20.1251 14.8449 20.1253 16.3497Z" fill="currentColor"/><path d="M12.0005 9.75L12.4419 10.1924L7.79251 14.8418L7.35013 14.4004L6.90775 13.958L11.5581 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M12.0005 9.75L11.5583 10.1924L16.2078 14.8418L16.6501 14.4004L17.0925 13.958L12.4421 9.30762L12.0005 9.75Z" fill="currentColor"/><path d="M8.85065 16.9751V15.7251L15.4503 15.7251V16.9751L8.85065 16.9751Z" fill="currentColor"/></svg></div>
+              <div class="ep-card-eyebrow" data-area="wo">Wirksame Organisationen</div>
+              <div class="ep-card-title">Wandel, der trägt</div>
+              <div class="ep-card-text">Bleibt, wenn wir gehen.</div>
+              <div class="ep-card-cta">Kennenlernen <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- Referenzen / Projekte -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Referenzen</div>
+          <h2 class="ep-section-h2">Ausgewählte Projekte.</h2>
+          <p class="ep-section-sub">Drei Vorhaben aus unserem Leistungsspektrum, über alle drei Bereiche hinweg.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+            <div class="ep-card" data-area="co" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-eyebrow" data-area="co">Deutsche Bahn</div>
+              <h3 class="ep-card-title" style="margin-top:0">Vertriebsplattform im Großprojekt</h3>
+              <div class="ep-card-text">Konzeption und Umsetzung von Backend- und Frontend-Services für eines der größten europäischen E-Commerce-Projekte, samt agiler und technologischer Begleitung der Plattform.</div>
+            </div>
+            <div class="ep-card" data-area="co" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-eyebrow" data-area="co">SIGNAL IDUNA</div>
+              <h3 class="ep-card-title" style="margin-top:0">Aktuarielle Plattform für die Versicherungsmathematik</h3>
+              <div class="ep-card-text">Von der Systemarchitektur bis zur Umsetzung: eine Plattform, mit der Versicherungsmathematiker Beitragsberechnung und Datenpflege automatisieren, begleitet durch UI-Prototyping und Tests.</div>
+            </div>
+            <div class="ep-card" data-area="co" style="border-top:4px solid var(--co-500)">
+              <div class="ep-card-eyebrow" data-area="co">Continentale</div>
+              <h3 class="ep-card-title" style="margin-top:0">Qualität über alle Entwicklungsabteilungen</h3>
+              <div class="ep-card-text">Leitung eines Transformationsprozesses für die gesamte Softwareentwicklung, mit Prozessen zur Qualitätssicherung und Trainings zu Clean Code und testgetriebener Entwicklung.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Auszug aus Wissensbeiträgen -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label t-co">Wissen</div>
+          <h2 class="ep-section-h2">Woran wir gerade denken.</h2>
+          <p class="ep-section-sub">Drei Einblicke aus unserer Praxis. Kurz genug für zwischendurch, konkret genug zum Mitnehmen.</p>
+          <div class="layout-grid">
+            <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
+                <div class="card-title"><span>Warum 60 % der KI-Piloten nie in Produktion gehen</span></div>
+                <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
+                <div class="card-title"><span>Refactoring-Schulden ehrlich rechnen</span></div>
+                <div class="card-text">Wann der Umbau billiger ist als der nächste Workaround. Praxis-Anleitung mit Entscheidungsmatrix für mittelgroße Codebasen.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+            <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
+              <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
+                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+              </div>
+              <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
+                <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
+                <div class="card-title"><span>Wandel, der wirklich bleibt</span></div>
+                <div class="card-text">Transformationen scheitern selten am Plan, fast immer an der Kultur. Was 200 Begleitungen darüber gelehrt haben.</div>
+                <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">12 min Lesezeit · <time datetime="2026-04-08">8. April 2026</time></p>
+                <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          </div>
+          <p style="text-align:center;margin:var(--s8) 0 0"><a class="body-link" href="#sec-examples" data-ep="wb-uebersicht">Alle Beiträge ansehen <span aria-hidden="true">→</span></a></p>
+        </div>
+        <!-- Erstgespräch CTA -->
+        <div class="ep-cta-band" style="background:var(--co-700);color:#fff">
+          <p class="ep-section-label" style="color:rgba(255,255,255,.72);margin-bottom:var(--s3)">Erstgespräch</p>
+          <h2 class="ep-cta-h2">Ein erstes Gespräch, ganz unverbindlich.</h2>
+          <p class="ep-cta-sub">Du schilderst Dein Vorhaben, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte.</p>
+          <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
                     <li><a class="footer-link" href="#">Beiträge</a></li>
                     <li><a class="footer-link" href="#">Jobs</a></li>
                     <li><a class="footer-link" href="#">Kontakt</a></li>
