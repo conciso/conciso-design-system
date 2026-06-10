@@ -239,6 +239,7 @@
     </button>
     <div class="nav-subnav" data-for="navigation">
       <a class="nav-sub-item" href="#gt-nav-topnav">Customer-Topnav</a>
+      <a class="nav-sub-item" href="#gt-nav-breadcrumb">Breadcrumb</a>
       <a class="nav-sub-item" href="#gt-nav-back-to-top">Back-to-Top-Button</a>
       <a class="nav-sub-item" href="#gt-nav-verwendung">Verwendung</a>
     </div>
@@ -1826,7 +1827,7 @@
       <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, drei Top-Items (Leistungen · Wissen · Unternehmen) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
 
       <!-- ── Live-Demo: ep-topnav (Produktion) ── -->
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Unternehmen), Kontakt-Button rechts. Aktiver Eintrag wird ausschließlich über <code class="token">aria-current="page"</code> + Brand-Petrol-Farbe markiert.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Unternehmen), Kontakt-Button rechts. Aktiver Eintrag: <code class="token">aria-current="page"</code> plus nicht-farbiger Indikator (Top-Level Akzent-Unterstrich, Submenü Tönungsfläche + Fettung), ergänzt um Brand-Petrol-Farbe.</p>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
@@ -1849,7 +1850,7 @@
       </div>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Bereichs-Zustand · Angewandte KI</span>
-      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der „Leistungen“-Toggle bekommt zusätzlich die Brand-Petrol-Farbe als Hinweis. Hover, um das Submenü zu öffnen.</p>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der „Leistungen“-Toggle bekommt zusätzlich Brand-Farbe und Unterstrich als Hinweis. Öffnen per Hover, Klick/Tap oder Tastatur (<kbd>Enter</kbd>).</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
@@ -1900,11 +1901,11 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur drei Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktiv-Markierung</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Navigationspunkt wird ausschließlich über <code class="token">aria-current="page"</code> markiert; das CSS setzt dann nur die Brand-Petrol-Farbe (<code class="token">var(--co-700)</code>), kein Fett, kein Border-Bottom, keine zusätzliche visuelle Eigenschaft. Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der „Leistungen“-Toggle erbt zusätzlich die Brand-Farbe als visueller Hinweis.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Punkt wird über <code class="token">aria-current="page"</code> ausgezeichnet und visuell durch einen <strong>nicht-farbigen Indikator</strong> bestätigt: Top-Level-Links tragen einen dezenten Akzent-Unterstrich (Petrol, sanfter Opacity-Fade), Submenü-Einträge eine Tönungsfläche (<code class="token">--co-50</code>) plus Fettung. Die Brand-Petrol-Textfarbe (<code class="token">--co-700</code>, im Dark <code class="token">--co-200</code>) kommt ergänzend dazu. So hängt die Markierung nicht allein an der Farbe (WCAG&nbsp;1.4.1). Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der „Leistungen“-Toggle erbt zusätzlich Brand-Farbe und Unterstrich.</p>
 
-      <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Hover-Submenü</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü unter „Leistungen“ öffnet sich auf <code class="token">:hover</code> und <code class="token">:focus-within</code> (Tastatur-Bedienung über die fokussierbaren Sub-Items). Zwischen Toggle und Submenü liegt ein 8-px-Spalt, überbrückt von einem unsichtbaren Pseudo-Element <code class="token">.ep-nav-sub::before</code>, damit der Hover-Status beim Wandern in den Spalt nicht zusammenbricht.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Mobile: Das Submenü ist als Hover-Pattern für Desktop konzipiert. Auf Touch-Devices sollte ein Tap auf „Leistungen“ eine Übersichtsseite öffnen statt das Submenü auszuklappen, die HTML-Struktur unterstützt beides, indem das übergeordnete Element keinen <code class="token">href</code> trägt und der Toggle ein <code class="token">&lt;button&gt;</code> ist.</p>
+      <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Submenü: öffnen &amp; schließen</h3>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü öffnet per <strong>Maus-Hover</strong> (CSS) und per <strong>Klick/Tap oder Tastatur</strong> (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>). Der Toggle führt <code class="token">aria-expanded</code> mit (<code class="token">true</code>/<code class="token">false</code>), damit Screenreader und Touch-Geräte ohne Hover den Auf-/Zu-Zustand erhalten. <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus an den Toggle zurück; ein Klick außerhalb oder das Heraustabben schließt ebenfalls. Zwischen Toggle und Submenü überbrückt das unsichtbare <code class="token">.ep-nav-sub::before</code> den Hover-Spalt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Mobile:</strong> Unter dem Breakpoint (≤&nbsp;760&nbsp;px) injiziert das JS einen <strong>Hamburger-Button</strong> in die Topnav; er klappt die Navigation unter dem Logo auf, die Submenüs öffnen dort inline (statt als schwebendes Overlay).</p>
 
       <!-- Code-Beispiel Topnav -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
@@ -1915,7 +1916,7 @@
   <span class="k">&lt;nav</span> <span class="v">class</span>=<span class="s">"ep-nav-links"</span> <span class="v">aria-label</span>=<span class="s">"Hauptnavigation"</span><span class="k">&gt;</span>
     <span class="c">&lt;!-- Leistungen mit Hover-Submenü --&gt;</span>
     <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-item ep-nav-has-sub"</span><span class="k">&gt;</span>
-      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-btn ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-haspopup</span>=<span class="s">"true"</span><span class="k">&gt;</span>
+      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-btn ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-haspopup</span>=<span class="s">"true"</span> <span class="v">aria-expanded</span>=<span class="s">"false"</span><span class="k">&gt;</span> <span class="c">&lt;!-- aria-expanded per JS gepflegt --&gt;</span>
         Leistungen<span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
       <span class="k">&lt;/button&gt;</span>
       <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-sub"</span><span class="k">&gt;</span>
@@ -1930,6 +1931,34 @@
   <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined btn-sm"</span><span class="k">&gt;</span>Kontakt<span class="k">&lt;/button&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
+
+      <!-- ── Breadcrumb ── -->
+      <h2 id="gt-nav-breadcrumb" class="group-title">Breadcrumb</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf Unterseiten (zweite Ebene und tiefer) sitzt über dem Inhalt eine Breadcrumb-Leiste (<code class="token">.article-breadcrumb</code>). Sie zeigt den Pfad von der Startseite bis zur aktuellen Seite; das letzte Element ist die aktuelle Seite und trägt <code class="token">aria-current="page"</code> (kein Link).</p>
+
+      <span class="lbl" style="margin-bottom:var(--s3)">Standard-Leiste · linksbündig</span>
+      <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6);overflow:hidden">
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface);padding-inline:var(--s6)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-navigation">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-navigation">Unternehmen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Offene Stellen</span>
+          </nav>
+        </div>
+      </div>
+
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Konvention für einheitliche Umsetzung:</strong> Die Breadcrumb steht überall in derselben eigenen Leiste, damit sie auf allen Seitentypen gleich ausgerichtet und gleich weit von der Topnav entfernt ist.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Hülle</td><td>Eigene <code class="token">.ep-section</code> mit <code class="token">padding-block:var(--s5)</code> und <code class="token">--bg-surface</code>, direkt unter der Topnav; das <code class="token">&lt;nav&gt;</code> mit <code class="token">margin-bottom:0</code></td></tr>
+          <tr><td>Ausrichtung</td><td><strong>Immer linksbündig</strong>, auch auf redaktionellen Seiten (Wissensbeitrag, Stellen-Detail). Titel und Lead dürfen darunter zentriert sein, der Breadcrumb bleibt links</td></tr>
+          <tr><td>Pfad</td><td>Startseite → … → aktuelle Seite · Trenner <code class="token">.article-breadcrumb-sep</code> (dekorativ, <code class="token">aria-hidden</code>) · letztes Element <code class="token">aria-current="page"</code>, ohne Link</td></tr>
+          <tr><td>Nicht</td><td>Den Breadcrumb <strong>nicht</strong> in einen zentrierten <code class="token">.article-header</code> einbetten, sonst wird er mittig ausgerichtet und bekommt einen abweichenden Abstand zur Nav</td></tr>
+        </tbody>
+      </table>
 
       <!-- ── Back-to-Top-Button ── -->
       <h2 id="gt-nav-back-to-top" class="group-title">Back-to-Top-Button</h2>
@@ -2095,7 +2124,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <tbody>
           <tr><td>Semantik</td><td><code class="token">&lt;nav&gt;</code> mit <code class="token">aria-label="Hauptnavigation"</code> wenn mehrere Navigationsbereiche auf einer Seite, Screenreader listen alle Landmarks auf</td></tr>
           <tr><td>Aktiver Eintrag</td><td><code class="token">aria-current="page"</code> auf dem aktiven Nav-Link setzen, visueller active-State allein ist für Screenreader nicht erkennbar</td></tr>
-          <tr><td>Tastatur</td><td>Alle Nav-Items per <kbd>Tab</kbd> erreichbar · <kbd>Enter</kbd> aktiviert · Untermenüs mit <kbd>Esc</kbd> schließbar, ohne Maus vollständig bedienbar</td></tr>
+          <tr><td>Tastatur</td><td>Alle Nav-Items per <kbd>Tab</kbd> · <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet das Submenü · <kbd>↓</kbd>/<kbd>↑</kbd> und <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge · <kbd>Esc</kbd> schließt (Fokus zurück zum Toggle), ohne Maus vollständig bedienbar</td></tr>
+          <tr><td>Dropdown-Zustand</td><td>Toggle ist ein <code class="token">&lt;button&gt;</code> mit <code class="token">aria-haspopup="true"</code> und per JS gepflegtem <code class="token">aria-expanded</code>; Touch-Geräte und Screenreader erhalten den Auf-/Zu-Zustand, nicht nur Maus-Hover</td></tr>
           <tr><td>Skip-Link</td><td>„Zum Inhalt springen“-Link als erstes fokussierbares Element, ermöglicht Tastaturnutzern das Überspringen langer Navigationen</td></tr>
         </tbody>
       </table>
@@ -8710,18 +8740,21 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </nav>
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
+        <!-- Breadcrumb: Startseite / Unternehmen / Offene Stellen / Java / JEE Developer (linksbündige Standard-Leiste) -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="co">Unternehmen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Java / JEE Developer</span>
+          </nav>
+        </div>
         <!-- Header (zentriert, an Wissensbeitrag angelehnt) -->
-        <header class="ep-section" id="ep-co-job-jee-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s10) var(--s8);border-bottom:1px solid var(--n-100)">
+        <header class="ep-section" id="ep-co-job-jee-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s8);border-bottom:1px solid var(--n-100)">
           <div class="article-header">
-            <nav class="article-breadcrumb" aria-label="Breadcrumb">
-              <a href="#sec-examples" data-ep="landing">Startseite</a>
-              <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
-              <a href="#sec-examples" data-ep="co">Unternehmen</a>
-              <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
-              <a href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
-              <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
-              <span aria-current="page">Java / JEE Developer</span>
-            </nav>
             <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
             <h1 class="article-title">Java / JEE Developer (m/w/d)</h1>
             <p class="article-lead">Anspruchsvolle Kundenprojekte, moderne Java-Systeme und ein Team, das Clean Code und Test-driven Development wirklich lebt.</p>
@@ -10946,14 +10979,17 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <button class="btn btn-filled btn-sm btn-co" type="button">Kontakt</button>
         </div>
 
-        <!-- Article Header: Breadcrumb · Title · Lead · Meta. Zentriert, redaktionell -->
-        <header class="ep-section" id="ep-wb-ki-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s10) var(--s6)">
+        <!-- Breadcrumb: Wissen / Angewandte KI (linksbündige Standard-Leiste) -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="ai" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
+          </nav>
+        </div>
+        <!-- Article Header: Title · Lead · Meta. Zentriert, redaktionell -->
+        <header class="ep-section" id="ep-wb-ki-main" tabindex="-1" style="background:var(--bg-surface);padding-block:var(--s8) var(--s6)">
           <div class="article-header">
-            <nav class="article-breadcrumb" aria-label="Breadcrumb">
-              <a href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
-              <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
-              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai" style="color:var(--ki-800);text-decoration:none">Angewandte KI</a>
-            </nav>
             <span class="pill" data-area="ki" aria-label="Lesezeit 8 Minuten">8 min Lesezeit</span>
             <h1 class="article-title">Warum 60 % der KI-Piloten nie in Produktion gehen</h1>
             <p class="article-lead">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben. Und warum AI Readiness wichtiger ist als KI-Begeisterung.</p>
