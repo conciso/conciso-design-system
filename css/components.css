@@ -503,11 +503,32 @@
 .ico-48{width:48px;height:48px}
 
 /* ── Example Pages ── */
-.ep-tabs{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s6)}
-.ep-tab{padding:6px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font:var(--ty-label-sm);cursor:pointer;background:none;color:var(--tx-secondary);transition:all var(--m-fast)}
-.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+/* Beispielseiten-Auswahl: nach IA gruppiert (Allgemein/Leistungen/Wissen/Unternehmen/Veranstaltungen),
+   je Gruppe eine dezente Label-Zeile über den Pills. Gekürzte Pill-Labels (voller Name via aria-label). */
+/* Alle Gruppen als Spalten nebeneinander (füllt die Breite, hält die Leiste flach);
+   klappt auf schmalen Screens automatisch auf weniger Spalten um. */
+.ep-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6) var(--s8);align-items:start;margin-bottom:var(--s8)}
+.ep-tab-group{display:flex;flex-direction:column;gap:var(--s3)}
+.ep-tab-group-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary)}
+.ep-tab-group-row{display:flex;gap:var(--s2);flex-wrap:wrap}
+.ep-tab{padding:7px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font:var(--ty-label-sm);cursor:pointer;background:var(--bg-surface);color:var(--tx-secondary);transition:all var(--m-fast)}
+.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
 .ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
-.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500)}
+.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500);box-shadow:var(--e1)}
+.ep-tab.active:hover{background:var(--co-500);color:#fff;border-color:var(--co-500)}
+/* Hierarchie in einer Gruppe (Leistungen, Unternehmen): Oberpunkte stapeln untereinander,
+   Unterpunkte eingerückt mit dezenter Leitlinie (wie ein Nav-Baum). */
+.ep-tab-group-row.is-tree{flex-direction:column;align-items:flex-start}
+.ep-tab-node{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2)}
+.ep-tab-parent{display:flex;align-items:center;gap:var(--s2)}
+.ep-tab-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0;border-radius:var(--r-full);border:1px solid var(--n-200);background:var(--bg-surface);color:var(--tx-secondary);cursor:pointer;padding:0;transition:all var(--m-fast)}
+.ep-tab-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
+.ep-tab-toggle:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-tab-toggle-caret{width:14px;height:14px;transition:transform var(--m-fast)}
+.ep-tab-node.is-open .ep-tab-toggle-caret{transform:rotate(180deg)}
+/* Unterpunkte standardmäßig eingeklappt, per Toggle (.is-open) aufklappbar */
+.ep-tab-children{display:none;flex-wrap:wrap;gap:var(--s2);margin-left:var(--s4);padding-left:var(--s4);border-left:1px solid var(--n-200)}
+.ep-tab-node.is-open > .ep-tab-children{display:flex}
 /* position:relative, damit .skip-link (position:absolute) sich am ep-Page-Frame orientiert
    und nicht außerhalb der Preview-Karte erscheint. overflow:hidden clipped die negative
    top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */

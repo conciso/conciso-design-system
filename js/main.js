@@ -151,7 +151,12 @@
     document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
     var tab = document.querySelector('.ep-tab[data-ep="' + epKey + '"]');
     var page = document.getElementById('ep-' + epKey);
-    if (tab) { tab.classList.add('active'); tab.setAttribute('aria-selected','true'); }
+    if (tab) {
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      /* Knoten der aktiven Seite aufklappen, damit sie im Baum sichtbar ist */
+      var activeNode = tab.closest('.ep-tab-node');
+      if (activeNode) setTabNodeOpen(activeNode, true);
+    }
     if (page) page.classList.add('visible');
     var sec = document.getElementById('sec-examples');
     if (sec) {
@@ -161,6 +166,18 @@
   }
   document.querySelectorAll('.ep-tab[data-ep]').forEach(function(btn) {
     btn.addEventListener('click', function() { activateExamplePage(btn.dataset.ep); });
+  });
+  /* ── Beispielseiten-Tabs: Unterpunkte ein-/ausklappen ── */
+  function setTabNodeOpen(node, open) {
+    node.classList.toggle('is-open', open);
+    var toggle = node.querySelector('.ep-tab-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', String(open));
+  }
+  document.querySelectorAll('.ep-tab-toggle').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var node = btn.closest('.ep-tab-node');
+      if (node) setTabNodeOpen(node, !node.classList.contains('is-open'));
+    });
   });
   /* In-Page-Links mit data-ep (Topnav, Logo, Submenus, klickbare Karten, Breadcrumbs, Article-Cards) wechseln den Tab */
   document.querySelectorAll('.ep-page a[data-ep]').forEach(function(link) {
