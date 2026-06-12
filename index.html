@@ -12085,7 +12085,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                   <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
                   <div id="kf-es-success" role="status" tabindex="-1" hidden style="gap:var(--s3);align-items:flex-start;padding:var(--s5);border-radius:var(--r-md);background:var(--c-success-bg);color:var(--c-success)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                    <span style="font:var(--ty-body-md)"><strong>Danke, Deine Anfrage ist raus.</strong><br>Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>
+                    <span style="font:var(--ty-body-md)"><strong>Danke, Deine Anfrage ist raus.</strong><br>Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.<br><a class="body-link" href="#sec-examples" data-ep="landing" style="display:inline-block;margin-top:var(--s2)">Zurück zur Startseite <span aria-hidden="true">→</span></a></span>
                   </div>
                   <form id="kf-es-form" novalidate aria-labelledby="kf-es-heading" style="flex:1;display:flex;flex-direction:column">
                     <!-- Verstecktes Routing: vom Herkunfts-CTA gesetzt (data-k-bereich/-anliegen via applyKontaktContext), stabil unabhängig vom editierbaren Freitext unten. Siehe Block-Kommentar oben. -->
@@ -12121,7 +12121,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                     <div id="kf-es-consent-field" style="margin-bottom:var(--s6)">
                       <div style="display:flex;align-items:flex-start;gap:var(--s3)">
-                        <input type="checkbox" id="kf-es-consent" required aria-required="true" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--co-700)">
+                        <input type="checkbox" id="kf-es-consent" required aria-required="true" style="width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:var(--co-700)">
                         <label for="kf-es-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">Ich bin mit der Verarbeitung meiner Angaben gemäß den <a class="body-link" href="#">Datenschutzhinweisen</a> einverstanden. <span class="req" aria-hidden="true">*</span></label>
                       </div>
                     </div>
