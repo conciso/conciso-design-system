@@ -12282,6 +12282,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Rückschläge auffangen und Veränderung über den ersten Impuls hinaus tragen.</span></li>
           </ul>
         </div>
+        <!-- Bild-Akzent: Workshop-Atmosphäre, lockert die textlastige obere Hälfte auf -->
+        <figure style="margin:0">
+          <img src="images/team-tablet.jpg" alt="Gruppe in einem Conciso-Workshop im Gespräch an einem Tisch" loading="lazy" style="display:block;width:100%;height:clamp(220px,32vh,360px);object-fit:cover">
+        </figure>
         <!-- Termine: wiederholbare Termin-Zeile (Datum · Ort · Garantie-Badge · Anmeldung) -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label" style="color:var(--wo-700)">Termine</div>
@@ -12375,11 +12379,18 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </aside>
           </div>
         </div>
-        <!-- Voraussetzungen -->
+        <!-- Voraussetzungen: zweispaltig (Text + Bild) -->
         <div class="ep-section" style="background:var(--n-50);border-bottom:var(--bd-strong)">
-          <div class="ep-section-label" style="color:var(--wo-700)">Voraussetzungen</div>
-          <h2 class="ep-section-h2">Was du mitbringen solltest</h2>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);max-width:720px;margin:var(--s4) 0 0">Du trägst Führungs- oder Projektverantwortung und stehst vor oder mitten in einem Veränderungsvorhaben. Methodisches Vorwissen ist nicht nötig, Offenheit, an eigenen Fällen zu arbeiten, schon. Bring gern eine konkrete Situation aus deinem Alltag mit, an der wir im Training gemeinsam arbeiten.</p>
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label" style="color:var(--wo-700)">Voraussetzungen</div>
+              <h2 class="ep-section-h2">Was du mitbringen solltest</h2>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s4) 0 0">Du trägst Führungs- oder Projektverantwortung und stehst vor oder mitten in einem Veränderungsvorhaben. Methodisches Vorwissen ist nicht nötig, Offenheit, an eigenen Fällen zu arbeiten, schon. Bring gern eine konkrete Situation aus deinem Alltag mit, an der wir im Training gemeinsam arbeiten.</p>
+            </div>
+            <div class="col-5">
+              <img src="images/beratung-gespraech.jpg" alt="Zwei Personen im Gespräch an einem Tisch, eine hört aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+          </div>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
