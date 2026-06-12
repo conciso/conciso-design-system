@@ -162,6 +162,7 @@
     <div class="nav-subnav" data-for="inputs">
       <a class="nav-sub-item" href="#gt-inputs-felder">Feldkomponenten</a>
       <a class="nav-sub-item" href="#gt-inputs-kontakt">Kontaktformulare</a>
+      <a class="nav-sub-item" href="#gt-inputs-kontakt-adaptiv">Adaptive Kontaktseite</a>
       <a class="nav-sub-item" href="#gt-inputs-suche">Such-Feld</a>
       <a class="nav-sub-item" href="#gt-inputs-newsletter">Newsletter-Anmeldung</a>
       <a class="nav-sub-item" href="#gt-inputs-slider">Slider</a>
@@ -2806,6 +2807,29 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         </div>
 
       </div>
+
+      <!-- Adaptive Kontaktseite: Tönung + Vorbelegung + verstecktes Routing -->
+      <h2 id="gt-inputs-kontakt-adaptiv" class="group-title">Adaptive Kontaktseite</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Statt eines eigenen Formulars pro Bereich gibt es <strong>eine</strong> Anfrageseite (<a class="body-link" href="#sec-examples" data-ep="kontakt">Kontakt-Beispielseite</a>), die sich am Einstieg orientiert. Default ist die neutrale Corporate-Tönung; kommt der Nutzer über einen Bereichs-CTA, übernimmt das Formular Farbe, Thema und ein vorbelegtes Anliegen. So bleibt die Seite auch für unentschlossene und bereichsübergreifende Nutzer richtig und vermeidet Near-Duplicate-Seiten.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Mechanik:</strong> Der CTA trägt <code class="token">data-ep="kontakt"</code> plus optional <code class="token">data-k-bereich="ki|es|wo"</code> und <code class="token">data-k-anliegen="…"</code>. <code class="token">applyKontaktContext()</code> (in <code class="token">main.js</code>) tönt Header, Button und Consent, setzt das Thema-Select und belegt „Dein Anliegen" vor. Einstieg über Topnav, Footer oder Beispiel-Tab bleibt neutral bzw. setzt zurück.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Einstieg</th><th>Tönung</th><th>Thema</th><th>Anliegen (vorbelegt)</th></tr></thead>
+        <tbody>
+          <tr><td>Topnav / Footer „Kontakt"</td><td><code class="token">co</code></td><td>Allgemeine Anfrage</td><td>(leer)</td></tr>
+          <tr><td>AI.Automation · „Workshop anfragen"</td><td><code class="token">ki</code></td><td>Angewandte KI</td><td>AI.Automation Workshop</td></tr>
+          <tr><td>Effektive Software · „Gespräch vereinbaren"</td><td><code class="token">es</code></td><td>Effektive Software</td><td>(leer)</td></tr>
+          <tr><td>Wirksame Organisationen · „Transformation starten"</td><td><code class="token">wo</code></td><td>Wirksame Organisationen</td><td>Wirksame Organisationen: Transformation</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Verstecktes Routing:</strong> Zwei <code class="token">&lt;input type="hidden"&gt;</code> transportieren den Herkunfts-Kontext stabil, unabhängig vom editierbaren Freitext. So kann intern zugeordnet und konkret geantwortet werden, ohne dem Nutzer ein zusätzliches Pflichtfeld zuzumuten.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Feld</th><th>Werte</th><th>Zweck</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">name="bereich"</code></td><td><code class="token">ki · es · wo · co</code></td><td>Zuordnung an das richtige Team-Postfach</td></tr>
+          <tr><td><code class="token">name="unterthema"</code></td><td>Freitext-Schlüssel, z. B. „AI.Automation Workshop"</td><td>Basis für eine konkrete bzw. teil-automatisierte Erstantwort</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Produktion:</strong> Im Mockup setzt <code class="token">main.js</code> diese Felder aus dem CTA. In der echten Site stattdessen serverseitig aus Route/Query-Param (<code class="token">?bereich=…&amp;anliegen=…</code>) rendern und beim Submit auswerten. „Allgemeine Anfrage" (<code class="token">bereich=co</code>, leeres <code class="token">unterthema</code>) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld (Friktion vermeiden). Bewerbung und Event-Anmeldung behalten ihren eigenen Flow.</p>
 
       <h2 id="gt-inputs-suche" class="group-title">Such-Feld</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten (z.&nbsp;B. <a class="body-link" href="#sec-listing">Wissens-Übersicht</a>). Kein sichtbares <code class="token">&lt;label&gt;</code>: Icon und Placeholder tragen den visuellen Kontext, ein <code class="token">aria-label</code> liefert den semantischen Namen für Screenreader.</p>
