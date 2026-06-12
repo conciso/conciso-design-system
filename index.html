@@ -12296,7 +12296,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Was du lernst -->
         <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label" style="color:var(--wo-700)">Auf einen Blick</div>
+          <div class="ep-section-label" style="color:var(--wo-700)">Lernziele</div>
           <h2 class="ep-section-h2">Was du lernst</h2>
           <ul style="list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--s4) var(--s8)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Veränderungsdynamiken erkennen und einordnen, statt nur Symptome zu managen.</span></li>
@@ -12311,11 +12311,26 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <figure style="margin:0">
           <img src="images/team-tablet.jpg" alt="Gruppe in einem Conciso-Workshop im Gespräch an einem Tisch" loading="lazy" style="display:block;width:100%;height:clamp(220px,32vh,360px);object-fit:cover">
         </figure>
+        <!-- Wer dich begleitet: Trainer-Profil (Vertrauen, vor den Terminen). Person ist Platzhalter (representativ) -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Trainer</div>
+          <h2 class="ep-section-h2">Wer dich begleitet</h2>
+          <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
+            <div class="col-5">
+              <img src="images/meetup-speaker.jpg" alt="Trainer mit Mikrofon, lächelnd vor einer Gruppe" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+            <div class="col-7">
+              <p style="font:var(--ty-name);color:var(--tx-primary);margin:0">Tobias Mehnert</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 var(--s4)">Senior-Berater Organisationsentwicklung · Conciso</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Tobias begleitet seit über 15 Jahren Veränderungsvorhaben in Mittelstand und Konzern, vom ersten Workshop bis in den Alltag der Teams. Sein Ansatz: Wandel nicht über die Köpfe hinweg, sondern mit den Menschen, die ihn tragen. Im Training arbeitet er konsequent an euren realen Fällen.</p>
+            </div>
+          </div>
+        </div>
         <!-- Termine: wiederholbare Termin-Zeile (Datum · Ort · Garantie-Badge · Anmeldung) -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label" style="color:var(--wo-700)">Termine</div>
           <h2 class="ep-section-h2">Nächste Durchführungen</h2>
-          <p class="ep-section-sub">Zwei Tage, jeweils 9 bis 17 Uhr. Kleine Gruppen, maximal 12 Teilnehmende.</p>
+          <p class="ep-section-sub">Wähl einen passenden Termin, oder frag einen individuellen Inhouse-Termin an.</p>
           <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s4)">
             <!-- Termin-Zeile (beliebig oft wiederholbar) -->
             <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:1px solid var(--n-100);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
@@ -12402,29 +12417,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 </div>
               </div>
             </aside>
-          </div>
-        </div>
-        <!-- Wer dich begleitet: Trainer-Profil + Stimmen (Vertrauen). Personen und Zitate sind Platzhalter (representativ) -->
-        <div class="ep-section" style="background:var(--n-50)">
-          <div class="ep-section-label" style="color:var(--wo-700)">Trainer &amp; Stimmen</div>
-          <h2 class="ep-section-h2">Wer dich begleitet</h2>
-          <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
-            <div class="col-5">
-              <img src="images/meetup-speaker.jpg" alt="Trainer mit Mikrofon, lächelnd vor einer Gruppe" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
-              <p style="font:var(--ty-name);color:var(--tx-primary);margin:var(--s4) 0 0">Tobias Mehnert</p>
-              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Senior-Berater Organisationsentwicklung · Conciso</p>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s3) 0 0">Begleitet seit über 15 Jahren Veränderungsvorhaben in Mittelstand und Konzern, vom ersten Workshop bis in den Alltag der Teams.</p>
-            </div>
-            <div class="col-7" style="display:flex;flex-direction:column;justify-content:center">
-              <figure style="margin:0;padding:0 0 var(--s5)">
-                <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Ich bin mit einem Werkzeugkasten gekommen und mit einer Haltung gegangen. Das hat in meinem Team mehr bewegt als jede Methode.“</blockquote>
-                <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Anja Brückner <span style="font:var(--ty-body-sm);color:var(--tx-secondary);font-style:normal">· Bereichsleiterin, Energieversorger</span></figcaption>
-              </figure>
-              <figure style="margin:0;padding:var(--s5) 0 0;border-top:var(--bd)">
-                <blockquote style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none">„Endlich ein Training, das Widerstand nicht wegmoderiert, sondern ernst nimmt und nutzbar macht.“</blockquote>
-                <figcaption style="font:var(--ty-name);color:var(--tx-primary)">Thomas Hofer <span style="font:var(--ty-body-sm);color:var(--tx-secondary);font-style:normal">· Werkleiter, Maschinenbau</span></figcaption>
-              </figure>
-            </div>
           </div>
         </div>
         <!-- Voraussetzungen: zweispaltig (Text + Bild); Weiss, damit der Body hell endet und der graue Footer sich klar absetzt -->
