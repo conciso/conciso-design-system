@@ -2303,7 +2303,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       <!-- ── Reduzierte Sub-Sektion mit CTAs ── -->
       <h2 id="gt-nav-hero-substrip" class="group-title">Reduzierte Sub-Sektion mit CTAs</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Direkt unterhalb des Heros sitzt eine schmale, getönte Sektion (<code class="token">.ep-section</code>, zentriert, Padding <code class="token">var(--s10)</code>) mit Eyebrow, kurzer Lead-Zeile und zwei CTAs. Sie übernimmt die Funktion „Was tun?“ ohne mit der Hero-Headline zu konkurrieren, Hero macht das Versprechen, Sub-Strip macht das Angebot. Auf jeder Customer-Page Pflicht direkt unter dem Hero-Image.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Direkt unterhalb des Heros sitzt eine schmale, getönte Sektion (<code class="token">.ep-section</code>, zentriert, Padding <code class="token">var(--s10)</code>) mit Eyebrow, kurzer Lead-Zeile und zwei CTAs. Sie übernimmt die Funktion „Was tun?“ ohne mit der Hero-Headline zu konkurrieren, Hero macht das Versprechen, die Sektion darunter macht das Angebot. Eine Angebots-Sektion direkt unter dem Hero-Image ist auf jeder Customer-Page Pflicht, ihre Form variiert: entweder als schmaler Sub-Strip (Varianten A/B unten) oder, auf Bereichs-Pages mit Manifest-Charakter, als reichere Manifest-Intro (Variante C). Erprobt als Manifest-Intro: Effektive Software.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Bereichs-Tinting:</strong> Hintergrund und untere Trennlinie folgen dem Page-Bereich, nicht pauschal Corporate. Auf Landing und Über-uns: <code class="token">--co-50</code>/<code class="token">--co-100</code>; auf den Bereichs-Pages: <code class="token">--ki-50</code>, <code class="token">--es-50</code>, <code class="token">--wo-50</code> (jeweils mit der passenden <code class="token">-100</code>-Trennlinie). Die Brand-Klammer zieht sich so von Topnav-Active-State über Hero-Caption-Eyebrow bis in den Sub-Strip durch.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Eyebrow-Inhalt pro Page-Typ:</strong></p>
       <table class="doc-table" style="margin-bottom:var(--s6)">
@@ -2311,7 +2311,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <tbody>
           <tr><td>Landing</td><td>„Verbunden gedacht" (Brücke-Variante B, siehe unten)</td><td><code class="token">--co-700</code></td></tr>
           <tr><td>Angewandte KI</td><td>Leistungs-Achsen: „AI.Engineering · AI.Automation · AI.Box“</td><td><code class="token">--ki-800</code></td></tr>
-          <tr><td>Effektive Software</td><td>Leistungs-Achsen: „Engineering · Deployment · Qualität“</td><td><code class="token">--es-700</code></td></tr>
+          <tr><td>Effektive Software</td><td>Manifest-Intro (Variante C): „Was effektive Software ausmacht“</td><td><code class="token">--es-700</code></td></tr>
           <tr><td>Wirksame Organisationen</td><td>Leistungs-Achsen: „Change · Leadership · Struktur“</td><td><code class="token">--wo-700</code></td></tr>
           <tr><td>Unternehmen</td><td>Profil-Hub-Achsen: „Team · Karriere · Referenzen“</td><td><code class="token">--co-700</code></td></tr>
         </tbody>
@@ -2322,19 +2322,20 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <tbody>
           <tr><td>Landing</td><td colspan="2"><em>Keine CTAs (Brücke-Variante B, siehe unten)</em></td></tr>
           <tr><td>Angewandte KI</td><td>Use Case analysieren</td><td>Fallstudien ansehen</td></tr>
-          <tr><td>Effektive Software</td><td>Stack analysieren</td><td>Referenzen ansehen</td></tr>
+          <tr><td>Effektive Software</td><td>Unsere Leistungen ansehen</td><td>Gespräch vereinbaren</td></tr>
           <tr><td>Wirksame Organisationen</td><td>Transformation starten</td><td>Ansatz kennenlernen</td></tr>
           <tr><td>Unternehmen</td><td>Team kennenlernen</td><td>Karriere</td></tr>
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Wichtig:</strong> Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip <em>keine eigene H1</em> und <em>keine wiederholte Was/Wo-Aussage</em> tragen, sonst entstehen Doppel-Informationen direkt untereinander. Die Lead-Zeile soll Brücke zu den CTAs sein („Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch.“), nicht das Hero-Versprechen echoen.</p>
 
-      <div class="doc-eyebrow" style="margin-top:var(--s8)">Zwei Sub-Strip-Varianten</div>
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Varianten der Angebots-Sektion</div>
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Variante</th><th>Inhalt</th><th>Wann einsetzen</th></tr></thead>
         <tbody>
           <tr><td><strong>A · mit CTAs</strong></td><td>Eyebrow + Lead + zwei Buttons (Filled primär, Outlined sekundär)</td><td>Standard. Wenn die Sub-Sektion zwei direkte Aktionen anbieten soll (Self-Service + Direkt-Kontakt). Funktioniert auf jeder Customer-Page, auch wenn der Topnav-Kontakt-Button am rechten Rand sitzt.</td></tr>
           <tr><td><strong>B · Brücke ohne CTAs</strong></td><td>Eyebrow + Lead + Drei-Spalter mit Bereichs-Eyebrows und Spektrum-Statement pro Spalte</td><td>Wenn der Sticky-Topnav-Kontakt-Button bereits die primäre Konversion trägt und die Sub-Sektion stattdessen den Inhalt darunter ankündigen soll. Die Bereichs-Eyebrows nutzen die gleichen Farben wie die Drei-Bereiche-Cards weiter unten und schaffen so ein Farb-Echo. <strong>Typografie:</strong> Eyebrows mit <code class="token">margin-bottom:var(--s2)</code> (8&nbsp;px, einheitlich zu Spalten- und Top-Eyebrow), Spalten-Text in <code class="token">--ty-body-md</code> + <code class="token">--tx-secondary</code> (identisch mit Lead, damit beide Tiers ruhig zusammen lesen). Lead-Container <code class="token">max-width:600px</code> + <code class="token">text-wrap:balance</code> für saubere 2-Zeilen-Verteilung. Beispiel: Landing („Verbunden gedacht" + 3-Spalter über die Drei Bereiche).</td></tr>
+          <tr><td><strong>C · Manifest-Intro</strong></td><td>Eyebrow + Lead (erster Satz in <code class="token">--ty-serif-md</code>) + Fließtext + zwei CTAs, im zweispaltigen <code class="token">layout-grid</code> (col-7 Text, col-5 Bild)</td><td>Auf Bereichs-Pages, deren Einstieg eine Haltung oder Definition transportiert statt nur Aktionen anzubieten. Volle <code class="token">.ep-section</code> statt schmalem Strip, dadurch Platz für ein unterstützendes Bild. Die zwei CTAs behalten die A-Logik (Filled = Selbst-Erschließung, Outlined = Direkt-Kontakt). Beispiel: Effektive Software („Was effektive Software ausmacht").</td></tr>
         </tbody>
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Wann B statt A?</strong> Wenn die Page eine deutliche Architektur mit mehreren thematischen Sektionen darunter hat (z.&nbsp;B. Drei Bereiche), kündigt B diese Architektur als ruhige Vorschau an. CTAs würden hier mit der Erstgespräch-CTA-Band-Sektion am Page-Ende konkurrieren. A bleibt richtig auf Bereichs-Pages, wo die Sub-Sektion die einzige direkte Konversions-Stelle vor dem Page-Ende ist.</p>
