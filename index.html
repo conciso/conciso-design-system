@@ -12080,8 +12080,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid" style="align-items:stretch">
             <!-- Anfrageformular: Default Corporate (co); main.js tönt nach Herkunfts-Bereich (data-k-bereich am CTA) und belegt Thema/Anliegen vor -->
             <div class="col-7" style="display:flex;flex-direction:column">
-              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-200);border-top:4px solid var(--co-500);border-radius:var(--r-lg);padding:var(--s6);flex:1;display:flex;flex-direction:column">
-                <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s5)">Wie können wir helfen?</h2>
+              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
+                <div id="kf-es-header" style="background:var(--co-700);padding:var(--s4) var(--s6)">
+                  <div id="kf-es-eyebrow" style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:2px">Anfrage</div>
+                  <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Wie können wir helfen?</h2>
+                </div>
+                <div style="padding:var(--s6);flex:1;display:flex;flex-direction:column">
                   <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
                   <div id="kf-es-success" role="status" tabindex="-1" hidden style="gap:var(--s3);align-items:flex-start;padding:var(--s5);border-radius:var(--r-md);background:var(--c-success-bg);color:var(--c-success)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
@@ -12127,6 +12131,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                     <button type="submit" class="btn btn-filled btn-co btn-full">Anfrage senden</button>
                   </form>
+                </div>
               </div>
             </div>
             <!-- Vertrauen / direkte Kontaktwege: ein Kartenobjekt (Foto-Header + Infos), flex:1 für gleiche Unterkante wie das Formular -->
