@@ -2593,6 +2593,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       <h2 id="gt-inputs-felder" class="group-title">Feldkomponenten</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Select-Platzhalter:</strong> Die erste Option („Bitte wählen…“) trägt <code class="token">value=""</code> + <code class="token">disabled</code> + <code class="token">selected</code>. So zählt der Platzhalter als unerlaubter Wert, Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Rahmen-Kontrast (WCAG 1.4.11):</strong> Feld-Rahmen nutzen den modusbewussten Token <code class="token">--field-border</code> mit ≥&nbsp;3:1 gegen den Feld-Hintergrund (Light <code class="token">--n-400</code> ≈ 3,9:1; Dark <code class="token">--n-200</code> ≈ 5,8:1). Das frühere <code class="token">--n-200</code> verfehlte im Light-Mode mit ~1,5:1 die Non-Text-Contrast-Schwelle.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Textarea:</strong> <code class="token">resize:vertical</code> + <code class="token">max-width:100%</code> — nur vertikal vergrößerbar, damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.</p>
       <div style="max-width:480px">
         <div class="field">
           <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
