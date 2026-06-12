@@ -207,7 +207,7 @@
 .field{margin-bottom:var(--s6)}
 .field label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .req{color:var(--c-error);font-size:14px}
-.field input,.field textarea,.field select{width:100%;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--n-200);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field input,.field textarea,.field select{width:100%;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%234A6565'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field.has-error input{border-color:var(--c-error)}
@@ -322,7 +322,7 @@
    sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
 .footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .footer-newsletter-form input[type="text"],
-.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--n-200);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
 /* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
 .footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
 /* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und

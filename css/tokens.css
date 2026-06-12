@@ -117,6 +117,7 @@
 
   /* ── Borders ── */
   --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
+  --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
   /* ── Focus ── */
   --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);

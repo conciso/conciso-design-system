@@ -12,6 +12,7 @@
   --n-50:#0A1515; --n-100:#1C2E2E;
   /* Borders */
   --bd:1px solid #818C99; --bd-strong:1px solid #9DA8B6;
+  --field-border:var(--n-200); /* Dark: heller Rahmen (#C9D3D3) auf Feld-bg #3F4B56 ≈ 6.6:1 → WCAG 1.4.11 ✓ (n-400 waere hier zu dunkel) */
   /* Focus – inner ring = bg-page color for "cutout" effect */
   --focus-ring:0 0 0 3px #333E48,0 0 0 5px var(--co-500);
   --focus-aa:0 0 0 2px #333E48,0 0 0 4px var(--co-500);
