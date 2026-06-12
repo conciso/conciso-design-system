@@ -12323,7 +12323,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Termine: wiederholbare Termin-Zeile (Datum · Ort · Garantie-Badge · Anmeldung) -->
-        <div class="ep-section" style="background:var(--n-50)">
+        <div class="ep-section" id="seminar-termine" style="background:var(--n-50)">
           <div class="ep-section-label" style="color:var(--wo-700)">Termine</div>
           <h2 class="ep-section-h2">Nächste Durchführungen</h2>
           <p class="ep-section-sub">Wähl einen passenden Termin, oder frag einen individuellen Inhouse-Termin an.</p>
@@ -12359,7 +12359,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Seminarinhalte (+ Voraussetzungen in der Hauptspalte): zweispaltig (Text+Bild links, Sidebar rechts); letzte Sektion vor dem Footer -->
         <div class="ep-section" style="background:var(--bg-surface);border-bottom:var(--bd-strong)">
-          <div class="ep-section-label" style="color:var(--wo-700)">Seminarinhalte</div>
+          <div class="ep-section-label" style="color:var(--wo-700)">Inhalte &amp; Voraussetzungen</div>
           <h2 class="ep-section-h2">Worum es geht</h2>
           <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
             <!-- Fliesstext mit eingestreuten Bildern -->
@@ -12379,6 +12379,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <!-- Voraussetzungen: in der Hauptspalte (col-8), durch Abstand als eigener Block abgesetzt -->
               <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s8) 0 var(--s2)">Was du mitbringen solltest</h3>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Du trägst Führungs- oder Projektverantwortung und stehst vor oder mitten in einem Veränderungsvorhaben. Methodisches Vorwissen ist nicht nötig, Offenheit, an eigenen Fällen zu arbeiten, schon. Bring gern eine konkrete Situation aus deinem Alltag mit, an der wir im Training gemeinsam arbeiten.</p>
+              <!-- Buchungs-Anker: zurueck zu den Terminen (Smooth-Scroll via main.js) -->
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s6) 0 0">Passt das zu euch? <a class="body-link" href="#seminar-termine">Zu den Terminen <span aria-hidden="true">→</span></a></p>
             </div>
             <!-- Sidebar: Preis · Sprache · Kontaktformular (sticky-ready) -->
             <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start">
