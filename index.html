@@ -12076,11 +12076,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </header>
         <!-- Formular (Bereichs-Variante) + Kontaktinfos -->
-        <div class="ep-section" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50);border-bottom:var(--bd-strong)">
           <div class="layout-grid" style="align-items:stretch">
             <!-- Anfrageformular: Default Corporate (co); main.js tönt nach Herkunfts-Bereich (data-k-bereich am CTA) und belegt Thema/Anliegen vor -->
             <div class="col-7" style="display:flex;flex-direction:column">
-              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-100);border-top:4px solid var(--co-500);border-radius:var(--r-lg);padding:var(--s6)">
+              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-100);border-top:4px solid var(--co-500);border-radius:var(--r-lg);padding:var(--s6);flex:1">
                 <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s5)">Wie können wir helfen?</h2>
                   <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
                   <div id="kf-es-success" role="status" tabindex="-1" hidden style="gap:var(--s3);align-items:flex-start;padding:var(--s5);border-radius:var(--r-md);background:var(--c-success-bg);color:var(--c-success)">
@@ -12129,25 +12129,27 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                   </form>
               </div>
             </div>
-            <!-- Vertrauen / direkte Kontaktwege -->
-            <div class="col-5" style="display:flex;flex-direction:column;gap:var(--s5)">
-              <img src="images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg)">
-              <div style="background:var(--bg-surface);border:1px solid var(--n-100);border-radius:var(--r-lg);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
-                <div>
-                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Lieber direkt?</p>
-                  <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ruf uns an oder schreib eine Mail, wir antworten gern persönlich.</p>
-                  <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><a class="body-link" href="tel:+492312261750">+49 231 226175-0</a><br><a class="body-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
-                </div>
-                <div style="border-top:var(--bd);padding-top:var(--s5)">
-                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Reaktionszeit</p>
-                  <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">In der Regel innerhalb von zwei Werktagen, mit einer ersten Einschätzung statt einer Standard-Bestätigung.</p>
-                </div>
-                <div style="border-top:var(--bd);padding-top:var(--s5)">
-                  <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Vor Ort</p>
-                  <address style="font-style:normal;font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Pariser Bogen 7<br>44269 Dortmund<br><a class="body-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a></address>
+            <!-- Vertrauen / direkte Kontaktwege: ein Kartenobjekt (Foto-Header + Infos), flex:1 für gleiche Unterkante wie das Formular -->
+            <div class="col-5" style="display:flex;flex-direction:column">
+              <div style="background:var(--bg-surface);border:1px solid var(--n-100);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
+                <img src="images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover">
+                <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5);flex:1">
+                  <div>
+                    <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Lieber direkt?</p>
+                    <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ruf uns an oder schreib eine Mail, wir antworten gern persönlich.</p>
+                    <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><a class="body-link" href="tel:+492312261750">+49 231 226175-0</a><br><a class="body-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                  </div>
+                  <div style="border-top:var(--bd);padding-top:var(--s5)">
+                    <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Reaktionszeit</p>
+                    <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">In der Regel innerhalb von zwei Werktagen, mit einer ersten Einschätzung statt einer Standard-Bestätigung.</p>
+                  </div>
+                  <div style="border-top:var(--bd);padding-top:var(--s5)">
+                    <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Vor Ort</p>
+                    <address style="font-style:normal;font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Pariser Bogen 7<br>44269 Dortmund<br><a class="body-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a></address>
+                  </div>
+                  <p style="border-top:var(--bd);padding-top:var(--s5);margin-top:auto;font:var(--ty-body-sm);color:var(--tx-secondary)">Noch nicht sicher, wo Dein Anliegen hingehört? Wähl oben einfach das passende Thema oder „Allgemeine Anfrage", wir leiten intern an die richtigen Leute weiter.</p>
                 </div>
               </div>
-              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:auto 0 0">Noch nicht sicher, wo Dein Anliegen hingehört? Wähl oben einfach das passende Thema oder „Allgemeine Anfrage", wir leiten intern an die richtigen Leute weiter.</p>
             </div>
           </div>
         </div>
