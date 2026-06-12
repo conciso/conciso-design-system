@@ -297,6 +297,65 @@
     });
   });
 
+  /* ── Kontaktformular: Validierung + Fehler-/Erfolgszustand ──
+     Hebt das Anfrageformular auf das dokumentierte Muster (.field.has-error + .error-msg[role=alert]
+     für Fehler, role="status" für Erfolg). novalidate unterdrückt native Bubbles, damit die
+     Inline-Meldungen konsistent zur DS-Komponente erscheinen. */
+  (function () {
+    var form = document.getElementById('kf-es-form');
+    if (!form) return;
+    var success = document.getElementById('kf-es-success');
+    var ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg> ';
+    function clearError(field, input) {
+      if (field) field.classList.remove('has-error');
+      if (input) { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); }
+      var msg = field && field.querySelector('.error-msg');
+      if (msg) msg.remove();
+    }
+    function setError(field, input, id, text) {
+      if (field) field.classList.add('has-error');
+      if (input) { input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id); }
+      var msg = document.createElement('span');
+      msg.className = 'error-msg'; msg.id = id; msg.setAttribute('role', 'alert');
+      msg.innerHTML = ICON + text;
+      field.appendChild(msg);
+    }
+    var checks = [
+      { input: 'kf-es-name', id: 'kf-es-name-err', test: function (v) { return v.value.trim() !== ''; }, msg: 'Bitte gib Deinen Namen an' },
+      { input: 'kf-es-email', id: 'kf-es-email-err', test: function (v) { return v.value.trim() !== '' && v.validity.valid; }, msg: 'Bitte eine gültige E-Mail-Adresse eingeben' },
+      { input: 'kf-es-msg', id: 'kf-es-msg-err', test: function (v) { return v.value.trim() !== ''; }, msg: 'Bitte beschreib kurz Deine Anforderungen' }
+    ];
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var firstInvalid = null;
+      checks.forEach(function (c) {
+        var input = document.getElementById(c.input);
+        var field = input.closest('.field');
+        clearError(field, input);
+        if (!c.test(input)) { setError(field, input, c.id, c.msg); if (!firstInvalid) firstInvalid = input; }
+      });
+      var consent = document.getElementById('kf-es-consent');
+      var cfield = document.getElementById('kf-es-consent-field');
+      var oldMsg = cfield.querySelector('.error-msg'); if (oldMsg) oldMsg.remove();
+      consent.removeAttribute('aria-invalid'); consent.removeAttribute('aria-describedby');
+      if (!consent.checked) {
+        consent.setAttribute('aria-invalid', 'true');
+        consent.setAttribute('aria-describedby', 'kf-es-consent-err');
+        var m = document.createElement('span');
+        m.className = 'error-msg'; m.id = 'kf-es-consent-err'; m.setAttribute('role', 'alert');
+        m.style.marginTop = 'var(--s2)';
+        m.innerHTML = ICON + 'Bitte stimme der Verarbeitung zu';
+        cfield.appendChild(m);
+        if (!firstInvalid) firstInvalid = consent;
+      }
+      if (firstInvalid) { firstInvalid.focus(); return; }
+      form.hidden = true;
+      success.hidden = false;
+      success.style.display = 'flex';
+      success.focus();
+    });
+  })();
+
   /* ── Listing-Pages (Wissen-Übersicht, Veranstaltungen-Übersicht): Filter-Chips + Suche ──
      Client-side Suche über Title + Lead + Pill, AND-Logik mit Bereichs-Filter.
      Featured-Section ist filter-aware (eine Variante pro Bereich) und wird bei Suche ausgeblendet. */

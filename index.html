@@ -12045,19 +12045,25 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <div class="col-7" style="display:flex;flex-direction:column">
               <div class="ds-card">
                 <div style="background:var(--es-700);padding:var(--s4) var(--s6)">
-                  <div style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--es-200);margin-bottom:2px">Effektive Software</div>
-                  <div style="font:400 20px/28px var(--font-display);color:#fff">Projekt anfragen</div>
+                  <div id="kf-es-eyebrow" style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--es-200);margin-bottom:2px">Effektive Software</div>
+                  <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Projekt anfragen</h2>
                 </div>
                 <div class="ds-inner">
-                  <form aria-label="Kontaktanfrage Effektive Software">
+                  <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
+                  <div id="kf-es-success" role="status" tabindex="-1" hidden style="gap:var(--s3);align-items:flex-start;padding:var(--s5);border-radius:var(--r-md);background:var(--c-success-bg);color:var(--c-success)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+                    <span style="font:var(--ty-body-md)"><strong>Danke, Deine Anfrage ist raus.</strong><br>Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>
+                  </div>
+                  <form id="kf-es-form" novalidate aria-labelledby="kf-es-eyebrow kf-es-heading">
+                    <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s5)">Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
                     <div class="field">
                       <label for="kf-es-name">Name <span class="req" aria-hidden="true">*</span></label>
-                      <input type="text" id="kf-es-name" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+                      <input type="text" id="kf-es-name" placeholder="Vor- und Nachname" required aria-required="true" autocomplete="name">
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)">
                       <div class="field">
                         <label for="kf-es-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
-                        <input type="email" id="kf-es-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
+                        <input type="email" id="kf-es-email" placeholder="name@unternehmen.de" required aria-required="true" autocomplete="email">
                       </div>
                       <div class="field">
                         <label for="kf-es-company">Unternehmen</label>
@@ -12076,11 +12082,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                     <div class="field">
                       <label for="kf-es-msg">Anforderungen <span class="req" aria-hidden="true">*</span></label>
-                      <textarea id="kf-es-msg" rows="4" placeholder="Was soll die Software leisten?" aria-required="true"></textarea>
+                      <textarea id="kf-es-msg" rows="4" placeholder="Was soll die Software leisten?" required aria-required="true"></textarea>
                     </div>
-                    <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s6)">
-                      <input type="checkbox" id="kf-es-consent" required style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--es-700)">
-                      <label for="kf-es-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">Ich bin mit der Verarbeitung meiner Angaben gemäß den <a class="body-link" href="#">Datenschutzhinweisen</a> einverstanden. <span class="req" aria-hidden="true">*</span></label>
+                    <div id="kf-es-consent-field" style="margin-bottom:var(--s6)">
+                      <div style="display:flex;align-items:flex-start;gap:var(--s3)">
+                        <input type="checkbox" id="kf-es-consent" required aria-required="true" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--es-700)">
+                        <label for="kf-es-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">Ich bin mit der Verarbeitung meiner Angaben gemäß den <a class="body-link" href="#">Datenschutzhinweisen</a> einverstanden. <span class="req" aria-hidden="true">*</span></label>
+                      </div>
                     </div>
                     <button type="submit" class="btn btn-filled btn-es btn-full">Anfrage senden</button>
                   </form>
