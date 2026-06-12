@@ -313,6 +313,17 @@
       <a class="nav-sub-item" href="#gt-events-featured">Featured · horizontal</a>
       <a class="nav-sub-item" href="#gt-events-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="seminar">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg>Seminar / Training
+    </button>
+    <div class="nav-subnav" data-for="seminar">
+      <a class="nav-sub-item" href="#gt-seminar-aufbau">Aufbau</a>
+      <a class="nav-sub-item" href="#gt-seminar-fakten">Fakten-Strip</a>
+      <a class="nav-sub-item" href="#gt-seminar-termine">Termine-Modul</a>
+      <a class="nav-sub-item" href="#gt-seminar-inhalte">Inhalte &amp; Sidebar</a>
+      <a class="nav-sub-item" href="#gt-seminar-buchung">Buchungs-Anker</a>
+      <a class="nav-sub-item" href="#gt-seminar-verwendung">Verwendung</a>
+    </div>
 
     <div class="nav-section">Beispielseiten</div>
     <button class="nav-item" data-section="examples">
@@ -7292,6 +7303,58 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </ul>
         </div>
       </div>
+    </section>
+
+    <!-- ═══ SEMINAR / TRAINING ═══ -->
+    <section class="ds-section" id="sec-seminar">
+      <h1 class="sec-title">Seminar / Training</h1>
+      <p class="sec-sub">Page-Pattern für die Landingpage eines einzelnen Seminars/Trainings, an einen Bereich gebunden (Beispiel: Wirksame Organisationen, <code class="token">data-accent="wo"</code>). Vollständige Komposition als <a class="body-link" href="#sec-examples" data-ep="seminar">Beispielseite Seminar · Landing</a>.</p>
+
+      <h2 id="gt-seminar-aufbau" class="group-title">Aufbau</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Reihenfolge nach Entscheidungslogik: erst Orientierung und Vertrauen, dann Buchung, dann Tiefe. Das Vertrauen (Trainer) steht bewusst <strong>vor</strong> den Terminen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Sektion</th><th>Inhalt</th><th>Hintergrund</th></tr></thead>
+        <tbody>
+          <tr><td>Hero</td><td>Pill-Eyebrow + große Headline + Subline, <strong>kein CTA</strong></td><td>Bereich-50 (getönt)</td></tr>
+          <tr><td>Fakten-Strip</td><td>Dauer · Format · Gruppe · Sprache · Preis</td><td>weiß</td></tr>
+          <tr><td>Lernziele</td><td>scanbare Bullet-Liste mit Bereichs-Haken</td><td>weiß</td></tr>
+          <tr><td>Trainer</td><td>Profil (Foto, Name, Rolle, Bio)</td><td>weiß</td></tr>
+          <tr><td>Termine</td><td>wiederholbare Termin-Zeilen + Anmeldung</td><td>grau (<code class="token">--n-50</code>)</td></tr>
+          <tr><td>Inhalte &amp; Voraussetzungen</td><td>zweispaltig, Fließtext + Sidebar</td><td>weiß</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Rhythmus:</strong> ein getönter Hero als Akzent, danach Weiß/Grau-Wechsel; die letzte Sektion bleibt weiß, sodass der graue Footer sich klar absetzt (Hairline).</p>
+
+      <h2 id="gt-seminar-fakten" class="group-title">Fakten-Strip</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Kompakter Key-Facts-Streifen direkt unter dem Hero, als semantisches <code class="token">&lt;dl&gt;</code> in einem <code class="token">repeat(auto-fit,minmax(140px,1fr))</code>-Grid. Macht die Entscheidungs-Infos (inkl. Preis) auf einen Blick sichtbar, bevor man scrollt. Labels <code class="token">--ty-label-xs</code> in Bereichsfarbe, Werte <code class="token">--ty-body-md</code>.</p>
+
+      <h2 id="gt-seminar-termine" class="group-title">Termine-Modul</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Beliebig wiederholbare Termin-Zeile (<code class="token">&lt;li&gt;</code>) mit linker Bereichs-Akzentleiste. Der Anmeldebutton führt auf die <a class="body-link" href="#sec-examples" data-ep="kontakt">adaptive Kontaktseite</a> mit vorbelegtem Bereich und Anliegen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Element</th><th>Umsetzung</th></tr></thead>
+        <tbody>
+          <tr><td>Datum / Ort</td><td>Datum <code class="token">--ty-title-sm</code>, Ort oder „Online" <code class="token">--ty-body-sm</code> · <code class="token">--tx-secondary</code></td></tr>
+          <tr><td>Termingarantie / Status</td><td><code class="token">.badge-ok</code> „Durchführung garantiert" wenn gesichert, sonst neutraler Status-Text („Noch Plätze frei"). Markierung sichtbar ja/nein.</td></tr>
+          <tr><td>Anmeldung</td><td><code class="token">.btn-sm</code> in Bereichsfarbe „Platz anfragen" → Kontaktseite (<code class="token">data-k-bereich</code>/<code class="token">data-k-anliegen</code>)</td></tr>
+          <tr><td>Leerzustand</td><td>ohne offene Termine entfällt die Liste; stattdessen Hinweis „nur auf Anfrage" + Outlined-CTA „Termin anfragen"</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-seminar-inhalte" class="group-title">Inhalte &amp; Sticky-Sidebar</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Hauptteil zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>): links (<code class="token">.col-8</code>) langer Fließtext mit eingestreuten Bildern (Text-Bild-Wechsel) und den Voraussetzungen als Unterabschnitt; rechts (<code class="token">.col-4</code>) eine Sidebar mit Preis, Sprache und Kontaktformular.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Sticky:</strong> Die Sidebar trägt <code class="token">position:sticky;top:var(--s4)</code> und läuft in Produktion beim Scrollen mit. Im Mockup verhindert <code class="token">.ep-page{overflow:hidden}</code> das Andocken (dieselbe Architektur-Grenze wie die bewusst aufgeschobene Sticky-Topnav). Auf Mobile rutscht die Sidebar unter den Fließtext.</p>
+
+      <h2 id="gt-seminar-buchung" class="group-title">Buchungs-Anker</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Am Ende der Inhalte ein dezenter Text-Link „Zu den Terminen" als In-Page-Anker auf die Termine-Sektion (<code class="token">id="seminar-termine"</code>), smooth-scrollend über <code class="token">main.js</code>. Schließt die Buchungs-Schleife <strong>ohne zweites CTA-Band</strong>: Nach dem Lesen der Tiefe muss man nicht blind hochscrollen.</p>
+
+      <h2 id="gt-seminar-verwendung" class="group-title">Verwendung</h2>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3);max-width:760px">
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vertrauen (Trainer, Belege) vor die Termine setzen, die Buchung folgt der Überzeugung.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Key-Facts inkl. Preis im Fakten-Strip früh zeigen, das Termine-Modul auch im Leerzustand bedienen.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Viele große Bilder pro Sektion. Wenige, platzierte Bilder halten den Lesefluss ruhig.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Buchungs-CTA nur ganz oben, ohne Anker am Seitenende.</span></li>
+      </ul>
+
     </section>
 
     <!-- ═══ BEISPIELSEITEN ═══ -->
