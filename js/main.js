@@ -146,7 +146,31 @@
      Scroll an den Anfang von sec-examples, damit der User die neue ep-page von oben sieht.
      Ohne Scroll bleibt die alte Scroll-Y-Position erhalten und der User landet je nach
      Höhe der neuen ep-page mitten in der Seite (z. B. direkt im Anmeldeformular). */
-  function activateExamplePage(epKey) {
+  /* Kontaktseite ist bereichsneutral (co). Kommt der Nutzer über einen Bereichs-CTA
+     (Link mit data-k-bereich / optional data-k-anliegen), wird das Formular getönt und
+     Thema/Anliegen vorbelegt. Ohne Kontext (Topnav, Footer, Tab) bleibt es Corporate. */
+  var KONTAKT_THEME = {
+    co: { bg: 'var(--co-700)', btn: 'btn-co', topic: 'Allgemeine Anfrage' },
+    ki: { bg: 'var(--ki-800)', btn: 'btn-ki', topic: 'Angewandte KI' },
+    es: { bg: 'var(--es-700)', btn: 'btn-es', topic: 'Effektive Software' },
+    wo: { bg: 'var(--wo-700)', btn: 'btn-wo', topic: 'Wirksame Organisationen' }
+  };
+  function applyKontaktContext(bereich, anliegen) {
+    var page = document.getElementById('ep-kontakt');
+    if (!page) return;
+    var t = KONTAKT_THEME[bereich] || KONTAKT_THEME.co;
+    var header = page.querySelector('.ds-card > div');
+    if (header) header.style.background = t.bg;
+    var submit = page.querySelector('#kf-es-form button[type="submit"]');
+    if (submit) { submit.classList.remove('btn-co', 'btn-ki', 'btn-es', 'btn-wo'); submit.classList.add(t.btn); }
+    var consent = document.getElementById('kf-es-consent');
+    if (consent) consent.style.accentColor = t.bg;
+    var topic = document.getElementById('kf-es-topic');
+    if (topic) topic.value = t.topic;
+    var msg = document.getElementById('kf-es-msg');
+    if (msg) msg.value = anliegen || '';
+  }
+  function activateExamplePage(epKey, ctx) {
     document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.ep-page').forEach(function(p) { p.classList.remove('visible'); });
     var tab = document.querySelector('.ep-tab[data-ep="' + epKey + '"]');
@@ -158,6 +182,7 @@
       if (activeNode) setTabNodeOpen(activeNode, true);
     }
     if (page) page.classList.add('visible');
+    if (epKey === 'kontakt') applyKontaktContext(ctx && ctx.bereich, ctx && ctx.anliegen);
     var sec = document.getElementById('sec-examples');
     if (sec) {
       var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -276,7 +301,7 @@
   document.querySelectorAll('.ep-page a[data-ep]').forEach(function(link) {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      activateExamplePage(link.dataset.ep);
+      activateExamplePage(link.dataset.ep, { bereich: link.dataset.kBereich, anliegen: link.dataset.kAnliegen });
     });
   });
 

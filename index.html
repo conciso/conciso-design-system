@@ -4782,7 +4782,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollflächiger CTA-Streifen am Ende jeder Customer-Page, direkt vor dem Footer. Trägt eine konkrete Headline, eine erklärende Subline und einen einzelnen Button auf der Bereichsfarbe als Hintergrund. Übernimmt die Funktion „letzte Einladung“, wenn die Nutzerin die Page durchgelesen hat, soll der Schritt zur Kontaktaufnahme leichtfallen.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Klassen:</strong> Container <code class="token">.ep-cta-band</code> (Padding <code class="token">var(--s12) var(--s8)</code>, zentriert), Headline <code class="token">.ep-cta-h2</code> (Display Md), Subline <code class="token">.ep-cta-sub</code> (Body Md, <code class="token">opacity:.85</code>). Hintergrund per Inline-Style auf <code class="token">--co-700</code>/<code class="token">--ki-800</code>/<code class="token">--es-700</code>/<code class="token">--wo-700</code> (dem Page-Bereich folgend), Schrift <code class="token">color:#fff</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Button-Inversion:</strong> Auf der dunklen Bereichs-Fläche wird der Filled-Button invertiert: Background weiß, Text in der Bereichsfarbe. Dafür gibt es die zusammengesetzte Modifier-Klasse <a class="body-link" href="#gt-btns-tokens"><code class="token">.btn-on-band</code></a>, die mit der Bereichs-Klasse kombiniert wird (<code class="token">.btn-co</code>/<code class="token">.btn-ki</code>/<code class="token">.btn-es</code>/<code class="token">.btn-wo</code>). Headline ist ein konkretes Angebot („Erstgespräch, 30 Minuten, kostenfrei.“), keine Marketing-Floskel; Button-Label ein Verb mit klarem Ziel.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch vereinbaren“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite nutzt neutrale Corporate-Tönung (übergreifender Einstieg) und belegt nur das Thema-Feld nach Herkunfts-Bereich vor (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Event-Anmeldung).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch vereinbaren“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite ist per Default neutral (co); ein Bereichs-CTA übergibt via <code class="token">data-k-bereich</code>/<code class="token">data-k-anliegen</code> die Tönung und die Vorbelegung von Thema und Anliegen (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Event-Anmeldung).</p>
 
       <div class="ep-cta-band" style="background:var(--co-700);color:#fff;border-radius:var(--r-lg);margin-bottom:var(--s6)">
         <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
@@ -9168,7 +9168,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--ki-800);margin-bottom:var(--s4)">AI.Engineering · AI.Automation · AI.Box</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Erzähl uns Dein Vorhaben. Oder schau Dir erst Fallstudien an.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled btn-ki" type="button">Use Case analysieren</button>
+            <a class="btn btn-filled btn-ki" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki" data-k-anliegen="Angewandte KI: Use-Case-Analyse">Use Case analysieren</a>
             <a class="btn btn-outlined btn-ki" href="#ai-projekte">Projekte ansehen</a>
           </div>
         </div>
@@ -9326,7 +9326,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
           <h2 class="ep-cta-h2">Welchen Prozess könntest Du automatisieren?</h2>
           <p class="ep-cta-sub">Sag es uns. Wir bringen das nötige KI-Know-how mit.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
+          <a class="btn btn-filled btn-ki btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -9770,7 +9770,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--ki-800);color:#fff">
           <h2 class="ep-cta-h2">Bereit für KI, die mitwächst?</h2>
           <p class="ep-cta-sub">Erzähl uns Deinen Anwendungsfall. Wir zeigen Dir, wie AI.Box passt, ehrlich auch dann, wenn etwas anderes besser für Dich ist.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
+          <a class="btn btn-filled btn-ki btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -9973,7 +9973,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Einbettung in euren Alltag, in einer sicheren Umgebung.</p>
             </li>
           </ol>
-          <p style="margin:var(--s10) 0 0;text-align:center"><button class="btn btn-filled btn-ki" type="button">Workshop anfragen</button></p>
+          <p style="margin:var(--s10) 0 0;text-align:center"><a class="btn btn-filled btn-ki" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki" data-k-anliegen="AI.Engineering Workshop">Workshop anfragen</a></p>
         </div>
         <!-- Verweis auf andere Bereiche (Geschwister-Lösungen in Angewandte KI) -->
         <div class="ep-section" style="background:var(--n-50)">
@@ -10000,7 +10000,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-label" style="color:rgba(255,255,255,.72);margin-bottom:var(--s3)">Erstgespräch</p>
           <h2 class="ep-cta-h2">Unverbindlich über euren KI-Einsatz sprechen.</h2>
           <p class="ep-cta-sub">Ob Workshop, Pilot oder direkter Projektstart. In einem ersten Gespräch finden wir heraus, wo ihr als Organisation steht und welcher Einstieg zu euch passt. Unverbindlich und ehrlich, auch wenn die Antwort mal „noch nicht“ lautet.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
+          <a class="btn btn-filled btn-ki btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -10278,7 +10278,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
           </div>
-          <p style="margin:var(--s10) 0 0;text-align:center"><button class="btn btn-filled btn-ki" type="button">Workshop anfragen</button></p>
+          <p style="margin:var(--s10) 0 0;text-align:center"><a class="btn btn-filled btn-ki" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki" data-k-anliegen="AI.Automation Workshop">Workshop anfragen</a></p>
         </div>
         <!-- Verweis auf andere Bereiche (Geschwister-Lösungen in Angewandte KI) -->
         <div class="ep-section" style="background:var(--bg-surface)">
@@ -10305,7 +10305,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-label" style="color:rgba(255,255,255,.72);margin-bottom:var(--s3)">Erstgespräch</p>
           <h2 class="ep-cta-h2">Unverbindlich über euren KI-Einsatz sprechen.</h2>
           <p class="ep-cta-sub">Ob Workshop, Pilot oder direkter Projektstart. In einem ersten Gespräch finden wir heraus, wo ihr als Organisation steht und welcher Einstieg zu euch passt. Unverbindlich und ehrlich, auch wenn die Antwort mal „noch nicht“ lautet.</p>
-          <button class="btn btn-filled btn-ki btn-on-band">Gespräch vereinbaren</button>
+          <a class="btn btn-filled btn-ki btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -10419,7 +10419,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">Ob Software das mitmacht, entscheidet sich an ihrer Softwarequalität, und die ist selten im ersten Release sichtbar: eine Software-Architektur, die Komplexität ordnet. Sauberer Code, den auch in zwei Jahren noch jemand versteht. Und ein Identity- und Access-Management, das Sicherheit nicht zum Bremsklotz macht.</p>
               <div class="ep-hero-ctas">
                 <a class="btn btn-filled btn-es" href="#es-leistungen">Unsere Leistungen ansehen</a>
-                <a class="btn btn-outlined btn-es" href="#sec-examples" data-ep="kontakt">Gespräch vereinbaren</a>
+                <a class="btn btn-outlined btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es">Gespräch vereinbaren</a>
               </div>
             </div>
             <div class="col-5">
@@ -10526,7 +10526,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Erstgespräch</p>
           <h2 class="ep-cta-h2">Unverbindlich über euer Vorhaben sprechen.</h2>
           <p class="ep-cta-sub">Du schilderst, woran ihr arbeitet, wir geben eine erste Einschätzung, wo wir bei eurer Software ansetzen können.</p>
-          <a class="btn btn-filled btn-es btn-on-band" href="#sec-examples" data-ep="kontakt">Gespräch vereinbaren</a>
+          <a class="btn btn-filled btn-es btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="es">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -10636,7 +10636,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-hero-eyebrow" style="color:var(--wo-700);margin-bottom:var(--s4)">Change · Leadership · Struktur</p>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Starte Deine Transformation. Oder lerne erst unseren Ansatz kennen.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <button class="btn btn-filled btn-wo" type="button" style="--c500:var(--wo-600)">Transformation starten</button>
+            <a class="btn btn-filled btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Wirksame Organisationen: Transformation" style="--c500:var(--wo-600)">Transformation starten</a>
             <button class="btn btn-outlined btn-wo" type="button">Ansatz kennenlernen</button>
           </div>
         </div>
@@ -10689,7 +10689,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
           <h2 class="ep-cta-h2">Was steht in Deiner Organisation an?</h2>
           <p class="ep-cta-sub">Ein offenes Gespräch genügt. Wir hören erst zu, bevor wir empfehlen.</p>
-          <button class="btn btn-filled btn-wo btn-on-band">Erstgespräch vereinbaren</button>
+          <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo">Erstgespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -11998,12 +11998,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </div>
 
       <!-- ── KONTAKT (übergreifende Anfrageseite) ──
-           Eine Vorlage für alle Gesprächs-CTAs ("Gespräch vereinbaren", "Assessment anfragen",
-           "Use Case analysieren" …). Bereichsneutrale Corporate-Tönung (co), weil Kontakt ein
-           übergreifender Einstieg ist (man kann aus jedem Bereich oder ohne Kontext kommen).
-           Der Herkunfts-Bereich wird nur im Thema-Select vorbelegt (hier Effektive Software),
-           nicht über die Farbe; in Produktion via Query-Param (?bereich=…) bzw. Routing.
-           Eigene Flows behalten Bewerbung (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
+           Eine Vorlage für alle Gesprächs-CTAs. Default ist bereichsneutrale Corporate-Tönung (co),
+           da Kontakt ein übergreifender Einstieg ist. Kommt der Nutzer über einen Bereichs-CTA
+           (Link mit data-k-bereich="ki|es|wo" und optional data-k-anliegen), tönt main.js das
+           Formular passend ein und belegt Thema + Anliegen vor (z. B. „AI.Automation Workshop").
+           Topnav-, Footer- und Tab-Einstieg bleiben neutral. Eigene Flows behalten Bewerbung
+           (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
       <div class="ep-page" id="ep-kontakt" role="tabpanel" aria-labelledby="eptab-kontakt" tabindex="0">
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
@@ -12042,7 +12042,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Formular (Bereichs-Variante) + Kontaktinfos -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:start">
-            <!-- Anfrageformular: neutrale Corporate-Tönung (co); der Bereich lebt nur im Thema-Feld, nicht in der Farbe -->
+            <!-- Anfrageformular: Default Corporate (co); main.js tönt nach Herkunfts-Bereich (data-k-bereich am CTA) und belegt Thema/Anliegen vor -->
             <div class="col-7" style="display:flex;flex-direction:column">
               <div class="ds-card">
                 <div style="background:var(--co-700);padding:var(--s4) var(--s6)">
@@ -12073,10 +12073,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <div class="field">
                       <label for="kf-es-topic">Thema</label>
                       <select id="kf-es-topic">
-                        <option selected>Effektive Software</option>
+                        <option>Effektive Software</option>
                         <option>Angewandte KI</option>
                         <option>Wirksame Organisationen</option>
-                        <option>Allgemeine Anfrage</option>
+                        <option selected>Allgemeine Anfrage</option>
                       </select>
                     </div>
                     <div class="field">
