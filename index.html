@@ -4782,7 +4782,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollflächiger CTA-Streifen am Ende jeder Customer-Page, direkt vor dem Footer. Trägt eine konkrete Headline, eine erklärende Subline und einen einzelnen Button auf der Bereichsfarbe als Hintergrund. Übernimmt die Funktion „letzte Einladung“, wenn die Nutzerin die Page durchgelesen hat, soll der Schritt zur Kontaktaufnahme leichtfallen.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Klassen:</strong> Container <code class="token">.ep-cta-band</code> (Padding <code class="token">var(--s12) var(--s8)</code>, zentriert), Headline <code class="token">.ep-cta-h2</code> (Display Md), Subline <code class="token">.ep-cta-sub</code> (Body Md, <code class="token">opacity:.85</code>). Hintergrund per Inline-Style auf <code class="token">--co-700</code>/<code class="token">--ki-800</code>/<code class="token">--es-700</code>/<code class="token">--wo-700</code> (dem Page-Bereich folgend), Schrift <code class="token">color:#fff</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Button-Inversion:</strong> Auf der dunklen Bereichs-Fläche wird der Filled-Button invertiert: Background weiß, Text in der Bereichsfarbe. Dafür gibt es die zusammengesetzte Modifier-Klasse <a class="body-link" href="#gt-btns-tokens"><code class="token">.btn-on-band</code></a>, die mit der Bereichs-Klasse kombiniert wird (<code class="token">.btn-co</code>/<code class="token">.btn-ki</code>/<code class="token">.btn-es</code>/<code class="token">.btn-wo</code>). Headline ist ein konkretes Angebot („Erstgespräch, 30 Minuten, kostenfrei.“), keine Marketing-Floskel; Button-Label ein Verb mit klarem Ziel.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch vereinbaren“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite tönt Formular und Vorbelegung nach Herkunfts-Bereich (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Event-Anmeldung).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch vereinbaren“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite nutzt neutrale Corporate-Tönung (übergreifender Einstieg) und belegt nur das Thema-Feld nach Herkunfts-Bereich vor (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Event-Anmeldung).</p>
 
       <div class="ep-cta-band" style="background:var(--co-700);color:#fff;border-radius:var(--r-lg);margin-bottom:var(--s6)">
         <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
@@ -11997,12 +11997,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </footer>
       </div>
 
-      <!-- ── KONTAKT (adaptive Anfrageseite) ──
+      <!-- ── KONTAKT (übergreifende Anfrageseite) ──
            Eine Vorlage für alle Gesprächs-CTAs ("Gespräch vereinbaren", "Assessment anfragen",
-           "Use Case analysieren" …). Das Formular wird nach Herkunfts-Bereich getönt und
-           vorbelegt; hier Effektive Software als erster Anwendungsfall. In Produktion via
-           Query-Param (?bereich=es&anlass=…) bzw. Routing gesetzt. Eigene Flows behalten
-           Bewerbung (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
+           "Use Case analysieren" …). Bereichsneutrale Corporate-Tönung (co), weil Kontakt ein
+           übergreifender Einstieg ist (man kann aus jedem Bereich oder ohne Kontext kommen).
+           Der Herkunfts-Bereich wird nur im Thema-Select vorbelegt (hier Effektive Software),
+           nicht über die Farbe; in Produktion via Query-Param (?bereich=…) bzw. Routing.
+           Eigene Flows behalten Bewerbung (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
       <div class="ep-page" id="ep-kontakt" role="tabpanel" aria-labelledby="eptab-kontakt" tabindex="0">
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
@@ -12041,12 +12042,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Formular (Bereichs-Variante) + Kontaktinfos -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:start">
-            <!-- Anfrageformular: getönt nach Herkunfts-Bereich (hier Effektive Software) -->
+            <!-- Anfrageformular: neutrale Corporate-Tönung (co); der Bereich lebt nur im Thema-Feld, nicht in der Farbe -->
             <div class="col-7" style="display:flex;flex-direction:column">
               <div class="ds-card">
-                <div style="background:var(--es-700);padding:var(--s4) var(--s6)">
-                  <div id="kf-es-eyebrow" style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--es-200);margin-bottom:2px">Effektive Software</div>
-                  <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Projekt anfragen</h2>
+                <div style="background:var(--co-700);padding:var(--s4) var(--s6)">
+                  <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Wie können wir helfen?</h2>
                 </div>
                 <div class="ds-inner">
                   <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
@@ -12054,7 +12054,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
                     <span style="font:var(--ty-body-md)"><strong>Danke, Deine Anfrage ist raus.</strong><br>Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>
                   </div>
-                  <form id="kf-es-form" novalidate aria-labelledby="kf-es-eyebrow kf-es-heading">
+                  <form id="kf-es-form" novalidate aria-labelledby="kf-es-heading">
                     <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s5)">Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
                     <div class="field">
                       <label for="kf-es-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -12085,11 +12085,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                     <div id="kf-es-consent-field" style="margin-bottom:var(--s6)">
                       <div style="display:flex;align-items:flex-start;gap:var(--s3)">
-                        <input type="checkbox" id="kf-es-consent" required aria-required="true" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--es-700)">
+                        <input type="checkbox" id="kf-es-consent" required aria-required="true" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--co-700)">
                         <label for="kf-es-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">Ich bin mit der Verarbeitung meiner Angaben gemäß den <a class="body-link" href="#">Datenschutzhinweisen</a> einverstanden. <span class="req" aria-hidden="true">*</span></label>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-filled btn-es btn-full">Anfrage senden</button>
+                    <button type="submit" class="btn btn-filled btn-co btn-full">Anfrage senden</button>
                   </form>
                 </div>
               </div>
