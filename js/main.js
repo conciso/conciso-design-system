@@ -322,8 +322,7 @@
     }
     var checks = [
       { input: 'kf-es-name', id: 'kf-es-name-err', test: function (v) { return v.value.trim() !== ''; }, msg: 'Bitte gib Deinen Namen an' },
-      { input: 'kf-es-email', id: 'kf-es-email-err', test: function (v) { return v.value.trim() !== '' && v.validity.valid; }, msg: 'Bitte eine gültige E-Mail-Adresse eingeben' },
-      { input: 'kf-es-msg', id: 'kf-es-msg-err', test: function (v) { return v.value.trim() !== ''; }, msg: 'Bitte beschreib kurz Deine Anforderungen' }
+      { input: 'kf-es-email', id: 'kf-es-email-err', test: function (v) { return v.value.trim() !== '' && v.validity.valid; }, msg: 'Bitte eine gültige E-Mail-Adresse eingeben' }
     ];
     form.addEventListener('submit', function (e) {
       e.preventDefault();
