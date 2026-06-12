@@ -150,21 +150,21 @@
      (Link mit data-k-bereich / optional data-k-anliegen), wird das Formular getönt und
      Thema/Anliegen vorbelegt. Ohne Kontext (Topnav, Footer, Tab) bleibt es Corporate. */
   var KONTAKT_THEME = {
-    co: { bg: 'var(--co-700)', btn: 'btn-co', topic: 'Allgemeine Anfrage' },
-    ki: { bg: 'var(--ki-800)', btn: 'btn-ki', topic: 'Angewandte KI' },
-    es: { bg: 'var(--es-700)', btn: 'btn-es', topic: 'Effektive Software' },
-    wo: { bg: 'var(--wo-700)', btn: 'btn-wo', topic: 'Wirksame Organisationen' }
+    co: { line: 'var(--co-500)', dark: 'var(--co-700)', btn: 'btn-co', topic: 'Allgemeine Anfrage' },
+    ki: { line: 'var(--ki-500)', dark: 'var(--ki-800)', btn: 'btn-ki', topic: 'Angewandte KI' },
+    es: { line: 'var(--es-500)', dark: 'var(--es-700)', btn: 'btn-es', topic: 'Effektive Software' },
+    wo: { line: 'var(--wo-500)', dark: 'var(--wo-700)', btn: 'btn-wo', topic: 'Wirksame Organisationen' }
   };
   function applyKontaktContext(bereich, anliegen) {
     var page = document.getElementById('ep-kontakt');
     if (!page) return;
     var t = KONTAKT_THEME[bereich] || KONTAKT_THEME.co;
-    var header = page.querySelector('.ds-card > div');
-    if (header) header.style.background = t.bg;
+    var card = document.getElementById('kf-es-card');
+    if (card) card.style.borderTopColor = t.line;
     var submit = page.querySelector('#kf-es-form button[type="submit"]');
     if (submit) { submit.classList.remove('btn-co', 'btn-ki', 'btn-es', 'btn-wo'); submit.classList.add(t.btn); }
     var consent = document.getElementById('kf-es-consent');
-    if (consent) consent.style.accentColor = t.bg;
+    if (consent) consent.style.accentColor = t.dark;
     var topic = document.getElementById('kf-es-topic');
     if (topic) topic.value = t.topic;
     var msg = document.getElementById('kf-es-msg');

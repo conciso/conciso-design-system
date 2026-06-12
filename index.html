@@ -12077,14 +12077,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </header>
         <!-- Formular (Bereichs-Variante) + Kontaktinfos -->
         <div class="ep-section" style="background:var(--n-50)">
-          <div class="layout-grid" style="align-items:start">
+          <div class="layout-grid" style="align-items:stretch">
             <!-- Anfrageformular: Default Corporate (co); main.js tönt nach Herkunfts-Bereich (data-k-bereich am CTA) und belegt Thema/Anliegen vor -->
             <div class="col-7" style="display:flex;flex-direction:column">
-              <div class="ds-card">
-                <div style="background:var(--co-700);padding:var(--s4) var(--s6)">
-                  <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Wie können wir helfen?</h2>
-                </div>
-                <div class="ds-inner">
+              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-100);border-top:4px solid var(--co-500);border-radius:var(--r-lg);padding:var(--s6)">
+                <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0 0 var(--s5)">Wie können wir helfen?</h2>
                   <!-- Erfolgsmeldung: nach Absenden per JS eingeblendet, fokussiert und via role="status" angekündigt -->
                   <div id="kf-es-success" role="status" tabindex="-1" hidden style="gap:var(--s3);align-items:flex-start;padding:var(--s5);border-radius:var(--r-md);background:var(--c-success-bg);color:var(--c-success)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
@@ -12130,11 +12127,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                     <button type="submit" class="btn btn-filled btn-co btn-full">Anfrage senden</button>
                   </form>
-                </div>
               </div>
             </div>
             <!-- Vertrauen / direkte Kontaktwege -->
             <div class="col-5" style="display:flex;flex-direction:column;gap:var(--s5)">
+              <img src="images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg)">
               <div style="background:var(--bg-surface);border:1px solid var(--n-100);border-radius:var(--r-lg);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
                 <div>
                   <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s2)">Lieber direkt?</p>
@@ -12150,7 +12147,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                   <address style="font-style:normal;font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Pariser Bogen 7<br>44269 Dortmund<br><a class="body-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a></address>
                 </div>
               </div>
-              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0">Noch nicht sicher, wo Dein Anliegen hingehört? Wähl oben einfach das passende Thema oder „Allgemeine Anfrage", wir leiten intern an die richtigen Leute weiter.</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:auto 0 0">Noch nicht sicher, wo Dein Anliegen hingehört? Wähl oben einfach das passende Thema oder „Allgemeine Anfrage", wir leiten intern an die richtigen Leute weiter.</p>
             </div>
           </div>
         </div>
