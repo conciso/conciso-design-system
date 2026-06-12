@@ -12002,8 +12002,20 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
            da Kontakt ein übergreifender Einstieg ist. Kommt der Nutzer über einen Bereichs-CTA
            (Link mit data-k-bereich="ki|es|wo" und optional data-k-anliegen), tönt main.js das
            Formular passend ein und belegt Thema + Anliegen vor (z. B. „AI.Automation Workshop").
-           Topnav-, Footer- und Tab-Einstieg bleiben neutral. Eigene Flows behalten Bewerbung
-           (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
+           Topnav-, Footer- und Tab-Einstieg bleiben neutral.
+
+           ROUTING / SPÄTERE IMPLEMENTIERUNG:
+           Zwei versteckte Felder transportieren den Herkunfts-Kontext stabil (unabhängig vom
+           editierbaren Freitext „Dein Anliegen", den der Nutzer ändern/löschen kann):
+             • name="bereich"    → ki | es | wo | co  — Zuordnung an das richtige Team-Postfach.
+             • name="unterthema" → konkretes Anliegen, z. B. „AI.Automation Workshop" — als Basis
+                                    für eine konkrete bzw. teil-automatisierte Erstantwort/Vorlage.
+           Im Mockup setzt main.js (applyKontaktContext) beide aus data-k-bereich/-anliegen des
+           geklickten CTAs. In Produktion stattdessen serverseitig aus Route/Query-Param
+           (?bereich=…&anliegen=…) rendern und beim Submit auswerten; "Allgemeine Anfrage"
+           (bereich=co, leeres unterthema) geht ans allgemeine Postfach. Granularere Unterthemen
+           kommen aus dem CTA, nicht aus einem zusätzlichen Pflichtfeld (Friktion vermeiden).
+           Eigene Flows behalten Bewerbung (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
       <div class="ep-page" id="ep-kontakt" role="tabpanel" aria-labelledby="eptab-kontakt" tabindex="0">
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
@@ -12055,6 +12067,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <span style="font:var(--ty-body-md)"><strong>Danke, Deine Anfrage ist raus.</strong><br>Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>
                   </div>
                   <form id="kf-es-form" novalidate aria-labelledby="kf-es-heading">
+                    <!-- Verstecktes Routing: vom Herkunfts-CTA gesetzt (data-k-bereich/-anliegen via applyKontaktContext), stabil unabhängig vom editierbaren Freitext unten. Siehe Block-Kommentar oben. -->
+                    <input type="hidden" id="kf-es-bereich" name="bereich" value="co">
+                    <input type="hidden" id="kf-es-unterthema" name="unterthema" value="">
                     <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s5)">Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
                     <div class="field">
                       <label for="kf-es-name">Name <span class="req" aria-hidden="true">*</span></label>

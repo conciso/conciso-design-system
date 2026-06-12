@@ -169,6 +169,11 @@
     if (topic) topic.value = t.topic;
     var msg = document.getElementById('kf-es-msg');
     if (msg) msg.value = anliegen || '';
+    /* Verstecktes Routing (stabil, unabhängig vom editierbaren Freitext oben) */
+    var rb = document.getElementById('kf-es-bereich');
+    if (rb) rb.value = KONTAKT_THEME[bereich] ? bereich : 'co';
+    var ru = document.getElementById('kf-es-unterthema');
+    if (ru) ru.value = anliegen || '';
   }
   function activateExamplePage(epKey, ctx) {
     document.querySelectorAll('.ep-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
