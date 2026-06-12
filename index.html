@@ -7354,6 +7354,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-tab-group-row" role="presentation">
             <button class="ep-tab" role="tab" aria-selected="false" aria-label="Veranstaltungen · Übersicht" data-ep="ev-uebersicht" id="eptab-ev-uebersicht" aria-controls="ep-ev-uebersicht">Übersicht</button>
             <button class="ep-tab" role="tab" aria-selected="false" aria-label="Veranstaltung · Detail" data-ep="veranstaltung" id="eptab-veranstaltung" aria-controls="ep-veranstaltung">Detail</button>
+            <button class="ep-tab" role="tab" aria-selected="false" aria-label="Seminar · Landing" data-ep="seminar" id="eptab-seminar" aria-controls="ep-seminar">Seminar · Landing</button>
           </div>
         </div>
         <div class="ep-tab-group" role="presentation">
@@ -12160,6 +12161,225 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
           </div>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wb-uebersicht">Beiträge</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="co-jobs">Jobs</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="kontakt">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── SEMINAR / TRAINING · LANDING (Wirksame Organisationen) ──
+           Landingpage-Muster fuer ein einzelnes Seminar/Training, Bereich WO (data-accent="wo").
+           Termine-Modul: beliebig wiederholbare Termin-Zeile (Datum, Ort, Garantie-Badge ja/nein,
+           Anmeldebutton) + dokumentierter Leerzustand (siehe Kommentar im Modul).
+           Seminarinhalte zweispaltig: Fliesstext mit eingestreuten Bildern (col-8) + Sidebar
+           (col-4) mit Preis, Sprache, Kontaktformular. Sidebar ist sticky-ready (position:sticky);
+           im Mockup verhindert .ep-page{overflow:hidden} das Andocken (analog zur aufgeschobenen
+           Sticky-Topnav), in Produktion laeuft sie mit. Auf Mobile rutscht sie unter den Text. -->
+      <div class="ep-page" id="ep-seminar" data-accent="wo" role="tabpanel" aria-labelledby="eptab-seminar" tabindex="0">
+        <a class="skip-link" href="#ep-seminar-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + Organisation hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+              </div>
+            </div>
+          </nav>
+          <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
+        </div>
+        <!-- Hero: reiner Einstieg, kein CTA -->
+        <header class="ep-section" id="ep-seminar-main" tabindex="-1" style="background:var(--wo-50);text-align:center;border-bottom:1px solid var(--wo-100)">
+          <div style="max-width:760px;margin:0 auto">
+            <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen">Wirksame Organisationen</span>
+            <h1 style="font:var(--ty-display-md);color:var(--tx-primary);margin:var(--s2) 0 var(--s4);text-wrap:balance">Veränderung wirksam begleiten</h1>
+            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Ein zweitägiges Training für Führungskräfte und Change-Verantwortliche, die Wandel nicht verordnen, sondern tragfähig gestalten wollen.</p>
+          </div>
+        </header>
+        <!-- Was du lernst -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Auf einen Blick</div>
+          <h2 class="ep-section-h2">Was du lernst</h2>
+          <ul style="list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--s4) var(--s8)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Veränderungsdynamiken erkennen und einordnen, statt nur Symptome zu managen.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Betroffene früh einbinden, statt sie mit fertigen Entscheidungen zu überrollen.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Widerstand als Information lesen und konstruktiv nutzen.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>In Unsicherheit klar und glaubwürdig kommunizieren.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Die eigene Rolle als Führungskraft im Wandel schärfen.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="color:var(--wo-700);font-weight:700;margin-top:1px">✓</span><span>Rückschläge auffangen und Veränderung über den ersten Impuls hinaus tragen.</span></li>
+          </ul>
+        </div>
+        <!-- Termine: wiederholbare Termin-Zeile (Datum · Ort · Garantie-Badge · Anmeldung) -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Termine</div>
+          <h2 class="ep-section-h2">Nächste Durchführungen</h2>
+          <p class="ep-section-sub">Zwei Tage, jeweils 9 bis 17 Uhr. Kleine Gruppen, maximal 12 Teilnehmende.</p>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s4)">
+            <!-- Termin-Zeile (beliebig oft wiederholbar) -->
+            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:1px solid var(--n-100);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
+              <div>
+                <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">14.–15. April 2026</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Dortmund · Pariser Bogen 7</p>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap">
+                <span class="badge badge-ok"><span aria-hidden="true">✓</span> Durchführung garantiert</span>
+                <a class="btn btn-filled btn-sm btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Seminar: Veränderung wirksam begleiten (14.–15. April 2026)">Anmelden</a>
+              </div>
+            </li>
+            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:1px solid var(--n-100);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
+              <div>
+                <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">9.–10. Juni 2026</p>
+                <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Online · Zoom</p>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap">
+                <span style="font:var(--ty-body-sm);color:var(--tx-secondary)">Noch Plätze frei</span>
+                <a class="btn btn-filled btn-sm btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Seminar: Veränderung wirksam begleiten (9.–10. Juni 2026, Online)">Anmelden</a>
+              </div>
+            </li>
+          </ul>
+          <!-- Leerzustand (wenn keine offenen Termine): die <ul> oben entfällt und stattdessen:
+          <div style="background:var(--bg-surface);border:1px dashed var(--n-200);border-radius:var(--r-md);padding:var(--s6);text-align:center">
+            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4)">Aktuell sind keine offenen Termine geplant. Wir führen das Seminar nur auf Anfrage durch, z. B. als Inhouse-Training.</p>
+            <a class="btn btn-outlined btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Seminar Veränderung wirksam begleiten: Termin auf Anfrage">Termin anfragen</a>
+          </div>
+          -->
+        </div>
+        <!-- Seminarinhalte: zweispaltig (Text+Bild links, Sidebar rechts) -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Seminarinhalte</div>
+          <h2 class="ep-section-h2">Worum es geht</h2>
+          <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
+            <!-- Fliesstext mit eingestreuten Bildern -->
+            <div class="col-8">
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Veränderung scheitert selten an der Strategie und fast immer an den Menschen, die sie tragen sollen. In diesem Training arbeiten wir an genau dieser Lücke: zwischen dem, was beschlossen wurde, und dem, was im Alltag wirklich ankommt. Du lernst, Veränderung aus der Perspektive der Betroffenen zu denken und so zu führen, dass aus Betroffenen Beteiligte werden.</p>
+              <figure style="margin:0 0 var(--s5)">
+                <img src="images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, eine erklärt eine Skizze" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)">
+              </figure>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Tag 1 — Verstehen, was Wandel mit Menschen macht</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Wir schauen auf die typischen Phasen von Veränderungsprozessen, auf Reaktionen wie Unsicherheit, Abwehr und Aushandeln, und darauf, was sie über den Zustand der Organisation verraten. An eigenen Fällen analysieren wir, wo ein Vorhaben gerade steht und welche Hebel wirklich greifen.</p>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Tag 2 — Führen, kommunizieren, dranbleiben</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Am zweiten Tag geht es um dein Handeln: Wie du Beteiligung gestaltest, ohne Entscheidungen zu zerreden. Wie du klar kommunizierst, auch wenn nicht alles klar ist. Und wie du Energie über den ersten Impuls hinaus hältst, gerade wenn die ersten Widerstände kommen.</p>
+              <figure style="margin:0 0 var(--s5)">
+                <img src="images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Workshop hören aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)">
+              </figure>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gearbeitet wird durchgehend an realen Situationen der Teilnehmenden, im Wechsel aus kurzen Impulsen, Übung und kollegialer Beratung. Du gehst nicht mit einem Foliensatz nach Hause, sondern mit einem konkreten nächsten Schritt für dein eigenes Vorhaben.</p>
+            </div>
+            <!-- Sidebar: Preis · Sprache · Kontaktformular (sticky-ready) -->
+            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start">
+              <div style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden">
+                <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
+                  <div>
+                    <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--wo-700);margin:0 0 var(--s2)">Preis</p>
+                    <p style="font:400 32px/1 var(--font-display);color:var(--wo-800);margin:0">1.290 €</p>
+                    <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s2) 0 0">pro Person, zzgl. MwSt. Inklusive Verpflegung und Unterlagen.</p>
+                  </div>
+                  <div style="border-top:var(--bd);padding-top:var(--s5)">
+                    <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--wo-700);margin:0 0 var(--s2)">Sprache</p>
+                    <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Deutsch</p>
+                  </div>
+                </div>
+                <div style="background:var(--wo-700);padding:var(--s4) var(--s6)">
+                  <h3 style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Fragen zum Seminar?</h3>
+                </div>
+                <div style="padding:var(--s6)">
+                  <form aria-label="Frage zum Seminar">
+                    <div class="field">
+                      <label for="sem-name">Name <span class="req" aria-hidden="true">*</span></label>
+                      <input type="text" id="sem-name" placeholder="Vor- und Nachname" required aria-required="true" autocomplete="name">
+                    </div>
+                    <div class="field">
+                      <label for="sem-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                      <input type="email" id="sem-email" placeholder="name@unternehmen.de" required aria-required="true" autocomplete="email">
+                    </div>
+                    <div class="field">
+                      <label for="sem-msg">Deine Frage</label>
+                      <textarea id="sem-msg" rows="3" placeholder="Worum geht es?"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-filled btn-wo btn-full">Frage senden</button>
+                  </form>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <!-- Voraussetzungen -->
+        <div class="ep-section" style="background:var(--n-50);border-bottom:var(--bd-strong)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Voraussetzungen</div>
+          <h2 class="ep-section-h2">Was du mitbringen solltest</h2>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);max-width:720px;margin:var(--s4) 0 0">Du trägst Führungs- oder Projektverantwortung und stehst vor oder mitten in einem Veränderungsvorhaben. Methodisches Vorwissen ist nicht nötig, Offenheit, an eigenen Fällen zu arbeiten, schon. Bring gern eine konkrete Situation aus deinem Alltag mit, an der wir im Training gemeinsam arbeiten.</p>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
