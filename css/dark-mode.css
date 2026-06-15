@@ -80,6 +80,10 @@
 [data-theme="dark"] .slider-wo, [data-theme="dark"] .field-slider-output.slider-wo { --sl-color: var(--wo-200) }
 /* Tick-Labels (min/mid/max): tx-muted reißt im Dark AA (~3:1) → tx-secondary (4,9:1) */
 [data-theme="dark"] .field-slider-ticks { color: var(--tx-secondary) }
+/* Such-Feld-Magnifier: stroke=var(--n-400) #6E8585 flippt nicht und liegt im Dark bei nur 2,28:1.
+   Das Icon trägt den „Such"-Kontext (nicht rein dekorativ) → auf tx-secondary heben (4,9:1).
+   CSS-stroke schlägt das Präsentationsattribut am <svg>. */
+[data-theme="dark"] [role="search"] svg { stroke: var(--tx-secondary) }
 [data-theme="dark"] .chip { border-color:#818C99 }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
