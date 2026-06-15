@@ -309,3 +309,9 @@
 [data-theme="dark"] .cb-numbered .cb-ln::before{color:var(--tx-muted)}
 /* Inline code – co-700 (#007575) ~1.6:1 auf co-50 dark → co-200 (#80DEDE) ~4.9:1 ✓ */
 [data-theme="dark"] .cb-prose code{color:var(--co-200);border-color:var(--n-100)}
+/* Tabellen-Header + Streifen: --n-50 flippt im Dark auf #0A1515 (fast schwarz) → harte schwarze
+   Balken auf dem dunklen bg-page-Grund (1,70:1). Auf bg-surface heben (1,22:1) = sanfte, hellere
+   Differenzierung statt schwarzer Balken. Spiegelt die dezente Light-Streifung (dort minimal dunkler). */
+[data-theme="dark"] .tbl thead th { background: var(--bg-surface) }
+[data-theme="dark"] .tbl--striped tbody tr:nth-child(even) td,
+[data-theme="dark"] .tbl--striped tbody tr:nth-child(even) th { background: var(--bg-surface) }
