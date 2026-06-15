@@ -54,6 +54,12 @@
 .ds-card   {border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;flex:1}
 .ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
 .ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
+/* Formular-Karten in gleich hohen Grid-Spalten: das Textarea-Feld füllt den Leerraum, damit der
+   Submit-Button unten bündig zur Nachbar-Karte sitzt. flex-basis:auto (natürliche Höhe) + grow,
+   kein Schrumpfen unter die natürliche Größe; min-height als Boden. Nur .field mit Textarea wächst. */
+.ds-inner-fill{display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea){flex:1 1 auto;display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea) textarea{flex:1 1 auto;min-height:96px}
 .clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
 
 /* ── Badges & Chips ── */
