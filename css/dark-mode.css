@@ -247,6 +247,12 @@
 [data-theme="dark"] .card[data-area="ki"] .card-eyebrow{color:var(--ki-200)}
 [data-theme="dark"] .card[data-area="es"] .card-eyebrow{color:var(--es-100)}
 [data-theme="dark"] .card[data-area="wo"] .card-eyebrow{color:var(--wo-200)}
+/* ep-card-Eyebrow + CTA-Link: nutzen area -700/-800 ohne Dark-Override → dunkel-auf-dunkel.
+   Auf die hellen -200/-100-Töne heben (wie .card-eyebrow). Default (ohne data-area) = co. */
+[data-theme="dark"] .ep-card-eyebrow, [data-theme="dark"] .ep-card-cta { color: var(--co-200) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="ki"], [data-theme="dark"] .ep-card[data-area="ki"] .ep-card-cta { color: var(--ki-200) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="es"], [data-theme="dark"] .ep-card[data-area="es"] .ep-card-cta { color: var(--es-100) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="wo"], [data-theme="dark"] .ep-card[data-area="wo"] .ep-card-cta { color: var(--wo-200) }
 /* Stat Card values: co-700 (#007575) ~1.6:1 on dark → lighter shades (verified ≥4.5:1) */
 [data-theme="dark"] .card-stat[data-area="co"] .card-stat-value{color:var(--co-200)}
 [data-theme="dark"] .card-stat[data-area="ki"] .card-stat-value{color:var(--ki-200)}
