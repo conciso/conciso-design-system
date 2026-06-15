@@ -761,7 +761,7 @@ a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .cta-dl-title{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
 .cta-dl-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s3)}
 .cta-dl-meta{display:flex;flex-wrap:wrap;gap:var(--s2)}
-.cta-dl-chip{font:var(--ty-label-xs-strong);color:var(--tx-muted);background:var(--bg-overlay);border-radius:var(--r-full);padding:2px var(--s3)}
+.cta-dl-chip{font:var(--ty-label-xs);color:var(--tx-muted);background:var(--bg-overlay);border-radius:var(--r-full);padding:2px var(--s3)}
 .cta-dl-actions{display:flex;flex-direction:column;gap:var(--s2);align-items:stretch;flex-shrink:0;min-width:152px}
 /* Compact strip */
 .cta-strip{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s4);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
