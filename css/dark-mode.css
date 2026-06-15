@@ -69,15 +69,15 @@
 /* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
 [data-theme="dark"] .btn-tonal {
   background: color-mix(in srgb, var(--c50) 25%, var(--bg-surface));
-  color: color-mix(in srgb, var(--c500) 40%, white);
+  color: color-mix(in srgb, var(--c500) 35%, white);
 }
-[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 35%, white) }
 [data-theme="dark"] .btn-outlined {
-  color: color-mix(in srgb, var(--c500) 40%, white);
-  border-color: color-mix(in srgb, var(--c500) 40%, white);
+  color: color-mix(in srgb, var(--c500) 35%, white);
+  border-color: color-mix(in srgb, var(--c500) 35%, white);
 }
 [data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
-[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 40%, white) }
+[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 35%, white) }
 [data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
 
 /* ════════════════════════════════════════════
