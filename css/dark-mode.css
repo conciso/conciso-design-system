@@ -120,6 +120,15 @@
 [data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
+/* Icon-Doku-Swatches (#sec-icons): dieselbe --XX-50-Kachel wird im Dark-Mode fast schwarz, die
+   Glyph-Farben sind hier teils hart kodiert (#333E48, #004F4F, #183A0E), teils nicht-flippende
+   --XX-700/800-Token → dunkel-auf-dunkel (analog .ep-card-icon). Glyph daher auf den hellen
+   --XX-100-Ton heben. co/wo sind fill-/stroke-kodiert (CSS auf <path> schlägt das
+   Präsentationsattribut), ki/es nutzen currentColor (Container-color genügt). */
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path { fill: var(--co-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path { stroke: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="ki"] { color: var(--ki-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
 [data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
 [data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
