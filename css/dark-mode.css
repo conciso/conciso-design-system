@@ -121,14 +121,18 @@
 [data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
 /* Icon-Doku-Swatches (#sec-icons): dieselbe --XX-50-Kachel wird im Dark-Mode fast schwarz, die
-   Glyph-Farben sind hier teils hart kodiert (#333E48, #004F4F, #183A0E), teils nicht-flippende
-   --XX-700/800-Token → dunkel-auf-dunkel (analog .ep-card-icon). Glyph daher auf den hellen
-   --XX-100-Ton heben. co/wo sind fill-/stroke-kodiert (CSS auf <path> schlägt das
-   Präsentationsattribut), ki/es nutzen currentColor (Container-color genügt). */
-[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path { fill: var(--co-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path { stroke: var(--wo-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="ki"] { color: var(--ki-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="es"] { color: var(--es-100) }
+   Glyph-Farben sind teils hart kodiert (#333E48, #004F4F, #183A0E), teils currentColor aus einer
+   inline gesetzten --XX-700/800-color → dunkel-auf-dunkel (analog .ep-card-icon). Glyph auf den
+   hellen --XX-100-Ton heben. Override pro <path> über Attribut-Selektor des Ist-Werts: schlägt
+   sowohl das Präsentationsattribut als auch die Inline-color am Container (sonst gewänne diese),
+   und trifft nur farbige Pfade — Outline-Pfade mit fill="none" bleiben unberührt. */
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path[fill="#333E48"],
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path[fill="#004F4F"] { fill: var(--co-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path[stroke="#183A0E"] { stroke: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path[fill="currentColor"] { fill: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="ki"] svg path[fill="currentColor"] { fill: var(--ki-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg path[fill="currentColor"] { fill: var(--es-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg path[stroke="currentColor"] { stroke: var(--es-100) }
 [data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
 [data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
 [data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
