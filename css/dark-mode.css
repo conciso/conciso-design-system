@@ -10,7 +10,7 @@
   /* Surfaces */
   --bg-page:#333E48; --bg-surface:#3F4B56; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
   /* Text */
-  --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#A6C6C6; --tx-muted:#7A9E9E; /* tx-secondary von #8AAFAF aufgehellt → AA auf bg-surface-Cards (4.9:1 statt 3.75); muted bleibt darunter */
+  --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#A6C6C6; --tx-muted:#93B6B6; /* tx-secondary #A6C6C6 → AA auf bg-surface-Cards (4.9:1); tx-muted von #7A9E9E auf #93B6B6 angehoben → AA auf bg-page (5.0:1), bg-surface 4.1:1, bleibt klar unter tx-secondary */
   /* Neutrals (only lowest, used as bg/border) */
   --n-50:#0A1515; --n-100:#1C2E2E;
   /* Borders */
