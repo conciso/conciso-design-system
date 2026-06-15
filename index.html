@@ -3000,6 +3000,48 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </div>
         </div>
 
+        <!-- Effektive Software -->
+        <div class="col-4">
+          <span class="lbl">Effektive Software</span>
+          <div class="ds-surface">
+            <div class="field-slider">
+              <div class="field-slider-header">
+                <label class="field-slider-label" for="sl-es">Testabdeckung</label>
+                <output class="field-slider-output slider-es" for="sl-es" id="sl-es-out">80 %</output>
+              </div>
+              <input class="slider slider-es" type="range" id="sl-es"
+                     min="0" max="100" step="5" value="80"
+                     aria-describedby="sl-es-hint"
+                     oninput="document.getElementById('sl-es-out').textContent = this.value + ' %'">
+              <div class="field-slider-ticks" aria-hidden="true">
+                <span>0 %</span><span>50 %</span><span>100 %</span>
+              </div>
+              <span class="helper" id="sl-es-hint">Schritte: 5 %</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wirksame Organisationen -->
+        <div class="col-4">
+          <span class="lbl">Wirksame Organisationen</span>
+          <div class="ds-surface">
+            <div class="field-slider">
+              <div class="field-slider-header">
+                <label class="field-slider-label" for="sl-wo">Team-Autonomie</label>
+                <output class="field-slider-output slider-wo" for="sl-wo" id="sl-wo-out">70 %</output>
+              </div>
+              <input class="slider slider-wo" type="range" id="sl-wo"
+                     min="0" max="100" step="10" value="70"
+                     aria-describedby="sl-wo-hint"
+                     oninput="document.getElementById('sl-wo-out').textContent = this.value + ' %'">
+              <div class="field-slider-ticks" aria-hidden="true">
+                <span>0 %</span><span>50 %</span><span>100 %</span>
+              </div>
+              <span class="helper" id="sl-wo-hint">Schritte: 10 %</span>
+            </div>
+          </div>
+        </div>
+
         <!-- Deaktiviert -->
         <div class="col-4">
           <span class="lbl">Deaktiviert</span>
