@@ -67,9 +67,14 @@
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
 /* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
 /* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
+/* Tonal im Dark: mit --c50 25% lag die Fläche bei ~1:1 zum Seiten-Hintergrund (Button unsichtbar,
+   verfehlt 1.4.11). Fläche auf eine sichtbare, brand-getönte Surface (c500 18% in bg-surface) heben
+   und einen neutralen Rahmen geben (#9DA8B6 = --bd-strong dark, ≥3:1 auf bg-page UND bg-surface).
+   So bleibt der Button als getönte Fläche erkennbar und unterscheidet sich von Outlined (brand-Rahmen). */
 [data-theme="dark"] .btn-tonal {
-  background: color-mix(in srgb, var(--c50) 25%, var(--bg-surface));
+  background: color-mix(in srgb, var(--c500) 18%, var(--bg-surface));
   color: color-mix(in srgb, var(--c500) 35%, white);
+  border-color: #9DA8B6;
 }
 [data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 35%, white) }
 [data-theme="dark"] .btn-outlined {
