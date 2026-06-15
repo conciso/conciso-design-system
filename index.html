@@ -6036,6 +6036,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 <span class="c">/* Oder manuell per JS: */</span>
 document.documentElement
   .dataset.theme = <span class="s">'dark'</span>;</div>
+          <p><code>color-scheme: dark</code> ist im Dark-Theme fest auf <code>[data-theme="dark"]</code> gesetzt, damit <strong>native Controls</strong> (Checkbox, Radio, Scrollbar, Select-Popup) dark-thematisiert rendern statt hell auf dunklem Grund. Ohne diese Deklaration zeigt der Browser z.&nbsp;B. eine hell-thematisierte Checkbox im Dark Mode, optisch ein Fremdkörper.</p>
         </div>
         <div class="a11y-card">
           <h3>Smooth-Scroll für In-Page-Anker</h3>
