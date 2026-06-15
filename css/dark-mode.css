@@ -169,6 +169,14 @@
 [data-theme="dark"] .pill[data-area="ki"] { color: var(--ki-200) }
 [data-theme="dark"] .pill[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .pill[data-area="wo"] { color: var(--wo-200) }
+/* Bereichs-Text-Utilities + Bereichs-Badges: Light-Töne (-700/-800) bleiben im Dark dunkel → auf -200/-100 heben (Badge-Grund bleibt dunkle -50-Kachel, heller Text trägt den Kontrast). */
+[data-theme="dark"] .t-ki { color: var(--ki-200) }
+[data-theme="dark"] .t-es { color: var(--es-100) }
+[data-theme="dark"] .t-wo { color: var(--wo-200) }
+[data-theme="dark"] .badge[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .badge[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) on co-50 (#071616) = ~3:1 in dark → co-300 (#4DD0D0) = ~9.3:1 */

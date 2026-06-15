@@ -62,6 +62,11 @@
 .badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
 .badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
 .badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
+/* Bereichs-Badges: --XX-50-Grund + --XX-800-Text. Dark-Overrides (dark-mode.css) heben den Text auf -200/-100, Grund bleibt die dunkle -50-Kachel. */
+.badge[data-area="co"]{background:var(--co-50);color:var(--co-800)}
+.badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
+.badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
 .chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
@@ -282,6 +287,10 @@
 .body-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 /* Utility: Corporate-Brand-Text mit Dark-Override. */
 .t-co{color:var(--co-700)}
+/* Bereichs-Text-Utilities analog .t-co (Eyebrows, Labels, inline-Akzenttext); ki nutzt -800 (700 verfehlt AA). Dark-Overrides in dark-mode.css heben auf -200/-100. */
+.t-ki{color:var(--ki-800)}
+.t-es{color:var(--es-700)}
+.t-wo{color:var(--wo-700)}
 /* Detail-/Stellenseiten können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows) auf ihre Bereichsfarbe umstellen: data-accent am .ep-page-Root. ki nutzt -800 (700 verfehlt AA). */
 .ep-page[data-accent="ki"] .t-co{color:var(--ki-800)}
 .ep-page[data-accent="es"] .t-co{color:var(--es-700)}
