@@ -37,7 +37,10 @@
   --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
   /* Badge text – lighter for dark backgrounds */
   --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
-  --badge-neu-bg:#445060; --badge-neu-text:#C4D8D8;
+  /* Neutraler Badge wie die Bereichs-Badges: dunkle -50-Kachel + heller Text (vorher medium #445060,
+     das fast auf bg-surface/Streifen lag und unsichtbar war). n-50 #0A1515 vs Streifen = 2,08:1, im
+     selben Bereich wie die Bereichs-Badges (2,0-2,2:1) → konsistentes Bild, kein Sonder-Rahmen nötig. */
+  --badge-neu-bg:var(--n-50); --badge-neu-text:#C4D8D8;
   /* Contrast badge (dark) */
   --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
   --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
