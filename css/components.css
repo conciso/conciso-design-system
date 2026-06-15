@@ -396,6 +396,9 @@
 .cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
 .contrast-row:last-child{border-bottom:none}
+/* Keine Doppellinie: folgt direkt eine Gruppen-Überschrift (mit eigenem border-top als Trenner),
+   lässt die letzte Zeile ihre Unterlinie weg — sonst stehen zwei parallele Linien untereinander. */
+.contrast-row:has(+ .group-title){border-bottom:none}
 .cswatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
 .cinfo{flex:1;min-width:160px}
 .cname{font:var(--ty-label-md)}
