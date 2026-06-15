@@ -770,7 +770,9 @@
         <!-- Padding 36px = exakte Logo-Image-Höhe (1:1-Clearance, Schutzraum-Regel der Brand Guidelines) -->
         <div style="position:relative;display:inline-block;padding:36px">
           <div style="position:absolute;inset:0;border:1px dashed var(--co-300);border-radius:var(--r-sm);pointer-events:none"></div>
-          <img src="images/logo-conciso.svg" alt="" aria-hidden="true" style="height:36px;width:auto;display:block">
+          <!-- Theme-abhängiges Logo: bg-surface ist im Dark-Mode dunkel, daher Default (dunkle Wortmarke) in Light, Weiß-Variante in Dark. Kein display:block inline — der .logo-themed-*-Toggle arbeitet über display:none/block. -->
+          <img src="images/logo-conciso.svg" alt="" aria-hidden="true" class="logo-themed-default" style="height:36px;width:auto;vertical-align:middle">
+          <img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light" style="height:36px;width:auto;vertical-align:middle">
         </div>
       </div>
 
