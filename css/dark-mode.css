@@ -57,7 +57,7 @@
 
 /* Dark: targeted component fixes that can't be token-driven */
 /* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
-[data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23C9D3D3'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") }
+[data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C9D3D3' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") }
 /* Textarea-Resizer: der native Eck-Griff (dunkle Diagonalen) ist im Dark auf dem Feld-bg unsichtbar.
    Eigenen hellen Griff (#C9D3D3, 5,84:1) als background-image aufs Textarea legen — zuverlässiger
    positioniert als im winzigen ::-webkit-resizer-Pseudoelement — und den nativen Resizer transparent
