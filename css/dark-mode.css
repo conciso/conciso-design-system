@@ -155,6 +155,20 @@
 [data-theme="dark"] #at-ai .chip[style] { color: var(--ki-200) !important; border-color: var(--ki-400) !important }
 [data-theme="dark"] #at-es .chip[style] { color: var(--es-100) !important; border-color: var(--es-300) !important }
 [data-theme="dark"] #at-wo .chip[style] { color: var(--wo-200) !important; border-color: var(--wo-300) !important }
+/* Chip-Basis (nicht-inline, data-area): Text-/Border-Bereichstöne (--XX-700/800) bleiben im Dark dunkel
+   auf dem dunklen bg-surface → auf die hellen -200/-100/-300-Töne heben (analog .card-eyebrow). */
+[data-theme="dark"] .chip[data-area="co"] { color: var(--co-200); border-color: var(--co-300) }
+[data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
+[data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
+[data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Pills: --XX-50-Grund wird im Dark fast schwarz, Text --XX-700/800 bleibt dunkel → Text auf die hellen
+   -200/-100-Töne heben. Grund bleibt die dunkle -50-Kachel, der helle Text trägt den Kontrast (analog
+   .ep-card-icon/.card-eyebrow, ~13-15:1). aria-pressed-/Hover-States der Chips bleiben unberührt. */
+[data-theme="dark"] .pill,
+[data-theme="dark"] .pill[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .pill[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .pill[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .pill[data-area="wo"] { color: var(--wo-200) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) on co-50 (#071616) = ~3:1 in dark → co-300 (#4DD0D0) = ~9.3:1 */
