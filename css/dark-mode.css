@@ -135,6 +135,10 @@
 [data-theme="dark"] .icon-size-swatch[data-area="ki"] svg [fill="currentColor"] { fill: var(--ki-100) }
 [data-theme="dark"] .icon-size-swatch[data-area="es"] svg [fill="currentColor"] { fill: var(--es-100) }
 [data-theme="dark"] .icon-size-swatch[data-area="es"] svg [stroke="currentColor"] { stroke: var(--es-100) }
+/* Info-Callouts (.ds-card / Hinweisboxen auf --co-50-Grund): das dekorative co-700-Icon wird im Dark
+   dunkel-auf-dunkel (~3,35:1, knapp über der Grafik-Schwelle, aber schwach). Glyph auf --co-200 heben
+   (~11,8:1), konsistent mit den übrigen area-Glyphen. CSS schlägt das inline-stroke-Präsentationsattribut. */
+[data-theme="dark"] [style*="background:var(--co-50)"] svg[stroke="var(--co-700)"] { stroke: var(--co-200) }
 [data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
 [data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
 [data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
