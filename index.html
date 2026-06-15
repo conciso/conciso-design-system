@@ -2178,13 +2178,13 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Variante des Heros, die exakt einer Folie aus dem <a class="body-link" href="#gt-carousel-hero">Slider-Hero</a> entspricht, vollbreit, 21:9-Format, Caption als Gradient-Overlay über dem Bild, aber ohne Track-Mechanik, ohne Buttons und Dots, ohne JavaScript. Klasse <code class="token">.hero-image</code> als <code class="token">&lt;figure&gt;</code>-Container; semantisch ist Bild + Caption ein <code class="token">figure/figcaption</code>-Pattern.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Verwenden, wenn die Bildaussage stark genug ist, dass keine Rotation nötig wäre, und wenn die Marken-Headline besser am Bild verankert sitzt als in einer separaten Hero-Body-Spalte. Tonalität passt zum Marken-Wert „Ruhig“: ein starkes Bild, eine eindeutige Aussage, kein Wechsel.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Optionale Eyebrow-Zeile <code class="token">.hero-image-caption-eyebrow</code> direkt vor dem Title, uppercase mit Letter-Spacing, identisch zur Eyebrow-Logik im Standard-Hero. Auf Bereichs-Pages enthält sie typischerweise die drei Werte des Bereichs („Intelligenz · Automatisierung · Wirkung“), auf der Landing den Zeit-Ort-Anker („Seit 2016 · Dortmund“).</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Skalierung auf breiten Bildschirmen:</strong> Das 21:9-Format würde auf 4K- oder Ultrawide-Monitoren rechnerisch sehr hoch werden (auf 3840&nbsp;px Breite wären das 1646&nbsp;px Höhe, also fast die gesamte Viewport-Höhe). Damit Gesichter nicht gigantisch wirken und der Hero den ersten Eindruck nicht dominiert, ist <code class="token">.hero-image-media</code> via <code class="token">max-height: clamp(420px, 64vh, 680px)</code> gedeckelt. Der Cap greift ab ca. 1133&nbsp;px Viewport-Breite; darunter dominiert weiter das 21:9-Seitenverhältnis. Dieselbe Logik liegt auf dem <a class="body-link" href="#gt-carousel-hero">Slider-Hero</a>. Die Caption bleibt durch <code class="token">padding-inline: max(var(--s8), calc(50% - 640px))</code> in einer 1280-px-Spalte zentriert.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Höhe &amp; Skalierung auf breiten Bildschirmen:</strong> Der Hero soll groß sein und Aufmerksamkeit auf das Bild lenken, deshalb zielt die Höhe auf rund 75&nbsp;% der Viewport-Höhe. Das 21:9-Format würde auf 4K- oder Ultrawide-Monitoren aber rechnerisch noch höher werden (auf 3840&nbsp;px Breite wären das 1646&nbsp;px Höhe). Damit Gesichter nicht ins Gigantische kippen, ist <code class="token">.hero-image-media</code> via <code class="token">max-height: clamp(480px, 75vh, 900px)</code> gedeckelt: mindestens 480&nbsp;px auf flachen Fenstern, bevorzugt 75&nbsp;vh, gedeckelt bei 900&nbsp;px. Dieselbe Logik liegt auf dem <a class="body-link" href="#gt-carousel-hero">Slider-Hero</a>. Die Caption bleibt durch <code class="token">padding-inline: max(var(--s8), calc(50% - 640px))</code> in einer 1280-px-Spalte zentriert.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Object-Position pro Bild:</strong> Sobald der Cap greift, beschneidet <code class="token">object-fit: cover</code> das Bild zusätzlich vertikal. Für Bilder mit zentralen Gesichtern oder asymmetrischer Komposition den passenden <code class="token">object-position</code>-Wert direkt am <code class="token">&lt;img&gt;</code>-Element setzen (z.&nbsp;B. <code class="token">style="object-position: center 20%"</code>). Default ist <code class="token">center center</code>.</p>
 
       <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
         <figure class="hero-image">
           <div class="hero-image-media">
-            <img src="images/team-coffee.jpg" alt="Diverses Conciso-Team sitzt mit blauen Conciso-Tassen am Tresen und tauscht sich aus" loading="lazy">
+            <img src="images/team-gruppenbild.jpg" alt="Großes Conciso-Team beim Gruppenfoto vor dem Bürogebäude" loading="lazy" style="object-position:center 70%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -7461,7 +7461,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
         <figure class="hero-image" id="ep-landing-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/flipchart-diskussion.jpg" alt="Conciso-Team am Flipchart in offener Diskussion, ein Whiteboard mit Notizen im Hintergrund" loading="eager" style="object-position:center 5%">
+            <img src="images/team-spaziergang.jpg" alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände" loading="eager" style="object-position:center 60%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -7615,7 +7615,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:center">
             <div class="col-6">
-              <img src="images/team-coffee.jpg" alt="Conciso-Team beim Pausenkaffee, fünf Personen mit blauen Conciso-Tassen am Tresen" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
+              <img src="images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
             </div>
             <div class="col-6">
               <div class="ep-section-label t-co">Karriere</div>
@@ -7793,7 +7793,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-co-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-coffee.jpg" alt="Conciso-Team im Gespräch an einem Tisch mit Kaffee" loading="eager" style="object-position:center 30%">
+            <img src="images/team-vor-buero.jpg" alt="Großes Conciso-Team winkt beim Gruppenfoto vor dem Bürogebäude" loading="eager" style="object-position:center 90%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Unternehmen</p>
@@ -7884,7 +7884,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Team in Aktion (Übergang Story → Zahlen) -->
         <figure style="margin:0;height:clamp(280px,32vw,420px);overflow:hidden">
-          <img src="images/workshop-zuhoeren.jpg" alt="Conciso-Team in einer gemeinsamen Arbeitssession am Pariser Bogen" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 18%">
+          <img src="images/workshop-diskussion.jpg" alt="Conciso-Team in einer gemeinsamen Arbeitssession im Workshop-Raum" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 40%">
         </figure>
         <!-- Zahlen -->
         <div class="card-stat-strip">
@@ -8055,28 +8055,51 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-co-ueber-uns-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="eager" style="object-position:center 10%">
+            <img src="images/conciso-team.jpg" alt="Conciso-Team beim Gruppenfoto vor einem historischen Industriegebäude in Dortmund" loading="eager" style="object-position:center 90%">
           </div>
           <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Team · Haltung · Dortmund</p>
-            <h1 class="hero-image-caption-title">Klare Köpfe hinter Conciso.</h1>
-            <p class="hero-image-caption-text">Seit 2016 verbinden wir Beratung und Umsetzung in drei Bereichen: KI, Software, Organisation. Aus Dortmund, mit Gelassenheit und Haltung.</p>
+            <p class="hero-image-caption-eyebrow">Über uns</p>
+            <h1 class="hero-image-caption-title">Die Menschen hinter Conciso.</h1>
+            <p class="hero-image-caption-text">Unser Zuhause ist Dortmund, unsere Wurzeln liegen über ganz Deutschland verteilt. Was uns zusammenbringt, ist die Lust, gute Software zu bauen.</p>
           </figcaption>
         </figure>
         <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
         <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Team · Haltung · Dortmund</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Was uns als Marke ausmacht und wie wir mit Kunden arbeiten.</p>
+          <p class="ep-hero-eyebrow" style="color:var(--co-700);margin-bottom:var(--s4)">Menschen · Werte · Geschichte</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Zwei Wege, uns näher kennenzulernen: das Team von heute und die Geschichte, die dahinter steht.</p>
           <div class="ep-hero-ctas" style="justify-content:center">
-            <a class="btn btn-filled btn-co" href="#co-pfeiler">Drei Pfeiler ansehen</a>
-            <a class="btn btn-outlined btn-co" href="#co-kontakt">Gespräch anfragen</a>
+            <a class="btn btn-filled btn-co" href="#team">Team kennenlernen</a>
+            <a class="btn btn-outlined btn-co" href="#sec-examples" data-ep="co">Unsere Geschichte</a>
           </div>
         </div>
-        <!-- Drei Pfeiler -->
-        <div class="ep-section" id="co-pfeiler" style="background:#fff">
-          <div class="ep-section-label t-co">Wer wir sind</div>
+        <!-- Unser Selbstverständnis — drei Punkte mit Icons -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Unser Selbstverständnis</div>
+          <h2 class="ep-section-h2">Zuhören, mitdenken, machen.</h2>
+          <p class="ep-section-sub">Was uns verbindet, ist die Art, wie wir arbeiten, nicht die Rolle auf der Visitenkarte.</p>
+          <div class="layout-grid" style="margin-top:var(--s8)">
+            <div class="col-4">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50);margin-bottom:var(--s4)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Gemeinsam gut machen</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Bei uns arbeiten auch die Geschäftsführer in Projekten mit. Wir tauschen Wissen, halten Vorträge, betreiben Communities und treffen uns in Arbeitskreisen und beim Unternehmerfrühstück. Was uns verbindet, ist der Anspruch, Dinge gemeinsam gut zu machen.</p>
+            </div>
+            <div class="col-4">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50);margin-bottom:var(--s4)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.05 4.575a1.575 1.575 0 1 0-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 0 1 3.15 0v1.5m-3.15 0 .075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 0 1 3.15 0V15M6.9 7.575a1.575 1.575 0 1 0-3.15 0v8.175a6.75 6.75 0 0 0 6.75 6.75h2.018a5.25 5.25 0 0 0 3.712-1.538l1.732-1.732a5.25 5.25 0 0 0 1.538-3.712l.003-2.024a.668.668 0 0 1 .198-.471 1.575 1.575 0 1 0-2.228-2.228 3.818 3.818 0 0 0-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0 1 16.35 15m.002 0h-.002"/></svg></div>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Auch mal Nein</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wir sagen auch mal Nein. Wenn ein Projekt nicht zu unserer Expertise passt, empfehlen wir lieber jemand anderen, als es trotzdem zu übernehmen.</p>
+            </div>
+            <div class="col-4">
+              <div class="ep-card-icon" data-area="co" style="background:var(--co-50);margin-bottom:var(--s4)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z"/></svg></div>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Bauen statt nur beraten</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wir sind IT-Beraterinnen, Architekten, Entwicklerinnen, Coaches und KI-Experten, mit unterschiedlichen Schwerpunkten, aber einem gemeinsamen Anspruch: Wir bauen, statt nur zu beraten. Pragmatisch, direkt, optimistisch und realistisch zugleich. Beraten heißt für uns zuhören, mitdenken, machen.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Werte — drei Pfeiler aus dem Markenrad -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label t-co">Wofür wir stehen</div>
           <h2 class="ep-section-h2">Drei Pfeiler. Eine Marke.</h2>
-          <p class="ep-section-sub">Das Markenrad von Conciso fasst zusammen, wer wir sind und wie wir arbeiten. Übersetzt in jeden Kontakt mit unseren Kunden.</p>
+          <p class="ep-section-sub">Unser Markenrad fasst zusammen, wer wir sind und wie wir arbeiten, spürbar in jedem Kontakt mit Kunden und Kolleg:innen.</p>
           <div class="ep-cards">
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
@@ -8091,65 +8114,157 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <div class="ep-card" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" data-area="co" style="background:var(--co-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
               <div class="ep-card-title">Energiegeladen</div>
-              <div class="ep-card-text">Kraftvoll, agil, leidenschaftlich. Wir packen mit an, wo es zählt, und bleiben am Ball, bis es wirkt.</div>
+              <div class="ep-card-text">Kraftvoll, agil, leidenschaftlich. Wir bringen Tempo rein, wo andere noch zögern und lassen nicht locker, bis die Lösung steht.</div>
             </div>
           </div>
         </div>
-        <!-- Stats -->
-        <div class="card-stat-strip">
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">10 J.</p>
-            <p class="card-stat-flat-label">Erfahrung seit 2016</p>
+        <!-- Unser Team — Roster nach Bereichen, statische Initialen-Tiles (keine JS-Rotation) -->
+        <div class="ep-section" id="team" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-co">Die Menschen</div>
+          <h2 class="ep-section-h2">Die Köpfe hinter den Projekten.</h2>
+          <p class="ep-section-sub">Bei uns kommt einiges an Erfahrung zusammen. Stellvertretend lernst Du hier die Ansprechpersonen aus den einzelnen Bereichen kennen.</p>
+          <!-- Gruppe: Geschäftsführung, Management & Partner -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s8) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">Geschäftsführung, Management &amp; Partner</h3>
+          <div class="layout-grid">
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Sebastian_Neus.png" alt="">SN</div>
+              <div><p class="author-card-name">Sebastian Neus</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Georg_Pietrek.png" alt="">GP</div>
+              <div><p class="author-card-name">Dr. Georg Pietrek</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Jens_Trompeter.png" alt="">JT</div>
+              <div><p class="author-card-name">Jens Trompeter</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Sven-Torben_Janus.png" alt="">SJ</div>
+              <div><p class="author-card-name">Sven-Torben Janus</p><p class="author-card-role">Partner</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Michael_Kloss.png" alt="">MK</div>
+              <div><p class="author-card-name">Michael Kloss</p><p class="author-card-role">Partner</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Denis%20Vollmer.png" alt="">DV</div>
+              <div><p class="author-card-name">Denis Vollmer</p><p class="author-card-role">Partner</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Arne%20Wiggers.png" alt="">AW</div>
+              <div><p class="author-card-name">Arne Wiggers</p><p class="author-card-role">Partner</p></div>
+            </div>
           </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">3</p>
-            <p class="card-stat-flat-label">Bereiche</p>
+          <!-- Gruppe: People und Topic Leads -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">People und Topic Leads</h3>
+          <div class="layout-grid">
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Markus_Pingel.png" alt="">MP</div>
+              <div><p class="author-card-name">Markus Pingel</p><p class="author-card-role">Software Architekt</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Tobias_Anton.png" alt="">TA</div>
+              <div><p class="author-card-name">Dr. Tobias Anton</p><p class="author-card-role">Senior Consultant</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Heinz_Lethaus.png" alt="">HL</div>
+              <div><p class="author-card-name">Heinz Lethaus</p><p class="author-card-role">Software Architekt</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Thorsten_Kamann.png" alt="">TK</div>
+              <div><p class="author-card-name">Thorsten Kamann</p><p class="author-card-role">Atlassian Experte</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Andrej_Thiele.png" alt="">AT</div>
+              <div><p class="author-card-name">Andrej Thiele</p><p class="author-card-role">Software Engineer &amp; Softwaretester</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Dominik_Cortese-Pieper.png" alt="">DC</div>
+              <div><p class="author-card-name">Dominik Cortese Pieper</p><p class="author-card-role">Frontend Architekt</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Salem_Ben-Nasr.png" alt="">SB</div>
+              <div><p class="author-card-name">Salem Ben-Nasr</p><p class="author-card-role">Senior Software Entwickler</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Lars_Winterhalder.png" alt="">LW</div>
+              <div><p class="author-card-name">Lars Winterhalder</p><p class="author-card-role">Software Architekt</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Tobias_Schuendelen.png" alt="">TS</div>
+              <div><p class="author-card-name">Tobias Schündelen</p><p class="author-card-role">Agile Coach</p></div>
+            </div>
           </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">70+</p>
-            <p class="card-stat-flat-label">Menschen im Team</p>
+          <!-- Gruppe: Marketing & Vertrieb -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">Marketing &amp; Vertrieb</h3>
+          <div class="layout-grid">
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Marko_Vetter.png" alt="">MV</div>
+              <div><p class="author-card-name">Marko Vetter</p><p class="author-card-role">Business Development · Senior Softwarearchitekt</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Annabell_Vetter.png" alt="">AV</div>
+              <div><p class="author-card-name">Annabell Vetter</p><p class="author-card-role">Marketing</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true">JM</div>
+              <div><p class="author-card-name">Jochen Meyer</p><p class="author-card-role">Leitung Vertrieb</p></div>
+            </div>
           </div>
-          <div class="card-stat-flat" data-area="co">
-            <p class="card-stat-flat-value">120+</p>
-            <p class="card-stat-flat-label">Kundenprojekte</p>
+          <!-- Gruppe: HR & Recruiting -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">HR &amp; Recruiting</h3>
+          <div class="layout-grid">
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Saskia_Jesse.png" alt="">SJ</div>
+              <div><p class="author-card-name">Saskia Jesse</p><p class="author-card-role">Personal</p></div>
+            </div>
+            <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Patrick_Schneider.png" alt="">PS</div>
+              <div><p class="author-card-name">Patrick Schneider</p><p class="author-card-role">Recruiting</p></div>
+            </div>
           </div>
         </div>
-        <!-- Kundenlogos -->
+        <!-- Karriere — Editorial Split, identisch zur Startseite -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-6">
+              <img src="images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
+            </div>
+            <div class="col-6">
+              <div class="ep-section-label t-co">Karriere</div>
+              <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso.</h2>
+              <p class="ep-section-sub" style="max-width:520px;text-wrap:pretty">Projekte mit Wirkung, ein Team, das füreinander einsteht, und die Leidenschaft, neue Technologien voranzutreiben. Bei uns gestaltest Du mit.</p>
+              <a class="btn btn-filled btn-co" href="#sec-examples" data-ep="co-jobs">Stellen entdecken</a>
+            </div>
+          </div>
+        </div>
+        <!-- Standort — Foto, Map und Kontaktdaten -->
         <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label t-co">Vertrauen</div>
-          <h2 class="ep-section-h2">Mit diesen Unternehmen arbeiten wir.</h2>
-          <div class="logo-carousel" role="region" aria-roledescription="Logo-Karussell" aria-label="Kundenlogos" style="margin-top:var(--s6)">
-            <button class="logo-carousel-pause" type="button" aria-pressed="false" aria-label="Logo-Animation pausieren">
-              <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="3.5" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3.5" height="10" rx="1" fill="currentColor"/></svg>
-              <svg class="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polygon points="3,2 12,7 3,12" fill="currentColor"/></svg>
-            </button>
-            <div class="logo-carousel-track">
-              <div class="logo-carousel-slide" id="logo-set-co-1" role="group" aria-roledescription="Logo-Set" aria-label="Set 1 von 2" aria-hidden="false">
-                <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Digital<br>Hub</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Infra<br>Base SE</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Build<br>GmbH</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
-              </div>
-              <div class="logo-carousel-slide" id="logo-set-co-2" role="group" aria-roledescription="Logo-Set" aria-label="Set 2 von 2" aria-hidden="true">
-                <div class="logo-tile"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">KI<br>Ventures</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Dev<br>Works</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Helios<br>GmbH</span></div>
-                <div class="logo-tile"><span class="logo-placeholder">Konzern<br>AG</span></div>
-              </div>
-            </div>
-            <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Set auswählen">
-              <button class="logo-carousel-dot" type="button" role="tab" aria-selected="true" aria-controls="logo-set-co-1" aria-label="Set 1 von 2" tabindex="0"></button>
-              <button class="logo-carousel-dot" type="button" role="tab" aria-selected="false" aria-controls="logo-set-co-2" aria-label="Set 2 von 2" tabindex="-1"></button>
+          <div class="ep-section-label t-co">Standort</div>
+          <h2 class="ep-section-h2">Wo wir sitzen.</h2>
+          <p class="ep-section-sub">Unser Zuhause ist der Workgarden am Pariser Bogen in Dortmund. Hier arbeiten wir.</p>
+          <div class="layout-grid" style="align-items:stretch;margin-top:var(--s6)">
+            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:3/2">
+              <img src="images/workgarden-empfang.jpg" alt="Empfangsbereich im Workgarden mit Conciso-Logo aus Moos an der Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+            </figure>
+            <div class="col-6" style="display:flex;flex-direction:column;justify-content:center;gap:var(--s5)">
+              <address style="font-style:normal;font:var(--ty-body-md);color:var(--tx-secondary)">
+                <p style="margin:0 0 var(--s4);color:var(--tx-primary);font-weight:500">Conciso GmbH</p>
+                <dl style="display:grid;grid-template-columns:auto 1fr;gap:var(--s3) var(--s6);margin:0">
+                  <dt style="font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-secondary);padding-top:3px">Adresse</dt>
+                  <dd style="margin:0">Pariser Bogen 7, 44269 Dortmund</dd>
+                  <dt style="font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-secondary);padding-top:3px">Telefon</dt>
+                  <dd style="margin:0"><a class="body-link" href="tel:+492312261750">+49 231 226175-0</a></dd>
+                  <dt style="font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-secondary);padding-top:3px">E-Mail</dt>
+                  <dd style="margin:0"><a class="body-link" href="mailto:info@conciso.de">info@conciso.de</a></dd>
+                  <dt style="font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-secondary);padding-top:3px">Karte</dt>
+                  <dd style="margin:0"><a class="body-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="body-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="body-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></dd>
+                </dl>
+              </address>
+              <!-- Verlinkung folgt -->
+              <a class="btn btn-outlined btn-co" href="#" style="align-self:flex-start">Workgarden mieten</a>
             </div>
           </div>
-        </div>
-        <!-- CTA -->
-        <div class="ep-cta-band" id="co-kontakt" style="background:var(--co-700);color:#fff">
-          <h2 class="ep-cta-h2">Komm in Dortmund vorbei.</h2>
-          <p class="ep-cta-sub">Wir kochen meistens guten Kaffee und reservieren Dir gerne ein Erstgespräch.</p>
-          <button class="btn btn-filled btn-co btn-on-band">Gespräch anfragen</button>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -8256,7 +8371,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-co-arbeitgeber-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-tablet.jpg" alt="Conciso-Team arbeitet gemeinsam an einem Tisch" loading="eager" style="object-position:center 30%">
+            <img src="images/event-networking.jpg" alt="Conciso-Kolleginnen und -Kollegen im lockeren Austausch an Stehtischen" loading="eager" style="object-position:center 58%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Karriere</p>
@@ -9020,7 +9135,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-leistungen-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-tablet.jpg" alt="Team blickt gemeinsam auf ein Tablet mit einer laufenden Anwendung" loading="eager" style="object-position:center 30%">
+            <img src="images/workshop-praesentation.jpg" alt="Conciso-Workshop mit Präsentation auf großem Bildschirm und Teilnehmenden in Sesseln" loading="eager" style="object-position:center 75%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Leistungen</p>
@@ -9038,7 +9153,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/flipchart-diskussion.jpg" alt="Team erarbeitet eine Lösung gemeinsam an einem Flipchart" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/workshop-gruenraum.jpg" alt="Team erarbeitet eine Lösung gemeinsam in einer Workshop-Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -9245,7 +9360,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-ai-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="eager" style="object-position:center 20%">
+            <img src="images/ki-referentin.jpg" alt="Conciso-Referentin spricht ins Mikrofon, daneben ein Laptop mit Präsentations-Slide" loading="eager" style="object-position:center 20%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Intelligenz · Automatisierung · Wirkung</p>
@@ -9297,7 +9412,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <!-- Workshop-Foto für Wärme -->
             <div class="col-5">
-              <img src="images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="images/workshop-runde.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
 
             <!-- Offene Zitate, nur durch Haarlinien getrennt -->
@@ -9523,7 +9638,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-box-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-tablet.jpg" alt="Team blickt gemeinsam auf ein Tablet mit einer laufenden KI-Anwendung" loading="eager" style="object-position:center 30%">
+            <img src="images/ki-flipchart.jpg" alt="Conciso-Referent erläutert KI-Themen am Flipchart, daneben eine Präsentationsfolie mit Roboter-Motiv" loading="eager" style="object-position:center 65%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Plattform für KI im Unternehmen</p>
@@ -9550,7 +9665,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/flipchart-diskussion.jpg" alt="Team bespricht Ideen gemeinsam an einem Flipchart" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/team-besprechung.jpg" alt="Team bespricht Ideen gemeinsam in einer Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -9808,7 +9923,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Zwei Beispiele, wie Unternehmen die AI.Box produktiv nutzen.</p>
           <div class="layout-grid" style="align-items:stretch">
             <figure class="col-4" style="margin:0;position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:240px">
-              <img src="images/pair-laptop.jpg" alt="Zwei Personen arbeiten gemeinsam an einem Laptop" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <img src="images/gespraech-tisch.jpg" alt="Person erläutert im Gespräch einen KI-Anwendungsfall" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
             </figure>
             <div class="col-8" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s6);align-items:stretch">
             <div class="card card-elevated" data-area="ki" style="display:flex;flex-direction:column">
@@ -9967,7 +10082,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-eng-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/entwickler-gespraech.jpg" alt="Zwei Entwickler besprechen gemeinsam Code an einem Bildschirm" loading="eager" style="object-position:center 30%">
+            <img src="images/beratung-laptop.jpg" alt="Zwei Personen im Gespräch an einem Laptop während einer Conciso-Session" loading="eager" style="object-position:center 40%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">AI.Engineering</p>
@@ -10030,7 +10145,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Workshop-Atmosphäre (emotionaler Übergang zum Einstieg) -->
         <figure style="margin:0;height:clamp(260px,30vw,400px);overflow:hidden">
-          <img src="images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          <img src="images/workshop-publikum.jpg" alt="Aufmerksame Teilnehmende bei einer Conciso-Session" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
         </figure>
         <!-- Wie wir vorgehen: Der Einstieg / Workshop -->
         <div class="ep-section" style="background:var(--bg-surface)">
@@ -10197,7 +10312,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-auto-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/flipchart-diskussion.jpg" alt="Team bespricht einen Arbeitsprozess gemeinsam an einem Flipchart" loading="eager" style="object-position:center 25%">
+            <img src="images/vortrag-buehne.jpg" alt="Conciso-Referent präsentiert vor Publikum" loading="eager" style="object-position:center 35%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">AI.Automation</p>
@@ -10215,7 +10330,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/beratung-gespraech.jpg" alt="Zwei Personen besprechen einen Arbeitsablauf gemeinsam an einem Tisch" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="images/gespraech-buero.jpg" alt="Zwei Personen besprechen einen Arbeitsablauf gemeinsam an einem Tisch" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -10296,7 +10411,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Workshop-Atmosphäre (emotionaler Übergang zum Einstieg) -->
         <figure style="margin:0;height:clamp(260px,30vw,400px);overflow:hidden">
-          <img src="images/workshop-zuhoeren.jpg" alt="Team arbeitet gemeinsam in einem Conciso-Workshop" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 20%">
+          <img src="images/event-stehtische.jpg" alt="Austausch an Stehtischen in der Pause eines Conciso-Workshops" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 35%">
         </figure>
         <!-- Der Einstieg: AI.Automation Kickstart Workshop -->
         <div class="ep-section" style="background:var(--n-50)">
@@ -10492,7 +10607,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-es-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="eager" style="object-position:center 30%">
+            <img src="images/entwicklung-laptop.jpg" alt="Entwickler arbeitet konzentriert und gut gelaunt an seinem Laptop" loading="eager" style="object-position:center 25%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Effektive Software</p>
@@ -10713,73 +10828,131 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-wo-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/workshop-zuhoeren.jpg" alt="Workshop-Teilnehmende in einer Conciso-Session, aufmerksam zuhörend" loading="eager" style="object-position:center 5%">
+            <img src="images/whiteboard-stickynotes.jpg" alt="Person heftet Klebezettel an ein Whiteboard während eines Conciso-Workshops" loading="eager" style="object-position:center 30%">
           </div>
           <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Struktur · Wirkung · Wandel</p>
-            <h1 class="hero-image-caption-title">Wandel, der wirklich trägt.</h1>
-            <p class="hero-image-caption-text">Wir begleiten Unternehmen durch Veränderung. Mit Struktur, Empathie und dem Blick fürs Wesentliche.</p>
+            <p class="hero-image-caption-eyebrow">Wirksame Organisationen</p>
+            <h1 class="hero-image-caption-title">Das nächste Framework löst euer Problem nicht.</h1>
+            <p class="hero-image-caption-text">Wir verbinden Organisationsentwicklung, Führung und agile Arbeitsweisen zu einem Ganzen. Denn an einer Stellschraube zu drehen reicht selten.</p>
           </figcaption>
         </figure>
-        <!-- Sub-Sektion: Aktions-Brücke + CTAs -->
-        <div class="ep-section" style="background:var(--wo-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--wo-100)">
-          <p class="ep-hero-eyebrow" style="color:var(--wo-700);margin-bottom:var(--s4)">Change · Leadership · Struktur</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s6);max-width:520px;text-wrap:balance">Starte Deine Transformation. Oder lerne erst unseren Ansatz kennen.</p>
-          <div class="ep-hero-ctas" style="justify-content:center">
-            <a class="btn btn-filled btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Wirksame Organisationen: Transformation" style="--c500:var(--wo-600)">Transformation starten</a>
-            <button class="btn btn-outlined btn-wo" type="button">Ansatz kennenlernen</button>
+        <!-- Was Wirksame Organisationen bei uns bedeutet — Problem-Intro mit Bild + Aktionslinks -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label" style="color:var(--wo-700)">Das eigentliche Problem</div>
+              <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">Die meisten Organisationen haben in den letzten Jahren mehr als eine Transformation hinter sich, oft mehrere gleichzeitig. Ein agiles Framework hier, eine Reorganisation da, dazu neue Rollen, neue Rituale, neue Tools.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">Was bleibt, ist häufig Ernüchterung: viel Bewegung, wenig Veränderung. Das liegt fast nie an den Menschen und selten an der einzelnen Methode. Es liegt daran, dass Methoden eingeführt werden, ohne dass jemand fragt, wofür eigentlich. Losgelöst von Strategie, Kontext und den tatsächlichen Engpässen wird das Mittel zum Ziel.</p>
+              <div class="ep-hero-ctas">
+                <a class="btn btn-filled btn-wo" href="#wo-arbeiten">Unser Ansatz</a>
+                <a class="btn btn-outlined btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo">Gespräch vereinbaren</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <img src="images/workshop-diskussion.jpg" alt="Mehrere Personen diskutieren in einem Workshop an einer mit Notizen beklebten Wand" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
           </div>
         </div>
-        <!-- Leistungen -->
-        <div class="ep-section" style="background:#fff">
+        <!-- Leistungen — drei Felder, statische Karten (keine Unterseiten) -->
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label" style="color:var(--wo-700)">Leistungen</div>
-          <h2 class="ep-section-h2">Organisation neu denken</h2>
-          <p class="ep-section-sub">Wir verbinden strategische Klarheit mit menschlicher Wärme. Für Transformationen, die ankommen.</p>
+          <h2 class="ep-section-h2">Die drei Felder.</h2>
+          <p class="ep-section-sub">Wir arbeiten auf allen Ebenen, von der Struktur einer Organisation bis zur Zusammenarbeit im Team.</p>
           <div class="ep-cards">
-            <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
-              <div class="ep-card-title">Change Management</div>
-              <div class="ep-card-text">Strukturierte Transformationsbegleitung mit klarem Fahrplan, messbaren Meilensteinen und echtem Commitment.</div>
-              <div class="ep-card-cta">Change-Begleitung ansehen <span aria-hidden="true">→</span></div>
-            </a>
-            <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
-              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
-              <div class="ep-card-title">Leadership Development</div>
-              <div class="ep-card-text">Wir stärken Führungskräfte mit Coaching, Workshops und Programmen, die auf Deinen Kontext zugeschnitten sind.</div>
-              <div class="ep-card-cta">Leadership ansehen <span aria-hidden="true">→</span></div>
-            </a>
-            <a class="ep-card ep-card-link" href="#sec-examples" style="border-top:4px solid var(--wo-500)">
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
               <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></div>
-              <div class="ep-card-title">Organisationsdesign</div>
-              <div class="ep-card-text">Strukturen, Prozesse und Rollen neu gestalten. Für mehr Agilität, Klarheit und Handlungsfähigkeit.</div>
-              <div class="ep-card-cta">Organisationsdesign ansehen <span aria-hidden="true">→</span></div>
-            </a>
+              <h3 class="ep-card-title" style="margin-top:0">Organisationsentwicklung</h3>
+              <div class="ep-card-text">Wir richten Strukturen, Verantwortlichkeiten und Steuerung an Strategie und Wertschöpfung aus, nicht am Organigramm der Vergangenheit.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Management &amp; Führung</h3>
+              <div class="ep-card-text">Wir unterstützen Führungskräfte und Führungsteams dabei, Orientierung zu geben und gute Entscheidungen über Bereichsgrenzen hinweg zu ermöglichen.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Agile Arbeitsweisen</h3>
+              <div class="ep-card-text">Agilität ist Mittel, nicht Mission. Wir kennen Scrum, Kanban, SAFe und LeSS aus der Praxis und erkennen, wo ein Framework hilft und wo es nur Aufwand erzeugt.</div>
+            </div>
           </div>
         </div>
-        <!-- Stats -->
-        <div class="card-stat-strip">
-          <div class="card-stat-flat" data-area="wo">
-            <p class="card-stat-flat-value">200+</p>
-            <p class="card-stat-flat-label">Transformationen begleitet</p>
+        <!-- Wie wir arbeiten — drei Überzeugungen, mit unterstützendem Bild -->
+        <div class="ep-section" id="wo-arbeiten" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Wie wir arbeiten</div>
+          <h2 class="ep-section-h2">Unsere Überzeugung.</h2>
+          <p class="ep-section-sub">Was Organisationsentwicklung bei Conciso ausmacht.</p>
+          <div class="layout-grid" style="align-items:stretch;margin-top:var(--s6)">
+            <div class="col-5">
+              <img src="images/team-besprechung.jpg" alt="Team von Conciso in einer Besprechung an einem Tisch im Gespräch" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+            <div class="col-7" style="display:flex;flex-direction:column;justify-content:center;gap:var(--s6)">
+              <div>
+                <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin-bottom:var(--s3)"></span>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Kontext schlägt Methode</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Es gibt kein Patentrezept. Was in der einen Organisation trägt, scheitert in der nächsten. Wir gestalten passgenau, statt nach Lehrbuch vorzugehen.</p>
+              </div>
+              <div>
+                <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin-bottom:var(--s3)"></span>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Wirkung vor Aktivität</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Nicht die Zahl der eingeführten Rituale entscheidet, sondern ob Entscheidungen schneller fallen und die Organisation handlungsfähig bleibt.</p>
+              </div>
+              <div>
+                <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin-bottom:var(--s3)"></span>
+                <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Befähigen statt abhängig machen</h3>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wir hinterlassen Organisationen, die ohne uns weiterkommen, nicht solche, die dauerhaft Beratung brauchen.</p>
+              </div>
+            </div>
           </div>
-          <div class="card-stat-flat" data-area="wo">
-            <p class="card-stat-flat-value">15.000</p>
-            <p class="card-stat-flat-label">Menschen im Wandel gestärkt</p>
+        </div>
+        <!-- Referenzen / Projekte — statische Karten, Kunde als Eyebrow -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Referenzen</div>
+          <h2 class="ep-section-h2">Ausgewählte Projekte.</h2>
+          <p class="ep-section-sub">Begleitete Transformationen aus der Praxis, von der agilen Steuerung über mehrere Tribes bis zu Teams in der Systemintegration.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-eyebrow" data-area="wo">Telekom</div>
+              <h3 class="ep-card-title" style="margin-top:0">Agile Transformation über mehrere Tribes</h3>
+              <div class="ep-card-text">Begleitung einer agilen Transformation mit Steuerung über OKR und Einführung von SAFe, inklusive Rollenübernahme im agilen Umfeld.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-eyebrow" data-area="wo">Deutsche Bank</div>
+              <h3 class="ep-card-title" style="margin-top:0">Agile Teams bei der Systemintegration</h3>
+              <div class="ep-card-text">Coaching und Training agiler Teams im Rahmen einer Neuintegration über mehrere Dienstleister, mit Fokus auf Teambuilding und Effizienz hybrider Teams.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-eyebrow" data-area="wo">Weiteres Projekt</div>
+              <h3 class="ep-card-title" style="margin-top:0">Referenz folgt in Kürze</h3>
+              <div class="ep-card-text">Platzhalter für ein drittes Referenzprojekt aus der Organisationsentwicklung. Auswahl noch offen.</div>
+            </div>
           </div>
-          <div class="card-stat-flat" data-area="wo">
-            <p class="card-stat-flat-value">92 %</p>
-            <p class="card-stat-flat-label">Zielerreichung (Kunden-Bewertung)</p>
-          </div>
-          <div class="card-stat-flat" data-area="wo">
-            <p class="card-stat-flat-value">18 Mo.</p>
-            <p class="card-stat-flat-label">Ø Transformationsdauer</p>
+        </div>
+        <!-- Verweis auf die anderen Bereiche -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label" style="color:var(--wo-700)">Mehr Leistungen</div>
+          <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
+          <p class="ep-section-sub">Wirksame Organisationen ist ein Teil. Wir bauen auch die Software dazu und bringen Künstliche Intelligenz in eure Arbeitsweisen.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
+            <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50);color:var(--es-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4.50018 9.27394C4.15501 9.27394 3.87518 8.99412 3.87518 8.64894C3.87518 8.30376 4.15501 8.02394 4.50018 8.02394H19.1808C19.526 8.02394 19.8058 8.30376 19.8058 8.64894C19.8058 8.99412 19.526 9.27394 19.1808 9.27394H4.50018Z" fill="currentColor"/><path d="M18.875 6.5C18.875 5.74061 18.2594 5.125 17.5 5.125H6.5C5.74061 5.125 5.125 5.74061 5.125 6.5V17.5C5.125 18.2594 5.74061 18.875 6.5 18.875H17.5C18.2594 18.875 18.875 18.2594 18.875 17.5V6.5ZM20.125 17.5C20.125 18.9497 18.9497 20.125 17.5 20.125H6.5C5.05025 20.125 3.875 18.9497 3.875 17.5V6.5C3.875 5.05025 5.05025 3.875 6.5 3.875H17.5C18.9497 3.875 20.125 5.05025 20.125 6.5V17.5Z" fill="currentColor"/><path d="M7.5 6.59999C7.5 7.0142 7.16421 7.34999 6.75 7.34999C6.33579 7.34999 6 7.0142 6 6.59999C6 6.18578 6.33579 5.84999 6.75 5.84999C7.16421 5.84999 7.5 6.18578 7.5 6.59999Z" fill="currentColor"/><path d="M9.89996 6.59999C9.89996 7.0142 9.56418 7.34999 9.14996 7.34999C8.73575 7.34999 8.39996 7.0142 8.39996 6.59999C8.39996 6.18578 8.73575 5.84999 9.14996 5.84999C9.56418 5.84999 9.89996 6.18578 9.89996 6.59999Z" fill="currentColor"/><path d="M12.2999 6.59999C12.2999 7.0142 11.9641 7.34999 11.5499 7.34999C11.1357 7.34999 10.7999 7.0142 10.7999 6.59999C10.7999 6.18578 11.1357 5.84999 11.5499 5.84999C11.9641 5.84999 12.2999 6.18578 12.2999 6.59999Z" fill="currentColor"/><path d="M15.4175 10.892C15.6768 10.6644 16.0716 10.6904 16.2993 10.9496C16.5269 11.2089 16.5019 11.6037 16.2427 11.8314L11.5044 15.9945C10.9598 16.4731 10.1372 16.4466 9.62454 15.934L7.40872 13.7182C7.16508 13.4741 7.16486 13.0783 7.40872 12.8344C7.6528 12.5903 8.04941 12.5903 8.29349 12.8344L10.5083 15.0502C10.5548 15.0967 10.6297 15.0993 10.6792 15.0561L15.4175 10.892Z" fill="currentColor"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Software-Architektur und Code, die euer Vorhaben tragen?</h3>
+              <div class="ep-card-text">Wie aus klarer Architektur und sauberem Code Software wird.</div>
+              <div class="ep-card-cta">Effektive Software ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50);color:var(--ki-800)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M18.1682 10.4063C18.1682 9.64701 17.5524 9.03148 16.7932 9.03126H7.20728C6.44789 9.03126 5.83228 9.64687 5.83228 10.4063V18.25C5.83228 19.0094 6.44788 19.625 7.20728 19.625H16.7932C17.5524 19.6248 18.1682 19.0093 18.1682 18.25V10.4063ZM19.4182 18.25C19.4182 19.6996 18.2428 20.8748 16.7932 20.875H7.20728C5.75753 20.875 4.58228 19.6998 4.58228 18.25V10.4063C4.58228 8.95651 5.75753 7.78126 7.20728 7.78126H16.7932C18.2428 7.78148 19.4182 8.95665 19.4182 10.4063V18.25Z" fill="currentColor"/><path d="M12.4325 5.0625C12.4325 4.6828 12.1247 4.375 11.745 4.375C11.3653 4.375 11.0575 4.6828 11.0575 5.0625C11.0575 5.4422 11.3653 5.75 11.745 5.75C12.1247 5.75 12.4325 5.4422 12.4325 5.0625ZM13.6825 5.0625C13.6825 6.13255 12.815 7 11.745 7C10.6749 7 9.80746 6.13255 9.80746 5.0625C9.80746 3.99245 10.6749 3.125 11.745 3.125C12.815 3.125 13.6825 3.99245 13.6825 5.0625Z" fill="currentColor"/><path d="M9.31253 12.8539C9.31253 12.4742 9.00473 12.1664 8.62503 12.1664C8.24533 12.1664 7.93753 12.4742 7.93753 12.8539C7.93753 13.2336 8.24533 13.5414 8.62503 13.5414C9.00473 13.5414 9.31253 13.2336 9.31253 12.8539ZM10.5625 12.8539C10.5625 13.9239 9.69508 14.7914 8.62503 14.7914C7.55498 14.7914 6.68753 13.9239 6.68753 12.8539C6.68753 11.7838 7.55498 10.9164 8.62503 10.9164C9.69508 10.9164 10.5625 11.7838 10.5625 12.8539Z" fill="currentColor"/><path d="M16.0625 12.8539C16.0625 12.4742 15.7547 12.1664 15.375 12.1664C14.9953 12.1664 14.6875 12.4742 14.6875 12.8539C14.6875 13.2336 14.9953 13.5414 15.375 13.5414C15.7547 13.5414 16.0625 13.2336 16.0625 12.8539ZM17.3125 12.8539C17.3125 13.9239 16.4451 14.7914 15.375 14.7914C14.305 14.7914 13.4375 13.9239 13.4375 12.8539C13.4375 11.7838 14.305 10.9164 15.375 10.9164C16.4451 10.9164 17.3125 11.7838 17.3125 12.8539Z" fill="currentColor"/><path d="M8.25003 16.125C8.25003 16.5392 7.91424 16.875 7.50003 16.875C7.08582 16.875 6.75003 16.5392 6.75003 16.125C6.75003 15.7108 7.08582 15.375 7.50003 15.375C7.91424 15.375 8.25003 15.7108 8.25003 16.125Z" fill="currentColor"/><path d="M10.3125 17.4C10.3125 17.8142 9.97674 18.15 9.56253 18.15C9.14832 18.15 8.81253 17.8142 8.81253 17.4C8.81253 16.9858 9.14832 16.65 9.56253 16.65C9.97674 16.65 10.3125 16.9858 10.3125 17.4Z" fill="currentColor"/><path d="M15.1875 17.4C15.1875 17.8142 14.8517 18.15 14.4375 18.15C14.0233 18.15 13.6875 17.8142 13.6875 17.4C13.6875 16.9858 14.0233 16.65 14.4375 16.65C14.8517 16.65 15.1875 16.9858 15.1875 17.4Z" fill="currentColor"/><path d="M12.75 17.55C12.75 17.9642 12.4142 18.3 12 18.3C11.5858 18.3 11.25 17.9642 11.25 17.55C11.25 17.1358 11.5858 16.8 12 16.8C12.4142 16.8 12.75 17.1358 12.75 17.55Z" fill="currentColor"/><path d="M17.25 16.125C17.25 16.5392 16.9142 16.875 16.5 16.875C16.0858 16.875 15.75 16.5392 15.75 16.125C15.75 15.7108 16.0858 15.375 16.5 15.375C16.9142 15.375 17.25 15.7108 17.25 16.125Z" fill="currentColor"/><path d="M11.2108 8.30187V6.59484C11.2108 6.24966 11.4906 5.96984 11.8358 5.96984C12.181 5.96984 12.4608 6.24966 12.4608 6.59484V8.30187C12.4607 8.64699 12.1809 8.92687 11.8358 8.92687C11.4907 8.92687 11.2109 8.64699 11.2108 8.30187Z" fill="currentColor"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">KI als Hebel für eure Arbeitsweisen einsetzen?</h3>
+              <div class="ep-card-text">Wo Künstliche Intelligenz Entscheidungen und Prozesse wirklich verändert.</div>
+              <div class="ep-card-cta">Angewandte KI ansehen <span aria-hidden="true">→</span></div>
+            </a>
           </div>
         </div>
         <!-- CTA -->
         <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
-          <h2 class="ep-cta-h2">Was steht in Deiner Organisation an?</h2>
-          <p class="ep-cta-sub">Ein offenes Gespräch genügt. Wir hören erst zu, bevor wir empfehlen.</p>
-          <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo">Erstgespräch anfragen</a>
+          <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Erstgespräch</p>
+          <h2 class="ep-cta-h2">Unverbindlich über eure Organisation sprechen.</h2>
+          <p class="ep-cta-sub">Du schilderst, wo es bei euch hakt, wir geben eine erste Einschätzung, woran es liegen könnte und was tatsächlich helfen könnte.</p>
+          <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo">Gespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
@@ -11786,7 +11959,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero-Image · Meet-Up-Stimmung -->
         <figure class="hero-image" id="ep-veranstaltung-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/meetup-publikum.jpg" alt="Konferenzpublikum bei einem Conciso-Meet-Up im WORKGARDEN Dortmund, ein Teilnehmer mit grauem Vollbart hört aufmerksam zu, Wasserflaschen im Vordergrund" loading="eager" style="object-position:center 35%">
+            <img src="images/meetup-buehne.jpg" alt="Drei Speaker mit Mikrofonen auf der Bühne eines Conciso-Meet-Ups, Publikum im Vordergrund" loading="eager" style="object-position:center 20%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Fokusevent · Meet-Up</p>
@@ -12429,7 +12602,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <div class="col-8">
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Veränderung scheitert selten an der Strategie und fast immer an den Menschen, die sie tragen sollen. In diesem Training arbeiten wir an genau dieser Lücke: zwischen dem, was beschlossen wurde, und dem, was im Alltag wirklich ankommt. Du lernst, Veränderung aus der Perspektive der Betroffenen zu denken und so zu führen, dass aus Betroffenen Beteiligte werden.</p>
               <figure style="margin:0 0 var(--s5)">
-                <img src="images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, eine erklärt eine Skizze" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)">
+                <img src="images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, eine erklärt eine Skizze" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 15%;border-radius:var(--r-lg)">
               </figure>
               <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Tag 1 — Verstehen, was Wandel mit Menschen macht</h3>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Wir schauen auf die typischen Phasen von Veränderungsprozessen, auf Reaktionen wie Unsicherheit, Abwehr und Aushandeln, und darauf, was sie über den Zustand der Organisation verraten. An eigenen Fällen analysieren wir, wo ein Vorhaben gerade steht und welche Hebel wirklich greifen.</p>
