@@ -106,7 +106,9 @@
 .card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
 .card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
-.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+/* Hover-Lift nur auf klickbaren Karten (Elevation = Interaktivität): statische Karten
+   (<article>/<div> mit Buttons innen) liften NICHT, nur Karten-Links (<a class="card card-elevated">). */
+a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
 .card-body{padding:var(--s5)}
