@@ -2830,6 +2830,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       </div>
 
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-top:var(--s5)"><strong>Gleich hohe Karten, bündiger Button:</strong> Stehen die Formular-Karten in gleich hohen Grid-Spalten, trägt der Formularkörper <code class="token">.ds-inner</code> zusätzlich den Modifier <code class="token">.ds-inner-fill</code>. Er macht ihn zur Flex-Spalte; das Feld mit der <code class="token">&lt;textarea&gt;</code> wächst (<code class="token">flex:1 1 auto</code>, Basis = natürliche Höhe, <code class="token">min-height</code> als Boden, <strong>kein Schrumpfen darunter</strong>) und füllt den Leerraum der kürzeren Karte, sodass der Submit-Button unten bündig zur Nachbarkarte sitzt. Es wächst gezielt nur das Textarea-Feld (<code class="token">:has(textarea)</code>), die übrigen Felder bleiben kompakt. Im 1-Spalten-Layout (Mobile) ohne Wirkung, da die Karten dort einzeln auf natürlicher Höhe stehen.</p>
+
       <!-- Adaptive Kontaktseite: Tönung + Vorbelegung + verstecktes Routing -->
       <h2 id="gt-inputs-kontakt-adaptiv" class="group-title">Adaptive Kontaktseite</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Statt eines eigenen Formulars pro Bereich gibt es <strong>eine</strong> Anfrageseite (<a class="body-link" href="#sec-examples" data-ep="kontakt">Kontakt-Beispielseite</a>), die sich am Einstieg orientiert. Default ist die neutrale Corporate-Tönung; kommt der Nutzer über einen Bereichs-CTA, übernimmt das Formular Farbe, Thema und ein vorbelegtes Anliegen. So bleibt die Seite auch für unentschlossene und bereichsübergreifende Nutzer richtig und vermeidet Near-Duplicate-Seiten.</p>
