@@ -733,7 +733,8 @@
           </div>
         </div>
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
-          <div style="background:var(--n-50);padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
+          <!-- Panel-Background fest hell (Light-Wert von --n-50), nicht das theme-reaktive Token: das Monochrom-Logo ist fix in --tx-brand (#333E48) gezeichnet und bräuchte im Dark-Mode-dunklen --n-50 sonst dunkel-auf-dunkel. Demo eines dunklen Logos verlangt hellen Grund, analog zur #fff-Default-Karte. -->
+          <div style="background:#F5F7F7;padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
             <img src="images/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
