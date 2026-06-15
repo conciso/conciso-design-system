@@ -125,14 +125,16 @@
    inline gesetzten --XX-700/800-color → dunkel-auf-dunkel (analog .ep-card-icon). Glyph auf den
    hellen --XX-100-Ton heben. Override pro <path> über Attribut-Selektor des Ist-Werts: schlägt
    sowohl das Präsentationsattribut als auch die Inline-color am Container (sonst gewänne diese),
-   und trifft nur farbige Pfade — Outline-Pfade mit fill="none" bleiben unberührt. */
-[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path[fill="#333E48"],
-[data-theme="dark"] .icon-size-swatch[data-area="co"] svg path[fill="#004F4F"] { fill: var(--co-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path[stroke="#183A0E"] { stroke: var(--wo-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg path[fill="currentColor"] { fill: var(--wo-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="ki"] svg path[fill="currentColor"] { fill: var(--ki-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="es"] svg path[fill="currentColor"] { fill: var(--es-100) }
-[data-theme="dark"] .icon-size-swatch[data-area="es"] svg path[stroke="currentColor"] { stroke: var(--es-100) }
+   und trifft nur farbige Formen — Outline-Pfade mit fill="none" bleiben unberührt. Selektor auf
+   beliebige SVG-Form (nicht nur path): die Micro-16px-Icons nutzen <circle>/<rect>, die ein
+   path-Selektor verfehlt hätte (Knoten/Fenster blieben dunkel). */
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg [fill="#333E48"],
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg [fill="#004F4F"] { fill: var(--co-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg [stroke="#183A0E"] { stroke: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg [fill="currentColor"] { fill: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="ki"] svg [fill="currentColor"] { fill: var(--ki-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg [fill="currentColor"] { fill: var(--es-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg [stroke="currentColor"] { stroke: var(--es-100) }
 [data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
 [data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
 [data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
