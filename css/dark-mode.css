@@ -98,7 +98,8 @@
 [data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
-/* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
+/* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-*/Badges/Icons,
+   auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
 /* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
    Daher invertieren: helle -300-Bereichsfläche + dunkler Text (n-900) → poppt als Primär-Aktion
    (Fläche 3,6–8:1, Text 6–14:1). Nur .btn-filled umstellen (nicht --c500, das Tonal/Outlined/Text trägt);
@@ -108,22 +109,29 @@
 [data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
 [data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
 [data-theme="dark"] .btn-wo.btn-filled:not(.btn-on-band) { background: var(--wo-300) }
-/* Tonal im Dark: mit --c50 25% lag die Fläche bei ~1:1 zum Seiten-Hintergrund (Button unsichtbar,
-   verfehlt 1.4.11). Fläche auf eine sichtbare, brand-getönte Surface (c500 18% in bg-surface) heben
-   und einen neutralen Rahmen geben (#9DA8B6 = --bd-strong dark, ≥3:1 auf bg-page UND bg-surface).
-   So bleibt der Button als getönte Fläche erkennbar und unterscheidet sich von Outlined (brand-Rahmen). */
+/* --c-ink = Bereichs-Light-Tint für Text/Rahmen der nicht-gefüllten Buttons im Dark. Dieselben Töne
+   wie t-*/Badges/Icons/Eyebrows (auf der offiziellen Skala) statt eines off-scale color-mix → alle
+   Bereichstöne der Seite ziehen aus EINER Skala. */
+[data-theme="dark"] .btn-co { --c-ink: var(--co-200) }
+[data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
+[data-theme="dark"] .btn-es { --c-ink: var(--es-100) }
+[data-theme="dark"] .btn-wo { --c-ink: var(--wo-200) }
+/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen (#9DA8B6 =
+   --bd-strong dark, ≥3:1) — der Rahmen macht den Button erkennbar, die Tönung unterscheidet ihn von
+   Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der -ink-Text (-200/-100) auch
+   auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei 4,43:1, knapp drunter). */
 [data-theme="dark"] .btn-tonal {
-  background: color-mix(in srgb, var(--c500) 18%, var(--bg-surface));
-  color: color-mix(in srgb, var(--c500) 35%, white);
+  background: color-mix(in srgb, var(--c500) 18%, var(--bg-page));
+  color: var(--c-ink);
   border-color: #9DA8B6;
 }
-[data-theme="dark"] .btn-elevated { color: color-mix(in srgb, var(--c500) 35%, white) }
+[data-theme="dark"] .btn-elevated { color: var(--c-ink) }
 [data-theme="dark"] .btn-outlined {
-  color: color-mix(in srgb, var(--c500) 35%, white);
-  border-color: color-mix(in srgb, var(--c500) 35%, white);
+  color: var(--c-ink);
+  border-color: var(--c-ink);
 }
 [data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
-[data-theme="dark"] .btn-text { color: color-mix(in srgb, var(--c500) 35%, white) }
+[data-theme="dark"] .btn-text { color: var(--c-ink) }
 [data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
 
 /* ════════════════════════════════════════════
