@@ -143,6 +143,10 @@
 /* Aktiv-Unterstrich im Dark ebenfalls co-200 (Light: co-700) — spiegelt die Aktiv-Textfarbe, 5,71:1 auf bg-surface. */
 [data-theme="dark"] .ep-nav-btn::after { background: var(--co-200) }
 [data-theme="dark"] .ep-section { background: var(--bg-page) !important }
+/* Section-Rhythmus erhalten: im Light staffeln sich Sektionen über bg-surface (Basis) und n-50
+   (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
+   daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
+[data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
 [data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
 /* Elevation = Interaktivität (siehe components.css): statische .ep-card ruhen flach — Containment über
