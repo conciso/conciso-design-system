@@ -90,17 +90,26 @@
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
 
-  /* ── Theme switcher ── */
+  /* ── Theme switcher (mit Persistenz) ── */
+  function applyTheme(t) {
+    document.documentElement.removeAttribute('data-theme');
+    if (t !== 'light') document.documentElement.setAttribute('data-theme', t);
+    document.querySelectorAll('.tbtn').forEach(function(b) {
+      var on = b.id === 'tb-' + t;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+  }
   document.querySelectorAll('.tbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var t = btn.id.replace('tb-', '');
-      document.documentElement.removeAttribute('data-theme');
-      if (t !== 'light') document.documentElement.setAttribute('data-theme', t);
-      document.querySelectorAll('.tbtn').forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-      btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
+      applyTheme(t);
+      try { localStorage.setItem('ds-theme', t); } catch (e) {}
     });
   });
+  /* Beim Laden gespeichertes Theme wiederherstellen — data-theme setzt bereits das Inline-Head-Script
+     vor dem Paint, hier wird zusätzlich der aktive Button-Status synchronisiert. */
+  applyTheme((function() { try { return localStorage.getItem('ds-theme'); } catch (e) { return null; } })() || 'light');
 
   /* ── Area tabs (Bereichs-Komponenten) ── */
   document.querySelectorAll('.atab[data-area]').forEach(function(btn) {
