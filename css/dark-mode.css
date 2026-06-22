@@ -98,19 +98,19 @@
 [data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
-/* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-*/Badges/Icons,
-   auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
+/* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-Utilities,
+   Badges, Icons; auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
 /* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
    Daher invertieren: helle -300-Bereichsfläche + dunkler Text (n-900) → poppt als Primär-Aktion
    (Fläche 3,6–8:1, Text 6–14:1). Nur .btn-filled umstellen (nicht --c500, das Tonal/Outlined/Text trägt);
    .btn-on-band (weiße Fläche auf Bereichsband) ausnehmen. Light bleibt dunkle Fläche + weißer Text. */
-[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) !important }
+[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) }
 [data-theme="dark"] .btn-co.btn-filled:not(.btn-on-band) { background: var(--co-300) }
 [data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
 [data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
 [data-theme="dark"] .btn-wo.btn-filled:not(.btn-on-band) { background: var(--wo-300) }
 /* --c-ink = Bereichs-Light-Tint für Text/Rahmen der nicht-gefüllten Buttons im Dark. Dieselben Töne
-   wie t-*/Badges/Icons/Eyebrows (auf der offiziellen Skala) statt eines off-scale color-mix → alle
+   wie t-Utilities, Badges, Icons, Eyebrows (auf der offiziellen Skala) statt eines off-scale color-mix → alle
    Bereichstöne der Seite ziehen aus EINER Skala. */
 [data-theme="dark"] .btn-co { --c-ink: var(--co-200) }
 [data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
@@ -253,7 +253,7 @@
 [data-theme="dark"] .card-stat-flat[data-area="es"] .card-stat-flat-value { color: var(--es-100) }
 [data-theme="dark"] .card-stat-flat[data-area="wo"] .card-stat-flat-value { color: var(--wo-200) }
 /* In-Article-Callout-Eyebrow: 700er-/800er-Ton → dunkel-auf-dunkel auf der getönten -50-Fläche
-   (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-*/Badges. Body-Text ist
+   (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-Utilities und Badges. Body-Text ist
    tx-primary und flippt ohnehin. */
 [data-theme="dark"] .article-callout-eyebrow { color: var(--co-200) }
 [data-theme="dark"] .article-callout[data-area="ki"] .article-callout-eyebrow { color: var(--ki-200) }
