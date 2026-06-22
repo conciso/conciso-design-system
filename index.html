@@ -1841,10 +1841,10 @@
     <!-- ═══ NAVIGATION ═══ -->
     <section class="ds-section" id="sec-navigation">
       <h1 class="sec-title">Navigation</h1>
-      <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, drei Top-Items (Leistungen · Wissen · Unternehmen) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
+      <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, vier Top-Items (Angewandte KI · Leistungen · Wissen · Unternehmen) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
 
       <!-- ── Live-Demo: ep-topnav (Produktion) ── -->
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, drei Top-Items (Leistungen mit Hover-Submenü, Wissen, Unternehmen), Kontakt-Button rechts. Aktiver Eintrag: <code class="token">aria-current="page"</code> plus nicht-farbiger Indikator (Top-Level Akzent-Unterstrich, Submenü Tönungsfläche + Fettung), ergänzt um Brand-Petrol-Farbe.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, vier Top-Items (Angewandte KI und Leistungen mit Hover-Submenü, Wissen, Unternehmen mit Submenü), Kontakt-Button rechts. Aktiver Eintrag: <code class="token">aria-current="page"</code> plus nicht-farbiger Indikator (Top-Level Akzent-Unterstrich, Submenü Tönungsfläche + Fettung), ergänzt um Brand-Petrol-Farbe.</p>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
@@ -1852,57 +1852,114 @@
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
+              </div>
+            </div>
           </nav>
           <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
         </div>
       </div>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Bereichs-Zustand · Angewandte KI</span>
-      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der „Leistungen“-Toggle bekommt zusätzlich Brand-Farbe und Unterstrich als Hinweis. Öffnen per Hover, Klick/Tap oder Tastatur (<kbd>Enter</kbd>).</p>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der zugehörige Toggle (hier „Angewandte KI“) bekommt zusätzlich Brand-Farbe und Unterstrich als Hinweis. Öffnen per Hover, Klick/Tap oder Tastatur (<kbd>Enter</kbd>).</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-navigation">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
+              </div>
+            </div>
           </nav>
           <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
         </div>
       </div>
 
-      <span class="lbl" style="margin-bottom:var(--s3)">Top-Item-Zustand · Unternehmen</span>
-      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Direkte Top-Items (Wissen, Unternehmen) ohne Submenü tragen <code class="token">aria-current="page"</code> selbst.</p>
+      <span class="lbl" style="margin-bottom:var(--s3)">Top-Item-Zustand · Wissen</span>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Das direkte Top-Item „Wissen“ (ohne Submenü) trägt <code class="token">aria-current="page"</code> selbst.</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s8)">
         <div class="ep-topnav" style="border-bottom:none;padding-inline:max(var(--s8),calc(50% - 640px))">
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-navigation">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
-            <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Unternehmen</a>
+            <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
+              </div>
+            </div>
           </nav>
           <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
         </div>
@@ -1912,13 +1969,13 @@
       <!-- ── Topnav-Pattern für Beispielseiten ── -->
       <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Topnav-Pattern (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>) folgt dem festgelegten IA-Schema:</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Leistungen“ bündelt die drei Bereiche in einem Hover-Submenü, „Unternehmen“ ist der Profil-Hub mit Team, Jobs, Referenzen, Events, Presse.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Angewandte KI · Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Angewandte KI“ bündelt die KI-Produkte (AI.Engineering, AI.Automation, AI.Box) in einem Hover-Submenü, „Leistungen“ die Bereiche Effektive Software und Wirksame Organisationen, „Unternehmen“ ist der Hub mit Über uns, Jobs, Referenzen, Events, Presse.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Layout-Anker</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur drei Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur wenigen Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktiv-Markierung</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Punkt wird über <code class="token">aria-current="page"</code> ausgezeichnet und visuell durch einen <strong>nicht-farbigen Indikator</strong> bestätigt: Top-Level-Links tragen einen dezenten Akzent-Unterstrich (Petrol, sanfter Opacity-Fade), Submenü-Einträge eine Tönungsfläche (<code class="token">--co-50</code>) plus Fettung. Die Brand-Petrol-Textfarbe (<code class="token">--co-700</code>, im Dark <code class="token">--co-200</code>) kommt ergänzend dazu. So hängt die Markierung nicht allein an der Farbe (WCAG&nbsp;1.4.1). Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der „Leistungen“-Toggle erbt zusätzlich Brand-Farbe und Unterstrich.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Punkt wird über <code class="token">aria-current="page"</code> ausgezeichnet und visuell durch einen <strong>nicht-farbigen Indikator</strong> bestätigt: Top-Level-Links tragen einen dezenten Akzent-Unterstrich (Petrol, sanfter Opacity-Fade), Submenü-Einträge eine Tönungsfläche (<code class="token">--co-50</code>) plus Fettung. Die Brand-Petrol-Textfarbe (<code class="token">--co-700</code>, im Dark <code class="token">--co-200</code>) kommt ergänzend dazu. So hängt die Markierung nicht allein an der Farbe (WCAG&nbsp;1.4.1). Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der jeweilige Toggle (z. B. „Angewandte KI“ oder „Leistungen“) erbt zusätzlich Brand-Farbe und Unterstrich.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Submenü: öffnen &amp; schließen</h3>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü öffnet per <strong>Maus-Hover</strong> (CSS) und per <strong>Klick/Tap oder Tastatur</strong> (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>). Der Toggle führt <code class="token">aria-expanded</code> mit (<code class="token">true</code>/<code class="token">false</code>), damit Screenreader und Touch-Geräte ohne Hover den Auf-/Zu-Zustand erhalten. <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus an den Toggle zurück; ein Klick außerhalb oder das Heraustabben schließt ebenfalls. Zwischen Toggle und Submenü überbrückt das unsichtbare <code class="token">.ep-nav-sub::before</code> den Hover-Spalt.</p>
@@ -1927,23 +1984,24 @@
       <!-- Code-Beispiel Topnav -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Customer-Topnav: Logo, drei Top-Items, Hover-Submenü, Outline-CTA --&gt;</span>
+        <pre class="cb-body"><span class="c">&lt;!-- Customer-Topnav: Logo, vier Top-Items, Hover-Submenü, Outline-CTA --&gt;</span>
 <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-topnav"</span><span class="k">&gt;</span>
   <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-logo"</span> <span class="v">href</span>=<span class="s">"/"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span><span class="k">&gt;&lt;/a&gt;</span>
   <span class="k">&lt;nav</span> <span class="v">class</span>=<span class="s">"ep-nav-links"</span> <span class="v">aria-label</span>=<span class="s">"Hauptnavigation"</span><span class="k">&gt;</span>
-    <span class="c">&lt;!-- Leistungen mit Hover-Submenü --&gt;</span>
+    <span class="c">&lt;!-- Angewandte KI mit Hover-Submenü --&gt;</span>
     <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-item ep-nav-has-sub"</span><span class="k">&gt;</span>
       <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-btn ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-haspopup</span>=<span class="s">"true"</span> <span class="v">aria-expanded</span>=<span class="s">"false"</span><span class="k">&gt;</span> <span class="c">&lt;!-- aria-expanded per JS gepflegt --&gt;</span>
-        Leistungen<span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
+        Angewandte KI<span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
       <span class="k">&lt;/button&gt;</span>
       <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-sub"</span><span class="k">&gt;</span>
-        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/ki"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/a&gt;</span>
-        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/software"</span><span class="k">&gt;</span>Effektive Software<span class="k">&lt;/a&gt;</span>
-        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/leistungen/organisation"</span><span class="k">&gt;</span>Wirksame Organisationen<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki"</span><span class="k">&gt;</span>Übersicht<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki/ai-engineering"</span><span class="k">&gt;</span>AI.Engineering<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki/ai-automation"</span><span class="k">&gt;</span>AI.Automation<span class="k">&lt;/a&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki/ai-box"</span><span class="k">&gt;</span>AI.Box<span class="k">&lt;/a&gt;</span>
       <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/wissen"</span><span class="k">&gt;</span>Wissen<span class="k">&lt;/a&gt;</span>
-    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/ueber-uns"</span> <span class="v">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Unternehmen<span class="k">&lt;/a&gt;</span>
+    <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/wissen"</span> <span class="v">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Wissen<span class="k">&lt;/a&gt;</span>
+    <span class="c">&lt;!-- Leistungen + Unternehmen analog als .ep-nav-has-sub --&gt;</span>
   <span class="k">&lt;/nav&gt;</span>
   <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined btn-sm"</span><span class="k">&gt;</span>Kontakt<span class="k">&lt;/button&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
@@ -7510,21 +7568,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -7842,21 +7911,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -8094,21 +8174,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -8410,21 +8501,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -8782,21 +8884,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -9005,21 +9118,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -9183,22 +9307,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="leistungen">Übersicht</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -9409,21 +9543,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -9677,21 +9822,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -10121,21 +10277,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -10351,21 +10518,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -10656,21 +10834,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -10877,21 +11066,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -11098,9 +11298,18 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
@@ -11111,8 +11320,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -11359,9 +11570,18 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
@@ -11372,8 +11592,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -11710,21 +11932,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -12006,21 +12239,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -12358,21 +12602,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
@@ -12549,21 +12804,32 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
+              <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button" aria-haspopup="true">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
               </div>
             </div>
-            <a class="ep-nav-btn" href="#">Wissen</a>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button" aria-haspopup="true">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Conciso als Arbeitgeber</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-jobs">Offene Stellen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
           </nav>
