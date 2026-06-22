@@ -487,13 +487,17 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.img-slide{transition:none}}
 
 /* ── Logo-Tiles (geteilt vom Logo-Karussell) ── */
-.logo-tile{width:148px;height:72px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:var(--r-md);border:var(--bd);background:var(--bg-surface);padding:var(--s3) var(--s4);transition:border-color var(--m-fast),box-shadow var(--m-fast)}
-.logo-tile:hover{border-color:var(--n-300);box-shadow:var(--e1)}
-.logo-placeholder{font:700 13px/1.2 var(--font);letter-spacing:.04em;color:var(--n-300);text-align:center;transition:color var(--m-fast);user-select:none}
-.logo-tile:hover .logo-placeholder{color:var(--n-500)}
+/* Logos sitzen randlos auf der weißen Platte (.logo-carousel) — keine Einzel-Box, kein Hover-Lift:
+   Logos sind nicht klickbar, ein Lift wäre falsche Interaktions-Andeutung („Elevation = Interaktivität").
+   Einheitliche, größere Logo-Höhe (52px) statt der alten 72px-Kachel mit nur ~48px nutzbarer Höhe. */
+.logo-tile{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:var(--s2) var(--s4)}
+.logo-tile img{max-height:52px;max-width:100%;width:auto;height:auto;object-fit:contain}
+.logo-placeholder{font:700 15px/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
 
 /* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
-.logo-carousel{position:relative;padding:var(--s4) 0}
+/* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
+   Dark-Variante → auf theme-reaktivem Grund würden sie im Dark unsichtbar. Weiß bleibt weiß. */
+.logo-carousel{position:relative;background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
 .logo-carousel-track{position:relative;display:grid;align-items:center;min-height:96px}
 .logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
