@@ -99,7 +99,15 @@
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
 /* Dark: buttons – text/border auf dunklem Grund auf ≥4.5:1 heben (color-mix 40% brand + 60% white) */
-/* Filled: weißer Text auf brand-700-Fläche → bleibt unverändert (5–7:1 ✓) */
+/* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
+   Daher invertieren: helle -300-Bereichsfläche + dunkler Text (n-900) → poppt als Primär-Aktion
+   (Fläche 3,6–8:1, Text 6–14:1). Nur .btn-filled umstellen (nicht --c500, das Tonal/Outlined/Text trägt);
+   .btn-on-band (weiße Fläche auf Bereichsband) ausnehmen. Light bleibt dunkle Fläche + weißer Text. */
+[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) }
+[data-theme="dark"] .btn-co.btn-filled:not(.btn-on-band) { background: var(--co-300) }
+[data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
+[data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
+[data-theme="dark"] .btn-wo.btn-filled:not(.btn-on-band) { background: var(--wo-300) }
 /* Tonal im Dark: mit --c50 25% lag die Fläche bei ~1:1 zum Seiten-Hintergrund (Button unsichtbar,
    verfehlt 1.4.11). Fläche auf eine sichtbare, brand-getönte Surface (c500 18% in bg-surface) heben
    und einen neutralen Rahmen geben (#9DA8B6 = --bd-strong dark, ≥3:1 auf bg-page UND bg-surface).
