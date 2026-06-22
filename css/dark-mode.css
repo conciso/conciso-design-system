@@ -180,6 +180,13 @@
 [data-theme="dark"] .ep-card-icon[data-area="ki"] svg { stroke: var(--ki-100) }
 [data-theme="dark"] .ep-card-icon[data-area="es"] svg { stroke: var(--es-100) }
 [data-theme="dark"] .ep-card-icon[data-area="wo"] svg { stroke: var(--wo-100) }
+/* Gefüllte Brand-Glyphen (.ep-card-icon mit .t-*-Klasse, fill=currentColor) holen ihre Farbe schon
+   über t-* (flippt im Dark auf helle -200/-100). Der stroke-Override oben ist für OUTLINE-Icons; auf
+   gefüllten Pfaden erzwingt er eine zusätzliche 1,5px-Kontur → verzerrt den Glyph. Daher hier stroke:none. */
+[data-theme="dark"] .ep-card-icon.t-co svg,
+[data-theme="dark"] .ep-card-icon.t-ki svg,
+[data-theme="dark"] .ep-card-icon.t-es svg,
+[data-theme="dark"] .ep-card-icon.t-wo svg { stroke: none }
 /* Offene Feature-Liste: --ki-800 bleibt im Dark-Mode dunkel-oliv, --ki-50 ist ein dunkler Olivton.
    Pro-Glyph + Tier-Label daher auf das helle --ki-100 umstellen (>11:1 auf der Tile).
    Core (tx-secondary/n-100) ist theme-aware und braucht keinen Override. */
