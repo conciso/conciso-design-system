@@ -167,6 +167,12 @@
 [data-theme="dark"] .testimonial[data-area="ki"] .testimonial-icon { color: var(--ki-300) }
 [data-theme="dark"] .testimonial[data-area="es"] .testimonial-icon { color: var(--es-300) }
 [data-theme="dark"] .testimonial[data-area="wo"] .testimonial-icon { color: var(--wo-300) }
+/* Blockquote-Zitatzeichen (.bq-icon): analog — -500 @ .35 verschwindet im Dark auf dem getönten
+   -50-Grund. Auf -300 je Bereich + opacity .6 → erkennbarer Flourish (2,7–4,5:1). */
+[data-theme="dark"] .bq-icon { color: var(--co-300); opacity: .6 }
+[data-theme="dark"] .bq[data-area="ki"] .bq-icon { color: var(--ki-300) }
+[data-theme="dark"] .bq[data-area="es"] .bq-icon { color: var(--es-300) }
+[data-theme="dark"] .bq[data-area="wo"] .bq-icon { color: var(--wo-300) }
 /* Icon-Doku-Swatches (#sec-icons): dieselbe --XX-50-Kachel ist im Dark-Mode ein dunkler Bereichston, die
    Glyph-Farben sind teils hart kodiert (#333E48, #004F4F, #183A0E), teils currentColor aus einer
    inline gesetzten --XX-700/800-color → dunkel-auf-dunkel (analog .ep-card-icon). Glyph auf den

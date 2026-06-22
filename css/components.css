@@ -150,7 +150,8 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .bq[data-area="ki"]{--bq-accent:var(--ki-500);--bq-bg:var(--ki-50)}
 .bq[data-area="es"]{--bq-accent:var(--es-500);--bq-bg:var(--es-50)}
 .bq[data-area="wo"]{--bq-accent:var(--wo-500);--bq-bg:var(--wo-50)}
-.bq-icon{display:block;width:20px;height:20px;color:var(--bq-accent,var(--co-500));opacity:.35;margin-bottom:var(--s3)}
+/* fill:currentColor ist nötig, damit color (Bereichsakzent) den Glyph färbt — sonst SVG-Default schwarz. */
+.bq-icon{display:block;width:20px;height:20px;color:var(--bq-accent,var(--co-500));fill:currentColor;opacity:.35;margin-bottom:var(--s3)}
 .bq blockquote{font:var(--ty-serif-lg);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none}
 .bq-caption{display:flex;flex-direction:column;gap:2px}
 .bq-name{font:var(--ty-name);color:var(--tx-primary)}
@@ -163,7 +164,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .testimonial[data-area="ki"]{--t-accent:var(--ki-500)}
 .testimonial[data-area="es"]{--t-accent:var(--es-500)}
 .testimonial[data-area="wo"]{--t-accent:var(--wo-500)}
-.testimonial-icon{width:32px;height:32px;color:var(--t-accent,var(--co-500));opacity:.2;flex-shrink:0}
+.testimonial-icon{width:32px;height:32px;color:var(--t-accent,var(--co-500));fill:currentColor;opacity:.2;flex-shrink:0}
 .testimonial blockquote{font:var(--ty-serif-sm);color:var(--tx-primary);margin:0;quotes:none;flex:1}
 .testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}.testimonial-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
 .testimonial-role{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0;font-style:normal}
