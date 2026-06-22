@@ -590,10 +590,13 @@ html[data-section="examples"] .ds-content,
 a.ep-logo{cursor:pointer}
 a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-logo img{display:block;height:24px;width:auto}
-/* Theme-aware logo swap: default für hellen, light für dunklen Hintergrund */
-.logo-themed-light{display:none}
-[data-theme="dark"] .logo-themed-default{display:none}
-[data-theme="dark"] .logo-themed-light{display:block}
+/* Theme-aware logo swap: default für hellen, light für dunklen Hintergrund.
+   img.-Präfix (Element+Klasse, 0,1,1) ist nötig: .ep-logo img{display:block} (0,1,1) schlägt sonst
+   die reine .logo-themed-light-Klasse (0,1,0) → im Light bliebe das WEISSE Logo sichtbar (weiß-auf-weiß
+   unsichtbar, belegte aber ~Logobreite und schob .ep-nav-links nach rechts). Dark-Regeln (0,2,1) gewinnen. */
+img.logo-themed-light{display:none}
+[data-theme="dark"] img.logo-themed-default{display:none}
+[data-theme="dark"] img.logo-themed-light{display:block}
 .ep-nav-links{display:flex;gap:var(--s6);font:var(--ty-label-md);align-items:center}
 /* Top-Level-Links: Akzent-Unterstrich bei Hover/aktiv (statt Opacity-Fade). Der aktive Zustand
    ist nicht nur farbig (co-700), sondern zusätzlich durch den Unterstrich markiert (kein
