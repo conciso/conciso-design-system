@@ -185,7 +185,11 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .group-title{scroll-margin-top:var(--s8)}
 
 /* ── Back-to-top button ── */
-.back-to-top{position:fixed;bottom:var(--s8);right:var(--s6);width:44px;height:44px;border-radius:var(--r-full);background:var(--co-500);color:#fff;border:none;cursor:pointer;box-shadow:var(--e3);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity var(--m-std),box-shadow var(--m-fast);z-index:150}
-.back-to-top.visible{opacity:1;pointer-events:auto}
+/* co-600 statt co-500: weißes Caret braucht ≥3:1 (1.4.11) — co-600 = 3,29:1 (Icon), und der Button vs.
+   Seite ≥3:1 sowohl auf weiß (Light, 3,29) als auch auf bg-page (Dark, 3,32); co-500 verfehlt es im Light,
+   co-700 im Dark. visibility (mit-transitioniert) nimmt den versteckten Button aus der Tab-Reihenfolge —
+   sonst ist ein unsichtbares Fokusziel per Tab erreichbar. */
+.back-to-top{position:fixed;bottom:var(--s8);right:var(--s6);width:44px;height:44px;border-radius:var(--r-full);background:var(--co-600);color:#fff;border:none;cursor:pointer;box-shadow:var(--e3);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--m-std),visibility var(--m-std),box-shadow var(--m-fast);z-index:150}
+.back-to-top.visible{opacity:1;visibility:visible;pointer-events:auto}
 .back-to-top:hover{box-shadow:var(--e4)}
 .back-to-top:focus-visible{outline:none;box-shadow:var(--focus-ring)}
