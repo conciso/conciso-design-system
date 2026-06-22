@@ -173,6 +173,10 @@
 [data-theme="dark"] .ep-card-icon[data-area="co"] svg { stroke: var(--co-100) }
 /* Timeline-Marker: co-50-Tile wird im Dark dunkel → Icon auf helles co-100 heben */
 [data-theme="dark"] .ep-tl-icon svg { stroke: var(--co-100) }
+/* Der box-shadow-Ring stellt den Kreis von der Timeline-Linie frei und muss die Hintergrundfarbe
+   treffen. In Light = bg-surface (= weiß = Grund) → unsichtbar. Im Dark liegt die Timeline (Doku wie
+   ep-Section) auf bg-page; bg-surface waere dort ein hellerer Halo. Ring daher auf bg-page. */
+[data-theme="dark"] .ep-tl-icon { box-shadow: 0 0 0 4px var(--bg-page) }
 [data-theme="dark"] .ep-card-icon[data-area="ki"] svg { stroke: var(--ki-100) }
 [data-theme="dark"] .ep-card-icon[data-area="es"] svg { stroke: var(--es-100) }
 [data-theme="dark"] .ep-card-icon[data-area="wo"] svg { stroke: var(--wo-100) }
