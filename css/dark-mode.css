@@ -130,6 +130,11 @@
    DARK MODE: Beispielseiten
    ════════════════════════════════════════════ */
 /* Shared structural overrides */
+/* .ds-card hat nur Rahmen, keinen Hintergrund (transparent → zeigt die Sektion durch). Im Dark zeigt
+   eine hintergrundlose Karte auf einer getönten Sektion denselben dunklen Ton → keine eigene Fläche.
+   Im Dark daher bg-surface geben: die Karte wird eine erkennbare, erhöhte Fläche. Karten MIT Inline-bg
+   (Info-Callouts auf co-50/n-50) behalten ihren Ton — Inline-Style schlägt diese Regel. */
+[data-theme="dark"] .ds-card { background: var(--bg-surface) }
 [data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
 /* Topnav Hover/Aktiv: co-700 (Light) → co-200 im Dark (co-700 wäre dunkel-auf-dunkel).
