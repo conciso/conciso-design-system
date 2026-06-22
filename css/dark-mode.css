@@ -32,8 +32,12 @@
   --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
   --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
   --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
-  /* Brand tints – very dark for dark surfaces */
-  --co-50:#071616; --ki-50:#111A04; --wo-50:#060F03; --es-50:#060A1A; --ro-50:#180308;
+  /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
+     Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
+     (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
+     aber dunkler als bg-surface, damit Icon-Tiles auch IN Cards (.ep-card-icon) sichtbar bleiben; helle
+     -100/-200-Glyphen/Texte darauf 7,5–10:1. (ro = Akzent/Status, nicht als Tile genutzt → near-black.) */
+  --co-50:#16302E; --ki-50:#2A3411; --wo-50:#18301C; --es-50:#1B2547; --ro-50:#180308;
   --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
   /* Badge text – lighter for dark backgrounds */
   --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
@@ -149,8 +153,8 @@
 [data-theme="dark"] .ep-card-icon[data-area="ki"] svg { stroke: var(--ki-100) }
 [data-theme="dark"] .ep-card-icon[data-area="es"] svg { stroke: var(--es-100) }
 [data-theme="dark"] .ep-card-icon[data-area="wo"] svg { stroke: var(--wo-100) }
-/* Offene Feature-Liste: --ki-800 bleibt im Dark-Mode dunkel-oliv, --ki-50 wird fast schwarz (#111A04).
-   Pro-Glyph + Tier-Label daher auf das helle --ki-100 umstellen (Icon 15.6:1, Label 16.2:1).
+/* Offene Feature-Liste: --ki-800 bleibt im Dark-Mode dunkel-oliv, --ki-50 ist ein dunkler Olivton.
+   Pro-Glyph + Tier-Label daher auf das helle --ki-100 umstellen (>11:1 auf der Tile).
    Core (tx-secondary/n-100) ist theme-aware und braucht keinen Override. */
 [data-theme="dark"] .ep-feature-icon[data-area="ki"] { color: var(--ki-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
@@ -224,7 +228,7 @@
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
 /* ── Spacing & Grid + Code tokens ── */
-/* co-700 (#007575) on co-50 (#071616) = ~3:1 in dark → co-300 (#4DD0D0) = ~9.3:1 */
+/* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
 [data-theme="dark"] .gcol  { color: var(--co-300) }
 [data-theme="dark"] .token { color: var(--co-300) }
 
