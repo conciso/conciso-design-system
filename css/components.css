@@ -702,7 +702,10 @@ img.logo-themed-light{display:none}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
 .ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
-.ep-card-icon svg{width:32px;height:32px;stroke-width:var(--icon-stroke-md)}
+/* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
+   wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
+   sind unberuehrt. */
+.ep-card-icon svg{width:32px;height:32px;stroke-width:var(--icon-stroke-sm)}
 /* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
 .ep-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)}
 .ep-card-eyebrow[data-area="co"]{color:var(--co-700)}
