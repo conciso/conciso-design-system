@@ -92,8 +92,12 @@
 
   /* ── Theme switcher (mit Persistenz) ── */
   function applyTheme(t) {
-    document.documentElement.removeAttribute('data-theme');
-    if (t !== 'light') document.documentElement.setAttribute('data-theme', t);
+    /* Nur das Nötige setzen — NICHT erst removeAttribute und dann setAttribute: dieses Churn
+       (data-theme kurz weg → Light → wieder Dark) triggert beim Laden die body-Transition
+       (background/color) und erzeugt ein sichtbares Light→Dark-Flackern. setAttribute auf den
+       gleichen Wert ist dagegen ein No-Op (keine Transition). */
+    if (t === 'light') document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', t);
     document.querySelectorAll('.tbtn').forEach(function(b) {
       var on = b.id === 'tb-' + t;
       b.classList.toggle('active', on);
