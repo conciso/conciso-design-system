@@ -311,6 +311,10 @@
 /* ep-card-Eyebrow + CTA-Link: nutzen area -700/-800 ohne Dark-Override → dunkel-auf-dunkel.
    Auf die hellen -200/-100-Töne heben (wie .card-eyebrow). Default (ohne data-area) = co. */
 [data-theme="dark"] .ep-card-eyebrow, [data-theme="dark"] .ep-card-cta { color: var(--co-200) }
+/* co explizit data-area-scoped: components.css (laedt NACH dark-mode.css) hat
+   .ep-card[data-area="co"] .ep-card-cta{co-700} mit gleicher Spezifitaet (0,2,0) → gewinnt sonst per
+   Quellreihenfolge → CTA bliebe dunkel (1,62:1). Gleiche Spezifitaet wie ki/es/wo unten herstellen. */
+[data-theme="dark"] .ep-card-eyebrow[data-area="co"], [data-theme="dark"] .ep-card[data-area="co"] .ep-card-cta { color: var(--co-200) }
 [data-theme="dark"] .ep-card-eyebrow[data-area="ki"], [data-theme="dark"] .ep-card[data-area="ki"] .ep-card-cta { color: var(--ki-200) }
 [data-theme="dark"] .ep-card-eyebrow[data-area="es"], [data-theme="dark"] .ep-card[data-area="es"] .ep-card-cta { color: var(--es-100) }
 [data-theme="dark"] .ep-card-eyebrow[data-area="wo"], [data-theme="dark"] .ep-card[data-area="wo"] .ep-card-cta { color: var(--wo-200) }
