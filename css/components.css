@@ -566,6 +566,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-page .ep-section,
 .ep-page .card-stat-strip,
 .ep-page .ep-cta-band,
+.ep-page .ep-media-band,
 .ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
 /* .footer hat eigene Bänder (.footer-main/.footer-btm) mit eigenem padding-inline.
    Auf .footer hier kein Padding setzen — sonst doppelte Einrückung und der Background-Streifen
