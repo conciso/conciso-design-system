@@ -226,10 +226,17 @@
       if (o !== except) closeNavItem(o);
     });
   }
-  document.querySelectorAll('.ep-nav-item-toggle').forEach(function(btn) {
+  document.querySelectorAll('.ep-nav-item-toggle').forEach(function(btn, i) {
     var item = btn.closest('.ep-nav-has-sub');
     if (!item) return;
     btn.setAttribute('aria-expanded', 'false');
+    /* Disclosure verdrahten: Toggle steuert sein Submenü (aria-controls auf eine eindeutige id).
+       aria-haspopup entfällt bewusst — es ist eine Link-Disclosure, kein Menü-Widget. */
+    var sub = item.querySelector('.ep-nav-sub');
+    if (sub) {
+      if (!sub.id) sub.id = 'ep-nav-sub-' + i;
+      btn.setAttribute('aria-controls', sub.id);
+    }
     btn.addEventListener('click', function() {
       var open = !item.classList.contains('is-open');
       closeAllNavItems(item);
