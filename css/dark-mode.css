@@ -218,6 +218,13 @@
 [data-theme="dark"] .card-stat-flat[data-area="ki"] .card-stat-flat-value { color: var(--ki-200) }
 [data-theme="dark"] .card-stat-flat[data-area="es"] .card-stat-flat-value { color: var(--es-100) }
 [data-theme="dark"] .card-stat-flat[data-area="wo"] .card-stat-flat-value { color: var(--wo-200) }
+/* In-Article-Callout-Eyebrow: 700er-/800er-Ton → dunkel-auf-dunkel auf der getönten -50-Fläche
+   (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-*/Badges. Body-Text ist
+   tx-primary und flippt ohnehin. */
+[data-theme="dark"] .article-callout-eyebrow { color: var(--co-200) }
+[data-theme="dark"] .article-callout[data-area="ki"] .article-callout-eyebrow { color: var(--ki-200) }
+[data-theme="dark"] .article-callout[data-area="es"] .article-callout-eyebrow { color: var(--es-100) }
+[data-theme="dark"] .article-callout[data-area="wo"] .article-callout-eyebrow { color: var(--wo-200) }
 
 /* ── Bereichs-Komponenten Vergleich ── */
 /* Active tabs: --atab-color inline style is dark → override with light palette shades */
