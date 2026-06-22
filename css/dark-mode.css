@@ -104,7 +104,7 @@
    Daher invertieren: helle -300-Bereichsfläche + dunkler Text (n-900) → poppt als Primär-Aktion
    (Fläche 3,6–8:1, Text 6–14:1). Nur .btn-filled umstellen (nicht --c500, das Tonal/Outlined/Text trägt);
    .btn-on-band (weiße Fläche auf Bereichsband) ausnehmen. Light bleibt dunkle Fläche + weißer Text. */
-[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) }
+[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) !important }
 [data-theme="dark"] .btn-co.btn-filled:not(.btn-on-band) { background: var(--co-300) }
 [data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
 [data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
