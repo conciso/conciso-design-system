@@ -568,6 +568,9 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-page .ep-cta-band,
 .ep-page .ep-media-band,
 .ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
+/* Akzent-Bänder: gerundete Ecken wie Karten & übrige Bilder (r-lg). Radius aufs <img>, da das
+   <figure> durch das Content-Gutter-Padding breiter ist als das sichtbare Bild. */
+.ep-page .ep-media-band img{border-radius:var(--r-lg)}
 /* .footer hat eigene Bänder (.footer-main/.footer-btm) mit eigenem padding-inline.
    Auf .footer hier kein Padding setzen — sonst doppelte Einrückung und der Background-Streifen
    reicht nicht bis zur .ep-page-Kante. */
