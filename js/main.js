@@ -16,6 +16,8 @@
     var btn = document.querySelector('.nav-item[data-section="' + section + '"]');
     if (sec) sec.classList.add('visible');
     if (btn) btn.classList.add('active');
+    /* data-section am <html> synchron halten — steuert die ds-content-Breite (s. CSS) ohne Layout-Sprung. */
+    document.documentElement.setAttribute('data-section', section);
     updateSubNav(section);
     window.scrollTo({ top: 0, behavior: 'instant' });
   }

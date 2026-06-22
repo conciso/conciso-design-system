@@ -564,6 +564,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
 .ep-page.visible{display:block}
 /* Beispielseiten dürfen über den 1280-Spec hinaus auf 1500px breit werden */
+/* Breite an data-section (vom Inline-Head-Script vor dem Paint gesetzt) — verhindert den Layout-Sprung,
+   den :has() allein verursacht (greift erst, wenn JS die Sektion nach dem Paint sichtbar macht).
+   :has bleibt als Laufzeit-Backup für Wechsel, die nicht über activateSection laufen. */
+html[data-section="examples"] .ds-content,
 .ds-content:has(#sec-examples.visible){max-width:1500px}
 /* Inhalt der Sektionen folgt aber dem 1280px-Spec — Hintergründe bleiben volle Panel-Breite,
    Content wird über fluides Inline-Padding zentriert (kein zusätzlicher Wrapper nötig). */

@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design System: Ruhige Energie</title>
-<script>/* Theme vor dem ersten Paint setzen: verhindert Light-Flackern und stellt die gespeicherte Wahl wieder her. */(function(){try{var t=localStorage.getItem('ds-theme');if(t&&t!=='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>/* Theme UND aktive Sektion vor dem ersten Paint setzen: verhindert Light-Flackern und den Layout-Sprung
+   der Nav (die ds-content-Breite 1280↔1500 hängt an der aktiven Sektion). */(function(){try{var t=localStorage.getItem('ds-theme');if(t&&t!=='light')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('ds-active-section');if(s)document.documentElement.setAttribute('data-section',s);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
