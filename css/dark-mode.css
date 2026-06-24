@@ -160,6 +160,12 @@
    (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
    daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
 [data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
+/* Ausnahme: kartentragende n-50-Section (Termine). Im Light ist die n-50-Flaeche grau und die Cards
+   bg-surface (weiss) heben sich als hellere Stufe ab. Wuerde diese Section wie ueblich auf bg-surface
+   gehoben, kollidiert sie mit den bg-surface-Cards (gleicher Ton, Cards verschwinden). Daher hier auf
+   der dunkleren bg-page belassen -> die bg-surface-Cards sind die hellere Stufe und heben sich ab,
+   genau wie im Light. (Dark hat nur 2 Flaechen-Stufen, daher Section runter statt Cards hoch.) */
+[data-theme="dark"] #seminar-termine { background: var(--bg-page) !important }
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
    erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */
