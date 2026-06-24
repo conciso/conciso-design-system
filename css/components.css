@@ -619,15 +619,15 @@ img.logo-themed-light{display:none}
 .ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
 .ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;line-height:1}
 .ep-nav-item-caret{width:10px;height:10px;display:inline-block;margin-left:4px;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
-/* Bei Hover/Öffnen färbt sich der Toggle Petrol und der Caret dreht — KEIN Unterstrich (der bleibt
-   der aktiven Seite vorbehalten). Geöffnet per Maus-Hover ODER JS-Klick/Tastatur (.is-open → aria-expanded). */
+/* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
+   offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
+   Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
+   öffnete sonst Menüs unabhängig vom Klick-Zustand und ließ zwei gleichzeitig offen, weil Hover die per
+   Klick offenen Geschwister nicht schließt. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
 .ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
-.ep-nav-has-sub:hover .ep-nav-item-caret,.ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
+.ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
 .ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
-/* Unsichtbare Hover-Brücke über den 16px-Spalt (--s4) zwischen Button und Submenü — verhindert, dass
-   das Menü beim Mausweg über den Spalt zuklappt. Höhe MUSS dem top-Offset entsprechen, sonst reißt der Hover. */
-.ep-nav-sub::before{content:"";position:absolute;top:calc(var(--s4) * -1);left:0;right:0;height:var(--s4)}
-.ep-nav-has-sub:hover .ep-nav-sub,.ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+.ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
 /* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
    Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
 .ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
@@ -653,8 +653,6 @@ img.logo-themed-light{display:none}
   .ep-nav-btn::after{display:none}
   /* Untermenü inline aufklappen statt als schwebendes Overlay */
   .ep-nav-sub{position:static;display:none;box-shadow:none;border:none;background:none;padding:0 0 var(--s2) var(--s4);min-width:0}
-  .ep-nav-sub::before{display:none}
-  .ep-nav-has-sub:hover .ep-nav-sub{display:none}
   .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
   .ep-nav-sub-btn{padding:var(--s2) var(--s3);white-space:normal}
 }
