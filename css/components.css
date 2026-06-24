@@ -14,8 +14,8 @@
 .bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
 .bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.8px}
 .bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd-strong)}
-.bw-pillar-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
-.bw-pillar-attrs{font-size:13px;color:var(--tx-secondary);line-height:1.6}
+.bw-pillar-title{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
+.bw-pillar-attrs{font-size:14px;color:var(--tx-secondary);line-height:1.6}
 
 /* ── Buttons ── */
 .btn{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px;text-decoration:none}
@@ -380,7 +380,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-table tr:last-child td{border-bottom:none}
 .a11y-rule{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3) 0;border-bottom:var(--bd)}
 .a11y-rule:last-child{border-bottom:none}
-.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;margin-top:1px}
+.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:1px}
 .a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
 .a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
 .code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
@@ -493,7 +493,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    Einheitliche, großzügige Logo-Höhe (100px) statt der alten 72px-Kachel mit nur ~48px nutzbarer Höhe. */
 .logo-tile{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:var(--s2) var(--s4)}
 .logo-tile img{max-height:100px;max-width:100%;width:auto;height:auto;object-fit:contain}
-.logo-placeholder{font:700 15px/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
+.logo-placeholder{font:700 16px/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
 
 /* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
 /* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
