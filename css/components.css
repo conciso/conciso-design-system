@@ -313,9 +313,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-page[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
 .ep-page[data-accent="es"] .body-link:hover{color:var(--es-800)}
 .ep-page[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
-/* Footer bleibt Chrome (co), auch auf area-getönten Seiten */
+/* Footer + Topnav bleiben Chrome (co), auch auf area-getönten Seiten: data-accent tönt nur den
+   Seiteninhalt um, nicht die Navigation. Sonst wäre die aktive Sektion (.t-co am Nav-Toggle) z.B. auf
+   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten. */
 .ep-page[data-accent] .footer .body-link{color:var(--co-700)}
 .ep-page[data-accent] .footer .body-link:hover{color:var(--co-800)}
+.ep-page[data-accent] .ep-topnav .t-co{color:var(--co-700)}
 
 /* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
 .footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
