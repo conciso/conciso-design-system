@@ -88,7 +88,7 @@ Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktio
 - **Topnav-Dropdowns** (klick-basiertes Disclosure-Menü: `aria-expanded`, Escape, Pfeiltasten, Außenklick)
 - **Back-to-Top-Button**
 
-Diese Verhalten stehen in `js/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` ist Teil der npm-Paketierung.
+Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
 
 > Topnav-Dropdowns sind bewusst **klick-only** (kein Hover-Öffnen) — barrierefrei und ohne „zwei Menüs gleichzeitig offen".
 

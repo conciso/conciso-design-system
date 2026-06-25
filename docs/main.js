@@ -712,7 +712,7 @@
           /* Bild rendern: bestehende Initials als Fallback im Textinhalt bleiben (von img überdeckt) */
           avatar.textContent = member.initials;
           var img = document.createElement('img');
-          img.src = 'images/' + member.photo;
+          img.src = 'assets/images/' + member.photo;
           img.alt = '';
           img.style.objectPosition = member.pos || 'center';
           avatar.appendChild(img);

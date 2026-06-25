@@ -14,9 +14,9 @@ Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mo
 Die vollständige, navigierbare Doku-Site liegt im Repo:
 
 ```bash
-# Repo klonen, dann index.html im Browser öffnen
-open index.html        # macOS
-# oder einen kleinen Static-Server nutzen:
+# Repo klonen, dann die Doku-Site im Browser öffnen
+open docs/index.html        # macOS
+# oder einen kleinen Static-Server im Repo-Root starten und /docs/ öffnen:
 npx serve .
 ```
 
@@ -65,10 +65,13 @@ import { tokens } from '@conciso/design-system/tokens';
 
 | Pfad | Inhalt |
 |---|---|
-| `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) |
-| `js/main.js` | Interaktion (Theme, Nav, Tabs) — für die Doku-Site; wiederverwendbare Teile siehe Getting Started |
-| `index.html` | Die Doku-/Showcase-Site |
-| `images/` | Demo-Assets der Beispielseiten |
+| `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) — der konsumierbare Kern |
+| `dist/` | `conciso-ds.css` (gebündelt, generiert) |
+| `tokens/` | `tokens.json` · `tokens.scss` · `tokens.js` (Token-Export, generiert) |
+| `scripts/` | `build-tokens.mjs` · `bundle-css.mjs` (`npm run build`) |
+| `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
+
+> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder).
 
 ## Mitwirken / Erweitern
 

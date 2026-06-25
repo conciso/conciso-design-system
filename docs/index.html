@@ -9,11 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/dark-mode.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
-<script src="js/main.js" defer></script>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/dark-mode.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<script src="main.js" defer></script>
 </head>
 <body>
 
@@ -717,7 +717,7 @@
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
           <div style="background:#fff;padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="images/logo-conciso.svg" alt="Conciso, Default-Variante" style="height:36px;width:auto;display:block">
+            <img src="assets/images/logo-conciso.svg" alt="Conciso, Default-Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Default</div>
@@ -727,7 +727,7 @@
         </div>
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
           <div style="background:var(--n-700);padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="images/logo-conciso-light.svg" alt="Conciso, helle Variante" style="height:36px;width:auto;display:block">
+            <img src="assets/images/logo-conciso-light.svg" alt="Conciso, helle Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Light</div>
@@ -738,7 +738,7 @@
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
           <!-- Panel-Background fest hell (Light-Wert von --n-50), nicht das theme-reaktive Token: das Monochrom-Logo ist fix in --tx-brand (#333E48) gezeichnet und bräuchte im Dark-Mode-dunklen --n-50 sonst dunkel-auf-dunkel. Demo eines dunklen Logos verlangt hellen Grund, analog zur #fff-Default-Karte. -->
           <div style="background:#F5F7F7;padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="images/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style="height:36px;width:auto;display:block">
+            <img src="assets/images/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Dark</div>
@@ -774,8 +774,8 @@
         <div style="position:relative;display:inline-block;padding:36px">
           <div style="position:absolute;inset:0;border:1px dashed var(--co-300);border-radius:var(--r-sm);pointer-events:none"></div>
           <!-- Theme-abhängiges Logo: bg-surface ist im Dark-Mode dunkel, daher Default (dunkle Wortmarke) in Light, Weiß-Variante in Dark. Kein display:block inline — der .logo-themed-*-Toggle arbeitet über display:none/block. -->
-          <img src="images/logo-conciso.svg" alt="" aria-hidden="true" class="logo-themed-default" style="height:36px;width:auto;vertical-align:middle">
-          <img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light" style="height:36px;width:auto;vertical-align:middle">
+          <img src="assets/images/logo-conciso.svg" alt="" aria-hidden="true" class="logo-themed-default" style="height:36px;width:auto;vertical-align:middle">
+          <img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light" style="height:36px;width:auto;vertical-align:middle">
         </div>
       </div>
 
@@ -944,27 +944,27 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Konkrete Anwendung der Stilprinzipien: echte Arbeitsmomente, weiches Licht, authentische Personen, keine Stockphoto-Inszenierung.</p>
       <div class="layout-grid" style="margin-bottom:var(--s6)">
         <div class="col-6">
-          <img src="images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
+          <img src="assets/images/whiteboard-ai-matrix.jpg" alt="Person im Conciso-Hoodie steht am Whiteboard und zeigt auf eine handgezeichnete Matrix mit den Achsen AI Value und AI Readiness" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
           <div class="t-ki" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2)">Angewandte KI</div>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Frameworks entstehen am Whiteboard, nicht in PowerPoint, echte Konzentration im Arbeitskontext.</p>
         </div>
         <div class="col-6">
-          <img src="images/team-coffee.jpg" alt="Fünf Menschen sitzen mit blauen Conciso-Tassen an einem Tresen und hören aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
+          <img src="assets/images/team-coffee.jpg" alt="Fünf Menschen sitzen mit blauen Conciso-Tassen an einem Tresen und hören aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
           <div class="t-wo" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2)">Wirksame Organisationen</div>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Diverses Team in echtem Austausch, Lachen und Zuhören statt gestelltem Gruppenfoto.</p>
         </div>
         <div class="col-4">
-          <img src="images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
+          <img src="assets/images/beratung-tasse.jpg" alt="Mann mit grauem Bart und dunklem Pullover hält eine türkise Conciso-Tasse und spricht mit zwei Personen im Vordergrund" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
           <div class="t-co" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2)">Corporate</div>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Beratung auf Augenhöhe, direkter Blickkontakt, ruhiger Hintergrund.</p>
         </div>
         <div class="col-4">
-          <img src="images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
+          <img src="assets/images/pair-laptop.jpg" alt="Zwei Personen vor einem MacBook, einer im olivgrünen Pullover lacht der anderen Person zu" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
           <div class="t-es" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2)">Effektive Software</div>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Pair Programming mit echter Freude, Konzentration ohne Pose.</p>
         </div>
         <div class="col-4">
-          <img src="images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
+          <img src="assets/images/flipchart-diskussion.jpg" alt="Zwei Männer stehen am Flipchart, einer zeigt mit ausgestrecktem Arm auf das Diagramm und erklärt es" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);display:block;margin-bottom:var(--s3)">
           <div class="t-wo" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2)">Wirksame Organisationen</div>
           <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Workshop-Moment am Flipchart, Ideen werden ausgehandelt, nicht verkündet.</p>
         </div>
@@ -1855,7 +1855,7 @@
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1895,7 +1895,7 @@
       <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der zugehörige Toggle (hier „Angewandte KI“) wird Petrol gefärbt und trägt als aktive Sektion denselben Unterstrich. Beim bloßen Hover/Aufklappen erscheint dagegen kein Unterstrich. Öffnen per Hover, Klick/Tap oder Tastatur (<kbd>Enter</kbd>).</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -1935,7 +1935,7 @@
       <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Das direkte Top-Item „Wissen“ (ohne Submenü) trägt <code class="token">aria-current="page"</code> selbst.</p>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s8)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -2253,7 +2253,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
         <figure class="hero-image">
           <div class="hero-image-media">
-            <img src="images/team-gruppenbild.jpg" alt="Großes Conciso-Team beim Gruppenfoto vor dem Bürogebäude" loading="lazy" style="object-position:center 70%">
+            <img src="assets/images/team-gruppenbild.jpg" alt="Großes Conciso-Team beim Gruppenfoto vor dem Bürogebäude" loading="lazy" style="object-position:center 70%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -4043,7 +4043,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3)">Fotostarke, editoriale Variante der <a class="body-link" href="#gt-quotes-testimonial">Testimonial-Card</a>: volle Breite, untereinander, großes Foto seitlich, abwechselnd links/rechts (<code class="token">:nth-child(even)</code> dreht die Spalten). Für <strong>Repräsentation</strong>, wenn Gesichter und Präsenz zählen, z.&nbsp;B. Karriereseiten (erprobt auf <em>Unternehmen · Conciso als Arbeitgeber</em>). Statisch, also flacher area-getönter Rahmen statt Schatten (<a class="body-link" href="#gt-elev-interaktiv">Elevation-Konvention</a>); die Bereichsfarbe steckt nur noch im Quote-Icon.</p>
       <div class="team-voices" style="margin-bottom:var(--s6)">
         <figure class="team-voice" data-area="co">
-          <div class="team-voice-media"><img src="images/entwickler-gespraech.jpg" alt="Zwei Kolleg:innen im Gespräch" loading="lazy"></div>
+          <div class="team-voice-media"><img src="assets/images/entwickler-gespraech.jpg" alt="Zwei Kolleg:innen im Gespräch" loading="lazy"></div>
           <figcaption class="team-voice-body">
             <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
             <blockquote class="team-voice-quote">„Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.“</blockquote>
@@ -4054,7 +4054,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </figcaption>
         </figure>
         <figure class="team-voice" data-area="co">
-          <div class="team-voice-media"><img src="images/beratung-tasse.jpg" alt="Kollege im Büro" loading="lazy"></div>
+          <div class="team-voice-media"><img src="assets/images/beratung-tasse.jpg" alt="Kollege im Büro" loading="lazy"></div>
           <figcaption class="team-voice-body">
             <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
             <blockquote class="team-voice-quote">„Was mich hält, ist die Ehrlichkeit. Wir reden über das, was gut läuft, und genauso über das, was nicht klappt.“</blockquote>
@@ -5356,10 +5356,10 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           </nav>
           <nav class="footer-social" aria-label="Soziale Netzwerke">
             <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-              <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+              <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
             </a>
             <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-              <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+              <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
             </a>
           </nav>
         </div>
@@ -6433,7 +6433,7 @@ document.querySelectorAll(
           <p>Erfolgreiche KI-Projekte starten mit einer ehrlichen Bestandsaufnahme: Wie sauber sind die relevanten Daten? Wie reif ist der zugehörige Prozess?</p>
 
           <figure class="article-figure">
-            <img src="images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
+            <img src="assets/images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
             <figcaption class="article-figcaption">Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass, sondern die Datenpipeline drumherum.</figcaption>
           </figure>
 
@@ -7578,7 +7578,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-landing-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -7615,7 +7615,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
         <figure class="hero-image" id="ep-landing-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-spaziergang.jpg" alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände" loading="eager" style="object-position:center 60%">
+            <img src="assets/images/team-spaziergang.jpg" alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände" loading="eager" style="object-position:center 60%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -7769,7 +7769,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:center">
             <div class="col-6">
-              <img src="images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
+              <img src="assets/images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
             </div>
             <div class="col-6">
               <div class="ep-section-label t-co">Karriere</div>
@@ -7787,7 +7787,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid">
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -7799,7 +7799,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -7811,7 +7811,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -7830,7 +7830,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-section-h2">Komm vorbei, hör zu, frag nach.</h2>
           <p class="ep-section-sub">Der nächste Termin aus unserer Praxis.</p>
           <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden;margin-top:var(--s8)">
-            <div style="min-height:320px;background:url('images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
+            <div style="min-height:320px;background:url('assets/images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm)">
@@ -7906,10 +7906,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -7921,7 +7921,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Überblick hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -7958,7 +7958,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-co-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/team-vor-buero.jpg" alt="Großes Conciso-Team winkt beim Gruppenfoto vor dem Bürogebäude" loading="eager" style="object-position:center 90%">
+            <img src="assets/images/team-vor-buero.jpg" alt="Großes Conciso-Team winkt beim Gruppenfoto vor dem Bürogebäude" loading="eager" style="object-position:center 90%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Unternehmen</p>
@@ -8049,7 +8049,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Team in Aktion (Übergang Story → Zahlen) -->
         <figure class="ep-media-band" style="margin:var(--s12) 0;height:clamp(280px,32vw,420px);overflow:hidden">
-          <img src="images/workshop-diskussion.jpg" alt="Conciso-Team in einer gemeinsamen Arbeitssession im Workshop-Raum" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 40%">
+          <img src="assets/images/workshop-diskussion.jpg" alt="Conciso-Team in einer gemeinsamen Arbeitssession im Workshop-Raum" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 40%">
         </figure>
         <!-- Zahlen -->
         <div class="card-stat-strip">
@@ -8106,7 +8106,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-cta-band" style="background:var(--co-700);color:#fff;text-align:left">
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s8);align-items:center;max-width:960px;margin-inline:auto">
             <figure style="margin:0;position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:300px">
-              <img src="images/beratung-gespraech.jpg" alt="Zwei Personen im Gespräch an einem Tisch" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <img src="assets/images/beratung-gespraech.jpg" alt="Zwei Personen im Gespräch an einem Tisch" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
             </figure>
             <div>
               <h2 class="ep-cta-h2">Lernen wir uns kennen?</h2>
@@ -8169,10 +8169,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -8184,7 +8184,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-ueber-uns-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Über uns hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -8231,7 +8231,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-co-ueber-uns-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/conciso-team.jpg" alt="Conciso-Team beim Gruppenfoto vor einem historischen Industriegebäude in Dortmund" loading="eager" style="object-position:center 90%">
+            <img src="assets/images/conciso-team.jpg" alt="Conciso-Team beim Gruppenfoto vor einem historischen Industriegebäude in Dortmund" loading="eager" style="object-position:center 90%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Über uns</p>
@@ -8303,31 +8303,31 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s8) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">Geschäftsführung, Management &amp; Partner</h3>
           <div class="layout-grid">
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Sebastian_Neus.png" alt="">SN</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Sebastian_Neus.png" alt="">SN</div>
               <div><p class="author-card-name">Sebastian Neus</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Georg_Pietrek.png" alt="">GP</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Georg_Pietrek.png" alt="">GP</div>
               <div><p class="author-card-name">Dr. Georg Pietrek</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Jens_Trompeter.png" alt="">JT</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Jens_Trompeter.png" alt="">JT</div>
               <div><p class="author-card-name">Jens Trompeter</p><p class="author-card-role">Geschäftsführer &amp; Gründer</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Sven-Torben_Janus.png" alt="">SJ</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Sven-Torben_Janus.png" alt="">SJ</div>
               <div><p class="author-card-name">Sven-Torben Janus</p><p class="author-card-role">Partner</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Michael_Kloss.png" alt="">MK</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Michael_Kloss.png" alt="">MK</div>
               <div><p class="author-card-name">Michael Kloss</p><p class="author-card-role">Partner</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Denis%20Vollmer.png" alt="">DV</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Denis%20Vollmer.png" alt="">DV</div>
               <div><p class="author-card-name">Denis Vollmer</p><p class="author-card-role">Partner</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Arne%20Wiggers.png" alt="">AW</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Arne%20Wiggers.png" alt="">AW</div>
               <div><p class="author-card-name">Arne Wiggers</p><p class="author-card-role">Partner</p></div>
             </div>
           </div>
@@ -8335,39 +8335,39 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">People und Topic Leads</h3>
           <div class="layout-grid">
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Markus_Pingel.png" alt="">MP</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Markus_Pingel.png" alt="">MP</div>
               <div><p class="author-card-name">Markus Pingel</p><p class="author-card-role">Software Architekt</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Tobias_Anton.png" alt="">TA</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Tobias_Anton.png" alt="">TA</div>
               <div><p class="author-card-name">Dr. Tobias Anton</p><p class="author-card-role">Senior Consultant</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Heinz_Lethaus.png" alt="">HL</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Heinz_Lethaus.png" alt="">HL</div>
               <div><p class="author-card-name">Heinz Lethaus</p><p class="author-card-role">Software Architekt</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Thorsten_Kamann.png" alt="">TK</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Thorsten_Kamann.png" alt="">TK</div>
               <div><p class="author-card-name">Thorsten Kamann</p><p class="author-card-role">Atlassian Experte</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Andrej_Thiele.png" alt="">AT</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Andrej_Thiele.png" alt="">AT</div>
               <div><p class="author-card-name">Andrej Thiele</p><p class="author-card-role">Software Engineer &amp; Softwaretester</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Dominik_Cortese-Pieper.png" alt="">DC</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Dominik_Cortese-Pieper.png" alt="">DC</div>
               <div><p class="author-card-name">Dominik Cortese Pieper</p><p class="author-card-role">Frontend Architekt</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Salem_Ben-Nasr.png" alt="">SB</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Salem_Ben-Nasr.png" alt="">SB</div>
               <div><p class="author-card-name">Salem Ben-Nasr</p><p class="author-card-role">Senior Software Entwickler</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Lars_Winterhalder.png" alt="">LW</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Lars_Winterhalder.png" alt="">LW</div>
               <div><p class="author-card-name">Lars Winterhalder</p><p class="author-card-role">Software Architekt</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Tobias_Schuendelen.png" alt="">TS</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Tobias_Schuendelen.png" alt="">TS</div>
               <div><p class="author-card-name">Tobias Schündelen</p><p class="author-card-role">Agile Coach</p></div>
             </div>
           </div>
@@ -8375,11 +8375,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">Marketing &amp; Vertrieb</h3>
           <div class="layout-grid">
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Marko_Vetter.png" alt="">MV</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Marko_Vetter.png" alt="">MV</div>
               <div><p class="author-card-name">Marko Vetter</p><p class="author-card-role">Business Development · Senior Softwarearchitekt</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Annabell_Vetter.png" alt="">AV</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Annabell_Vetter.png" alt="">AV</div>
               <div><p class="author-card-name">Annabell Vetter</p><p class="author-card-role">Marketing</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
@@ -8391,11 +8391,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s6);padding-bottom:var(--s3);border-bottom:1px solid var(--n-200)">HR &amp; Recruiting</h3>
           <div class="layout-grid">
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Saskia_Jesse.png" alt="">SJ</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Saskia_Jesse.png" alt="">SJ</div>
               <div><p class="author-card-name">Saskia Jesse</p><p class="author-card-role">Personal</p></div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s3)">
-              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="images/Profilbild-Patrick_Schneider.png" alt="">PS</div>
+              <div class="article-avatar article-avatar-xl" data-area="co" aria-hidden="true"><img src="assets/images/Profilbild-Patrick_Schneider.png" alt="">PS</div>
               <div><p class="author-card-name">Patrick Schneider</p><p class="author-card-role">Recruiting</p></div>
             </div>
           </div>
@@ -8404,7 +8404,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:center">
             <div class="col-6">
-              <img src="images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
+              <img src="assets/images/team-lounge.jpg" alt="Conciso-Kolleg:innen im lockeren Austausch in der Büro-Lounge" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md);display:block">
             </div>
             <div class="col-6">
               <div class="ep-section-label t-co">Karriere</div>
@@ -8421,7 +8421,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Unser Zuhause ist der Workgarden am Pariser Bogen in Dortmund. Hier arbeiten wir.</p>
           <div class="layout-grid" style="align-items:stretch;margin-top:var(--s6)">
             <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:3/2">
-              <img src="images/workgarden-empfang.jpg" alt="Empfangsbereich im Workgarden mit Conciso-Logo aus Moos an der Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+              <img src="assets/images/workgarden-empfang.jpg" alt="Empfangsbereich im Workgarden mit Conciso-Logo aus Moos an der Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover">
             </figure>
             <div class="col-6" style="display:flex;flex-direction:column;justify-content:center;gap:var(--s5)">
               <address style="font-style:normal;font:var(--ty-body-md);color:var(--tx-secondary)">
@@ -8496,10 +8496,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -8511,7 +8511,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-arbeitgeber-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Arbeitgeber hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -8558,7 +8558,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-co-arbeitgeber-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/event-networking.jpg" alt="Conciso-Kolleginnen und -Kollegen im lockeren Austausch an Stehtischen" loading="eager" style="object-position:center 58%">
+            <img src="assets/images/event-networking.jpg" alt="Conciso-Kolleginnen und -Kollegen im lockeren Austausch an Stehtischen" loading="eager" style="object-position:center 58%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Karriere</p>
@@ -8603,7 +8603,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Drei O-Töne, ungeschönt.</p>
           <div class="team-voices">
             <figure class="team-voice" data-area="co">
-              <div class="team-voice-media"><img src="images/pair-laptop.jpg" alt="Zwei Conciso-Entwicklerinnen arbeiten gemeinsam am Laptop" loading="lazy"></div>
+              <div class="team-voice-media"><img src="assets/images/pair-laptop.jpg" alt="Zwei Conciso-Entwicklerinnen arbeiten gemeinsam am Laptop" loading="lazy"></div>
               <figcaption class="team-voice-body">
                 <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                 <blockquote class="team-voice-quote">„Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein, immer mit jemandem an meiner Seite.“</blockquote>
@@ -8614,7 +8614,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </figcaption>
             </figure>
             <figure class="team-voice" data-area="co">
-              <div class="team-voice-media"><img src="images/entwickler-gespraech.jpg" alt="Zwei Conciso-Kollegen im Gespräch" loading="lazy"></div>
+              <div class="team-voice-media"><img src="assets/images/entwickler-gespraech.jpg" alt="Zwei Conciso-Kollegen im Gespräch" loading="lazy"></div>
               <figcaption class="team-voice-body">
                 <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                 <blockquote class="team-voice-quote">„Was mich hält, ist die Ehrlichkeit. Wir reden über das, was gut läuft, und genauso über das, was nicht klappt. Das macht uns als Team besser.“</blockquote>
@@ -8625,7 +8625,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </figcaption>
             </figure>
             <figure class="team-voice" data-area="co">
-              <div class="team-voice-media"><img src="images/workshop-zuhoeren.jpg" alt="Conciso-Team hört in einem Workshop zu" loading="lazy"></div>
+              <div class="team-voice-media"><img src="assets/images/workshop-zuhoeren.jpg" alt="Conciso-Team hört in einem Workshop zu" loading="lazy"></div>
               <figcaption class="team-voice-body">
                 <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                 <blockquote class="team-voice-quote">„Ich arbeite überwiegend remote und bin trotzdem Teil des Ganzen. Die Offsites sind für mich jedes Mal das Highlight im Quartal.“</blockquote>
@@ -8696,10 +8696,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-section-h2">Das ist der Workgarden.</h2>
           <p class="ep-section-sub">Unser Standort am Pariser Bogen in Dortmund: hell, offen und zum Bleiben gebaut.</p>
           <div class="layout-grid">
-            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="images/workgarden-lounge.jpg" alt="Offene Lounge im Workgarden mit Sofas und Pflanzen" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
-            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="images/workgarden-empfang.jpg" alt="Empfangsbereich im Workgarden mit Conciso-Logo aus Moos an der Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
-            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="images/workgarden-arbeitsplaetze.jpg" alt="Arbeitsplätze mit höhenverstellbaren Tischen im Workgarden" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
-            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="images/workgarden-hochtische.jpg" alt="Steh-Arbeitsplätze mit hohen Stühlen im Workgarden" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="assets/images/workgarden-lounge.jpg" alt="Offene Lounge im Workgarden mit Sofas und Pflanzen" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="assets/images/workgarden-empfang.jpg" alt="Empfangsbereich im Workgarden mit Conciso-Logo aus Moos an der Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="assets/images/workgarden-arbeitsplaetze.jpg" alt="Arbeitsplätze mit höhenverstellbaren Tischen im Workgarden" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
+            <figure class="col-6" style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9"><img src="assets/images/workgarden-hochtische.jpg" alt="Steh-Arbeitsplätze mit hohen Stühlen im Workgarden" loading="lazy" style="width:100%;height:100%;object-fit:cover"></figure>
           </div>
         </div>
         <!-- Offsites -->
@@ -8712,7 +8712,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-7">
               <figure style="margin:0;position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/meetup-publikum.jpg" alt="Conciso-Team bei einem Offsite" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/meetup-publikum.jpg" alt="Conciso-Team bei einem Offsite" loading="lazy" style="width:100%;height:100%;object-fit:cover">
                 <button type="button" aria-label="Offsite-Video abspielen" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,79,79,.28);border:none;cursor:pointer">
                   <span aria-hidden="true" style="width:64px;height:64px;border-radius:var(--r-full);background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="var(--co-800)" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
                 </button>
@@ -8782,7 +8782,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid">
             <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/beratung-tasse.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/beratung-tasse.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -8794,7 +8794,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/meetup-vortrag.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/meetup-vortrag.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -8806,7 +8806,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/meetup-demo.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/meetup-demo.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -8879,10 +8879,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -8894,7 +8894,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-jobs-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Offene Stellen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -9113,10 +9113,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -9128,7 +9128,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-job-jee-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Offene Stellen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -9302,10 +9302,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -9317,7 +9317,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-leistungen-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -9354,7 +9354,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-leistungen-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/workshop-praesentation.jpg" alt="Conciso-Workshop mit Präsentation auf großem Bildschirm und Teilnehmenden in Sesseln" loading="eager" style="object-position:center 75%">
+            <img src="assets/images/workshop-praesentation.jpg" alt="Conciso-Workshop mit Präsentation auf großem Bildschirm und Teilnehmenden in Sesseln" loading="eager" style="object-position:center 75%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Leistungen</p>
@@ -9372,7 +9372,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/workshop-gruenraum.jpg" alt="Team erarbeitet eine Lösung gemeinsam in einer Workshop-Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/workshop-gruenraum.jpg" alt="Team erarbeitet eine Lösung gemeinsam in einer Workshop-Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -9440,7 +9440,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid">
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -9452,7 +9452,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="es" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -9464,7 +9464,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="card card-elevated col-4" data-area="wo" href="#sec-examples" data-ep="wb-uebersicht" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -9538,10 +9538,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -9553,7 +9553,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -9590,7 +9590,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-ai-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/ki-referentin.jpg" alt="Conciso-Referentin spricht ins Mikrofon, daneben ein Laptop mit Präsentations-Slide" loading="eager" style="object-position:center 20%">
+            <img src="assets/images/ki-referentin.jpg" alt="Conciso-Referentin spricht ins Mikrofon, daneben ein Laptop mit Präsentations-Slide" loading="eager" style="object-position:center 20%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Intelligenz · Automatisierung · Wirkung</p>
@@ -9642,7 +9642,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <!-- Workshop-Foto für Wärme -->
             <div class="col-5">
-              <img src="images/workshop-runde.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/workshop-runde.jpg" alt="Teilnehmende in einem Conciso-Workshop hören aufmerksam zu" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
 
             <!-- Offene Zitate, nur durch Haarlinien getrennt -->
@@ -9717,7 +9717,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -9730,7 +9730,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -9743,7 +9743,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -9817,10 +9817,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -9832,7 +9832,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-box-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -9879,7 +9879,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-box-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/ki-flipchart.jpg" alt="Conciso-Referent erläutert KI-Themen am Flipchart, daneben eine Präsentationsfolie mit Roboter-Motiv" loading="eager" style="object-position:center 65%">
+            <img src="assets/images/ki-flipchart.jpg" alt="Conciso-Referent erläutert KI-Themen am Flipchart, daneben eine Präsentationsfolie mit Roboter-Motiv" loading="eager" style="object-position:center 65%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Plattform für KI im Unternehmen</p>
@@ -9906,7 +9906,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/team-besprechung.jpg" alt="Team bespricht Ideen gemeinsam in einer Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/team-besprechung.jpg" alt="Team bespricht Ideen gemeinsam in einer Runde" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -10164,7 +10164,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Zwei Beispiele, wie Unternehmen die AI.Box produktiv nutzen.</p>
           <div class="layout-grid" style="align-items:stretch">
             <figure class="col-4" style="margin:0;position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:240px">
-              <img src="images/gespraech-tisch.jpg" alt="Person erläutert im Gespräch einen KI-Anwendungsfall" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+              <img src="assets/images/gespraech-tisch.jpg" alt="Person erläutert im Gespräch einen KI-Anwendungsfall" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
             </figure>
             <div class="col-8" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s6);align-items:stretch">
             <div class="card card-elevated" data-area="ki" style="display:flex;flex-direction:column">
@@ -10272,10 +10272,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -10287,7 +10287,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-eng-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -10334,7 +10334,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-eng-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/beratung-laptop.jpg" alt="Zwei Personen im Gespräch an einem Laptop während einer Conciso-Session" loading="eager" style="object-position:center 40%">
+            <img src="assets/images/beratung-laptop.jpg" alt="Zwei Personen im Gespräch an einem Laptop während einer Conciso-Session" loading="eager" style="object-position:center 40%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">AI.Engineering</p>
@@ -10352,7 +10352,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/whiteboard-ai-matrix.jpg" alt="Person erläutert eine Strategie-Matrix an einem Whiteboard" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/whiteboard-ai-matrix.jpg" alt="Person erläutert eine Strategie-Matrix an einem Whiteboard" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -10397,7 +10397,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Workshop-Atmosphäre (emotionaler Übergang zum Einstieg) -->
         <figure class="ep-media-band" style="margin:var(--s12) 0;height:clamp(260px,30vw,400px);overflow:hidden">
-          <img src="images/workshop-publikum.jpg" alt="Aufmerksame Teilnehmende bei einer Conciso-Session" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+          <img src="assets/images/workshop-publikum.jpg" alt="Aufmerksame Teilnehmende bei einer Conciso-Session" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
         </figure>
         <!-- Wie wir vorgehen: Der Einstieg / Workshop -->
         <div class="ep-section" style="background:var(--bg-surface)">
@@ -10513,10 +10513,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -10528,7 +10528,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-auto-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -10575,7 +10575,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero -->
         <figure class="hero-image" id="ep-ai-auto-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/vortrag-buehne.jpg" alt="Conciso-Referent präsentiert vor Publikum" loading="eager" style="object-position:center 35%">
+            <img src="assets/images/vortrag-buehne.jpg" alt="Conciso-Referent präsentiert vor Publikum" loading="eager" style="object-position:center 35%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">AI.Automation</p>
@@ -10593,7 +10593,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6">
               <figure style="margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9">
-                <img src="images/gespraech-tisch.jpg" alt="Conciso-Mitarbeiter erläutert einen Arbeitsablauf im Gespräch an einem Tisch" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/gespraech-tisch.jpg" alt="Conciso-Mitarbeiter erläutert einen Arbeitsablauf im Gespräch an einem Tisch" loading="lazy" style="width:100%;height:100%;object-fit:cover">
               </figure>
             </div>
           </div>
@@ -10674,7 +10674,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Bild-Akzent: Workshop-Atmosphäre (emotionaler Übergang zum Einstieg) -->
         <figure class="ep-media-band" style="margin:var(--s12) 0;height:clamp(260px,30vw,400px);overflow:hidden">
-          <img src="images/event-stehtische.jpg" alt="Austausch an Stehtischen in der Pause eines Conciso-Workshops" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 35%">
+          <img src="assets/images/event-stehtische.jpg" alt="Austausch an Stehtischen in der Pause eines Conciso-Workshops" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 35%">
         </figure>
         <!-- Der Einstieg: AI.Automation Kickstart Workshop -->
         <div class="ep-section" style="background:var(--n-50)">
@@ -10829,10 +10829,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -10844,7 +10844,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-es-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -10881,7 +10881,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-es-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/entwicklung-laptop.jpg" alt="Entwickler arbeitet konzentriert und gut gelaunt an seinem Laptop" loading="eager" style="object-position:center 25%">
+            <img src="assets/images/entwicklung-laptop.jpg" alt="Entwickler arbeitet konzentriert und gut gelaunt an seinem Laptop" loading="eager" style="object-position:center 25%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Effektive Software</p>
@@ -10902,7 +10902,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-5">
-              <img src="images/entwickler-gespraech.jpg" alt="Zwei Entwickler im Gespräch an einem MacBook, einer im dunklen Kapuzenpullover lacht" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/entwickler-gespraech.jpg" alt="Zwei Entwickler im Gespräch an einem MacBook, einer im dunklen Kapuzenpullover lacht" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
           </div>
         </div>
@@ -10936,7 +10936,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Was pragmatische Softwareentwicklung bei Conciso ausmacht.</p>
           <div class="layout-grid" style="align-items:stretch;margin-top:var(--s6)">
             <div class="col-5">
-              <img src="images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, einer zeigt auf eine handgezeichnete Skizze mit Haftnotizen" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, einer zeigt auf eine handgezeichnete Skizze mit Haftnotizen" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
             <div class="col-7" style="display:flex;flex-direction:column;justify-content:center;gap:var(--s6)">
               <div>
@@ -11061,10 +11061,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -11076,7 +11076,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wo-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -11113,7 +11113,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero — Hero-Image-Komponente, vollbreit 21:9 mit Caption-Overlay -->
         <figure class="hero-image" id="ep-wo-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/whiteboard-stickynotes.jpg" alt="Person heftet Klebezettel an ein Whiteboard während eines Conciso-Workshops" loading="eager" style="object-position:center 30%">
+            <img src="assets/images/whiteboard-stickynotes.jpg" alt="Person heftet Klebezettel an ein Whiteboard während eines Conciso-Workshops" loading="eager" style="object-position:center 30%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Wirksame Organisationen</p>
@@ -11134,7 +11134,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-5">
-              <img src="images/workshop-diskussion.jpg" alt="Mehrere Personen diskutieren in einem Workshop an einer mit Notizen beklebten Wand" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/workshop-diskussion.jpg" alt="Mehrere Personen diskutieren in einem Workshop an einer mit Notizen beklebten Wand" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
           </div>
         </div>
@@ -11168,7 +11168,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Was Organisationsentwicklung bei Conciso ausmacht.</p>
           <div class="layout-grid" style="align-items:stretch;margin-top:var(--s6)">
             <div class="col-5">
-              <img src="images/team-besprechung.jpg" alt="Team von Conciso in einer Besprechung an einem Tisch im Gespräch" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/team-besprechung.jpg" alt="Team von Conciso in einer Besprechung an einem Tisch im Gespräch" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
             <div class="col-7" style="display:flex;flex-direction:column;justify-content:center;gap:var(--s6)">
               <div>
@@ -11293,10 +11293,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -11308,7 +11308,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wb-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -11371,7 +11371,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Angewandte KI (Default für „Alle“ und „KI“) -->
           <a class="card card-elevated" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
               <h2 class="card-title-hero">Warum 60 % der KI-Piloten nie in Produktion gehen</h2>
@@ -11383,7 +11383,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Effektive Software -->
           <a class="card card-elevated is-hidden" data-area="es" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/pair-laptop.jpg') center 50%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/pair-laptop.jpg') center 50%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <h2 class="card-title-hero">Refactoring-Schulden ehrlich rechnen</h2>
@@ -11395,7 +11395,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Wirksame Organisationen -->
           <a class="card card-elevated is-hidden" data-area="wo" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
               <h2 class="card-title-hero">Wandel, der wirklich bleibt</h2>
@@ -11413,7 +11413,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -11426,7 +11426,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="es" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -11439,7 +11439,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -11452,7 +11452,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -11465,7 +11465,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="es" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -11478,7 +11478,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -11565,10 +11565,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -11580,7 +11580,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wb-ki-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -11646,7 +11646,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero-Bild auf Body-Breite (720 px) — typografisch in den Lesefluss integriert; identisches Bild wie Vorschaubild für Wiedererkennung -->
         <div class="ep-section" style="background:var(--bg-surface);padding-block:0">
           <figure class="article-figure" style="max-width:720px;margin:0 auto">
-            <img src="images/whiteboard-ai-matrix.jpg" alt="Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness, mit eingezeichneten Use-Case-Punkten" loading="eager" fetchpriority="high" style="object-position:center 30%">
+            <img src="assets/images/whiteboard-ai-matrix.jpg" alt="Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness, mit eingezeichneten Use-Case-Punkten" loading="eager" fetchpriority="high" style="object-position:center 30%">
           </figure>
         </div>
 
@@ -11721,7 +11721,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </aside>
 
             <figure class="article-figure">
-              <img src="images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
+              <img src="assets/images/wissensbeitrag-ki.jpg" alt="Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert" loading="lazy">
               <figcaption class="article-figcaption">Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass, sondern die Datenpipeline drumherum.</figcaption>
             </figure>
 
@@ -11927,10 +11927,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -11942,7 +11942,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ev-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen hervorgehoben (Veranstaltungen liegen dort) -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -12004,7 +12004,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Effektive Software (Default für „Alle" und „ES") -->
           <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
@@ -12020,7 +12020,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Angewandte KI -->
           <a class="card card-elevated is-hidden" data-area="ki" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
@@ -12036,7 +12036,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
           <!-- Featured: Wirksame Organisationen -->
           <a class="card card-elevated is-hidden" data-area="wo" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
+            <div style="min-height:340px;background:url('assets/images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
             <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
               <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
@@ -12058,7 +12058,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="es" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -12075,7 +12075,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/wissensbeitrag-ki.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -12092,7 +12092,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="es" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/entwickler-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
@@ -12109,7 +12109,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/workshop-zuhoeren.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -12126,7 +12126,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="ki" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/team-tablet.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
@@ -12143,7 +12143,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
             <a class="card card-elevated col-4" data-area="wo" href="#" style="text-decoration:none;color:inherit;display:flex;flex-direction:column">
               <div class="card-media" style="aspect-ratio:16/9;overflow:hidden">
-                <img src="images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+                <img src="assets/images/beratung-gespraech.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
               </div>
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
@@ -12234,10 +12234,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -12249,7 +12249,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-veranstaltung-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -12287,7 +12287,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <!-- Hero-Image · Meet-Up-Stimmung -->
         <figure class="hero-image" id="ep-veranstaltung-main" tabindex="-1">
           <div class="hero-image-media">
-            <img src="images/meetup-buehne.jpg" alt="Drei Speaker mit Mikrofonen auf der Bühne eines Conciso-Meet-Ups, Publikum im Vordergrund" loading="eager" style="object-position:center 20%">
+            <img src="assets/images/meetup-buehne.jpg" alt="Drei Speaker mit Mikrofonen auf der Bühne eines Conciso-Meet-Ups, Publikum im Vordergrund" loading="eager" style="object-position:center 20%">
           </div>
           <figcaption class="hero-image-caption">
             <p class="hero-image-caption-eyebrow">Fokusevent · Meet-Up</p>
@@ -12435,7 +12435,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid" style="align-items:start">
             <div class="col-6" style="display:flex;gap:var(--s5);align-items:flex-start">
               <div style="width:96px;height:96px;border-radius:var(--r-full);overflow:hidden;flex-shrink:0;background:var(--es-700)">
-                <img src="images/meetup-speaker.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
+                <img src="assets/images/meetup-speaker.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Lead</p>
@@ -12446,7 +12446,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="col-6" style="display:flex;gap:var(--s5);align-items:flex-start">
               <div style="width:96px;height:96px;border-radius:var(--r-full);overflow:hidden;flex-shrink:0;background:var(--es-700)">
-                <img src="images/meetup-demo.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
+                <img src="assets/images/meetup-demo.jpg" alt="" aria-hidden="true" style="width:100%;height:100%;object-fit:cover;object-position:center 25%">
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Co-Host</p>
@@ -12579,10 +12579,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -12612,7 +12612,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -12716,7 +12716,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <!-- Vertrauen / direkte Kontaktwege: ein Kartenobjekt (Foto-Header + Infos), flex:1 für gleiche Unterkante wie das Formular -->
             <div class="col-5" style="display:flex;flex-direction:column">
               <div style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
-                <img src="images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover">
+                <img src="assets/images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover">
                 <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5);flex:1">
                   <h2 style="font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0">So erreichst Du uns</h2>
                   <div>
@@ -12792,10 +12792,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>
@@ -12814,7 +12814,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-seminar-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -12900,7 +12900,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-section-h2">Wer dich begleitet</h2>
           <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
             <div class="col-5">
-              <img src="images/meetup-speaker.jpg" alt="Trainer mit Mikrofon, lächelnd vor einer Gruppe" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/meetup-speaker.jpg" alt="Trainer mit Mikrofon, lächelnd vor einer Gruppe" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
             </div>
             <div class="col-7">
               <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Tobias Mehnert</p>
@@ -12953,14 +12953,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <div class="col-8">
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Veränderung scheitert selten an der Strategie und fast immer an den Menschen, die sie tragen sollen. In diesem Training arbeiten wir an genau dieser Lücke: zwischen dem, was beschlossen wurde, und dem, was im Alltag wirklich ankommt. Du lernst, Veränderung aus der Perspektive der Betroffenen zu denken und so zu führen, dass aus Betroffenen Beteiligte werden.</p>
               <figure style="margin:0 0 var(--s5)">
-                <img src="images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, eine erklärt eine Skizze" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 15%;border-radius:var(--r-lg)">
+                <img src="assets/images/flipchart-diskussion.jpg" alt="Zwei Personen am Flipchart, eine erklärt eine Skizze" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 15%;border-radius:var(--r-lg)">
               </figure>
               <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Tag 1 — Verstehen, was Wandel mit Menschen macht</h3>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Wir schauen auf die typischen Phasen von Veränderungsprozessen, auf Reaktionen wie Unsicherheit, Abwehr und Aushandeln, und darauf, was sie über den Zustand der Organisation verraten. An eigenen Fällen analysieren wir, wo ein Vorhaben gerade steht und welche Hebel wirklich greifen.</p>
               <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Tag 2 — Führen, kommunizieren, dranbleiben</h3>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Am zweiten Tag geht es um dein Handeln: Wie du Beteiligung gestaltest, ohne Entscheidungen zu zerreden. Wie du klar kommunizierst, auch wenn nicht alles klar ist. Und wie du Energie über den ersten Impuls hinaus hältst, gerade wenn die ersten Widerstände kommen.</p>
               <figure style="margin:0 0 var(--s5)">
-                <img src="images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Workshop hören aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)">
+                <img src="assets/images/workshop-zuhoeren.jpg" alt="Teilnehmende in einem Workshop hören aufmerksam zu" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg)">
               </figure>
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gearbeitet wird durchgehend an realen Situationen der Teilnehmenden, im Wechsel aus kurzen Impulsen, Übung und kollegialer Beratung. Du gehst nicht mit einem Foliensatz nach Hause, sondern mit einem konkreten nächsten Schritt für dein eigenes Vorhaben.</p>
               <!-- Voraussetzungen: in der Hauptspalte (col-8), durch Abstand als eigener Block abgesetzt -->
@@ -13062,10 +13062,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </nav>
             <nav class="footer-social" aria-label="Soziale Netzwerke">
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
-                <img src="images/logo-linkedin-light.png" alt="" width="22" height="22">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
               </a>
               <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
-                <img src="images/logo-youtube-light.svg" alt="" width="22" height="22">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
               </a>
             </nav>
           </div>

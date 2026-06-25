@@ -24,8 +24,18 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `scripts/bundle-css.mjs`. `npm run build` erzeugt beides.
 - Release-Workflow `.github/workflows/release.yml` (publiziert bei Tag `vX.Y.Z`).
 
+### Changed
+- Repo-Hygiene: Doku-Site vom konsumierbaren Kern getrennt. `index.html`,
+  `main.js` und Bilder liegen jetzt unter `docs/` (Bilder in `docs/assets/images/`);
+  Pfade in `docs/index.html` entsprechend angepasst. Der Kern (`css/`, `dist/`,
+  `tokens/`) bleibt im Root.
+
 ### Geplant
-- Repo-Hygiene: Trennung Doku-Site/Kern, Demo-Bilder via Git LFS, History-Bereinigung.
+- Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
+  Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
+  `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
+  Team-Koordination), daher bewusst als separater Schritt.
+- Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs npm-Paket.
 
 ---
 
