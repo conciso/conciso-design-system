@@ -44,17 +44,15 @@ import '@conciso/design-system/dist/conciso-ds.css';
 
 ## 2. Fonts
 
-Das System nutzt **Montserrat** (Sans) und **Libre Baskerville** (Display/Serif). Zwei Wege:
-
-**Online (Google Fonts):**
+Das System nutzt **Montserrat** (Sans) und **Libre Baskerville** (Display/Serif). Beide sind **self-hosted** mit dabei (DSGVO-konform, keine Google-CDN-Anfrage): woff2-Dateien unter `fonts/` (Subsets latin + latin-ext, `font-display:swap`), `@font-face` in `css/fonts.css`.
 
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/fonts.css">
 ```
 
-**Self-Host (empfohlen für DSGVO/Offline):** die beiden Familien lokal ablegen und per `@font-face` einbinden; die Token `--font` / `--font-display` haben System-Fallbacks (`Segoe UI`/`Georgia`), das System bleibt also auch ohne Fonts benutzbar.
+Wer das gebündelte `dist/conciso-ds.css` einbindet, braucht das nicht separat — die `@font-face`-Regeln sind dort enthalten (die `url('../fonts/...')` lösen relativ zum CSS auf, daher muss der `fonts/`-Ordner neben `dist/`/`css/` liegen; im npm-Paket ist er das automatisch).
+
+Die Token `--font` / `--font-display` haben System-Fallbacks (`Segoe UI` / `Georgia`), das System bleibt also auch ohne geladene Fonts benutzbar. Lizenz: SIL OFL 1.1 (`fonts/*-OFL.txt`).
 
 ## 3. Dark Mode
 

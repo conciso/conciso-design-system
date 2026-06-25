@@ -23,6 +23,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - Gebündeltes `dist/conciso-ds.css` (korrekte Ladereihenfolge) via
   `scripts/bundle-css.mjs`. `npm run build` erzeugt beides.
 - Release-Workflow `.github/workflows/release.yml` (publiziert bei Tag `vX.Y.Z`).
+- **Self-Host-Fonts** (DSGVO): `fonts/` (Montserrat + Libre Baskerville, woff2,
+  Subsets latin + latin-ext) + `css/fonts.css` (`@font-face`, `font-display:swap`),
+  inkl. OFL-Lizenztexte. Doku-Site und Bundle nutzen jetzt lokale Fonts statt
+  Google-CDN — verifiziert: 0 Anfragen an googleapis/gstatic.
 
 ### Changed
 - Repo-Hygiene: Doku-Site vom konsumierbaren Kern getrennt. `index.html`,

@@ -29,10 +29,8 @@ Ausführlich in [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md). Kurzfassung:
 **Variante A — CSS direkt einbinden** (funktioniert heute, kein Build):
 
 ```html
-<!-- Fonts (online) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<!-- Self-Host-Fonts (DSGVO: keine Google-CDN-Anfrage) -->
+<link rel="stylesheet" href="css/fonts.css">
 
 <!-- Design System: REIHENFOLGE EINHALTEN -->
 <link rel="stylesheet" href="css/tokens.css">
@@ -40,6 +38,8 @@ Ausführlich in [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md). Kurzfassung:
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 ```
+
+Die Schriften (Montserrat + Libre Baskerville) liegen self-hosted unter `fonts/` und werden über `css/fonts.css` eingebunden — keine externe CDN-Anfrage. Das gebündelte `dist/conciso-ds.css` enthält die `@font-face`-Regeln bereits.
 
 **Variante B — als Paket** (sobald veröffentlicht):
 
@@ -68,6 +68,7 @@ import { tokens } from '@conciso/design-system/tokens';
 | `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) — der konsumierbare Kern |
 | `dist/` | `conciso-ds.css` (gebündelt, generiert) |
 | `tokens/` | `tokens.json` · `tokens.scss` · `tokens.js` (Token-Export, generiert) |
+| `fonts/` | Self-Host-Fonts (woff2) + OFL-Lizenztexte; eingebunden über `css/fonts.css` |
 | `scripts/` | `build-tokens.mjs` · `bundle-css.mjs` (`npm run build`) |
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 

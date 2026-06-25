@@ -15,12 +15,14 @@
     "css",
     "dist",
     "tokens",
+    "fonts",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
   ],
   "exports": {
     ".": "./dist/conciso-ds.css",
+    "./css/fonts.css": "./css/fonts.css",
     "./css/tokens.css": "./css/tokens.css",
     "./css/dark-mode.css": "./css/dark-mode.css",
     "./css/base.css": "./css/base.css",

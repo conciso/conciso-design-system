@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const ORDER = ['css/tokens.css', 'css/dark-mode.css', 'css/base.css', 'css/components.css'];
+const ORDER = ['css/fonts.css', 'css/tokens.css', 'css/dark-mode.css', 'css/base.css', 'css/components.css'];
 
 const banner = `/*! Conciso Design System — gebündelt. Quelle: ${ORDER.join(' → ')}. Generiert, nicht manuell editieren. */\n`;
 const bundle = banner + ORDER.map((f) => `/* === ${f} === */\n` + readFileSync(join(ROOT, f), 'utf8').trim() + '\n').join('\n');
