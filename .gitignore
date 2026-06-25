@@ -4,3 +4,10 @@ node_modules/
 
 # Build-Artefakte (dist/, tokens/) werden bewusst eingecheckt, damit das Paket
 # direkt aus dem Repo nutzbar ist; `npm run build` regeneriert sie aus den CSS-Quellen.
+
+# design-sync Arbeitsverzeichnisse (nicht committen)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
