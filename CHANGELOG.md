@@ -17,11 +17,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ### Added
 - Onboarding-/Governance-Doku: `README.md`, `CONTRIBUTING.md` (Konventionen),
   `LICENSE`, dieses `CHANGELOG.md`, `docs/GETTING-STARTED.md`.
+- npm-Paketierung (`@conciso/design-system`, `package.json` mit `exports`/`files`).
+- Token-Export `tokens/tokens.json` · `.scss` · `.js` (generiert aus `tokens.css`
+  + Dark-Overrides, `var(...)` aufgelöst) via `scripts/build-tokens.mjs`.
+- Gebündeltes `dist/conciso-ds.css` (korrekte Ladereihenfolge) via
+  `scripts/bundle-css.mjs`. `npm run build` erzeugt beides.
+- Release-Workflow `.github/workflows/release.yml` (publiziert bei Tag `vX.Y.Z`).
 
 ### Geplant
-- npm-Paketierung (`@conciso/design-system`) inkl. Token-Export
-  (`tokens.json` / `.scss` / `.js`) und gebündeltem `dist/conciso-ds.css`.
-- Repo-Hygiene: Trennung Doku-Site/Kern, Demo-Bilder via Git LFS.
+- Repo-Hygiene: Trennung Doku-Site/Kern, Demo-Bilder via Git LFS, History-Bereinigung.
 
 ---
 

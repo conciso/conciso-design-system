@@ -1,0 +1,48 @@
+{
+  "name": "@conciso/design-system",
+  "version": "0.1.0",
+  "description": "Conciso Design System — Design Tokens, CSS-Komponenten und Light/Dark-Mode, framework-agnostisch und WCAG-AA-konform.",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "css",
+    "dist",
+    "tokens",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": "./dist/conciso-ds.css",
+    "./css/tokens.css": "./css/tokens.css",
+    "./css/dark-mode.css": "./css/dark-mode.css",
+    "./css/base.css": "./css/base.css",
+    "./css/components.css": "./css/components.css",
+    "./dist/conciso-ds.css": "./dist/conciso-ds.css",
+    "./tokens": "./tokens/tokens.js",
+    "./tokens.json": "./tokens/tokens.json",
+    "./tokens.scss": "./tokens/tokens.scss"
+  },
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:css": "node scripts/bundle-css.mjs",
+    "build": "npm run build:tokens && npm run build:css"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "css",
+    "conciso"
+  ]
+}

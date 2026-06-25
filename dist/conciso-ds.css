@@ -1,0 +1,1703 @@
+/*! Conciso Design System — gebündelt. Quelle: css/tokens.css → css/dark-mode.css → css/base.css → css/components.css. Generiert, nicht manuell editieren. */
+/* === css/tokens.css === */
+/* ── Design Tokens ── */
+:root {
+  /* ── Corporate (Global Brand) ── */
+  --co-500:#00BEBE; --co-50:#E0F7F7; --co-100:#B3ECEC; --co-200:#80DEDE;
+  --co-300:#4DD0D0; --co-400:#26C2C2; --co-600:#009E9E; --co-700:#007575;
+  --co-800:#004F4F; --co-900:#002B2B;
+
+  /* ── AI.Applied ── */
+  --ki-500:#B5E61C; --ki-50:#F4FCD5; --ki-100:#E6F8A0; --ki-200:#D6F06D;
+  --ki-300:#C8EA42; --ki-400:#BEE82D; --ki-600:#8FAF0E; --ki-700:#6B8208;
+  --ki-800:#475705; --ki-900:#242C02; --ki-ink:var(--ki-800); /* farbiger ki-Text/Icons; flippt im Dark auf --ki-200 (dark-mode.css), da ki-800 dunkel-auf-dunkel wäre */
+
+  /* ── Wirksame Organisationen ── */
+  --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
+  --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
+  --wo-800:#183A0E; --wo-900:#0A1F05;
+
+  /* ── Effektive Software ── */
+  --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
+  --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
+  --es-800:#112568; --es-900:#071035;
+
+  /* ── Rosé ── */
+  --ro-500:#C23060; --ro-50:#FDEDF2; --ro-100:#F9CEDD; --ro-200:#F0A0BE;
+  --ro-300:#E06898; --ro-400:#CF4478; --ro-600:#A02050; --ro-700:#7E1639;
+  --ro-800:#560E26; --ro-900:#2E0513;
+
+  /* ── Neutrals ── */
+  --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
+  --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
+  --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
+
+  /* ── Semantic ──
+     --c-* sind Text-Farben (Required-Asterisk, Inline-Fehlertext, Do/Don't-Marker).
+     Werte sind in beiden Modi auf AA-Lesbarkeit auf der jeweiligen page-bg ausgelegt.
+     Light: dunklere/gedeckte Sättigung für Kontrast auf weiß. Dark-Overrides in dark-mode.css.
+     --c-*-bg sind Tint-Hintergründe für Callouts; Text darauf via --badge-*-text. */
+  --c-success:#0E6644; --c-success-bg:#E6F9F1;  /* Text auf #fff: 6.99:1 ✓ AAA */
+  --c-warning:#8A5E0A; --c-warning-bg:#FEF4E0;  /* Text auf #fff: 5.70:1 ✓ AA */
+  --c-error:#B22020;   --c-error-bg:#FDEAEA;    /* Text auf #fff: 6.73:1 ✓ AAA */
+
+  /* ── Component color tokens (theme-overridable) ── */
+  --badge-ok-text:#0e6644; --badge-warn-text:#8a5e0a; --badge-err-text:#9b2020;
+  --badge-neu-bg:var(--n-100); --badge-neu-text:var(--n-600);
+  --cbadge-aa-bg:#E6F9F1; --cbadge-aa-text:#0a5c38;
+  --cbadge-aaa-bg:#D0F0FF; --cbadge-aaa-text:#004466;
+  --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
+
+  /* ── Surfaces & Text ── */
+  --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:#5E7676; /* AA 4.85:1; abgedunkelt von n-400 #6E8585 (3.9:1, AA-Fail für Normaltext) */
+
+  /* ── Typography ── */
+  --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-display:'Libre Baskerville','Georgia',serif;
+
+  /* ── Typography Scale ──
+     Minimum-Font-Size systemweit: 12 px. Tokens darunter wurden eliminiert oder angehoben,
+     damit Inhalte unter allen Bedingungen gut lesbar bleiben (Bildschirm, Mobile, Print). */
+  /* Sans-serif (Montserrat)
+     Body-Skala (Mai 2026): 16 / 14 / 12 px. Body Md ist Standard-Fließtext (war 14, jetzt 16
+     für bessere Lesbarkeit auf C-Level-Mittelstand-Zielgruppe und iOS-Auto-Zoom-Fix bei Form-Inputs).
+     Body Sm = 14 px für Meta-Daten/Card-Meta. Body Xs = 12 px für Captions. */
+  --ty-caption:      400 12px/16px var(--font);
+  --ty-body-xs:      400 12px/16px var(--font);
+  --ty-body-sm:      400 14px/20px var(--font);
+  --ty-body-md:      400 16px/24px var(--font);
+  /* label-xs und label-sm haben dieselben Metriken — label-xs ist die "Eyebrow"-Variante,
+     mit text-transform:uppercase + letter-spacing am Use-Site. label-sm ist für Mixed-Case-Labels. */
+  --ty-label-xs:     500 12px/16px var(--font);
+  --ty-label-sm:     500 12px/16px var(--font);
+  --ty-label-md:     500 14px/20px var(--font);
+  /* Title-Sm (Mai 2026): 20 px statt 18 px, damit Card-Titel mit klarer 4-px-Stufe über
+     dem neuen 16-px-Body-Md sitzen. Title-Lg ist entfallen, das Logo nutzt jetzt eine eigene
+     Klasse .nav-logo-text mit fest verdrahteten Metriken. */
+  --ty-title-sm:     500 20px/28px var(--font);
+  --ty-label-xs-strong: 600 12px/16px var(--font);
+  --ty-name:         600 14px/20px var(--font);
+  /* Display / serif (Libre Baskerville) */
+  --ty-serif-sm:     400 17px/28px var(--font-display);
+  --ty-serif-md:     400 20px/28px var(--font-display);
+  --ty-serif-lg:     400 20px/32px var(--font-display);
+  --ty-headline-xs:   400 22px/30px var(--font-display);
+  --ty-headline-sm:   400 24px/32px var(--font-display);
+  --ty-headline-md:   400 28px/36px var(--font-display);
+  --ty-display-sm:   400 36px/44px var(--font-display);
+  --ty-display-md:   400 40px/48px var(--font-display);
+  --ty-display-lg:   400 clamp(28px,3.5vw,46px)/1.15 var(--font-display);
+
+  /* ── Spacing ── */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
+
+  /* ── Shape (5 Stufen) ── */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px; --r-full:9999px;
+
+  /* ── Elevation (Shadow + Tonal Overlay) ── */
+  --e0:none;
+  --e1:0 1px 2px rgba(0,0,0,.30),0 1px 3px 1px rgba(0,0,0,.15);
+  --e2:0 1px 2px rgba(0,0,0,.30),0 2px 6px 2px rgba(0,0,0,.15);
+  --e3:0 1px 3px rgba(0,0,0,.30),0 4px 8px 3px rgba(0,0,0,.15);
+  --e4:0 2px 3px rgba(0,0,0,.30),0 6px 10px 4px rgba(0,0,0,.15);
+  --e5:0 4px 4px rgba(0,0,0,.30),0 8px 12px 6px rgba(0,0,0,.15);
+  /* Tonal overlay: primärfarbe auf Oberfläche aufgebracht */
+  --tonal-1:rgba(0,190,190,.05); --tonal-2:rgba(0,190,190,.08);
+  --tonal-3:rgba(0,190,190,.11); --tonal-4:rgba(0,190,190,.12);
+  --tonal-5:rgba(0,190,190,.14);
+
+  /* ── Motion ── */
+  --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
+
+  /* ── Icon Stroke-Width ── */
+  --icon-stroke-micro:1;
+  --icon-stroke-sm:1.25;
+  --icon-stroke-md:1.5;
+  --icon-stroke-lg:2;
+  --icon-stroke-xl:2.5;
+
+  /* ── Borders ── */
+  --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
+  --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
+
+  /* ── Focus ── */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
+}
+
+/* === css/dark-mode.css === */
+/* ── Dark Mode & Theme Overrides ── */
+
+/* ════════════════════════════════════════════
+   DARK MODE
+   ════════════════════════════════════════════ */
+[data-theme="dark"] {
+  /* Native Controls (Checkbox, Radio, Scrollbar, Select-Popup) im Dark-Theme rendern lassen,
+     statt hell-thematisiert auf dunklem Grund — sonst wirkt die Checkbox wie ein Fremdkörper. */
+  color-scheme: dark;
+  /* Surfaces */
+  --bg-page:#333E48; --bg-surface:#3F4B56; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
+  /* Text */
+  --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#A6C6C6; --tx-muted:#93B6B6; /* tx-secondary #A6C6C6 → AA auf bg-surface-Cards (4.9:1); tx-muted von #7A9E9E auf #93B6B6 angehoben → AA auf bg-page (5.0:1), bg-surface 4.1:1, bleibt klar unter tx-secondary */
+  /* Neutrals (only lowest, used as bg/border) */
+  --n-50:#0A1515; --n-100:#1C2E2E;
+  /* Borders */
+  --bd:1px solid #818C99; --bd-strong:1px solid #9DA8B6;
+  --field-border:var(--n-200); /* Dark: heller Rahmen (#C9D3D3) auf Feld-bg #3F4B56 ≈ 6.6:1 → WCAG 1.4.11 ✓ (n-400 waere hier zu dunkel) */
+  /* Focus – inner ring = bg-page color for "cutout" effect */
+  --focus-ring:0 0 0 3px #333E48,0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px #333E48,0 0 0 4px var(--co-500);
+  /* Elevation – heavier shadows on dark */
+  --e1:0 1px 2px rgba(0,0,0,.60),0 1px 3px 1px rgba(0,0,0,.40);
+  --e2:0 1px 2px rgba(0,0,0,.60),0 2px 6px 2px rgba(0,0,0,.40);
+  --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
+  --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
+  --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
+  /* Semantic backgrounds – darkened */
+  --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
+  /* Semantic text colors – hellere Pendants für Lesbarkeit auf bg-page (#333E48).
+     Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
+  --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
+  --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
+  --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
+  /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
+     Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
+     (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
+     aber dunkler als bg-surface, damit Icon-Tiles auch IN Cards (.ep-card-icon) sichtbar bleiben; helle
+     -100/-200-Glyphen/Texte darauf 7,5–10:1. (ro = Akzent/Status, nicht als Tile genutzt → near-black.) */
+  --co-50:#16302E; --ki-50:#2A3411; --wo-50:#18301C; --es-50:#1B2547; --ro-50:#180308;
+  --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
+  /* Badge text – lighter for dark backgrounds */
+  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
+  /* Neutraler Badge wie die Bereichs-Badges: dunkle -50-Kachel + heller Text (vorher medium #445060,
+     das fast auf bg-surface/Streifen lag und unsichtbar war). n-50 #0A1515 vs Streifen = 2,08:1, im
+     selben Bereich wie die Bereichs-Badges (2,0-2,2:1) → konsistentes Bild, kein Sonder-Rahmen nötig. */
+  --badge-neu-bg:var(--n-50); --badge-neu-text:#C4D8D8;
+  /* Contrast badge (dark) */
+  --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
+  --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
+  --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
+}
+/* Dark: Brand Wheel */
+[data-theme="dark"] .bw-outer { fill: #071616 }
+[data-theme="dark"] .bw-middle { fill: #0A2626 }
+[data-theme="dark"] .bw-divider { stroke: var(--bg-page) }
+[data-theme="dark"] .bw-ring-outline { stroke: var(--bg-page) }
+[data-theme="dark"] .bw-label-segment { fill: var(--co-200) }
+[data-theme="dark"] .bw-label-attr { fill: var(--co-300) }
+[data-theme="dark"] .bw-pillar-card { background: var(--bg-surface) }
+/* co-700 (#007575) on bg-surface (#3F4B56) = ~1.6:1 → co-300 (#4DD0D0) = ~4.8:1 ✓ AA */
+[data-theme="dark"] .bw-pillar-title { color: var(--co-300) }
+/* Dark-only: tx-secondary (#8AAFAF) on bg-surface (#3F4B56) = 3.76:1 ❌ → tx-primary = 7.19:1 ✓ AAA. (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
+[data-theme="dark"] .bw-pillar-attrs { color: var(--tx-primary) }
+/* co-700 (#007575) on bg-page (#333E48) = ~1.97:1 → co-200 (#80DEDE) = ~8.3:1 ✓ AAA */
+[data-theme="dark"] .doc-eyebrow { color: var(--co-200) }
+
+/* Dark: targeted component fixes that can't be token-driven */
+/* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
+[data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C9D3D3' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") }
+/* Textarea-Resizer: der native Eck-Griff (dunkle Diagonalen) ist im Dark auf dem Feld-bg unsichtbar.
+   Eigenen hellen Griff (#C9D3D3, 5,84:1) als background-image aufs Textarea legen — zuverlässiger
+   positioniert als im winzigen ::-webkit-resizer-Pseudoelement — und den nativen Resizer transparent
+   schalten (Drag-Funktion bleibt). Firefox zeigt für resize:vertical keinen Eck-Griff. */
+[data-theme="dark"] .field textarea {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M11 4L4 11M11 8L8 11' stroke='%23C9D3D3' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 6px bottom 6px;
+}
+[data-theme="dark"] .field textarea::-webkit-resizer { background:transparent }
+/* Slider: --sl-color trägt Thumb UND Wert-Anzeige. Die -500/-700-Töne fallen im Dark auf dem dunklen
+   Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Auf die hellen -200/-100-Töne heben (5,3-7:1).
+   Track (--n-200 #C9D3D3) bleibt hell und ist sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+[data-theme="dark"] .slider-co, [data-theme="dark"] .field-slider-output.slider-co { --sl-color: var(--co-200) }
+[data-theme="dark"] .slider-ki, [data-theme="dark"] .field-slider-output.slider-ki { --sl-color: var(--ki-200) }
+[data-theme="dark"] .slider-es, [data-theme="dark"] .field-slider-output.slider-es { --sl-color: var(--es-100) }
+[data-theme="dark"] .slider-wo, [data-theme="dark"] .field-slider-output.slider-wo { --sl-color: var(--wo-200) }
+/* Tick-Labels (min/mid/max): tx-muted reißt im Dark AA (~3:1) → tx-secondary (4,9:1) */
+[data-theme="dark"] .field-slider-ticks { color: var(--tx-secondary) }
+/* Such-Feld-Magnifier: stroke=var(--n-400) #6E8585 flippt nicht und liegt im Dark bei nur 2,28:1.
+   Das Icon trägt den „Such"-Kontext (nicht rein dekorativ) → auf tx-secondary heben (4,9:1).
+   CSS-stroke schlägt das Präsentationsattribut am <svg>. */
+[data-theme="dark"] [role="search"] svg { stroke: var(--tx-secondary) }
+[data-theme="dark"] .chip { border-color:#818C99 }
+[data-theme="dark"] .ai-warning { color:var(--ki-300) }
+[data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
+[data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
+[data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
+[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
+[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
+/* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-Utilities,
+   Badges, Icons; auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
+/* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
+   Daher invertieren: helle -300-Bereichsfläche + dunkler Text (n-900) → poppt als Primär-Aktion
+   (Fläche 3,6–8:1, Text 6–14:1). Nur .btn-filled umstellen (nicht --c500, das Tonal/Outlined/Text trägt);
+   .btn-on-band (weiße Fläche auf Bereichsband) ausnehmen. Light bleibt dunkle Fläche + weißer Text. */
+[data-theme="dark"] .btn-filled:not(.btn-on-band) { color: var(--n-900) }
+[data-theme="dark"] .btn-co.btn-filled:not(.btn-on-band) { background: var(--co-300) }
+[data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
+[data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
+[data-theme="dark"] .btn-wo.btn-filled:not(.btn-on-band) { background: var(--wo-300) }
+/* --c-ink = Bereichs-Light-Tint für Text/Rahmen der nicht-gefüllten Buttons im Dark. Dieselben Töne
+   wie t-Utilities, Badges, Icons, Eyebrows (auf der offiziellen Skala) statt eines off-scale color-mix → alle
+   Bereichstöne der Seite ziehen aus EINER Skala. */
+[data-theme="dark"] .btn-co { --c-ink: var(--co-200) }
+[data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
+[data-theme="dark"] .btn-es { --c-ink: var(--es-100) }
+[data-theme="dark"] .btn-wo { --c-ink: var(--wo-200) }
+/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen (#9DA8B6 =
+   --bd-strong dark, ≥3:1) — der Rahmen macht den Button erkennbar, die Tönung unterscheidet ihn von
+   Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der -ink-Text (-200/-100) auch
+   auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei 4,43:1, knapp drunter). */
+[data-theme="dark"] .btn-tonal {
+  background: color-mix(in srgb, var(--c500) 18%, var(--bg-page));
+  color: var(--c-ink);
+  border-color: #9DA8B6;
+}
+[data-theme="dark"] .btn-elevated { color: var(--c-ink) }
+[data-theme="dark"] .btn-outlined {
+  color: var(--c-ink);
+  border-color: var(--c-ink);
+}
+[data-theme="dark"] .btn-outlined:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+[data-theme="dark"] .btn-text { color: var(--c-ink) }
+[data-theme="dark"] .btn-text:hover { background: color-mix(in srgb, var(--c50) 15%, var(--bg-surface)) }
+
+/* ════════════════════════════════════════════
+   DARK MODE: Beispielseiten
+   ════════════════════════════════════════════ */
+/* Shared structural overrides */
+/* .ds-card hat nur Rahmen, keinen Hintergrund (transparent → zeigt die Sektion durch). Im Dark zeigt
+   eine hintergrundlose Karte auf einer getönten Sektion denselben dunklen Ton → keine eigene Fläche.
+   Im Dark daher bg-surface geben: die Karte wird eine erkennbare, erhöhte Fläche. Karten MIT Inline-bg
+   (Info-Callouts auf co-50/n-50) behalten ihren Ton — Inline-Style schlägt diese Regel. */
+[data-theme="dark"] .ds-card { background: var(--bg-surface) }
+[data-theme="dark"] .ep-logo { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-nav-links { color: var(--tx-secondary) !important }
+/* Topnav Hover/Aktiv: co-700 (Light) → co-200 im Dark (co-700 wäre dunkel-auf-dunkel).
+   co-200 (#80DEDE) auf bg-surface bzw. co-50-dark ≥ 4.9:1 ✓ AA; Tönungsfläche bleibt co-50. */
+[data-theme="dark"] .ep-nav-btn:hover,
+[data-theme="dark"] .ep-nav-btn[aria-current="page"],
+[data-theme="dark"] .ep-nav-has-sub:hover .ep-nav-item-toggle,
+[data-theme="dark"] .ep-nav-has-sub.is-open .ep-nav-item-toggle,
+[data-theme="dark"] .ep-nav-sub-btn:hover,
+[data-theme="dark"] .ep-nav-sub-btn[aria-current="page"] { color: var(--co-200) }
+/* Aktiv-Unterstrich im Dark ebenfalls co-200 (Light: co-700) — spiegelt die Aktiv-Textfarbe, 5,71:1 auf bg-surface. */
+[data-theme="dark"] .ep-nav-btn::after { background: var(--co-200) }
+[data-theme="dark"] .ep-section { background: var(--bg-page) !important }
+/* Section-Rhythmus erhalten: im Light staffeln sich Sektionen über bg-surface (Basis) und n-50
+   (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
+   daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
+[data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
+/* Ausnahme .ep-section-cards: kartentragende n-50-Section, deren Inhalt erhoehte bg-surface-Cards sind.
+   Dark hat nur 2 Flaechen-Stufen (bg-page < bg-surface). Ein Element hebt sich nur ab, wenn es eine
+   ANDERE Stufe als sein Grund hat. Im Light: n-50-Flaeche grau, Cards bg-surface (weiss) = hellere
+   Stufe -> Cards heben sich. Wuerde die Section wie ueblich auf bg-surface gehoben, traefe sie auf die
+   bg-surface-Cards -> gleicher Ton, Cards verschwinden. Daher diese Sektionen NICHT heben: auf bg-page
+   belassen, dann sind die bg-surface-Cards die hellere Stufe (1,22:1) und heben sich ab wie im Light.
+   (Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.) Spezifitaet (0,3,0) +
+   Quellreihenfolge nach der Hebungsregel, damit dieser Override gewinnt. */
+[data-theme="dark"] .ep-section.ep-section-cards { background: var(--bg-page) !important }
+/* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
+   #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
+   erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */
+[data-theme="dark"] .ep-section[style*="var(--co-50)"] { background: var(--co-50) !important }
+[data-theme="dark"] .ep-section[style*="var(--ki-50)"] { background: var(--ki-50) !important }
+[data-theme="dark"] .ep-section[style*="var(--es-50)"] { background: var(--es-50) !important }
+[data-theme="dark"] .ep-section[style*="var(--wo-50)"] { background: var(--wo-50) !important }
+/* Header-Trennlinien: die getönten Beispielseiten-Header nutzen inline border-bottom mit dem hellen
+   Bereichston var(--XX-100). Der flippt nicht → im Dark eine grelle helle Linie (~7–11:1). Auf den
+   neutralen var(--bd) umstellen (~3–4:1), damit die Trennlinie dezent bleibt wie der gleichfarbige
+   Whisper im Light. Nur Sektionen mit border-bottom getroffen, nicht die randlosen getönten Bänder. */
+[data-theme="dark"] .ep-section[style*="border-bottom:1px solid var(--co-100)"],
+[data-theme="dark"] .ep-section[style*="border-bottom:1px solid var(--ki-100)"],
+[data-theme="dark"] .ep-section[style*="border-bottom:1px solid var(--es-100)"],
+[data-theme="dark"] .ep-section[style*="border-bottom:1px solid var(--wo-100)"] { border-bottom: var(--bd) !important }
+[data-theme="dark"] .ep-section-h2 { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-section-sub { color: var(--tx-secondary) !important }
+/* Elevation = Interaktivität (siehe components.css): statische .ep-card ruhen flach — Containment über
+   die hellere bg-surface-Fläche + --bd-strong-Rahmen. Schatten nur für interaktive .ep-card-link. */
+[data-theme="dark"] .ep-card { background: var(--bg-surface) !important }
+[data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
+[data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
+[data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
+/* ep-card-icon: Im Dark-Mode werden die --XX-50-Kacheln fast schwarz, die Glyph-Farben (--XX-700/800)
+   bleiben aber dunkel → dunkel-auf-dunkel (KI 2.2:1, ES 2.1:1, WO 2.5:1, Corp 3.4:1; der alte
+   filter:brightness(.75) verschlimmerte das auf bis zu 1.7:1). Glyph daher bereichsweise auf den
+   hellen --XX-100-Ton heben (13.8–15.6:1). CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
+[data-theme="dark"] .ep-card-icon[data-area="co"] svg { stroke: var(--co-100) }
+/* Timeline-Marker: co-50-Tile wird im Dark dunkel → Icon auf helles co-100 heben */
+[data-theme="dark"] .ep-tl-icon svg { stroke: var(--co-100) }
+/* Der box-shadow-Ring stellt den Kreis von der Timeline-Linie frei und muss die Hintergrundfarbe
+   treffen. In Light = bg-surface (= weiß = Grund) → unsichtbar. Im Dark liegt die Timeline (Doku wie
+   ep-Section) auf bg-page; bg-surface waere dort ein hellerer Halo. Ring daher auf bg-page. */
+[data-theme="dark"] .ep-tl-icon { box-shadow: 0 0 0 4px var(--bg-page) }
+[data-theme="dark"] .ep-card-icon[data-area="ki"] svg { stroke: var(--ki-100) }
+[data-theme="dark"] .ep-card-icon[data-area="es"] svg { stroke: var(--es-100) }
+[data-theme="dark"] .ep-card-icon[data-area="wo"] svg { stroke: var(--wo-100) }
+/* Gefüllte Brand-Glyphen (.ep-card-icon mit .t-*-Klasse, fill=currentColor) holen ihre Farbe schon
+   über t-* (flippt im Dark auf helle -200/-100). Der stroke-Override oben ist für OUTLINE-Icons; auf
+   gefüllten Pfaden erzwingt er eine zusätzliche 1,5px-Kontur → verzerrt den Glyph. Daher hier stroke:none. */
+[data-theme="dark"] .ep-card-icon.t-co svg,
+[data-theme="dark"] .ep-card-icon.t-ki svg,
+[data-theme="dark"] .ep-card-icon.t-es svg,
+[data-theme="dark"] .ep-card-icon.t-wo svg { stroke: none }
+/* Offene Feature-Liste: --ki-800 bleibt im Dark-Mode dunkel-oliv, --ki-50 ist ein dunkler Olivton.
+   Pro-Glyph + Tier-Label daher auf das helle --ki-100 umstellen (>11:1 auf der Tile).
+   Core (tx-secondary/n-100) ist theme-aware und braucht keinen Override. */
+[data-theme="dark"] .ep-feature-icon[data-area="ki"] { color: var(--ki-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
+/* Testimonial-Zitatzeichen: --t-accent (-500) bei opacity .2 verschwindet im Dark auf der
+   bg-surface-Karte (perzeptuell schwach, es-500 zudem zu dunkel). Im Dark auf den helleren -300-Ton
+   + opacity .6 → erkennbarer, aber weiterhin dezenter Flourish (2,1–3,4:1, gleichmäßig über alle Bereiche). */
+[data-theme="dark"] .testimonial-icon { color: var(--co-300); opacity: .6 }
+[data-theme="dark"] .testimonial[data-area="ki"] .testimonial-icon { color: var(--ki-300) }
+[data-theme="dark"] .testimonial[data-area="es"] .testimonial-icon { color: var(--es-300) }
+[data-theme="dark"] .testimonial[data-area="wo"] .testimonial-icon { color: var(--wo-300) }
+/* Blockquote-Zitatzeichen (.bq-icon): analog — -500 @ .35 verschwindet im Dark auf dem getönten
+   -50-Grund. Auf -300 je Bereich + opacity .6 → erkennbarer Flourish (2,7–4,5:1). */
+[data-theme="dark"] .bq-icon { color: var(--co-300); opacity: .6 }
+[data-theme="dark"] .bq[data-area="ki"] .bq-icon { color: var(--ki-300) }
+[data-theme="dark"] .bq[data-area="es"] .bq-icon { color: var(--es-300) }
+[data-theme="dark"] .bq[data-area="wo"] .bq-icon { color: var(--wo-300) }
+/* Team-Stimme-Zitatzeichen (.team-voice-icon): gleicher Fall auf der bg-surface-Karte → -300 + opacity .6. */
+[data-theme="dark"] .team-voice-icon { color: var(--co-300); opacity: .6 }
+[data-theme="dark"] .team-voice[data-area="ki"] .team-voice-icon { color: var(--ki-300) }
+[data-theme="dark"] .team-voice[data-area="es"] .team-voice-icon { color: var(--es-300) }
+[data-theme="dark"] .team-voice[data-area="wo"] .team-voice-icon { color: var(--wo-300) }
+/* Icon-Doku-Swatches (#sec-icons): dieselbe --XX-50-Kachel ist im Dark-Mode ein dunkler Bereichston, die
+   Glyph-Farben sind teils hart kodiert (#333E48, #004F4F, #183A0E), teils currentColor aus einer
+   inline gesetzten --XX-700/800-color → dunkel-auf-dunkel (analog .ep-card-icon). Glyph auf den
+   hellen --XX-100-Ton heben. Override pro <path> über Attribut-Selektor des Ist-Werts: schlägt
+   sowohl das Präsentationsattribut als auch die Inline-color am Container (sonst gewänne diese),
+   und trifft nur farbige Formen — Outline-Pfade mit fill="none" bleiben unberührt. Selektor auf
+   beliebige SVG-Form (nicht nur path): die Micro-16px-Icons nutzen <circle>/<rect>, die ein
+   path-Selektor verfehlt hätte (Knoten/Fenster blieben dunkel). */
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg [fill="#333E48"],
+[data-theme="dark"] .icon-size-swatch[data-area="co"] svg [fill="#004F4F"] { fill: var(--co-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg [stroke="#183A0E"] { stroke: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="wo"] svg [fill="currentColor"] { fill: var(--wo-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="ki"] svg [fill="currentColor"] { fill: var(--ki-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg [fill="currentColor"] { fill: var(--es-100) }
+[data-theme="dark"] .icon-size-swatch[data-area="es"] svg [stroke="currentColor"] { stroke: var(--es-100) }
+/* Info-Callouts (.ds-card / Hinweisboxen auf --co-50-Grund): das dekorative co-700-Icon wird im Dark
+   dunkel-auf-dunkel (~3,35:1, knapp über der Grafik-Schwelle, aber schwach). Glyph auf --co-200 heben
+   (~11,8:1), konsistent mit den übrigen area-Glyphen. CSS schlägt das inline-stroke-Präsentationsattribut. */
+[data-theme="dark"] [style*="var(--co-50)"] svg[stroke^="var(--co-"] { stroke: var(--co-200) }
+[data-theme="dark"] [style*="var(--ki-50)"] svg[stroke^="var(--ki-"] { stroke: var(--ki-200) }
+[data-theme="dark"] [style*="var(--es-50)"] svg[stroke^="var(--es-"] { stroke: var(--es-100) }
+[data-theme="dark"] [style*="var(--wo-50)"] svg[stroke^="var(--wo-"] { stroke: var(--wo-200) }
+[data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
+[data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
+[data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
+[data-theme="dark"] .team-voice[data-area="wo"] { border-color: var(--wo-800) }
+[data-theme="dark"] .ep-tier-label[data-area="ki"] { color: var(--ki-100) }
+[data-theme="dark"] .card-stat-strip { background: var(--bg-surface) }
+[data-theme="dark"] .card-stat-flat[data-area="co"] .card-stat-flat-value { color: var(--co-200) }
+[data-theme="dark"] .card-stat-flat[data-area="ki"] .card-stat-flat-value { color: var(--ki-200) }
+[data-theme="dark"] .card-stat-flat[data-area="es"] .card-stat-flat-value { color: var(--es-100) }
+[data-theme="dark"] .card-stat-flat[data-area="wo"] .card-stat-flat-value { color: var(--wo-200) }
+/* In-Article-Callout-Eyebrow: 700er-/800er-Ton → dunkel-auf-dunkel auf der getönten -50-Fläche
+   (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-Utilities und Badges. Body-Text ist
+   tx-primary und flippt ohnehin. */
+[data-theme="dark"] .article-callout-eyebrow { color: var(--co-200) }
+[data-theme="dark"] .article-callout[data-area="ki"] .article-callout-eyebrow { color: var(--ki-200) }
+[data-theme="dark"] .article-callout[data-area="es"] .article-callout-eyebrow { color: var(--es-100) }
+[data-theme="dark"] .article-callout[data-area="wo"] .article-callout-eyebrow { color: var(--wo-200) }
+
+/* ── Bereichs-Komponenten Vergleich ── */
+/* Active tabs: --atab-color inline style is dark → override with light palette shades */
+[data-theme="dark"] .atab[data-area="co"].active { color: var(--co-200); border-bottom-color: var(--co-200) }
+[data-theme="dark"] .atab[data-area="ki"].active { color: var(--ki-200); border-bottom-color: var(--ki-200) }
+[data-theme="dark"] .atab[data-area="es"].active { color: var(--es-100); border-bottom-color: var(--es-100) }
+[data-theme="dark"] .atab[data-area="wo"].active { color: var(--wo-200); border-bottom-color: var(--wo-200) }
+/* Branded chips: override inline color/border that are hardcoded dark palette shades */
+[data-theme="dark"] #at-co .chip[style] { color: var(--co-200) !important; border-color: var(--co-300) !important }
+[data-theme="dark"] #at-ai .chip[style] { color: var(--ki-200) !important; border-color: var(--ki-400) !important }
+[data-theme="dark"] #at-es .chip[style] { color: var(--es-100) !important; border-color: var(--es-300) !important }
+[data-theme="dark"] #at-wo .chip[style] { color: var(--wo-200) !important; border-color: var(--wo-300) !important }
+/* Chip-Basis (nicht-inline, data-area): Text-/Border-Bereichstöne (--XX-700/800) bleiben im Dark dunkel
+   auf dem dunklen bg-surface → auf die hellen -200/-100/-300-Töne heben (analog .card-eyebrow). */
+[data-theme="dark"] .chip[data-area="co"] { color: var(--co-200); border-color: var(--co-300) }
+[data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
+[data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
+[data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Pills: --XX-50-Grund wird im Dark fast schwarz, Text --XX-700/800 bleibt dunkel → Text auf die hellen
+   -200/-100-Töne heben. Grund bleibt die dunkle -50-Kachel, der helle Text trägt den Kontrast (analog
+   .ep-card-icon/.card-eyebrow, ~13-15:1). aria-pressed-/Hover-States der Chips bleiben unberührt. */
+[data-theme="dark"] .pill,
+[data-theme="dark"] .pill[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .pill[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .pill[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .pill[data-area="wo"] { color: var(--wo-200) }
+/* Bereichs-Text-Utilities + Bereichs-Badges: Light-Töne (-700/-800) bleiben im Dark dunkel → auf -200/-100 heben (Badge-Grund bleibt dunkle -50-Kachel, heller Text trägt den Kontrast). */
+[data-theme="dark"] .t-ki { color: var(--ki-200) }
+[data-theme="dark"] .t-es { color: var(--es-100) }
+[data-theme="dark"] .t-wo { color: var(--wo-200) }
+[data-theme="dark"] .badge[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .badge[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
+
+/* ── Spacing & Grid + Code tokens ── */
+/* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
+[data-theme="dark"] .gcol  { color: var(--co-300) }
+[data-theme="dark"] .token { color: var(--co-300) }
+
+/* Body-Link / Card-CTA-Link / t-co: --co-700 auf bg-page = 1.97:1 ❌ → --co-200 = 6.97:1 ✓ AA */
+[data-theme="dark"] .body-link { color: var(--co-200) }
+[data-theme="dark"] .body-link:hover { color: var(--co-100) }
+[data-theme="dark"] .card-cta-link { color: var(--co-200) }
+[data-theme="dark"] .t-co { color: var(--co-200) }
+[data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
+[data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
+[data-theme="dark"] .ep-page[data-accent="wo"] .t-co { color: var(--wo-200) }
+[data-theme="dark"] .ep-page[data-accent="ki"] .body-link { color: var(--ki-200) }
+[data-theme="dark"] .ep-page[data-accent="es"] .body-link { color: var(--es-200) }
+[data-theme="dark"] .ep-page[data-accent="wo"] .body-link { color: var(--wo-200) }
+[data-theme="dark"] .ep-page[data-accent] .footer .body-link { color: var(--co-200) }
+[data-theme="dark"] .ep-page[data-accent] .ep-topnav .t-co { color: var(--co-200) }
+
+/* ── Cards ── */
+/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
+/* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
+[data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}
+[data-theme="dark"] .card[data-area="ki"] .card-media{color:var(--ki-200)}
+[data-theme="dark"] .card[data-area="es"] .card-media{color:var(--es-100)}
+[data-theme="dark"] .card[data-area="wo"] .card-media{color:var(--wo-200)}
+[data-theme="dark"] .card[data-area="co"] .card-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .card[data-area="ki"] .card-eyebrow{color:var(--ki-200)}
+[data-theme="dark"] .card[data-area="es"] .card-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .card[data-area="wo"] .card-eyebrow{color:var(--wo-200)}
+/* ep-card-Eyebrow + CTA-Link: nutzen area -700/-800 ohne Dark-Override → dunkel-auf-dunkel.
+   Auf die hellen -200/-100-Töne heben (wie .card-eyebrow). Default (ohne data-area) = co. */
+[data-theme="dark"] .ep-card-eyebrow, [data-theme="dark"] .ep-card-cta { color: var(--co-200) }
+/* co explizit data-area-scoped: components.css (laedt NACH dark-mode.css) hat
+   .ep-card[data-area="co"] .ep-card-cta{co-700} mit gleicher Spezifitaet (0,2,0) → gewinnt sonst per
+   Quellreihenfolge → CTA bliebe dunkel (1,62:1). Gleiche Spezifitaet wie ki/es/wo unten herstellen. */
+[data-theme="dark"] .ep-card-eyebrow[data-area="co"], [data-theme="dark"] .ep-card[data-area="co"] .ep-card-cta { color: var(--co-200) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="ki"], [data-theme="dark"] .ep-card[data-area="ki"] .ep-card-cta { color: var(--ki-200) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="es"], [data-theme="dark"] .ep-card[data-area="es"] .ep-card-cta { color: var(--es-100) }
+[data-theme="dark"] .ep-card-eyebrow[data-area="wo"], [data-theme="dark"] .ep-card[data-area="wo"] .ep-card-cta { color: var(--wo-200) }
+/* Stat Card values: co-700 (#007575) ~1.6:1 on dark → lighter shades (verified ≥4.5:1) */
+[data-theme="dark"] .card-stat[data-area="co"] .card-stat-value{color:var(--co-200)}
+[data-theme="dark"] .card-stat[data-area="ki"] .card-stat-value{color:var(--ki-200)}
+[data-theme="dark"] .card-stat[data-area="es"] .card-stat-value{color:var(--es-100)}
+[data-theme="dark"] .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-200)}
+
+/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
+[data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
+[data-theme="dark"] [data-area="ki"] .area-specimen-text { color: var(--ki-200) }   /* #D6F06D · 6.10:1 */
+[data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
+[data-theme="dark"] [data-area="wo"] .area-specimen-text { color: var(--wo-200) }   /* #A3D48E · 4.57:1 */
+
+/* ── Download CTA (dark) ── */
+/* Icon colors: area-50 wird sehr dunkel → helle Palette-Shades wie area-specimen-text */
+[data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-icon{color:var(--co-200)}
+[data-theme="dark"] .cta-dl[data-area="ki"] .cta-dl-icon{color:var(--ki-200)}
+[data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-icon{color:var(--es-100)}
+[data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-icon{color:var(--wo-200)}
+[data-theme="dark"] .cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-200)}
+[data-theme="dark"] .cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-200)}
+[data-theme="dark"] .cta-strip[data-area="co"] .cta-strip-icon{color:var(--co-200)}
+[data-theme="dark"] .cta-strip[data-area="ki"] .cta-strip-icon{color:var(--ki-200)}
+[data-theme="dark"] .cta-strip[data-area="es"] .cta-strip-icon{color:var(--es-100)}
+[data-theme="dark"] .cta-strip[data-area="wo"] .cta-strip-icon{color:var(--wo-200)}
+[data-theme="dark"] .cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-200)}
+[data-theme="dark"] .cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-200)}
+[data-theme="dark"] .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-100)}
+[data-theme="dark"] .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-200)}
+[data-theme="dark"] .cta-link[data-area="co"]{color:var(--co-200)}
+[data-theme="dark"] .cta-link[data-area="ki"]{color:var(--ki-200)}
+[data-theme="dark"] .cta-link[data-area="es"]{color:var(--es-100)}
+[data-theme="dark"] .cta-link[data-area="wo"]{color:var(--wo-200)}
+
+/* ── Palette threshold badges (dark) ── */
+[data-theme="dark"] .pal-thresholds{background:#0d1f3a;color:#90bcf0;border-color:#1e3f6b}
+[data-theme="dark"] .thr-aa-l{background:#1a3355;color:#90bcf0}
+[data-theme="dark"] .thr-aa{background:#0a3028;color:#80e8c8}
+[data-theme="dark"] .thr-aaa{background:#2a1050;color:#c890ff}
+/* Code-Block (hell → dunkel) */
+[data-theme="dark"] .cb-wrap{border-color:var(--bd)}
+[data-theme="dark"] .cb-header{background:var(--bg-page);border-bottom-color:var(--bd)}
+[data-theme="dark"] .cb-lang{color:var(--co-200)}
+[data-theme="dark"] .cb-copy{border-color:var(--bd);color:var(--tx-muted)}
+[data-theme="dark"] .cb-copy:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+[data-theme="dark"] .cb-body{background:var(--bg-surface);color:var(--tx-primary)}
+/* Syntax tokens auf bg-surface (#3F4B56) — alle ≥4.5:1 verifiziert */
+[data-theme="dark"] .cb-body .k{color:var(--es-200)}   /* #98B7EE · 5.1:1 */
+[data-theme="dark"] .cb-body .v{color:var(--co-200)}   /* #80DEDE · 4.9:1 */
+[data-theme="dark"] .cb-body .s{color:var(--wo-200)}   /* #A3D48E · 4.6:1 */
+[data-theme="dark"] .cb-body .c{color:var(--tx-muted)} /* gedimmt, ok für Kommentare */
+[data-theme="dark"] .cb-body .fn{color:var(--ro-200)}  /* #F0A0BE · 4.6:1 */
+[data-theme="dark"] .cb-numbered .cb-ln::before{color:var(--tx-muted)}
+/* Inline code – co-700 (#007575) ~1.6:1 auf co-50 dark → co-200 (#80DEDE) ~4.9:1 ✓ */
+[data-theme="dark"] .cb-prose code{color:var(--co-200);border-color:var(--n-100)}
+/* Tabellen-Header + Streifen: --n-50 flippt im Dark auf #0A1515 (fast schwarz) → harte schwarze
+   Balken auf dem dunklen bg-page-Grund (1,70:1). Auf bg-surface heben (1,22:1) = sanfte, hellere
+   Differenzierung statt schwarzer Balken. Spiegelt die dezente Light-Streifung (dort minimal dunkler). */
+[data-theme="dark"] .tbl thead th { background: var(--bg-surface) }
+[data-theme="dark"] .tbl--striped tbody tr:nth-child(even) td,
+[data-theme="dark"] .tbl--striped tbody tr:nth-child(even) th { background: var(--bg-surface) }
+
+/* === css/base.css === */
+/* ── Base: Reset · Layout · Global ── */
+
+/* ════════════════════════════════════════════
+   SYSTEM HIGH CONTRAST (Windows / OS level)
+   @media (forced-colors: active)
+   ════════════════════════════════════════════ */
+@media (forced-colors: active) {
+  /* box-shadow is suppressed by OS – replace focus rings with outline */
+  :focus-visible {
+    outline: 3px solid Highlight !important;
+    outline-offset: 2px !important;
+    box-shadow: none !important;
+  }
+  /* Custom button backgrounds need explicit forced-color mapping */
+  .btn-filled {
+    forced-color-adjust: none;
+    background: ButtonText;
+    color: ButtonFace;
+    border: 2px solid ButtonText;
+  }
+  .btn-tonal,
+  .btn-elevated,
+  .btn-text,
+  .btn-outlined {
+    color: ButtonText;
+    border-color: ButtonText;
+    background: ButtonFace;
+    box-shadow: none;
+  }
+  /* Restore borders that forced-colors removes */
+  .chip { border: 2px solid ButtonText }
+  .card,
+  .card-elevated { border: 2px solid CanvasText }
+  .badge { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText }
+  /* Active states */
+  .nav-item.active { border-left-color: Highlight; color: Highlight }
+  .atab.active { border-bottom-color: Highlight; color: Highlight }
+  .tbtn.active { forced-color-adjust: none; background: Highlight; color: HighlightText }
+  /* Links in footer */
+  .footer-link,
+  .footer-btm-link { color: LinkText }
+  /* Skip link */
+  .skip-link { background: Highlight; color: HighlightText; border: 2px solid ButtonText }
+  /* Sidebar toggle */
+  .sidebar-toggle { border: 1px solid ButtonText; color: ButtonText }
+  /* Form inputs */
+  .field input,
+  .field select,
+  .field textarea { border: 2px solid ButtonText; color: CanvasText; background: Canvas }
+  /* Code blocks */
+  .code-block { border: 1px solid CanvasText }
+}
+
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
+
+/* ── Skip link ── */
+.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:14px;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
+.skip-link:focus{top:var(--s4)}
+
+/* ── Layout ── */
+.ds-page{display:flex;min-height:100vh}
+.ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;transition:width var(--m-std)}
+.ds-content{flex:1;padding:var(--s10) var(--s6);max-width:1280px;transition:margin-left var(--m-std)}
+
+/* ── Sidebar ── */
+.nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
+.nav-logo-text{font:500 12px/16px var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+
+/* ── Sidebar toggle button ── */
+.sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
+.sidebar-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.sidebar-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.sidebar-toggle svg{transition:transform var(--m-std)}
+
+/* ── Sidebar collapsed state ── */
+.ds-sidebar.collapsed{width:56px}
+.ds-sidebar.collapsed .nav-logo{padding:0 0 var(--s6);justify-content:center}
+.ds-sidebar.collapsed .nav-logo-text{opacity:0;width:0;overflow:hidden}
+.ds-sidebar.collapsed .sidebar-toggle svg{transform:rotate(180deg)}
+.ds-sidebar.collapsed .nav-section,.ds-sidebar.collapsed .nav-subnav{display:none}
+.ds-sidebar.collapsed .nav-item{justify-content:center;padding:var(--s2) 0;font-size:0;gap:0}
+.ds-sidebar.collapsed .nav-icon{width:20px;height:20px;opacity:.6}
+.ds-sidebar.collapsed .nav-item:hover .nav-icon{opacity:1}
+.ds-sidebar.collapsed .nav-item.active .nav-icon{opacity:1}
+.nav-section{padding:var(--s3) var(--s6) var(--s1);font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+.nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 14px/20px var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
+.nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7;fill:none;stroke:currentColor;stroke-width:1.5}
+.nav-item.active .nav-icon{opacity:1}
+.area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── Sections ── */
+.ds-section{display:none}
+.ds-section.visible{display:block}
+.sec-title{font:400 32px/40px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)}
+.sec-sub{font:400 16px/24px var(--font);color:var(--tx-secondary);margin-bottom:var(--s8)}
+.group-title{font:400 24px/32px var(--font-display);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
+.lbl{font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
+.row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
+.token{font-family:'Courier New',monospace;font-size:12px;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
+
+/* ── Theme switcher ── */
+.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
+.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 12px/16px var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.tbtn.active{background:var(--co-500);color:#fff}
+
+/* ── Color palettes ── */
+.pal-group{margin-bottom:var(--s8)}
+.pal-label{font:500 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
+.pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
+.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+.swatch span{font-size:12px;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+.ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:12px;color:var(--ki-800);border:1px solid var(--ki-200)}
+.pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:12px;color:#5a3e00;border:1px solid #e8d080}
+.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:12px;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
+.pal-thresholds .thr-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-weight:700;margin-right:2px;font-size:12px}
+.thr-aa-l{background:#dbeeff;color:#1a3a6b}
+.thr-aa{background:#c3f0e8;color:#0a4a38}
+.thr-aaa{background:#e8d0ff;color:#3a1070}
+
+/* ── Area specimen text (default: dark brand shade for light bg) ── */
+[data-area="co"] .area-specimen-text{color:var(--co-700)}
+[data-area="ki"] .area-specimen-text{color:var(--ki-800)}
+[data-area="es"] .area-specimen-text{color:var(--es-700)}
+[data-area="wo"] .area-specimen-text{color:var(--wo-700)}
+
+/* ── Area cards ── */
+.areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6);margin-bottom:var(--s8)}
+@media(max-width:768px){.areas-grid{grid-template-columns:1fr}}
+.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
+.area-header{padding:var(--s5) var(--s6);color:#fff}
+.area-header h2{font:400 16px/24px var(--font-display);margin-bottom:4px}
+.area-header p{font:400 12px/16px var(--font)}
+.area-body{padding:var(--s4) var(--s6);background:var(--bg-surface);flex:1}
+.area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
+.area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
+.area-meta{font:400 12px/16px var(--font);color:var(--tx-secondary)}
+.area-meta code{font-size:12px;font-family:'Courier New',monospace}
+
+/* Utility: hartes Verstecken (überschreibt Inline-display) */
+.is-hidden{display:none!important}
+
+/* ── Layout Grid (12 Spalten · Gutter: var(--s6)=24px · Container: 1280px) ── */
+.layout-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s6)}
+.col-1{grid-column:span 1}.col-2{grid-column:span 2}.col-3{grid-column:span 3}
+.col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
+.col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-9{grid-column:span 9}
+.col-10{grid-column:span 10}.col-11{grid-column:span 11}.col-12{grid-column:span 12}
+@media(max-width:768px){.layout-grid{grid-template-columns:1fr}}
+
+/* ── Utility: visuell versteckt, aber für Screenreader lesbar ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ── Type Scale Utilities (15 Tokens) ── */
+.type-display-lg{font:400 57px/64px var(--font-display)}
+.type-display-md{font:400 45px/52px var(--font-display)}
+.type-display-sm{font:400 36px/44px var(--font-display)}
+.type-headline-lg{font:400 32px/40px var(--font-display)}
+.type-headline-md{font:400 28px/36px var(--font-display)}
+.type-headline-sm{font:400 24px/32px var(--font-display)}
+.type-title-lg{font:500 22px/28px var(--font)}
+.type-title-md{font:500 16px/24px var(--font)}
+.type-title-sm{font:500 14px/20px var(--font)}
+.type-body-lg{font:400 16px/24px var(--font)}
+.type-body-md{font:400 14px/20px var(--font)}
+.type-body-sm{font:400 12px/16px var(--font)}
+.type-label-lg{font:500 14px/20px var(--font)}
+.type-label-md{font:500 12px/16px var(--font)}
+.type-label-sm{font:500 12px/16px var(--font);text-transform:uppercase;letter-spacing:.08em}
+
+/* ── Sub-navigation ── */
+.nav-subnav{display:none;padding-bottom:var(--s2)}
+.nav-subnav.visible{display:block}
+.nav-sub-item{display:block;padding:5px var(--s6) 5px 36px;font:var(--ty-body-xs);color:var(--tx-secondary);text-decoration:none;transition:background var(--m-fast),color var(--m-fast);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-sub-item::before{content:"–";opacity:.4;margin-right:6px;font-size:12px}
+.nav-sub-item:hover{color:var(--tx-primary);background:var(--bg-overlay)}
+.nav-sub-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+
+/* ── Scroll margin for jump targets ── */
+.group-title{scroll-margin-top:var(--s8)}
+
+/* ── Back-to-top button ── */
+/* co-600 statt co-500: weißes Caret braucht ≥3:1 (1.4.11) — co-600 = 3,29:1 (Icon), und der Button vs.
+   Seite ≥3:1 sowohl auf weiß (Light, 3,29) als auch auf bg-page (Dark, 3,32); co-500 verfehlt es im Light,
+   co-700 im Dark. visibility (mit-transitioniert) nimmt den versteckten Button aus der Tab-Reihenfolge —
+   sonst ist ein unsichtbares Fokusziel per Tab erreichbar. */
+.back-to-top{position:fixed;bottom:var(--s8);right:var(--s6);width:44px;height:44px;border-radius:var(--r-full);background:var(--co-600);color:#fff;border:none;cursor:pointer;box-shadow:var(--e3);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;pointer-events:none;transition:opacity var(--m-std),visibility var(--m-std),box-shadow var(--m-fast);z-index:150}
+.back-to-top.visible{opacity:1;visibility:visible;pointer-events:auto}
+.back-to-top:hover{box-shadow:var(--e4)}
+.back-to-top:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+/* === css/components.css === */
+/* ── Components ── */
+
+/* ── Brand Wheel ── */
+.bw-wrap{display:flex;justify-content:center;padding:var(--s8) 0}
+.bw-svg{width:100%;max-width:480px;display:block}
+.bw-outer{fill:var(--co-50)}
+.bw-middle{fill:var(--co-200)}
+/* #fff on co-400 (#26C2C2) = 2.19:1 ❌. co-800 (#004F4F) = 9.42:1 ✓ AAA in beiden Modi.
+   Inhaltlich getrieben (GELASSENHEIT muss lesbar sein); visuell wird das Rad damit dunkler im Zentrum. */
+.bw-inner{fill:var(--co-800)}
+.bw-divider{stroke:#fff;stroke-width:2;fill:none}
+.bw-ring-outline{fill:none;stroke:#fff;stroke-width:2}
+.bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
+.bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
+.bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.8px}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd-strong)}
+.bw-pillar-title{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
+.bw-pillar-attrs{font-size:14px;color:var(--tx-secondary);line-height:1.6}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px;text-decoration:none}
+.btn:hover,.btn:focus,.btn:active{text-decoration:none}
+.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
+.btn-sm{padding:6px 16px;font-size:12px;line-height:16px;min-height:36px}
+.btn-lg{padding:14px 32px;font-size:16px;line-height:24px;min-height:52px}
+.btn-filled{background:var(--c500);color:#fff;box-shadow:var(--e1)}
+.btn-filled:hover{filter:brightness(.92);box-shadow:var(--e2)}
+.btn-tonal{background:var(--c50);color:var(--c500);border:1.5px solid rgba(0,0,0,.12)}
+.btn-tonal:hover{filter:brightness(.96);box-shadow:var(--e1)}
+.btn-elevated{background:var(--bg-surface);color:var(--c500);box-shadow:var(--e1)}
+.btn-elevated:hover{box-shadow:var(--e2)}
+.btn-outlined{background:transparent;color:var(--c500);border:2px solid var(--c500)}
+.btn-outlined:hover{background:var(--c50)}
+.btn-text{background:transparent;color:var(--c500);padding:10px 12px}
+.btn-text:hover{background:var(--c50)}
+
+/* ── Button brand-area color variants ── */
+.btn-co   {--c500:var(--co-700);--c50:var(--co-50)}
+.btn-ki   {--c500:var(--ki-800);--c50:var(--ki-50)}
+.btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
+.btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
+/* Modifier: invertiert auf dunklem Bereichs-Band (z. B. .ep-cta-band) — kombiniert mit .btn-co/.btn-ki/.btn-es/.btn-wo. Background wird weiß, Text trägt die Bereichsfarbe. */
+.btn-on-band{--c500:#fff;--c50:rgba(255,255,255,.1)}
+.btn-co.btn-on-band{color:var(--co-700)}
+.btn-ki.btn-on-band{color:var(--ki-800)}
+.btn-es.btn-on-band{color:var(--es-700)}
+.btn-wo.btn-on-band{color:var(--wo-700)}
+/* Full-width centered submit button */
+.btn-full {width:100%;justify-content:center}
+
+/* ── Showcase containers ── */
+.ds-card   {border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;flex:1}
+.ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
+.ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
+/* Formular-Karten in gleich hohen Grid-Spalten: das Textarea-Feld füllt den Leerraum, damit der
+   Submit-Button unten bündig zur Nachbar-Karte sitzt. flex-basis:auto (natürliche Höhe) + grow,
+   kein Schrumpfen unter die natürliche Größe; min-height als Boden. Nur .field mit Textarea wächst. */
+.ds-inner-fill{display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea){flex:1 1 auto;display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea) textarea{flex:1 1 auto;min-height:96px}
+.clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
+
+/* ── Badges & Chips ── */
+.badge{display:inline-flex;align-items:center;gap:var(--s1);padding:3px 10px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em}
+.badge-ok{background:var(--c-success-bg);color:var(--badge-ok-text)}
+.badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
+.badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
+.badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
+/* Bereichs-Badges: --XX-50-Grund + --XX-800-Text. Dark-Overrides (dark-mode.css) heben den Text auf -200/-100, Grund bleibt die dunkle -50-Kachel. */
+.badge[data-area="co"]{background:var(--co-50);color:var(--co-800)}
+.badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
+.badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+.chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
+.chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
+.chip[aria-pressed="true"]:hover{background:var(--n-800);border-color:var(--n-800)}
+/* Area-aware Chips: Outline + Bereichs-Textfarbe (inaktiv) für ruhige Filter-Leiste, dezenter Tonal-Hint beim Hover, gefüllte dunklere Variante mit weißer Schrift (aktiv, AA-konform) */
+.chip[data-area="co"]{border-color:var(--co-500);color:var(--co-700)}
+.chip[data-area="ki"]{border-color:var(--ki-700);color:var(--ki-800)}
+.chip[data-area="es"]{border-color:var(--es-500);color:var(--es-700)}
+.chip[data-area="wo"]{border-color:var(--wo-500);color:var(--wo-700)}
+.chip[data-area="co"]:hover{background:var(--co-50);border-color:var(--co-500)}
+.chip[data-area="ki"]:hover{background:var(--ki-50);border-color:var(--ki-700)}
+.chip[data-area="es"]:hover{background:var(--es-50);border-color:var(--es-500)}
+.chip[data-area="wo"]:hover{background:var(--wo-50);border-color:var(--wo-500)}
+.chip[data-area="co"][aria-pressed="true"]{background:var(--co-700);border-color:var(--co-700);color:#fff}
+.chip[data-area="ki"][aria-pressed="true"]{background:var(--ki-800);border-color:var(--ki-800);color:#fff}
+.chip[data-area="es"][aria-pressed="true"]{background:var(--es-700);border-color:var(--es-700);color:#fff}
+.chip[data-area="wo"][aria-pressed="true"]{background:var(--wo-700);border-color:var(--wo-700);color:#fff}
+.chip[data-area][aria-pressed="true"]:hover{filter:brightness(.92)}
+
+/* ── Area Tabs ── */
+.area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
+.atab{padding:var(--s2) var(--s4);font:var(--ty-label-md);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--tx-secondary);transition:color var(--m-fast),border-color var(--m-fast);min-height:40px;display:flex;align-items:center;gap:var(--s2);background:none;border-top:none;border-left:none;border-right:none}
+.atab:hover{color:var(--tx-primary)}
+.atab:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.atab.active{color:var(--atab-color);border-bottom-color:var(--atab-color)}
+.atab-content{display:none}
+.atab-content.visible{display:block}
+
+/* ── Cards ── */
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+/* Card-Varianten */
+.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
+/* Hover-Lift nur auf klickbaren Karten (Elevation = Interaktivität): statische Karten
+   (<article>/<div> mit Buttons innen) liften NICHT, nur Karten-Links (<a class="card card-elevated">). */
+a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+
+.card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.card-body{padding:var(--s5)}
+.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+/* Area-branded card media + eyebrow (token-driven, dark-mode overridable) */
+.card[data-area="co"] .card-media{background:var(--co-50);color:var(--co-700)}
+.card[data-area="ki"] .card-media{background:var(--ki-50);color:var(--ki-700)}
+.card[data-area="es"] .card-media{background:var(--es-50);color:var(--es-600)}
+.card[data-area="wo"] .card-media{background:var(--wo-50);color:var(--wo-700)}
+.card[data-area="co"] .card-eyebrow{color:var(--co-700)}
+.card[data-area="ki"] .card-eyebrow{color:var(--ki-800)}
+.card[data-area="es"] .card-eyebrow{color:var(--es-700)}
+.card[data-area="wo"] .card-eyebrow{color:var(--wo-700)}
+/* card-title und card-text: line-clamp + min-height halten Karten in Grids visuell ausgerichtet,
+   unabhängig davon ob Titel/Anreißer im aktuellen CMS-Stand 1, 2 oder 3 Zeilen lang sind.
+   line-clamp kappt zu lange Inhalte; min-height (in lh-Units, skaliert mit Typografie-Tokens)
+   reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen".
+   Trade-Off: bei aktuell kurzem Content sieht das wie ein Hohlraum aus, ist aber gewollt — das Layout
+   muss morgen mit einer 2-zeiligen Headline umgehen, ohne dass jemand CSS-Klassen umtauschen muss. */
+/* Äußerer Container: reserviert min. 2-Zeilen-Höhe und zentriert den Inhalt vertikal mittig.
+   Inneres <span> trägt das Line-Clamping (kappt zu lange Titel auf 2 Zeilen). */
+/* Title Small (18px Sans 500) gibt eine klare Hierarchie-Stufe zur Section-H2 (Headline-md, 28px Serif)
+   und vermeidet, dass die Card-Titel mit den Sektion-Überschriften um Aufmerksamkeit konkurrieren. */
+.card-title{font:var(--ty-title-sm);color:var(--tx-primary);min-height:2lh;display:grid;align-content:center}
+.card-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+/* Hero-Variante: Editorial-Treatment für Featured-Cards (genau ein Termin oder ein Beitrag hervorgehoben).
+   Headline-Sm (24px Serif) als Mid-Tier zwischen Section-H2 (28px) und Standard-Card-Title (20px Sans),
+   saubere 4-px-Treppe in der Hierarchie. Kein min-height (kein Nachbar zum Abgleichen). */
+.card-title-hero{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0;text-wrap:balance}
+.card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
+/* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
+   nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
+.card-meta{display:flex;flex-direction:column;gap:var(--s1)}
+.card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
+
+/* ── Blockquote ── */
+.bq{padding:var(--s5) var(--s6);border-left:4px solid var(--bq-accent,var(--co-500));background:var(--bq-bg,var(--co-50));border-radius:var(--r-md);margin:0}
+.bq[data-area="co"]{--bq-accent:var(--co-500);--bq-bg:var(--co-50)}
+.bq[data-area="ki"]{--bq-accent:var(--ki-500);--bq-bg:var(--ki-50)}
+.bq[data-area="es"]{--bq-accent:var(--es-500);--bq-bg:var(--es-50)}
+.bq[data-area="wo"]{--bq-accent:var(--wo-500);--bq-bg:var(--wo-50)}
+/* fill:currentColor ist nötig, damit color (Bereichsakzent) den Glyph färbt — sonst SVG-Default schwarz. */
+.bq-icon{display:block;width:20px;height:20px;color:var(--bq-accent,var(--co-500));fill:currentColor;opacity:.35;margin-bottom:var(--s3)}
+.bq blockquote{font:var(--ty-serif-lg);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none}
+.bq-caption{display:flex;flex-direction:column;gap:2px}
+.bq-name{font:var(--ty-name);color:var(--tx-primary)}
+.bq-role{font:var(--ty-body-xs);color:var(--tx-secondary);font-style:normal}
+
+/* ── Testimonial Card ── */
+/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.testimonial{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--t-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6);margin:0;display:flex;flex-direction:column;gap:var(--s4)}
+.testimonial[data-area="co"]{--t-accent:var(--co-500)}
+.testimonial[data-area="ki"]{--t-accent:var(--ki-500)}
+.testimonial[data-area="es"]{--t-accent:var(--es-500)}
+.testimonial[data-area="wo"]{--t-accent:var(--wo-500)}
+.testimonial-icon{width:32px;height:32px;color:var(--t-accent,var(--co-500));fill:currentColor;opacity:.2;flex-shrink:0}
+.testimonial blockquote{font:var(--ty-serif-sm);color:var(--tx-primary);margin:0;quotes:none;flex:1}
+.testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}.testimonial-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
+.testimonial-role{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0;font-style:normal}
+/* Team-Stimmen: editoriale Reihen, Foto seitlich (abwechselnd L/R), fotostark für Repräsentation. Eigene Variante, lässt .testimonial unberührt. */
+.team-voices{display:flex;flex-direction:column;gap:var(--s6)}
+.team-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
+.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-200)}
+.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-200)}
+.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-200)}
+.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-200)}
+.team-voice-media{margin:0}
+.team-voice-media img{display:block;width:100%;height:100%;min-height:300px;object-fit:cover}
+.team-voice-body{padding:var(--s8);display:flex;flex-direction:column;gap:var(--s5);justify-content:center}
+.team-voice-icon{width:36px;height:36px;color:var(--t-accent,var(--co-500));fill:currentColor;opacity:.25;flex-shrink:0}
+.team-voice-quote{font:var(--ty-serif-md);color:var(--tx-primary);margin:0;quotes:none}
+.team-voice-footer{display:flex;flex-direction:column;gap:var(--s1)}
+.team-voice-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
+.team-voice-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
+.team-voice:nth-child(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.team-voice:nth-child(even) .team-voice-media{grid-column:2;grid-row:1}
+.team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:1}
+@media(max-width:768px){
+  .team-voice,.team-voice:nth-child(even){grid-template-columns:1fr}
+  .team-voice:nth-child(even) .team-voice-media{grid-column:1;grid-row:1}
+  .team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:2}
+}
+/* Stat Card */
+/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.card-stat{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
+.card-stat[data-area="co"]{--st-accent:var(--co-500)}
+.card-stat[data-area="ki"]{--st-accent:var(--ki-500)}
+.card-stat[data-area="es"]{--st-accent:var(--es-500)}
+.card-stat[data-area="wo"]{--st-accent:var(--wo-500)}
+.card-stat-value{font:var(--ty-display-md);color:var(--tx-primary);margin:0}
+.card-stat[data-area="co"] .card-stat-value{color:var(--co-700)}
+.card-stat[data-area="ki"] .card-stat-value{color:var(--ki-700)}
+.card-stat[data-area="es"] .card-stat-value{color:var(--es-700)}
+.card-stat[data-area="wo"] .card-stat-value{color:var(--wo-700)}
+.card-stat-label{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+.card-stat-trend{display:inline-flex;align-items:center;gap:var(--s1);font:600 12px/16px var(--font);border-radius:var(--r-full);padding:2px var(--s2);margin-top:var(--s1)}
+.card-stat-trend.up{background:var(--c-success-bg);color:var(--badge-ok-text)}
+.card-stat-trend.down{background:var(--c-error-bg);color:var(--badge-err-text)}
+/* Stat-Strip — flache Bandstreifen-Variante (ohne Border, ohne Shadow) */
+.card-stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s6);padding:var(--s10) var(--s8);background:var(--n-50);text-align:center}
+.card-stat-flat{display:flex;flex-direction:column;gap:var(--s1);align-items:center}
+.card-stat-flat-value{font:var(--ty-display-sm);color:var(--tx-primary);margin:0}
+.card-stat-flat[data-area="co"] .card-stat-flat-value{color:var(--co-700)}
+.card-stat-flat[data-area="ki"] .card-stat-flat-value{color:var(--ki-700)}
+.card-stat-flat[data-area="es"] .card-stat-flat-value{color:var(--es-700)}
+.card-stat-flat[data-area="wo"] .card-stat-flat-value{color:var(--wo-700)}
+.card-stat-flat-label{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0}
+
+/* ── Forms ── */
+.field{margin-bottom:var(--s6)}
+.field label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+.req{color:var(--c-error);font-size:14px}
+.field input,.field textarea,.field select{width:100%;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A6565' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.field textarea{resize:vertical;max-width:100%}
+/* Such-Feld (inline gestyltes input[type=search]): Placeholder explizit auf tx-secondary statt
+   UA-Default — theme-aware und lesbar in beiden Modi (Light 6,3:1 / Dark 4,9:1). */
+[role="search"] input::placeholder{color:var(--tx-secondary)}
+.field.has-error input{border-color:var(--c-error)}
+.helper{font:var(--ty-body-xs);color:var(--tx-muted);margin-top:var(--s1)}
+.error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
+
+/* ── Typography specimens ── */
+.type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
+.type-row:last-child{border-bottom:none}
+.type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
+.type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
+.type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
+.type-rem{font:var(--ty-body-xs);color:var(--co-600);margin-top:1px}
+.type-token{font:400 12px/16px 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
+.type-sample{flex:1;color:var(--tx-primary)}
+
+/* ── Spacing ── */
+.sp-item{display:flex;align-items:center;gap:var(--s4);padding:var(--s2) 0}
+.sp-bar{height:20px;background:var(--co-50);border:1px solid var(--co-500);border-radius:2px;flex-shrink:0}
+
+/* ── Elevation ── */
+.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:100%;text-align:center;font:var(--ty-body-md);color:var(--tx-secondary)}
+.el-lbl{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
+
+/* ── Nav demo ── */
+.nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
+
+/* ── Snackbar ── */
+.snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
+.snack-def{background:var(--n-700);color:var(--n-0)}
+.snack-ok{background:#0d5e39;color:#d6f5e8}
+.snack-err{background:#7a1515;color:#fde8e8}
+.snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
+
+/* ── Footer ──
+   Zwei-Band-Layout: heller Main-Bereich (.footer-main) + dunkler Bottom-Streifen (.footer-btm).
+   Beide Bänder voll-breit; Inhalt jeweils auf 1280 px gedeckelt + zentriert
+   (analog zum oberen Inhaltsbereich in .ep-page, components.css:454). */
+.footer{display:flex;flex-direction:column}
+
+/* Main-Band: neutrales Hellgrau mit dunklem Text. --n-50 #F5F7F7 grenzt sich subtil von der weißen Page-bg ab. */
+.footer-main{background:var(--n-50);color:var(--tx-primary);padding-block:var(--s10);padding-inline:max(var(--s8), calc(50% - 640px))}
+
+/* 3-Spalten-Grid: Brand+Kontakt | Wichtige Inhalte | Contentletter (etwas breiter für das Formular) */
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:var(--s10)}
+
+/* Section-Headlines im Display-Serif. Gleicher Style für Brand, Nav-Header und Contentletter-Header. */
+/* Footer-Headlines auf Title Medium (sans 500, 18/26 px) — der Footer rückt damit visuell in den Hintergrund:
+   keine editoriale Serifen-Prominenz mehr, sondern eine ruhige Utility-Typografie. */
+.footer-brand{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4)}
+.footer-htitle{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4);text-transform:none;letter-spacing:0}
+
+.footer-nav-list{list-style:none;padding:0;margin:0}
+/* Inline-Links auf hellem Footer-bg. --tx-primary auf --n-50 ≈ 9.8:1 ✓ AAA. */
+.footer-link{font:var(--ty-body-md);color:var(--tx-primary);text-decoration:underline;text-underline-offset:3px;padding:0}
+.footer-link:hover{color:var(--co-700)}
+.footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* In Nav-Listen: Block-Layout + vertikale Tap-Area. padding 6px 0 ≈ 32 px Tap-Area. */
+.footer-nav-list .footer-link{display:block;padding:6px 0}
+
+/* Address-Block: semantisch <address>, Stack aus Adresse / Maps-Links / Telefon-Block. */
+.footer-address{font-style:normal;color:var(--tx-primary);margin:0}
+.footer-address p{font:var(--ty-body-md);margin:0 0 var(--s3)}
+.footer-address-maps{font:var(--ty-body-sm)}
+
+/* Body-Link: Inline-Link im Fließtext (Querverweise zwischen Doku-Abschnitten).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css → --co-200. */
+.body-link{color:var(--co-700);text-decoration:underline;text-underline-offset:2px}
+.body-link:hover{color:var(--co-800)}
+.body-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* Utility: Corporate-Brand-Text mit Dark-Override. */
+.t-co{color:var(--co-700)}
+/* Bereichs-Text-Utilities analog .t-co (Eyebrows, Labels, inline-Akzenttext); ki nutzt -800 (700 verfehlt AA). Dark-Overrides in dark-mode.css heben auf -200/-100. */
+.t-ki{color:var(--ki-800)}
+.t-es{color:var(--es-700)}
+.t-wo{color:var(--wo-700)}
+/* Detail-/Stellenseiten können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows) auf ihre Bereichsfarbe umstellen: data-accent am .ep-page-Root. ki nutzt -800 (700 verfehlt AA). */
+.ep-page[data-accent="ki"] .t-co{color:var(--ki-800)}
+.ep-page[data-accent="es"] .t-co{color:var(--es-700)}
+.ep-page[data-accent="wo"] .t-co{color:var(--wo-700)}
+.ep-page[data-accent="ki"] .body-link{color:var(--ki-800)}
+.ep-page[data-accent="es"] .body-link{color:var(--es-700)}
+.ep-page[data-accent="wo"] .body-link{color:var(--wo-700)}
+.ep-page[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
+.ep-page[data-accent="es"] .body-link:hover{color:var(--es-800)}
+.ep-page[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
+/* Footer + Topnav bleiben Chrome (co), auch auf area-getönten Seiten: data-accent tönt nur den
+   Seiteninhalt um, nicht die Navigation. Sonst wäre die aktive Sektion (.t-co am Nav-Toggle) z.B. auf
+   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten. */
+.ep-page[data-accent] .footer .body-link{color:var(--co-700)}
+.ep-page[data-accent] .footer .body-link:hover{color:var(--co-800)}
+.ep-page[data-accent] .ep-topnav .t-co{color:var(--co-700)}
+
+/* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
+.footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
+.footer-btm-link{color:var(--n-300);text-decoration:none;padding:6px 0}
+.footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
+.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Social-Icons rechtsbündig in der Bottom-Bar. Klick-Target 40x40 (WCAG 2.5.8 AAA), Icon 22x22 px. */
+.footer-social{display:flex;align-items:center;gap:var(--s2)}
+.footer-btm .footer-social{margin-left:auto}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--r-sm);transition:background var(--m-fast)}
+.footer-social a:hover{background:rgba(255,255,255,.08)}
+.footer-social a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-sm)}
+.footer-social img{max-width:22px;max-height:22px;object-fit:contain;display:block}
+
+/* Contentletter-Form (3. Spalte). Sichtbare Labels über jedem Input (Ihr Name / Ihre E-Mail-Adresse).
+   Consent vor Submit (DSGVO). Inputs auf weißem Background für ruhigen Kontrast im hellen Main-Band. */
+.footer-newsletter-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)}
+.footer-newsletter-form{display:flex;flex-direction:column}
+/* In flex-direction:column streckt der Default align-items:stretch jeden Block auf die volle Spaltenbreite.
+   Inputs sollen das (width:100%), aber der Submit-Button soll auf seine natürliche Pill-Breite zurückfallen. */
+.footer-newsletter-form button[type="submit"]{align-self:flex-start}
+.footer-field{display:block;margin-bottom:var(--s4)}
+/* Label folgt der Form-Komponente: uppercase + letter-spacing, --ty-label-sm, --tx-secondary.
+   So liest der Footer-Form identisch zu den Kontaktformularen (.field label) und unterscheidet
+   sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
+.footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+.footer-newsletter-form input[type="text"],
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+/* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
+.footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
+/* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und
+   AA-konsistent mit allen anderen Form-Komponenten (.field, .footer-link, .footer-btm-link). */
+.footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+/* Error-State, analog zu .field.has-error: --c-error-Border + Inline-Fehlertext mit Icon. */
+.footer-field.has-error input{border-color:var(--c-error)}
+.footer-field .error-msg{display:flex;gap:var(--s2);align-items:center;font:var(--ty-body-sm);color:var(--c-error);margin-top:var(--s2)}
+/* Consent als <label> mit Checkbox + Text — implizite Verknüpfung, keine IDs nötig (Footer in 10 Tabpanels). */
+.footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
+.footer-newsletter-consent input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer}
+/* Konsistenter Focus-Ring (Cutout-Effekt) statt Browser-Default — passt zu Footer-Links und Submit-Button. */
+.footer-newsletter-consent input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Mobile (< 768px): Footer-Grid stapelt einspaltig, Bottom-Bar bleibt Flex-Wrap.
+   Padding-block etwas reduziert für kompakte Höhe auf Mobile. */
+@media (max-width: 768px) {
+  .footer-grid{grid-template-columns:1fr;gap:var(--s8)}
+  .footer-main{padding-block:var(--s8)}
+  .footer-btm .footer-social{margin-left:0}
+}
+
+/* ── A11y ── */
+.a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
+.a11y-card h3{font:var(--ty-title-sm);margin-bottom:var(--s2)}
+.a11y-card p{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s3)}
+.a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
+.a11y-grid .a11y-card{margin-bottom:0}
+.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:'Courier New',monospace;font-size:12px;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
+.a11y-table{width:100%;border-collapse:collapse;font:var(--ty-body-md);margin:var(--s3) 0}
+.a11y-table th{text-align:left;padding:var(--s2) var(--s3);background:var(--n-50);border-bottom:2px solid var(--n-200);font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
+.a11y-table td{padding:var(--s2) var(--s3);border-bottom:var(--bd);vertical-align:top;line-height:1.5}
+.a11y-table tr:last-child td{border-bottom:none}
+.a11y-rule{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3) 0;border-bottom:var(--bd)}
+.a11y-rule:last-child{border-bottom:none}
+.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:1px}
+.a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
+.a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
+.code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:13px;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
+.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
+/* ── Code-Block Komponente (Wissensbeitrag) ── */
+.cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
+.cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
+.cb-lang{font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em;color:var(--co-700)}
+.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-400);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.cb-copy:hover{background:var(--n-200);color:var(--n-600)}
+.cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:13px;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
+.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--n-400)}.cb-body .fn{color:var(--ro-600)}
+/* Zeilennummern */
+.cb-body.cb-numbered{line-height:0}
+.cb-numbered .cb-ln{display:flex;gap:var(--s3);line-height:1.6}
+.cb-numbered .cb-ln::before{content:attr(data-n);color:var(--n-300);font-size:12px;min-width:20px;text-align:right;flex-shrink:0;user-select:none}
+/* Terminal */
+.cb-terminal .cb-header{background:#080f08}
+.cb-terminal .cb-lang{color:#5CE8A0}
+.cb-terminal .cb-body{background:#0b110b;color:#b8d8b8}
+.cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
+.cb-terminal .cb-out{color:rgba(180,210,180,.55)}
+/* Inline code in Fließtext */
+.cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
+.contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
+.contrast-row:last-child{border-bottom:none}
+/* Keine Doppellinie: folgt direkt eine Gruppen-Überschrift (mit eigenem border-top als Trenner),
+   lässt die letzte Zeile ihre Unterlinie weg — sonst stehen zwei parallele Linien untereinander. */
+.contrast-row:has(+ .group-title){border-bottom:none}
+.cswatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.cinfo{flex:1;min-width:160px}
+.cname{font:var(--ty-label-md)}
+.cratio{font-size:13px;color:var(--tx-secondary);font-family:'Courier New',monospace}
+.cbadge{display:inline-flex;align-items:center;padding:3px var(--s2);border-radius:var(--r-full);font:var(--ty-label-xs)}
+.c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
+.c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}
+.c-fail-badge{background:var(--cbadge-fail-bg);color:var(--cbadge-fail-text)}
+/* Modus-Pill für Kontrast-Zeilen. Macht explizit, ob ein Kontrast-Wert sich auf Light, Dark oder beide Themes bezieht.
+   Neutral gestaltet (Border statt Fill), damit das WCAG-Badge daneben optisch dominiert. */
+.a11y-mode{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em;border:var(--bd);background:transparent;color:var(--tx-secondary);margin-right:var(--s2);vertical-align:middle;white-space:nowrap}
+
+/* ── Slider ── */
+.field-slider{display:flex;flex-direction:column;gap:var(--s2)}
+.field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
+.field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
+.field-slider-output{font:600 14px/20px var(--font);color:var(--sl-color,var(--co-700));min-width:56px;text-align:right}
+.field-slider-ticks{display:flex;justify-content:space-between;font:var(--ty-caption);color:var(--tx-muted);padding:0 2px}
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-full);background:var(--n-200);outline:none;cursor:pointer;display:block;margin:var(--s3) 0 var(--s1)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
+.slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
+.slider:hover:not(:disabled)::-webkit-slider-thumb{transform:scale(1.2);box-shadow:var(--e3)}
+.slider:hover:not(:disabled)::-moz-range-thumb{transform:scale(1.2);box-shadow:var(--e3)}
+.slider:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.slider:disabled{opacity:.38;cursor:not-allowed}
+.slider-co,.field-slider-output.slider-co{--sl-color:var(--co-500)}
+.slider-ki,.field-slider-output.slider-ki{--sl-color:var(--ki-700)}
+.slider-es,.field-slider-output.slider-es{--sl-color:var(--es-500)}
+.slider-wo,.field-slider-output.slider-wo{--sl-color:var(--wo-500)}
+
+/* ── Bild-Slider (Carousel) ── */
+/* Basis: Crossfade — alle Slides als Grid-Items in derselben Zelle übereinander gestapelt; aktive Slide trägt .active und ist sichtbar */
+.img-slider{position:relative;border-radius:var(--r-lg);overflow:hidden;user-select:none}
+.img-slider-track{display:grid;grid-template-columns:1fr;grid-template-rows:1fr}
+.img-slide{grid-column:1/-1;grid-row:1/-1;opacity:0;transition:opacity 600ms ease;pointer-events:none}
+.img-slide.active{opacity:1;pointer-events:auto}
+.img-slide-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--n-100)}
+.img-slide-media img{width:100%;height:100%;object-fit:cover;display:block}
+.img-slide-caption{padding:var(--s4) var(--s6);background:var(--bg-surface);border-top:var(--bd);min-height:112px;overflow:hidden}
+.img-slide-caption-title{font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-slide-caption-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.img-slider-btn{position:absolute;top:calc(50% - 28px);transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(4px);border:none;box-shadow:var(--e2);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background var(--m-fast),box-shadow var(--m-fast);color:#333E48}/* Kreis ist in beiden Modi fest weiß → Chevron fest dunkel (nicht tx-primary, das im Dark auf hell flippt → hell-auf-weiß) */
+.img-slider-btn:hover{background:#fff;box-shadow:var(--e3)}
+.img-slider-btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.img-slider-prev{left:var(--s4)}
+.img-slider-next{right:var(--s4)}
+.img-slider-dots{display:flex;justify-content:center;padding:var(--s4) 0;background:var(--bg-surface);position:relative;z-index:2}
+/* Dot-Pattern: 24×24 Hit-Area (WCAG 2.5.5 AA) + 12×12 sichtbarer Punkt via ::before, gap:0 */
+.img-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.img-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.img-dot:hover::before{background:var(--n-400)}
+.img-dot.active::before{background:var(--co-500);transform:scale(1.25)}
+.img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+/* Hero-Variante — vollflächig, 21:9-Format, Caption als Overlay über dem Bild */
+.img-slider-hero{border-radius:0}
+.img-slider-hero .img-slider-track{aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px)}
+.img-slider-hero .img-slide-media{height:100%;aspect-ratio:auto;min-height:0}
+.img-slider-hero .img-slide-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,transparent 100%);border-top:none;padding:var(--s10) var(--s8) var(--s10);height:auto;overflow:visible}
+.img-slider-hero .img-slide-caption-title{color:#fff;font-size:clamp(20px,2.5vw,32px);line-height:1.25}
+.img-slider-hero .img-slide-caption-text{color:rgba(255,255,255,.8);height:auto;overflow:visible}
+.img-slider-hero .img-slider-btn{top:50%}
+.img-slider-hero .img-slider-dots{position:absolute;bottom:var(--s4);left:0;right:0;background:none;border:none;padding:0}
+.img-slider-hero .img-dot::before{background:rgba(255,255,255,.35)}
+.img-slider-hero .img-dot.active::before{background:#fff}
+
+/* ── Hero-Image (statische Variante der Slider-Hero, ohne Track/Buttons/Dots) ── */
+.hero-image{position:relative;overflow:hidden;margin:0}
+.hero-image-media{width:100%;aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px);overflow:hidden;background:var(--n-100);display:flex;align-items:center;justify-content:center}
+.hero-image-media img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.65) 50%,transparent 100%);padding:var(--s10) var(--s8);margin:0}
+.hero-image-caption-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 var(--s2);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.hero-image-caption-title{font:var(--ty-serif-md);color:#fff;font-size:clamp(20px,2.5vw,32px);line-height:1.25;margin:0 0 var(--s1);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.hero-image-caption-text{font:var(--ty-body-md);color:rgba(255,255,255,.92);margin:0;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+@media(prefers-reduced-motion:reduce){.img-slide{transition:none}}
+
+/* ── Logo-Tiles (geteilt vom Logo-Karussell) ── */
+/* Logos sitzen randlos auf der weißen Platte (.logo-carousel) — keine Einzel-Box, kein Hover-Lift:
+   Logos sind nicht klickbar, ein Lift wäre falsche Interaktions-Andeutung („Elevation = Interaktivität").
+   Einheitliche, großzügige Logo-Höhe (100px) statt der alten 72px-Kachel mit nur ~48px nutzbarer Höhe. */
+.logo-tile{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:var(--s2) var(--s4)}
+.logo-tile img{max-height:100px;max-width:100%;width:auto;height:auto;object-fit:contain}
+.logo-placeholder{font:700 16px/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
+
+/* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
+/* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
+   Dark-Variante → auf theme-reaktivem Grund würden sie im Dark unsichtbar. Weiß bleibt weiß. */
+.logo-carousel{position:relative;background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+.logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
+.logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
+.logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.logo-carousel .logo-tile{width:auto;min-width:0}
+.logo-carousel-dots{display:flex;justify-content:center;margin-top:var(--s5)}
+/* Identischer Pattern wie .img-dot: 24×24 Hit-Area + 12×12 sichtbarer Punkt, gap:0 */
+.logo-carousel-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.logo-carousel-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.logo-carousel-dot:hover::before{background:var(--n-400)}
+.logo-carousel-dot[aria-selected="true"]::before{background:var(--co-500);transform:scale(1.25)}
+.logo-carousel-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+.logo-carousel-pause{position:absolute;top:var(--s2);right:var(--s2);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0;color:var(--n-500)}
+.logo-carousel:hover .logo-carousel-pause,.logo-carousel:focus-within .logo-carousel-pause{opacity:1}
+.logo-carousel.paused .logo-carousel-pause{opacity:1}
+.logo-carousel-pause:hover{color:var(--n-700);box-shadow:var(--e2)}
+.logo-carousel-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-carousel-pause .icon-play{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-pause{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-play{display:block}
+/* Reduced Motion: Transition aus, Autoplay wird per JS deaktiviert */
+@media(prefers-reduced-motion:reduce){.logo-carousel-slide{transition:none}}
+
+/* ── Grid ── */
+.grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
+.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
+.gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font:var(--ty-label-xs);color:var(--co-700);text-align:center}
+
+/* ── Token ── */
+.token-section{margin-bottom:var(--s8)}
+.token-section h3{font:var(--ty-title-sm);margin-bottom:var(--s3)}
+.ico-48{width:48px;height:48px}
+
+/* ── Example Pages ── */
+/* Beispielseiten-Auswahl: nach IA gruppiert (Allgemein/Leistungen/Wissen/Unternehmen/Veranstaltungen),
+   je Gruppe eine dezente Label-Zeile über den Pills. Gekürzte Pill-Labels (voller Name via aria-label). */
+/* Alle Gruppen als Spalten nebeneinander (füllt die Breite, hält die Leiste flach);
+   klappt auf schmalen Screens automatisch auf weniger Spalten um. */
+.ep-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6) var(--s8);align-items:start;margin-bottom:var(--s8)}
+.ep-tab-group{display:flex;flex-direction:column;gap:var(--s3)}
+.ep-tab-group-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary)}
+.ep-tab-group-row{display:flex;gap:var(--s2);flex-wrap:wrap}
+.ep-tab{padding:7px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font:var(--ty-label-sm);cursor:pointer;background:var(--bg-surface);color:var(--tx-secondary);transition:all var(--m-fast)}
+.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
+.ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500);box-shadow:var(--e1)}
+.ep-tab.active:hover{background:var(--co-500);color:#fff;border-color:var(--co-500)}
+/* Hierarchie in einer Gruppe (Leistungen, Unternehmen): Oberpunkte stapeln untereinander,
+   Unterpunkte eingerückt mit dezenter Leitlinie (wie ein Nav-Baum). */
+.ep-tab-group-row.is-tree{flex-direction:column;align-items:flex-start}
+.ep-tab-node{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2)}
+.ep-tab-parent{display:flex;align-items:center;gap:var(--s2)}
+.ep-tab-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0;border-radius:var(--r-full);border:1px solid var(--n-200);background:var(--bg-surface);color:var(--tx-secondary);cursor:pointer;padding:0;transition:all var(--m-fast)}
+.ep-tab-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
+.ep-tab-toggle:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-tab-toggle-caret{width:14px;height:14px;transition:transform var(--m-fast)}
+.ep-tab-node.is-open .ep-tab-toggle-caret{transform:rotate(180deg)}
+/* Unterpunkte standardmäßig eingeklappt, per Toggle (.is-open) aufklappbar */
+.ep-tab-children{display:none;flex-wrap:wrap;gap:var(--s2);margin-left:var(--s4);padding-left:var(--s4);border-left:1px solid var(--n-200)}
+.ep-tab-node.is-open > .ep-tab-children{display:flex}
+/* position:relative, damit .skip-link (position:absolute) sich am ep-Page-Frame orientiert
+   und nicht außerhalb der Preview-Karte erscheint. overflow:hidden clipped die negative
+   top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
+.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
+.ep-page.visible{display:block}
+/* Beispielseiten dürfen über den 1280-Spec hinaus auf 1500px breit werden */
+/* Breite an data-section (vom Inline-Head-Script vor dem Paint gesetzt) — verhindert den Layout-Sprung,
+   den :has() allein verursacht (greift erst, wenn JS die Sektion nach dem Paint sichtbar macht).
+   :has bleibt als Laufzeit-Backup für Wechsel, die nicht über activateSection laufen. */
+html[data-section="examples"] .ds-content,
+.ds-content:has(#sec-examples.visible){max-width:1500px}
+/* Inhalt der Sektionen folgt aber dem 1280px-Spec — Hintergründe bleiben volle Panel-Breite,
+   Content wird über fluides Inline-Padding zentriert (kein zusätzlicher Wrapper nötig). */
+.ep-page .ep-topnav,
+.ep-page .ep-section,
+.ep-page .card-stat-strip,
+.ep-page .ep-cta-band,
+.ep-page .ep-media-band,
+.ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
+/* Akzent-Bänder: gerundete Ecken wie Karten & übrige Bilder (r-lg). Radius aufs <img>, da das
+   <figure> durch das Content-Gutter-Padding breiter ist als das sichtbare Bild. */
+.ep-page .ep-media-band img{border-radius:var(--r-lg)}
+/* .footer hat eigene Bänder (.footer-main/.footer-btm) mit eigenem padding-inline.
+   Auf .footer hier kein Padding setzen — sonst doppelte Einrückung und der Background-Streifen
+   reicht nicht bis zur .ep-page-Kante. */
+.ep-topnav{display:flex;align-items:center;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s8);flex-wrap:wrap}
+/* Kontakt-Button (letztes Direct-Child) wird nach rechts gedrückt; Nav hängt direkt am Logo */
+.ep-topnav > :last-child{margin-left:auto}
+.ep-logo{font:500 24px/32px var(--font);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center;color:inherit;text-decoration:none;border-radius:var(--r-xs)}
+a.ep-logo{cursor:pointer}
+a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-logo img{display:block;height:24px;width:auto}
+/* Theme-aware logo swap: default für hellen, light für dunklen Hintergrund.
+   img.-Präfix (Element+Klasse, 0,1,1) ist nötig: .ep-logo img{display:block} (0,1,1) schlägt sonst
+   die reine .logo-themed-light-Klasse (0,1,0) → im Light bliebe das WEISSE Logo sichtbar (weiß-auf-weiß
+   unsichtbar, belegte aber ~Logobreite und schob .ep-nav-links nach rechts). Dark-Regeln (0,2,1) gewinnen. */
+img.logo-themed-light{display:none}
+[data-theme="dark"] img.logo-themed-default{display:none}
+[data-theme="dark"] img.logo-themed-light{display:block}
+.ep-nav-links{display:flex;gap:var(--s6);font:var(--ty-label-md);align-items:center}
+/* Top-Level-Links: Akzent-Unterstrich bei Hover/aktiv (statt Opacity-Fade). Der aktive Zustand
+   ist nicht nur farbig (co-700), sondern zusätzlich durch den Unterstrich markiert (kein
+   reiner Farb-Indikator → WCAG 1.4.1). */
+.ep-nav-btn{position:relative;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;text-decoration:none;transition:color var(--m-fast)}
+.ep-nav-btn:link,.ep-nav-btn:visited{color:inherit;text-decoration:none}
+/* Aktiv-Unterstrich: co-700 statt co-500 → 5,52:1 auf weiß (WCAG 1.4.11 ≥3:1; co-500 lag bei 2,31:1).
+   Dark-Override auf co-200 in dark-mode.css. Farbe spiegelt die Aktiv-Textfarbe. */
+.ep-nav-btn::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:1px;background:var(--co-700);opacity:0;transition:opacity var(--m-fast)}
+/* Unterstrich (::after) = ausschließlich Aktiv-Indikator (aria-current). Hover/Öffnen markieren nur
+   über Petrol-Farbe (+ Caret-Dreh beim Toggle), damit das Aufklapp-Menü nicht an der Linie klebt. */
+.ep-nav-btn:hover{color:var(--co-700)}
+.ep-nav-btn:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.ep-nav-btn[aria-current="page"]{color:var(--co-700)}
+.ep-nav-btn[aria-current="page"]::after{opacity:1}
+/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Toggle denselben Unterstrich —
+   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt. */
+.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-item-toggle::after{opacity:1}
+/* Submenü unter "Leistungen"/"Unternehmen" — Hover/Focus-Within zeigt die Einträge */
+.ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
+.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;line-height:1}
+.ep-nav-item-caret{width:10px;height:10px;display:inline-block;margin-left:4px;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
+/* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
+   offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
+   Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
+   öffnete sonst Menüs unabhängig vom Klick-Zustand und ließ zwei gleichzeitig offen, weil Hover die per
+   Klick offenen Geschwister nicht schließt. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
+.ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
+.ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
+.ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
+.ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+/* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
+   Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
+.ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
+.ep-nav-sub-btn:hover{background:var(--co-50);color:var(--co-700)}
+.ep-nav-sub-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-sub-btn[aria-current="page"]{background:var(--co-50);color:var(--co-700);font-weight:600}
+/* Hamburger (per JS injiziert) — nur unter dem Mobile-Breakpoint sichtbar */
+.ep-nav-burger{display:none;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border:1px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface);color:var(--tx-primary);cursor:pointer;padding:0}
+.ep-nav-burger:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-nav-burger .icon-close{display:none}
+.ep-topnav.nav-open .ep-nav-burger .icon-menu{display:none}
+.ep-topnav.nav-open .ep-nav-burger .icon-close{display:inline}
+@media(max-width:760px){
+  /* Erste Zeile: Logo links, Burger + Kontakt rechts. Nav-Links klappen darunter auf. */
+  .ep-logo{order:1}
+  .ep-nav-burger{display:inline-flex;order:2;margin-left:auto}
+  .ep-topnav > .btn{order:3;margin-left:var(--s3)}
+  .ep-nav-links{display:none;order:4;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
+  .ep-topnav.nav-open .ep-nav-links{display:flex}
+  .ep-nav-item{flex-direction:column;align-items:stretch;width:100%;gap:0}
+  .ep-nav-btn,.ep-nav-item-toggle{width:100%;padding:var(--s3) 0}
+  .ep-nav-item-toggle{justify-content:space-between}
+  .ep-nav-btn::after{display:none}
+  /* Untermenü inline aufklappen statt als schwebendes Overlay */
+  .ep-nav-sub{position:static;display:none;box-shadow:none;border:none;background:none;padding:0 0 var(--s2) var(--s4);min-width:0}
+  .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+  .ep-nav-sub-btn{padding:var(--s2) var(--s3);white-space:normal}
+}
+.ep-hero-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3)}
+.ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
+.ep-section{padding:var(--s12) var(--s8);text-align:left}
+.ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+.ep-section-h2{font:var(--ty-headline-md);color:var(--tx-primary);margin-bottom:var(--s2)}
+/* margin-bottom --s8 (32 px): Sub-Cards-Gap (32) ist bewusst kleiner als section-padding-bottom (48),
+   damit das Auge die Card-Reihe als „optisch mittig" wahrnimmt (psychologische Mitte liegt über der
+   geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
+   Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
+.ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
+/* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
+   Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
+.ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}
+.ep-compare-summary{display:inline-flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;color:var(--ki-800);cursor:pointer;list-style:none}
+.ep-compare-summary::-webkit-details-marker{display:none}
+.ep-compare-summary:hover{color:var(--ki-900)}
+.ep-compare-summary:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.ep-compare-caret{width:16px;height:16px;flex-shrink:0;transition:transform var(--m-fast)}
+.ep-compare[open] .ep-compare-caret{transform:rotate(180deg)}
+.ep-compare-table-wrap{overflow-x:auto;margin-top:var(--s5)}
+.ep-compare-table{width:100%;border-collapse:collapse;font:var(--ty-body-sm)}
+.ep-compare-table th,.ep-compare-table td{padding:var(--s3);border-bottom:var(--bd)}
+.ep-compare-table thead th{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary);text-align:center}
+.ep-compare-table thead th:first-child{text-align:left}
+.ep-compare-table thead th:not(:first-child){width:8rem}
+.ep-compare-table tbody th{text-align:left;font:var(--ty-body-sm);font-weight:400;color:var(--tx-secondary)}
+.ep-compare-table tbody td{text-align:center;color:var(--tx-secondary)}
+.ep-compare-table tbody tr:last-child th,.ep-compare-table tbody tr:last-child td{border-bottom:none}
+.ep-compare-table .ep-compare-pro{background:var(--ki-50)}
+.ep-compare-table thead .ep-compare-pro{color:var(--ki-800);border-bottom:2px solid var(--ki-500)}
+.ep-compare-yes{color:var(--ki-800);font-weight:700}
+.ep-compare-no{color:var(--tx-muted)}
+/* Gap --s6 (24 px) statt --s4 (16 px), damit der Card-Rhythmus konsistent zu .layout-grid bleibt
+   (Wissensbeiträge, Veranstaltungen, Team nutzen ebenfalls --s6). Border-Radius und Box-Shadow
+   der Cards tragen das Container-Gefühl, auch wenn padding ≈ gap ist. */
+.ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6)}
+/* Padding 24 (--s6) statt 20 (--s5), damit Innen-Atem ≥ 1,5× Außen-Gap (--s4 = 16 px).
+   Sonst lösen sich die Cards visuell auf — Innen- und Außenabstand wären zu nah beieinander. */
+/* Konvention „Elevation = Interaktivität": statische Cards ruhen flach mit Rahmen (--bd-strong),
+   kein Schatten. Schatten ist interaktiven Cards (.ep-card-link) vorbehalten → eindeutiges Affordanz-Signal. */
+.ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
+/* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
+   Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+/* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
+   wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
+   sind unberuehrt. */
+.ep-card-icon svg{width:32px;height:32px;stroke-width:var(--icon-stroke-sm)}
+/* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
+.ep-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)}
+.ep-card-eyebrow[data-area="co"]{color:var(--co-700)}
+.ep-card-eyebrow[data-area="ki"]{color:var(--ki-800)}
+.ep-card-eyebrow[data-area="es"]{color:var(--es-700)}
+.ep-card-eyebrow[data-area="wo"]{color:var(--wo-700)}
+.ep-card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2)}
+.ep-card-text{font:var(--ty-body-md);color:var(--tx-secondary)}
+/* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
+/* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
+   border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast)}
+.ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
+.ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
+/* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
+.ep-card-cta{font:var(--ty-label-md);color:var(--co-700);margin-top:auto;padding-top:var(--s4);display:inline-flex;align-items:center;gap:var(--s1)}
+.ep-card[data-area="co"] .ep-card-cta{color:var(--co-700)}
+.ep-card[data-area="ki"] .ep-card-cta{color:var(--ki-800)}
+.ep-card[data-area="es"] .ep-card-cta{color:var(--es-700)}
+.ep-card[data-area="wo"] .ep-card-cta{color:var(--wo-700)}
+/* Card-CTA-Link (z.B. „Beitrag lesen →" am Karten-Fuß).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
+   --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
+.card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
+/* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
+   padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
+.card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
+/* ── Offene Feature-Liste (flaches Icon-Layout, gruppiert nach Tier; Alternative zu Bild-Cards) ── */
+.ep-feature{display:flex;gap:var(--s4)}
+/* Icon-Kachel: Glyph hat AA-Kontrast zur Kachel — Core tx-secondary/n-100 5.3:1, Pro ki-800/ki-50 7.5:1.
+   tx-secondary + n-100 sind theme-aware, Core flippt also automatisch (Dark 6.0:1).
+   Pro braucht einen Dark-Override, weil --ki-800 dunkel bleibt, --ki-50 aber dunkel wird → dark-mode.css. */
+.ep-feature-icon{flex:0 0 48px;width:48px;height:48px;border-radius:var(--r-sm);display:inline-flex;align-items:center;justify-content:center;background:var(--n-100);color:var(--tx-secondary)}
+.ep-feature-icon svg{width:26px;height:26px;stroke-width:var(--icon-stroke-md)}
+.ep-feature-icon[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.ep-feature-icon[data-area="co"]{background:var(--co-50);color:var(--co-800)}
+.ep-feature-icon[data-area="es"]{background:var(--es-50);color:var(--es-800)}
+.ep-feature-icon[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+.ep-feature-body{display:flex;flex-direction:column;gap:var(--s1)}
+.ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
+.ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+/* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
+.ep-tier{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s6)}
+.ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
+.ep-tier-label[data-area="ki"]{color:var(--ki-800)}
+.ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
+/* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+.ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
+/* ── FAQ-Accordion (native details/summary) ── */
+.ep-faq{max-width:none}
+.ep-faq details{border-top:var(--bd)}
+.ep-faq details:last-of-type{border-bottom:var(--bd)}
+.ep-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s4) 0;font:var(--ty-title-sm);color:var(--tx-primary)}
+.ep-faq summary::-webkit-details-marker{display:none}
+.ep-faq summary:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-faq-caret{flex:0 0 auto;color:var(--tx-secondary);transition:transform var(--m-fast)}
+.ep-faq details[open] .ep-faq-caret{transform:rotate(180deg)}
+.ep-faq-a{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4);max-width:680px}
+/* ── Download CTA ── */
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
+.cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
+.cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
+.cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
+.cta-dl[data-area="wo"]{--cta-accent:var(--wo-500)}
+.cta-dl-icon{width:64px;height:64px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-dl[data-area="co"] .cta-dl-icon{background:var(--co-50);color:var(--co-700)}
+.cta-dl[data-area="ki"] .cta-dl-icon{background:var(--ki-50);color:var(--ki-700)}
+.cta-dl[data-area="es"] .cta-dl-icon{background:var(--es-50);color:var(--es-700)}
+.cta-dl[data-area="wo"] .cta-dl-icon{background:var(--wo-50);color:var(--wo-700)}
+.cta-dl-body{flex:1}
+.cta-dl-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
+.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-600)}
+.cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-800)}
+.cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-700)}
+.cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-700)}
+.cta-dl-title{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
+.cta-dl-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s3)}
+.cta-dl-meta{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
+.cta-dl-actions{display:flex;flex-direction:column;gap:var(--s2);align-items:stretch;flex-shrink:0;min-width:152px}
+/* Compact strip */
+.cta-strip{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s4);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
+.cta-strip-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-strip[data-area="co"] .cta-strip-icon{background:var(--co-50);color:var(--co-700)}
+.cta-strip[data-area="ki"] .cta-strip-icon{background:var(--ki-50);color:var(--ki-700)}
+.cta-strip[data-area="es"] .cta-strip-icon{background:var(--es-50);color:var(--es-700)}
+.cta-strip[data-area="wo"] .cta-strip-icon{background:var(--wo-50);color:var(--wo-700)}
+.cta-strip-body{flex:1;display:flex;flex-direction:column;gap:2px}
+.cta-strip-title{font:var(--ty-label-md);color:var(--tx-primary)}
+.cta-strip-meta{font:var(--ty-body-xs);color:var(--tx-muted)}
+/* Minimal link */
+.cta-link{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);text-decoration:none;padding:var(--s2) 0;border-bottom:1px solid transparent;transition:border-color var(--m-fast)}
+.cta-link[data-area="co"]{color:var(--co-700)}
+.cta-link[data-area="ki"]{color:var(--ki-800)}
+.cta-link[data-area="es"]{color:var(--es-700)}
+.cta-link[data-area="wo"]{color:var(--wo-700)}
+.cta-link:hover{border-bottom-color:currentColor}
+.cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
+/* Mit Vorschaubild */
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);box-shadow:var(--e1);overflow:hidden}
+.cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
+.cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}
+.cta-visual-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
+.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-600)}
+.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-800)}
+.cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-700)}
+.cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-700)}
+.cta-visual-title{font:var(--ty-headline-xs);color:var(--tx-primary);margin:0 0 var(--s2)}
+.cta-visual-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0;flex:1}
+.cta-visual-footer{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;margin-top:auto;padding-top:var(--s4);border-top:var(--bd)}
+.ep-cta-band{padding:var(--s12) var(--s8);text-align:center}
+.ep-cta-h2{font:var(--ty-headline-md);margin-bottom:var(--s2)}
+.ep-cta-sub{font:var(--ty-body-md);opacity:.85;margin-bottom:var(--s6)}
+/* Beispielseiten: iframes der Prototypen (volle Breite, kein Border) */
+
+/* ── Tabelle ── */
+.tbl-wrap{overflow-x:auto}
+.tbl-wrap:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.tbl{width:100%;border-collapse:collapse;font:var(--ty-body-md);color:var(--tx-primary)}
+.tbl caption{font:var(--ty-title-sm);color:var(--tx-primary);padding:0 0 var(--s5);text-align:left}
+.tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s3) var(--s5);background:var(--n-50);border-bottom:2px solid var(--n-200);border-top:var(--bd);text-align:left;white-space:nowrap}
+.tbl tbody td,.tbl tbody th{padding:var(--s4) var(--s5);border-bottom:var(--bd);vertical-align:top}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
+.tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--bg-overlay)}
+.tbl tbody th{font:var(--ty-label-md);color:var(--tx-primary);text-align:left}
+.tbl tfoot td,.tbl tfoot th{padding:var(--s4) var(--s5) 0;font:var(--ty-label-sm);color:var(--tx-primary);border-top:2px solid var(--n-200);text-align:left}
+.tbl td[data-num],.tbl th[data-num]{text-align:right;font-variant-numeric:tabular-nums}
+/* Striped variant */
+.tbl--striped tbody tr:nth-child(even) td,.tbl--striped tbody tr:nth-child(even) th{background:var(--n-50)}
+.tbl--striped tbody tr:hover td,.tbl--striped tbody tr:hover th{background:var(--bg-overlay)}
+/* Sortierbare Spalten */
+.tbl-sort{display:inline-flex;align-items:center;gap:var(--s1);background:none;border:none;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;padding:0}
+.tbl-sort:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.tbl-sort svg{opacity:.3;transition:opacity var(--m-fast)}
+.tbl-sort:hover svg{opacity:.7}
+thead th[aria-sort="ascending"] .tbl-sort svg,
+thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
+
+/* ── Wissensbeitrag (Article) ── */
+/* Header: zentrierter Block mit Breadcrumb · Pill · Titel · Lead · Meta */
+.article-header{max-width:880px;margin:0 auto;text-align:center}
+.article-breadcrumb{font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s5)}
+.article-breadcrumb a{color:inherit;text-decoration:none}
+.article-breadcrumb [aria-current="page"]{color:var(--tx-primary);font-weight:500}
+.article-breadcrumb-sep{margin:0 var(--s2)}
+/* Pill: Kategorie · Format · Lesezeit, area-aware */
+.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
+.pill[data-area="co"]{background:var(--co-50);color:var(--co-800)}
+.pill[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.pill[data-area="es"]{background:var(--es-50);color:var(--es-700)}
+.pill[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+.article-title{font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance}
+/* Lead-Paragraph für Artikel-Header: 18 px, eine Stufe über Body-Md (16) und unter Title-Sm (20).
+   Bewusst hardcoded statt eigenes Token, weil Lead nur in einer Komponente vorkommt. */
+.article-lead{font:400 18px/28px var(--font);color:var(--tx-secondary);margin:0 auto;max-width:680px;text-wrap:pretty}
+/* Meta-Strip: Avatar · Name/Rolle · Trenner · Datum */
+.article-meta{display:flex;align-items:center;justify-content:center;gap:var(--s4);margin-top:var(--s8);flex-wrap:wrap}
+.article-meta-author{display:flex;align-items:center;gap:var(--s3)}
+.article-meta-text{text-align:left}
+.article-meta-name{font:var(--ty-label-md);color:var(--tx-primary);margin:0}
+.article-meta-role{font:var(--ty-body-xs);color:var(--tx-muted);margin:0}
+.article-meta-sep{display:inline-block;width:1px;height:24px;background:var(--n-200)}
+.article-meta-date{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
+/* Avatar (Initialen-Kreis), area-aware; .article-avatar-lg für Author-Card-Größe; <img> als Kind ersetzt die Initialen */
+.article-avatar{width:40px;height:40px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;font:600 14px/1 var(--font);letter-spacing:.04em;flex-shrink:0;background:var(--co-100);color:var(--co-800);position:relative;overflow:hidden}
+.article-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.article-avatar[data-area="co"]{background:var(--co-100);color:var(--co-800)}
+.article-avatar[data-area="ki"]{background:var(--ki-100);color:var(--ki-800)}
+.article-avatar[data-area="es"]{background:var(--es-100);color:var(--es-700)}
+.article-avatar[data-area="wo"]{background:var(--wo-100);color:var(--wo-800)}
+.article-avatar-lg{width:64px;height:64px;font-size:20px}
+/* XL für Team-Tile-Grid auf Landing/Über-uns: 160 px (war 112 px). Mit 4 Tiles pro Reihe (col-3)
+   füllt das Foto die Tile-Breite sinnvoll aus, statt verloren in der Whitespace zu wirken.
+   Author-Card-Bios bleiben bei -lg (64 px), weil sie horizontal neben Bio-Text sitzen. */
+.article-avatar-xl{width:160px;height:160px;font-size:48px}
+/* Multi-Author: Avatare gestapelt mit weißem Border-Halo zur visuellen Überlappung */
+.article-avatar-stack{display:inline-flex;align-items:center;flex-shrink:0}
+.article-avatar-stack .article-avatar{border:2px solid var(--bg-surface)}
+.article-avatar-stack .article-avatar + .article-avatar,
+.article-avatar-stack .article-avatar + .article-avatar-more{margin-left:-12px}
+.article-avatar-stack .article-avatar-lg + .article-avatar-lg,
+.article-avatar-stack .article-avatar-lg + .article-avatar-more{margin-left:-16px}
+/* "+N"-Indikator für 4+ Autor:innen */
+.article-avatar-more{width:40px;height:40px;border-radius:var(--r-full);background:var(--n-100);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;font:600 12px/1 var(--font);letter-spacing:.02em;flex-shrink:0;border:2px solid var(--bg-surface)}
+/* Author-Card-Group: mehrere Author-Cards untereinander am Artikelende */
+.author-card-group{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
+.author-card-group .author-card{margin:0;max-width:none}
+/* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
+.author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
+/* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
+.article-body{max-width:720px;margin:0 auto;font:var(--ty-body-md);color:var(--tx-primary);line-height:1.7}
+.article-body > p{margin:0 0 var(--s5)}
+.article-body > p:last-child{margin-bottom:0}
+.article-body h2{font:var(--ty-headline-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);text-wrap:balance}
+.article-body ul,.article-body ol{padding-left:var(--s5);margin:0 0 var(--s5)}
+.article-body ul li{margin-bottom:var(--s4)}
+.article-body ol li{margin-bottom:var(--s3)}
+/* In-Article Figure: redaktionelles Inline-Bild mit Bildunterschrift; alt beschreibt, figcaption ordnet ein */
+.article-figure{margin:var(--s8) 0}
+.article-figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);display:block;background:var(--n-100)}
+.article-figcaption{font:var(--ty-body-md);color:var(--tx-secondary);text-align:center;margin:var(--s3) 0 0;text-wrap:balance}
+/* Inhaltsverzeichnis: aufklappbar via native <details>/<summary>, default zugeklappt; minimaler Stil — kein Container, nur dünne Trennlinien oben/unten */
+.article-toc{max-width:720px;margin:var(--s6) auto var(--s8);border-block:var(--bd)}
+.article-toc-summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s3) 0;font:var(--ty-label-md);color:var(--tx-primary);cursor:pointer;list-style:none}
+.article-toc-summary::-webkit-details-marker{display:none}
+.article-toc-summary:hover{color:var(--co-700)}
+.article-toc-summary:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.article-toc-caret{width:16px;height:16px;flex-shrink:0;color:var(--tx-secondary);transition:transform var(--m-fast)}
+.article-toc[open] .article-toc-caret{transform:rotate(180deg)}
+.article-toc-list{list-style:none;counter-reset:toc;padding:var(--s2) 0 var(--s4);margin:0}
+.article-toc-list li{display:flex;gap:var(--s3);align-items:baseline;padding:3px 0}
+.article-toc-list li::before{content:counter(toc);counter-increment:toc;color:var(--tx-secondary);font:var(--ty-label-sm);font-variant-numeric:tabular-nums;flex-shrink:0;min-width:1.25em}
+.article-toc-list a{color:var(--tx-primary);text-decoration:none;font:var(--ty-body-md);line-height:1.5}
+.article-toc-list a:hover{text-decoration:underline;text-underline-offset:3px;color:var(--co-700)}
+.article-toc-list a:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+/* Callout: Aside im Body, area-aware. Border-Akzent in 500 (wie .bq), Eyebrow in 700 (wie .cta-dl-eyebrow) */
+.article-callout{background:var(--co-50);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin:var(--s8) 0}
+.article-callout[data-area="co"]{background:var(--co-50);border-left-color:var(--co-500)}
+.article-callout[data-area="ki"]{background:var(--ki-50);border-left-color:var(--ki-500)}
+.article-callout[data-area="es"]{background:var(--es-50);border-left-color:var(--es-500)}
+.article-callout[data-area="wo"]{background:var(--wo-50);border-left-color:var(--wo-500)}
+.article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
+.article-callout[data-area="ki"] .article-callout-eyebrow{color:var(--ki-800)}
+.article-callout[data-area="es"] .article-callout-eyebrow{color:var(--es-700)}
+.article-callout[data-area="wo"] .article-callout-eyebrow{color:var(--wo-700)}
+.article-callout > p{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Author-Card: Avatar + Bio am Ende des Artikels, area-aware */
+.author-card{max-width:720px;margin:0 auto;display:flex;gap:var(--s5);align-items:flex-start}
+.author-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s1)}
+.author-card-name{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
+.author-card-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s3)}
+.author-card-bio{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Pull-Quote: typografische Hervorhebung autoreigener Sätze im Body — area-aware Linksakzent in 500 (analog .bq), aber ohne Background und ohne Quote-Icon */
+.article-pullquote{margin:var(--s10) 0;padding:var(--s4) var(--s6);border-left:4px solid var(--co-500);font-family:var(--font-display);font-style:italic;font-size:clamp(22px,2.4vw,28px);line-height:1.4;color:var(--tx-primary);quotes:none}
+.article-pullquote[data-area="co"]{border-left-color:var(--co-500)}
+.article-pullquote[data-area="ki"]{border-left-color:var(--ki-500)}
+.article-pullquote[data-area="es"]{border-left-color:var(--es-500)}
+.article-pullquote[data-area="wo"]{border-left-color:var(--wo-500)}
+
+/* ── Documentation tables (Verwendung, Barrierefreiheit, etc.) ── */
+.doc-table{width:100%;border-collapse:collapse;font:var(--ty-body-md)}
+.doc-table thead tr{border-bottom:var(--bd-strong)}
+.doc-table th{text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 12px/16px var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary)}
+.doc-table th:last-child{padding-left:var(--s3)}
+.doc-table tbody tr{border-bottom:var(--bd)}
+.doc-table tbody tr:last-child{border-bottom:none}
+.doc-table td{padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-secondary);vertical-align:top}
+.doc-table td:first-child{color:var(--tx-primary);font-weight:500}
+.doc-table td:last-child{padding-left:var(--s3)}

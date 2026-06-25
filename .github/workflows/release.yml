@@ -1,0 +1,32 @@
+name: Release
+
+# Publiziert @conciso/design-system bei einem Versions-Tag (vX.Y.Z) zu GitHub Packages.
+# Inert, bis ein solcher Tag gepusht wird. Voraussetzung: Repo-Berechtigung "packages: write".
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Build (Token-Export + CSS-Bundle)
+        run: npm run build
+      - name: Verify tag matches package version
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF_NAME#v}"
+          test "$PKG" = "$TAG" || { echo "Tag $TAG != package.json $PKG"; exit 1; }
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
