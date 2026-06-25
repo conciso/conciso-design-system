@@ -41,16 +41,19 @@ Ausführlich in [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md). Kurzfassung:
 
 Die Schriften (Montserrat + Libre Baskerville) liegen self-hosted unter `fonts/` und werden über `css/fonts.css` eingebunden — keine externe CDN-Anfrage. Das gebündelte `dist/conciso-ds.css` enthält die `@font-face`-Regeln bereits.
 
-**Variante B — als Paket** (sobald veröffentlicht):
+**Variante B — als Git-Abhängigkeit pinnen** (intern, kein Registry):
 
 ```bash
-npm install @conciso/design-system
+# auf einen Release-Tag pinnen:
+npm install github:conciso/conciso-design-system#v0.1.0
 ```
 ```js
 import '@conciso/design-system/dist/conciso-ds.css';
 // Tokens (optional, für JS/Framework):
 import { tokens } from '@conciso/design-system/tokens';
 ```
+
+> Das Paket ist **intern/proprietär** (`UNLICENSED`, `private`) und wird **nicht** in ein npm-Registry veröffentlicht. Nutzung also entweder über das eingebundene/kopierte CSS (Variante A) oder als gepinnte Git-Abhängigkeit (Variante B). Hinweis: Ein Git-Install zieht das ganze Repo inkl. der Demo-Bilder — bis die ausgelagert sind, ist für reine CSS-Nutzung das Vendoren von `dist/conciso-ds.css` + `fonts/` am schlanksten.
 
 **Dark Mode:** `data-theme="dark"` am `<html>` setzen. Siehe [Getting Started](docs/GETTING-STARTED.md#3-dark-mode) für das Anti-Flash-Snippet.
 
@@ -80,7 +83,7 @@ Konventionen und der Workflow zum Hinzufügen von Tokens/Komponenten stehen in *
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Änderungen im [CHANGELOG](CHANGELOG.md). Releases werden als Git-Tags `vX.Y.Z` markiert.
+[SemVer](https://semver.org/lang/de/). Änderungen im [CHANGELOG](CHANGELOG.md). Releases werden als Git-Tags `vX.Y.Z` markiert — Konsument:innen pinnen auf einen Tag (kein Registry-Publish, das Paket ist intern/proprietär).
 
 ## Lizenz & Kontakt
 

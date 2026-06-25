@@ -22,7 +22,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   + Dark-Overrides, `var(...)` aufgelöst) via `scripts/build-tokens.mjs`.
 - Gebündeltes `dist/conciso-ds.css` (korrekte Ladereihenfolge) via
   `scripts/bundle-css.mjs`. `npm run build` erzeugt beides.
-- Release-Workflow `.github/workflows/release.yml` (publiziert bei Tag `vX.Y.Z`).
 - **Self-Host-Fonts** (DSGVO): `fonts/` (Montserrat + Libre Baskerville, woff2,
   Subsets latin + latin-ext) + `css/fonts.css` (`@font-face`, `font-display:swap`),
   inkl. OFL-Lizenztexte. Doku-Site und Bundle nutzen jetzt lokale Fonts statt
@@ -33,6 +32,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `main.js` und Bilder liegen jetzt unter `docs/` (Bilder in `docs/assets/images/`);
   Pfade in `docs/index.html` entsprechend angepasst. Der Kern (`css/`, `dist/`,
   `tokens/`) bleibt im Root.
+- Distribution: **intern/proprietär** statt Registry-Publish. `package.json`
+  `license: "UNLICENSED"` + `private: true`; `publishConfig` und der
+  Release-Workflow (`.github/workflows/release.yml`) entfernt. Nutzung über
+  eingebundenes/kopiertes `dist/conciso-ds.css` oder gepinnte Git-Tags
+  (`npm install github:conciso/conciso-design-system#vX.Y.Z`). `LICENSE` auf
+  einen kurzen internen Hinweis eingedampft (Font-OFL-Verweise bleiben).
 
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB

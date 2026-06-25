@@ -2,7 +2,8 @@
   "name": "@conciso/design-system",
   "version": "0.1.0",
   "description": "Conciso Design System — Design Tokens, CSS-Komponenten und Light/Dark-Mode, framework-agnostisch und WCAG-AA-konform.",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "UNLICENSED",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/conciso/conciso-design-system.git"
@@ -36,10 +37,6 @@
     "build:tokens": "node scripts/build-tokens.mjs",
     "build:css": "node scripts/bundle-css.mjs",
     "build": "npm run build:tokens && npm run build:css"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
   },
   "keywords": [
     "design-system",

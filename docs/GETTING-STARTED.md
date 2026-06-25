@@ -30,15 +30,17 @@ tokens.css  →  dark-mode.css  →  base.css  →  components.css
 <link rel="stylesheet" href="css/components.css">
 ```
 
-**Variante B — als npm-Paket** (sobald veröffentlicht):
+**Variante B — als gepinnte Git-Abhängigkeit** (intern, kein Registry):
 
 ```bash
-npm install @conciso/design-system
+npm install github:conciso/conciso-design-system#v0.1.0
 ```
 ```js
 // gebündelt, korrekte Reihenfolge bereits enthalten:
 import '@conciso/design-system/dist/conciso-ds.css';
 ```
+
+> Das Paket ist intern/proprietär (`UNLICENSED`, `private`) und wird nicht in ein npm-Registry veröffentlicht. Für reine CSS-Nutzung ist das Vendoren von `dist/conciso-ds.css` + `fonts/` (Variante A) am schlanksten.
 
 > Die Ladereihenfolge ist die häufigste Fehlerquelle. Wird `components.css` vor `tokens.css` geladen, fehlen die Variablen und nichts wird korrekt gestylt.
 
