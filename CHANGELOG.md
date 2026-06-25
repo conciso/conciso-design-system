@@ -14,6 +14,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Geplant
+- Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
+  Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
+  `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
+  Team-Koordination), daher bewusst als separater Schritt.
+- Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
+
+## [0.1.0] - 2026-06-25
+
 ### Added
 - Onboarding-/Governance-Doku: `README.md`, `CONTRIBUTING.md` (Konventionen),
   `LICENSE`, dieses `CHANGELOG.md`, `docs/GETTING-STARTED.md`.
@@ -38,13 +47,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   eingebundenes/kopiertes `dist/conciso-ds.css` oder gepinnte Git-Tags
   (`npm install github:conciso/conciso-design-system#vX.Y.Z`). `LICENSE` auf
   einen kurzen internen Hinweis eingedampft (Font-OFL-Verweise bleiben).
-
-### Geplant
-- Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
-  Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
-  `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
-  Team-Koordination), daher bewusst als separater Schritt.
-- Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs npm-Paket.
 
 ---
 
