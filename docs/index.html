@@ -169,6 +169,15 @@
       <a class="nav-sub-item" href="#gt-inputs-slider">Slider</a>
       <a class="nav-sub-item" href="#gt-inputs-verwendung">Verwendung</a>
     </div>
+    <button class="nav-item" data-section="dropdowns">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"/></svg>Dropdowns
+    </button>
+    <div class="nav-subnav" data-for="dropdowns">
+      <a class="nav-sub-item" href="#gt-dd-select">Custom Select</a>
+      <a class="nav-sub-item" href="#gt-dd-combobox">Combobox</a>
+      <a class="nav-sub-item" href="#gt-dd-multi">Multi-Select</a>
+      <a class="nav-sub-item" href="#gt-dd-verwendung">Verwendung</a>
+    </div>
     <button class="nav-item" data-section="feedback">
       <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"/></svg>Feedback
     </button>
@@ -1986,6 +1995,9 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü öffnet per <strong>Maus-Hover</strong> (CSS) und per <strong>Klick/Tap oder Tastatur</strong> (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>). Der Toggle führt <code class="token">aria-expanded</code> mit (<code class="token">true</code>/<code class="token">false</code>), damit Screenreader und Touch-Geräte ohne Hover den Auf-/Zu-Zustand erhalten. <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus an den Toggle zurück; ein Klick außerhalb oder das Heraustabben schließt ebenfalls. Zwischen Toggle und Submenü überbrückt das unsichtbare <code class="token">.ep-nav-sub::before</code> den Hover-Spalt.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Mobile:</strong> Unter dem Breakpoint (≤&nbsp;760&nbsp;px) injiziert das JS einen <strong>Hamburger-Button</strong> in die Topnav; er klappt die Navigation unter dem Logo auf, die Submenüs öffnen dort inline (statt als schwebendes Overlay).</p>
 
+      <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktionen: Suche &amp; Theme-Umschalter</h3>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Rechts vor dem Kontakt-Button sitzt ein Aktions-Cluster (<code class="token">.ep-nav-actions</code>) mit zwei Icon-Buttons (<code class="token">.ep-nav-icon-btn</code>), per JS in jede <code class="token">.ep-topnav</code> injiziert (wie der Hamburger), damit kein Topnav-Markup einzeln gepflegt werden muss. <strong>Suche:</strong> ein Disclosure-Button (Lupe) öffnet ein Popover (spiegelt das Submenü: <code class="token">--bg-surface</code>, <code class="token">--e3</code>, <code class="token">--bd</code>) mit barrierefreiem <code class="token">type="search"</code>-Feld in einem <code class="token">role="search"</code>-Formular; <kbd>Esc</kbd> und Außenklick schließen, <code class="token">aria-expanded</code> wird mitgeführt. Im Mockup ohne Backend, in Produktion an die globale Suche angebunden. <strong>Theme-Umschalter:</strong> ein <code class="token">aria-pressed</code>-Button schaltet Light&nbsp;↔&nbsp;Dark über das globale <code class="token">applyTheme</code> (mit Persistenz) — Mond-Icon im Light (Klick → Dark), Sonne im Dark (Klick → Light); bleibt mit dem Sidebar-Switch synchron. Beide bleiben Corporate-Chrome (Petrol), auch auf Bereichs-Seiten.</p>
+
       <!-- Code-Beispiel Topnav -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
@@ -3254,6 +3266,183 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarben in einem Formular mischen, jedes Formular gehört zu genau einer Brand Area</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Fehlermeldung nur per Farbe signalisieren, immer auch Text und Icon für farbenblinde Nutzende</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 7 bis 8 Formularfelder ohne Abschnitte, lieber in Schritte oder Gruppen aufteilen</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ DROPDOWNS ═══ -->
+    <section class="ds-section" id="sec-dropdowns">
+      <h1 class="sec-title">Dropdowns</h1>
+      <p class="sec-sub">Auswahl-Komponenten über das native <code class="token">&lt;select&gt;</code> hinaus: <strong>Custom Select</strong> (gestylte Einzelauswahl mit Listbox-Popup, Häkchen und Bereichs-Akzent) und <strong>Combobox</strong> (Tipp-Filter über langen Listen, optional Multi-Select mit Chips). Beide sind markup-getrieben — semantisches HTML genügt, das Skript ergänzt IDs, ARIA-Zustände und Tastatur. Durchgängig WCAG AA: <code class="token">role="listbox"</code>/<code class="token">role="option"</code>, <code class="token">aria-expanded</code>, <code class="token">aria-activedescendant</code>, Fokusring in beiden Modi.</p>
+
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s8);max-width:760px">
+        <div class="doc-eyebrow">Wann was?</div>
+        <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0"><strong>Natives <code class="token">&lt;select&gt;</code></strong> bleibt der Standard für kurze Listen (≤&nbsp;8 Optionen) in Formularen, siehe <a class="body-link" href="#gt-inputs-felder">Inputs &amp; Forms</a>. <strong>Custom Select</strong>, wenn die Auswahl optisch zum Bereich gehören soll (Häkchen, Tönung) oder das native Popup nicht ausreicht. <strong>Combobox</strong> ab ca. 10 Optionen, wo Tippen schneller ist als Scrollen. <strong>Multi-Select</strong> nur für echte Mehrfachauswahl (Tags, Filter).</p>
+      </div>
+
+      <!-- ── Custom Select ── -->
+      <h2 id="gt-dd-select" class="group-title">Custom Select</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px">Trigger-Button spiegelt das native Feld (52&nbsp;px, 2&nbsp;px <code class="token">--field-border</code>, <code class="token">--r-md</code>); das Popup spiegelt das Topnav-Dropdown (<code class="token">--bg-surface</code>, <code class="token">--e3</code>). Der Bereichs-Akzent über <code class="token">data-area</code> erscheint nur im gewählten Eintrag (Häkchen&nbsp;+&nbsp;Tönung); Fokusrahmen und Fokusring bleiben neutral-Teal wie bei allen Feldern. Tastatur: <code class="token">↑↓</code> navigieren, <code class="token">Pos1/Ende</code> springen, Buchstaben tippen (Type-ahead), <code class="token">Enter</code> wählt, <code class="token">Esc</code> schließt.</p>
+
+      <div class="layout-grid" style="align-items:start">
+        <!-- Default (Corporate), Platzhalter -->
+        <div class="col-4">
+          <div class="el-lbl">Default · Platzhalter</div>
+          <div class="ep-select" data-name="dd-bereich-demo">
+            <span class="ep-select-label" id="dd-sel1-label">Bereich</span>
+            <button type="button" class="ep-select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dd-sel1-label dd-sel1-value">
+              <span class="ep-select-value" id="dd-sel1-value" data-placeholder="Bitte wählen…">Bitte wählen…</span>
+              <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <ul class="ep-select-menu" role="listbox" aria-labelledby="dd-sel1-label" tabindex="-1">
+              <li class="ep-select-option" role="option" data-value="co"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Corporate</li>
+              <li class="ep-select-option" role="option" data-value="ki"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Angewandte KI</li>
+              <li class="ep-select-option" role="option" data-value="es"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Effektive Software</li>
+              <li class="ep-select-option" role="option" data-value="wo"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Wirksame Organisationen</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bereichs-Akzent (Angewandte KI), vorausgewählt -->
+        <div class="col-4">
+          <div class="el-lbl">Bereichs-Akzent · vorausgewählt</div>
+          <div class="ep-select" data-area="ki" data-name="dd-usecase-demo">
+            <span class="ep-select-label" id="dd-sel2-label">Anwendungsfall</span>
+            <button type="button" class="ep-select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="dd-sel2-label dd-sel2-value">
+              <span class="ep-select-value" id="dd-sel2-value" data-placeholder="Bitte wählen…">Datenanalyse &amp; Reporting</span>
+              <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <ul class="ep-select-menu" role="listbox" aria-labelledby="dd-sel2-label" tabindex="-1">
+              <li class="ep-select-option" role="option" data-value="auto"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Prozessautomatisierung</li>
+              <li class="ep-select-option" role="option" data-value="daten" aria-selected="true"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Datenanalyse &amp; Reporting</li>
+              <li class="ep-select-option" role="option" data-value="beratung"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>KI-gestützte Beratung</li>
+              <li class="ep-select-option" role="option" data-value="custom"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Individuelle KI-Lösung</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Disabled -->
+        <div class="col-4">
+          <div class="el-lbl">Deaktiviert</div>
+          <div class="ep-select is-disabled">
+            <span class="ep-select-label" id="dd-sel3-label">Bereich</span>
+            <button type="button" class="ep-select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-disabled="true" disabled aria-labelledby="dd-sel3-label dd-sel3-value">
+              <span class="ep-select-value" id="dd-sel3-value">Corporate</span>
+              <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+            <ul class="ep-select-menu" role="listbox" aria-labelledby="dd-sel3-label" tabindex="-1">
+              <li class="ep-select-option" role="option" data-value="co" aria-selected="true"><svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/></svg>Corporate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Combobox ── -->
+      <h2 id="gt-dd-combobox" class="group-title">Combobox</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px">Wie der Custom Select, aber mit Tipp-Filter im Feld — für lange Listen, in denen Tippen schneller ist als Scrollen. Substring-Filter (case-insensitiv) über alle Optionen, Leerzustand bei keinem Treffer (Text über <code class="token">data-empty-text</code>). Tastatur: <code class="token">↓</code> öffnet/navigiert, <code class="token">Enter</code> wählt den hervorgehobenen Eintrag, <code class="token">Esc</code> schließt. Ein <strong>Lösch-Button</strong> (<code class="token">.ep-combobox-clear</code>) erscheint, sobald Text im Feld steht, und leert es mit einem Klick — zusammen mit dem Chevron vertikal zentriert rechts im Feld. <strong>Beim Schließen ohne Auswahl</strong> wird kein loser Filtertext stehen gelassen: Die Einzelauswahl fällt auf das Label der gewählten Option zurück (bzw. leert), getippter Müll bleibt also nie im Feld hängen.</p>
+
+      <div style="max-width:360px">
+        <div class="ep-combobox" data-area="es" data-empty-text="Kein Thema gefunden">
+          <span class="ep-select-label" id="dd-cb1-label">Thema</span>
+          <div class="ep-combobox-control">
+            <input class="ep-combobox-input" type="text" placeholder="Thema suchen…" aria-labelledby="dd-cb1-label" autocomplete="off">
+            <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+          </div>
+          <ul class="ep-combobox-menu" role="listbox" aria-labelledby="dd-cb1-label">
+            <li class="ep-select-option" role="option" data-value="ki">Angewandte KI</li>
+            <li class="ep-select-option" role="option" data-value="es">Effektive Software</li>
+            <li class="ep-select-option" role="option" data-value="wo">Wirksame Organisationen</li>
+            <li class="ep-select-option" role="option" data-value="strategie">Strategie-Workshop</li>
+            <li class="ep-select-option" role="option" data-value="daten">Datenanalyse &amp; Reporting</li>
+            <li class="ep-select-option" role="option" data-value="auto">Prozessautomatisierung</li>
+            <li class="ep-select-option" role="option" data-value="cloud">Cloud-Migration</li>
+            <li class="ep-select-option" role="option" data-value="change">Change-Begleitung</li>
+            <li class="ep-select-option" role="option" data-value="training">Schulung &amp; Training</li>
+            <li class="ep-select-option" role="option" data-value="presse">Presse &amp; Medien</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── Multi-Select ── -->
+      <h2 id="gt-dd-multi" class="group-title">Multi-Select</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px">Combobox mit Modifier <code class="token">.is-multi</code>: gewählte Werte erscheinen als entfernbare Chips im Feld und werden aus der Liste ausgeblendet. <code class="token">Rücktaste</code> bei leerem Feld entfernt den letzten Chip; jeder Chip hat einen beschrifteten Entfernen-Button. Der Lösch-Button leert hier nur den getippten Filtertext — die gewählten Chips bleiben erhalten. Für echte Mehrfachauswahl (Tags, Filter), nicht als Ersatz für eine Einzelauswahl.</p>
+
+      <div style="max-width:480px">
+        <div class="ep-combobox is-multi" data-area="wo" data-empty-text="Kein Thema gefunden">
+          <span class="ep-select-label" id="dd-cb2-label">Interessen</span>
+          <div class="ep-combobox-control">
+            <input class="ep-combobox-input" type="text" placeholder="Hinzufügen…" aria-labelledby="dd-cb2-label" autocomplete="off">
+            <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+          </div>
+          <ul class="ep-combobox-menu" role="listbox" aria-labelledby="dd-cb2-label">
+            <li class="ep-select-option" role="option" data-value="ki">Künstliche Intelligenz</li>
+            <li class="ep-select-option" role="option" data-value="rag">LLM &amp; RAG</li>
+            <li class="ep-select-option" role="option" data-value="ds">Design Systems</li>
+            <li class="ep-select-option" role="option" data-value="cloud">Cloud &amp; DevOps</li>
+            <li class="ep-select-option" role="option" data-value="scrum">Agile &amp; Scrum</li>
+            <li class="ep-select-option" role="option" data-value="okr">OKR &amp; Strategie</li>
+            <li class="ep-select-option" role="option" data-value="change">Change-Management</li>
+            <li class="ep-select-option" role="option" data-value="ux">UX &amp; Forschung</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── Verwendung ── -->
+      <h2 id="gt-dd-verwendung" class="group-title">Verwendung</h2>
+
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
+        <div class="col-6">
+          <div class="doc-eyebrow">Komponente &amp; Markup</div>
+          <table class="doc-table">
+            <thead>
+              <tr><th>Baustein</th><th>Zweck</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code class="token">.ep-select</code></td><td>Gestylte Einzelauswahl; <code class="token">data-area</code> setzt den Bereichs-Akzent, <code class="token">data-name</code> erzeugt ein verstecktes Feld für den Submit</td></tr>
+              <tr><td><code class="token">.ep-combobox</code></td><td>Tipp-Filter über langen Listen; <code class="token">data-empty-text</code> setzt den Leerzustand</td></tr>
+              <tr><td><code class="token">.is-multi</code></td><td>Modifier am <code class="token">.ep-combobox</code> für Mehrfachauswahl mit Chips</td></tr>
+              <tr><td><code class="token">.ep-combobox-clear</code></td><td>Lösch-Button (per JS injiziert), erscheint bei Texteingabe und leert das Feld; Multi behält die Chips</td></tr>
+              <tr><td><code class="token">data-value</code></td><td>Maschinenwert je Option; sichtbarer Text ist das Label (oder <code class="token">data-label</code>)</td></tr>
+              <tr><td><code class="token">ep:change</code></td><td>Custom-Event bei Auswahl (<code class="token">detail.value</code>, <code class="token">detail.selected</code>) zum Anbinden eigener Logik</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div class="doc-eyebrow">Barrierefreiheit</div>
+          <table class="doc-table">
+            <thead>
+              <tr><th>Attribut / Verhalten</th><th>Zweck</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code class="token">role="listbox"</code> / <code class="token">option</code></td><td>Popup und Einträge als Auswahlliste ausgewiesen, vom Skript gesetzt/ergänzt</td></tr>
+              <tr><td><code class="token">aria-expanded</code></td><td>Offen-Zustand am Trigger bzw. am Combobox-Input</td></tr>
+              <tr><td><code class="token">aria-activedescendant</code></td><td>Tastaturcursor ohne Fokusverlust — der hervorgehobene Eintrag wird vorgelesen</td></tr>
+              <tr><td>Tastatur</td><td><code class="token">↑↓</code>, <code class="token">Pos1/Ende</code>, Type-ahead (Select), <code class="token">Enter</code> wählt, <code class="token">Esc</code>/<code class="token">Tab</code> schließt</td></tr>
+              <tr><td>Fokusring</td><td>Neutral-Teal <code class="token">--focus-ring</code> in beiden Modi, ≥&nbsp;3:1 Rahmenkontrast</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="doc-eyebrow">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Natives <code class="token">&lt;select&gt;</code> für kurze Listen behalten; Custom Select erst, wenn Bereichs-Akzent oder Popup-Styling gebraucht wird</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Combobox ab ca. 10 Optionen einsetzen, wo Tippen schneller filtert als Scrollen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Jedes Dropdown mit sichtbarem <code class="token">.ep-select-label</code> versehen, Placeholder ist kein Label</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Bereichs-Akzent zur Brand Area der Seite passend wählen (KI · Software · Organisationen · Corporate)</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Custom Select für eine Ja/Nein- oder 2-Optionen-Wahl, dafür sind Radios oder ein nativer Select besser</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Fokusrahmen pro Bereich einfärben — der Akzent gehört in den gewählten Eintrag, nicht in den Fokus</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Multi-Select als Notlösung für eine Einzelauswahl, das verwirrt die Erwartung an die Eingabe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehrere Bereichs-Akzente in einem Formular mischen, ein Formular gehört zu genau einer Brand Area</span></li>
           </ul>
         </div>
       </div>

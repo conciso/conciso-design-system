@@ -105,6 +105,12 @@
       b.classList.toggle('active', on);
       b.setAttribute('aria-pressed', String(on));
     });
+    /* Topnav-Theme-Umschalter synchron halten (existieren ggf. erst nach Injektion weiter unten) */
+    var dark = t === 'dark';
+    document.querySelectorAll('.ep-nav-theme-toggle').forEach(function(b) {
+      b.setAttribute('aria-pressed', String(dark));
+      b.setAttribute('aria-label', dark ? 'Zum Hellmodus wechseln' : 'Zum Dunkelmodus wechseln');
+    });
   }
   document.querySelectorAll('.tbtn').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -324,6 +330,98 @@
         burger.setAttribute('aria-label', 'Menü öffnen');
       }
     });
+  });
+
+  /* ── Topnav-Aktionen: Suche + Theme-Umschalter ──
+     Wie der Hamburger per JS in jede .ep-topnav injiziert, damit Doku-Referenz und alle Beispielseiten
+     konsistent versorgt sind, ohne jedes Topnav-Markup einzeln zu pflegen. Rechts vor dem CTA platziert.
+     Theme-Toggle nutzt das globale applyTheme (+ Persistenz); die Suche ist ein Disclosure-Popover mit
+     barrierefreiem Suchfeld (im Mockup ohne Backend — in Produktion an die globale Suche angebunden). */
+  var NAV_ICON = {
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"/></svg>',
+    moon: '<svg class="ep-nav-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>',
+    sun: '<svg class="ep-nav-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>'
+  };
+  document.querySelectorAll('.ep-topnav').forEach(function(bar, i) {
+    if (bar.querySelector('.ep-nav-actions')) return;
+    var actions = document.createElement('div');
+    actions.className = 'ep-nav-actions';
+
+    /* ── Suche (Disclosure-Popover) ── */
+    var search = document.createElement('div');
+    search.className = 'ep-nav-search';
+    var sToggle = document.createElement('button');
+    sToggle.type = 'button';
+    sToggle.className = 'ep-nav-icon-btn ep-nav-search-toggle';
+    sToggle.setAttribute('aria-expanded', 'false');
+    sToggle.setAttribute('aria-label', 'Suche öffnen');
+    sToggle.innerHTML = NAV_ICON.search;
+    var popId = 'ep-nav-search-pop-' + i;
+    sToggle.setAttribute('aria-controls', popId);
+    var pop = document.createElement('div');
+    pop.className = 'ep-nav-search-pop';
+    pop.id = popId;
+    var inputId = 'ep-nav-search-input-' + i;
+    pop.innerHTML =
+      '<form class="ep-nav-search-form" role="search" action="#" novalidate>' +
+        '<label class="sr-only" for="' + inputId + '">Suchbegriff</label>' +
+        '<input class="ep-nav-search-input" id="' + inputId + '" type="search" placeholder="Wonach suchst Du?" autocomplete="off">' +
+        '<button class="btn btn-filled btn-sm btn-co" type="submit">Suchen</button>' +
+      '</form>';
+    search.appendChild(sToggle);
+    search.appendChild(pop);
+    var sInput = pop.querySelector('.ep-nav-search-input');
+
+    function closeSearch(focusToggle) {
+      if (!search.classList.contains('is-open')) return;
+      search.classList.remove('is-open');
+      sToggle.setAttribute('aria-expanded', 'false');
+      sToggle.setAttribute('aria-label', 'Suche öffnen');
+      if (focusToggle) sToggle.focus();
+    }
+    function openSearch() {
+      search.classList.add('is-open');
+      sToggle.setAttribute('aria-expanded', 'true');
+      sToggle.setAttribute('aria-label', 'Suche schließen');
+      sInput.focus();
+    }
+    sToggle.addEventListener('click', function() {
+      if (search.classList.contains('is-open')) closeSearch(true); else openSearch();
+    });
+    pop.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { e.preventDefault(); closeSearch(true); }
+    });
+    pop.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault(); /* Mockup: in Produktion an die globale Suche anbinden */
+    });
+    document.addEventListener('click', function(e) {
+      if (!search.contains(e.target)) closeSearch(false);
+    });
+    /* Heraustabben (Fokus verlässt das Popover) schließt ebenfalls — wie bei den Nav-Dropdowns */
+    search.addEventListener('focusout', function(e) {
+      if (!search.contains(e.relatedTarget)) closeSearch(false);
+    });
+
+    /* ── Theme-Umschalter (Light ↔ Dark, global) ── */
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    var tToggle = document.createElement('button');
+    tToggle.type = 'button';
+    tToggle.className = 'ep-nav-icon-btn ep-nav-theme-toggle';
+    tToggle.setAttribute('aria-pressed', String(dark));
+    tToggle.setAttribute('aria-label', dark ? 'Zum Hellmodus wechseln' : 'Zum Dunkelmodus wechseln');
+    tToggle.innerHTML = NAV_ICON.moon + NAV_ICON.sun;
+    tToggle.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var next = isDark ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('ds-theme', next); } catch (e) {}
+    });
+
+    actions.appendChild(search);
+    actions.appendChild(tToggle);
+
+    var cta = bar.querySelector(':scope > .btn');
+    if (cta) bar.insertBefore(actions, cta); else bar.appendChild(actions);
   });
 
   /* In-Page-Links mit data-ep (Topnav, Logo, Submenus, klickbare Karten, Breadcrumbs, Article-Cards) wechseln den Tab */
@@ -724,5 +822,325 @@
       if (role) role.textContent = member.role;
     });
   });
+
+  /* ── Dropdowns: Custom Select & Combobox ──
+     Markup-getrieben: Autor schreibt semantisches HTML (button[aria-haspopup=listbox] + ul[role=listbox]
+     bzw. input[role=combobox] + ul[role=listbox]); JS ergänzt IDs, ARIA-Zustände, Tastatur und Filter.
+     Tastatur wie das Topnav-Dropdown: Pfeile/Home/End navigieren, Enter/Space wählt, Escape/Tab schließt.
+     Ein gemeinsames Register schließt offene Dropdowns bei Außenklick. */
+  (function () {
+    var ddSeq = 0;
+    var ddInstances = []; /* {root, close} */
+    function registerDropdown(root, closeFn) { ddInstances.push({ root: root, close: closeFn }); }
+    function closeAllDropdowns(except) {
+      ddInstances.forEach(function (d) { if (d.root !== except) d.close(); });
+    }
+    document.addEventListener('click', function (e) {
+      ddInstances.forEach(function (d) { if (!d.root.contains(e.target)) d.close(); });
+    });
+
+    /* ── Custom Select (Einzelauswahl) ── */
+    document.querySelectorAll('.ep-select').forEach(function (root) {
+      var trigger = root.querySelector('.ep-select-trigger');
+      var menu = root.querySelector('.ep-select-menu');
+      var valueEl = root.querySelector('.ep-select-value');
+      if (!trigger || !menu || !valueEl) return;
+      var options = Array.prototype.slice.call(menu.querySelectorAll('.ep-select-option'));
+      var uid = 'ep-select-' + (ddSeq++);
+      if (!menu.id) menu.id = uid + '-menu';
+      menu.setAttribute('tabindex', '-1');
+      var placeholder = valueEl.getAttribute('data-placeholder') || valueEl.textContent;
+
+      /* Optionales verstecktes Feld für den Formular-Submit (data-name am .ep-select) */
+      var hidden = null;
+      if (root.dataset.name) {
+        hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = root.dataset.name;
+        root.appendChild(hidden);
+      }
+
+      options.forEach(function (opt, i) {
+        if (!opt.id) opt.id = uid + '-opt-' + i;
+        if (!opt.hasAttribute('aria-selected')) opt.setAttribute('aria-selected', 'false');
+      });
+
+      function optionLabel(opt) { return (opt.dataset.label || opt.textContent).trim(); }
+      function selectedOption() {
+        return options.filter(function (o) { return o.getAttribute('aria-selected') === 'true'; })[0] || null;
+      }
+      function syncValue() {
+        var sel = selectedOption();
+        if (sel) {
+          valueEl.textContent = optionLabel(sel);
+          trigger.classList.remove('is-placeholder');
+          if (hidden) hidden.value = sel.dataset.value != null ? sel.dataset.value : optionLabel(sel);
+        } else {
+          valueEl.textContent = placeholder;
+          trigger.classList.add('is-placeholder');
+          if (hidden) hidden.value = '';
+        }
+      }
+
+      var activeIndex = -1;
+      function setActive(i) {
+        options.forEach(function (o) { o.classList.remove('is-active'); });
+        activeIndex = i;
+        if (i >= 0 && options[i]) {
+          options[i].classList.add('is-active');
+          menu.setAttribute('aria-activedescendant', options[i].id);
+          options[i].scrollIntoView({ block: 'nearest' });
+        } else {
+          menu.removeAttribute('aria-activedescendant');
+        }
+      }
+      function isOpen() { return root.classList.contains('is-open'); }
+      function open() {
+        if (isOpen() || root.classList.contains('is-disabled')) return;
+        closeAllDropdowns(root);
+        root.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        var sel = selectedOption();
+        setActive(sel ? options.indexOf(sel) : 0);
+        menu.focus();
+      }
+      function close(focusTrigger) {
+        if (!isOpen()) return;
+        root.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        setActive(-1);
+        if (focusTrigger) trigger.focus();
+      }
+      function choose(opt) {
+        options.forEach(function (o) { o.setAttribute('aria-selected', o === opt ? 'true' : 'false'); });
+        syncValue();
+        root.dispatchEvent(new CustomEvent('ep:change', { bubbles: true, detail: { value: opt.dataset.value, label: optionLabel(opt) } }));
+        close(true);
+      }
+
+      trigger.addEventListener('click', function () { if (isOpen()) close(true); else open(); });
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault(); open();
+        }
+      });
+      options.forEach(function (opt, i) {
+        opt.addEventListener('click', function () { choose(opt); });
+        opt.addEventListener('mousemove', function () { if (activeIndex !== i) setActive(i); });
+      });
+
+      var typeBuffer = '', typeTimer = null;
+      menu.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.preventDefault(); close(true); return; }
+        if (e.key === 'Tab') { close(false); return; }
+        if (e.key === 'ArrowDown') { e.preventDefault(); setActive(Math.min(options.length - 1, activeIndex + 1)); return; }
+        if (e.key === 'ArrowUp') { e.preventDefault(); setActive(Math.max(0, activeIndex - 1)); return; }
+        if (e.key === 'Home') { e.preventDefault(); setActive(0); return; }
+        if (e.key === 'End') { e.preventDefault(); setActive(options.length - 1); return; }
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          if (activeIndex >= 0) choose(options[activeIndex]);
+          return;
+        }
+        if (e.key.length === 1 && /\S/.test(e.key)) {
+          typeBuffer += e.key.toLowerCase();
+          clearTimeout(typeTimer);
+          typeTimer = setTimeout(function () { typeBuffer = ''; }, 600);
+          for (var k = 0; k < options.length; k++) {
+            if (optionLabel(options[k]).toLowerCase().indexOf(typeBuffer) === 0) { setActive(k); break; }
+          }
+        }
+      });
+
+      registerDropdown(root, function () { close(false); });
+      syncValue();
+    });
+
+    /* ── Combobox (Tipp-Filter, optional Multi-Select via .is-multi) ── */
+    document.querySelectorAll('.ep-combobox').forEach(function (root) {
+      var control = root.querySelector('.ep-combobox-control');
+      var input = root.querySelector('.ep-combobox-input');
+      var menu = root.querySelector('.ep-combobox-menu');
+      if (!control || !input || !menu) return;
+      var multi = root.classList.contains('is-multi');
+      var options = Array.prototype.slice.call(menu.querySelectorAll('.ep-select-option'));
+      var uid = 'ep-combobox-' + (ddSeq++);
+      if (!menu.id) menu.id = uid + '-menu';
+      input.setAttribute('role', 'combobox');
+      input.setAttribute('aria-controls', menu.id);
+      input.setAttribute('aria-expanded', 'false');
+      input.setAttribute('aria-autocomplete', 'list');
+      if (multi) menu.setAttribute('aria-multiselectable', 'true');
+
+      var empty = menu.querySelector('.ep-combobox-empty');
+      if (!empty) {
+        empty = document.createElement('li');
+        empty.className = 'ep-combobox-empty';
+        empty.setAttribute('role', 'presentation');
+        empty.textContent = root.dataset.emptyText || 'Keine Treffer';
+        empty.hidden = true;
+        menu.appendChild(empty);
+      }
+
+      options.forEach(function (opt, i) {
+        if (!opt.id) opt.id = uid + '-opt-' + i;
+        opt.setAttribute('aria-selected', opt.getAttribute('aria-selected') === 'true' ? 'true' : 'false');
+      });
+
+      var selected = []; /* gewählte Werte (Multi) */
+      function optionLabel(opt) { return (opt.dataset.label || opt.textContent).trim(); }
+      function shown() { return options.filter(function (o) { return !o.hidden; }); }
+      function activeOpt() { return options.filter(function (o) { return o.classList.contains('is-active'); })[0] || null; }
+      function setActive(opt) {
+        options.forEach(function (o) { o.classList.remove('is-active'); });
+        if (opt) {
+          opt.classList.add('is-active');
+          input.setAttribute('aria-activedescendant', opt.id);
+          opt.scrollIntoView({ block: 'nearest' });
+        } else {
+          input.removeAttribute('aria-activedescendant');
+        }
+      }
+      function filter() {
+        var q = input.value.trim().toLowerCase();
+        var any = false;
+        options.forEach(function (o) {
+          var picked = multi && selected.indexOf(o.dataset.value) !== -1;
+          var match = !q || optionLabel(o).toLowerCase().indexOf(q) !== -1;
+          o.hidden = picked || !match;
+          if (!o.hidden) any = true;
+        });
+        empty.hidden = any;
+        var vis = shown();
+        if (vis.indexOf(activeOpt()) === -1) setActive(vis[0] || null);
+      }
+      function isOpen() { return root.classList.contains('is-open'); }
+      function open() {
+        if (isOpen() || root.classList.contains('is-disabled')) return;
+        closeAllDropdowns(root);
+        root.classList.add('is-open');
+        input.setAttribute('aria-expanded', 'true');
+        filter();
+      }
+      function close() {
+        if (!isOpen()) return;
+        root.classList.remove('is-open');
+        input.setAttribute('aria-expanded', 'false');
+        setActive(null);
+        /* Getippten Filtertext nicht über das Schließen hinaus stehen lassen.
+           Multi: Eingabe ist reiner Filter → leeren. Single: auf das Label der gewählten Option
+           zurückfallen (bzw. leeren), damit kein ungültiger Freitext im Feld hängen bleibt.
+           Nächstes open() filtert ohnehin neu, daher hier kein filter()-Aufruf nötig. */
+        if (multi) {
+          if (input.value !== '') { input.value = ''; updateClear(); }
+        } else {
+          var sel = options.filter(function (o) { return o.getAttribute('aria-selected') === 'true'; })[0];
+          var label = sel ? optionLabel(sel) : '';
+          if (input.value !== label) { input.value = label; updateClear(); }
+        }
+      }
+      function renderTokens() {
+        Array.prototype.slice.call(control.querySelectorAll('.ep-combobox-token')).forEach(function (t) { t.remove(); });
+        selected.forEach(function (val) {
+          var opt = options.filter(function (o) { return o.dataset.value === val; })[0];
+          var label = opt ? optionLabel(opt) : val;
+          var token = document.createElement('span');
+          token.className = 'ep-combobox-token';
+          var lab = document.createElement('span');
+          lab.className = 'ep-combobox-token-label';
+          lab.textContent = label;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'ep-combobox-token-remove';
+          btn.setAttribute('aria-label', label + ' entfernen');
+          btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M6 18 18 6M6 6l12 12"/></svg>';
+          btn.addEventListener('click', function (e) { e.stopPropagation(); deselect(val); input.focus(); });
+          token.appendChild(lab); token.appendChild(btn);
+          control.insertBefore(token, input);
+        });
+      }
+      function choose(opt) {
+        var val = opt.dataset.value != null ? opt.dataset.value : optionLabel(opt);
+        if (multi) {
+          if (selected.indexOf(val) === -1) selected.push(val);
+          opt.setAttribute('aria-selected', 'true');
+          input.value = '';
+          renderTokens();
+          filter();
+          input.focus();
+        } else {
+          options.forEach(function (o) { o.setAttribute('aria-selected', o === opt ? 'true' : 'false'); });
+          input.value = optionLabel(opt);
+          close();
+        }
+        updateClear();
+        root.dispatchEvent(new CustomEvent('ep:change', { bubbles: true, detail: { value: val, multi: multi, selected: selected.slice() } }));
+      }
+      function deselect(val) {
+        selected = selected.filter(function (v) { return v !== val; });
+        var opt = options.filter(function (o) { return o.dataset.value === val; })[0];
+        if (opt) opt.setAttribute('aria-selected', 'false');
+        renderTokens();
+        filter();
+      }
+
+      options.forEach(function (opt) {
+        opt.addEventListener('click', function () { choose(opt); });
+        opt.addEventListener('mousemove', function () { if (!opt.hidden) setActive(opt); });
+      });
+      control.addEventListener('click', function (e) {
+        if (e.target.closest('.ep-combobox-token-remove')) return;
+        input.focus(); open();
+      });
+      /* Chevron als Toggle: schließt ein offenes Menü, öffnet ein geschlossenes (stopPropagation,
+         sonst öffnet der Control-Handler direkt wieder). Klick in den Textbereich lässt offen — man tippt. */
+      var caret = control.querySelector('.ep-select-caret');
+      if (caret) {
+        caret.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (isOpen()) close(); else { input.focus(); open(); }
+        });
+      }
+      /* Komfort: Lösch-Button leert das Eingabefeld mit einem Klick. Sichtbar nur bei Text im Feld.
+         Multi: leert nur den getippten Filtertext, Chips bleiben. Single: leert Text und hebt die Auswahl auf
+         (sonst stünde leeres Feld neben weiterhin gewählter Option). Sitzt links vom Chevron. */
+      var clearBtn = document.createElement('button');
+      clearBtn.type = 'button';
+      clearBtn.className = 'ep-combobox-clear';
+      clearBtn.setAttribute('aria-label', 'Eingabe löschen');
+      clearBtn.hidden = true;
+      clearBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path stroke-linecap="round" d="M6 18 18 6M6 6l12 12"/></svg>';
+      if (caret) control.insertBefore(clearBtn, caret); else control.appendChild(clearBtn);
+      function updateClear() {
+        var has = input.value !== '';
+        clearBtn.hidden = !has;
+        control.classList.toggle('has-clear', has); /* reserviert Padding rechts für den Button */
+      }
+      clearBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        input.value = '';
+        if (!multi) options.forEach(function (o) { o.setAttribute('aria-selected', 'false'); });
+        updateClear();
+        input.focus();
+        open();
+        filter();
+      });
+      input.addEventListener('focus', open);
+      input.addEventListener('input', function () { open(); filter(); updateClear(); });
+      input.addEventListener('keydown', function (e) {
+        var vis = shown();
+        var idx = vis.indexOf(activeOpt());
+        if (e.key === 'ArrowDown') { e.preventDefault(); if (!isOpen()) { open(); return; } setActive(vis[Math.min(vis.length - 1, idx + 1)] || vis[0] || null); return; }
+        if (e.key === 'ArrowUp') { e.preventDefault(); setActive(vis[Math.max(0, idx - 1)] || null); return; }
+        if (e.key === 'Home') { if (isOpen()) { e.preventDefault(); setActive(vis[0] || null); } return; }
+        if (e.key === 'End') { if (isOpen()) { e.preventDefault(); setActive(vis[vis.length - 1] || null); } return; }
+        if (e.key === 'Enter') { if (isOpen() && activeOpt()) { e.preventDefault(); choose(activeOpt()); } return; }
+        if (e.key === 'Escape') { if (isOpen()) { e.preventDefault(); close(); } return; }
+        if (e.key === 'Backspace' && multi && input.value === '' && selected.length) { deselect(selected[selected.length - 1]); }
+      });
+
+      registerDropdown(root, close);
+    });
+  })();
 
 })();

@@ -232,6 +232,82 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .helper{font:var(--ty-body-xs);color:var(--tx-muted);margin-top:var(--s1)}
 .error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
 
+/* ── Dropdowns: Custom Select & Combobox ──
+   Zwei Auswahl-Komponenten über das native <select> hinaus:
+   .ep-select   — gestylte Einzelauswahl mit Listbox-Popup, Häkchen, Bereichs-Akzent.
+   .ep-combobox — Tipp-Filter über langen Listen; .is-multi ergänzt entfernbare Chips.
+   Trigger spiegelt .field select (52 px, 2 px --field-border, --r-md); Popup spiegelt .ep-nav-sub
+   (bg-surface, --e3, --bd, --r-md). Bereichs-Akzent über --sel-500/--sel-50 (Default = Corporate),
+   per [data-area] auf ki/es/wo umschaltbar — wie Buttons/Chips. Der Akzent erscheint NUR im
+   gewählten Eintrag (Häkchen + Tönung); Fokusring/Fokusrahmen bleiben neutral-Teal wie bei .field. */
+.ep-select,.ep-combobox{position:relative;margin-bottom:var(--s6);--sel-500:var(--co-700);--sel-50:var(--co-50)}
+.ep-select[data-area="ki"],.ep-combobox[data-area="ki"]{--sel-500:var(--ki-800);--sel-50:var(--ki-50)}
+.ep-select[data-area="es"],.ep-combobox[data-area="es"]{--sel-500:var(--es-700);--sel-50:var(--es-50)}
+.ep-select[data-area="wo"],.ep-combobox[data-area="wo"]{--sel-500:var(--wo-700);--sel-50:var(--wo-50)}
+
+/* Label — identische Metriken wie .field label */
+.ep-select-label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+
+/* Trigger (Select) / Control (Combobox) — spiegeln .field select */
+.ep-select-trigger,.ep-combobox-control{display:flex;align-items:center;gap:var(--s2);width:100%;min-height:52px;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);transition:border-color var(--m-fast),box-shadow var(--m-fast);text-align:left}
+.ep-select-trigger{justify-content:space-between;cursor:pointer}
+.ep-select-value{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Platzhalter (noch keine Auswahl): gedämpft wie .field-Placeholder, AA in beiden Modi */
+.ep-select-trigger.is-placeholder .ep-select-value{color:var(--tx-secondary)}
+.ep-select-caret{flex-shrink:0;width:24px;height:24px;stroke:var(--n-500);transition:transform var(--m-fast)}
+.ep-select.is-open .ep-select-caret,.ep-combobox.is-open .ep-select-caret{transform:rotate(180deg)}
+
+/* Combobox: textbares Feld im Control, ohne eigenen Rahmen. Chevron + Lösch-Button sind absolut
+   und vertikal zentriert (s. u.), daher Platz rechts reservieren (--cb-pad-r). Bei Multi-Select
+   umbricht das Control mehrzeilig — die absolute Position hält Chevron/Button trotzdem mittig. */
+.ep-combobox-control{position:relative;cursor:text;padding-right:var(--cb-pad-r,var(--s10))}
+.ep-combobox-control.has-clear{--cb-pad-r:calc(var(--s10) + var(--s8))} /* zusätzlich Platz für den Lösch-Button */
+.ep-combobox-input{flex:1;min-width:0;border:none;outline:none;background:none;font:var(--ty-body-md);color:var(--tx-primary);padding:0}
+.ep-combobox-input::placeholder{color:var(--tx-secondary)}
+/* Chevron absolut, vertikal zentriert über die volle Control-Höhe (Multi umbricht mehrzeilig) */
+.ep-combobox .ep-select-caret{position:absolute;right:var(--s4);top:50%;margin:0;transform:translateY(-50%);cursor:pointer}
+.ep-combobox.is-open .ep-select-caret{transform:translateY(-50%) rotate(180deg)}
+/* Lösch-Button: erscheint (per JS, [hidden] entfernt) sobald Text im Feld steht, leert es mit einem Klick.
+   Ebenfalls absolut + vertikal zentriert, links vom Chevron. display:inline-flex (Autor-Regel) schlägt
+   das UA-[hidden] → Ausblenden explizit wiederherstellen. */
+.ep-combobox-clear{position:absolute;right:var(--s10);top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:none;background:none;color:var(--tx-secondary);border-radius:var(--r-full);cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.ep-combobox-clear:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.ep-combobox-clear:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-combobox-clear[hidden]{display:none}
+
+/* Fokus — neutral-Teal wie .field (Bereichsfarbe trägt nur der gewählte Eintrag) */
+.ep-select-trigger:focus-visible{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.ep-combobox-control:focus-within{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+
+/* Popup — gemeinsame Fläche für beide Komponenten, spiegelt .ep-nav-sub */
+.ep-select-menu,.ep-combobox-menu{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:20;display:none;flex-direction:column;gap:2px;max-height:288px;overflow-y:auto;margin:0;padding:var(--s2);list-style:none;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-select.is-open .ep-select-menu,.ep-combobox.is-open .ep-combobox-menu{display:flex}
+.ep-select-menu:focus,.ep-combobox-menu:focus{outline:none}
+
+/* Option — Hover/Tastaturcursor + gewählter Zustand tragen den Bereichs-Akzent (wie .ep-nav-sub-btn) */
+.ep-select-option{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);font:var(--ty-body-md);color:var(--tx-primary);cursor:pointer;white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
+/* display:flex (Autor-Regel) schlägt das UA-[hidden]{display:none} — daher das Ausblenden gefilterter
+   bzw. bereits gewählter Optionen explizit wiederherstellen (Attribut-Selektor, höhere Spezifität). */
+.ep-select-option[hidden]{display:none}
+.ep-select-option:hover,.ep-select-option.is-active{background:var(--sel-50);color:var(--sel-500)}
+.ep-select-option[aria-selected="true"]{background:var(--sel-50);color:var(--sel-500);font-weight:600}
+/* Häkchen hält immer seinen Platz (Textbündigkeit), sichtbar nur im gewählten Eintrag */
+.ep-select-check{flex-shrink:0;width:20px;height:20px;stroke:var(--sel-500);opacity:0}
+.ep-select-option[aria-selected="true"] .ep-select-check{opacity:1}
+.ep-combobox-empty{padding:var(--s2) var(--s3);font:var(--ty-body-sm);color:var(--tx-muted)}
+
+/* Multi-Select: gewählte Werte als entfernbare Chips im Control */
+.ep-combobox.is-multi .ep-combobox-control{flex-wrap:wrap;gap:var(--s1);padding:6px var(--cb-pad-r,var(--s10)) 6px var(--s3)}
+.ep-combobox.is-multi .ep-combobox-input{flex:1 0 80px;min-height:28px}
+.ep-combobox-token{display:inline-flex;align-items:center;gap:2px;padding:2px 2px 2px 10px;border-radius:var(--r-full);background:var(--sel-50);color:var(--sel-500);font:var(--ty-label-sm);max-width:100%}
+.ep-combobox-token-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-combobox-token-remove{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0;border:none;background:none;color:inherit;border-radius:var(--r-full);cursor:pointer;transition:background var(--m-fast)}
+.ep-combobox-token-remove:hover{background:color-mix(in srgb,var(--sel-500) 22%,transparent)}
+.ep-combobox-token-remove:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+
+/* Disabled */
+.ep-select.is-disabled .ep-select-trigger,.ep-combobox.is-disabled .ep-combobox-control{opacity:.5;cursor:not-allowed;pointer-events:none}
+
 /* ── Typography specimens ── */
 .type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
 .type-row:last-child{border-bottom:none}
@@ -638,16 +714,44 @@ img.logo-themed-light{display:none}
 .ep-nav-sub-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .ep-nav-sub-btn[aria-current="page"]{background:var(--co-50);color:var(--co-700);font-weight:600}
 /* Hamburger (per JS injiziert) — nur unter dem Mobile-Breakpoint sichtbar */
-.ep-nav-burger{display:none;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0;border:1px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface);color:var(--tx-primary);cursor:pointer;padding:0}
+.ep-nav-burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;flex-shrink:0;border:1px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface);color:var(--tx-primary);cursor:pointer;padding:0}
 .ep-nav-burger:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-nav-burger .icon-close{display:none}
 .ep-topnav.nav-open .ep-nav-burger .icon-menu{display:none}
 .ep-topnav.nav-open .ep-nav-burger .icon-close{display:inline}
+
+/* ── Topnav-Aktionen: Suche + Theme-Umschalter ──
+   Per JS in jede .ep-topnav injiziert (wie der Hamburger). Rechts gebündelt, direkt vor dem CTA.
+   Bleibt Corporate-Chrome (co) auch auf data-accent-Seiten, analog zu den Nav-Links. */
+.ep-nav-actions{display:inline-flex;align-items:center;gap:var(--s1);margin-left:auto}
+/* CTA (letztes Child) trägt sonst selbst margin-left:auto → würde den rechten Cluster auseinanderreißen.
+   Wenn die Aktionen das Schieben übernehmen, bekommt der CTA nur noch einen kleinen Abstand. */
+.ep-topnav:has(.ep-nav-actions) > :last-child{margin-left:var(--s3)}
+.ep-nav-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex-shrink:0;border:1px solid transparent;border-radius:var(--r-full);background:none;color:var(--tx-secondary);cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.ep-nav-icon-btn:hover{background:var(--co-50);color:var(--co-700)}
+.ep-nav-icon-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-icon-btn svg{width:22px;height:22px}
+/* Theme-Umschalter: Mond im Light (Klick → Dark), Sonne im Dark (Klick → Light) */
+.ep-nav-theme-toggle .ep-nav-icon-sun{display:none}
+[data-theme="dark"] .ep-nav-theme-toggle .ep-nav-icon-sun{display:block}
+[data-theme="dark"] .ep-nav-theme-toggle .ep-nav-icon-moon{display:none}
+/* Such-Popover: Disclosure unter dem Such-Button, spiegelt .ep-nav-sub (bg-surface, --e3, --bd) */
+.ep-nav-search{position:relative;display:inline-flex}
+.ep-nav-search.is-open .ep-nav-search-toggle{background:var(--co-50);color:var(--co-700)}
+.ep-nav-search-pop{display:none;position:absolute;top:calc(100% + var(--s3));right:0;z-index:10;width:320px;max-width:90vw;padding:var(--s4);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-nav-search.is-open .ep-nav-search-pop{display:block}
+.ep-nav-search-form{display:flex;gap:var(--s2);align-items:center}
+.ep-nav-search-input{flex:1;min-width:0;height:44px;padding:0 var(--s3);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast)}
+.ep-nav-search-input:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.ep-nav-search-input::placeholder{color:var(--tx-secondary)}
 @media(max-width:760px){
-  /* Erste Zeile: Logo links, Burger + Kontakt rechts. Nav-Links klappen darunter auf. */
+  /* Erste Zeile: Logo links, dann Aktionen (Suche/Theme) + Burger + Kontakt rechts. Nav-Links klappen darunter auf. */
   .ep-logo{order:1}
-  .ep-nav-burger{display:inline-flex;order:2;margin-left:auto}
-  .ep-topnav > .btn{order:3;margin-left:var(--s3)}
+  .ep-nav-actions{order:2;margin-left:auto}
+  .ep-nav-burger{display:inline-flex;order:3;margin-left:var(--s2)}
+  .ep-topnav > .btn{order:4;margin-left:var(--s3)}
+  /* Popover am rechten Rand statt rechtsbündig, damit es auf schmalen Screens nicht abgeschnitten wird */
+  .ep-nav-search-pop{right:auto;left:0;width:min(320px,calc(100vw - var(--s8)))}
   .ep-nav-links{display:none;order:4;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
   .ep-topnav.nav-open .ep-nav-links{display:flex}
   .ep-nav-item{flex-direction:column;align-items:stretch;width:100%;gap:0}
