@@ -51,6 +51,8 @@ npm install github:conciso/conciso-design-system#v0.1.0
 import '@conciso/design-system/dist/conciso-ds.css';
 // Tokens (optional, für JS/Framework):
 import { tokens } from '@conciso/design-system/tokens';
+// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor):
+import { icons } from '@conciso/design-system/icons';
 ```
 
 > Das Paket ist **intern/proprietär** (`UNLICENSED`, `private`) und wird **nicht** in ein npm-Registry veröffentlicht. Nutzung also entweder über das eingebundene/kopierte CSS (Variante A) oder als gepinnte Git-Abhängigkeit (Variante B). Hinweis: Ein Git-Install zieht das ganze Repo inkl. der Demo-Bilder — bis die ausgelagert sind, ist für reine CSS-Nutzung das Vendoren von `dist/conciso-ds.css` + `fonts/` am schlanksten.
@@ -71,11 +73,12 @@ import { tokens } from '@conciso/design-system/tokens';
 | `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) — der konsumierbare Kern |
 | `dist/` | `conciso-ds.css` (gebündelt, generiert) |
 | `tokens/` | `tokens.json` · `tokens.scss` · `tokens.js` (Token-Export, generiert) |
+| `icons/` | `icons.json` · `icons.js` · `README.md` (Icon-Export, generiert) + `source/*.svg` (Quelle) |
 | `fonts/` | Self-Host-Fonts (woff2) + OFL-Lizenztexte; eingebunden über `css/fonts.css` |
-| `scripts/` | `build-tokens.mjs` · `bundle-css.mjs` (`npm run build`) |
+| `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) |
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 
-> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder).
+> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`, `icons/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder). Icon-Details und Mapping: [`icons/README.md`](icons/README.md).
 
 ## Mitwirken / Erweitern
 

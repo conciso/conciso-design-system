@@ -14,6 +14,25 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Added
+- **Icon-Bibliothek** als maschinenlesbarer Export: `icons/icons.json` · `icons.js`
+  (kompletter `<svg>`-Body pro Key, `currentColor`, Stil-Markierung `solid`/`outline`,
+  `viewBox`, Verwendungskontext) + kuratierte Quelle `icons/source/*.svg`, generiert via
+  `scripts/build-icons.mjs` (`npm run build:icons`, jetzt Teil von `npm run build`).
+  Neue Exports `@conciso/design-system/icons` · `/icons.json`; Mapping/Consumption in
+  `icons/README.md`. Vier Solid-Bereichs-Glyphen (`ki-bot`, `es-window-check`,
+  `wo-network`, `co-building`) + generische Outline-UI-Icons.
+- **Dropdown-Komponenten**: `.ep-select` (Custom Select mit Listbox-A11y, Bereichs-Akzent)
+  und `.ep-combobox` (Tipp-Filter über langen Listen; `.is-multi` für Multi-Select mit
+  entfernbaren Chips), inkl. Lösch-Button und Filter-Reset beim Schließen.
+- **Topnav-Aktionen**: Such-Popover (Disclosure, A11y) + Light/Dark-Umschalter
+  (`aria-pressed`, synchron mit dem Sidebar-Switch), per JS in jede `.ep-topnav` injiziert.
+
+### Changed
+- Topnav-Icon-Buttons und Hamburger auf 48 × 48 px (Touch-Target AAA, WCAG 2.5.5).
+- Icon-Doku (`#sec-icons`): Solid-Bereichs-Glyphen vs. Outline-UI-Icons klargestellt
+  (vorherige „nur Outline"-Aussage war unzutreffend); Verweis auf die Icon-Bibliothek.
+
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
   Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und

@@ -9,7 +9,8 @@ So bindest du das Conciso Design System in ein Projekt ein. Es ist **CSS-first u
 - [4. JavaScript (optional)](#4-javascript-optional)
 - [5. Erste Beispiele](#5-erste-beispiele)
 - [6. Tokens nutzen](#6-tokens-nutzen)
-- [7. Frameworks](#7-frameworks)
+- [7. Icons nutzen](#7-icons-nutzen)
+- [8. Frameworks](#8-frameworks)
 
 ---
 
@@ -131,7 +132,24 @@ Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text 
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 
-## 7. Frameworks
+## 7. Icons nutzen
+
+Die DS-Icons liegen als maschinenlesbare Bibliothek vor (mit dem npm-Paket): `icons/icons.json` und `icons/icons.js` enthalten pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color` des Containers (z. B. Bereichsfarbe `var(--ki-800)`, im Dark `--ki-200`).
+
+```js
+import { icons } from '@conciso/design-system/icons';
+const { svg } = icons['ki-bot'];   // komplettes <svg>…</svg>
+```
+
+```html
+<!-- direkt einhängen und einfärben -->
+<span style="color:var(--ki-800);display:inline-flex" data-icon></span>
+<script>document.querySelector('[data-icon]').innerHTML = icons['ki-bot'].svg;</script>
+```
+
+Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind `solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Vollständiges Key-Mapping inkl. Verwendungskontext: [`icons/README.md`](../icons/README.md). Neue Icons werden in `icons/source/*.svg` ergänzt und mit `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
+
+## 8. Frameworks
 
 Das System ist global einzubinden (das CSS einmal importieren, dann die Klassen in JSX/Templates verwenden):
 

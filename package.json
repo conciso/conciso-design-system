@@ -16,6 +16,7 @@
     "css",
     "dist",
     "tokens",
+    "icons",
     "fonts",
     "README.md",
     "LICENSE",
@@ -31,12 +32,15 @@
     "./dist/conciso-ds.css": "./dist/conciso-ds.css",
     "./tokens": "./tokens/tokens.js",
     "./tokens.json": "./tokens/tokens.json",
-    "./tokens.scss": "./tokens/tokens.scss"
+    "./tokens.scss": "./tokens/tokens.scss",
+    "./icons": "./icons/icons.js",
+    "./icons.json": "./icons/icons.json"
   },
   "scripts": {
     "build:tokens": "node scripts/build-tokens.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
     "build:css": "node scripts/bundle-css.mjs",
-    "build": "npm run build:tokens && npm run build:css"
+    "build": "npm run build:tokens && npm run build:icons && npm run build:css"
   },
   "keywords": [
     "design-system",
