@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, userEvent, expect } from 'storybook/test';
 import { ChipComponent } from './chip.component';
 
 const meta: Meta<ChipComponent> = {
@@ -26,7 +27,16 @@ export default meta;
 
 type Story = StoryObj<ChipComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Toggle-Verhalten: Klick schaltet aria-pressed um.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const chip = c.getByRole('button', { name: 'Filter' });
+    await expect(chip).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(chip);
+    await expect(chip).toHaveAttribute('aria-pressed', 'true');
+  },
+};
 
 export const Zustaende: Story = {
   name: 'Zustände',

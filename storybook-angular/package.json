@@ -6,7 +6,9 @@
   "private": true,
   "scripts": {
     "storybook": "ng run conciso-ds-angular:storybook",
-    "build-storybook": "ng run conciso-ds-angular:build-storybook"
+    "build-storybook": "ng run conciso-ds-angular:build-storybook",
+    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
+    "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006"
   },
   "dependencies": {
     "@angular/animations": "^20.3.0",
@@ -26,6 +28,7 @@
     "@angular/compiler-cli": "^20.3.0",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/angular": "^10.4.6",
+    "@storybook/test-runner": "^0.24.4",
     "remark-gfm": "^4.0.1",
     "storybook": "^10.4.6",
     "typescript": "~5.8.0"

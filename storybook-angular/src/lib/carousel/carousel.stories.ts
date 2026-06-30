@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, userEvent, expect } from 'storybook/test';
 import { CarouselComponent } from './carousel.component';
 
 const meta: Meta<CarouselComponent> = {
@@ -25,7 +26,17 @@ export default meta;
 
 type Story = StoryObj<CarouselComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Weiterblättern: „Nächste" aktiviert den zweiten Dot (aria-current).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('button', { name: /^Slide / });
+    await expect(dots[0]).toHaveAttribute('aria-current', 'true');
+    await userEvent.click(c.getByRole('button', { name: 'Nächste Slide' }));
+    await expect(dots[1]).toHaveAttribute('aria-current', 'true');
+    await expect(dots[0]).toHaveAttribute('aria-current', 'false');
+  },
+};
 
 export const Hero: Story = {
   args: { hero: true },

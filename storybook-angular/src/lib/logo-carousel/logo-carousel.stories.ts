@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, userEvent, expect } from 'storybook/test';
 import { LogoCarouselComponent } from './logo-carousel.component';
 
 const meta: Meta<LogoCarouselComponent> = {
@@ -25,4 +26,12 @@ export default meta;
 
 type Story = StoryObj<LogoCarouselComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Pause-Button stoppt das Autoplay und wechselt das Label auf „Abspielen".
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const pause = c.getByRole('button', { name: /Pausieren|Abspielen/ });
+    await userEvent.click(pause);
+    await expect(pause).toHaveAttribute('aria-label', 'Abspielen');
+  },
+};

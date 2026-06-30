@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { SliderComponent } from './slider.component';
 
 const meta: Meta<SliderComponent> = {
@@ -38,7 +39,16 @@ export default meta;
 
 type Story = StoryObj<SliderComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Schieben aktualisiert die formatierte Live-Ausgabe (de-DE + Einheit).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByText('50.000 €')).toBeInTheDocument();
+    const slider = c.getByRole('slider');
+    fireEvent.input(slider, { target: { value: '75000' } });
+    await waitFor(() => expect(c.getByText('75.000 €')).toBeInTheDocument());
+  },
+};
 
 export const ProBereich: Story = {
   name: 'Je Bereich',
