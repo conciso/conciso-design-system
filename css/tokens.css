@@ -80,11 +80,15 @@
   --ty-serif-sm:     400 17px/28px var(--font-display);
   --ty-serif-md:     400 20px/28px var(--font-display);
   --ty-serif-lg:     400 20px/32px var(--font-display);
-  --ty-headline-xs:   400 22px/30px var(--font-display);
-  --ty-headline-sm:   400 24px/32px var(--font-display);
-  --ty-headline-md:   400 28px/36px var(--font-display);
-  --ty-display-sm:   400 36px/44px var(--font-display);
-  --ty-display-md:   400 40px/48px var(--font-display);
+  /* Headline/Display fluid (Juni 2026): font-size via clamp(), Zeilenhöhe als
+     unitless Ratio (skaliert proportional zur gerechneten Größe, nie < 1 — siehe
+     line-height-Konvention). Max = bisheriger Fixwert → Desktop unverändert; Min
+     greift am Phone (alle ≥ 20 px, also ≥ Font-Size-Minimum). Mirror von --ty-display-lg. */
+  --ty-headline-xs:   400 clamp(20px,2.4vw,22px)/1.35 var(--font-display);
+  --ty-headline-sm:   400 clamp(21px,2.7vw,24px)/1.33 var(--font-display);
+  --ty-headline-md:   400 clamp(23px,3.1vw,28px)/1.3 var(--font-display);
+  --ty-display-sm:   400 clamp(28px,4vw,36px)/1.22 var(--font-display);
+  --ty-display-md:   400 clamp(30px,4.5vw,40px)/1.2 var(--font-display);
   --ty-display-lg:   400 clamp(28px,3.5vw,46px)/1.15 var(--font-display);
 
   /* ── Spacing ── */

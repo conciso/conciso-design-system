@@ -27,11 +27,33 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   entfernbaren Chips), inkl. Lösch-Button und Filter-Reset beim Schließen.
 - **Topnav-Aktionen**: Such-Popover (Disclosure, A11y) + Light/Dark-Umschalter
   (`aria-pressed`, synchron mit dem Sidebar-Switch), per JS in jede `.ep-topnav` injiziert.
+- **Responsive Grid-Marker** für gezielt mehrspaltige Mobile/Tablet-Layouts (statt der
+  einspaltigen Default-Kollabierung): `data-team-tiles` (2×2), `data-team-roster` (2 Spalten
+  ≤ 520 px / 3 Spalten 521–768 px), `data-benefits` und `data-event-meta` (2×2 auf Tablet /
+  1-spaltig ≤ 520 px). Alle auf `.layout-grid` gesetzt.
 
 ### Changed
 - Topnav-Icon-Buttons und Hamburger auf 48 × 48 px (Touch-Target AAA, WCAG 2.5.5).
 - Icon-Doku (`#sec-icons`): Solid-Bereichs-Glyphen vs. Outline-UI-Icons klargestellt
   (vorherige „nur Outline"-Aussage war unzutreffend); Verweis auf die Icon-Bibliothek.
+- **Headline/Display-Tokens fluid**: `--ty-headline-xs/sm/md` und `--ty-display-sm/md` nutzen
+  jetzt `clamp()` mit unitless Ratio-Zeilenhöhe (Mirror von `--ty-display-lg`). Desktop-Maxima
+  unverändert, Minima ≥ 20 px greifen am Phone. Typografie-Doku entsprechend aktualisiert.
+- **Responsive-Überarbeitung der Beispielseiten** (3 Stufen: ≤ 520 px Phone · 521–768 px Tablet ·
+  > 768 px Desktop):
+  - Section-Innenabstand mobil 32 → 24 px (`--s6`); Hero-CTAs stapeln full-width erst ≤ 520 px
+    (vorher 768 px, lief auf Phablet zu breit).
+  - `.layout-grid` setzt beim Kollabieren die `col-N`-Spannweiten zurück, sodass ungleiche Splits
+    (z. B. `col-7`/`col-5`) gleich breit stapeln (vorher wurde das Bild schmaler).
+  - Mobile-Topnav: Burger als äußerstes rechtes Element (kein Positionssprung beim Öffnen).
+  - `.team-voice` mobil als Pull-Quote (Quote-Icon im linken Gutter statt eigener Zeile);
+    `.card`-`min-height` (2lh/3lh, nur für Grid-Gleichhöhe) entfällt einspaltig; `.ep-award-list`
+    als 2×2 statt versetztem Flex-Wrap; `.article-avatar-xl` mobil spaltenrelativ (max. 112 px).
+- **Doku-Shell**: `.ds-sidebar` wird ≤ 1024 px ausgeblendet (Content full-width), damit die
+  Beispielseiten die echte Fensterbreite einnehmen und ihre viewport-`@media`-Queries korrekt
+  greifen — Voraussetzung für faithful Mobile/Tablet-Vorschau.
+- **Effektive-Software-Hero**: neues, thematisch passenderes Motiv (Entwickler, Laptop-Sticker
+  Clean Code / Keycloak / Jakarta EE / Docker); web-optimiert (5000 px/5,1 MB → 2000 px/411 KB).
 
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB

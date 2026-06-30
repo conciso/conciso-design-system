@@ -63,6 +63,17 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .ds-page{display:flex;min-height:100vh}
 .ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;transition:width var(--m-std)}
 .ds-content{flex:1;padding:var(--s10) var(--s6);max-width:1280px;transition:margin-left var(--m-std)}
+/* Vorschau-Modus (≤ 1024px): Doku-Sidebar ausblenden und horizontalen Content-Abstand
+   auf 0, damit die Beispielseiten exakt die Fensterbreite einnehmen. Sonst quetscht die
+   feste 252px-Sidebar die .ep-page in eine Restspalte, während ihre @media-Queries die
+   volle Fensterbreite lesen — Container-Breite und Breakpoint passen dann nicht zusammen
+   und die Mobile/Tablet-Vorschau wird unbrauchbar. So stimmen .ep-page-Breite und Breakpoint
+   überein → DevTools-Geräte-Modus und Fenster-Verkleinern zeigen die Seite faithful.
+   Die Beispielseiten-Tabs liegen im Content (nicht in der Sidebar), bleiben also erreichbar. */
+@media (max-width: 1024px) {
+  .ds-sidebar{display:none}
+  .ds-content{padding-inline:0}
+}
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
@@ -151,7 +162,50 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
 .col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-9{grid-column:span 9}
 .col-10{grid-column:span 10}.col-11{grid-column:span 11}.col-12{grid-column:span 12}
-@media(max-width:768px){.layout-grid{grid-template-columns:1fr}}
+/* Kollabiert auf 1 Spalte. Wichtig: auch die col-*-Spannweiten zurücksetzen — sonst spannen
+   die Kinder weiter span 7/span 5/… und erzeugen bei nur einer 1fr-Spalte implizite Auto-Spalten,
+   wodurch unterschiedlich gespannte Geschwister (z. B. col-7 Text vs. col-5 Bild) verschieden
+   breit werden. Mit grid-column:auto ist jedes Kind exakt volle Breite. */
+@media(max-width:768px){
+  .layout-grid{grid-template-columns:1fr}
+  .layout-grid>[class*="col-"]{grid-column:auto}
+}
+/* Team-Kacheln („Wer wir sind"): statt einspaltig untereinander als 2×2-Raster, damit die
+   vier Köpfe auf dem Phone kompakt bleiben. Override der col-3-Spannweite (3 → 1 Track). */
+@media(max-width:768px){
+  .layout-grid[data-team-tiles]{grid-template-columns:1fr 1fr}
+  .layout-grid[data-team-tiles] > [data-team-tile]{grid-column:auto}
+}
+/* Team-Roster („Die Menschen", Über uns): ~70 Personen sollen mobil nicht einspaltig als
+   endlose Liste laufen. Tablet (521–768px) → 3 Spalten (ab ~520px gibt das ≥ ~146px je Spalte,
+   genug Platz). Phone (≤ 520px) → 2 Spalten, sonst zu gedrängt. minmax(0,1fr) verhindert
+   Grid-Blowout durch lange Namen (Text wrappt). Engerer Gap (--s4). col-3-Spannweite → 1 Track.
+   520px-Bruch konsistent mit dem Hero-CTA-Breakpoint. */
+@media(max-width:768px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+  .layout-grid[data-team-roster] > .col-3{grid-column:auto}
+}
+@media(max-width:520px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Benefits-Grid (4 Kategorien) und Event-Meta-Strip (4 Key-Facts: Datum/Ort/Format/Eintritt):
+   Tablet (521–768px) → 2×2 statt der einspaltigen layout-grid-Kollabierung; Smartphone (≤ 520px)
+   → 1×4 einspaltig. Desktop (> 768px) bleibt 4-spaltig. Die col-3-Spannweite setzt bereits die
+   globale Regel oben zurück. 520px-Bruch konsistent mit Roster/Hero-CTAs. */
+@media(max-width:768px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr}
+}
+/* Editorial-Split (Bild + Text nebeneinander): stapelt auf Mobile einspaltig, das Bild läuft
+   full-width. Der inline Text-Cap (max-width:520px, gedacht für die Zeilenlänge NEBEN dem Bild)
+   erzeugt dann eine Asymmetrie — Text schmaler als das Bild darüber. Unter dem Bild aufheben,
+   damit der Fließtext bündig zur Bildbreite läuft. !important, weil der Cap inline gesetzt ist;
+   greift nur auf .ep-section-sub INNERHALB eines layout-grid (Splits), nicht auf Sektions-Leads. */
+@media(max-width:768px){
+  .layout-grid .ep-section-sub{max-width:none!important}
+}
 
 /* ── Utility: visuell versteckt, aber für Screenreader lesbar ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

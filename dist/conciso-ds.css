@@ -104,11 +104,15 @@
   --ty-serif-sm:     400 17px/28px var(--font-display);
   --ty-serif-md:     400 20px/28px var(--font-display);
   --ty-serif-lg:     400 20px/32px var(--font-display);
-  --ty-headline-xs:   400 22px/30px var(--font-display);
-  --ty-headline-sm:   400 24px/32px var(--font-display);
-  --ty-headline-md:   400 28px/36px var(--font-display);
-  --ty-display-sm:   400 36px/44px var(--font-display);
-  --ty-display-md:   400 40px/48px var(--font-display);
+  /* Headline/Display fluid (Juni 2026): font-size via clamp(), Zeilenhöhe als
+     unitless Ratio (skaliert proportional zur gerechneten Größe, nie < 1 — siehe
+     line-height-Konvention). Max = bisheriger Fixwert → Desktop unverändert; Min
+     greift am Phone (alle ≥ 20 px, also ≥ Font-Size-Minimum). Mirror von --ty-display-lg. */
+  --ty-headline-xs:   400 clamp(20px,2.4vw,22px)/1.35 var(--font-display);
+  --ty-headline-sm:   400 clamp(21px,2.7vw,24px)/1.33 var(--font-display);
+  --ty-headline-md:   400 clamp(23px,3.1vw,28px)/1.3 var(--font-display);
+  --ty-display-sm:   400 clamp(28px,4vw,36px)/1.22 var(--font-display);
+  --ty-display-md:   400 clamp(30px,4.5vw,40px)/1.2 var(--font-display);
   --ty-display-lg:   400 clamp(28px,3.5vw,46px)/1.15 var(--font-display);
 
   /* ── Spacing ── */
@@ -645,6 +649,17 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .ds-page{display:flex;min-height:100vh}
 .ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;transition:width var(--m-std)}
 .ds-content{flex:1;padding:var(--s10) var(--s6);max-width:1280px;transition:margin-left var(--m-std)}
+/* Vorschau-Modus (≤ 1024px): Doku-Sidebar ausblenden und horizontalen Content-Abstand
+   auf 0, damit die Beispielseiten exakt die Fensterbreite einnehmen. Sonst quetscht die
+   feste 252px-Sidebar die .ep-page in eine Restspalte, während ihre @media-Queries die
+   volle Fensterbreite lesen — Container-Breite und Breakpoint passen dann nicht zusammen
+   und die Mobile/Tablet-Vorschau wird unbrauchbar. So stimmen .ep-page-Breite und Breakpoint
+   überein → DevTools-Geräte-Modus und Fenster-Verkleinern zeigen die Seite faithful.
+   Die Beispielseiten-Tabs liegen im Content (nicht in der Sidebar), bleiben also erreichbar. */
+@media (max-width: 1024px) {
+  .ds-sidebar{display:none}
+  .ds-content{padding-inline:0}
+}
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
@@ -733,7 +748,50 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
 .col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-9{grid-column:span 9}
 .col-10{grid-column:span 10}.col-11{grid-column:span 11}.col-12{grid-column:span 12}
-@media(max-width:768px){.layout-grid{grid-template-columns:1fr}}
+/* Kollabiert auf 1 Spalte. Wichtig: auch die col-*-Spannweiten zurücksetzen — sonst spannen
+   die Kinder weiter span 7/span 5/… und erzeugen bei nur einer 1fr-Spalte implizite Auto-Spalten,
+   wodurch unterschiedlich gespannte Geschwister (z. B. col-7 Text vs. col-5 Bild) verschieden
+   breit werden. Mit grid-column:auto ist jedes Kind exakt volle Breite. */
+@media(max-width:768px){
+  .layout-grid{grid-template-columns:1fr}
+  .layout-grid>[class*="col-"]{grid-column:auto}
+}
+/* Team-Kacheln („Wer wir sind"): statt einspaltig untereinander als 2×2-Raster, damit die
+   vier Köpfe auf dem Phone kompakt bleiben. Override der col-3-Spannweite (3 → 1 Track). */
+@media(max-width:768px){
+  .layout-grid[data-team-tiles]{grid-template-columns:1fr 1fr}
+  .layout-grid[data-team-tiles] > [data-team-tile]{grid-column:auto}
+}
+/* Team-Roster („Die Menschen", Über uns): ~70 Personen sollen mobil nicht einspaltig als
+   endlose Liste laufen. Tablet (521–768px) → 3 Spalten (ab ~520px gibt das ≥ ~146px je Spalte,
+   genug Platz). Phone (≤ 520px) → 2 Spalten, sonst zu gedrängt. minmax(0,1fr) verhindert
+   Grid-Blowout durch lange Namen (Text wrappt). Engerer Gap (--s4). col-3-Spannweite → 1 Track.
+   520px-Bruch konsistent mit dem Hero-CTA-Breakpoint. */
+@media(max-width:768px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+  .layout-grid[data-team-roster] > .col-3{grid-column:auto}
+}
+@media(max-width:520px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Benefits-Grid (4 Kategorien) und Event-Meta-Strip (4 Key-Facts: Datum/Ort/Format/Eintritt):
+   Tablet (521–768px) → 2×2 statt der einspaltigen layout-grid-Kollabierung; Smartphone (≤ 520px)
+   → 1×4 einspaltig. Desktop (> 768px) bleibt 4-spaltig. Die col-3-Spannweite setzt bereits die
+   globale Regel oben zurück. 520px-Bruch konsistent mit Roster/Hero-CTAs. */
+@media(max-width:768px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr}
+}
+/* Editorial-Split (Bild + Text nebeneinander): stapelt auf Mobile einspaltig, das Bild läuft
+   full-width. Der inline Text-Cap (max-width:520px, gedacht für die Zeilenlänge NEBEN dem Bild)
+   erzeugt dann eine Asymmetrie — Text schmaler als das Bild darüber. Unter dem Bild aufheben,
+   damit der Fließtext bündig zur Bildbreite läuft. !important, weil der Cap inline gesetzt ist;
+   greift nur auf .ep-section-sub INNERHALB eines layout-grid (Splits), nicht auf Sektions-Leads. */
+@media(max-width:768px){
+  .layout-grid .ep-section-sub{max-width:none!important}
+}
 
 /* ── Utility: visuell versteckt, aber für Screenreader lesbar ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -918,6 +976,14 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    saubere 4-px-Treppe in der Hierarchie. Kein min-height (kein Nachbar zum Abgleichen). */
 .card-title-hero{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0;text-wrap:balance}
 .card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
+/* Mobile (≤ 768px): .layout-grid wird einspaltig, die Cards stehen ohne Nachbarn full-width.
+   Dann sind die min-height-Reservierungen (Titel 2lh, Text 3lh) — die nur die Gleichhöhe
+   nebeneinanderstehender Cards sichern — leerer Raum und erzeugen große Lücken. Aufheben.
+   Das line-clamp (Titel 2, Text 3 Zeilen) bleibt, lange Inhalte kürzen also weiterhin.
+   .ep-cards (auto-fit) bleibt bewusst unberührt: dort stehen Cards auch mobil noch mehrspaltig. */
+@media(max-width:768px){
+  .layout-grid .card-title,.layout-grid .card-text{min-height:0}
+}
 /* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
    nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
 .card-meta{display:flex;flex-direction:column;gap:var(--s1)}
@@ -969,6 +1035,13 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
   .team-voice,.team-voice:nth-child(even){grid-template-columns:1fr}
   .team-voice:nth-child(even) .team-voice-media{grid-column:1;grid-row:1}
   .team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:2}
+  /* Gestapelt verbraucht das Quote-Icon eine eigene Zeile + Gaps und frisst viel Höhe.
+     Stattdessen Pull-Quote-Stil: 2-Spalten-Grid mit Icon im schmalen linken Gutter, Zitat
+     und Footer rechts daneben/darunter ausgerichtet. Icon kleiner, Body-Padding reduziert. */
+  .team-voice-body{display:grid;grid-template-columns:auto 1fr;align-items:start;column-gap:var(--s2);row-gap:var(--s3);padding:var(--s6)}
+  .team-voice-icon{width:26px;height:26px;grid-column:1;grid-row:1;margin-top:2px}
+  .team-voice-quote{grid-column:2;grid-row:1}
+  .team-voice-footer{grid-column:2;grid-row:2}
 }
 /* Stat Card */
 /* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
@@ -1223,6 +1296,13 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
   .footer-grid{grid-template-columns:1fr;gap:var(--s8)}
   .footer-main{padding-block:var(--s8)}
   .footer-btm .footer-social{margin-left:0}
+}
+/* Tablet (769–1024px): Zwischenstufe für fix-spaltige Layouts, damit sie nicht direkt
+   von voller Desktop-Breite auf 1-spaltig springen. Die auto-fit-Grids (.ep-cards,
+   .a11y-grid, .card-stat-strip, .ep-tabs) regeln diesen Bereich bereits selbst — daher
+   hier nur der 3-spaltige Footer auf 2 Spalten. */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer-grid{grid-template-columns:1fr 1fr;gap:var(--s8) var(--s10)}
 }
 
 /* ── A11y ── */
@@ -1524,14 +1604,17 @@ img.logo-themed-light{display:none}
 .ep-nav-search-input:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .ep-nav-search-input::placeholder{color:var(--tx-secondary)}
 @media(max-width:760px){
-  /* Erste Zeile: Logo links, dann Aktionen (Suche/Theme) + Burger + Kontakt rechts. Nav-Links klappen darunter auf. */
+  /* Erste Zeile: Logo links, dann Aktionen (Suche/Theme) + Kontakt + Burger rechtsaußen.
+     Der Burger ist bewusst das äußerste rechte Element: So bleibt der Toggle beim Öffnen
+     (Burger → X) an Ort und Stelle, statt seine Position mit dem Kontakt-Button zu tauschen.
+     Nav-Links klappen darunter auf. */
   .ep-logo{order:1}
   .ep-nav-actions{order:2;margin-left:auto}
-  .ep-nav-burger{display:inline-flex;order:3;margin-left:var(--s2)}
-  .ep-topnav > .btn{order:4;margin-left:var(--s3)}
+  .ep-topnav > .btn{order:3;margin-left:var(--s3)}
+  .ep-nav-burger{display:inline-flex;order:4;margin-left:var(--s2)}
   /* Popover am rechten Rand statt rechtsbündig, damit es auf schmalen Screens nicht abgeschnitten wird */
   .ep-nav-search-pop{right:auto;left:0;width:min(320px,calc(100vw - var(--s8)))}
-  .ep-nav-links{display:none;order:4;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
+  .ep-nav-links{display:none;order:5;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
   .ep-topnav.nav-open .ep-nav-links{display:flex}
   .ep-nav-item{flex-direction:column;align-items:stretch;width:100%;gap:0}
   .ep-nav-btn,.ep-nav-item-toggle{width:100%;padding:var(--s3) 0}
@@ -1545,6 +1628,29 @@ img.logo-themed-light{display:none}
 .ep-hero-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3)}
 .ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
 .ep-section{padding:var(--s12) var(--s8);text-align:left}
+/* Mobile (≤ 768px): horizontaler Section-Innenabstand 32 → 24 px (--s6), im Rhythmus
+   mit dem Card-Padding; vertikaler Abstand bleibt. Greift nicht auf Sektionen mit
+   inline gesetztem padding-inline / padding-Shorthand (bewusste Einzelfälle). */
+@media(max-width:768px){
+  .ep-section{padding-inline:var(--s6)}
+}
+/* Phone (≤ 520px): Hero-CTAs stapeln full-width für große Tap-Flächen. Erst hier, nicht
+   schon ab 768px: Auf Phablet/kleinem Tablet (521–768px) liefen die Buttons sonst viel
+   breiter als der (auf 520px gekappte) Intro-Text und wirkten überdehnt. Dort behalten sie
+   ihre natürliche Breite + Wrap und folgen der Hero-Ausrichtung (justify-content). */
+@media(max-width:520px){
+  .ep-hero-ctas{flex-direction:column;align-items:stretch}
+  .ep-hero-ctas .btn{width:100%;justify-content:center}
+}
+/* Auszeichnungs-/Badge-Liste (z. B. „Ausgezeichnet als Arbeitgeber"): Desktop als zentrierte
+   Reihe. Auf Mobile (≤ 768px) als 2×2-Grid statt flex-wrap: zentriertes Wrappen richtet jede
+   Zeile einzeln aus, sodass die unterschiedlich breiten Einträge versetzt erscheinen; das Grid
+   fluchtet sie in zwei saubere Spalten (minmax(0,1fr) lässt lange Labels umbrechen). */
+.ep-award-list{list-style:none;margin:var(--s5) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4) var(--s8)}
+@media(max-width:768px){
+  .ep-award-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:var(--s5)}
+  .ep-award-list>li{justify-self:start}
+}
 .ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
 .ep-section-h2{font:var(--ty-headline-md);color:var(--tx-primary);margin-bottom:var(--s2)}
 /* margin-bottom --s8 (32 px): Sub-Cards-Gap (32) ist bewusst kleiner als section-padding-bottom (48),
@@ -1766,6 +1872,11 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
    füllt das Foto die Tile-Breite sinnvoll aus, statt verloren in der Whitespace zu wirken.
    Author-Card-Bios bleiben bei -lg (64 px), weil sie horizontal neben Bio-Text sitzen. */
 .article-avatar-xl{width:160px;height:160px;font-size:48px}
+/* Mobile: spaltenrelativ, damit der Avatar (160px fix, flex-shrink:0) in den schmalen Spalten der
+   2-/3-spaltigen Team- und Roster-Grids nicht überläuft. 72 % der Tile-Breite, gedeckelt bei 112px;
+   aspect-ratio:1 hält ihn quadratisch (height:auto statt der fixen 160px). Bei 3-Spalten/375px
+   (~93px Spalte) → ~67px, bei breiteren Spalten bis max. 112px. Desktop bleibt bei 160px. */
+@media(max-width:768px){.article-avatar-xl{width:min(112px,72%);height:auto;aspect-ratio:1;font-size:30px}}
 /* Multi-Author: Avatare gestapelt mit weißem Border-Halo zur visuellen Überlappung */
 .article-avatar-stack{display:inline-flex;align-items:center;flex-shrink:0}
 .article-avatar-stack .article-avatar{border:2px solid var(--bg-surface)}
