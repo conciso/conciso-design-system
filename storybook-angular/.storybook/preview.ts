@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/angular';
+import {MINIMAL_VIEWPORTS} from "storybook/viewport";
 
 /**
  * Globaler Theme-Umschalter über Storybooks eingebaute Toolbar (globalTypes):
@@ -13,6 +14,7 @@ const preview: Preview = {
     // gesteuert; der eingebaute Backgrounds-Umschalter würde das überschreiben.
     // disable:true entfernt den Toolbar-Button und die Funktion komplett.
     backgrounds: { disable: true },
+    viewport: { options: MINIMAL_VIEWPORTS },
     options: {
       storySort: {
         order: [
@@ -36,6 +38,8 @@ const preview: Preview = {
   },
   initialGlobals: {
     theme: 'light',
+    // Standard: responsive (keine feste Breite); Größe wählbar über die Toolbar.
+    viewport: { value: undefined, isRotated: false },
   },
   globalTypes: {
     theme: {
