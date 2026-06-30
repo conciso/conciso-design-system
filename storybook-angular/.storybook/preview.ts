@@ -11,7 +11,21 @@ const preview: Preview = {
     layout: 'centered',
     options: {
       storySort: {
-        order: ['Einführung', 'Foundations', ['Farben', 'Typografie'], 'Komponenten'],
+        order: [
+          'Einführung',
+          'Foundations',
+          ['Farben', 'Typografie'],
+          'Komponenten',
+          [
+            'Aktionen & Eingaben',
+            'Karten & Kennzahlen',
+            'Editorial & Zitate',
+            'Navigation & Disclosure',
+            'Feedback',
+            'Medien',
+            'Seite & Marke',
+          ],
+        ],
       },
     },
     docs: { toc: true },

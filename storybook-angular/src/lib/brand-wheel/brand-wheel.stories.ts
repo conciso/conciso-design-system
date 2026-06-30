@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { BrandWheelComponent } from './brand-wheel.component';
 
 const meta: Meta<BrandWheelComponent> = {
-  title: 'Komponenten/BrandWheel',
+  title: 'Komponenten/Seite & Marke/BrandWheel',
   component: BrandWheelComponent,
   tags: ['autodocs'],
   parameters: {

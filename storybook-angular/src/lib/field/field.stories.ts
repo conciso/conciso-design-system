@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { FieldComponent } from './field.component';
 
 const meta: Meta<FieldComponent> = {
-  title: 'Komponenten/Field',
+  title: 'Komponenten/Aktionen & Eingaben/Field',
   component: FieldComponent,
   tags: ['autodocs'],
   parameters: {

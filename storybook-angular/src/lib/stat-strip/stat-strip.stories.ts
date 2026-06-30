@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { StatStripComponent } from './stat-strip.component';
 
 const meta: Meta<StatStripComponent> = {
-  title: 'Komponenten/StatStrip',
+  title: 'Komponenten/Karten & Kennzahlen/StatStrip',
   component: StatStripComponent,
   tags: ['autodocs'],
   parameters: {

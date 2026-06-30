@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { CodeBlockComponent } from './code-block.component';
 
 const meta: Meta<CodeBlockComponent> = {
-  title: 'Komponenten/CodeBlock',
+  title: 'Komponenten/Seite & Marke/CodeBlock',
   component: CodeBlockComponent,
   tags: ['autodocs'],
   parameters: {

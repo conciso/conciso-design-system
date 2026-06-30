@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { TestimonialComponent } from './testimonial.component';
 
 const meta: Meta<TestimonialComponent> = {
-  title: 'Komponenten/Testimonial',
+  title: 'Komponenten/Editorial & Zitate/Testimonial',
   component: TestimonialComponent,
   tags: ['autodocs'],
   parameters: {

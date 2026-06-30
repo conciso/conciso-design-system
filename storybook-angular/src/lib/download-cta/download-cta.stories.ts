@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DownloadCtaComponent } from './download-cta.component';
 
 const meta: Meta<DownloadCtaComponent> = {
-  title: 'Komponenten/DownloadCta',
+  title: 'Komponenten/Seite & Marke/DownloadCta',
   component: DownloadCtaComponent,
   tags: ['autodocs'],
   parameters: {

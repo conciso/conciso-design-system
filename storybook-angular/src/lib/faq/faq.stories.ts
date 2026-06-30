@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { FaqComponent } from './faq.component';
 
 const meta: Meta<FaqComponent> = {
-  title: 'Komponenten/FAQ',
+  title: 'Komponenten/Navigation & Disclosure/FAQ',
   component: FaqComponent,
   tags: ['autodocs'],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { TopnavComponent } from './topnav.component';
 
 const meta: Meta<TopnavComponent> = {
-  title: 'Komponenten/Topnav',
+  title: 'Komponenten/Navigation & Disclosure/Topnav',
   component: TopnavComponent,
   tags: ['autodocs'],
   parameters: {

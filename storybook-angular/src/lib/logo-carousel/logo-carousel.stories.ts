@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { LogoCarouselComponent } from './logo-carousel.component';
 
 const meta: Meta<LogoCarouselComponent> = {
-  title: 'Komponenten/LogoCarousel',
+  title: 'Komponenten/Medien/LogoCarousel',
   component: LogoCarouselComponent,
   tags: ['autodocs'],
   parameters: {

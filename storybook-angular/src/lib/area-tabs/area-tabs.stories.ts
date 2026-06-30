@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { AreaTabsComponent } from './area-tabs.component';
 
 const meta: Meta<AreaTabsComponent> = {
-  title: 'Komponenten/AreaTabs',
+  title: 'Komponenten/Navigation & Disclosure/AreaTabs',
   component: AreaTabsComponent,
   tags: ['autodocs'],
   parameters: {

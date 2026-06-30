@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { TeamVoiceComponent } from './team-voice.component';
 
 const meta: Meta<TeamVoiceComponent> = {
-  title: 'Komponenten/TeamVoice',
+  title: 'Komponenten/Editorial & Zitate/TeamVoice',
   component: TeamVoiceComponent,
   tags: ['autodocs'],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { StatCardComponent } from './stat-card.component';
 
 const meta: Meta<StatCardComponent> = {
-  title: 'Komponenten/StatCard',
+  title: 'Komponenten/Karten & Kennzahlen/StatCard',
   component: StatCardComponent,
   tags: ['autodocs'],
   parameters: {
