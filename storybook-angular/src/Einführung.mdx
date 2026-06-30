@@ -1,0 +1,13 @@
+import { Meta, Markdown } from '@storybook/addon-docs/blocks';
+import readme from '../README.md';
+
+{/*
+  Diese Seite rendert die echte README.md (als Roh-String importiert; siehe die
+  asset/source-Regel in .storybook/main.ts). So gibt es EINE Quelle: jede Änderung
+  an storybook-angular/README.md erscheint hier automatisch. Den Inhalt also dort
+  pflegen, nicht hier.
+*/}
+
+<Meta title="Einführung" />
+
+<Markdown>{readme}</Markdown>

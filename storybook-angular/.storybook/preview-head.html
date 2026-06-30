@@ -1,0 +1,34 @@
+<!--
+  Bindet die portable CSS-Schicht des Design Systems UNVERÄNDERT ein.
+  Die Dateien werden via staticDirs (siehe main.ts) aus dem Repo-Root serviert.
+  Reihenfolge wie in README/GETTING-STARTED vorgeschrieben:
+  fonts → tokens → dark-mode → base → components.
+  fonts.css referenziert die woff2 relativ als ../fonts/* — unter /conciso/css/
+  serviert löst das korrekt auf /conciso/fonts/* auf (self-hosted, kein CDN).
+-->
+<link rel="stylesheet" href="/conciso/css/fonts.css" />
+<link rel="stylesheet" href="/conciso/css/tokens.css" />
+<link rel="stylesheet" href="/conciso/css/dark-mode.css" />
+<link rel="stylesheet" href="/conciso/css/base.css" />
+<link rel="stylesheet" href="/conciso/css/components.css" />
+
+<!--
+  Storybook setzt einen eigenen Inline-Hintergrund auf die Preview-Fläche
+  (z. B. background:white am <body> / .sb-show-main). Inline-Styles schlagen die
+  body-Regel aus base.css, weshalb beim Theme-Wechsel nur die Komponente, nicht
+  aber die Seite dahinter umfärbte. Diese !important-Regeln binden die gesamte
+  Preview-Fläche an das DS-Token --bg-page; da der Theme-Schalter data-theme="dark"
+  am <html> setzt, flippt --bg-page (dark-mode.css) und damit die ganze Fläche mit.
+-->
+<style>
+  html,
+  body,
+  .sb-show-main,
+  .docs-story,
+  .sbdocs-preview {
+    background: var(--bg-page) !important;
+  }
+  body {
+    color: var(--tx-primary);
+  }
+</style>

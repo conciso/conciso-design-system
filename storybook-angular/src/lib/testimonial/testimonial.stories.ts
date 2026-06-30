@@ -1,0 +1,52 @@
+import type { Meta, StoryObj } from '@storybook/angular';
+import { TestimonialComponent } from './testimonial.component';
+
+const meta: Meta<TestimonialComponent> = {
+  title: 'Komponenten/Testimonial',
+  component: TestimonialComponent,
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component:
+          'Wrapper um `.testimonial` (css/components.css). Statische Zitat-Karte mit ' +
+          'bereichsgefärbtem Top-Akzent (`[data-area]`), Quote-Icon (`.testimonial-icon`, ' +
+          'fill:currentColor) sowie Name/Rolle im Footer.',
+      },
+    },
+  },
+  argTypes: {
+    area: { control: 'inline-radio', options: ['co', 'ki', 'es', 'wo'] },
+  },
+  args: {
+    quote:
+      'Conciso hat unsere Plattform spürbar verschlankt — weniger Code, klarere Prozesse, zufriedenere Teams.',
+    name: 'Dr. Maria Schmidt',
+    role: 'CTO, Beispiel GmbH',
+    area: 'co',
+  },
+};
+export default meta;
+
+type Story = StoryObj<TestimonialComponent>;
+
+export const Interaktiv: Story = {};
+
+export const ProBereich: Story = {
+  name: 'Je Bereich',
+  parameters: { controls: { disable: true } },
+  render: () => ({
+    moduleMetadata: { imports: [TestimonialComponent] },
+    template: `
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+        <cds-testimonial area="co" name="A. Becker" role="CEO"
+          quote="Ein Auftritt, auf den wir stolz sind — klar, konsistent, professionell."></cds-testimonial>
+        <cds-testimonial area="ki" name="S. Khan" role="Head of Data"
+          quote="Die KI-Lösung liefert seit Tag eins messbaren Mehrwert."></cds-testimonial>
+        <cds-testimonial area="es" name="M. Lang" role="VP Engineering"
+          quote="Weniger technische Schulden, schnellere Releases — genau wie versprochen."></cds-testimonial>
+      </div>
+    `,
+  }),
+};
