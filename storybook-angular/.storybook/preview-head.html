@@ -13,12 +13,12 @@
 <link rel="stylesheet" href="/conciso/css/components.css" />
 
 <!--
-  Storybook setzt einen eigenen Inline-Hintergrund auf die Preview-Fläche
-  (z. B. background:white am <body> / .sb-show-main). Inline-Styles schlagen die
-  body-Regel aus base.css, weshalb beim Theme-Wechsel nur die Komponente, nicht
-  aber die Seite dahinter umfärbte. Diese !important-Regeln binden die gesamte
-  Preview-Fläche an das DS-Token --bg-page; da der Theme-Schalter data-theme="dark"
-  am <html> setzt, flippt --bg-page (dark-mode.css) und damit die ganze Fläche mit.
+  Die Preview-Fläche ist nicht der <body>, sondern Storybooks Wrapper .sb-show-main
+  (bzw. .docs-story / .sbdocs-preview in den Docs). base.css stylt nur den <body>,
+  daher bliebe diese Fläche im Dark-Mode weiß. Diese Regel bindet die gesamte
+  Preview-Fläche an das DS-Token --bg-page; via data-theme="dark" flippt --bg-page
+  (dark-mode.css) und damit der ganze Hintergrund mit. !important, da Storybook die
+  Fläche per Inline-Style einfärbt.
 -->
 <style>
   html,
@@ -27,8 +27,5 @@
   .docs-story,
   .sbdocs-preview {
     background: var(--bg-page) !important;
-  }
-  body {
-    color: var(--tx-primary);
   }
 </style>

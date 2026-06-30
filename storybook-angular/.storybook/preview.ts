@@ -9,6 +9,10 @@ import type { Preview } from '@storybook/angular';
 const preview: Preview = {
   parameters: {
     layout: 'centered',
+    // Der Hintergrund wird ausschließlich über das Theme (--bg-page / data-theme)
+    // gesteuert; der eingebaute Backgrounds-Umschalter würde das überschreiben.
+    // disable:true entfernt den Toolbar-Button und die Funktion komplett.
+    backgrounds: { disable: true },
     options: {
       storySort: {
         order: [
