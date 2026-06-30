@@ -34,6 +34,18 @@ der CSS-Schicht erzeugt:
 | `<cds-testimonial>` | `.testimonial` |
 | `<cds-team-voice>` | `.team-voice` (editoriale Zitat-Reihe mit Foto) |
 | `<cds-field>` | `.field` (input/select/textarea, A11y-verdrahtet) |
+| `<cds-blockquote>` | `.bq` (bereichsgefärbtes Zitat) |
+| `<cds-area-tabs>` | `.area-tabs` / `.atab` (interaktive Tab-Leiste) |
+| `<cds-faq>` | `.ep-faq` (natives `details`/`summary`) |
+| `<cds-snackbar>` | `.snack` (Statusmeldung, Töne def/ok/err) |
+| `<cds-slider>` | `.field-slider` / `.slider` (Range mit Live-Ausgabe) |
+| `<cds-download-cta>` | `.cta-dl` (Download-Block) |
+| `<cds-code-block>` | `.cb-wrap` (Code/Terminal, Kopier-Button) |
+| `<cds-footer>` | `.footer` (Zwei-Band-Footer) |
+| `<cds-carousel>` | `.img-slider` (Bild-Crossfade, Prev/Next/Dots, Hero) |
+| `<cds-logo-carousel>` | `.logo-carousel` (Autoplay-Crossfade, pausierbar) |
+| `<cds-topnav>` | `.ep-topnav` (Nav + Submenüs + Suche + Theme-Toggle) |
+| `<cds-brand-wheel>` | `.bw-wrap` / `.bw-svg` (Marken-Illustration) |
 
 Die **Foundations**-Stories rendern Farben und Typografie live aus den
 `--*`-Tokens (`../css/tokens.css`). Der **Theme**-Schalter in der Toolbar setzt
