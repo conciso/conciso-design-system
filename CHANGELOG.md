@@ -61,6 +61,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
   Team-Koordination), daher bewusst als separater Schritt.
 - Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
+- **A11y-Feinschliff fluide Typo**: Headline/Display-`clamp()`-Tokens von `px` auf `rem`
+  umstellen (Min/Max in `rem`, Mittel-Term `rem + vw`), damit die vom Nutzer eingestellte
+  Browser-Standardschriftgröße respektiert wird (WCAG 1.4.4 „Resize Text"). Aktuell px+vw
+  reagiert nur auf Seiten-Zoom, nicht auf Text-Resize. Betrifft `--ty-headline-xs/sm/md`,
+  `--ty-display-sm/md` und konsistenterweise `--ty-display-lg`; Desktop-Maxima bleiben gleich.
 
 ## [0.1.0] - 2026-06-25
 
