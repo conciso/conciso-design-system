@@ -28,6 +28,9 @@ const config: StorybookConfig = {
         },
       },
     },
+    // axe-basierte Barrierefreiheits-Prüfung (Panel + passive Mitprüfung im
+    // Test-Runner, aktuell nicht-blockierend).
+    '@storybook/addon-a11y',
   ],
   framework: {
     name: '@storybook/angular',
