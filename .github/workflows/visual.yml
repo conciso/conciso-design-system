@@ -1,0 +1,85 @@
+name: Visual Tests
+
+# Visual-Regression im GEPINNTEN Playwright-Docker-Image, damit die pixelgenauen
+# Baselines deterministisch sind (Fonts/Antialiasing/OS identisch zu ihrer Erzeugung).
+#   - workflow_dispatch: Baselines (neu) erzeugen → als Artefakt hochladen. Runterladen,
+#     nach storybook-angular/visual-snapshots/ committen. Danach ist der PR-Vergleich scharf.
+#   - pull_request: gegen die eingecheckten Baselines vergleichen (nur wenn welche da sind).
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'storybook-angular/**'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - '.github/workflows/visual.yml'
+
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Visual-Regression (Playwright-Image, gepinnt)
+    runs-on: ubuntu-latest
+    # Version an die playwright-Version im Lockfile gepinnt (1.61.1) → identisches
+    # Rendering bei Baseline-Erzeugung und Vergleich.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-jammy
+    defaults:
+      run:
+        working-directory: storybook-angular
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: storybook-angular/package-lock.json
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Storybook bauen
+        run: npm run build-storybook
+      # Das Image bringt Browser mit; die Scripts pinnen aber PLAYWRIGHT_BROWSERS_PATH=0
+      # (→ node_modules). Chromium dort sicherstellen (gleicher Build wie im Image).
+      - name: Chromium bereitstellen
+        run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chromium
+      - name: Baselines-Status
+        id: bl
+        run: |
+          if ls visual-snapshots/*.png >/dev/null 2>&1; then
+            echo "exist=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exist=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Visual-Tests
+        if: github.event_name == 'workflow_dispatch' || steps.bl.outputs.exist == 'true'
+        run: |
+          npx http-server storybook-static --port 6006 --silent &
+          SB_PID=$!
+          npx wait-on tcp:127.0.0.1:6006
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            npm run test-storybook:visual -- -u   # (neu) erzeugen/aktualisieren
+          else
+            npm run test-storybook:visual          # vergleichen
+          fi
+          kill "$SB_PID" 2>/dev/null || true
+      - name: Hinweis — noch keine Baselines
+        if: github.event_name == 'pull_request' && steps.bl.outputs.exist == 'false'
+        run: echo "::notice::Keine Visual-Baselines eingecheckt — Vergleich übersprungen. Über „Run workflow\" (workflow_dispatch) erzeugen und das Artefakt nach storybook-angular/visual-snapshots/ committen."
+      - name: Baselines als Artefakt (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: storybook-angular/visual-snapshots/
+      - name: Diff-Bilder als Artefakt (bei Fehler)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: storybook-angular/visual-snapshots/__diff_output__/
+          if-no-files-found: ignore

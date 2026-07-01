@@ -27,6 +27,10 @@ export default meta;
 type Story = StoryObj<LogoCarouselComponent>;
 
 export const Interaktiv: Story = {
+  // Kein Visual-Snapshot: Autoplay ist timer-getrieben (setInterval), der aktive
+  // Frame hängt vom Screenshot-Timing ab → nicht deterministisch. Funktion + a11y
+  // sind über den play-Test unten abgedeckt.
+  parameters: { snapshot: { skip: true } },
   // Pause-Button stoppt das Autoplay und wechselt das Label auf „Abspielen".
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
