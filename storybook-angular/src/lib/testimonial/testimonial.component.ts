@@ -21,7 +21,7 @@ import type { CdsArea } from '../area';
       <figcaption class="testimonial-footer">
         <div>
           <p class="testimonial-name">{{ name }}</p>
-          <p class="testimonial-role">{{ role }}</p>
+          <p class="testimonial-role">{{ roleLabel }}</p>
         </div>
       </figcaption>
     </figure>
@@ -31,7 +31,7 @@ export class TestimonialComponent {
   @Input() quote =
     'Conciso hat unsere Plattform spürbar verschlankt — weniger Code, klarere Prozesse, zufriedenere Teams.';
   @Input() name = 'Dr. Maria Schmidt';
-  @Input() role = 'CTO, Beispiel GmbH';
+  @Input() roleLabel = 'CTO, Beispiel GmbH';
   /** Markenbereich → data-area (Top-Akzent + Icon-Farbe). */
   @Input() area: CdsArea = 'co';
 }

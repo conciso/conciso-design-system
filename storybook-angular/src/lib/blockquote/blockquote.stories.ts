@@ -21,7 +21,7 @@ const meta: Meta<BlockquoteComponent> = {
   args: {
     quote: 'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.',
     name: 'Maria Schneider',
-    role: 'Head of Marketing, Musterunternehmen GmbH',
+    roleLabel: 'Head of Marketing, Musterunternehmen GmbH',
     area: 'co',
   },
 };
@@ -38,10 +38,10 @@ export const ProBereich: Story = {
     moduleMetadata: { imports: [BlockquoteComponent] },
     template: `
       <div style="display:grid;gap:24px;max-width:640px">
-        <cds-blockquote area="co" quote="Klare Kommunikation schafft Vertrauen." name="A. Becker" role="CEO"></cds-blockquote>
-        <cds-blockquote area="ki" quote="KI liefert ab Tag eins messbaren Mehrwert." name="S. Khan" role="Head of Data"></cds-blockquote>
-        <cds-blockquote area="es" quote="Weniger Code, klarere Architektur." name="M. Lang" role="VP Engineering"></cds-blockquote>
-        <cds-blockquote area="wo" quote="Teams, die lernen und sich anpassen." name="P. Adam" role="COO"></cds-blockquote>
+        <cds-blockquote area="co" quote="Klare Kommunikation schafft Vertrauen." name="A. Becker" roleLabel="CEO"></cds-blockquote>
+        <cds-blockquote area="ki" quote="KI liefert ab Tag eins messbaren Mehrwert." name="S. Khan" roleLabel="Head of Data"></cds-blockquote>
+        <cds-blockquote area="es" quote="Weniger Code, klarere Architektur." name="M. Lang" roleLabel="VP Engineering"></cds-blockquote>
+        <cds-blockquote area="wo" quote="Teams, die lernen und sich anpassen." name="P. Adam" roleLabel="COO"></cds-blockquote>
       </div>
     `,
   }),

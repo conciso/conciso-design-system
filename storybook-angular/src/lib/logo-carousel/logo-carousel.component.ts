@@ -38,11 +38,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
         }
       </div>
 
-      <div class="logo-carousel-dots">
+      <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Sets">
         @for (set of sets; track $index; let i = $index) {
           <button
             class="logo-carousel-dot"
             type="button"
+            role="tab"
             [attr.aria-selected]="i === active"
             [attr.aria-label]="'Logo-Set ' + (i + 1)"
             (click)="goTo(i)"

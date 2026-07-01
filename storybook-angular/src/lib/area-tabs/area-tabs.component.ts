@@ -29,7 +29,7 @@ export interface CdsTab {
           [attr.data-area]="tab.area"
           [id]="tabId(i)"
           [attr.aria-controls]="panelId(i)"
-          [style]="'--atab-color:var(--' + tab.area + '-700)'"
+          [style]="'--atab-color:' + atabAccent(tab.area)"
           (click)="active = i"
         >
           <span class="area-dot" [style.background]="'var(--' + tab.area + '-500)'"></span>
@@ -60,6 +60,11 @@ export class AreaTabsComponent {
   ];
   /** Index des aktiven Tabs. */
   @Input() active = 0;
+
+  /** Aktiv-Akzent je Bereich: ki braucht -800 (700 reißt AA), sonst -700 (wie .t-*). */
+  protected atabAccent(area: CdsTab['area']): string {
+    return area === 'ki' ? 'var(--ki-800)' : `var(--${area}-700)`;
+  }
 
   protected tabId(i: number): string {
     return `cds-atab-${i}`;

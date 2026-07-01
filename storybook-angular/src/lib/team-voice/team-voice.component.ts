@@ -26,7 +26,7 @@ import type { CdsArea } from '../area';
         <blockquote class="team-voice-quote">{{ quote }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name }}</p>
-          <p class="team-voice-role">{{ role }}</p>
+          <p class="team-voice-role">{{ roleLabel }}</p>
         </div>
       </figcaption>
     </figure>
@@ -36,7 +36,7 @@ export class TeamVoiceComponent {
   @Input() quote =
     'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.';
   @Input() name = 'Lena Brandt';
-  @Input() role = 'Softwareentwicklerin, seit 2021';
+  @Input() roleLabel = 'Softwareentwicklerin, seit 2021';
   /** Markenbereich → data-area (Akzentfarbe + Rahmen). */
   @Input() area: CdsArea = 'co';
   /** Bild-URL; leer = neutraler Platzhalter (Doku-Assets sind hier nicht eingebunden). */

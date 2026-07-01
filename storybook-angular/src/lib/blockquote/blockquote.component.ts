@@ -17,13 +17,13 @@ import type { CdsArea } from '../area';
         <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
       </svg>
       <blockquote>{{ quote }}</blockquote>
-      @if (name || role) {
+      @if (name || roleLabel) {
         <figcaption class="bq-caption">
           @if (name) {
             <span class="bq-name">{{ name }}</span>
           }
-          @if (role) {
-            <span class="bq-role">{{ role }}</span>
+          @if (roleLabel) {
+            <span class="bq-role">{{ roleLabel }}</span>
           }
         </figcaption>
       }
@@ -34,7 +34,7 @@ export class BlockquoteComponent {
   @Input() quote =
     'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.';
   @Input() name = 'Maria Schneider';
-  @Input() role = 'Head of Marketing, Musterunternehmen GmbH';
+  @Input() roleLabel = 'Head of Marketing, Musterunternehmen GmbH';
   /** Markenbereich → data-area (Akzentleiste + getönter Grund). */
   @Input() area: CdsArea = 'co';
 }

@@ -23,7 +23,7 @@ const meta: Meta<TestimonialComponent> = {
     quote:
       'Conciso hat unsere Plattform spürbar verschlankt — weniger Code, klarere Prozesse, zufriedenere Teams.',
     name: 'Dr. Maria Schmidt',
-    role: 'CTO, Beispiel GmbH',
+    roleLabel: 'CTO, Beispiel GmbH',
     area: 'co',
   },
 };
@@ -40,11 +40,11 @@ export const ProBereich: Story = {
     moduleMetadata: { imports: [TestimonialComponent] },
     template: `
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
-        <cds-testimonial area="co" name="A. Becker" role="CEO"
+        <cds-testimonial area="co" name="A. Becker" roleLabel="CEO"
           quote="Ein Auftritt, auf den wir stolz sind — klar, konsistent, professionell."></cds-testimonial>
-        <cds-testimonial area="ki" name="S. Khan" role="Head of Data"
+        <cds-testimonial area="ki" name="S. Khan" roleLabel="Head of Data"
           quote="Die KI-Lösung liefert seit Tag eins messbaren Mehrwert."></cds-testimonial>
-        <cds-testimonial area="es" name="M. Lang" role="VP Engineering"
+        <cds-testimonial area="es" name="M. Lang" roleLabel="VP Engineering"
           quote="Weniger technische Schulden, schnellere Releases — genau wie versprochen."></cds-testimonial>
       </div>
     `,

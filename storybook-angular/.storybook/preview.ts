@@ -34,6 +34,9 @@ const preview: Preview = {
         ],
       },
     },
+    // a11y scharf: axe-Verstöße lassen den Test-Runner fehlschlagen. Einzelne
+    // Stories mit bekannten CSS-Kern-Befunden setzen lokal test:'todo' (siehe dort).
+    a11y: { test: 'error' },
     docs: { toc: true },
   },
   initialGlobals: {
