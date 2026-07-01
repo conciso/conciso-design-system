@@ -40,10 +40,10 @@ jobs:
   visual:
     name: Visual-Regression (Playwright-Image, gepinnt)
     runs-on: ubuntu-latest
-    # Version an die playwright-Version im Lockfile gepinnt (1.61.1) → identisches
-    # Rendering bei Baseline-Erzeugung und Vergleich.
+    # Exakt gepinnt: playwright-Version aus dem Lockfile (1.61.1) + OS (resolute =
+    # Ubuntu 26.04 LTS) → identisches Rendering bei Baseline-Erzeugung und Vergleich.
     container:
-      image: mcr.microsoft.com/playwright:v1.61.1-jammy
+      image: mcr.microsoft.com/playwright:v1.61.1-resolute
     defaults:
       run:
         working-directory: storybook-angular
