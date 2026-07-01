@@ -63,6 +63,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (`.bw-label-*`) bleibt px (skaliert übers `viewBox`). Token-Exporte via `npm run build:tokens`
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
+### Fixed
+- **Beispielseiten-Chips (`.ep-tab`) barrierefrei**: (1) aktiver Chip von `co-500` auf `co-700`
+  umgestellt, weißer Text erreicht damit AA (2,3:1 → 5,5:1); (2) Touch-Target auf `min-height:44px`
+  bzw. 44 × 44 px beim Aufklapp-Toggle (WCAG 2.5.5, analog `.btn`); (3) Rahmen von `--n-200` auf
+  das modusabhängige `--field-border` (WCAG 1.4.11: Light-Mode 1,5:1 → 3,9:1, Dark unverändert 5,8:1).
+
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
   Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und

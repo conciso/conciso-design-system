@@ -1488,18 +1488,23 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-tab-group{display:flex;flex-direction:column;gap:var(--s3)}
 .ep-tab-group-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary)}
 .ep-tab-group-row{display:flex;gap:var(--s2);flex-wrap:wrap}
-.ep-tab{padding:7px var(--s4);border-radius:var(--r-full);border:1px solid var(--n-200);font:var(--ty-label-sm);cursor:pointer;background:var(--bg-surface);color:var(--tx-secondary);transition:all var(--m-fast)}
-.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
+/* min-height 44px = Touch-Target AAA (WCAG 2.5.5), analog zu .btn; border via --field-border
+   (modusabhängig, ≥ 3:1 für die Bedienelement-Kontur nach WCAG 1.4.11: light #6E8585 = 3,9:1,
+   dark #C9D3D3 = 5,8:1 — das feste --n-200 fiel im Light-Mode auf 1,5:1 durch). */
+.ep-tab{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:7px var(--s4);border-radius:var(--r-full);border:1px solid var(--field-border);font:var(--ty-label-sm);cursor:pointer;background:var(--bg-surface);color:var(--tx-secondary);transition:all var(--m-fast)}
+.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--field-border)}
 .ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
-.ep-tab.active{background:var(--co-500);color:#fff;border-color:var(--co-500);box-shadow:var(--e1)}
-.ep-tab.active:hover{background:var(--co-500);color:#fff;border-color:var(--co-500)}
+/* Aktiv: gefüllt mit co-700 (nicht co-500), damit weißer Text AA erreicht (#fff auf
+   co-700 = 5,52:1; auf dem hellen co-500 wären es nur 2,3:1). Spiegelt .btn-filled/.btn-co. */
+.ep-tab.active{background:var(--co-700);color:#fff;border-color:var(--co-700);box-shadow:var(--e1)}
+.ep-tab.active:hover{background:var(--co-700);color:#fff;border-color:var(--co-700)}
 /* Hierarchie in einer Gruppe (Leistungen, Unternehmen): Oberpunkte stapeln untereinander,
    Unterpunkte eingerückt mit dezenter Leitlinie (wie ein Nav-Baum). */
 .ep-tab-group-row.is-tree{flex-direction:column;align-items:flex-start}
 .ep-tab-node{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2)}
 .ep-tab-parent{display:flex;align-items:center;gap:var(--s2)}
-.ep-tab-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0;border-radius:var(--r-full);border:1px solid var(--n-200);background:var(--bg-surface);color:var(--tx-secondary);cursor:pointer;padding:0;transition:all var(--m-fast)}
-.ep-tab-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--n-300)}
+.ep-tab-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;border-radius:var(--r-full);border:1px solid var(--field-border);background:var(--bg-surface);color:var(--tx-secondary);cursor:pointer;padding:0;transition:all var(--m-fast)}
+.ep-tab-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--field-border)}
 .ep-tab-toggle:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .ep-tab-toggle-caret{width:14px;height:14px;transition:transform var(--m-fast)}
 .ep-tab-node.is-open .ep-tab-toggle-caret{transform:rotate(180deg)}
