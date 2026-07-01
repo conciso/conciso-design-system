@@ -32,6 +32,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   ≤ 520 px / 3 Spalten 521–768 px), `data-benefits` und `data-event-meta` (2×2 auf Tablet /
   1-spaltig ≤ 520 px). Alle auf `.layout-grid` gesetzt.
 
+- **Editoriale „Im Detail"-Sektion** auf der Beispielseite Wirksame Organisationen: offene
+  Feature-Liste (`.ep-feature`, Alternative zu Karten) mit bis zu 8 Themen-Landingpages, Status
+  über die Aktionszeile (Link „Zur Landingpage" bei verfügbaren, „Landingpage folgt" bei in-Aufbau,
+  ohne toten Link), plus content-breites Akzentbild als Sektions-Auftakt.
+- **Bereichsvariante `.card-cta-link[data-area="co|ki|es|wo"]`**: färbt den Text-CTA-Link in der
+  Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
+
 ### Changed
 - Topnav-Icon-Buttons und Hamburger auf 48 × 48 px (Touch-Target AAA, WCAG 2.5.5).
 - Icon-Doku (`#sec-icons`): Solid-Bereichs-Glyphen vs. Outline-UI-Icons klargestellt

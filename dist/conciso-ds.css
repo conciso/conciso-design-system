@@ -497,6 +497,12 @@
 [data-theme="dark"] .body-link { color: var(--co-200) }
 [data-theme="dark"] .body-link:hover { color: var(--co-100) }
 [data-theme="dark"] .card-cta-link { color: var(--co-200) }
+/* Bereichsvariante des Card-CTA-Links (Shades wie .ep-card-cta): hebt die Akzentfarbe auf den
+   hellen Bereichston, sonst dunkel-auf-dunkel. Höhere Spezifität als die co-200-Regel darüber. */
+[data-theme="dark"] .card-cta-link[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .card-cta-link[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .card-cta-link[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .card-cta-link[data-area="wo"] { color: var(--wo-200) }
 [data-theme="dark"] .t-co { color: var(--co-200) }
 [data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
 [data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
@@ -1735,6 +1741,12 @@ img.logo-themed-light{display:none}
    Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
    --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
 .card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
+/* Bereichsvariante (optional): trägt die Akzentfarbe statt Corporate-Teal, wenn der CTA in einer
+   Bereichs-Sektion sitzt. Shades wie .ep-card-cta; Dark-Overrides (→ -200/-100) in dark-mode.css. */
+.card-cta-link[data-area="co"]{color:var(--co-700)}
+.card-cta-link[data-area="ki"]{color:var(--ki-800)}
+.card-cta-link[data-area="es"]{color:var(--es-700)}
+.card-cta-link[data-area="wo"]{color:var(--wo-700)}
 /* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
    padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
 .card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}

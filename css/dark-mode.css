@@ -334,6 +334,12 @@
 [data-theme="dark"] .body-link { color: var(--co-200) }
 [data-theme="dark"] .body-link:hover { color: var(--co-100) }
 [data-theme="dark"] .card-cta-link { color: var(--co-200) }
+/* Bereichsvariante des Card-CTA-Links (Shades wie .ep-card-cta): hebt die Akzentfarbe auf den
+   hellen Bereichston, sonst dunkel-auf-dunkel. Höhere Spezifität als die co-200-Regel darüber. */
+[data-theme="dark"] .card-cta-link[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .card-cta-link[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .card-cta-link[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .card-cta-link[data-area="wo"] { color: var(--wo-200) }
 [data-theme="dark"] .t-co { color: var(--co-200) }
 [data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
 [data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
