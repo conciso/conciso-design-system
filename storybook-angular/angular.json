@@ -16,7 +16,9 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.json",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "assets": [],
             "styles": [],
             "scripts": []
@@ -43,11 +45,23 @@
             "compodoc": false,
             "outputDir": "storybook-static"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

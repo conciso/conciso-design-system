@@ -128,9 +128,7 @@ export class TopnavComponent {
   protected openIndex = -1;
   protected searchOpen = false;
 
-  get navClasses(): string {
-    return 'ep-topnav';
-  }
+  protected readonly navClasses = 'ep-topnav';
 
   toggleSub(i: number): void {
     this.openIndex = this.openIndex === i ? -1 : i;

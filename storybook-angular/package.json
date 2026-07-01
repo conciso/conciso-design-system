@@ -8,7 +8,9 @@
     "storybook": "ng run conciso-ds-angular:storybook",
     "build-storybook": "ng run conciso-ds-angular:build-storybook",
     "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
-    "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006"
+    "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006",
+    "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
+    "lint": "ng lint"
   },
   "dependencies": {
     "@angular/animations": "^21.2.0",
@@ -26,12 +28,19 @@
     "@angular-devkit/build-angular": "^21.2.0",
     "@angular/cli": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
+    "@eslint/js": "^10.0.1",
     "@storybook/addon-a11y": "^10.4.6",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/angular": "^10.4.6",
     "@storybook/test-runner": "^0.24.4",
+    "angular-eslint": "^21.4.0",
+    "concurrently": "^10.0.3",
+    "eslint": "^10.6.0",
+    "http-server": "^14.1.1",
     "remark-gfm": "^4.0.1",
     "storybook": "^10.4.6",
-    "typescript": "~5.9.0"
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.59.2",
+    "wait-on": "^9.0.10"
   }
 }
