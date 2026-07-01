@@ -54,6 +54,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   greifen — Voraussetzung für faithful Mobile/Tablet-Vorschau.
 - **Effektive-Software-Hero**: neues, thematisch passenderes Motiv (Entwickler, Laptop-Sticker
   Clean Code / Keycloak / Jakarta EE / Docker); web-optimiert (5000 px/5,1 MB → 2000 px/411 KB).
+- **Typografie durchgängig rem-basiert (WCAG 1.4.4 „Resize Text")**: Alle `--ty-*`-Tokens, die
+  15 `.type-*`-Utilities und die hartcodierten Schriftgrößen in `base.css`/`components.css` von
+  `px` auf `rem` umgestellt (Basis `1rem = 16px`). Die fluiden `clamp()`-Tokens nutzen jetzt
+  `rem`-Min/Max und einen `rem + vw`-Mittel-Term (Zwei-Anker-Fluid-Kurve), sodass Schrift auch
+  auf die Browser-Standardschriftgröße reagiert, nicht nur auf Seiten-Zoom. `body` von `16px`
+  auf `1rem`. Desktop-Rendering pixelidentisch (Maxima unverändert). Ausnahme: SVG-Text
+  (`.bw-label-*`) bleibt px (skaliert übers `viewBox`). Token-Exporte via `npm run build:tokens`
+  regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
@@ -61,11 +69,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
   Team-Koordination), daher bewusst als separater Schritt.
 - Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
-- **A11y-Feinschliff fluide Typo**: Headline/Display-`clamp()`-Tokens von `px` auf `rem`
-  umstellen (Min/Max in `rem`, Mittel-Term `rem + vw`), damit die vom Nutzer eingestellte
-  Browser-Standardschriftgröße respektiert wird (WCAG 1.4.4 „Resize Text"). Aktuell px+vw
-  reagiert nur auf Seiten-Zoom, nicht auf Text-Resize. Betrifft `--ty-headline-xs/sm/md`,
-  `--ty-display-sm/md` und konsistenterweise `--ty-display-lg`; Desktop-Maxima bleiben gleich.
 
 ## [0.1.0] - 2026-06-25
 
