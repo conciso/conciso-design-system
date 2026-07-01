@@ -114,4 +114,4 @@ Testimonial/TeamVoice), LogoCarousel-Dots als `tablist`/`tab` (gültiges
 
 ## Versionen
 
-Angular 20 · Storybook 10 (`@storybook/angular`, Webpack-5-Builder).
+Angular 21 · Storybook 10 (`@storybook/angular`, Webpack-5-Builder).
