@@ -27,14 +27,14 @@ export default meta;
 type Story = StoryObj<CarouselComponent>;
 
 export const Interaktiv: Story = {
-  // Weiterblättern: „Nächste" aktiviert den zweiten Dot (aria-current).
+  // Weiterblättern: „Nächste" wählt den zweiten Dot (role="tab" + aria-selected).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    const dots = c.getAllByRole('button', { name: /^Slide / });
-    await expect(dots[0]).toHaveAttribute('aria-current', 'true');
+    const dots = c.getAllByRole('tab', { name: /^Folie / });
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
     await userEvent.click(c.getByRole('button', { name: 'Nächste Slide' }));
-    await expect(dots[1]).toHaveAttribute('aria-current', 'true');
-    await expect(dots[0]).toHaveAttribute('aria-current', 'false');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'false');
   },
 };
 

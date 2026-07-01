@@ -1,5 +1,8 @@
 import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
 
+/** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
+let cdsTopnavUid = 0;
+
 export interface CdsNavSubItem {
   label: string;
   href: string;
@@ -75,7 +78,15 @@ export interface CdsNavItem {
           </button>
           <div class="ep-nav-search-pop">
             <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
-              <input class="ep-nav-search-input" type="search" placeholder="Suche …" aria-label="Suchbegriff" />
+              <label class="sr-only" [attr.for]="searchId">Suchbegriff</label>
+              <input
+                class="ep-nav-search-input"
+                [id]="searchId"
+                type="search"
+                placeholder="Wonach suchst Du?"
+                autocomplete="off"
+              />
+              <button class="btn btn-filled btn-sm btn-co" type="submit">Suchen</button>
             </form>
           </div>
         </div>
@@ -95,12 +106,14 @@ export interface CdsNavItem {
         </button>
       </div>
 
-      <a class="btn btn-filled btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel }}</a>
+      <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel }}</a>
     </header>
   `,
 })
 export class TopnavComponent {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+
+  protected readonly searchId = `cds-topnav-search-${++cdsTopnavUid}`;
 
   @Input() logo = 'conciso.';
   @Input() ctaLabel = 'Kontakt';

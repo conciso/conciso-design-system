@@ -18,10 +18,21 @@ export interface CdsSlide {
   selector: 'cds-carousel',
   standalone: true,
   template: `
-    <div [class]="wrapClasses">
+    <div
+      [class]="wrapClasses"
+      role="region"
+      aria-roledescription="Bildschirmpräsentation"
+      aria-label="Bildstrecke"
+    >
       <div class="img-slider-track">
         @for (slide of slides; track slide.title; let i = $index) {
-          <div class="img-slide" [class.active]="i === active">
+          <div
+            class="img-slide"
+            role="group"
+            aria-roledescription="Folie"
+            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides.length"
+            [class.active]="i === active"
+          >
             <div class="img-slide-media">
               <img [src]="slide.image || placeholder" [alt]="slide.title" />
             </div>
@@ -44,14 +55,15 @@ export interface CdsSlide {
         </svg>
       </button>
 
-      <div class="img-slider-dots">
+      <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
         @for (slide of slides; track slide.title; let i = $index) {
           <button
             class="img-dot"
             type="button"
+            role="tab"
             [class.active]="i === active"
-            [attr.aria-label]="'Slide ' + (i + 1)"
-            [attr.aria-current]="i === active"
+            [attr.aria-selected]="i === active"
+            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides.length"
             (click)="active = i"
           ></button>
         }

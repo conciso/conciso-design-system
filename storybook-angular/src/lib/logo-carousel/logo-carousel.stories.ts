@@ -20,7 +20,7 @@ const meta: Meta<LogoCarouselComponent> = {
   argTypes: {
     interval: { control: { type: 'number', min: 1000, step: 500 } },
   },
-  args: { interval: 3000, active: 0 },
+  args: { interval: 6000, active: 0 },
 };
 export default meta;
 

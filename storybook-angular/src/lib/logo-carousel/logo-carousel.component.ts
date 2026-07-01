@@ -1,5 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
+/** Eindeutige IDs je Instanz (Dot aria-controls ↔ Slide-id). */
+let cdsLogoCarouselUid = 0;
+
 /**
  * LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel".
  *
@@ -30,7 +33,14 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
       <div class="logo-carousel-track">
         @for (set of sets; track $index; let i = $index) {
-          <div class="logo-carousel-slide" [attr.aria-hidden]="i !== active">
+          <div
+            class="logo-carousel-slide"
+            [id]="slideId(i)"
+            role="group"
+            aria-roledescription="Logo-Set"
+            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets.length"
+            [attr.aria-hidden]="i !== active"
+          >
             @for (logo of set; track logo) {
               <div class="logo-tile"><span class="logo-placeholder">{{ logo }}</span></div>
             }
@@ -38,14 +48,15 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
         }
       </div>
 
-      <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Sets">
+      <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Set auswählen">
         @for (set of sets; track $index; let i = $index) {
           <button
             class="logo-carousel-dot"
             type="button"
             role="tab"
             [attr.aria-selected]="i === active"
-            [attr.aria-label]="'Logo-Set ' + (i + 1)"
+            [attr.aria-controls]="slideId(i)"
+            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets.length"
             (click)="goTo(i)"
           ></button>
         }
@@ -59,12 +70,18 @@ export class LogoCarouselComponent implements OnInit, OnDestroy {
     ['VOLTAIC', 'HEXAGON', 'LUMEN', 'PRAXIS', 'ORBIT'],
     ['CASCADE', 'VERTEX', 'NIMBUS', 'FORGE', 'ATLAS'],
   ];
-  /** Autoplay-Intervall in ms. */
-  @Input() interval = 3000;
+  /** Autoplay-Intervall in ms (wie die Doku: 6 s). */
+  @Input() interval = 6000;
   @Input() active = 0;
 
   protected paused = false;
   private timer: ReturnType<typeof setInterval> | null = null;
+  private readonly uid = ++cdsLogoCarouselUid;
+
+  /** Stabile Slide-id für die aria-controls-Verknüpfung der Dots. */
+  slideId(i: number): string {
+    return `cds-logo-set-${this.uid}-${i + 1}`;
+  }
 
   ngOnInit(): void {
     const reduced =
