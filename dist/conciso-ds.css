@@ -1824,7 +1824,7 @@ img.logo-themed-light{display:none}
 .cta-dl[data-area="wo"] .cta-dl-icon{background:var(--wo-50);color:var(--wo-700)}
 .cta-dl-body{flex:1}
 .cta-dl-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
-.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-600)}
+.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-700)}   /* co-600 war nur 3,28:1 (Uppercase-Label < AA) → co-700 = 5,5:1; jetzt konsistent mit ki-800/es-700/wo-700 */
 .cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-800)}
 .cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-700)}
 .cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-700)}
