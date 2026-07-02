@@ -79,6 +79,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Doku-Sidebar (`.nav-item`) barrierefrei**: (1) aktiver Eintrag-Text von `co-500` (#00BEBE auf
+  `co-50` nur 2,07:1) auf `co-700` (4,95:1) → WCAG 1.4.3; Akzentbalken auf `co-600` (3,28:1, WCAG 1.4.11).
+  (2) `aria-current="page"` am aktiven Eintrag (statisches Markup + synchron in `activateSection`),
+  sodass der aktive Bereich nicht mehr nur farblich, sondern programmatisch erkennbar ist (4.1.2).
+  Zustand zusätzlich über `font-weight` (nicht nur Farbe, WCAG 1.4.1). Dark-Mode: aktiver Text/Balken
+  auf `co-200`/`co-300` (auf dem dort fast schwarzen `co-50`).
 - **Bereichs-Chips (`.chip[data-area="co"]`) Rahmenkontrast**: Corporate-Rahmen von `co-500`
   (#00BEBE, nur 2,3:1 auf Weiß) auf `co-600` (#009E9E = 3,28:1) angehoben → erfüllt die
   Nicht-Text-Schwelle WCAG 1.4.11 (Default + Hover). Bleibt heller als der `co-700`-Text, das

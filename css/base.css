@@ -99,7 +99,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
+/* Aktiver Eintrag: Text co-700 (co-500 #00BEBE auf co-50 war nur 2,07:1 → co-700 = 4,95:1, WCAG 1.4.3).
+   Akzentbalken co-600 (3,28:1 auf Weiß, WCAG 1.4.11). Zustand zusätzlich über font-weight (nicht nur Farbe → 1.4.1). */
+.nav-item.active{color:var(--co-700);background:var(--co-50);border-left-color:var(--co-600);font-weight:600}
 .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7;fill:none;stroke:currentColor;stroke-width:1.5}
 .nav-item.active .nav-icon{opacity:1}
 .area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}

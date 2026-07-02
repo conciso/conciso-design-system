@@ -11,11 +11,11 @@
   /* ── Section navigation ── */
   function activateSection(section) {
     document.querySelectorAll('.ds-section').forEach(function(s) { s.classList.remove('visible'); });
-    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); n.removeAttribute('aria-current'); });
     var sec = document.getElementById('sec-' + section);
     var btn = document.querySelector('.nav-item[data-section="' + section + '"]');
     if (sec) sec.classList.add('visible');
-    if (btn) btn.classList.add('active');
+    if (btn) { btn.classList.add('active'); btn.setAttribute('aria-current', 'page'); }
     /* data-section am <html> synchron halten — steuert die ds-content-Breite (s. CSS) ohne Layout-Sprung. */
     document.documentElement.setAttribute('data-section', section);
     updateSubNav(section);

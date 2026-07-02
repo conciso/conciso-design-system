@@ -308,6 +308,9 @@
 [data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
 [data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
 [data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Doku-Sidebar: aktiver Eintrag hat im Light co-700-Text auf hellem co-50. Im Dark ist co-50 fast schwarz
+   (#16302E) → Text/Balken auf die hellen Töne heben (co-200 ~9,6:1 / co-300), sonst dunkel-auf-dunkel. */
+[data-theme="dark"] .nav-item.active { color: var(--co-200); border-left-color: var(--co-300) }
 /* Pills: --XX-50-Grund wird im Dark fast schwarz, Text --XX-700/800 bleibt dunkel → Text auf die hellen
    -200/-100-Töne heben. Grund bleibt die dunkle -50-Kachel, der helle Text trägt den Kontrast (analog
    .ep-card-icon/.card-eyebrow, ~13-15:1). aria-pressed-/Hover-States der Chips bleiben unberührt. */
