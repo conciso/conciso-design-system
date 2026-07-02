@@ -48,10 +48,22 @@ let uid = 0;
         [attr.aria-describedby]="helper ? sliderId + '-hint' : null"
         (input)="onInput($event)"
       />
-      @if (tickLabels.length) {
-        <div class="field-slider-ticks" aria-hidden="true">
-          @for (tick of tickLabels; track $index) {
-            <span>{{ tick }}</span>
+      @if (tickItems.length) {
+        <!-- Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb (22px, siehe
+             css/components.css) läuft mittig von 11px bis (Breite − 11px). Das
+             space-between des Kern-CSS träfe die Label-MITTEN nicht (bei vielen Ticks
+             sichtbar), daher hier absolut positioniert und zentriert. -->
+        <div
+          class="field-slider-ticks"
+          aria-hidden="true"
+          style="position:relative;display:block;padding:0;height:16px"
+        >
+          @for (t of tickItems; track $index) {
+            <span
+              [style.left]="t.left"
+              style="position:absolute;transform:translateX(-50%);white-space:nowrap"
+              >{{ t.label }}</span
+            >
           }
         </div>
       }
@@ -120,14 +132,21 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
     return Math.min(this.tickCount, maxFit);
   }
 
-  /** Gleichmäßig über [min, max] verteilte, kompakt formatierte Tick-Labels. */
-  get tickLabels(): string[] {
+  /**
+   * Gleichmäßig über [min, max] verteilte Ticks: Label (kompakt formatiert) plus
+   * absolute Ziel-Position (left), zentriert auf die echte Thumb-Position.
+   */
+  get tickItems(): { label: string; left: string }[] {
     const n = this.effectiveTickCount();
     if (n < 1) return [];
-    if (n === 1) return [this.formatTick(this.min)];
-    return Array.from({ length: n }, (_, i) =>
-      this.formatTick(this.min + ((this.max - this.min) * i) / (n - 1)),
-    );
+    // left so, dass die Label-MITTE auf dem Thumb-Mittelpunkt liegt (Thumb 22px →
+    // von 11px bis Breite−11px). translateX(-50%) zentriert das Label darüber.
+    const at = (p: number) => `calc(11px + ${p} * (100% - 22px))`;
+    if (n === 1) return [{ label: this.formatTick(this.min), left: at(0.5) }];
+    return Array.from({ length: n }, (_, i) => {
+      const p = i / (n - 1);
+      return { label: this.formatTick(this.min + (this.max - this.min) * p), left: at(p) };
+    });
   }
 
   /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k". */
