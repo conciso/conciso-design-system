@@ -56,6 +56,9 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **KI-Wissensbeitrag „Weiterlesen": aktuelle Artikel-Cards** statt der alten `.ep-card`-Textkarten:
+  jetzt `.card.card-elevated` mit 16:9-Bild, `.pill`-Bereichslabel, `.card-title` und gepinntem
+  `.card-cta-link`, im `.layout-grid` (col-4) — identisch zur Beitragsübersicht (`ep-wb-uebersicht`).
 - Topnav-Icon-Buttons und Hamburger auf 48 × 48 px (Touch-Target AAA, WCAG 2.5.5).
 - Icon-Doku (`#sec-icons`): Solid-Bereichs-Glyphen vs. Outline-UI-Icons klargestellt
   (vorherige „nur Outline"-Aussage war unzutreffend); Verweis auf die Icon-Bibliothek.
