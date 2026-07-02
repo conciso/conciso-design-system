@@ -298,9 +298,12 @@
       }
     });
   });
-  /* Klick außerhalb schließt offene Dropdowns */
+  /* Klick außerhalb schließt offene Dropdowns — ebenso ein Klick auf einen Navigationslink (data-ep):
+     Der neue Parent-Link liegt IM .ep-nav-has-sub, würde also sonst nicht schließen. Der Caret-Toggle
+     trägt kein data-ep und bleibt unberührt (sein eigener Handler steuert Öffnen/Schließen). */
   document.addEventListener('click', function(e) {
-    if (!e.target.closest || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
+    if (!e.target.closest) return;
+    if (e.target.closest('[data-ep]') || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
   });
 
   /* ── Mobile-Navigation: Hamburger-Button pro Topnav (per JS injiziert, kein Markup-Eingriff) ──

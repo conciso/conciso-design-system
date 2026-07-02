@@ -56,6 +56,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **Topnav: Top-Level-Parents als Link zur Übersicht (Split „Link + Caret-Disclosure")**: „Angewandte KI",
+  „Leistungen" und „Unternehmen" sind jetzt echte `<a>`-Links auf ihre Übersichtsseite (`data-ep` = erstes
+  Submenü-Ziel), statt reiner Aufklapp-Buttons. Ein **separater Caret-`<button>`** (`.ep-nav-item-toggle`,
+  `aria-expanded`/`aria-controls`) öffnet das Submenü per Klick/Tastatur. UX: 1 Klick zur Übersicht statt
+  Umweg über den „Übersicht"-Dropdown-Eintrag; A11y: eigene Caret-Hit-Area ≥ 24 px (WCAG 2.5.8) + Fokus-Ring,
+  mobil Link + Caret in einer Zeile mit ≥ 44 px Tap-Fläche. Der nicht-farbige Aktiv-Unterstrich (WCAG 1.4.1)
+  sitzt jetzt am Parent-Link. Über alle Beispielseiten + Doku (`#gt-nav-topnav`) konsistent umgesetzt.
 - **KI-Wissensbeitrag „Weiterlesen": aktuelle Artikel-Cards** statt der alten `.ep-card`-Textkarten:
   jetzt `.card.card-elevated` mit 16:9-Bild, `.pill`-Bereichslabel, `.card-title` und gepinntem
   `.card-cta-link`, im `.layout-grid` (col-4) — identisch zur Beitragsübersicht (`ep-wb-uebersicht`).

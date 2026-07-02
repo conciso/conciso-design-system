@@ -1600,13 +1600,17 @@ img.logo-themed-light{display:none}
 .ep-nav-btn:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
 .ep-nav-btn[aria-current="page"]{color:var(--co-700)}
 .ep-nav-btn[aria-current="page"]::after{opacity:1}
-/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Toggle denselben Unterstrich —
-   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt. */
-.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-item-toggle::after{opacity:1}
+/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Parent-LINK denselben Unterstrich —
+   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt.
+   (Der Unterstrich sitzt am .ep-nav-btn-Link, nicht am Caret-Button — dieser hat kein ::after.) */
+.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-btn::after{opacity:1}
 /* Submenü unter "Leistungen"/"Unternehmen" — Hover/Focus-Within zeigt die Einträge */
 .ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
-.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;line-height:1}
-.ep-nav-item-caret{width:10px;height:10px;display:inline-block;margin-left:4px;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
+/* Caret-Disclosure-Button: nur der Pfeil (das Label ist der separate .ep-nav-btn-Link daneben).
+   Eigene Hit-Area ≥24×24 (WCAG 2.5.8) + eigener Fokus-Ring, da nicht mehr Teil des Link-Buttons. */
+.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
+.ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
 /* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
    offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
    Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
@@ -1666,9 +1670,13 @@ img.logo-themed-light{display:none}
   .ep-nav-search-pop{right:auto;left:0;width:min(320px,calc(100vw - var(--s8)))}
   .ep-nav-links{display:none;order:5;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
   .ep-topnav.nav-open .ep-nav-links{display:flex}
-  .ep-nav-item{flex-direction:column;align-items:stretch;width:100%;gap:0}
-  .ep-nav-btn,.ep-nav-item-toggle{width:100%;padding:var(--s3) 0}
-  .ep-nav-item-toggle{justify-content:space-between}
+  /* Dropdown-Parent: Label-Link + Caret in EINER Zeile (Label nimmt Restbreite, Caret ≥44px Tap-Target
+     rechts), Submenü klappt in eigener Zeile darunter auf. Einfache Top-Level-Links bleiben full-width. */
+  .ep-nav-item{display:flex;flex-wrap:wrap;align-items:center;width:100%;gap:0}
+  .ep-nav-btn{width:100%;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-btn{flex:1 1 auto;width:auto}
+  .ep-nav-item-toggle{flex:0 0 auto;width:44px;min-height:44px;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-sub{flex-basis:100%}
   .ep-nav-btn::after{display:none}
   /* Untermenü inline aufklappen statt als schwebendes Overlay */
   .ep-nav-sub{position:static;display:none;box-shadow:none;border:none;background:none;padding:0 0 var(--s2) var(--s4);min-width:0}

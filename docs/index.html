@@ -1931,7 +1931,7 @@
       <p class="sec-sub">Customer-Topnav (<code class="token">.ep-topnav</code>) mit Logo, vier Top-Items (Angewandte KI · Leistungen · Wissen · Unternehmen) und Outlined-Kontakt-Button · Back-to-Top-Button · übergreifende Verwendungs-Regeln im Zusammenspiel mit dem <a class="body-link" href="#sec-hero">Hero</a>.</p>
 
       <!-- ── Live-Demo: ep-topnav (Produktion) ── -->
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, vier Top-Items (Angewandte KI und Leistungen mit Hover-Submenü, Wissen, Unternehmen mit Submenü), Kontakt-Button rechts. Aktiver Eintrag: <code class="token">aria-current="page"</code> plus nicht-farbiger Indikator (Top-Level Akzent-Unterstrich, Submenü Tönungsfläche + Fettung), ergänzt um Brand-Petrol-Farbe.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Die Customer-Pages nutzen <code class="token">.ep-topnav</code>: Logo links, vier Top-Items (Angewandte KI, Leistungen und Unternehmen jeweils als Link zur Übersicht mit aufklappbarem Submenü über einen separaten Caret-Button, Wissen als einfacher Link), Kontakt-Button rechts. Aktiver Eintrag: <code class="token">aria-current="page"</code> plus nicht-farbiger Indikator (Top-Level Akzent-Unterstrich, Submenü Tönungsfläche + Fettung), ergänzt um Brand-Petrol-Farbe.</p>
 
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd);border-radius:var(--r-md);margin-bottom:var(--s6)">
@@ -1939,7 +1939,8 @@
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
@@ -1948,7 +1949,8 @@
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
@@ -1957,7 +1959,8 @@
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
@@ -1979,7 +1982,8 @@
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-navigation">Angewandte KI</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
@@ -1988,7 +1992,8 @@
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
@@ -1997,7 +2002,8 @@
             </div>
             <a class="ep-nav-btn" href="#sec-navigation">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
@@ -2019,7 +2025,8 @@
           <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">AI.Engineering</a>
@@ -2028,7 +2035,8 @@
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Effektive Software</a>
@@ -2037,7 +2045,8 @@
             </div>
             <a class="ep-nav-btn" aria-current="page" href="#sec-navigation">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-navigation">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
@@ -2056,7 +2065,7 @@
       <!-- ── Topnav-Pattern für Beispielseiten ── -->
       <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Topnav-Pattern (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>) folgt dem festgelegten IA-Schema:</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Angewandte KI · Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Angewandte KI“ bündelt die KI-Produkte (AI.Engineering, AI.Automation, AI.Box) in einem Hover-Submenü, „Leistungen“ die Bereiche Effektive Software und Wirksame Organisationen, „Unternehmen“ ist der Hub mit Über uns, Jobs, Referenzen, Events, Presse.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Angewandte KI · Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Angewandte KI“ führt als Link direkt auf die Übersichtsseite; der Caret daneben klappt das Submenü mit den KI-Produkten (AI.Engineering, AI.Automation, AI.Box) auf. „Leistungen“ (Link → Übersicht) bündelt Effektive Software und Wirksame Organisationen, „Unternehmen“ (Link → Überblick) ist der Hub mit Über uns, Jobs, Referenzen, Events, Presse.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Layout-Anker</h3>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur wenigen Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
@@ -2065,7 +2074,7 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Punkt wird über <code class="token">aria-current="page"</code> ausgezeichnet und visuell durch einen <strong>nicht-farbigen Indikator</strong> bestätigt: Top-Level-Links tragen einen dezenten Akzent-Unterstrich (Petrol, sanfter Opacity-Fade), Submenü-Einträge eine Tönungsfläche (<code class="token">--co-50</code>) plus Fettung. Die Brand-Petrol-Textfarbe (<code class="token">--co-700</code>, im Dark <code class="token">--co-200</code>) kommt ergänzend dazu. So hängt die Markierung nicht allein an der Farbe (WCAG&nbsp;1.4.1). Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der jeweilige Toggle (z. B. „Angewandte KI“ oder „Leistungen“) wird Petrol gefärbt und trägt als aktive Sektion denselben Unterstrich (via <code class="token">:has()</code> auf den aktiven Submenü-Eintrag). Nur Hover und das bloße Aufklappen markieren ausschließlich über Farbe (plus Caret-Dreh) — den Unterstrich gibt es allein im Aktiv-Zustand, nicht beim Hover/Öffnen.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Submenü: öffnen &amp; schließen</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Das Submenü öffnet per <strong>Maus-Hover</strong> (CSS) und per <strong>Klick/Tap oder Tastatur</strong> (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>). Der Toggle führt <code class="token">aria-expanded</code> mit (<code class="token">true</code>/<code class="token">false</code>), damit Screenreader und Touch-Geräte ohne Hover den Auf-/Zu-Zustand erhalten. <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus an den Toggle zurück; ein Klick außerhalb oder das Heraustabben schließt ebenfalls. Zwischen Toggle und Submenü überbrückt das unsichtbare <code class="token">.ep-nav-sub::before</code> den Hover-Spalt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Jedes Top-Item mit Submenü besteht aus <strong>zwei Bedienelementen</strong>: der Label-<strong>Link</strong> (<code class="token">.ep-nav-btn</code>, ein echtes <code class="token">&lt;a&gt;</code>) navigiert direkt zur Übersichtsseite, ein <strong>separater Caret-Button</strong> (<code class="token">.ep-nav-item-toggle</code>) öffnet/schließt das Submenü (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>, <code class="token">aria-expanded</code> <code class="token">true</code>/<code class="token">false</code>, <code class="token">aria-controls</code> auf das Submenü). Geöffnet wird per <strong>Klick/Tap oder Tastatur</strong> (kein Auto-Öffnen bei Hover, damit Navigieren vs. Öffnen eindeutig bleibt und nicht zwei Menüs gleichzeitig offen sind). <kbd>Enter</kbd>/<kbd>Space</kbd> auf dem Caret öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus zurück; ein Klick außerhalb, das Heraustabben oder eine Navigation schließen ebenfalls. Als Disclosure aus Links (kein Menü-Widget) bewusst ohne <code class="token">aria-haspopup</code>. Der Caret-Button hat eine eigene Hit-Area (≥ 24 px, WCAG 2.5.8); mobil liegen Link und Caret in einer Zeile mit ≥ 44 px Tap-Fläche.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Mobile:</strong> Unter dem Breakpoint (≤&nbsp;760&nbsp;px) injiziert das JS einen <strong>Hamburger-Button</strong> in die Topnav; er klappt die Navigation unter dem Logo auf, die Submenüs öffnen dort inline (statt als schwebendes Overlay).</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktionen: Suche &amp; Theme-Umschalter</h3>
@@ -2074,14 +2083,15 @@
       <!-- Code-Beispiel Topnav -->
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Customer-Topnav: Logo, vier Top-Items, Hover-Submenü, Outline-CTA --&gt;</span>
+        <pre class="cb-body"><span class="c">&lt;!-- Customer-Topnav: Logo, vier Top-Items (Label-Link + Caret-Submenü), Outline-CTA --&gt;</span>
 <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-topnav"</span><span class="k">&gt;</span>
   <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-logo"</span> <span class="v">href</span>=<span class="s">"/"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"…"</span><span class="k">&gt;&lt;/a&gt;</span>
   <span class="k">&lt;nav</span> <span class="v">class</span>=<span class="s">"ep-nav-links"</span> <span class="v">aria-label</span>=<span class="s">"Hauptnavigation"</span><span class="k">&gt;</span>
-    <span class="c">&lt;!-- Angewandte KI mit Hover-Submenü --&gt;</span>
+    <span class="c">&lt;!-- Angewandte KI: Label-Link → Übersicht + separater Caret-Disclosure --&gt;</span>
     <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-item ep-nav-has-sub"</span><span class="k">&gt;</span>
-      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-btn ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-expanded</span>=<span class="s">"false"</span> <span class="v">aria-controls</span>=<span class="s">"ep-nav-sub-…"</span><span class="k">&gt;</span> <span class="c">&lt;!-- aria-expanded + aria-controls per JS gesetzt --&gt;</span>
-        Angewandte KI<span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
+      <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki"</span><span class="k">&gt;</span>Angewandte KI<span class="k">&lt;/a&gt;</span> <span class="c">&lt;!-- navigiert zur Übersicht --&gt;</span>
+      <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"ep-nav-item-toggle"</span> <span class="v">type</span>=<span class="s">"button"</span> <span class="v">aria-label</span>=<span class="s">"Untermenü Angewandte KI"</span> <span class="v">aria-expanded</span>=<span class="s">"false"</span> <span class="v">aria-controls</span>=<span class="s">"ep-nav-sub-…"</span><span class="k">&gt;</span> <span class="c">&lt;!-- Disclosure; aria-expanded/-controls per JS --&gt;</span>
+        <span class="k">&lt;svg</span> <span class="v">class</span>=<span class="s">"ep-nav-item-caret"</span><span class="k">&gt;…&lt;/svg&gt;</span>
       <span class="k">&lt;/button&gt;</span>
       <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-nav-sub"</span><span class="k">&gt;</span>
         <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"ep-nav-sub-btn"</span> <span class="v">href</span>=<span class="s">"/angewandte-ki"</span><span class="k">&gt;</span>Übersicht<span class="k">&lt;/a&gt;</span>
@@ -2216,7 +2226,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </thead>
             <tbody>
               <tr><td>Logo</td><td>Immer ganz links, immer sichtbar, Verlässlichkeit in der ersten Sekunde</td></tr>
-              <tr><td>Top-Items</td><td>Drei Einträge: <strong>Leistungen</strong> (Hover-Submenü mit den drei Bereichen), <strong>Wissen</strong>, <strong>Unternehmen</strong> · kurze, prägnante Labels · aktiver Eintrag in Brand-Petrol via <code class="token">aria-current="page"</code></td></tr>
+              <tr><td>Top-Items</td><td>Drei Einträge: <strong>Leistungen</strong> (aufklappbarem Submenü mit den drei Bereichen), <strong>Wissen</strong>, <strong>Unternehmen</strong> · kurze, prägnante Labels · aktiver Eintrag in Brand-Petrol via <code class="token">aria-current="page"</code></td></tr>
               <tr><td>CTA-Button</td><td>Genau ein <strong>Outlined</strong> Button · Label „Kontakt“ · Brand-Petrol (<code class="token">--co-700</code>) · ganz rechts via <code class="token">margin-left:auto</code></td></tr>
               <tr><td>Layout & Hintergrund</td><td><code class="token">.ep-topnav</code> mit <code class="token">--bg-surface</code> · <code class="token">border-bottom:var(--bd)</code> · Padding <code class="token">var(--s4) var(--s8)</code> (~64&nbsp;px hoch)</td></tr>
             </tbody>
@@ -2258,7 +2268,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <!-- Callout labels for nav -->
         <div style="display:flex;align-items:flex-start;gap:var(--s4);padding:var(--s3) var(--s6);background:var(--bg-overlay);border-bottom:var(--bd)">
           <div style="font:400 12px/16px var(--font);color:var(--tx-muted);flex-shrink:0;width:80px">① Logo<br>immer links</div>
-          <div style="font:400 12px/16px var(--font);color:var(--tx-muted);flex:1">② Top-Items · 3 Einträge · „Leistungen“ mit Hover-Submenü (die drei Bereiche) · aktiver Eintrag in Brand-Petrol via <code class="token" style="font-size:12px">aria-current="page"</code></div>
+          <div style="font:400 12px/16px var(--font);color:var(--tx-muted);flex:1">② Top-Items · 3 Einträge · „Leistungen“ mit aufklappbarem Submenü (die drei Bereiche) · aktiver Eintrag in Brand-Petrol via <code class="token" style="font-size:12px">aria-current="page"</code></div>
           <div style="font:400 12px/16px var(--font);color:var(--tx-muted);flex-shrink:0;text-align:right">③ Outlined „Kontakt“<br>ganz rechts</div>
         </div>
         <!-- Hero-Image Schematic: Image-Fläche mit Caption-Overlay -->
@@ -2290,7 +2300,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td>Semantik</td><td><code class="token">&lt;nav&gt;</code> mit <code class="token">aria-label="Hauptnavigation"</code> wenn mehrere Navigationsbereiche auf einer Seite, Screenreader listen alle Landmarks auf</td></tr>
           <tr><td>Aktiver Eintrag</td><td><code class="token">aria-current="page"</code> auf dem aktiven Nav-Link setzen, visueller active-State allein ist für Screenreader nicht erkennbar</td></tr>
           <tr><td>Tastatur</td><td>Alle Nav-Items per <kbd>Tab</kbd> · <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet das Submenü · <kbd>↓</kbd>/<kbd>↑</kbd> und <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge · <kbd>Esc</kbd> schließt (Fokus zurück zum Toggle), ohne Maus vollständig bedienbar</td></tr>
-          <tr><td>Dropdown-Zustand</td><td>Toggle ist ein <code class="token">&lt;button&gt;</code> mit per JS gepflegtem <code class="token">aria-expanded</code> und <code class="token">aria-controls</code> auf das Submenü (Disclosure-Navigation aus Links, kein Menü-Widget — daher kein <code class="token">aria-haspopup</code>); Touch-Geräte und Screenreader erhalten den Auf-/Zu-Zustand, nicht nur Maus-Hover</td></tr>
+          <tr><td>Dropdown-Zustand</td><td>Das Label ist ein <code class="token">&lt;a&gt;</code>-Link zur Übersicht; ein separater Caret-<code class="token">&lt;button&gt;</code> trägt per JS <code class="token">aria-expanded</code> und <code class="token">aria-controls</code> auf das Submenü (Disclosure aus Links, kein Menü-Widget — daher kein <code class="token">aria-haspopup</code>); Touch-Geräte und Screenreader erhalten den Auf-/Zu-Zustand per Klick/Tastatur, nicht nur Maus-Hover</td></tr>
           <tr><td>Skip-Link</td><td>„Zum Inhalt springen“-Link als erstes fokussierbares Element, ermöglicht Tastaturnutzern das Überspringen langer Navigationen</td></tr>
         </tbody>
       </table>
@@ -7844,7 +7854,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -7853,7 +7864,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -7862,7 +7874,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -8187,7 +8200,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -8196,7 +8210,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -8205,7 +8220,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -8450,7 +8466,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -8459,7 +8476,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -8468,7 +8486,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -8777,7 +8796,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -8786,7 +8806,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -8795,7 +8816,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -9160,7 +9182,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -9169,7 +9192,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -9178,7 +9202,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -9394,7 +9419,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -9403,7 +9429,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -9412,7 +9439,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -9583,7 +9611,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -9592,7 +9621,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -9601,7 +9631,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -9819,7 +9850,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -9828,7 +9860,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -9837,7 +9870,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -10098,7 +10132,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -10107,7 +10142,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -10116,7 +10152,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -10553,7 +10590,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -10562,7 +10600,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -10571,7 +10610,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -10794,7 +10834,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -10803,7 +10844,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -10812,7 +10854,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -11110,7 +11153,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -11119,7 +11163,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -11128,7 +11173,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -11342,7 +11388,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -11351,7 +11398,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -11360,7 +11408,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -11625,7 +11674,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -11634,7 +11684,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -11643,7 +11694,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -11897,7 +11949,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -11906,7 +11959,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -11915,7 +11969,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" aria-current="page" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -12302,7 +12357,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -12311,7 +12367,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -12320,7 +12377,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -12609,7 +12667,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -12618,7 +12677,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -12627,7 +12687,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -12972,7 +13033,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -12981,7 +13043,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -12990,7 +13053,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
@@ -13174,7 +13238,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Angewandte KI<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
@@ -13183,7 +13248,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle t-co" type="button">Leistungen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
@@ -13192,7 +13258,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
             <div class="ep-nav-item ep-nav-has-sub">
-              <button class="ep-nav-btn ep-nav-item-toggle" type="button">Unternehmen<svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
               <div class="ep-nav-sub">
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
