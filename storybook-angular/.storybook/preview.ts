@@ -24,7 +24,9 @@ const preview: Preview = {
           [
             'Buttons',
             'Chips, Badges & Pills',
+            ['Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Eingaben & Formulare',
+            ['Textfeld', 'Textbereich', 'Auswahlfeld'],
             'Feedback',
             'Karten & Teaser',
             'Call to Action',
