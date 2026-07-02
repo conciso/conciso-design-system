@@ -24,7 +24,7 @@ import type { CdsArea } from '../area';
         style="width:18px;height:18px;margin-top:2px;flex-shrink:0;cursor:pointer"
       />
       <span style="font:var(--ty-body-md);color:var(--tx-secondary)"
-        >{{ label }}@if (linkLabel) {&nbsp;<a class="body-link" [href]="linkHref">{{ linkLabel }}</a>}</span
+        >{{ label }}@if (linkLabel) {&nbsp;<a class="body-link" [href]="linkHref">{{ linkLabel }}</a>}@if (required) {&nbsp;<span class="req" aria-hidden="true">*</span>}</span
       >
     </label>
   `,
@@ -36,7 +36,7 @@ export class CheckboxComponent {
   @Input() linkLabel = '';
   /** Ziel des verlinkten Hinweises. */
   @Input() linkHref = '#';
-  /** Pflicht-Einwilligung → required + aria-required. */
+  /** Pflicht-Einwilligung → required + aria-required + .req-Sternchen am Label-Ende. */
   @Input() required = false;
   @Input() checked = false;
   @Input() disabled = false;
