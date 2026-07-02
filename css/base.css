@@ -116,9 +116,11 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
-.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn{display:inline-flex;align-items:center;gap:6px;padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn svg{width:14px;height:14px;flex:none}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.tbtn.active{background:var(--co-500);color:#fff}
+/* Aktiv-Fläche co-700 statt co-500: weiß auf #007575 = 5,5:1 (AA) — co-500 #00BEBE war nur 2,3:1 (Fail bei 12px/500) */
+.tbtn.active{background:var(--co-700);color:#fff}
 
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}

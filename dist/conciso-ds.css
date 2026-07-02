@@ -241,13 +241,13 @@
   background-position:right 6px bottom 6px;
 }
 [data-theme="dark"] .field textarea::-webkit-resizer { background:transparent }
-/* Slider: --sl-color trägt Thumb UND Wert-Anzeige. Die -500/-700-Töne fallen im Dark auf dem dunklen
-   Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Auf die hellen -200/-100-Töne heben (5,3-7:1).
-   Track (--n-200 #C9D3D3) bleibt hell und ist sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
-[data-theme="dark"] .slider-co, [data-theme="dark"] .field-slider-output.slider-co { --sl-color: var(--co-200) }
-[data-theme="dark"] .slider-ki, [data-theme="dark"] .field-slider-output.slider-ki { --sl-color: var(--ki-200) }
-[data-theme="dark"] .slider-es, [data-theme="dark"] .field-slider-output.slider-es { --sl-color: var(--es-100) }
-[data-theme="dark"] .slider-wo, [data-theme="dark"] .field-slider-output.slider-wo { --sl-color: var(--wo-200) }
+/* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
+   dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
+   heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+[data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
+[data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
+[data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }
+[data-theme="dark"] .slider-wo { --sl-color: var(--wo-200); --sl-text: var(--wo-200) }
 /* Tick-Labels (min/mid/max): tx-muted reißt im Dark AA (~3:1) → tx-secondary (4,9:1) */
 [data-theme="dark"] .field-slider-ticks { color: var(--tx-secondary) }
 /* Such-Feld-Magnifier: stroke=var(--n-400) #6E8585 flippt nicht und liegt im Dark bei nur 2,28:1.
@@ -716,9 +716,11 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
-.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn{display:inline-flex;align-items:center;gap:6px;padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn svg{width:14px;height:14px;flex:none}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.tbtn.active{background:var(--co-500);color:#fff}
+/* Aktiv-Fläche co-700 statt co-500: weiß auf #007575 = 5,5:1 (AA) — co-500 #00BEBE war nur 2,3:1 (Fail bei 12px/500) */
+.tbtn.active{background:var(--co-700);color:#fff}
 
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
@@ -1381,7 +1383,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field-slider{display:flex;flex-direction:column;gap:var(--s2)}
 .field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
 .field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
-.field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-color,var(--co-700));min-width:56px;text-align:right}
+.field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
 .field-slider-ticks{display:flex;justify-content:space-between;font:var(--ty-caption);color:var(--tx-muted);padding:0 2px}
 .slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-full);background:var(--n-200);outline:none;cursor:pointer;display:block;margin:var(--s3) 0 var(--s1)}
 .slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
@@ -1390,10 +1392,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .slider:hover:not(:disabled)::-moz-range-thumb{transform:scale(1.2);box-shadow:var(--e3)}
 .slider:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 .slider:disabled{opacity:.38;cursor:not-allowed}
-.slider-co,.field-slider-output.slider-co{--sl-color:var(--co-500)}
-.slider-ki,.field-slider-output.slider-ki{--sl-color:var(--ki-700)}
-.slider-es,.field-slider-output.slider-es{--sl-color:var(--es-500)}
-.slider-wo,.field-slider-output.slider-wo{--sl-color:var(--wo-500)}
+/* --sl-color = Thumb (helle Markenfarbe, grafisch: 3:1 genügt) · --sl-text = Wert-Anzeige
+   (Normaltext 14px/600 → 4,5:1 nötig, daher dunklere Töne; -500 fiel bis 2,3:1 durch, WCAG 1.4.3) */
+.slider-co{--sl-color:var(--co-500);--sl-text:var(--co-700)}   /* co-700 #007575 = 5,5:1 */
+.slider-ki{--sl-color:var(--ki-700);--sl-text:var(--ki-800)}   /* ki-800 #475705 = 8,0:1 (ki-700 nur 4,35:1) */
+.slider-es{--sl-color:var(--es-500);--sl-text:var(--es-700)}   /* es-700 #1B3D9A = 9,6:1 */
+.slider-wo{--sl-color:var(--wo-500);--sl-text:var(--wo-700)}   /* wo-700 #285E1A = 7,8:1 (wo-500 nur 3,3:1) */
 
 /* ── Bild-Slider (Carousel) ── */
 /* Basis: Crossfade — alle Slides als Grid-Items in derselben Zelle übereinander gestapelt; aktive Slide trägt .active und ist sichtbar */

@@ -78,13 +78,13 @@
   background-position:right 6px bottom 6px;
 }
 [data-theme="dark"] .field textarea::-webkit-resizer { background:transparent }
-/* Slider: --sl-color trägt Thumb UND Wert-Anzeige. Die -500/-700-Töne fallen im Dark auf dem dunklen
-   Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Auf die hellen -200/-100-Töne heben (5,3-7:1).
-   Track (--n-200 #C9D3D3) bleibt hell und ist sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
-[data-theme="dark"] .slider-co, [data-theme="dark"] .field-slider-output.slider-co { --sl-color: var(--co-200) }
-[data-theme="dark"] .slider-ki, [data-theme="dark"] .field-slider-output.slider-ki { --sl-color: var(--ki-200) }
-[data-theme="dark"] .slider-es, [data-theme="dark"] .field-slider-output.slider-es { --sl-color: var(--es-100) }
-[data-theme="dark"] .slider-wo, [data-theme="dark"] .field-slider-output.slider-wo { --sl-color: var(--wo-200) }
+/* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
+   dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
+   heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+[data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
+[data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
+[data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }
+[data-theme="dark"] .slider-wo { --sl-color: var(--wo-200); --sl-text: var(--wo-200) }
 /* Tick-Labels (min/mid/max): tx-muted reißt im Dark AA (~3:1) → tx-secondary (4,9:1) */
 [data-theme="dark"] .field-slider-ticks { color: var(--tx-secondary) }
 /* Such-Feld-Magnifier: stroke=var(--n-400) #6E8585 flippt nicht und liegt im Dark bei nur 2,28:1.
