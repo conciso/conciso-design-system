@@ -1,0 +1,33 @@
+import { Component, Input } from '@angular/core';
+import type { CdsArea } from '../area';
+
+/**
+ * Pill — Wrapper um `.pill` aus css/components.css → „Badges & Chips" (Pill).
+ *
+ * Passive, redaktionelle Bereichs-Markierung, typografisch als Eyebrow (uppercase,
+ * letter-spacing .09em, label-xs) — sitzt typischerweise oberhalb eines Titels und
+ * ordnet einen Inhalt einer Brand Area zu. Abgrenzung zur Badge: die Pill ist der
+ * thematische „Was für ein Inhalt ist das?"-Anker im Lesefluss; die Badge die
+ * punktuelle Status-/Bereichs-Kennzeichnung neben Elementen. Nicht interaktiv.
+ *
+ * a11y: Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine
+ * Überschrift — daher trägt die Pill ein explizites `aria-label` (Default
+ * „Bereich <label>", überschreibbar), genau wie in der Doku vorgegeben.
+ */
+@Component({
+  selector: 'cds-pill',
+  standalone: true,
+  template: `<span class="pill" [attr.data-area]="area" [attr.aria-label]="computedAriaLabel">{{ label }}</span>`,
+})
+export class PillComponent {
+  /** Sichtbarer Bereichsname. */
+  @Input() label = 'Angewandte KI';
+  /** Brand Area → data-area (Farbton; ohne Angabe greift der Corporate-Default). */
+  @Input() area: CdsArea = 'ki';
+  /** aria-label überschreiben; Default „Bereich <label>". */
+  @Input() ariaLabel?: string;
+
+  get computedAriaLabel(): string {
+    return this.ariaLabel ?? `Bereich ${this.label}`;
+  }
+}
