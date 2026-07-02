@@ -1,7 +1,13 @@
 import { Component, Input } from '@angular/core';
 import type { CdsArea } from '../area';
 
-export type CdsButtonVariant = 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text';
+/**
+ * Stil-Varianten des Buttons. `filled-on-band` ist der invertierte Filled-Button
+ * für farbige Bereichs-Bänder (Doku: „On-Band-Modifier") — er wird hier als
+ * eigener Variant-Wert geführt statt als abhängiges Flag, da das Invertieren nur
+ * in Kombination mit `filled` je sinnvoll ist.
+ */
+export type CdsButtonVariant = 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' | 'filled-on-band';
 export type CdsButtonSize = 'sm' | 'md' | 'lg';
 
 /**
@@ -28,7 +34,8 @@ export type CdsButtonSize = 'sm' | 'md' | 'lg';
 export class ButtonComponent {
   /** Sichtbarer Text des Buttons. */
   @Input() label = 'Button';
-  /** Visuelle Variante → .btn-filled / .btn-tonal / .btn-elevated / .btn-outlined / .btn-text */
+  /** Visuelle Variante → .btn-filled / .btn-tonal / .btn-elevated / .btn-outlined /
+   *  .btn-text; `filled-on-band` → .btn-filled + .btn-on-band (invertiert). */
   @Input() variant: CdsButtonVariant = 'filled';
   /** Markenbereich → .btn-co / .btn-ki / .btn-es / .btn-wo */
   @Input() area: CdsArea = 'co';
@@ -36,19 +43,17 @@ export class ButtonComponent {
   @Input() size: CdsButtonSize = 'md';
   /** Volle Breite → .btn-full (Host wird block, damit 100% greifen). */
   @Input() full = false;
-  /** Invertiert für farbige Bereichs-Bänder → .btn-on-band. Nur in Kombination
-   *  mit variant="filled" definiert (so auch durchgängig in der Doku); bei allen
-   *  anderen Varianten wird der Wert ignoriert. */
-  @Input() onBand = false;
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
 
   get classes(): string {
-    const cls = ['btn', `btn-${this.variant}`, `btn-${this.area}`];
+    // filled-on-band = invertierter Filled-Button; rendert .btn-filled + .btn-on-band.
+    const onBand = this.variant === 'filled-on-band';
+    const cls = ['btn', `btn-${onBand ? 'filled' : this.variant}`, `btn-${this.area}`];
     if (this.size === 'sm') cls.push('btn-sm');
     if (this.size === 'lg') cls.push('btn-lg');
     if (this.full) cls.push('btn-full');
-    if (this.onBand && this.variant === 'filled') cls.push('btn-on-band');
+    if (onBand) cls.push('btn-on-band');
     return cls.join(' ');
   }
 }
