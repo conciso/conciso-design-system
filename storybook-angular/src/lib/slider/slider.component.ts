@@ -1,12 +1,29 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import type { CdsArea } from '../area';
+
+// Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
+// Ein konstanter Default würde bei mehreren Slidern kollidieren (doppelte id →
+// kaputte label/for-, output/for- und aria-describedby-Verknüpfung).
+let uid = 0;
 
 /**
  * Slider — Wrapper um `.field-slider` / `.slider` aus css/components.css → „Slider".
  *
  * Range-Eingabe mit Label + Live-Ausgabe, bereichsgefärbtem Thumb/Output
- * (.slider-<area> setzt --sl-color), optionalen Ticks und Helper-Text. Der
- * Ausgabewert wird beim Schieben formatiert (de-DE + Einheit) aktualisiert.
+ * (.slider-<area> setzt --sl-color), automatisch berechneten Ticks und Helper-Text.
+ *
+ * Ticks: Es wird nur eine gewünschte ANZAHL (`tickCount`) angegeben; die Positionen/
+ * Labels werden gleichmäßig aus [min, max] berechnet (space-between wie das CSS-
+ * Layout). Wird der Slider zu schmal, reduziert die Komponente die Tick-Zahl reaktiv
+ * (ResizeObserver), sodass die Labels nicht überlappen — Endpunkte bleiben erhalten.
  */
 @Component({
   selector: 'cds-slider',
@@ -31,9 +48,9 @@ import type { CdsArea } from '../area';
         [attr.aria-describedby]="helper ? sliderId + '-hint' : null"
         (input)="onInput($event)"
       />
-      @if (ticks.length) {
+      @if (tickLabels.length) {
         <div class="field-slider-ticks" aria-hidden="true">
-          @for (tick of ticks; track $index) {
+          @for (tick of tickLabels; track $index) {
             <span>{{ tick }}</span>
           }
         </div>
@@ -44,7 +61,12 @@ import type { CdsArea } from '../area';
     </div>
   `,
 })
-export class SliderComponent {
+export class SliderComponent implements AfterViewInit, OnDestroy {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private resizeObserver?: ResizeObserver;
+  /** Gemessene Slider-Breite (px); treibt die reaktive Tick-Reduktion. */
+  private readonly width = signal(0);
+
   @Input() label = 'Budget-Rahmen';
   /** Markenbereich → .slider-<area> (Thumb- + Output-Farbe). */
   @Input() area: CdsArea = 'co';
@@ -54,10 +76,30 @@ export class SliderComponent {
   @Input() value = 50000;
   /** Einheit, an den formatierten Wert angehängt (z. B. ' €'). */
   @Input() unit = ' €';
-  @Input() ticks: string[] = ['10k', '55k', '100k'];
+  /** Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem
+   *  Slider automatisch reduziert. */
+  @Input() tickCount = 3;
+  /** Mindestbreite (px) pro Tick-Label, ab der reduziert wird. */
+  @Input() minTickSpacing = 56;
   @Input() helper = 'Schritte: 5.000 €';
   @Input() disabled = false;
-  @Input() sliderId = 'cds-slider';
+  @Input() sliderId = `cds-slider-${++uid}`;
+
+  ngAfterViewInit(): void {
+    const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
+    if (!el) return;
+    this.width.set(el.getBoundingClientRect().width);
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver((entries) => {
+        this.width.set(entries[0].contentRect.width);
+      });
+      this.resizeObserver.observe(el);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
+  }
 
   get sliderClasses(): string {
     return `slider slider-${this.area}`;
@@ -67,6 +109,34 @@ export class SliderComponent {
   }
   get formatted(): string {
     return `${this.value.toLocaleString('de-DE')}${this.unit}`;
+  }
+
+  /** Effektive Tick-Anzahl: Wunsch, aber auf das reduziert, was in die Breite passt. */
+  private effectiveTickCount(): number {
+    if (this.tickCount < 2) return Math.max(0, Math.trunc(this.tickCount));
+    const w = this.width();
+    if (!w) return this.tickCount; // vor der Messung: Wunschanzahl
+    const maxFit = Math.max(2, Math.floor(w / this.minTickSpacing));
+    return Math.min(this.tickCount, maxFit);
+  }
+
+  /** Gleichmäßig über [min, max] verteilte, kompakt formatierte Tick-Labels. */
+  get tickLabels(): string[] {
+    const n = this.effectiveTickCount();
+    if (n < 1) return [];
+    if (n === 1) return [this.formatTick(this.min)];
+    return Array.from({ length: n }, (_, i) =>
+      this.formatTick(this.min + ((this.max - this.min) * i) / (n - 1)),
+    );
+  }
+
+  /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k". */
+  private formatTick(v: number): string {
+    const abs = Math.abs(v);
+    const fmt = (x: number) => x.toLocaleString('de-DE', { maximumFractionDigits: 1 });
+    if (abs >= 1_000_000) return `${fmt(v / 1_000_000)}M`;
+    if (abs >= 1_000) return `${fmt(v / 1_000)}k`;
+    return fmt(v);
   }
 
   onInput(event: Event): void {

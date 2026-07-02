@@ -22,6 +22,8 @@ const meta: Meta<SliderComponent> = {
   },
   argTypes: {
     area: { control: 'inline-radio', options: ['co', 'ki', 'es', 'wo'] },
+    tickCount: { control: { type: 'number', min: 0, max: 12 } },
+    minTickSpacing: { control: { type: 'number', min: 24, max: 120 } },
     disabled: { control: 'boolean' },
   },
   args: {
@@ -32,7 +34,8 @@ const meta: Meta<SliderComponent> = {
     step: 5000,
     value: 50000,
     unit: ' €',
-    ticks: ['10k', '55k', '100k'],
+    tickCount: 5,
+    minTickSpacing: 56,
     helper: 'Schritte: 5.000 €',
     disabled: false,
     sliderId: 'demo-slider',
@@ -51,6 +54,26 @@ export const Interaktiv: Story = {
     fireEvent.input(slider, { target: { value: '75000' } });
     await waitFor(() => expect(c.getByText('75.000 €')).toBeInTheDocument());
   },
+};
+
+export const AutoTicks: Story = {
+  name: 'Ticks (auto-reduziert)',
+  parameters: { controls: { disable: true } },
+  // Gleiche gewünschte Tick-Zahl (7), zwei Breiten: breit zeigt alle, schmal
+  // reduziert automatisch (ResizeObserver), Endpunkte bleiben erhalten.
+  render: () => ({
+    moduleMetadata: { imports: [SliderComponent] },
+    template: `
+      <div style="display:grid;gap:32px">
+        <div style="max-width:520px">
+          <cds-slider sliderId="s-wide" label="Breit — 7 Ticks" [tickCount]="7"></cds-slider>
+        </div>
+        <div style="max-width:200px">
+          <cds-slider sliderId="s-narrow" label="Schmal — reduziert" [tickCount]="7"></cds-slider>
+        </div>
+      </div>
+    `,
+  }),
 };
 
 export const ProBereich: Story = {
