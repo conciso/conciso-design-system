@@ -9,8 +9,10 @@ const meta: Meta<SnackbarComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.snack` (css/components.css). Statusmeldung (role="status") in ' +
-          'drei Tönen (.snack-def/.snack-ok/.snack-err) mit optionaler Aktion (.snack-act).',
+          'Kurze Statusmeldung als Feedback auf Nutzeraktionen — etwa nach dem ' +
+          'Absenden eines Kontaktformulars, der Newsletter-Anmeldung oder bei ' +
+          'Validierungsfehlern. Drei Varianten: Default, Erfolg (OK) und Fehler, ' +
+          'jeweils mit optionaler Aktion.',
       },
     },
   },

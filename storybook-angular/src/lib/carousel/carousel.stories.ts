@@ -11,9 +11,10 @@ const meta: Meta<CarouselComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.img-slider` (css/components.css). Crossfade-Carousel mit Prev/Next ' +
-          '(.img-slider-btn) und Dots (.img-dot); aktive Slide via `.active`. Optionale ' +
-          'Hero-Variante (`.img-slider-hero`). Platzhalterbild, falls keine URL.',
+          'Bild-Carousel zur Integration in Seiteninhalt: mehrere Bilder wechseln per ' +
+          'Crossfade, gesteuert über Vor-/Zurück-Buttons und Dots, mit optionaler Bildunterschrift. ' +
+          'Neben der eingebetteten Standardvariante gibt es eine großformatige Hero-Variante für ' +
+          'den Seitenkopf. Barrierefrei nach WCAG 2.1 AA und respektiert reduzierte Bewegung.',
       },
     },
   },

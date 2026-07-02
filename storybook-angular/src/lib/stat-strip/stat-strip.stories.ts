@@ -10,9 +10,9 @@ const meta: Meta<StatStripComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.card-stat-strip` + `.card-stat-flat` (css/components.css). ' +
-          'Flacher Bandstreifen mit zentrierten Kennzahlen auf --n-50-Grund, je ' +
-          'Bereich getönt via `[data-area]`. Ohne Rahmen/Schatten.',
+          'Flache Kennzahlen-Leiste, die mehrere zentrierte Werte nebeneinander ' +
+          'als ruhiges Band zusammenfasst — ohne Rahmen oder Schatten. Jede ' +
+          'Kennzahl ist an ihre Brand Area farblich angepasst.',
       },
     },
   },

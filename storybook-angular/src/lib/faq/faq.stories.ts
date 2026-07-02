@@ -11,9 +11,10 @@ const meta: Meta<FaqComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.ep-faq` (css/components.css) auf Basis von nativem ' +
-          '`<details>/<summary>` — Auf-/Zuklappen, Tastaturbedienung und ' +
-          'Zugänglichkeit ohne JS. Der Caret dreht über `details[open]`.',
+          'Akkordeon aus aufklappbaren Fragen und Antworten für FAQ-Sektionen auf Content- und ' +
+          'Marketingseiten. Standardmäßig zugeklappt, öffnet sich jede Frage per Klick oder ' +
+          'Tastatur. Liest sich am besten im zweispaltigen Layout mit Überschrift links und ' +
+          'Fragenliste rechts.',
       },
     },
   },

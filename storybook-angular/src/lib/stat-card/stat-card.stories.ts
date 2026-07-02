@@ -10,9 +10,9 @@ const meta: Meta<StatCardComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.card-stat` (css/components.css). Kennzahl mit bereichsgefärbtem ' +
-          'Top-Akzent (`[data-area]`), `.card-stat-value`, `.card-stat-label` und ' +
-          'optionalem Trend-Pill `.card-stat-trend.up/.down`.',
+          'Inhaltskarte für eine einzelne Kennzahl mit Wert, Beschriftung und ' +
+          'optionalem Trend-Indikator (steigend/fallend). Farblich an jede ' +
+          'Brand Area angepasst.',
       },
     },
   },

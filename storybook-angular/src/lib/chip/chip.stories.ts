@@ -10,9 +10,9 @@ const meta: Meta<ChipComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.chip` (css/components.css). Toggle-Filter auf Basis von ' +
-          '`aria-pressed`; optionaler Markenbereich über `[data-area]` für die ' +
-          'area-aware Outline-Variante. Klick schaltet den Zustand um.',
+          'Interaktiver Filter-Chip: ein umschaltbares Element, das eine Auswahl ' +
+          'aktiviert oder deaktiviert, etwa in Bereichs-Filtern von Listing-Seiten. ' +
+          'Optional je Brand Area farblich codiert.',
       },
     },
   },

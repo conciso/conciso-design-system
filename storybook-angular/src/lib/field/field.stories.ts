@@ -10,9 +10,10 @@ const meta: Meta<FieldComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.field` (css/components.css). Label mit optionalem `.req`-Asterisk, ' +
-          'Steuerelement (input | textarea | select), `.helper`-Text und `.error-msg` im ' +
-          'Fehlerzustand (`.field.has-error`).',
+          'Formularfeld für Inputs & Forms: verbindet Label, Steuerelement ' +
+          '(Text, Textarea oder Select), Hilfetext und Fehlermeldung zu einer ' +
+          'zusammenhängenden Einheit. Pflichtfelder werden markiert; im Fehlerzustand ' +
+          'wird eine Meldung ausgegeben. Durchgängig WCAG AA.',
       },
     },
   },

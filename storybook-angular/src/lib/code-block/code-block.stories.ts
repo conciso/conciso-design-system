@@ -17,9 +17,9 @@ const meta: Meta<CodeBlockComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.cb-wrap` (css/components.css). Header mit Sprach-Label und ' +
-          'optionalem Kopier-Button, Code in `pre.cb-body`. Optionale Terminal-Variante ' +
-          '(`.cb-terminal`). Code bleibt Klartext (keine Syntax-Spans).',
+          'Darstellung von Quellcode mit Header aus Sprachkennung und Kopier-Button. ' +
+          'Für Wissens- und Technikbeiträge. Varianten: Standard, mit Zeilennummern, ' +
+          'Terminal sowie Inline-Code.',
       },
     },
   },

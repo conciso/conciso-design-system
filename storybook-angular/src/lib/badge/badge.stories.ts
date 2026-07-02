@@ -9,15 +9,26 @@ const meta: Meta<BadgeComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.badge` (css/components.css). Status-Töne über Modifier-Klassen ' +
-          '(.badge-ok/.badge-warn/.badge-err/.badge-neu) oder Markenbereich über ' +
-          '`[data-area]`. Ist ein Bereich gesetzt, hat er Vorrang vor dem Ton.',
+          'Passive Status- und Bereichs-Kennzeichnung: ein kleines, nicht interaktives ' +
+          'Label, das einen Zustand (OK, Warnung, Fehler, Neu) oder eine Brand-Area-Zugehörigkeit ' +
+          'anzeigt. Anders als der interaktive Chip dient die Badge nur der Kennzeichnung.',
       },
     },
   },
   argTypes: {
-    tone: { control: 'inline-radio', options: ['ok', 'warn', 'err', 'neu'] },
-    area: { control: 'inline-radio', options: [undefined, 'co', 'ki', 'es', 'wo'] },
+    // tone und area schließen sich aus (area hat Vorrang). Das tone-Control daher
+    // nur zeigen, solange kein Bereich gewählt ist.
+    tone: {
+      control: 'inline-radio',
+      options: ['ok', 'warn', 'err', 'neu'],
+      if: { arg: 'area', truthy: false },
+      description: 'Status-Ton (nur ohne Bereich; .badge-ok/-warn/-err/-neu)',
+    },
+    area: {
+      control: 'inline-radio',
+      options: [undefined, 'co', 'ki', 'es', 'wo'],
+      description: 'Markenbereich (.badge[data-area]) — hat Vorrang vor dem Ton',
+    },
   },
   args: { label: 'Aktiv', tone: 'ok', area: undefined },
 };

@@ -17,8 +17,9 @@ const meta: Meta<DownloadCtaComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.cta-dl` (css/components.css). Download-Block mit bereichsgefärbtem ' +
-          'Top-Akzent + Icon (`[data-area]`), Texten und zwei Aktionen über die `.btn`-Klassen.',
+          'Call-to-Action-Block für Ressourcen-Downloads mit Icon, Eyebrow, Titel, ' +
+          'Beschreibung und bis zu zwei Aktionen (Hero · Mit Vorschaubild · Kompakt · ' +
+          'Minimal). Farblich an jede Brand Area angepasst.',
       },
     },
   },

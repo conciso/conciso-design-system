@@ -10,9 +10,9 @@ const meta: Meta<CardComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.card` / `.card-elevated` (css/components.css). Struktur aus ' +
-          '.card-media, .card-body (.card-eyebrow/.card-title/.card-text) und optionalem ' +
-          '.card-footer mit `.btn .btn-text`. Bereichsfarbe über `[data-area]`.',
+          'Generische Teaser-Karte für Inhalte mit optionalem Medienbereich, ' +
+          'Eyebrow, Titel, Text und Fußzeilen-Aktion. Als flache oder erhöhte ' +
+          '(elevated) Variante und farblich an jede Brand Area angepasst.',
       },
     },
   },

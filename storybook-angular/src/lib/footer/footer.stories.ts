@@ -10,9 +10,10 @@ const meta: Meta<FooterComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.footer` (css/components.css). Zwei-Band-Layout: helles Main-Band ' +
-          '(Brand/Adresse · Nav-Liste · Contentletter-Form) und dunkler Bottom-Streifen ' +
-          '(Copyright · Rechts-Links · Social). Social-Glyphen als Inline-SVG (currentColor).',
+          'Seitenfuß in zwei Bändern: ein helles Main-Band mit drei Spalten — Marken-' +
+          'Identität und Adresse, wichtigste Inhalte als Nav-Liste und die Contentletter-' +
+          'Anmeldung — sowie eine dunkle Bottom-Zeile mit Copyright, Rechtslinks und Social-' +
+          'Profilen.',
       },
     },
   },

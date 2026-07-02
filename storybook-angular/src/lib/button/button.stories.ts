@@ -9,9 +9,10 @@ const meta: Meta<ButtonComponent> = {
     docs: {
       description: {
         component:
-          'Angular-Wrapper um die CSS-Klassenfamilie `.btn` (css/components.css). ' +
-          'Die Komponente erzeugt nur die passende Klassenkombination — alle Styles ' +
-          'stammen aus der portablen CSS-Schicht.',
+          'Die zentrale Aktions-Schaltfläche des Design Systems. Fünf Stil-Varianten ' +
+          '(Filled, Tonal, Elevated, Outlined, Text) und drei Größen (Default, Small, ' +
+          'Large) decken unterschiedliche Betonung und Kontext ab; ein Inversions-Modus ' +
+          'passt Buttons auf farbige Bereichs-Bänder an. Mindest-Touch-Target 44 px.',
       },
     },
   },

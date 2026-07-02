@@ -10,10 +10,9 @@ const meta: Meta<TeamVoiceComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.team-voice` (css/components.css). Editoriale Zitat-Reihe mit ' +
-          'seitlichem Foto, bereichsgefärbtem Akzent (`[data-area]`) und Quote-Icon. ' +
-          'Mehrere in `<div class="team-voices">` legen → Foto wechselt je Zeile die Seite ' +
-          '(`:nth-child`). Ohne Bild-URL wird ein neutraler Platzhalter gezeigt.',
+          'Team-Stimme in editorialer, fotostarker Variante: großes Foto seitlich, Zitat und ' +
+          'Attribution daneben. In Reihen abwechselnd links/rechts angeordnet. Für ' +
+          'Repräsentation, wenn Gesichter und Präsenz zählen, etwa auf Karriereseiten.',
       },
     },
   },

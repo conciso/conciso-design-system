@@ -11,9 +11,10 @@ const meta: Meta<LogoCarouselComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.logo-carousel` (css/components.css). Sets von je 5 Logo-Kacheln, ' +
-          'automatischer Crossfade (autoplay, respektiert prefers-reduced-motion), pausierbar ' +
-          'über den Pause-Button, Dots wählen ein Set. Logos sind Platzhalter (.logo-placeholder).',
+          'Automatischer Wechsler für Kundenlogos: Sets von je fünf Logos wechseln per Crossfade ' +
+          'und lassen sich über Dots gezielt ansteuern. Die Animation pausiert bei Hover und ' +
+          'Tastatur-Fokus, zusätzlich über einen Pause-Button, und ruht bei reduzierter Bewegung. ' +
+          'Barrierefrei nach WCAG 2.1 AA.',
       },
     },
   },

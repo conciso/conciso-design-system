@@ -10,9 +10,9 @@ const meta: Meta<TestimonialComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.testimonial` (css/components.css). Statische Zitat-Karte mit ' +
-          'bereichsgefärbtem Top-Akzent (`[data-area]`), Quote-Icon (`.testimonial-icon`, ' +
-          'fill:currentColor) sowie Name/Rolle im Footer.',
+          'Kundenstimme als Karte: Zitat mit Quote-Icon und Attribution (Name und Rolle) ' +
+          'im Footer. Semantisch korrektes figure/blockquote/figcaption-Muster, je nach ' +
+          'Themengebiet bereichsgefärbt.',
       },
     },
   },

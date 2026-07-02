@@ -11,10 +11,10 @@ const meta: Meta<TopnavComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.ep-topnav` (css/components.css). Logo, Top-Level-Links mit Klapp-' +
-          'Submenüs (.ep-nav-has-sub), rechts Such-Popover und Theme-Umschalter (.ep-nav-actions), ' +
-          'CTA-Button. Disclosure-Logik in Angular: nur ein Menü offen, Escape und Außenklick ' +
-          'schließen; der Theme-Button setzt data-theme am <html>.',
+          'Hauptnavigation der Customer-Pages: Logo und Top-Level-Links mit aufklappbaren ' +
+          'Submenüs links, rechts Suche, Theme-Umschalter und ein Kontakt-Button als Call-to-Action. ' +
+          'Die aktive Sektion wird über einen dezenten Unterstrich und Bereichsfarbe markiert. ' +
+          'Barrierefrei nach WCAG 2.1 AA.',
       },
     },
   },

@@ -10,8 +10,9 @@ const meta: Meta<BlockquoteComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.bq` (css/components.css). Bereichsgefärbtes Zitat mit ' +
-          'Akzentleiste, getöntem Grund (`[data-area]`), Quote-Icon und Caption.',
+          'Hervorgehobenes Zitat mit Akzentlinie, Quote-Icon und optionaler Attribution ' +
+          '(Name, Rolle). Je nach Themengebiet bereichsgefärbt. Für kurze, prägnante ' +
+          'Aussagen im Textfluss.',
       },
     },
   },

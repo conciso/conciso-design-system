@@ -14,9 +14,9 @@ const meta: Meta<SliderComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.field-slider` / `.slider` (css/components.css). Range-Eingabe mit ' +
-          'Live-Ausgabe; `.slider-<area>` färbt Thumb und Output (`--sl-color`). Wert wird ' +
-          'beim Schieben formatiert (de-DE + Einheit) aktualisiert.',
+          'Numerische Wertauswahl über einen Regler mit Live-Anzeige des gewählten Werts ' +
+          '(formatiert, z. B. mit Einheit). Volle Tastatursteuerung über Pfeiltasten sowie ' +
+          'Pos1/Ende.',
       },
     },
   },

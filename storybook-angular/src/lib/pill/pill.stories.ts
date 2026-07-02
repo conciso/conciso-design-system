@@ -9,11 +9,10 @@ const meta: Meta<PillComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.pill` (css/components.css). Passive, redaktionelle Bereichs-Markierung ' +
-          '(Eyebrow, uppercase) — ordnet einen Inhalt einer Brand Area zu, typischerweise vor ' +
-          'einem Titel. `[data-area]` schaltet die Bereichsfarbe; ein `aria-label` („Bereich ' +
-          '<Name>") macht die Zuordnung für Screenreader explizit. Abgrenzung zur Badge: Pill = ' +
-          'thematischer Inhalts-Anker im Lesefluss, Badge = punktuelle Status-/Bereichs-Kennzeichnung.',
+          'Redaktioneller Eyebrow in Versalien: eine passive Markierung, die einen Inhalt ' +
+          'einer Brand Area zuordnet, typischerweise als thematischer Anker vor einem Titel. ' +
+          'Abgrenzung zur Badge: die Pill ist ein redaktioneller Bereichs-Anker im Lesefluss, ' +
+          'die Badge eine punktuelle Status- oder Bereichs-Kennzeichnung.',
       },
     },
   },

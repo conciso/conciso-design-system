@@ -11,9 +11,9 @@ const meta: Meta<AreaTabsComponent> = {
     docs: {
       description: {
         component:
-          'Wrapper um `.area-tabs` / `.atab` / `.atab-content` (css/components.css). ' +
-          'Bereichsgefärbte Tab-Leiste; der aktive Tab färbt Text + Unterstrich über ' +
-          '`--atab-color` (Bereichs-700), der Punkt über Bereichs-500. Umschalten per Klick.',
+          'Tab-Umschalter zwischen mehreren Bereichen: pro Bereich ein Tab, dessen Inhalt beim ' +
+          'Anklicken angezeigt wird. Der aktive Tab wird in der jeweiligen Bereichsfarbe hervorgehoben. ' +
+          'Typisch für den Vergleich bereichsspezifischer Inhalte auf einer Seite.',
       },
     },
   },
