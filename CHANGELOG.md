@@ -16,10 +16,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ### Added
 - **KI-Wissensbeitrag (Beispielseite): Contentletter- + LinkedIn-CTA**: Nach „Weiterlesen" und vor dem
-  finalen CTA-Band ein „Dranbleiben"-Block mit zwei gestapelten `.cta-dl`-Karten (Corporate-Akzent, da
-  unternehmensweit): „Food for your brain!" (Contentletter-Anmeldung) und „Stay connected!" (LinkedIn-
-  Folgen, als externer Link mit `target="_blank"`/`aria-label`). Reines Markup mit bestehender `.cta-dl`-
-  Komponente, 720px-Spalte wie der Artikelkörper.
+  finalen CTA-Band ein „Dranbleiben"-Block als offene Feature-Liste (`.ep-feature`, zwei `col-6`): „Food
+  for your brain!" (Contentletter-Anmeldung) und „Stay connected!" (LinkedIn-Folgen, externer Link mit
+  `target="_blank"`/`aria-label`). Bewusst als flache Feature-Liste statt Karte/Band, um sich vom Download-
+  `.cta-dl` darüber abzuheben, ohne die Seite weiter zu verkasten. Corporate-Akzent (unternehmensweit).
+- **`.card-cta-link` als echter Link nutzbar**: `a.card-cta-link` ohne Default-Underline (Underline erst
+  bei Hover), sichtbarer Fokus-Ring; gescoped auf `a[…]`, damit die `<span>`-Nutzung in klickbaren
+  `.ep-card-link`-Karten unberührt bleibt.
 - **Farb-Swatches: Hex-Anzeige + Klick-zum-Kopieren** (Doku): In der Tonal-Palette (`#sec-colors`)
   zeigt jeder Swatch zusätzlich zum Stufen-Label seinen Hex-Code (kontrastgleich zur Stufen-Schrift,
   für die Nutzung in anderen Gestaltungsmitteln). Jeder Swatch und jede Farb-Clip-Card kopiert per

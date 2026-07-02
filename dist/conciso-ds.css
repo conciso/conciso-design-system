@@ -1779,6 +1779,11 @@ img.logo-themed-light{display:none}
 /* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
    padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
 .card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
+/* Als echter Link (a.card-cta-link) verwendbar: kein Default-Underline, Underline erst bei Hover, sichtbarer
+   Fokus-Ring. Gescoped auf a[…], damit die <span>-Nutzung in klickbaren .ep-card-link-Karten (kein Fremd-Hover) unberührt bleibt. */
+a.card-cta-link{display:inline-block;text-decoration:none}
+a.card-cta-link:hover{text-decoration:underline;text-underline-offset:2px}
+a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 /* ── Offene Feature-Liste (flaches Icon-Layout, gruppiert nach Tier; Alternative zu Bild-Cards) ── */
 .ep-feature{display:flex;gap:var(--s4)}
 /* Icon-Kachel: Glyph hat AA-Kontrast zur Kachel — Core tx-secondary/n-100 5.3:1, Pro ki-800/ki-50 7.5:1.
