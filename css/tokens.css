@@ -132,6 +132,10 @@
   --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
   /* ── Focus ── */
-  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
+  /* Sichtbarer Ring co-700 (nicht co-500): co-500 #00BEBE erreicht auf Weiß nur 2,3:1 und verfehlt
+     die 3:1-Schwelle für Fokus-Indikatoren (WCAG 2.4.11). co-700 #007575 = 5,5:1. Gilt global (alle
+     :focus-visible-Ringe im DS nutzen diese Tokens). Dark bleibt co-500 (dort 4,7:1 auf dunklem Grund,
+     co-700 wäre dunkel-auf-dunkel) — s. dark-mode.css. */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-700);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-700);
 }

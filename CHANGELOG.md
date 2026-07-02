@@ -79,6 +79,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Fokus-Ring global kontraststark (`--focus-ring` / `--focus-aa`)**: sichtbarer Ring im Light-Mode
+  von `co-500` (#00BEBE, nur 2,3:1 auf Weiß) auf `co-700` (#007575, 5,5:1) → erfüllt die 3:1-Schwelle
+  für Fokus-Indikatoren (WCAG 2.4.11). Gilt systemweit, da alle `:focus-visible`-Ringe diese zwei Tokens
+  nutzen. Dark-Mode unverändert `co-500` (dort 4,7:1 auf dunklem Grund; `co-700` wäre dunkel-auf-dunkel).
+- **Doku-Sidebar Struktur-Semantik**: Gruppen-Labels (`.nav-section`) sind jetzt `<h2>` (Screenreader-
+  Outline der Navigation), und die Einträge jeder Gruppe liegen in `<ul class="nav-list">` mit
+  `aria-labelledby` auf das Gruppen-Heading (Ansage „Gruppe, Liste, N Einträge"). Reine Semantik-/
+  Markup-Änderung, Optik und JS unverändert.
 - **Doku-Sidebar (`.nav-item`) barrierefrei**: (1) aktiver Eintrag-Text von `co-500` (#00BEBE auf
   `co-50` nur 2,07:1) auf `co-700` (4,95:1) → WCAG 1.4.3; Akzentbalken auf `co-600` (3,28:1, WCAG 1.4.11).
   (2) `aria-current="page"` am aktiven Eintrag (statisches Markup + synchron in `activateSection`),
