@@ -20,21 +20,25 @@ const meta: Meta<ButtonComponent> = {
     variant: {
       control: 'inline-radio',
       options: ['filled', 'tonal', 'elevated', 'outlined', 'text'],
-      description: '.btn-filled / .btn-tonal / .btn-elevated / .btn-outlined / .btn-text',
+      description: 'Stil-Variante mit abnehmender Betonung: Filled, Tonal, Elevated, Outlined, Text',
     },
     area: {
       control: 'inline-radio',
       options: ['co', 'ki', 'es', 'wo'],
-      description: '.btn-co / .btn-ki / .btn-es / .btn-wo',
+      description: 'Brand Area, die die Button-Farbe bestimmt',
     },
-    size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
-    full: { control: 'boolean', description: 'Volle Breite (.btn-full)' },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg'],
+      description: 'Größe: Small, Medium (Default) oder Large',
+    },
+    full: { control: 'boolean', description: 'Streckt den Button auf die volle Breite des Containers' },
     // Nur mit variant="filled" definiert (Doku-Konvention) → Control erscheint
     // nur dann; die Story rendert dazu das farbige Bereichs-Band als Kontext.
     onBand: {
       control: 'boolean',
       if: { arg: 'variant', eq: 'filled' },
-      description: 'Invertiert für farbige Bereichs-Bänder (.btn-on-band, nur filled)',
+      description: 'Invertierte Darstellung für farbige Bereichs-Bänder (nur bei Filled sinnvoll)',
     },
     disabled: { control: 'boolean' },
   },
