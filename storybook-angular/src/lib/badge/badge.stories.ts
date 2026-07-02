@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { BadgeComponent } from './badge.component';
 
 const meta: Meta<BadgeComponent> = {
-  title: 'Komponenten/Karten & Kennzahlen/Badge',
+  title: 'Komponenten/Chips, Badges & Pills/Badge',
   component: BadgeComponent,
   tags: ['autodocs'],
   parameters: {

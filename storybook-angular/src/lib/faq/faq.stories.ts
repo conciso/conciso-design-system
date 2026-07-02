@@ -3,7 +3,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { FaqComponent } from './faq.component';
 
 const meta: Meta<FaqComponent> = {
-  title: 'Komponenten/Navigation & Disclosure/FAQ',
+  title: 'Komponenten/Navigation/FAQ',
   component: FaqComponent,
   tags: ['autodocs'],
   parameters: {

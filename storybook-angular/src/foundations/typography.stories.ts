@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
  * aus css/tokens.css (Montserrat + Libre Baskerville, self-hosted via css/fonts.css).
  */
 const meta: Meta = {
-  title: 'Foundations/Typografie',
+  title: 'Grundlagen/Typografie',
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',

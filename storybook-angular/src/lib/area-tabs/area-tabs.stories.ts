@@ -3,7 +3,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { AreaTabsComponent } from './area-tabs.component';
 
 const meta: Meta<AreaTabsComponent> = {
-  title: 'Komponenten/Navigation & Disclosure/AreaTabs',
+  title: 'Komponenten/Navigation/AreaTabs',
   component: AreaTabsComponent,
   tags: ['autodocs'],
   parameters: {

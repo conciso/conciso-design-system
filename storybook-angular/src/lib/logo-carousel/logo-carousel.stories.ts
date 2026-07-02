@@ -3,7 +3,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { LogoCarouselComponent } from './logo-carousel.component';
 
 const meta: Meta<LogoCarouselComponent> = {
-  title: 'Komponenten/Medien/LogoCarousel',
+  title: 'Komponenten/Slider & Carousel/LogoCarousel',
   component: LogoCarouselComponent,
   tags: ['autodocs'],
   parameters: {

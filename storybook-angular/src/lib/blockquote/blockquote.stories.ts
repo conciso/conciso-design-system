@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { BlockquoteComponent } from './blockquote.component';
 
 const meta: Meta<BlockquoteComponent> = {
-  title: 'Komponenten/Editorial & Zitate/Blockquote',
+  title: 'Komponenten/Zitate & Testimonials/Blockquote',
   component: BlockquoteComponent,
   tags: ['autodocs'],
   parameters: {

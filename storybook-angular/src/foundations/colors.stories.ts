@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
  * lesen exakt die Tokens, die auch die Komponenten verwenden.
  */
 const meta: Meta = {
-  title: 'Foundations/Farben',
+  title: 'Grundlagen/Farben',
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',

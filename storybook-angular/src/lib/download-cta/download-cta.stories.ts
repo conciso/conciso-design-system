@@ -6,7 +6,7 @@ import { DownloadCtaComponent } from './download-cta.component';
 // ki/es/wo). Fix gehört in den CSS-Kern; bis dahin bewusst offen. Siehe README.
 
 const meta: Meta<DownloadCtaComponent> = {
-  title: 'Komponenten/Seite & Marke/DownloadCta',
+  title: 'Komponenten/Call to Action/DownloadCta',
   component: DownloadCtaComponent,
   tags: ['autodocs'],
   parameters: {

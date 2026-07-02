@@ -6,7 +6,7 @@ import { CodeBlockComponent } from './code-block.component';
 // in den CSS-Kern; bis dahin bewusst offen. Siehe README.
 
 const meta: Meta<CodeBlockComponent> = {
-  title: 'Komponenten/Seite & Marke/CodeBlock',
+  title: 'Komponenten/Code-Block/CodeBlock',
   component: CodeBlockComponent,
   tags: ['autodocs'],
   parameters: {
