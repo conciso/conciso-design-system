@@ -15,6 +15,10 @@ export type CdsButtonSize = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'cds-button',
   standalone: true,
+  // .btn-full setzt width:100% auf dem <button> — greift aber nur, wenn auch der
+  // Host die Zeile füllt (Custom Elements sind display:inline und schrumpfen auf
+  // Inhaltsbreite). Bei full=true daher den Host auf block stellen.
+  host: { '[style.display]': "full ? 'block' : null" },
   template: `
     <button [class]="classes" [disabled]="disabled" [attr.type]="type">
       {{ label }}
@@ -30,9 +34,11 @@ export class ButtonComponent {
   @Input() area: CdsArea = 'co';
   /** Größe → .btn-sm / (md = Default) / .btn-lg */
   @Input() size: CdsButtonSize = 'md';
-  /** Volle Breite → .btn-full */
+  /** Volle Breite → .btn-full (Host wird block, damit 100% greifen). */
   @Input() full = false;
-  /** Invertiert für dunkle Bereichs-Bänder → .btn-on-band */
+  /** Invertiert für farbige Bereichs-Bänder → .btn-on-band. Nur in Kombination
+   *  mit variant="filled" definiert (so auch durchgängig in der Doku); bei allen
+   *  anderen Varianten wird der Wert ignoriert. */
   @Input() onBand = false;
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
@@ -42,7 +48,7 @@ export class ButtonComponent {
     if (this.size === 'sm') cls.push('btn-sm');
     if (this.size === 'lg') cls.push('btn-lg');
     if (this.full) cls.push('btn-full');
-    if (this.onBand) cls.push('btn-on-band');
+    if (this.onBand && this.variant === 'filled') cls.push('btn-on-band');
     return cls.join(' ');
   }
 }

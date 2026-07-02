@@ -27,8 +27,14 @@ const meta: Meta<ButtonComponent> = {
       description: '.btn-co / .btn-ki / .btn-es / .btn-wo',
     },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
-    full: { control: 'boolean' },
-    onBand: { control: 'boolean' },
+    full: { control: 'boolean', description: 'Volle Breite (.btn-full)' },
+    // Nur mit variant="filled" definiert (Doku-Konvention) → Control erscheint
+    // nur dann; die Story rendert dazu das farbige Bereichs-Band als Kontext.
+    onBand: {
+      control: 'boolean',
+      if: { arg: 'variant', eq: 'filled' },
+      description: 'Invertiert für farbige Bereichs-Bänder (.btn-on-band, nur filled)',
+    },
     disabled: { control: 'boolean' },
   },
   args: {
@@ -45,7 +51,27 @@ export default meta;
 
 type Story = StoryObj<ButtonComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // padded statt centered: im zentrierten Flex-Canvas schrumpft der Story-Root
+  // auf Inhaltsbreite, wodurch .btn-full (width:100%) nie sichtbar würde.
+  parameters: { layout: 'padded' },
+  // Bei onBand den Button auf dem farbigen Bereichs-Band zeigen (wie in der Doku,
+  // Band = --XX-700 bzw. ki-800) — auf weißem Canvas wäre die Invertierung nicht
+  // beurteilbar. Ohne onBand exakt das ungerahmte Standard-Rendering.
+  render: (args) => ({
+    props: args,
+    moduleMetadata: { imports: [ButtonComponent] },
+    template: `
+      @if (onBand && variant === 'filled') {
+        <div [style.background]="'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'" style="padding:24px;border-radius:var(--r-md)">
+          <cds-button [label]="label" [variant]="variant" [area]="area" [size]="size" [full]="full" [onBand]="onBand" [disabled]="disabled" />
+        </div>
+      } @else {
+        <cds-button [label]="label" [variant]="variant" [area]="area" [size]="size" [full]="full" [onBand]="onBand" [disabled]="disabled" />
+      }
+    `,
+  }),
+};
 
 export const Varianten: Story = {
   name: 'Alle Varianten',
