@@ -706,6 +706,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .nav-section{margin:0;padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
 /* Nav-Gruppen als Liste (Screenreader: „Liste, N Einträge"); Default-Einrückung/Bullets entfernen */
 .nav-list{list-style:none;margin:0;padding:0}
+/* Größerer Abstand vor jeder folgenden Gruppen-Überschrift (visuelle Trennung der Bereiche);
+   die erste Gruppe braucht ihn nicht, sie ist bereits durch das Logo/den Rahmen getrennt. */
+.nav-list + .nav-section{margin-top:var(--s6)}
 .nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
