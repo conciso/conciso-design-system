@@ -81,11 +81,13 @@
 .chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
 .chip[aria-pressed="true"]:hover{background:var(--n-800);border-color:var(--n-800)}
 /* Area-aware Chips: Outline + Bereichs-Textfarbe (inaktiv) für ruhige Filter-Leiste, dezenter Tonal-Hint beim Hover, gefüllte dunklere Variante mit weißer Schrift (aktiv, AA-konform) */
-.chip[data-area="co"]{border-color:var(--co-500);color:var(--co-700)}
+/* Rahmen = hellerer Ton als Text (Nicht-Text 3:1 vs. Text 4,5:1) — bei co jedoch co-600 statt co-500,
+   da co-500 #00BEBE nur 2,3:1 auf Weiß erreicht (WCAG 1.4.11); co-600 #009E9E = 3,28:1, bleibt < co-700-Text */
+.chip[data-area="co"]{border-color:var(--co-600);color:var(--co-700)}
 .chip[data-area="ki"]{border-color:var(--ki-700);color:var(--ki-800)}
 .chip[data-area="es"]{border-color:var(--es-500);color:var(--es-700)}
 .chip[data-area="wo"]{border-color:var(--wo-500);color:var(--wo-700)}
-.chip[data-area="co"]:hover{background:var(--co-50);border-color:var(--co-500)}
+.chip[data-area="co"]:hover{background:var(--co-50);border-color:var(--co-600)}
 .chip[data-area="ki"]:hover{background:var(--ki-50);border-color:var(--ki-700)}
 .chip[data-area="es"]:hover{background:var(--es-50);border-color:var(--es-500)}
 .chip[data-area="wo"]:hover{background:var(--wo-50);border-color:var(--wo-500)}

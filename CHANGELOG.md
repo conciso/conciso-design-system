@@ -71,6 +71,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Bereichs-Chips (`.chip[data-area="co"]`) Rahmenkontrast**: Corporate-Rahmen von `co-500`
+  (#00BEBE, nur 2,3:1 auf Weiß) auf `co-600` (#009E9E = 3,28:1) angehoben → erfüllt die
+  Nicht-Text-Schwelle WCAG 1.4.11 (Default + Hover). Bleibt heller als der `co-700`-Text, das
+  Zwei-Ton-Prinzip (Rahmen 3:1 / Text 4,5:1) bleibt erhalten. ki/es/wo lagen bereits ≥ 3:1;
+  Dark-Mode (`co-300`, 4,8:1) unverändert.
 - **Light/Dark-Umschalter (`.theme-bar`) barrierefrei & konsistent**: (1) aktive Fläche von
   `co-500` auf `co-700` umgestellt, weißer Text erreicht AA (2,3:1 → 5,5:1); (2) Unicode-Glyphen
   (☀ / ◑) durch dieselben Heroicons-SVGs (Sonne / Sichelmond) wie der Topnav-Umschalter ersetzt,
