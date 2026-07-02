@@ -118,7 +118,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
 .tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.tbtn.active{background:var(--co-500);color:#fff}
+.tbtn.active{background:var(--co-700);color:#fff}
 
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
