@@ -18,7 +18,6 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          'Marke',
           'Grundlagen',
           ['Farben', 'Typografie'],
           'Komponenten',
