@@ -28,4 +28,26 @@
   .sbdocs-preview {
     background: var(--bg-page) !important;
   }
+
+  /*
+    „Show code" (Docs): Klassennamen-Kollision — Prism (Storybooks Syntax-
+    Highlighter) hüllt JEDEN Token in .token, base.css stylt .token aber als
+    hell-teal Chip (--co-50-Grund + Padding). Ergebnis: unlesbarer Wust heller
+    Kästchen auf Storybooks dunklem Code-Block. Unsere Chip-Chrome (und die
+    inline-code-Chrome) daher innerhalb der prism-Source-Blöcke zurücksetzen; die
+    Syntax-Farben von Prism selbst bleiben unangetastet.
+  */
+  pre.prismjs .token {
+    background: none !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    font-size: inherit !important;
+  }
+  pre.prismjs code {
+    background: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
 </style>
