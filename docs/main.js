@@ -1143,4 +1143,87 @@
     });
   })();
 
+  /* ── Farb-Swatches: Hex sichtbar machen (Tonal-Paletten) + Klick/Tastatur zum Kopieren ── */
+  (function() {
+    var swatches = Array.prototype.slice.call(document.querySelectorAll('.swatch'));
+    var clipCards = Array.prototype.slice.call(document.querySelectorAll('.clip-card'));
+    if (!swatches.length && !clipCards.length) return;
+
+    /* Hex bewusst aus dem style-ATTRIBUT lesen (nicht el.style.background — Browser
+       serialisieren das teils zu rgb()), damit der Literal-Hex erhalten bleibt. */
+    function hexIn(str) {
+      var m = (str || '').match(/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/);
+      return m ? m[0].toUpperCase() : null;
+    }
+
+    /* Screenreader-Rückmeldung */
+    var live = document.createElement('div');
+    live.setAttribute('aria-live', 'polite');
+    live.className = 'sr-only';
+    document.body.appendChild(live);
+
+    function legacyCopy(text) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      } catch (e) { /* Clipboard nicht verfügbar — Hex ist sichtbar und manuell markierbar */ }
+    }
+    function done(hex, el) {
+      live.textContent = hex + ' kopiert';
+      el.classList.add('is-copied');
+      window.setTimeout(function() { el.classList.remove('is-copied'); }, 1100);
+    }
+    function copy(hex, el) {
+      if (!hex) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(hex).then(function() { done(hex, el); },
+          function() { legacyCopy(hex); done(hex, el); });
+      } else { legacyCopy(hex); done(hex, el); }
+    }
+
+    function makeCopyable(el, hex) {
+      el.dataset.hex = hex;
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+      el.setAttribute('aria-label', 'Farbe ' + hex + ' kopieren');
+      el.setAttribute('title', hex + ' — klicken zum Kopieren');
+      el.classList.add('is-copyable');
+    }
+
+    var inTonal = !!document.querySelector('#sec-colors');
+    swatches.forEach(function(sw) {
+      var hex = hexIn(sw.getAttribute('style'));
+      if (!hex) return;
+      /* Hex nur in der vollbreiten Tonal-Palette (#sec-colors) einblenden — in den schmalen
+         Bereichs-Übersichtskarten (#sec-areas) ist zu wenig Platz; dort greift nur der title-Tooltip. */
+      if (inTonal && sw.closest('#sec-colors')) {
+        var span = sw.querySelector('span');
+        var hx = document.createElement('span');
+        hx.className = 'swatch-hex';
+        hx.textContent = hex;
+        if (span && span.style.color) hx.style.color = span.style.color;
+        sw.appendChild(hx);
+      }
+      makeCopyable(sw, hex);
+    });
+    clipCards.forEach(function(card) {
+      var block = card.querySelector('div');
+      var hex = hexIn(block && block.getAttribute('style')) || hexIn(card.textContent);
+      if (hex) makeCopyable(card, hex);
+    });
+
+    document.addEventListener('click', function(e) {
+      var el = e.target.closest && e.target.closest('.is-copyable');
+      if (el) copy(el.dataset.hex, el);
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      var el = e.target.closest && e.target.closest('.is-copyable');
+      if (el && document.activeElement === el) { e.preventDefault(); copy(el.dataset.hex, el); }
+    });
+  })();
+
 })();

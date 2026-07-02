@@ -15,6 +15,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **Farb-Swatches: Hex-Anzeige + Klick-zum-Kopieren** (Doku): In der Tonal-Palette (`#sec-colors`)
+  zeigt jeder Swatch zusätzlich zum Stufen-Label seinen Hex-Code (kontrastgleich zur Stufen-Schrift,
+  für die Nutzung in anderen Gestaltungsmitteln). Jeder Swatch und jede Farb-Clip-Card kopiert per
+  Klick oder Tastatur (Enter/Space) den Hex in die Zwischenablage (`navigator.clipboard`, Fallback
+  `execCommand`). Barrierefrei: `role="button"`, `tabindex`, `aria-label`, sichtbarer Inset-Fokus-Ring
+  (nicht vom `overflow:hidden` der `.pal-row` abgeschnitten), `aria-live`-Bestätigung + „✓"-Overlay.
+  In den schmalen Bereichs-Übersichtskarten (`#sec-areas`) bleibt der Hex aus Platzgründen im
+  title-Tooltip, Kopieren funktioniert dort ebenso.
 - **Icon-Bibliothek** als maschinenlesbarer Export: `icons/icons.json` · `icons.js`
   (kompletter `<svg>`-Body pro Key, `currentColor`, Stil-Markierung `solid`/`outline`,
   `viewBox`, Verwendungskontext) + kuratierte Quelle `icons/source/*.svg`, generiert via

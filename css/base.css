@@ -126,8 +126,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
 .swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
+.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+/* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
+   UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
+.swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
+.swatch.is-copyable:focus-visible,.swatch.is-copyable.is-copied{outline:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),inset 0 0 0 4px rgba(17,17,17,.9);z-index:1}
+.clip-card.is-copyable:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Bestätigung: Häkchen-Overlay (fit auch auf schmalen Swatches; SR-Ansage übernimmt der aria-live-Bereich) */
+.swatch.is-copied::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:700 1rem/1 var(--font);border-radius:inherit}
+.clip-card.is-copied{position:relative}
+.clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
 .pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
 .pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
