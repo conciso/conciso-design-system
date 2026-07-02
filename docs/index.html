@@ -3233,10 +3233,11 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <span class="k">&lt;label</span> <span class="v">class</span>=<span class="s">"field-slider-label"</span> <span class="v">for</span>=<span class="s">"my-slider"</span><span class="k">&gt;</span>Budget-Rahmen<span class="k">&lt;/label&gt;</span>
     <span class="k">&lt;output</span> <span class="v">class</span>=<span class="s">"field-slider-output slider-co"</span> <span class="v">for</span>=<span class="s">"my-slider"</span> <span class="v">id</span>=<span class="s">"my-out"</span><span class="k">&gt;</span>50.000 €<span class="k">&lt;/output&gt;</span>
   <span class="k">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- aria-valuetext trägt Einheit/Format für Screenreader (valuenow allein wäre nur „50000") --&gt;</span>
   <span class="k">&lt;input</span> <span class="v">class</span>=<span class="s">"slider slider-co"</span> <span class="v">type</span>=<span class="s">"range"</span>
          <span class="v">id</span>=<span class="s">"my-slider"</span> <span class="v">min</span>=<span class="s">"10000"</span> <span class="v">max</span>=<span class="s">"100000"</span> <span class="v">step</span>=<span class="s">"5000"</span> <span class="v">value</span>=<span class="s">"50000"</span>
-         <span class="v">aria-describedby</span>=<span class="s">"my-hint"</span>
-         <span class="v">oninput</span>=<span class="s">"document.getElementById('my-out').textContent = Number(this.value).toLocaleString('de-DE') + ' €'"</span><span class="k">&gt;</span>
+         <span class="v">aria-describedby</span>=<span class="s">"my-hint"</span> <span class="v">aria-valuetext</span>=<span class="s">"50.000 €"</span>
+         <span class="v">oninput</span>=<span class="s">"var v = Number(this.value).toLocaleString('de-DE') + ' €'; document.getElementById('my-out').textContent = v; this.setAttribute('aria-valuetext', v)"</span><span class="k">&gt;</span>
   <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"helper"</span> <span class="v">id</span>=<span class="s">"my-hint"</span><span class="k">&gt;</span>Schritte: 5.000 €<span class="k">&lt;/span&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
@@ -3830,7 +3831,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td><code class="token">.ep-feature-icon</code></td><td>48×48-Kachel. Neutral als Default; <code class="token">data-area="ki"</code> (co/es/wo) tönt sie in der Bereichsfarbe</td></tr>
           <tr><td><code class="token">.ep-feature-title</code></td><td>Titel als <code class="token">&lt;h3&gt;</code> (<code class="token">--ty-title-sm</code>), Hierarchie unter der Section-<code class="token">h2</code></td></tr>
           <tr><td><code class="token">.ep-feature-text</code></td><td>Beschreibung, <code class="token">--ty-body-md</code></td></tr>
-          <tr><td><code class="token">.card-cta-link</code></td><td>Optionaler „→"-Aktionslink im Body (z.&nbsp;B. „Zur Landingpage"). Standard Corporate-Teal; <code class="token">data-area="wo"</code> (co/ki/es) färbt ihn in der Bereichsfarbe. Kein Hover-Effekt (anders als <code class="token">.cta-link</code>)</td></tr>
+          <tr><td><code class="token">.card-cta-link</code></td><td>Optionaler „→"-Aktionslink im Body (z.&nbsp;B. „Zur Landingpage"). Standard Corporate-Teal; <code class="token">data-area="wo"</code> (co/ki/es) färbt ihn in der Bereichsfarbe. Als <code class="token">&lt;span&gt;</code> in einer klickbaren Karte ohne eigenen Hover (die ganze Karte ist der Link, kein Fremd-Hover); als eigenständiger <code class="token">&lt;a&gt;</code> (<code class="token">a.card-cta-link</code>) mit dezentem Hover-Unterstrich und Fokus-Ring</td></tr>
           <tr><td><code class="token">.ep-tier</code> · <code class="token">.ep-tier-label</code> · <code class="token">.ep-tier-rule</code></td><td>Optionaler Stufen-Trenner: area-awares Label + Haarlinie (<code class="token">--n-200</code>), gruppiert die Liste</td></tr>
         </tbody>
       </table>
