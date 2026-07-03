@@ -2769,12 +2769,13 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ INPUTS ═══ -->
     <section class="ds-section" id="sec-inputs">
       <h1 class="sec-title">Inputs & Forms</h1>
-      <p class="sec-sub">Feldkomponenten (Text · E-Mail · Select · Textarea · Checkbox), bereichsspezifische Kontaktformulare, Such-Feld als Landmark, Newsletter-Anmeldung (Karte + Kompakt-Widget) und Slider. Durchgängig WCAG AA: Labels, <code class="token">aria-required</code>, <code class="token">aria-invalid</code>, <code class="token">role="alert"</code>.</p>
+      <p class="sec-sub">Feldkomponenten (Text · E-Mail · Select · Textarea · Checkbox · Radio), bereichsspezifische Kontaktformulare, Such-Feld als Landmark, Newsletter-Anmeldung (Karte + Kompakt-Widget) und Slider. Durchgängig WCAG AA: Labels, <code class="token">aria-required</code>, <code class="token">aria-invalid</code>, <code class="token">role="alert"</code>.</p>
 
       <h2 id="gt-inputs-felder" class="group-title">Feldkomponenten</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Select-Platzhalter:</strong> Die erste Option („Bitte wählen…“) trägt <code class="token">value=""</code> + <code class="token">disabled</code> + <code class="token">selected</code>. So zählt der Platzhalter als unerlaubter Wert, Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Rahmen-Kontrast (WCAG 1.4.11):</strong> Feld-Rahmen nutzen den modusbewussten Token <code class="token">--field-border</code> mit ≥&nbsp;3:1 gegen den Feld-Hintergrund (Light <code class="token">--n-400</code> ≈ 3,9:1; Dark <code class="token">--n-200</code> ≈ 5,8:1). Das frühere <code class="token">--n-200</code> verfehlte im Light-Mode mit ~1,5:1 die Non-Text-Contrast-Schwelle.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Textarea:</strong> <code class="token">resize:vertical</code> + <code class="token">max-width:100%</code> — nur vertikal vergrößerbar, damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Radio (Optionsfelder):</strong> für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Wie die Checkbox ein <strong>natives</strong> <code class="token">&lt;input type="radio"&gt;</code> mit <code class="token">accent-color</code> in der Bereichsfarbe — kein nachgebauter Kreis. Die Gruppe sitzt in einem <code class="token">&lt;fieldset&gt;</code> mit <code class="token">&lt;legend&gt;</code> (Gruppen-Label wie ein Feld-Label), sodass Screenreader Frage und Optionen als zusammengehörig ansagen; alle Optionen teilen denselben <code class="token">name</code>.</p>
       <div style="max-width:480px">
         <div class="field">
           <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
@@ -2811,6 +2812,23 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <label for="f-disabled-demo">Bereich (deaktiviert)</label>
           <input type="text" id="f-disabled-demo" value="Corporate" disabled>
         </div>
+        <fieldset style="border:0;padding:0;margin:0 0 var(--s6);min-inline-size:0">
+          <legend style="font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2);padding:0">Bevorzugter Kontaktweg</legend>
+          <div style="display:flex;flex-direction:column;gap:var(--s3)">
+            <label style="display:flex;align-items:center;gap:var(--s3);cursor:pointer;font:var(--ty-body-md);color:var(--tx-primary)">
+              <input type="radio" name="f-contact-pref" value="email" checked style="width:18px;height:18px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
+              <span>E-Mail</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--s3);cursor:pointer;font:var(--ty-body-md);color:var(--tx-primary)">
+              <input type="radio" name="f-contact-pref" value="phone" style="width:18px;height:18px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
+              <span>Telefon</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:var(--s3);cursor:pointer;font:var(--ty-body-md);color:var(--tx-primary)">
+              <input type="radio" name="f-contact-pref" value="both" style="width:18px;height:18px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
+              <span>Beides</span>
+            </label>
+          </div>
+        </fieldset>
       </div>
 
       <h2 id="gt-inputs-kontakt" class="group-title">Kontaktformulare je Bereich</h2>
@@ -3283,6 +3301,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td>Select</td><td>Vorgegebene Optionsliste (z.B. Bereich, Anliegen), max. 8 Optionen, sonst Freitext</td></tr>
               <tr><td>Textarea</td><td>Freitext-Nachrichten, mindestens 3 Zeilen Höhe, kein festes Maxlength</td></tr>
               <tr><td>Checkbox</td><td>Einwilligung (Newsletter, DSGVO), immer mit verlinktem Datenschutzhinweis</td></tr>
+              <tr><td>Radio</td><td>2–6 sich gegenseitig ausschließende Optionen (z.&nbsp;B. bevorzugter Kontaktweg); für mehr Optionen ein Select, für Mehrfachauswahl Checkboxen</td></tr>
             </tbody>
           </table>
         </div>
