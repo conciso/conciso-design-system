@@ -10,9 +10,9 @@ const meta: Meta<ThemeSelectComponent> = {
     docs: {
       description: {
         component:
-          'Theme-Umschalter als natives Dropdown in Feld-Optik. Vorgesehener Einsatz: nur in ' +
-          'den Einstellungen (Settings), NICHT als persistentes Element auf allen Seiten. ' +
-          '`triState` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.',
+          'Theme-Umschalter auf Basis unseres Custom Select (gestylte Listbox mit Häkchen). ' +
+          'Vorgesehener Einsatz: nur in den Einstellungen (Settings), NICHT als persistentes ' +
+          'Element auf allen Seiten. `triState` schaltet zwischen Hell/Dunkel/System und binär.',
       },
     },
   },
