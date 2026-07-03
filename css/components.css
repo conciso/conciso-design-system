@@ -529,14 +529,19 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-mode{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em;border:var(--bd);background:transparent;color:var(--tx-secondary);margin-right:var(--s2);vertical-align:middle;white-space:nowrap}
 
 /* ── Slider ── */
-.field-slider{display:flex;flex-direction:column;gap:var(--s2)}
+.field-slider{display:flex;flex-direction:column;gap:var(--s2);--sl-thumb:22px}
 .field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
 .field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
 .field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
-.field-slider-ticks{display:flex;justify-content:space-between;font:var(--ty-caption);color:var(--tx-muted);padding:0 2px}
+/* Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb-Mittelpunkt läuft von
+   --sl-thumb/2 bis (Breite − --sl-thumb/2). Jeder Tick trägt --tick-p (0..1) als
+   Bruchteil des Wertebereichs und wird über seiner Mitte zentriert. (Früher
+   justify-content:space-between → Label-Mitten trafen die Positionen nicht.) */
+.field-slider-ticks{position:relative;height:16px;font:var(--ty-caption);color:var(--tx-muted)}
+.field-slider-ticks>*{position:absolute;transform:translateX(-50%);white-space:nowrap;left:calc(var(--sl-thumb) / 2 + var(--tick-p, 0) * (100% - var(--sl-thumb)))}
 .slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-full);background:var(--n-200);outline:none;cursor:pointer;display:block;margin:var(--s3) 0 var(--s1)}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
-.slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
+.slider::-moz-range-thumb{width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
 .slider:hover:not(:disabled)::-webkit-slider-thumb{transform:scale(1.2);box-shadow:var(--e3)}
 .slider:hover:not(:disabled)::-moz-range-thumb{transform:scale(1.2);box-shadow:var(--e3)}
 .slider:focus-visible{outline:none;box-shadow:var(--focus-ring)}

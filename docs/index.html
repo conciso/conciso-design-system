@@ -3136,7 +3136,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
                      aria-describedby="sl-co-hint" aria-valuetext="50.000 €"
                      oninput="var v = Number(this.value).toLocaleString('de-DE') + ' €'; document.getElementById('sl-co-out').textContent = v; this.setAttribute('aria-valuetext', v)">
               <div class="field-slider-ticks" aria-hidden="true">
-                <span>10k</span><span>55k</span><span>100k</span>
+                <span style="--tick-p:0">10k</span><span style="--tick-p:.5">55k</span><span style="--tick-p:1">100k</span>
               </div>
               <span class="helper" id="sl-co-hint">Schritte: 5.000 €</span>
             </div>
@@ -3157,7 +3157,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
                      aria-describedby="sl-ki-hint" aria-valuetext="60 %"
                      oninput="var v = this.value + ' %'; document.getElementById('sl-ki-out').textContent = v; this.setAttribute('aria-valuetext', v)">
               <div class="field-slider-ticks" aria-hidden="true">
-                <span>0 %</span><span>50 %</span><span>100 %</span>
+                <span style="--tick-p:0">0 %</span><span style="--tick-p:.5">50 %</span><span style="--tick-p:1">100 %</span>
               </div>
               <span class="helper" id="sl-ki-hint">Schritte: 10 %</span>
             </div>
@@ -3178,7 +3178,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
                      aria-describedby="sl-es-hint" aria-valuetext="80 %"
                      oninput="var v = this.value + ' %'; document.getElementById('sl-es-out').textContent = v; this.setAttribute('aria-valuetext', v)">
               <div class="field-slider-ticks" aria-hidden="true">
-                <span>0 %</span><span>50 %</span><span>100 %</span>
+                <span style="--tick-p:0">0 %</span><span style="--tick-p:.5">50 %</span><span style="--tick-p:1">100 %</span>
               </div>
               <span class="helper" id="sl-es-hint">Schritte: 5 %</span>
             </div>
@@ -3199,7 +3199,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
                      aria-describedby="sl-wo-hint" aria-valuetext="70 %"
                      oninput="var v = this.value + ' %'; document.getElementById('sl-wo-out').textContent = v; this.setAttribute('aria-valuetext', v)">
               <div class="field-slider-ticks" aria-hidden="true">
-                <span>0 %</span><span>50 %</span><span>100 %</span>
+                <span style="--tick-p:0">0 %</span><span style="--tick-p:.5">50 %</span><span style="--tick-p:1">100 %</span>
               </div>
               <span class="helper" id="sl-wo-hint">Schritte: 10 %</span>
             </div>
