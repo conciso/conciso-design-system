@@ -12165,43 +12165,30 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
 
-        <!-- Kontakt: am Punkt höchsten Interesses, vor der Exit-Rampe Weiterlesen -->
-        <div class="ep-section" style="background:var(--ki-50);padding-block:var(--s12)">
-          <div style="max-width:520px;margin:0 auto;text-align:center">
-            <p class="ep-section-label t-ki">Use-Case besprechen</p>
-            <h2 style="font:var(--ty-headline-sm);color:var(--tx-primary);margin:0 0 var(--s3);text-wrap:balance">Welcher Use-Case lohnt den Sprung in die Produktion?</h2>
-            <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 auto var(--s8);max-width:440px">Wir machen einen ehrlichen Readiness-Check mit Dir. Eine Stunde, keine Folien.</p>
-          </div>
-          <div class="ds-card" style="max-width:520px;margin:0 auto">
-            <div style="background:var(--ki-800);padding:var(--s4) var(--s6)">
-              <div style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--ki-300);margin-bottom:2px">Angewandte KI</div>
-              <div style="font:400 20px/28px var(--font-display);color:var(--ki-100)">Erstgespräch anfragen</div>
+        <!-- Dranbleiben: Contentletter + LinkedIn (weiche Bindung direkt nach der Autor-Karte).
+             Offene Feature-Liste (.ep-feature) statt Karte/Band — hebt sich als leichte Bindung ab, ohne
+             die Seite weiter zu verkasten. Corporate-Akzent, weil unternehmensweit (nicht KI-spezifisch), wie „Mehr
+             aus unserem Wissen" (t-co). -->
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s8)">
+          <h2 class="ep-section-h2">Dranbleiben</h2>
+          <div class="layout-grid" style="margin-top:var(--s5)">
+            <!-- Contentletter -->
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="co" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Food for your brain!</h3>
+                <p class="ep-feature-text">Du möchtest noch mehr Beiträge rund um IT, KI und digitale Transformation lesen? Melde Dich zu unserem Contentletter an: quartalsweise, angenehm kompakt und mit den wichtigsten Impulsen direkt ins Postfach, ganz ohne E-Mail-Flut.</p>
+                <a class="card-cta-link" data-area="co" href="#">Contentletter abonnieren <span aria-hidden="true">→</span></a>
+              </div>
             </div>
-            <div class="ds-inner">
-              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s5)">Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
-              <div class="field">
-                <label for="f-wb-name">Name <span class="req" aria-hidden="true">*</span></label>
-                <input type="text" id="f-wb-name" placeholder="Vor- und Nachname" aria-required="true" autocomplete="name">
+            <!-- LinkedIn -->
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="co" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Stay connected!</h3>
+                <p class="ep-feature-text">Was uns gerade bewegt, woran wir arbeiten und welche Themen relevant werden, teilen wir auf LinkedIn. Folge uns für mehr Einblicke.</p>
+                <a class="card-cta-link" data-area="co" href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn folgen (öffnet in neuem Tab)">Auf LinkedIn folgen <span aria-hidden="true">→</span></a>
               </div>
-              <div class="field">
-                <label for="f-wb-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
-                <input type="email" id="f-wb-email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email">
-              </div>
-              <div class="field">
-                <label for="f-wb-stage">Wo steht Dein Use-Case?</label>
-                <select id="f-wb-stage">
-                  <option value="" disabled selected>Bitte wählen…</option>
-                  <option>Idee, noch keine Validierung</option>
-                  <option>PoC läuft, Produktion offen</option>
-                  <option>Pilot in Produktion, Skalierung offen</option>
-                  <option>Mehrere Modelle in Produktion</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="f-wb-msg">Use-Case in zwei, drei Sätzen <span class="req" aria-hidden="true">*</span></label>
-                <textarea id="f-wb-msg" rows="4" placeholder="Was möchtest Du mit KI lösen, und was hält Dich heute davon ab?" aria-required="true"></textarea>
-              </div>
-              <button class="btn btn-filled btn-ki btn-full">Erstgespräch anfragen</button>
             </div>
           </div>
         </div>
@@ -12248,34 +12235,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
               </div>
             </a>
-          </div>
-        </div>
-
-        <!-- Dranbleiben: Contentletter + LinkedIn (weiche Bindung nach dem Weiterlesen, vor dem finalen CTA-Band).
-             Offene Feature-Liste (.ep-feature) statt Karte/Band — hebt sich vom Download-.cta-dl darüber ab, ohne
-             die Seite weiter zu verkasten. Corporate-Akzent, weil unternehmensweit (nicht KI-spezifisch), wie „Mehr
-             aus unserem Wissen" (t-co). -->
-        <div class="ep-section" style="background:var(--n-50);border-block:var(--bd);padding-block:var(--s8)">
-          <h2 class="ep-section-h2">Dranbleiben</h2>
-          <div class="layout-grid" style="margin-top:var(--s5)">
-            <!-- Contentletter -->
-            <div class="ep-feature col-6">
-              <span class="ep-feature-icon" data-area="co" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg></span>
-              <div class="ep-feature-body">
-                <h3 class="ep-feature-title">Food for your brain!</h3>
-                <p class="ep-feature-text">Du möchtest noch mehr Beiträge rund um IT, KI und digitale Transformation lesen? Melde Dich zu unserem Contentletter an: quartalsweise, angenehm kompakt und mit den wichtigsten Impulsen direkt ins Postfach, ganz ohne E-Mail-Flut.</p>
-                <a class="card-cta-link" data-area="co" href="#">Contentletter abonnieren <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
-            <!-- LinkedIn -->
-            <div class="ep-feature col-6">
-              <span class="ep-feature-icon" data-area="co" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
-              <div class="ep-feature-body">
-                <h3 class="ep-feature-title">Stay connected!</h3>
-                <p class="ep-feature-text">Was uns gerade bewegt, woran wir arbeiten und welche Themen relevant werden, teilen wir auf LinkedIn. Folge uns für mehr Einblicke.</p>
-                <a class="card-cta-link" data-area="co" href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn folgen (öffnet in neuem Tab)">Auf LinkedIn folgen <span aria-hidden="true">→</span></a>
-              </div>
-            </div>
           </div>
         </div>
 
