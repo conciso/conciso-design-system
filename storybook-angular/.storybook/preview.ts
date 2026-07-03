@@ -32,7 +32,7 @@ const preview: Preview = {
             'Chips, Badges & Pills',
             ['Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Eingaben & Formulare',
-            ['Textfeld', 'Textbereich', 'Auswahlfeld', 'Checkbox', 'Radio', 'Slider'],
+            ['Textfeld', 'Textbereich', 'Auswahlfeld', 'Checkbox', 'Radio', 'Slider', 'Skala'],
             'Feedback',
             'Karten & Teaser',
             'Call to Action',
