@@ -132,7 +132,26 @@ Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text 
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 
-## 7. Icons nutzen
+## 7. Einheiten &amp; medienübergreifende Nutzung (Web / Print / PowerPoint)
+
+Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline, Display), nicht feste Zahlen. Was über Medien hinweg trägt, ist die **Hierarchie**, die **Größenverhältnisse**, **Schriftfamilie**, **Schriftschnitt** und **Farbe**. Die konkrete **Einheit** wählt das jeweilige Medium:
+
+- **Web:** Schriftgrößen sind `rem`-basiert (`1rem = 16px` bei Standard-Root). `rem` respektiert die vom Nutzer im Browser eingestellte Schriftgröße (WCAG 1.4.4 „Resize Text"). Spacing/Radius bleiben in `px`.
+- **PowerPoint / Print:** Dort gilt `pt` (feste physische Größe, kein Browser-Resize). `rem` ist hier bedeutungslos, die Web-Umstellung betrifft PowerPoint also nicht.
+
+**Umrechnung** (96 dpi): `pt = px × 0,75`, d. h. `16px = 1rem = 12pt`.
+
+| Rolle | Web (px @ Default) | rem | pt (1:1) | Folie (Empfehlung) |
+|---|---|---|---|---|
+| Body Sm (Meta) | 14 | 0.875 | 10,5 | 16 bis 18 |
+| Body Md (Fließtext) | 16 | 1 | 12 | 18 |
+| Title Sm | 20 | 1.25 | 15 | 20 bis 24 |
+| Headline Md (Max) | 28 | 1.75 | 21 | 28 bis 32 |
+| Display Lg (Max) | 46 | 2.875 | 34,5 | 40+ |
+
+**Wichtig für Folien:** Die 1:1-Umrechnung px→pt ergibt für Folien zu kleine Schrift, weil Folien aus Distanz oder projiziert gelesen werden. Für PowerPoint deshalb die **Verhältnisse** übernehmen und absolut hochskalieren (Spalte „Folie"), nicht die Web-Zahlen 1:1. Schriften: **Montserrat** (Sans, Body/Label) und **Libre Baskerville** (Display/Serif); Schnitte 400 / 500 / 600.
+
+## 8. Icons nutzen
 
 Die DS-Icons liegen als maschinenlesbare Bibliothek vor (mit dem npm-Paket): `icons/icons.json` und `icons/icons.js` enthalten pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color` des Containers (z. B. Bereichsfarbe `var(--ki-800)`, im Dark `--ki-200`).
 
@@ -149,7 +168,7 @@ const { svg } = icons['ki-bot'];   // komplettes <svg>…</svg>
 
 Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind `solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Vollständiges Key-Mapping inkl. Verwendungskontext: [`icons/README.md`](../icons/README.md). Neue Icons werden in `icons/source/*.svg` ergänzt und mit `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
 
-## 8. Frameworks
+## 9. Frameworks
 
 Das System ist global einzubinden (das CSS einmal importieren, dann die Klassen in JSX/Templates verwenden):
 

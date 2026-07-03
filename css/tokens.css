@@ -55,37 +55,49 @@
   --font-display:'Libre Baskerville','Georgia',serif;
 
   /* ── Typography Scale ──
-     Minimum-Font-Size systemweit: 12 px. Tokens darunter wurden eliminiert oder angehoben,
+     Einheiten rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): 1rem = 16px bei Default-Root
+     (body: font-size:16px). Umrechnung px→rem = px/16. rem respektiert die vom Nutzer im Browser
+     eingestellte Standardschriftgröße; px täte das nicht.
+     Minimum-Font-Size systemweit: 12 px = 0.75rem. Das Minimum gilt bei Default-Root und skaliert
+     bei größerer Nutzereinstellung nach oben. Tokens darunter wurden eliminiert oder angehoben,
      damit Inhalte unter allen Bedingungen gut lesbar bleiben (Bildschirm, Mobile, Print). */
   /* Sans-serif (Montserrat)
      Body-Skala (Mai 2026): 16 / 14 / 12 px. Body Md ist Standard-Fließtext (war 14, jetzt 16
      für bessere Lesbarkeit auf C-Level-Mittelstand-Zielgruppe und iOS-Auto-Zoom-Fix bei Form-Inputs).
      Body Sm = 14 px für Meta-Daten/Card-Meta. Body Xs = 12 px für Captions. */
-  --ty-caption:      400 12px/16px var(--font);
-  --ty-body-xs:      400 12px/16px var(--font);
-  --ty-body-sm:      400 14px/20px var(--font);
-  --ty-body-md:      400 16px/24px var(--font);
+  --ty-caption:      400 0.75rem/1rem var(--font);
+  --ty-body-xs:      400 0.75rem/1rem var(--font);
+  --ty-body-sm:      400 0.875rem/1.25rem var(--font);
+  --ty-body-md:      400 1rem/1.5rem var(--font);
   /* label-xs und label-sm haben dieselben Metriken — label-xs ist die "Eyebrow"-Variante,
      mit text-transform:uppercase + letter-spacing am Use-Site. label-sm ist für Mixed-Case-Labels. */
-  --ty-label-xs:     500 12px/16px var(--font);
-  --ty-label-sm:     500 12px/16px var(--font);
-  --ty-label-md:     500 14px/20px var(--font);
+  --ty-label-xs:     500 0.75rem/1rem var(--font);
+  --ty-label-sm:     500 0.75rem/1rem var(--font);
+  --ty-label-md:     500 0.875rem/1.25rem var(--font);
   /* Title-Sm (Mai 2026): 20 px statt 18 px, damit Card-Titel mit klarer 4-px-Stufe über
      dem neuen 16-px-Body-Md sitzen. Title-Lg ist entfallen, das Logo nutzt jetzt eine eigene
      Klasse .nav-logo-text mit fest verdrahteten Metriken. */
-  --ty-title-sm:     500 20px/28px var(--font);
-  --ty-label-xs-strong: 600 12px/16px var(--font);
-  --ty-name:         600 14px/20px var(--font);
+  --ty-title-sm:     500 1.25rem/1.75rem var(--font);
+  --ty-label-xs-strong: 600 0.75rem/1rem var(--font);
+  --ty-name:         600 0.875rem/1.25rem var(--font);
   /* Display / serif (Libre Baskerville) */
-  --ty-serif-sm:     400 17px/28px var(--font-display);
-  --ty-serif-md:     400 20px/28px var(--font-display);
-  --ty-serif-lg:     400 20px/32px var(--font-display);
-  --ty-headline-xs:   400 22px/30px var(--font-display);
-  --ty-headline-sm:   400 24px/32px var(--font-display);
-  --ty-headline-md:   400 28px/36px var(--font-display);
-  --ty-display-sm:   400 36px/44px var(--font-display);
-  --ty-display-md:   400 40px/48px var(--font-display);
-  --ty-display-lg:   400 clamp(28px,3.5vw,46px)/1.15 var(--font-display);
+  --ty-serif-sm:     400 1.0625rem/1.75rem var(--font-display);
+  --ty-serif-md:     400 1.25rem/1.75rem var(--font-display);
+  --ty-serif-lg:     400 1.25rem/2rem var(--font-display);
+  /* Headline/Display fluid: font-size via clamp(), Zeilenhöhe als unitless Ratio
+     (skaliert proportional zur gerechneten Größe, nie < 1 — siehe line-height-Konvention).
+     rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): Min/Max in rem, Mittel-Term als
+     rem + vw, damit die Schrift auch die Browser-Standardschriftgröße respektiert (px+vw
+     reagierte nur auf Seiten-Zoom). Mittel-Term = Zwei-Anker-Fluid-Kurve (Anker 360 px → Min,
+     1240 px → Max); rem-Anteil trägt die Basis (resize-fähig), vw fügt fluides Wachstum hinzu.
+     Max = bisheriger Fixwert → Desktop unverändert; Min greift am Phone (alle ≥ 1.25rem =
+     20 px @ Default, also ≥ Font-Size-Minimum). Mirror von --ty-display-lg. */
+  --ty-headline-xs:   400 clamp(1.25rem, 1.2rem + 0.23vw, 1.375rem)/1.35 var(--font-display);
+  --ty-headline-sm:   400 clamp(1.3125rem, 1.236rem + 0.34vw, 1.5rem)/1.33 var(--font-display);
+  --ty-headline-md:   400 clamp(1.4375rem, 1.31rem + 0.57vw, 1.75rem)/1.3 var(--font-display);
+  --ty-display-sm:   400 clamp(1.75rem, 1.546rem + 0.91vw, 2.25rem)/1.22 var(--font-display);
+  --ty-display-md:   400 clamp(1.875rem, 1.619rem + 1.14vw, 2.5rem)/1.2 var(--font-display);
+  --ty-display-lg:   400 clamp(1.75rem, 1.29rem + 2.05vw, 2.875rem)/1.15 var(--font-display);
 
   /* ── Spacing ── */
   --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
@@ -120,6 +132,10 @@
   --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
   /* ── Focus ── */
-  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
+  /* Sichtbarer Ring co-700 (nicht co-500): co-500 #00BEBE erreicht auf Weiß nur 2,3:1 und verfehlt
+     die 3:1-Schwelle für Fokus-Indikatoren (WCAG 2.4.11). co-700 #007575 = 5,5:1. Gilt global (alle
+     :focus-visible-Ringe im DS nutzen diese Tokens). Dark bleibt co-500 (dort 4,7:1 auf dunklem Grund,
+     co-700 wäre dunkel-auf-dunkel) — s. dark-mode.css. */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-700);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-700);
 }

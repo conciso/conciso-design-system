@@ -53,20 +53,31 @@
 
 /* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
+body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
 
 /* ── Skip link ── */
-.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:14px;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
+.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:0.875rem;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
 .skip-link:focus{top:var(--s4)}
 
 /* ── Layout ── */
 .ds-page{display:flex;min-height:100vh}
 .ds-sidebar{width:252px;flex-shrink:0;background:var(--bg-surface);border-right:var(--bd);padding:var(--s8) 0;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;transition:width var(--m-std)}
 .ds-content{flex:1;padding:var(--s10) var(--s6);max-width:1280px;transition:margin-left var(--m-std)}
+/* Vorschau-Modus (≤ 1024px): Doku-Sidebar ausblenden und horizontalen Content-Abstand
+   auf 0, damit die Beispielseiten exakt die Fensterbreite einnehmen. Sonst quetscht die
+   feste 252px-Sidebar die .ep-page in eine Restspalte, während ihre @media-Queries die
+   volle Fensterbreite lesen — Container-Breite und Breakpoint passen dann nicht zusammen
+   und die Mobile/Tablet-Vorschau wird unbrauchbar. So stimmen .ep-page-Breite und Breakpoint
+   überein → DevTools-Geräte-Modus und Fenster-Verkleinern zeigen die Seite faithful.
+   Die Beispielseiten-Tabs liegen im Content (nicht in der Sidebar), bleiben also erreichbar. */
+@media (max-width: 1024px) {
+  .ds-sidebar{display:none}
+  .ds-content{padding-inline:0}
+}
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-.nav-logo-text{font:500 12px/16px var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
 
 /* ── Sidebar toggle button ── */
 .sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
@@ -84,11 +95,19 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .ds-sidebar.collapsed .nav-icon{width:20px;height:20px;opacity:.6}
 .ds-sidebar.collapsed .nav-item:hover .nav-icon{opacity:1}
 .ds-sidebar.collapsed .nav-item.active .nav-icon{opacity:1}
-.nav-section{padding:var(--s3) var(--s6) var(--s1);font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
-.nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 14px/20px var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
+/* .nav-section ist ein <h2> (Screenreader-Outline der Nav-Gruppen) — UA-Heading-Margins zurücksetzen */
+.nav-section{margin:0;padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+/* Nav-Gruppen als Liste (Screenreader: „Liste, N Einträge"); Default-Einrückung/Bullets entfernen */
+.nav-list{list-style:none;margin:0;padding:0}
+/* Größerer Abstand vor jeder folgenden Gruppen-Überschrift (visuelle Trennung der Bereiche);
+   die erste Gruppe braucht ihn nicht, sie ist bereits durch das Logo/den Rahmen getrennt. */
+.nav-list + .nav-section{margin-top:var(--s4)}
+.nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
+/* Aktiver Eintrag: Text co-700 (co-500 #00BEBE auf co-50 war nur 2,07:1 → co-700 = 4,95:1, WCAG 1.4.3).
+   Akzentbalken co-600 (3,28:1 auf Weiß, WCAG 1.4.11). Zustand zusätzlich über font-weight (nicht nur Farbe → 1.4.1). */
+.nav-item.active{color:var(--co-700);background:var(--co-50);border-left-color:var(--co-600);font-weight:600}
 .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7;fill:none;stroke:currentColor;stroke-width:1.5}
 .nav-item.active .nav-icon{opacity:1}
 .area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -96,29 +115,42 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 /* ── Sections ── */
 .ds-section{display:none}
 .ds-section.visible{display:block}
-.sec-title{font:400 32px/40px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)}
-.sec-sub{font:400 16px/24px var(--font);color:var(--tx-secondary);margin-bottom:var(--s8)}
-.group-title{font:400 24px/32px var(--font-display);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
-.lbl{font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
+.sec-title{font:400 2rem/2.5rem var(--font-display);color:var(--tx-primary);margin-bottom:var(--s2)}
+.sec-sub{font:400 1rem/1.5rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s8)}
+.group-title{font:400 1.5rem/2rem var(--font-display);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
+.lbl{font:500 0.75rem/1rem var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
 .row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
-.token{font-family:'Courier New',monospace;font-size:12px;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
+.token{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
-.tbtn{padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 12px/16px var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn{display:inline-flex;align-items:center;gap:6px;padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
+.tbtn svg{width:14px;height:14px;flex:none}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.tbtn.active{background:var(--co-500);color:#fff}
+/* Aktiv-Fläche co-700 statt co-500: weiß auf #007575 = 5,5:1 (AA) — co-500 #00BEBE war nur 2,3:1 (Fail bei 12px/500) */
+.tbtn.active{background:var(--co-700);color:#fff}
 
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
-.pal-label{font:500 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
+.pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
-.swatch span{font-size:12px;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
-.ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:12px;color:var(--ki-800);border:1px solid var(--ki-200)}
-.pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:12px;color:#5a3e00;border:1px solid #e8d080}
-.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:12px;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
-.pal-thresholds .thr-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-weight:700;margin-right:2px;font-size:12px}
+.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
+.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+/* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
+   UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
+.swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
+.swatch.is-copyable:focus-visible,.swatch.is-copyable.is-copied{outline:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),inset 0 0 0 4px rgba(17,17,17,.9);z-index:1}
+.clip-card.is-copyable:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Bestätigung: Häkchen-Overlay (fit auch auf schmalen Swatches; SR-Ansage übernimmt der aria-live-Bereich) */
+.swatch.is-copied::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:700 1rem/1 var(--font);border-radius:inherit}
+.clip-card.is-copied{position:relative}
+.clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
+.ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
+.pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
+.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
+.pal-thresholds .thr-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-weight:700;margin-right:2px;font-size:0.75rem}
 .thr-aa-l{background:#dbeeff;color:#1a3a6b}
 .thr-aa{background:#c3f0e8;color:#0a4a38}
 .thr-aaa{background:#e8d0ff;color:#3a1070}
@@ -134,13 +166,13 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 @media(max-width:768px){.areas-grid{grid-template-columns:1fr}}
 .area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
-.area-header h2{font:400 16px/24px var(--font-display);margin-bottom:4px}
-.area-header p{font:400 12px/16px var(--font)}
+.area-header h2{font:400 1rem/1.5rem var(--font-display);margin-bottom:4px}
+.area-header p{font:400 0.75rem/1rem var(--font)}
 .area-body{padding:var(--s4) var(--s6);background:var(--bg-surface);flex:1}
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
 .area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
-.area-meta{font:400 12px/16px var(--font);color:var(--tx-secondary)}
-.area-meta code{font-size:12px;font-family:'Courier New',monospace}
+.area-meta{font:400 0.75rem/1rem var(--font);color:var(--tx-secondary)}
+.area-meta code{font-size:0.75rem;font-family:'Courier New',monospace}
 
 /* Utility: hartes Verstecken (überschreibt Inline-display) */
 .is-hidden{display:none!important}
@@ -151,33 +183,76 @@ body{font-family:var(--font);font-size:16px;line-height:1.7;color:var(--tx-prima
 .col-4{grid-column:span 4}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
 .col-7{grid-column:span 7}.col-8{grid-column:span 8}.col-9{grid-column:span 9}
 .col-10{grid-column:span 10}.col-11{grid-column:span 11}.col-12{grid-column:span 12}
-@media(max-width:768px){.layout-grid{grid-template-columns:1fr}}
+/* Kollabiert auf 1 Spalte. Wichtig: auch die col-*-Spannweiten zurücksetzen — sonst spannen
+   die Kinder weiter span 7/span 5/… und erzeugen bei nur einer 1fr-Spalte implizite Auto-Spalten,
+   wodurch unterschiedlich gespannte Geschwister (z. B. col-7 Text vs. col-5 Bild) verschieden
+   breit werden. Mit grid-column:auto ist jedes Kind exakt volle Breite. */
+@media(max-width:768px){
+  .layout-grid{grid-template-columns:1fr}
+  .layout-grid>[class*="col-"]{grid-column:auto}
+}
+/* Team-Kacheln („Wer wir sind"): statt einspaltig untereinander als 2×2-Raster, damit die
+   vier Köpfe auf dem Phone kompakt bleiben. Override der col-3-Spannweite (3 → 1 Track). */
+@media(max-width:768px){
+  .layout-grid[data-team-tiles]{grid-template-columns:1fr 1fr}
+  .layout-grid[data-team-tiles] > [data-team-tile]{grid-column:auto}
+}
+/* Team-Roster („Die Menschen", Über uns): ~70 Personen sollen mobil nicht einspaltig als
+   endlose Liste laufen. Tablet (521–768px) → 3 Spalten (ab ~520px gibt das ≥ ~146px je Spalte,
+   genug Platz). Phone (≤ 520px) → 2 Spalten, sonst zu gedrängt. minmax(0,1fr) verhindert
+   Grid-Blowout durch lange Namen (Text wrappt). Engerer Gap (--s4). col-3-Spannweite → 1 Track.
+   520px-Bruch konsistent mit dem Hero-CTA-Breakpoint. */
+@media(max-width:768px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+  .layout-grid[data-team-roster] > .col-3{grid-column:auto}
+}
+@media(max-width:520px){
+  .layout-grid[data-team-roster]{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Benefits-Grid (4 Kategorien) und Event-Meta-Strip (4 Key-Facts: Datum/Ort/Format/Eintritt):
+   Tablet (521–768px) → 2×2 statt der einspaltigen layout-grid-Kollabierung; Smartphone (≤ 520px)
+   → 1×4 einspaltig. Desktop (> 768px) bleibt 4-spaltig. Die col-3-Spannweite setzt bereits die
+   globale Regel oben zurück. 520px-Bruch konsistent mit Roster/Hero-CTAs. */
+@media(max-width:768px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .layout-grid[data-benefits],.layout-grid[data-event-meta]{grid-template-columns:1fr}
+}
+/* Editorial-Split (Bild + Text nebeneinander): stapelt auf Mobile einspaltig, das Bild läuft
+   full-width. Der inline Text-Cap (max-width:520px, gedacht für die Zeilenlänge NEBEN dem Bild)
+   erzeugt dann eine Asymmetrie — Text schmaler als das Bild darüber. Unter dem Bild aufheben,
+   damit der Fließtext bündig zur Bildbreite läuft. !important, weil der Cap inline gesetzt ist;
+   greift nur auf .ep-section-sub INNERHALB eines layout-grid (Splits), nicht auf Sektions-Leads. */
+@media(max-width:768px){
+  .layout-grid .ep-section-sub{max-width:none!important}
+}
 
 /* ── Utility: visuell versteckt, aber für Screenreader lesbar ── */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* ── Type Scale Utilities (15 Tokens) ── */
-.type-display-lg{font:400 57px/64px var(--font-display)}
-.type-display-md{font:400 45px/52px var(--font-display)}
-.type-display-sm{font:400 36px/44px var(--font-display)}
-.type-headline-lg{font:400 32px/40px var(--font-display)}
-.type-headline-md{font:400 28px/36px var(--font-display)}
-.type-headline-sm{font:400 24px/32px var(--font-display)}
-.type-title-lg{font:500 22px/28px var(--font)}
-.type-title-md{font:500 16px/24px var(--font)}
-.type-title-sm{font:500 14px/20px var(--font)}
-.type-body-lg{font:400 16px/24px var(--font)}
-.type-body-md{font:400 14px/20px var(--font)}
-.type-body-sm{font:400 12px/16px var(--font)}
-.type-label-lg{font:500 14px/20px var(--font)}
-.type-label-md{font:500 12px/16px var(--font)}
-.type-label-sm{font:500 12px/16px var(--font);text-transform:uppercase;letter-spacing:.08em}
+.type-display-lg{font:400 3.5625rem/4rem var(--font-display)}
+.type-display-md{font:400 2.8125rem/3.25rem var(--font-display)}
+.type-display-sm{font:400 2.25rem/2.75rem var(--font-display)}
+.type-headline-lg{font:400 2rem/2.5rem var(--font-display)}
+.type-headline-md{font:400 1.75rem/2.25rem var(--font-display)}
+.type-headline-sm{font:400 1.5rem/2rem var(--font-display)}
+.type-title-lg{font:500 1.375rem/1.75rem var(--font)}
+.type-title-md{font:500 1rem/1.5rem var(--font)}
+.type-title-sm{font:500 0.875rem/1.25rem var(--font)}
+.type-body-lg{font:400 1rem/1.5rem var(--font)}
+.type-body-md{font:400 0.875rem/1.25rem var(--font)}
+.type-body-sm{font:400 0.75rem/1rem var(--font)}
+.type-label-lg{font:500 0.875rem/1.25rem var(--font)}
+.type-label-md{font:500 0.75rem/1rem var(--font)}
+.type-label-sm{font:500 0.75rem/1rem var(--font);text-transform:uppercase;letter-spacing:.08em}
 
 /* ── Sub-navigation ── */
 .nav-subnav{display:none;padding-bottom:var(--s2)}
 .nav-subnav.visible{display:block}
 .nav-sub-item{display:block;padding:5px var(--s6) 5px 36px;font:var(--ty-body-xs);color:var(--tx-secondary);text-decoration:none;transition:background var(--m-fast),color var(--m-fast);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nav-sub-item::before{content:"–";opacity:.4;margin-right:6px;font-size:12px}
+.nav-sub-item::before{content:"–";opacity:.4;margin-right:6px;font-size:0.75rem}
 .nav-sub-item:hover{color:var(--tx-primary);background:var(--bg-overlay)}
 .nav-sub-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 

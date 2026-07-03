@@ -78,13 +78,13 @@
   background-position:right 6px bottom 6px;
 }
 [data-theme="dark"] .field textarea::-webkit-resizer { background:transparent }
-/* Slider: --sl-color trägt Thumb UND Wert-Anzeige. Die -500/-700-Töne fallen im Dark auf dem dunklen
-   Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Auf die hellen -200/-100-Töne heben (5,3-7:1).
-   Track (--n-200 #C9D3D3) bleibt hell und ist sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
-[data-theme="dark"] .slider-co, [data-theme="dark"] .field-slider-output.slider-co { --sl-color: var(--co-200) }
-[data-theme="dark"] .slider-ki, [data-theme="dark"] .field-slider-output.slider-ki { --sl-color: var(--ki-200) }
-[data-theme="dark"] .slider-es, [data-theme="dark"] .field-slider-output.slider-es { --sl-color: var(--es-100) }
-[data-theme="dark"] .slider-wo, [data-theme="dark"] .field-slider-output.slider-wo { --sl-color: var(--wo-200) }
+/* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
+   dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
+   heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+[data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
+[data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
+[data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }
+[data-theme="dark"] .slider-wo { --sl-color: var(--wo-200); --sl-text: var(--wo-200) }
 /* Tick-Labels (min/mid/max): tx-muted reißt im Dark AA (~3:1) → tx-secondary (4,9:1) */
 [data-theme="dark"] .field-slider-ticks { color: var(--tx-secondary) }
 /* Such-Feld-Magnifier: stroke=var(--n-400) #6E8585 flippt nicht und liegt im Dark bei nur 2,28:1.
@@ -308,6 +308,9 @@
 [data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
 [data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
 [data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Doku-Sidebar: aktiver Eintrag hat im Light co-700-Text auf hellem co-50. Im Dark ist co-50 fast schwarz
+   (#16302E) → Text/Balken auf die hellen Töne heben (co-200 ~9,6:1 / co-300), sonst dunkel-auf-dunkel. */
+[data-theme="dark"] .nav-item.active { color: var(--co-200); border-left-color: var(--co-300) }
 /* Pills: --XX-50-Grund wird im Dark fast schwarz, Text --XX-700/800 bleibt dunkel → Text auf die hellen
    -200/-100-Töne heben. Grund bleibt die dunkle -50-Kachel, der helle Text trägt den Kontrast (analog
    .ep-card-icon/.card-eyebrow, ~13-15:1). aria-pressed-/Hover-States der Chips bleiben unberührt. */
@@ -334,6 +337,12 @@
 [data-theme="dark"] .body-link { color: var(--co-200) }
 [data-theme="dark"] .body-link:hover { color: var(--co-100) }
 [data-theme="dark"] .card-cta-link { color: var(--co-200) }
+/* Bereichsvariante des Card-CTA-Links (Shades wie .ep-card-cta): hebt die Akzentfarbe auf den
+   hellen Bereichston, sonst dunkel-auf-dunkel. Höhere Spezifität als die co-200-Regel darüber. */
+[data-theme="dark"] .card-cta-link[data-area="co"] { color: var(--co-200) }
+[data-theme="dark"] .card-cta-link[data-area="ki"] { color: var(--ki-200) }
+[data-theme="dark"] .card-cta-link[data-area="es"] { color: var(--es-100) }
+[data-theme="dark"] .card-cta-link[data-area="wo"] { color: var(--wo-200) }
 [data-theme="dark"] .t-co { color: var(--co-200) }
 [data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
 [data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
