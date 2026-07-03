@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { AreaBadgeComponent } from './area-badge.component';
 
 const meta: Meta<AreaBadgeComponent> = {
-  title: 'Komponenten/Chips, Badges & Pills/Bereichs-Badge',
+  title: 'Atoms/Bereichs-Badge',
   component: AreaBadgeComponent,
   tags: ['autodocs'],
   parameters: {

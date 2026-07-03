@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { SnackbarComponent } from './snackbar.component';
 
 const meta: Meta<SnackbarComponent> = {
-  title: 'Komponenten/Feedback/Snackbar',
+  title: 'Molecules/Snackbar',
   component: SnackbarComponent,
   tags: ['autodocs'],
   parameters: {

@@ -1,0 +1,151 @@
+import {
+  afterNextRender,
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroComputerDesktop, heroMoon, heroSun } from '@ng-icons/heroicons/outline';
+import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from './theme-mode';
+
+/**
+ * Theme-Segment — Segment-Switch für das Farbthema. Vorgesehener Einsatz: als
+ * eigenständiges Element zum Hovern. Ist daher IMMER responsiv (unter 640px
+ * Icon-only) und IMMER animiert (Aktiv-Markierung gleitet als Thumb) — beides
+ * fest, nicht konfigurierbar. Icon + Textlabel stehen immer nebeneinander.
+ *
+ * Einzige Konfiguration: `triState` (tri Hell/Dunkel/System vs. binär Hell/Dunkel).
+ *
+ * Baut auf den CSS-Kern-Klassen `.theme-bar`/`.tbtn` auf. Jeder Button trägt ein
+ * `aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per
+ * getBoundingClientRect an die aktive Zelle gesetzt (ResizeObserver misst bei
+ * Breakpoint-/Font-Änderungen nach).
+ */
+@Component({
+  selector: 'cds-theme-segment',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIcon],
+  viewProviders: [provideIcons({ heroSun, heroMoon, heroComputerDesktop })],
+  template: `
+    <div #bar class="theme-bar is-responsive is-animated" role="group" aria-label="Farbthema">
+      <span #thumb class="cds-thumb" aria-hidden="true"></span>
+      @for (m of order(); track m) {
+        <button
+          #opt
+          class="tbtn"
+          type="button"
+          [class.active]="svc.mode() === m"
+          [attr.aria-pressed]="svc.mode() === m"
+          [attr.aria-label]="label[m]"
+          (click)="svc.set(m)"
+        >
+          <ng-icon [name]="icon[m]" size="14px" aria-hidden="true" />
+          <span class="tbtn__label">{{ label[m] }}</span>
+        </button>
+      }
+    </div>
+  `,
+  styles: `
+    .theme-bar {
+      position: static;
+      display: inline-flex;
+    }
+    .tbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s1);
+    }
+    /* Responsive: unter 640px Label ausblenden → Icon-only. Das aria-label bleibt. */
+    @media (max-width: 640px) {
+      .theme-bar.is-responsive .tbtn__label {
+        display: none;
+      }
+    }
+    /* Animiert: ein Thumb gleitet hinter den Buttons. */
+    .theme-bar.is-animated {
+      position: relative;
+      inset: auto;
+    }
+    .theme-bar.is-animated .cds-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: var(--r-full);
+      /* wie .tbtn.active im Kern (--co-700): weißer Text darauf erfüllt WCAG AA;
+         --co-500 wäre zu hell (nur ~2,3:1). */
+      background: var(--co-700);
+      transition:
+        transform var(--m-fast),
+        width var(--m-fast),
+        height var(--m-fast);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .theme-bar.is-animated .tbtn {
+      position: relative;
+      z-index: 1;
+    }
+    .theme-bar.is-animated .tbtn.active {
+      background: transparent;
+    }
+  `,
+})
+export class ThemeSegmentComponent {
+  /** true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär). */
+  readonly triState = input(true);
+
+  protected readonly svc = inject(ThemeModeService);
+  protected readonly icon = CDS_THEME_ICON;
+  protected readonly label = CDS_THEME_LABEL;
+
+  protected readonly order = computed(() => cdsThemeModes(this.triState()));
+
+  private readonly bar = viewChild<ElementRef<HTMLElement>>('bar');
+  private readonly thumb = viewChild<ElementRef<HTMLElement>>('thumb');
+  private readonly opts = viewChildren<ElementRef<HTMLButtonElement>>('opt');
+  private readonly destroyRef = inject(DestroyRef);
+
+  constructor() {
+    // Thumb nach jedem Render neu setzen (Modus/Optionen als Abhängigkeiten lesen).
+    afterRenderEffect(() => {
+      this.svc.mode();
+      this.order();
+      this.positionThumb();
+    });
+
+    // Layout-Änderungen ohne Signal (Breakpoint, Font-Load) → Thumb nachmessen.
+    afterNextRender(() => {
+      const bar = this.bar()?.nativeElement;
+      if (!bar) return;
+      const ro = new ResizeObserver(() => this.positionThumb());
+      ro.observe(bar);
+      this.destroyRef.onDestroy(() => ro.disconnect());
+    });
+  }
+
+  /** Thumb exakt auf die aktive Zelle legen (Position + Größe). */
+  private positionThumb(): void {
+    const thumb = this.thumb()?.nativeElement;
+    const bar = this.bar()?.nativeElement;
+    const el = this.opts()[this.order().indexOf(this.svc.mode())]?.nativeElement;
+    if (!thumb || !bar || !el) return;
+
+    const barRect = bar.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const cs = getComputedStyle(bar);
+    const bx = parseFloat(cs.borderLeftWidth) || 0;
+    const by = parseFloat(cs.borderTopWidth) || 0;
+
+    thumb.style.width = `${r.width}px`;
+    thumb.style.height = `${r.height}px`;
+    thumb.style.transform = `translate(${r.left - barRect.left - bx}px, ${r.top - barRect.top - by}px)`;
+  }
+}

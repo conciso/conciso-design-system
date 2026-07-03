@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { SelectFieldComponent } from './select-field.component';
 
 const meta: Meta<SelectFieldComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Auswahlfeld',
+  title: 'Molecules/Auswahlfeld',
   component: SelectFieldComponent,
   tags: ['autodocs'],
   parameters: {

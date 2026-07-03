@@ -3,7 +3,7 @@ import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { SliderComponent } from './slider.component';
 
 const meta: Meta<SliderComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Slider',
+  title: 'Atoms/Slider',
   component: SliderComponent,
   tags: ['autodocs'],
   parameters: {

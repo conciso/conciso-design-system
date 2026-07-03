@@ -3,7 +3,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { ChipComponent } from './chip.component';
 
 const meta: Meta<ChipComponent> = {
-  title: 'Komponenten/Chips, Badges & Pills/Chip',
+  title: 'Atoms/Chip',
   component: ChipComponent,
   tags: ['autodocs'],
   parameters: {

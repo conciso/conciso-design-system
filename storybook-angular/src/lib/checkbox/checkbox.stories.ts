@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { CheckboxComponent } from './checkbox.component';
 
 const meta: Meta<CheckboxComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Checkbox',
+  title: 'Atoms/Checkbox',
   component: CheckboxComponent,
   tags: ['autodocs'],
   // Der Datenschutz-Link (.body-link) ist Corporate — die Bereichs-Tönung ist ein

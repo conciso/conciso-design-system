@@ -3,7 +3,7 @@ import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { ScaleComponent } from './scale.component';
 
 const meta: Meta<ScaleComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Skala',
+  title: 'Atoms/Skala',
   component: ScaleComponent,
   tags: ['autodocs'],
   parameters: {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { RadioGroupComponent } from './radio-group.component';
 
 const meta: Meta<RadioGroupComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Radio',
+  title: 'Molecules/Radio',
   component: RadioGroupComponent,
   tags: ['autodocs'],
   parameters: {

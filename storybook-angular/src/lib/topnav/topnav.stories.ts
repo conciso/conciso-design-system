@@ -3,7 +3,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { TopnavComponent } from './topnav.component';
 
 const meta: Meta<TopnavComponent> = {
-  title: 'Komponenten/Navigation/Topnav',
+  title: 'Organisms/Topnav',
   component: TopnavComponent,
   tags: ['autodocs'],
   parameters: {

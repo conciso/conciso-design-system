@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { TextFieldComponent } from './text-field.component';
 
 const meta: Meta<TextFieldComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Textfeld',
+  title: 'Molecules/Textfeld',
   component: TextFieldComponent,
   tags: ['autodocs'],
   parameters: {

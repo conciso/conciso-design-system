@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { TextareaFieldComponent } from './textarea-field.component';
 
 const meta: Meta<TextareaFieldComponent> = {
-  title: 'Komponenten/Eingaben & Formulare/Textbereich',
+  title: 'Molecules/Textbereich',
   component: TextareaFieldComponent,
   tags: ['autodocs'],
   parameters: {
