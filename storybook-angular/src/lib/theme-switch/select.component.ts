@@ -7,7 +7,7 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
  * gestylte Einzelauswahl mit Listbox-Popup und Häkchen. Vorgesehener Einsatz: nur in
  * den Einstellungen (Settings), NICHT als persistentes Element auf allen Seiten.
  *
- * `triState` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.
+ * `showSystem` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.
  */
 @Component({
   selector: 'cds-theme-select',
@@ -20,11 +20,11 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
 })
 export class ThemeSelectComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
-  readonly triState = input(true);
+  readonly showSystem = input(true);
 
   protected readonly svc = inject(ThemeModeService);
   protected readonly options = computed<CdsSelectOption[]>(() =>
-    cdsThemeModes(this.triState()).map((m) => ({ value: m, label: CDS_THEME_LABEL[m] })),
+    cdsThemeModes(this.showSystem()).map((m) => ({ value: m, label: CDS_THEME_LABEL[m] })),
   );
 
   onChange(value: string): void {

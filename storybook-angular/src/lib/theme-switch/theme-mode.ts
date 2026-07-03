@@ -20,9 +20,9 @@ export const CDS_THEME_LABEL: Record<CdsThemeMode, string> = {
   system: 'System',
 };
 
-/** tri = alle drei, binär = ohne „System". Basis des `triState`-Parameters. */
-export function cdsThemeModes(triState: boolean): CdsThemeMode[] {
-  return triState ? CDS_THEME_ORDER : CDS_THEME_ORDER.filter((m) => m !== 'system');
+/** tri = alle drei, binär = ohne „System". Basis des `showSystem`-Parameters. */
+export function cdsThemeModes(showSystem: boolean): CdsThemeMode[] {
+  return showSystem ? CDS_THEME_ORDER : CDS_THEME_ORDER.filter((m) => m !== 'system');
 }
 
 // ── Modul-globale Theme-Quelle ──────────────────────────────────────────────

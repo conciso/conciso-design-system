@@ -12,15 +12,15 @@ const meta: Meta<ThemeSelectComponent> = {
         component:
           'Theme-Umschalter auf Basis unseres Custom Select (gestylte Listbox mit Häkchen). ' +
           'Vorgesehener Einsatz: nur in den Einstellungen (Settings), NICHT als persistentes ' +
-          'Element auf allen Seiten. `triState` schaltet zwischen Hell/Dunkel/System und binär.',
+          'Element auf allen Seiten. `showSystem` schaltet zwischen Hell/Dunkel/System und binär.',
       },
     },
   },
   argTypes: {
-    triState: { control: 'boolean' },
+    showSystem: { control: 'boolean' },
   },
   args: {
-    triState: true,
+    showSystem: true,
   },
 };
 export default meta;
@@ -31,5 +31,5 @@ export const Interaktiv: Story = {};
 
 export const Binaer: Story = {
   name: 'Binär (nur Hell/Dunkel)',
-  args: { triState: false },
+  args: { showSystem: false },
 };
