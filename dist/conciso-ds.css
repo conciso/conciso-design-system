@@ -1578,12 +1578,16 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
 .ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
 .ep-page.visible{display:block}
-/* Beispielseiten dürfen über den 1280-Spec hinaus auf 1500px breit werden */
+/* Beispielseiten nutzen die volle verfügbare Breite bis zum rechten Fensterrand (kein 1280/1500-Deckel):
+   .ds-content ist flex:1 und füllt Fensterbreite − Sidebar. Der Karten-Rahmen (.ep-page: Radius/Schatten)
+   und der Außenabstand (.ds-content padding --s6) bleiben; der Seiteninhalt bleibt über das Content-Gutter
+   (padding-inline: max(--s8, calc(50% − 640px)), s.u.) in einer zentrierten 1280-Lesespalte, Hero/Bänder
+   laufen full-bleed über die Kartenbreite. */
 /* Breite an data-section (vom Inline-Head-Script vor dem Paint gesetzt) — verhindert den Layout-Sprung,
    den :has() allein verursacht (greift erst, wenn JS die Sektion nach dem Paint sichtbar macht).
    :has bleibt als Laufzeit-Backup für Wechsel, die nicht über activateSection laufen. */
 html[data-section="examples"] .ds-content,
-.ds-content:has(#sec-examples.visible){max-width:1500px}
+.ds-content:has(#sec-examples.visible){max-width:none}
 /* Inhalt der Sektionen folgt aber dem 1280px-Spec — Hintergründe bleiben volle Panel-Breite,
    Content wird über fluides Inline-Padding zentriert (kein zusätzlicher Wrapper nötig). */
 .ep-page .ep-topnav,
