@@ -81,9 +81,31 @@ export const MultiSelect: Story = {
     placeholder: 'Hinzufügen…',
     area: 'wo',
     multi: true,
+    values: ['ki', 'ds', 'ux'],
+  },
+  // Statischer Ruhezustand (drei voreingestellte Chips, kein Fokus/Popup) — bewusst
+  // OHNE play, damit der Visual-Snapshot deterministisch ist. Die Tipp-/Auswahl-
+  // Interaktion prüft „Multi-Select · Hinzufügen" (dort snapshot-frei).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getAllByRole('button', { name: /Entfernen:/ })).toHaveLength(3);
+  },
+};
+
+export const MultiSelectHinzufuegen: Story = {
+  name: 'Multi-Select · Hinzufügen',
+  args: {
+    label: 'Interessen',
+    options: INTERESSEN,
+    placeholder: 'Hinzufügen…',
+    area: 'wo',
+    multi: true,
     values: ['ki', 'ds'],
   },
-  // Startet mit zwei Chips; ein weiteres Interesse hinzufügen → drei Chips.
+  // Interaktionstest: startet mit zwei Chips, ein weiteres Interesse tippen + wählen → drei.
+  // Vom Visual-Snapshot ausgenommen: der getippte/fokussierte Zwischenzustand ist nicht
+  // pixel-deterministisch (Sub-Pixel-Antialiasing → ~2px Rauschen bei jedem Re-Baseline).
+  parameters: { snapshot: { skip: true } },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     await userEvent.type(c.getByRole('combobox'), 'UX');
