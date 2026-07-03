@@ -8,9 +8,6 @@ const meta: Meta<SliderComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
-    // Bekannter CSS-Kern-Befund: .field-slider-output.slider-{co,ki,wo} nutzt --sl-color
-    // = --XX-500/700 und reißt AA. Im Panel weiter sichtbar, blockiert den Test nicht.
-    a11y: { test: 'todo' },
     docs: {
       description: {
         component:

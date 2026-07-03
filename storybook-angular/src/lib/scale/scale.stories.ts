@@ -8,9 +8,6 @@ const meta: Meta<ScaleComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
-    // Bekannter CSS-Kern-Befund wie beim Slider: .field-slider-output.slider-{co,ki,wo}
-    // reißt AA. Im Panel sichtbar, blockiert den Test nicht.
-    a11y: { test: 'todo' },
     docs: {
       description: {
         component:
