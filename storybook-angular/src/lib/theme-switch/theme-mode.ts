@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, type Signal, signal } from '@angular/core';
 
 /** Drei Theme-Modi. „system" folgt der OS-Einstellung (prefers-color-scheme). */
 export type CdsThemeMode = 'light' | 'dark' | 'system';
@@ -20,51 +20,79 @@ export const CDS_THEME_LABEL: Record<CdsThemeMode, string> = {
   system: 'System',
 };
 
-/**
- * Modus-Liste für den bi-/tri-state-Umschalter: tri = alle drei, binär = ohne
- * „System". Alle Switcher leiten ihre Optionen hierüber ab — so ist „binär vs.
- * tri" überall derselbe eine Parameter (triState).
- */
+/** tri = alle drei, binär = ohne „System". Basis des `triState`-Parameters. */
 export function cdsThemeModes(triState: boolean): CdsThemeMode[] {
   return triState ? CDS_THEME_ORDER : CDS_THEME_ORDER.filter((m) => m !== 'system');
 }
 
+// ── Modul-globale Theme-Quelle ──────────────────────────────────────────────
+// EIN Zustand, geteilt von den Switcher-Komponenten (über ThemeModeService) UND
+// der Storybook-Glue in preview.ts (Toolbar-Sync). Angular-DI allein würde das
+// nicht leisten, da jede Story eine eigene App-Instanz (eigenen Root-Injector)
+// hat — die modul-globale Quelle ist über alle hinweg dieselbe.
+const _mode = signal<CdsThemeMode>('light');
+let _mql: MediaQueryList | null = null;
+const _subs = new Set<(m: CdsThemeMode) => void>();
+
+const onSystemChange = (e: MediaQueryListEvent): void => reflect(e.matches);
+
+/** Aufgelösten Zustand ans <html> schreiben (light = kein Attribut). */
+function reflect(dark: boolean): void {
+  const root = document.documentElement;
+  if (dark) root.setAttribute('data-theme', 'dark');
+  else root.removeAttribute('data-theme');
+}
+
+/** Aktuellen Modus anwenden; „system" live an prefers-color-scheme koppeln. */
+function apply(): void {
+  _mql?.removeEventListener('change', onSystemChange);
+  _mql = null;
+  if (_mode() === 'system') {
+    _mql = window.matchMedia('(prefers-color-scheme: dark)');
+    _mql.addEventListener('change', onSystemChange);
+    reflect(_mql.matches);
+  } else {
+    reflect(_mode() === 'dark');
+  }
+}
+
+export const themeStore = {
+  /** Readonly-Signal des aktuellen Modus (Komponenten lesen hierüber). */
+  mode: _mode.asReadonly() as Signal<CdsThemeMode>,
+
+  /** Setzen + anwenden + Abonnenten benachrichtigen (z. B. Toolbar-Sync). */
+  set(mode: CdsThemeMode): void {
+    if (_mode() === mode) return;
+    _mode.set(mode);
+    apply();
+    _subs.forEach((cb) => cb(mode));
+  },
+
+  /** Wie set(), aber OHNE Broadcast — für Toolbar→Store, um eine Emit-Rückkopplung
+   *  zu vermeiden (die Toolbar hat den Wert ja bereits). */
+  setSilent(mode: CdsThemeMode): void {
+    if (_mode() === mode) return;
+    _mode.set(mode);
+    apply();
+  },
+
+  /** Auf Modus-Änderungen hören (gibt eine Abmelde-Funktion zurück). */
+  subscribe(cb: (m: CdsThemeMode) => void): () => void {
+    _subs.add(cb);
+    return () => _subs.delete(cb);
+  },
+};
+
 /**
- * Gemeinsame Theme-Logik für alle Theme-Switch-Varianten. Setzt bzw. entfernt
- * `data-theme="dark"` am <html> des Preview-Iframes (genau wie der DS es erwartet).
- * „system" löst über `matchMedia('(prefers-color-scheme: dark)')` auf und reagiert
- * live auf OS-Wechsel. Singleton → alle Varianten in einer Story bleiben synchron.
+ * Dünner Angular-Service über der modul-globalen Quelle — damit die Komponenten
+ * wie gewohnt `inject(ThemeModeService)` nutzen können. Setzt/entfernt letztlich
+ * `data-theme="dark"` am <html> (genau wie der DS es erwartet). Alle Switcher UND
+ * der globale Theme-Toolbar-Schalter bleiben so synchron.
  */
 @Injectable({ providedIn: 'root' })
 export class ThemeModeService {
-  /** Aktuell gewählter Modus (Signal → OnPush-freundlich). */
-  readonly mode = signal<CdsThemeMode>('light');
-
-  private mql: MediaQueryList | null = null;
-  private readonly onSystemChange = (e: MediaQueryListEvent): void => this.reflect(e.matches);
-
+  readonly mode = themeStore.mode;
   set(mode: CdsThemeMode): void {
-    this.mode.set(mode);
-    this.apply();
-  }
-
-  private apply(): void {
-    this.mql?.removeEventListener('change', this.onSystemChange);
-    this.mql = null;
-
-    if (this.mode() === 'system') {
-      this.mql = window.matchMedia('(prefers-color-scheme: dark)');
-      this.mql.addEventListener('change', this.onSystemChange);
-      this.reflect(this.mql.matches);
-    } else {
-      this.reflect(this.mode() === 'dark');
-    }
-  }
-
-  /** Aufgelösten Zustand ans <html> schreiben (light = kein Attribut). */
-  private reflect(dark: boolean): void {
-    const root = document.documentElement;
-    if (dark) root.setAttribute('data-theme', 'dark');
-    else root.removeAttribute('data-theme');
+    themeStore.set(mode);
   }
 }
