@@ -495,6 +495,9 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
+/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
+[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
+
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
 [data-theme="dark"] .gcol  { color: var(--co-300) }
@@ -975,6 +978,22 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .chip[data-area="es"][aria-pressed="true"]{background:var(--es-700);border-color:var(--es-700);color:#fff}
 .chip[data-area="wo"][aria-pressed="true"]{background:var(--wo-700);border-color:var(--wo-700);color:#fff}
 .chip[data-area][aria-pressed="true"]:hover{filter:brightness(.92)}
+
+/* ── Segmented Control ──
+   Native <input type="radio"> als verbundene Button-Gruppe (2–4 kurze Optionen).
+   Der :checked-Zustand ist nur per Selektor stylbar (nicht inline), daher als echte
+   Komponente. Das native Input bleibt fokussierbar (visuell versteckt), Auswahl per
+   Klick aufs Label und per Pfeiltasten. Aktives Segment = solide Bereichsfüllung
+   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
+   clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
+   dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
+.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+.seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
+.seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
+.seg-option input{position:absolute;width:1px;height:1px;opacity:0}
+.seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.seg-option input:checked + label{background:var(--co-700);color:#fff}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
