@@ -95,11 +95,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .ds-sidebar.collapsed .nav-icon{width:20px;height:20px;opacity:.6}
 .ds-sidebar.collapsed .nav-item:hover .nav-icon{opacity:1}
 .ds-sidebar.collapsed .nav-item.active .nav-icon{opacity:1}
-.nav-section{padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+/* .nav-section ist ein <h2> (Screenreader-Outline der Nav-Gruppen) — UA-Heading-Margins zurücksetzen */
+.nav-section{margin:0;padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+/* Nav-Gruppen als Liste (Screenreader: „Liste, N Einträge"); Default-Einrückung/Bullets entfernen */
+.nav-list{list-style:none;margin:0;padding:0}
+/* Größerer Abstand vor jeder folgenden Gruppen-Überschrift (visuelle Trennung der Bereiche);
+   die erste Gruppe braucht ihn nicht, sie ist bereits durch das Logo/den Rahmen getrennt. */
+.nav-list + .nav-section{margin-top:var(--s4)}
 .nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
+/* Aktiver Eintrag: Text co-700 (co-500 #00BEBE auf co-50 war nur 2,07:1 → co-700 = 4,95:1, WCAG 1.4.3).
+   Akzentbalken co-600 (3,28:1 auf Weiß, WCAG 1.4.11). Zustand zusätzlich über font-weight (nicht nur Farbe → 1.4.1). */
+.nav-item.active{color:var(--co-700);background:var(--co-50);border-left-color:var(--co-600);font-weight:600}
 .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7;fill:none;stroke:currentColor;stroke-width:1.5}
 .nav-item.active .nav-icon{opacity:1}
 .area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -126,8 +134,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
 .swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
+.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+/* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
+   UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
+.swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
+.swatch.is-copyable:focus-visible,.swatch.is-copyable.is-copied{outline:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),inset 0 0 0 4px rgba(17,17,17,.9);z-index:1}
+.clip-card.is-copyable:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Bestätigung: Häkchen-Overlay (fit auch auf schmalen Swatches; SR-Ansage übernimmt der aria-live-Bereich) */
+.swatch.is-copied::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:700 1rem/1 var(--font);border-radius:inherit}
+.clip-card.is-copied{position:relative}
+.clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
 .pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
 .pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}

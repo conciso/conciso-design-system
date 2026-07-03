@@ -156,8 +156,12 @@
   --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
   /* ── Focus ── */
-  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-500);
+  /* Sichtbarer Ring co-700 (nicht co-500): co-500 #00BEBE erreicht auf Weiß nur 2,3:1 und verfehlt
+     die 3:1-Schwelle für Fokus-Indikatoren (WCAG 2.4.11). co-700 #007575 = 5,5:1. Gilt global (alle
+     :focus-visible-Ringe im DS nutzen diese Tokens). Dark bleibt co-500 (dort 4,7:1 auf dunklem Grund,
+     co-700 wäre dunkel-auf-dunkel) — s. dark-mode.css. */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-700);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-700);
 }
 
 /* === css/dark-mode.css === */
@@ -471,6 +475,9 @@
 [data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
 [data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
 [data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Doku-Sidebar: aktiver Eintrag hat im Light co-700-Text auf hellem co-50. Im Dark ist co-50 fast schwarz
+   (#16302E) → Text/Balken auf die hellen Töne heben (co-200 ~9,6:1 / co-300), sonst dunkel-auf-dunkel. */
+[data-theme="dark"] .nav-item.active { color: var(--co-200); border-left-color: var(--co-300) }
 /* Pills: --XX-50-Grund wird im Dark fast schwarz, Text --XX-700/800 bleibt dunkel → Text auf die hellen
    -200/-100-Töne heben. Grund bleibt die dunkle -50-Kachel, der helle Text trägt den Kontrast (analog
    .ep-card-icon/.card-eyebrow, ~13-15:1). aria-pressed-/Hover-States der Chips bleiben unberührt. */
@@ -695,11 +702,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .ds-sidebar.collapsed .nav-icon{width:20px;height:20px;opacity:.6}
 .ds-sidebar.collapsed .nav-item:hover .nav-icon{opacity:1}
 .ds-sidebar.collapsed .nav-item.active .nav-icon{opacity:1}
-.nav-section{padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+/* .nav-section ist ein <h2> (Screenreader-Outline der Nav-Gruppen) — UA-Heading-Margins zurücksetzen */
+.nav-section{margin:0;padding:var(--s3) var(--s6) var(--s1);font:500 0.75rem/1rem var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted)}
+/* Nav-Gruppen als Liste (Screenreader: „Liste, N Einträge"); Default-Einrückung/Bullets entfernen */
+.nav-list{list-style:none;margin:0;padding:0}
+/* Größerer Abstand vor jeder folgenden Gruppen-Überschrift (visuelle Trennung der Bereiche);
+   die erste Gruppe braucht ihn nicht, sie ist bereits durch das Logo/den Rahmen getrennt. */
+.nav-list + .nav-section{margin-top:var(--s4)}
 .nav-item{display:flex;align-items:center;gap:var(--s2);padding:7px var(--s6);font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);cursor:pointer;border-left:3px solid transparent;transition:background var(--m-fast),color var(--m-fast),border-color var(--m-fast);background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left}
 .nav-item:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .nav-item:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.nav-item.active{color:var(--co-500);background:var(--co-50);border-left-color:var(--co-500);font-weight:600}
+/* Aktiver Eintrag: Text co-700 (co-500 #00BEBE auf co-50 war nur 2,07:1 → co-700 = 4,95:1, WCAG 1.4.3).
+   Akzentbalken co-600 (3,28:1 auf Weiß, WCAG 1.4.11). Zustand zusätzlich über font-weight (nicht nur Farbe → 1.4.1). */
+.nav-item.active{color:var(--co-700);background:var(--co-50);border-left-color:var(--co-600);font-weight:600}
 .nav-icon{width:18px;height:18px;flex-shrink:0;opacity:.7;fill:none;stroke:currentColor;stroke-width:1.5}
 .nav-item.active .nav-icon{opacity:1}
 .area-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0}
@@ -726,8 +741,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
 .swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
+.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+/* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
+   UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
+.swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
+.swatch.is-copyable:focus-visible,.swatch.is-copyable.is-copied{outline:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),inset 0 0 0 4px rgba(17,17,17,.9);z-index:1}
+.clip-card.is-copyable:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Bestätigung: Häkchen-Overlay (fit auch auf schmalen Swatches; SR-Ansage übernimmt der aria-live-Bereich) */
+.swatch.is-copied::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:700 1rem/1 var(--font);border-radius:inherit}
+.clip-card.is-copied{position:relative}
+.clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
 .pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
 .pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
@@ -1577,13 +1603,17 @@ img.logo-themed-light{display:none}
 .ep-nav-btn:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
 .ep-nav-btn[aria-current="page"]{color:var(--co-700)}
 .ep-nav-btn[aria-current="page"]::after{opacity:1}
-/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Toggle denselben Unterstrich —
-   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt. */
-.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-item-toggle::after{opacity:1}
+/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Parent-LINK denselben Unterstrich —
+   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt.
+   (Der Unterstrich sitzt am .ep-nav-btn-Link, nicht am Caret-Button — dieser hat kein ::after.) */
+.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-btn::after{opacity:1}
 /* Submenü unter "Leistungen"/"Unternehmen" — Hover/Focus-Within zeigt die Einträge */
 .ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
-.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0;display:inline-flex;align-items:center;line-height:1}
-.ep-nav-item-caret{width:10px;height:10px;display:inline-block;margin-left:4px;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
+/* Caret-Disclosure-Button: nur der Pfeil (das Label ist der separate .ep-nav-btn-Link daneben).
+   Eigene Hit-Area ≥24×24 (WCAG 2.5.8) + eigener Fokus-Ring, da nicht mehr Teil des Link-Buttons. */
+.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
+.ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
 /* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
    offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
    Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
@@ -1643,9 +1673,13 @@ img.logo-themed-light{display:none}
   .ep-nav-search-pop{right:auto;left:0;width:min(320px,calc(100vw - var(--s8)))}
   .ep-nav-links{display:none;order:5;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
   .ep-topnav.nav-open .ep-nav-links{display:flex}
-  .ep-nav-item{flex-direction:column;align-items:stretch;width:100%;gap:0}
-  .ep-nav-btn,.ep-nav-item-toggle{width:100%;padding:var(--s3) 0}
-  .ep-nav-item-toggle{justify-content:space-between}
+  /* Dropdown-Parent: Label-Link + Caret in EINER Zeile (Label nimmt Restbreite, Caret ≥44px Tap-Target
+     rechts), Submenü klappt in eigener Zeile darunter auf. Einfache Top-Level-Links bleiben full-width. */
+  .ep-nav-item{display:flex;flex-wrap:wrap;align-items:center;width:100%;gap:0}
+  .ep-nav-btn{width:100%;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-btn{flex:1 1 auto;width:auto}
+  .ep-nav-item-toggle{flex:0 0 auto;width:44px;min-height:44px;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-sub{flex-basis:100%}
   .ep-nav-btn::after{display:none}
   /* Untermenü inline aufklappen statt als schwebendes Overlay */
   .ep-nav-sub{position:static;display:none;box-shadow:none;border:none;background:none;padding:0 0 var(--s2) var(--s4);min-width:0}
@@ -1756,6 +1790,11 @@ img.logo-themed-light{display:none}
 /* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
    padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
 .card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
+/* Als echter Link (a.card-cta-link) verwendbar: kein Default-Underline, Underline erst bei Hover, sichtbarer
+   Fokus-Ring. Gescoped auf a[…], damit die <span>-Nutzung in klickbaren .ep-card-link-Karten (kein Fremd-Hover) unberührt bleibt. */
+a.card-cta-link{display:inline-block;text-decoration:none}
+a.card-cta-link:hover{text-decoration:underline;text-underline-offset:2px}
+a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
 /* ── Offene Feature-Liste (flaches Icon-Layout, gruppiert nach Tier; Alternative zu Bild-Cards) ── */
 .ep-feature{display:flex;gap:var(--s4)}
 /* Icon-Kachel: Glyph hat AA-Kontrast zur Kachel — Core tx-secondary/n-100 5.3:1, Pro ki-800/ki-50 7.5:1.
@@ -1801,7 +1840,7 @@ img.logo-themed-light{display:none}
 .cta-dl[data-area="wo"] .cta-dl-icon{background:var(--wo-50);color:var(--wo-700)}
 .cta-dl-body{flex:1}
 .cta-dl-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
-.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-700)}
+.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-700)}   /* co-600 war nur 3,28:1 (Uppercase-Label < AA) → co-700 = 5,5:1; jetzt konsistent mit ki-800/es-700/wo-700 */
 .cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-800)}
 .cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-700)}
 .cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-700)}
