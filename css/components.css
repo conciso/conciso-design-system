@@ -102,18 +102,16 @@
    Der :checked-Zustand ist nur per Selektor stylbar (nicht inline), daher als echte
    Komponente. Das native Input bleibt fokussierbar (visuell versteckt), Auswahl per
    Klick aufs Label und per Pfeiltasten. Aktives Segment = solide Bereichsfüllung
-   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. Bewusst KEIN
-   overflow:hidden: der outset-Fokusring (--focus-aa) würde sonst abgeschnitten;
-   stattdessen runden die End-Labels ihre Außenecken (Innenradius = Außen − Rahmen). */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface)}
+   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
+   clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
+   dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
+.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+.seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
 .seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
 .seg-option input{position:absolute;width:1px;height:1px;opacity:0}
 .seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
-.seg-option:first-child label{border-radius:calc(var(--r-sm) - 1.5px) 0 0 calc(var(--r-sm) - 1.5px)}
-.seg-option:last-child label{border-radius:0 calc(var(--r-sm) - 1.5px) calc(var(--r-sm) - 1.5px) 0}
 .seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 .seg-option input:checked + label{background:var(--co-700);color:#fff}
-.seg-option input:focus-visible + label{outline:none;box-shadow:var(--focus-aa)}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
