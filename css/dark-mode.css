@@ -328,8 +328,8 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
-/* Segmented Control (dark): co-50-Grund flippt bereits auf #16302E; co-800-Text wäre dunkel-auf-dunkel → auf co-200 heben, Akzent-Ring auf helleres co-400. Analog zu den Badges. */
-[data-theme="dark"] .seg-option input:checked + label { color: var(--co-200); box-shadow: inset 0 0 0 1.5px var(--co-400) }
+/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
+[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */

@@ -495,8 +495,8 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
-/* Segmented Control (dark): co-50-Grund flippt bereits auf #16302E; co-800-Text wäre dunkel-auf-dunkel → auf co-200 heben, Akzent-Ring auf helleres co-400. Analog zu den Badges. */
-[data-theme="dark"] .seg-option input:checked + label { color: var(--co-200); box-shadow: inset 0 0 0 1.5px var(--co-400) }
+/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
+[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
@@ -983,14 +983,18 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    Native <input type="radio"> als verbundene Button-Gruppe (2–4 kurze Optionen).
    Der :checked-Zustand ist nur per Selektor stylbar (nicht inline), daher als echte
    Komponente. Das native Input bleibt fokussierbar (visuell versteckt), Auswahl per
-   Klick aufs Label und per Pfeiltasten. Aktives Segment nutzt die Badge-Tönung
-   (co-50/co-800, im Dark auf co-200 geflippt) + Akzent-Ring — AA in Light & Dark. */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+   Klick aufs Label und per Pfeiltasten. Aktives Segment = solide Bereichsfüllung
+   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. Bewusst KEIN
+   overflow:hidden: der outset-Fokusring (--focus-aa) würde sonst abgeschnitten;
+   stattdessen runden die End-Labels ihre Außenecken (Innenradius = Außen − Rahmen). */
+.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface)}
 .seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
 .seg-option input{position:absolute;width:1px;height:1px;opacity:0}
 .seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.seg-option:first-child label{border-radius:calc(var(--r-sm) - 1.5px) 0 0 calc(var(--r-sm) - 1.5px)}
+.seg-option:last-child label{border-radius:0 calc(var(--r-sm) - 1.5px) calc(var(--r-sm) - 1.5px) 0}
 .seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.seg-option input:checked + label{background:var(--co-50);color:var(--co-800);box-shadow:inset 0 0 0 1.5px var(--co-600)}
+.seg-option input:checked + label{background:var(--co-700);color:#fff}
 .seg-option input:focus-visible + label{outline:none;box-shadow:var(--focus-aa)}
 
 /* ── Area Tabs ── */
