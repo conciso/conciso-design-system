@@ -33,6 +33,8 @@ const preview: Preview = {
             ['Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Eingaben & Formulare',
             ['Textfeld', 'Textbereich', 'Auswahlfeld', 'Checkbox', 'Radio', 'Slider', 'Skala'],
+            'Dropdowns',
+            ['Custom Select', 'Combobox'],
             'Feedback',
             'Karten & Teaser',
             'Call to Action',
