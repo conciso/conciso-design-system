@@ -1373,7 +1373,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
 .cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
 .cb-lang{font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em;color:var(--co-700)}
-.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-400);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-500);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
