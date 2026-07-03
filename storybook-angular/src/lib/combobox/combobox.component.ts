@@ -10,6 +10,8 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroChevronDown, heroXMark } from '@ng-icons/heroicons/outline';
 import type { CdsArea } from '../area';
 import type { CdsSelectOption } from '../select/select.component';
 
@@ -29,6 +31,8 @@ let uid = 0;
 @Component({
   selector: 'cds-combobox',
   standalone: true,
+  imports: [NgIcon],
+  viewProviders: [provideIcons({ heroChevronDown, heroXMark })],
   template: `
     <div
       class="ep-combobox"
@@ -52,9 +56,7 @@ let uid = 0;
                 [attr.aria-label]="'Entfernen: ' + opt.label"
                 (click)="removeValue(opt.value, $event)"
               >
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="14" height="14">
-                  <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                <ng-icon name="heroXMark" size="14px" aria-hidden="true" />
               </button>
             </span>
           }
@@ -79,14 +81,10 @@ let uid = 0;
         />
         @if (query().length > 0) {
           <button type="button" class="ep-combobox-clear" aria-label="Eingabe löschen" (click)="clear($event)">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="16" height="16">
-              <path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18" />
-            </svg>
+            <ng-icon name="heroXMark" size="16px" aria-hidden="true" />
           </button>
         }
-        <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
+        <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
       </div>
       <ul class="ep-combobox-menu" role="listbox" [id]="ids.menu" [attr.aria-labelledby]="ids.label">
         @for (opt of filtered(); track opt.value; let i = $index) {

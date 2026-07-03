@@ -1,4 +1,6 @@
 import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroChevronDown, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
 
 /** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
@@ -31,7 +33,8 @@ export interface CdsNavItem {
 @Component({
   selector: 'cds-topnav',
   standalone: true,
-  imports: [ThemeCycleComponent],
+  imports: [ThemeCycleComponent, NgIcon],
+  viewProviders: [provideIcons({ heroChevronDown, heroMagnifyingGlass })],
   template: `
     <header [class]="navClasses">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">{{ logo }}</a>
@@ -47,9 +50,7 @@ export interface CdsNavItem {
                 (click)="toggleSub(i)"
               >
                 {{ item.label }}
-                <svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m2 4 3 3 3-3" />
-                </svg>
+                <ng-icon class="ep-nav-item-caret" name="heroChevronDown" size="10px" aria-hidden="true" />
               </button>
               <div class="ep-nav-sub">
                 @for (s of item.sub; track s.label) {
@@ -76,9 +77,7 @@ export interface CdsNavItem {
             [attr.aria-expanded]="searchOpen"
             (click)="toggleSearch()"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" />
-            </svg>
+            <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
           </button>
           <div class="ep-nav-search-pop">
             <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
