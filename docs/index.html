@@ -2776,6 +2776,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Rahmen-Kontrast (WCAG 1.4.11):</strong> Feld-Rahmen nutzen den modusbewussten Token <code class="token">--field-border</code> mit ≥&nbsp;3:1 gegen den Feld-Hintergrund (Light <code class="token">--n-400</code> ≈ 3,9:1; Dark <code class="token">--n-200</code> ≈ 5,8:1). Das frühere <code class="token">--n-200</code> verfehlte im Light-Mode mit ~1,5:1 die Non-Text-Contrast-Schwelle.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Textarea:</strong> <code class="token">resize:vertical</code> + <code class="token">max-width:100%</code> — nur vertikal vergrößerbar, damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Radio (Optionsfelder):</strong> für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Wie die Checkbox ein <strong>natives</strong> <code class="token">&lt;input type="radio"&gt;</code> mit <code class="token">accent-color</code> in der Bereichsfarbe — kein nachgebauter Kreis. Die Gruppe sitzt in einem <code class="token">&lt;fieldset&gt;</code> mit <code class="token">&lt;legend&gt;</code> (Gruppen-Label wie ein Feld-Label), sodass Screenreader Frage und Optionen als zusammengehörig ansagen; alle Optionen teilen denselben <code class="token">name</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Segmented Control:</strong> kompakte Alternative für 2–4 kurze, gleichrangige Optionen, die nebeneinander passen (bei längeren Labels oder Beschreibungen die Liste, ab etwa 6 Optionen ein Select). Ebenfalls <strong>native</strong> <code class="token">&lt;input type="radio"&gt;</code>, nur visuell versteckt und über gestylte <code class="token">&lt;label&gt;</code> als verbundene Buttons dargestellt (<code class="token">.seg</code>). Der Auswahl-Zustand (<code class="token">:checked</code>) lässt sich nicht inline setzen, daher ein kleines Komponenten-CSS wie bei <code class="token">.chip</code>. Bedienung und Semantik bleiben identisch zur Liste: <code class="token">&lt;fieldset&gt;</code>/<code class="token">&lt;legend&gt;</code>, gemeinsamer <code class="token">name</code>, Pfeiltasten-Navigation, sichtbarer Fokusring am Label.</p>
       <div style="max-width:480px">
         <div class="field">
           <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
@@ -2827,6 +2828,23 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <input type="radio" name="f-contact-pref" value="both" style="width:18px;height:18px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
               <span>Beides</span>
             </label>
+          </div>
+        </fieldset>
+        <fieldset style="border:0;padding:0;margin:0;min-inline-size:0">
+          <legend style="font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2);padding:0">Bevorzugter Kontaktweg (Segmented Control)</legend>
+          <div class="seg">
+            <div class="seg-option">
+              <input type="radio" id="seg-contact-email" name="f-contact-seg" value="email" checked>
+              <label for="seg-contact-email">E-Mail</label>
+            </div>
+            <div class="seg-option">
+              <input type="radio" id="seg-contact-phone" name="f-contact-seg" value="phone">
+              <label for="seg-contact-phone">Telefon</label>
+            </div>
+            <div class="seg-option">
+              <input type="radio" id="seg-contact-both" name="f-contact-seg" value="both">
+              <label for="seg-contact-both">Beides</label>
+            </div>
           </div>
         </fieldset>
       </div>
@@ -3302,6 +3320,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td>Textarea</td><td>Freitext-Nachrichten, mindestens 3 Zeilen Höhe, kein festes Maxlength</td></tr>
               <tr><td>Checkbox</td><td>Einwilligung (Newsletter, DSGVO), immer mit verlinktem Datenschutzhinweis</td></tr>
               <tr><td>Radio</td><td>2–6 sich gegenseitig ausschließende Optionen (z.&nbsp;B. bevorzugter Kontaktweg); für mehr Optionen ein Select, für Mehrfachauswahl Checkboxen</td></tr>
+              <tr><td>Segmented Control</td><td>Kompakte Radio-Variante für 2–4 kurze, gleichrangige Optionen nebeneinander (<code class="token">.seg</code>); bei längeren Labels/Beschreibungen die Radio-Liste</td></tr>
             </tbody>
           </table>
         </div>
