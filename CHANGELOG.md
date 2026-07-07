@@ -15,6 +15,21 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **Angebots-Detailseiten (Beispielseiten)**: Fünf neue Landingpages für einzelne Angebote unterhalb der
+  Bereiche, jeweils an den Bereich gebunden. Wirksame Organisationen: „Erste Hilfe bei Meetingflut"
+  (Festpreis 3.600 €), „Scrum Trainings" (Preiskarten Scrum.org/TÜV SÜD), „Lean Portfolio Management"
+  (Beratung ohne Festpreis). Effektive Software: „Identity mit Keycloak" (mit YouTube-Embeds) und
+  „Keycloak-Erweiterungen" (Festpreis 9.900 €). Die Bereichs-Tabs (ES, WO) sind dafür zu aufklappbaren
+  Baum-Tabs geworden; die „Konkrete Themen"-Einträge der Bereichsübersichten verlinken jetzt auf die Seiten.
+- **Video-Embed (Beispielseite Identity mit Keycloak)**: Zwei responsive YouTube-Embeds
+  (`youtube-nocookie.com`, 16:9 via `aspect-ratio`, `title`, kein Autoplay, `loading="lazy"`). Referenzen
+  (Social Proof) direkt nach der Lösung plus Mid-Page-CTA; Abschnitts-Hintergründe neu alterniert.
+- **Doku · Page-Pattern „Angebots-Detailseite"** (`#sec-leistung-detail`): Aufbau (Sektionsreihenfolge nach
+  Funnel-Logik), Angebots-Box (Festpreis-Box + „Für wen"), Preismodelle (Festpreis / mehrere Pakete /
+  Beratung ohne Festpreis), Cross-Links und Verwendung (Do/Don't).
+- **Doku · Barrierefreiheit „Video-Embed"** (`#gt-a11y-video`): `title`, Untertitel (WCAG 1.2.2),
+  Transkript/Audiodeskription, kein Autoplay, responsiv, Datenschutz, Sprach-Kennzeichnung, Tastatur;
+  inklusive Abgrenzung, was das DS liefert vs. was die Videoquelle liefern muss.
 - **KI-Wissensbeitrag (Beispielseite): Contentletter- + LinkedIn-CTA**: Nach „Weiterlesen" und vor dem
   finalen CTA-Band ein „Dranbleiben"-Block als offene Feature-Liste (`.ep-feature`, zwei `col-6`): „Food
   for your brain!" (Contentletter-Anmeldung) und „Stay connected!" (LinkedIn-Folgen, externer Link mit

@@ -400,6 +400,18 @@
           <a class="nav-sub-item" href="#gt-seminar-verwendung">Verwendung</a>
         </div>
       </li>
+      <li>
+        <button class="nav-item" data-section="leistung-detail">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z"/></svg>Angebots-Detailseite
+        </button>
+        <div class="nav-subnav" data-for="leistung-detail">
+          <a class="nav-sub-item" href="#gt-leistung-aufbau">Aufbau</a>
+          <a class="nav-sub-item" href="#gt-leistung-angebot">Angebots-Box</a>
+          <a class="nav-sub-item" href="#gt-leistung-preis">Preismodelle</a>
+          <a class="nav-sub-item" href="#gt-leistung-cross">Cross-Links</a>
+          <a class="nav-sub-item" href="#gt-leistung-verwendung">Verwendung</a>
+        </div>
+      </li>
     </ul>
 
     <h2 class="nav-section" id="navgrp-beispielseiten">Beispielseiten</h2>
@@ -7858,6 +7870,73 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Key-Facts inkl. Preis im Fakten-Strip früh zeigen, das Termine-Modul auch im Leerzustand bedienen.</span></li>
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Viele große Bilder pro Sektion. Wenige, platzierte Bilder halten den Lesefluss ruhig.</span></li>
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Buchungs-CTA nur ganz oben, ohne Anker am Seitenende.</span></li>
+      </ul>
+
+    </section>
+
+    <!-- ═══ ANGEBOTS-DETAILSEITE (Page-Pattern) ═══ -->
+    <section class="ds-section" id="sec-leistung-detail">
+      <h1 class="sec-title">Angebots-Detailseite</h1>
+      <p class="sec-sub">Page-Pattern für die Landingpage eines einzelnen Angebots unterhalb eines Bereichs, an den Bereich gebunden (<code class="token">data-accent</code>). Beispiele: <a class="body-link" href="#sec-examples" data-ep="wo-meetingflut">Erste Hilfe bei Meetingflut</a>, <a class="body-link" href="#sec-examples" data-ep="wo-scrum">Scrum Trainings</a>, <a class="body-link" href="#sec-examples" data-ep="wo-lpm">Lean Portfolio Management</a>, <a class="body-link" href="#sec-examples" data-ep="es-keycloak">Identity mit Keycloak</a>, <a class="body-link" href="#sec-examples" data-ep="es-keycloak-ext">Keycloak-Erweiterungen</a>.</p>
+
+      <h2 id="gt-leistung-aufbau" class="group-title">Aufbau</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Reihenfolge nach Funnel-Logik: Aufmerksamkeit → Problem → Lösung → Vertrauen → Abschluss. Nicht jede Sektion ist Pflicht; Fakten-Strip und Angebots-Box hängen am Preismodell (s.&nbsp;u.).</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Sektion</th><th>Inhalt</th><th>Hintergrund</th></tr></thead>
+        <tbody>
+          <tr><td>Topnav + Breadcrumb</td><td>Startseite / Bereich / Angebot; Leistungen + Bereich hervorgehoben</td><td>weiß</td></tr>
+          <tr><td>Hero</td><td>Hero-Image mit Caption; Eyebrow „Bereich · Kategorie", H1 = Angebot, Lead</td><td>Bild</td></tr>
+          <tr><td>Fakten-Strip <em>(optional)</em></td><td>Eckdaten Dauer · Umfang · Ergebnis · Preis als <code class="token">&lt;dl&gt;</code></td><td>weiß</td></tr>
+          <tr><td>Intro / Worum es geht</td><td>zweispaltig, Serif-Lead + Fließtext + Bild + CTAs</td><td><code class="token">--n-50</code></td></tr>
+          <tr><td>Problem / Herausforderung <em>(optional)</em></td><td>Karten oder leichte Textblöcke (Akzentbalken)</td><td>weiß</td></tr>
+          <tr><td>Ablauf / Lösung</td><td>nummerierte Schritte (<code class="token">&lt;ol&gt;</code>) oder Karten-Reihe</td><td><code class="token">--n-50</code></td></tr>
+          <tr><td>Angebots-Box + „Für wen" <em>(bei Festpreis)</em></td><td>zweispaltig: Preis-Box + Zielgruppe</td><td><code class="token">--n-50</code></td></tr>
+          <tr><td>Social Proof <em>(optional)</em></td><td>Referenzen / Experte, direkt nach der Lösung</td><td>wechselnd</td></tr>
+          <tr><td>Weiter im Thema</td><td>zwei Cross-Link-Karten</td><td>wechselnd</td></tr>
+          <tr><td>CTA-Band</td><td>Bereich-700, genau ein Handlungsaufruf</td><td>Bereich-700</td></tr>
+          <tr><td>Footer</td><td>Standard-Footer</td><td>grau</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Rhythmus:</strong> Flächen weiß/<code class="token">--n-50</code> strikt alternieren, keine zwei gleichen Hintergründe stapeln; kartentragende <code class="token">--n-50</code>-Sektionen mit <code class="token">.ep-section-cards</code>. Nur der Hero ist randlos, Zwischenbilder als <code class="token">.ep-media-band</code> content-breit.</p>
+
+      <h2 id="gt-leistung-angebot" class="group-title">Angebots-Box</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Für Festpreis-Angebote: zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>), links die Box, rechts eine „Für wen das passt"-Häkchenliste. Die Box folgt der Konvention <a class="body-link" href="#gt-cards-verwendung">„Elevation = Interaktivität"</a>: statisch, also flach mit Rahmen und Top-Akzent, <strong>kein Schatten</strong>.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Element</th><th>Umsetzung</th></tr></thead>
+        <tbody>
+          <tr><td>Container</td><td><code class="token">background:var(--bg-surface)</code>, <code class="token">border:var(--bd-strong)</code>, <code class="token">border-top:4px solid var(--XX-500)</code>, <code class="token">border-radius:var(--r-lg)</code>, <code class="token">padding:var(--s8)</code></td></tr>
+          <tr><td>Label</td><td><code class="token">--ty-label-xs</code>, uppercase, Bereichston über <code class="token">.t-XX</code> (z.&nbsp;B. „Festpreis · in 3 Wochen")</td></tr>
+          <tr><td>Preis</td><td><code class="token">--ty-display-sm</code> · <code class="token">--tx-primary</code>; MwSt.-Zusatz <code class="token">--ty-body-sm</code> · <code class="token">--tx-secondary</code></td></tr>
+          <tr><td>Leistungen</td><td>Häkchenliste, Haken über <code class="token">.t-XX</code> („✓"), Text <code class="token">--ty-body-md</code></td></tr>
+          <tr><td>CTA</td><td><code class="token">.btn-filled</code> in Bereichsfarbe → Kontaktseite (<code class="token">data-k-bereich</code>/<code class="token">data-k-anliegen</code>)</td></tr>
+          <tr><td>„Für wen"</td><td><code class="token">.col-5</code>-Häkchenliste, gleiche Haken, ohne Rahmen</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Fallstricke:</strong> Padding aus der Skala (es gibt <strong>kein</strong> <code class="token">--s7</code>, sonst fällt <code class="token">padding</code> auf 0). Farbige Haken/Labels immer über <code class="token">.t-XX</code> (dark-safe), nie Inline-Bereichsfarbe. Nicht den dünnen <code class="token">1px</code>-Rand nutzen: mit dem 4px-Top-Akzent entstehen sonst „Ohren" an den oberen Ecken, daher <code class="token">--bd-strong</code>.</p>
+
+      <h2 id="gt-leistung-preis" class="group-title">Preismodelle</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Drei Fälle, je nach Angebot:</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Modell</th><th>Darstellung</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>Festpreis</td><td>Fakten-Strip (mit Preis) + Angebots-Box</td><td>Meetingflut (3.600 €), Keycloak-Erweiterungen (9.900 €)</td></tr>
+          <tr><td>Mehrere Pakete / Varianten</td><td>Preiskarten je Variante, nach Anbieter gruppiert</td><td>Scrum Trainings (Scrum.org / TÜV SÜD)</td></tr>
+          <tr><td>Beratung ohne Festpreis</td><td>kein Preis; CTA „individuelles Angebot"</td><td>Lean Portfolio Management</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">MwSt.-Angabe (<code class="token">zzgl.</code>/<code class="token">inkl.</code>) immer aus der Quelle übernehmen und je Seite einheitlich halten. Preis nur <strong>einmal</strong> laut zeigen (Fakten-Strip <em>oder</em> Box), nicht mehrfach wiederholen.</p>
+
+      <h2 id="gt-leistung-cross" class="group-title">Cross-Links „Weiter im Thema"</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Am Seitenende vor dem CTA-Band zwei <code class="token">.ep-card-link</code>-Karten: zuerst Geschwister-Angebote im selben Bereich, dann ein Nachbar-Bereich als Cross-Sell. Titel als Frage, kurzer Text, <code class="token">.ep-card-cta</code> „… ansehen →". Verweise nur auf real existierende Seiten; „Landingpage folgt" bleibt ohne Link.</p>
+
+      <h2 id="gt-leistung-verwendung" class="group-title">Verwendung</h2>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3);max-width:760px">
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Genau ein CTA-Ziel pro Seite (Kontaktformular); Erst- und Schluss-CTA konsistent benennen.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Social Proof (Referenzen/Experte) direkt nach der Lösung, solange das Interesse hoch ist.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Nur die Sektionen bauen, die das Angebot trägt; ohne Preis keine leere Preis-Box.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehrere Card-Reihen stapeln. Leichte Textblöcke (Akzentbalken) zwischen den Card-Sektionen einstreuen.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Denselben Preis mehrfach laut wiederholen (Strip + Karte + Fließtext).</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Em-/En-Dashes in der Copy oder Sie-Anrede; das DS ist durchgängig du/ihr.</span></li>
       </ul>
 
     </section>
