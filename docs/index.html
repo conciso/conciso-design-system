@@ -154,6 +154,7 @@
           <a class="nav-sub-item" href="#gt-a11y-touch">Touch Targets</a>
           <a class="nav-sub-item" href="#gt-a11y-aria">ARIA Patterns</a>
           <a class="nav-sub-item" href="#gt-a11y-motion">Bewegung & Kontrast</a>
+          <a class="nav-sub-item" href="#gt-a11y-video">Video-Embed</a>
         </div>
       </li>
     </ul>
@@ -6487,6 +6488,55 @@ document.querySelectorAll(
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-top:var(--s6)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Zwei Scroll-Verhalten im System:</strong> (1) Cross-Section-Anker (Prosa-Links zwischen DS-Sektionen oder Customer-Pages) schalten erst die Ziel-Sektion aktiv und scrollen dann sanft. (2) In-Page-Anker innerhalb derselben Customer-Page (wie hier dokumentiert) scrollen direkt sanft. Beide respektieren <code class="token">prefers-reduced-motion</code>; native Anker auf der DS-Doku-Seite selbst (Side-Nav-Items mit <code class="token">#gt-…</code>) folgen demselben Pattern.</p>
+      </div>
+      <h2 id="gt-a11y-video" class="group-title">Video-Embed</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6);max-width:760px">Videos (z.&nbsp;B. YouTube) werden als responsiver <code class="token">&lt;iframe&gt;</code> eingebunden. Ein Großteil der Barrierefreiheit hängt am <strong>Videoinhalt selbst</strong> (Untertitel, Transkript) und lässt sich nicht allein über das Embed erzwingen. Die folgenden Punkte sind bei jeder Einbindung zu beachten.</p>
+      <div class="a11y-grid">
+        <div class="a11y-card">
+          <h3>iframe braucht <code>title</code></h3>
+          <p>Jeder Video-iframe bekommt einen aussagekräftigen <code>title</code> (WCAG 4.1.2). Screenreader kündigen den Frame damit benannt an, statt nur „Frame" zu melden.</p>
+          <div class="code-block"><span class="k">&lt;iframe</span>
+  <span class="v">src</span>=<span class="s">"https://www.youtube-nocookie.com/embed/ID"</span>
+  <span class="v">title</span>=<span class="s">"Was ist Keycloak? Erklärt von …"</span>
+  <span class="v">loading</span>=<span class="s">"lazy"</span>
+  <span class="v">referrerpolicy</span>=<span class="s">"strict-origin-when-cross-origin"</span>
+  <span class="v">allowfullscreen</span>
+  <span class="v">style</span>=<span class="s">"width:100%;aspect-ratio:16/9;
+         border:0;border-radius:var(--r-lg)"</span><span class="k">&gt;&lt;/iframe&gt;</span></div>
+        </div>
+        <div class="a11y-card">
+          <h3>Untertitel (WCAG 1.2.2, AA)</h3>
+          <p>Aufgezeichnete Videos brauchen <strong>Untertitel</strong>. Automatische YouTube-Untertitel allein erfüllen die Anforderung nicht (Qualität, Zeichensetzung). Fremdsprachige Videos: Untertitel in der <strong>Seitensprache</strong> anbieten, ein englisches Video auf einer deutschen Seite also mit deutschen Untertiteln.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Transkript &amp; Audiodeskription</h3>
+          <p>Ein <strong>Transkript</strong> in der Nähe des Videos hilft allen, die es nicht abspielen (können), und dient Suchmaschinen. Enthält das Bild Informationen, die im Ton fehlen, ist zusätzlich eine <strong>Audiodeskription</strong> nötig (WCAG 1.2.3/1.2.5).</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Kein Autoplay</h3>
+          <p>Nie <code>autoplay=1</code> setzen. Ton und Bewegung starten erst auf Klick, das schützt Screenreader-, Kognition- und bewegungsempfindliche Nutzer:innen (WCAG 1.4.2, 2.2.2) und respektiert <code class="token">prefers-reduced-motion</code>.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Responsiv &amp; ohne Rahmen</h3>
+          <p><code>width:100%</code> plus <code>aspect-ratio:16/9</code> hält das Video seitenbreit und ohne horizontales Scrollen. <code>border:0</code> und <code>border-radius:var(--r-lg)</code> fügen es ins Medien-Bild-Vokabular ein (wie Hero-Image und Akzentbilder).</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Datenschutz</h3>
+          <p>Einbindung über <code>youtube-nocookie.com</code> und <code>loading="lazy"</code> reduziert Tracking und Ladelast. Für die produktive Seite gilt zusätzlich: erst nach <strong>Einwilligung laden</strong> (Klick-zum-Laden / Consent), da beim Abspielen Cookies gesetzt werden.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Sprache kennzeichnen</h3>
+          <p>Weicht die Videosprache von der Seitensprache ab, im umgebenden Text ausweisen (z.&nbsp;B. „Videosprache Englisch"). So wissen Nutzer:innen vorab, was sie erwartet.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Fokus &amp; Tastatur</h3>
+          <p>Der YouTube-Player ist tastaturbedienbar und seine Controls sind beschriftet, das muss man nicht selbst bauen. Der iframe ist fokussierbar; keine positiven <code>tabindex</code>-Werte vergeben, die die Reihenfolge stören.</p>
+        </div>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-top:var(--s6)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Was das Design-System liefert vs. was der Videoinhalt liefern muss:</strong> Embed-seitig sind <code class="token">title</code>, kein Autoplay, responsives 16:9, Datenschutz-Host und Sprach-Hinweis abgedeckt. <strong>Untertitel, Transkript und Audiodeskription</strong> hängen an der Videoquelle und müssen beim Upload hinterlegt werden, das kann das DS nicht erzwingen.</p>
       </div>
     </section>
 
@@ -12824,13 +12874,28 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
           </div>
         </div>
+        <!-- Referenzen (Social Proof, direkt nach der Lösung) + Mid-Page-CTA -->
+        <div class="ep-section" style="background:var(--bg-surface);text-align:center">
+          <div class="ep-section-label t-es" style="justify-content:center">Referenzen</div>
+          <h2 class="ep-section-h2">Unternehmen, die mit Keycloak Identitäten verwalten.</h2>
+          <p class="ep-section-sub" style="margin-inline:auto">Einfach, schnell und flexibel, quer durch Konzern, Forschung und Mittelstand.</p>
+          <!-- Platzhalter-Tiles für Kundenlogos (echte Logos folgen) -->
+          <ul style="list-style:none;margin:var(--s8) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4)">
+            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Thyssenkrupp</li>
+            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Berbel</li>
+            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Röhner Energie</li>
+            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Fraunhofer</li>
+            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Smallpdf</li>
+          </ul>
+          <p style="margin:var(--s10) 0 0"><a class="btn btn-filled btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Identitäts-Management mit Keycloak">Kostenloses Informationsgespräch</a></p>
+        </div>
         <!-- Der Experte: Sven-Torben Janus -->
-        <div class="ep-section" style="background:var(--bg-surface)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-es">Der Experte</div>
           <h2 class="ep-section-h2">Was ist Keycloak, und warum hilft es dir?</h2>
           <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
             <div class="col-5">
-              <img src="assets/images/2023-02-21_Conciso_124.jpg" alt="Sven-Torben Janus, lächelnd am Laptop im Conciso-Büro" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+              <iframe src="https://www.youtube-nocookie.com/embed/M0V9tML9QNg" title="Was ist Keycloak und warum hilft es dir? Erklärt von Sven-Torben Janus" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg);display:block"></iframe>
             </div>
             <div class="col-7">
               <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Sven-Torben Janus</p>
@@ -12839,20 +12904,14 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <a class="btn btn-outlined btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Keycloak: Gespräch mit Sven-Torben">Gespräch mit Sven-Torben vereinbaren</a>
             </div>
           </div>
-        </div>
-        <!-- Referenzen: Unternehmen (Platzhalter für Logos) -->
-        <div class="ep-section" style="background:var(--n-50);text-align:center">
-          <div class="ep-section-label t-es" style="justify-content:center">Referenzen</div>
-          <h2 class="ep-section-h2">Unternehmen, die mit Keycloak Identitäten verwalten.</h2>
-          <p class="ep-section-sub" style="margin-inline:auto">Einfach, schnell und flexibel, quer durch Konzern, Forschung und Mittelstand.</p>
-          <!-- Platzhalter-Tiles für Kundenlogos (echte Logos folgen) -->
-          <ul style="list-style:none;margin:var(--s8) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4)">
-            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Thyssenkrupp</li>
-            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Berbel</li>
-            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Röhner Energie</li>
-            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Fraunhofer</li>
-            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Smallpdf</li>
-          </ul>
+          <!-- Zusammenarbeit mit weiteren Keycloak-Experten (zweites Video) -->
+          <div style="margin-top:var(--s12);padding-top:var(--s10);border-top:var(--bd)">
+            <h2 class="ep-section-h2">Zusammenarbeit mit weiteren Keycloak-Experten.</h2>
+            <p class="ep-section-sub">Sven-Torben stellt seine Keycloak-Erweiterung auf dem YouTube-Kanal von Niko Köbler vor (Videosprache Englisch).</p>
+            <div style="max-width:760px;margin-top:var(--s6)">
+              <iframe src="https://www.youtube-nocookie.com/embed/eQjOCrcit24" title="Zusammenarbeit mit weiteren Keycloak-Experten: Sven-Torben Janus auf dem YouTube-Kanal von Niko Köbler" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg);display:block"></iframe>
+            </div>
+          </div>
         </div>
         <!-- Weiter im Thema -->
         <div class="ep-section" style="background:var(--bg-surface)">
