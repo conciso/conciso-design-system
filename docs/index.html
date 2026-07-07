@@ -12958,14 +12958,19 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-section-label t-es" style="justify-content:center">Referenzen</div>
           <h2 class="ep-section-h2">Unternehmen, die mit Keycloak Identitäten verwalten.</h2>
           <p class="ep-section-sub" style="margin-inline:auto">Einfach, schnell und flexibel, quer durch Konzern, Forschung und Mittelstand.</p>
-          <!-- Platzhalter-Tiles für Kundenlogos (echte Logos folgen) -->
-          <ul style="list-style:none;margin:var(--s8) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4)">
-            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Thyssenkrupp</li>
-            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Berbel</li>
-            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Röhner Energie</li>
-            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Fraunhofer</li>
-            <li style="background:var(--n-50);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Smallpdf</li>
-          </ul>
+          <!-- Statische Logo-Reihe im DS-Logo-Stil (.logo-tile/.logo-placeholder auf fest weißer Platte,
+               bleibt in beiden Themes weiß). Karussell bewusst NICHT genutzt: bei nur 5 Logos ist eine
+               statische Reihe besser (alles auf einen Blick, keine Bewegung). Für echte Logos je
+               <span class="logo-placeholder">…</span> durch <img src="assets/images/logo-….svg" alt="… Logo"> ersetzen. -->
+          <div style="background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6);margin-top:var(--s8)">
+            <ul style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:var(--s5) var(--s8)">
+              <li class="logo-tile"><span class="logo-placeholder">Thyssenkrupp</span></li>
+              <li class="logo-tile"><span class="logo-placeholder">Berbel</span></li>
+              <li class="logo-tile"><span class="logo-placeholder">Röhner Energie</span></li>
+              <li class="logo-tile"><span class="logo-placeholder">Fraunhofer</span></li>
+              <li class="logo-tile"><span class="logo-placeholder">Smallpdf</span></li>
+            </ul>
+          </div>
           <p style="margin:var(--s10) 0 0"><a class="btn btn-filled btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Identitäts-Management mit Keycloak">Kostenloses Informationsgespräch</a></p>
         </div>
         <!-- Der Experte: Sven-Torben Janus -->
