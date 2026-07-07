@@ -7846,6 +7846,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div class="ep-tab-children" id="eptabsub-es" role="presentation">
                 <button class="ep-tab" role="tab" aria-selected="false" aria-label="Effektive Software · Effizientes Identitäts-Management mit Keycloak" data-ep="es-keycloak" id="eptab-es-keycloak" aria-controls="ep-es-keycloak">Identity mit Keycloak</button>
+                <button class="ep-tab" role="tab" aria-selected="false" aria-label="Effektive Software · Maßgeschneiderte Keycloak-Erweiterungen zum Festpreis" data-ep="es-keycloak-ext" id="eptab-es-keycloak-ext" aria-controls="ep-es-keycloak-ext">Keycloak-Erweiterungen</button>
               </div>
             </div>
             <div class="ep-tab-node">
@@ -11417,7 +11418,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-feature-body">
                 <h3 class="ep-feature-title">Maßgeschneiderte Keycloak-Erweiterungen: Jetzt zum Festpreis!</h3>
                 <p class="ep-feature-text">Individuelle Themes, Flows und Extensions für Keycloak, planbar umgesetzt zum vorab vereinbarten Festpreis.</p>
-                <a class="card-cta-link" data-area="es" href="#sec-examples" aria-label="Zur Landingpage: Maßgeschneiderte Keycloak-Erweiterungen zum Festpreis">Zur Landingpage <span aria-hidden="true">→</span></a>
+                <a class="card-cta-link" data-area="es" href="#sec-examples" data-ep="es-keycloak-ext" aria-label="Zur Landingpage: Maßgeschneiderte Keycloak-Erweiterungen zum Festpreis">Zur Landingpage <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="ep-feature col-6">
@@ -12766,7 +12767,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-5">
-              <img src="assets/images/entwicklung-laptop.jpg" alt="Entwickler:in konzentriert am Laptop" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+              <img src="assets/images/2023-02-21_Conciso_132.jpg" alt="Conciso-Entwickler besprechen zu viert eine Lösung an einem Laptop" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
             </div>
           </div>
         </div>
@@ -12879,6 +12880,269 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-cta-h2">Machen wir dein IAM einfacher.</h2>
           <p class="ep-cta-sub">Ob erster Keycloak-Einsatz oder Optimierung deiner IAM-Landschaft: In einem kostenlosen Gespräch klären wir viele deiner Fragen und geben erste konkrete Tipps.</p>
           <a class="btn btn-filled btn-es btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Identitäts-Management mit Keycloak">Informationsgespräch vereinbaren</a>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="kontakt">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── EFFEKTIVE SOFTWARE · MASSGESCHNEIDERTE KEYCLOAK-ERWEITERUNGEN ── -->
+      <div class="ep-page" id="ep-es-keycloak-ext" data-accent="es" role="tabpanel" aria-labelledby="eptab-es-keycloak-ext" tabindex="0">
+        <a class="skip-link" href="#ep-es-keycloak-ext-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + Software hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
+              </div>
+            </div>
+          </nav>
+          <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
+        </div>
+        <!-- Breadcrumb: Startseite / Effektive Software / Keycloak-Erweiterungen -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="es">Effektive Software</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Keycloak-Erweiterungen</span>
+          </nav>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-es-keycloak-ext-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="assets/images/entwickler-gespraech.jpg" alt="Zwei Entwickler im Gespräch an einem MacBook" loading="eager" style="object-position:center 40%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Effektive Software · Keycloak</p>
+            <h1 class="hero-image-caption-title">Maßgeschneiderte Keycloak-Erweiterungen zum Festpreis.</h1>
+            <p class="hero-image-caption-text">Authenticator- und Theme-Extensions, genau auf deine Anforderungen zugeschnitten, nahtlos integriert und sicher. In drei Wochen, zum festen Preis.</p>
+          </figcaption>
+        </figure>
+        <!-- Fakten-Strip: Angebot auf einen Blick -->
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
+          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s5) var(--s6);margin:0">
+            <div>
+              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Leistung</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Authenticator- oder Theme-Extension</dd>
+            </div>
+            <div>
+              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Dauer</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">3 Wochen</dd>
+            </div>
+            <div>
+              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Ergebnis</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">JAR-File und Source-Code</dd>
+            </div>
+            <div>
+              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Preis</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">9.900 € Festpreis</dd>
+            </div>
+          </dl>
+        </div>
+        <!-- Die Ausgangslage: Intro mit Bild -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label t-es">Die Ausgangslage</div>
+              <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">Authentifizierung ist kein Randthema. Sie entscheidet über den Schutz eurer Daten.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">Wir haben uns auf maßgeschneiderte Erweiterungen für Keycloak spezialisiert: Authenticator und Themes, die genau das tun, was der Standard nicht abdeckt. Unsere Keycloak-Expert:innen bringen viel Erfahrung mit, arbeiten eng mit dir zusammen und liefern agil im festen Zeitrahmen.</p>
+              <div class="ep-hero-ctas">
+                <a class="btn btn-filled btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Maßgeschneiderte Keycloak-Erweiterung">Erweiterung beauftragen</a>
+                <a class="btn btn-outlined btn-es" href="#kcext-ablauf">Wie es abläuft</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <img src="assets/images/security-keycloak.jpg" alt="Laptop neben einem USB-Sicherheitsschlüssel mit Schlüssel-Symbol" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center 62%;border-radius:var(--r-lg)">
+            </div>
+          </div>
+        </div>
+        <!-- So unterstützen wir: 3 Schritte -->
+        <div class="ep-section" id="kcext-ablauf" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-es">So unterstützen wir dich</div>
+          <h2 class="ep-section-h2">In drei Schritten zur Erweiterung.</h2>
+          <p class="ep-section-sub">Von der Anforderung bis zur Auslieferung, in drei Wochen zum Festpreis.</p>
+          <ol class="layout-grid" style="list-style:none;margin:var(--s8) 0 0;padding:0">
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">01</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--es-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Anforderungserhebung</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wir klären deine Ziele und Wünsche und schneiden daraus eine individuelle Lösung zu.</p>
+            </li>
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">02</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--es-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Umsetzung</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wir entwickeln deinen Authenticator oder dein Theme, abgesichert durch automatisierte Tests, und halten dich unterwegs auf dem Laufenden.</p>
+            </li>
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">03</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--es-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Auslieferung</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Du bekommst deine Erweiterung als JAR-File samt Source-Code, stabil, performant und nahtlos integrierbar.</p>
+            </li>
+          </ol>
+        </div>
+        <!-- Angebot + Für wen -->
+        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+          <div class="ep-section-label t-es">Das Angebot</div>
+          <h2 class="ep-section-h2">Ein Preis, ein klares Ergebnis.</h2>
+          <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
+            <div class="col-7">
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--es-500);border-radius:var(--r-lg);padding:var(--s8)">
+                <p class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Festpreis · in 3 Wochen</p>
+                <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0 0 var(--s5);line-height:1">9.900 €</p>
+                <ul style="list-style:none;margin:0 0 var(--s6);padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Maßgeschneiderte Authenticator- oder Theme-Extension</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Nahtlose Integration in deine bestehende Plattform</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Funktionalität durch automatisierte Tests abgesichert</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>JAR-File und Source-Code der Erweiterung</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Optional: Support und Wartung im Nachgang</span></li>
+                </ul>
+                <a class="btn btn-filled btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Maßgeschneiderte Keycloak-Erweiterung">Keycloak-Erweiterung beauftragen</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <p class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s3)">Für wen das passt</p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s4)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Ihr wollt eure Keycloak-Plattform gezielt verbessern.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Mehr Sicherheit und Benutzerfreundlichkeit im Login.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Eine spezifische Anforderung, die der Standard nicht abdeckt.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Planbarkeit durch Festpreis und feste Laufzeit.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Kostprobe: Sven-Torben Janus -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-es">Kostprobe gefällig?</div>
+          <h2 class="ep-section-h2">Sieh dir eine Erweiterung an.</h2>
+          <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
+            <div class="col-5">
+              <img src="assets/images/2023-02-21_Conciso_124.jpg" alt="Sven-Torben Janus, lächelnd am Laptop im Conciso-Büro" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+            <div class="col-7">
+              <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Sven-Torben Janus</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 var(--s4)">Keycloak-Experte · Conciso</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Sven-Torben stellt eine seiner Keycloak-Erweiterungen auf dem YouTube-Kanal von Niko Köbler vor (Videosprache Englisch). Ein guter Eindruck davon, was mit einer maßgeschneiderten Extension möglich ist, und wie sauber sie sich in eine bestehende Plattform einfügt.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Weiter im Thema -->
+        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+          <div class="ep-section-label t-es">Weiter im Thema</div>
+          <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
+          <p class="ep-section-sub">Eine Erweiterung ist der eine Weg. Manchmal geht es um das ganze Identity-Management oder um mehr als nur Keycloak.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
+            <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es-keycloak" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Keycloak erst einführen oder optimieren?</h3>
+              <div class="ep-card-text">Effizientes Identitäts-Management mit Keycloak, einfacher, schneller und flexibler.</div>
+              <div class="ep-card-cta">Identity mit Keycloak ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Die ganze Bandbreite effektiver Software?</h3>
+              <div class="ep-card-text">Architektur, Entwicklung und sicherer Zugriff, aus einer Hand gedacht.</div>
+              <div class="ep-card-cta">Effektive Software ansehen <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--es-700);color:#fff">
+          <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Interessiert?</p>
+          <h2 class="ep-cta-h2">Deine Keycloak-Erweiterung, in 3 Wochen.</h2>
+          <p class="ep-cta-sub">Lass uns gemeinsam deine Anforderungen besprechen. Zum Festpreis von 9.900 €, mit klarem Ergebnis und fester Laufzeit.</p>
+          <a class="btn btn-filled btn-es btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Maßgeschneiderte Keycloak-Erweiterung">Keycloak-Erweiterung beauftragen</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
