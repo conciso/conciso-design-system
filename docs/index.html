@@ -7847,6 +7847,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div class="ep-tab-children" id="eptabsub-wo" role="presentation">
                 <button class="ep-tab" role="tab" aria-selected="false" aria-label="Wirksame Organisationen · Erste Hilfe bei Meetingflut" data-ep="wo-meetingflut" id="eptab-wo-meetingflut" aria-controls="ep-wo-meetingflut">Erste Hilfe bei Meetingflut</button>
+                <button class="ep-tab" role="tab" aria-selected="false" aria-label="Wirksame Organisationen · Scrum Trainings" data-ep="wo-scrum" id="eptab-wo-scrum" aria-controls="ep-wo-scrum">Scrum Trainings</button>
               </div>
             </div>
           </div>
@@ -11709,7 +11710,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-feature-body">
                 <h3 class="ep-feature-title">Scrum Training</h3>
                 <p class="ep-feature-text">Praxisnahe Trainings für Teams und Rollen, vom Einstieg bis zur vertieften Moderation.</p>
-                <a class="card-cta-link" data-area="wo" href="#sec-examples" aria-label="Zur Landingpage: Scrum Training">Zur Landingpage <span aria-hidden="true">→</span></a>
+                <a class="card-cta-link" data-area="wo" href="#sec-examples" data-ep="wo-scrum" aria-label="Zur Landingpage: Scrum Trainings">Zur Landingpage <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="ep-feature col-6">
@@ -12071,6 +12072,305 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-cta-h2">Sag deinem Kalender den Kampf an.</h2>
           <p class="ep-cta-sub">Du schilderst, wo es bei euch klemmt, wir geben eine erste Einschätzung, woran die Meetingflut liegen könnte und wie die Erste Hilfe bei euch aussehen würde. Unverbindlich.</p>
           <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Erste Hilfe bei Meetingflut">Erste Hilfe anfragen</a>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="kontakt">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── WIRKSAME ORGANISATIONEN · SCRUM TRAININGS ── -->
+      <div class="ep-page" id="ep-wo-scrum" data-accent="wo" role="tabpanel" aria-labelledby="eptab-wo-scrum" tabindex="0">
+        <a class="skip-link" href="#ep-wo-scrum-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + Organisation hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
+              </div>
+            </div>
+          </nav>
+          <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
+        </div>
+        <!-- Breadcrumb: Startseite / Wirksame Organisationen / Scrum Trainings -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Scrum Trainings</span>
+          </nav>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-wo-scrum-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="assets/images/workshop-praesentation.jpg" alt="Trainer präsentiert vor einer Gruppe in einem Scrum-Training" loading="eager" style="object-position:center 35%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Wirksame Organisationen · Trainings</p>
+            <h1 class="hero-image-caption-title">Scrum, das im Alltag trägt.</h1>
+            <p class="hero-image-caption-text">Zertifizierte Trainings zum Scrum Master und Product Owner, in Kooperation mit Scrum.org und TÜV SÜD. Praxisnah, mit echten Beispielen und einem anerkannten Zertifikat am Ende.</p>
+          </figcaption>
+        </figure>
+        <!-- Fakten-Strip: Key-Facts auf einen Blick -->
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
+          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s5) var(--s6);margin:0">
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Dauer</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">2 Tage</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Gruppe</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">max. 12 Personen</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Format</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Präsenz (Dortmund) &amp; Remote</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Sprache</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Deutsch oder Englisch</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Zertifikat</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Scrum.org &amp; TÜV SÜD</dd>
+            </div>
+          </dl>
+        </div>
+        <!-- Warum bei uns: Intro mit Bild -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label t-wo">Warum bei uns</div>
+              <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">Scrum versteht man nicht durch Zuhören, sondern durchs Tun.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">In Kooperation mit Scrum.org und TÜV SÜD bieten wir zertifizierte Trainings zum Scrum Master und Product Owner. Die Grundlagen von Scrum vermitteln wir mit praktischen Übungen und zahlreichen Beispielen aus echten Projekten, damit du das Gelernte am Montag danach direkt anwenden kannst.</p>
+              <div class="ep-hero-ctas">
+                <a class="btn btn-filled btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Trainings">Termine anfragen</a>
+                <a class="btn btn-outlined btn-wo" href="#scrum-kurse">Kurse ansehen</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <img src="assets/images/flipchart-diskussion.jpg" alt="Gruppe arbeitet gemeinsam an einem Flipchart mit Klebezetteln" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+          </div>
+        </div>
+        <!-- Zwei Wege: Scrum Master oder Product Owner (Lerninhalte) -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-wo">Zwei Wege</div>
+          <h2 class="ep-section-h2">Scrum Master oder Product Owner.</h2>
+          <p class="ep-section-sub">Je nach Rolle setzt das Training andere Schwerpunkte.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Scrum Master</h3>
+              <div class="ep-card-text">Du lernst den empirischen Prozess kennen, die unterschiedlichen Rollen und ihre Aufgaben, den Sinn und Zweck der Scrum-Meetings und die Rolle der Artefakte Product Backlog, Sprint Backlog und Increment.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Product Owner</h3>
+              <div class="ep-card-text">Du lernst, mit wertorientiertem Vorgehen den wirtschaftlichen Erfolg zu sichern, eine klare Produktvision zu formulieren und über professionelle Pflege des Product Backlog wirksam mit dem Development Team zusammenzuarbeiten.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Bild-Akzent -->
+        <figure class="ep-media-band" style="margin:var(--s12) 0;height:clamp(260px,30vw,400px);overflow:hidden">
+          <img src="assets/images/workshop-zuhoeren.jpg" alt="Teilnehmende hören in einem Training aufmerksam zu" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
+        </figure>
+        <!-- Trainings & Zertifizierungen: Preiskarten je Partner -->
+        <div class="ep-section ep-section-cards" id="scrum-kurse" style="background:var(--n-50)">
+          <div class="ep-section-label t-wo">Trainings &amp; Zertifizierungen</div>
+          <h2 class="ep-section-h2">Zertifizierung, die zählt.</h2>
+          <p class="ep-section-sub">Zwei anerkannte Wege: die international etablierten Scrum.org-Assessments oder die Zertifizierung über den TÜV SÜD. Alle Preise verstehen sich zzgl. MwSt.</p>
+
+          <!-- Scrum.org -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s8) 0 var(--s5)">Mit Scrum.org</h3>
+          <div class="layout-grid" style="align-items:stretch">
+            <div class="col-6" style="display:flex;flex-direction:column;background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--wo-500);border-radius:var(--r-lg);padding:var(--s6)">
+              <div class="ep-card-eyebrow" data-area="wo">Scrum.org</div>
+              <h3 class="ep-card-title" style="margin-top:0">Professional Scrum Master™</h3>
+              <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:var(--s2) 0 var(--s5);line-height:1">1.450 €<span style="font:var(--ty-body-sm);color:var(--tx-secondary)"> zzgl. MwSt.</span></p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Assessment-Gebühr für die Zertifizierung Level I (PSM I)</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Rabattgutschein für das Assessment PSM II</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Kursunterlagen</span></li>
+              </ul>
+              <div style="margin-top:auto;padding-top:var(--s6)">
+                <a class="btn btn-filled btn-wo btn-full" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Training: Professional Scrum Master (Scrum.org)">Termin anfragen</a>
+              </div>
+            </div>
+            <div class="col-6" style="display:flex;flex-direction:column;background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--wo-500);border-radius:var(--r-lg);padding:var(--s6)">
+              <div class="ep-card-eyebrow" data-area="wo">Scrum.org</div>
+              <h3 class="ep-card-title" style="margin-top:0">Professional Scrum Product Owner™</h3>
+              <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:var(--s2) 0 var(--s5);line-height:1">1.450 €<span style="font:var(--ty-body-sm);color:var(--tx-secondary)"> zzgl. MwSt.</span></p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Assessment-Gebühr für die Zertifizierung Level I (PSPO I)</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Rabattgutschein für das Assessment PSPO II</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Kursunterlagen</span></li>
+              </ul>
+              <div style="margin-top:auto;padding-top:var(--s6)">
+                <a class="btn btn-filled btn-wo btn-full" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Training: Professional Scrum Product Owner (Scrum.org)">Termin anfragen</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- TÜV SÜD -->
+          <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s5)">Mit TÜV SÜD</h3>
+          <div class="layout-grid" style="align-items:stretch">
+            <div class="col-6" style="display:flex;flex-direction:column;background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--wo-500);border-radius:var(--r-lg);padding:var(--s6)">
+              <div class="ep-card-eyebrow" data-area="wo">TÜV SÜD</div>
+              <h3 class="ep-card-title" style="margin-top:0">Scrum Master</h3>
+              <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:var(--s2) 0 var(--s5);line-height:1">980 €<span style="font:var(--ty-body-sm);color:var(--tx-secondary)"> zzgl. MwSt.</span></p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Training zur Zertifizierung durch den TÜV SÜD</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Kursunterlagen</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Prüfungsgebühren zusätzlich: Foundation 210 €, Master 229 €</span></li>
+              </ul>
+              <div style="margin-top:auto;padding-top:var(--s6)">
+                <a class="btn btn-filled btn-wo btn-full" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Training: Scrum Master (TÜV SÜD)">Termin anfragen</a>
+              </div>
+            </div>
+            <div class="col-6" style="display:flex;flex-direction:column;background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--wo-500);border-radius:var(--r-lg);padding:var(--s6)">
+              <div class="ep-card-eyebrow" data-area="wo">TÜV SÜD</div>
+              <h3 class="ep-card-title" style="margin-top:0">Scrum Product Owner</h3>
+              <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:var(--s2) 0 var(--s5);line-height:1">980 €<span style="font:var(--ty-body-sm);color:var(--tx-secondary)"> zzgl. MwSt.</span></p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Training zur Zertifizierung durch den TÜV SÜD</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Kursunterlagen</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Prüfungsgebühren zusätzlich: Foundation 210 €, Master 229 €</span></li>
+              </ul>
+              <div style="margin-top:auto;padding-top:var(--s6)">
+                <a class="btn btn-filled btn-wo btn-full" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Training: Scrum Product Owner (TÜV SÜD)">Termin anfragen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Trainer:innen -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-wo">Trainer:innen</div>
+          <h2 class="ep-section-h2">Aus der Praxis, nicht aus dem Lehrbuch.</h2>
+          <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
+            <div class="col-5">
+              <img src="assets/images/meetup-speaker.jpg" alt="Trainer mit Mikrofon, lächelnd vor einer Gruppe" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+            <div class="col-7">
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Unsere Trainer:innen sind zertifiziert und stehen selbst seit Jahren in internationalen IT-Projekten. Sie kennen die Situationen, in denen Scrum trägt, und die, in denen es hakt, und geben genau dieses Erfahrungswissen weiter. Kein Framework-Vortrag von der Folie, sondern Antworten auf die Fragen, die in eurem Alltag wirklich auftauchen.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Weiter im Thema -->
+        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+          <div class="ep-section-label t-wo">Weiter im Thema</div>
+          <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
+          <p class="ep-section-sub">Ein Training ist ein Einstieg. Wenn es um die Zusammenarbeit im Alltag oder die ganze Organisation geht, begleiten wir auch darüber hinaus.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
+            <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="wo-meetingflut" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Zu viele Meetings, zu wenig Wirkung?</h3>
+              <div class="ep-card-text">Ein kompaktes Assessment, das deinen Kalender wieder in Ordnung bringt.</div>
+              <div class="ep-card-cta">Erste Hilfe bei Meetingflut <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Die ganze Organisation wirksam aufstellen?</h3>
+              <div class="ep-card-text">Organisationsentwicklung, Führung und agile Arbeitsweisen als Ganzes gedacht.</div>
+              <div class="ep-card-cta">Wirksame Organisationen ansehen <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
+          <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Termine &amp; Inhouse</p>
+          <h2 class="ep-cta-h2">Das passende Training für dein Team.</h2>
+          <p class="ep-cta-sub">Feste Termine oder ein Inhouse-Training exklusiv für dein Team: Sag uns, worum es geht, und wir finden das passende Format und den passenden Termin.</p>
+          <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Scrum Trainings">Training anfragen</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
