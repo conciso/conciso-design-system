@@ -7840,7 +7840,15 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
-            <button class="ep-tab" role="tab" aria-selected="false" data-ep="wo" id="eptab-wo" aria-controls="ep-wo">Wirksame Organisationen</button>
+            <div class="ep-tab-node">
+              <div class="ep-tab-parent">
+                <button class="ep-tab" role="tab" aria-selected="false" data-ep="wo" id="eptab-wo" aria-controls="ep-wo">Wirksame Organisationen</button>
+                <button class="ep-tab-toggle" type="button" aria-expanded="false" aria-controls="eptabsub-wo" aria-label="Unterseiten von Wirksame Organisationen ein- und ausklappen"><svg class="ep-tab-toggle-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+              <div class="ep-tab-children" id="eptabsub-wo" role="presentation">
+                <button class="ep-tab" role="tab" aria-selected="false" aria-label="Wirksame Organisationen · Erste Hilfe bei Meetingflut" data-ep="wo-meetingflut" id="eptab-wo-meetingflut" aria-controls="ep-wo-meetingflut">Erste Hilfe bei Meetingflut</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="ep-tab-group" role="presentation">
@@ -11709,7 +11717,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-feature-body">
                 <h3 class="ep-feature-title">Erste Hilfe bei Meetingflut</h3>
                 <p class="ep-feature-text">Sofort umsetzbare Formate, die Besprechungen kürzer, klarer und seltener machen.</p>
-                <span class="card-cta-link" style="color:var(--tx-secondary)">Landingpage folgt</span>
+                <a class="card-cta-link" data-area="wo" href="#sec-examples" data-ep="wo-meetingflut" aria-label="Zur Landingpage: Erste Hilfe bei Meetingflut">Zur Landingpage <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="ep-feature col-6">
@@ -11771,6 +11779,321 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <li><a class="footer-link" href="#">Beiträge</a></li>
                     <li><a class="footer-link" href="#">Jobs</a></li>
                     <li><a class="footer-link" href="#">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── WIRKSAME ORGANISATIONEN · ERSTE HILFE BEI MEETINGFLUT ── -->
+      <div class="ep-page" id="ep-wo-meetingflut" data-accent="wo" role="tabpanel" aria-labelledby="eptab-wo-meetingflut" tabindex="0">
+        <a class="skip-link" href="#ep-wo-meetingflut-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + Organisation hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
+              </div>
+            </div>
+          </nav>
+          <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
+        </div>
+        <!-- Breadcrumb: Startseite / Wirksame Organisationen / Erste Hilfe bei Meetingflut -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Erste Hilfe bei Meetingflut</span>
+          </nav>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-wo-meetingflut-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="assets/images/gespraech-tisch.jpg" alt="Mehrere Personen sitzen dicht gedrängt um einen Besprechungstisch" loading="eager" style="object-position:center 40%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Wirksame Organisationen · Erste Hilfe</p>
+            <h1 class="hero-image-caption-title">Zu viele Meetings, zu wenig Zeit für das Wesentliche.</h1>
+            <p class="hero-image-caption-text">Die agile Transition ist durch, und trotzdem hakt es: Ohne dich als Abstimmungsinstanz kommen die Teams nicht voran. Dein Kalender ist voll, für die strategischen Themen bleibt nichts übrig.</p>
+          </figcaption>
+        </figure>
+        <!-- Fakten-Strip: Key-Facts des Assessments auf einen Blick -->
+        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
+          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s5) var(--s6);margin:0">
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Format</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Assessment: Workshop &amp; Analyse</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Umfang</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">2 × 0,5 Tage</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Ergebnis</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Schriftliche Handlungsempfehlungen</dd>
+            </div>
+            <div>
+              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Preis</dt>
+              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">3.600 € inkl. MwSt.</dd>
+            </div>
+          </dl>
+        </div>
+        <!-- Das eigentliche Problem: Intro mit Bild -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label t-wo">Das eigentliche Problem</div>
+              <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">Selbstorganisation war das Versprechen. Geblieben ist ein Kalender, der aus allen Nähten platzt.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">Die Hoffnung war, dass die Teams nach der Transition eigenständig entscheiden. In der Praxis brauchen deine Mitarbeitenden dich weiter für fast jede Abstimmung. Jede Frage landet als Termin in deinem Kalender, und je voller er wird, desto weniger Zeit bleibt für die Themen, für die dich niemand ersetzen kann: Richtung, Strategie, Entwicklung.</p>
+              <div class="ep-hero-ctas">
+                <a class="btn btn-filled btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Erste Hilfe bei Meetingflut">Erste Hilfe anfragen</a>
+                <a class="btn btn-outlined btn-wo" href="#mf-ablauf">So läuft es ab</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <img src="assets/images/gespraech-buero.jpg" alt="Zwei Kolleg:innen in einem kurzen Abstimmungsgespräch im Büro" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+          </div>
+        </div>
+        <!-- Symptome: Wiedererkennung -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-wo">Kommt dir das bekannt vor?</div>
+          <h2 class="ep-section-h2">Woran sich Meetingflut zeigt.</h2>
+          <p class="ep-section-sub">Vier Muster, die fast immer zusammenhängen. Wenn du dich in mehreren wiederfindest, lohnt der genaue Blick.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Der Kalender regiert den Tag</h3>
+              <div class="ep-card-text">Ein Termin jagt den nächsten. Für konzentrierte Arbeit bleiben höchstens die Randzeiten am frühen Morgen oder späten Abend.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Nichts läuft ohne dich</h3>
+              <div class="ep-card-text">Entscheidungen warten, bis du dazukommst. Das Team ist fähig, aber nicht befugt, und holt sich bei jeder Frage deine Freigabe.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Strategie rutscht nach hinten</h3>
+              <div class="ep-card-text">Die wichtigen, aber nicht dringenden Themen verschieben sich Woche für Woche. Das Tagesgeschäft gewinnt immer.</div>
+            </div>
+            <div class="ep-card" data-area="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Meetings ohne klaren Ausgang</h3>
+              <div class="ep-card-text">Viele Runden enden ohne Entscheidung und ziehen die nächste nach sich. Aus einem Termin werden drei.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Bild-Akzent -->
+        <figure class="ep-media-band" style="margin:var(--s12) 0;height:clamp(260px,30vw,400px);overflow:hidden">
+          <img src="assets/images/workshop-diskussion.jpg" alt="Team diskutiert an einer mit Notizen beklebten Wand" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 35%">
+        </figure>
+        <!-- So gehen wir vor: Workshop → Maßnahmen → Wrap-Up -->
+        <div class="ep-section" id="mf-ablauf" style="background:var(--n-50)">
+          <div class="ep-section-label t-wo">So gehen wir vor</div>
+          <h2 class="ep-section-h2">Erste Hilfe in drei Schritten.</h2>
+          <p class="ep-section-sub">Kompakt gehalten: zwei halbe Tage Arbeit mit dir und deinem Team, danach eine Zusammenfassung, mit der du sofort loslegen kannst.</p>
+          <ol class="layout-grid" style="list-style:none;margin:var(--s8) 0 0;padding:0">
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">01</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Workshop</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Gemeinsam schauen unsere Expert:innen auf deinen Kalender und die Zusammenarbeit im Team und analysieren, woher die vielen Abstimmungen wirklich kommen.</p>
+            </li>
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">02</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Maßnahmen</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Aus dem Ist-Zustand leiten wir konkrete Maßnahmen ab, benennen die Ursachen und zeigen, an welchen Stellschrauben sich am meisten bewegt.</p>
+            </li>
+            <li class="col-4">
+              <p style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary);margin:0">03</p>
+              <span aria-hidden="true" style="display:block;width:32px;height:2px;background:var(--wo-500);margin:var(--s3) 0"></span>
+              <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)">Wrap-Up</h3>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Du bekommst eine schriftliche Zusammenfassung des Status Quo mit konkreten Handlungsempfehlungen für dich und deine Teams, direkt umsetzbar.</p>
+            </li>
+          </ol>
+        </div>
+        <!-- Worauf wir aufbauen: Methodenbasis -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-wo">Worauf wir aufbauen</div>
+          <h2 class="ep-section-h2">Erfahrung aus vier Feldern.</h2>
+          <p class="ep-section-sub">Die Maßnahmen sind kein Standardrezept. Sie entstehen aus dem, was in eurem Kontext trägt.</p>
+          <div class="layout-grid" style="row-gap:var(--s8);margin-top:var(--s6)">
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="wo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Agiles Projektmanagement</h3>
+                <p class="ep-feature-text">Erprobte Praktiken für Priorisierung, Fokus und klare Zuständigkeiten, damit weniger Fragen offen im Raum stehen.</p>
+              </div>
+            </div>
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="wo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">OKR</h3>
+                <p class="ep-feature-text">Ziele, die Orientierung geben, sodass Teams eigenständig entscheiden können, ohne bei jedem Schritt bei dir rückzufragen.</p>
+              </div>
+            </div>
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="wo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Change Management</h3>
+                <p class="ep-feature-text">Veränderung, die im Alltag hält, statt nach dem Workshop wieder in alte Muster zu kippen.</p>
+              </div>
+            </div>
+            <div class="ep-feature col-6">
+              <span class="ep-feature-icon" data-area="wo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/></svg></span>
+              <div class="ep-feature-body">
+                <h3 class="ep-feature-title">Persönlichkeitsanalyse und -coaching (ID37)</h3>
+                <p class="ep-feature-text">Wir schauen auf Zusammenarbeit, Rollen und Motive der Beteiligten, nicht nur auf Prozesse und Tools.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Angebot + Für wen: Entscheidungsblock -->
+        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+          <div class="ep-section-label t-wo">Das Angebot</div>
+          <h2 class="ep-section-h2">Kompakt, klar, zum Festpreis.</h2>
+          <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
+            <div class="col-7">
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--wo-500);border-radius:var(--r-lg);padding:var(--s8)">
+                <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Assessment · 2 × 0,5 Tage</p>
+                <p style="font:var(--ty-display-sm);color:var(--tx-primary);margin:0 0 var(--s5);line-height:1">3.600 €<span style="font:var(--ty-body-sm);color:var(--tx-secondary)"> inkl. MwSt.</span></p>
+                <ul style="list-style:none;margin:0 0 var(--s6);padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Analyse von Kalender und Zusammenarbeit durch unsere Expert:innen</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Ursachen erkannt und klar benannt</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Konkrete Maßnahmen, abgeleitet aus eurem Ist-Zustand</span></li>
+                  <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Schriftliche Zusammenfassung mit Handlungsempfehlungen</span></li>
+                </ul>
+                <a class="btn btn-filled btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Erste Hilfe bei Meetingflut">Erste Hilfe anfragen</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s3)">Für wen das passt</p>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s4)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Du willst Meetings effizienter gestalten.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Du willst effektiver und damit zeitsparender arbeiten.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Du willst wieder agieren statt nur reagieren.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Du willst deinem überfüllten Kalender den Kampf ansagen.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Weiter im Thema: Geschwister-Angebote in Wirksame Organisationen -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-wo">Weiter im Thema</div>
+          <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
+          <p class="ep-section-sub">Erste Hilfe bei Meetingflut ist ein Einstieg. Bei größeren Vorhaben begleiten wir Organisationen über den einzelnen Kalender hinaus.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
+            <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="wo" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Die ganze Organisation wirksam aufstellen?</h3>
+              <div class="ep-card-text">Organisationsentwicklung, Führung und agile Arbeitsweisen als Ganzes gedacht.</div>
+              <div class="ep-card-cta">Wirksame Organisationen ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="wo" href="#sec-examples" data-ep="seminar" style="border-top:4px solid var(--wo-500)">
+              <div class="ep-card-icon" data-area="wo" style="background:var(--wo-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--wo-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Veränderung selbst wirksam begleiten lernen?</h3>
+              <div class="ep-card-text">Ein zweitägiges Training für Führungskräfte, die Wandel tragfähig gestalten wollen.</div>
+              <div class="ep-card-cta">Zum Seminar <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--wo-700);color:#fff">
+          <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Erstgespräch</p>
+          <h2 class="ep-cta-h2">Sag deinem Kalender den Kampf an.</h2>
+          <p class="ep-cta-sub">Du schilderst, wo es bei euch klemmt, wir geben eine erste Einschätzung, woran die Meetingflut liegen könnte und wie die Erste Hilfe bei euch aussehen würde. Unverbindlich.</p>
+          <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Erste Hilfe bei Meetingflut">Erste Hilfe anfragen</a>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="kontakt">Kontakt</a></li>
                   </ul>
                 </nav>
               </div>
