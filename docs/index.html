@@ -7839,7 +7839,15 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <button class="ep-tab" role="tab" aria-selected="false" aria-label="Angewandte KI · AI.Box" data-ep="ai-box" id="eptab-ai-box" aria-controls="ep-ai-box">AI.Box</button>
               </div>
             </div>
-            <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
+            <div class="ep-tab-node">
+              <div class="ep-tab-parent">
+                <button class="ep-tab" role="tab" aria-selected="false" data-ep="es" id="eptab-es" aria-controls="ep-es">Effektive Software</button>
+                <button class="ep-tab-toggle" type="button" aria-expanded="false" aria-controls="eptabsub-es" aria-label="Unterseiten von Effektive Software ein- und ausklappen"><svg class="ep-tab-toggle-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+              <div class="ep-tab-children" id="eptabsub-es" role="presentation">
+                <button class="ep-tab" role="tab" aria-selected="false" aria-label="Effektive Software · Effizientes Identitäts-Management mit Keycloak" data-ep="es-keycloak" id="eptab-es-keycloak" aria-controls="ep-es-keycloak">Identity mit Keycloak</button>
+              </div>
+            </div>
             <div class="ep-tab-node">
               <div class="ep-tab-parent">
                 <button class="ep-tab" role="tab" aria-selected="false" data-ep="wo" id="eptab-wo" aria-controls="ep-wo">Wirksame Organisationen</button>
@@ -11401,7 +11409,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <div class="ep-feature-body">
                 <h3 class="ep-feature-title">Effizientes Identitäts-Management mit Keycloak</h3>
                 <p class="ep-feature-text">Keycloak als zentrale Lösung für Login, Rollen und Rechte, sauber integriert über alle Anwendungen hinweg.</p>
-                <a class="card-cta-link" data-area="es" href="#sec-examples" aria-label="Zur Landingpage: Effizientes Identitäts-Management mit Keycloak">Zur Landingpage <span aria-hidden="true">→</span></a>
+                <a class="card-cta-link" data-area="es" href="#sec-examples" data-ep="es-keycloak" aria-label="Zur Landingpage: Effizientes Identitäts-Management mit Keycloak">Zur Landingpage <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="ep-feature col-6">
@@ -12617,6 +12625,260 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-cta-h2">Lass uns über eure Steuerung sprechen.</h2>
           <p class="ep-cta-sub">Kein Standardpaket: Wir starten mit einem unverbindlichen Erstgespräch, ordnen gemeinsam euren Status ein und schnüren daraus ein Angebot, das zu euren Zielen passt. Ohne Vertriebsdruck.</p>
           <a class="btn btn-filled btn-wo btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Lean Portfolio Management">Beratung anfragen</a>
+        </div>
+        <!-- Footer -->
+        <footer class="footer" aria-label="Seitenfuß">
+          <div class="footer-main">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Conciso GmbH</div>
+                <address class="footer-address">
+                  <p>Pariser Bogen 7<br>44269 Dortmund</p>
+                  <p class="footer-address-maps"><a class="footer-link" href="https://www.google.com/maps/place/Pariser+Bogen+7,+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Google Maps öffnen (neues Tab)">Google Maps</a> · <a class="footer-link" href="https://www.openstreetmap.org/search?query=Pariser+Bogen+7%2C+44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in OpenStreetMap öffnen (neues Tab)">OpenStreetMap</a> · <a class="footer-link" href="https://maps.apple.com/?address=Pariser+Bogen+7,44269+Dortmund" target="_blank" rel="noopener" aria-label="Conciso in Apple Karten öffnen (neues Tab)">Apple Karten</a></p>
+                  <p>Tel.: <a class="footer-link" href="tel:+492312261750">+49 231 226175-0</a><br>Fax: +49 231 226175-10<br>E-Mail: <a class="footer-link" href="mailto:info@conciso.de">info@conciso.de</a></p>
+                </address>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Wichtige Inhalte</h3>
+                <nav aria-label="Wichtige Inhalte">
+                  <ul class="footer-nav-list">
+                    <li><a class="footer-link" href="#sec-examples" data-ep="ai">Angewandte KI</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="es">Effektive Software</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a></li>
+                    <li><a class="footer-link" href="#">Beiträge</a></li>
+                    <li><a class="footer-link" href="#">Jobs</a></li>
+                    <li><a class="footer-link" href="#sec-examples" data-ep="kontakt">Kontakt</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div>
+                <h3 class="footer-htitle">Contentletter abonnieren</h3>
+                <p class="footer-newsletter-desc">Alle drei Monate neue Beiträge direkt ins Postfach.</p>
+                <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+                  <label class="footer-field">
+                    <span class="footer-field-label">Dein Vorname</span>
+                    <input type="text" placeholder="Maria" autocomplete="given-name">
+                  </label>
+                  <label class="footer-field">
+                    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+                    <input type="email" placeholder="name@unternehmen.de" aria-required="true" autocomplete="email" required>
+                  </label>
+                  <label class="footer-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+                  </label>
+                  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="footer-btm">
+            <span>© 2026 Conciso GmbH · Dortmund</span>
+            <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
+              <a class="footer-btm-link" href="#">Datenschutz</a>
+              <a class="footer-btm-link" href="#">Impressum</a>
+            </nav>
+            <nav class="footer-social" aria-label="Soziale Netzwerke">
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf LinkedIn (neues Tab)">
+                <img src="assets/images/logo-linkedin-light.png" alt="" width="22" height="22">
+              </a>
+              <a href="#" target="_blank" rel="noopener" aria-label="Conciso auf YouTube (neues Tab)">
+                <img src="assets/images/logo-youtube-light.svg" alt="" width="22" height="22">
+              </a>
+            </nav>
+          </div>
+        </footer>
+      </div>
+
+      <!-- ── EFFEKTIVE SOFTWARE · EFFIZIENTES IDENTITÄTS-MANAGEMENT MIT KEYCLOAK ── -->
+      <div class="ep-page" id="ep-es-keycloak" data-accent="es" role="tabpanel" aria-labelledby="eptab-es-keycloak" tabindex="0">
+        <a class="skip-link" href="#ep-es-keycloak-main">Zum Hauptinhalt springen</a>
+        <!-- Topnav – Leistungen + Software hervorgehoben -->
+        <div class="ep-topnav">
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <nav class="ep-nav-links" aria-label="Hauptnavigation">
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Angewandte KI" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai">Übersicht</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-eng">AI.Engineering</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-auto">AI.Automation</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ai-box">AI.Box</a>
+              </div>
+            </div>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="leistungen">Leistungen</a>
+              <button class="ep-nav-item-toggle t-co" type="button" aria-label="Untermenü Leistungen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="leistungen">Übersicht</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="es">Effektive Software</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="wo">Wirksame Organisationen</a>
+              </div>
+            </div>
+            <a class="ep-nav-btn" href="#sec-examples" data-ep="wb-uebersicht">Wissen</a>
+            <div class="ep-nav-item ep-nav-has-sub">
+              <a class="ep-nav-btn" href="#sec-examples" data-ep="co">Unternehmen</a>
+              <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Unternehmen" aria-expanded="false"><svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="ep-nav-sub">
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co">Überblick</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
+                <a class="ep-nav-sub-btn" href="#">Referenzen</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#">Presse</a>
+              </div>
+            </div>
+          </nav>
+          <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
+        </div>
+        <!-- Breadcrumb: Startseite / Effektive Software / Identity mit Keycloak -->
+        <div class="ep-section" style="padding-block:var(--s5);background:var(--bg-surface)">
+          <nav class="article-breadcrumb" aria-label="Breadcrumb" style="margin-bottom:0">
+            <a href="#sec-examples" data-ep="landing">Startseite</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <a href="#sec-examples" data-ep="es">Effektive Software</a>
+            <span class="article-breadcrumb-sep" aria-hidden="true">/</span>
+            <span aria-current="page">Identity mit Keycloak</span>
+          </nav>
+        </div>
+        <!-- Hero -->
+        <figure class="hero-image" id="ep-es-keycloak-main" tabindex="-1">
+          <div class="hero-image-media">
+            <img src="assets/images/pair-laptop.jpg" alt="Zwei Entwickler:innen arbeiten gemeinsam an einem Laptop" loading="eager" style="object-position:center 40%">
+          </div>
+          <figcaption class="hero-image-caption">
+            <p class="hero-image-caption-eyebrow">Effektive Software · Identity &amp; Access Management</p>
+            <h1 class="hero-image-caption-title">Effizientes Identitäts-Management mit Keycloak.</h1>
+            <p class="hero-image-caption-text">Egal, ob du Keycloak zum ersten Mal einsetzt oder deine gesamte IAM-Landschaft optimierst: Wir machen dein Identitäts-Management einfacher, schneller und flexibler.</p>
+          </figcaption>
+        </figure>
+        <!-- Worum es geht: IT entlasten. Daten schützen. -->
+        <div class="ep-section" style="background:var(--n-50)">
+          <div class="layout-grid" style="align-items:center">
+            <div class="col-7">
+              <div class="ep-section-label t-es">Worum es geht</div>
+              <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">IT entlasten. Daten schützen.</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6)">Effizientes Identity Management heißt, die richtigen Rechte für die richtigen Kund:innen und Mitarbeitenden einfacher und schneller zu regeln, und dabei Daten besser zu schützen. Keycloak bündelt Anmeldung, Rollen und Rechte an einer Stelle, sauber integriert über alle Anwendungen hinweg.</p>
+              <div class="ep-hero-ctas">
+                <a class="btn btn-filled btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Identitäts-Management mit Keycloak">Informationsgespräch vereinbaren</a>
+                <a class="btn btn-outlined btn-es" href="#kc-loesung">Die Lösung ansehen</a>
+              </div>
+            </div>
+            <div class="col-5">
+              <img src="assets/images/entwicklung-laptop.jpg" alt="Entwickler:in konzentriert am Laptop" loading="lazy" style="width:100%;height:100%;min-height:280px;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+          </div>
+        </div>
+        <!-- Die Herausforderung: zwei gegensätzliche Anforderungen -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-es">Die Herausforderung</div>
+          <h2 class="ep-section-h2">Zugang und Schutz gleichzeitig.</h2>
+          <p class="ep-section-sub">Zwei Anforderungen, die sich oft widersprechen, und genau da setzt gutes IAM an.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+            <div class="ep-card" data-area="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Zugang, der nicht bremst</h3>
+              <div class="ep-card-text">Kund:innen und Mitarbeitende brauchen von jedem Gerät schnellen Zugang zu ihren Daten. Kompliziertes Rechte-Management, langsame Systeme und starre Strukturen stehen dem im Weg.</div>
+            </div>
+            <div class="ep-card" data-area="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Daten, die geschützt bleiben</h3>
+              <div class="ep-card-text">Gleichzeitig müssen Daten überall vor Angriffen und Missbrauch sicher sein. Schlupflöcher in komplexen Login-Landschaften oder offene Passwort-Listen machen genau das schwer.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Die Lösung: einfacher, schneller, flexibler -->
+        <div class="ep-section ep-section-cards" id="kc-loesung" style="background:var(--n-50)">
+          <div class="ep-section-label t-es">Die Lösung</div>
+          <h2 class="ep-section-h2">Keycloak macht IAM einfacher, schneller und flexibler.</h2>
+          <p class="ep-section-sub">Eine offene, cloud-native Plattform für Identity- und Access-Management, die mitwächst statt zu bremsen.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+            <div class="ep-card" data-area="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Einfacher</h3>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Besseres Nutzererlebnis</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Keine Ausfallzeiten</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Einfache Konfiguration</span></li>
+              </ul>
+            </div>
+            <div class="ep-card" data-area="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Schneller</h3>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Schnelle Startzeiten</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Cloud-native Plattform</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Geringer Speicherverbrauch</span></li>
+              </ul>
+            </div>
+            <div class="ep-card" data-area="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Flexibler</h3>
+              <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Einfache Anbindung</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Viele Frameworks unterstützt</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-sm);color:var(--tx-secondary)"><span class="t-es" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Gestaltbares Frontend</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Der Experte: Sven-Torben Janus -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-es">Der Experte</div>
+          <h2 class="ep-section-h2">Was ist Keycloak, und warum hilft es dir?</h2>
+          <div class="layout-grid" style="align-items:center;margin-top:var(--s6)">
+            <div class="col-5">
+              <img src="assets/images/2023-02-21_Conciso_124.jpg" alt="Sven-Torben Janus, lächelnd am Laptop im Conciso-Büro" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-lg)">
+            </div>
+            <div class="col-7">
+              <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">Sven-Torben Janus</p>
+              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 var(--s4)">Keycloak-Experte · Conciso</p>
+              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)">Keycloak ist eine offene Lösung für Identity- und Access-Management: zentrale Anmeldung, Rollen und Rechte für alle deine Anwendungen an einer Stelle. Sven-Torben bringt Keycloak seit Jahren in Konzern und Mittelstand in Produktion und erweitert es dort, wo der Standard nicht reicht, mit eigenen Themes, Flows und Extensions.</p>
+              <a class="btn btn-outlined btn-es" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Keycloak: Gespräch mit Sven-Torben">Gespräch mit Sven-Torben vereinbaren</a>
+            </div>
+          </div>
+        </div>
+        <!-- Referenzen: Unternehmen (Platzhalter für Logos) -->
+        <div class="ep-section" style="background:var(--n-50);text-align:center">
+          <div class="ep-section-label t-es" style="justify-content:center">Referenzen</div>
+          <h2 class="ep-section-h2">Unternehmen, die mit Keycloak Identitäten verwalten.</h2>
+          <p class="ep-section-sub" style="margin-inline:auto">Einfach, schnell und flexibel, quer durch Konzern, Forschung und Mittelstand.</p>
+          <!-- Platzhalter-Tiles für Kundenlogos (echte Logos folgen) -->
+          <ul style="list-style:none;margin:var(--s8) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4)">
+            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Thyssenkrupp</li>
+            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Berbel</li>
+            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Röhner Energie</li>
+            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Fraunhofer</li>
+            <li style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s6);font:var(--ty-title-sm);color:var(--tx-secondary)">Smallpdf</li>
+          </ul>
+        </div>
+        <!-- Weiter im Thema -->
+        <div class="ep-section" style="background:var(--bg-surface)">
+          <div class="ep-section-label t-es">Weiter im Thema</div>
+          <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
+          <p class="ep-section-sub">Identity &amp; Access Management ist ein Teil effektiver Software. Daneben denken wir Architektur, Entwicklung und sichere KI mit.</p>
+          <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));max-width:52rem;margin-inline:auto">
+            <a class="ep-card ep-card-link" data-area="es" href="#sec-examples" data-ep="es" style="border-top:4px solid var(--es-500)">
+              <div class="ep-card-icon" data-area="es" style="background:var(--es-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">Die ganze Bandbreite effektiver Software?</h3>
+              <div class="ep-card-text">Architektur, Entwicklung und sicherer Zugriff, aus einer Hand gedacht.</div>
+              <div class="ep-card-cta">Effektive Software ansehen <span aria-hidden="true">→</span></div>
+            </a>
+            <a class="ep-card ep-card-link" data-area="ki" href="#sec-examples" data-ep="ai-box" style="border-top:4px solid var(--ki-500)">
+              <div class="ep-card-icon" data-area="ki" style="background:var(--ki-50)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ki-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg></div>
+              <h3 class="ep-card-title" style="margin-top:0">KI sicher in eurer eigenen Infrastruktur?</h3>
+              <div class="ep-card-text">Vorkonfigurierte KI, die im eigenen Haus läuft, ohne sensible Daten in die Cloud zu geben.</div>
+              <div class="ep-card-cta">AI.Box ansehen <span aria-hidden="true">→</span></div>
+            </a>
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="ep-cta-band" style="background:var(--es-700);color:#fff">
+          <p class="ep-hero-eyebrow" style="margin-bottom:var(--s3)">Kostenloses Informationsgespräch</p>
+          <h2 class="ep-cta-h2">Machen wir dein IAM einfacher.</h2>
+          <p class="ep-cta-sub">Ob erster Keycloak-Einsatz oder Optimierung deiner IAM-Landschaft: In einem kostenlosen Gespräch klären wir viele deiner Fragen und geben erste konkrete Tipps.</p>
+          <a class="btn btn-filled btn-es btn-on-band" href="#sec-examples" data-ep="kontakt" data-k-bereich="es" data-k-anliegen="Identitäts-Management mit Keycloak">Informationsgespräch vereinbaren</a>
         </div>
         <!-- Footer -->
         <footer class="footer" aria-label="Seitenfuß">
