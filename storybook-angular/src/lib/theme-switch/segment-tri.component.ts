@@ -21,7 +21,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  * Icon-only) und IMMER animiert (Aktiv-Markierung gleitet als Thumb) — beides
  * fest, nicht konfigurierbar. Icon + Textlabel stehen immer nebeneinander.
  *
- * Einzige Konfiguration: `triState` (tri Hell/Dunkel/System vs. binär Hell/Dunkel).
+ * Einzige Konfiguration: `showSystem` (tri Hell/Dunkel/System vs. binär Hell/Dunkel).
  *
  * Baut auf den CSS-Kern-Klassen `.theme-bar`/`.tbtn` auf. Jeder Button trägt ein
  * `aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per
@@ -100,13 +100,13 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
 })
 export class ThemeSegmentComponent {
   /** true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär). */
-  readonly triState = input(true);
+  readonly showSystem = input(true);
 
   protected readonly svc = inject(ThemeModeService);
   protected readonly icon = CDS_THEME_ICON;
   protected readonly label = CDS_THEME_LABEL;
 
-  protected readonly order = computed(() => cdsThemeModes(this.triState()));
+  protected readonly order = computed(() => cdsThemeModes(this.showSystem()));
 
   private readonly bar = viewChild<ElementRef<HTMLElement>>('bar');
   private readonly thumb = viewChild<ElementRef<HTMLElement>>('thumb');

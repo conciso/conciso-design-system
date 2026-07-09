@@ -8,7 +8,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  * Topnav), der bei Klick durch die Modi zyklt. Das Icon zeigt den aktuellen Modus.
  * Vorgesehener Einsatz: im Header. Icons aus @ng-icons/heroicons.
  *
- * `triState` schaltet zwischen tri (Hell→Dunkel→System) und binär (Hell→Dunkel).
+ * `showSystem` schaltet zwischen tri (Hell→Dunkel→System) und binär (Hell→Dunkel).
  */
 @Component({
   selector: 'cds-theme-cycle',
@@ -29,14 +29,14 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
 })
 export class ThemeCycleComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
-  readonly triState = input(true);
+  readonly showSystem = input(true);
 
   protected readonly svc = inject(ThemeModeService);
   protected readonly icon = computed(() => CDS_THEME_ICON[this.svc.mode()]);
   protected readonly label = computed(() => CDS_THEME_LABEL[this.svc.mode()]);
 
   next(): void {
-    const order = cdsThemeModes(this.triState());
+    const order = cdsThemeModes(this.showSystem());
     const i = order.indexOf(this.svc.mode());
     this.svc.set(order[(i + 1) % order.length]);
   }

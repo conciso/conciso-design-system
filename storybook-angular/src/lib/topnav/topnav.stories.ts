@@ -12,11 +12,17 @@ const meta: Meta<TopnavComponent> = {
       description: {
         component:
           'Hauptnavigation der Customer-Pages: Logo und Top-Level-Links mit aufklappbaren ' +
-          'Submenüs links, rechts Suche, Theme-Umschalter und ein Kontakt-Button als Call-to-Action. ' +
-          'Die aktive Sektion wird über einen dezenten Unterstrich und Bereichsfarbe markiert. ' +
-          'Barrierefrei nach WCAG 2.1 AA.',
+          'Submenüs links, rechts Suche, der Theme-Cycle-Button und ein Kontakt-Button als ' +
+          'Call-to-Action. Die aktive Sektion wird über einen dezenten Unterstrich und ' +
+          'Bereichsfarbe markiert. Barrierefrei nach WCAG 2.1 AA.',
       },
     },
+  },
+  argTypes: {
+    showSystemTheme: { control: 'boolean' },
+  },
+  args: {
+    showSystemTheme: true,
   },
 };
 export default meta;

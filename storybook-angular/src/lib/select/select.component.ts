@@ -9,6 +9,8 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroCheck, heroChevronDown } from '@ng-icons/heroicons/outline';
 import type { CdsArea } from '../area';
 
 export interface CdsSelectOption {
@@ -33,6 +35,8 @@ let uid = 0;
 @Component({
   selector: 'cds-select',
   standalone: true,
+  imports: [NgIcon],
+  viewProviders: [provideIcons({ heroChevronDown, heroCheck })],
   template: `
     <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled" [attr.data-area]="area || null">
       <span class="ep-select-label" [id]="ids.label">{{ label }}</span>
@@ -52,9 +56,7 @@ let uid = 0;
         <span class="ep-select-value" [id]="ids.value" [attr.data-placeholder]="placeholder">{{
           selectedOption()?.label ?? placeholder
         }}</span>
-        <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
+        <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
       </button>
       <ul
         #menu
@@ -81,9 +83,7 @@ let uid = 0;
             (click)="select(i)"
             (mouseenter)="activeIndex.set(i)"
           >
-            <svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5" />
-            </svg>
+            <ng-icon class="ep-select-check" name="heroCheck" size="20px" aria-hidden="true" />
             {{ opt.label }}
           </li>
         }

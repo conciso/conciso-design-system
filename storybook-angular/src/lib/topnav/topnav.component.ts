@@ -1,4 +1,7 @@
 import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroChevronDown, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
 
 /** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
 let cdsTopnavUid = 0;
@@ -21,13 +24,17 @@ export interface CdsNavItem {
  *
  * Customer-Navigation: Logo, Top-Level-Links mit optionalem Klapp-Submenü
  * (.ep-nav-has-sub / .ep-nav-sub, aria-expanded), rechts gebündelte Aktionen
- * (Such-Popover .ep-nav-search + Theme-Umschalter .ep-nav-theme-toggle) und ein
- * CTA-Button. Disclosure-Logik in Angular: nur ein Menü offen, Escape und
- * Außenklick schließen. Der Theme-Button setzt data-theme am <html> (dark-mode.css).
+ * (Such-Popover .ep-nav-search + Theme-Cycle-Button) und ein CTA-Button.
+ * Disclosure-Logik in Angular: nur ein Menü offen, Escape und Außenklick schließen.
+ *
+ * Der Theme-Umschalter ist fest der Cycle-Button (cds-theme-cycle); ob er auch
+ * „System" anbietet, steuert `showSystemTheme` (durchgereicht an dessen showSystem).
  */
 @Component({
   selector: 'cds-topnav',
   standalone: true,
+  imports: [ThemeCycleComponent, NgIcon],
+  viewProviders: [provideIcons({ heroChevronDown, heroMagnifyingGlass })],
   template: `
     <header [class]="navClasses">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">{{ logo }}</a>
@@ -43,9 +50,7 @@ export interface CdsNavItem {
                 (click)="toggleSub(i)"
               >
                 {{ item.label }}
-                <svg class="ep-nav-item-caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m2 4 3 3 3-3" />
-                </svg>
+                <ng-icon class="ep-nav-item-caret" name="heroChevronDown" size="10px" aria-hidden="true" />
               </button>
               <div class="ep-nav-sub">
                 @for (s of item.sub; track s.label) {
@@ -72,9 +77,7 @@ export interface CdsNavItem {
             [attr.aria-expanded]="searchOpen"
             (click)="toggleSearch()"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" />
-            </svg>
+            <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
           </button>
           <div class="ep-nav-search-pop">
             <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
@@ -91,19 +94,7 @@ export interface CdsNavItem {
           </div>
         </div>
 
-        <button
-          class="ep-nav-icon-btn ep-nav-theme-toggle"
-          type="button"
-          aria-label="Hell/Dunkel umschalten"
-          (click)="toggleTheme()"
-        >
-          <svg class="ep-nav-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
-          </svg>
-          <svg class="ep-nav-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2M5.6 5.6l1.4 1.4m10 10 1.4 1.4M3 12h2m14 0h2M5.6 18.4 7 17m10-10 1.4-1.4M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
-          </svg>
-        </button>
+        <cds-theme-cycle [showSystem]="showSystemTheme" />
       </div>
 
       <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel }}</a>
@@ -117,6 +108,8 @@ export class TopnavComponent {
 
   @Input() logo = 'conciso.';
   @Input() ctaLabel = 'Kontakt';
+  /** Bietet der Theme-Cycle-Button im Header auch „System" an (tri) oder nur Hell/Dunkel? */
+  @Input() showSystemTheme = true;
   @Input() links: CdsNavItem[] = [
     {
       label: 'Leistungen',
@@ -156,12 +149,6 @@ export class TopnavComponent {
   closeAll(): void {
     this.openIndex = -1;
     this.searchOpen = false;
-  }
-
-  toggleTheme(): void {
-    const root = document.documentElement;
-    if (root.getAttribute('data-theme') === 'dark') root.removeAttribute('data-theme');
-    else root.setAttribute('data-theme', 'dark');
   }
 
   @HostListener('document:click', ['$event'])

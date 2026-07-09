@@ -1,6 +1,15 @@
 import type { Preview } from '@storybook/angular';
 import { componentWrapperDecorator } from '@storybook/angular';
 import {MINIMAL_VIEWPORTS} from "storybook/viewport";
+import { addons } from 'storybook/preview-api';
+import { UPDATE_GLOBALS } from 'storybook/internal/core-events';
+import { themeStore, type CdsThemeMode } from '../src/lib/theme-switch/theme-mode';
+
+// Store → Toolbar: klickt man einen Theme-Switcher (Cycle/Segment/Dropdown),
+// aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und
+// alle Komponenten synchron. Die Gegenrichtung (Toolbar → Store) macht der
+// Theme-Decorator unten. getChannel() erst beim Emit holen (dann ist er bereit).
+themeStore.subscribe((mode) => addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }));
 
 /**
  * Zwei globale Toolbar-Umschalter (globalTypes), beide über den ECHTEN CSS-Kern:
@@ -86,13 +95,14 @@ const preview: Preview = {
   },
   globalTypes: {
     theme: {
-      description: 'Conciso Light/Dark-Mode (data-theme am <html>)',
+      description: 'Conciso Light/Dark/System (data-theme am <html>) — synchron mit den Theme-Switcher-Komponenten',
       toolbar: {
         title: 'Theme',
         icon: 'contrast',
         items: [
-          { value: 'light', title: 'Light', icon: 'sun' },
-          { value: 'dark', title: 'Dark', icon: 'moon' },
+          { value: 'light', title: 'Hell', icon: 'sun' },
+          { value: 'dark', title: 'Dunkel', icon: 'moon' },
+          { value: 'system', title: 'System', icon: 'browser' },
         ],
         dynamicTitle: true,
       },
@@ -127,14 +137,11 @@ const preview: Preview = {
         return { cdsAreaCtx: ctx && ctx !== 'none' ? ctx : '' };
       },
     ),
-    // Light/Dark (data-theme am <html>).
+    // Toolbar → Store (still, ohne Rück-Emit). Der Store ist der EINZIGE Schreiber
+    // von data-theme (inkl. „system" via prefers-color-scheme) und teilt sich den
+    // Zustand mit den Switcher-Komponenten → Toolbar und Komponenten bleiben synchron.
     (story, context) => {
-      const root = document.documentElement;
-      if (context.globals['theme'] === 'dark') {
-        root.setAttribute('data-theme', 'dark');
-      } else {
-        root.removeAttribute('data-theme');
-      }
+      themeStore.setSilent(context.globals['theme'] as CdsThemeMode);
       return story();
     },
   ],
