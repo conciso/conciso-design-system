@@ -1,3 +1,4 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { SliderComponent } from './slider.component';
@@ -87,4 +88,39 @@ export const ProBereich: Story = {
       </div>
     `,
   }),
+};
+
+export const Formularbindung: Story = {
+  name: 'Formularbindung',
+  parameters: {
+    controls: { disable: true },
+    snapshot: { skip: true },
+    docs: {
+      description: {
+        story:
+          'Der Slider ist ein `ControlValueAccessor` und bindet direkt an reactive ' +
+          'forms (`formControl`); der Formularwert ist die Zahl (hier live angezeigt). ' +
+          'Ohne Formular geht alternativ `[(value)]`.',
+      },
+    },
+  },
+  render: () => {
+    const ctrl = new FormControl(50000);
+    return {
+      moduleMetadata: { imports: [SliderComponent, ReactiveFormsModule] },
+      props: { ctrl },
+      template: `
+        <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
+          <cds-slider label="Budget-Rahmen" sliderId="form-slider" [formControl]="ctrl"></cds-slider>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value }}</strong></p>
+        </div>
+      `,
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(canvasElement).toHaveTextContent('Wert: 50000');
+    fireEvent.input(c.getByRole('slider'), { target: { value: '75000' } });
+    await waitFor(() => expect(canvasElement).toHaveTextContent('Wert: 75000'));
+  },
 };

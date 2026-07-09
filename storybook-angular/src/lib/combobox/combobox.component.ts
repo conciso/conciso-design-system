@@ -1,15 +1,16 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
+  forwardRef,
   HostListener,
   inject,
-  Input,
+  input,
+  model,
   OnInit,
-  Output,
   signal,
   ViewChild,
 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown, heroXMark } from '@ng-icons/heroicons/outline';
 import type { CdsArea } from '../area';
@@ -27,26 +28,33 @@ let uid = 0;
  * role=listbox/option; ↓ öffnet/navigiert, Enter wählt, Esc schließt, Rücktaste bei
  * leerem Feld entfernt im Multi-Modus den letzten Chip. Beim Schließen ohne Auswahl
  * fällt die Einzelauswahl auf das gewählte Label zurück (kein loser Filtertext).
+ *
+ * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
+ * `formControlName`); der Formularwert ist im Multi-Modus `string[]`, sonst `string`.
+ * Ohne Formular gehen `[(value)]` / `[(values)]` (valueChange/valuesChange via model()).
  */
 @Component({
   selector: 'cds-combobox',
   standalone: true,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroChevronDown, heroXMark })],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ComboboxComponent), multi: true },
+  ],
   template: `
     <div
       class="ep-combobox"
-      [class.is-multi]="multi"
+      [class.is-multi]="multi()"
       [class.is-open]="open()"
-      [class.is-disabled]="disabled"
-      [attr.data-area]="area || null"
+      [class.is-disabled]="disabled()"
+      [attr.data-area]="area() || null"
     >
-      <span class="ep-select-label" [id]="ids.label">{{ label }}</span>
+      <span class="ep-select-label" [id]="ids.label">{{ label() }}</span>
       <!-- Klick auf die Feldfläche fokussiert das Input (cursor:text); das Input selbst
            ist direkt tastaturfokussierbar — daher a11y-Regeln hier gezielt aus. -->
       <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
       <div class="ep-combobox-control" [class.has-clear]="query().length > 0" (click)="focusInput()">
-        @if (multi) {
+        @if (multi()) {
           @for (opt of selectedOptions(); track opt.value) {
             <span class="ep-combobox-token">
               <span class="ep-combobox-token-label">{{ opt.label }}</span>
@@ -72,12 +80,13 @@ let uid = 0;
           [attr.aria-controls]="ids.menu"
           aria-autocomplete="list"
           [attr.aria-activedescendant]="open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null"
-          [placeholder]="placeholder"
-          [disabled]="disabled"
+          [placeholder]="placeholder()"
+          [disabled]="disabled()"
           [value]="query()"
           (input)="onInput($event)"
           (keydown)="onKeydown($event)"
           (focus)="openMenu()"
+          (blur)="markTouched()"
         />
         @if (query().length > 0) {
           <button type="button" class="ep-combobox-clear" aria-label="Eingabe löschen" (click)="clear($event)">
@@ -105,34 +114,36 @@ let uid = 0;
           </li>
         }
         @if (!filtered().length) {
-          <li class="ep-combobox-empty" role="option" aria-disabled="true" aria-selected="false">{{ emptyText }}</li>
+          <li class="ep-combobox-empty" role="option" aria-disabled="true" aria-selected="false">{{ emptyText() }}</li>
         }
       </ul>
     </div>
   `,
 })
-export class ComboboxComponent implements OnInit {
+export class ComboboxComponent implements OnInit, ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('input') private input?: ElementRef<HTMLInputElement>;
 
-  @Input() label = 'Thema';
-  @Input() options: CdsSelectOption[] = [];
-  /** Einzelauswahl: gewählter Wert. */
-  @Input() value?: string;
-  /** Mehrfachauswahl: gewählte Werte (nur bei multi). */
-  @Input() values: string[] = [];
-  @Input() multi = false;
-  @Input() area?: CdsArea;
-  @Input() placeholder = 'Suchen…';
-  @Input() emptyText = 'Kein Treffer';
-  @Input() disabled = false;
-  @Output() valueChange = new EventEmitter<string>();
-  @Output() valuesChange = new EventEmitter<string[]>();
+  readonly label = input('Thema');
+  readonly options = input<CdsSelectOption[]>([]);
+  /** Einzelauswahl: gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms. */
+  readonly value = model<string | undefined>(undefined);
+  /** Mehrfachauswahl: gewählte Werte (nur bei multi). Two-Way UND Angular-Forms. */
+  readonly values = model<string[]>([]);
+  readonly multi = input(false);
+  readonly area = input<CdsArea>();
+  readonly placeholder = input('Suchen…');
+  readonly emptyText = input('Kein Treffer');
+  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
+  readonly disabled = model(false);
 
   readonly open = signal(false);
   readonly activeIndex = signal(0);
   readonly query = signal('');
   private readonly selected = signal<string[]>([]);
+
+  private onChange: (value: string | string[]) => void = () => {};
+  private onTouched: () => void = () => {};
 
   private readonly instance = ++uid;
   readonly ids = {
@@ -142,17 +153,46 @@ export class ComboboxComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.selected.set(this.multi ? [...this.values] : this.value ? [this.value] : []);
+    this.syncSelectedFromInputs();
+  }
+
+  // ControlValueAccessor — Formularwert ist string[] (multi) bzw. string (single).
+  writeValue(value: string | string[] | null): void {
+    if (this.multi()) {
+      const arr = Array.isArray(value) ? [...value] : [];
+      this.values.set(arr);
+      this.selected.set(arr);
+    } else {
+      const v = typeof value === 'string' ? value : undefined;
+      this.value.set(v);
+      this.selected.set(v ? [v] : []);
+      this.query.set(v ? (this.options().find((o) => o.value === v)?.label ?? '') : '');
+    }
+  }
+  registerOnChange(fn: (value: string | string[]) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
+
+  /** Initialen Auswahlzustand aus den value/values-Inputs übernehmen. */
+  private syncSelectedFromInputs(): void {
+    const value = this.value();
+    this.selected.set(this.multi() ? [...this.values()] : value ? [value] : []);
     // Einzelauswahl: Feld zeigt anfangs das gewählte Label.
-    if (!this.multi && this.value) {
-      this.query.set(this.options.find((o) => o.value === this.value)?.label ?? '');
+    if (!this.multi() && value) {
+      this.query.set(this.options().find((o) => o.value === value)?.label ?? '');
     }
   }
 
   /** Aktuell gewählte Optionen (für die Chips im Multi-Modus). */
   selectedOptions(): CdsSelectOption[] {
     return this.selected()
-      .map((v) => this.options.find((o) => o.value === v))
+      .map((v) => this.options().find((o) => o.value === v))
       .filter((o): o is CdsSelectOption => !!o);
   }
 
@@ -160,8 +200,8 @@ export class ComboboxComponent implements OnInit {
   filtered(): CdsSelectOption[] {
     const q = this.query().trim().toLowerCase();
     const chosen = this.selected();
-    return this.options.filter((o) => {
-      if (this.multi && chosen.includes(o.value)) return false;
+    return this.options().filter((o) => {
+      if (this.multi() && chosen.includes(o.value)) return false;
       return !q || o.label.toLowerCase().includes(q);
     });
   }
@@ -171,11 +211,11 @@ export class ComboboxComponent implements OnInit {
   }
 
   focusInput(): void {
-    if (!this.disabled) this.input?.nativeElement.focus();
+    if (!this.disabled()) this.input?.nativeElement.focus();
   }
 
   openMenu(): void {
-    if (this.disabled || this.open()) return;
+    if (this.disabled() || this.open()) return;
     this.open.set(true);
     this.activeIndex.set(0);
   }
@@ -183,8 +223,8 @@ export class ComboboxComponent implements OnInit {
   close(): void {
     this.open.set(false);
     // Einzelauswahl: keinen losen Filtertext stehen lassen.
-    if (!this.multi) {
-      const label = this.options.find((o) => o.value === this.value)?.label ?? '';
+    if (!this.multi()) {
+      const label = this.options().find((o) => o.value === this.value())?.label ?? '';
       this.query.set(label);
     }
   }
@@ -196,17 +236,19 @@ export class ComboboxComponent implements OnInit {
   }
 
   select(opt: CdsSelectOption): void {
-    if (this.multi) {
+    if (this.multi()) {
       this.selected.update((vs) => [...vs, opt.value]);
-      this.values = this.selected();
-      this.valuesChange.emit(this.selected());
+      this.values.set(this.selected());
+      this.onChange(this.selected());
+      this.onTouched();
       this.query.set('');
       this.activeIndex.set(0);
       this.focusInput(); // offen lassen, weiter hinzufügen
     } else {
-      this.value = opt.value;
+      this.value.set(opt.value);
       this.selected.set([opt.value]);
-      this.valueChange.emit(opt.value);
+      this.onChange(opt.value);
+      this.onTouched();
       this.query.set(opt.label);
       this.open.set(false);
     }
@@ -215,8 +257,9 @@ export class ComboboxComponent implements OnInit {
   removeValue(value: string, event?: Event): void {
     event?.stopPropagation();
     this.selected.update((vs) => vs.filter((v) => v !== value));
-    this.values = this.selected();
-    this.valuesChange.emit(this.selected());
+    this.values.set(this.selected());
+    this.onChange(this.selected());
+    this.onTouched();
   }
 
   clear(event?: Event): void {
@@ -224,6 +267,10 @@ export class ComboboxComponent implements OnInit {
     this.query.set('');
     this.activeIndex.set(0);
     this.focusInput();
+  }
+
+  markTouched(): void {
+    this.onTouched();
   }
 
   onKeydown(event: KeyboardEvent): void {
@@ -253,7 +300,7 @@ export class ComboboxComponent implements OnInit {
         this.close();
         break;
       case 'Backspace':
-        if (this.multi && this.query().length === 0 && this.selected().length) {
+        if (this.multi() && this.query().length === 0 && this.selected().length) {
           this.removeValue(this.selected()[this.selected().length - 1]);
         }
         break;

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { within, userEvent, expect } from 'storybook/test';
 import { CheckboxComponent } from './checkbox.component';
 
 const meta: Meta<CheckboxComponent> = {
@@ -43,3 +44,67 @@ export default meta;
 type Story = StoryObj<CheckboxComponent>;
 
 export const Interaktiv: Story = {};
+
+export const LesbarerZustand: Story = {
+  name: 'Lesbarer Zustand',
+  parameters: {
+    controls: { disable: true },
+    // Geklickter/fokussierter Endzustand → nicht deterministisch snapshotten.
+    snapshot: { skip: true },
+    docs: {
+      description: {
+        story:
+          'Die `cds-checkbox` sind per `[(checked)]` an ein State-Objekt gebunden; ' +
+          'jede Änderung emittiert `checkedChange` und aktualisiert die Anzeige. ' +
+          'Der Absenden-Button liest die Pflicht-Einwilligung aus und ist erst ' +
+          'aktiv, wenn sie gesetzt ist — genau so konsumiert man `checked` im echten Code.',
+      },
+    },
+  },
+  render: () => {
+    const state = { consent: false, newsletter: false };
+    return {
+      moduleMetadata: { imports: [CheckboxComponent] },
+      props: {
+        state,
+        zustand: () =>
+          `Einwilligung ${state.consent ? 'an' : 'aus'} · Newsletter ${
+            state.newsletter ? 'an' : 'aus'
+          }`,
+      },
+      template: `
+        <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:34rem">
+          <cds-checkbox
+            label="Ich stimme der Datenverarbeitung zu."
+            [required]="true"
+            [(checked)]="state.consent"
+          ></cds-checkbox>
+          <cds-checkbox
+            label="Newsletter abonnieren (optional)."
+            [(checked)]="state.newsletter"
+          ></cds-checkbox>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">
+            Zustand: <strong>{{ zustand() }}</strong>
+          </p>
+          <button type="button" class="btn btn-primary" [disabled]="!state.consent">
+            Absenden
+          </button>
+        </div>
+      `,
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const consent = c.getByRole('checkbox', { name: /Datenverarbeitung/ });
+    const absenden = c.getByRole('button', { name: 'Absenden' });
+    // Start: Pflicht-Einwilligung aus → Button gesperrt.
+    await expect(consent).not.toBeChecked();
+    await expect(absenden).toBeDisabled();
+    await expect(canvasElement).toHaveTextContent('Einwilligung aus · Newsletter aus');
+    // Klick → checkedChange wird ausgelesen: Anzeige + Button aktualisieren.
+    await userEvent.click(consent);
+    await expect(consent).toBeChecked();
+    await expect(canvasElement).toHaveTextContent('Einwilligung an · Newsletter aus');
+    await expect(absenden).toBeEnabled();
+  },
+};

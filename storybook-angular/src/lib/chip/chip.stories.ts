@@ -41,6 +41,8 @@ export const LesbarerZustand: Story = {
   name: 'Lesbarer Zustand',
   parameters: {
     controls: { disable: true },
+    // Geklickter/fokussierter Endzustand → nicht deterministisch snapshotten.
+    snapshot: { skip: true },
     docs: {
       description: {
         story:

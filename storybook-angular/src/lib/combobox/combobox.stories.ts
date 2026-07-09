@@ -1,3 +1,4 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { ComboboxComponent } from './combobox.component';
@@ -111,5 +112,42 @@ export const MultiSelectHinzufuegen: Story = {
     await userEvent.type(c.getByRole('combobox'), 'UX');
     await userEvent.click(await c.findByRole('option', { name: 'UX & Forschung' }));
     await waitFor(() => expect(c.getAllByRole('button', { name: /Entfernen:/ })).toHaveLength(3));
+  },
+};
+
+export const Formularbindung: Story = {
+  name: 'Formularbindung',
+  parameters: {
+    controls: { disable: true },
+    snapshot: { skip: true },
+    docs: {
+      description: {
+        story:
+          'Die Combobox ist ein `ControlValueAccessor` und bindet direkt an reactive ' +
+          'forms (`formControl`); im Einzelmodus ist der Formularwert der Options-`value` ' +
+          '(hier live angezeigt), im Multi-Modus ein `string[]`. Ohne Formular gehen ' +
+          '`[(value)]` / `[(values)]`.',
+      },
+    },
+  },
+  render: () => {
+    const ctrl = new FormControl('');
+    return {
+      moduleMetadata: { imports: [ComboboxComponent, ReactiveFormsModule] },
+      props: { ctrl, options: THEMEN },
+      template: `
+        <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
+          <cds-combobox label="Thema" [options]="options" [formControl]="ctrl"></cds-combobox>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+        </div>
+      `,
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const input = c.getByRole('combobox');
+    await userEvent.type(input, 'Cloud');
+    await userEvent.click(await c.findByRole('option', { name: 'Cloud-Migration' }));
+    await waitFor(() => expect(canvasElement).toHaveTextContent('Wert: cloud'));
   },
 };

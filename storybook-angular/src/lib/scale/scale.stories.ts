@@ -1,3 +1,4 @@
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { ScaleComponent } from './scale.component';
@@ -66,4 +67,42 @@ export const Stufen: Story = {
       </div>
     `,
   }),
+};
+
+export const Formularbindung: Story = {
+  name: 'Formularbindung',
+  parameters: {
+    controls: { disable: true },
+    snapshot: { skip: true },
+    docs: {
+      description: {
+        story:
+          'Die Skala ist ein `ControlValueAccessor` und bindet direkt an reactive ' +
+          'forms (`formControl`); der Formularwert ist der Stufen-INDEX (hier live ' +
+          'angezeigt). Ohne Formular geht alternativ `[(value)]`.',
+      },
+    },
+  },
+  render: () => {
+    const ctrl = new FormControl(2);
+    return {
+      moduleMetadata: { imports: [ScaleComponent, ReactiveFormsModule] },
+      props: {
+        ctrl,
+        labels: ['Sehr unzufrieden', 'Unzufrieden', 'Neutral', 'Zufrieden', 'Sehr zufrieden'],
+      },
+      template: `
+        <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
+          <cds-scale label="Zufriedenheit" scaleId="form-scale" [labels]="labels" [formControl]="ctrl"></cds-scale>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Index: <strong>{{ ctrl.value }}</strong></p>
+        </div>
+      `,
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(canvasElement).toHaveTextContent('Index: 2');
+    fireEvent.input(c.getByRole('slider'), { target: { value: '4' } });
+    await waitFor(() => expect(canvasElement).toHaveTextContent('Index: 4'));
+  },
 };

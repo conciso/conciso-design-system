@@ -1,14 +1,15 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
+  forwardRef,
   HostListener,
   inject,
-  Input,
-  Output,
+  input,
+  model,
   signal,
   ViewChild,
 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroCheck, heroChevronDown } from '@ng-icons/heroicons/outline';
 import type { CdsArea } from '../area';
@@ -31,30 +32,37 @@ let uid = 0;
  * (role=listbox/option, aria-haspopup, aria-expanded, aria-activedescendant,
  * aria-selected). Für kurze Listen in Formularen bleibt das native cds-select-field
  * der Standard; dies hier ist für bereichs-akzentuierte Auswahl.
+ *
+ * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
+ * `formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).
  */
 @Component({
   selector: 'cds-select',
   standalone: true,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroChevronDown, heroCheck })],
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
+  ],
   template: `
-    <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled" [attr.data-area]="area || null">
-      <span class="ep-select-label" [id]="ids.label">{{ label }}</span>
+    <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled()" [attr.data-area]="area() || null">
+      <span class="ep-select-label" [id]="ids.label">{{ label() }}</span>
       <button
         #trigger
         type="button"
         class="ep-select-trigger"
         [class.is-placeholder]="!selectedOption()"
-        [disabled]="disabled"
+        [disabled]="disabled()"
         aria-haspopup="listbox"
         [attr.aria-expanded]="open()"
         [attr.aria-controls]="ids.menu"
         [attr.aria-labelledby]="ids.label + ' ' + ids.value"
         (click)="toggle()"
         (keydown)="onTriggerKeydown($event)"
+        (blur)="markTouched()"
       >
-        <span class="ep-select-value" [id]="ids.value" [attr.data-placeholder]="placeholder">{{
-          selectedOption()?.label ?? placeholder
+        <span class="ep-select-value" [id]="ids.value" [attr.data-placeholder]="placeholder()">{{
+          selectedOption()?.label ?? placeholder()
         }}</span>
         <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
       </button>
@@ -68,7 +76,7 @@ let uid = 0;
         [attr.aria-activedescendant]="open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null"
         (keydown)="onMenuKeydown($event)"
       >
-        @for (opt of options; track opt.value; let i = $index) {
+        @for (opt of options(); track opt.value; let i = $index) {
           <!-- Listbox-Muster: Optionen sind bewusst NICHT einzeln fokussierbar; die
                Tastatur läuft über den Trigger (aria-activedescendant). Klick ist reine
                Maus-Bequemlichkeit — daher die a11y-Regeln hier gezielt deaktiviert. -->
@@ -79,7 +87,7 @@ let uid = 0;
             [id]="ids.option(i)"
             [attr.data-value]="opt.value"
             [class.is-active]="i === activeIndex()"
-            [attr.aria-selected]="opt.value === value"
+            [attr.aria-selected]="opt.value === value()"
             (click)="select(i)"
             (mouseenter)="activeIndex.set(i)"
           >
@@ -88,30 +96,46 @@ let uid = 0;
           </li>
         }
       </ul>
-      @if (name) {
-        <input type="hidden" [name]="name" [value]="value ?? ''" />
+      @if (name()) {
+        <input type="hidden" [name]="name()" [value]="value() ?? ''" />
       }
     </div>
   `,
 })
-export class SelectComponent {
+export class SelectComponent implements ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('trigger') private trigger?: ElementRef<HTMLButtonElement>;
   @ViewChild('menu') private menu?: ElementRef<HTMLUListElement>;
 
-  @Input() label = 'Bereich';
-  @Input() options: CdsSelectOption[] = [];
-  /** Aktuell gewählter Wert (value der Option). */
-  @Input() value?: string;
-  @Input() area?: CdsArea;
-  @Input() placeholder = 'Bitte wählen…';
-  @Input() disabled = false;
+  readonly label = input('Bereich');
+  readonly options = input<CdsSelectOption[]>([]);
+  /** Aktuell gewählter Wert (value der Option). Two-Way (`[(value)]`) UND Angular-Forms. */
+  readonly value = model<string | undefined>(undefined);
+  readonly area = input<CdsArea>();
+  readonly placeholder = input('Bitte wählen…');
+  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
+  readonly disabled = model(false);
   /** Optionaler Feldname → verstecktes Input für den Formular-Submit. */
-  @Input() name?: string;
-  @Output() valueChange = new EventEmitter<string>();
+  readonly name = input<string>();
 
   readonly open = signal(false);
   readonly activeIndex = signal(-1);
+
+  private onChange: (value: string) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  writeValue(value: string | null): void {
+    this.value.set(value ?? undefined);
+  }
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
 
   private readonly instance = ++uid;
   readonly ids = {
@@ -125,7 +149,7 @@ export class SelectComponent {
   private typeTimer?: ReturnType<typeof setTimeout>;
 
   selectedOption(): CdsSelectOption | undefined {
-    return this.options.find((o) => o.value === this.value);
+    return this.options().find((o) => o.value === this.value());
   }
 
   toggle(): void {
@@ -134,8 +158,8 @@ export class SelectComponent {
   }
 
   private openMenu(): void {
-    if (this.disabled) return;
-    const sel = this.options.findIndex((o) => o.value === this.value);
+    if (this.disabled()) return;
+    const sel = this.options().findIndex((o) => o.value === this.value());
     this.activeIndex.set(sel >= 0 ? sel : 0);
     this.open.set(true);
     // Fokus in die Listbox (nach Render, wenn sie sichtbar ist) — APG-Listbox-
@@ -150,11 +174,16 @@ export class SelectComponent {
   }
 
   select(i: number): void {
-    const opt = this.options[i];
+    const opt = this.options()[i];
     if (!opt) return;
-    this.value = opt.value;
-    this.valueChange.emit(opt.value);
+    this.value.set(opt.value);
+    this.onChange(opt.value);
+    this.onTouched();
     this.close();
+  }
+
+  markTouched(): void {
+    this.onTouched();
   }
 
   /** Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus). */
@@ -185,7 +214,7 @@ export class SelectComponent {
         break;
       case 'End':
         event.preventDefault();
-        this.setActive(this.options.length - 1);
+        this.setActive(this.options().length - 1);
         break;
       case 'Enter':
       case ' ':
@@ -205,7 +234,7 @@ export class SelectComponent {
   }
 
   private move(delta: number): void {
-    const n = this.options.length;
+    const n = this.options().length;
     if (!n) return;
     const next = Math.min(n - 1, Math.max(0, this.activeIndex() + delta));
     this.setActive(next);
@@ -223,7 +252,7 @@ export class SelectComponent {
     this.typeBuffer += char.toLowerCase();
     clearTimeout(this.typeTimer);
     this.typeTimer = setTimeout(() => (this.typeBuffer = ''), 500);
-    const match = this.options.findIndex((o) => o.label.toLowerCase().startsWith(this.typeBuffer));
+    const match = this.options().findIndex((o) => o.label.toLowerCase().startsWith(this.typeBuffer));
     if (match >= 0) this.setActive(match);
   }
 

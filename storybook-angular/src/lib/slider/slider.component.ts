@@ -2,11 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  forwardRef,
   inject,
-  Input,
+  input,
+  model,
   OnDestroy,
   signal,
 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
 // Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
@@ -24,29 +27,36 @@ let uid = 0;
  * Labels werden gleichmäßig aus [min, max] berechnet (space-between wie das CSS-
  * Layout). Wird der Slider zu schmal, reduziert die Komponente die Tick-Zahl reaktiv
  * (ResizeObserver), sodass die Labels nicht überlappen — Endpunkte bleiben erhalten.
+ *
+ * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
+ * `formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).
  */
 @Component({
   selector: 'cds-slider',
   standalone: true,
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SliderComponent), multi: true },
+  ],
   template: `
     <div class="field-slider">
       <div class="field-slider-header">
-        <label class="field-slider-label" [attr.for]="sliderId">{{ label }}</label>
-        <output [class]="outputClasses" [attr.for]="sliderId" [id]="sliderId + '-out'">
+        <label class="field-slider-label" [attr.for]="sliderId()">{{ label() }}</label>
+        <output [class]="outputClasses" [attr.for]="sliderId()" [id]="sliderId() + '-out'">
           {{ formatted }}
         </output>
       </div>
       <input
         [class]="sliderClasses"
         type="range"
-        [id]="sliderId"
-        [min]="min"
-        [max]="max"
-        [step]="step"
-        [value]="value"
-        [disabled]="disabled"
-        [attr.aria-describedby]="helper ? sliderId + '-hint' : null"
+        [id]="sliderId()"
+        [min]="min()"
+        [max]="max()"
+        [step]="step()"
+        [value]="value()"
+        [disabled]="disabled()"
+        [attr.aria-describedby]="helper() ? sliderId() + '-hint' : null"
         (input)="onInput($event)"
+        (blur)="markTouched()"
       />
       @if (tickItems.length) {
         <!-- Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb (22px, siehe
@@ -67,35 +77,53 @@ let uid = 0;
           }
         </div>
       }
-      @if (helper) {
-        <span class="helper" [id]="sliderId + '-hint'">{{ helper }}</span>
+      @if (helper()) {
+        <span class="helper" [id]="sliderId() + '-hint'">{{ helper() }}</span>
       }
     </div>
   `,
 })
-export class SliderComponent implements AfterViewInit, OnDestroy {
+export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private resizeObserver?: ResizeObserver;
   /** Gemessene Slider-Breite (px); treibt die reaktive Tick-Reduktion. */
   private readonly width = signal(0);
 
-  @Input() label = 'Budget-Rahmen';
+  readonly label = input('Budget-Rahmen');
   /** Markenbereich → .slider-<area> (Thumb- + Output-Farbe). */
-  @Input() area: CdsArea = 'co';
-  @Input() min = 10000;
-  @Input() max = 100000;
-  @Input() step = 5000;
-  @Input() value = 50000;
+  readonly area = input<CdsArea>('co');
+  readonly min = input(10000);
+  readonly max = input(100000);
+  readonly step = input(5000);
+  /** Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms. */
+  readonly value = model(50000);
   /** Einheit, an den formatierten Wert angehängt (z. B. ' €'). */
-  @Input() unit = ' €';
+  readonly unit = input(' €');
   /** Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem
    *  Slider automatisch reduziert. */
-  @Input() tickCount = 3;
+  readonly tickCount = input(3);
   /** Mindestbreite (px) pro Tick-Label, ab der reduziert wird. */
-  @Input() minTickSpacing = 56;
-  @Input() helper = 'Schritte: 5.000 €';
-  @Input() disabled = false;
-  @Input() sliderId = `cds-slider-${++uid}`;
+  readonly minTickSpacing = input(56);
+  readonly helper = input('Schritte: 5.000 €');
+  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
+  readonly disabled = model(false);
+  readonly sliderId = input(`cds-slider-${++uid}`);
+
+  private onChange: (value: number) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  writeValue(value: number): void {
+    this.value.set(typeof value === 'number' ? value : 0);
+  }
+  registerOnChange(fn: (value: number) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
 
   ngAfterViewInit(): void {
     const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
@@ -114,22 +142,23 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
   }
 
   get sliderClasses(): string {
-    return `slider slider-${this.area}`;
+    return `slider slider-${this.area()}`;
   }
   get outputClasses(): string {
-    return `field-slider-output slider-${this.area}`;
+    return `field-slider-output slider-${this.area()}`;
   }
   get formatted(): string {
-    return `${this.value.toLocaleString('de-DE')}${this.unit}`;
+    return `${this.value().toLocaleString('de-DE')}${this.unit()}`;
   }
 
   /** Effektive Tick-Anzahl: Wunsch, aber auf das reduziert, was in die Breite passt. */
   private effectiveTickCount(): number {
-    if (this.tickCount < 2) return Math.max(0, Math.trunc(this.tickCount));
+    const tickCount = this.tickCount();
+    if (tickCount < 2) return Math.max(0, Math.trunc(tickCount));
     const w = this.width();
-    if (!w) return this.tickCount; // vor der Messung: Wunschanzahl
-    const maxFit = Math.max(2, Math.floor(w / this.minTickSpacing));
-    return Math.min(this.tickCount, maxFit);
+    if (!w) return tickCount; // vor der Messung: Wunschanzahl
+    const maxFit = Math.max(2, Math.floor(w / this.minTickSpacing()));
+    return Math.min(tickCount, maxFit);
   }
 
   /**
@@ -142,10 +171,12 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
     // left so, dass die Label-MITTE auf dem Thumb-Mittelpunkt liegt (Thumb 22px →
     // von 11px bis Breite−11px). translateX(-50%) zentriert das Label darüber.
     const at = (p: number) => `calc(11px + ${p} * (100% - 22px))`;
-    if (n === 1) return [{ label: this.formatTick(this.min), left: at(0.5) }];
+    const min = this.min();
+    const max = this.max();
+    if (n === 1) return [{ label: this.formatTick(min), left: at(0.5) }];
     return Array.from({ length: n }, (_, i) => {
       const p = i / (n - 1);
-      return { label: this.formatTick(this.min + (this.max - this.min) * p), left: at(p) };
+      return { label: this.formatTick(min + (max - min) * p), left: at(p) };
     });
   }
 
@@ -159,6 +190,11 @@ export class SliderComponent implements AfterViewInit, OnDestroy {
   }
 
   onInput(event: Event): void {
-    this.value = Number((event.target as HTMLInputElement).value);
+    const value = Number((event.target as HTMLInputElement).value);
+    this.value.set(value);
+    this.onChange(value);
+  }
+  markTouched(): void {
+    this.onTouched();
   }
 }
