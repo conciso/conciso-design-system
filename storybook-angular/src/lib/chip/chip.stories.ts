@@ -37,6 +37,63 @@ export const Interaktiv: Story = {
   },
 };
 
+export const LesbarerZustand: Story = {
+  name: 'Lesbarer Zustand',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Die `cds-chip` sind per `[(pressed)]` an ein Filter-Array gebunden; ' +
+          'ein Klick togglet `aria-pressed`, emittiert `pressedChange` und ' +
+          'aktualisiert die Liste der aktiven Filter — genau so konsumiert man ' +
+          'den Status im echten Code.',
+      },
+    },
+  },
+  render: () => {
+    const filters = [
+      { label: 'Corporate', area: 'co', pressed: true },
+      { label: 'AI.Applied', area: 'ki', pressed: false },
+      { label: 'Engineering', area: 'es', pressed: false },
+      { label: 'Workplace', area: 'wo', pressed: false },
+    ];
+    return {
+      moduleMetadata: { imports: [ChipComponent] },
+      props: {
+        filters,
+        aktiveLabels: () =>
+          filters.filter((f) => f.pressed).map((f) => f.label).join(', ') || '—',
+      },
+      template: `
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          @for (f of filters; track f.label) {
+            <cds-chip [label]="f.label" [area]="f.area" [(pressed)]="f.pressed"></cds-chip>
+          }
+        </div>
+        <p style="margin-top:16px;font:14px/1.4 system-ui,sans-serif">
+          Aktiv: <strong>{{ aktiveLabels() }}</strong>
+        </p>
+      `,
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    // Start: nur „Corporate" ist aktiv.
+    await expect(c.getByRole('button', { name: 'Corporate' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate');
+    // Klick auf „AI.Applied" → Zustand wird ausgelesen und angezeigt.
+    await userEvent.click(c.getByRole('button', { name: 'AI.Applied' }));
+    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, AI.Applied');
+    // Erneuter Klick auf „Corporate" → wieder abgewählt.
+    await userEvent.click(c.getByRole('button', { name: 'Corporate' }));
+    await expect(canvasElement).toHaveTextContent('Aktiv: AI.Applied');
+  },
+};
+
 export const Zustaende: Story = {
   name: 'Zustände',
   parameters: { controls: { disable: true } },

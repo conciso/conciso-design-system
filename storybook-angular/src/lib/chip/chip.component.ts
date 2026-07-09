@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -31,8 +31,11 @@ export class ChipComponent {
   @Input() area?: CdsArea;
   /** Gedrückt/aktiv → aria-pressed="true". */
   @Input() pressed = false;
+  /** Emittiert den neuen Zustand bei jedem Umschalten (ermöglicht `[(pressed)]`). */
+  @Output() pressedChange = new EventEmitter<boolean>();
 
   toggle(): void {
     this.pressed = !this.pressed;
+    this.pressedChange.emit(this.pressed);
   }
 }
