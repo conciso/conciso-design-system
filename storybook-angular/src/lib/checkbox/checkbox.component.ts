@@ -54,8 +54,12 @@ export class CheckboxComponent implements ControlValueAccessor {
   /** Brand Area → accent-color der Checkbox. */
   readonly area = input<CdsArea>('co');
 
-  private onChange: (value: boolean) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: boolean) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: boolean): void {
     this.checked.set(!!value);

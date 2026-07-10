@@ -62,7 +62,11 @@ export const Interaktiv: Story = {
 
 export const ReicherInhalt: Story = {
   name: 'Reicher Inhalt',
-  parameters: { controls: { disable: true } },
+  // Neue Story ohne eingecheckte Baseline. visual.yml liegt noch nicht auf main →
+  // workflow_dispatch (Baseline-Erzeugung im gepinnten Image) ist nicht verfügbar,
+  // der push-Bootstrap generiert nur bei fehlenden Baselines. Nach dem Merge nach
+  // main kann die Baseline erzeugt und snapshot.skip entfernt werden.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
   // Zeigt, dass der Panel-Inhalt beliebiges Markup/Komponenten sein kann — nicht nur Text.
   render: () => ({
     template: `

@@ -84,8 +84,12 @@ export class ScaleComponent implements ControlValueAccessor {
   readonly disabled = model(false);
   readonly scaleId = input(`cds-scale-${++uid}`);
 
-  private onChange: (value: number) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: number) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: number): void {
     this.value.set(typeof value === 'number' ? value : 0);

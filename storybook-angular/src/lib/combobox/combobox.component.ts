@@ -142,8 +142,12 @@ export class ComboboxComponent implements OnInit, ControlValueAccessor {
   readonly query = signal('');
   private readonly selected = signal<string[]>([]);
 
-  private onChange: (value: string | string[]) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string | string[]) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   private readonly instance = ++uid;
   readonly ids = {

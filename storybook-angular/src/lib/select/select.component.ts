@@ -121,8 +121,12 @@ export class SelectComponent implements ControlValueAccessor {
   readonly open = signal(false);
   readonly activeIndex = signal(-1);
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: string | null): void {
     this.value.set(value ?? undefined);

@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild, input } from '@angular/core';
+import { Component, TemplateRef, ViewChild, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**

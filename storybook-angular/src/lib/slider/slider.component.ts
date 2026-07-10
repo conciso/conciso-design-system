@@ -109,8 +109,12 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   readonly disabled = model(false);
   readonly sliderId = input(`cds-slider-${++uid}`);
 
-  private onChange: (value: number) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: number) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: number): void {
     this.value.set(typeof value === 'number' ? value : 0);

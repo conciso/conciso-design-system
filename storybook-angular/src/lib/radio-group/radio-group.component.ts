@@ -69,8 +69,12 @@ export class RadioGroupComponent implements ControlValueAccessor {
   /** Brand Area → accent-color der Radios. */
   readonly area = input<CdsArea>('co');
 
-  private onChange: (value: string) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: string) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  private onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: string): void {
     this.value.set(value ?? '');

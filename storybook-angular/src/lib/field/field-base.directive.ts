@@ -40,8 +40,12 @@ export abstract class FieldBase implements ControlValueAccessor {
   readonly disabled = model(false);
 
   // ControlValueAccessor-Callbacks (von Angular-Forms registriert).
-  protected onChange: (value: string) => void = () => {};
-  protected onTouched: () => void = () => {};
+  protected onChange: (value: string) => void = () => {
+    /* von Angular-Forms via registerOnChange gesetzt */
+  };
+  protected onTouched: () => void = () => {
+    /* von Angular-Forms via registerOnTouched gesetzt */
+  };
 
   writeValue(value: string): void {
     this.value.set(value ?? '');
