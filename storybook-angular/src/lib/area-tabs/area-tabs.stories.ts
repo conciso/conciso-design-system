@@ -1,19 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 import { within, userEvent, expect } from 'storybook/test';
+import { AreaTabComponent } from './area-tab.component';
 import { AreaTabsComponent } from './area-tabs.component';
 
 const meta: Meta<AreaTabsComponent> = {
   title: 'Organisms/AreaTabs',
   component: AreaTabsComponent,
+  decorators: [moduleMetadata({ imports: [AreaTabsComponent, AreaTabComponent] })],
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Tab-Umschalter zwischen mehreren Bereichen: pro Bereich ein Tab, dessen Inhalt beim ' +
-          'Anklicken angezeigt wird. Der aktive Tab wird in der jeweiligen Bereichsfarbe hervorgehoben. ' +
-          'Typisch für den Vergleich bereichsspezifischer Inhalte auf einer Seite.',
+          'Tab-Umschalter zwischen mehreren Bereichen: pro Bereich ein `<cds-area-tab>` mit ' +
+          '`area`, `label` und BELIEBIGEM projiziertem Inhalt (Text, Listen, Komponenten …), ' +
+          'der beim Anklicken angezeigt wird. Der aktive Tab wird in der Bereichsfarbe ' +
+          'hervorgehoben; der aktive Index ist über `[(active)]` steuerbar.',
       },
     },
   },
@@ -23,7 +27,28 @@ export default meta;
 
 type Story = StoryObj<AreaTabsComponent>;
 
+const bodyStyle = 'font:var(--ty-body-md);color:var(--tx-secondary);margin:0';
+
 export const Interaktiv: Story = {
+  render: (args) => ({
+    props: args,
+    template: `
+      <cds-area-tabs [active]="active">
+        <cds-area-tab area="co" label="Corporate">
+          <p style="${bodyStyle}">Marke, Haltung und konsistente Kommunikation.</p>
+        </cds-area-tab>
+        <cds-area-tab area="ki" label="Angewandte KI">
+          <p style="${bodyStyle}">KI-Lösungen mit echtem Geschäftsnutzen.</p>
+        </cds-area-tab>
+        <cds-area-tab area="es" label="Effektive Software">
+          <p style="${bodyStyle}">Schlanke Architektur, schnellere Lieferung.</p>
+        </cds-area-tab>
+        <cds-area-tab area="wo" label="Wirksame Organisationen">
+          <p style="${bodyStyle}">Teams, die lernen und sich anpassen.</p>
+        </cds-area-tab>
+      </cds-area-tabs>
+    `,
+  }),
   // Tab-Wechsel: Klick aktiviert den Tab (aria-selected) und sein Panel.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
@@ -33,4 +58,31 @@ export const Interaktiv: Story = {
     await expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
     await expect(tabs[0]).toHaveAttribute('aria-selected', 'false');
   },
+};
+
+export const ReicherInhalt: Story = {
+  name: 'Reicher Inhalt',
+  parameters: { controls: { disable: true } },
+  // Zeigt, dass der Panel-Inhalt beliebiges Markup/Komponenten sein kann — nicht nur Text.
+  render: () => ({
+    template: `
+      <cds-area-tabs>
+        <cds-area-tab area="ki" label="Angewandte KI">
+          <h4 style="font:var(--ty-heading-sm);margin:0 0 var(--s2)">KI mit Geschäftsnutzen</h4>
+          <ul style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s3);padding-left:1.2em">
+            <li>Use-Case-Bewertung &amp; Priorisierung</li>
+            <li>RAG- und Assistenz-Lösungen</li>
+            <li>Betrieb &amp; Monitoring</li>
+          </ul>
+          <button type="button" class="btn btn-primary">Beratung anfragen</button>
+        </cds-area-tab>
+        <cds-area-tab area="es" label="Effektive Software">
+          <p style="${bodyStyle}">
+            Schlanke Architektur und schnellere Lieferung — inkl.
+            <a class="body-link" href="#">Referenzprojekten</a>.
+          </p>
+        </cds-area-tab>
+      </cds-area-tabs>
+    `,
+  }),
 };
