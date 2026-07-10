@@ -762,8 +762,10 @@ img.logo-themed-light{display:none}
    Bleibt Corporate-Chrome (co) auch auf data-accent-Seiten, analog zu den Nav-Links. */
 .ep-nav-actions{display:inline-flex;align-items:center;gap:var(--s1);margin-left:auto}
 /* CTA (letztes Child) trägt sonst selbst margin-left:auto → würde den rechten Cluster auseinanderreißen.
-   Wenn die Aktionen das Schieben übernehmen, bekommt der CTA nur noch einen kleinen Abstand. */
-.ep-topnav:has(.ep-nav-actions) > :last-child{margin-left:var(--s3)}
+   Wenn die Aktionen das Schieben übernehmen, bekommt der CTA nur noch einen kleinen Abstand.
+   :not(.ep-nav-actions) → greift nur, wenn NACH den Aktionen noch ein CTA folgt; fehlt der CTA
+   (Aktionen sind selbst letztes Child), behält .ep-nav-actions sein margin-left:auto und bleibt rechts. */
+.ep-topnav:has(.ep-nav-actions) > :last-child:not(.ep-nav-actions){margin-left:var(--s3)}
 .ep-nav-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex-shrink:0;border:1px solid transparent;border-radius:var(--r-full);background:none;color:var(--tx-secondary);cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .ep-nav-icon-btn:hover{background:var(--co-50);color:var(--co-700)}
 .ep-nav-icon-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}

@@ -49,6 +49,8 @@ const config: StorybookConfig = {
     { from: '../../fonts', to: '/conciso/fonts' },
     { from: '../../dist', to: '/conciso/dist' },
     { from: '../../icons', to: '/conciso/icons' },
+    // Brand-Logos (SVG) für Beispiele wie das Topnav-Logo — unverändert serviert.
+    { from: '../../docs/assets/images', to: '/conciso/images' },
   ],
   // Erlaubt das Importieren von .md-Dateien als Roh-String (webpack-5-eigenes
   // asset/source, kein Extra-Loader). Damit kann die Einführungs-Seite die echte
