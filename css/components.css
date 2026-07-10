@@ -289,7 +289,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-select-value{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* Platzhalter (noch keine Auswahl): gedämpft wie .field-Placeholder, AA in beiden Modi */
 .ep-select-trigger.is-placeholder .ep-select-value{color:var(--tx-secondary)}
-.ep-select-caret{flex-shrink:0;width:24px;height:24px;stroke:var(--n-500);transition:transform var(--m-fast)}
+.ep-select-caret{flex-shrink:0;width:24px;height:24px;color:var(--n-500);stroke:var(--n-500);transition:transform var(--m-fast)}
 .ep-select.is-open .ep-select-caret,.ep-combobox.is-open .ep-select-caret{transform:rotate(180deg)}
 
 /* Combobox: textbares Feld im Control, ohne eigenen Rahmen. Chevron + Lösch-Button sind absolut
@@ -327,7 +327,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-select-option:hover,.ep-select-option.is-active{background:var(--sel-50);color:var(--sel-500)}
 .ep-select-option[aria-selected="true"]{background:var(--sel-50);color:var(--sel-500);font-weight:600}
 /* Häkchen hält immer seinen Platz (Textbündigkeit), sichtbar nur im gewählten Eintrag */
-.ep-select-check{flex-shrink:0;width:20px;height:20px;stroke:var(--sel-500);opacity:0}
+.ep-select-check{flex-shrink:0;width:20px;height:20px;color:var(--sel-500);stroke:var(--sel-500);opacity:0}
 .ep-select-option[aria-selected="true"] .ep-select-check{opacity:1}
 .ep-combobox-empty{padding:var(--s2) var(--s3);font:var(--ty-body-sm);color:var(--tx-muted)}
 
