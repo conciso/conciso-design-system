@@ -14,7 +14,11 @@ import remarkGfm from 'remark-gfm';
  *   konsumieren ausschließlich die bestehenden CSS-Klassen.
  */
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|mdx)'],
+  // Nur das Story-Muster: matcht *.stories.ts UND *.stories.mdx. Ein separates
+  // '../src/**/*.mdx' wäre nicht nur redundant, sondern löst – solange es keine
+  // reinen MDX-Doku-Seiten gibt – bei jedem Start die Warnung „No story files found
+  // for the specified pattern" aus. Für eigenständige MDX-Seiten hier wieder ergänzen.
+  stories: ['../src/**/*.stories.@(ts|mdx)'],
   // addon-docs nutzt MDX3, das GitHub-Flavored-Markdown-Tabellen NICHT von Haus aus
   // parst. remark-gfm aktiviert Tabellen (und übrige GFM-Syntax) in allen *.mdx-Dateien.
   addons: [
