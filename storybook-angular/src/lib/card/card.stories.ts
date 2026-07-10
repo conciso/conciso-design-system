@@ -61,3 +61,30 @@ export const OhneMedien: Story = {
   name: 'Ohne Medienfläche',
   args: { showMedia: false, area: 'co', eyebrow: 'Hinweis' },
 };
+
+export const FreierInhalt: Story = {
+  name: 'Freier Inhalt (ng-content)',
+  // Für SPAs: Titel behalten, aber Text/Aktion/Media aus und beliebigen Inhalt
+  // in den .card-body projizieren (z. B. Kennzahlen, Listen, eigene Controls).
+  // Neue Story ohne Baseline (visual.yml noch nicht auf main) → snapshot.skip.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    moduleMetadata: { imports: [CardComponent] },
+    template: `
+      <cds-card
+        area="ki"
+        title="Projektstatus"
+        [text]="''"
+        [actionLabel]="''"
+        [showMedia]="false"
+        style="max-width:320px"
+      >
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-md)">
+          <li style="display:flex;justify-content:space-between"><span>Offen</span><strong>12</strong></li>
+          <li style="display:flex;justify-content:space-between"><span>In Arbeit</span><strong>5</strong></li>
+          <li style="display:flex;justify-content:space-between"><span>Erledigt</span><strong>28</strong></li>
+        </ul>
+      </cds-card>
+    `,
+  }),
+};
