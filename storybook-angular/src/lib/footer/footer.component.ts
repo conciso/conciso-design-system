@@ -5,6 +5,19 @@ export interface CdsFooterLink {
   href: string;
 }
 
+/** Built-in-Plattformen mit verifiziertem Icon. Weitere über `iconPath` möglich. */
+export type CdsSocialPlatform = 'linkedin' | 'youtube';
+
+export interface CdsSocialLink {
+  href: string;
+  /** Built-in-Plattform (bringt Icon + Label mit). */
+  platform?: CdsSocialPlatform;
+  /** Aria-Label; Default: das Label der Plattform. */
+  label?: string;
+  /** Eigenes SVG-Pfad-`d` (viewBox 0 0 24, weiß) — für Plattformen ohne Built-in. */
+  iconPath?: string;
+}
+
 /**
  * Footer — Wrapper um `.footer` aus css/components.css → „Footer".
  *
@@ -14,6 +27,10 @@ export interface CdsFooterLink {
  * Konsumiert nur bestehende Klassen; Social-Glyphen sind schlanke Inline-SVGs in
  * Weiß (wie die -light-Logo-Assets der Doku), da die Bildassets hier nicht
  * eingebunden sind.
+ *
+ * Alle Inhalte sind über Inputs konfigurierbar; die Newsletter-Spalte lässt sich
+ * per `showNewsletter` ausblenden, Social-Links über `socialLinks` (Built-in-Icon
+ * via `platform` oder eigenes `iconPath`).
  */
 @Component({
   selector: 'cds-footer',
@@ -58,33 +75,38 @@ export interface CdsFooterLink {
             </nav>
           </div>
 
-          <div>
-            <h3 class="footer-htitle">{{ newsletterTitle }}</h3>
-            <p class="footer-newsletter-desc">{{ newsletterDesc }}</p>
-            <form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
-              <label class="footer-field">
-                <span class="footer-field-label">Dein Vorname</span>
-                <input type="text" placeholder="Maria" autocomplete="given-name" />
-              </label>
-              <label class="footer-field">
-                <span class="footer-field-label"
-                  >Deine E-Mail <span class="req" aria-hidden="true">*</span></span
-                >
-                <input
-                  type="email"
-                  placeholder="name@unternehmen.de"
-                  aria-required="true"
-                  autocomplete="email"
-                  required
-                />
-              </label>
-              <label class="footer-newsletter-consent">
-                <input type="checkbox" required />
-                <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
-              </label>
-              <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
-            </form>
-          </div>
+          @if (showNewsletter) {
+            <div>
+              <h3 class="footer-htitle">{{ newsletterTitle }}</h3>
+              <p class="footer-newsletter-desc">{{ newsletterDesc }}</p>
+              <form class="footer-newsletter-form" [attr.aria-label]="newsletterTitle">
+                <label class="footer-field">
+                  <span class="footer-field-label">{{ newsletterNameLabel }}</span>
+                  <input type="text" [placeholder]="newsletterNamePlaceholder" autocomplete="given-name" />
+                </label>
+                <label class="footer-field">
+                  <span class="footer-field-label"
+                    >{{ newsletterEmailLabel }} <span class="req" aria-hidden="true">*</span></span
+                  >
+                  <input
+                    type="email"
+                    [placeholder]="newsletterEmailPlaceholder"
+                    aria-required="true"
+                    autocomplete="email"
+                    required
+                  />
+                </label>
+                <label class="footer-newsletter-consent">
+                  <input type="checkbox" required />
+                  <span
+                    >{{ newsletterConsentText }}
+                    <a class="body-link" [href]="newsletterConsentLinkHref">{{ newsletterConsentLinkLabel }}</a></span
+                  >
+                </label>
+                <button type="submit" class="btn btn-filled btn-co">{{ newsletterSubmitLabel }}</button>
+              </form>
+            </div>
+          }
         </div>
       </div>
 
@@ -95,24 +117,19 @@ export interface CdsFooterLink {
             <a class="footer-btm-link" [href]="link.href">{{ link.label }}</a>
           }
         </nav>
-        <!-- Glyphen explizit weiß (fill="#fff") wie die -light-Logo-Assets der Doku:
-             currentColor würde die Link-/n-300-Farbe erben (LinkedIn erschiene blau). -->
-        <nav class="footer-social" aria-label="Soziale Netzwerke">
-          <a href="#" target="_blank" rel="noopener" aria-label="LinkedIn (neues Tab)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-              <path
-                d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.96-1.8-2.96s-2.08 1.4-2.08 2.86V21h-4z"
-              />
-            </svg>
-          </a>
-          <a href="#" target="_blank" rel="noopener" aria-label="YouTube (neues Tab)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-              <path
-                d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.77-1.77C19.3 5.1 12 5.1 12 5.1s-7.3 0-8.83.43A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.77 1.77C4.7 18.9 12 18.9 12 18.9s7.3 0 8.83-.43a2.5 2.5 0 0 0 1.77-1.77C23 15.2 23 12 23 12zM9.75 15.02V8.98L15 12z"
-              />
-            </svg>
-          </a>
-        </nav>
+        @if (socialLinks.length) {
+          <!-- Glyphen explizit weiß (fill="#fff") wie die -light-Logo-Assets der Doku:
+               currentColor würde die Link-/n-300-Farbe erben (LinkedIn erschiene blau). -->
+          <nav class="footer-social" aria-label="Soziale Netzwerke">
+            @for (s of socialLinks; track $index) {
+              <a [href]="s.href" target="_blank" rel="noopener" [attr.aria-label]="socialLabel(s) + ' (neues Tab)'">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+                  <path [attr.d]="socialPath(s)" />
+                </svg>
+              </a>
+            }
+          </nav>
+        }
       </div>
     </footer>
   `,
@@ -143,16 +160,50 @@ export class FooterComponent {
     { label: 'Jobs', href: '#' },
     { label: 'Kontakt', href: '#' },
   ];
+
+  /** Newsletter-Spalte anzeigen. */
+  @Input() showNewsletter = true;
   @Input() newsletterTitle = 'Contentletter abonnieren';
   @Input() newsletterDesc = 'Alle drei Monate neue Beiträge direkt ins Postfach.';
+  @Input() newsletterNameLabel = 'Dein Vorname';
+  @Input() newsletterNamePlaceholder = 'Maria';
+  @Input() newsletterEmailLabel = 'Deine E-Mail';
+  @Input() newsletterEmailPlaceholder = 'name@unternehmen.de';
+  @Input() newsletterConsentText = 'Einverstanden mit den';
+  @Input() newsletterConsentLinkLabel = 'Datenschutzhinweisen';
+  @Input() newsletterConsentLinkHref = '#';
+  @Input() newsletterSubmitLabel = 'Abonnieren';
+
   @Input() copyright = '© 2026 Conciso GmbH · Dortmund';
   @Input() legalLinks: CdsFooterLink[] = [
     { label: 'Datenschutz', href: '#' },
     { label: 'Impressum', href: '#' },
   ];
+  @Input() socialLinks: CdsSocialLink[] = [
+    { platform: 'linkedin', href: '#' },
+    { platform: 'youtube', href: '#' },
+  ];
+
+  /** Verifizierte Built-in-Social-Icons (viewBox 0 0 24, weiß). */
+  private readonly socialIcons: Record<CdsSocialPlatform, { d: string; label: string }> = {
+    linkedin: {
+      label: 'LinkedIn',
+      d: 'M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.3 0-2.96-1.8-2.96s-2.08 1.4-2.08 2.86V21h-4z',
+    },
+    youtube: {
+      label: 'YouTube',
+      d: 'M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.77-1.77C19.3 5.1 12 5.1 12 5.1s-7.3 0-8.83.43A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.77 1.77C4.7 18.9 12 18.9 12 18.9s7.3 0 8.83-.43a2.5 2.5 0 0 0 1.77-1.77C23 15.2 23 12 23 12zM9.75 15.02V8.98L15 12z',
+    },
+  };
+
+  protected socialPath(s: CdsSocialLink): string {
+    return s.iconPath ?? (s.platform ? this.socialIcons[s.platform].d : '');
+  }
+  protected socialLabel(s: CdsSocialLink): string {
+    return s.label ?? (s.platform ? this.socialIcons[s.platform].label : '');
+  }
 
   get telHref(): string {
     return 'tel:' + this.tel.replace(/\s/g, '');
   }
 }
-
