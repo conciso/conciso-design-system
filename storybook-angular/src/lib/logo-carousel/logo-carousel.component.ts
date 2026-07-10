@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, input, model, signal } from '@angular/core';
 
 /** Eindeutige IDs je Instanz (Dot aria-controls ↔ Slide-id). */
 let cdsLogoCarouselUid = 0;
@@ -16,11 +16,11 @@ let cdsLogoCarouselUid = 0;
   selector: 'cds-logo-carousel',
   standalone: true,
   template: `
-    <div class="logo-carousel" [class.paused]="paused">
+    <div class="logo-carousel" [class.paused]="paused()">
       <button
         class="logo-carousel-pause"
         type="button"
-        [attr.aria-label]="paused ? 'Abspielen' : 'Pausieren'"
+        [attr.aria-label]="paused() ? 'Abspielen' : 'Pausieren'"
         (click)="togglePause()"
       >
         <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
@@ -32,14 +32,14 @@ let cdsLogoCarouselUid = 0;
       </button>
 
       <div class="logo-carousel-track">
-        @for (set of sets; track $index; let i = $index) {
+        @for (set of sets(); track $index; let i = $index) {
           <div
             class="logo-carousel-slide"
             [id]="slideId(i)"
             role="group"
             aria-roledescription="Logo-Set"
-            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets.length"
-            [attr.aria-hidden]="i !== active"
+            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
+            [attr.aria-hidden]="i !== active()"
           >
             @for (logo of set; track logo) {
               <div class="logo-tile"><span class="logo-placeholder">{{ logo }}</span></div>
@@ -49,14 +49,14 @@ let cdsLogoCarouselUid = 0;
       </div>
 
       <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Set auswählen">
-        @for (set of sets; track $index; let i = $index) {
+        @for (set of sets(); track $index; let i = $index) {
           <button
             class="logo-carousel-dot"
             type="button"
             role="tab"
-            [attr.aria-selected]="i === active"
+            [attr.aria-selected]="i === active()"
             [attr.aria-controls]="slideId(i)"
-            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets.length"
+            [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
             (click)="goTo(i)"
           ></button>
         }
@@ -65,16 +65,17 @@ let cdsLogoCarouselUid = 0;
   `,
 })
 export class LogoCarouselComponent implements OnInit, OnDestroy {
-  @Input() sets: string[][] = [
+  readonly sets = input<string[][]>([
     ['NORDWIND', 'MERIDIAN', 'AVERA', 'KONTUR', 'STELLA'],
     ['VOLTAIC', 'HEXAGON', 'LUMEN', 'PRAXIS', 'ORBIT'],
     ['CASCADE', 'VERTEX', 'NIMBUS', 'FORGE', 'ATLAS'],
-  ];
+  ]);
   /** Autoplay-Intervall in ms (wie die Doku: 6 s). */
-  @Input() interval = 6000;
-  @Input() active = 0;
+  readonly interval = input(6000);
+  /** Aktives Set. Two-Way (`[(active)]`) via model(). */
+  readonly active = model(0);
 
-  protected paused = false;
+  protected readonly paused = signal(false);
   private timer: ReturnType<typeof setInterval> | null = null;
   private readonly uid = ++cdsLogoCarouselUid;
 
@@ -95,21 +96,21 @@ export class LogoCarouselComponent implements OnInit, OnDestroy {
   }
 
   togglePause(): void {
-    this.paused = !this.paused;
-    if (this.paused) this.stop();
+    this.paused.set(!this.paused());
+    if (this.paused()) this.stop();
     else this.start();
   }
 
   goTo(i: number): void {
-    this.active = i;
+    this.active.set(i);
   }
 
   private start(): void {
     this.stop();
     if (typeof window === 'undefined') return;
     this.timer = setInterval(() => {
-      this.active = (this.active + 1) % this.sets.length;
-    }, this.interval);
+      this.active.set((this.active() + 1) % this.sets().length);
+    }, this.interval());
   }
 
   private stop(): void {

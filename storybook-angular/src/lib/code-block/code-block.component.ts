@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 
 /**
  * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block".
@@ -14,35 +14,35 @@ import { Component, Input } from '@angular/core';
   template: `
     <div [class]="wrapClasses">
       <div class="cb-header">
-        <span class="cb-lang">{{ lang }}</span>
-        @if (copyable) {
+        <span class="cb-lang">{{ lang() }}</span>
+        @if (copyable()) {
           <button class="cb-copy" type="button" (click)="copy()">
-            {{ copied ? 'Kopiert!' : 'Kopieren' }}
+            {{ copied() ? 'Kopiert!' : 'Kopieren' }}
           </button>
         }
       </div>
-      <pre class="cb-body">{{ code }}</pre>
+      <pre class="cb-body">{{ code() }}</pre>
     </div>
   `,
 })
 export class CodeBlockComponent {
-  @Input() lang = 'HTML';
-  @Input() code = '<button class="btn btn-filled btn-co">Kontakt</button>';
+  readonly lang = input('HTML');
+  readonly code = input('<button class="btn btn-filled btn-co">Kontakt</button>');
   /** Terminal-Optik → .cb-terminal. */
-  @Input() terminal = false;
+  readonly terminal = input(false);
   /** Kopier-Button anzeigen (.cb-copy). */
-  @Input() copyable = true;
+  readonly copyable = input(true);
 
-  protected copied = false;
+  protected readonly copied = signal(false);
 
   get wrapClasses(): string {
-    return this.terminal ? 'cb-wrap cb-terminal' : 'cb-wrap';
+    return this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap';
   }
 
   copy(): void {
-    void navigator.clipboard?.writeText(this.code).then(() => {
-      this.copied = true;
-      setTimeout(() => (this.copied = false), 1500);
+    void navigator.clipboard?.writeText(this.code()).then(() => {
+      this.copied.set(true);
+      setTimeout(() => this.copied.set(false), 1500);
     });
   }
 }

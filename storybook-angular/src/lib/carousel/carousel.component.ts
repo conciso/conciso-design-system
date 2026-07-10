@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 
 export interface CdsSlide {
   image?: string;
@@ -12,7 +12,8 @@ export interface CdsSlide {
  * Crossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt
  * `.active` (opacity). Prev/Next-Buttons (.img-slider-btn) und Dots (.img-dot)
  * steuern den Index. Optionale Hero-Variante (.img-slider-hero). Ohne Bild-URL
- * wird ein neutraler Platzhalter gezeigt.
+ * wird ein neutraler Platzhalter gezeigt. Der aktive Index ist über `[(active)]`
+ * (model) beobacht-/steuerbar.
  */
 @Component({
   selector: 'cds-carousel',
@@ -25,13 +26,13 @@ export interface CdsSlide {
       aria-label="Bildstrecke"
     >
       <div class="img-slider-track">
-        @for (slide of slides; track slide.title; let i = $index) {
+        @for (slide of slides(); track slide.title; let i = $index) {
           <div
             class="img-slide"
             role="group"
             aria-roledescription="Folie"
-            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides.length"
-            [class.active]="i === active"
+            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
+            [class.active]="i === active()"
           >
             <div class="img-slide-media">
               <img [src]="slide.image || placeholder" [alt]="slide.title" />
@@ -56,15 +57,15 @@ export interface CdsSlide {
       </button>
 
       <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
-        @for (slide of slides; track slide.title; let i = $index) {
+        @for (slide of slides(); track slide.title; let i = $index) {
           <button
             class="img-dot"
             type="button"
             role="tab"
-            [class.active]="i === active"
-            [attr.aria-selected]="i === active"
-            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides.length"
-            (click)="active = i"
+            [class.active]="i === active()"
+            [attr.aria-selected]="i === active()"
+            [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
+            (click)="active.set(i)"
           ></button>
         }
       </div>
@@ -72,24 +73,25 @@ export interface CdsSlide {
   `,
 })
 export class CarouselComponent {
-  @Input() slides: CdsSlide[] = [
+  readonly slides = input<CdsSlide[]>([
     { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
     { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
     { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
-  ];
-  @Input() active = 0;
+  ]);
+  /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */
+  readonly active = model(0);
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */
-  @Input() hero = false;
+  readonly hero = input(false);
 
   get wrapClasses(): string {
-    return this.hero ? 'img-slider img-slider-hero' : 'img-slider';
+    return this.hero() ? 'img-slider img-slider-hero' : 'img-slider';
   }
 
   prev(): void {
-    this.active = (this.active - 1 + this.slides.length) % this.slides.length;
+    this.active.set((this.active() - 1 + this.slides().length) % this.slides().length);
   }
   next(): void {
-    this.active = (this.active + 1) % this.slides.length;
+    this.active.set((this.active() + 1) % this.slides().length);
   }
 
   protected readonly placeholder =

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 export interface CdsFaqItem {
   q: string;
@@ -17,7 +17,7 @@ export interface CdsFaqItem {
   standalone: true,
   template: `
     <div class="ep-faq">
-      @for (item of items; track item.q) {
+      @for (item of items(); track item.q) {
         <details [open]="false">
           <summary>
             {{ item.q }}
@@ -41,7 +41,7 @@ export interface CdsFaqItem {
   `,
 })
 export class FaqComponent {
-  @Input() items: CdsFaqItem[] = [
+  readonly items = input<CdsFaqItem[]>([
     {
       q: 'Wie läuft die Bewerbung ab?',
       a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.',
@@ -54,5 +54,5 @@ export class FaqComponent {
       q: 'Welche Technologien nutzt ihr?',
       a: 'Moderne, langlebige Stacks — die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
     },
-  ];
+  ]);
 }

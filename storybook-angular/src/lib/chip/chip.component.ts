@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -17,25 +17,22 @@ import type { CdsArea } from '../area';
     <button
       class="chip"
       type="button"
-      [attr.data-area]="area || null"
-      [attr.aria-pressed]="pressed"
+      [attr.data-area]="area() || null"
+      [attr.aria-pressed]="pressed()"
       (click)="toggle()"
     >
-      {{ label }}
+      {{ label() }}
     </button>
   `,
 })
 export class ChipComponent {
-  @Input() label = 'Filter';
+  readonly label = input('Filter');
   /** Markenbereich → data-area (area-aware Outline). */
-  @Input() area?: CdsArea;
-  /** Gedrückt/aktiv → aria-pressed="true". */
-  @Input() pressed = false;
-  /** Emittiert den neuen Zustand bei jedem Umschalten (ermöglicht `[(pressed)]`). */
-  @Output() pressedChange = new EventEmitter<boolean>();
+  readonly area = input<CdsArea>();
+  /** Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model(). */
+  readonly pressed = model(false);
 
   toggle(): void {
-    this.pressed = !this.pressed;
-    this.pressedChange.emit(this.pressed);
+    this.pressed.set(!this.pressed());
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 /**
  * Footer — oberer Teil (`.footer-main`): helles Band als **generisches Spalten-Layout**.
@@ -23,7 +23,7 @@ import { Component, Input } from '@angular/core';
   host: { class: 'footer-main' },
   styles: [':host{display:block}'],
   template: `
-    <div class="footer-grid" [style.grid-template-columns]="columns || null">
+    <div class="footer-grid" [style.grid-template-columns]="columns() || null">
       <ng-content></ng-content>
     </div>
   `,
@@ -33,5 +33,5 @@ export class FooterMainComponent {
    * Optionale `grid-template-columns` (z. B. `'repeat(4, 1fr)'` oder `'2fr 1fr'`).
    * Ohne Angabe gilt das Default aus `.footer-grid` (1.2fr 1fr 1.3fr, 3 Spalten).
    */
-  @Input() columns?: string;
+  readonly columns = input<string>();
 }

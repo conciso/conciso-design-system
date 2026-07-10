@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
@@ -36,26 +36,26 @@ export interface CdsNavItem {
   template: `
     <header [class]="navClasses">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">
-        @if (logoSrc) {
+        @if (logoSrc()) {
           <!-- Größe (24px) + Theme-Swap kommen aus der portablen css/components.css
                (.ep-logo img, .logo-themed-default/-light via [data-theme]). -->
-          <img [class.logo-themed-default]="!!logoDarkSrc" [src]="logoSrc" [alt]="logoAlt || logo" />
-          @if (logoDarkSrc) {
-            <img class="logo-themed-light" [src]="logoDarkSrc" [alt]="logoAlt || logo" />
+          <img [class.logo-themed-default]="!!logoDarkSrc()" [src]="logoSrc()" [alt]="logoAlt() || logo()" />
+          @if (logoDarkSrc()) {
+            <img class="logo-themed-light" [src]="logoDarkSrc()" [alt]="logoAlt() || logo()" />
           }
         } @else {
-          {{ logo }}
+          {{ logo() }}
         }
       </a>
 
       <nav class="ep-nav-links" aria-label="Hauptnavigation">
-        @for (item of links; track item.label; let i = $index) {
+        @for (item of links(); track item.label; let i = $index) {
           @if (item.sub?.length) {
-            <div class="ep-nav-item ep-nav-has-sub" [class.is-open]="openIndex === i">
+            <div class="ep-nav-item ep-nav-has-sub" [class.is-open]="openIndex() === i">
               <button
                 class="ep-nav-btn ep-nav-item-toggle"
                 type="button"
-                [attr.aria-expanded]="openIndex === i"
+                [attr.aria-expanded]="openIndex() === i"
                 (click)="toggleSub(i)"
               >
                 {{ item.label }}
@@ -63,14 +63,14 @@ export interface CdsNavItem {
               </button>
               <div class="ep-nav-sub">
                 @for (s of item.sub; track s.label) {
-                  <a class="ep-nav-sub-btn" [href]="s.href" [attr.aria-current]="s.href === activeHref ? 'page' : null" (click)="closeAll()">
+                  <a class="ep-nav-sub-btn" [href]="s.href" [attr.aria-current]="s.href === activeHref() ? 'page' : null" (click)="closeAll()">
                     {{ s.label }}
                   </a>
                 }
               </div>
             </div>
           } @else {
-            <a class="ep-nav-btn" [href]="item.href || '#'" [attr.aria-current]="item.href && item.href === activeHref ? 'page' : null">
+            <a class="ep-nav-btn" [href]="item.href || '#'" [attr.aria-current]="item.href && item.href === activeHref() ? 'page' : null">
               {{ item.label }}
             </a>
           }
@@ -78,13 +78,13 @@ export interface CdsNavItem {
       </nav>
 
       <div class="ep-nav-actions">
-        @if (showSearch) {
-        <div class="ep-nav-search" [class.is-open]="searchOpen">
+        @if (showSearch()) {
+        <div class="ep-nav-search" [class.is-open]="searchOpen()">
           <button
             class="ep-nav-icon-btn ep-nav-search-toggle"
             type="button"
             aria-label="Suche"
-            [attr.aria-expanded]="searchOpen"
+            [attr.aria-expanded]="searchOpen()"
             (click)="toggleSearch()"
           >
             <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
@@ -105,11 +105,11 @@ export interface CdsNavItem {
         </div>
         }
 
-        <cds-theme-cycle [showSystem]="showSystemTheme" />
+        <cds-theme-cycle [showSystem]="showSystemTheme()" />
       </div>
 
-      @if (showCta) {
-        <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel }}</a>
+      @if (showCta()) {
+        <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel() }}</a>
       }
     </header>
   `,
@@ -119,28 +119,28 @@ export class TopnavComponent {
 
   protected readonly searchId = `cds-topnav-search-${++cdsTopnavUid}`;
 
-  @Input() logo = 'conciso.';
+  readonly logo = input('conciso.');
   /** Optionales Logo-Bild/-Icon (URL oder Data-URI). Gesetzt → statt des Text-Logos.
    *  Doku: immer SVG (logo-conciso.svg), Default-Variante für helle Hintergründe. */
-  @Input() logoSrc?: string;
+  readonly logoSrc = input<string>();
   /** Optionale helle Logo-Variante für den Dark Mode (Doku: logo-conciso-light.svg).
    *  Gesetzt → Theme-Swap via .logo-themed-* (schaltet über [data-theme] um);
    *  sonst wird logoSrc in beiden Themes gezeigt. */
-  @Input() logoDarkSrc?: string;
+  readonly logoDarkSrc = input<string>();
   /** Alt-Text des Logo-Bilds (Fallback: der Text aus `logo`). */
-  @Input() logoAlt = '';
-  @Input() ctaLabel = 'Kontakt';
+  readonly logoAlt = input('');
+  readonly ctaLabel = input('Kontakt');
   /** Suche (Icon + Popover) rechts anzeigen. */
-  @Input() showSearch = true;
+  readonly showSearch = input(true);
   /** Kontakt-/CTA-Button anzeigen. */
-  @Input() showCta = true;
+  readonly showCta = input(true);
   /** Bietet der Theme-Cycle-Button im Header auch „System" an (tri) oder nur Hell/Dunkel? */
-  @Input() showSystemTheme = true;
+  readonly showSystemTheme = input(true);
   /** Href des aktuell aktiven Eintrags (Single Source of Truth). Nur der Eintrag
    *  — Top-Level ODER Sub — mit passendem href erhält aria-current="page". Dadurch
    *  kann strukturell höchstens EINER aktiv sein (statt mehrerer current-Flags). */
-  @Input() activeHref?: string;
-  @Input() links: CdsNavItem[] = [
+  readonly activeHref = input<string>();
+  readonly links = input<CdsNavItem[]>([
     {
       label: 'Leistungen',
       sub: [
@@ -159,26 +159,26 @@ export class TopnavComponent {
     },
     { label: 'Beiträge', href: '#beitraege' },
     { label: 'Kontakt', href: '#kontakt' },
-  ];
+  ]);
 
-  protected openIndex = -1;
-  protected searchOpen = false;
+  protected readonly openIndex = signal(-1);
+  protected readonly searchOpen = signal(false);
 
   protected readonly navClasses = 'ep-topnav';
 
   toggleSub(i: number): void {
-    this.openIndex = this.openIndex === i ? -1 : i;
-    this.searchOpen = false;
+    this.openIndex.set(this.openIndex() === i ? -1 : i);
+    this.searchOpen.set(false);
   }
 
   toggleSearch(): void {
-    this.searchOpen = !this.searchOpen;
-    this.openIndex = -1;
+    this.searchOpen.set(!this.searchOpen());
+    this.openIndex.set(-1);
   }
 
   closeAll(): void {
-    this.openIndex = -1;
-    this.searchOpen = false;
+    this.openIndex.set(-1);
+    this.searchOpen.set(false);
   }
 
   @HostListener('document:click', ['$event'])

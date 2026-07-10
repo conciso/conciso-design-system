@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 export interface CdsFooterLink {
   label: string;
@@ -30,21 +30,21 @@ export interface CdsSocialLink {
   host: { class: 'footer-btm' },
   template: `
     <span
-      >{{ copyright }}@if (version) {<span aria-hidden="true">&nbsp;·&nbsp;</span>{{ version }}}</span
+      >{{ copyright() }}@if (version()) {<span aria-hidden="true">&nbsp;·&nbsp;</span>{{ version() }}}</span
     >
     <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
-      @for (link of legalLinks; track link.label) {
+      @for (link of legalLinks(); track link.label) {
         <a class="footer-btm-link" [href]="link.href">{{ link.label }}</a>
       }
     </nav>
-    @if (support) {
-      <a class="footer-btm-link" [href]="support.href">{{ support.label }}</a>
+    @if (support(); as sup) {
+      <a class="footer-btm-link" [href]="sup.href">{{ sup.label }}</a>
     }
-    @if (socialLinks.length) {
+    @if (socialLinks().length) {
       <!-- Glyphen explizit weiß (fill="#fff") wie die -light-Logo-Assets der Doku:
            currentColor würde die Link-/n-300-Farbe erben (LinkedIn erschiene blau). -->
       <nav class="footer-social" aria-label="Soziale Netzwerke">
-        @for (s of socialLinks; track $index) {
+        @for (s of socialLinks(); track $index) {
           <a [href]="s.href" target="_blank" rel="noopener" [attr.aria-label]="socialLabel(s) + ' (neues Tab)'">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
               <path [attr.d]="socialPath(s)" />
@@ -56,19 +56,19 @@ export interface CdsSocialLink {
   `,
 })
 export class FooterBottomComponent {
-  @Input() copyright = '© 2026 Conciso GmbH · Dortmund';
+  readonly copyright = input('© 2026 Conciso GmbH · Dortmund');
   /** Optionale Versionsangabe (z. B. „Version 1.4.2"), hinter dem Copyright. */
-  @Input() version?: string;
+  readonly version = input<string>();
   /** Optionaler Support-/Hilfe-Link neben den Rechts-Links. */
-  @Input() support?: CdsFooterLink;
-  @Input() legalLinks: CdsFooterLink[] = [
+  readonly support = input<CdsFooterLink>();
+  readonly legalLinks = input<CdsFooterLink[]>([
     { label: 'Datenschutz', href: '#' },
     { label: 'Impressum', href: '#' },
-  ];
-  @Input() socialLinks: CdsSocialLink[] = [
+  ]);
+  readonly socialLinks = input<CdsSocialLink[]>([
     { platform: 'linkedin', href: '#' },
     { platform: 'youtube', href: '#' },
-  ];
+  ]);
 
   /** Verifizierte Built-in-Social-Icons (viewBox 0 0 24, weiß). */
   private readonly socialIcons: Record<CdsSocialPlatform, { d: string; label: string }> = {
