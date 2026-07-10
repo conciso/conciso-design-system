@@ -29,12 +29,17 @@ export interface CdsSocialLink {
   standalone: true,
   host: { class: 'footer-btm' },
   template: `
-    <span>{{ copyright }}</span>
+    <span
+      >{{ copyright }}@if (version) {<span aria-hidden="true">&nbsp;·&nbsp;</span>{{ version }}}</span
+    >
     <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
       @for (link of legalLinks; track link.label) {
         <a class="footer-btm-link" [href]="link.href">{{ link.label }}</a>
       }
     </nav>
+    @if (support) {
+      <a class="footer-btm-link" [href]="support.href">{{ support.label }}</a>
+    }
     @if (socialLinks.length) {
       <!-- Glyphen explizit weiß (fill="#fff") wie die -light-Logo-Assets der Doku:
            currentColor würde die Link-/n-300-Farbe erben (LinkedIn erschiene blau). -->
@@ -52,6 +57,10 @@ export interface CdsSocialLink {
 })
 export class FooterBottomComponent {
   @Input() copyright = '© 2026 Conciso GmbH · Dortmund';
+  /** Optionale Versionsangabe (z. B. „Version 1.4.2"), hinter dem Copyright. */
+  @Input() version?: string;
+  /** Optionaler Support-/Hilfe-Link neben den Rechts-Links. */
+  @Input() support?: CdsFooterLink;
   @Input() legalLinks: CdsFooterLink[] = [
     { label: 'Datenschutz', href: '#' },
     { label: 'Impressum', href: '#' },

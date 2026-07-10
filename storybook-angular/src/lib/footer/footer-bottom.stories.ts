@@ -27,6 +27,7 @@ const meta: Meta<FooterBottomComponent> = {
   },
   argTypes: {
     copyright: { control: 'text' },
+    version: { control: 'text' },
   },
   // Werte vorbefüllt, damit sie im Controls-Panel sichtbar/editierbar sind.
   args: {
@@ -46,6 +47,17 @@ export default meta;
 type Story = StoryObj<FooterBottomComponent>;
 
 export const Interaktiv: Story = {};
+
+export const MitVersionSupport: Story = {
+  name: 'Mit Version & Support',
+  // Für App-Footer: Versionsangabe hinter dem Copyright + Support-Link, ohne Social.
+  args: {
+    copyright: '© 2026 Conciso GmbH',
+    version: 'Version 1.4.2',
+    support: { label: 'Support', href: '#' },
+    socialLinks: [],
+  },
+};
 
 export const EigeneSocialLinks: Story = {
   name: 'Eigene Social-Links',

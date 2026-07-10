@@ -88,13 +88,15 @@ export const AppFooter: Story = {
       legal: [
         { label: 'Datenschutz', href: '#' },
         { label: 'Impressum', href: '#' },
-        { label: 'Version 1.4.2', href: '#' },
       ],
+      support: { label: 'Support', href: '#' },
     },
     template: `
       <cds-footer>
         <cds-footer-bottom
           copyright="© 2026 Conciso GmbH"
+          version="Version 1.4.2"
+          [support]="support"
           [legalLinks]="legal"
           [socialLinks]="[]"
         ></cds-footer-bottom>
