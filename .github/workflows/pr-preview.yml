@@ -1,0 +1,100 @@
+name: PR-Vorschau (Doku)
+
+# Baut pro PR eine offline lauffähige Vorschau der Design-System-Doku und stellt
+# sie auf zwei Wegen bereit:
+#
+#   1. IMMER — als Download-Artefakt „doku-preview" (kein Admin/SaaS nötig, läuft
+#      auch auf privatem Repo). Ein Bot-Kommentar am PR erklärt den Download.
+#      Reviewer: Artefakt laden → entpacken → index.html doppelklicken.
+#
+#   2. VORBEREITET — als GitHub-Pages-Live-URL pro PR. Dieser Schritt ist DORMANT,
+#      bis ein Admin ihn aktiviert. Zum Aktivieren (privates Repo → GitHub Team/
+#      Enterprise nötig):
+#        a) Settings → Pages → Source „Deploy from a branch" → gh-pages / (root).
+#        b) Repo-Variable ENABLE_PAGES_PREVIEW = true setzen
+#           (Settings → Secrets and variables → Actions → Variables).
+#        c) Empfohlen: rossjrw/pr-preview-action unten auf einen geprüften Commit-
+#           SHA pinnen, bevor der Schritt scharf geschaltet wird.
+#      Danach kommentiert die Action pro PR eine Live-URL und räumt sie beim
+#      Schließen wieder auf.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'docs/**'
+      - 'css/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'scripts/build-docs-preview.sh'
+      - '.github/workflows/pr-preview.yml'
+
+permissions:
+  contents: write        # gh-pages-Branch (nur wenn Pages aktiviert)
+  pull-requests: write   # Vorschau-Kommentar
+
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Doku-Vorschau bauen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ImageMagick sicherstellen
+        if: github.event.action != 'closed'
+        run: convert -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
+
+      - name: Vorschau bauen
+        if: github.event.action != 'closed'
+        run: bash scripts/build-docs-preview.sh "$GITHUB_WORKSPACE/_preview"
+
+      - name: Artefakt hochladen
+        if: github.event.action != 'closed'
+        uses: actions/upload-artifact@v4
+        with:
+          name: doku-preview
+          path: _preview
+          retention-days: 14
+
+      - name: Vorschau-Kommentar (Artefakt)
+        if: github.event.action != 'closed'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- doku-preview-comment -->';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = [
+              marker,
+              '### 📄 Doku-Vorschau bereit',
+              '',
+              'Eine **offline lauffähige** Vorschau dieser Änderung liegt als Download bereit:',
+              '',
+              `1. [Diesen Workflow-Lauf öffnen](${runUrl}) und ganz unten zu **Artifacts** scrollen.`,
+              '2. **`doku-preview`** herunterladen und das Zip entpacken.',
+              '3. **`index.html`** per Doppelklick öffnen — rendert vollständig offline (Schriften, Bilder, Navigation).',
+              '4. Links auf **Inputs & Forms** klicken → unter **Feldkomponenten** ist die Änderung sichtbar.',
+              '',
+              '_Wird bei jedem Push automatisch aktualisiert._',
+            ].join('\n');
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number, per_page: 100 });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }
+
+      # --- VORBEREITET: GitHub-Pages-Live-URL pro PR (dormant, s. Kopf-Kommentar) ---
+      - name: Pages-Vorschau deployen/aufräumen
+        if: ${{ vars.ENABLE_PAGES_PREVIEW == 'true' }}
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: _preview

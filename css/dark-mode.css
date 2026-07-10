@@ -93,7 +93,7 @@
 [data-theme="dark"] [role="search"] svg { stroke: var(--tx-secondary) }
 /* Dropdowns (.ep-select/.ep-combobox): Caret n-500 (#4A6565) auf Feld-bg ≈ 1,1:1 → n-200 (#C9D3D3),
    analog zur nativen Select-Pfeil-Korrektur oben. */
-[data-theme="dark"] .ep-select-caret { stroke: var(--n-200) }
+[data-theme="dark"] .ep-select-caret { color: var(--n-200); stroke: var(--n-200) }
 /* Akzent des gewählten Eintrags: --sel-500 nutzt die -700/-800-Bereichstöne → dunkel-auf-dunkel auf der
    bg-surface-Popup-Fläche bzw. der dunklen -50-Tönung. Auf die hellen -200/-100-Töne heben (wie t-Utilities,
    Badges, Pills); die --sel-50-Tönung bleibt theme-aware (dunkle -50-Kachel), heller Text trägt den Kontrast. */
@@ -327,6 +327,9 @@
 [data-theme="dark"] .badge[data-area="ki"] { color: var(--ki-200) }
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
+
+/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
+[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */

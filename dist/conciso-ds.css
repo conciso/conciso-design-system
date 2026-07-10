@@ -495,6 +495,9 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
+/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
+[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
+
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
 [data-theme="dark"] .gcol  { color: var(--co-300) }
@@ -976,6 +979,22 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .chip[data-area="wo"][aria-pressed="true"]{background:var(--wo-700);border-color:var(--wo-700);color:#fff}
 .chip[data-area][aria-pressed="true"]:hover{filter:brightness(.92)}
 
+/* ── Segmented Control ──
+   Native <input type="radio"> als verbundene Button-Gruppe (2–4 kurze Optionen).
+   Der :checked-Zustand ist nur per Selektor stylbar (nicht inline), daher als echte
+   Komponente. Das native Input bleibt fokussierbar (visuell versteckt), Auswahl per
+   Klick aufs Label und per Pfeiltasten. Aktives Segment = solide Bereichsfüllung
+   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
+   clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
+   dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
+.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+.seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
+.seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
+.seg-option input{position:absolute;width:1px;height:1px;opacity:0}
+.seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.seg-option input:checked + label{background:var(--co-700);color:#fff}
+
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
 .atab{padding:var(--s2) var(--s4);font:var(--ty-label-md);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--tx-secondary);transition:color var(--m-fast),border-color var(--m-fast);min-height:40px;display:flex;align-items:center;gap:var(--s2);background:none;border-top:none;border-left:none;border-right:none}
@@ -1373,7 +1392,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
 .cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
 .cb-lang{font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em;color:var(--co-700)}
-.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-400);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-500);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
@@ -1408,14 +1427,19 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-mode{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em;border:var(--bd);background:transparent;color:var(--tx-secondary);margin-right:var(--s2);vertical-align:middle;white-space:nowrap}
 
 /* ── Slider ── */
-.field-slider{display:flex;flex-direction:column;gap:var(--s2)}
+.field-slider{display:flex;flex-direction:column;gap:var(--s2);--sl-thumb:22px}
 .field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
 .field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
 .field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
-.field-slider-ticks{display:flex;justify-content:space-between;font:var(--ty-caption);color:var(--tx-muted);padding:0 2px}
+/* Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb-Mittelpunkt läuft von
+   --sl-thumb/2 bis (Breite − --sl-thumb/2). Jeder Tick trägt --tick-p (0..1) als
+   Bruchteil des Wertebereichs und wird über seiner Mitte zentriert. (Früher
+   justify-content:space-between → Label-Mitten trafen die Positionen nicht.) */
+.field-slider-ticks{position:relative;height:16px;font:var(--ty-caption);color:var(--tx-muted)}
+.field-slider-ticks>*{position:absolute;transform:translateX(-50%);white-space:nowrap;left:calc(var(--sl-thumb) / 2 + var(--tick-p, 0) * (100% - var(--sl-thumb)))}
 .slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-full);background:var(--n-200);outline:none;cursor:pointer;display:block;margin:var(--s3) 0 var(--s1)}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
-.slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
+.slider::-moz-range-thumb{width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
 .slider:hover:not(:disabled)::-webkit-slider-thumb{transform:scale(1.2);box-shadow:var(--e3)}
 .slider:hover:not(:disabled)::-moz-range-thumb{transform:scale(1.2);box-shadow:var(--e3)}
 .slider:focus-visible{outline:none;box-shadow:var(--focus-ring)}
@@ -1554,12 +1578,16 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
 .ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
 .ep-page.visible{display:block}
-/* Beispielseiten dürfen über den 1280-Spec hinaus auf 1500px breit werden */
+/* Beispielseiten nutzen die volle verfügbare Breite bis zum rechten Fensterrand (kein 1280/1500-Deckel):
+   .ds-content ist flex:1 und füllt Fensterbreite − Sidebar. Der Karten-Rahmen (.ep-page: Radius/Schatten)
+   und der Außenabstand (.ds-content padding --s6) bleiben; der Seiteninhalt bleibt über das Content-Gutter
+   (padding-inline: max(--s8, calc(50% − 640px)), s.u.) in einer zentrierten 1280-Lesespalte, Hero/Bänder
+   laufen full-bleed über die Kartenbreite. */
 /* Breite an data-section (vom Inline-Head-Script vor dem Paint gesetzt) — verhindert den Layout-Sprung,
    den :has() allein verursacht (greift erst, wenn JS die Sektion nach dem Paint sichtbar macht).
    :has bleibt als Laufzeit-Backup für Wechsel, die nicht über activateSection laufen. */
 html[data-section="examples"] .ds-content,
-.ds-content:has(#sec-examples.visible){max-width:1500px}
+.ds-content:has(#sec-examples.visible){max-width:none}
 /* Inhalt der Sektionen folgt aber dem 1280px-Spec — Hintergründe bleiben volle Panel-Breite,
    Content wird über fluides Inline-Padding zentriert (kein zusätzlicher Wrapper nötig). */
 .ep-page .ep-topnav,
