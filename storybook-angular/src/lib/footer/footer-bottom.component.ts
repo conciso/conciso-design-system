@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import type { CdsFooterLink } from './footer-main.component';
+
+export interface CdsFooterLink {
+  label: string;
+  href: string;
+}
 
 /** Built-in-Plattformen mit verifiziertem Icon. Weitere über `iconPath` möglich. */
 export type CdsSocialPlatform = 'linkedin' | 'youtube';

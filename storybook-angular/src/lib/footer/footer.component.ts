@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
 // Re-Export für Konsumenten, die die Typen weiter aus footer.component beziehen.
-export type { CdsFooterLink } from './footer-main.component';
-export type { CdsSocialLink, CdsSocialPlatform } from './footer-bottom.component';
+export type { CdsFooterLink, CdsSocialLink, CdsSocialPlatform } from './footer-bottom.component';
 
 /**
  * Footer — `<footer>`-Landmark (`.footer`, Zwei-Band-Stack) als schlanke Hülle. Die
