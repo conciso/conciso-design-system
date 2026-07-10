@@ -1,4 +1,7 @@
 import { Component, OnDestroy, OnInit, input, model, signal } from '@angular/core';
+import { CdsLogo, LogoComponent } from '../logo/logo.component';
+
+export type { CdsLogo } from '../logo/logo.component';
 
 /** Eindeutige IDs je Instanz (Dot aria-controls ↔ Slide-id). */
 let cdsLogoCarouselUid = 0;
@@ -6,15 +9,19 @@ let cdsLogoCarouselUid = 0;
 /**
  * LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel".
  *
- * Diskrete Sets von je 5 Logo-Kacheln, die automatisch per Crossfade wechseln
+ * Diskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln
  * (`[aria-hidden]` je Slide). Pausierbar über den Pause-Button (.logo-carousel-pause,
  * sichtbar bei Hover/Fokus bzw. dauerhaft im Pause-Zustand .paused), Dots wählen ein
- * Set direkt. Autoplay respektiert prefers-reduced-motion. Logos sind Platzhalter
- * (.logo-placeholder), da hier keine Kundenlogos eingebunden sind.
+ * Set direkt. Autoplay respektiert prefers-reduced-motion.
+ *
+ * Jede Kachel ist ein `cds-logo`: bevorzugt ein Bild (`src`), sonst der Text als
+ * Platzhalter/Fallback. Standardmäßig sind reine Text-Platzhalter gesetzt – reale
+ * Anwendungen übergeben ihre Kundenlogos als Bilder.
  */
 @Component({
   selector: 'cds-logo-carousel',
   standalone: true,
+  imports: [LogoComponent],
   template: `
     <div class="logo-carousel" [class.paused]="paused()">
       <button
@@ -41,8 +48,8 @@ let cdsLogoCarouselUid = 0;
             [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
             [attr.aria-hidden]="i !== active()"
           >
-            @for (logo of set; track logo) {
-              <div class="logo-tile"><span class="logo-placeholder">{{ logo }}</span></div>
+            @for (logo of set; track logo.label) {
+              <cds-logo [label]="logo.label" [src]="logo.src" [alt]="logo.alt || ''" />
             }
           </div>
         }
@@ -65,12 +72,12 @@ let cdsLogoCarouselUid = 0;
   `,
 })
 export class LogoCarouselComponent implements OnInit, OnDestroy {
-  readonly sets = input<string[][]>([
-    ['NORDWIND', 'MERIDIAN', 'AVERA', 'KONTUR', 'STELLA'],
-    ['VOLTAIC', 'HEXAGON', 'LUMEN', 'PRAXIS', 'ORBIT'],
-    ['CASCADE', 'VERTEX', 'NIMBUS', 'FORGE', 'ATLAS'],
+  readonly sets = input<CdsLogo[][]>([
+    [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
+    [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
+    [{ label: 'CASCADE' }, { label: 'VERTEX' }, { label: 'NIMBUS' }, { label: 'FORGE' }, { label: 'ATLAS' }],
   ]);
-  /** Autoplay-Intervall in ms (wie die Doku: 6 s). */
+  /** Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s). */
   readonly interval = input(6000);
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);

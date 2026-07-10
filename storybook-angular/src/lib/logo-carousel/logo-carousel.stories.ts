@@ -12,14 +12,18 @@ const meta: Meta<LogoCarouselComponent> = {
       description: {
         component:
           'Automatischer Wechsler für Kundenlogos: Sets von je fünf Logos wechseln per Crossfade ' +
-          'und lassen sich über Dots gezielt ansteuern. Die Animation pausiert bei Hover und ' +
-          'Tastatur-Fokus, zusätzlich über einen Pause-Button, und ruht bei reduzierter Bewegung. ' +
-          'Barrierefrei nach WCAG 2.1 AA.',
+          'und lassen sich über Dots gezielt ansteuern. Jede Kachel ist ein `cds-logo` – bevorzugt ' +
+          'ein Bild (`src`), sonst der Text als Platzhalter/Fallback. Die Animation pausiert bei ' +
+          'Hover und Tastatur-Fokus, zusätzlich über einen Pause-Button, und ruht bei reduzierter ' +
+          'Bewegung. Barrierefrei nach WCAG 2.1 AA.',
       },
     },
   },
   argTypes: {
-    interval: { control: { type: 'number', min: 1000, step: 500 } },
+    interval: {
+      description: 'Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s).',
+      control: { type: 'number', min: 1000, step: 500 },
+    },
   },
   args: { interval: 6000, active: 0 },
 };
@@ -32,11 +36,42 @@ export const Interaktiv: Story = {
   // Frame hängt vom Screenshot-Timing ab → nicht deterministisch. Funktion + a11y
   // sind über den play-Test unten abgedeckt.
   parameters: { snapshot: { skip: true } },
-  // Pause-Button stoppt das Autoplay und wechselt das Label auf „Abspielen".
+  // Pause-Button stoppt das Autoplay (Label „Abspielen") und startet es wieder.
+  // Wichtig: am Ende wieder auf „Pausieren" (= läuft), damit die Default-Story
+  // sichtbar autoplayt und nicht pausiert stehen bleibt.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const pause = c.getByRole('button', { name: /Pausieren|Abspielen/ });
     await userEvent.click(pause);
     await expect(pause).toHaveAttribute('aria-label', 'Abspielen');
+    await userEvent.click(pause);
+    await expect(pause).toHaveAttribute('aria-label', 'Pausieren');
+  },
+};
+
+/**
+ * Reale Logos sind Bilder (`src`). Kacheln ohne Bild fallen auf den Text-`label`
+ * als Platzhalter zurück – so bleibt das Set auch bei fehlendem Asset vollständig.
+ * (Hier das Conciso-Logo als Stellvertreter; echte Anwendungen übergeben Kundenlogos.)
+ */
+export const MitBildern: Story = {
+  parameters: { snapshot: { skip: true } },
+  args: {
+    sets: [
+      [
+        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'NORDWIND' },
+        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'MERIDIAN' },
+      ],
+      [
+        { label: 'AVERA' },
+        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'KONTUR' },
+        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'STELLA' },
+      ],
+    ],
   },
 };
