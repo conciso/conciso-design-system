@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -12,10 +12,10 @@ import type { CdsArea } from '../area';
 @Component({
   selector: 'cds-area-badge',
   standalone: true,
-  template: `<span class="badge" [attr.data-area]="area">{{ label }}</span>`,
+  template: `<span class="badge" [attr.data-area]="area()">{{ label() }}</span>`,
 })
 export class AreaBadgeComponent {
-  @Input() label = 'Corporate';
+  readonly label = input('Corporate');
   /** Brand Area → data-area (bestimmt die Bereichsfarbe). */
-  @Input() area: CdsArea = 'co';
+  readonly area = input<CdsArea>('co');
 }

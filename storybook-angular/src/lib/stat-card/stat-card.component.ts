@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -12,26 +12,26 @@ import type { CdsArea } from '../area';
   selector: 'cds-stat-card',
   standalone: true,
   template: `
-    <div class="card-stat" [attr.data-area]="area || null">
-      <p class="card-stat-value">{{ value }}</p>
-      <p class="card-stat-label">{{ label }}</p>
-      @if (trend) {
-        <span class="card-stat-trend" [class.up]="trend === 'up'" [class.down]="trend === 'down'">
+    <div class="card-stat" [attr.data-area]="area() || null">
+      <p class="card-stat-value">{{ value() }}</p>
+      <p class="card-stat-label">{{ label() }}</p>
+      @if (trend()) {
+        <span class="card-stat-trend" [class.up]="trend() === 'up'" [class.down]="trend() === 'down'">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path [attr.d]="trend === 'up' ? 'M7 14l5-5 5 5z' : 'M7 10l5 5 5-5z'" />
+            <path [attr.d]="trend() === 'up' ? 'M7 14l5-5 5 5z' : 'M7 10l5 5 5-5z'" />
           </svg>
-          {{ trendText }}
+          {{ trendText() }}
         </span>
       }
     </div>
   `,
 })
 export class StatCardComponent {
-  @Input() value = '98 %';
-  @Input() label = 'Kundenzufriedenheit';
+  readonly value = input('98 %');
+  readonly label = input('Kundenzufriedenheit');
   /** Markenbereich → data-area (Top-Akzent + Wertfarbe). */
-  @Input() area: CdsArea = 'co';
+  readonly area = input<CdsArea>('co');
   /** Trendrichtung → .card-stat-trend.up / .down (leer = kein Pill). */
-  @Input() trend?: 'up' | 'down';
-  @Input() trendText = '+12 %';
+  readonly trend = input<'up' | 'down'>();
+  readonly trendText = input('+12 %');
 }

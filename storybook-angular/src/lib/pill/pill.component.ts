@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -17,17 +17,17 @@ import type { CdsArea } from '../area';
 @Component({
   selector: 'cds-pill',
   standalone: true,
-  template: `<span class="pill" [attr.data-area]="area" [attr.aria-label]="computedAriaLabel">{{ label }}</span>`,
+  template: `<span class="pill" [attr.data-area]="area()" [attr.aria-label]="computedAriaLabel">{{ label() }}</span>`,
 })
 export class PillComponent {
   /** Sichtbarer Bereichsname. */
-  @Input() label = 'Angewandte KI';
+  readonly label = input('Angewandte KI');
   /** Brand Area → data-area (Farbton; ohne Angabe greift der Corporate-Default). */
-  @Input() area: CdsArea = 'ki';
+  readonly area = input<CdsArea>('ki');
   /** aria-label überschreiben; Default „Bereich <label>". */
-  @Input() ariaLabel?: string;
+  readonly ariaLabel = input<string>();
 
   get computedAriaLabel(): string {
-    return this.ariaLabel ?? `Bereich ${this.label}`;
+    return this.ariaLabel() ?? `Bereich ${this.label()}`;
   }
 }

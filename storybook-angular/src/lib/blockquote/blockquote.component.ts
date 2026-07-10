@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -12,18 +12,18 @@ import type { CdsArea } from '../area';
   selector: 'cds-blockquote',
   standalone: true,
   template: `
-    <figure class="bq" [attr.data-area]="area || null">
+    <figure class="bq" [attr.data-area]="area() || null">
       <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
       </svg>
-      <blockquote>{{ quote }}</blockquote>
-      @if (name || roleLabel) {
+      <blockquote>{{ quote() }}</blockquote>
+      @if (name() || roleLabel()) {
         <figcaption class="bq-caption">
-          @if (name) {
-            <span class="bq-name">{{ name }}</span>
+          @if (name()) {
+            <span class="bq-name">{{ name() }}</span>
           }
-          @if (roleLabel) {
-            <span class="bq-role">{{ roleLabel }}</span>
+          @if (roleLabel()) {
+            <span class="bq-role">{{ roleLabel() }}</span>
           }
         </figcaption>
       }
@@ -31,10 +31,11 @@ import type { CdsArea } from '../area';
   `,
 })
 export class BlockquoteComponent {
-  @Input() quote =
-    'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.';
-  @Input() name = 'Maria Schneider';
-  @Input() roleLabel = 'Head of Marketing, Musterunternehmen GmbH';
+  readonly quote = input(
+    'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.',
+  );
+  readonly name = input('Maria Schneider');
+  readonly roleLabel = input('Head of Marketing, Musterunternehmen GmbH');
   /** Markenbereich → data-area (Akzentleiste + getönter Grund). */
-  @Input() area: CdsArea = 'co';
+  readonly area = input<CdsArea>('co');
 }

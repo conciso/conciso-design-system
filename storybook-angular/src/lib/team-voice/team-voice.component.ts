@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -14,34 +14,35 @@ import type { CdsArea } from '../area';
   selector: 'cds-team-voice',
   standalone: true,
   template: `
-    <figure class="team-voice" [attr.data-area]="area || null">
+    <figure class="team-voice" [attr.data-area]="area() || null">
       <div class="team-voice-media">
-        <img [src]="image || placeholder" [alt]="imageAlt" loading="lazy" />
+        <img [src]="image() || placeholder" [alt]="imageAlt()" loading="lazy" />
       </div>
       <figcaption class="team-voice-body">
         <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
         <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
         </svg>
-        <blockquote class="team-voice-quote">{{ quote }}</blockquote>
+        <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
-          <p class="team-voice-name">{{ name }}</p>
-          <p class="team-voice-role">{{ roleLabel }}</p>
+          <p class="team-voice-name">{{ name() }}</p>
+          <p class="team-voice-role">{{ roleLabel() }}</p>
         </div>
       </figcaption>
     </figure>
   `,
 })
 export class TeamVoiceComponent {
-  @Input() quote =
-    'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.';
-  @Input() name = 'Lena Brandt';
-  @Input() roleLabel = 'Softwareentwicklerin, seit 2021';
+  readonly quote = input(
+    'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.',
+  );
+  readonly name = input('Lena Brandt');
+  readonly roleLabel = input('Softwareentwicklerin, seit 2021');
   /** Markenbereich → data-area (Akzentfarbe + Rahmen). */
-  @Input() area: CdsArea = 'co';
+  readonly area = input<CdsArea>('co');
   /** Bild-URL; leer = neutraler Platzhalter (Doku-Assets sind hier nicht eingebunden). */
-  @Input() image = '';
-  @Input() imageAlt = 'Teamfoto';
+  readonly image = input('');
+  readonly imageAlt = input('Teamfoto');
 
   /** Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern. */
   protected readonly placeholder =

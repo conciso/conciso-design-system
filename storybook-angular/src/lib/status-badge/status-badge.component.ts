@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 /** Status-Töne der Badge-Klassen (.badge-ok / .badge-warn / .badge-err / .badge-neu). */
 export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
@@ -15,10 +15,10 @@ export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
 @Component({
   selector: 'cds-status-badge',
   standalone: true,
-  template: `<span class="badge badge-{{ tone }}">{{ label }}</span>`,
+  template: `<span class="badge badge-{{ tone() }}">{{ label() }}</span>`,
 })
 export class StatusBadgeComponent {
-  @Input() label = 'Live';
+  readonly label = input('Live');
   /** Status-Ton → semantische Farbe. */
-  @Input() tone: CdsBadgeTone = 'ok';
+  readonly tone = input<CdsBadgeTone>('ok');
 }
