@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 /**
  * Präsentations-Hülle für alle Field-Komponenten (intern, nicht als eigene Story).
@@ -12,21 +12,21 @@ import { Component, Input } from '@angular/core';
   selector: 'cds-field-shell',
   standalone: true,
   template: `
-    <div class="field" [class.has-error]="!!error">
-      <label [attr.for]="fieldId">
-        {{ label }}
-        @if (required) {
+    <div class="field" [class.has-error]="!!error()">
+      <label [attr.for]="fieldId()">
+        {{ label() }}
+        @if (required()) {
           <span class="req" aria-hidden="true">*</span>
         }
       </label>
 
       <ng-content></ng-content>
 
-      @if (helper && !error) {
-        <span class="helper">{{ helper }}</span>
+      @if (helper() && !error()) {
+        <span class="helper">{{ helper() }}</span>
       }
-      @if (error) {
-        <span class="error-msg" [id]="errorId" role="alert">
+      @if (error()) {
+        <span class="error-msg" [id]="errorId()" role="alert">
           <!-- Exclamation-Circle-Icon wie docs/index.html. Noch inline: das Icon
                liegt nicht im Register (icons/icons.js); die externe Icon-Lib folgt
                auf feat/theme-switch, dann hier ersetzen. -->
@@ -46,19 +46,19 @@ import { Component, Input } from '@angular/core';
               d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
             />
           </svg>
-          {{ error }}
+          {{ error() }}
         </span>
       }
     </div>
   `,
 })
 export class FieldShellComponent {
-  @Input() label = '';
-  @Input() required = false;
-  @Input() helper = '';
-  @Input() error = '';
+  readonly label = input('');
+  readonly required = input(false);
+  readonly helper = input('');
+  readonly error = input('');
   /** id des projizierten Steuerelements (für label/for). */
-  @Input() fieldId = '';
+  readonly fieldId = input('');
   /** id der Fehlermeldung (für aria-describedby am Steuerelement). */
-  @Input() errorId = '';
+  readonly errorId = input('');
 }
