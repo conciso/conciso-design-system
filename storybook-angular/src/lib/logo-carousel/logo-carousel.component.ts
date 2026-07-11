@@ -60,7 +60,7 @@ let cdsLogoCarouselUid = 0;
             [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
             [attr.aria-hidden]="i !== active()"
           >
-            @for (logo of set; track logo.label) {
+            @for (logo of set; track $index) {
               <cds-logo [label]="logo.label" [src]="logo.src" [alt]="logo.alt || ''" />
             }
           </div>

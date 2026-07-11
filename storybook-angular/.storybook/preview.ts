@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/angular';
 import { componentWrapperDecorator } from '@storybook/angular';
-import {MINIMAL_VIEWPORTS} from "storybook/viewport";
+import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
 import { UPDATE_GLOBALS } from 'storybook/internal/core-events';
 import { themeStore, type CdsThemeMode } from '../src/lib/theme-switch/theme-mode';

@@ -45,7 +45,7 @@ export interface CdsSocialLink {
            currentColor würde die Link-/n-300-Farbe erben (LinkedIn erschiene blau). -->
       <nav class="footer-social" aria-label="Soziale Netzwerke">
         @for (s of socialLinks(); track $index) {
-          <a [href]="s.href" target="_blank" rel="noopener" [attr.aria-label]="socialLabel(s) + ' (neues Tab)'">
+          <a [href]="s.href" target="_blank" rel="noopener" [attr.aria-label]="socialLabel(s) + ' (öffnet in neuem Tab)'">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
               <path [attr.d]="socialPath(s)" />
             </svg>

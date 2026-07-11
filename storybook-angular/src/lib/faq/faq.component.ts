@@ -18,7 +18,10 @@ export interface CdsFaqItem {
   template: `
     <div class="ep-faq">
       @for (item of items(); track item.q) {
-        <details [open]="false">
+        <!-- Kein [open]-Binding: „standardmäßig zugeklappt" ist der Default. Ein
+             gebundenes [open]="false" würde den nativen Toggle bei jedem Change-
+             Detection-Lauf wieder zuklappen. -->
+        <details>
           <summary>
             {{ item.q }}
             <svg
