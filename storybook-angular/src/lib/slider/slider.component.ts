@@ -54,6 +54,7 @@ let uid = 0;
         [step]="step()"
         [value]="value()"
         [disabled]="disabled()"
+        [attr.aria-valuetext]="formatted"
         [attr.aria-describedby]="helper() ? sliderId() + '-hint' : null"
         (input)="onInput($event)"
         (blur)="markTouched()"
@@ -117,7 +118,13 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   };
 
   writeValue(value: number): void {
-    this.value.set(typeof value === 'number' ? value : 0);
+    // Auf [min, max] klemmen: ein Formularwert außerhalb des Bereichs würde sonst im
+    // <output> stehen, während der native Thumb an min/max klemmt (Modell/UI-Mismatch).
+    const n = typeof value === 'number' && !Number.isNaN(value) ? value : this.min();
+    this.value.set(this.clamp(n));
+  }
+  private clamp(v: number): number {
+    return Math.min(this.max(), Math.max(this.min(), v));
   }
   registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;

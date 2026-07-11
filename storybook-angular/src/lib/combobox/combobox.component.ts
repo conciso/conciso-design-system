@@ -1,12 +1,12 @@
 import {
   Component,
+  effect,
   ElementRef,
   forwardRef,
   HostListener,
   inject,
   input,
   model,
-  OnInit,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -120,7 +120,7 @@ let uid = 0;
     </div>
   `,
 })
-export class ComboboxComponent implements OnInit, ControlValueAccessor {
+export class ComboboxComponent implements ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   @ViewChild('input') private input?: ElementRef<HTMLInputElement>;
 
@@ -156,8 +156,23 @@ export class ComboboxComponent implements OnInit, ControlValueAccessor {
     option: (i: number) => `cds-combobox-${this.instance}-opt-${i}`,
   };
 
-  ngOnInit(): void {
-    this.syncSelectedFromInputs();
+  constructor() {
+    // Inbound-Sync: interne Auswahl aus den [(value)]/[(values)]-Inputs ableiten –
+    // reaktiv, damit auch spätere programmatische Änderungen durchschlagen (nicht nur
+    // der Forms-Pfad via writeValue). Läuft initial und bei jeder Input-Änderung.
+    // Der Filtertext (query) wird nur außerhalb des offenen Menüs gesetzt, um die
+    // laufende Eingabe nicht zu überschreiben.
+    effect(() => {
+      if (this.multi()) {
+        this.selected.set([...this.values()]);
+      } else {
+        const v = this.value();
+        this.selected.set(v ? [v] : []);
+        if (!this.open()) {
+          this.query.set(v ? (this.options().find((o) => o.value === v)?.label ?? '') : '');
+        }
+      }
+    });
   }
 
   // ControlValueAccessor — Formularwert ist string[] (multi) bzw. string (single).
@@ -181,16 +196,6 @@ export class ComboboxComponent implements OnInit, ControlValueAccessor {
   }
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
-  }
-
-  /** Initialen Auswahlzustand aus den value/values-Inputs übernehmen. */
-  private syncSelectedFromInputs(): void {
-    const value = this.value();
-    this.selected.set(this.multi() ? [...this.values()] : value ? [value] : []);
-    // Einzelauswahl: Feld zeigt anfangs das gewählte Label.
-    if (!this.multi() && value) {
-      this.query.set(this.options().find((o) => o.value === value)?.label ?? '');
-    }
   }
 
   /** Aktuell gewählte Optionen (für die Chips im Multi-Modus). */

@@ -1,7 +1,12 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, contentChildren, model } from '@angular/core';
+import { Component, ElementRef, contentChildren, inject, input, model } from '@angular/core';
 import type { CdsArea } from '../area';
 import { AreaTabComponent } from './area-tab.component';
+
+// Modulweiter Zähler → eindeutige IDs je Instanz. Ein konstanter Präfix würde bei
+// mehreren AreaTabs kollidieren (doppelte tab-/panel-id → kaputte aria-controls/
+// -labelledby-Verknüpfung und falsches Fokus-Ziel bei der Tastatur-Navigation).
+let uid = 0;
 
 /**
  * AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus
@@ -18,7 +23,7 @@ import { AreaTabComponent } from './area-tab.component';
   standalone: true,
   imports: [NgTemplateOutlet],
   template: `
-    <div class="area-tabs" role="tablist">
+    <div class="area-tabs" role="tablist" [attr.aria-label]="ariaLabel()">
       @for (tab of tabs(); track tab; let i = $index) {
         <button
           class="atab"
@@ -26,11 +31,13 @@ import { AreaTabComponent } from './area-tab.component';
           role="tab"
           [class.active]="i === active()"
           [attr.aria-selected]="i === active()"
+          [attr.tabindex]="i === active() ? 0 : -1"
           [attr.data-area]="tab.area()"
           [id]="tabId(i)"
           [attr.aria-controls]="panelId(i)"
           [style]="'--atab-color:' + atabAccent(tab.area())"
           (click)="active.set(i)"
+          (keydown)="onKeydown($event)"
         >
           <span class="area-dot" [style.background]="'var(--' + tab.area() + '-500)'"></span>
           {{ tab.label() }}
@@ -52,10 +59,15 @@ import { AreaTabComponent } from './area-tab.component';
   `,
 })
 export class AreaTabsComponent {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly instance = ++uid;
+
   /** Die Tabs kommen als projizierte `<cds-area-tab>`-Kinder. */
   readonly tabs = contentChildren(AreaTabComponent);
   /** Index des aktiven Tabs. Two-Way (`[(active)]`). */
   readonly active = model(0);
+  /** Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby). */
+  readonly ariaLabel = input('Bereiche');
 
   /** Aktiv-Akzent je Bereich: ki braucht -800 (700 reißt AA), sonst -700 (wie .t-*). */
   protected atabAccent(area: CdsArea): string {
@@ -63,9 +75,41 @@ export class AreaTabsComponent {
   }
 
   protected tabId(i: number): string {
-    return `cds-atab-${i}`;
+    return `cds-atab-${this.instance}-${i}`;
   }
   protected panelId(i: number): string {
-    return `cds-atab-panel-${i}`;
+    return `cds-atab-${this.instance}-panel-${i}`;
+  }
+
+  /**
+   * WAI-ARIA-Tabs-Tastatur (horizontal, automatische Aktivierung): ←/→ bewegen mit
+   * Umlauf, Home/End springen an die Enden. Der Fokus wird mitgeführt (Roving
+   * Tabindex: nur der aktive Tab ist per Tab erreichbar). Panels laden sofort, daher
+   * ist Auswahl = Fokus (APG-empfohlen).
+   */
+  protected onKeydown(event: KeyboardEvent): void {
+    const n = this.tabs().length;
+    if (!n) return;
+    const cur = this.active();
+    let next: number;
+    switch (event.key) {
+      case 'ArrowRight':
+        next = (cur + 1) % n;
+        break;
+      case 'ArrowLeft':
+        next = (cur - 1 + n) % n;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = n - 1;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    this.active.set(next);
+    this.host.nativeElement.querySelector<HTMLElement>(`#${CSS.escape(this.tabId(next))}`)?.focus();
   }
 }

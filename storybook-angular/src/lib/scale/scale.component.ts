@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, model } from '@angular/core';
+import { Component, effect, forwardRef, input, model } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
@@ -84,6 +84,17 @@ export class ScaleComponent implements ControlValueAccessor {
   readonly disabled = model(false);
   readonly scaleId = input(`cds-scale-${++uid}`);
 
+  constructor() {
+    // Index in [0, max] halten: schrumpft labels() unter den aktuellen Index, bliebe
+    // sonst ein veralteter Index stehen → leeres <output>/aria-valuetext.
+    effect(() => {
+      const max = this.max;
+      const v = this.value();
+      if (v > max) this.value.set(max);
+      else if (v < 0) this.value.set(0);
+    });
+  }
+
   private onChange: (value: number) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */
   };
@@ -92,7 +103,9 @@ export class ScaleComponent implements ControlValueAccessor {
   };
 
   writeValue(value: number): void {
-    this.value.set(typeof value === 'number' ? value : 0);
+    // Auf gültigen Stufen-Index [0, max] klemmen (max = labels().length - 1).
+    const n = typeof value === 'number' && !Number.isNaN(value) ? Math.round(value) : 0;
+    this.value.set(Math.min(this.max, Math.max(0, n)));
   }
   registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;

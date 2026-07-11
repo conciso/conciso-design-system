@@ -59,7 +59,6 @@ let uid = 0;
         [attr.aria-labelledby]="ids.label + ' ' + ids.value"
         (click)="toggle()"
         (keydown)="onTriggerKeydown($event)"
-        (blur)="markTouched()"
       >
         <span class="ep-select-value" [id]="ids.value" [attr.data-placeholder]="placeholder()">{{
           selectedOption()?.label ?? placeholder()
@@ -188,6 +187,17 @@ export class SelectComponent implements ControlValueAccessor {
 
   markTouched(): void {
     this.onTouched();
+  }
+
+  /**
+   * `onTouched` erst, wenn der Fokus die GESAMTE Komponente verlässt — nicht schon beim
+   * Öffnen, wenn er vom Trigger in die Listbox wandert (beides liegt im Host). Sonst
+   * wäre das Control „touched", bevor überhaupt ausgewählt wurde.
+   */
+  @HostListener('focusout', ['$event'])
+  onFocusOut(event: FocusEvent): void {
+    const next = event.relatedTarget as Node | null;
+    if (!next || !this.host.nativeElement.contains(next)) this.markTouched();
   }
 
   /** Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus). */

@@ -1,10 +1,14 @@
-import { Component, input, model } from '@angular/core';
+import { Component, ElementRef, inject, input, model } from '@angular/core';
 
 export interface CdsSlide {
   image?: string;
   title: string;
   text: string;
 }
+
+// Modulweiter Zähler → eindeutige Slide-IDs je Instanz für die aria-controls-
+// Verknüpfung der Dots (doppelte IDs bei mehreren Carousels brächen die Zuordnung).
+let uid = 0;
 
 /**
  * Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider".
@@ -31,6 +35,7 @@ export interface CdsSlide {
             class="img-slide"
             role="group"
             aria-roledescription="Folie"
+            [id]="slideId(i)"
             [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
             [class.active]="i === active()"
           >
@@ -64,8 +69,11 @@ export interface CdsSlide {
             role="tab"
             [class.active]="i === active()"
             [attr.aria-selected]="i === active()"
+            [attr.tabindex]="i === active() ? 0 : -1"
+            [attr.aria-controls]="slideId(i)"
             [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
             (click)="active.set(i)"
+            (keydown)="onDotsKeydown($event)"
           ></button>
         }
       </div>
@@ -73,6 +81,9 @@ export interface CdsSlide {
   `,
 })
 export class CarouselComponent {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly instance = ++uid;
+
   readonly slides = input<CdsSlide[]>([
     { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
     { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
@@ -92,6 +103,40 @@ export class CarouselComponent {
   }
   next(): void {
     this.active.set((this.active() + 1) % this.slides().length);
+  }
+
+  protected slideId(i: number): string {
+    return `cds-carousel-${this.instance}-slide-${i}`;
+  }
+
+  /**
+   * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
+   * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   */
+  protected onDotsKeydown(event: KeyboardEvent): void {
+    const n = this.slides().length;
+    if (!n) return;
+    const cur = this.active();
+    let next: number;
+    switch (event.key) {
+      case 'ArrowRight':
+        next = (cur + 1) % n;
+        break;
+      case 'ArrowLeft':
+        next = (cur - 1 + n) % n;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = n - 1;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
+    this.active.set(next);
+    this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[next]?.focus();
   }
 
   protected readonly placeholder =

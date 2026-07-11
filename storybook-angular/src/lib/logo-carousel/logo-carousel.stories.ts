@@ -37,8 +37,8 @@ export const Interaktiv: Story = {
   // sind über den play-Test unten abgedeckt.
   parameters: { snapshot: { skip: true } },
   // Pause-Button stoppt das Autoplay (Label „Abspielen") und startet es wieder.
-  // Wichtig: am Ende wieder auf „Pausieren" (= läuft), damit die Default-Story
-  // sichtbar autoplayt und nicht pausiert stehen bleibt.
+  // Wichtig: am Ende wieder auf „Pausieren" (= läuft) und Fokus vom Carousel weg,
+  // damit die Default-Story sichtbar autoplayt (Fokus/Hover pausieren sonst transient).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const pause = c.getByRole('button', { name: /Pausieren|Abspielen/ });
@@ -46,6 +46,8 @@ export const Interaktiv: Story = {
     await expect(pause).toHaveAttribute('aria-label', 'Abspielen');
     await userEvent.click(pause);
     await expect(pause).toHaveAttribute('aria-label', 'Pausieren');
+    // Fokus aus dem Carousel nehmen → Fokus-Pause endet, Autoplay läuft sichtbar.
+    (pause as HTMLElement).blur();
   },
 };
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, input, model, signal } from '@angular/core';
+import { Component, ElementRef, effect, inject, input, model, signal } from '@angular/core';
 import { CdsLogo, LogoComponent } from '../logo/logo.component';
 
 export type { CdsLogo } from '../logo/logo.component';
@@ -10,9 +10,14 @@ let cdsLogoCarouselUid = 0;
  * LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel".
  *
  * Diskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln
- * (`[aria-hidden]` je Slide). Pausierbar über den Pause-Button (.logo-carousel-pause,
- * sichtbar bei Hover/Fokus bzw. dauerhaft im Pause-Zustand .paused), Dots wählen ein
- * Set direkt. Autoplay respektiert prefers-reduced-motion.
+ * (`[aria-hidden]` je Slide). Das Autoplay pausiert bei Maus-Hover und Tastatur-Fokus
+ * (damit Nutzer in Ruhe lesen/bedienen können), zusätzlich dauerhaft über den
+ * Pause-Button (.logo-carousel-pause, sichtbar bei Hover/Fokus bzw. im .paused-Zustand);
+ * Dots wählen ein Set direkt. Autoplay respektiert prefers-reduced-motion.
+ *
+ * Der Timer wird zentral über ein `effect` gesteuert: er läuft nur, wenn NICHT
+ * pausiert, NICHT gehovert, NICHT fokussiert und reduzierte Bewegung nicht gewünscht
+ * ist. Eine Änderung des `interval` startet ihn automatisch neu.
  *
  * Jede Kachel ist ein `cds-logo`: bevorzugt ein Bild (`src`), sonst der Text als
  * Platzhalter/Fallback. Standardmäßig sind reine Text-Platzhalter gesetzt – reale
@@ -23,7 +28,14 @@ let cdsLogoCarouselUid = 0;
   standalone: true,
   imports: [LogoComponent],
   template: `
-    <div class="logo-carousel" [class.paused]="paused()">
+    <div
+      class="logo-carousel"
+      [class.paused]="paused()"
+      (mouseenter)="hovered.set(true)"
+      (mouseleave)="hovered.set(false)"
+      (focusin)="focused.set(true)"
+      (focusout)="onFocusOut($event)"
+    >
       <button
         class="logo-carousel-pause"
         type="button"
@@ -71,7 +83,9 @@ let cdsLogoCarouselUid = 0;
     </div>
   `,
 })
-export class LogoCarouselComponent implements OnInit, OnDestroy {
+export class LogoCarouselComponent {
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
   readonly sets = input<CdsLogo[][]>([
     [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
     [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
@@ -82,48 +96,53 @@ export class LogoCarouselComponent implements OnInit, OnDestroy {
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
 
+  /** Vom Nutzer explizit pausiert (Pause-Button). */
   protected readonly paused = signal(false);
-  private timer: ReturnType<typeof setInterval> | null = null;
+  /** Transiente Pause: Maus über dem Carousel. */
+  protected readonly hovered = signal(false);
+  /** Transiente Pause: Tastatur-Fokus innerhalb des Carousels. */
+  protected readonly focused = signal(false);
+  /** Reduzierte Bewegung gewünscht → kein Autoplay. Einmal beim Erzeugen ermittelt. */
+  private readonly reducedMotion = signal(
+    typeof window !== 'undefined' &&
+      !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+  );
   private readonly uid = ++cdsLogoCarouselUid;
+
+  constructor() {
+    // Zentrale Timer-Steuerung: Der Effect legt bei jeder relevanten Änderung
+    // (paused/hovered/focused/interval/reduced-motion) den Intervall-Timer neu an und
+    // räumt den alten via onCleanup auf. Der aktive Index wird nur IM Callback gelesen
+    // und ist daher keine Effect-Abhängigkeit (kein Neustart bei jedem Wechsel).
+    effect((onCleanup) => {
+      const play =
+        !this.reducedMotion() && !this.paused() && !this.hovered() && !this.focused();
+      const ms = this.interval();
+      if (!play || typeof window === 'undefined') return;
+      const timer = setInterval(() => {
+        this.active.set((this.active() + 1) % this.sets().length);
+      }, ms);
+      onCleanup(() => clearInterval(timer));
+    });
+  }
 
   /** Stabile Slide-id für die aria-controls-Verknüpfung der Dots. */
   slideId(i: number): string {
     return `cds-logo-set-${this.uid}-${i + 1}`;
   }
 
-  ngOnInit(): void {
-    const reduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (!reduced) this.start();
-  }
-
-  ngOnDestroy(): void {
-    this.stop();
-  }
-
   togglePause(): void {
     this.paused.set(!this.paused());
-    if (this.paused()) this.stop();
-    else this.start();
   }
 
   goTo(i: number): void {
     this.active.set(i);
   }
 
-  private start(): void {
-    this.stop();
-    if (typeof window === 'undefined') return;
-    this.timer = setInterval(() => {
-      this.active.set((this.active() + 1) % this.sets().length);
-    }, this.interval());
-  }
-
-  private stop(): void {
-    if (this.timer !== null) {
-      clearInterval(this.timer);
-      this.timer = null;
-    }
+  /** Fokus-Pause nur aufheben, wenn der Fokus das Carousel ganz verlässt (nicht bei
+   *  Wechsel zwischen Kind-Elementen). */
+  protected onFocusOut(event: FocusEvent): void {
+    const next = event.relatedTarget as Node | null;
+    if (!next || !this.host.nativeElement.contains(next)) this.focused.set(false);
   }
 }

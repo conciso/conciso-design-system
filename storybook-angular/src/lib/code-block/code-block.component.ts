@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, DestroyRef, inject, input, signal } from '@angular/core';
 
 /**
  * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block".
@@ -35,14 +35,40 @@ export class CodeBlockComponent {
 
   protected readonly copied = signal(false);
 
+  private readonly destroyRef = inject(DestroyRef);
+  /** Reset-Timer des „Kopiert!"-Feedbacks; gemerkt, um ihn zu clearen. */
+  private resetTimer?: ReturnType<typeof setTimeout>;
+
+  constructor() {
+    // Verhindert, dass der Reset-Callback nach dem Zerstören der Komponente feuert.
+    this.destroyRef.onDestroy(() => this.clearResetTimer());
+  }
+
   get wrapClasses(): string {
     return this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap';
   }
 
   copy(): void {
-    void navigator.clipboard?.writeText(this.code()).then(() => {
-      this.copied.set(true);
-      setTimeout(() => this.copied.set(false), 1500);
-    });
+    // Clipboard-API gibt es nur in sicheren Kontexten (https/localhost). Fehlt sie,
+    // brechen wir sauber ab, statt über optional chaining still ins Leere zu laufen.
+    if (!navigator.clipboard) return;
+    navigator.clipboard
+      .writeText(this.code())
+      .then(() => {
+        this.copied.set(true);
+        // Vor dem erneuten Arm-en clearen → schnelle Wiederholklicks stapeln keine Timer.
+        this.clearResetTimer();
+        this.resetTimer = setTimeout(() => this.copied.set(false), 1500);
+      })
+      .catch(() => {
+        /* Schreiben abgelehnt (z. B. fehlende Berechtigung) → kein Feedback. */
+      });
+  }
+
+  private clearResetTimer(): void {
+    if (this.resetTimer !== undefined) {
+      clearTimeout(this.resetTimer);
+      this.resetTimer = undefined;
+    }
   }
 }
