@@ -233,10 +233,22 @@
     });
   });
 
-  /* ── Topnav-Dropdowns (Leistungen/Unternehmen): Klick/Tap-Toggle mit aria-expanded ──
-     Maus öffnet weiterhin per CSS-Hover. Hier kommen Klick/Tap, Tastatur (Enter/Space),
-     Außenklick und Escape dazu — plus der korrekte aria-expanded-Zustand für Screenreader
-     und Touch-Geräte, die kein Hover kennen. */
+  /* ── Topnav-Dropdowns (Angewandte KI/Leistungen/Unternehmen) ──
+     Kern: Klick/Tap auf den Caret-Button, Tastatur (Enter/Space, Pfeile, Home/End, Escape),
+     Außenklick — alles mit korrektem aria-expanded für Screenreader und Touch-Geräte.
+     Der Label-Link (.ep-nav-btn) navigiert weiterhin direkt zur Übersicht.
+     Enhancement: Auf Geräten mit echtem Hover (pointer:fine) öffnet zusätzlich der Hover das
+     Flyout (Intent-Delay beim Öffnen, längere Verzögerung beim Schließen als Brücke über den
+     Gap zum Menü). Touch/Coarse-Pointer bekommen bewusst KEIN Hover-Öffnen (sonst Synthetik-
+     Hover/Double-Tap). Alles läuft über dieselbe is-open/aria-expanded-Logik, damit nur ein
+     Menü gleichzeitig offen ist (closeAllNavItems) und der SR-Zustand stimmt. */
+  var navHoverCapable = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function openNavItem(item) {
+    closeAllNavItems(item);
+    item.classList.add('is-open');
+    var t = item.querySelector('.ep-nav-item-toggle');
+    if (t) t.setAttribute('aria-expanded', 'true');
+  }
   function closeNavItem(item) {
     item.classList.remove('is-open');
     var t = item.querySelector('.ep-nav-item-toggle');
@@ -258,16 +270,30 @@
       if (!sub.id) sub.id = 'ep-nav-sub-' + i;
       btn.setAttribute('aria-controls', sub.id);
     }
+    /* Hover-Timer im Item-Scope, damit der Klick sie abbrechen kann (sonst würde ein noch offener
+       Öffnen-Timer ein gerade per Klick geschlossenes Menü wieder aufziehen). */
+    var openTimer, closeTimer;
     btn.addEventListener('click', function() {
-      var open = !item.classList.contains('is-open');
-      closeAllNavItems(item);
-      item.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', String(open));
+      clearTimeout(openTimer); clearTimeout(closeTimer);
+      if (item.classList.contains('is-open')) closeNavItem(item);
+      else openNavItem(item);
     });
     /* Tab aus dem Menü heraus schließt es */
     item.addEventListener('focusout', function(e) {
       if (!item.contains(e.relatedTarget)) closeNavItem(item);
     });
+    /* Hover-Öffnen (nur pointer:fine): Öffnen mit kurzem Intent-Delay, Schließen verzögert,
+       damit der Weg über den Gap ins Flyout die Brücke bleibt (WCAG 1.4.13 „hoverable"). */
+    if (navHoverCapable) {
+      item.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimer);
+        openTimer = setTimeout(function() { openNavItem(item); }, 100);
+      });
+      item.addEventListener('mouseleave', function() {
+        clearTimeout(openTimer);
+        closeTimer = setTimeout(function() { closeNavItem(item); }, 250);
+      });
+    }
     /* Tastatur: Escape schließt (+Fokus zurück), Pfeile/Home/End navigieren die Einträge */
     item.addEventListener('keydown', function(e) {
       var links = Array.prototype.slice.call(item.querySelectorAll('.ep-nav-sub-btn'));
@@ -277,11 +303,7 @@
       }
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        if (!item.classList.contains('is-open')) {
-          closeAllNavItems(item);
-          item.classList.add('is-open');
-          btn.setAttribute('aria-expanded', 'true');
-        }
+        if (!item.classList.contains('is-open')) openNavItem(item);
         var di = links.indexOf(document.activeElement);
         (di === -1 || di === links.length - 1 ? links[0] : links[di + 1]).focus();
         return;
@@ -304,6 +326,11 @@
   document.addEventListener('click', function(e) {
     if (!e.target.closest) return;
     if (e.target.closest('[data-ep]') || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
+  });
+  /* Escape schließt auch ein rein per Hover geöffnetes Menü, wenn der Fokus nicht darin liegt
+     (der item-keydown-Handler greift nur bei Fokus im Item) — WCAG 1.4.13 „dismissible". */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeAllNavItems(null);
   });
 
   /* ── Mobile-Navigation: Hamburger-Button pro Topnav (per JS injiziert, kein Markup-Eingriff) ──

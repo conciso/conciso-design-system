@@ -85,7 +85,7 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 
 ## 8. Komponenten-Verhalten
 
-- **Topnav-Dropdowns sind klick-only** (Disclosure-Pattern in `js/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). **Kein Hover-Öffnen** wieder einführen — das öffnete Menüs unabhängig vom Klick-Zustand (zwei gleichzeitig offen) und ist ein A11y-Antipattern.
+- **Topnav-Dropdowns sind ein Disclosure-Pattern** (in `docs/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
 - Icon-only Buttons brauchen `aria-label`. Tab-/Panel-Muster mit korrektem ARIA (`role`, `aria-selected`, `aria-controls`).
 
 ---

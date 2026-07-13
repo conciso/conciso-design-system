@@ -760,15 +760,22 @@ img.logo-themed-light{display:none}
 .ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
 .ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
-/* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
-   offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
-   Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
-   öffnete sonst Menüs unabhängig vom Klick-Zustand und ließ zwei gleichzeitig offen, weil Hover die per
-   Klick offenen Geschwister nicht schließt. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
+/* Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt offene Geschwister
+   (closeAllNavItems), Escape/Außenklick schließen. Reveal keift ausschließlich an .is-open (nie an
+   reinem CSS-:hover), damit aria-expanded mitläuft und nie zwei Menüs gleichzeitig offen sind.
+   Geöffnet wird per Klick/Tap, Tastatur ODER — nur auf pointer:fine — per Hover (JS-gesteuert, mit
+   Intent-Delay). Beim Öffnen färbt sich der Toggle Petrol und der Caret dreht; Hover gibt schon vorab
+   die Petrol-Färbung als Affordanz. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
 .ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
 .ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
 .ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+/* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
+   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable"). Nur pointer:fine
+   und nur solange offen — mobil ist .ep-nav-sub statisch, dort keine Brücke. */
+@media (hover:hover) and (pointer:fine){
+  .ep-nav-has-sub.is-open .ep-nav-sub::before{content:"";position:absolute;left:0;right:0;top:calc(-1*var(--s4));height:var(--s4)}
+}
 /* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
    Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
 .ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
