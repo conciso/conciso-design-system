@@ -48,7 +48,7 @@ jobs:
 
       - name: ImageMagick sicherstellen
         if: github.event.action != 'closed'
-        run: convert -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
+        run: mogrify -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
 
       - name: Vorschau bauen
         if: github.event.action != 'closed'

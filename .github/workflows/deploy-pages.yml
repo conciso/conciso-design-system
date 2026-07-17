@@ -47,7 +47,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: ImageMagick sicherstellen
-        run: convert -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
+        run: mogrify -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
 
       - name: Site bauen
         run: bash scripts/build-docs-preview.sh "$GITHUB_WORKSPACE/_site"
