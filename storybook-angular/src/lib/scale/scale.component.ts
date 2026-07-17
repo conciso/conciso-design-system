@@ -142,9 +142,17 @@ export class ScaleComponent implements ControlValueAccessor {
     const labels = this.labels();
     const n = labels.length;
     const base: Record<string, string> = { position: 'absolute', 'white-space': 'nowrap' };
+    // transform/left aus .field-slider-ticks>* (components.css) an den Kanten
+    // explizit neutralisieren — sonst spannt left+right das letzte Label über die
+    // volle Breite und translateX(-50%) schiebt es in die Mitte.
     return labels.map((label, i) => {
-      if (n <= 1 || i === 0) return { label, style: { ...base, left: '11px', 'text-align': 'left' } };
-      if (i === n - 1) return { label, style: { ...base, right: '11px', 'text-align': 'right' } };
+      if (n <= 1 || i === 0)
+        return { label, style: { ...base, left: '11px', 'text-align': 'left', transform: 'none' } };
+      if (i === n - 1)
+        return {
+          label,
+          style: { ...base, left: 'auto', right: '11px', 'text-align': 'right', transform: 'none' },
+        };
       const p = i / (n - 1);
       return {
         label,
