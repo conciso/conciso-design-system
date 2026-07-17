@@ -1,0 +1,107 @@
+name: Repo-Snapshot für externe Exploration
+
+# Liefert ein Zip-Artefakt des Repository-Inhalts (Stand HEAD) an eine
+# definierte GitHub-Team-Gruppe, damit diese den Code z. B. mit Agenten
+# explorieren kann — OHNE Zugriff auf Git-Historie, .git-Metadaten, CI-
+# Workflows oder Secret-nahe Dateien.
+#
+# Funktionsweise:
+#   1. Manueller Trigger (workflow_dispatch) — nur auslösbar von Personen mit
+#      Schreibzugriff auf dieses Repo (GitHub-Standardverhalten).
+#   2. Zusätzliche Prüfung: der auslösende User muss aktives Mitglied des
+#      Teams `vars.SNAPSHOT_TEAM_SLUG` in der Org `vars.SNAPSHOT_ORG` sein.
+#      Dafür wird ein PAT mit `read:org`-Scope als Secret
+#      `SNAPSHOT_TEAM_READ_TOKEN` benötigt (Bot-/Service-Account empfohlen).
+#   3. `git archive` erzeugt den Snapshot aus dem committeten Tree — dadurch
+#      ist .git (inkl. gesamter Historie) von Natur aus nicht enthalten, und
+#      nur getrackte Dateien landen im Zip.
+#   4. Zusätzlich werden CI-/Secret-nahe Pfade aus dem Snapshot entfernt
+#      (.github/workflows, .github/actions, .env*, Schlüssel-/Zertifikatsdateien).
+#   5. Ergebnis wird als Actions-Artefakt hochgeladen; Download bleibt an die
+#      normale Repo-Leseberechtigung gekoppelt (GitHub kennt keine separate
+#      Artefakt-ACL pro Team).
+#
+# Einmalige Einrichtung:
+#   - Repo-Variablen setzen (Settings → Secrets and variables → Actions → Variables):
+#       SNAPSHOT_ORG        = conciso
+#       SNAPSHOT_TEAM_SLUG  = <team-slug der Zielgruppe>
+#   - Repo-Secret setzen (Settings → Secrets and variables → Actions → Secrets):
+#       SNAPSHOT_TEAM_READ_TOKEN = <PAT mit read:org, Bot-Account empfohlen>
+
+on:
+  workflow_dispatch:
+    inputs:
+      retention_days:
+        description: 'Wie viele Tage soll das Artefakt aufbewahrt werden?'
+        required: false
+        default: '14'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    name: Snapshot bauen und ausliefern
+    runs-on: ubuntu-latest
+    steps:
+      - name: Team-Mitgliedschaft der auslösenden Person prüfen
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.SNAPSHOT_TEAM_READ_TOKEN }}
+          script: |
+            const org = '${{ vars.SNAPSHOT_ORG }}';
+            const team_slug = '${{ vars.SNAPSHOT_TEAM_SLUG }}';
+            const username = context.actor;
+
+            if (!org || !team_slug) {
+              core.setFailed('Repo-Variablen SNAPSHOT_ORG / SNAPSHOT_TEAM_SLUG sind nicht gesetzt.');
+              return;
+            }
+
+            try {
+              const { data } = await github.rest.teams.getMembershipForUserInOrg({
+                org,
+                team_slug,
+                username,
+              });
+              if (data.state !== 'active') {
+                core.setFailed(`${username} ist Mitglied von ${org}/${team_slug}, Status ist aber "${data.state}" (nicht "active").`);
+                return;
+              }
+              core.info(`${username} ist aktives Mitglied von ${org}/${team_slug} — Snapshot wird gebaut.`);
+            } catch (err) {
+              core.setFailed(`${username} ist kein Mitglied von ${org}/${team_slug} (oder Team/Org existiert nicht): ${err.message}`);
+            }
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Snapshot aus getracktem Tree bauen (ohne .git-Historie)
+        run: |
+          set -euo pipefail
+
+          # git archive enthält NIE .git/ und NIE ungetrackte/ignorierte Dateien —
+          # das deckt "keine Git-Historie" bereits vollständig ab.
+          git archive --format=zip -o "$RUNNER_TEMP/full.zip" HEAD
+
+          mkdir -p "$RUNNER_TEMP/snapshot"
+          unzip -q "$RUNNER_TEMP/full.zip" -d "$RUNNER_TEMP/snapshot"
+
+          # Zusätzlich CI-/Secret-nahe Pfade entfernen, auch wenn sie getrackt sind.
+          cd "$RUNNER_TEMP/snapshot"
+          rm -rf \
+            .github/workflows \
+            .github/actions
+          find . -type f \( \
+            -iname '.env' -o -iname '.env.*' -o \
+            -iname '*.pem' -o -iname '*.key' -o \
+            -iname 'credentials*.json' -o -iname 'secrets*.*' \
+          \) -print -delete
+
+      - name: Snapshot hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-snapshot
+          path: ${{ runner.temp }}/snapshot
+          retention-days: ${{ inputs.retention_days }}
