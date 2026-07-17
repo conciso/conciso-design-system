@@ -60,6 +60,9 @@ jobs:
   deploy:
     name: Auf GitHub Pages deployen
     needs: build
+    # workflow_dispatch ist von jedem Branch möglich — deployen darf aber nur
+    # main; von anderen Branches endet der Lauf nach dem Build (Probelauf).
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
