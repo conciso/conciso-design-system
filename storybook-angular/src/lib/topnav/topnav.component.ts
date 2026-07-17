@@ -1,7 +1,16 @@
 import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronDown, heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import { heroBars3, heroMagnifyingGlass, heroXMark } from '@ng-icons/heroicons/outline';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
+
+/**
+ * DS-eigener Caret (icons/source/ui-caret-down.svg) — als Custom-ng-icon registriert.
+ * Kräftige 10er-viewBox statt des dünnen heroChevronDown (24er). Skalierbar über `size`.
+ * Kein Heroicon-Pendant vorhanden, daher hier hinterlegt; bei einer echten DS-Icon-
+ * Einbindung im Storybook wird das durch den generierten Icon-Export ersetzt.
+ */
+const uiCaretDown =
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 /** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
 let cdsTopnavUid = 0;
@@ -32,9 +41,13 @@ export interface CdsNavItem {
   selector: 'cds-topnav',
   standalone: true,
   imports: [ThemeCycleComponent, NgIcon],
-  viewProviders: [provideIcons({ heroChevronDown, heroMagnifyingGlass })],
+  viewProviders: [provideIcons({ heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown })],
+  // ng-icon rendert sein <svg> inline (vertical-align:baseline) → im 24px-Toggle säße der
+  // 10px-Caret zu tief. Host auf Flex stellen zentriert das SVG unabhängig von der Baseline.
+  // Wirkt nur hier (emulated); die portable .ep-nav-item-caret aus components.css bleibt unberührt.
+  styles: `.ep-nav-item-caret { display: inline-flex; align-items: center; justify-content: center; }`,
   template: `
-    <header [class]="navClasses">
+    <header class="ep-topnav" [class.nav-open]="navOpen()">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">
         @if (logoSrc()) {
           <!-- Größe (24px) + Theme-Swap kommen aus der portablen css/components.css
@@ -48,20 +61,32 @@ export interface CdsNavItem {
         }
       </a>
 
-      <nav class="ep-nav-links" aria-label="Hauptnavigation">
+      <nav class="ep-nav-links" [id]="navId" aria-label="Hauptnavigation">
         @for (item of links(); track item.label; let i = $index) {
           @if (item.sub?.length) {
             <div class="ep-nav-item ep-nav-has-sub" [class.is-open]="openIndex() === i">
-              <button
-                class="ep-nav-btn ep-nav-item-toggle"
-                type="button"
-                [attr.aria-expanded]="openIndex() === i"
-                (click)="toggleSub(i)"
+              <!-- Label = eigener Link (führt z. B. auf eine Übersichtsseite), NICHT der Toggle.
+                   Der Caret ist ein separater Button daneben — so wie in der portablen Vorlage
+                   (docs/index.html). Ohne href bleibt es ein Platzhalter-Link (#, kein Sprung). -->
+              <a
+                class="ep-nav-btn"
+                [href]="item.href || '#'"
+                [attr.aria-current]="item.href && item.href === activeHref() ? 'page' : null"
+                (click)="item.href || $event.preventDefault()"
               >
                 {{ item.label }}
-                <ng-icon class="ep-nav-item-caret" name="heroChevronDown" size="10px" aria-hidden="true" />
+              </a>
+              <button
+                class="ep-nav-item-toggle"
+                type="button"
+                [attr.aria-label]="'Untermenü ' + item.label"
+                [attr.aria-expanded]="openIndex() === i"
+                [attr.aria-controls]="subId(i)"
+                (click)="toggleSub(i)"
+              >
+                <ng-icon class="ep-nav-item-caret" name="uiCaretDown" size="10px" aria-hidden="true" />
               </button>
-              <div class="ep-nav-sub">
+              <div class="ep-nav-sub" [id]="subId(i)">
                 @for (s of item.sub; track s.label) {
                   <a class="ep-nav-sub-btn" [href]="s.href" [attr.aria-current]="s.href === activeHref() ? 'page' : null" (click)="closeAll()">
                     {{ s.label }}
@@ -108,6 +133,20 @@ export interface CdsNavItem {
         <cds-theme-cycle [showSystem]="showSystemTheme()" />
       </div>
 
+      <!-- Hamburger: nur unter dem Mobile-Breakpoint sichtbar (CSS .ep-nav-burger), schaltet
+           .nav-open am Header → .ep-nav-links klappt auf. Icons via .icon-menu/.icon-close. -->
+      <button
+        class="ep-nav-burger"
+        type="button"
+        [attr.aria-label]="navOpen() ? 'Menü schließen' : 'Menü öffnen'"
+        [attr.aria-expanded]="navOpen()"
+        [attr.aria-controls]="navId"
+        (click)="toggleNav()"
+      >
+        <ng-icon class="icon-menu" name="heroBars3" size="24px" aria-hidden="true" />
+        <ng-icon class="icon-close" name="heroXMark" size="24px" aria-hidden="true" />
+      </button>
+
       @if (showCta()) {
         <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel() }}</a>
       }
@@ -117,7 +156,9 @@ export interface CdsNavItem {
 export class TopnavComponent {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
-  protected readonly searchId = `cds-topnav-search-${++cdsTopnavUid}`;
+  private readonly uid = ++cdsTopnavUid;
+  protected readonly searchId = `cds-topnav-search-${this.uid}`;
+  protected readonly navId = `cds-topnav-nav-${this.uid}`;
 
   readonly logo = input('conciso.');
   /** Optionales Logo-Bild/-Icon (URL oder Data-URI). Gesetzt → statt des Text-Logos.
@@ -163,8 +204,13 @@ export class TopnavComponent {
 
   protected readonly openIndex = signal(-1);
   protected readonly searchOpen = signal(false);
+  /** Mobile-Menü offen? Schaltet .nav-open am Header (→ .ep-nav-links sichtbar). */
+  protected readonly navOpen = signal(false);
 
-  protected readonly navClasses = 'ep-topnav';
+  /** Eindeutige ID des Submenüs zu Eintrag i (Toggle aria-controls ↔ .ep-nav-sub). */
+  protected subId(i: number): string {
+    return `cds-topnav-sub-${this.uid}-${i}`;
+  }
 
   toggleSub(i: number): void {
     this.openIndex.set(this.openIndex() === i ? -1 : i);
@@ -176,9 +222,16 @@ export class TopnavComponent {
     this.openIndex.set(-1);
   }
 
+  toggleNav(): void {
+    this.navOpen.set(!this.navOpen());
+    this.openIndex.set(-1);
+    this.searchOpen.set(false);
+  }
+
   closeAll(): void {
     this.openIndex.set(-1);
     this.searchOpen.set(false);
+    this.navOpen.set(false);
   }
 
   @HostListener('document:click', ['$event'])
