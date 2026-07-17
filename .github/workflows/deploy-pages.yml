@@ -1,0 +1,70 @@
+name: GitHub Pages (Doku)
+
+# Veröffentlicht die Design-System-Doku als GitHub-Pages-Site.
+#
+# Baut mit scripts/build-docs-preview.sh dieselbe in sich geschlossene Site wie
+# die PR-Vorschau (index.html an der Wurzel, Fotos herunterskaliert) und deployt
+# sie über den offiziellen Actions-Deploy — KEIN gh-pages-Branch nötig.
+#
+# Einmalige Aktivierung durch einen Admin:
+#   Settings → Pages → Source auf „GitHub Actions" stellen.
+#   (Hinweis: Bei privatem Repo erfordert Pages GitHub Team/Enterprise.)
+#
+# Achtung: Die Pages-Quelle „GitHub Actions" schließt „Deploy from a branch"
+# aus. Falls später die dormant vorbereitete PR-Vorschau via gh-pages-Branch
+# (pr-preview.yml, ENABLE_PAGES_PREVIEW) aktiviert werden soll, muss eine der
+# beiden Varianten gewählt werden — beide gleichzeitig gehen nicht.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'css/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'scripts/build-docs-preview.sh'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nur ein Pages-Deploy gleichzeitig; laufende Deploys nicht abbrechen.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Doku-Site bauen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ImageMagick sicherstellen
+        run: convert -version >/dev/null 2>&1 || { sudo apt-get update && sudo apt-get install -y imagemagick; }
+
+      - name: Site bauen
+        run: bash scripts/build-docs-preview.sh "$GITHUB_WORKSPACE/_site"
+
+      - name: Pages-Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Auf GitHub Pages deployen
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
