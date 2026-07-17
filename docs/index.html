@@ -793,6 +793,19 @@
         </div>
       </div>
 
+      <div class="doc-eyebrow" style="margin-top:var(--s2)">Ausnahme: Wann das Sie gilt</div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Das Du ist die Regel für alle öffentlichen und redaktionellen Texte. In der direkten Kommunikation zwischen Dienstleister und Kunde kann die Hierarchie ein Sie verlangen. Dann geht Angemessenheit vor Marke: Im Zweifel lieber das Sie wählen, als die Anrede zu erzwingen. Das Du folgt, sobald das Gegenüber es anbietet oder selbst nutzt.</p>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div class="doc-eyebrow">E-Mail an Kund:innen</div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Herrscht Unsicherheit über die passende Anrede, tendiert Conciso zum Sie. Ein zu früh gesetztes Du kann distanzlos wirken, gerade im schriftlichen Erstkontakt.</p>
+        </div>
+        <div class="col-6">
+          <div class="doc-eyebrow">Events mit Leadership-Fokus</div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei Veranstaltungen, zu denen vorrangig Leadership- und Entscheider:innen-Positionen erwartet werden, erfolgt die Ansprache im Sie, in der Einladung wie vor Ort.</p>
+        </div>
+      </div>
+
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
         <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Das Du wird konsequent <strong>großgeschrieben</strong> (Du, Dir, Dein, Deinem). Conciso behandelt das Du wie eine direkte Anrede in einem persönlichen Gespräch, nicht als Pronomen unter vielen. Das ist eine Stilentscheidung, kein Tippfehler.</p>
@@ -1447,8 +1460,10 @@
 
       <h2 id="gt-type-label" class="group-title">Label</h2>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Large</span><span class="type-spec">Montserrat · 14px / 20px · 500</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-label-md</span></div><div class="type-sample" style="font:var(--ty-label-md)">Button · Navigation · Tab-Label</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Name</span><span class="type-spec">Montserrat · 14px / 20px · 600</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-name</span></div><div class="type-sample" style="font:var(--ty-name)">Eigennamen · Do/Don't-Spaltenköpfe · Brand-Area-Labels · Button-Labels</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Medium</span><span class="type-spec">Montserrat · 12px / 16px · 500</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-sm</span></div><div class="type-sample" style="font:var(--ty-label-sm)">Chip · Badge · Overline</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Eyebrow</span><span class="type-spec">Montserrat · 12px / 16px · 500 UC</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-xs</span></div><div class="type-sample" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em">Section Label / Eyebrow</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Label Eyebrow stark</span><span class="type-spec">Montserrat · 12px / 16px · 600 UC</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-xs-strong</span></div><div class="type-sample" style="font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em">Spec-Label / Code-Label</div></div>
 
       <!-- Ligaturen / Schriftdetails -->
       <h2 id="gt-type-ligaturen" class="group-title">Ligaturen: warum „ff“ verbunden aussieht</h2>
@@ -14501,7 +14516,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Lead</p>
-                <p style="font:var(--ty-title-md);color:var(--tx-primary);margin:0 0 4px">Marc Hoffmann</p>
+                <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Marc Hoffmann</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">Senior Software Engineer · Conciso</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Marc baut seit acht Jahren Integrations-Pipelines für mittelständische Engineering-Teams. n8n ist sein Werkzeug seit Version 0.140; beim Fokusevent ordnet er die Plattform ein und erzählt, wo der Hype trägt und wo nicht.</p>
               </div>
@@ -14512,7 +14527,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Co-Host</p>
-                <p style="font:var(--ty-title-md);color:var(--tx-primary);margin:0 0 4px">Stefan Klein</p>
+                <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Stefan Klein</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">DevOps & Platform Engineer · Conciso</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Stefan hat unsere internen n8n-Workflows aufgebaut und an mehreren selbst entwickelten n8n-Nodes mitgearbeitet. Im Fokusevent zeigt er, was in der Praxis tatsächlich Zeit spart und wo Vorsicht angebracht ist.</p>
               </div>

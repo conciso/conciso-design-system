@@ -363,7 +363,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 /* ── Nav demo ── */
 .nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
-.doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
+.doc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 
 /* ── Snackbar ── */
 .snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
