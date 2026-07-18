@@ -1,16 +1,7 @@
 import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroBars3, heroMagnifyingGlass, heroXMark } from '@ng-icons/heroicons/outline';
+import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
-
-/**
- * DS-eigener Caret (icons/source/ui-caret-down.svg) — als Custom-ng-icon registriert.
- * Kräftige 10er-viewBox statt des dünnen heroChevronDown (24er). Skalierbar über `size`.
- * Kein Heroicon-Pendant vorhanden, daher hier hinterlegt; bei einer echten DS-Icon-
- * Einbindung im Storybook wird das durch den generierten Icon-Export ersetzt.
- */
-const uiCaretDown =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 /** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
 let cdsTopnavUid = 0;

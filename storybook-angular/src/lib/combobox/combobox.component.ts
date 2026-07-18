@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronDown, heroXMark } from '@ng-icons/heroicons/outline';
+import { heroChevronDown, heroXMark } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 import type { CdsSelectOption } from '../select/select.component';
 

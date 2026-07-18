@@ -12,7 +12,7 @@ import {
   viewChildren,
 } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroComputerDesktop, heroMoon, heroSun } from '@ng-icons/heroicons/outline';
+import { heroComputerDesktop, heroMoon, heroSun } from '../icons/cds-icons';
 import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from './theme-mode';
 
 /**

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroCheck, heroChevronDown } from '@ng-icons/heroicons/outline';
+import { heroChevronDown, uiCheck } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 
 export interface CdsSelectOption {
@@ -40,7 +40,7 @@ let uid = 0;
   selector: 'cds-select',
   standalone: true,
   imports: [NgIcon],
-  viewProviders: [provideIcons({ heroChevronDown, heroCheck })],
+  viewProviders: [provideIcons({ heroChevronDown, uiCheck })],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
   ],
@@ -90,7 +90,7 @@ let uid = 0;
             (click)="select(i)"
             (mouseenter)="activeIndex.set(i)"
           >
-            <ng-icon class="ep-select-check" name="heroCheck" size="20px" aria-hidden="true" />
+            <ng-icon class="ep-select-check" name="uiCheck" size="20px" aria-hidden="true" />
             {{ opt.label }}
           </li>
         }

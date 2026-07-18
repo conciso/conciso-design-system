@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroComputerDesktop, heroMoon, heroSun } from '@ng-icons/heroicons/outline';
+import { heroComputerDesktop, heroMoon, heroSun } from '../icons/cds-icons';
 import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from './theme-mode';
 
 /**
  * Theme-Cycle-Button — ein einzelner Icon-Button (Stil `.ep-nav-icon-btn` aus der
  * Topnav), der bei Klick durch die Modi zyklt. Das Icon zeigt den aktuellen Modus.
- * Vorgesehener Einsatz: im Header. Icons aus @ng-icons/heroicons.
+ * Vorgesehener Einsatz: im Header. Icons über die zentrale Registry (lib/icons/cds-icons).
  *
  * `showSystem` schaltet zwischen tri (Hell→Dunkel→System) und binär (Hell→Dunkel).
  */

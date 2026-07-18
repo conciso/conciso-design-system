@@ -6,7 +6,8 @@ export type CdsThemeMode = 'light' | 'dark' | 'system';
 /** Reihenfolge (Cycle-Button, Segment, Dropdown). */
 export const CDS_THEME_ORDER: CdsThemeMode[] = ['light', 'dark', 'system'];
 
-/** Heroicons-Name je Modus (für @ng-icons/heroicons — das DS nutzt Hero, nicht Lucide). */
+/** Icon-Name je Modus. Registriert über die zentrale Icon-Registry (lib/icons/cds-icons);
+ *  für diese drei Chrome-Icons hat das DS-Set kein eigenes Glyph → Heroicons. */
 export const CDS_THEME_ICON: Record<CdsThemeMode, string> = {
   light: 'heroSun',
   dark: 'heroMoon',
