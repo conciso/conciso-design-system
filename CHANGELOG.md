@@ -119,6 +119,16 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
+  der „Pro"-Header (`thead .ep-compare-pro`) nutzten rohes `co`/`ki`-`800` (`--ki-800` #475705), das im
+  Dark nicht mitflippt → dunkel-auf-dunkel (Core-Spalte auf `bg-page`, Pro-Spalte auf `--ki-50` #2A3411,
+  Häkchen faktisch unsichtbar). Dark-Override ergänzt: ✓ und Pro-Header auf `--ki-100`, Summary auf
+  `--ki-200` (Hover `--ki-100`), analog zum bestehenden `.ep-feature-icon`/`.ep-tier-label`-Muster.
+  Light-Mode unverändert.
+- **Hover-Farben auf `--tx-primary`-Text im Dark (`.footer-link`, `.article-toc`)**: Der Hover sprang auf
+  `--co-700`, das im Dark nicht flippt → der Link wurde beim Hovern dunkler statt heller (dunkel-auf-dunkel).
+  Dark-Override auf `--co-200` ergänzt (`.footer-link:hover`, `.article-toc-summary:hover`,
+  `.article-toc-list a:hover`), konsistent mit `.body-link:hover`. Light-Mode unverändert.
 - **`.cta-dl[data-area="co"]` Eyebrow-Kontrast (Light)**: `co-600` (#009E9E, 3,28:1, Uppercase-Label < AA)
   auf `co-700` (5,5:1) → jetzt konsistent mit ki-800/es-700/wo-700. Dark-Override (`co-200`) unverändert.
 - **Fokus-Ring global kontraststark (`--focus-ring` / `--focus-aa`)**: sichtbarer Ring im Light-Mode
