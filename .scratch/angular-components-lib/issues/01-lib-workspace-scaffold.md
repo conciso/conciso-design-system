@@ -9,10 +9,10 @@ Dies ist das Fundament, auf dem alle folgenden Tickets aufsetzen.
 
 **Blocked by:** None — can start immediately.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Neues Angular-CLI-Workspace-Projekt für die Angular-Lib liegt neben `storybook-angular/` und ist in `cds.code-workspace` als ein Ordner-Eintrag registriert.
-- [ ] Der Build läuft über ng-packagr (Angular Package Format); `ng build` der Lib erzeugt ein gültiges, leeres Paket mit `public-api.ts` als einzigem Einstiegspunkt.
-- [ ] Das `package.json` der Lib deklariert `@angular/*` als peerDependency (`^21.2.0`), `@conciso/design-system` als peerDependency (Lockstep, eng gepinnt) und `@ng-icons/core` + `@ng-icons/heroicons` als normale dependency.
-- [ ] Storybook ist per tsconfig-Pfad-Mapping auf `public-api.ts` der Lib verdrahtet; `storybook-angular` startet weiterhin fehlerfrei.
-- [ ] Paketname ist `@conciso/design-system-angular`; Version im Lockstep mit dem CSS-Paket.
+- [x] Neues Angular-CLI-Workspace-Projekt für die Angular-Lib liegt neben `storybook-angular/` und ist in `cds.code-workspace` als ein Ordner-Eintrag registriert.
+- [x] Der Build läuft über ng-packagr (Angular Package Format); `ng build` der Lib erzeugt ein gültiges Paket mit `public-api.ts` als einzigem Einstiegspunkt.
+- [x] Das `package.json` der Lib deklariert `@angular/*` als peerDependency (`^21.2.0`), `@conciso/design-system` als peerDependency (Lockstep, eng gepinnt) und `@ng-icons/core` + `@ng-icons/heroicons` als normale dependency.
+- [x] Storybook ist per tsconfig-Pfad-Mapping auf `public-api.ts` der Lib verdrahtet; `storybook-angular` startet weiterhin fehlerfrei.
+- [x] Paketname ist `@conciso/design-system-angular`; Version im Lockstep mit dem CSS-Paket.

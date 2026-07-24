@@ -8,7 +8,7 @@ slider. (Der Kern `field-base` liegt bereits seit Ticket 02 in der Lib.)
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Alle genannten Komponenten leben in der Lib und werden über `public-api.ts` exportiert, inkl. ihrer öffentlichen Typen.
 - [x] Icon-nutzende Komponenten (select, combobox) beziehen ihre Icons über die zentrale Icon-Registry, nie direkt aus `@ng-icons/heroicons`.

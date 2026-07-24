@@ -7,7 +7,7 @@ code-block, faq, scale, snackbar, testimonial, team-voice, download-cta.
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** done
 
 - [x] Alle genannten Komponenten leben in der Lib und werden über `public-api.ts` exportiert, inkl. ihrer öffentlichen Typen.
 - [x] Icon-nutzende Komponenten beziehen ihre Icons über die zentrale Icon-Registry.
