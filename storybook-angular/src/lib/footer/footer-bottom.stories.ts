@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { FooterBottomComponent } from './footer-bottom.component';
+import { FooterBottomComponent } from '@conciso/design-system-angular';
 
 // GitHub-Octocat (simple-icons, viewBox 0 0 24) — Beispiel für ein eigenes Social-Icon
 // über `iconPath`, ohne dass die Komponente ein Built-in dafür mitbringen muss.
