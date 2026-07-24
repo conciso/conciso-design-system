@@ -115,6 +115,18 @@
         </div>
       </li>
       <li>
+        <button class="nav-item" data-section="responsive">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18h3"/></svg>Responsive
+        </button>
+        <div class="nav-subnav" data-for="responsive">
+          <a class="nav-sub-item" href="#gt-responsive-breakpoints">Breakpoints</a>
+          <a class="nav-sub-item" href="#gt-responsive-entscheidungen">Warum diese Bruchpunkte</a>
+          <a class="nav-sub-item" href="#gt-responsive-typo">Fluide Typografie</a>
+          <a class="nav-sub-item" href="#gt-responsive-komponenten">Komponenten-Verhalten</a>
+          <a class="nav-sub-item" href="#gt-responsive-umsetzung">Umsetzung auf der echten Site</a>
+        </div>
+      </li>
+      <li>
         <button class="nav-item" data-section="elevation">
           <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>Elevation
         </button>
@@ -1786,6 +1798,128 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Spacing-Tokens für Wort- oder Zeichenabstände im Text, dafür ist <code class="token">letter-spacing</code> zuständig</span></li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <!-- ═══ RESPONSIVE ═══ -->
+    <section class="ds-section" id="sec-responsive">
+      <h1 class="sec-title">Responsive</h1>
+      <p class="sec-sub">Verbindliche Breakpoints, fluide Typografie und das dokumentierte Verhalten pro Komponente. Diese Seite ist die Übergabe-Spezifikation für die Implementierung, nicht nur eine Beschreibung des Mockups.</p>
+
+      <div style="background:var(--co-50);border:var(--bd);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Vor der Umsetzung lesen:</strong> Das Mockup nutzt ausschließlich <strong>viewport-basierte</strong> <code class="token">@media</code>-Queries (keine Container-Queries) und blendet die Doku-Sidebar unter 1024 px aus, damit die Beispielseiten die echte Fensterbreite einnehmen. Die <strong>Bruchpunkt-Werte und Verhaltensregeln unten sind verbindlich</strong>, die technische Umsetzung (Media- vs. Container-Query) darf auf der echten Site abweichen. Details unter <a href="#gt-responsive-umsetzung" class="body-link">Umsetzung auf der echten Site</a>.</p>
+      </div>
+
+      <h2 id="gt-responsive-breakpoints" class="group-title">Breakpoints</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Drei Stufen, definiert über die Viewport-Breite. Der Hauptbruch liegt bei <strong>768 px</strong> (Mobile ↔ Desktop-Grid). Ein zweiter, feinerer Bruch bei <strong>520 px</strong> steuert Layouts, die auf kleinen Phones weiter herunterbrechen müssen. Alle Regeln sind <code class="token">max-width</code>-basiert (Desktop-first), außer der fix-spaltigen Tablet-Zwischenstufe.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:18%">Stufe</th>
+            <th style="width:22%">Bereich</th>
+            <th>Verhalten</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Phone</strong></td><td><code class="token">≤ 520 px</code></td><td>Engste Stufe. Hero-CTAs stapeln full-width, mehrspaltige Sonderraster (Roster, Benefits) brechen auf ihre kleinste Spaltenzahl herunter.</td></tr>
+          <tr><td><strong>Mobile</strong></td><td><code class="token">≤ 768 px</code></td><td>Hauptbruch. <code class="token">.layout-grid</code> kollabiert auf 1 Spalte, Section-Innenabstand schrumpft, Topnav wird zum Hamburger (technisch ab ≤ 760 px, s. u.).</td></tr>
+          <tr><td><strong>Tablet</strong></td><td><code class="token">769 bis 1024 px</code></td><td>Zwischenstufe <strong>nur für fix-spaltige Layouts</strong> (explizite <code class="token">min-width:769px</code>-Regel). <code class="token">auto-fit</code>-Grids regeln diesen Bereich selbst und brauchen keine eigene Regel.</td></tr>
+          <tr><td><strong>Desktop</strong></td><td><code class="token">&gt; 1024 px</code></td><td>Referenzzustand. Alle Fixwerte (Grid-Spannweiten, Typo-Maxima, Paddings) gelten hier unverändert.</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8);max-width:760px"><strong>Faustregel für neue Layouts:</strong> Ein <code class="token">auto-fit</code>/<code class="token">auto-fill</code>-Grid (z.&nbsp;B. <code class="token">.ep-cards</code>, <code class="token">.card-stat-strip</code>) braucht <strong>keine</strong> Tablet-Regel, es füllt Spalten selbst auf. Ein Layout mit <strong>fixer</strong> Spaltenzahl (Footer, Benefits, Roster) braucht eine explizite Tablet-Regel (769 bis 1024 px) zwischen Desktop und Mobile, sonst springt es hart von n-spaltig auf einspaltig.</p>
+
+      <h2 id="gt-responsive-entscheidungen" class="group-title">Warum diese Bruchpunkte</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Die vier nicht offensichtlichen Entscheidungen. Ohne diese Begründungen wirken die Werte willkürlich und werden beim Refactoring erfahrungsgemäß „geglättet", obwohl sie bewusst so liegen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead>
+          <tr>
+            <th style="width:30%">Entscheidung</th>
+            <th>Begründung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Hero-CTAs stapeln erst bei <code class="token">≤ 520 px</code>, nicht schon bei 768 px</td><td>Auf Phablet und kleinem Tablet (521 bis 768 px) liefen full-width-Buttons breiter als der gekappte Intro-Text und wirkten überdehnt. Dort behalten sie natürliche Breite und dürfen umbrechen. Erst am echten Phone werden sie full-width gestapelt.</td></tr>
+          <tr><td><code class="token">auto-fit</code>-Grids ohne Tablet-Regel, fix-spaltige Grids mit</td><td><code class="token">auto-fit</code> verteilt Spalten anhand einer <code class="token">minmax()</code>-Mindestbreite selbst, eine feste Tablet-Regel wäre redundant und würde kollidieren. Fix-spaltige Raster (col-N) haben diese Automatik nicht und brauchen die Zwischenstufe.</td></tr>
+          <tr><td>Hamburger ab <code class="token">≤ 760 px</code>, nicht 768 px</td><td>Bewusst 8 px unter dem Grid-Bruch, damit der Navigations-Umbau nicht exakt auf derselben Breite wie das Grid-Reflow passiert. Trennt die beiden Umbrüche optisch und vermeidet ein gleichzeitiges „Springen" von Nav und Inhalt.</td></tr>
+          <tr><td>Doku-Sidebar aus ab <code class="token">≤ 1024 px</code></td><td>Reine Mockup-Krücke: Die feste 252-px-Sidebar würde die Beispielseiten in eine Restspalte quetschen, wodurch deren viewport-<code class="token">@media</code>-Queries nicht mehr zur tatsächlichen <code class="token">.ep-page</code>-Breite passen. Ausblenden macht die Geräte-Vorschau in den DevTools erst wahrheitsgetreu. <strong>Für die echte Site irrelevant.</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-responsive-typo" class="group-title">Fluide Typografie</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Alle <strong>Headline- und Display-Tokens</strong> skalieren fluid per <code class="token">clamp(min, preferred, max)</code>. Das Maximum entspricht dem bisherigen Desktop-Fixwert (Desktop unverändert), das Minimum greift am Phone. Die Zeilenhöhe ist eine <strong>unitless Ratio</strong> (skaliert mit), nie ein Fixwert und nie unter 1. Alle Minima liegen bei <strong>≥ 20 px</strong> (Font-Size-Minimum). Body- und Label-Tokens sind bewusst <strong>nicht</strong> fluid, sie haben feste Größen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:26%">Token</th>
+            <th style="width:20%">Min (Phone)</th>
+            <th style="width:20%">Max (Desktop)</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="token">--ty-headline-xs</code></td><td>20 px</td><td>22 px</td><td>1.35</td></tr>
+          <tr><td><code class="token">--ty-headline-sm</code></td><td>21 px</td><td>24 px</td><td>1.33</td></tr>
+          <tr><td><code class="token">--ty-headline-md</code></td><td>23 px</td><td>28 px</td><td>1.3</td></tr>
+          <tr><td><code class="token">--ty-display-sm</code></td><td>28 px</td><td>36 px</td><td>1.22</td></tr>
+          <tr><td><code class="token">--ty-display-md</code></td><td>30 px</td><td>40 px</td><td>1.2</td></tr>
+          <tr><td><code class="token">--ty-display-lg</code></td><td>28 px</td><td>46 px</td><td>1.15</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8);max-width:760px">Quelle der Werte: <code class="token">css/tokens.css</code>. Wer die Skala ändert, muss <code class="token">min</code> ≥ 20 px halten und die unitless Ratio beibehalten (nicht auf px umstellen). Siehe auch <a href="#sec-typography" class="body-link">Typography</a>.</p>
+
+      <h2 id="gt-responsive-komponenten" class="group-title">Komponenten-Verhalten</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Vollständiges Inventar der responsiven Sonderregeln. Jede Zeile nennt Auslöser, Verhalten und die CSS-Quelle, damit die Regel bei der Neu-Implementierung nicht verloren geht. Alles, was hier nicht steht, folgt dem Standard (<code class="token">.layout-grid</code> auf 1 Spalte ab ≤ 768 px).</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:26%">Komponente</th>
+            <th style="width:16%">Bruchpunkt</th>
+            <th style="width:38%">Verhalten</th>
+            <th>Quelle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="token">.layout-grid</code></td><td>≤ 768 px</td><td>Kollabiert auf 1 Spalte, alle <code class="token">col-N</code>-Spannweiten werden auf <code class="token">grid-column:auto</code> zurückgesetzt (sonst brechen ungleiche Splits verschieden breit um).</td><td>base.css</td></tr>
+          <tr><td><code class="token">.ep-section</code></td><td>≤ 768 px</td><td>Innenabstand horizontal von <code class="token">--s8</code> (32 px) auf <code class="token">--s6</code> (24 px). Greift nicht auf Sektionen mit inline gesetztem Padding.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.ep-hero-ctas</code></td><td>≤ 520 px</td><td>Buttons stapeln als Spalte, full-width (<code class="token">width:100%</code>). Darüber: natürliche Breite mit Umbruch.</td><td>components.css</td></tr>
+          <tr><td>Topnav (Hamburger)</td><td>≤ 760 px</td><td>JS injiziert den Hamburger-Button, Nav klappt unter dem Logo auf, Submenüs öffnen inline statt als Overlay.</td><td>components.css + main.js</td></tr>
+          <tr><td>Topnav-Submenü (Hover)</td><td><code class="token">hover + pointer:fine</code></td><td>Hover-Öffnen nur auf echten Zeigergeräten (nicht Touch). Klick navigiert weiter. Kein reines CSS-<code class="token">:hover</code>-Reveal.</td><td>components.css + main.js</td></tr>
+          <tr><td><code class="token">.footer-grid</code></td><td>769 bis 1024 px<br>≤ 768 px</td><td>Tablet: 3 → 2 Spalten. Mobile: → 1 Spalte. (Fix-spaltig, daher explizite Tablet-Regel.)</td><td>components.css</td></tr>
+          <tr><td><code class="token">[data-team-roster]</code></td><td>≤ 768 px<br>≤ 520 px</td><td>Tablet: 3 Spalten. Phone: 2 Spalten. <code class="token">minmax(0,1fr)</code> gegen Grid-Blowout bei langen Namen.</td><td>base.css</td></tr>
+          <tr><td><code class="token">[data-benefits]</code>, <code class="token">[data-event-meta]</code></td><td>≤ 768 px<br>≤ 520 px</td><td>Tablet: 2×2. Phone: 1 Spalte. Desktop: 4-spaltig.</td><td>base.css</td></tr>
+          <tr><td><code class="token">[data-team-tiles]</code></td><td>≤ 768 px</td><td>2×2 statt einspaltig, damit die 4 Köpfe kompakt bleiben.</td><td>base.css</td></tr>
+          <tr><td><code class="token">.ep-award-list</code></td><td>≤ 768 px</td><td>Von zentrierter Flex-Reihe auf 2×2-Grid (<code class="token">justify-self:start</code>), behebt versetztes Umbrechen.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.team-voice</code></td><td>≤ 768 px</td><td>Einspaltig, Body wird zum Pull-Quote (Quote-Icon im linken Gutter, Zitat rechts), spart die eigene Icon-Zeile.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.article-avatar-xl</code></td><td>≤ 768 px</td><td>Von fix 160 px auf <code class="token">min(112px,72%)</code> mit <code class="token">aspect-ratio:1</code>, damit es in den mehrspaltigen Team-Grids nicht überläuft.</td><td>components.css</td></tr>
+          <tr><td>Karten in Grids<br>(<code class="token">.card-title</code>, <code class="token">.card-text</code>)</td><td>≤ 768 px</td><td>Die Gleichhöhen-Sicherung (<code class="token">min-height:2lh/3lh</code>) wird auf <code class="token">0</code> gesetzt, weil einspaltige Karten keinen Nachbarn zum Abgleichen haben. <code class="token">line-clamp</code> bleibt aktiv.</td><td>components.css</td></tr>
+          <tr><td>Editorial-Split-Text<br>(<code class="token">.ep-section-sub</code> im Grid)</td><td>≤ 768 px</td><td>Der inline 520-px-Cap wird aufgehoben, damit der gestapelte Text bündig zur Bildbreite läuft statt schmaler.</td><td>base.css</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-muted);margin-bottom:var(--s8);max-width:760px">Nicht enthalten sind die Doku-Shell selbst (Sidebar, Content-Breite) und die Vergleichsraster der Doku-Seite, das ist Chrome der Referenz und nicht Teil des ausgelieferten Systems.</p>
+
+      <h2 id="gt-responsive-umsetzung" class="group-title">Umsetzung auf der echten Site</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <span class="lbl">Was übernommen werden muss</span>
+          <ul style="list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Bruchpunkt-Werte</strong> (520 / 768 / 1024 px) und das dokumentierte Verhalten pro Komponente</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>fluiden Typo-Tokens</strong> (clamp, unitless Ratio, min ≥ 20 px) unverändert aus <code class="token">tokens.css</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Faustregel</strong> auto-fit (keine Tablet-Regel) vs. fix-spaltig (Tablet-Regel nötig)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Begründungen</strong> oben, bevor ein Wert „korrigiert" wird</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <span class="lbl">Was am Mockup hängt und abweichen darf</span>
+          <ul style="list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><strong>Viewport-<code class="token">@media</code></strong>: Das Mockup nutzt keine Container-Queries. Auf der echten Site sind Container-Queries für kontextabhängige Komponenten sinnvoll, die Bruchpunkt-Werte bleiben gleich.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Das <strong>Ausblenden der Sidebar ≤ 1024 px</strong> ist reine Doku-Chrome und entfällt komplett.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Beispielseiten liegen als <strong>Inline-Mockup</strong> vor (kein Sticky, <code class="token">overflow:hidden</code>). Sticky-Topnav und persistenter CTA sind für die echte Site geplant.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Prüfen:</strong> Weil die Beispielseiten auf Viewport-Breite reagieren, ist eine echte Tablet-/Mobile-Prüfung nur im <strong>Live-Browser (DevTools-Responsive-Modus bzw. iframe) unter 1024 px</strong> aussagekräftig, nicht am statischen Screenshot. Bruchpunkte an den Kanten testen: 519/520, 767/768, 1024/1025 px.</p>
       </div>
     </section>
 

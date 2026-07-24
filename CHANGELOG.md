@@ -15,6 +15,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **Doku · Abschnitt „Responsive"** (`#sec-responsive`): Übergabe-Spezifikation der Responsive-Strategie
+  als eigener Foundations-Abschnitt (bisher nur implizit im CSS + verstreut). Verbindliche 3-Stufen-Breakpoints
+  (Phone ≤ 520 · Mobile ≤ 768 · Tablet 769 bis 1024 · Desktop > 1024), Begründungen der nicht offensichtlichen
+  Bruchpunkte (520 vs. 768 bei Hero-CTAs, auto-fit vs. fix-spaltig, Hamburger ≤ 760, Doku-Sidebar ≤ 1024),
+  fluide Typo-Tokens (clamp, min ≥ 20 px, unitless Ratio) und vollständiges Komponenten-Inventar mit CSS-Quelle.
+  Plus Hinweise, was auf der echten Site übernommen werden muss vs. was mockup-gebunden ist.
 - **Angebots-Detailseiten (Beispielseiten)**: Fünf neue Landingpages für einzelne Angebote unterhalb der
   Bereiche, jeweils an den Bereich gebunden. Wirksame Organisationen: „Erste Hilfe bei Meetingflut"
   (Festpreis 3.600 €), „Scrum Trainings" (Preiskarten Scrum.org/TÜV SÜD), „Lean Portfolio Management"
