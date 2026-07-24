@@ -1,7 +1,7 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect } from 'storybook/test';
-import { TextFieldComponent } from './text-field.component';
+import { TextFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TextFieldComponent> = {
   title: 'Molecules/Textfeld',
