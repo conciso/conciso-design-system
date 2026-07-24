@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { CardComponent } from './card.component';
+import { CardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CardComponent> = {
   title: 'Organisms/Card',

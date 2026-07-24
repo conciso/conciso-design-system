@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { TeamVoiceComponent } from './team-voice.component';
+import { TeamVoiceComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TeamVoiceComponent> = {
   title: 'Organisms/TeamVoice',

@@ -43,3 +43,16 @@ export * from './lib/logo-carousel/logo-carousel.component';
 export * from './lib/carousel/carousel.component';
 export * from './lib/theme-switch/segment-tri.component';
 export * from './lib/theme-switch/select.component';
+
+// Bulk-Batch C (Ticket 07): Content & Daten-Anzeige.
+export * from './lib/card/card.component';
+export * from './lib/stat-card/stat-card.component';
+export * from './lib/stat-strip/stat-strip.component';
+export * from './lib/blockquote/blockquote.component';
+export * from './lib/code-block/code-block.component';
+export * from './lib/faq/faq.component';
+export * from './lib/scale/scale.component';
+export * from './lib/snackbar/snackbar.component';
+export * from './lib/testimonial/testimonial.component';
+export * from './lib/team-voice/team-voice.component';
+export * from './lib/download-cta/download-cta.component';
