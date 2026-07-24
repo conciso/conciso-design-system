@@ -6,9 +6,13 @@
  * ausschließlich von hier re-exportiert — es gibt keine sekundären Entry-Points
  * (siehe docs/adr/0004-verteilung-und-versionierung.md).
  *
- * Noch leer: Die Komponenten ziehen ab der Pilot-Scheibe (Button + Topnav) hierher um
- * (siehe docs/adr/0002-topologie-und-quelle-der-wahrheit.md,
- * docs/adr/0003-pilot-scheibe-und-validierung.md).
+ * Pilot-Scheibe (siehe docs/adr/0003-pilot-scheibe-und-validierung.md): Button,
+ * Topnav und die von Topnav genutzte theme-switch cycle-button sind umgezogen.
+ * Der restliche Bulk-Umzug (~38 Komponenten) folgt in späteren Tickets.
  */
 
-export {};
+export * from './lib/area';
+export * from './lib/theme-switch/theme-mode';
+export * from './lib/button/button.component';
+export * from './lib/topnav/topnav.component';
+export * from './lib/theme-switch/cycle-button.component';

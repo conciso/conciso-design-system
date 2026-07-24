@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect } from 'storybook/test';
-import { TopnavComponent } from './topnav.component';
+import { TopnavComponent } from '@conciso/design-system-angular';
 
 // Echtes Conciso-Logo laut Doku (logo-conciso.svg / -light.svg), via staticDir
 // (.storybook/main.ts → /conciso/images) serviert. Theme-Swap (hell/dunkel) über

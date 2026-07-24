@@ -1,16 +1,9 @@
 /**
- * Die vier Markenbereiche des Conciso Design Systems. Sie steuern in der CSS-Schicht
- * die Bereichsfarben (Tokens --co-* / --ki-* / --es-* / --wo-*) und werden je nach
- * Komponente entweder über eine Modifier-Klasse (z. B. .btn-co) oder ein
- * data-area-Attribut (z. B. .badge[data-area="co"]) angewandt.
+ * Re-Export-Shim (Ticket 02, "expand"-Schritt): CdsArea lebt jetzt in der Lib
+ * (angular-lib/projects/design-system-angular/src/lib/area.ts) — der Quell-Code
+ * existiert nur noch dort (siehe docs/adr/0002-topologie-und-quelle-der-wahrheit.md).
+ * Dieser Shim bleibt an der alten Stelle stehen, damit die noch nicht migrierten
+ * Komponenten unverändert relativ auf '../area' importieren können. Wird im
+ * "contract"-Abschlussticket (09) entfernt.
  */
-export type CdsArea = 'co' | 'ki' | 'es' | 'wo';
-
-export const CDS_AREAS: CdsArea[] = ['co', 'ki', 'es', 'wo'];
-
-export const CDS_AREA_LABELS: Record<CdsArea, string> = {
-  co: 'Corporate',
-  ki: 'AI.Applied',
-  es: 'Effektive Software',
-  wo: 'Wirksame Organisationen',
-};
+export * from '../../../angular-lib/projects/design-system-angular/src/lib/area';
