@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Consumer-Fixture — @conciso/design-system-angular</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!--
+      Bindet die CSS-Schicht (@conciso/design-system) global ein — genau das
+      manuelle Onboarding, das ADR-0001 verlangt (die Lib liefert kein CSS).
+      Die Dateien werden über die "assets"-Einträge in angular.json UNVERÄNDERT
+      nach /conciso/css bzw. /conciso/fonts kopiert (kein CSS-Bundling durch den
+      Angular-Build), damit die relativen Font-Pfade in fonts.css (../fonts/*)
+      auflösen. Reihenfolge wie im README vorgeschrieben: fonts → tokens →
+      dark-mode → base → components. Vorbild: storybook-angular/.storybook/preview-head.html.
+    -->
+    <link rel="stylesheet" href="conciso/css/fonts.css" />
+    <link rel="stylesheet" href="conciso/css/tokens.css" />
+    <link rel="stylesheet" href="conciso/css/dark-mode.css" />
+    <link rel="stylesheet" href="conciso/css/base.css" />
+    <link rel="stylesheet" href="conciso/css/components.css" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
