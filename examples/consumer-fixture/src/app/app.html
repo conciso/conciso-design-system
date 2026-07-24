@@ -1,0 +1,14 @@
+<cds-topnav logo="Consumer-Fixture" [showSearch]="false" ctaLabel="Loslegen" />
+
+<main style="padding: 2rem">
+  <h1>Consumer-Fixture</h1>
+  <p>Konsumiert Button + Topnav aus <code>&#64;conciso/design-system-angular</code>.</p>
+
+  <section style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+    @for (area of areas; track area) {
+      @for (variant of variants; track variant) {
+        <cds-button [area]="area" [variant]="variant" [label]="area + ' / ' + variant" />
+      }
+    }
+  </section>
+</main>
