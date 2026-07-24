@@ -31,3 +31,15 @@ export * from './lib/radio-group/radio-group.component';
 export * from './lib/select/select.component';
 export * from './lib/combobox/combobox.component';
 export * from './lib/slider/slider.component';
+
+// Bulk-Batch B (Ticket 06): Layout & Navigation
+export * from './lib/footer/footer.component';
+export * from './lib/footer/footer-main.component';
+export * from './lib/footer/footer-bottom.component';
+export * from './lib/area-tabs/area-tab.component';
+export * from './lib/area-tabs/area-tabs.component';
+export * from './lib/logo/logo.component';
+export * from './lib/logo-carousel/logo-carousel.component';
+export * from './lib/carousel/carousel.component';
+export * from './lib/theme-switch/segment-tri.component';
+export * from './lib/theme-switch/select.component';

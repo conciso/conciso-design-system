@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import { FooterBottomComponent } from './footer-bottom.component';
-import { FooterComponent } from './footer.component';
-import { FooterMainComponent } from './footer-main.component';
+import { FooterBottomComponent, FooterComponent, FooterMainComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FooterComponent> = {
   title: 'Organisms/Footer',

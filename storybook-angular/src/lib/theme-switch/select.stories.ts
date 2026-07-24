@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { ThemeSelectComponent } from './select.component';
+import { ThemeSelectComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSelectComponent> = {
   title: 'Molecules/Theme-Dropdown',

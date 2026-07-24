@@ -27,7 +27,7 @@ export class ThemeSelectComponent {
     cdsThemeModes(this.showSystem()).map((m) => ({ value: m, label: CDS_THEME_LABEL[m] })),
   );
 
-  onChange(value: string): void {
-    this.svc.set(value as CdsThemeMode);
+  onChange(value: string | undefined): void {
+    if (value) this.svc.set(value as CdsThemeMode);
   }
 }
