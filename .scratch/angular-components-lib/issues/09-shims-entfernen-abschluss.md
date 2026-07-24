@@ -9,10 +9,10 @@ kein Konsument der alten Pfade mehr existiert.
 
 **Blocked by:** 05, 06, 07, 08
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Die Kern-Re-Export-Shims (area, theme-mode, Icon-Registry, field-base) in `storybook-angular` sind entfernt; nichts importiert mehr aus den alten Pfaden.
-- [ ] `storybook-angular` enthält keinen Komponenten-Code mehr — nur `*.stories.ts` und die `foundations`-Stories; alle Imports zeigen auf die Lib.
-- [ ] `public-api.ts` exportiert alle ~40 Komponenten und ihre öffentlichen Typen.
-- [ ] Vollständiger Storybook-Test-Runner- und Visual-Snapshot-Lauf ist grün.
-- [ ] Der Consumer-Smoke-Test (optional auf einen breiteren Komponenten-Ausschnitt erweitert) bleibt grün.
+- [x] Die Kern-Re-Export-Shims (area, theme-mode, Icon-Registry, field-base) in `storybook-angular` sind entfernt; nichts importiert mehr aus den alten Pfaden.
+- [x] `storybook-angular` enthält keinen Komponenten-Code mehr — nur `*.stories.ts` und die `foundations`-Stories; alle Imports zeigen auf die Lib.
+- [x] `public-api.ts` exportiert alle ~40 Komponenten und ihre öffentlichen Typen.
+- [x] Vollständiger Storybook-Test-Runner- und Visual-Snapshot-Lauf ist grün.
+- [x] Der Consumer-Smoke-Test (optional auf einen breiteren Komponenten-Ausschnitt erweitert) bleibt grün.
