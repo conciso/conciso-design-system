@@ -1,0 +1,96 @@
+name: Pakete veröffentlichen
+
+# Release-/tag-getriggerter Publish-Workflow (siehe CONTEXT.md, docs/adr/0004):
+# baut und veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht)
+# und @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im
+# Lockstep mit derselben Versionsnummer.
+#
+# Der Consumer-Smoke-Test (consumer-smoke-test.yml) läuft hier als eigener,
+# per `uses:` eingebundener Job zuerst; der Publish-Job hängt per `needs:`
+# hart davon ab — schlägt der Smoke-Test fehl, wird nicht veröffentlicht (siehe
+# Kommentar in consumer-smoke-test.yml zu `workflow_call` als reusable Workflow).
+#
+# Trigger:
+#   - release (published): ein Maintainer taggt/veröffentlicht ein Release →
+#     echtes `npm publish`.
+#   - workflow_dispatch: manueller Lauf zur Verifikation VOR einem echten
+#     Release. Default ist ein Dry-Run (`npm publish --dry-run`) — prüft
+#     Registry-Auflösung, Tarball-Inhalt und publishConfig, ohne etwas zu
+#     veröffentlichen. `dry_run: false` erzwingt auch hierüber ein echtes Publish.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry-Run (kein echtes npm publish)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: publish-${{ github.ref }}
+  # Ein laufender Publish wird nicht abgebrochen — ein halb veröffentlichtes
+  # Paket-Paar wäre schlimmer als ein Warten auf den nächsten Lauf.
+  cancel-in-progress: false
+
+jobs:
+  consumer-smoke-test:
+    name: Consumer-Smoke-Test (Vorbedingung)
+    uses: ./.github/workflows/consumer-smoke-test.yml
+
+  publish:
+    name: Beide Pakete bauen und veröffentlichen
+    needs: consumer-smoke-test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+          registry-url: https://npm.pkg.github.com
+          scope: '@conciso'
+      # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
+      - name: Dependencies installieren
+        run: npm ci
+      # Lockstep-Versionierung (docs/adr/0004): beide Pakete müssen dieselbe
+      # Versionsnummer tragen — sonst würde ein Konsument inkompatible
+      # Angular-Lib/CSS-Paare installieren können.
+      - name: Lockstep-Versionen prüfen
+        run: |
+          ROOT_VERSION=$(node -p "require('./package.json').version")
+          LIB_VERSION=$(node -p "require('./angular-lib/projects/design-system-angular/package.json').version")
+          if [ "$ROOT_VERSION" != "$LIB_VERSION" ]; then
+            echo "::error::Lockstep-Versionen weichen ab: @conciso/design-system@$ROOT_VERSION vs. @conciso/design-system-angular@$LIB_VERSION"
+            exit 1
+          fi
+          echo "Lockstep-Version: $ROOT_VERSION"
+      - name: CSS-Schicht bauen (@conciso/design-system)
+        run: npm run build
+      - name: Angular-Lib bauen (@conciso/design-system-angular)
+        run: npm run build --workspace=angular-lib
+      # release → immer echtes Publish; workflow_dispatch → Dry-Run per
+      # Default, außer explizit mit dry_run=false gestartet.
+      - name: Dry-Run-Flag bestimmen
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "flag=" >> "$GITHUB_OUTPUT"
+          elif [ "${{ inputs.dry_run }}" = "false" ]; then
+            echo "flag=" >> "$GITHUB_OUTPUT"
+          else
+            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
+          fi
+      - name: CSS-Schicht veröffentlichen
+        run: npm publish ${{ steps.mode.outputs.flag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Angular-Lib veröffentlichen
+        working-directory: angular-lib/dist/design-system-angular
+        run: npm publish ${{ steps.mode.outputs.flag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

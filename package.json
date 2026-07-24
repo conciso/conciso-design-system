@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "description": "Conciso Design System — Design Tokens, CSS-Komponenten und Light/Dark-Mode, framework-agnostisch und WCAG-AA-konform.",
   "license": "UNLICENSED",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "workspaces": [
     "storybook-angular",

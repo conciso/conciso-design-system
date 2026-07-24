@@ -9,6 +9,47 @@ nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 > `cycle-button`) sind aus [Ticket 02](../../../.scratch/angular-components-lib/issues/02-pilot-button-topnav.md)
 > umgezogen. Die restlichen ~38 Komponenten folgen im Bulk-Umzug.
 
+## Installation aus GitHub Packages
+
+Beide Pakete (`@conciso/design-system-angular` **und** `@conciso/design-system`,
+[Lockstep](../../../CONTEXT.md#lockstep-versionierung)) liegen privat, org-scoped
+in [GitHub Packages](https://npm.pkg.github.com) (siehe
+[ADR-0004](../../../docs/adr/0004-verteilung-und-versionierung.md)) — nicht in der
+öffentlichen npm-Registry. Ein einziger `.npmrc`-Mechanismus deckt beide ab, weil
+beide unter dem `@conciso`-Scope veröffentlicht werden.
+
+**1. `.npmrc`** im Konsumenten-Projekt (oder `~/.npmrc` für den eigenen Rechner)
+anlegen — der `@conciso`-Scope wird auf GitHub Packages umgeleitet, alles andere
+bleibt bei der öffentlichen npm-Registry:
+
+```ini
+@conciso:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+**2. Token bereitstellen.** GitHub Packages verlangt Auth auch für **lesenden**
+Zugriff auf private Pakete. `${GITHUB_TOKEN}` in der `.npmrc` liest npm zur
+Laufzeit aus der Umgebungsvariable — dafür:
+
+- **Lokal:** ein Personal Access Token (classic) mit Scope `read:packages`
+  erzeugen (GitHub → Settings → Developer settings → Personal access tokens) und
+  als `GITHUB_TOKEN` exportieren (z. B. in der Shell-Profildatei).
+- **In CI (GitHub Actions):** das von GitHub automatisch bereitgestellte
+  `secrets.GITHUB_TOKEN` reicht für den **Lese**-Zugriff innerhalb derselben
+  Organisation — kein eigenes PAT nötig, sofern das Workflow-`permissions`-Feld
+  `packages: read` erlaubt (Beispiel im Publish-Workflow,
+  [`.github/workflows/publish.yml`](../../../.github/workflows/publish.yml)).
+
+**3. Installieren:**
+
+```bash
+npm install @conciso/design-system-angular @conciso/design-system
+```
+
+Committe niemals ein Token in die `.npmrc` selbst — nur die
+`${GITHUB_TOKEN}`-Variablenreferenz landet im Repo, der tatsächliche Wert bleibt
+in der Umgebung.
+
 ## Wichtig: CSS wird nicht mitgeliefert
 
 Die Lib injiziert zur Laufzeit **nichts** ins DOM. Der Konsument installiert **beide**

@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/conciso/conciso-design-system.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
