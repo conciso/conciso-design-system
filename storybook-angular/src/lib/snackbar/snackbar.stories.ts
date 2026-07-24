@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { SnackbarComponent } from './snackbar.component';
+import { SnackbarComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SnackbarComponent> = {
   title: 'Molecules/Snackbar',

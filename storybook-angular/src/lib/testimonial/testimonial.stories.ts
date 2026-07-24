@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { TestimonialComponent } from './testimonial.component';
+import { TestimonialComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TestimonialComponent> = {
   title: 'Organisms/Testimonial',

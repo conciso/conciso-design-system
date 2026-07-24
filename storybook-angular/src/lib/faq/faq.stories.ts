@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect } from 'storybook/test';
-import { FaqComponent } from './faq.component';
+import { FaqComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FaqComponent> = {
   title: 'Organisms/FAQ',
