@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { PillComponent } from './pill.component';
+import { PillComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<PillComponent> = {
   title: 'Atoms/Pill',

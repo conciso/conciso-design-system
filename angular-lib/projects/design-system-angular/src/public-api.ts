@@ -16,3 +16,7 @@ export * from './lib/theme-switch/theme-mode';
 export * from './lib/button/button.component';
 export * from './lib/topnav/topnav.component';
 export * from './lib/theme-switch/cycle-button.component';
+export * from './lib/area-badge/area-badge.component';
+export * from './lib/status-badge/status-badge.component';
+export * from './lib/chip/chip.component';
+export * from './lib/pill/pill.component';
