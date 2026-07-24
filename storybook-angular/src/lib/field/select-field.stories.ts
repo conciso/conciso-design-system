@@ -1,7 +1,7 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect, waitFor } from 'storybook/test';
-import { SelectFieldComponent } from './select-field.component';
+import { SelectFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SelectFieldComponent> = {
   title: 'Molecules/Auswahlfeld',

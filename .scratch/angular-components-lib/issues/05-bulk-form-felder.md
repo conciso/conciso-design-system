@@ -10,7 +10,7 @@ slider. (Der Kern `field-base` liegt bereits seit Ticket 02 in der Lib.)
 
 **Status:** ready-for-agent
 
-- [ ] Alle genannten Komponenten leben in der Lib und werden über `public-api.ts` exportiert, inkl. ihrer öffentlichen Typen.
-- [ ] Icon-nutzende Komponenten (select, combobox) beziehen ihre Icons über die zentrale Icon-Registry, nie direkt aus `@ng-icons/heroicons`.
-- [ ] Die zugehörigen Stories importieren aus der Lib; ihr Inhalt bleibt inhaltlich unverändert.
-- [ ] Storybook-Test-Runner und Visual-Snapshots dieser Komponenten sind grün.
+- [x] Alle genannten Komponenten leben in der Lib und werden über `public-api.ts` exportiert, inkl. ihrer öffentlichen Typen.
+- [x] Icon-nutzende Komponenten (select, combobox) beziehen ihre Icons über die zentrale Icon-Registry, nie direkt aus `@ng-icons/heroicons`.
+- [x] Die zugehörigen Stories importieren aus der Lib; ihr Inhalt bleibt inhaltlich unverändert.
+- [x] Storybook-Test-Runner und Visual-Snapshots dieser Komponenten sind grün.

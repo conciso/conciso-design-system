@@ -20,3 +20,14 @@ export * from './lib/area-badge/area-badge.component';
 export * from './lib/status-badge/status-badge.component';
 export * from './lib/chip/chip.component';
 export * from './lib/pill/pill.component';
+
+// Bulk-Batch A: Form-Felder & Eingaben (Ticket 05)
+export * from './lib/field/field-shell.component';
+export * from './lib/field/text-field.component';
+export * from './lib/field/textarea-field.component';
+export * from './lib/field/select-field.component';
+export * from './lib/checkbox/checkbox.component';
+export * from './lib/radio-group/radio-group.component';
+export * from './lib/select/select.component';
+export * from './lib/combobox/combobox.component';
+export * from './lib/slider/slider.component';

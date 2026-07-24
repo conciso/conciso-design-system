@@ -1,7 +1,7 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { Meta, StoryObj } from '@storybook/angular';
 import { within, userEvent, expect, waitFor } from 'storybook/test';
-import { RadioGroupComponent } from './radio-group.component';
+import { RadioGroupComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<RadioGroupComponent> = {
   title: 'Molecules/Radio',
