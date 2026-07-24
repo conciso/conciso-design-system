@@ -1,0 +1,8 @@
+node_modules/
+storybook-static/
+dist/
+.angular/
+*.log
+
+# Visual-Regression: Diff-Ausgabe (nur bei Fehlern erzeugt) nicht committen
+visual-snapshots/__diff_output__/

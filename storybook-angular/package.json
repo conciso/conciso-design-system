@@ -1,0 +1,51 @@
+{
+  "name": "@conciso/design-system-storybook-angular",
+  "version": "0.1.0",
+  "description": "Angular-Komponenten + Storybook für das Conciso Design System. Dokumentiert die portable CSS-Schicht (../css, ../dist) und stellt Komponenten bereit",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "storybook": "ng run conciso-ds-angular:storybook",
+    "build-storybook": "ng run conciso-ds-angular:build-storybook",
+    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
+    "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006",
+    "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
+    "test-storybook:visual": "PLAYWRIGHT_BROWSERS_PATH=0 VISUAL=1 test-storybook --url http://localhost:6006",
+    "lint": "ng lint"
+  },
+  "dependencies": {
+    "@ng-icons/core": "^33.3.0",
+    "@ng-icons/heroicons": "^33.3.0",
+    "@angular/animations": "^21.2.0",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.6.0",
+    "zone.js": "^0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.2.0",
+    "@angular/cli": "^21.2.0",
+    "@angular/compiler-cli": "^21.2.0",
+    "@eslint/js": "^10.0.1",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/angular": "^10.4.6",
+    "@storybook/test-runner": "^0.24.4",
+    "@types/jest-image-snapshot": "^6.4.1",
+    "angular-eslint": "^21.4.0",
+    "concurrently": "^10.0.3",
+    "eslint": "^10.6.0",
+    "http-server": "^14.1.1",
+    "jest-image-snapshot": "^6.5.2",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.4.6",
+    "typescript": "~5.9.0",
+    "typescript-eslint": "^8.59.2",
+    "wait-on": "^9.0.10"
+  }
+}

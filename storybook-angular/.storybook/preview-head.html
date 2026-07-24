@@ -1,0 +1,53 @@
+<!--
+  Bindet die portable CSS-Schicht des Design Systems UNVERÄNDERT ein.
+  Die Dateien werden via staticDirs (siehe main.ts) aus dem Repo-Root serviert.
+  Reihenfolge wie in README/GETTING-STARTED vorgeschrieben:
+  fonts → tokens → dark-mode → base → components.
+  fonts.css referenziert die woff2 relativ als ../fonts/* — unter /conciso/css/
+  serviert löst das korrekt auf /conciso/fonts/* auf (self-hosted, kein CDN).
+-->
+<link rel="stylesheet" href="/conciso/css/fonts.css" />
+<link rel="stylesheet" href="/conciso/css/tokens.css" />
+<link rel="stylesheet" href="/conciso/css/dark-mode.css" />
+<link rel="stylesheet" href="/conciso/css/base.css" />
+<link rel="stylesheet" href="/conciso/css/components.css" />
+
+<!--
+  Die Preview-Fläche ist nicht der <body>, sondern Storybooks Wrapper .sb-show-main
+  (bzw. .docs-story / .sbdocs-preview in den Docs). base.css stylt nur den <body>,
+  daher bliebe diese Fläche im Dark-Mode weiß. Diese Regel bindet die gesamte
+  Preview-Fläche an das DS-Token --bg-page; via data-theme="dark" flippt --bg-page
+  (dark-mode.css) und damit der ganze Hintergrund mit. !important, da Storybook die
+  Fläche per Inline-Style einfärbt.
+-->
+<style>
+  html,
+  body,
+  .sb-show-main,
+  .docs-story,
+  .sbdocs-preview {
+    background: var(--bg-page) !important;
+  }
+
+  /*
+    „Show code" (Docs): Klassennamen-Kollision — Prism (Storybooks Syntax-
+    Highlighter) hüllt JEDEN Token in .token, base.css stylt .token aber als
+    hell-teal Chip (--co-50-Grund + Padding). Ergebnis: unlesbarer Wust heller
+    Kästchen auf Storybooks dunklem Code-Block. Unsere Chip-Chrome (und die
+    inline-code-Chrome) daher innerhalb der prism-Source-Blöcke zurücksetzen; die
+    Syntax-Farben von Prism selbst bleiben unangetastet.
+  */
+  pre.prismjs .token {
+    background: none !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    font-size: inherit !important;
+  }
+  pre.prismjs code {
+    background: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+</style>
