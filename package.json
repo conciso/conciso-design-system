@@ -8,6 +8,10 @@
     "type": "git",
     "url": "git+https://github.com/conciso/conciso-design-system.git"
   },
+  "workspaces": [
+    "storybook-angular",
+    "angular-lib"
+  ],
   "type": "module",
   "sideEffects": [
     "*.css"

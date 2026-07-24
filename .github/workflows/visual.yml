@@ -53,8 +53,11 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: storybook-angular/package-lock.json
+          cache-dependency-path: package-lock.json
+      # npm-Workspace (storybook-angular + angular-lib teilen sich @angular/* etc. in
+      # einem Root-node_modules, siehe docs/adr/0002) → vom Repo-Root aus installieren.
       - name: Dependencies installieren
+        working-directory: .
         run: npm ci
       - name: Storybook bauen
         run: npm run build-storybook

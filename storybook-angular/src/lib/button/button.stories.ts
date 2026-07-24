@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { ButtonComponent } from './button.component';
+import { ButtonComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ButtonComponent> = {
   title: 'Atoms/Button',
