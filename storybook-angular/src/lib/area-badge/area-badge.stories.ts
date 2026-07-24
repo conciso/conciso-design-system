@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { AreaBadgeComponent } from './area-badge.component';
+import { AreaBadgeComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<AreaBadgeComponent> = {
   title: 'Atoms/Bereichs-Badge',
