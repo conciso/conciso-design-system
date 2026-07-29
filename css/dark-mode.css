@@ -31,7 +31,9 @@
      Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
   --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
   --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
-  --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
+  --c-error:#FFA5A5;    /* auf bg-page: 5.9:1 ✓ AA · auf bg-surface: 4.8:1 ✓ AA. Angehoben von
+                           #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
+                           erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
   /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
      Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
      (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
@@ -335,8 +337,14 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
-/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
-[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
+/* Segmented Control (dark): die dunkle -700/-800-Füllung würde auf dunklem Grund nicht heraustreten
+   → helle -300-Füllung mit dunklem -900-Text (Corporate: #4DD0D0 ~4,7:1 gg. inaktive Segmente,
+   Text ~9,9:1). Die Bereichs-Varianten brauchen eigene Dark-Regeln, weil [data-theme] .seg
+   spezifischer ist als .seg-ki allein und die Light-Variante sonst überschreiben würde. */
+[data-theme="dark"] .seg    { --seg-fill: var(--co-300); --seg-on: var(--co-900) }
+[data-theme="dark"] .seg-ki { --seg-fill: var(--ki-300); --seg-on: var(--ki-900) }
+[data-theme="dark"] .seg-es { --seg-fill: var(--es-300); --seg-on: var(--es-900) }
+[data-theme="dark"] .seg-wo { --seg-fill: var(--wo-300); --seg-on: var(--wo-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */

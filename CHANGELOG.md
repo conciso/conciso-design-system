@@ -15,6 +15,33 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **Komponente „Buchungsformular"** (`#sec-booking`, Klassen `.bk-*`): verbindliche Terminbuchung als
+  Komposition aus `.field`-Feldern, am Beispiel eines Seminars. Erste Formular-Komponente mit
+  **bedingten Feldblöcken** (Firma vs. Privatperson, abweichende Rechnungsadresse: `hidden` statt
+  `disabled`, `required` wird über `data-required` mitgeschaltet) und einem **Teilnehmenden-Repeater**
+  (Anzahl als führendes Feld, Namensblöcke folgen, Schutz vor stillem Datenverlust beim Verringern,
+  „Ich nehme selbst teil" belegt Block 1 vor). Live-Preiszeile und Anzahl als `role="status"`, Fehlerübersicht `.bk-errors` mit Sprunglisten,
+  `autocomplete`-Sections je Block, feldspezifische Fehlermeldungen über `data-err`.
+  Informationshierarchie in drei Stufen: Gruppe `--ty-title-sm` (20 px) mit Haarlinie, Untergruppe
+  (`.bk-subgroup`/`.bk-sublegend`) `--ty-name` (14 px), Feldlabel 12 px Versalien. Eine Gruppe ist
+  eine Entscheidung samt ihrer Folgen, bedingte Blöcke liegen als Untergruppe **in** der Gruppe
+  ihres Auslösers statt daneben. Preiszeile zweimal (bei der Anzahl mit `role="status"`, stumm über
+  dem Submit); nur Pflichtsternchen ohne zusätzliche „(optional)"-Marker; freiwilliges
+  Contentletter-Häkchen von den Pflicht-Bestätigungen abgesetzt.
+  **Bestellübersicht** (`.bk-order`) unmittelbar vor dem zahlungspflichtigen Button: Leistung,
+  Termin, Auftraggeber, Plätze und Gesamtbetrag, live aus dem Formular. Noch leere Zeilen bleiben
+  stehen und tragen `data-empty`, damit sichtbar ist, was fehlt, statt dass die Übersicht springt.
+  Dazu der Abschnitt **„Für die Umsetzung"**: Anforderungen an die Produktivfassung, allen voran
+  ein Zwischenspeicher gegen Datenverlust (Schlüssel, Speicherort, Wiederherstellungsreihenfolge,
+  `beforeunload`-Regel), sowie serverseitige Validierung, Platzkontingent, Doppel-Submit und Spam.
+  Dazu ein Entscheidungs-Abschnitt „Anfrage oder Direktbuchung", der das Formular gegen die adaptive
+  Kontaktseite abgrenzt; die Beispielseite Seminar bleibt bewusst beim Anfrage-Flow.
+
+- **Bereichs-Varianten für das Segmented Control** (`.seg-ki`, `.seg-es`, `.seg-wo`): Die Füllung des
+  gewählten Segments läuft jetzt über `--seg-fill`/`--seg-on` statt fest über `--co-700`, analog zum
+  `--c500`-Muster der Buttons. Default bleibt Corporate, bestehende Verwendungen ändern sich nicht.
+  Im Dark Mode kippt jede Variante auf ihren `-300`-Ton mit `-900`-Text.
+
 - **Doku · Abschnitt „Responsive"** (`#sec-responsive`): Übergabe-Spezifikation der Responsive-Strategie
   als eigener Foundations-Abschnitt (bisher nur implizit im CSS + verstreut). Verbindliche 3-Stufen-Breakpoints
   (Phone ≤ 520 · Mobile ≤ 768 · Tablet 769 bis 1024 · Desktop > 1024), Begründungen der nicht offensichtlichen
@@ -126,6 +153,21 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ### Fixed
 - **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
+- **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
+  fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
+  Feldern einen Corporate-Akzent und trug zwei Brand Areas gleichzeitig, entgegen der eigenen Regel
+  „ein Formular gehört zu genau einer Brand Area".
+- **`.helper` verfehlte AA im Dark Mode**: Hilfetexte unter Feldern nutzten `--tx-muted`, das auf
+  `--bg-surface` nur 4,1:1 erreicht (die Kontrast-Tabelle dokumentiert das dort ausdrücklich als
+  „Large Text / Non-Text"). Umgestellt auf `--tx-secondary`: 6,3:1 Light, 4,9:1 Dark. Betrifft alle
+  Formulare mit Hilfetext.
+- **Fehlerrahmen an Select und Textarea**: `.field.has-error` färbte nur `input` rot, ein fehlerhaftes
+  Pflicht-Select blieb optisch unmarkiert. Regel um `select` und `textarea` erweitert.
+- **`--c-error` verfehlte AA im Dark Mode auf `bg-surface`**: `#FF8E8E` war nur gegen `--bg-page`
+  geprüft (4,9:1). Inline-Fehlertext sitzt aber fast immer in einer Formularkarte auf `--bg-surface`,
+  dort waren es 4,0:1 bei 12 px. Angehoben auf `#FFA5A5`: 5,9:1 auf bg-page, 4,75:1 auf bg-surface.
+  Betrifft alle Fehlermeldungen, Required-Sternchen und ✕-Marker im Dark Mode.
+
   der „Pro"-Header (`thead .ep-compare-pro`) nutzten rohes `co`/`ki`-`800` (`--ki-800` #475705), das im
   Dark nicht mitflippt → dunkel-auf-dunkel (Core-Spalte auf `bg-page`, Pro-Spalte auf `--ki-50` #2A3411,
   Häkchen faktisch unsichtbar). Dark-Override ergänzt: ✓ und Pro-Header auf `--ki-100`, Summary auf

@@ -18,8 +18,12 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 ## 2. Namens-Konventionen
 
 **CSS-Klassen**
-- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`
-- Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen)
+- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular)
+- Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen).
+  Trägt eine Komponente eine Bereichsfläche, braucht sie **alle vier** Varianten, nicht nur die gerade
+  benötigte. Sonst fällt ein Bereichsformular still auf den Corporate-Default zurück und trägt zwei
+  Brand Areas gleichzeitig. Umsetzung über lokale Variablen wie bei `.btn` (`--c500`) und `.seg`
+  (`--seg-fill`/`--seg-on`), nicht über feste Farben in der Basisregel.
 - Beispielseiten-Muster: `.ep-*` (z. B. `.ep-card`, `.ep-nav-*`, `.ep-section`)
 - Text-/Akzent-Utilities: `.t-co` / `.t-ki` / `.t-es` / `.t-wo`
 - Doku-/Site-Meta: `.ds-*`
