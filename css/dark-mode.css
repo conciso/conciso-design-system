@@ -347,14 +347,14 @@
 [data-theme="dark"] .card-cta-link[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .card-cta-link[data-area="wo"] { color: var(--wo-200) }
 [data-theme="dark"] .t-co { color: var(--co-200) }
-[data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
-[data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
-[data-theme="dark"] .ep-page[data-accent="wo"] .t-co { color: var(--wo-200) }
-[data-theme="dark"] .ep-page[data-accent="ki"] .body-link { color: var(--ki-200) }
-[data-theme="dark"] .ep-page[data-accent="es"] .body-link { color: var(--es-200) }
-[data-theme="dark"] .ep-page[data-accent="wo"] .body-link { color: var(--wo-200) }
-[data-theme="dark"] .ep-page[data-accent] .footer .body-link { color: var(--co-200) }
-[data-theme="dark"] .ep-page[data-accent] .ep-topnav .t-co { color: var(--co-200) }
+[data-theme="dark"] [data-accent="ki"] .t-co { color: var(--ki-200) }
+[data-theme="dark"] [data-accent="es"] .t-co { color: var(--es-200) }
+[data-theme="dark"] [data-accent="wo"] .t-co { color: var(--wo-200) }
+[data-theme="dark"] [data-accent="ki"] .body-link { color: var(--ki-200) }
+[data-theme="dark"] [data-accent="es"] .body-link { color: var(--es-200) }
+[data-theme="dark"] [data-accent="wo"] .body-link { color: var(--wo-200) }
+[data-theme="dark"] [data-accent] .footer .body-link { color: var(--co-200) }
+[data-theme="dark"] [data-accent] .ep-topnav .t-co { color: var(--co-200) }
 
 /* ── Cards ── */
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */

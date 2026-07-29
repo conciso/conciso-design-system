@@ -635,8 +635,8 @@
           <button class="chip" aria-pressed="false" data-area="wo">Leadership</button>
         </div>
       </div>
-      <div class="doc-eyebrow" style="margin-top:var(--s8)">Seiten-Akzent · <code class="token">data-accent</code></div>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> am <code class="token">.ep-page</code>-Root werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Seiteninhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt — sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em> und <em>Seminar-Landing (wo)</em>.</p>
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Bereichs-Akzent · <code class="token">data-accent</code></div>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Wo das Attribut sitzt:</strong> an jedem Container, der einen Bereichsblock aufspannt. Für eine ganze Seite ist das der <code class="token">.ep-page</code>-Root, für einen einzelnen Block der Wrapper um den Block, z.&nbsp;B. die Anmeldesektion <code class="token">#ev-anmeldung</code> auf der Veranstaltungsseite oder das Formular der <a class="body-link" href="#gt-inputs-kontakt-adaptiv">adaptiven Kontaktseite</a>. Der Selektor ist bewusst nicht an <code class="token">.ep-page</code> gebunden, damit man für so einen Block keine Inline-Farben an die einzelnen Links schreiben muss (die brächen im Dark-Mode). <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Inhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt, sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em>, <em>Seminar-Landing (wo)</em>, der Event-Anmeldung (<code class="token">es</code>) und dem adaptiven Kontaktformular (dynamisch).</p>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px;margin-top:var(--s4)"><strong>Eigenständige Bereichs-Text-Utilities:</strong> Dieselben Töne gibt es klassenbasiert als <code class="token">.t-co</code> / <code class="token">.t-ki</code> / <code class="token">.t-es</code> / <code class="token">.t-wo</code> (Light <code class="token">-700</code>, <code class="token">ki</code> <code class="token">-800</code>; Dark-Override auf <code class="token">-200</code>/<code class="token">-100</code>) für inline gesetzten Akzenttext wie Eyebrows, Labels oder Kennzahlen. <strong>Regel:</strong> bereichsfarbigen Text immer über diese Utilities, <code class="token">data-area</code> (Chips/Badges/Pills, CTA-Links via <code class="token">.card-cta-link[data-area]</code>) oder <code class="token">--ki-ink</code> führen, nie als rohes <code class="token">style="color:var(--XX-700/800)"</code> — das bliebe im Dark Mode dunkel-auf-dunkel.</p>
     </section>
 
@@ -3048,7 +3048,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <!-- Adaptive Kontaktseite: Tönung + Vorbelegung + verstecktes Routing -->
       <h2 id="gt-inputs-kontakt-adaptiv" class="group-title">Adaptive Kontaktseite</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Statt eines eigenen Formulars pro Bereich gibt es <strong>eine</strong> Anfrageseite (<a class="body-link" href="#sec-examples" data-ep="kontakt">Kontakt-Beispielseite</a>), die sich am Einstieg orientiert. Default ist die neutrale Corporate-Tönung; kommt der Nutzer über einen Bereichs-CTA, übernimmt das Formular Farbe, Thema und ein vorbelegtes Anliegen. So bleibt die Seite auch für unentschlossene und bereichsübergreifende Nutzer richtig und vermeidet Near-Duplicate-Seiten.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Mechanik:</strong> Der CTA trägt <code class="token">data-ep="kontakt"</code> plus optional <code class="token">data-k-bereich="ki|es|wo"</code> und <code class="token">data-k-anliegen="…"</code>. <code class="token">applyKontaktContext()</code> (in <code class="token">main.js</code>) tönt Header, Button und Consent, setzt das Thema-Select und belegt „Dein Anliegen" vor. Einstieg über Topnav, Footer oder Beispiel-Tab bleibt neutral bzw. setzt zurück.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Mechanik:</strong> Der CTA trägt <code class="token">data-ep="kontakt"</code> plus optional <code class="token">data-k-bereich="ki|es|wo"</code> und <code class="token">data-k-anliegen="…"</code>. <code class="token">applyKontaktContext()</code> (in <code class="token">main.js</code>) tönt Header, Button und Consent-Häkchen, setzt das Thema-Select und belegt „Dein Anliegen" vor. Einstieg über Topnav, Footer oder Beispiel-Tab bleibt neutral bzw. setzt zurück.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Der Akzent hängt am Formular, nicht an der Karte:</strong> <code class="token">applyKontaktContext()</code> setzt zusätzlich <code class="token">data-accent</code> am <code class="token">&lt;form&gt;</code>, damit der Datenschutz-Link im Consent-Label mittönt statt corporate zu bleiben (siehe <a class="body-link" href="#gt-areas-komponenten">Bereichs-Akzent</a>). Bewusst nicht an der ganzen Karte: Telefon, E-Mail und der Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate, unabhängig davon, aus welchem Bereich die Anfrage kommt. Bei <code class="token">co</code> wird das Attribut entfernt, Corporate ist der Default und braucht keinen Scope.</p>
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Einstieg</th><th>Tönung</th><th>Thema</th><th>Anliegen (vorbelegt)</th></tr></thead>
         <tbody>
@@ -3137,7 +3138,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               </div>
               <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s5)">
                 <input class="t-co" type="checkbox" id="f-nl-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
-                <label for="f-nl-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird. <span class="body-link" style="cursor:pointer">Datenschutzhinweise</span></label>
+                <label for="f-nl-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird. <a class="body-link" href="#">Datenschutzhinweise</a></label>
               </div>
               <button class="btn btn-filled btn-co btn-full">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -3159,7 +3160,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </div>
             <div style="display:flex;align-items:flex-start;gap:var(--s2);margin-bottom:var(--s4)">
               <input class="t-co" type="checkbox" id="f-nl-compact-consent" style="width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer">
-              <label for="f-nl-compact-consent" style="font:var(--ty-body-xs);color:var(--tx-secondary);cursor:pointer">Einverstanden mit den <span class="body-link">Datenschutzhinweisen</span></label>
+              <label for="f-nl-compact-consent" style="font:var(--ty-body-xs);color:var(--tx-secondary);cursor:pointer">Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></label>
             </div>
             <button class="btn btn-outlined btn-co btn-full">Anmelden</button>
           </div>
@@ -3331,7 +3332,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td>E-Mail Input</td><td>Immer <code class="token">type="email"</code> für automatische Formatvalidierung und Mobile-Keyboard</td></tr>
               <tr><td>Select</td><td>Vorgegebene Optionsliste (z.B. Bereich, Anliegen), max. 8 Optionen, sonst Freitext</td></tr>
               <tr><td>Textarea</td><td>Freitext-Nachrichten, mindestens 3 Zeilen Höhe, kein festes Maxlength</td></tr>
-              <tr><td>Checkbox</td><td>Einwilligung (Newsletter, DSGVO), immer mit verlinktem Datenschutzhinweis</td></tr>
+              <tr><td>Checkbox</td><td>Einwilligung (Newsletter, DSGVO), immer mit verlinktem Datenschutzhinweis als echtem <code class="token">&lt;a class="body-link"&gt;</code></td></tr>
               <tr><td>Radio</td><td>2–6 sich gegenseitig ausschließende Optionen (z.&nbsp;B. bevorzugter Kontaktweg); für mehr Optionen ein Select, für Mehrfachauswahl Checkboxen</td></tr>
               <tr><td>Segmented Control</td><td>Kompakte Radio-Variante für 2–4 kurze, gleichrangige Optionen nebeneinander (<code class="token">.seg</code>); bei längeren Labels/Beschreibungen die Radio-Liste</td></tr>
             </tbody>
@@ -3351,6 +3352,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td><code class="token">aria-required</code></td><td>Pflichtfelder mit <code class="token">aria-required="true"</code> und sichtbarem <code class="token">*</code> kennzeichnen</td></tr>
               <tr><td><code class="token">aria-invalid</code></td><td>Bei Validierungsfehler <code class="token">aria-invalid="true"</code> setzen, Screenreader meldet Fehlerfeld</td></tr>
               <tr><td><code class="token">role="alert"</code></td><td>Fehlermeldung erhält <code class="token">role="alert"</code>, wird sofort vorgelesen, ohne Fokusverschiebung</td></tr>
+              <tr><td>Link im Label</td><td>Verlinkte Rechtstexte in Einwilligungen (Datenschutz, Teilnahmebedingungen) sind <strong>echte <code class="token">&lt;a class="body-link"&gt;</code></strong>, kein <code class="token">&lt;span&gt;</code> mit <code class="token">cursor:pointer</code>: sonst nicht per Tab erreichbar und für Screenreader kein Link, obwohl dieser Text die Grundlage der Einwilligung ist. Im <code class="token">&lt;label for&gt;</code> unkritisch, die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt also kein Häkchen</td></tr>
               <tr><td><code class="token">autocomplete</code></td><td>Passende Werte setzen (<code class="token">name</code>, <code class="token">email</code>, …), erleichtert Ausfüllen auf Mobile</td></tr>
             </tbody>
           </table>
@@ -3391,6 +3393,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarbe konsequent für Header und Submit-Button nutzen, Formular gehört zum Bereichskontext</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Nur Pflichtfelder mit <code class="token">*</code> markieren, unnötige Pflichtfelder reduzieren die Konversionsrate</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Genau ein Submit-Button pro Formular, klare Primäraktion, kein zweiter Filled-Button daneben</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Verlinkte Rechtstexte in Einwilligungen als echten <code class="token">&lt;a&gt;</code> auszeichnen, damit sie per Tab erreichbar sind</span></li>
           </ul>
         </div>
         <div class="col-6">
@@ -3401,6 +3404,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarben in einem Formular mischen, jedes Formular gehört zu genau einer Brand Area</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Fehlermeldung nur per Farbe signalisieren, immer auch Text und Icon für farbenblinde Nutzende</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 7 bis 8 Formularfelder ohne Abschnitte, lieber in Schritte oder Gruppen aufteilen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Datenschutzhinweis im Einwilligungs-Label als <code class="token">&lt;span&gt;</code> mit <code class="token">cursor:pointer</code> bauen, er sieht aus wie ein Link und ist keiner</span></li>
           </ul>
         </div>
       </div>
@@ -14521,7 +14525,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </section>
 
         <!-- Anmeldungs-Form -->
-        <section class="ep-section" id="ev-anmeldung" style="background:var(--es-50);padding-block:var(--s12)">
+        <section class="ep-section" id="ev-anmeldung" data-accent="es" style="background:var(--es-50);padding-block:var(--s12)">
           <div style="max-width:640px;margin:0 auto">
             <div class="ds-card">
               <div style="background:var(--es-700);padding:var(--s4) var(--s6)">
@@ -14572,7 +14576,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s5)">
                 <input class="t-es" type="checkbox" id="f-ev-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--es-500);flex-shrink:0;cursor:pointer">
-                <label for="f-ev-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine Angaben zur Event-Organisation verwendet werden. <span class="t-es" style="text-decoration:underline;cursor:pointer">Datenschutzhinweise</span></label>
+                <label for="f-ev-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine Angaben zur Event-Organisation verwendet werden. <a class="body-link" href="#">Datenschutzhinweise</a></label>
               </div>
               <button class="btn btn-filled btn-es btn-full">Platz reservieren</button>
               </div>

@@ -414,22 +414,26 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .t-ki{color:var(--ki-800)}
 .t-es{color:var(--es-700)}
 .t-wo{color:var(--wo-700)}
-/* Detail-/Stellenseiten können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows) auf ihre Bereichsfarbe umstellen: data-accent am .ep-page-Root. ki nutzt -800 (700 verfehlt AA). */
-.ep-page[data-accent="ki"] .t-co{color:var(--ki-800)}
-.ep-page[data-accent="es"] .t-co{color:var(--es-700)}
-.ep-page[data-accent="wo"] .t-co{color:var(--wo-700)}
-.ep-page[data-accent="ki"] .body-link{color:var(--ki-800)}
-.ep-page[data-accent="es"] .body-link{color:var(--es-700)}
-.ep-page[data-accent="wo"] .body-link{color:var(--wo-700)}
-.ep-page[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
-.ep-page[data-accent="es"] .body-link:hover{color:var(--es-800)}
-.ep-page[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
+/* Bereichsgebundene Seiten und Blöcke können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows)
+   auf ihre Bereichsfarbe umstellen: data-accent am Seiten- oder Bereichs-Container. Nicht an .ep-page
+   gebunden, damit auch ein einzelner Block (z.B. ein Buchungsformular in einer Sektion) den Scope
+   aufspannen kann. ki nutzt -800 (700 verfehlt AA). */
+[data-accent="ki"] .t-co{color:var(--ki-800)}
+[data-accent="es"] .t-co{color:var(--es-700)}
+[data-accent="wo"] .t-co{color:var(--wo-700)}
+[data-accent="ki"] .body-link{color:var(--ki-800)}
+[data-accent="es"] .body-link{color:var(--es-700)}
+[data-accent="wo"] .body-link{color:var(--wo-700)}
+[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
+[data-accent="es"] .body-link:hover{color:var(--es-800)}
+[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
 /* Footer + Topnav bleiben Chrome (co), auch auf area-getönten Seiten: data-accent tönt nur den
    Seiteninhalt um, nicht die Navigation. Sonst wäre die aktive Sektion (.t-co am Nav-Toggle) z.B. auf
-   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten. */
-.ep-page[data-accent] .footer .body-link{color:var(--co-700)}
-.ep-page[data-accent] .footer .body-link:hover{color:var(--co-800)}
-.ep-page[data-accent] .ep-topnav .t-co{color:var(--co-700)}
+   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten.
+   Gleiche Spezifität wie die Akzent-Regeln darüber, gewinnen per Quellreihenfolge. */
+[data-accent] .footer .body-link{color:var(--co-700)}
+[data-accent] .footer .body-link:hover{color:var(--co-800)}
+[data-accent] .ep-topnav .t-co{color:var(--co-700)}
 
 /* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
 .footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}

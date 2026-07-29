@@ -75,7 +75,10 @@
         activateSection(key);
         localStorage.setItem('ds-active-section', key);
       }
-      if (epKey) activateExamplePage(epKey);
+      /* data-k-bereich / data-k-anliegen mitgeben wie beim ep-page-Handler weiter unten, sonst
+         landet ein Bereichs-CTA aus der Doku (z. B. „Inhouse-Termin anfragen" im Buchungsformular)
+         auf der neutralen Kontaktseite ohne Tönung und ohne vorbelegtes Anliegen. */
+      if (epKey) activateExamplePage(epKey, { bereich: a.dataset.kBereich, anliegen: a.dataset.kAnliegen });
       if (target !== section) {
         requestAnimationFrame(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       }
@@ -186,6 +189,14 @@
     if (eyebrow) eyebrow.textContent = t.eyebrow;
     var submit = page.querySelector('#kf-es-form button[type="submit"]');
     if (submit) { submit.classList.remove('btn-co', 'btn-ki', 'btn-es', 'btn-wo'); submit.classList.add(t.btn); }
+    /* Akzent-Scope am Formular, damit auch der Datenschutz-Link im Consent-Label mittönt statt
+       corporate zu bleiben. Nur am <form>, nicht an der Karte: Telefon, E-Mail und Maps-Link
+       daneben sind Unternehmens-Kontaktdaten und bleiben Corporate. co = Default, kein Attribut. */
+    var form = document.getElementById('kf-es-form');
+    if (form) {
+      if (bereich && KONTAKT_THEME[bereich] && bereich !== 'co') form.setAttribute('data-accent', bereich);
+      else form.removeAttribute('data-accent');
+    }
     var consent = document.getElementById('kf-es-consent');
     if (consent) consent.style.accentColor = t.bg;
     var topic = document.getElementById('kf-es-topic');

@@ -71,6 +71,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **`data-accent` ist nicht mehr an `.ep-page` gebunden**: Die Akzent-Regeln für `.t-co` und
+  `.body-link` sowie die Chrome-Resets für Footer und Topnav laufen jetzt über `[data-accent="…"]`
+  statt `.ep-page[data-accent="…"]` (Light und Dark). Damit kann auch ein einzelner Block einen
+  Bereichs-Scope aufspannen, etwa eine Anmeldesektion oder ein Bereichsformular in einer sonst
+  corporate Seite, ohne Inline-Bereichsfarben an den Links (die im Dark-Mode brechen würden).
+  Abwärtskompatibel: die bestehenden `.ep-page[data-accent]`-Seiten treffen den neuen Selektor
+  unverändert.
 - **Topnav: Top-Level-Parents als Link zur Übersicht (Split „Link + Caret-Disclosure")**: „Angewandte KI",
   „Leistungen" und „Unternehmen" sind jetzt echte `<a>`-Links auf ihre Übersichtsseite (`data-ep` = erstes
   Submenü-Ziel), statt reiner Aufklapp-Buttons. Ein **separater Caret-`<button>`** (`.ep-nav-item-toggle`,
@@ -112,6 +119,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Consent-Links waren `<span>` statt Anker**: Die verlinkten Datenschutz-Hinweise in den
+  Einwilligungs-Checkboxen waren nicht per Tab erreichbar und wurden von Screenreadern nicht als
+  Link angesagt, obwohl genau dieser Text die Grundlage der Einwilligung ist. Jetzt durchgehend echte
+  `<a class="body-link">`: beide Newsletter-Varianten (Karte und Kompakt-Widget) und die
+  Event-Anmeldung, die als zweite Variante ein `<span class="t-es">` mit `text-decoration:underline`
+  trug. Als **systemweite Regel** dokumentiert (Inputs & Forms, Zeile „Link im Label", plus
+  Do/Don't-Paar und CONTRIBUTING § 8).
+- **Bereichsformulare tönten ihren Consent-Link nicht**: Die Event-Anmeldung (Sektion
+  `#ev-anmeldung` trägt jetzt `data-accent="es"`) und die adaptive Kontaktseite, wo
+  `applyKontaktContext()` Header, Button und Häkchen umtönte, den Datenschutz-Link im Consent-Label
+  aber corporate ließ. Das Attribut sitzt dort am `<form>`, nicht an der Karte: Telefon, E-Mail und
+  Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate. Bei `co` wird es entfernt,
+  Corporate ist der Default.
+- **Bereichs-CTAs aus der Doku verloren ihren Kontext**: Der globale Anker-Handler rief
+  `activateExamplePage(epKey)` ohne Kontext-Objekt, anders als der `ep-page`-Handler. Ein Link mit
+  `data-k-bereich`/`data-k-anliegen` außerhalb einer Beispielseite landete deshalb auf der neutralen
+  Kontaktseite: keine Tönung, kein vorbelegtes Thema, kein Anliegen. Beide Pfade geben den Kontext
+  jetzt gleich weiter.
 - **`.cta-dl[data-area="co"]` Eyebrow-Kontrast (Light)**: `co-600` (#009E9E, 3,28:1, Uppercase-Label < AA)
   auf `co-700` (5,5:1) → jetzt konsistent mit ki-800/es-700/wo-700. Dark-Override (`co-200`) unverändert.
 - **Fokus-Ring global kontraststark (`--focus-ring` / `--focus-aa`)**: sichtbarer Ring im Light-Mode
