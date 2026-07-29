@@ -104,6 +104,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **`data-accent` ist nicht mehr an `.ep-page` gebunden**: Die Akzent-Regeln für `.t-co` und
+  `.body-link` sowie die Chrome-Resets für Footer und Topnav laufen jetzt über `[data-accent="…"]`
+  statt `.ep-page[data-accent="…"]` (Light und Dark). Damit kann auch ein einzelner Block einen
+  Bereichs-Scope aufspannen, etwa ein Buchungsformular in einer sonst corporate Seite, ohne
+  Inline-Bereichsfarben an den Links (die im Dark-Mode brechen würden). Abwärtskompatibel: die
+  bestehenden `.ep-page[data-accent]`-Seiten treffen den neuen Selektor unverändert.
 - **Topnav: Submenüs öffnen zusätzlich per Hover**: Auf Geräten mit echtem Hover (`pointer:fine`) klappt
   das Submenü jetzt auch beim Überfahren des Top-Items auf (JS-gesteuert, kurzer Intent-Delay beim Öffnen,
   verzögertes Schließen + unsichtbare Brücke über den Gap → WCAG 1.4.13 „hoverable/dismissible/persistent").
@@ -157,6 +163,30 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
   Feldern einen Corporate-Akzent und trug zwei Brand Areas gleichzeitig, entgegen der eigenen Regel
   „ein Formular gehört zu genau einer Brand Area".
+- **Links im Buchungsformular blieben Corporate**: Die Inhouse-Anfrage im Helper und die beiden
+  Consent-Links standen auf `--co-700`, obwohl der Abschnitt genau zwei bewusste Corporate-Reste
+  ausweist (Fokusring, Feldrahmen im Fokus). Ursache war der fehlende Akzent-Scope: die Demo hängt
+  in einer Doku-Karte, nicht in einer `.ep-page`. Der Wrapper trägt jetzt `data-accent="ki"`.
+- **Consent-Links waren `<span>` statt Anker**: Die verlinkten Datenschutz- und Bedingungs-Hinweise in
+  den Einwilligungs-Checkboxen waren nicht per Tab erreichbar und wurden von Screenreadern nicht als
+  Link angesagt, obwohl genau dieser Text die Grundlage der Einwilligung ist. Jetzt durchgehend echte
+  `<a class="body-link">`: Buchungsformular (2×), beide Newsletter-Varianten und die Event-Anmeldung,
+  die als dritte Variante ein `<span class="t-es">` mit `text-decoration:underline` trug. Als
+  **systemweite Regel** dokumentiert (Inputs & Forms, Zeile „Link im Label", plus Do/Don't-Paar und
+  CONTRIBUTING § 8); die A11y-Zeile des Buchungsformulars verweist darauf. Die Übergabe-Tabelle
+  „Für die Umsetzung" fordert zusätzlich echte Ziele für die Rechtstexte (die Demos tragen `href="#"`)
+  und ein Öffnen ohne Formularverlust.
+- **Bereichsformulare tönten ihren Consent-Link nicht**: Neben dem Buchungsformular betraf das die
+  Event-Anmeldung (Sektion `#ev-anmeldung` trägt jetzt `data-accent="es"`) und die adaptive
+  Kontaktseite, wo `applyKontaktContext()` Header, Button und Häkchen umtönte, den Datenschutz-Link
+  im Consent-Label aber corporate ließ. Das Attribut sitzt dort am `<form>`, nicht an der Karte:
+  Telefon, E-Mail und Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate.
+  Bei `co` wird es entfernt, Corporate ist der Default.
+- **Bereichs-CTAs aus der Doku verloren ihren Kontext**: Der globale Anker-Handler rief
+  `activateExamplePage(epKey)` ohne Kontext-Objekt, anders als der `ep-page`-Handler. Ein Link mit
+  `data-k-bereich`/`data-k-anliegen` außerhalb einer Beispielseite (etwa „Inhouse-Termin anfragen"
+  im Buchungsformular) landete deshalb auf der neutralen Kontaktseite: keine Tönung, kein
+  vorbelegtes Thema, kein Anliegen. Beide Pfade geben den Kontext jetzt gleich weiter.
 - **`.helper` verfehlte AA im Dark Mode**: Hilfetexte unter Feldern nutzten `--tx-muted`, das auf
   `--bg-surface` nur 4,1:1 erreicht (die Kontrast-Tabelle dokumentiert das dort ausdrücklich als
   „Large Text / Non-Text"). Umgestellt auf `--tx-secondary`: 6,3:1 Light, 4,9:1 Dark. Betrifft alle
