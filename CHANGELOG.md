@@ -107,9 +107,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **`data-accent` ist nicht mehr an `.ep-page` gebunden**: Die Akzent-Regeln für `.t-co` und
   `.body-link` sowie die Chrome-Resets für Footer und Topnav laufen jetzt über `[data-accent="…"]`
   statt `.ep-page[data-accent="…"]` (Light und Dark). Damit kann auch ein einzelner Block einen
-  Bereichs-Scope aufspannen, etwa ein Buchungsformular in einer sonst corporate Seite, ohne
-  Inline-Bereichsfarben an den Links (die im Dark-Mode brechen würden). Abwärtskompatibel: die
-  bestehenden `.ep-page[data-accent]`-Seiten treffen den neuen Selektor unverändert.
+  Bereichs-Scope aufspannen, etwa ein Buchungsformular, eine Anmeldesektion oder ein
+  Bereichsformular in einer sonst corporate Seite, ohne Inline-Bereichsfarben an den Links (die im
+  Dark-Mode brechen würden). Abwärtskompatibel: die bestehenden `.ep-page[data-accent]`-Seiten
+  treffen den neuen Selektor unverändert.
 - **Topnav: Submenüs öffnen zusätzlich per Hover**: Auf Geräten mit echtem Hover (`pointer:fine`) klappt
   das Submenü jetzt auch beim Überfahren des Top-Items auf (JS-gesteuert, kurzer Intent-Delay beim Öffnen,
   verzögertes Schließen + unsichtbare Brücke über den Gap → WCAG 1.4.13 „hoverable/dismissible/persistent").

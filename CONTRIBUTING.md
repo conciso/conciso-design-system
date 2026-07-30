@@ -65,7 +65,7 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 - **Getönte `-50`-Flächen im Dark** sind gedämpfte, *getönte* Dunkeltöne (nicht near-black), bleiben aber dunkler als `bg-surface`.
 - **Trennlinien & Rahmen:** **nie** rohes `var(--XX-100)` oder `var(--n-100)` als Border — immer **`var(--bd)`** (theme-aware: Light `n-100`, Dark `#818C99`). Rohes `-100` ist im Dark entweder eine grelle helle Linie (getönt) oder unsichtbar (neutral).
 - **`data-accent` tönt nur den Inhalt**, nicht die Chrome: Footer- und Topnav-`.t-co` werden auf `co` zurückgesetzt (`[data-accent] .ep-topnav .t-co` etc.). Die Nav bleibt überall Corporate.
-- **`data-accent` sitzt an jedem Container**, der einen Bereichsblock aufspannt (Seiten-Root `.ep-page`, aber auch nur der Wrapper um einen Block wie das Buchungsformular). Für einzelne Links im Block **keine** Inline-Bereichsfarbe schreiben, die bricht im Dark-Mode.
+- **`data-accent` sitzt an jedem Container**, der einen Bereichsblock aufspannt (Seiten-Root `.ep-page`, aber auch nur der Wrapper um einen Block wie das Buchungsformular, eine Anmeldesektion oder ein Bereichsformular). Für einzelne Links im Block **keine** Inline-Bereichsfarbe schreiben, die bricht im Dark-Mode.
 - Dark-Overrides in `dark-mode.css` mit dem Format kommentieren: `/* Dark-only: … ❌ → … ✓. (Light: …) */`. In Kontrast-Tabellen `.a11y-mode`-Pill (`Light`/`Dark`/`Beide Modi`).
 - **Kein `*/` im Kommentar-Text** (z. B. `t-*/Badges`) — das schließt CSS-Kommentare vorzeitig und killt die Folgeregel.
 

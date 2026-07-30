@@ -1,0 +1,44 @@
+name: CSS-Kern
+
+on:
+  push:
+    branches: [main, 'feat/**']
+    paths:
+      - 'css/**'
+      - 'tokens/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'dist/**'
+      - 'scripts/**'
+      - 'package.json'
+      - '.github/workflows/css-core.yml'
+  pull_request:
+    paths:
+      - 'css/**'
+      - 'tokens/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'dist/**'
+      - 'scripts/**'
+      - 'package.json'
+      - '.github/workflows/css-core.yml'
+
+concurrency:
+  group: css-core-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (tokens + icons + css)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Root hat keine Dependencies/Lockfile — die Build-Skripte sind reines Node
+      # (tokens → icons → gebündeltes CSS), daher kein npm install nötig.
+      - name: Build
+        run: npm run build
+      - name: Build-Output prüfen
+        run: test -f dist/conciso-ds.css

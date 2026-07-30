@@ -1,0 +1,105 @@
+name: Visual Tests
+
+# Visual-Regression im GEPINNTEN Playwright-Docker-Image, damit die pixelgenauen
+# Baselines deterministisch sind (Fonts/Antialiasing/OS identisch zu ihrer Erzeugung).
+#   - workflow_dispatch: Baselines (neu) erzeugen → Artefakt. (Verfügbar erst, wenn
+#     die Datei auf dem Default-Branch liegt — GitHub-Limitierung.)
+#   - push (Bootstrap): erzeugt Baselines automatisch, SOLANGE noch keine
+#     eingecheckt sind → Artefakt. Selbst-limitierend: sobald Baselines im Repo
+#     liegen, tut push nichts mehr.
+#   - pull_request: gegen die eingecheckten Baselines vergleichen (wenn vorhanden).
+# In allen Fällen: erzeugtes Artefakt runterladen, nach
+# storybook-angular/visual-snapshots/ committen → danach ist der PR-Vergleich scharf.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, 'feat/**']
+    paths:
+      - 'storybook-angular/**'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - '.github/workflows/visual.yml'
+  pull_request:
+    paths:
+      - 'storybook-angular/**'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - '.github/workflows/visual.yml'
+
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Visual-Regression (Playwright-Image, gepinnt)
+    runs-on: ubuntu-latest
+    # Exakt gepinnt: playwright-Version aus dem Lockfile (1.61.1) + OS (resolute =
+    # Ubuntu 26.04 LTS) → identisches Rendering bei Baseline-Erzeugung und Vergleich.
+    container:
+      image: mcr.microsoft.com/playwright:v1.61.1-resolute
+    defaults:
+      run:
+        working-directory: storybook-angular
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: storybook-angular/package-lock.json
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Storybook bauen
+        run: npm run build-storybook
+      # Das Image bringt Browser mit; die Scripts pinnen aber PLAYWRIGHT_BROWSERS_PATH=0
+      # (→ node_modules). Chromium dort sicherstellen (gleicher Build wie im Image).
+      - name: Chromium bereitstellen
+        run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chromium
+      - name: Baselines-Status
+        id: bl
+        run: |
+          if ls visual-snapshots/*.png >/dev/null 2>&1; then
+            echo "exist=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exist=false" >> "$GITHUB_OUTPUT"
+          fi
+      # Erzeugen bei dispatch oder push-Bootstrap (noch keine Baselines);
+      # vergleichen bei PR mit vorhandenen Baselines.
+      - name: Visual-Tests
+        if: >
+          github.event_name == 'workflow_dispatch' ||
+          (github.event_name == 'push' && steps.bl.outputs.exist == 'false') ||
+          (github.event_name == 'pull_request' && steps.bl.outputs.exist == 'true')
+        run: |
+          npx http-server storybook-static --port 6006 --silent &
+          SB_PID=$!
+          npx wait-on tcp:127.0.0.1:6006
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npm run test-storybook:visual          # vergleichen
+          else
+            npm run test-storybook:visual -- -u    # (neu) erzeugen/aktualisieren
+          fi
+          kill "$SB_PID" 2>/dev/null || true
+      - name: Hinweis — noch keine Baselines
+        if: github.event_name == 'pull_request' && steps.bl.outputs.exist == 'false'
+        run: echo "::notice::Keine Visual-Baselines eingecheckt — Vergleich übersprungen. Das visual-baselines-Artefakt eines push/dispatch-Laufs nach storybook-angular/visual-snapshots/ committen."
+      - name: Baselines als Artefakt (bei Erzeugung)
+        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && steps.bl.outputs.exist == 'false')
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: storybook-angular/visual-snapshots/
+      - name: Diff-Bilder als Artefakt (bei Fehler)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: storybook-angular/visual-snapshots/__diff_output__/
+          if-no-files-found: ignore

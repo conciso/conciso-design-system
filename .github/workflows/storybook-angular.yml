@@ -1,0 +1,57 @@
+name: Storybook / Angular
+
+# Läuft bei Änderungen an storybook-angular UND an der CSS-Schicht, die die
+# Stories rendern (die Preview linkt css/* und staticDirs css/dist/icons/fonts) —
+# so fangen die a11y-/Render-Tests auch CSS-Regressionen.
+on:
+  push:
+    branches: [main, 'feat/**']
+    paths:
+      - 'storybook-angular/**'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - '.github/workflows/storybook-angular.yml'
+  pull_request:
+    paths:
+      - 'storybook-angular/**'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - '.github/workflows/storybook-angular.yml'
+
+concurrency:
+  group: storybook-angular-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, Build, Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: storybook-angular
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: storybook-angular/package-lock.json
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      # build-storybook nutzt den Angular-Compiler → deckt zugleich den Typecheck ab.
+      - name: Storybook bauen
+        run: npm run build-storybook
+      - name: Playwright-Browser installieren
+        run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install --with-deps chromium
+      # Serviert den statischen Build, wartet auf den Port und fährt den
+      # test-runner (Smoke + axe-a11y + play) dagegen.
+      - name: Storybook-Tests
+        run: npm run test-storybook:ci
