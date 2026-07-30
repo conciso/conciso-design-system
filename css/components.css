@@ -985,6 +985,17 @@ img.logo-themed-light{display:none}
    geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
    Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
 .ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
+/* Fakten-Liste: die Rahmendaten eines Angebots (Dauer, Format, Gruppe, Preis …) als Label/Wert-Paare
+   untereinander. Bewusst OHNE eigenen Rahmen und ohne Fläche: die Liste zieht in einen vorhandenen
+   Container ein (Angebots-Box, Sticky-Sidebar), ein eigener Rahmen ergäbe dort Kasten-im-Kasten.
+   Einspaltig auf allen Breiten, deshalb keine Media-Query nötig — und lange Werte wie „Schriftliche
+   Handlungsempfehlungen" brechen innerhalb ihres Paares um, statt wie im früheren mehrspaltigen
+   Streifen die Nachbarspalten zu verziehen. Bereichston der Labels über .t-XX im Markup (dark-safe),
+   nie als Inline-Farbe. */
+.ep-facts{margin:0}
+.ep-facts > div + div{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.ep-facts dt{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)}
+.ep-facts dd{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
 /* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
    Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
 .ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}

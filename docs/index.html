@@ -420,7 +420,7 @@
         </button>
         <div class="nav-subnav" data-for="seminar">
           <a class="nav-sub-item" href="#gt-seminar-aufbau">Aufbau</a>
-          <a class="nav-sub-item" href="#gt-seminar-fakten">Fakten-Strip</a>
+          <a class="nav-sub-item" href="#gt-seminar-fakten">Rahmendaten</a>
           <a class="nav-sub-item" href="#gt-seminar-trainer">Trainer:innen</a>
           <a class="nav-sub-item" href="#gt-seminar-termine">Termine-Modul</a>
           <a class="nav-sub-item" href="#gt-seminar-inhalte">Inhalte &amp; Sidebar</a>
@@ -8503,7 +8503,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <thead><tr><th>Sektion</th><th>Inhalt</th><th>Hintergrund</th></tr></thead>
         <tbody>
           <tr><td>Hero</td><td>Pill-Eyebrow + große Headline + Subline, <strong>kein CTA</strong></td><td>Bereich-50 (getönt)</td></tr>
-          <tr><td>Fakten-Strip</td><td>Dauer · Format · Gruppe · Sprache · Preis</td><td>weiß</td></tr>
+          <tr><td><em>(kein eigener Fakten-Streifen)</em></td><td>Dauer · Format · Gruppe · Sprache stehen als <a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a> in der Sidebar, nicht unter dem Hero</td><td>—</td></tr>
           <tr><td>Lernziele</td><td>scanbare Bullet-Liste mit Bereichs-Haken</td><td>weiß</td></tr>
           <tr><td>Trainer</td><td>Bei <strong>einer</strong> Person das Profil groß (Foto 4:3, Name, Rolle, Bio). Bei <strong>zwei bis vier</strong> stattdessen <code class="token">.author-card-group.is-grid</code>, siehe <a class="body-link" href="#gt-seminar-trainer">Trainer:innen</a></td><td>weiß</td></tr>
           <tr><td>Termine</td><td>wiederholbare Termin-Zeilen + Anmeldung</td><td>grau (<code class="token">--n-50</code>)</td></tr>
@@ -8512,8 +8512,33 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </table>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Rhythmus:</strong> ein getönter Hero als Akzent, danach Weiß/Grau-Wechsel; die letzte Sektion bleibt weiß, sodass der graue Footer sich klar absetzt (Hairline).</p>
 
-      <h2 id="gt-seminar-fakten" class="group-title">Fakten-Strip</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Kompakter Key-Facts-Streifen direkt unter dem Hero, als semantisches <code class="token">&lt;dl&gt;</code> in einem <code class="token">repeat(auto-fit,minmax(140px,1fr))</code>-Grid. Macht die Entscheidungs-Infos (inkl. Preis) auf einen Blick sichtbar, bevor man scrollt. Labels <code class="token">--ty-label-xs</code> in Bereichsfarbe, Werte <code class="token">--ty-body-md</code>.</p>
+      <h2 id="gt-seminar-fakten" class="group-title">Rahmendaten · <code class="token">.ep-facts</code></h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px">Dauer, Format, Gruppengröße, Sprache, Preis: die Angaben, an denen sich entscheidet, ob ein Angebot passt. Sie stehen als semantische <code class="token">&lt;dl&gt;</code> mit <code class="token">.ep-facts</code>, einspaltig, Label über Wert, Haarlinie zwischen den Paaren. Labels tragen den Bereichston über <code class="token">.t-XX</code>, nie als Inline-Farbe.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px"><strong>Die Liste bringt keinen eigenen Rahmen mit</strong> und keine Fläche. Sie zieht in einen Container ein, den die Seite schon hat: in die <a class="body-link" href="#gt-leistung-angebot">Angebots-Box</a> oder in die Sticky-Sidebar. Ein eigener Rahmen ergäbe dort Kasten im Kasten. Nur wenn eine Seite keinen solchen Container hat, bekommt die Liste einen schlichten eigenen (Beispiel: <a class="body-link" href="#sec-examples" data-ep="wo-scrum">Scrum Trainings</a>, dort gelten die Angaben für alle vier Preiskarten und stehen deshalb einmal darüber statt viermal darin).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px"><strong>Vorher prüfen, was der Container schon sagt.</strong> Eine Angebots-Box nennt Laufzeit, Leistung und Ergebnis oft bereits im Label und in der Häkchenliste. Auf <em>Meetingflut</em> und <em>Keycloak-Erweiterungen</em> deckt sie alle Rahmendaten ab, dort steht deshalb gar keine Liste. Doppelte Angaben sind schlimmer als fehlende: sie lesen sich wie zwei Quellen, die sich widersprechen könnten.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:820px"><strong>Kein eigener Streifen unter dem Hero.</strong> Bis Juli 2026 standen diese Angaben als eigener Key-Facts-Streifen zwischen Hero und erster Inhaltssektion. Die Angaben sind vollständig erhalten und sitzen jetzt dort, wo auch über das Angebot entschieden wird. Das hält sie an einer Stelle statt an zweien: der Streifen wiederholte auf mehreren Seiten, was die Angebots-Box ohnehin nannte. Wer die Rahmendaten früher sichtbar braucht, löst das nicht über einen neuen Streifen, sondern indem Preis und primäre Aktion nach oben wandern.</p>
+      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin-bottom:var(--s5);max-width:420px">
+        <dl class="ep-facts">
+          <div><dt class="t-wo">Dauer</dt><dd>2 Tage, 9–17 Uhr</dd></div>
+          <div><dt class="t-wo">Format</dt><dd>Präsenz &amp; Online</dd></div>
+          <div><dt class="t-wo">Gruppe</dt><dd>max. 12 Personen</dd></div>
+          <div><dt class="t-wo">Sprache</dt><dd>Deutsch</dd></div>
+        </dl>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="c">&lt;!-- Ohne eigenen Rahmen: steht bereits in einer Angebots-Box oder Sidebar. --&gt;</span>
+<span class="k">&lt;dl</span> <span class="v">class</span>=<span class="s">"ep-facts"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div&gt;</span>
+    <span class="k">&lt;dt</span> <span class="v">class</span>=<span class="s">"t-wo"</span><span class="k">&gt;</span>Dauer<span class="k">&lt;/dt&gt;</span>
+    <span class="k">&lt;dd&gt;</span>2 Tage, 9–17 Uhr<span class="k">&lt;/dd&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- weitere Paare; nur Angaben, die der Container nicht schon nennt --&gt;</span>
+<span class="k">&lt;/dl&gt;</span></pre>
+      </div>
 
       <h2 id="gt-seminar-trainer" class="group-title">Trainer:innen</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px">Die Sektion steht bewusst <strong>vor</strong> den Terminen: Wer bucht, will vorher wissen, wer vorne steht. Trainer:innen kommen nur auf Seminar- und Training-Landings vor, nicht in Wissensbeiträgen. Markup-seitig sind sie aber keine eigene Komponente, sondern die <a class="body-link" href="#gt-article-author">Author Card</a> in einer Gruppe: <code class="token">.author-card-group</code> stapelt untereinander (so genutzt für Autor:innen am Beitragsende), <code class="token">.author-card-group.is-grid</code> stellt sie zweispaltig. Eine gemeinsame <code class="token">.author-card-group-eyebrow</code> ersetzt die Eyebrows der einzelnen Karten und läuft in der Raster-Variante automatisch auf dieselbe Container-Breite mit; trägt die Sektion bereits ein <code class="token">.ep-section-label</code> plus H2, entfällt sie.</p>
@@ -8611,7 +8636,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <h2 id="gt-seminar-verwendung" class="group-title">Verwendung</h2>
       <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3);max-width:760px">
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vertrauen (Trainer, Belege) vor die Termine setzen, die Buchung folgt der Überzeugung.</span></li>
-        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Key-Facts inkl. Preis im Fakten-Strip früh zeigen, das Termine-Modul auch im Leerzustand bedienen.</span></li>
+        <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Rahmendaten und Preis dort zeigen, wo über das Angebot entschieden wird, das Termine-Modul auch im Leerzustand bedienen.</span></li>
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Viele große Bilder pro Sektion. Wenige, platzierte Bilder halten den Lesefluss ruhig.</span></li>
         <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Buchungs-CTA nur ganz oben, ohne Anker am Seitenende.</span></li>
       </ul>
@@ -8624,13 +8649,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <p class="sec-sub">Page-Pattern für die Landingpage eines einzelnen Angebots unterhalb eines Bereichs, an den Bereich gebunden (<code class="token">data-accent</code>). Beispiele: <a class="body-link" href="#sec-examples" data-ep="wo-meetingflut">Erste Hilfe bei Meetingflut</a>, <a class="body-link" href="#sec-examples" data-ep="wo-scrum">Scrum Trainings</a>, <a class="body-link" href="#sec-examples" data-ep="wo-lpm">Lean Portfolio Management</a>, <a class="body-link" href="#sec-examples" data-ep="es-keycloak">Identity mit Keycloak</a>, <a class="body-link" href="#sec-examples" data-ep="es-keycloak-ext">Keycloak-Erweiterungen</a>.</p>
 
       <h2 id="gt-leistung-aufbau" class="group-title">Aufbau</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Reihenfolge nach Funnel-Logik: Aufmerksamkeit → Problem → Lösung → Vertrauen → Abschluss. Nicht jede Sektion ist Pflicht; Fakten-Strip und Angebots-Box hängen am Preismodell (s.&nbsp;u.).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Reihenfolge nach Funnel-Logik: Aufmerksamkeit → Problem → Lösung → Vertrauen → Abschluss. Nicht jede Sektion ist Pflicht; Angebots-Box und zusätzliche Rahmendaten hängen am Preismodell (s.&nbsp;u.).</p>
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Sektion</th><th>Inhalt</th><th>Hintergrund</th></tr></thead>
         <tbody>
           <tr><td>Topnav + Breadcrumb</td><td>Startseite / Bereich / Angebot; Leistungen + Bereich hervorgehoben</td><td>weiß</td></tr>
           <tr><td>Hero</td><td>Hero-Image mit Caption; Eyebrow „Bereich · Kategorie", H1 = Angebot, Lead</td><td>Bild</td></tr>
-          <tr><td>Fakten-Strip <em>(optional)</em></td><td>Eckdaten Dauer · Umfang · Ergebnis · Preis als <code class="token">&lt;dl&gt;</code></td><td>weiß</td></tr>
+          <tr><td><a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a> <em>(nur falls die Angebots-Box sie nicht schon nennt)</em></td><td>Dauer · Umfang · Ergebnis · Preis als <code class="token">.ep-facts</code> <strong>in</strong> der Angebots-Box, nicht als eigener Streifen</td><td>—</td></tr>
           <tr><td>Intro / Worum es geht</td><td>zweispaltig, Serif-Lead + Fließtext + Bild + CTAs</td><td><code class="token">--n-50</code></td></tr>
           <tr><td>Problem / Herausforderung <em>(optional)</em></td><td>Karten oder leichte Textblöcke (Akzentbalken)</td><td>weiß</td></tr>
           <tr><td>Ablauf / Lösung</td><td>nummerierte Schritte (<code class="token">&lt;ol&gt;</code>) oder Karten-Reihe</td><td><code class="token">--n-50</code></td></tr>
@@ -8663,12 +8688,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Modell</th><th>Darstellung</th><th>Beispiel</th></tr></thead>
         <tbody>
-          <tr><td>Festpreis</td><td>Fakten-Strip (mit Preis) + Angebots-Box</td><td>Meetingflut (3.600 €), Keycloak-Erweiterungen (9.900 €)</td></tr>
+          <tr><td>Festpreis</td><td>Angebots-Box. Sie nennt Laufzeit, Leistung und Ergebnis meist schon selbst, dann entfallen zusätzliche <a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a></td><td>Meetingflut (3.600 €), Keycloak-Erweiterungen (9.900 €)</td></tr>
           <tr><td>Mehrere Pakete / Varianten</td><td>Preiskarten je Variante, nach Anbieter gruppiert</td><td>Scrum Trainings (Scrum.org / TÜV SÜD)</td></tr>
           <tr><td>Beratung ohne Festpreis</td><td>kein Preis; CTA „individuelles Angebot"</td><td>Lean Portfolio Management</td></tr>
         </tbody>
       </table>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">MwSt.-Angabe (<code class="token">zzgl.</code>/<code class="token">inkl.</code>) immer aus der Quelle übernehmen und je Seite einheitlich halten. Preis nur <strong>einmal</strong> laut zeigen (Fakten-Strip <em>oder</em> Box), nicht mehrfach wiederholen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">MwSt.-Angabe (<code class="token">zzgl.</code>/<code class="token">inkl.</code>) immer aus der Quelle übernehmen und je Seite einheitlich halten. Preis nur <strong>einmal</strong> laut zeigen (Angebots-Box <em>oder</em> Preiskarte), nicht mehrfach wiederholen. Steht er dort, gehört er nicht zusätzlich in die <a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a>.</p>
 
       <h2 id="gt-leistung-cross" class="group-title">Cross-Links „Weiter im Thema"</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Am Seitenende vor dem CTA-Band zwei <code class="token">.ep-card-link</code>-Karten: zuerst Geschwister-Angebote im selben Bereich, dann ein Nachbar-Bereich als Cross-Sell. Titel als Frage, kurzer Text, <code class="token">.ep-card-cta</code> „… ansehen →". Verweise nur auf real existierende Seiten; „Landingpage folgt" bleibt ohne Link.</p>
@@ -12768,27 +12793,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="hero-image-caption-text">Die agile Transition ist durch, und trotzdem hakt es: Ohne dich als Abstimmungsinstanz kommen die Teams nicht voran. Dein Kalender ist voll, für die strategischen Themen bleibt nichts übrig.</p>
           </figcaption>
         </figure>
-        <!-- Fakten-Strip: Key-Facts des Assessments auf einen Blick -->
-        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
-          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s5) var(--s6);margin:0">
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Format</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Assessment: Workshop &amp; Analyse</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Umfang</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">2 × 0,5 Tage</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Ergebnis</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Schriftliche Handlungsempfehlungen</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Preis</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">3.600 € inkl. MwSt.</dd>
-            </div>
-          </dl>
-        </div>
         <!-- Das eigentliche Problem: Intro mit Bild -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:center">
@@ -13083,31 +13087,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="hero-image-caption-text">Zertifizierte Trainings zum Scrum Master und Product Owner, in Kooperation mit Scrum.org und TÜV SÜD. Praxisnah, mit echten Beispielen und einem anerkannten Zertifikat am Ende.</p>
           </figcaption>
         </figure>
-        <!-- Fakten-Strip: Key-Facts auf einen Blick -->
-        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
-          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s5) var(--s6);margin:0">
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Dauer</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">2 Tage</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Gruppe</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">max. 12 Personen</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Format</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Präsenz (Dortmund) &amp; Remote</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Sprache</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Deutsch oder Englisch</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Zertifikat</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Scrum.org &amp; TÜV SÜD</dd>
-            </div>
-          </dl>
-        </div>
         <!-- Warum bei uns: Intro mit Bild -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:center">
@@ -13152,6 +13131,34 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-section-label t-wo">Trainings &amp; Zertifizierungen</div>
           <h2 class="ep-section-h2">Zertifizierung, die zählt.</h2>
           <p class="ep-section-sub">Zwei anerkannte Wege: die international etablierten Scrum.org-Assessments oder die Zertifizierung über den TÜV SÜD. Alle Preise verstehen sich zzgl. MwSt.</p>
+
+          <!-- Rahmendaten als .ep-facts, einmal für alle vier Preiskarten. Diese Seite hat keine
+               Angebots-Box, in die die Liste einziehen könnte, deshalb ein eigener Kasten in
+               derselben Optik. Nicht je Karte wiederholen: die Angaben gelten für alle. -->
+          <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin-bottom:var(--s8);max-width:420px">
+            <dl class="ep-facts">
+              <div>
+                <dt class="t-wo">Dauer</dt>
+                <dd>2 Tage</dd>
+              </div>
+              <div>
+                <dt class="t-wo">Gruppe</dt>
+                <dd>max. 12 Personen</dd>
+              </div>
+              <div>
+                <dt class="t-wo">Format</dt>
+                <dd>Präsenz (Dortmund) &amp; Remote</dd>
+              </div>
+              <div>
+                <dt class="t-wo">Sprache</dt>
+                <dd>Deutsch oder Englisch</dd>
+              </div>
+              <div>
+                <dt class="t-wo">Zertifikat</dt>
+                <dd>Scrum.org &amp; TÜV SÜD</dd>
+              </div>
+            </dl>
+          </div>
 
           <!-- Scrum.org -->
           <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s8) 0 var(--s5)">Mit Scrum.org</h3>
@@ -13924,27 +13931,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p class="hero-image-caption-text">Authenticator- und Theme-Extensions, genau auf deine Anforderungen zugeschnitten, nahtlos integriert und sicher. In drei Wochen, zum festen Preis.</p>
           </figcaption>
         </figure>
-        <!-- Fakten-Strip: Angebot auf einen Blick -->
-        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
-          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s5) var(--s6);margin:0">
-            <div>
-              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Leistung</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Authenticator- oder Theme-Extension</dd>
-            </div>
-            <div>
-              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Dauer</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">3 Wochen</dd>
-            </div>
-            <div>
-              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Ergebnis</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">JAR-File und Source-Code</dd>
-            </div>
-            <div>
-              <dt class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Preis</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">9.900 € Festpreis</dd>
-            </div>
-          </dl>
-        </div>
         <!-- Die Ausgangslage: Intro mit Bild -->
         <div class="ep-section" style="background:var(--n-50)">
           <div class="layout-grid" style="align-items:stretch">
@@ -15697,31 +15683,6 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Ein zweitägiges Training für Führungskräfte und Change-Verantwortliche, die Wandel nicht verordnen, sondern tragfähig gestalten wollen.</p>
           </div>
         </header>
-        <!-- Fakten-Strip: Key-Facts auf einen Blick, direkt unter dem Hero -->
-        <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s6);border-bottom:var(--bd)">
-          <dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s5) var(--s6);margin:0">
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Dauer</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">2 Tage, 9–17 Uhr</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Format</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Präsenz &amp; Online</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Gruppe</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">max. 12 Personen</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Sprache</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Deutsch</dd>
-            </div>
-            <div>
-              <dt class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Preis</dt>
-              <dd style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">1.290 € p. P.</dd>
-            </div>
-          </dl>
-        </div>
         <!-- Was du lernst -->
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-wo">Lernziele</div>
@@ -15819,10 +15780,26 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     <p class="t-wo" style="font:400 32px/1 var(--font-display);margin:0">1.290 €</p>
                     <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s2) 0 0">pro Person, zzgl. MwSt. Inklusive Verpflegung und Unterlagen.</p>
                   </div>
-                  <div style="border-top:var(--bd);padding-top:var(--s5)">
-                    <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Sprache</p>
-                    <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Deutsch</p>
-                  </div>
+                  <!-- Rahmendaten als .ep-facts: früher ein eigener Streifen unter dem Hero, jetzt
+                       im vorhandenen Kasten. Sprache steht hier, nicht mehr zusätzlich weiter oben. -->
+                  <dl class="ep-facts" style="border-top:var(--bd);padding-top:var(--s5)">
+                    <div>
+                      <dt class="t-wo">Dauer</dt>
+                      <dd>2 Tage, 9–17 Uhr</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Format</dt>
+                      <dd>Präsenz &amp; Online</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Gruppe</dt>
+                      <dd>max. 12 Personen</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Sprache</dt>
+                      <dd>Deutsch</dd>
+                    </div>
+                  </dl>
                 </div>
                 <div style="background:var(--wo-700);padding:var(--s4) var(--s6)">
                   <h3 style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Fragen zum Seminar?</h3>
