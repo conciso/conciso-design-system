@@ -8503,8 +8503,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <thead><tr><th>Sektion</th><th>Inhalt</th><th>Hintergrund</th></tr></thead>
         <tbody>
           <tr><td>Hero</td><td>Pill-Eyebrow + große Headline + Subline, <strong>kein CTA</strong></td><td>Bereich-50 (getönt)</td></tr>
-          <tr><td><em>(kein eigener Fakten-Streifen)</em></td><td>Dauer · Format · Gruppe · Sprache stehen als <a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a> in der Sidebar, nicht unter dem Hero</td><td>—</td></tr>
-          <tr><td>Lernziele</td><td>scanbare Bullet-Liste mit Bereichs-Haken</td><td>weiß</td></tr>
+          
+          <tr><td>Lernziele <em>+ Angebots-Kasten</em></td><td>Zweispaltig: links (<code class="token">.col-8</code>) die scanbare Bullet-Liste, rechts (<code class="token">.col-4</code>) Preis und <a class="body-link" href="#gt-seminar-fakten">Rahmendaten</a>. Damit steht der Preis direkt nach dem Hero statt erst bei „Inhalte &amp; Voraussetzungen"; ein eigener Fakten-Streifen unter dem Header entfällt bewusst</td><td>weiß</td></tr>
           <tr><td>Trainer</td><td>Bei <strong>einer</strong> Person das Profil groß (Foto 4:3, Name, Rolle, Bio). Bei <strong>zwei bis vier</strong> stattdessen <code class="token">.author-card-group.is-grid</code>, siehe <a class="body-link" href="#gt-seminar-trainer">Trainer:innen</a></td><td>weiß</td></tr>
           <tr><td>Termine</td><td>wiederholbare Termin-Zeilen + Anmeldung</td><td>grau (<code class="token">--n-50</code>)</td></tr>
           <tr><td>Inhalte &amp; Voraussetzungen</td><td>zweispaltig, Fließtext + Sidebar</td><td>weiß</td></tr>
@@ -8627,7 +8627,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </table>
 
       <h2 id="gt-seminar-inhalte" class="group-title">Inhalte &amp; Sticky-Sidebar</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Hauptteil zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>): links (<code class="token">.col-8</code>) langer Fließtext mit eingestreuten Bildern (Text-Bild-Wechsel) und den Voraussetzungen als Unterabschnitt; rechts (<code class="token">.col-4</code>) eine Sidebar aus <strong>zwei getrennten Kästen</strong>: oben Angebot und Rahmendaten (Preis, Dauer, Format, Gruppe, Sprache) zum Nachschlagen, darunter das Kontaktformular als Handlung. Bewusst nicht ein gemeinsamer Kasten: Die Formular-Überschrift ist ein gefüllter Bereichsbalken und säße dann mitten im Element, was wie zwei zusammengeklebte Karten liest. Getrennt sitzt sie oben auf ihrer eigenen Karte.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Hauptteil zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>): links (<code class="token">.col-8</code>) langer Fließtext mit eingestreuten Bildern (Text-Bild-Wechsel) und den Voraussetzungen als Unterabschnitt; rechts (<code class="token">.col-4</code>) das Kontaktformular. Preis und Rahmendaten sitzen <strong>nicht</strong> hier, sondern weiter oben neben den Lernzielen: Wer über ein Angebot entscheidet, soll den Preis nicht erst nach vier Sektionen finden. Beide Kästen bleiben dadurch je auf eine Aufgabe beschränkt, Nachschlagen oben, Handlung hier. Die Formular-Überschrift ist ein gefüllter Bereichsbalken und sitzt deshalb oben auf ihrer eigenen Karte, nicht mitten in einem gemeinsamen Kasten.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Sticky:</strong> Die Sidebar trägt <code class="token">position:sticky;top:var(--s4)</code> und läuft in Produktion beim Scrollen mit. Im Mockup verhindert <code class="token">.ep-page{overflow:hidden}</code> das Andocken (dieselbe Architektur-Grenze wie die bewusst aufgeschobene Sticky-Topnav). Auf Mobile rutscht die Sidebar unter den Fließtext.</p>
 
       <h2 id="gt-seminar-buchung" class="group-title">Buchungs-Anker</h2>
@@ -15685,16 +15685,54 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </header>
         <!-- Was du lernst -->
         <div class="ep-section" style="background:var(--bg-surface)">
-          <div class="ep-section-label t-wo">Lernziele</div>
-          <h2 class="ep-section-h2">Was du lernst</h2>
-          <ul style="list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--s4) var(--s8)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Veränderungsdynamiken erkennen und einordnen, statt nur Symptome zu managen.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Betroffene früh einbinden, statt sie mit fertigen Entscheidungen zu überrollen.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Widerstand als Information lesen und konstruktiv nutzen.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>In Unsicherheit klar und glaubwürdig kommunizieren.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Die eigene Rolle als Führungskraft im Wandel schärfen.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Rückschläge auffangen und Veränderung über den ersten Impuls hinaus tragen.</span></li>
-          </ul>
+          <!-- Zweispaltig, damit Preis und Rahmendaten direkt nach dem Hero sichtbar sind statt
+               erst bei „Inhalte & Voraussetzungen". Kein eigener Streifen unter dem Header,
+               sondern der vorhandene Angebots-Kasten neben dem ersten Inhalt. -->
+          <div class="layout-grid" style="align-items:start">
+            <div class="col-8">
+              <div class="ep-section-label t-wo">Lernziele</div>
+              <h2 class="ep-section-h2">Was du lernst</h2>
+              <ul style="list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:var(--s4) var(--s8)">
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Veränderungsdynamiken erkennen und einordnen, statt nur Symptome zu managen.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Betroffene früh einbinden, statt sie mit fertigen Entscheidungen zu überrollen.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Widerstand als Information lesen und konstruktiv nutzen.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>In Unsicherheit klar und glaubwürdig kommunizieren.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Die eigene Rolle als Führungskraft im Wandel schärfen.</span></li>
+                <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span class="t-wo" aria-hidden="true" style="font-weight:700;margin-top:1px">✓</span><span>Rückschläge auffangen und Veränderung über den ersten Impuls hinaus tragen.</span></li>
+              </ul>
+            </div>
+            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start">
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
+                <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
+                  <div>
+                    <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Preis</p>
+                    <p class="t-wo" style="font:400 32px/1 var(--font-display);margin:0">1.290 €</p>
+                    <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s2) 0 0">pro Person, zzgl. MwSt. Inklusive Verpflegung und Unterlagen.</p>
+                  </div>
+                  <!-- Rahmendaten als .ep-facts: früher ein eigener Streifen unter dem Hero, jetzt
+                       im vorhandenen Kasten. Sprache steht hier, nicht mehr zusätzlich weiter oben. -->
+                  <dl class="ep-facts" style="border-top:var(--bd);padding-top:var(--s5)">
+                    <div>
+                      <dt class="t-wo">Dauer</dt>
+                      <dd>2 Tage, 9–17 Uhr</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Format</dt>
+                      <dd>Präsenz &amp; Online</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Gruppe</dt>
+                      <dd>max. 12 Personen</dd>
+                    </div>
+                    <div>
+                      <dt class="t-wo">Sprache</dt>
+                      <dd>Deutsch</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
         <!-- Wer dich begleitet: Trainer-Profil (Vertrauen, vor den Terminen). Person ist Platzhalter (representativ) -->
         <div class="ep-section" style="background:var(--bg-surface)">
@@ -15776,36 +15814,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                  der untere das Kontaktformular (Handlung). In einem gemeinsamen Kasten säße die
                  Formular-Überschrift als grüner Balken mitten im Element, was wie zwei zusammen-
                  geklebte Karten liest. Getrennt sitzt sie dort, wo eine Kartenüberschrift hingehört. -->
-            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start;display:flex;flex-direction:column;gap:var(--s5)">
-              <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
-                <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
-                  <div>
-                    <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Preis</p>
-                    <p class="t-wo" style="font:400 32px/1 var(--font-display);margin:0">1.290 €</p>
-                    <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s2) 0 0">pro Person, zzgl. MwSt. Inklusive Verpflegung und Unterlagen.</p>
-                  </div>
-                  <!-- Rahmendaten als .ep-facts: früher ein eigener Streifen unter dem Hero, jetzt
-                       im vorhandenen Kasten. Sprache steht hier, nicht mehr zusätzlich weiter oben. -->
-                  <dl class="ep-facts" style="border-top:var(--bd);padding-top:var(--s5)">
-                    <div>
-                      <dt class="t-wo">Dauer</dt>
-                      <dd>2 Tage, 9–17 Uhr</dd>
-                    </div>
-                    <div>
-                      <dt class="t-wo">Format</dt>
-                      <dd>Präsenz &amp; Online</dd>
-                    </div>
-                    <div>
-                      <dt class="t-wo">Gruppe</dt>
-                      <dd>max. 12 Personen</dd>
-                    </div>
-                    <div>
-                      <dt class="t-wo">Sprache</dt>
-                      <dd>Deutsch</dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
+            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start">
               <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
                 <div style="background:var(--wo-700);padding:var(--s4) var(--s6)">
                   <h3 style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Fragen zum Seminar?</h3>

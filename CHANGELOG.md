@@ -131,6 +131,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **Preis und Rahmendaten stehen jetzt direkt nach dem Hero** (Beispielseite Seminar): Die
+  Lernziele-Sektion ist zweispaltig geworden, links die Bullet-Liste (`.col-8`), rechts der
+  Angebots-Kasten (`.col-4`, sticky). Gemessen rückt der Preis von **45 % auf 10 %** der Seitenhöhe.
+  Bewusst kein neuer Streifen unter dem Header, sondern der vorhandene Kasten neben dem ersten Inhalt.
+  Das Kontaktformular bleibt, wo es war, bei „Inhalte & Voraussetzungen"; beide Kästen tragen dadurch
+  je eine Aufgabe.
 - **Fakten-Streifen aufgelöst, Angaben ziehen in den vorhandenen Kasten** (`.ep-facts`): Der flache
   Key-Facts-Streifen unter dem Hero entfällt auf allen vier Angebots-/Seminar-Landings. Die Angaben
   bleiben vollständig erhalten und stehen jetzt dort, wo über das Angebot entschieden wird, statt an
