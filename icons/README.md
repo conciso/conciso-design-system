@@ -46,9 +46,18 @@ const { svg } = icons['ki-bot'];
 .icon :global(svg) { width: 24px; height: 24px; }</style>
 ```
 
-Die Bereichs-Cards (KI/ES/WO) auf `/leistungen` und der Landingpage nutzen `ki-bot` /
-`es-window-check` / `wo-network` (jeweils **solid**), eingefärbt über die Bereichsfarbe
+**Jede Karte, die auf eine Bereichs-Übersicht verlinkt**, trägt das Glyph dieses Bereichs:
+`ki-bot` / `es-window-check` / `wo-network` (jeweils **solid**), eingefärbt über die Bereichsfarbe
 (`--XX-800` Light / `--XX-200` Dark) — exakt wie `.ep-card-icon.t-XX` im DS.
+
+Die Regel hängt am **Anlass, nicht an der Seite**: Sie gilt auf `/leistungen` und der Landingpage
+genauso wie in „Weiter im Thema"-Blöcken tiefer liegender Detailseiten. Zuvor war sie nur für die
+ersten beiden Orte notiert, woraufhin fünf Verweiskarten auf Angebots-Detailseiten mit einem
+generischen Heroicon liefen.
+
+Abgrenzung: `.ep-card-icon` **ohne** `.t-XX` trägt bewusst ein thematisches Outline-Icon (Kalender,
+Team, Suche) in der Bereichsfarbe. Das ist kein Fehler, sondern der Normalfall für inhaltliche
+Karten. Das Marken-Glyph ist dem Verweis auf den Bereich selbst vorbehalten.
 
 ## Icon-Verzeichnis
 
