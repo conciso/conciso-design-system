@@ -537,6 +537,14 @@
 [data-theme="dark"] [data-accent="wo"] .body-link { color: var(--wo-200) }
 [data-theme="dark"] [data-accent] .footer .body-link { color: var(--co-200) }
 [data-theme="dark"] [data-accent] .ep-topnav .t-co { color: var(--co-200) }
+/* Dark-only: Hover der bereichsgetönten Body-Links. Light geht auf -800 (dunkler), im Dark ergäbe das
+   dunkel-auf-dunkel: ❌ wo-800 auf bg-page = 1,17:1 → wo-100 = 8,7:1 ✓. (Light: -800 bleibt.)
+   Nötig, weil die Light-Hover-Regel `[data-accent="wo"] .body-link:hover` dieselbe Spezifität hat wie
+   die Dark-Grundregel eine Zeile höher und components.css NACH dark-mode.css geladen wird — ohne
+   eigene :hover-Regel hier gewinnt sonst der Light-Wert. Analog zu .body-link:hover → co-100. */
+[data-theme="dark"] [data-accent="ki"] .body-link:hover { color: var(--ki-100) }
+[data-theme="dark"] [data-accent="es"] .body-link:hover { color: var(--es-100) }
+[data-theme="dark"] [data-accent="wo"] .body-link:hover { color: var(--wo-100) }
 /* Dark-only: Hover-Zustände mit --co-700 auf theme-awarem tx-primary-Text (Footer-Link, Article-TOC)
    → im Dark wäre der Hover dunkler statt heller: ❌ co-700 auf bg-page. Hover-Akzent auf --co-200 heben ✓,
    analog .body-link:hover. (Light: co-700 bleibt.) */

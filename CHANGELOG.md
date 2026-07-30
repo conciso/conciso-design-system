@@ -181,6 +181,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Hover bereichsgetönter Body-Links war im Dark Mode unlesbar**: In einem `data-accent`-Container
+  sprang `.body-link:hover` auch im Dark auf den `-800`-Ton, also dunkel auf dunkel. Gemessen:
+  `wo-800` auf `bg-page` = **1,17:1**, `es-800` = 1,29:1, weit unter der AA-Schwelle von 4,5:1. Der
+  Link verschwand beim Überfahren praktisch. Ursache: Die Light-Regel `[data-accent="wo"]
+  .body-link:hover` hat dieselbe Spezifität wie die Dark-Grundregel, und `components.css` wird nach
+  `dark-mode.css` geladen. Für den generischen `.body-link:hover` gab es den Dark-Override bereits,
+  für die drei Bereichsvarianten fehlte er. Jetzt ergänzt (`-100`, also heller statt dunkler, analog
+  zur bestehenden Regel): `wo-100` = 8,4:1, `es-100` = 7,6:1, `ki-100` entsprechend.
 - **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
 - **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
   fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
