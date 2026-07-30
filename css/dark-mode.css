@@ -184,18 +184,6 @@
    (Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.) Spezifitaet (0,3,0) +
    Quellreihenfolge nach der Hebungsregel, damit dieser Override gewinnt. */
 [data-theme="dark"] .ep-section.ep-section-cards { background: var(--bg-page) !important }
-/* Folge der zwei Stufen: Weiße Sektionen und kartentragende n-50-Sektionen landen im Dark BEIDE auf
-   bg-page. Grenzen zwei davon aneinander, verschmelzen sie zu einer Fläche — im Light wechselten sie
-   noch (weiß ↔ grau). Gemessen betraf das 18 von 109 Sektions-Übergängen, am stärksten die
-   Angebots-Detailseiten, die weiß und kartentragend abwechseln.
-   Eine dritte Flächen-Stufe ist ausgeschlossen (siehe oben), deshalb trennt hier eine Haarlinie statt
-   eines Farbwechsels. Sie greift nur, wo die Stufe nicht wechseln KANN: [style*="-50)"] erfasst die
-   n-50- und die getönten Bereichs-Flächen, die im Dark ohnehin eine andere Stufe bekommen.
-   Bewusst NUR das Paar weiß ↔ kartentragend: Zwei weiße oder zwei kartentragende Sektionen
-   nebeneinander sind auch im Light gleich, dort trennt ebenfalls nichts. Eine Linie nur im Dark
-   würde die Modi auseinanderlaufen lassen, statt sie anzugleichen. */
-[data-theme="dark"] .ep-section.ep-section-cards + .ep-section:not([style*="-50)"]),
-[data-theme="dark"] .ep-section:not([style*="-50)"]) + .ep-section.ep-section-cards { border-top: var(--bd) }
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
    erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */

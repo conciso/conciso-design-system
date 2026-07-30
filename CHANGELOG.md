@@ -181,15 +181,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
-- **Sektions-Rhythmus im Dark Mode verschmolzen**: Weiße Sektionen und kartentragende
-  `.ep-section-cards` landen im Dark beide auf `bg-page`. Grenzen zwei davon aneinander, verschmelzen
-  sie zu einer Fläche, obwohl sie im Light wechseln (weiß ↔ grau). Gemessen über alle Beispielseiten
-  betraf das **13 Sektions-Übergänge**, am stärksten die Angebots-Detailseiten und die Seminarseite,
-  die weiß und kartentragend abwechseln. Eine dritte Flächen-Stufe ist ausgeschlossen (die Ausnahme
-  für `.ep-section-cards` existiert genau deshalb), deshalb trennt dort jetzt eine Haarlinie
-  (`var(--bd)`) statt eines Farbwechsels. Bewusst nur beim Paar weiß ↔ kartentragend: Zwei weiße oder
-  zwei kartentragende Sektionen sind auch im Light gleich, eine Linie nur im Dark würde die Modi
-  auseinanderlaufen lassen.
 - **Falsches Bereichs-Icon auf fünf Verweiskarten**: Karten, die auf eine Bereichs-Übersicht
   verlinken, tragen das Marken-Glyph des Bereichs (`ki-bot`, `es-window-check`, `wo-network`,
   solid, eingefärbt über `.ep-card-icon.t-XX`). Zehn Karten hielten sich daran, fünf nicht: die
