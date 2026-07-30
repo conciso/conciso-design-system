@@ -484,6 +484,14 @@
 [data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
 [data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
 [data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Dark-only: Der Hover-Rand nutzt im Light die kräftigeren -500/-600/-700-Töne. Im Dark sind das die
+   dunkleren, der Rand würde beim Überfahren also schwächer statt kräftiger — die Affordanz liefe
+   rückwärts (z.B. ki ruhend -400 #BEE82D → hover -700 #6B8208). Jeweils eine Stufe HELLER als der
+   Ruhezustand. (Light: -500/-600/-700 bleiben.) Spezifität 0,4,0 schlägt die Light-Regel. */
+[data-theme="dark"] .chip[data-area="co"]:hover { border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"]:hover { border-color: var(--ki-300) }
+[data-theme="dark"] .chip[data-area="es"]:hover { border-color: var(--es-200) }
+[data-theme="dark"] .chip[data-area="wo"]:hover { border-color: var(--wo-200) }
 /* Doku-Sidebar: aktiver Eintrag hat im Light co-700-Text auf hellem co-50. Im Dark ist co-50 fast schwarz
    (#16302E) → Text/Balken auf die hellen Töne heben (co-200 ~9,6:1 / co-300), sonst dunkel-auf-dunkel. */
 [data-theme="dark"] .nav-item.active { color: var(--co-200); border-left-color: var(--co-300) }
@@ -545,6 +553,10 @@
 [data-theme="dark"] [data-accent="ki"] .body-link:hover { color: var(--ki-100) }
 [data-theme="dark"] [data-accent="es"] .body-link:hover { color: var(--es-100) }
 [data-theme="dark"] [data-accent="wo"] .body-link:hover { color: var(--wo-100) }
+/* Dark-only: derselbe Fall eine Regel weiter — der Chrome-Reset der Footer-Links auf area-getönten
+   Seiten. Light hebt den Hover auf co-800, im Dark ergibt das ❌ 1,97:1 auf dem Footer-Grund.
+   → co-100 ✓. (Light: co-800 bleibt.) Spezifität 0,5,0, damit die Ladereihenfolge egal ist. */
+[data-theme="dark"] [data-accent] .footer .body-link:hover { color: var(--co-100) }
 /* Dark-only: Hover-Zustände mit --co-700 auf theme-awarem tx-primary-Text (Footer-Link, Article-TOC)
    → im Dark wäre der Hover dunkler statt heller: ❌ co-700 auf bg-page. Hover-Akzent auf --co-200 heben ✓,
    analog .body-link:hover. (Light: co-700 bleibt.) */

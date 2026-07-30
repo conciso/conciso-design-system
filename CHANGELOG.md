@@ -189,6 +189,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `dark-mode.css` geladen. Für den generischen `.body-link:hover` gab es den Dark-Override bereits,
   für die drei Bereichsvarianten fehlte er. Jetzt ergänzt (`-100`, also heller statt dunkler, analog
   zur bestehenden Regel): `wo-100` = 8,4:1, `es-100` = 7,6:1, `ki-100` entsprechend.
+  Ein systematischer Durchgang durch **alle** `:hover`-Regeln mit dunklen Tokens fand denselben Fehler
+  ein zweites Mal: der Chrome-Reset `[data-accent] .footer .body-link:hover` sprang im Dark auf
+  `co-800`, **1,97:1** → jetzt `co-100` = 14,3:1.
+- **Chip-Hover lief im Dark Mode rückwärts**: Der Rand nutzt beim Überfahren die kräftigeren
+  `-500`/`-600`/`-700`-Töne. Im Dark sind das die dunkleren, der Rand wurde also schwächer statt
+  kräftiger und die Affordanz kehrte sich um (`ki` ruhend `-400` #BEE82D → hover `-700` #6B8208).
+  Kein AA-Verstoß (alle Werte blieben über der 3:1-Schwelle für Nicht-Text), aber falsch herum.
+  Dark-Overrides ergänzt, jeweils eine Stufe heller als der Ruhezustand: co `-200`, ki `-300`,
+  es `-200`, wo `-200`.
 - **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
 - **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
   fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
