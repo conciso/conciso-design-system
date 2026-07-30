@@ -115,6 +115,18 @@
         </div>
       </li>
       <li>
+        <button class="nav-item" data-section="responsive">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18h3"/></svg>Responsive
+        </button>
+        <div class="nav-subnav" data-for="responsive">
+          <a class="nav-sub-item" href="#gt-responsive-breakpoints">Breakpoints</a>
+          <a class="nav-sub-item" href="#gt-responsive-entscheidungen">Warum diese Bruchpunkte</a>
+          <a class="nav-sub-item" href="#gt-responsive-typo">Fluide Typografie</a>
+          <a class="nav-sub-item" href="#gt-responsive-komponenten">Komponenten-Verhalten</a>
+          <a class="nav-sub-item" href="#gt-responsive-umsetzung">Umsetzung auf der echten Site</a>
+        </div>
+      </li>
+      <li>
         <button class="nav-item" data-section="elevation">
           <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>Elevation
         </button>
@@ -209,6 +221,21 @@
           <a class="nav-sub-item" href="#gt-dd-combobox">Combobox</a>
           <a class="nav-sub-item" href="#gt-dd-multi">Multi-Select</a>
           <a class="nav-sub-item" href="#gt-dd-verwendung">Verwendung</a>
+        </div>
+      </li>
+      <li>
+        <button class="nav-item" data-section="booking">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Buchungsformular
+        </button>
+        <div class="nav-subnav" data-for="booking">
+          <a class="nav-sub-item" href="#gt-booking-aufbau">Aufbau</a>
+          <a class="nav-sub-item" href="#gt-booking-demo">Live-Formular</a>
+          <a class="nav-sub-item" href="#gt-booking-bedingt">Bedingte Felder</a>
+          <a class="nav-sub-item" href="#gt-booking-teilnehmende">Teilnehmende</a>
+          <a class="nav-sub-item" href="#gt-booking-validierung">Validierung &amp; Barrierefreiheit</a>
+          <a class="nav-sub-item" href="#gt-booking-flow">Anfrage oder Direktbuchung</a>
+          <a class="nav-sub-item" href="#gt-booking-produktion">Für die Umsetzung</a>
+          <a class="nav-sub-item" href="#gt-booking-verwendung">Verwendung</a>
         </div>
       </li>
       <li>
@@ -636,7 +663,7 @@
         </div>
       </div>
       <div class="doc-eyebrow" style="margin-top:var(--s8)">Bereichs-Akzent · <code class="token">data-accent</code></div>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Wo das Attribut sitzt:</strong> an jedem Container, der einen Bereichsblock aufspannt. Für eine ganze Seite ist das der <code class="token">.ep-page</code>-Root, für einen einzelnen Block der Wrapper um den Block, z.&nbsp;B. die Anmeldesektion <code class="token">#ev-anmeldung</code> auf der Veranstaltungsseite oder das Formular der <a class="body-link" href="#gt-inputs-kontakt-adaptiv">adaptiven Kontaktseite</a>. Der Selektor ist bewusst nicht an <code class="token">.ep-page</code> gebunden, damit man für so einen Block keine Inline-Farben an die einzelnen Links schreiben muss (die brächen im Dark-Mode). <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Inhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt, sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em>, <em>Seminar-Landing (wo)</em>, der Event-Anmeldung (<code class="token">es</code>) und dem adaptiven Kontaktformular (dynamisch).</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Wo das Attribut sitzt:</strong> an jedem Container, der einen Bereichsblock aufspannt. Für eine ganze Seite ist das der <code class="token">.ep-page</code>-Root, für einen einzelnen Block der Wrapper um den Block, z.&nbsp;B. das <a class="body-link" href="#sec-booking">Buchungsformular</a> in einer sonst corporate Seite. Der Selektor ist bewusst nicht an <code class="token">.ep-page</code> gebunden, damit man für so einen Block keine Inline-Farben an die einzelnen Links schreiben muss (die brächen im Dark-Mode). <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Inhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt, sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em>, <em>Seminar-Landing (wo)</em>, am Buchungsformular (<code class="token">ki</code>), an der Event-Anmeldung (<code class="token">es</code>) und am <a class="body-link" href="#gt-inputs-kontakt-adaptiv">adaptiven Kontaktformular</a> (dynamisch per JS gesetzt).</p>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px;margin-top:var(--s4)"><strong>Eigenständige Bereichs-Text-Utilities:</strong> Dieselben Töne gibt es klassenbasiert als <code class="token">.t-co</code> / <code class="token">.t-ki</code> / <code class="token">.t-es</code> / <code class="token">.t-wo</code> (Light <code class="token">-700</code>, <code class="token">ki</code> <code class="token">-800</code>; Dark-Override auf <code class="token">-200</code>/<code class="token">-100</code>) für inline gesetzten Akzenttext wie Eyebrows, Labels oder Kennzahlen. <strong>Regel:</strong> bereichsfarbigen Text immer über diese Utilities, <code class="token">data-area</code> (Chips/Badges/Pills, CTA-Links via <code class="token">.card-cta-link[data-area]</code>) oder <code class="token">--ki-ink</code> führen, nie als rohes <code class="token">style="color:var(--XX-700/800)"</code> — das bliebe im Dark Mode dunkel-auf-dunkel.</p>
     </section>
 
@@ -790,6 +817,19 @@
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Erzählen Sie uns Ihr Vorhaben.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Wir machen mit Ihnen einen Readiness-Check.</span></li>
           </ul>
+        </div>
+      </div>
+
+      <div class="doc-eyebrow" style="margin-top:var(--s2)">Ausnahme: Wann das Sie gilt</div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Das Du ist die Regel für alle öffentlichen und redaktionellen Texte. In der direkten Kommunikation zwischen Dienstleister und Kunde kann die Hierarchie ein Sie verlangen. Dann geht Angemessenheit vor Marke: Im Zweifel lieber das Sie wählen, als die Anrede zu erzwingen. Das Du folgt, sobald das Gegenüber es anbietet oder selbst nutzt.</p>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div class="doc-eyebrow">E-Mail an Kund:innen</div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Herrscht Unsicherheit über die passende Anrede, tendiert Conciso zum Sie. Ein zu früh gesetztes Du kann distanzlos wirken, gerade im schriftlichen Erstkontakt.</p>
+        </div>
+        <div class="col-6">
+          <div class="doc-eyebrow">Events mit Leadership-Fokus</div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei Veranstaltungen, zu denen vorrangig Leadership- und Entscheider:innen-Positionen erwartet werden, erfolgt die Ansprache im Sie, in der Einladung wie vor Ort.</p>
         </div>
       </div>
 
@@ -1447,8 +1487,10 @@
 
       <h2 id="gt-type-label" class="group-title">Label</h2>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Large</span><span class="type-spec">Montserrat · 14px / 20px · 500</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-label-md</span></div><div class="type-sample" style="font:var(--ty-label-md)">Button · Navigation · Tab-Label</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Name</span><span class="type-spec">Montserrat · 14px / 20px · 600</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-name</span></div><div class="type-sample" style="font:var(--ty-name)">Eigennamen · Do/Don't-Spaltenköpfe · Brand-Area-Labels · Button-Labels</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Medium</span><span class="type-spec">Montserrat · 12px / 16px · 500</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-sm</span></div><div class="type-sample" style="font:var(--ty-label-sm)">Chip · Badge · Overline</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Label Eyebrow</span><span class="type-spec">Montserrat · 12px / 16px · 500 UC</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-xs</span></div><div class="type-sample" style="font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em">Section Label / Eyebrow</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Label Eyebrow stark</span><span class="type-spec">Montserrat · 12px / 16px · 600 UC</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-label-xs-strong</span></div><div class="type-sample" style="font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em">Spec-Label / Code-Label</div></div>
 
       <!-- Ligaturen / Schriftdetails -->
       <h2 id="gt-type-ligaturen" class="group-title">Ligaturen: warum „ff“ verbunden aussieht</h2>
@@ -1774,6 +1816,128 @@
       </div>
     </section>
 
+    <!-- ═══ RESPONSIVE ═══ -->
+    <section class="ds-section" id="sec-responsive">
+      <h1 class="sec-title">Responsive</h1>
+      <p class="sec-sub">Verbindliche Breakpoints, fluide Typografie und das dokumentierte Verhalten pro Komponente. Diese Seite ist die Übergabe-Spezifikation für die Implementierung, nicht nur eine Beschreibung des Mockups.</p>
+
+      <div style="background:var(--co-50);border:var(--bd);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Vor der Umsetzung lesen:</strong> Das Mockup nutzt ausschließlich <strong>viewport-basierte</strong> <code class="token">@media</code>-Queries (keine Container-Queries) und blendet die Doku-Sidebar unter 1024 px aus, damit die Beispielseiten die echte Fensterbreite einnehmen. Die <strong>Bruchpunkt-Werte und Verhaltensregeln unten sind verbindlich</strong>, die technische Umsetzung (Media- vs. Container-Query) darf auf der echten Site abweichen. Details unter <a href="#gt-responsive-umsetzung" class="body-link">Umsetzung auf der echten Site</a>.</p>
+      </div>
+
+      <h2 id="gt-responsive-breakpoints" class="group-title">Breakpoints</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Drei Stufen, definiert über die Viewport-Breite. Der Hauptbruch liegt bei <strong>768 px</strong> (Mobile ↔ Desktop-Grid). Ein zweiter, feinerer Bruch bei <strong>520 px</strong> steuert Layouts, die auf kleinen Phones weiter herunterbrechen müssen. Alle Regeln sind <code class="token">max-width</code>-basiert (Desktop-first), außer der fix-spaltigen Tablet-Zwischenstufe.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:18%">Stufe</th>
+            <th style="width:22%">Bereich</th>
+            <th>Verhalten</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Phone</strong></td><td><code class="token">≤ 520 px</code></td><td>Engste Stufe. Hero-CTAs stapeln full-width, mehrspaltige Sonderraster (Roster, Benefits) brechen auf ihre kleinste Spaltenzahl herunter.</td></tr>
+          <tr><td><strong>Mobile</strong></td><td><code class="token">≤ 768 px</code></td><td>Hauptbruch. <code class="token">.layout-grid</code> kollabiert auf 1 Spalte, Section-Innenabstand schrumpft, Topnav wird zum Hamburger (technisch ab ≤ 760 px, s. u.).</td></tr>
+          <tr><td><strong>Tablet</strong></td><td><code class="token">769 bis 1024 px</code></td><td>Zwischenstufe <strong>nur für fix-spaltige Layouts</strong> (explizite <code class="token">min-width:769px</code>-Regel). <code class="token">auto-fit</code>-Grids regeln diesen Bereich selbst und brauchen keine eigene Regel.</td></tr>
+          <tr><td><strong>Desktop</strong></td><td><code class="token">&gt; 1024 px</code></td><td>Referenzzustand. Alle Fixwerte (Grid-Spannweiten, Typo-Maxima, Paddings) gelten hier unverändert.</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8);max-width:760px"><strong>Faustregel für neue Layouts:</strong> Ein <code class="token">auto-fit</code>/<code class="token">auto-fill</code>-Grid (z.&nbsp;B. <code class="token">.ep-cards</code>, <code class="token">.card-stat-strip</code>) braucht <strong>keine</strong> Tablet-Regel, es füllt Spalten selbst auf. Ein Layout mit <strong>fixer</strong> Spaltenzahl (Footer, Benefits, Roster) braucht eine explizite Tablet-Regel (769 bis 1024 px) zwischen Desktop und Mobile, sonst springt es hart von n-spaltig auf einspaltig.</p>
+
+      <h2 id="gt-responsive-entscheidungen" class="group-title">Warum diese Bruchpunkte</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Die vier nicht offensichtlichen Entscheidungen. Ohne diese Begründungen wirken die Werte willkürlich und werden beim Refactoring erfahrungsgemäß „geglättet", obwohl sie bewusst so liegen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead>
+          <tr>
+            <th style="width:30%">Entscheidung</th>
+            <th>Begründung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Hero-CTAs stapeln erst bei <code class="token">≤ 520 px</code>, nicht schon bei 768 px</td><td>Auf Phablet und kleinem Tablet (521 bis 768 px) liefen full-width-Buttons breiter als der gekappte Intro-Text und wirkten überdehnt. Dort behalten sie natürliche Breite und dürfen umbrechen. Erst am echten Phone werden sie full-width gestapelt.</td></tr>
+          <tr><td><code class="token">auto-fit</code>-Grids ohne Tablet-Regel, fix-spaltige Grids mit</td><td><code class="token">auto-fit</code> verteilt Spalten anhand einer <code class="token">minmax()</code>-Mindestbreite selbst, eine feste Tablet-Regel wäre redundant und würde kollidieren. Fix-spaltige Raster (col-N) haben diese Automatik nicht und brauchen die Zwischenstufe.</td></tr>
+          <tr><td>Hamburger ab <code class="token">≤ 760 px</code>, nicht 768 px</td><td>Bewusst 8 px unter dem Grid-Bruch, damit der Navigations-Umbau nicht exakt auf derselben Breite wie das Grid-Reflow passiert. Trennt die beiden Umbrüche optisch und vermeidet ein gleichzeitiges „Springen" von Nav und Inhalt.</td></tr>
+          <tr><td>Doku-Sidebar aus ab <code class="token">≤ 1024 px</code></td><td>Reine Mockup-Krücke: Die feste 252-px-Sidebar würde die Beispielseiten in eine Restspalte quetschen, wodurch deren viewport-<code class="token">@media</code>-Queries nicht mehr zur tatsächlichen <code class="token">.ep-page</code>-Breite passen. Ausblenden macht die Geräte-Vorschau in den DevTools erst wahrheitsgetreu. <strong>Für die echte Site irrelevant.</strong></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-responsive-typo" class="group-title">Fluide Typografie</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Alle <strong>Headline- und Display-Tokens</strong> skalieren fluid per <code class="token">clamp(min, preferred, max)</code>. Das Maximum entspricht dem bisherigen Desktop-Fixwert (Desktop unverändert), das Minimum greift am Phone. Die Zeilenhöhe ist eine <strong>unitless Ratio</strong> (skaliert mit), nie ein Fixwert und nie unter 1. Alle Minima liegen bei <strong>≥ 20 px</strong> (Font-Size-Minimum). Body- und Label-Tokens sind bewusst <strong>nicht</strong> fluid, sie haben feste Größen.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:26%">Token</th>
+            <th style="width:20%">Min (Phone)</th>
+            <th style="width:20%">Max (Desktop)</th>
+            <th>Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="token">--ty-headline-xs</code></td><td>20 px</td><td>22 px</td><td>1.35</td></tr>
+          <tr><td><code class="token">--ty-headline-sm</code></td><td>21 px</td><td>24 px</td><td>1.33</td></tr>
+          <tr><td><code class="token">--ty-headline-md</code></td><td>23 px</td><td>28 px</td><td>1.3</td></tr>
+          <tr><td><code class="token">--ty-display-sm</code></td><td>28 px</td><td>36 px</td><td>1.22</td></tr>
+          <tr><td><code class="token">--ty-display-md</code></td><td>30 px</td><td>40 px</td><td>1.2</td></tr>
+          <tr><td><code class="token">--ty-display-lg</code></td><td>28 px</td><td>46 px</td><td>1.15</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8);max-width:760px">Quelle der Werte: <code class="token">css/tokens.css</code>. Wer die Skala ändert, muss <code class="token">min</code> ≥ 20 px halten und die unitless Ratio beibehalten (nicht auf px umstellen). Siehe auch <a href="#sec-typography" class="body-link">Typography</a>.</p>
+
+      <h2 id="gt-responsive-komponenten" class="group-title">Komponenten-Verhalten</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Vollständiges Inventar der responsiven Sonderregeln. Jede Zeile nennt Auslöser, Verhalten und die CSS-Quelle, damit die Regel bei der Neu-Implementierung nicht verloren geht. Alles, was hier nicht steht, folgt dem Standard (<code class="token">.layout-grid</code> auf 1 Spalte ab ≤ 768 px).</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead>
+          <tr>
+            <th style="width:26%">Komponente</th>
+            <th style="width:16%">Bruchpunkt</th>
+            <th style="width:38%">Verhalten</th>
+            <th>Quelle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code class="token">.layout-grid</code></td><td>≤ 768 px</td><td>Kollabiert auf 1 Spalte, alle <code class="token">col-N</code>-Spannweiten werden auf <code class="token">grid-column:auto</code> zurückgesetzt (sonst brechen ungleiche Splits verschieden breit um).</td><td>base.css</td></tr>
+          <tr><td><code class="token">.ep-section</code></td><td>≤ 768 px</td><td>Innenabstand horizontal von <code class="token">--s8</code> (32 px) auf <code class="token">--s6</code> (24 px). Greift nicht auf Sektionen mit inline gesetztem Padding.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.ep-hero-ctas</code></td><td>≤ 520 px</td><td>Buttons stapeln als Spalte, full-width (<code class="token">width:100%</code>). Darüber: natürliche Breite mit Umbruch.</td><td>components.css</td></tr>
+          <tr><td>Topnav (Hamburger)</td><td>≤ 760 px</td><td>JS injiziert den Hamburger-Button, Nav klappt unter dem Logo auf, Submenüs öffnen inline statt als Overlay.</td><td>components.css + main.js</td></tr>
+          <tr><td>Topnav-Submenü (Hover)</td><td><code class="token">hover + pointer:fine</code></td><td>Hover-Öffnen nur auf echten Zeigergeräten (nicht Touch). Klick navigiert weiter. Kein reines CSS-<code class="token">:hover</code>-Reveal.</td><td>components.css + main.js</td></tr>
+          <tr><td><code class="token">.footer-grid</code></td><td>769 bis 1024 px<br>≤ 768 px</td><td>Tablet: 3 → 2 Spalten. Mobile: → 1 Spalte. (Fix-spaltig, daher explizite Tablet-Regel.)</td><td>components.css</td></tr>
+          <tr><td><code class="token">[data-team-roster]</code></td><td>≤ 768 px<br>≤ 520 px</td><td>Tablet: 3 Spalten. Phone: 2 Spalten. <code class="token">minmax(0,1fr)</code> gegen Grid-Blowout bei langen Namen.</td><td>base.css</td></tr>
+          <tr><td><code class="token">[data-benefits]</code>, <code class="token">[data-event-meta]</code></td><td>≤ 768 px<br>≤ 520 px</td><td>Tablet: 2×2. Phone: 1 Spalte. Desktop: 4-spaltig.</td><td>base.css</td></tr>
+          <tr><td><code class="token">[data-team-tiles]</code></td><td>≤ 768 px</td><td>2×2 statt einspaltig, damit die 4 Köpfe kompakt bleiben.</td><td>base.css</td></tr>
+          <tr><td><code class="token">.ep-award-list</code></td><td>≤ 768 px</td><td>Von zentrierter Flex-Reihe auf 2×2-Grid (<code class="token">justify-self:start</code>), behebt versetztes Umbrechen.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.team-voice</code></td><td>≤ 768 px</td><td>Einspaltig, Body wird zum Pull-Quote (Quote-Icon im linken Gutter, Zitat rechts), spart die eigene Icon-Zeile.</td><td>components.css</td></tr>
+          <tr><td><code class="token">.article-avatar-xl</code></td><td>≤ 768 px</td><td>Von fix 160 px auf <code class="token">min(112px,72%)</code> mit <code class="token">aspect-ratio:1</code>, damit es in den mehrspaltigen Team-Grids nicht überläuft.</td><td>components.css</td></tr>
+          <tr><td>Karten in Grids<br>(<code class="token">.card-title</code>, <code class="token">.card-text</code>)</td><td>≤ 768 px</td><td>Die Gleichhöhen-Sicherung (<code class="token">min-height:2lh/3lh</code>) wird auf <code class="token">0</code> gesetzt, weil einspaltige Karten keinen Nachbarn zum Abgleichen haben. <code class="token">line-clamp</code> bleibt aktiv.</td><td>components.css</td></tr>
+          <tr><td>Editorial-Split-Text<br>(<code class="token">.ep-section-sub</code> im Grid)</td><td>≤ 768 px</td><td>Der inline 520-px-Cap wird aufgehoben, damit der gestapelte Text bündig zur Bildbreite läuft statt schmaler.</td><td>base.css</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-muted);margin-bottom:var(--s8);max-width:760px">Nicht enthalten sind die Doku-Shell selbst (Sidebar, Content-Breite) und die Vergleichsraster der Doku-Seite, das ist Chrome der Referenz und nicht Teil des ausgelieferten Systems.</p>
+
+      <h2 id="gt-responsive-umsetzung" class="group-title">Umsetzung auf der echten Site</h2>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <span class="lbl">Was übernommen werden muss</span>
+          <ul style="list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Bruchpunkt-Werte</strong> (520 / 768 / 1024 px) und das dokumentierte Verhalten pro Komponente</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>fluiden Typo-Tokens</strong> (clamp, unitless Ratio, min ≥ 20 px) unverändert aus <code class="token">tokens.css</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Faustregel</strong> auto-fit (keine Tablet-Regel) vs. fix-spaltig (Tablet-Regel nötig)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die <strong>Begründungen</strong> oben, bevor ein Wert „korrigiert" wird</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <span class="lbl">Was am Mockup hängt und abweichen darf</span>
+          <ul style="list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><strong>Viewport-<code class="token">@media</code></strong>: Das Mockup nutzt keine Container-Queries. Auf der echten Site sind Container-Queries für kontextabhängige Komponenten sinnvoll, die Bruchpunkt-Werte bleiben gleich.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Das <strong>Ausblenden der Sidebar ≤ 1024 px</strong> ist reine Doku-Chrome und entfällt komplett.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--tx-muted);font-weight:700;flex-shrink:0">•</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Beispielseiten liegen als <strong>Inline-Mockup</strong> vor (kein Sticky, <code class="token">overflow:hidden</code>). Sticky-Topnav und persistenter CTA sind für die echte Site geplant.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin-bottom:var(--s8)">
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Prüfen:</strong> Weil die Beispielseiten auf Viewport-Breite reagieren, ist eine echte Tablet-/Mobile-Prüfung nur im <strong>Live-Browser (DevTools-Responsive-Modus bzw. iframe) unter 1024 px</strong> aussagekräftig, nicht am statischen Screenshot. Bruchpunkte an den Kanten testen: 519/520, 767/768, 1024/1025 px.</p>
+      </div>
+    </section>
+
     <!-- ═══ ELEVATION ═══ -->
     <section class="ds-section" id="sec-elevation">
       <h1 class="sec-title">Elevation</h1>
@@ -2087,7 +2251,7 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Aktiver Punkt wird über <code class="token">aria-current="page"</code> ausgezeichnet und visuell durch einen <strong>nicht-farbigen Indikator</strong> bestätigt: Top-Level-Links tragen einen dezenten Akzent-Unterstrich (Petrol, sanfter Opacity-Fade), Submenü-Einträge eine Tönungsfläche (<code class="token">--co-50</code>) plus Fettung. Die Brand-Petrol-Textfarbe (<code class="token">--co-700</code>, im Dark <code class="token">--co-200</code>) kommt ergänzend dazu. So hängt die Markierung nicht allein an der Farbe (WCAG&nbsp;1.4.1). Auf Bereichs-Seiten bekommt der Submenü-Eintrag <code class="token">aria-current</code>, der jeweilige Toggle (z. B. „Angewandte KI“ oder „Leistungen“) wird Petrol gefärbt und trägt als aktive Sektion denselben Unterstrich (via <code class="token">:has()</code> auf den aktiven Submenü-Eintrag). Nur Hover und das bloße Aufklappen markieren ausschließlich über Farbe (plus Caret-Dreh) — den Unterstrich gibt es allein im Aktiv-Zustand, nicht beim Hover/Öffnen.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Submenü: öffnen &amp; schließen</h3>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Jedes Top-Item mit Submenü besteht aus <strong>zwei Bedienelementen</strong>: der Label-<strong>Link</strong> (<code class="token">.ep-nav-btn</code>, ein echtes <code class="token">&lt;a&gt;</code>) navigiert direkt zur Übersichtsseite, ein <strong>separater Caret-Button</strong> (<code class="token">.ep-nav-item-toggle</code>) öffnet/schließt das Submenü (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>, <code class="token">aria-expanded</code> <code class="token">true</code>/<code class="token">false</code>, <code class="token">aria-controls</code> auf das Submenü). Geöffnet wird per <strong>Klick/Tap oder Tastatur</strong> (kein Auto-Öffnen bei Hover, damit Navigieren vs. Öffnen eindeutig bleibt und nicht zwei Menüs gleichzeitig offen sind). <kbd>Enter</kbd>/<kbd>Space</kbd> auf dem Caret öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus zurück; ein Klick außerhalb, das Heraustabben oder eine Navigation schließen ebenfalls. Als Disclosure aus Links (kein Menü-Widget) bewusst ohne <code class="token">aria-haspopup</code>. Der Caret-Button hat eine eigene Hit-Area (≥ 24 px, WCAG 2.5.8); mobil liegen Link und Caret in einer Zeile mit ≥ 44 px Tap-Fläche.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Jedes Top-Item mit Submenü besteht aus <strong>zwei Bedienelementen</strong>: der Label-<strong>Link</strong> (<code class="token">.ep-nav-btn</code>, ein echtes <code class="token">&lt;a&gt;</code>) navigiert direkt zur Übersichtsseite, ein <strong>separater Caret-Button</strong> (<code class="token">.ep-nav-item-toggle</code>) öffnet/schließt das Submenü (JS-Klasse <code class="token">.is-open</code> am <code class="token">.ep-nav-has-sub</code>, <code class="token">aria-expanded</code> <code class="token">true</code>/<code class="token">false</code>, <code class="token">aria-controls</code> auf das Submenü). Geöffnet wird per <strong>Klick/Tap, Tastatur</strong> oder — nur auf Geräten mit echtem Hover (<code class="token">pointer:fine</code>) — per <strong>Hover</strong> (JS-gesteuert mit Intent-Verzögerung und unsichtbarer Brücke über den Gap, WCAG&nbsp;1.4.13). Der Reveal hängt dabei immer an <code class="token">.is-open</code> (nie an reinem CSS-<code class="token">:hover</code>), damit <code class="token">aria-expanded</code> mitläuft und nie zwei Menüs gleichzeitig offen sind; der Label-Klick navigiert unverändert direkt zur Übersicht. <kbd>Enter</kbd>/<kbd>Space</kbd> auf dem Caret öffnet, <kbd>↓</kbd>/<kbd>↑</kbd> sowie <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge, <kbd>Esc</kbd> schließt und gibt den Fokus zurück; ein Klick außerhalb, das Heraustabben oder eine Navigation schließen ebenfalls. Als Disclosure aus Links (kein Menü-Widget) bewusst ohne <code class="token">aria-haspopup</code>. Der Caret-Button hat eine eigene Hit-Area (≥ 24 px, WCAG 2.5.8); mobil liegen Link und Caret in einer Zeile mit ≥ 44 px Tap-Fläche.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Mobile:</strong> Unter dem Breakpoint (≤&nbsp;760&nbsp;px) injiziert das JS einen <strong>Hamburger-Button</strong> in die Topnav; er klappt die Navigation unter dem Logo auf, die Submenüs öffnen dort inline (statt als schwebendes Overlay).</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Aktionen: Suche &amp; Theme-Umschalter</h3>
@@ -2313,7 +2477,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td>Semantik</td><td><code class="token">&lt;nav&gt;</code> mit <code class="token">aria-label="Hauptnavigation"</code> wenn mehrere Navigationsbereiche auf einer Seite, Screenreader listen alle Landmarks auf</td></tr>
           <tr><td>Aktiver Eintrag</td><td><code class="token">aria-current="page"</code> auf dem aktiven Nav-Link setzen, visueller active-State allein ist für Screenreader nicht erkennbar</td></tr>
           <tr><td>Tastatur</td><td>Alle Nav-Items per <kbd>Tab</kbd> · <kbd>Enter</kbd>/<kbd>Space</kbd> öffnet das Submenü · <kbd>↓</kbd>/<kbd>↑</kbd> und <kbd>Home</kbd>/<kbd>End</kbd> navigieren die Einträge · <kbd>Esc</kbd> schließt (Fokus zurück zum Toggle), ohne Maus vollständig bedienbar</td></tr>
-          <tr><td>Dropdown-Zustand</td><td>Das Label ist ein <code class="token">&lt;a&gt;</code>-Link zur Übersicht; ein separater Caret-<code class="token">&lt;button&gt;</code> trägt per JS <code class="token">aria-expanded</code> und <code class="token">aria-controls</code> auf das Submenü (Disclosure aus Links, kein Menü-Widget — daher kein <code class="token">aria-haspopup</code>); Touch-Geräte und Screenreader erhalten den Auf-/Zu-Zustand per Klick/Tastatur, nicht nur Maus-Hover</td></tr>
+          <tr><td>Dropdown-Zustand</td><td>Das Label ist ein <code class="token">&lt;a&gt;</code>-Link zur Übersicht; ein separater Caret-<code class="token">&lt;button&gt;</code> trägt per JS <code class="token">aria-expanded</code> und <code class="token">aria-controls</code> auf das Submenü (Disclosure aus Links, kein Menü-Widget — daher kein <code class="token">aria-haspopup</code>); geöffnet wird per Klick/Tastatur und, additiv nur auf <code class="token">pointer:fine</code>, per Hover (JS-gesteuert über <code class="token">.is-open</code>, nie rein per CSS-<code class="token">:hover</code>), damit Touch-Geräte und Screenreader den Auf-/Zu-Zustand unabhängig vom Maus-Hover erhalten</td></tr>
           <tr><td>Skip-Link</td><td>„Zum Inhalt springen“-Link als erstes fokussierbares Element, ermöglicht Tastaturnutzern das Überspringen langer Navigationen</td></tr>
         </tbody>
       </table>
@@ -2790,6 +2954,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Textarea:</strong> <code class="token">resize:vertical</code> + <code class="token">max-width:100%</code> — nur vertikal vergrößerbar, damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Radio (Optionsfelder):</strong> für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Wie die Checkbox ein <strong>natives</strong> <code class="token">&lt;input type="radio"&gt;</code> mit <code class="token">accent-color</code> in der Bereichsfarbe — kein nachgebauter Kreis. Die Gruppe sitzt in einem <code class="token">&lt;fieldset&gt;</code> mit <code class="token">&lt;legend&gt;</code> (Gruppen-Label wie ein Feld-Label), sodass Screenreader Frage und Optionen als zusammengehörig ansagen; alle Optionen teilen denselben <code class="token">name</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Segmented Control:</strong> kompakte Alternative für 2–4 kurze, gleichrangige Optionen, die nebeneinander passen (bei längeren Labels oder Beschreibungen die Liste, ab etwa 6 Optionen ein Select). Ebenfalls <strong>native</strong> <code class="token">&lt;input type="radio"&gt;</code>, nur visuell versteckt und über gestylte <code class="token">&lt;label&gt;</code> als verbundene Buttons dargestellt (<code class="token">.seg</code>). Der Auswahl-Zustand (<code class="token">:checked</code>) lässt sich nicht inline setzen, daher ein kleines Komponenten-CSS wie bei <code class="token">.chip</code>. Bedienung und Semantik bleiben identisch zur Liste: <code class="token">&lt;fieldset&gt;</code>/<code class="token">&lt;legend&gt;</code>, gemeinsamer <code class="token">name</code>, Pfeiltasten-Navigation, sichtbarer Fokusring am Label.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Bereichs-Varianten:</strong> Wie bei <code class="token">.btn</code> ist der Default Corporate; <code class="token">.seg-ki</code>, <code class="token">.seg-es</code> und <code class="token">.seg-wo</code> setzen die Füllung des gewählten Segments auf die Brand Area. In einem Bereichsformular ist das Pflicht, sonst sitzt mitten zwischen den Feldern ein Corporate-Akzent und das Formular trägt zwei Bereiche gleichzeitig. Im Dark Mode kippt die Füllung auf den hellen <code class="token">-300</code>-Ton mit <code class="token">-900</code>-Text, weil die dunkle <code class="token">-700</code>-Fläche auf dunklem Grund nicht heraustritt. Der Fokusring bleibt in allen Varianten Corporate.</p>
       <div style="max-width:480px">
         <div class="field">
           <label for="f-name-demo">Name <span class="req" aria-hidden="true">*</span></label>
@@ -3067,7 +3232,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td><code class="token">name="unterthema"</code></td><td>Freitext-Schlüssel, z. B. „AI.Automation Workshop"</td><td>Basis für eine konkrete bzw. teil-automatisierte Erstantwort</td></tr>
         </tbody>
       </table>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Produktion:</strong> Im Mockup setzt <code class="token">main.js</code> diese Felder aus dem CTA. In der echten Site stattdessen serverseitig aus Route/Query-Param (<code class="token">?bereich=…&amp;anliegen=…</code>) rendern und beim Submit auswerten. „Allgemeine Anfrage" (<code class="token">bereich=co</code>, leeres <code class="token">unterthema</code>) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld (Friktion vermeiden). Bewerbung und Event-Anmeldung behalten ihren eigenen Flow.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Produktion:</strong> Im Mockup setzt <code class="token">main.js</code> diese Felder aus dem CTA. In der echten Site stattdessen serverseitig aus Route/Query-Param (<code class="token">?bereich=…&amp;anliegen=…</code>) rendern und beim Submit auswerten. „Allgemeine Anfrage" (<code class="token">bereich=co</code>, leeres <code class="token">unterthema</code>) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld (Friktion vermeiden). Bewerbung, Event-Anmeldung und die verbindliche Terminbuchung (<a class="body-link" href="#sec-booking">Buchungsformular</a>) behalten ihren eigenen Flow; wann welcher Weg richtig ist, steht dort unter „Anfrage oder Direktbuchung".</p>
 
       <h2 id="gt-inputs-suche" class="group-title">Such-Feld</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten (z.&nbsp;B. <a class="body-link" href="#sec-listing">Wissens-Übersicht</a>). Kein sichtbares <code class="token">&lt;label&gt;</code>: Icon und Placeholder tragen den visuellen Kontext, ein <code class="token">aria-label</code> liefert den semantischen Namen für Screenreader.</p>
@@ -3585,6 +3750,506 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </ul>
         </div>
       </div>
+    </section>
+
+    <!-- ═══ BUCHUNGSFORMULAR ═══ -->
+    <section class="ds-section" id="sec-booking">
+      <h1 class="sec-title">Buchungsformular</h1>
+      <p class="sec-sub">Verbindliche Buchung eines konkreten Termins, am Beispiel eines Seminars (<a class="body-link" href="#sec-seminar">Seminar / Training</a>). Komposition aus den Feldern der <a class="body-link" href="#sec-inputs">Inputs &amp; Forms</a>, ergänzt um drei Dinge, die es dort noch nicht gibt: Gliederung in Fieldsets, <strong>bedingte Feldblöcke</strong> und einen <strong>Teilnehmenden-Repeater</strong>. Klassen-Präfix <code class="token">.bk-*</code>, Logik in <code class="token">main.js</code> über <code class="token">data-bk</code>-Hooks.</p>
+
+      <h2 id="gt-booking-aufbau" class="group-title">Aufbau</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Die Reihenfolge folgt der Entscheidungslogik der Buchenden: erst <em>was</em> gebucht wird, dann <em>wer</em> bucht und zahlt, dann <em>wer teilnimmt</em>, zuletzt die Rechtsfolge. Kaufmännisch heikle Felder (Rechnungsanschrift) stehen bewusst vor den Teilnehmenden, weil sie zur buchenden Partei gehören und nicht zur Teilnehmerliste.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Gruppe</th><th>Untergruppe</th><th>Inhalt</th><th>Warum an dieser Stelle</th></tr></thead>
+        <tbody>
+          <tr><td>Termin</td><td>—</td><td>Select mit den offenen Durchführungen <span class="req" aria-hidden="true">*</span></td><td>Bestimmt Preis und Verfügbarkeit, also die Grundlage aller folgenden Felder</td></tr>
+          <tr><td rowspan="3">Auftraggeber</td><td>Anmeldung als</td><td>Segmented Control „Firma" / „Privatperson"</td><td>Weiche vor vielen Feldern. Steht in derselben Gruppe wie das, was sie schaltet</td></tr>
+          <tr><td>Firmendaten</td><td>Firma <span class="req" aria-hidden="true">*</span>, Abteilung, USt-IdNr., Bestellnummer oder Kostenstelle</td><td>Bedingt, nur bei „Firma". Bestellnummer gehört hierher, weil sie auf die Rechnung muss</td></tr>
+          <tr><td>Kontaktperson</td><td>Vorname <span class="req" aria-hidden="true">*</span>, Nachname <span class="req" aria-hidden="true">*</span>, E-Mail <span class="req" aria-hidden="true">*</span>, Telefon</td><td>Empfängerin der Bestätigung, gehört zur buchenden Partei. Nicht zwingend teilnehmend</td></tr>
+          <tr><td rowspan="2">Rechnungsanschrift</td><td>—</td><td>Straße <span class="req" aria-hidden="true">*</span>, PLZ <span class="req" aria-hidden="true">*</span>, Ort <span class="req" aria-hidden="true">*</span>, Land, Checkbox „andere Adresse"</td><td>Anschrift der buchenden Partei. Als Standardfall gesetzt, nicht als Sonderfall</td></tr>
+          <tr><td>Abweichende Rechnungsadresse</td><td>Empfänger <span class="req" aria-hidden="true">*</span>, Anschrift <span class="req" aria-hidden="true">*</span>, Rechnungs-E-Mail</td><td>Opt-in, eingeblendet von der Checkbox darüber. Der Normalfall bleibt kurz</td></tr>
+          <tr><td>Teilnehmende</td><td>—</td><td>„Ich nehme selbst teil", Anzahl <span class="req" aria-hidden="true">*</span>, Preiszeile, je Person Vorname, Nachname, E-Mail</td><td>Erst jetzt sinnvoll: die Anzahl entscheidet über Preis und Platzkontingent</td></tr>
+          <tr><td>Abschluss</td><td>—</td><td>Anmerkungen, Teilnahmebedingungen <span class="req" aria-hidden="true">*</span>, Datenschutz <span class="req" aria-hidden="true">*</span>, Contentletter, Bestellübersicht, Submit</td><td>Rechtsfolge unmittelbar vor dem Button, nicht weiter oben versteckt</td></tr>
+          </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Einseitig statt mehrstufig:</strong> Das Formular ist lang, aber nicht komplex. Ein Stepper würde die Gesamtlänge verbergen, das Zurückspringen erschweren und einen Zustand einführen, den es sonst nirgends im System gibt. Die Gliederung leisten die Fieldsets: sichtbare Gruppen mit Legende, alle gleichzeitig scan- und korrigierbar.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Drei Typo-Stufen, sonst trägt die Gliederung nicht.</strong> Gruppe <code class="token">--ty-title-sm</code> (20 px, gemischt, <code class="token">--tx-primary</code>) · Untergruppe <code class="token">--ty-name</code> (14 px halbfett, gemischt) · Feldlabel 12 px Versalien in <code class="token">--tx-secondary</code>. Zwei benachbarte Ebenen auf demselben Token laufen zu lassen ist der naheliegende Fehler: die Gliederung ist dann semantisch vorhanden und optisch unsichtbar, und ein Formular über 4.000 px lässt sich nicht mehr überfliegen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Die Trennlinie gehört nur zwischen die Gruppen.</strong> Sie sitzt über jedem <code class="token">.bk-fieldset</code> der obersten Ebene, nie über einer <code class="token">.bk-subgroup</code>. Der Grund ist inhaltlich, nicht dekorativ: Eine Linie zwischen „Anmeldung als" und „Firmendaten" schneidet die Weiche von dem ab, was sie schaltet, und zerlegt eine Entscheidung in zwei scheinbar unabhängige Blöcke. Deshalb ist eine Gruppe hier <strong>eine Entscheidung samt ihrer Folgen</strong>, nicht ein Themenwort: „Auftraggeber" umfasst die Weiche, die bedingten Firmendaten und die Kontaktperson, „Rechnungsanschrift" umfasst die Adresse und den abweichenden Sonderfall.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Zwei Stellen für den Preis, mit unterschiedlicher Aufgabe:</strong> Bei der Anzahl steht die Preiszeile <code class="token">.bk-summary</code> mit <code class="token">role="status"</code>, dort ändert sich der Wert und muss angesagt werden. Unmittelbar über dem Button steht die Bestellübersicht <code class="token">.bk-order</code> mit Leistung, Termin, Auftraggeber, Plätzen und Gesamtbetrag. Der bloße Betrag würde dort nicht reichen: Was genau gebucht wird, steht sonst über tausend Pixel weiter oben verstreut, und im Moment der verbindlichen Zusage ist nichts davon sichtbar.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Leere Zeilen der Übersicht bleiben stehen</strong> und tragen <code class="token">data-empty</code> („Noch nicht gewählt", gedämpft). Eine Übersicht, die Zeilen ein- und ausblendet, springt beim Ausfüllen, und man sieht nicht, was noch fehlt. Die Übersicht ist bewusst <strong>keine</strong> Live-Region: sie wiederholt nur, was im Formular schon steht, und würde sonst jede Änderung ein zweites Mal ansagen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Nur Sternchen, kein „(optional)":</strong> Die Required-Marker trennen Pflicht- und Kannfelder bereits, eine zweite Auszeichnung macht das Formular unnötig laut (dieselbe Konvention wie bei der <a class="body-link" href="#sec-inputs">Newsletter-Anmeldung</a>). Das freiwillige Contentletter-Häkchen ist am Schluss durch eine Haarlinie von den beiden Pflicht-Bestätigungen getrennt: gleiche Optik direkt darunter liest sich wie ein Dark Pattern, auch wenn keines gemeint ist.</p>
+
+      <h2 id="gt-booking-demo" class="group-title">Live-Formular</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Vollständig bedienbar: Kundentyp umschalten, abweichende Rechnungsadresse einblenden, Anzahl ändern, Personen hinzufügen und entfernen, leer absenden.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Eine Brand Area pro Formular:</strong> Das Beispiel trägt durchgehend Angewandte KI, also Header <code class="token">--ki-800</code>, Eyebrow <code class="token">--ki-200</code>, Buttons <code class="token">.btn-ki</code>, Segmented Control <code class="token">.seg-ki</code> und Checkboxen mit <code class="token">accent-color:var(--ki-ink)</code>. Die Links im Formular (Inhouse-Anfrage, Bedingungen, Datenschutz) tönt <code class="token">data-accent="ki"</code> am <strong>umgebenden Container</strong> mit, siehe <a class="body-link" href="#gt-areas-komponenten">Seiten-Akzent</a>: keine Inline-Farbe am einzelnen Link, damit der Dark-Mode-Override greift. Die <code class="token">.bk-*</code>-Klassen selbst sind bereichsneutral, der Akzent kommt ausschließlich von außen. Zwei Corporate-Töne bleiben bewusst stehen: der Fokusring und der Feldrahmen im Fokus. Der Fokus ist Systemfeedback und keine Markenfläche, deshalb sieht er überall gleich aus (siehe Don't unter <a class="body-link" href="#sec-dropdowns">Dropdowns</a>).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Warum <code class="token">--ki-ink</code> statt <code class="token">--ki-500</code>:</strong> Die anderen Bereiche setzen <code class="token">accent-color</code> auf ihr <code class="token">-500</code>. Das Limette-Grün von KI erreicht auf Weiß aber nur rund 1,4:1 und wäre als angehakte Box kaum zu erkennen. <code class="token">--ki-ink</code> ist der dafür vorgesehene modusbewusste Token: <code class="token">--ki-800</code> im Light, <code class="token">--ki-200</code> im Dark. Dieselbe Logik wie bei <code class="token">.btn-ki</code>, das ebenfalls auf <code class="token">--ki-800</code> statt <code class="token">--ki-500</code> läuft.</p>
+      <div data-accent="ki" style="max-width:720px;margin-bottom:var(--s8)">
+        <div class="ds-card">
+          <div style="background:var(--ki-800);padding:var(--s4) var(--s6)">
+            <div style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:var(--ki-200);margin-bottom:2px">Buchung · Angewandte KI</div>
+            <div style="font:400 20px/28px var(--font-display);color:#fff">KI im Arbeitsalltag verankern</div>
+          </div>
+          <div class="ds-inner">
+            <div class="bk-success" id="bk-demo-success" role="status" tabindex="-1" hidden>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+              <span style="font:var(--ty-body-md)"><strong>Danke, Deine Buchung ist eingegangen.</strong><br>Du bekommst die Bestätigung und die Rechnung innerhalb von zwei Werktagen per E-Mail.</span>
+            </div>
+            <form id="bk-demo" data-booking data-price="1290" data-max="12" data-success="bk-demo-success" novalidate aria-label="Training buchen">
+              <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s6)">Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
+
+              <div class="bk-errors" data-bk="errors" role="alert" tabindex="-1" hidden>
+                <p class="bk-errors-title">Bitte prüf noch diese Angaben</p>
+                <ul data-bk="error-list"></ul>
+              </div>
+
+              <fieldset class="bk-fieldset">
+                <legend class="bk-legend">Termin</legend>
+                <div class="field">
+                  <label for="bk-demo-termin">Durchführung <span class="req" aria-hidden="true">*</span></label>
+                  <select id="bk-demo-termin" name="termin" data-bk="termin" required aria-required="true" data-err="Bitte wähl einen Termin">
+                    <option value="" disabled selected>Bitte wählen…</option>
+                    <option value="2026-04-14">14. bis 15. April 2026 · Dortmund</option>
+                    <option value="2026-06-09">9. bis 10. Juni 2026 · Online</option>
+                  </select>
+                  <span class="helper">1.290 € pro Platz, zzgl. MwSt. Kein passender Termin dabei? <a class="body-link" href="#sec-examples" data-ep="kontakt" data-k-bereich="ki" data-k-anliegen="Training: KI im Arbeitsalltag verankern (Inhouse)">Inhouse-Termin anfragen</a></span>
+                </div>
+              </fieldset>
+
+              <fieldset class="bk-fieldset">
+                <legend class="bk-legend">Auftraggeber</legend>
+
+                <fieldset class="bk-subgroup">
+                  <legend class="bk-sublegend">Anmeldung als</legend>
+                  <div class="seg seg-ki">
+                  <div class="seg-option">
+                    <input type="radio" id="bk-demo-typ-firma" name="bk-demo-typ" value="firma" data-bk="kundentyp" checked>
+                    <label for="bk-demo-typ-firma">Firma</label>
+                  </div>
+                  <div class="seg-option">
+                    <input type="radio" id="bk-demo-typ-privat" name="bk-demo-typ" value="privat" data-bk="kundentyp">
+                    <label for="bk-demo-typ-privat">Privatperson</label>
+                  </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="bk-subgroup" data-bk="firma-block">
+                  <legend class="bk-sublegend">Firmendaten</legend>
+                <div class="field">
+                  <label for="bk-demo-firma">Firma <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="bk-demo-firma" name="firma" data-bk="firma" placeholder="Musterbau GmbH" data-required required aria-required="true" autocomplete="organization" data-err="Bitte gib den Firmennamen an">
+                </div>
+                <div class="bk-grid-2">
+                  <div class="field">
+                    <label for="bk-demo-abteilung">Abteilung</label>
+                    <input type="text" id="bk-demo-abteilung" name="abteilung" placeholder="Personalentwicklung" autocomplete="organization-title">
+                  </div>
+                  <div class="field">
+                    <label for="bk-demo-ustid">USt-IdNr.</label>
+                    <input type="text" id="bk-demo-ustid" name="ustid" placeholder="DE123456789">
+                    <span class="helper">Nur nötig, wenn wir ins EU-Ausland fakturieren.</span>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="bk-demo-bestellnr">Bestellnummer oder Kostenstelle</label>
+                  <input type="text" id="bk-demo-bestellnr" name="bestellnummer" placeholder="PO-2026-0815">
+                  <span class="helper">Erscheint auf der Rechnung, falls Deine Buchhaltung das verlangt.</span>
+                </div>
+                </fieldset>
+
+                <fieldset class="bk-subgroup">
+                  <legend class="bk-sublegend">Kontaktperson</legend>
+                  <p class="bk-intro">Diese Person erhält Bestätigung und Rechnung. Ob sie selbst teilnimmt, legst Du weiter unten fest.</p>
+                <div class="bk-grid-2">
+                  <div class="field">
+                    <label for="bk-demo-vorname">Vorname <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-vorname" name="vorname" data-bk="kontakt-vorname" placeholder="Maria" required aria-required="true" autocomplete="given-name" data-err="Bitte gib Deinen Vornamen an">
+                  </div>
+                  <div class="field">
+                    <label for="bk-demo-nachname">Nachname <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-nachname" name="nachname" data-bk="kontakt-nachname" placeholder="Müller" required aria-required="true" autocomplete="family-name" data-err="Bitte gib Deinen Nachnamen an">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="bk-demo-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+                  <input type="email" id="bk-demo-email" name="email" data-bk="kontakt-email" placeholder="maria.mueller@unternehmen.de" required aria-required="true" autocomplete="email" data-err="Bitte eine gültige E-Mail-Adresse eingeben">
+                </div>
+                <div class="field">
+                  <label for="bk-demo-tel">Telefon</label>
+                  <input type="tel" id="bk-demo-tel" name="telefon" placeholder="+49 231 1234567" autocomplete="tel">
+                  <span class="helper">Nur für Rückfragen zum Termin.</span>
+                  </div>
+                </fieldset>
+              </fieldset>
+
+              <fieldset class="bk-fieldset">
+                <legend class="bk-legend">Rechnungsanschrift</legend>
+                <p class="bk-intro">Anschrift der buchenden Firma bzw. Person.</p>
+                <div class="field">
+                  <label for="bk-demo-strasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="bk-demo-strasse" name="strasse" placeholder="Pariser Bogen 7" required aria-required="true" autocomplete="street-address" data-err="Bitte gib Straße und Hausnummer an">
+                </div>
+                <div class="bk-grid-plz">
+                  <div class="field">
+                    <label for="bk-demo-plz">PLZ <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-plz" name="plz" inputmode="numeric" placeholder="44269" required aria-required="true" autocomplete="postal-code" data-err="Bitte gib die Postleitzahl an">
+                  </div>
+                  <div class="field">
+                    <label for="bk-demo-ort">Ort <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-ort" name="ort" placeholder="Dortmund" required aria-required="true" autocomplete="address-level2" data-err="Bitte gib den Ort an">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="bk-demo-land">Land</label>
+                  <select id="bk-demo-land" name="land" autocomplete="country-name">
+                    <option selected>Deutschland</option>
+                    <option>Österreich</option>
+                    <option>Schweiz</option>
+                    <option>Anderes Land</option>
+                  </select>
+                </div>
+                <div class="bk-consent">
+                  <input class="t-ki" type="checkbox" id="bk-demo-abweichend" data-bk="rechnung-abweichend" style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
+                  <label for="bk-demo-abweichend">Die Rechnung geht an eine andere Adresse</label>
+                </div>
+
+                <fieldset class="bk-subgroup" data-bk="rechnung-block" hidden>
+                  <legend class="bk-sublegend">Abweichende Rechnungsadresse</legend>
+                <div class="field">
+                  <label for="bk-demo-r-empfaenger">Rechnungsempfänger <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="bk-demo-r-empfaenger" name="rechnung_empfaenger" placeholder="Musterbau GmbH, Zentrale Buchhaltung" data-required autocomplete="section-rechnung organization" data-err="Bitte gib den Rechnungsempfänger an">
+                </div>
+                <div class="field">
+                  <label for="bk-demo-r-strasse">Straße und Hausnummer <span class="req" aria-hidden="true">*</span></label>
+                  <input type="text" id="bk-demo-r-strasse" name="rechnung_strasse" placeholder="Industriestraße 12" data-required autocomplete="section-rechnung street-address" data-err="Bitte gib Straße und Hausnummer an">
+                </div>
+                <div class="bk-grid-plz">
+                  <div class="field">
+                    <label for="bk-demo-r-plz">PLZ <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-r-plz" name="rechnung_plz" inputmode="numeric" placeholder="40213" data-required autocomplete="section-rechnung postal-code" data-err="Bitte gib die Postleitzahl an">
+                  </div>
+                  <div class="field">
+                    <label for="bk-demo-r-ort">Ort <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="bk-demo-r-ort" name="rechnung_ort" placeholder="Düsseldorf" data-required autocomplete="section-rechnung address-level2" data-err="Bitte gib den Ort an">
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="bk-demo-r-email">Rechnungs-E-Mail</label>
+                  <input type="email" id="bk-demo-r-email" name="rechnung_email" placeholder="rechnung@unternehmen.de" autocomplete="section-rechnung email">
+                  <span class="helper">Leer lassen, wenn die Rechnung an die Kontakt-E-Mail gehen soll.</span>
+                  </div>
+                </fieldset>
+              </fieldset>
+
+              <fieldset class="bk-fieldset">
+                <legend class="bk-legend">Teilnehmende</legend>
+                <div class="bk-consent">
+                  <input class="t-ki" type="checkbox" id="bk-demo-selbst" data-bk="selbst-teil" checked style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
+                  <label for="bk-demo-selbst">Ich nehme selbst teil</label>
+                </div>
+                <div class="field bk-count">
+                  <label for="bk-demo-anzahl">Plätze <span class="req" aria-hidden="true">*</span></label>
+                  <input type="number" id="bk-demo-anzahl" name="anzahl" data-bk="anzahl" value="1" min="1" max="12" step="1" inputmode="numeric" required aria-required="true" data-err="Bitte gib eine Zahl zwischen 1 und 12 an">
+                </div>
+                <div class="bk-summary" role="status">
+                  <span data-bk="summary-count">1 Platz</span>
+                  <span class="bk-summary-total" data-bk="summary-total">1.290 € × 1 = 1.290 € zzgl. MwSt.</span>
+                </div>
+                <div data-bk="personen"></div>
+                <template data-bk="person-template">
+                  <fieldset class="bk-person">
+                    <legend class="bk-person-title" data-bk="person-title">Teilnehmende 1</legend>
+                    <button type="button" class="btn btn-text btn-sm btn-ki bk-person-remove" data-bk="remove-person" hidden>Entfernen</button>
+                    <span class="helper bk-person-hint" data-bk="person-hint" hidden>Aus Deinen Kontaktdaten übernommen. Du kannst sie hier überschreiben.</span>
+                    <div class="bk-grid-2">
+                      <div class="field">
+                        <label>Vorname <span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" data-bk="p-vorname" data-ac="given-name" name="tn_vorname[]" placeholder="Maria" required aria-required="true" data-err="Bitte gib den Vornamen an">
+                      </div>
+                      <div class="field">
+                        <label>Nachname <span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" data-bk="p-nachname" data-ac="family-name" name="tn_nachname[]" placeholder="Müller" required aria-required="true" data-err="Bitte gib den Nachnamen an">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>E-Mail <span class="req" aria-hidden="true">*</span></label>
+                      <input type="email" data-bk="p-email" data-ac="email" name="tn_email[]" placeholder="maria.mueller@unternehmen.de" required aria-required="true" data-err="Bitte eine gültige E-Mail-Adresse eingeben">
+                      <span class="helper">Bekommt Unterlagen und Zugangsdaten direkt.</span>
+                    </div>
+                  </fieldset>
+                </template>
+                <button type="button" class="btn btn-outlined btn-sm btn-ki" data-bk="add-person">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                  Weitere Person hinzufügen
+                </button>
+              </fieldset>
+
+              <fieldset class="bk-fieldset">
+                <legend class="bk-legend">Abschluss</legend>
+                <div class="field">
+                  <label for="bk-demo-anmerkung">Anmerkungen</label>
+                  <textarea id="bk-demo-anmerkung" name="anmerkung" rows="3" placeholder="Worauf sollen wir achten?"></textarea>
+                  <span class="helper">Zum Beispiel Ernährungswünsche oder Bedarf an barrierefreiem Zugang.</span>
+                </div>
+                <div class="bk-consent">
+                  <input class="t-ki" type="checkbox" id="bk-demo-agb" data-bk="consent-required" aria-required="true" data-err="Bitte akzeptiere die Teilnahme- und Stornobedingungen" style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
+                  <label for="bk-demo-agb">Ich akzeptiere die <a class="body-link" href="#">Teilnahme- und Stornobedingungen</a>. <span class="req" aria-hidden="true">*</span></label>
+                </div>
+                <div class="bk-consent">
+                  <input class="t-ki" type="checkbox" id="bk-demo-ds" data-bk="consent-required" aria-required="true" data-err="Bitte stimme der Verarbeitung zu" style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
+                  <label for="bk-demo-ds">Ich bin einverstanden, dass meine Angaben zur Abwicklung der Buchung verwendet werden. <a class="body-link" href="#">Datenschutzhinweise</a> <span class="req" aria-hidden="true">*</span></label>
+                </div>
+                <div class="bk-consent bk-consent-optional">
+                  <input class="t-ki" type="checkbox" id="bk-demo-cl" style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
+                  <label for="bk-demo-cl">Schick mir alle drei Monate den Contentletter. Jederzeit abmeldbar.</label>
+                </div>
+                <div class="bk-order">
+                  <p class="bk-order-title">Das buchst Du</p>
+                  <dl class="bk-order-list">
+                    <div><dt>Training</dt><dd>KI im Arbeitsalltag verankern, zwei Tage</dd></div>
+                    <div><dt>Termin</dt><dd data-bk="order-termin" data-empty>Noch nicht gewählt</dd></div>
+                    <div><dt>Auftraggeber</dt><dd data-bk="order-kunde" data-empty>Noch nicht ausgefüllt</dd></div>
+                    <div><dt>Plätze</dt><dd data-bk="order-plaetze">1</dd></div>
+                  </dl>
+                  <div class="bk-order-total">
+                    <span class="bk-order-total-label">Gesamt</span>
+                    <span class="bk-order-total-value" data-bk="order-total">1.290 €</span>
+                  </div>
+                  <p class="bk-order-note" data-bk="order-note">1 × 1.290 €, zzgl. MwSt.</p>
+                </div>
+                <button type="submit" class="btn btn-filled btn-ki btn-full">Zahlungspflichtig buchen</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+<pre class="cb-body"><span class="c">&lt;!-- Bereich am umgebenden Container, nicht am Formular: data-accent tönt .body-link und
+     .t-co im Block auf die Bereichsfarbe. Die .bk-*-Klassen selbst sind bereichsneutral. --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">data-accent</span>=<span class="s">"ki"</span><span class="k">&gt;</span>
+
+<span class="c">&lt;!-- Konfiguration am Formular: Preis pro Platz, Höchstzahl. novalidate, damit die
+     Inline-Meldungen statt der nativen Browser-Bubbles erscheinen. --&gt;</span>
+<span class="k">&lt;form</span> <span class="v">id</span>=<span class="s">"bk-demo"</span> <span class="v">data-booking</span> <span class="v">data-price</span>=<span class="s">"1290"</span> <span class="v">data-max</span>=<span class="s">"12"</span> <span class="v">novalidate</span><span class="k">&gt;</span>
+
+  <span class="c">&lt;!-- Gruppe = eine Entscheidung samt ihrer Folgen. Untergruppen gliedern innerhalb,
+       verschachtelte fieldsets geben Screenreadern die Zugehörigkeit mit. --&gt;</span>
+  <span class="k">&lt;fieldset</span> <span class="v">class</span>=<span class="s">"bk-fieldset"</span><span class="k">&gt;</span>
+    <span class="k">&lt;legend</span> <span class="v">class</span>=<span class="s">"bk-legend"</span><span class="k">&gt;</span>Auftraggeber<span class="k">&lt;/legend&gt;</span>
+
+    <span class="k">&lt;fieldset</span> <span class="v">class</span>=<span class="s">"bk-subgroup"</span><span class="k">&gt;</span>
+      <span class="k">&lt;legend</span> <span class="v">class</span>=<span class="s">"bk-sublegend"</span><span class="k">&gt;</span>Anmeldung als<span class="k">&lt;/legend&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"seg seg-ki"</span><span class="k">&gt;</span>…<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/fieldset&gt;</span>
+
+    <span class="c">&lt;!-- Bedingter Block: hidden statt disabled, und als Untergruppe IN der Gruppe seines
+         Auslösers. data-required markiert die Felder, die nur im eingeblendeten Zustand
+         Pflicht sind; main.js setzt required mit. --&gt;</span>
+    <span class="k">&lt;fieldset</span> <span class="v">class</span>=<span class="s">"bk-subgroup"</span> <span class="v">data-bk</span>=<span class="s">"firma-block"</span> <span class="v">hidden</span><span class="k">&gt;</span>
+      <span class="k">&lt;legend</span> <span class="v">class</span>=<span class="s">"bk-sublegend"</span><span class="k">&gt;</span>Firmendaten<span class="k">&lt;/legend&gt;</span>
+      <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"text"</span> <span class="v">id</span>=<span class="s">"bk-demo-firma"</span> <span class="v">data-required</span>
+             <span class="v">autocomplete</span>=<span class="s">"organization"</span> <span class="v">data-err</span>=<span class="s">"Bitte gib den Firmennamen an"</span><span class="k">&gt;</span>
+    <span class="k">&lt;/fieldset&gt;</span>
+
+    <span class="k">&lt;fieldset</span> <span class="v">class</span>=<span class="s">"bk-subgroup"</span><span class="k">&gt;</span>
+      <span class="k">&lt;legend</span> <span class="v">class</span>=<span class="s">"bk-sublegend"</span><span class="k">&gt;</span>Kontaktperson<span class="k">&lt;/legend&gt;</span>
+      <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-grid-2"</span><span class="k">&gt;</span><span class="c">&lt;!-- kollabiert ≤ 768 px einspaltig --&gt;</span>
+        <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"field"</span><span class="k">&gt;</span>…<span class="k">&lt;/div&gt;</span>
+      <span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/fieldset&gt;</span>
+  <span class="k">&lt;/fieldset&gt;</span>
+
+  <span class="c">&lt;!-- Repeater: Container + template. main.js klont pro Platz einen Block, vergibt
+       id/for und autocomplete-Section nach Position (section-tn1, section-tn2, …). --&gt;</span>
+  <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"number"</span> <span class="v">data-bk</span>=<span class="s">"anzahl"</span> <span class="v">value</span>=<span class="s">"1"</span> <span class="v">min</span>=<span class="s">"1"</span> <span class="v">max</span>=<span class="s">"12"</span> <span class="v">required</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-summary"</span> <span class="v">role</span>=<span class="s">"status"</span><span class="k">&gt;</span>…<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">data-bk</span>=<span class="s">"personen"</span><span class="k">&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;template</span> <span class="v">data-bk</span>=<span class="s">"person-template"</span><span class="k">&gt;</span>
+    <span class="k">&lt;fieldset</span> <span class="v">class</span>=<span class="s">"bk-person"</span><span class="k">&gt;</span><span class="c">&lt;!-- Gruppe, nicht nur Optik --&gt;</span>
+      <span class="k">&lt;legend</span> <span class="v">class</span>=<span class="s">"bk-person-title"</span> <span class="v">data-bk</span>=<span class="s">"person-title"</span><span class="k">&gt;</span>Teilnehmende 1<span class="k">&lt;/legend&gt;</span>
+      <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"text"</span> <span class="v">data-bk</span>=<span class="s">"p-vorname"</span> <span class="v">data-ac</span>=<span class="s">"given-name"</span> <span class="v">required</span><span class="k">&gt;</span>
+    <span class="k">&lt;/fieldset&gt;</span>
+  <span class="k">&lt;/template&gt;</span>
+
+  <span class="c">&lt;!-- Fehlerübersicht am Formularkopf: bekommt nach gescheitertem Submit den Fokus --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-errors"</span> <span class="v">data-bk</span>=<span class="s">"errors"</span> <span class="v">role</span>=<span class="s">"alert"</span> <span class="v">tabindex</span>=<span class="s">"-1"</span> <span class="v">hidden</span><span class="k">&gt;</span>
+    <span class="k">&lt;ul</span> <span class="v">data-bk</span>=<span class="s">"error-list"</span><span class="k">&gt;&lt;/ul&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- Bestellübersicht unmittelbar vor dem Button. Leere Zeilen bleiben stehen und
+       tragen data-empty, statt zu verschwinden. --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-order"</span><span class="k">&gt;</span>
+    <span class="k">&lt;dl</span> <span class="v">class</span>=<span class="s">"bk-order-list"</span><span class="k">&gt;</span>
+      <span class="k">&lt;div&gt;</span><span class="k">&lt;dt&gt;</span>Termin<span class="k">&lt;/dt&gt;</span><span class="k">&lt;dd</span> <span class="v">data-bk</span>=<span class="s">"order-termin"</span> <span class="v">data-empty</span><span class="k">&gt;</span>Noch nicht gewählt<span class="k">&lt;/dd&gt;</span><span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;/dl&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-order-total"</span><span class="k">&gt;</span>…<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+
+  <span class="c">&lt;!-- Pflicht-Checkbox: data-bk="consent-required" + eigene Fehlermeldung. Der verlinkte
+       Hinweis ist ein echter Anker, kein span: sonst ist er nicht per Tab erreichbar und
+       wird nicht als Link angesagt. Im label ist er unkritisch, weil die Label-Aktivierung
+       bei interaktiven Nachfahren nicht läuft (Klick auf den Link togglet nichts). --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"bk-consent"</span><span class="k">&gt;</span>
+    <span class="k">&lt;input</span> <span class="v">type</span>=<span class="s">"checkbox"</span> <span class="v">id</span>=<span class="s">"bk-demo-agb"</span> <span class="v">data-bk</span>=<span class="s">"consent-required"</span>
+           <span class="v">data-err</span>=<span class="s">"Bitte akzeptiere die Teilnahme- und Stornobedingungen"</span><span class="k">&gt;</span>
+    <span class="k">&lt;label</span> <span class="v">for</span>=<span class="s">"bk-demo-agb"</span><span class="k">&gt;</span>Ich akzeptiere die
+      <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"body-link"</span> <span class="v">href</span>=<span class="s">"/teilnahmebedingungen"</span><span class="k">&gt;</span>Teilnahme- und Stornobedingungen<span class="k">&lt;/a&gt;</span>.
+      <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"req"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>*<span class="k">&lt;/span&gt;&lt;/label&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/form&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <h2 id="gt-booking-bedingt" class="group-title">Bedingte Felder</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Zwei Weichen blenden Feldblöcke ein und aus. Beide folgen derselben Mechanik: das <code class="token">hidden</code>-Attribut am Block, <code class="token">data-required</code> an den Feldern, die nur im sichtbaren Zustand Pflicht sind.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Auslöser</th><th>Eingeblendet</th><th>Verhalten</th></tr></thead>
+        <tbody>
+          <tr><td>Segmented Control „Firma"</td><td>Fieldset Firmendaten</td><td>Firma wird Pflichtfeld. Bei „Privatperson" verschwindet der Block samt Fehlerzustand</td></tr>
+          <tr><td>Checkbox „Rechnung geht an eine andere Adresse"</td><td>Fieldset Abweichende Rechnungsadresse</td><td>Empfänger, Straße, PLZ und Ort werden Pflichtfelder</td></tr>
+        </tbody>
+      </table>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Regel</th><th>Begründung</th></tr></thead>
+        <tbody>
+          <tr><td><code class="token">hidden</code> statt <code class="token">disabled</code></td><td>Deaktivierte Felder werden beim Submit nicht mitgesendet und von Screenreadern übersprungen. Ausgeblendete Felder behalten ihren Wert und kommen beim Wiedereinblenden unverändert zurück</td></tr>
+          <tr><td><code class="token">required</code> mitschalten</td><td>Ein unsichtbares Pflichtfeld blockiert die Absendung ohne sichtbare Ursache. <code class="token">data-required</code> ist die Merkmarkierung, <code class="token">required</code> wird beim Einblenden gesetzt und beim Ausblenden entfernt</td></tr>
+          <tr><td>Fehlerzustand beim Ausblenden aufräumen</td><td>Sonst bleibt eine <code class="token">.error-msg</code> im DOM stehen und wird beim nächsten Einblenden erneut angesagt</td></tr>
+          <tr><td>Block liegt <strong>in</strong> der Gruppe seines Auslösers</td><td>Ein bedingter Block ist keine eigene Gruppe, sondern eine <code class="token">.bk-subgroup</code> innerhalb der Gruppe, die ihn schaltet. Als Geschwister-Gruppe mit eigener Trennlinie wirkt er unabhängig, obwohl er ohne seinen Auslöser gar nicht existiert</td></tr>
+          <tr><td>Block bleibt an seiner Position</td><td>Der eingeblendete Block erscheint unter seinem Auslöser, nicht am Formularanfang. Kein Layout-Sprung, kein Suchen</td></tr>
+          <tr><td>Fokus wandert nicht automatisch</td><td>Ein erzwungener Fokussprung nach dem Klick auf eine Checkbox reißt Tastatur- und Screenreader-Nutzende aus dem Kontext. Der nächste <kbd class="a11y-kbd">Tab</kbd> landet ohnehin im neuen Block</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-booking-teilnehmende" class="group-title">Teilnehmende</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Warum die Anzahl ein eigenes Feld ist:</strong> Ein reiner „Weitere Person hinzufügen"-Repeater leitet die Anzahl aus der Listenlänge ab. Für eine Buchung reicht das nicht, weil die Zahl kaufmännisch trägt: Sie bestimmt den Preis und muss gegen das Platzkontingent des Termins validiert werden (<code class="token">min</code>/<code class="token">max</code>). Deshalb ist die Anzahl das führende Feld, die Namensblöcke folgen ihr, und der Hinzufügen-Button erhöht sie, statt sie zu umgehen. So gibt es genau eine Quelle der Wahrheit.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Interaktion</th><th>Verhalten</th></tr></thead>
+        <tbody>
+          <tr><td>Anzahl erhöhen</td><td>Es werden Blöcke am Ende ergänzt. Bereits eingegebene Namen bleiben unberührt</td></tr>
+          <tr><td>Anzahl verringern</td><td>Nur <strong>leere</strong> Blöcke am Ende fallen weg. Enthält einer noch Daten, bleibt die Anzahl stehen und eine <code class="token">.error-msg</code> nennt den betroffenen Block</td></tr>
+          <tr><td>„Weitere Person hinzufügen"</td><td>Erhöht die Anzahl um eins und setzt den Fokus in das erste Feld des neuen Blocks</td></tr>
+          <tr><td>„Entfernen"</td><td>Löscht genau diesen Block, nummeriert die übrigen neu, senkt die Anzahl und setzt den Fokus auf das Anzahl-Feld. Ab zwei Blöcken sichtbar</td></tr>
+          <tr><td>„Ich nehme selbst teil"</td><td>Block 1 übernimmt Vorname, Nachname und E-Mail aus dem Kontakt und folgt weiteren Änderungen, bis der Block von Hand bearbeitet wird. Die Felder bleiben <strong>editierbar</strong>. Solange der Haken sitzt, hat Block 1 keinen Entfernen-Button</td></tr>
+          <tr><td>Preiszeile</td><td><code class="token">.bk-summary</code> mit <code class="token">role="status"</code>. Zeigt Plätze, Einzelpreis und Summe, aktualisiert bei jeder Änderung der Anzahl</td></tr>
+          <tr><td>Blockgrenze</td><td>Jeder Block ist ein <code class="token">&lt;fieldset class="bk-person"&gt;</code> mit <code class="token">&lt;legend&gt;</code>. Ohne diese Gruppe hört ein Screenreader dreimal nur „Vorname", ohne zu wissen, zu wem</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Warum keine Auto-Nummerierung per CSS-Counter:</strong> Die Blocknummer steckt nicht nur in der Überschrift, sondern auch in <code class="token">id</code>, <code class="token">for</code> und der <code class="token">autocomplete</code>-Section. Beim Entfernen eines mittleren Blocks werden alle drei über <code class="token">renumber()</code> neu vergeben, während die Feldwerte mit ihrem DOM-Knoten mitwandern. Es wird nichts umkopiert, deshalb kann dabei auch nichts verloren gehen.</p>
+
+      <h2 id="gt-booking-validierung" class="group-title">Validierung &amp; Barrierefreiheit</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Das Formular nutzt dasselbe Muster wie die <a class="body-link" href="#sec-inputs">Kontaktformulare</a>: <code class="token">novalidate</code> unterdrückt die nativen Bubbles, geprüft wird beim Submit, Fehler erscheinen als <code class="token">.field.has-error</code> plus <code class="token">.error-msg</code> mit <code class="token">role="alert"</code> unter dem Feld, der Fokus springt auf das erste ungültige Feld. Die Helfer <code class="token">setError()</code> und <code class="token">clearError()</code> in <code class="token">main.js</code> sind für Kontakt- und Buchungsformular dieselben.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Feldspezifische Meldungen:</strong> Jedes Pflichtfeld trägt sein <code class="token">data-err</code> im Markup („Bitte gib den Ort an" statt „Dieses Feld ist erforderlich"). Bei einem Formular dieser Länge ist eine generische Meldung wertlos, sobald mehrere Fehler gleichzeitig stehen. Ausgeblendete Blöcke werden übersprungen, geprüft wird nur, was sichtbar ist.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px"><strong>Fehlerübersicht statt Alert-Salve:</strong> Das kurze Kontaktformular gibt jeder Meldung ein <code class="token">role="alert"</code>, bei drei Feldern funktioniert das. Hier entstehen bei einem leeren Submit über zehn Meldungen gleichzeitig, und gleichzeitig eingefügte Alerts ergeben beim Screenreader eine unbrauchbare Ansage. Deshalb sammelt <code class="token">.bk-errors</code> am Formularkopf alle Fehler als Sprungliste, trägt selbst das <code class="token">role="alert"</code> und bekommt den Fokus. Die Meldungen am Feld bleiben über <code class="token">aria-describedby</code> verbunden und werden beim Fokussieren gelesen, tragen aber <strong>kein</strong> eigenes <code class="token">role="alert"</code> mehr (Parameter <code class="token">quiet</code> an <code class="token">setError()</code>). Sehende Nutzende bekommen damit zusätzlich das, was der Fokussprung allein nie liefert: den Überblick, wie viel noch fehlt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Nachvalidierung:</strong> Erst geprüft wird beim Absenden, nicht beim Tippen, damit niemand beim Ausfüllen angemeckert wird. Nach einem gescheiterten Submit kippt das Formular in den Nachvalidierungs-Modus: Jede Korrektur räumt die Meldung am Feld und den zugehörigen Eintrag in der Übersicht sofort weg. Ein Fehler, der trotz Korrektur stehen bleibt, ist die häufigste Frustquelle in langen Formularen.</p>
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)">
+        <div class="doc-eyebrow">Barrierefreiheit</div>
+        <table class="a11y-table">
+          <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+          <tbody>
+            <tr><td>Gruppierung</td><td>Jeder Abschnitt <strong>und jeder Teilnehmendenblock</strong> ist ein <code class="token">&lt;fieldset&gt;</code> mit <code class="token">&lt;legend&gt;</code>. Screenreader sagen die Gruppe vor dem Feld an, dadurch bleibt „Vorname" in Block 3 unterscheidbar von „Vorname" im Kontakt. Ohne die Gruppe hört man dieselben drei Labels beliebig oft ohne Bezug</td></tr>
+            <tr><td>Pflicht-Checkboxen</td><td><code class="token">aria-required="true"</code> an der Box selbst. Das sichtbare <code class="token">*</code> im Label ist <code class="token">aria-hidden</code>, ohne das Attribut wäre die Pflicht rein optisch</td></tr>
+            <tr><td>Verlinkte Bestätigungen</td><td>Teilnahmebedingungen und Datenschutzhinweise sind echte <code class="token">&lt;a class="body-link"&gt;</code> im Label, kein <code class="token">&lt;span&gt;</code>. Systemweite Regel für alle Einwilligungen, siehe <a class="body-link" href="#gt-inputs-verwendung">Inputs &amp; Forms · Link im Label</a></td></tr>
+            <tr><td>Fehlerübersicht</td><td><code class="token">.bk-errors</code> mit <code class="token">role="alert"</code> und <code class="token">tabindex="-1"</code>, wird nach einem gescheiterten Submit fokussiert. Die Einträge sind Sprunglinks auf das jeweilige Feld</td></tr>
+            <tr><td>Autofill</td><td>Durchgängige <code class="token">autocomplete</code>-Tokens. Die abweichende Rechnungsadresse trägt <code class="token">section-rechnung</code>, jeder Teilnehmendenblock <code class="token">section-tn1</code>, <code class="token">section-tn2</code> und so weiter, damit der Browser die Blöcke nicht gegenseitig überschreibt (WCAG 1.3.5)</td></tr>
+            <tr><td>Anzahl und Preis</td><td><code class="token">.bk-summary</code> trägt <code class="token">role="status"</code>. Jede Änderung von Anzahl, Termin oder Personenliste wird dadurch angesagt, ohne den Fokus zu stören</td></tr>
+            <tr><td>Fokusführung</td><td>Hinzufügen setzt den Fokus in den neuen Block, Entfernen zurück auf das Anzahl-Feld. Nie ins Leere, nie auf <code class="token">&lt;body&gt;</code></td></tr>
+            <tr><td>Entfernen-Button</td><td><code class="token">aria-label="Teilnehmende 3 entfernen"</code>, weil „Entfernen" allein in einer Liste gleichlautender Buttons mehrdeutig ist</td></tr>
+            <tr><td>Pflichtfelder</td><td>Sichtbares <code class="token">*</code> (<code class="token">aria-hidden</code>) plus <code class="token">aria-required="true"</code>. Der Hinweis „Mit * markierte Felder sind Pflichtfelder" steht vor dem ersten Feld</td></tr>
+            <tr><td>Bestellübersicht</td><td>Bewusst ohne <code class="token">role="status"</code>. Sie fasst nur zusammen, was im Formular schon steht; als Live-Region würde jede Eingabe doppelt angesagt. Semantisch eine <code class="token">&lt;dl&gt;</code>, damit Bezeichnung und Wert paarweise gelesen werden</td></tr>
+            <tr><td>Erfolgszustand</td><td><code class="token">.bk-success</code> mit <code class="token">role="status"</code> und <code class="token">tabindex="-1"</code>, wird nach dem Absenden fokussiert. Das Formular geht auf <code class="token">hidden</code></td></tr>
+            <tr><td>Touch &amp; Tastatur</td><td>Alle Felder und Buttons ≥ 44 px hoch, native Radios und Checkboxen mit <code class="token">accent-color</code>, Fokusring über <code class="token">--focus-ring</code>. Das Anzahl-Feld ist ein natives <code class="token">&lt;input type="number"&gt;</code> mit Pfeiltasten-Bedienung</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="gt-booking-flow" class="group-title">Anfrage oder Direktbuchung</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Im System gibt es zwei Wege, wie aus Interesse ein Termin wird. Sie schließen sich nicht aus, sie gehören zu unterschiedlichen Angeboten. Die Entscheidung fällt am Angebot, nicht am Formular.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Kriterium</th><th>Anfrage (<a class="body-link" href="#sec-examples" data-ep="kontakt">adaptive Kontaktseite</a>)</th><th>Direktbuchung (dieses Formular)</th></tr></thead>
+        <tbody>
+          <tr><td>Preis</td><td>individuell, wird im Gespräch bestimmt</td><td>fester Listenpreis pro Platz, sofort berechenbar</td></tr>
+          <tr><td>Verfügbarkeit</td><td>offen, Termin entsteht erst</td><td>feste Durchführungen mit Platzkontingent</td></tr>
+          <tr><td>Rechtsfolge</td><td>unverbindlich</td><td>verbindlich, Submit-Label benennt die Zahlungspflicht</td></tr>
+          <tr><td>Datenbedarf</td><td>Name, E-Mail, Anliegen</td><td>zusätzlich Rechnungsanschrift und Teilnehmendenliste</td></tr>
+          <tr><td>Typische Fälle</td><td>Inhouse-Training, Beratung, Workshop nach Zuschnitt</td><td>offenes Seminar mit veröffentlichter Terminliste</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Die <a class="body-link" href="#sec-examples" data-ep="seminar">Beispielseite Seminar</a> bleibt bewusst beim Anfrage-Flow: Die Termin-Zeilen führen über <code class="token">data-k-bereich</code> und <code class="token">data-k-anliegen</code> auf die Kontaktseite. Das Buchungsformular ist die Variante für Angebote, bei denen Preis und Kontingent feststehen. Wird ein Angebot umgestellt, wandert der Termin-Button vom Kontakt-Link auf einen In-Page-Anker zum Formular, und die Termin-Auswahl wird aus dem Button vorbelegt.</p>
+
+      <h2 id="gt-booking-produktion" class="group-title">Für die Umsetzung</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Die Demo oben ist vollständig bedienbar, aber ein Mockup ohne Backend. Wer die Komponente in die echte Site überführt, ob Mensch oder Assistent, braucht die folgenden Punkte. Sie sind bewusst als Anforderungen formuliert, nicht als Ideen.</p>
+
+      <div class="doc-eyebrow">Wichtigster Punkt: Schutz gegen Datenverlust</div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Ein ausgefülltes Formular enthält hier bis zu zwölf Teilnehmende mit je drei Feldern, dazu Kontakt und zwei Anschriften. Ein versehentliches Zurück, ein geschlossener Tab oder ein abgestürzter Browser wirft alles weg. Das Formular hat <strong>keinen Zwischenspeicher</strong>, weil das Mockup keinen hat. In Produktion ist er Pflicht, nicht optional.</p>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Anforderung</th><th>Umsetzung</th></tr></thead>
+        <tbody>
+          <tr><td>Entwurf laufend sichern</td><td>Bei jedem <code class="token">input</code> und <code class="token">change</code> den Formularstand entprellt (etwa 500&nbsp;ms) unter einem stabilen Schlüssel ablegen, zum Beispiel <code class="token">booking-draft:&lt;formular-id&gt;</code>. Struktur: ein Objekt mit den Feldwerten plus der Teilnehmendenzahl, damit die Blöcke beim Wiederherstellen in der richtigen Anzahl entstehen.</td></tr>
+          <tr><td>Wo ablegen</td><td><code class="token">sessionStorage</code> für den laufenden Tab. <code class="token">localStorage</code> nur, wenn der Entwurf einen Browserneustart überleben soll, dann mit Ablaufdatum. <strong>Keine</strong> Zahlungs- oder Ausweisdaten (die erhebt dieses Formular auch nicht), und Namen und Anschriften sind personenbezogen: Aufbewahrungsdauer und Rechtsgrundlage vorher mit dem internen Datenschutzbeauftragten klären (Michael Didion / Harry Ursinus, datenschutz@conciso.de).</td></tr>
+          <tr><td>Wiederherstellen mit Ansage</td><td>Beim Laden nicht still befüllen. Einen Hinweis über dem Formular zeigen („Wir haben Deine Eingaben von vorhin wiederhergestellt.") mit der Möglichkeit, den Entwurf zu verwerfen. Stilles Vorbefüllen verwirrt, wenn jemand bewusst neu anfangen will.</td></tr>
+          <tr><td>Entwurf verwerfen</td><td>Nach erfolgreichem Submit den Schlüssel löschen, sonst taucht die alte Buchung bei der nächsten wieder auf.</td></tr>
+          <tr><td>Warnung beim Verlassen</td><td><code class="token">beforeunload</code> nur registrieren, solange es ungespeicherte Änderungen gibt, und nach dem Submit wieder abmelden. Eine Warnung auf einem leeren oder bereits abgesendeten Formular ist reine Belästigung.</td></tr>
+          <tr><td>Reihenfolge beim Wiederherstellen</td><td>Erst Kundentyp und die Checkbox für die abweichende Rechnungsadresse setzen, dann die bedingten Blöcke einblenden, dann die Anzahl setzen (das erzeugt die Teilnehmendenblöcke), erst danach die Werte der Personen eintragen. In anderer Reihenfolge schreibt man in Felder, die es noch nicht gibt.</td></tr>
+          <tr><td>Nicht mit „Ich nehme selbst teil" kollidieren</td><td>Die Übernahme aus den Kontaktdaten läuft nur, solange ein Feld nicht von Hand bearbeitet wurde. Beim Wiederherstellen deshalb auch dieses Merkmal mitsichern, sonst überschreibt die Automatik wiederhergestellte Namen.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="doc-eyebrow">Weitere Anforderungen an die echte Umsetzung</div>
+      <table class="doc-table" style="margin-bottom:var(--s6)">
+        <thead><tr><th>Thema</th><th>Anforderung</th></tr></thead>
+        <tbody>
+          <tr><td>Serverseitige Validierung</td><td>Die Prüfungen im Browser sind Komfort, keine Absicherung. Jede Regel muss serverseitig gespiegelt werden, inklusive der bedingten Pflichtfelder: Firma nur bei Kundentyp „Firma", die abweichende Rechnungsadresse nur bei gesetzter Checkbox.</td></tr>
+          <tr><td>Platzkontingent</td><td><code class="token">data-max</code> ist im Mockup fest. Real kommt die Obergrenze pro Termin aus dem Backend und muss beim Submit erneut geprüft werden, weil zwischen Laden und Absenden Plätze weggehen können. Ausverkaufte Termine gehören nicht in den Select.</td></tr>
+          <tr><td>Doppelte Buchungen</td><td>Submit-Button nach dem ersten Klick sperren und die Anfrage mit einem Idempotenzschlüssel versehen. Ein zahlungspflichtiger Vorgang darf durch einen Doppelklick nicht zweimal entstehen.</td></tr>
+          <tr><td>Preis</td><td><code class="token">data-price</code> ist Anzeige, nie Berechnungsgrundlage. Die Summe entsteht serverseitig aus dem Termin.</td></tr>
+          <tr><td>Bestellübersicht</td><td>Die Übersicht über dem Button zeigt Leistung, Termin, Auftraggeber, Plätze und Gesamtbetrag. Welche Angaben bei einer zahlungspflichtigen Buchung zwingend unmittelbar vor dem Absenden stehen müssen, vor dem Livegang rechtlich prüfen lassen.</td></tr>
+          <tr><td>Ziele der Rechtstexte</td><td>Die beiden Consent-Links tragen in der Demo <code class="token">href="#"</code> als Platzhalter. Real zeigen sie auf die veröffentlichten Seiten (Teilnahme- und Stornobedingungen, Datenschutzhinweise) und öffnen sie so, dass das ausgefüllte Formular nicht verloren geht: entweder <code class="token">target="_blank"</code> mit <code class="token">rel="noopener"</code> oder ein Overlay. Ein Wegnavigieren mitten im Formular wirft ohne Zwischenspeicher alles weg.</td></tr>
+          <tr><td>Bereichsfarbe</td><td>Der Bereich sitzt als <code class="token">data-accent="ki|es|wo"</code> am Container um das Formular, nicht am Formular selbst und nicht an den einzelnen Elementen (siehe <a class="body-link" href="#gt-areas-komponenten">Bereichs-Akzent</a>). Damit tönen Helper- und Consent-Links mit, in beiden Modi. Buttons und Segmented Control bleiben klassenbasiert (<code class="token">.btn-ki</code>, <code class="token">.seg-ki</code>).</td></tr>
+          <tr><td>Spam</td><td>Kein sichtbares Captcha als erste Wahl. Zeitmessung und ein verstecktes Honeypot-Feld reichen für ein Formular dieser Länge meist aus und kosten keine Barrierefreiheit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-booking-verwendung" class="group-title">Verwendung</h2>
+      <div class="doc-eyebrow">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Anzahl und Namensblöcke synchron halten, mit der Anzahl als einziger Quelle der Wahrheit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bedingte Blöcke ein- und ausblenden statt Felder zu deaktivieren, und <code class="token">required</code> mitschalten</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Rechnungsanschrift des Anmelders als Standard setzen, die Abweichung als Opt-in anbieten</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Das Submit-Label die Rechtsfolge benennen lassen, hier „Zahlungspflichtig buchen"</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Jedem Pflichtfeld eine eigene Fehlermeldung über <code class="token">data-err</code> geben</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ab etwa fünf Pflichtfeldern eine Fehlerübersicht zeigen und sie fokussieren, statt nur auf das erste Feld zu springen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Fehler beim Korrigieren sofort wieder wegräumen, am Feld und in der Übersicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Gruppenüberschrift und Feldlabel typografisch klar trennen, sonst ist die Gliederung nur semantisch da</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Gruppe = eine Entscheidung samt ihrer Folgen, nicht ein Themenwort</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vor dem zahlungspflichtigen Button zusammenfassen, was gebucht wird, nicht nur den Betrag</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Bereich einmal über <code class="token">data-accent</code> am umgebenden Container setzen, dann tönen auch die Links im Formular mit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Verlinkte Rechtstexte in den Bestätigungen als echten <code class="token">&lt;a&gt;</code> auszeichnen</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Anzahl reduzieren und dabei ausgefüllte Namensblöcke still verwerfen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Teilnehmendenblock 1 nach „Ich nehme selbst teil" auf <code class="token">disabled</code> setzen, die Werte gingen beim Submit verloren</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Firmen- und Rechnungsfelder auch Privatpersonen zeigen, nur mit „(optional)" entschärft</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Unverbindliche Anfrage und zahlungspflichtige Buchung in einem Formular mischen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Das Formular in einen Stepper zerlegen, nur um es kürzer wirken zu lassen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ein Dutzend Meldungen mit <code class="token">role="alert"</code> gleichzeitig einfügen, das ergibt eine unverständliche Ansage</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Teilnehmendenblöcke nur optisch durch eine Überschrift trennen, ohne <code class="token">&lt;fieldset&gt;</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Pflichtsternchen und „(optional)" gleichzeitig setzen, eine der beiden Auszeichnungen reicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ein freiwilliges Marketing-Häkchen optisch gleichrangig unter die Pflicht-Bestätigungen setzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Trennlinie zwischen eine Weiche und die Felder legen, die sie schaltet</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Einzelnen Links im Formular eine Inline-Bereichsfarbe geben, das bricht im Dark Mode</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den verlinkten Rechtstext als <code class="token">&lt;span&gt;</code> mit <code class="token">cursor:pointer</code> bauen, er ist dann für Tastatur und Screenreader kein Link</span></li>
+          </ul>
+        </div>
+      </div>
+
     </section>
 
     <!-- ═══ CARDS ═══ -->
@@ -6247,7 +6912,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       </div>
       <div class="contrast-row">
         <div class="cswatch" style="background:#FF8E8E;color:#220808">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-error</code> #FF8E8E auf #333E48</div><div class="cratio">4.9:1, ✕-Marker, Inline-Fehlertext, Required-Asterisks · Light-Pendant: <code class="token">#B22020</code> (6.73:1 ✓)</div></div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-error</code> #FFA5A5 auf #333E48</div><div class="cratio">5.9:1, ✕-Marker, Inline-Fehlertext, Required-Asterisks · auf dem helleren bg-surface 4.8:1 (dort sitzt der Fehlertext meist) · angehoben von #FF8E8E, das auf bg-surface nur 4.0:1 erreichte · Light-Pendant: <code class="token">#B22020</code> (6.73:1 ✓)</div></div>
         <span class="cbadge c-aa">AA ✓</span>
       </div>
 
@@ -7851,6 +8516,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <h2 id="gt-seminar-termine" class="group-title">Termine-Modul</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Beliebig wiederholbare Termin-Zeile (<code class="token">&lt;li&gt;</code>) mit linker Bereichs-Akzentleiste. Der Anmeldebutton führt auf die <a class="body-link" href="#sec-examples" data-ep="kontakt">adaptive Kontaktseite</a> mit vorbelegtem Bereich und Anliegen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Anfrage statt Direktbuchung:</strong> Das ist hier bewusst so, weil Seminartermine bei uns oft im Gespräch entstehen. Steht bei einem Angebot der Preis pro Platz fest und ist das Kontingent bekannt, gehört stattdessen das <a class="body-link" href="#sec-booking">Buchungsformular</a> auf die Seite; die Abwägung zwischen beiden Wegen steht dort unter „Anfrage oder Direktbuchung".</p>
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Element</th><th>Umsetzung</th></tr></thead>
         <tbody>
@@ -13178,7 +13844,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         </div>
         <!-- Die Ausgangslage: Intro mit Bild -->
         <div class="ep-section" style="background:var(--n-50)">
-          <div class="layout-grid" style="align-items:center">
+          <div class="layout-grid" style="align-items:stretch">
             <div class="col-7">
               <div class="ep-section-label t-es">Die Ausgangslage</div>
               <p style="font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s5)">Authentifizierung ist kein Randthema. Sie entscheidet über den Schutz eurer Daten.</p>
@@ -13189,7 +13855,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-5">
-              <img src="assets/images/security-keycloak.jpg" alt="Laptop neben einem USB-Sicherheitsschlüssel mit Schlüssel-Symbol" loading="lazy" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center 62%;border-radius:var(--r-lg)">
+              <img src="assets/images/security-keycloak.jpg" alt="Laptop neben einem USB-Sicherheitsschlüssel mit Schlüssel-Symbol" loading="lazy" style="width:100%;height:100%;aspect-ratio:3/2;object-fit:cover;object-position:center 62%;border-radius:var(--r-lg)">
             </div>
           </div>
         </div>
@@ -14505,7 +15171,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Lead</p>
-                <p style="font:var(--ty-title-md);color:var(--tx-primary);margin:0 0 4px">Marc Hoffmann</p>
+                <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Marc Hoffmann</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">Senior Software Engineer · Conciso</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Marc baut seit acht Jahren Integrations-Pipelines für mittelständische Engineering-Teams. n8n ist sein Werkzeug seit Version 0.140; beim Fokusevent ordnet er die Plattform ein und erzählt, wo der Hype trägt und wo nicht.</p>
               </div>
@@ -14516,7 +15182,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div>
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Co-Host</p>
-                <p style="font:var(--ty-title-md);color:var(--tx-primary);margin:0 0 4px">Stefan Klein</p>
+                <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Stefan Klein</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">DevOps & Platform Engineer · Conciso</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Stefan hat unsere internen n8n-Workflows aufgebaut und an mehreren selbst entwickelten n8n-Nodes mitgearbeitet. Im Fokusevent zeigt er, was in der Praxis tatsächlich Zeit spart und wo Vorsicht angebracht ist.</p>
               </div>

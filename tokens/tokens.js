@@ -145,8 +145,8 @@ export const tokens = {
   "bd": "1px solid #E8EDED",
   "bd-strong": "1px solid #C9D3D3",
   "field-border": "#6E8585",
-  "focus-ring": "0 0 0 3px #E0F7F7,0 0 0 5px #00BEBE",
-  "focus-aa": "0 0 0 2px #FFFFFF,0 0 0 4px #00BEBE"
+  "focus-ring": "0 0 0 3px #E0F7F7,0 0 0 5px #007575",
+  "focus-aa": "0 0 0 2px #FFFFFF,0 0 0 4px #007575"
 };
 
 export const darkTokens = {
@@ -175,7 +175,7 @@ export const darkTokens = {
   "c-error-bg": "#220808",
   "c-success": "#5CE8A0",
   "c-warning": "#F0C060",
-  "c-error": "#FF8E8E",
+  "c-error": "#FFA5A5",
   "co-50": "#16302E",
   "ki-50": "#2A3411",
   "wo-50": "#18301C",

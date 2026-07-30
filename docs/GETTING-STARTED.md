@@ -86,12 +86,12 @@ Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`
 Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktioniert **komplett ohne JS**. JS wird nur für interaktive Muster gebraucht:
 
 - **Theme-Toggle** (Umschalt-Button + Persistenz)
-- **Topnav-Dropdowns** (klick-basiertes Disclosure-Menü: `aria-expanded`, Escape, Pfeiltasten, Außenklick)
+- **Topnav-Dropdowns** (Disclosure-Menü: Öffnen per Klick/Tap, Tastatur oder Hover; `aria-expanded`, Escape, Pfeiltasten, Außenklick)
 - **Back-to-Top-Button**
 
 Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
 
-> Topnav-Dropdowns sind bewusst **klick-only** (kein Hover-Öffnen) — barrierefrei und ohne „zwei Menüs gleichzeitig offen".
+> Topnav-Dropdowns öffnen per Klick/Tap, Tastatur und (auf `pointer:fine`) per Hover. Der Reveal hängt immer an `.is-open` (nie an reinem CSS-`:hover`), `aria-expanded` läuft mit, und es ist nie mehr als ein Menü gleichzeitig offen. Der Label-Klick navigiert weiterhin direkt zur Übersicht.
 
 ## 5. Erste Beispiele
 

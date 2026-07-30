@@ -198,7 +198,9 @@
      Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
   --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
   --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
-  --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
+  --c-error:#FFA5A5;    /* auf bg-page: 5.9:1 ✓ AA · auf bg-surface: 4.8:1 ✓ AA. Angehoben von
+                           #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
+                           erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
   /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
      Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
      (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
@@ -400,6 +402,13 @@
 [data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
+/* Dark-only: .ep-compare nutzt rohes --ki-800 (flippt nicht) für Summary, ✓-Glyph und Pro-Header
+   → dunkel-auf-dunkel: ❌ ki-800 #475705 auf bg-page/ki-50 #2A3411. Auf helle ki-Töne heben ✓,
+   analog .ep-feature-icon/.ep-tier-label. (Light: ki-800/ki-900 bleiben.) */
+[data-theme="dark"] .ep-compare-summary { color: var(--ki-200) }
+[data-theme="dark"] .ep-compare-summary:hover { color: var(--ki-100) }
+[data-theme="dark"] .ep-compare-yes { color: var(--ki-100) }
+[data-theme="dark"] .ep-compare-table thead .ep-compare-pro { color: var(--ki-100) }
 /* Testimonial-Zitatzeichen: --t-accent (-500) bei opacity .2 verschwindet im Dark auf der
    bg-surface-Karte (perzeptuell schwach, es-500 zudem zu dunkel). Im Dark auf den helleren -300-Ton
    + opacity .6 → erkennbarer, aber weiterhin dezenter Flourish (2,1–3,4:1, gleichmäßig über alle Bereiche). */
@@ -495,8 +504,14 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
-/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
-[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
+/* Segmented Control (dark): die dunkle -700/-800-Füllung würde auf dunklem Grund nicht heraustreten
+   → helle -300-Füllung mit dunklem -900-Text (Corporate: #4DD0D0 ~4,7:1 gg. inaktive Segmente,
+   Text ~9,9:1). Die Bereichs-Varianten brauchen eigene Dark-Regeln, weil [data-theme] .seg
+   spezifischer ist als .seg-ki allein und die Light-Variante sonst überschreiben würde. */
+[data-theme="dark"] .seg    { --seg-fill: var(--co-300); --seg-on: var(--co-900) }
+[data-theme="dark"] .seg-ki { --seg-fill: var(--ki-300); --seg-on: var(--ki-900) }
+[data-theme="dark"] .seg-es { --seg-fill: var(--es-300); --seg-on: var(--es-900) }
+[data-theme="dark"] .seg-wo { --seg-fill: var(--wo-300); --seg-on: var(--wo-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
@@ -522,6 +537,12 @@
 [data-theme="dark"] [data-accent="wo"] .body-link { color: var(--wo-200) }
 [data-theme="dark"] [data-accent] .footer .body-link { color: var(--co-200) }
 [data-theme="dark"] [data-accent] .ep-topnav .t-co { color: var(--co-200) }
+/* Dark-only: Hover-Zustände mit --co-700 auf theme-awarem tx-primary-Text (Footer-Link, Article-TOC)
+   → im Dark wäre der Hover dunkler statt heller: ❌ co-700 auf bg-page. Hover-Akzent auf --co-200 heben ✓,
+   analog .body-link:hover. (Light: co-700 bleibt.) */
+[data-theme="dark"] .footer-link:hover { color: var(--co-200) }
+[data-theme="dark"] .article-toc-summary:hover,
+[data-theme="dark"] .article-toc-list a:hover { color: var(--co-200) }
 
 /* ── Cards ── */
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
@@ -987,13 +1008,20 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
    clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
    dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+/* Bereichs-Varianten wie bei .btn: Default ist Corporate, .seg-ki/-es/-wo überschreiben die
+   Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
+   seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area"
+   widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
+.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
+.seg-ki{--seg-fill:var(--ki-800)}
+.seg-es{--seg-fill:var(--es-700)}
+.seg-wo{--seg-fill:var(--wo-700)}
 .seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
 .seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
 .seg-option input{position:absolute;width:1px;height:1px;opacity:0}
 .seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.seg-option input:checked + label{background:var(--co-700);color:#fff}
+.seg-option input:checked + label{background:var(--seg-fill);color:var(--seg-on)}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
@@ -1145,9 +1173,109 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* Such-Feld (inline gestyltes input[type=search]): Placeholder explizit auf tx-secondary statt
    UA-Default — theme-aware und lesbar in beiden Modi (Light 6,3:1 / Dark 4,9:1). */
 [role="search"] input::placeholder{color:var(--tx-secondary)}
-.field.has-error input{border-color:var(--c-error)}
-.helper{font:var(--ty-body-xs);color:var(--tx-muted);margin-top:var(--s1)}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
+/* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
+   --bg-surface, dort erreicht --tx-muted im Dark Mode nur 4,1:1 und verfehlt AA für Kleintext
+   (siehe Kontrast-Tabelle in der Doku). --tx-secondary liegt bei 6,3:1 Light / 4,9:1 Dark. */
+.helper{font:var(--ty-body-xs);color:var(--tx-secondary);margin-top:var(--s1)}
 .error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
+
+/* ── Buchungsformular ──
+   Komposition aus .field-Feldern für verbindliche Buchungen (Seminartermin, Platzkontingent).
+   Neu gegenüber der Standard-Form: Fieldset-Gliederung, bedingte Blöcke (hidden-Attribut, kein
+   disabled), ein Teilnehmenden-Repeater und eine Live-Preiszeile. Bereichsfarbe kommt von außen
+   (.btn-wo, accent-color), die Klassen selbst bleiben bereichsneutral. */
+.bk-fieldset{border:0;padding:0;margin:0 0 var(--s8);min-inline-size:0}
+/* Trennlinie nur zwischen den Gruppen oberster Ebene, nicht vor der ersten. Der Kindselektor ist
+   wichtig: Untergruppen liegen innerhalb einer Gruppe und dürfen keine Linie bekommen, sonst
+   trennt sie die Linie von der Entscheidung, zu der sie gehören. */
+[data-booking] > .bk-fieldset + .bk-fieldset{border-top:var(--bd);padding-top:var(--s8)}
+/* Untergruppe: gliedert innerhalb einer Gruppe (Radio-Gruppe, bedingter Block) und trägt deshalb
+   ein Label auf Feldebene statt einer Überschrift. Kein Rahmen, keine Linie, nur Abstand. */
+.bk-subgroup{border:0;padding:0;margin:0 0 var(--s6);min-inline-size:0}
+.bk-subgroup[hidden]{display:none}
+.bk-subgroup:last-child{margin-bottom:0}
+/* Mittlere Stufe: 14 px halbfett, gemischte Schreibweise, --tx-primary. Damit sind drei Ebenen
+   unterscheidbar (20 px Gruppe / 14 px Untergruppe / 12 px Versal-Feldlabel). Dieselben Versalien
+   wie beim Feldlabel zu nehmen wäre derselbe Fehler wie vorher, nur eine Ebene tiefer. */
+.bk-sublegend{display:block;font:var(--ty-name);color:var(--tx-primary);padding:0;margin-bottom:var(--s3)}
+.bk-fieldset::after{content:"";display:block;clear:both}
+/* Gruppenüberschrift eine echte Stufe über dem Feldlabel: 20 px, gemischte Schreibweise,
+   --tx-primary gegen 12 px Versalien in --tx-secondary. Vorher waren beide typografisch
+   identisch, dadurch war die Fieldset-Gliederung semantisch da, aber optisch unsichtbar.
+   float statt display:block, weil ein gefloatetes <legend> nicht mehr in die obere Rahmenkante
+   gerendert wird und die Trennlinie deshalb durchgehend bleibt. */
+.bk-legend{float:left;width:100%;font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s4);padding:0}
+/* Ohne clear würde das erste Element der Gruppe neben dem 100 % breiten Float landen und sein
+   Label auf null Breite gequetscht. Alle Geschwister, nicht nur das erste: der absolut positionierte Entfernen-Button steht
+   dazwischen und nimmt kein clear an. */
+.bk-legend ~ *{clear:both}
+.bk-intro{font:var(--ty-body-sm);color:var(--tx-secondary);margin:calc(-1 * var(--s2)) 0 var(--s4)}
+/* Zweispalter, die auf Mobile einspaltig werden (der Inline-Zweispalter älterer Formulare tut das nicht). */
+.bk-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)}
+.bk-grid-plz{display:grid;grid-template-columns:minmax(96px,1fr) 2fr;gap:0 var(--s4)}
+/* Nur das Eingabefeld ist schmal, nicht der ganze .field-Wrapper: sonst würde die
+   Fehlermeldung darunter in eine 140-px-Spalte gequetscht. */
+.bk-count input{max-width:140px}
+/* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3"
+   ansagen und „Vorname" nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
+   sonst entsteht im Dark Mode eine dritte Flächenstufe über .bg-page < .bg-surface. */
+.bk-person{position:relative;border:var(--bd);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
+.bk-person > .field:last-of-type{margin-bottom:0}
+.bk-person::after{content:"";display:block;clear:both}
+/* Wie .bk-legend gefloatet, damit die Legende in den Innenabstand rutscht statt in die
+   Rahmenkante. Nur so liegt der Entfernen-Button auf einer Linie mit „Teilnehmende N" und
+   nicht neben dem ersten Feldlabel, wo er wie dessen Aktion aussieht. */
+.bk-person-title{float:left;width:100%;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0;margin-bottom:var(--s4)}
+.bk-person-title ~ *{clear:both}
+/* Absolut positioniert, weil <legend> das erste Kind des Fieldsets bleiben muss und sich
+   deshalb nicht mit dem Button in eine Flex-Zeile setzen lässt.
+   Achtung: jede Autorenregel mit display schlägt das hidden-Attribut (hier .btn{display:inline-flex}),
+   deshalb muss [hidden] explizit zurückgenommen werden. Gilt genauso für .bk-person-hint und
+   .bk-success. Wer im DS mit hidden arbeitet, braucht diese Zeile. */
+.bk-person-remove{position:absolute;top:var(--s3);right:var(--s4)}
+.bk-person-remove[hidden]{display:none}
+.bk-person-hint{display:block;margin:0 0 var(--s4)}
+.bk-person-hint[hidden]{display:none}
+/* Fehlerübersicht am Formularkopf: Sprungliste statt einer Salve gleichzeitiger Alerts. */
+.bk-errors{border:2px solid var(--c-error);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)}
+.bk-errors[hidden]{display:none}
+.bk-errors:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.bk-errors-title{font:var(--ty-title-sm);color:var(--c-error);margin:0 0 var(--s3)}
+.bk-errors ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-errors a{font:var(--ty-body-md);color:var(--c-error);text-decoration:underline}
+.bk-errors a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.bk-summary{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s2);background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s4);margin-bottom:var(--s5);font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-summary-total{font:var(--ty-title-sm);color:var(--tx-primary)}
+/* Bestellübersicht unmittelbar vor dem zahlungspflichtigen Button: was gebucht wird, für wen,
+   wie viele Plätze, Gesamtbetrag. Der bloße Betrag reicht hier nicht, die gebuchte Leistung steht
+   sonst über tausend Pixel weiter oben verstreut. */
+/* Oben --s8: die Übersicht ist ein eigener Block und darf nicht am letzten Häkchen kleben.
+   Das Bestätigungs-Häkchen darüber gibt nur --s4 mit, das reicht als Abstand nicht. */
+.bk-order{border:var(--bd);border-radius:var(--r-md);background:var(--bg-overlay);padding:var(--s5);margin:var(--s8) 0 var(--s5)}
+.bk-order-title{font:var(--ty-name);color:var(--tx-primary);margin:0 0 var(--s4)}
+.bk-order-list{margin:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-order-list > div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s2)}
+.bk-order-list dt{font:var(--ty-body-sm);color:var(--tx-secondary)}
+.bk-order-list dd{margin:0;font:var(--ty-body-md);color:var(--tx-primary);text-align:right}
+/* Noch nicht ausgefüllte Zeile bleibt lesbar, tritt aber zurück. */
+.bk-order-list dd[data-empty]{color:var(--tx-secondary)}
+.bk-order-total{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2);margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.bk-order-total-label{font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-order-total-value{font:var(--ty-title-sm);color:var(--tx-primary)}
+.bk-order-note{font:var(--ty-body-xs);color:var(--tx-secondary);margin:var(--s1) 0 0;text-align:right}
+.bk-consent{display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s4)}
+.bk-consent label{font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer}
+/* Freiwilliges Opt-in vom rechtlich erforderlichen Teil absetzen. Gleiche Optik direkt unter
+   zwei Pflicht-Häkchen liest sich sonst wie ein Dark Pattern, auch wenn keines gemeint ist. */
+.bk-consent-optional{border-top:var(--bd);padding-top:var(--s4);margin-top:var(--s5)}
+.bk-success{display:flex;align-items:flex-start;gap:var(--s3);background:var(--c-success-bg);color:var(--c-success);border-radius:var(--r-md);padding:var(--s5)}
+/* display:flex würde das hidden-Attribut aushebeln, deshalb explizit zurücknehmen. */
+.bk-success[hidden]{display:none}
+.bk-success:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+@media (max-width:768px){
+  .bk-grid-2,.bk-grid-plz{grid-template-columns:1fr}
+}
 
 /* ── Dropdowns: Custom Select & Combobox ──
    Zwei Auswahl-Komponenten über das native <select> hinaus:
@@ -1245,7 +1373,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 /* ── Nav demo ── */
 .nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
-.doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
+.doc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 
 /* ── Snackbar ── */
 .snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
@@ -1646,15 +1774,22 @@ img.logo-themed-light{display:none}
 .ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
 .ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
-/* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
-   offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
-   Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
-   öffnete sonst Menüs unabhängig vom Klick-Zustand und ließ zwei gleichzeitig offen, weil Hover die per
-   Klick offenen Geschwister nicht schließt. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
+/* Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt offene Geschwister
+   (closeAllNavItems), Escape/Außenklick schließen. Reveal keift ausschließlich an .is-open (nie an
+   reinem CSS-:hover), damit aria-expanded mitläuft und nie zwei Menüs gleichzeitig offen sind.
+   Geöffnet wird per Klick/Tap, Tastatur ODER — nur auf pointer:fine — per Hover (JS-gesteuert, mit
+   Intent-Delay). Beim Öffnen färbt sich der Toggle Petrol und der Caret dreht; Hover gibt schon vorab
+   die Petrol-Färbung als Affordanz. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
 .ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
 .ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
 .ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+/* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
+   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable"). Nur pointer:fine
+   und nur solange offen — mobil ist .ep-nav-sub statisch, dort keine Brücke. */
+@media (hover:hover) and (pointer:fine){
+  .ep-nav-has-sub.is-open .ep-nav-sub::before{content:"";position:absolute;left:0;right:0;top:calc(-1*var(--s4));height:var(--s4)}
+}
 /* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
    Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
 .ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
