@@ -22,6 +22,17 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Kontrast, nicht die Stufennummer: `--co-500` ist `#00BEBE` und trägt im Dark, `--wo-800` ist
   `#183A0E` und nicht. Auf dem Stand vor diesem Commit hätte der Check **acht** Verstöße gemeldet.
   Bewusste Ausnahmen stehen mit Begründung im Skript, aktuell keine.
+  Dazu ein zweiter Check gegen **zerrissene Füllung/Text-Paare**: Eine Regel, die Hintergrund und
+  Textfarbe gemeinsam setzt, trägt ihren Kontrast selbst, aber nur solange das Paar zusammenbleibt.
+  Überschreibt eine andere Regel nur eine Hälfte, entsteht genau der Fehler, den der erste Check nicht
+  sieht. Der zweite bildet dafür die Kaskade je (Element, Theme, Zustand) nach und prüft die
+  tatsächlich gewinnende Kombination — paarweises Vergleichen reichte nicht, weil im Dark oft eine
+  spezifischere Regel den Text längst überschrieben hat.
+  Er hat sofort zwei Fehler gefunden, die von Hand durchgerutscht waren: die zu breite Chip-Inversion
+  und einen Icon-Hover auf `var(--n-100)`. Letzterer entlarvte eine falsche Annahme im ersten Check:
+  Tokens aus dem Dark-Block galten als „theme-aware und damit unkritisch", aber die Neutrals kippen
+  dort auf **dunkle** Werte (`--n-100` = `#1C2E2E`). Der Check wertet Tokens jetzt mit dem Wert aus,
+  den sie im Dark tatsächlich annehmen.
 - **Personengruppe mit Bio** (`.author-card-group.is-grid`): Zweispaltige Variante der bestehenden
   Author-Card-Gruppe für zwei bis vier Personen mit Kurz-Bio, gedacht für die Trainer:innen einer
   Seminar- oder Training-Landing. Die Karten selbst bleiben unverändert; die Variante setzt nur das

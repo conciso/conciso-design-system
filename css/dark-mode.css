@@ -130,7 +130,7 @@
 /* Dark-only: Pause-Knopf im Logo-Karussell. Light dunkelt das Icon beim Hover auf n-700 (#1A2E2E),
    im Dark sind das 1,60:1 auf der Karten-Fläche. → n-100 hebt es auf das hellste Neutral.
    (Light: n-700 bleibt.) */
-[data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-100) }
+[data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
 [data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }

@@ -23,9 +23,18 @@
 // Dark problemlos, --wo-800 ist #183A0E und nicht. Eine Regel „ab Stufe 500" würde beide gleich
 // behandeln und sechs Fehlalarme auf Fokus-Rändern erzeugen.
 //
-// WAS ER BEWUSST DURCHLÄSST
-// Regeln, die Hintergrund UND Textfarbe gemeinsam setzen (z. B. .ep-tab.active:hover mit co-700 auf
-// Weiß). Die tragen ihren Kontrast selbst und sind vom Theme unabhängig.
+// ZWEITER CHECK: ZERRISSENE PAARE
+// Regeln, die Hintergrund UND Textfarbe gemeinsam setzen, tragen ihren Kontrast selbst — aber nur,
+// solange das Paar zusammenbleibt. Überschreibt eine andere Regel nur eine Hälfte, entsteht genau der
+// Fehler, den der erste Check nicht sieht. Deshalb bildet der zweite Check die Kaskade je
+// (Element, Theme, Zustand) nach und prüft die tatsächlich gewinnende Kombination.
+//
+// EINE ANNAHME, DIE SICH ALS FALSCH ERWIESEN HAT
+// Ursprünglich übersprang der erste Check alle Tokens, die im Dark-Block neu belegt sind, als
+// „theme-aware und damit unkritisch". Das stimmt nicht: Die Neutrals kippen dort auf DUNKLE Werte
+// (--n-100 = #1C2E2E statt #E8EDED). Ein Fix, der einen Icon-Hover auf var(--n-100) setzte, war
+// deshalb wirkungslos und fiel erst dem zweiten Check auf. Entscheidend ist nie der Name des Tokens,
+// sondern der Wert, den er im jeweiligen Theme annimmt.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -128,7 +137,9 @@ for (const [sel, body] of rules(components)) {
   for (const [prop, value] of decls) {
     if (!PROPS.includes(prop)) continue;
     for (const [, token] of value.matchAll(/var\((--[\w-]+)\)/g)) {
-      if (flips.has(token)) continue;
+      // Nicht pauschal überspringen, nur weil ein Token im Dark-Block steht: Die Neutrals kippen dort
+      // auf DUNKLE Werte (--n-100 = #1C2E2E). "theme-aware" heißt nicht "unkritisch", entscheidend ist
+      // der Wert, den der Token im Dark tatsächlich annimmt. resolve() liefert genau den.
       const hex = resolve(token);
       if (!hex) continue;
       // Bester Kontrast über beide dunklen Grundflächen — trägt er dort, ist die Regel unkritisch.
@@ -144,6 +155,108 @@ for (const [sel, body] of rules(components)) {
       }
     }
   }
+}
+
+// ── Zweiter Check: zerrissene Füllung/Text-Paare ──────────────────────────────────────────────────
+// Eine Regel, die Hintergrund UND Textfarbe gemeinsam setzt, trägt ihren Kontrast selbst und wird vom
+// Check oben übersprungen. Das gilt aber nur, solange das Paar zusammenbleibt. Überschreibt eine
+// andere Regel nur EINE Hälfte davon, entsteht genau der Fehler, den der erste Check nicht sieht:
+//
+//   .chip[data-area="co"][aria-pressed="true"] { background: co-700; color: #fff }   ← Paar
+//   [data-theme="dark"] .chip[aria-pressed="true"]:hover { background: n-200 }       ← nur Füllung
+//   → helle Füllung, weißer Text stehen geblieben = 1,53:1
+//
+// Grenze der Methode: Selektor-Verwandtschaft wird über die Atome eines einzelnen Compounds bestimmt
+// (Klassen und Attribute). Für Nachfahren-Selektoren ist das zu grob, für die Zustands-Regeln dieser
+// Codebasis reicht es.
+const atoms = (sel) =>
+  new Set((sel.replace(/\[data-theme="dark"\]\s*/, '').match(/\.[\w-]+|\[[^\]]+\]/g) || []));
+const subset = (a, b) => [...a].every((x) => b.has(x));
+const hasBg = (d) => d.some(([p]) => p === 'background' || p === 'background-color');
+const hasColor = (d) => d.some(([p]) => p === 'color');
+
+const all = [];
+for (const [file, css] of [['dark-mode.css', dark], ['components.css', components]])
+  for (const [sel, body] of rules(css))
+    for (const one of sel.split(',')) {
+      const decls = [...body.matchAll(/([\w-]+)\s*:\s*([^;]+)/g)].map(([, p, v]) => [p.trim(), v.trim()]);
+      if (!hasBg(decls) && !hasColor(decls)) continue;
+      all.push({ sel: one.trim(), file, order: all.length, decls, spec: spec(one.trim()), atoms: atoms(one.trim()) });
+    }
+
+// Ein zerrissenes Paar allein ist kein Fehler: Fast jeder Hover ändert nur die Füllung, und der Text
+// bleibt lesbar. Und paarweises Vergleichen genügt nicht, weil im Dark oft eine spezifischere Regel
+// den Text längst überschrieben hat. Deshalb wird hier die Kaskade je (Element, Theme, Zustand)
+// nachgebildet: Wer gewinnt die Füllung, wer die Textfarbe — und trägt das Ergebnis?
+const scoped = (sel) => sel.includes('[data-theme="dark"]');
+const stateOf = (sel) => (STATE.test(sel) ? 'hover' : '');
+const key = (set) => [...set].sort().join('');
+
+const colorRules = [];
+for (const [css] of [[dark], [components]])
+  for (const [sel, body] of rules(css))
+    for (const one of sel.split(',')) {
+      const t = one.trim();
+      // Pseudo-Elemente setzen NICHT den Grund des Elements (.ep-nav-btn::after ist der Unterstrich).
+      if (!t || t.includes('::')) continue;
+      // Nur einfache Compounds (nach Abzug des Theme-Prefix, das immer ein Leerzeichen mitbringt).
+      const bare = t.replace(/\[data-theme="dark"\]\s*/, '');
+      if (bare.includes(' ') || bare.includes('>')) continue;
+      const decls = [...body.matchAll(/([\w-]+)\s*:\s*([^;]+)/g)].map(([, p, v]) => [p.trim(), v.trim()]);
+      const bg = decls.find(([p]) => p === 'background' || p === 'background-color');
+      const col = decls.find(([p]) => p === 'color');
+      if (!bg && !col) continue;
+      colorRules.push({ sel: t, atoms: atoms(t), dark: scoped(t), state: stateOf(t),
+        bg: bg?.[1] ?? null, color: col?.[1] ?? null, spec: spec(t), order: colorRules.length });
+    }
+
+/** Token-Auflösung je Theme: im Dark gewinnen die im Dark-Block neu belegten Werte. */
+const resolveLight = resolver(read('css/tokens.css'));
+const hexIn = (theme, val) => {
+  if (!val) return null;
+  const v = val.trim();
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v)) return v;
+  if (/^white$/i.test(v)) return '#ffffff';
+  const tok = v.match(/var\((--[\w-]+)\)/);
+  if (!tok) return null; // rgba(), Verläufe, currentColor: nicht statisch entscheidbar
+  return theme === 'dark' ? resolve(tok[1]) : resolveLight(tok[1]);
+};
+
+// Kandidaten-Elemente: alles, was irgendwo Füllung UND Text gemeinsam gesetzt bekommt.
+const elements = new Map();
+for (const r of colorRules) if (r.bg && r.color) elements.set(key(r.atoms), r.atoms);
+
+const split = [];
+for (const [, el] of elements)
+  for (const theme of ['light', 'dark'])
+    for (const state of ['', 'hover']) {
+      const applies = colorRules.filter(
+        (r) => subset(r.atoms, el) && (!r.dark || theme === 'dark') && (r.state === '' || r.state === state),
+      );
+      const best = (prop) =>
+        applies.filter((r) => r[prop]).sort((a, b) => a.spec - b.spec || a.order - b.order).pop();
+      const bgR = best('bg'), colR = best('color');
+      if (!bgR || !colR || bgR === colR) continue;
+      const bgHex = hexIn(theme, bgR.bg), textHex = hexIn(theme, colR.color);
+      if (!bgHex || !textHex) continue;
+      const r = contrast(textHex, bgHex);
+      if (r >= 4.5) continue;
+      split.push({ el: [...el].join(''), theme, state: state || 'ruhend', bgSel: bgR.sel, colSel: colR.sel,
+        bgHex, textHex, ratio: r.toFixed(2) });
+    }
+
+if (split.length) {
+  console.error(`Füllung und Text stammen aus verschiedenen Regeln und tragen nicht (${split.length}):\n`);
+  for (const s of split)
+    console.error(
+      `  ${s.el}  (${s.theme}, ${s.state})\n` +
+        `      Füllung ${s.bgHex} aus: ${s.bgSel}\n` +
+        `      Text    ${s.textHex} aus: ${s.colSel}\n` +
+        `      → ${s.ratio}:1, nötig 4,5:1\n`,
+    );
+  console.error('Beheben: beide Hälften gemeinsam setzen, oder die Regel so einschränken, dass sie das');
+  console.error('Paar nicht trifft (z. B. eigene Regel je Bereichsvariante). Siehe CONTRIBUTING § 5.');
+  process.exit(1);
 }
 
 if (findings.length) {
