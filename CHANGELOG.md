@@ -113,6 +113,19 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **Fakten-Streifen aufgelöst, Angaben ziehen in den vorhandenen Kasten** (`.ep-facts`): Der flache
+  Key-Facts-Streifen unter dem Hero entfällt auf allen vier Angebots-/Seminar-Landings. Die Angaben
+  bleiben vollständig erhalten und stehen jetzt dort, wo über das Angebot entschieden wird, statt an
+  zwei Stellen. Neu ist dafür `.ep-facts`, eine einspaltige `<dl>` aus Label/Wert-Paaren
+  mit Haarlinie dazwischen, **ohne eigenen Rahmen**: sie zieht in einen Container ein, den die Seite
+  schon hat (Angebots-Box, Sticky-Sidebar), sonst entstünde Kasten im Kasten. Damit verschwinden auch
+  die viermal kopierten Inline-Styles des alten Streifens.
+  Pro Seite: *Seminar* → Dauer, Format, Gruppe und Sprache in die Sticky-Sidebar (der dortige separate
+  Sprache-Block entfällt, die Dublette zum Streifen ist damit weg). *Meetingflut* und
+  *Keycloak-Erweiterungen* → **keine** Liste, ihre Angebots-Box nannte Laufzeit, Leistung, Ergebnis und
+  Preis bereits vollständig, der Streifen war dort reine Dopplung. *Scrum Trainings* → eigener Kasten
+  einmal über den vier Preiskarten, weil die Angaben für alle vier gelten und die Seite keine
+  Angebots-Box hat.
 - **`data-accent` ist nicht mehr an `.ep-page` gebunden**: Die Akzent-Regeln für `.t-co` und
   `.body-link` sowie die Chrome-Resets für Footer und Topnav laufen jetzt über `[data-accent="…"]`
   statt `.ep-page[data-accent="…"]` (Light und Dark). Damit kann auch ein einzelner Block einen
