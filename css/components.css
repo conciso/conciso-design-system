@@ -1227,8 +1227,21 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Author-Card-Group: mehrere Author-Cards untereinander am Artikelende */
 .author-card-group{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
 .author-card-group .author-card{margin:0;max-width:none}
+/* Zwei-Spalten-Variante der Gruppe: für Personen mit Kurz-Bio, wo die gestapelte Liste zu lang
+   würde, typisch Trainer:innen auf einer Seminar-/Training-Landing (2 bis 4 Personen). Die Bio
+   ist dort das Vertrauenselement und darf nicht wegfallen, deshalb Raster statt Tile-Grid
+   (.article-avatar-xl ohne Bio, siehe #gt-article-team-tiles). 960 statt 720 px Container, weil
+   zwei Karten nebeneinander sonst je ~340 px hätten und der 64-px-Avatar den Text auf ~260 px
+   drückt. minmax(0,1fr) verhindert Grid-Blowout durch lange Namen. */
+.author-card-group.is-grid{max-width:960px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s8)}
+/* Mobil einspaltig, konsistent mit dem Kollaps der .layout-grid bei 768px. Engerer Abstand,
+   weil untereinander kein Spaltenabstand mehr trennt und --s8 dort als Loch wirken würde. */
+@media(max-width:768px){.author-card-group.is-grid{grid-template-columns:1fr;gap:var(--s6)}}
 /* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
 .author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
+/* Die Überschrift steht als Geschwister VOR der Gruppe und muss deren Container-Breite mitgehen,
+   sonst sitzt sie bei der Raster-Variante 120 px links neben der ersten Karte. */
+.author-card-group-eyebrow:has(+ .author-card-group.is-grid){max-width:960px}
 /* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
 .article-body{max-width:720px;margin:0 auto;font:var(--ty-body-md);color:var(--tx-primary);line-height:1.7}
 .article-body > p{margin:0 0 var(--s5)}
