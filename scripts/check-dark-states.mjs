@@ -114,17 +114,9 @@ for (const [sel, body] of rules(dark)) {
 }
 
 // Bewusste Ausnahmen. Jede braucht eine Begründung, sonst ist sie keine Ausnahme, sondern ein
-// ungelöster Fehler mit Deckmantel.
-const ALLOW = new Map([
-  [
-    '.chip[aria-pressed="true"]:hover',
-    'Gedrückter Chip: Die Füllung ist im Dark eine sehr dunkle Fläche auf dunklem Grund, der Rand ' +
-      'trägt dieselbe Farbe wie die Füllung und ist deshalb kein eigenes Element. Der Zustand bleibt ' +
-      'über den weißen Text klar erkennbar (1.4.11 ist über die Textmarkierung erfüllt). Ihn im Dark ' +
-      'hell zu füllen wäre die sauberere Lösung, ist aber eine Gestaltungsentscheidung und ändert das ' +
-      'Erscheinungsbild der Chips — offen, siehe CHANGELOG.',
-  ],
-]);
+// ungelöster Fehler mit Deckmantel. Aktuell keine: Der einzige Kandidat (gedrückter Chip) ist
+// stattdessen behoben worden, indem er im Dark invertiert wie das Segmented Control.
+const ALLOW = new Map();
 
 const findings = [];
 for (const [sel, body] of rules(components)) {
