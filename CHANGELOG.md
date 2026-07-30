@@ -181,6 +181,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Seminar-Sidebar in zwei Kästen geteilt**: Seit dem Umzug der Rahmendaten trug der eine Kasten zwei
+  Aufgaben, Nachschlage-Information und Kontaktformular, und die Formular-Überschrift saß als gefüllter
+  Bereichsbalken mitten im Element. Das las sich wie zwei zusammengeklebte Karten. Jetzt zwei Kästen mit
+  Abstand: oben Angebot und Rahmendaten, darunter das Formular mit seinem Balken dort, wo eine
+  Kartenüberschrift hingehört. Sticky-Verhalten und Formular unverändert.
+- **Rohe `var(--n-200)`-Rahmen auf `var(--bd-strong)` umgestellt** (Seminar-Sidebar, adaptive
+  Kontaktseite, vier Stellen): `--n-200` flippt im Dark nicht und ergab dort einen grellen `#C9D3D3`-Rahmen.
+  `--bd-strong` ist im Light derselbe Ton, im Dark `#9DA8B6`. Entspricht der Konvention „nie rohes
+  `-100`/`-200` als Border".
 - **Falsches Bereichs-Icon auf fünf Verweiskarten**: Karten, die auf eine Bereichs-Übersicht
   verlinken, tragen das Marken-Glyph des Bereichs (`ki-bot`, `es-window-check`, `wo-network`,
   solid, eingefärbt über `.ep-card-icon.t-XX`). Zehn Karten hielten sich daran, fünf nicht: die

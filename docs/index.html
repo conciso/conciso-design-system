@@ -8627,7 +8627,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </table>
 
       <h2 id="gt-seminar-inhalte" class="group-title">Inhalte &amp; Sticky-Sidebar</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Hauptteil zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>): links (<code class="token">.col-8</code>) langer Fließtext mit eingestreuten Bildern (Text-Bild-Wechsel) und den Voraussetzungen als Unterabschnitt; rechts (<code class="token">.col-4</code>) eine Sidebar mit Preis, Sprache und Kontaktformular.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Hauptteil zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>): links (<code class="token">.col-8</code>) langer Fließtext mit eingestreuten Bildern (Text-Bild-Wechsel) und den Voraussetzungen als Unterabschnitt; rechts (<code class="token">.col-4</code>) eine Sidebar aus <strong>zwei getrennten Kästen</strong>: oben Angebot und Rahmendaten (Preis, Dauer, Format, Gruppe, Sprache) zum Nachschlagen, darunter das Kontaktformular als Handlung. Bewusst nicht ein gemeinsamer Kasten: Die Formular-Überschrift ist ein gefüllter Bereichsbalken und säße dann mitten im Element, was wie zwei zusammengeklebte Karten liest. Getrennt sitzt sie oben auf ihrer eigenen Karte.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Sticky:</strong> Die Sidebar trägt <code class="token">position:sticky;top:var(--s4)</code> und läuft in Produktion beim Scrollen mit. Im Mockup verhindert <code class="token">.ep-page{overflow:hidden}</code> das Andocken (dieselbe Architektur-Grenze wie die bewusst aufgeschobene Sticky-Topnav). Auf Mobile rutscht die Sidebar unter den Fließtext.</p>
 
       <h2 id="gt-seminar-buchung" class="group-title">Buchungs-Anker</h2>
@@ -15483,7 +15483,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="layout-grid" style="align-items:stretch">
             <!-- Anfrageformular: Default Corporate (co); main.js tönt nach Herkunfts-Bereich (data-k-bereich am CTA) und belegt Thema/Anliegen vor -->
             <div class="col-7" style="display:flex;flex-direction:column">
-              <div id="kf-es-card" style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
+              <div id="kf-es-card" style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
                 <div id="kf-es-header" style="background:var(--co-700);padding:var(--s4) var(--s6)">
                   <div id="kf-es-eyebrow" style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:2px">Anfrage</div>
                   <h2 id="kf-es-heading" style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Wie können wir helfen?</h2>
@@ -15539,7 +15539,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <!-- Vertrauen / direkte Kontaktwege: ein Kartenobjekt (Foto-Header + Infos), flex:1 für gleiche Unterkante wie das Formular -->
             <div class="col-5" style="display:flex;flex-direction:column">
-              <div style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;flex:1;display:flex;flex-direction:column">
                 <img src="assets/images/team-coffee.jpg" alt="Conciso-Team mit Kaffeetassen im Gespräch an einem Tisch" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover">
                 <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5);flex:1">
                   <h2 style="font:400 20px/28px var(--font-display);color:var(--tx-primary);margin:0">So erreichst Du uns</h2>
@@ -15772,8 +15772,12 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s6) 0 0">Passt das zu euch? <a class="body-link" href="#seminar-termine">Zu den Terminen <span aria-hidden="true">→</span></a></p>
             </div>
             <!-- Sidebar: Preis · Sprache · Kontaktformular (sticky-ready) -->
-            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start">
-              <div style="background:var(--bg-surface);border:1px solid var(--n-200);border-radius:var(--r-lg);overflow:hidden">
+            <!-- Zwei Kästen statt einem: Der obere trägt die Angebots-Information (Nachschlagen),
+                 der untere das Kontaktformular (Handlung). In einem gemeinsamen Kasten säße die
+                 Formular-Überschrift als grüner Balken mitten im Element, was wie zwei zusammen-
+                 geklebte Karten liest. Getrennt sitzt sie dort, wo eine Kartenüberschrift hingehört. -->
+            <aside class="col-4" style="position:sticky;top:var(--s4);align-self:start;display:flex;flex-direction:column;gap:var(--s5)">
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
                 <div style="padding:var(--s6);display:flex;flex-direction:column;gap:var(--s5)">
                   <div>
                     <p class="t-wo" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s2)">Preis</p>
@@ -15801,6 +15805,8 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                     </div>
                   </dl>
                 </div>
+              </div>
+              <div style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
                 <div style="background:var(--wo-700);padding:var(--s4) var(--s6)">
                   <h3 style="font:400 20px/28px var(--font-display);color:#fff;margin:0">Fragen zum Seminar?</h3>
                 </div>
