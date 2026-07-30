@@ -15,6 +15,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **CI-Gate gegen dunkel-auf-dunkel-Zustände** (`npm run check:dark-states`, in `css-core.yml`):
+  Prüft jede `:hover`/`:focus`/`:active`-Regel in `components.css` darauf, ob sie einen nicht
+  theme-awaren Ton setzt, dessen Kontrast gegen die dunklen Grundflächen unter der WCAG-Schwelle
+  liegt (4,5:1 für Text, 3:1 für Ränder), ohne dass `dark-mode.css` nachzieht. Gerechnet wird echter
+  Kontrast, nicht die Stufennummer: `--co-500` ist `#00BEBE` und trägt im Dark, `--wo-800` ist
+  `#183A0E` und nicht. Auf dem Stand vor diesem Commit hätte der Check **acht** Verstöße gemeldet.
+  Bewusste Ausnahmen stehen mit Begründung im Skript, aktuell keine.
+  Dazu ein zweiter Check gegen **zerrissene Füllung/Text-Paare**: Eine Regel, die Hintergrund und
+  Textfarbe gemeinsam setzt, trägt ihren Kontrast selbst, aber nur solange das Paar zusammenbleibt.
+  Überschreibt eine andere Regel nur eine Hälfte, entsteht genau der Fehler, den der erste Check nicht
+  sieht. Der zweite bildet dafür die Kaskade je (Element, Theme, Zustand) nach und prüft die
+  tatsächlich gewinnende Kombination — paarweises Vergleichen reichte nicht, weil im Dark oft eine
+  spezifischere Regel den Text längst überschrieben hat.
+  Er hat sofort zwei Fehler gefunden, die von Hand durchgerutscht waren: die zu breite Chip-Inversion
+  und einen Icon-Hover auf `var(--n-100)`. Letzterer entlarvte eine falsche Annahme im ersten Check:
+  Tokens aus dem Dark-Block galten als „theme-aware und damit unkritisch", aber die Neutrals kippen
+  dort auf **dunkle** Werte (`--n-100` = `#1C2E2E`). Der Check wertet Tokens jetzt mit dem Wert aus,
+  den sie im Dark tatsächlich annehmen.
 - **Personengruppe mit Bio** (`.author-card-group.is-grid`): Zweispaltige Variante der bestehenden
   Author-Card-Gruppe für zwei bis vier Personen mit Kurz-Bio, gedacht für die Trainer:innen einer
   Seminar- oder Training-Landing. Die Karten selbst bleiben unverändert; die Variante setzt nur das
@@ -215,6 +233,18 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Kein AA-Verstoß (alle Werte blieben über der 3:1-Schwelle für Nicht-Text), aber falsch herum.
   Dark-Overrides ergänzt, jeweils eine Stufe heller als der Ruhezustand: co `-200`, ki `-300`,
   es `-200`, wo `-200`.
+- **Gedrückter Chip war im Dark Mode kaum vom Grund zu unterscheiden**: Die Füllung `n-700` ergab
+  gegen `bg-page` nur **1,60:1**, der ausgewählte Zustand war praktisch nur am weißen Text erkennbar.
+  Er invertiert jetzt wie das Segmented Control, das dieses Muster im System bereits vorgibt
+  (`--seg-fill` `-300` mit `--seg-on` `-900`): helle Füllung `n-300` mit dunklem Text `n-900`,
+  Hover eine Stufe heller statt dunkler. Gemessen: Text auf Füllung 8,62:1, Füllung gegen Seite
+  4,85:1. Light bleibt unverändert bei `n-700` mit weißem Text.
+- **Drei weitere dunkel-auf-dunkel-Zustände**, gefunden durch den neuen Check statt durch Zufall:
+  der Hover-Rand des neutralen Chips (`n-400`, 2,79:1 und dunkler als der Ruhe-Rand → `n-200`) und
+  der Pause-Knopf im Logo-Karussell (`n-700`, **1,60:1** → `n-100`). Offen bleibt der gedrückte Chip:
+  seine Füllung ist im Dark eine sehr dunkle Fläche auf dunklem Grund. Der Zustand ist über den
+  weißen Text erkennbar, die sauberere Lösung wäre eine helle Füllung im Dark — das ist aber eine
+  Gestaltungsentscheidung und steht als dokumentierte Ausnahme im Check.
 - **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
 - **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
   fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen

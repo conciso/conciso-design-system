@@ -271,6 +271,33 @@
 [data-theme="dark"] .ep-select[data-area="es"], [data-theme="dark"] .ep-combobox[data-area="es"] { --sel-500: var(--es-100) }
 [data-theme="dark"] .ep-select[data-area="wo"], [data-theme="dark"] .ep-combobox[data-area="wo"] { --sel-500: var(--wo-200) }
 [data-theme="dark"] .chip { border-color:#818C99 }
+/* Dark-only: Hover-Rand des neutralen Chips. Light geht auf n-400 (#6E8585), im Dark ist das dunkler
+   als der Ruhe-Rand #818C99 — der Rand würde beim Überfahren schwächer statt kräftiger und läge mit
+   2,79:1 unter der 3:1-Schwelle für Nicht-Text. → n-200 = #C9D3D3. (Light: n-400 bleibt.) */
+[data-theme="dark"] .chip:hover { border-color: var(--n-200) }
+/* Dark-only: Gedrückter Chip invertiert, wie das Segmented Control (dort --seg-fill -300 mit
+   --seg-on -900). Light füllt mit n-700 und schreibt weiß; im Dark ergäbe das eine sehr dunkle
+   Fläche auf dunklem Grund — ❌ 1,60:1 zwischen Chip und Seite, der ausgewählte Zustand war nur
+   noch am Text erkennbar. Helle Füllung n-300 mit dunklem Text n-900 ✓. Der Hover geht eine Stufe
+   heller (n-200) statt dunkler, damit die Richtung stimmt. (Light: n-700/n-800 bleiben.) */
+[data-theme="dark"] .chip[aria-pressed="true"] { background: var(--n-300); border-color: var(--n-300); color: var(--n-900) }
+[data-theme="dark"] .chip[aria-pressed="true"]:hover { background: var(--n-200); border-color: var(--n-200) }
+/* Die Bereichs-Chips setzen ihren gewählten Zustand mit eigener Regel (--XX-700/800 + weißer Text) und
+   brauchen deshalb eigene Dark-Regeln — sonst greift oben die neutrale Füllung, der weiße Text bleibt
+   stehen und ergibt ❌ 1,53:1. Gleiche Inversion wie beim Segmented Control, jeweils Bereichston -300
+   mit -900-Text; Hover eine Stufe heller. (Light: -700/-800 mit Weiß bleiben.) */
+[data-theme="dark"] .chip[data-area="co"][aria-pressed="true"] { background: var(--co-300); border-color: var(--co-300); color: var(--co-900) }
+[data-theme="dark"] .chip[data-area="ki"][aria-pressed="true"] { background: var(--ki-300); border-color: var(--ki-300); color: var(--ki-900) }
+[data-theme="dark"] .chip[data-area="es"][aria-pressed="true"] { background: var(--es-300); border-color: var(--es-300); color: var(--es-900) }
+[data-theme="dark"] .chip[data-area="wo"][aria-pressed="true"] { background: var(--wo-300); border-color: var(--wo-300); color: var(--wo-900) }
+[data-theme="dark"] .chip[data-area="co"][aria-pressed="true"]:hover { background: var(--co-200); border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"][aria-pressed="true"]:hover { background: var(--ki-200); border-color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"][aria-pressed="true"]:hover { background: var(--es-200); border-color: var(--es-200) }
+[data-theme="dark"] .chip[data-area="wo"][aria-pressed="true"]:hover { background: var(--wo-200); border-color: var(--wo-200) }
+/* Dark-only: Pause-Knopf im Logo-Karussell. Light dunkelt das Icon beim Hover auf n-700 (#1A2E2E),
+   im Dark sind das 1,60:1 auf der Karten-Fläche. → n-100 hebt es auf das hellste Neutral.
+   (Light: n-700 bleibt.) */
+[data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
 [data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
