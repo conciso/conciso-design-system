@@ -42,3 +42,18 @@ jobs:
         run: npm run build
       - name: Build-Output prüfen
         run: test -f dist/conciso-ds.css
+      # dist/, tokens/ und icons/ sind abgeleitet, werden aber bewusst eingecheckt
+      # (das Paket soll ohne Build-Schritt konsumierbar sein). Ohne diesen Vergleich
+      # fällt es nicht auf, wenn jemand css/ ändert und den Build vergisst: die
+      # Pipeline bliebe grün und das Paket lieferte veraltetes CSS aus.
+      # git status statt git diff, weil diff neu entstandene (untracked) Dateien
+      # nicht sieht.
+      - name: Abgeleitete Dateien sind aktuell
+        run: |
+          if [ -n "$(git status --porcelain -- dist tokens icons)" ]; then
+            echo "::error::dist/, tokens/ oder icons/ weichen von den Quellen ab. npm run build ausführen und das Ergebnis committen."
+            git status --short -- dist tokens icons
+            git diff -- dist tokens icons
+            exit 1
+          fi
+          echo "Abgeleitete Dateien stimmen mit den Quellen überein."
