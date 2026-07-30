@@ -181,6 +181,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Falsches Bereichs-Icon auf fünf Verweiskarten**: Karten, die auf eine Bereichs-Übersicht
+  verlinken, tragen das Marken-Glyph des Bereichs (`ki-bot`, `es-window-check`, `wo-network`,
+  solid, eingefärbt über `.ep-card-icon.t-XX`). Zehn Karten hielten sich daran, fünf nicht: die
+  „Weiter im Thema"-Blöcke der Angebots-Detailseiten (Meetingflut, Scrum, LPM, Keycloak,
+  Keycloak-Erweiterungen) zeigten ein generisches Heroicon mit inline gesetztem
+  `stroke="var(--XX-700)"` statt des Glyphs. `icons/README.md` hatte die Regel nur für
+  `/leistungen` und die Landingpage notiert; sie hängt jetzt am Anlass statt an einzelnen Seiten,
+  mit ausdrücklicher Abgrenzung zu den thematischen Outline-Icons inhaltlicher Karten.
 - **Hover bereichsgetönter Body-Links war im Dark Mode unlesbar**: In einem `data-accent`-Container
   sprang `.body-link:hover` auch im Dark auf den `-800`-Ton, also dunkel auf dunkel. Gemessen:
   `wo-800` auf `bg-page` = **1,17:1**, `es-800` = 1,29:1, weit unter der AA-Schwelle von 4,5:1. Der
