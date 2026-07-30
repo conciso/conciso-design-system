@@ -421,6 +421,7 @@
         <div class="nav-subnav" data-for="seminar">
           <a class="nav-sub-item" href="#gt-seminar-aufbau">Aufbau</a>
           <a class="nav-sub-item" href="#gt-seminar-fakten">Fakten-Strip</a>
+          <a class="nav-sub-item" href="#gt-seminar-trainer">Trainer:innen</a>
           <a class="nav-sub-item" href="#gt-seminar-termine">Termine-Modul</a>
           <a class="nav-sub-item" href="#gt-seminar-inhalte">Inhalte &amp; Sidebar</a>
           <a class="nav-sub-item" href="#gt-seminar-buchung">Buchungs-Anker</a>
@@ -7689,79 +7690,6 @@ document.querySelectorAll(
 <span class="k">&lt;/div&gt;</span></pre>
       </div>
 
-      <h2 id="gt-article-personengruppe" class="group-title">Personengruppe mit Bio · <code class="token">.author-card-group</code></h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px">Mehrere Personen mit Kurz-Bio in einer Sektion, typischer Fall: die <strong>Trainer:innen</strong> einer Seminar- oder Training-Landing. Zwei Varianten derselben Gruppe, beide bestehen aus unveränderten <a class="body-link" href="#gt-article-author">Author Cards</a>: <code class="token">.author-card-group</code> stapelt untereinander (gedacht für Autor:innen am Artikelende), <code class="token">.author-card-group.is-grid</code> stellt sie zweispaltig. Eine gemeinsame <code class="token">.author-card-group-eyebrow</code> ersetzt dabei die Eyebrows der einzelnen Karten und läuft in der Raster-Variante automatisch auf dieselbe Container-Breite mit.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px"><strong>Wann welche Darstellung:</strong> Die Entscheidung fällt an der Personenzahl, nicht am Geschmack.</p>
-      <table class="doc-table" style="margin-bottom:var(--s4)">
-        <thead><tr><th>Personen</th><th>Darstellung</th><th>Warum</th></tr></thead>
-        <tbody>
-          <tr><td><strong>1</strong></td><td>Große Sektion: Bild im Format 4:3 in <code class="token">.col-5</code>, Name, Rolle und Bio in <code class="token">.col-7</code> (siehe <a class="body-link" href="#sec-examples" data-ep="seminar">Beispielseite Seminar</a>)</td><td>Bei genau einer Person trägt das große Bild. Ein 64-px-Avatar in einer halbleeren Sektion wirkt beiläufig, obwohl die Person hier das Vertrauen stiftet</td></tr>
-          <tr><td><strong>2 bis 4</strong></td><td><code class="token">.author-card-group.is-grid</code>, Avatar <code class="token">.article-avatar-lg</code> (64 px), ein bis zwei Sätze Bio (siehe <a class="body-link" href="#sec-examples" data-ep="wo-scrum">Scrum Trainings</a>)</td><td>Gestapelt würden vier volle Bios die Sektion über 1.500 px lang machen und die Termine darunter aus dem Blick schieben. Zwei Spalten halten sie kompakt, ohne die Bio zu opfern</td></tr>
-          <tr><td><strong>mehr als 4</strong></td><td>Nicht mit diesem Muster. Entweder auf die tatsächlich durchführenden Personen kürzen oder auf das <a class="body-link" href="#gt-article-team-tiles">Team-Tile-Grid</a> ohne Bio wechseln</td><td>Ab der dritten Reihe liest niemand mehr Bios. Dann ist die ehrlichere Aussage „ein Pool von Trainer:innen" statt einer Galerie</td></tr>
-        </tbody>
-      </table>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:820px"><strong>Warum Raster statt Tile-Grid:</strong> Das <a class="body-link" href="#gt-article-team-tiles">Team-Tile-Grid</a> unten stellt vier Personen deutlich kompakter dar, aber ohne Bio. Auf einer Landing, die etwas verkauft, ist genau diese Bio das Argument: Sie beantwortet, warum diese Person das Training hält. Deshalb hier das Raster mit dem kleineren 64-px-Avatar und nicht die 160-px-Kachel. <strong>Container:</strong> 960 statt 720 px, weil zwei Karten nebeneinander sonst je rund 340 px hätten und der Avatar den Text auf etwa 260 px drückt. Mobil kollabiert das Raster bei 768 px einspaltig, konsistent mit der <code class="token">.layout-grid</code>.</p>
-      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin-bottom:var(--s5)">
-        <p class="author-card-group-eyebrow">Trainer:innen</p>
-        <div class="author-card-group is-grid">
-          <div class="author-card" data-area="wo">
-            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">TM</div>
-            <div>
-              <p class="author-card-name">Tobias Mehnert</p>
-              <p class="author-card-role">Senior-Berater Organisationsentwicklung</p>
-              <p class="author-card-bio">Begleitet seit über 15 Jahren Veränderungsvorhaben in Mittelstand und Konzern.</p>
-            </div>
-          </div>
-          <div class="author-card" data-area="wo">
-            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">AR</div>
-            <div>
-              <p class="author-card-name">Anja Reuter</p>
-              <p class="author-card-role">Lead Organisationsentwicklung</p>
-              <p class="author-card-bio">Kommt aus der Produktentwicklung und kennt Scrum aus der Rolle der Product Ownerin.</p>
-            </div>
-          </div>
-          <div class="author-card" data-area="wo">
-            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">JP</div>
-            <div>
-              <p class="author-card-name">Jan Petersen</p>
-              <p class="author-card-role">Agile Coach</p>
-              <p class="author-card-bio">Zehn Jahre als Scrum Master in Teams zwischen fünf und fünfzig Personen.</p>
-            </div>
-          </div>
-          <div class="author-card" data-area="wo">
-            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">MS</div>
-            <div>
-              <p class="author-card-name">Mira Salm</p>
-              <p class="author-card-role">Trainerin Agile Leadership</p>
-              <p class="author-card-bio">Begleitet Führungskräfte beim Rollenwechsel von der Fachverantwortung zur Rahmensetzung.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cb-wrap" style="margin-bottom:var(--s8)">
-        <div class="cb-header">
-          <span class="cb-lang">HTML</span>
-          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
-        </div>
-<pre class="cb-body"><span class="c">&lt;!-- Gemeinsame Überschrift ist optional: Trägt die Sektion bereits ein
-     .ep-section-label („Trainer:innen") plus H2, entfällt sie. --&gt;</span>
-<span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-group-eyebrow"</span><span class="k">&gt;</span>Trainer:innen<span class="k">&lt;/p&gt;</span>
-
-<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"author-card-group is-grid"</span><span class="k">&gt;</span>
-  <span class="c">&lt;!-- Unveränderte Author Card, nur ohne .author-card-eyebrow:
-       die Gruppen-Überschrift bzw. das Section-Label ersetzt ihn. --&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"author-card"</span> <span class="v">data-area</span>=<span class="s">"wo"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"wo"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>TM<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;div&gt;</span>
-      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-name"</span><span class="k">&gt;</span>Tobias Mehnert<span class="k">&lt;/p&gt;</span>
-      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-role"</span><span class="k">&gt;</span>Senior-Berater Organisationsentwicklung<span class="k">&lt;/p&gt;</span>
-      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-bio"</span><span class="k">&gt;</span>Begleitet seit über 15 Jahren …<span class="k">&lt;/p&gt;</span>
-    <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="c">&lt;!-- 1 bis 3 weitere Karten, insgesamt maximal 4 --&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-      </div>
-
       <h2 id="gt-article-team-tiles" class="group-title">Team-Tile-Grid · rotierender Ausschnitt</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Auf der Landing („Wer wir sind“) kommt das Avatar-Pattern in einer reduzierten Form als <strong>4-Kachel-Grid</strong> zum Einsatz: Foto-Avatar (<code class="token">.article-avatar.article-avatar-xl</code>, 160 px) zentriert über Name (<code class="token">.author-card-name</code>) und Rolle (<code class="token">.author-card-role</code>), keine Bio. Conciso hat rund 70 Mitarbeitende; das Landing-Grid zeigt einen rotierenden Ausschnitt, kein vollständiges Roster (die vollständige Aufstellung nach Bereichen steht auf der <a class="body-link" href="#sec-examples" data-ep="co-ueber-uns">Über-uns-Seite</a>, siehe <a class="body-link" href="#gt-article-team-roster">Team-Roster</a> unten). <strong>Warum 4 statt 6:</strong> Bei 6 Tiles in einer Reihe (col-2) wird jede Kachel sehr schmal, Rollen-Labels wrappen auf 2 Zeilen und das Foto wirkt im Verhältnis zur Sektion-Breite klein. 4 Tiles (col-3) geben jeder Person 25 % statt 16 % der Breite — Rollen bleiben einzeilig, das 160-px-Foto füllt die Kachel präsenter aus. <strong>Größen-Begründung:</strong> Author-Card-Bios nutzen <code class="token">.article-avatar-lg</code> (64 px), weil der Avatar dort horizontal neben Bio-Text sitzt und ein 160-px-Kreis den Strip dominieren würde.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>JS-Rotation:</strong> Pro Seitenaufruf werden 4 Mitarbeitende zufällig aus einem Pool von rund 13 Personen ausgewählt (Fisher-Yates-Shuffle in <code class="token">js/main.js</code>, <code class="token">data-team-tiles</code> als Container, <code class="token">data-team-tile</code> als Slot). Avatar, Name und Rolle werden bei <code class="token">DOMContentLoaded</code> ersetzt. Die initial im HTML hinterlegten Werte dienen als JS-off-Fallback, die Seite ist also auch ohne JavaScript inhaltlich vollständig.</p>
@@ -8017,7 +7945,7 @@ document.querySelectorAll(
 
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s6)">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--co-700)" stroke-width="1.25" aria-hidden="true" focusable="false" style="flex-shrink:0;margin-top:2px"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Ab vier Bios:</strong> Die vertikale Stapelung wird lang. Optionen: (a) Bios kürzer halten (zwei Sätze pro Person), (b) den Lead-Author hervorgehoben oben, die übrigen in einer zweispaltigen Grid-Variante darunter, oder (c) die Author-Cards in einer eigenen „Team“-Sektion bündeln und im Strip nur die Lead-Persons zeigen. Aktuell ist im DS nur die einspaltige Variante als <code class="token">.author-card-group</code> hinterlegt.</p>
+        <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Ab vier Bios:</strong> Die vertikale Stapelung wird lang. Optionen: (a) Bios kürzer halten (zwei Sätze pro Person), (b) den Lead-Author hervorgehoben oben, die übrigen in einer zweispaltigen Grid-Variante darunter, oder (c) die Author-Cards in einer eigenen „Team“-Sektion bündeln und im Strip nur die Lead-Persons zeigen. Variante (b) gibt es als <code class="token">.author-card-group.is-grid</code>; dokumentiert ist sie an ihrem Anlassfall unter <a class="body-link" href="#gt-seminar-trainer">Seminar &amp; Training · Trainer:innen</a>, weil sie dort und nicht in Wissensbeiträgen vorkommt.</p>
       </div>
 
       <div class="cb-wrap" style="margin-bottom:var(--s6)">
@@ -8577,7 +8505,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <tr><td>Hero</td><td>Pill-Eyebrow + große Headline + Subline, <strong>kein CTA</strong></td><td>Bereich-50 (getönt)</td></tr>
           <tr><td>Fakten-Strip</td><td>Dauer · Format · Gruppe · Sprache · Preis</td><td>weiß</td></tr>
           <tr><td>Lernziele</td><td>scanbare Bullet-Liste mit Bereichs-Haken</td><td>weiß</td></tr>
-          <tr><td>Trainer</td><td>Bei <strong>einer</strong> Person das Profil groß (Foto 4:3, Name, Rolle, Bio). Bei <strong>zwei bis vier</strong> stattdessen <code class="token">.author-card-group.is-grid</code>, siehe <a class="body-link" href="#gt-article-personengruppe">Personengruppe mit Bio</a></td><td>weiß</td></tr>
+          <tr><td>Trainer</td><td>Bei <strong>einer</strong> Person das Profil groß (Foto 4:3, Name, Rolle, Bio). Bei <strong>zwei bis vier</strong> stattdessen <code class="token">.author-card-group.is-grid</code>, siehe <a class="body-link" href="#gt-seminar-trainer">Trainer:innen</a></td><td>weiß</td></tr>
           <tr><td>Termine</td><td>wiederholbare Termin-Zeilen + Anmeldung</td><td>grau (<code class="token">--n-50</code>)</td></tr>
           <tr><td>Inhalte &amp; Voraussetzungen</td><td>zweispaltig, Fließtext + Sidebar</td><td>weiß</td></tr>
         </tbody>
@@ -8586,6 +8514,79 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <h2 id="gt-seminar-fakten" class="group-title">Fakten-Strip</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px">Kompakter Key-Facts-Streifen direkt unter dem Hero, als semantisches <code class="token">&lt;dl&gt;</code> in einem <code class="token">repeat(auto-fit,minmax(140px,1fr))</code>-Grid. Macht die Entscheidungs-Infos (inkl. Preis) auf einen Blick sichtbar, bevor man scrollt. Labels <code class="token">--ty-label-xs</code> in Bereichsfarbe, Werte <code class="token">--ty-body-md</code>.</p>
+
+      <h2 id="gt-seminar-trainer" class="group-title">Trainer:innen</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px">Die Sektion steht bewusst <strong>vor</strong> den Terminen: Wer bucht, will vorher wissen, wer vorne steht. Trainer:innen kommen nur auf Seminar- und Training-Landings vor, nicht in Wissensbeiträgen. Markup-seitig sind sie aber keine eigene Komponente, sondern die <a class="body-link" href="#gt-article-author">Author Card</a> in einer Gruppe: <code class="token">.author-card-group</code> stapelt untereinander (so genutzt für Autor:innen am Beitragsende), <code class="token">.author-card-group.is-grid</code> stellt sie zweispaltig. Eine gemeinsame <code class="token">.author-card-group-eyebrow</code> ersetzt die Eyebrows der einzelnen Karten und läuft in der Raster-Variante automatisch auf dieselbe Container-Breite mit; trägt die Sektion bereits ein <code class="token">.ep-section-label</code> plus H2, entfällt sie.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:820px"><strong>Wann welche Darstellung:</strong> Die Entscheidung fällt an der Personenzahl, nicht am Geschmack.</p>
+      <table class="doc-table" style="margin-bottom:var(--s4)">
+        <thead><tr><th>Personen</th><th>Darstellung</th><th>Warum</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>Große Sektion: Bild im Format 4:3 in <code class="token">.col-5</code>, Name, Rolle und Bio in <code class="token">.col-7</code> (siehe <a class="body-link" href="#sec-examples" data-ep="seminar">Beispielseite Seminar</a>)</td><td>Bei genau einer Person trägt das große Bild. Ein 64-px-Avatar in einer halbleeren Sektion wirkt beiläufig, obwohl die Person hier das Vertrauen stiftet</td></tr>
+          <tr><td><strong>2 bis 4</strong></td><td><code class="token">.author-card-group.is-grid</code>, Avatar <code class="token">.article-avatar-lg</code> (64 px), ein bis zwei Sätze Bio (siehe <a class="body-link" href="#sec-examples" data-ep="wo-scrum">Scrum Trainings</a>)</td><td>Gestapelt würden vier volle Bios die Sektion über 1.500 px lang machen und die Termine darunter aus dem Blick schieben. Zwei Spalten halten sie kompakt, ohne die Bio zu opfern</td></tr>
+          <tr><td><strong>mehr als 4</strong></td><td>Nicht mit diesem Muster. Entweder auf die tatsächlich durchführenden Personen kürzen oder auf das <a class="body-link" href="#gt-article-team-tiles">Team-Tile-Grid</a> ohne Bio wechseln</td><td>Ab der dritten Reihe liest niemand mehr Bios. Dann ist die ehrlichere Aussage „ein Pool von Trainer:innen" statt einer Galerie</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:820px"><strong>Warum Raster statt Tile-Grid:</strong> Das <a class="body-link" href="#gt-article-team-tiles">Team-Tile-Grid</a> unten stellt vier Personen deutlich kompakter dar, aber ohne Bio. Auf einer Landing, die etwas verkauft, ist genau diese Bio das Argument: Sie beantwortet, warum diese Person das Training hält. Deshalb hier das Raster mit dem kleineren 64-px-Avatar und nicht die 160-px-Kachel. <strong>Container:</strong> 960 statt 720 px, weil zwei Karten nebeneinander sonst je rund 340 px hätten und der Avatar den Text auf etwa 260 px drückt. Mobil kollabiert das Raster bei 768 px einspaltig, konsistent mit der <code class="token">.layout-grid</code>.</p>
+      <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);margin-bottom:var(--s5)">
+        <p class="author-card-group-eyebrow">Trainer:innen</p>
+        <div class="author-card-group is-grid">
+          <div class="author-card" data-area="wo">
+            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">TM</div>
+            <div>
+              <p class="author-card-name">Tobias Mehnert</p>
+              <p class="author-card-role">Senior-Berater Organisationsentwicklung</p>
+              <p class="author-card-bio">Begleitet seit über 15 Jahren Veränderungsvorhaben in Mittelstand und Konzern.</p>
+            </div>
+          </div>
+          <div class="author-card" data-area="wo">
+            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">AR</div>
+            <div>
+              <p class="author-card-name">Anja Reuter</p>
+              <p class="author-card-role">Lead Organisationsentwicklung</p>
+              <p class="author-card-bio">Kommt aus der Produktentwicklung und kennt Scrum aus der Rolle der Product Ownerin.</p>
+            </div>
+          </div>
+          <div class="author-card" data-area="wo">
+            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">JP</div>
+            <div>
+              <p class="author-card-name">Jan Petersen</p>
+              <p class="author-card-role">Agile Coach</p>
+              <p class="author-card-bio">Zehn Jahre als Scrum Master in Teams zwischen fünf und fünfzig Personen.</p>
+            </div>
+          </div>
+          <div class="author-card" data-area="wo">
+            <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">MS</div>
+            <div>
+              <p class="author-card-name">Mira Salm</p>
+              <p class="author-card-role">Trainerin Agile Leadership</p>
+              <p class="author-card-bio">Begleitet Führungskräfte beim Rollenwechsel von der Fachverantwortung zur Rahmensetzung.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header">
+          <span class="cb-lang">HTML</span>
+          <button class="cb-copy" onclick="navigator.clipboard.writeText(this.closest('.cb-wrap').querySelector('pre').textContent.trim()).then(()=>{this.textContent='✓ Kopiert';setTimeout(()=>this.textContent='Kopieren',1800)})">Kopieren</button>
+        </div>
+<pre class="cb-body"><span class="c">&lt;!-- Gemeinsame Überschrift ist optional: Trägt die Sektion bereits ein
+     .ep-section-label („Trainer:innen") plus H2, entfällt sie. --&gt;</span>
+<span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-group-eyebrow"</span><span class="k">&gt;</span>Trainer:innen<span class="k">&lt;/p&gt;</span>
+
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"author-card-group is-grid"</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- Unveränderte Author Card, nur ohne .author-card-eyebrow:
+       die Gruppen-Überschrift bzw. das Section-Label ersetzt ihn. --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"author-card"</span> <span class="v">data-area</span>=<span class="s">"wo"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"article-avatar article-avatar-lg"</span> <span class="v">data-area</span>=<span class="s">"wo"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>TM<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;div&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-name"</span><span class="k">&gt;</span>Tobias Mehnert<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-role"</span><span class="k">&gt;</span>Senior-Berater Organisationsentwicklung<span class="k">&lt;/p&gt;</span>
+      <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"author-card-bio"</span><span class="k">&gt;</span>Begleitet seit über 15 Jahren …<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="c">&lt;!-- 1 bis 3 weitere Karten, insgesamt maximal 4 --&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
 
       <h2 id="gt-seminar-termine" class="group-title">Termine-Modul</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Beliebig wiederholbare Termin-Zeile (<code class="token">&lt;li&gt;</code>) mit linker Bereichs-Akzentleiste. Der Anmeldebutton führt auf die <a class="body-link" href="#sec-examples" data-ep="kontakt">adaptive Kontaktseite</a> mit vorbelegtem Bereich und Anliegen.</p>
