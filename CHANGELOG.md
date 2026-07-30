@@ -136,7 +136,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Angebots-Kasten (`.col-4`, sticky). Gemessen rückt der Preis von **45 % auf 10 %** der Seitenhöhe.
   Bewusst kein neuer Streifen unter dem Header, sondern der vorhandene Kasten neben dem ersten Inhalt.
   Das Kontaktformular bleibt, wo es war, bei „Inhalte & Voraussetzungen"; beide Kästen tragen dadurch
-  je eine Aufgabe.
+  je eine Aufgabe. Dazu eine Zwei-Spalten-Variante der Rahmendaten (`.ep-facts.is-grid`): Einspaltig
+  war der Kasten 470 px hoch gegen 256 px Inhalt daneben, also 214 px Leerraum. Zweispaltig sind es
+  299 px und 43 px Leerraum. Die Variante verzichtet auf die Haarlinien und wird über `auto-fit` in
+  schmalen Kästen von selbst wieder einspaltig.
 - **Fakten-Streifen aufgelöst, Angaben ziehen in den vorhandenen Kasten** (`.ep-facts`): Der flache
   Key-Facts-Streifen unter dem Hero entfällt auf allen vier Angebots-/Seminar-Landings. Die Angaben
   bleiben vollständig erhalten und stehen jetzt dort, wo über das Angebot entschieden wird, statt an

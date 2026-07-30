@@ -996,6 +996,14 @@ img.logo-themed-light{display:none}
 .ep-facts > div + div{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
 .ep-facts dt{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)}
 .ep-facts dd{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Zwei-Spalten-Variante für Kästen, die neben Inhalt stehen: Einspaltig macht der Kasten dort mehr
+   Höhe als der Inhalt daneben (gemessen 470 gegen 256 px, also 214 px Leerraum). Zweispaltig halbiert
+   die Liste. auto-fit statt fixer Spaltenzahl, damit sie in schmalen Kästen und mobil von selbst
+   einspaltig wird. Die Haarlinien entfallen dabei: Bei zwei Spalten trennen sie keine Zeilen mehr
+   eindeutig, und der Abstand gliedert bereits. Nur für kurze Werte gedacht — lange wie „Schriftliche
+   Handlungsempfehlungen" brauchen die einspaltige Grundform. */
+.ep-facts.is-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4) var(--s5)}
+.ep-facts.is-grid > div + div{margin-top:0;padding-top:0;border-top:0}
 /* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
    Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
 .ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}
