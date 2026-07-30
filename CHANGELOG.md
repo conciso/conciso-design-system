@@ -15,6 +15,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Added
+- **Personengruppe mit Bio** (`.author-card-group.is-grid`): Zweispaltige Variante der bestehenden
+  Author-Card-Gruppe für zwei bis vier Personen mit Kurz-Bio, gedacht für die Trainer:innen einer
+  Seminar- oder Training-Landing. Die Karten selbst bleiben unverändert; die Variante setzt nur das
+  Raster (960 px Container, `minmax(0,1fr)` gegen Grid-Blowout, mobil einspaltig ab 768 px) und zieht
+  die gemeinsame `.author-card-group-eyebrow` per `:has()` auf dieselbe Breite. Dokumentiert mit einer
+  Regel an der Personenzahl: 1 Person groß mit 4:3-Bild, 2 bis 4 im Raster, darüber das
+  Team-Tile-Grid ohne Bio. Live auf der Beispielseite *Scrum Trainings*, deren Trainer:innen-Sektion
+  bisher nur einen Platzhaltertext ohne Personen trug.
 - **Komponente „Buchungsformular"** (`#sec-booking`, Klassen `.bk-*`): verbindliche Terminbuchung als
   Komposition aus `.field`-Feldern, am Beispiel eines Seminars. Erste Formular-Komponente mit
   **bedingten Feldblöcken** (Firma vs. Privatperson, abweichende Rechnungsadresse: `hidden` statt
