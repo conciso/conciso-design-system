@@ -69,6 +69,24 @@ jobs:
             exit 1
           fi
           echo "Lockstep-Version: $ROOT_VERSION"
+      # Verhindert das halb veröffentlichte Paket-Paar (siehe Concurrency-Kommentar
+      # oben): schlägt VOR dem ersten `npm publish` fehl, wenn eine der beiden
+      # Versionen bereits in GitHub Packages existiert — statt mitten im zweiten
+      # Publish-Schritt mit einem 409 abzubrechen. `npm view` liefert bei Ersteinträgen
+      # (Paket existiert noch gar nicht) ebenfalls "nicht gefunden" — das ist der
+      # erwartete, unkritische Fall.
+      - name: Prüfen, ob diese Lockstep-Version schon veröffentlicht ist
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          for PKG in "@conciso/design-system" "@conciso/design-system-angular"; do
+            if npm view "${PKG}@${VERSION}" version --registry=https://npm.pkg.github.com 2>/dev/null; then
+              echo "::error::${PKG}@${VERSION} ist bereits in GitHub Packages veröffentlicht — Version in beiden package.json erhöhen, bevor dieser Workflow erneut läuft."
+              exit 1
+            fi
+          done
+          echo "Weder @conciso/design-system@${VERSION} noch @conciso/design-system-angular@${VERSION} sind bisher veröffentlicht."
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: CSS-Schicht bauen (@conciso/design-system)
         run: npm run build
       - name: Angular-Lib bauen (@conciso/design-system-angular)

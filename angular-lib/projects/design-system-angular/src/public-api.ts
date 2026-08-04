@@ -6,9 +6,9 @@
  * ausschließlich von hier re-exportiert — es gibt keine sekundären Entry-Points
  * (siehe docs/adr/0004-verteilung-und-versionierung.md).
  *
- * Pilot-Scheibe (siehe docs/adr/0003-pilot-scheibe-und-validierung.md): Button,
- * Topnav und die von Topnav genutzte theme-switch cycle-button sind umgezogen.
- * Der restliche Bulk-Umzug (~38 Komponenten) folgt in späteren Tickets.
+ * Vollständig umgezogen (Tickets 01–09, siehe docs/adr/0002 und 0003): alle
+ * Komponenten leben hier in der Lib, storybook-angular enthält nur noch
+ * Stories und importiert ausschließlich von hier.
  */
 
 export * from './lib/area';
