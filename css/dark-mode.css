@@ -3,43 +3,85 @@
 /* ════════════════════════════════════════════
    DARK MODE
    ════════════════════════════════════════════ */
+/* @media screen: Der Token-Block gilt nur am Bildschirm. Im Druck greifen dadurch die Light-Werte
+   aus tokens.css, ohne dass sie hier ein zweites Mal stehen (eine Kopie wäre eine zweite Quelle
+   der Wahrheit und würde auseinanderlaufen). Ohne das druckt eine Seite mit data-theme="dark" die
+   volle dunkle Fläche: sehr viel Farbauftrag, und auf vielen Druckern heller Text auf grauem Grund.
+   Bekannte Grenze: die komponentenspezifischen [data-theme="dark"]-Regeln weiter unten gelten im
+   Druck weiterhin. Sie sind noch nicht auf Druck geprüft, siehe PR-Beschreibung. */
+@media screen {
 [data-theme="dark"] {
   /* Native Controls (Checkbox, Radio, Scrollbar, Select-Popup) im Dark-Theme rendern lassen,
      statt hell-thematisiert auf dunklem Grund — sonst wirkt die Checkbox wie ein Fremdkörper. */
   color-scheme: dark;
-  /* Surfaces */
-  --bg-page:#333E48; --bg-surface:#3F4B56; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
+  /* Surfaces: Flächen-Leiter nach der Material-Dark-Theme-Guidance.
+     Dark-only: bg-page #333E48 ❌ 10,92:1 gegen Weiß → #151A1F ✓ 17,51:1. (Light: #FFFFFF.)
+     Gefordert sind mindestens 15,8:1. Die Schwelle ist kein Stilmittel, sondern der Puffer, der
+     Fließtext auch auf der höchsten Elevationsstufe noch 4,5:1 sichert. Der Altwert war wörtlich
+     --tx-brand aus dem Light Mode, also eine gegen Weiß optimierte Textfarbe, keine Fläche.
+     Farbwinkel 209 (Slate) durchgehend, damit der Marken-Ton erhalten bleibt.
+     Dark-only: Stufe bg-page zu bg-surface ❌ 1,223:1 → ✓ 1,346:1. Trotz tieferer Basis wächst die
+     Tiefe, weil mehr Kopfraum nach unten mehr Spielraum nach oben schafft. */
+  --bg-page:#151A1F; --bg-surface:#28323D; --bg-overlay:rgba(0,190,190,.10);
+  /* Dark-only: bg-code #060D0D ❌ 1,12:1 gegen die neue Seite, der Well verschwand → #07090C ✓
+     1,14:1, zusammen mit dem --bd-Rahmen ablesbar. (Light: n-800 als dunkler Well auf Weiß.) */
+  --bg-code:#07090C;
+  /* Dark-only: Hover interaktiver Flächen, 11,47:1. Die Schatten tragen auf 17,51:1 weniger als
+     auf dem alten #333E48, deshalb hebt der Zustand zusätzlich die Fläche. Entspricht etwa 14 dp
+     im Material-Overlay-Modell. Das ist ein Zustand, KEINE dritte statische Flächen-Stufe.
+     (Light: gleich bg-surface, dort trägt --e3 die Tiefe.) */
+  --bg-surface-hover:#2E3B46;
+  /* Dark-only: Logo-Platte #FFFFFF ❌ 17,51:1 gegen die Seite, blendet großflächig → #E8EDED ✓
+     14,81:1. Dunkle Kundenlogos darauf weiterhin 14,73:1. (Light: #FFFFFF.) */
+  --bg-plate:#E8EDED;
   /* Text */
   --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#A6C6C6; --tx-muted:#93B6B6; /* tx-secondary #A6C6C6 → AA auf bg-surface-Cards (4.9:1); tx-muted von #7A9E9E auf #93B6B6 angehoben → AA auf bg-page (5.0:1), bg-surface 4.1:1, bleibt klar unter tx-secondary */
-  /* Neutrals (only lowest, used as bg/border) */
-  --n-50:#0A1515; --n-100:#1C2E2E;
-  /* Borders */
-  --bd:1px solid #818C99; --bd-strong:1px solid #9DA8B6;
-  --field-border:var(--n-200); /* Dark: heller Rahmen (#C9D3D3) auf Feld-bg #3F4B56 ≈ 6.6:1 → WCAG 1.4.11 ✓ (n-400 waere hier zu dunkel) */
-  /* Focus – inner ring = bg-page color for "cutout" effect */
-  --focus-ring:0 0 0 3px #333E48,0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px #333E48,0 0 0 4px var(--co-500);
+  /* Neutrals (only lowest, used as bg/border), auf denselben Farbwinkel 209 gezogen.
+     Dark-only: n-100 #1C2E2E ❌ 1,09:1 gegen die neue bg-surface, Füllungen auf Cards
+     verschwanden → #1E262E ✓ 1,18:1 zur Card und 1,14:1 zur Seite, trägt also in beide
+     Richtungen. n-50 bleibt die tiefste Stufe, 19,25:1. (Light: #F5F7F7 / #E8EDED.) */
+  --n-50:#0B0F11; --n-100:#1E262E;
+  /* Borders. Dark-only: bd #818C99 ❌ auf der tieferen Seite 5,12:1, die Haarlinie wirkte drahtig
+     → #6F7A89 ✓ 4,02:1 auf der Seite, 2,99:1 auf der Card. bd ist dekorative Trennung, nicht das
+     alleinige Erkennungsmerkmal eines Bedienelements. (Light: n-100 / n-200.) */
+  --bd:1px solid #6F7A89; --bd-strong:1px solid #8694A5;
+  /* Dark-only: field-border war n-200 #C9D3D3 ❌ 11,46:1 gegen die neue Seite, ein greller Rahmen
+     → #869C9C ✓ 6,04:1 auf der Seite und 4,49:1 auf der Card. Der Feldrahmen ist die einzige
+     Grenze, die WCAG 1.4.11 zwingend braucht, und liegt damit sicher über 3:1. (Light: n-400.) */
+  --field-border:#869C9C;
+  /* Focus: innerer Ring = bg-page für den Cutout-Effekt. Folgt jetzt dem Token statt einem
+     hartkodierten #333E48, dadurch laufen beide Ringe bei künftigen Flächen-Änderungen mit.
+     co-500 trägt 7,59:1 auf der Seite, 5,64:1 auf der Card, 4,98:1 auf der Hover-Card. */
+  --focus-ring:0 0 0 3px var(--bg-page),0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px var(--bg-page),0 0 0 4px var(--co-500);
   /* Elevation – heavier shadows on dark */
   --e1:0 1px 2px rgba(0,0,0,.60),0 1px 3px 1px rgba(0,0,0,.40);
   --e2:0 1px 2px rgba(0,0,0,.60),0 2px 6px 2px rgba(0,0,0,.40);
   --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
   --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
   --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
-  /* Semantic backgrounds – darkened */
-  --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
-  /* Semantic text colors – hellere Pendants für Lesbarkeit auf bg-page (#333E48).
+  /* Semantic backgrounds: Callout-Tints, auf dieselbe Stufe wie die Bereichs-Tints gehoben.
+     Dark-only: c-warning-bg #231800 ❌ 1,00:1 gegen die neue Seite, die Callout-Fläche war dort
+     schlicht unsichtbar → #271E0A ✓ 1,06:1 zur Seite und 1,26:1 zur Card. success und error
+     mitgezogen, damit die drei Status-Flächen auf einer Stufe liegen. (Light: helle Tints.) */
+  --c-success-bg:#092417; --c-warning-bg:#271E0A; --c-error-bg:#3D0F0F;
+  /* Semantic text colors: hellere Pendants für Lesbarkeit auf bg-page (#151A1F).
      Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
-  --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
-  --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
-  --c-error:#FFA5A5;    /* auf bg-page: 5.9:1 ✓ AA · auf bg-surface: 4.8:1 ✓ AA. Angehoben von
+  --c-success:#5CE8A0;  /* auf bg-page: 11.26:1 ✓ AAA · auf bg-surface: 8.37:1 ✓ AAA */
+  --c-warning:#F0C060;  /* auf bg-page: 10.35:1 ✓ AAA · auf bg-surface: 7.69:1 ✓ AAA */
+  --c-error:#FFA5A5;    /* auf bg-page: 9.32:1 ✓ AAA · auf bg-surface: 6.93:1 ✓ AAA. Angehoben von
                            #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
                            erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
-  /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
-     Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
-     (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
-     aber dunkler als bg-surface, damit Icon-Tiles auch IN Cards (.ep-card-icon) sichtbar bleiben; helle
-     -100/-200-Glyphen/Texte darauf 7,5–10:1. (ro = Akzent/Status, nicht als Tile genutzt → near-black.) */
-  --co-50:#16302E; --ki-50:#2A3411; --wo-50:#18301C; --es-50:#1B2547; --ro-50:#180308;
+  /* Brand tints (Dark): gedämpfte Bereichstöne statt Near-Black. Behalten die Hue, damit Icon-Tiles,
+     Bereichs-Badges und getönte Flächen als bereichsgetönte Fläche lesen statt als schwarzes Loch.
+     Dark-only: Die Tints lagen bisher UNTER bg-page (14,0:1 gegen 10,9:1). Bei einer Basis von
+     17,51:1 gibt es diesen Platz nicht mehr: Schwarz trägt nur 21:1, nach unten bleibt Faktor 1,20.
+     Die Tints wandern deshalb ÜBER die Seite, 16,5:1, und trennen sich von ihr primär über den
+     Farbton statt über die Helligkeit (1,06:1 zur Seite). Das entspricht der Material-Regel
+     „gehoben gleich heller" und hält Cards darauf mit 1,27:1 sichtbar, auch .ep-card-icon-Tiles.
+     Sättigung auf 0,60 begrenzt: großflächige Sektionen über 0,70 „vibrieren" auf dunklem Grund.
+     Helle -100/-200-Glyphen und Texte darauf 10,5 bis 13,0:1. */
+  --co-50:#092321; --ki-50:#1A2208; --wo-50:#09240E; --es-50:#111C44; --ro-50:#3C0F1A;
   --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
   /* Badge text – lighter for dark backgrounds */
   --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
@@ -47,28 +89,36 @@
      das fast auf bg-surface/Streifen lag und unsichtbar war). n-50 #0A1515 vs Streifen = 2,08:1, im
      selben Bereich wie die Bereichs-Badges (2,0-2,2:1) → konsistentes Bild, kein Sonder-Rahmen nötig. */
   --badge-neu-bg:var(--n-50); --badge-neu-text:#C4D8D8;
-  /* Contrast badge (dark) */
-  --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
-  --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
-  --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
+  /* Contrast badge (dark): auf dieselbe Tint-Stufe wie die Bereichs- und Status-Flächen gezogen,
+     sonst stünden die Badges in den Kontrast-Tabellen auf der tieferen Seite fast flächengleich.
+     Je 1,06:1 zur Seite, 1,26 bis 1,27:1 zur Card, Text darauf 6,4 bis 10,6:1. */
+  --cbadge-aa-bg:#092417; --cbadge-aa-text:#5CE8A0;
+  --cbadge-aaa-bg:#0C212E; --cbadge-aaa-text:#70C8F0;
+  --cbadge-fail-bg:#3D0F0F; --cbadge-fail-text:#F08080;
 }
-/* Dark: Brand Wheel */
-[data-theme="dark"] .bw-outer { fill: #071616 }
-[data-theme="dark"] .bw-middle { fill: #0A2626 }
+} /* Ende @media screen */
+/* Dark: Brand Wheel. Die Ringe lagen unter der alten Seite (1,69:1 und 1,46:1). Gegen die tiefere
+   Seite fielen sie auf 1,06:1 und 1,10:1 und wären als Ringe verschwunden, deshalb wie die
+   Bereichs-Tints über die Seite gehoben: 1,16:1 und 1,40:1 zur Seite, 1,21:1 zueinander (vorher
+   1,16:1). Die Divider-Striche laufen über var(--bg-page) und trennen die Ringe weiterhin. */
+[data-theme="dark"] .bw-outer { fill: #0B2B2B }
+[data-theme="dark"] .bw-middle { fill: #0E3A3A }
 [data-theme="dark"] .bw-divider { stroke: var(--bg-page) }
 [data-theme="dark"] .bw-ring-outline { stroke: var(--bg-page) }
 [data-theme="dark"] .bw-label-segment { fill: var(--co-200) }
 [data-theme="dark"] .bw-label-attr { fill: var(--co-300) }
 [data-theme="dark"] .bw-pillar-card { background: var(--bg-surface) }
-/* co-700 (#007575) on bg-surface (#3F4B56) = ~1.6:1 → co-300 (#4DD0D0) = ~4.8:1 ✓ AA */
+/* co-700 (#007575) on bg-surface (#28323D) = 2.36:1 → co-300 (#4DD0D0) = 6.97:1 ✓ AAA */
 [data-theme="dark"] .bw-pillar-title { color: var(--co-300) }
-/* Dark-only: tx-secondary (#8AAFAF) on bg-surface (#3F4B56) = 3.76:1 ❌ → tx-primary = 7.19:1 ✓ AAA. (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
+/* Dark-only: tx-secondary (#A6C6C6) on bg-surface (#28323D) = 7.13:1 → tx-primary = 10.48:1, hier
+   bewusst die kräftigere Stufe, weil die Attribute im Rad als Primärinformation gelesen werden.
+   (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
 [data-theme="dark"] .bw-pillar-attrs { color: var(--tx-primary) }
-/* co-700 (#007575) on bg-page (#333E48) = ~1.97:1 → co-200 (#80DEDE) = ~8.3:1 ✓ AAA */
+/* co-700 (#007575) on bg-page (#151A1F) = 3.17:1 ❌ für Normaltext → co-200 (#80DEDE) = 11.19:1 ✓ AAA */
 [data-theme="dark"] .doc-eyebrow { color: var(--co-200) }
 
 /* Dark: targeted component fixes that can't be token-driven */
-/* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
+/* Select arrow: n-500 (#4A6565) auf bg-surface (#28323D) = 2.07:1 ❌ → n-200 (#C9D3D3) = 8.51:1 ✓ */
 [data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C9D3D3' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") }
 /* Textarea-Resizer: der native Eck-Griff (dunkle Diagonalen) ist im Dark auf dem Feld-bg unsichtbar.
    Eigenen hellen Griff (#C9D3D3, 5,84:1) als background-image aufs Textarea legen — zuverlässiger
@@ -232,6 +282,13 @@
    die hellere bg-surface-Fläche + --bd-strong-Rahmen. Schatten nur für interaktive .ep-card-link. */
 [data-theme="dark"] .ep-card { background: var(--bg-surface) !important }
 [data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
+/* Dark-only: Auf der tieferen Seite tragen die schwarzen Schatten weniger als auf dem alten
+   #333E48. Der Hover hebt deshalb zusätzlich die Fläche (13,01:1 → 11,47:1), wie im
+   Material-Overlay-Modell, wo Tiefe primär über Helligkeit entsteht. Das ist ein Zustand,
+   KEINE dritte statische Flächen-Stufe. Das !important schlägt die .ep-card-Grundregel oben.
+   (Light: bg-surface-hover = bg-surface, dort trägt --e3 die Tiefe allein.) */
+[data-theme="dark"] .ep-card-link:hover,
+[data-theme="dark"] .ep-card-link:focus-visible { background: var(--bg-surface-hover) !important }
 [data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
 /* ep-card-icon: Im Dark-Mode werden die --XX-50-Kacheln fast schwarz, die Glyph-Farben (--XX-700/800)
@@ -451,7 +508,7 @@
 [data-theme="dark"] .card-stat[data-area="es"] .card-stat-value{color:var(--es-100)}
 [data-theme="dark"] .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-200)}
 
-/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
+/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#28323D) ── */
 [data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
 [data-theme="dark"] [data-area="ki"] .area-specimen-text { color: var(--ki-200) }   /* #D6F06D · 6.10:1 */
 [data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
@@ -492,7 +549,7 @@
 [data-theme="dark"] .cb-copy{border-color:var(--bd);color:var(--tx-muted)}
 [data-theme="dark"] .cb-copy:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 [data-theme="dark"] .cb-body{background:var(--bg-surface);color:var(--tx-primary)}
-/* Syntax tokens auf bg-surface (#3F4B56) — alle ≥4.5:1 verifiziert */
+/* Syntax tokens auf bg-surface (#28323D), alle ≥4.5:1 verifiziert */
 [data-theme="dark"] .cb-body .k{color:var(--es-200)}   /* #98B7EE · 5.1:1 */
 [data-theme="dark"] .cb-body .v{color:var(--co-200)}   /* #80DEDE · 4.9:1 */
 [data-theme="dark"] .cb-body .s{color:var(--wo-200)}   /* #A3D48E · 4.6:1 */
@@ -507,3 +564,15 @@
 [data-theme="dark"] .tbl thead th { background: var(--bg-surface) }
 [data-theme="dark"] .tbl--striped tbody tr:nth-child(even) td,
 [data-theme="dark"] .tbl--striped tbody tr:nth-child(even) th { background: var(--bg-surface) }
+
+/* ── Fotos im Dark dämpfen ──
+   Bisher gab es keine Behandlung: helle Fotos standen unverändert auf dem Seitengrund. Auf der
+   tieferen Fläche (17,51:1 statt 10,92:1) blendet ein großflächiges helles Bild deutlich stärker,
+   die Material-Guidance nennt das unter „große leuchtende Flächen begrenzen". .92 ist bewusst
+   knapp gewählt: Markenfotos sollen nicht ausgewaschen wirken, es geht nur um die Spitzlichter.
+   Nicht zu verwechseln mit dem verworfenen filter:brightness(.75) auf Icon-Glyphen weiter oben.
+   Das betraf Strichgrafik auf getönten Kacheln und drückte den Kontrast auf 1,7:1; hier liegt
+   Bildinhalt vor, kein bedeutungstragender Vordergrund auf einer Fläche. */
+[data-theme="dark"] .hero-image-media img,
+[data-theme="dark"] .ep-media-band img,
+[data-theme="dark"] .article-figure img { filter: brightness(.92) }

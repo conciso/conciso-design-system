@@ -735,9 +735,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .logo-placeholder{font:700 1rem/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
 
 /* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
-/* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
-   Dark-Variante → auf theme-reaktivem Grund würden sie im Dark unsichtbar. Weiß bleibt weiß. */
-.logo-carousel{position:relative;background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+/* Helle Platte in BEIDEN Modi: Kundenlogos liegen oft farbig oder dunkel vor und haben keine
+   Dark-Variante, auf theme-reaktivem Grund würden sie im Dark unsichtbar. Die Platte bleibt also
+   hell, wird im Dark aber über --bg-plate gedämpft (#E8EDED statt #FFFFFF): eine reinweiße Fläche
+   dieser Größe stünde mit 17,51:1 gegen die Seite und blendet. Dunkle Logos darauf 14,73:1. */
+.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
 .logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
 .logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
@@ -1053,7 +1055,7 @@ img.logo-themed-light{display:none}
 /* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
 /* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
    border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
-.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast)}
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
 .ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
 .ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
 /* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */

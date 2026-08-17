@@ -14,7 +14,47 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Changed
+- **Dark-Mode-Flächen neu aufgesetzt.** `--bg-page` trug mit `#333E48` nur **10,92:1** gegen Weiß.
+  Die Material-Dark-Theme-Guidance fordert für die Basisfläche mindestens **15,8:1**; der Wert ist
+  kein Stilmittel, sondern der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch
+  4,5:1 sichert. Ursache war strukturell: `#333E48` ist `--tx-brand` aus dem Light Mode, also eine
+  gegen Weiß optimierte **Textfarbe als Fläche**. Neu `#151A1F` (17,51:1), Farbwinkel 209 wie bisher,
+  der Marken-Slate bleibt erhalten. `--bg-surface` `#3F4B56` → `#28323D`; die Stufe zwischen Seite
+  und Karte wächst dabei von 1,223:1 auf **1,346:1**, weil mehr Kopfraum nach unten mehr Spielraum
+  nach oben schafft. Gemessen über alle 24 Beispielseiten im Dark: **117 → 24 Kontrast-Verstöße**,
+  die verbleibenden 24 sind ein vorbestehender, themeunabhängiger Befund am `.skip-link`
+  (weiß auf `--co-500` = 2,31:1, in Light identisch, separat zu beheben). Der größte Block waren
+  `--tx-muted` und Bereichstexte auf Karten, die mit 4,08:1 knapp unter AA lagen und jetzt bei
+  5,95:1 liegen.
+- **Getönte `-50`-Flächen liegen im Dark jetzt über `bg-page`, nicht mehr darunter.** Zwangsläufige
+  Folge der tieferen Basis: nach unten bleibt nur Faktor 1,20 bis Schwarz, für eine eigene Stufe
+  unterhalb der Seite ist kein Platz. Die Tints sitzen bei 16,5:1 und trennen sich vom Seitengrund
+  über den Farbton (1,06:1), Karten darauf halten 1,27:1. Sättigung auf 0,60 begrenzt, weil kräftig
+  gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **`--c-warning-bg` war im Dark unsichtbar.** `#231800` stand mit 1,00:1 gegen die neue Seite. Alle
+  drei Status-Tints und die drei Kontrast-Badge-Flächen auf die Tint-Stufe gehoben.
+- **Ränder im Dark nachgezogen.** Auf der tieferen Seite sprang `--bd` von 3,19:1 auf 5,12:1 und
+  wirkte drahtig, jetzt `#6F7A89`. `--field-border` von `--n-200` (11,46:1) auf `#869C9C`; als
+  einzige Grenze, die WCAG 1.4.11 zwingend braucht, liegt es mit 4,49:1 auf der Karte sicher über 3:1.
+- **Logo-Platte im Dark gedämpft.** Eine reinweiße Fläche dieser Größe stand mit 17,51:1 gegen die
+  Seite. Über das neue `--bg-plate` im Dark auf `#E8EDED`; dunkle Kundenlogos darauf 14,73:1.
+- **Fotos im Dark leicht gedämpft** (`filter: brightness(.92)` auf `.hero-image-media`,
+  `.ep-media-band`, `.article-figure`). Nicht zu verwechseln mit dem verworfenen
+  `brightness(.75)` auf Icon-Glyphen: das betraf Strichgrafik auf getönten Kacheln.
+- **Fokusringe folgen jetzt `var(--bg-page)`** statt einem hartkodierten `#333E48` und laufen bei
+  künftigen Flächen-Änderungen automatisch mit.
+
 ### Added
+- **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
+  tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
+  zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.
+- **`--bg-plate`** (Light `#FFFFFF`, Dark `#E8EDED`): helle Platte unter Fremd-Assets, die nur in
+  einer dunklen Fassung vorliegen (Kundenlogos).
+- **Druckausgabe:** Der Dark-Token-Block steht jetzt in `@media screen`. Eine Seite mit
+  `data-theme="dark"` druckte bisher die volle dunkle Fläche; jetzt greifen die Light-Werte aus
+  `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden. Bekannte Grenze: die
+  komponentenspezifischen `[data-theme="dark"]`-Regeln sind noch nicht auf Druck geprüft.
 - **CI-Gate gegen dunkel-auf-dunkel-Zustände** (`npm run check:dark-states`, in `css-core.yml`):
   Prüft jede `:hover`/`:focus`/`:active`-Regel in `components.css` darauf, ob sie einen nicht
   theme-awaren Ton setzt, dessen Kontrast gegen die dunklen Grundflächen unter der WCAG-Schwelle
