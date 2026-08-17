@@ -60,6 +60,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Code-Kommentare erfüllen AA.** `.cb-body .c` stand mit `--n-400` auf dem `--n-50`-Grund bei
   3,65:1, jetzt `--tx-muted` (Light 4,51:1, Dark 8,9:1). Die Terminal-Variante hat einen fest
   dunklen Grund in beiden Modi und behält deshalb `--n-400` (4,87:1) über eine eigene Regel.
+- **Scrim-Empfehlung in der Bildsprache korrigiert.** Die Doku nannte `rgba(0,0,0,.45)` und
+  widersprach damit ihrer eigenen Regel darüber: über einer ausgebrannten Bildstelle trägt das nur
+  rund 3:1. Neu mindestens `.60` für weiße Schrift, gerechnet gegen die **hellste** Stelle unter dem
+  Text statt gegen den Bilddurchschnitt, und bei Verläufen an der Position des Textes statt am
+  dichten Ende. Genau diese Lücke hatte den Hero-Befund erzeugt.
 
 ### Added
 - **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
