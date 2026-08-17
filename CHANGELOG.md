@@ -38,6 +38,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
   der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
   kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Zwei Download-Buttons trugen im Dark dunklen Text auf dunkler Fläche** (3,51:1). Sie setzten die
+  Bereichsfarbe inline (`--c500:var(--co-700)`) statt über `.btn-co`. Die Dark-Regel für die Fläche
+  hängt an der Bereichsklasse, die für die Textfarbe an `.btn-filled`; ohne Klasse greift nur die
+  zweite. Jetzt `class="btn btn-filled btn-co"`, die inline gesetzten `--c600`/`--c700`/`--c900`
+  waren ohnehin tot (nirgends in `css/` referenziert). Vorbestehend, Light war nicht betroffen.
 - **Fehler-Badge-Text im Dark auf `#FFA5A5`.** `#F08080` trug auf der aufgehellten Fehler-Füllung
   nur 3,78:1. Damit nutzen `--badge-err-text`, `--cbadge-fail-text` und `--c-error` denselben Ton,
   eine Fehlerfarbe weniger im System.
