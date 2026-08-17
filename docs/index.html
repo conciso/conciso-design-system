@@ -6220,6 +6220,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               <tr><td>Fehler</td><td>Versand oder Serverfehler nach Submit, bleibt sichtbar bis die Nutzerin aktiv reagiert</td><td><code class="token">role="alert"</code> <code class="token">aria-live="assertive"</code></td></tr>
             </tbody>
           </table>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-top:var(--s4);max-width:820px"><strong>Im Dark Mode trägt ein Rand.</strong> Die Snackbar schwebt über beliebigem Inhalt und kommt im Light ohne Rahmen aus, weil ihre dunkle Fläche auf hellem Grund für sich steht. Im Dark liegt sie mit 1,2 bis 1,8:1 sehr nah am Grund und der Schatten trägt auf der tiefen Basisfläche wenig, deshalb bekommt sie dort <code class="token">--bd-strong-c</code> dazu (5,7:1 gegen den Grund). Dieselbe Regel wie bei Menüs und Popover. Die Status-Flächen ziehen ihre Farbe aus <code class="token">--c-success-bg</code> und <code class="token">--c-error-bg</code>, nicht aus eigenen Hexwerten: als Kopien waren sie bei einer Token-Änderung zurückgeblieben und trugen nur noch 1,06:1.</p>
         </div>
         <div class="col-5">
           <div class="doc-eyebrow">Verhalten</div>

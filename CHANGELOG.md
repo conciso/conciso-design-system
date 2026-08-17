@@ -38,6 +38,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
   der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
   kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Snackbar-Flächen im Dark waren hartkodierte Kopien.** `.snack-ok` und `.snack-err` trugen
+  `#052415` und `#220808`, also die alten Werte von `--c-success-bg` und `--c-error-bg`. Als die
+  Status-Tints angehoben wurden, blieben die Kopien zurück und standen nur noch **1,06:1** bzw.
+  **1,08:1** gegen die Seite, die Snackbar war als Fläche praktisch weg. Jetzt über die Token
+  (1,78 und 1,79:1). Zusätzlich zählt die Snackbar zu den schwebenden Panels und bekommt im Dark
+  denselben `--bd-strong-c`-Rand wie Menüs (5,66:1 gegen den Grund); das deckt auch die
+  Default-Variante ab, die mit `--n-700` nicht mitflippt und bei 1,23:1 lag.
 - **Schwebende Panels bekommen im Dark einen stärkeren Rand.** Menüs und Popover grenzen sich im
   Light über `--e3` ab. Auf der tiefen Basisfläche trägt ein schwarzer Schatten das nicht mehr: ein
   geöffnetes Topnav-Menü stand über dem Hero-Foto nur noch **1,34:1** gegen die hellste Stelle

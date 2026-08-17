@@ -201,8 +201,12 @@
 [data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
-[data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
-[data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
+/* Dark-only: Die Flächen standen hier als hartkodierte Kopien von --c-success-bg und --c-error-bg
+   (#052415 / #220808). Als die Status-Tints angehoben wurden, blieben die Kopien zurück und trugen
+   nur noch ❌ 1,06:1 bzw. 1,08:1 gegen die Seite, die Snackbar war als Fläche praktisch weg.
+   Jetzt über die Token ✓ 1,78:1 und 1,79:1; Text darauf 7,60:1 und 8,34:1. */
+[data-theme="dark"] .snack-ok { background:var(--c-success-bg); color:#b0f0d0 }
+[data-theme="dark"] .snack-err { background:var(--c-error-bg); color:#fde8e8 }
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
 /* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-Utilities,
@@ -612,3 +616,8 @@
 [data-theme="dark"] .ep-select-menu,
 [data-theme="dark"] .ep-combobox-menu,
 [data-theme="dark"] .ep-nav-search-panel { border-color: var(--bd-strong-c) }
+/* Die Snackbar gehört in dieselbe Familie: sie schwebt über beliebigem Inhalt und trägt im Light
+   keinen Rahmen, weil ihre dunkle Fläche auf hellem Grund für sich steht. Im Dark liegt sie mit
+   1,23:1 (Default) bis 1,79:1 (Status) sehr nah am Grund, deshalb bekommt sie den Rand dazu.
+   Er trägt 4,61:1 auf der Default-Fläche und 3,17:1 auf den Status-Flächen. */
+[data-theme="dark"] .snack { border: 1px solid var(--bd-strong-c) }
