@@ -318,7 +318,8 @@
 /* ep-card-icon: Im Dark-Mode werden die --XX-50-Kacheln fast schwarz, die Glyph-Farben (--XX-700/800)
    bleiben aber dunkel → dunkel-auf-dunkel (KI 2.2:1, ES 2.1:1, WO 2.5:1, Corp 3.4:1; der alte
    filter:brightness(.75) verschlimmerte das auf bis zu 1.7:1). Glyph daher bereichsweise auf den
-   hellen --XX-100-Ton heben (13.8–15.6:1). CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
+   hellen --XX-100-Ton heben (nach der Flächen-Umstellung 7,49 bis 9,99:1, Schwelle für Icons ist 3:1).
+   CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
 [data-theme="dark"] .ep-card-icon[data-area="co"] svg { stroke: var(--co-100) }
 /* Timeline-Marker: co-50-Tile wird im Dark dunkel → Icon auf helles co-100 heben */
 [data-theme="dark"] .ep-tl-icon svg { stroke: var(--co-100) }
@@ -506,8 +507,10 @@
 [data-theme="dark"] .article-toc-list a:hover { color: var(--co-200) }
 
 /* ── Cards ── */
-/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
-/* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
+/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode.
+   Eyebrow-Text auf bg-surface, nachgemessen nach der Flächen-Umstellung:
+   co-200 (#80DEDE) 8,32:1 · ki-200 (#D6F06D) 10,25:1 · es-100 (#C8D9F5) 9,11:1 · wo-200 (#A3D48E) 7,66:1.
+   Dieselben Töne auf der getönten -50-Kachel (Icon-Glyph, Schwelle 3:1): 6,24 / 7,77 / 6,87 / 5,78:1. */
 [data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}
 [data-theme="dark"] .card[data-area="ki"] .card-media{color:var(--ki-200)}
 [data-theme="dark"] .card[data-area="es"] .card-media{color:var(--es-100)}
