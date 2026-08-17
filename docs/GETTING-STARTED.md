@@ -96,6 +96,7 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
 |---|---|---|---|
 | `--bg-surface-hover` | `= --bg-surface` | `#2E3B46` | Interaktive Flächen im Hover. Im Dark tragen die Schatten auf der tiefen Basis weniger, die Tiefe kommt dort aus der Fläche. Ein **Zustand**, keine dritte statische Flächen-Stufe. Light bleibt bewusst gleich, dort trägt `--e3`. |
 | `--bg-plate` | `#FFFFFF` | `#E8EDED` | Helle Platte unter Fremd-Assets, die nur in dunkler Fassung vorliegen (z. B. Kundenlogos). Bleibt in beiden Modi hell, im Dark aber gedämpft, weil eine reinweiße Fläche dieser Größe auf dunklem Grund blendet. |
+| `--co-band` u. a. | `= --XX-50` | eigener, dunklerer Ton | Fläche großer getönter Sektionen (Hero, CTA-Band). Im Dark muss ein Band **dunkler** bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung dagegen **heller** als ihr Grund. Ein Wert kann beides nicht leisten, deshalb zwei Token: kleine Füllungen nutzen weiter `--XX-50`. |
 | `--bd-c` / `--bd-strong-c` | `n-100` / `n-200` | `#6F7A89` / `#8694A5` | Die reinen Rahmenfarben. `--bd` und `--bd-strong` sind Shorthands (`1px solid …`) und lassen sich nicht in `border-color` einsetzen; Regeln, die nur die Farbe brauchen, nehmen die `-c`-Variante. |
 
 ## 4. JavaScript (optional)
