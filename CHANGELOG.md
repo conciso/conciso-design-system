@@ -38,6 +38,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
   der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
   kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Platzhalter in Formularfeldern erfüllen AA.** `.field` hatte keine `::placeholder`-Regel, es griff
+  Chromes Default `rgb(117,117,117)`: im Dark **2,82:1** und damit ein Verstoß, im Light 4,61:1 und
+  damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Jetzt `--tx-secondary` wie bei
+  Suchfeld, Footer-Newsletter, Combobox und Nav-Suche, die das längst taten; die Standard-Felder
+  waren der Ausreißer. Gemessen über 22 Felder: Dark 7,13:1, Light 6,29:1.
 - **Zwei Download-Buttons trugen im Dark dunklen Text auf dunkler Fläche** (3,51:1). Sie setzten die
   Bereichsfarbe inline (`--c500:var(--co-700)`) statt über `.btn-co`. Die Dark-Regel für die Fläche
   hängt an der Bereichsklasse, die für die Textfarbe an `.btn-filled`; ohne Klasse greift nur die

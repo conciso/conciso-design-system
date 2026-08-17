@@ -267,8 +267,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A6565' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field textarea{resize:vertical;max-width:100%}
-/* Such-Feld (inline gestyltes input[type=search]): Placeholder explizit auf tx-secondary statt
-   UA-Default — theme-aware und lesbar in beiden Modi (Light 6,3:1 / Dark 4,9:1). */
+/* Placeholder explizit auf tx-secondary statt UA-Default. Chrome zeichnet Placeholder sonst mit
+   rgb(117,117,117): im Dark sind das auf der Feldfüllung 2,8:1 und damit ein AA-Verstoß, im Light
+   4,6:1 und damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Suchfeld,
+   Footer-Newsletter, Combobox und Nav-Suche setzten das bereits, die Standard-Felder waren der
+   Ausreißer. tx-secondary ist theme-aware und gemessen: Light 6,3:1, Dark 7,1:1. */
+.field input::placeholder,.field textarea::placeholder,
 [role="search"] input::placeholder{color:var(--tx-secondary)}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
 /* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
