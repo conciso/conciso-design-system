@@ -553,7 +553,8 @@
 [data-theme="dark"] .cb-body .k{color:var(--es-200)}   /* #98B7EE · 5.1:1 */
 [data-theme="dark"] .cb-body .v{color:var(--co-200)}   /* #80DEDE · 4.9:1 */
 [data-theme="dark"] .cb-body .s{color:var(--wo-200)}   /* #A3D48E · 4.6:1 */
-[data-theme="dark"] .cb-body .c{color:var(--tx-muted)} /* gedimmt, ok für Kommentare */
+/* .cb-body .c nutzt jetzt schon im Light var(--tx-muted), der Dark-Override wäre wirkungsgleich
+   und ist deshalb entfallen. Die Terminal-Variante hat ihre eigene Regel in components.css. */
 [data-theme="dark"] .cb-body .fn{color:var(--ro-200)}  /* #F0A0BE · 4.6:1 */
 [data-theme="dark"] .cb-numbered .cb-ln::before{color:var(--tx-muted)}
 /* Inline code – co-700 (#007575) ~1.6:1 auf co-50 dark → co-200 (#80DEDE) ~4.9:1 ✓ */

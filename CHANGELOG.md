@@ -45,6 +45,22 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Fokusringe folgen jetzt `var(--bg-page)`** statt einem hartkodierten `#333E48` und laufen bei
   künftigen Flächen-Änderungen automatisch mit.
 
+- **Skip-Link erfüllt AA.** Weiß auf `--co-500` `#00BEBE` trug **2,31:1**. In Ruhe ist der Link
+  geclippt, beim Fokus springt er sichtbar herein, also genau dann kaputt, wenn Tastaturnutzende ihn
+  brauchen. Jetzt `--co-700` (5,52:1), dieselbe Füllfarbe, die `.btn-filled.btn-co` verwendet.
+  Betraf beide Modi, `--co-*` flippt nicht.
+- **Hero-Scrim verdichtet.** Der Text liegt zwischen 23 % und 77 % der Caption-Höhe, der Eyebrow als
+  erstes Kind damit im obersten, schwächsten Abschnitt des Verlaufs. Dort stand er auf Alpha 0,30,
+  über einem ausgebrannt hellen Foto sind das 1,90:1; gemessen lagen bis zu **63 % der
+  Eyebrow-Fläche** unter 4,5:1. Der `text-shadow` hilft optisch, zählt für WCAG nicht. Die
+  Unterkante bleibt unverändert bei `.85`, verdichtet wird nur der obere Teil
+  (`.72` bei 60 %, `.66` bei 80 %). Bei 77 % jetzt Alpha 0,67 = 6,0:1 gegen ein weißes Foto.
+  Pixelgemessen über 51 Textblöcke auf 17 Seiten: Blöcke mit über 10 % Fläche unter 4,5:1 gehen von
+  **17 auf 0** (Light) und von 13 auf 0 (Dark).
+- **Code-Kommentare erfüllen AA.** `.cb-body .c` stand mit `--n-400` auf dem `--n-50`-Grund bei
+  3,65:1, jetzt `--tx-muted` (Light 4,51:1, Dark 8,9:1). Die Terminal-Variante hat einen fest
+  dunklen Grund in beiden Modi und behält deshalb `--n-400` (4,87:1) über eine eigene Regel.
+
 ### Added
 - **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
   tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
