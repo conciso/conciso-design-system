@@ -97,6 +97,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (`.72` bei 60 %, `.66` bei 80 %). Bei 77 % jetzt Alpha 0,67 = 6,0:1 gegen ein weißes Foto.
   Pixelgemessen über 51 Textblöcke auf 17 Seiten: Blöcke mit über 10 % Fläche unter 4,5:1 gehen von
   **17 auf 0** (Light) und von 13 auf 0 (Dark).
+  Der erste Anlauf dafür erfüllte zwar alle Kontrastwerte, zeichnete aber eine sichtbare Linie quer
+  durchs Bild: er baute die Deckkraft auf zu kurzer Strecke auf. Gemessen an der zweiten Ableitung
+  der Zeilenhelligkeit lag er bei 21 bis 25 gegenüber 7,9 beim vorherigen Verlauf. **Mehr
+  Stützstellen halfen nicht** (eine weiche Kurve mit neun Stops maß 22,4). Gelöst über eine längere
+  Auslaufstrecke: die Caption bekommt oben eine fluide Polsterung bis 96 px, der Verlauf läuft mit
+  0,0066 Deckkraft pro Pixel aus und misst 9,2. Der Faustwert dazu steht jetzt in der Bildsprache.
 - **Code-Kommentare erfüllen AA.** `.cb-body .c` stand mit `--n-400` auf dem `--n-50`-Grund bei
   3,65:1, jetzt `--tx-muted` (Light 4,51:1, Dark 8,9:1). Die Terminal-Variante hat einen fest
   dunklen Grund in beiden Modi und behält deshalb `--n-400` (4,87:1) über eine eigene Regel.
