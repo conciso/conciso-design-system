@@ -60,11 +60,13 @@
   --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
   --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
   --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
-  /* Semantic backgrounds: Callout-Tints, auf dieselbe Stufe wie die Bereichs-Tints gehoben.
-     Dark-only: c-warning-bg #231800 ❌ 1,00:1 gegen die neue Seite, die Callout-Fläche war dort
-     schlicht unsichtbar → #271E0A ✓ 1,06:1 zur Seite und 1,26:1 zur Card. success und error
-     mitgezogen, damit die drei Status-Flächen auf einer Stufe liegen. (Light: helle Tints.) */
-  --c-success-bg:#092417; --c-warning-bg:#271E0A; --c-error-bg:#3D0F0F;
+  /* Semantic backgrounds: Callout- und Badge-Tints, auf derselben Stufe wie die kleinen
+     Bereichs-Füllungen (9,8:1).
+     Dark-only: c-warning-bg #231800 ❌ 1,00:1 gegen die neue Seite, die Fläche war dort schlicht
+     unsichtbar → #544115 ✓ 1,79:1 zur Seite, 1,33:1 zur Card. success und error mitgezogen, damit
+     die drei Status-Flächen auf einer Stufe liegen. Statustexte darauf 5,2 bis 6,3:1.
+     (Light: helle Tints auf Weiß.) */
+  --c-success-bg:#134D31; --c-warning-bg:#544115; --c-error-bg:#802020;
   /* Semantic text colors: hellere Pendants für Lesbarkeit auf bg-page (#151A1F).
      Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
   --c-success:#5CE8A0;  /* auf bg-page: 11.26:1 ✓ AAA · auf bg-surface: 8.37:1 ✓ AAA */
@@ -72,29 +74,44 @@
   --c-error:#FFA5A5;    /* auf bg-page: 9.32:1 ✓ AAA · auf bg-surface: 6.93:1 ✓ AAA. Angehoben von
                            #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
                            erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
-  /* Brand tints (Dark): gedämpfte Bereichstöne statt Near-Black. Behalten die Hue, damit Icon-Tiles,
-     Bereichs-Badges und getönte Flächen als bereichsgetönte Fläche lesen statt als schwarzes Loch.
-     Dark-only: Die Tints lagen bisher UNTER bg-page (14,0:1 gegen 10,9:1). Bei einer Basis von
-     17,51:1 gibt es diesen Platz nicht mehr: Schwarz trägt nur 21:1, nach unten bleibt Faktor 1,20.
-     Die Tints wandern deshalb ÜBER die Seite, 16,5:1, und trennen sich von ihr primär über den
-     Farbton statt über die Helligkeit (1,06:1 zur Seite). Das entspricht der Material-Regel
-     „gehoben gleich heller" und hält Cards darauf mit 1,27:1 sichtbar, auch .ep-card-icon-Tiles.
-     Sättigung auf 0,60 begrenzt: großflächige Sektionen über 0,70 „vibrieren" auf dunklem Grund.
-     Helle -100/-200-Glyphen und Texte darauf 10,5 bis 13,0:1. */
-  --co-50:#092321; --ki-50:#1A2208; --wo-50:#09240E; --es-50:#111C44; --ro-50:#3C0F1A;
+  /* Brand tints (Dark), getrennt nach den zwei Jobs, die --XX-50 im Light in einem Wert erledigt.
+     Der Grund: Ein Band muss DUNKLER bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung
+     muss HELLER sein als ihr Grund, sonst liest sie nicht als Fläche. Bei einer Basis von 17,51:1
+     ist der Spielraum zu klein, damit ein Wert beides trägt.
+
+     --XX-50 = kleine Füllung (Badges, Pills, Icon-Kacheln, getönte Select-Flächen), 9,8:1.
+     Dark-only: 1,06:1 gegen die Seite ❌ (die Badge-Fläche war praktisch nicht vorhanden, das
+     Element las nur noch als farbiger Text) → 1,78:1 gegen die Seite und 1,32:1 gegen Karten ✓.
+     Vor der Flächen-Umstellung lag der schlechteste Fall bei 1,29:1, es ist also auch gegenüber
+     dem alten Stand besser. Helle -100/-200-Glyphen darauf 4,8 bis 8,6:1, Badge-Texte ab 4,9:1.
+     Weiter aufhellen geht nicht: bei 8,6:1 reißt der Rosé-Badge-Text AA (4,29:1).
+     (Light: zarter Bereichstint auf Weiß.) */
+  --co-50:#134C47; --ki-50:#384912; --wo-50:#144E1F; --es-50:#253C92; --ro-50:#7E1F37;
+  /* --XX-band = große getönte Sektionsfläche (Hero, CTA-Band), 16,5:1. Die Bänder lagen früher
+     UNTER bg-page (14,0:1 gegen 10,9:1). Nach unten bleibt jetzt nur Faktor 1,20 bis Schwarz, sie
+     liegen deshalb knapp ÜBER der Seite und trennen sich von ihr primär über den Farbton statt über
+     die Helligkeit (1,06:1). Karten darauf behalten 1,27:1 und bilden weiter die hellere Stufe.
+     Sättigung auf 0,60 begrenzt: großflächig gesättigte Farbe „vibriert" auf dunklem Grund.
+     (Light: identisch mit --XX-50, dort gibt es den Konflikt nicht.) */
+  --co-band:#092321; --ki-band:#1A2208; --wo-band:#09240E; --es-band:#111C44;
   --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
   /* Badge text – lighter for dark backgrounds */
-  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
-  /* Neutraler Badge wie die Bereichs-Badges: dunkle -50-Kachel + heller Text (vorher medium #445060,
-     das fast auf bg-surface/Streifen lag und unsichtbar war). n-50 #0A1515 vs Streifen = 2,08:1, im
-     selben Bereich wie die Bereichs-Badges (2,0-2,2:1) → konsistentes Bild, kein Sonder-Rahmen nötig. */
-  --badge-neu-bg:var(--n-50); --badge-neu-text:#C4D8D8;
-  /* Contrast badge (dark): auf dieselbe Tint-Stufe wie die Bereichs- und Status-Flächen gezogen,
-     sonst stünden die Badges in den Kontrast-Tabellen auf der tieferen Seite fast flächengleich.
-     Je 1,06:1 zur Seite, 1,26 bis 1,27:1 zur Card, Text darauf 6,4 bis 10,6:1. */
-  --cbadge-aa-bg:#092417; --cbadge-aa-text:#5CE8A0;
-  --cbadge-aaa-bg:#0C212E; --cbadge-aaa-text:#70C8F0;
-  --cbadge-fail-bg:#3D0F0F; --cbadge-fail-text:#F08080;
+  /* Dark-only: badge-err-text #F08080 ❌ 3,78:1 auf der aufgehellten Fehler-Füllung #802020
+     → #FFA5A5 ✓ 5,21:1. Damit derselbe Ton wie --c-error, eine Fehlerfarbe weniger im System.
+     (Light: #9b2020 auf hellem Tint.) */
+  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#FFA5A5;
+  /* Neutraler Badge, gleiche Stufe wie die Bereichs-Badges, damit das Bild konsistent bleibt und
+     kein Sonder-Rahmen nötig ist. Dark-only: lag als var(--n-50) bei 1,10:1 gegen die Seite ❌
+     (n-50 ist die tiefste Flächenstufe und damit dunkler als der Grund, der Badge verschwand)
+     → eigener Wert #364553 ✓ 1,78:1 zur Seite, 1,32:1 zur Card, Text darauf 6,64:1.
+     (Light: var(--n-100).) */
+  --badge-neu-bg:#364553; --badge-neu-text:#C4D8D8;
+  /* Contrast badge (dark): auf derselben Stufe wie die Bereichs- und Status-Füllungen (9,8:1),
+     sonst stünden die Badges in den Kontrast-Tabellen flächengleich auf ihrem Grund.
+     Je 1,78 bis 1,79:1 zur Seite, 1,32 bis 1,33:1 zur Card, Text darauf 5,2 bis 6,3:1. */
+  --cbadge-aa-bg:#134D31; --cbadge-aa-text:#5CE8A0;
+  --cbadge-aaa-bg:#194864; --cbadge-aaa-text:#70C8F0;
+  --cbadge-fail-bg:#802020; --cbadge-fail-text:#FFA5A5; /* Dark-only: #F08080 ❌ 3,78:1 → 5,21:1 ✓ */
 }
 } /* Ende @media screen */
 /* Dark: Brand Wheel. Die Ringe lagen unter der alten Seite (1,69:1 und 1,46:1). Gegen die tiefere
@@ -264,10 +281,12 @@
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
    erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */
-[data-theme="dark"] .ep-section[style*="var(--co-50)"] { background: var(--co-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--ki-50)"] { background: var(--ki-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--es-50)"] { background: var(--es-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--wo-50)"] { background: var(--wo-50) !important }
+/* Getönte Sektionen ziehen --XX-band statt --XX-50: das Band muss dunkler bleiben als die Karten
+   darauf, die kleine --XX-50-Füllung dagegen heller als ihr Grund. Siehe Token-Block oben. */
+[data-theme="dark"] .ep-section[style*="var(--co-50)"] { background: var(--co-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--ki-50)"] { background: var(--ki-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--es-50)"] { background: var(--es-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--wo-50)"] { background: var(--wo-band) !important }
 /* Header-Trennlinien: die getönten Beispielseiten-Header nutzen inline border-bottom mit dem hellen
    Bereichston var(--XX-100). Der flippt nicht → im Dark eine grelle helle Linie (~7–11:1). Auf den
    neutralen var(--bd) umstellen (~3–4:1), damit die Trennlinie dezent bleibt wie der gleichfarbige

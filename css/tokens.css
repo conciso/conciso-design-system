@@ -25,6 +25,14 @@
   --ro-300:#E06898; --ro-400:#CF4478; --ro-600:#A02050; --ro-700:#7E1639;
   --ro-800:#560E26; --ro-900:#2E0513;
 
+  /* ── Bereichs-Bänder ──
+     --XX-band ist die Fläche großer getönter Sektionen (Hero, CTA-Band). Im Light identisch mit
+     --XX-50, es gibt also nichts zu unterscheiden. Getrennt wird es erst im Dark: dort muss ein
+     Band dunkler bleiben als die Karten, die darauf sitzen, während eine Badge- oder Kachel-Füllung
+     umgekehrt heller als ihr Grund sein muss, um überhaupt als Fläche zu lesen. Ein Wert kann
+     beides nicht leisten, deshalb zwei Token. Kleine Füllungen nutzen weiter --XX-50. */
+  --co-band:var(--co-50); --ki-band:var(--ki-50); --es-band:var(--es-50); --wo-band:var(--wo-50);
+
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
   --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;

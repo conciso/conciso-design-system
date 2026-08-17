@@ -27,11 +27,20 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (weiß auf `--co-500` = 2,31:1, in Light identisch, separat zu beheben). Der größte Block waren
   `--tx-muted` und Bereichstexte auf Karten, die mit 4,08:1 knapp unter AA lagen und jetzt bei
   5,95:1 liegen.
-- **Getönte `-50`-Flächen liegen im Dark jetzt über `bg-page`, nicht mehr darunter.** Zwangsläufige
-  Folge der tieferen Basis: nach unten bleibt nur Faktor 1,20 bis Schwarz, für eine eigene Stufe
-  unterhalb der Seite ist kein Platz. Die Tints sitzen bei 16,5:1 und trennen sich vom Seitengrund
-  über den Farbton (1,06:1), Karten darauf halten 1,27:1. Sättigung auf 0,60 begrenzt, weil kräftig
-  gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Getönte Flächen im Dark: `--XX-50` zerfällt in zwei Token.** Ein Wert kann zwei gegensätzliche
+  Aufgaben nicht mehr tragen. Ein **großes Band** muss dunkler bleiben als die Karten darauf, eine
+  **kleine Füllung** (Badge, Pill, Icon-Kachel) muss heller sein als ihr Grund, sonst liest sie
+  nicht mehr als Fläche. Bei `bg-page` auf 17,5:1 und Schwarz bei 21:1 reicht der Spielraum für
+  beides zusammen nicht. `--XX-50` ist jetzt die kleine Füllung (9,8:1, also 1,78:1 gegen die Seite
+  und 1,32:1 gegen Karten), das neue `--XX-band` die Sektionsfläche (16,5:1, 1,06:1 gegen die Seite
+  mit der Trennung über den Farbton, Karten darauf 1,27:1). Im Light sind beide identisch.
+  Gemessen über 199 Badge- und Pill-Instanzen: die Fläche gegen ihren Grund stand nach der ersten
+  Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
+  der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
+  kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Fehler-Badge-Text im Dark auf `#FFA5A5`.** `#F08080` trug auf der aufgehellten Fehler-Füllung
+  nur 3,78:1. Damit nutzen `--badge-err-text`, `--cbadge-fail-text` und `--c-error` denselben Ton,
+  eine Fehlerfarbe weniger im System.
 - **`--c-warning-bg` war im Dark unsichtbar.** `#231800` stand mit 1,00:1 gegen die neue Seite. Alle
   drei Status-Tints und die drei Kontrast-Badge-Flächen auf die Tint-Stufe gehoben.
 - **Ränder im Dark nachgezogen.** Auf der tieferen Seite sprang `--bd` von 3,19:1 auf 5,12:1 und
