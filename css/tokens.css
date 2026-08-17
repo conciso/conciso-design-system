@@ -144,8 +144,13 @@
   --icon-stroke-lg:2;
   --icon-stroke-xl:2.5;
 
-  /* ── Borders ── */
-  --bd:1px solid var(--n-100); --bd-strong:1px solid var(--n-200);
+  /* ── Borders ──
+     --bd-c / --bd-strong-c halten die reine Farbe. --bd und --bd-strong sind Shorthand-Werte und
+     lassen sich nicht in border-color einsetzen; Regeln, die nur die Farbe brauchen (z. B. der
+     verstärkte Rand schwebender Panels im Dark), greifen deshalb auf die -c-Variante zu, statt den
+     Hexwert ein zweites Mal zu führen. */
+  --bd-c:var(--n-100); --bd-strong-c:var(--n-200);
+  --bd:1px solid var(--bd-c); --bd-strong:1px solid var(--bd-strong-c);
   --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
   /* ── Focus ── */

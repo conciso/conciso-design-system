@@ -44,7 +44,8 @@
   /* Borders. Dark-only: bd #818C99 ❌ auf der tieferen Seite 5,12:1, die Haarlinie wirkte drahtig
      → #6F7A89 ✓ 4,02:1 auf der Seite, 2,99:1 auf der Card. bd ist dekorative Trennung, nicht das
      alleinige Erkennungsmerkmal eines Bedienelements. (Light: n-100 / n-200.) */
-  --bd:1px solid #6F7A89; --bd-strong:1px solid #8694A5;
+  --bd-c:#6F7A89; --bd-strong-c:#8694A5;
+  --bd:1px solid var(--bd-c); --bd-strong:1px solid var(--bd-strong-c);
   /* Dark-only: field-border war n-200 #C9D3D3 ❌ 11,46:1 gegen die neue Seite, ein greller Rahmen
      → #869C9C ✓ 6,04:1 auf der Seite und 4,49:1 auf der Card. Der Feldrahmen ist die einzige
      Grenze, die WCAG 1.4.11 zwingend braucht, und liegt damit sicher über 3:1. (Light: n-400.) */
@@ -596,3 +597,18 @@
 [data-theme="dark"] .hero-image-media img,
 [data-theme="dark"] .ep-media-band img,
 [data-theme="dark"] .article-figure img { filter: brightness(.92) }
+
+/* ── Schwebende Panels: der Rand übernimmt, was der Schatten nicht mehr trägt ──
+   Menüs und Popover grenzen sich im Light über --e3 vom Inhalt darunter ab. Auf der tiefen
+   Basisfläche trägt ein schwarzer Schatten das nicht mehr. Gemessen stand ein geöffnetes
+   Topnav-Menü über dem Hero-Foto nur noch 1,34:1 gegen die hellste Stelle daneben (vorher 1,92:1),
+   weil die Panel-Fläche mitgesunken ist, das Foto darunter aber nicht.
+   Eine dritte statische Flächen-Stufe wäre der Material-Weg („höher gleich heller"), würde aber die
+   Zwei-Stufen-Konvention des Systems brechen und einem Menü über einer Karte nur 1,13:1 bringen.
+   Stattdessen übernimmt der Rand: --bd-strong-c statt --bd-c, das ist unabhängig davon lesbar, was
+   zufällig hinter dem Panel liegt, und erfüllt WCAG 1.4.11 für die Panel-Grenze deutlich.
+   (Light: --bd bleibt, dort trägt der Schatten auf hellem Grund.) */
+[data-theme="dark"] .ep-nav-sub,
+[data-theme="dark"] .ep-select-menu,
+[data-theme="dark"] .ep-combobox-menu,
+[data-theme="dark"] .ep-nav-search-panel { border-color: var(--bd-strong-c) }

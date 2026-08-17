@@ -38,6 +38,16 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
   der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
   kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Schwebende Panels bekommen im Dark einen stärkeren Rand.** Menüs und Popover grenzen sich im
+  Light über `--e3` ab. Auf der tiefen Basisfläche trägt ein schwarzer Schatten das nicht mehr: ein
+  geöffnetes Topnav-Menü stand über dem Hero-Foto nur noch **1,34:1** gegen die hellste Stelle
+  daneben (vorher 1,92:1), weil die Panel-Fläche mitgesunken ist, das Foto darunter aber nicht.
+  Eine dritte statische Flächen-Stufe wäre der Material-Weg, würde aber die Zwei-Stufen-Konvention
+  brechen und einem Menü über einer Karte nur 1,13:1 bringen. Stattdessen übernimmt der Rand:
+  `--bd-strong-c` statt `--bd-c` für `.ep-nav-sub`, `.ep-select-menu`, `.ep-combobox-menu` und das
+  Suchpanel. Panel-Rand gegen den Untergrund 3,51 auf **4,95:1**, damit über dem Ausgangsstand
+  (4,15:1). Neu dafür `--bd-c` / `--bd-strong-c`, die reinen Rahmenfarben: `--bd` und `--bd-strong`
+  sind Shorthands und funktionieren in `border-color` nicht.
 - **Platzhalter in Formularfeldern erfüllen AA.** `.field` hatte keine `::placeholder`-Regel, es griff
   Chromes Default `rgb(117,117,117)`: im Dark **2,82:1** und damit ein Verstoß, im Light 4,61:1 und
   damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Jetzt `--tx-secondary` wie bei
