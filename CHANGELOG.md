@@ -38,6 +38,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
   der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
   kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Acht Inline-Rahmen nutzten rohes `--n-100` statt `--bd`.** Das verstößt gegen die eigene Regel in
+  `CONTRIBUTING.md` § 5. Im Light sind beide Werte identisch, im Dark wird `--n-100` dunkel und der
+  Rahmen stand mit **1,18:1** gegen die Kartenfläche, war also praktisch unsichtbar. Jetzt `var(--bd)`
+  (2,99:1). Betraf `.card`-Elemente in der Doku, Light bleibt unverändert.
 - **Snackbar-Flächen im Dark waren hartkodierte Kopien.** `.snack-ok` und `.snack-err` trugen
   `#052415` und `#220808`, also die alten Werte von `--c-success-bg` und `--c-error-bg`. Als die
   Status-Tints angehoben wurden, blieben die Kopien zurück und standen nur noch **1,06:1** bzw.
