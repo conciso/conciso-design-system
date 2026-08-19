@@ -81,6 +81,24 @@ document.documentElement.removeAttribute('data-theme');      // hell (Default)
 
 Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`.
 
+**Genau zwei Modi.** Das System kennt Light und Dark, keinen dritten Modus, der der Betriebssystem-Präferenz folgt. `prefers-color-scheme` wird im ausgelieferten CSS nicht ausgewertet, Default ist Light. Wer die Systemvorgabe übernehmen will, wertet sie im eigenen Produkt aus und setzt das Attribut selbst:
+
+```js
+if (matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+**Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die Light-Werte statt der vollen dunklen Fläche. Wer eigene Dark-Overrides ergänzt, legt sie innerhalb dieses Blocks ab, sonst drucken sie dunkel mit.
+
+**Zwei Token, die sich anders verhalten als der Rest:**
+
+| Token | Light | Dark | Zweck |
+|---|---|---|---|
+| `--bg-surface-hover` | `= --bg-surface` | `#2E3B46` | Interaktive Flächen im Hover. Im Dark tragen die Schatten auf der tiefen Basis weniger, die Tiefe kommt dort aus der Fläche. Ein **Zustand**, keine dritte statische Flächen-Stufe. Light bleibt bewusst gleich, dort trägt `--e3`. |
+| `--bg-plate` | `#FFFFFF` | `#E8EDED` | Helle Platte unter Fremd-Assets, die nur in dunkler Fassung vorliegen (z. B. Kundenlogos). Bleibt in beiden Modi hell, im Dark aber gedämpft, weil eine reinweiße Fläche dieser Größe auf dunklem Grund blendet. |
+| `--co-band` u. a. | `= --XX-50` | eigener, dunklerer Ton | Fläche großer getönter Sektionen (Hero, CTA-Band). Im Dark muss ein Band **dunkler** bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung dagegen **heller** als ihr Grund. Ein Wert kann beides nicht leisten, deshalb zwei Token: kleine Füllungen nutzen weiter `--XX-50`. |
+| `--bd-c` / `--bd-strong-c` | `n-100` / `n-200` | `#6F7A89` / `#8694A5` | Die reinen Rahmenfarben. `--bd` und `--bd-strong` sind Shorthands (`1px solid …`) und lassen sich nicht in `border-color` einsetzen; Regeln, die nur die Farbe brauchen, nehmen die `-c`-Variante. |
+
 ## 4. JavaScript (optional)
 
 Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktioniert **komplett ohne JS**. JS wird nur für interaktive Muster gebraucht:

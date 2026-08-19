@@ -851,7 +851,8 @@
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Jede Variante hat einen eindeutigen Anwendungsfall. Im Design System sind alle drei unter <code class="token">images/logo-conciso{,-light,-dark}.svg</code> abgelegt.</p>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
-          <div style="background:#fff;padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
+          <!-- Panel-Background über --bg-plate: im Light reinweiß (der Anwendungsfall der Variante), im Dark auf #E8EDED gedämpft, damit die helle Platte auf der tiefen Seite nicht blendet. Die Wortmarke in --tx-brand bleibt darauf klar lesbar. -->
+          <div style="background:var(--bg-plate);padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
             <img src="assets/images/logo-conciso.svg" alt="Conciso, Default-Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
@@ -1149,7 +1150,8 @@
         <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
         <tbody>
           <tr><td>Alt-Text</td><td>Jedes inhaltstragende Bild benötigt einen beschreibenden <code class="token">alt</code>-Text, er beschreibt was zu sehen ist, nicht was das Bild bedeutet; dekorative Bilder erhalten <code class="token">alt=""</code></td></tr>
-          <tr><td>Text-Overlay</td><td>Text auf Foto-Hintergründen ≥ 4,5:1 Kontrast einhalten (WCAG 1.4.3), ggf. dunklen Scrim (<code class="token">rgba(0,0,0,.45)</code>) unter den Text legen; niemals allein auf hellen Bildbereichen vertrauen</td></tr>
+          <tr><td>Text-Overlay</td><td>Text auf Foto-Hintergründen ≥ 4,5:1 einhalten (WCAG 1.4.3). Gerechnet wird gegen die <strong>hellste Stelle unter dem Text</strong>, nicht gegen den Bilddurchschnitt: Fotos haben ausgebrannte Bereiche, und dort entscheidet sich die Lesbarkeit. Weiße Schrift braucht dafür einen Scrim von mindestens <code class="token">rgba(0,0,0,.60)</code>; <code class="token">.45</code> reicht nicht und trägt über einer weißen Bildstelle nur rund 3:1. Bei einem <strong>Verlauf</strong> gilt der Wert an der Stelle, an der der Text sitzt, nicht am dichten Ende: das erste Kind einer Caption liegt im schwächsten Abschnitt. <code class="token">text-shadow</code> hilft optisch, zählt für WCAG nicht. Referenz: <code class="token">.hero-image-caption</code></td></tr>
+          <tr><td>Auslaufstrecke des Scrims</td><td>Genauso wichtig wie der Deckkraft-Wert ist die <strong>Strecke</strong>, über die er aufgebaut wird. Ein Verlauf fällt nicht dort auf, wo er dicht ist, sondern dort, wo seine Steilheit springt. Wird die nötige Deckkraft auf zu kurzer Strecke erreicht, zeichnet der Scrim eine sichtbare Linie quer durchs Bild, und <strong>mehr Stützstellen im Verlauf helfen dagegen nicht</strong> (nachgemessen: eine weiche Kurve mit neun Stops war exakt so kantig wie drei). Faustwert aus der Messung: rund <strong>0,007 Deckkraft pro Pixel</strong>. Für 0,6 Deckkraft am obersten Textelement heißt das etwa 90&nbsp;px Auslauf darüber. Reicht die Höhe nicht, wächst der Kasten (Polsterung), nicht die Steilheit</td></tr>
           <tr><td>Nicht allein</td><td>Informationen nie ausschließlich im Bild transportieren, der gleiche Inhalt muss als Text verfügbar sein (WCAG 1.1.1)</td></tr>
           <tr><td>Bewegung</td><td>Animierte Illustrationen oder Hintergrund-Videos mit <code class="token">prefers-reduced-motion</code> pausieren, Nutzerinnen mit Gleichgewichtsstörungen oder Epilepsie sind auf diese Reduktion angewiesen</td></tr>
         </tbody>
@@ -1392,7 +1394,10 @@
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Text-Tokens vs. dekorative Neutrals.</strong> <code class="token">--tx-muted</code> ist für inhaltlich-leise, aber <strong>AA-konforme</strong> Texte gedacht (Eyebrow, Counter, Meta-Angaben). Rein <strong>dekorative Elemente</strong> (Trenner, Ornament, Disabled-Hintergrund) nutzen direkt das Neutral-Token <code class="token">var(--n-300)</code> oder heller, diese sind absichtlich unter AA, weil sie keinen Textinhalt tragen.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Faustregel:</strong> Wenn ein Screenreader den Text vorlesen soll, mindestens <code class="token">--tx-muted</code> verwenden. Wenn das Element rein visuell ist und Screenreader es ignorieren (<code class="token">aria-hidden</code>, dekorative Border), darf es heller sein.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Farbiger Text/Icon auf einer hellen <code class="token">-100</code>-Kachel</strong> (Chip, Häkchen-Kreis, Label-Pille): fest auf <code class="token">--XX-800</code> setzen, <strong>nicht</strong> über <code class="token">.t-*</code> / <code class="token">--XX-ink</code>. Diese <code class="token">-100</code>-Kacheln flippen im Dark <strong>nicht</strong> mit (sie bleiben hell, damit sie auf dem dunklen Grund sichtbar bleiben); <code class="token">.t-*</code>/<code class="token">ink</code> kippt aber auf den hellen <code class="token">-200</code>-Ton → hell-auf-hell, unsichtbar. <code class="token">--XX-800</code> ist in beiden Modi stabil und sitzt auf der hellen Kachel komfortabel über AA. Das ist das <strong>Spiegelbild</strong> der Bereichstext-Regel weiter oben: auf der theme-reaktiven Seiten-/Surface-Fläche gilt das Umgekehrte (<code class="token">.t-*</code>/<code class="token">ink</code>, weil rohes <code class="token">-800</code> dort dunkel-auf-dunkel würde). Entscheidend ist immer, <strong>ob der Hintergrund mitflippt</strong>.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Bereichston-Flächen im Dark (<code class="token">--XX-50</code>):</strong> gedämpfter dunkler Bereichston, <strong>nicht</strong> near-black. In Light ist <code class="token">--XX-50</code> ein zarter Bereichstint; der reine Flip wäre im Dark fast schwarz (~1,69:1 zum Grund — hart und ohne Hue, das Tile sackt als schwarzes Loch ein, dieselbe Härte wie ein near-black Tabellen-Header). Stattdessen ein dunkler, <em>getönter</em> Ton (~1,2–1,4:1 zu <code class="token">bg-page</code>), der die Bereichsfarbe behält → Icon-Tiles, Bereichs-Badges und getönte Flächen lesen als bereichsgetönte Surface. Zwei Bedingungen: (1) <strong>dunkler als <code class="token">bg-surface</code></strong> bleiben, sonst verschwinden getönte Icon-Tiles <em>in</em> bg-surface-Cards (<code class="token">.ep-card-icon</code>); (2) die hellen <code class="token">-100</code>/<code class="token">-200</code>-Glyphen und Badge-Texte darauf müssen AA halten (hier 7,5–10:1). <code class="token">--n-50</code> (neutral) und <code class="token">--ro-50</code> (Status) bleiben bewusst near-black.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Bereichston-Flächen im Dark (<code class="token">--XX-50</code>):</strong> gedämpfter Bereichston, <strong>nicht</strong> near-black. In Light ist <code class="token">--XX-50</code> ein zarter Bereichstint; der reine Flip wäre im Dark fast schwarz, hart und ohne Hue, das Tile sackt als schwarzes Loch ein. Stattdessen ein <em>getönter</em> Ton, der die Bereichsfarbe behält.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><strong>Im Dark zerfällt <code class="token">--XX-50</code> in zwei Token</strong>, weil ein Wert zwei gegensätzliche Aufgaben nicht mehr trägt. Ein <strong>großes Band</strong> (Hero, CTA-Sektion) muss <em>dunkler</em> bleiben als die Karten darauf, sonst kehrt sich die Ebenen-Ordnung um. Eine <strong>kleine Füllung</strong> (Badge, Pill, Icon-Kachel) muss <em>heller</em> sein als ihr Grund, sonst liest sie nicht mehr als Fläche, sondern nur noch als farbiger Text. Bei einer Basisfläche von 17,5:1 gegen Weiß und reinem Schwarz bei 21:1 bleibt nach unten nur Faktor 1,20, der Spielraum reicht für beides zusammen nicht.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><code class="token">--XX-50</code> ist die <strong>kleine Füllung</strong>: 9,8:1 gegen Weiß, also 1,78:1 gegen die Seite und 1,32:1 gegen Karten. <code class="token">--XX-band</code> ist die <strong>Sektionsfläche</strong>: 16,5:1, damit knapp über der Seite (1,06:1, die Trennung trägt dort der Farbton) und weiterhin dunkler als die Karten, die mit 1,27:1 darauf sichtbar bleiben. Im Light sind beide identisch, dort gibt es den Konflikt nicht.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0">Zwei Bedingungen bleiben: (1) die Sättigung liegt bei 0,60 und damit unter 0,70, weil kräftig gesättigte Farbe auf großen dunklen Flächen optisch „vibriert"; (2) die hellen <code class="token">-100</code>/<code class="token">-200</code>-Glyphen und Badge-Texte darauf müssen AA halten. Nach oben ist damit auch die Grenze gesetzt: eine noch hellere Füllung würde den Rosé-Badge-Text unter 4,5:1 drücken.</p>
         </div>
       </div>
 
@@ -1402,8 +1407,9 @@
         <div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Hintergrundflächen &amp; Rhythmus.</strong> Aufeinanderfolgende Sektionen wechseln im Standard zwischen Weiß (<code class="token">--bg-surface</code>) und ruhigem Grau (<code class="token">--n-50</code>). Das trennt die Abschnitte sichtbar, ohne Farbe einzubringen. Kein hartes <code class="token">#fff</code> verwenden, das schaltet im Dark Mode nicht mit, immer das Token <code class="token">--bg-surface</code>.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Marken-Tönung sparsam.</strong> Eine Bereichsfläche (<code class="token">-50</code>, z.&nbsp;B. <code class="token">--ki-50</code>) wirkt als <em>Akzent</em>, etwa als Aktions-Brücke direkt unter dem Hero, die dunkle <code class="token">-800</code> als CTA-Band am Seitenende bildet die Gegen-Klammer. Mehrere große getönte Bänder hintereinander lassen die Seite „bunt" wirken und schwächen die Bereichsfarbe dort, wo sie Bedeutung trägt (Kennzahlen, Akzentlinien). Faustregel: Tönung ist Akzent, nicht Standard-Grund.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Dark: nur zwei Flächen-Stufen.</strong> Statt Weiß/Grau gibt es im Dark nur <code class="token">--bg-page</code> (Basis) und das minimal hellere <code class="token">--bg-surface</code>. Der Rhythmus wird nachgebildet, indem <code class="token">n-50</code>-Sektionen auf <code class="token">--bg-surface</code> gehoben werden. Ein Element hebt sich nur ab, wenn sein Grund eine <em>andere</em> Stufe hat. <strong>Kartentragende <code class="token">n-50</code>-Sektionen</strong> sind daher ein Sonderfall: Würde die Sektion gehoben, träfe sie auf die ebenfalls <code class="token">bg-surface</code>-Cards → gleicher Ton, die Cards verschwinden. Solche Sektionen mit <code class="token">.ep-section-cards</code> markieren: sie bleiben im Dark auf <code class="token">bg-page</code>, sodass die <code class="token">bg-surface</code>-Cards die hellere Stufe bilden und sich abheben — genau wie im Light (graue Sektion, weiße Cards). Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Dark: nur zwei Flächen-Stufen.</strong> Statt Weiß/Grau gibt es im Dark nur <code class="token">--bg-page</code> (Basis, 17,5:1 gegen Weiß) und das hellere <code class="token">--bg-surface</code> (13,0:1); die Stufe dazwischen beträgt 1,35:1. Dazu kommt <code class="token">--bg-surface-hover</code>, das interaktive Flächen im Hover eine Stufe anhebt: im Dark tragen die schwarzen Schatten auf dieser Basis weniger, die Tiefe kommt dort aus der Fläche. Das ist ein <strong>Zustand</strong>, keine dritte statische Stufe. Der Rhythmus wird nachgebildet, indem <code class="token">n-50</code>-Sektionen auf <code class="token">--bg-surface</code> gehoben werden. Ein Element hebt sich nur ab, wenn sein Grund eine <em>andere</em> Stufe hat. <strong>Kartentragende <code class="token">n-50</code>-Sektionen</strong> sind daher ein Sonderfall: Würde die Sektion gehoben, träfe sie auf die ebenfalls <code class="token">bg-surface</code>-Cards → gleicher Ton, die Cards verschwinden. Solche Sektionen mit <code class="token">.ep-section-cards</code> markieren: sie bleiben im Dark auf <code class="token">bg-page</code>, sodass die <code class="token">bg-surface</code>-Cards die hellere Stufe bilden und sich abheben — genau wie im Light (graue Sektion, weiße Cards). Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Helle <code class="token">-100</code>-Ränder auf getönten Flächen.</strong> Ein <code class="token">1px solid var(--XX-100)</code>-Rahmen ist im Light auf der <code class="token">-50</code>-Fläche ein zarter gleichfarbiger Whisper. <code class="token">-100</code> flippt aber nicht mit → im Dark wird daraus eine grelle helle Linie (7–11:1) auf der dunklen Tönung. Trennlinien und Rahmen getönter Flächen im Dark auf den neutralen <code class="token">var(--bd)</code> heben (Header-Trennlinien, Preisbox-Rahmen). Dieselbe Logik wie beim farbigen Text auf <code class="token">-100</code>-Kacheln oben: entscheidend ist, ob der Hintergrund mitflippt.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><strong>Das gilt auch für neutrales <code class="token">--n-100</code>, nur andersherum.</strong> Im Light ist <code class="token">1px solid var(--n-100)</code> exakt das, was <code class="token">--bd</code> auflöst, der Rahmen sieht also richtig aus und die Abweichung fällt nie auf. Im Dark wird <code class="token">--n-100</code> zu einer <em>dunklen</em> Fläche und der Rahmen verschwindet: gemessen 1,18:1 gegen eine Karte, gegenüber 2,99:1 bei <code class="token">var(--bd)</code>. Getönt wird die Linie also grell, neutral wird sie unsichtbar, und beides aus demselben Grund. Deshalb für Rahmen und Trennlinien ausnahmslos <code class="token">var(--bd)</code> beziehungsweise <code class="token">var(--bd-strong)</code> verwenden, nie eine <code class="token">-100</code>-Stufe direkt.</p>
         </div>
       </div>
 
@@ -2061,7 +2067,7 @@
         <thead><tr><th>Typ</th><th>Ruhezustand</th><th>Hover/Focus</th><th>Klassen</th></tr></thead>
         <tbody>
           <tr><td>Statisch</td><td><code class="token">--e0</code> + <code class="token">--bd-strong</code></td><td>unverändert</td><td><code class="token">.ep-card</code> · <code class="token">.card-stat</code> · <code class="token">.testimonial</code> · <code class="token">.ds-card</code> · <code class="token">.bw-pillar-card</code></td></tr>
-          <tr><td>Interaktiv</td><td><code class="token">--e1</code></td><td><code class="token">--e3</code> + <code class="token">translateY(-2px)</code></td><td><code class="token">.ep-card-link</code></td></tr>
+          <tr><td>Interaktiv</td><td><code class="token">--e1</code></td><td><code class="token">--e3</code> + <code class="token">translateY(-2px)</code>, im Dark zusätzlich <code class="token">--bg-surface-hover</code></td><td><code class="token">.ep-card-link</code></td></tr>
           <tr><td>Elevation-Opt-in</td><td><code class="token">--e1</code></td><td><code class="token">--e2</code> + Lift</td><td><code class="token">.card-elevated</code> (bewusst erhöht, überwiegend auf Links)</td></tr>
         </tbody>
       </table>
@@ -2074,6 +2080,7 @@
           <tr><td>Forced Colors</td><td>Windows High Contrast unterdrückt Schatten vollständig, Elevation nie als einziges Unterscheidungsmerkmal einsetzen; immer auch Border oder Hintergrundfarbe nutzen</td></tr>
           <tr><td>Nicht allein</td><td>Elevation allein kommuniziert keine Bedeutung für Screenreader, strukturelle Hierarchie muss zusätzlich durch Semantik (<code class="token">&lt;header&gt;</code>, <code class="token">&lt;main&gt;</code>, Überschriften) ausgedrückt werden</td></tr>
           <tr><td>Kontrast</td><td>Oberflächen-Kontrast zwischen <code class="token">--bg-page</code> und <code class="token">--bg-surface</code> prüfen, auch ohne Schatten müssen Karten und Panels erkennbar sein</td></tr>
+          <tr><td>Schwebende Panels im Dark</td><td>Menüs und Popover liegen über fremdem Inhalt, den sie nicht kennen. Auf der tiefen Basisfläche trägt ein schwarzer Schatten sie dort nicht mehr: gemessen stand ein Topnav-Menü über einem Hero-Foto nur 1,34:1 gegen die hellste Stelle daneben. Sie bekommen deshalb im Dark den stärkeren Rand <code class="token">--bd-strong-c</code>, der unabhängig vom Untergrund liest</td></tr>
         </tbody>
       </table>
 
@@ -2811,6 +2818,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 <span class="v">.btn-wo</span>   { --c500: var(--wo-700); --c50: var(--wo-50);  }  <span class="c">/* Wirksame Organisationen */</span></pre>
       </div>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Regel:</strong> Für Standard-Bereichsfarben immer die Modifier-Klasse verwenden. Erst wenn die benötigte Farbkombination außerhalb der vier Bereiche liegt und kein anderer Modifier sie deckt, die Tokens inline setzen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-primary);border-left:3px solid var(--c-warning);padding-left:var(--s4);margin-bottom:var(--s4);max-width:820px"><strong>Warum das im Dark Mode zählt.</strong> Die Dark-Regeln für <code class="token">.btn-filled</code> sind auf zwei Selektoren verteilt: die <strong>Fläche</strong> setzt <code class="token">[data-theme="dark"] .btn-co.btn-filled</code>, die <strong>Textfarbe</strong> setzt <code class="token">[data-theme="dark"] .btn-filled</code>. Ein Inline-Override ohne Bereichsklasse bekommt also nur die zweite Hälfte: die Fläche bleibt auf dem dunklen <code class="token">-700</code>-Ton stehen und trägt plötzlich dunklen Text (gemessen 3,51:1). Im Light fällt das nicht auf, und <code class="token">npm run check:dark-states</code> findet es nicht, weil der Bruch nicht in einer Regel steht, sondern im Markup entsteht. Wer inline überschreibt, wählt deshalb entweder einen hellen Fläche-Ton, der in beiden Modi trägt, <strong>oder</strong> setzt <code class="token">color</code> gleich mit, wie im Beispiel unten.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Wiederkehrender Spezialfall · invertierter Button auf farbigem Band</strong> (siehe <a class="body-link" href="#gt-cta-band">Page-End-CTA-Band</a>): Background weiß, Text in der Bereichsfarbe, Hover dezent semitransparent. Dafür gibt es die zusammengesetzte Modifier-Klasse <code class="token">.btn-on-band</code>, die mit der jeweiligen Bereichs-Klasse kombiniert wird.</p>
       <div class="cb-wrap" style="margin-bottom:var(--s6)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
@@ -2951,7 +2959,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
       <h2 id="gt-inputs-felder" class="group-title">Feldkomponenten</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Select-Platzhalter:</strong> Die erste Option („Bitte wählen…“) trägt <code class="token">value=""</code> + <code class="token">disabled</code> + <code class="token">selected</code>. So zählt der Platzhalter als unerlaubter Wert, Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Rahmen-Kontrast (WCAG 1.4.11):</strong> Feld-Rahmen nutzen den modusbewussten Token <code class="token">--field-border</code> mit ≥&nbsp;3:1 gegen den Feld-Hintergrund (Light <code class="token">--n-400</code> ≈ 3,9:1; Dark <code class="token">--n-200</code> ≈ 5,8:1). Das frühere <code class="token">--n-200</code> verfehlte im Light-Mode mit ~1,5:1 die Non-Text-Contrast-Schwelle.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Rahmen-Kontrast (WCAG 1.4.11):</strong> Feld-Rahmen nutzen den modusbewussten Token <code class="token">--field-border</code> mit ≥&nbsp;3:1 gegen den Feld-Hintergrund (Light <code class="token">--n-400</code> ≈ 3,9:1; Dark <code class="token">#869C9C</code> ≈ 4,5:1). Das frühere <code class="token">--n-200</code> verfehlte im Light-Mode mit ~1,5:1 die Non-Text-Contrast-Schwelle. Der Rahmen ist der einzige Umriss des Feldes, sobald es auf einer Karte sitzt: dort ist die Feldfüllung mit <code class="token">--bg-surface</code> identisch mit dem Grund, die Fläche trägt also nichts bei.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Platzhalter:</strong> immer explizit auf <code class="token">--tx-secondary</code> setzen, nie dem Browser überlassen. Chrome zeichnet Platzhalter sonst mit <code class="token">rgb(117,117,117)</code>: auf der Feldfüllung sind das im Dark 2,8:1 und damit ein AA-Verstoß, im Light 4,6:1 und damit knapp bestanden, aber ohne Reserve. Mit <code class="token">--tx-secondary</code> sind es 7,1:1 (Dark) und 6,3:1 (Light). Gilt für alle Eingabefelder, auch für neue.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Textarea:</strong> <code class="token">resize:vertical</code> + <code class="token">max-width:100%</code> — nur vertikal vergrößerbar, damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Radio (Optionsfelder):</strong> für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Wie die Checkbox ein <strong>natives</strong> <code class="token">&lt;input type="radio"&gt;</code> mit <code class="token">accent-color</code> in der Bereichsfarbe — kein nachgebauter Kreis. Die Gruppe sitzt in einem <code class="token">&lt;fieldset&gt;</code> mit <code class="token">&lt;legend&gt;</code> (Gruppen-Label wie ein Feld-Label), sodass Screenreader Frage und Optionen als zusammengehörig ansagen; alle Optionen teilen denselben <code class="token">name</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:720px"><strong>Segmented Control:</strong> kompakte Alternative für 2–4 kurze, gleichrangige Optionen, die nebeneinander passen (bei längeren Labels oder Beschreibungen die Liste, ab etwa 6 Optionen ein Select). Ebenfalls <strong>native</strong> <code class="token">&lt;input type="radio"&gt;</code>, nur visuell versteckt und über gestylte <code class="token">&lt;label&gt;</code> als verbundene Buttons dargestellt (<code class="token">.seg</code>). Der Auswahl-Zustand (<code class="token">:checked</code>) lässt sich nicht inline setzen, daher ein kleines Komponenten-CSS wie bei <code class="token">.chip</code>. Bedienung und Semantik bleiben identisch zur Liste: <code class="token">&lt;fieldset&gt;</code>/<code class="token">&lt;legend&gt;</code>, gemeinsamer <code class="token">name</code>, Pfeiltasten-Navigation, sichtbarer Fokusring am Label.</p>
@@ -3710,6 +3719,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td><code class="token">.ep-combobox-clear</code></td><td>Lösch-Button (per JS injiziert), erscheint bei Texteingabe und leert das Feld; Multi behält die Chips</td></tr>
               <tr><td><code class="token">data-value</code></td><td>Maschinenwert je Option; sichtbarer Text ist das Label (oder <code class="token">data-label</code>)</td></tr>
               <tr><td><code class="token">ep:change</code></td><td>Custom-Event bei Auswahl (<code class="token">detail.value</code>, <code class="token">detail.selected</code>) zum Anbinden eigener Logik</td></tr>
+              <tr><td>Panel im Dark</td><td>Das Menü schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten verlassen: über einem Hero-Foto stand es gemessen nur 1,34:1 gegen die hellste Stelle daneben. Der Rand übernimmt deshalb im Dark <code class="token">--bd-strong-c</code> statt <code class="token">--bd-c</code>. Gilt für jedes schwebende Panel, auch <code class="token">.ep-nav-sub</code> und das Suchpanel</td></tr>
             </tbody>
           </table>
         </div>
@@ -4592,7 +4602,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div class="doc-eyebrow">Anatomie</div>
           <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
             <div style="height:60px;background:var(--co-50);display:flex;align-items:center;justify-content:center;border-bottom:var(--bd)">
-              <span style="font:400 12px/16px var(--font);color:var(--tx-muted)">① Media, Bereichsfarbe <code class="token">-50</code></span>
+              <span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">① Media, Bereichsfarbe <code class="token">-50</code></span>
             </div>
             <div style="padding:var(--s4)">
               <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s1)">② Eyebrow, Bereichsname</div>
@@ -4628,7 +4638,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <div style="font:500 12px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s2)">Mit Media-Bereich → keine Linie</div>
             <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
               <div style="height:40px;background:var(--co-50);display:flex;align-items:center;justify-content:center">
-                <span style="font:400 12px/16px var(--font);color:var(--co-400)">Media</span>
+                <span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Media</span>
               </div>
               <div style="padding:var(--s3) var(--s4)">
                 <div style="height:6px;border-radius:3px;background:var(--n-200);margin-bottom:6px;width:55%"></div>
@@ -5718,14 +5728,14 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <span class="badge" data-area="ki">Angewandte KI</span>
         <span class="badge" data-area="es">Effektive Software</span>
         <span class="badge" data-area="wo">Wirksame Organisationen</span>
-        <span class="badge" style="background:var(--n-50);color:var(--tx-brand)">Text Brand</span>
+        <span class="badge" style="background:var(--badge-neu-bg);color:var(--tx-brand)">Text Brand</span>
         <span class="badge badge-ok">Live</span>
         <span class="badge badge-warn">Beta</span>
         <span class="badge badge-err">Deprecated</span>
         <span class="badge badge-neu">Draft</span>
       </div>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s5) 0 var(--s4)"><strong>Zwei Badge-Familien:</strong> Bereichs-Badges (<code class="token">data-area="co|ki|es|wo"</code>) ordnen ein Element einer Brand Area zu (50er-Grund, 800er-Text); Status-Badges (<code class="token">.badge-ok</code> / <code class="token">-warn</code> / <code class="token">-err</code> / <code class="token">-neu</code>) tragen Zustände über semantische Tokens. Bereichsfarbe über <code class="token">data-area</code> setzen, nicht inline.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4)"><strong>Dark-Mode:</strong> Chips, Pills und Bereichs-Badges behalten den dunklen 50er-Grund und heben ihren Text auf den hellen Bereichston (<code class="token">-200</code>, ES <code class="token">-100</code>); der neutrale Badge (<code class="token">.badge-neu</code>) und das Text-Brand-Badge nutzen analog die neutrale 50er-Kachel (<code class="token">--n-50</code>) mit hellem Text, statt eines mittleren Grautons, der auf <code class="token">bg-surface</code> (z.&nbsp;B. Tabellen-Streifen) verschwände; der Chip-Rahmen geht auf <code class="token">-300/-400</code>. Overrides in <code class="token">dark-mode.css</code>, damit nichts dunkel-auf-dunkel kippt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4)"><strong>Dark-Mode:</strong> Chips, Pills und Bereichs-Badges behalten den getönten 50er-Grund und heben ihren Text auf den hellen Bereichston (<code class="token">-200</code>, ES <code class="token">-100</code>); der neutrale Badge (<code class="token">.badge-neu</code>) und das Text-Brand-Badge nutzen analog <code class="token">--badge-neu-bg</code> mit hellem Text. Der Chip-Rahmen geht auf <code class="token">-300/-400</code>. Overrides in <code class="token">dark-mode.css</code>, damit nichts dunkel-auf-dunkel kippt.</p>
 
       <h2 id="gt-chips-pill" class="group-title">Pill</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Passive, kompakte Markierung mit Bereichston, typografisch als Eyebrow ausgeführt (uppercase, <code class="token">letter-spacing: .09em</code>, label-xs). Sitzt typischerweise oberhalb eines Titels und ordnet ihn einer Brand Area zu. Wie der Bereichs-Badge zeigt die Pill keine Interaktion, hebt sich aber typografisch deutlicher ab.</p>
@@ -6022,7 +6032,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           </div>
         </div>
         <div class="cta-dl-actions">
-          <button class="btn btn-filled" style="--c50:var(--co-50);--c500:var(--co-700);--c600:var(--co-600);--c700:var(--co-700);--c900:var(--co-900)" aria-label="Figma-Bibliothek herunterladen (Figma, 48 MB)">Herunterladen</button>
+          <button class="btn btn-filled btn-co" aria-label="Figma-Bibliothek herunterladen (Figma, 48 MB)">Herunterladen</button>
           <button class="btn btn-text" style="--c50:var(--co-50);--c500:var(--co-700);--c600:var(--co-700)">Vorschau ansehen</button>
         </div>
       </div>
@@ -6049,7 +6059,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
           <h3 class="cta-visual-title">Brand Guidelines 2025</h3>
           <p class="cta-visual-desc">Verbindliche Richtlinien für Logo, Farben, Typografie und Bildsprache, für alle Teams und Agenturen.</p>
           <div class="cta-visual-footer">
-            <button class="btn btn-filled" style="--c50:var(--co-50);--c500:var(--co-700);--c600:var(--co-600);--c700:var(--co-700);--c900:var(--co-900)" aria-label="Brand Guidelines 2025 herunterladen (PDF, 8,4 MB)">
+            <button class="btn btn-filled btn-co" aria-label="Brand Guidelines 2025 herunterladen (PDF, 8,4 MB)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
               Herunterladen
             </button>
@@ -6212,6 +6222,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
               <tr><td>Fehler</td><td>Versand oder Serverfehler nach Submit, bleibt sichtbar bis die Nutzerin aktiv reagiert</td><td><code class="token">role="alert"</code> <code class="token">aria-live="assertive"</code></td></tr>
             </tbody>
           </table>
+          <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-top:var(--s4);max-width:820px"><strong>Im Dark Mode trägt ein Rand.</strong> Die Snackbar schwebt über beliebigem Inhalt und kommt im Light ohne Rahmen aus, weil ihre dunkle Fläche auf hellem Grund für sich steht. Im Dark liegt sie mit 1,2 bis 1,8:1 sehr nah am Grund und der Schatten trägt auf der tiefen Basisfläche wenig, deshalb bekommt sie dort <code class="token">--bd-strong-c</code> dazu (5,7:1 gegen den Grund). Dieselbe Regel wie bei Menüs und Popover. Die Status-Flächen ziehen ihre Farbe aus <code class="token">--c-success-bg</code> und <code class="token">--c-error-bg</code>, nicht aus eigenen Hexwerten: als Kopien waren sie bei einer Token-Änderung zurückgeblieben und trugen nur noch 1,06:1.</p>
         </div>
         <div class="col-5">
           <div class="doc-eyebrow">Verhalten</div>
@@ -6670,7 +6681,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       </div>
       <h2 id="gt-logo-carousel" class="group-title">Kundenlogo-Karussell</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Diskrete Sets von je 5 Logos, die alle 6 Sekunden per Crossfade wechseln. Pausiert automatisch bei Hover und Tastatur-Fokus, zusätzlich manueller Pause-Button (WCAG 2.2.2). Pagination-Dots erlauben gezieltes Springen, Tastatur-Navigation via Pfeil-, Home- und End-Taste. Respektiert <code class="token">prefers-reduced-motion</code>: bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Darstellung:</strong> Die Logos sitzen randlos (ohne Einzel-Kachel) auf einer <strong>fest weißen Platte</strong>, die in <em>beiden</em> Themes weiß bleibt — Kundenlogos liegen meist nur in einer farbigen bzw. dunklen Fassung ohne Dark-Variante vor und würden auf theme-reaktivem Grund im Dark Mode untergehen. Einheitliche Logo-Höhe (<code class="token">max-height: 100px</code>, Breite <code class="token">auto</code>) sorgt für optisch ausgewogene Größen. <strong>Kein Hover-Effekt</strong>, da die Logos nicht verlinkt sind — ein Lift würde fälschlich Klickbarkeit suggerieren (siehe „Elevation = Interaktivität").</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Darstellung:</strong> Die Logos sitzen randlos (ohne Einzel-Kachel) auf einer <strong>hellen Platte</strong> (<code class="token">--bg-plate</code>), die in <em>beiden</em> Themes hell bleibt: Kundenlogos liegen meist nur in einer farbigen bzw. dunklen Fassung ohne Dark-Variante vor und würden auf theme-reaktivem Grund im Dark Mode untergehen. Im Dark ist die Platte auf <code class="token">#E8EDED</code> gedämpft statt reinweiß, weil eine reinweiße Fläche dieser Größe auf der tiefen Seitenfläche blendet (17,5:1 statt 14,8:1 gegen die Seite); dunkle Logos darauf tragen weiterhin 14,7:1. Einheitliche Logo-Höhe (<code class="token">max-height: 100px</code>, Breite <code class="token">auto</code>) sorgt für optisch ausgewogene Größen. <strong>Kein Hover-Effekt</strong>, da die Logos nicht verlinkt sind — ein Lift würde fälschlich Klickbarkeit suggerieren (siehe „Elevation = Interaktivität").</p>
 
       <div class="logo-carousel" role="region" aria-roledescription="Logo-Karussell" aria-label="Kundenlogos" style="margin-bottom:var(--s8)">
         <button class="logo-carousel-pause" type="button" aria-pressed="false" aria-label="Logo-Animation pausieren">
@@ -6778,7 +6789,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 
       <!-- ── Kontrast: Textfarben auf Weiß ── -->
       <h2 id="gt-a11y-kontrast" class="group-title">Kontrastverhältnisse: Textfarben auf Weiß</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Die <code class="token">.a11y-mode</code>-Pill markiert, auf welchen Theme-Modus sich ein Wert bezieht: <span class="a11y-mode">Light</span> für die hellen Token-Werte (Page-Background <code class="token">#FFFFFF</code>), <span class="a11y-mode">Dark</span> für die dunklen Pendants (<code class="token">#333E48</code>), <span class="a11y-mode">Beide Modi</span> wenn der gleiche Token in beiden Modi denselben Wert hält. Konvention auch für Code-Kommentare in <code class="token">dark-mode.css</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Die <code class="token">.a11y-mode</code>-Pill markiert, auf welchen Theme-Modus sich ein Wert bezieht: <span class="a11y-mode">Light</span> für die hellen Token-Werte (Page-Background <code class="token">#FFFFFF</code>), <span class="a11y-mode">Dark</span> für die dunklen Pendants (Page-Background <code class="token">#151A1F</code>), <span class="a11y-mode">Beide Modi</span> wenn der gleiche Token in beiden Modi denselben Wert hält. Konvention auch für Code-Kommentare in <code class="token">dark-mode.css</code>.</p>
       <div class="contrast-row">
         <div class="cswatch" style="background:#333E48;color:#fff">Aa</div>
         <div class="cinfo"><div class="cname"><span class="a11y-mode">Light</span><code class="token">--tx-primary</code> #333E48 auf Weiß</div><div class="cratio">10.4:1, Fließtext, Headlines, UI-Labels</div></div>
@@ -6858,123 +6869,63 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
         <span class="cbadge c-aa">AA Large ✓</span>
       </div>
 
-      <!-- ── Kontrast: Dark Mode (Textfarben auf bg-page #333E48) ── -->
+      <!-- ── Kontrast: Dark Mode (Textfarben auf bg-page #151A1F) ── -->
       <h2 id="gt-a11y-kontrast-dark" class="group-title">Kontrastverhältnisse: Dark Mode</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Im Dark Mode ist die Page-Background <code class="token">#333E48</code> (Token <code class="token">--bg-page</code>). Text-Tokens und Brand-Tokens haben mode-spezifische Werte; die Pill <span class="a11y-mode">Dark</span> markiert diese Zeilen. Die jeweiligen Light-Pendants stehen oben in der ersten Tabelle.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Im Dark Mode ist die Page-Background <code class="token">#151A1F</code> (Token <code class="token">--bg-page</code>), gehobene Flächen wie Karten sitzen auf <code class="token">#28323D</code> (<code class="token">--bg-surface</code>). Die Basisfläche trägt 17,5:1 gegen Weiß und liegt damit über der Material-Schwelle von 15,8:1, die sicherstellt, dass Fließtext auch auf der höchsten Elevationsstufe noch 4,5:1 erreicht. Text-Tokens und Brand-Tokens haben mode-spezifische Werte; die Pill <span class="a11y-mode">Dark</span> markiert diese Zeilen. Die jeweiligen Light-Pendants stehen oben in der ersten Tabelle.</p>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#DDE9E9;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-primary</code> #DDE9E9 auf #333E48</div><div class="cratio">8.8:1, Fließtext, Headlines, UI-Labels</div></div>
+        <div class="cswatch" style="background:#DDE9E9;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-primary</code> #DDE9E9 auf #151A1F</div><div class="cratio">14.1:1, Fließtext, Headlines, UI-Labels · auf bg-surface 10.5:1</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#8AAFAF;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-secondary</code> #8AAFAF auf #333E48</div><div class="cratio">4.6:1, Lead, Sub-Titel, Captions, Body in Karten</div></div>
-        <span class="cbadge c-aa">AA ✓</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#7A9E9E;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-muted</code> #93B6B6 auf #333E48</div><div class="cratio">5.0:1 (AA) auf bg-page · auf hellerem bg-surface 4.1:1 (dort Large Text / Non-Text); angehoben von #7A9E9E (3.8:1), bleibt unter tx-secondary</div></div>
-        <span class="cbadge c-fail-badge">Fail ✗</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#80DEDE;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Corporate 200 #80DEDE auf #333E48</div><div class="cratio">7.0:1, Eyebrows, Card-Eyebrows, Bereichs-Text · Light-Pendant: <code class="token">--co-700</code></div></div>
+        <div class="cswatch" style="background:#A6C6C6;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-secondary</code> #A6C6C6 auf #151A1F</div><div class="cratio">9.6:1, Lead, Sub-Titel, Captions, Body in Karten · auf bg-surface 7.1:1</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#4DD0D0;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Corporate 300 #4DD0D0 auf #333E48</div><div class="cratio">5.9:1, Pillar-Titles, Code-Tokens, Footer-Links · Light-Pendant: <code class="token">--co-700</code></div></div>
-        <span class="cbadge c-aa">AA ✓</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#D6F06D;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Angewandte KI 200 #D6F06D auf #333E48</div><div class="cratio">8.6:1, KI-Bereichstexte, Tab-Active-State · Light-Pendant: <code class="token">--ki-800</code></div></div>
+        <div class="cswatch" style="background:#93B6B6;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--tx-muted</code> #93B6B6 auf #151A1F</div><div class="cratio">8.0:1, gedämpfte Meta-Angaben · auf bg-surface 6.0:1 (vorher 4.1:1, verfehlte dort AA)</div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#98B7EE;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Effektive Software 200 #98B7EE auf #333E48</div><div class="cratio">5.4:1, ES-Bereichstexte · Light-Pendant: <code class="token">--es-700</code></div></div>
-        <span class="cbadge c-aa">AA ✓</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#A3D48E;color:#333E48">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Wirksame Organisationen 200 #A3D48E auf #333E48</div><div class="cratio">6.4:1, WO-Bereichstexte · Light-Pendant: <code class="token">--wo-700</code></div></div>
-        <span class="cbadge c-aa">AA ✓</span>
-      </div>
-      <div class="contrast-row">
-        <div class="cswatch" style="background:#5CE8A0;color:#052415">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-success</code> #5CE8A0 auf #333E48</div><div class="cratio">7.0:1, ✓-Marker in Do/Don't-Listen · Light-Pendant: <code class="token">#0E6644</code> (6.99:1 ✓)</div></div>
+        <div class="cswatch" style="background:#80DEDE;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Corporate 200 #80DEDE auf #151A1F</div><div class="cratio">11.2:1, Eyebrows, Card-Eyebrows, Bereichs-Text · Light-Pendant: <code class="token">--co-700</code></div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#F0C060;color:#231800">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-warning</code> #F0C060 auf #333E48</div><div class="cratio">6.5:1, Hinweise, Beta-Zustände · Light-Pendant: <code class="token">#8A5E0A</code> (5.70:1 ✓)</div></div>
+        <div class="cswatch" style="background:#4DD0D0;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Corporate 300 #4DD0D0 auf #151A1F</div><div class="cratio">9.4:1, Pillar-Titles, Code-Tokens, Footer-Links · Light-Pendant: <code class="token">--co-700</code></div></div>
         <span class="cbadge c-aaa">AAA ✓</span>
       </div>
       <div class="contrast-row">
-        <div class="cswatch" style="background:#FF8E8E;color:#220808">Aa</div>
-        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-error</code> #FFA5A5 auf #333E48</div><div class="cratio">5.9:1, ✕-Marker, Inline-Fehlertext, Required-Asterisks · auf dem helleren bg-surface 4.8:1 (dort sitzt der Fehlertext meist) · angehoben von #FF8E8E, das auf bg-surface nur 4.0:1 erreichte · Light-Pendant: <code class="token">#B22020</code> (6.73:1 ✓)</div></div>
-        <span class="cbadge c-aa">AA ✓</span>
+        <div class="cswatch" style="background:#D6F06D;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Angewandte KI 200 #D6F06D auf #151A1F</div><div class="cratio">13.8:1, KI-Bereichstexte, Tab-Active-State · Light-Pendant: <code class="token">--ki-800</code></div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
       </div>
-
-      <!-- ── Tastaturnavigation ── -->
-      <h2 id="gt-a11y-keyboard" class="group-title">Tastaturnavigation</h2>
-      <p style="font-size:14px;color:var(--tx-secondary);margin-bottom:var(--s4)">Alle interaktiven Elemente müssen per Tastatur erreichbar und bedienbar sein (WCAG 2.1.1). Die Tab-Reihenfolge folgt der visuellen Leserichtung (WCAG 1.3.2).</p>
-      <table class="a11y-table">
-        <thead>
-          <tr><th>Komponente</th><th>Taste(n)</th><th>Verhalten</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Button, Link</td><td><span class="a11y-kbd">Tab</span> / <span class="a11y-kbd">Shift+Tab</span></td><td>Fokus vorwärts / rückwärts bewegen</td></tr>
-          <tr><td>Button</td><td><span class="a11y-kbd">Enter</span> / <span class="a11y-kbd">Space</span></td><td>Aktion auslösen</td></tr>
-          <tr><td>Link</td><td><span class="a11y-kbd">Enter</span></td><td>Navigation ausführen</td></tr>
-          <tr><td>Tabs (Tablist)</td><td><span class="a11y-kbd">←</span> / <span class="a11y-kbd">→</span></td><td>Zwischen Tabs wechseln (roving tabindex)</td></tr>
-          <tr><td>Select / Dropdown</td><td><span class="a11y-kbd">↑</span> / <span class="a11y-kbd">↓</span> + <span class="a11y-kbd">Enter</span></td><td>Option auswählen</td></tr>
-          <tr><td>Dialog / Modal</td><td><span class="a11y-kbd">Esc</span></td><td>Schließen, Fokus zurück zum Auslöser</td></tr>
-          <tr><td>Checkbox</td><td><span class="a11y-kbd">Space</span></td><td>An-/abwählen</td></tr>
-          <tr><td>Alle Seiten</td><td><span class="a11y-kbd">Tab</span> (erstes Element)</td><td>Skip-Link zum Hauptinhalt anzeigen</td></tr>
-        </tbody>
-      </table>
-      <div class="a11y-card" style="margin-top:var(--s4)">
-        <h3>Skip Navigation</h3>
-        <p>Ermöglicht Tastaturnutzern, repetitive Navigation zu überspringen (WCAG 2.4.1).</p>
-        <div class="code-block">&lt;a <span class="k">href</span>=<span class="s">"#main-content"</span> <span class="k">class</span>=<span class="s">"skip-link"</span>&gt;Zum Inhalt springen&lt;/a&gt;
-…
-&lt;main <span class="k">id</span>=<span class="s">"main-content"</span> <span class="k">tabindex</span>=<span class="s">"-1"</span>&gt;…&lt;/main&gt;
-
-<span class="c">/* CSS: sichtbar nur bei Fokus */</span>
-<span class="k">.skip-link</span> { position: <span class="v">absolute</span>; top: <span class="v">-40px</span>; left: <span class="v">0</span>; }
-<span class="k">.skip-link:focus</span> { top: <span class="v">0</span>; }</div>
-        <p style="margin-top:var(--s3)"><strong>Pflicht-Detail:</strong> Das Ziel-Element muss <code class="token">tabindex="-1"</code> tragen. Sonst scrollt der Browser zwar zum Anchor, der Tastatur-Fokus bleibt aber auf dem Skip-Link, und das nächste <span class="a11y-kbd">Tab</span> springt zur Navigation zurück — der Skip-Effekt verpufft. Mit <code class="token">tabindex="-1"</code> wird das Ziel programmatisch fokussierbar, der Browser bewegt den Fokus dorthin, und das nächste <span class="a11y-kbd">Tab</span> landet auf dem ersten interaktiven Element im Hauptinhalt.</p>
-        <p><strong>Container mit overflow:hidden:</strong> Wenn der Skip-Link in einem Container mit <code class="token">overflow:hidden</code> sitzt (z.&nbsp;B. einer Preview-Karte), muss der Container <code class="token">position:relative</code> bekommen — sonst clipped der Container die negative <code class="token">top</code>-Position und der Skip-Link bleibt auch im Fokus unsichtbar. Beispiel: die Beispielseiten-Container <code class="token">.ep-page</code> sind <code class="token">position:relative</code>, damit ihre Skip-Links beim Fokus innerhalb der Preview-Karte poppen.</p>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#98B7EE;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Effektive Software 200 #98B7EE auf #151A1F</div><div class="cratio">8.6:1, ES-Bereichstexte · Light-Pendant: <code class="token">--es-700</code></div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
       </div>
-
-      <!-- ── Touch Targets ── -->
-      <h2 id="gt-a11y-touch" class="group-title">Touch Targets & Interaktionsflächen</h2>
-      <p style="font-size:14px;color:var(--tx-secondary);margin-bottom:var(--s4)">Interaktive Elemente müssen mindestens 44 × 44 CSS-Pixel groß sein (WCAG 2.5.5 Level AAA / 2.5.8 Level AA in WCAG 2.2).</p>
-      <div class="a11y-grid">
-        <div class="a11y-card">
-          <div class="a11y-rule a11y-ok"><div class="a11y-rule-icon">✓</div><div><strong>Buttons &amp; Links:</strong> min. 44 × 44px via Padding erreichen, auch wenn der sichtbare Bereich kleiner ist.</div></div>
-          <div class="a11y-rule a11y-ok"><div class="a11y-rule-icon">✓</div><div><strong>Icon-Buttons:</strong> min. 48px empfohlen, sichtbares Icon kann kleiner sein.</div></div>
-          <div class="a11y-rule a11y-fail"><div class="a11y-rule-icon">✗</div><div><strong>Kleine Chips/Badges:</strong> Nicht klickbar machen ohne ausreichende Trefferfläche. Padding erhöhen oder Wrapper verwenden.</div></div>
-        </div>
-        <div class="a11y-card">
-          <h3>Mindestgröße per CSS</h3>
-          <div class="code-block"><span class="k">.btn</span> {
-  min-height: <span class="v">44px</span>;
-  min-width: <span class="v">44px</span>;
-  padding: <span class="v">10px 20px</span>;
-}
-
-<span class="c">/* Icon-only: Fläche über padding */</span>
-<span class="k">.icon-btn</span> {
-  width: <span class="v">48px</span>;
-  height: <span class="v">48px</span>;
-  display: <span class="v">flex</span>;
-  align-items: <span class="v">center</span>;
-  justify-content: <span class="v">center</span>;
-}</div>
-        </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#A3D48E;color:#151A1F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span>Wirksame Organisationen 200 #A3D48E auf #151A1F</div><div class="cratio">10.3:1, WO-Bereichstexte · Light-Pendant: <code class="token">--wo-700</code></div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#5CE8A0;color:#092417">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-success</code> #5CE8A0 auf #151A1F</div><div class="cratio">11.3:1, ✓-Marker in Do/Don't-Listen · Light-Pendant: <code class="token">#0E6644</code> (6.99:1 ✓)</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#F0C060;color:#271E0A">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-warning</code> #F0C060 auf #151A1F</div><div class="cratio">10.4:1, Hinweise, Beta-Zustände · Light-Pendant: <code class="token">#8A5E0A</code> (5.70:1 ✓)</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
+      </div>
+      <div class="contrast-row">
+        <div class="cswatch" style="background:#FFA5A5;color:#3D0F0F">Aa</div>
+        <div class="cinfo"><div class="cname"><span class="a11y-mode">Dark</span><code class="token">--c-error</code> #FFA5A5 auf #151A1F</div><div class="cratio">9.3:1, ✕-Marker, Inline-Fehlertext, Required-Asterisks · auf bg-surface 6.9:1 · Light-Pendant: <code class="token">#B22020</code> (6.73:1 ✓)</div></div>
+        <span class="cbadge c-aaa">AAA ✓</span>
       </div>
 
       <!-- ── ARIA Patterns ── -->
@@ -7129,18 +7080,22 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
 }</div>
         </div>
         <div class="a11y-card">
-          <h3>prefers-color-scheme</h3>
-          <p>Dark Mode folgt der Betriebssystem-Präferenz. Alle Farb-Tokens werden über <code>[data-theme="dark"]</code> überschrieben.</p>
-          <div class="code-block"><span class="k">@media</span> (prefers-color-scheme: dark) {
-  <span class="c">/* Automatisch anwenden: */</span>
-  <span class="k">:root</span> {
-    color-scheme: <span class="v">dark</span>;
-  }
-}
-<span class="c">/* Oder manuell per JS: */</span>
+          <h3>Theme-Umschaltung</h3>
+          <p>Das Design System kennt genau zwei Modi, <strong>Light und Dark</strong>. Umgeschaltet wird ausschließlich über das Attribut <code>[data-theme="dark"]</code> am <code>&lt;html&gt;</code>; darüber werden alle Farb-Tokens überschrieben. Einen dritten Modus, der der Betriebssystem-Präferenz folgt, gibt es bewusst nicht: <code>prefers-color-scheme</code> wird im ausgelieferten CSS nicht ausgewertet, Standard ist Light. Wer die Systemvorgabe übernehmen möchte, wertet sie im eigenen Produkt aus und setzt das Attribut selbst.</p>
+          <div class="code-block"><span class="c">/* Umschalten: Attribut setzen oder entfernen */</span>
 document.documentElement
-  .dataset.theme = <span class="s">'dark'</span>;</div>
+  .dataset.theme = <span class="s">'dark'</span>;
+<span class="c">/* Light = Attribut entfernen */</span>
+<span class="k">delete</span> document.documentElement
+  .dataset.theme;
+
+<span class="c">/* Optional im Produkt: Systemvorgabe uebernehmen */</span>
+<span class="k">if</span> (matchMedia(
+  <span class="s">'(prefers-color-scheme: dark)'</span>).matches)
+  document.documentElement
+    .dataset.theme = <span class="s">'dark'</span>;</div>
           <p><code>color-scheme: dark</code> ist im Dark-Theme fest auf <code>[data-theme="dark"]</code> gesetzt, damit <strong>native Controls</strong> (Checkbox, Radio, Scrollbar, Select-Popup) dark-thematisiert rendern statt hell auf dunklem Grund. Ohne diese Deklaration zeigt der Browser z.&nbsp;B. eine hell-thematisierte Checkbox im Dark Mode, optisch ein Fremdkörper.</p>
+          <p><strong>Druck:</strong> <code>dark-mode.css</code> steht komplett in <code>@media screen</code>, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem <code>data-theme="dark"</code> druckt deshalb die Light-Werte aus <code>tokens.css</code> statt der vollen dunklen Fläche, ohne dass diese Werte ein zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe, die auf dem hellen Druckgrund nur 1,2 bis 1,9:1 trägt. Neue Dark-Regeln gehören innerhalb des Blocks, sonst drucken sie dunkel mit.</p>
         </div>
         <div class="a11y-card">
           <h3>Smooth-Scroll für In-Page-Anker</h3>
@@ -11336,7 +11291,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-section-h2">Zwei Pakete, klare Preise</h2>
           <p class="ep-section-sub">Core für den schnellen, sicheren Einstieg. Pro für die maßgeschneiderte, tief integrierte Lösung.</p>
           <div class="layout-grid" style="align-items:stretch">
-            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:1px solid var(--n-100);box-shadow:var(--e1)">
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:var(--bd);box-shadow:var(--e1)">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s6)">
                 <div style="display:flex;flex-direction:column;gap:var(--s2)">
                   <div style="min-height:var(--s8);display:flex;align-items:center;justify-content:space-between;gap:var(--s3)">
@@ -12001,7 +11956,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
           <div class="layout-grid" style="align-items:stretch">
             <div class="col-6">
-              <div class="card" data-area="ki" style="height:100%;border:1px solid var(--n-100);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
+              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
                 <div class="card-body" style="display:flex;flex-direction:column;gap:var(--s4)">
                   <div style="display:flex;align-items:center;gap:var(--s3)">
                     <span aria-hidden="true" style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary)">01</span>
@@ -12010,7 +11965,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                       <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s1) 0 0">Grundlagen und Technologie</h3>
                     </div>
                   </div>
-                  <ul style="list-style:none;margin:0;padding:var(--s4) 0 0;border-top:1px solid var(--n-100);display:flex;flex-direction:column;gap:var(--s3)">
+                  <ul style="list-style:none;margin:0;padding:var(--s4) 0 0;border-top:var(--bd);display:flex;flex-direction:column;gap:var(--s3)">
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Von KI-Tools zu KI-gesteuerten Prozessen</span></li>
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Technologie-Demo von n8n und KI-Agenten</span></li>
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Live-Beispiele automatisierter Workflows</span></li>
@@ -12019,7 +11974,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-6">
-              <div class="card" data-area="ki" style="height:100%;border:1px solid var(--n-100);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
+              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
                 <div class="card-body" style="display:flex;flex-direction:column;gap:var(--s4)">
                   <div style="display:flex;align-items:center;gap:var(--s3)">
                     <span aria-hidden="true" style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary)">02</span>
@@ -12028,7 +11983,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                       <h3 style="font:var(--ty-title-sm);color:var(--tx-primary);margin:var(--s1) 0 0">Eure Prozesse im Fokus</h3>
                     </div>
                   </div>
-                  <ul style="list-style:none;margin:0;padding:var(--s4) 0 0;border-top:1px solid var(--n-100);display:flex;flex-direction:column;gap:var(--s3)">
+                  <ul style="list-style:none;margin:0;padding:var(--s4) 0 0;border-top:var(--bd);display:flex;flex-direction:column;gap:var(--s3)">
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Prozessidentifikation: Wir sammeln eure Automatisierungskandidaten</span></li>
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Bewertung nach AI.Automation Value und AI.Readiness</span></li>
                     <li style="display:flex;gap:var(--s3);align-items:flex-start;font:var(--ty-body-md);color:var(--tx-secondary)"><span aria-hidden="true" style="flex:0 0 6px;width:6px;height:6px;margin-top:9px;border-radius:var(--r-full);background:var(--ki-500)"></span><span>Priorisierung der Quick Wins und eine Roadmap für die nächsten Schritte</span></li>
@@ -12051,7 +12006,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-7">
-              <div style="background:var(--bg-surface);border:1px solid var(--n-100);border-radius:var(--r-md);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s3);height:100%">
+              <div style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s6);display:flex;flex-direction:column;gap:var(--s3);height:100%">
                 <p style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--ki-ink);margin:0">Voraussetzungen</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Du benötigst keine technischen Vorkenntnisse. Ideal für den Workshop sind Teilnehmende aus den Fachbereichen, Prozessverantwortliche, Business Analysts oder Führungskräfte mit gutem Verständnis der eigenen Geschäftsprozesse.</p>
                 <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Für bestmögliche Ergebnisse bringst Du idealerweise 5 bis 15 konkrete Prozesse mit, die wir gemeinsam durchgehen. Grobe Beschreibungen reichen, eine formale Dokumentation ist nicht nötig. Hilfreich sind zudem kurze Angaben zu den eingesetzten Systemen und Tools.</p>
@@ -15757,7 +15712,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-sub">Wähl einen passenden Termin, oder frag einen individuellen Inhouse-Termin an.</p>
           <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s4)">
             <!-- Termin-Zeile (beliebig oft wiederholbar) -->
-            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:1px solid var(--n-100);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
+            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:var(--bd);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
               <div>
                 <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">14.–15. April 2026</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Dortmund · Pariser Bogen 7</p>
@@ -15767,7 +15722,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="btn btn-filled btn-sm btn-wo" href="#sec-examples" data-ep="kontakt" data-k-bereich="wo" data-k-anliegen="Seminar: Veränderung wirksam begleiten (14.–15. April 2026)">Platz anfragen</a>
               </div>
             </li>
-            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:1px solid var(--n-100);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
+            <li style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s4);background:var(--bg-surface);border:var(--bd);border-left:4px solid var(--wo-500);border-radius:var(--r-md);padding:var(--s5) var(--s6)">
               <div>
                 <p style="font:var(--ty-title-sm);color:var(--tx-primary);margin:0">9.–10. Juni 2026</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-secondary);margin:var(--s1) 0 0">Online · Zoom</p>

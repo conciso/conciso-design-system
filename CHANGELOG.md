@@ -14,7 +14,126 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Changed
+- **Dark-Mode-Flächen neu aufgesetzt.** `--bg-page` trug mit `#333E48` nur **10,92:1** gegen Weiß.
+  Die Material-Dark-Theme-Guidance fordert für die Basisfläche mindestens **15,8:1**; der Wert ist
+  kein Stilmittel, sondern der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch
+  4,5:1 sichert. Ursache war strukturell: `#333E48` ist `--tx-brand` aus dem Light Mode, also eine
+  gegen Weiß optimierte **Textfarbe als Fläche**. Neu `#151A1F` (17,51:1), Farbwinkel 209 wie bisher,
+  der Marken-Slate bleibt erhalten. `--bg-surface` `#3F4B56` → `#28323D`; die Stufe zwischen Seite
+  und Karte wächst dabei von 1,223:1 auf **1,346:1**, weil mehr Kopfraum nach unten mehr Spielraum
+  nach oben schafft. Gemessen über alle 24 Beispielseiten im Dark: **117 → 24 Kontrast-Verstöße**,
+  die verbleibenden 24 sind ein vorbestehender, themeunabhängiger Befund am `.skip-link`
+  (weiß auf `--co-500` = 2,31:1, in Light identisch, separat zu beheben). Der größte Block waren
+  `--tx-muted` und Bereichstexte auf Karten, die mit 4,08:1 knapp unter AA lagen und jetzt bei
+  5,95:1 liegen.
+- **Getönte Flächen im Dark: `--XX-50` zerfällt in zwei Token.** Ein Wert kann zwei gegensätzliche
+  Aufgaben nicht mehr tragen. Ein **großes Band** muss dunkler bleiben als die Karten darauf, eine
+  **kleine Füllung** (Badge, Pill, Icon-Kachel) muss heller sein als ihr Grund, sonst liest sie
+  nicht mehr als Fläche. Bei `bg-page` auf 17,5:1 und Schwarz bei 21:1 reicht der Spielraum für
+  beides zusammen nicht. `--XX-50` ist jetzt die kleine Füllung (9,8:1, also 1,78:1 gegen die Seite
+  und 1,32:1 gegen Karten), das neue `--XX-band` die Sektionsfläche (16,5:1, 1,06:1 gegen die Seite
+  mit der Trennung über den Farbton, Karten darauf 1,27:1). Im Light sind beide identisch.
+  Gemessen über 199 Badge- und Pill-Instanzen: die Fläche gegen ihren Grund stand nach der ersten
+  Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
+  der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
+  kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Acht Inline-Rahmen nutzten rohes `--n-100` statt `--bd`.** Das verstößt gegen die eigene Regel in
+  `CONTRIBUTING.md` § 5. Im Light sind beide Werte identisch, im Dark wird `--n-100` dunkel und der
+  Rahmen stand mit **1,18:1** gegen die Kartenfläche, war also praktisch unsichtbar. Jetzt `var(--bd)`
+  (2,99:1). Betraf `.card`-Elemente in der Doku, Light bleibt unverändert.
+- **Snackbar-Flächen im Dark waren hartkodierte Kopien.** `.snack-ok` und `.snack-err` trugen
+  `#052415` und `#220808`, also die alten Werte von `--c-success-bg` und `--c-error-bg`. Als die
+  Status-Tints angehoben wurden, blieben die Kopien zurück und standen nur noch **1,06:1** bzw.
+  **1,08:1** gegen die Seite, die Snackbar war als Fläche praktisch weg. Jetzt über die Token
+  (1,78 und 1,79:1). Zusätzlich zählt die Snackbar zu den schwebenden Panels und bekommt im Dark
+  denselben `--bd-strong-c`-Rand wie Menüs (5,66:1 gegen den Grund); das deckt auch die
+  Default-Variante ab, die mit `--n-700` nicht mitflippt und bei 1,23:1 lag.
+- **Schwebende Panels bekommen im Dark einen stärkeren Rand.** Menüs und Popover grenzen sich im
+  Light über `--e3` ab. Auf der tiefen Basisfläche trägt ein schwarzer Schatten das nicht mehr: ein
+  geöffnetes Topnav-Menü stand über dem Hero-Foto nur noch **1,34:1** gegen die hellste Stelle
+  daneben (vorher 1,92:1), weil die Panel-Fläche mitgesunken ist, das Foto darunter aber nicht.
+  Eine dritte statische Flächen-Stufe wäre der Material-Weg, würde aber die Zwei-Stufen-Konvention
+  brechen und einem Menü über einer Karte nur 1,13:1 bringen. Stattdessen übernimmt der Rand:
+  `--bd-strong-c` statt `--bd-c` für `.ep-nav-sub`, `.ep-select-menu`, `.ep-combobox-menu` und das
+  Suchpanel. Panel-Rand gegen den Untergrund 3,51 auf **4,95:1**, damit über dem Ausgangsstand
+  (4,15:1). Neu dafür `--bd-c` / `--bd-strong-c`, die reinen Rahmenfarben: `--bd` und `--bd-strong`
+  sind Shorthands und funktionieren in `border-color` nicht.
+- **Platzhalter in Formularfeldern erfüllen AA.** `.field` hatte keine `::placeholder`-Regel, es griff
+  Chromes Default `rgb(117,117,117)`: im Dark **2,82:1** und damit ein Verstoß, im Light 4,61:1 und
+  damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Jetzt `--tx-secondary` wie bei
+  Suchfeld, Footer-Newsletter, Combobox und Nav-Suche, die das längst taten; die Standard-Felder
+  waren der Ausreißer. Gemessen über 22 Felder: Dark 7,13:1, Light 6,29:1.
+- **Zwei Download-Buttons trugen im Dark dunklen Text auf dunkler Fläche** (3,51:1). Sie setzten die
+  Bereichsfarbe inline (`--c500:var(--co-700)`) statt über `.btn-co`. Die Dark-Regel für die Fläche
+  hängt an der Bereichsklasse, die für die Textfarbe an `.btn-filled`; ohne Klasse greift nur die
+  zweite. Jetzt `class="btn btn-filled btn-co"`, die inline gesetzten `--c600`/`--c700`/`--c900`
+  waren ohnehin tot (nirgends in `css/` referenziert). Vorbestehend, Light war nicht betroffen.
+- **Fehler-Badge-Text im Dark auf `#FFA5A5`.** `#F08080` trug auf der aufgehellten Fehler-Füllung
+  nur 3,78:1. Damit nutzen `--badge-err-text`, `--cbadge-fail-text` und `--c-error` denselben Ton,
+  eine Fehlerfarbe weniger im System.
+- **`--c-warning-bg` war im Dark unsichtbar.** `#231800` stand mit 1,00:1 gegen die neue Seite. Alle
+  drei Status-Tints und die drei Kontrast-Badge-Flächen auf die Tint-Stufe gehoben.
+- **Ränder im Dark nachgezogen.** Auf der tieferen Seite sprang `--bd` von 3,19:1 auf 5,12:1 und
+  wirkte drahtig, jetzt `#6F7A89`. `--field-border` von `--n-200` (11,46:1) auf `#869C9C`; als
+  einzige Grenze, die WCAG 1.4.11 zwingend braucht, liegt es mit 4,49:1 auf der Karte sicher über 3:1.
+- **Logo-Platte im Dark gedämpft.** Eine reinweiße Fläche dieser Größe stand mit 17,51:1 gegen die
+  Seite. Über das neue `--bg-plate` im Dark auf `#E8EDED`; dunkle Kundenlogos darauf 14,73:1.
+- **Fotos im Dark leicht gedämpft** (`filter: brightness(.92)` auf `.hero-image-media`,
+  `.ep-media-band`, `.article-figure`). Nicht zu verwechseln mit dem verworfenen
+  `brightness(.75)` auf Icon-Glyphen: das betraf Strichgrafik auf getönten Kacheln.
+- **Fokusringe folgen jetzt `var(--bg-page)`** statt einem hartkodierten `#333E48` und laufen bei
+  künftigen Flächen-Änderungen automatisch mit.
+- **Drei hartkodierte Kopien im Dark auf ihre Token gezogen.** Sie hielten Werte, die die
+  Flächen-Umstellung ersetzt hat, und liefen dadurch aus der Familie:
+  `.a11y-rule-icon` trug die Kreisflächen als `#052415` / `#220808` und stand damit bei 1,06:1 bzw.
+  1,08:1 gegen die Seite, der Kreis war keine Fläche mehr (jetzt `--c-success-bg` / `--c-error-bg`,
+  1,78 und 1,79:1; der Fehler-Glyph geht mit auf `--c-error`, 5,21:1 statt 3,78:1).
+  Der Chip-Rahmen hielt den alten `--bd`-Wert `#818C99` (jetzt `--bd-strong-c`, 4,21:1 gegen die
+  Chip-Fläche; `--bd-c` wäre mit 2,99:1 unter der 3:1-Schwelle, die die Bedienelement-Grenze nach
+  WCAG 1.4.11 braucht). Der Tonal-Button-Rahmen hielt den alten `--bd-strong`-Wert `#9DA8B6`
+  (jetzt `--bd-strong-c`, 3,64:1 bis 4,87:1 auf den vier Tonal-Füllungen).
+
+- **Skip-Link erfüllt AA.** Weiß auf `--co-500` `#00BEBE` trug **2,31:1**. In Ruhe ist der Link
+  geclippt, beim Fokus springt er sichtbar herein, also genau dann kaputt, wenn Tastaturnutzende ihn
+  brauchen. Jetzt `--co-700` (5,52:1), dieselbe Füllfarbe, die `.btn-filled.btn-co` verwendet.
+  Betraf beide Modi, `--co-*` flippt nicht.
+- **Hero-Scrim verdichtet.** Der Text liegt zwischen 23 % und 77 % der Caption-Höhe, der Eyebrow als
+  erstes Kind damit im obersten, schwächsten Abschnitt des Verlaufs. Dort stand er auf Alpha 0,30,
+  über einem ausgebrannt hellen Foto sind das 1,90:1; gemessen lagen bis zu **63 % der
+  Eyebrow-Fläche** unter 4,5:1. Der `text-shadow` hilft optisch, zählt für WCAG nicht. Die
+  Unterkante bleibt unverändert bei `.85`, verdichtet wird nur der obere Teil
+  (`.72` bei 60 %, `.66` bei 80 %). Bei 77 % jetzt Alpha 0,67 = 6,0:1 gegen ein weißes Foto.
+  Pixelgemessen über 51 Textblöcke auf 17 Seiten: Blöcke mit über 10 % Fläche unter 4,5:1 gehen von
+  **17 auf 0** (Light) und von 13 auf 0 (Dark).
+  Der erste Anlauf dafür erfüllte zwar alle Kontrastwerte, zeichnete aber eine sichtbare Linie quer
+  durchs Bild: er baute die Deckkraft auf zu kurzer Strecke auf. Gemessen an der zweiten Ableitung
+  der Zeilenhelligkeit lag er bei 21 bis 25 gegenüber 7,9 beim vorherigen Verlauf. **Mehr
+  Stützstellen halfen nicht** (eine weiche Kurve mit neun Stops maß 22,4). Gelöst über eine längere
+  Auslaufstrecke: die Caption bekommt oben eine fluide Polsterung bis 96 px, der Verlauf läuft mit
+  0,0066 Deckkraft pro Pixel aus und misst 9,2. Der Faustwert dazu steht jetzt in der Bildsprache.
+- **Code-Kommentare erfüllen AA.** `.cb-body .c` stand mit `--n-400` auf dem `--n-50`-Grund bei
+  3,65:1, jetzt `--tx-muted` (Light 4,51:1, Dark 8,9:1). Die Terminal-Variante hat einen fest
+  dunklen Grund in beiden Modi und behält deshalb `--n-400` (4,87:1) über eine eigene Regel.
+- **Scrim-Empfehlung in der Bildsprache korrigiert.** Die Doku nannte `rgba(0,0,0,.45)` und
+  widersprach damit ihrer eigenen Regel darüber: über einer ausgebrannten Bildstelle trägt das nur
+  rund 3:1. Neu mindestens `.60` für weiße Schrift, gerechnet gegen die **hellste** Stelle unter dem
+  Text statt gegen den Bilddurchschnitt, und bei Verläufen an der Position des Textes statt am
+  dichten Ende. Genau diese Lücke hatte den Hero-Befund erzeugt.
+
 ### Added
+- **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
+  tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
+  zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.
+- **`--bg-plate`** (Light `#FFFFFF`, Dark `#E8EDED`): helle Platte unter Fremd-Assets, die nur in
+  einer dunklen Fassung vorliegen (Kundenlogos).
+- **Druckausgabe:** `dark-mode.css` steht jetzt komplett in `@media screen`, Token-Block und
+  Komponenten-Regeln. Eine Seite mit `data-theme="dark"` druckte bisher die volle dunkle Fläche;
+  jetzt greifen die Light-Werte aus `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden.
+  Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe
+  (`co-200`, `ki-200`, `es-100`, heller `tx-primary`), die auf dem hellen Druckgrund 1,2 bis 1,9:1
+  trägt; ein geschützter Token-Block allein hätte den Text genau dort verloren, wo eine eigene
+  Dark-Regel greift. Neue Dark-Regeln gehören innerhalb des Blocks, sonst drucken sie dunkel mit.
 - **CI-Gate gegen dunkel-auf-dunkel-Zustände** (`npm run check:dark-states`, in `css-core.yml`):
   Prüft jede `:hover`/`:focus`/`:active`-Regel in `components.css` darauf, ob sie einen nicht
   theme-awaren Ton setzt, dessen Kontrast gegen die dunklen Grundflächen unter der WCAG-Schwelle

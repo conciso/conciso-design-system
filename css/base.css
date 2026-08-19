@@ -56,7 +56,11 @@
 body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
 
 /* ── Skip link ── */
-.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:0.875rem;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
+/* Fläche co-700, nicht co-500: weiß auf #00BEBE trägt nur 2,31:1 und verfehlt AA für Normaltext.
+   In Ruhe ist der Link geclippt, beim Fokus springt er sichtbar herein, also genau dann, wenn
+   Tastaturnutzende ihn brauchen. co-700 (#007575) trägt weiß mit 5,52:1 und ist zugleich die
+   Füllfarbe, die .btn-filled.btn-co verwendet. Gilt in beiden Modi, co-* flippt nicht. */
+.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-700);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:0.875rem;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
 .skip-link:focus{top:var(--s4)}
 
 /* ── Layout ── */

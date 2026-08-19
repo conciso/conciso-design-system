@@ -267,8 +267,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A6565' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field textarea{resize:vertical;max-width:100%}
-/* Such-Feld (inline gestyltes input[type=search]): Placeholder explizit auf tx-secondary statt
-   UA-Default — theme-aware und lesbar in beiden Modi (Light 6,3:1 / Dark 4,9:1). */
+/* Placeholder explizit auf tx-secondary statt UA-Default. Chrome zeichnet Placeholder sonst mit
+   rgb(117,117,117): im Dark sind das auf der Feldfüllung 2,8:1 und damit ein AA-Verstoß, im Light
+   4,6:1 und damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Suchfeld,
+   Footer-Newsletter, Combobox und Nav-Suche setzten das bereits, die Standard-Felder waren der
+   Ausreißer. tx-secondary ist theme-aware und gemessen: Light 6,3:1, Dark 7,1:1. */
+.field input::placeholder,.field textarea::placeholder,
 [role="search"] input::placeholder{color:var(--tx-secondary)}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
 /* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
@@ -616,7 +620,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
 .a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
 .code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
-.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
+.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#739373}/* Kommentarfarbe: #6a8a6a trug auf --bg-code nur 4,43:1 und verfehlte AA knapp. Farbton und Saettigung bleiben, nur heller: Light 4,99:1, Dark 5,84:1. */
 /* ── Code-Block Komponente (Wissensbeitrag) ── */
 .cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
 .cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
@@ -625,7 +629,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
-.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--n-400)}.cb-body .fn{color:var(--ro-600)}
+/* .c = Kommentar. Vorher n-400 (#6E8585), das auf dem n-50-Grund der Blöcke nur 3,65:1 trug.
+   --tx-muted ist theme-aware und semantisch die gedämpfte Stufe: Light 4,51:1, Dark 8,9:1.
+   Wer --tx-muted oder --n-50 anfasst, prüft diesen Wert mit, die Reserve ist knapp. */
+.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--tx-muted)}.cb-body .fn{color:var(--ro-600)}
 /* Zeilennummern */
 .cb-body.cb-numbered{line-height:0}
 .cb-numbered .cb-ln{display:flex;gap:var(--s3);line-height:1.6}
@@ -634,6 +641,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-terminal .cb-header{background:#080f08}
 .cb-terminal .cb-lang{color:#5CE8A0}
 .cb-terminal .cb-body{background:#0b110b;color:#b8d8b8}
+/* Die Terminal-Variante hat einen fest dunklen Grund in BEIDEN Modi. Der theme-aware --tx-muted
+   der Standard-Blöcke liegt hier im Light bei 3,94:1 und verfehlt AA. Deshalb der nicht flippende
+   n-400 (4,87:1 in beiden Modi). Heute steht in keinem Terminal-Block ein Kommentar, die Regel
+   verhindert, dass die Kombination später still durchfällt. */
+.cb-terminal .cb-body .c{color:var(--n-400)}
 .cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
 .cb-terminal .cb-out{color:rgba(180,210,180,.55)}
 /* Inline code in Fließtext */
@@ -719,7 +731,28 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .hero-image{position:relative;overflow:hidden;margin:0}
 .hero-image-media{width:100%;aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px);overflow:hidden;background:var(--n-100);display:flex;align-items:center;justify-content:center}
 .hero-image-media img{width:100%;height:100%;object-fit:cover;display:block}
-.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.65) 50%,transparent 100%);padding:var(--s10) var(--s8);margin:0}
+/* Scrim über dem Hero-Foto. Zwei Anforderungen, die sich gegenseitig begrenzen:
+
+   (1) KONTRAST. Der Eyebrow ist das erste Kind und sitzt damit im obersten, schwächsten Abschnitt
+   des Verlaufs. Mit dem früheren Verlauf (.85 / .65 bei 50% / transparent) stand er dort auf Alpha
+   0,30: über einer ausgebrannt hellen Bildstelle sind das 1,90:1, gemessen lagen bis zu 63% der
+   Eyebrow-Fläche unter 4,5:1. Der text-shadow hilft optisch, zählt für WCAG nicht.
+
+   (2) KEINE SICHTBARE KANTE. Ein Verlauf wird nicht dort auffällig, wo er steil ist, sondern dort,
+   wo seine Steilheit springt. Entscheidend ist die Rate, mit der die Deckkraft an der OBERKANTE
+   einsetzt. Gemessen am gerenderten Bild (zweite Ableitung der Zeilenhelligkeit, über die Breite
+   gemittelt): früherer Verlauf 7,9. Ein Zwischenstand, der die Deckkraft auf kurzer Strecke aufbaute,
+   kam auf 21 bis 25 und zeichnete eine sichtbare Linie quer durchs Bild, unabhängig davon, wie viele
+   Stützstellen er hatte. Mehr Stops helfen also nicht.
+
+   Was hilft, ist eine längere Auslaufstrecke: die Deckkraft muss über genügend Pixel von 0 auf ihren
+   Wert kommen. Der Text endet 132px über der Unterkante; mit 96px Polsterung darüber ist der Kasten
+   228px hoch, der Eyebrow sitzt bei 58%, und der Auslauf läuft mit 0,0066 pro Pixel, also etwas
+   sanfter als beim früheren Verlauf (0,0076). Gemessene Kantigkeit 9,2 gegenüber 7,9. Deckkraft am
+   Eyebrow 0,63 statt 0,30.
+
+   Die Polsterung ist fluide, weil 96px auf einem 300px hohen Mobil-Hero zu viel wären. */
+.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.63) 58%,transparent 100%);padding:clamp(var(--s10), 6.7vw, calc(var(--s16) + var(--s8))) var(--s8) var(--s10);margin:0}
 .hero-image-caption-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 var(--s2);text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .hero-image-caption-title{font:var(--ty-serif-md);color:#fff;font-size:clamp(1.25rem, 0.943rem + 1.36vw, 2rem);line-height:1.25;margin:0 0 var(--s1);text-shadow:0 1px 3px rgba(0,0,0,.4)}
 .hero-image-caption-text{font:var(--ty-body-md);color:rgba(255,255,255,.92);margin:0;text-shadow:0 1px 2px rgba(0,0,0,.5)}
@@ -735,9 +768,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .logo-placeholder{font:700 1rem/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
 
 /* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
-/* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
-   Dark-Variante → auf theme-reaktivem Grund würden sie im Dark unsichtbar. Weiß bleibt weiß. */
-.logo-carousel{position:relative;background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+/* Helle Platte in BEIDEN Modi: Kundenlogos liegen oft farbig oder dunkel vor und haben keine
+   Dark-Variante, auf theme-reaktivem Grund würden sie im Dark unsichtbar. Die Platte bleibt also
+   hell, wird im Dark aber über --bg-plate gedämpft (#E8EDED statt #FFFFFF): eine reinweiße Fläche
+   dieser Größe stünde mit 17,51:1 gegen die Seite und blendet. Dunkle Logos darauf 14,73:1. */
+.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
 .logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
 .logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
@@ -1053,7 +1088,7 @@ img.logo-themed-light{display:none}
 /* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
 /* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
    border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
-.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast)}
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
 .ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
 .ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
 /* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
