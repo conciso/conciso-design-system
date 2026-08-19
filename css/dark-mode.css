@@ -3,12 +3,15 @@
 /* ════════════════════════════════════════════
    DARK MODE
    ════════════════════════════════════════════ */
-/* @media screen: Der Token-Block gilt nur am Bildschirm. Im Druck greifen dadurch die Light-Werte
-   aus tokens.css, ohne dass sie hier ein zweites Mal stehen (eine Kopie wäre eine zweite Quelle
-   der Wahrheit und würde auseinanderlaufen). Ohne das druckt eine Seite mit data-theme="dark" die
-   volle dunkle Fläche: sehr viel Farbauftrag, und auf vielen Druckern heller Text auf grauem Grund.
-   Bekannte Grenze: die komponentenspezifischen [data-theme="dark"]-Regeln weiter unten gelten im
-   Druck weiterhin. Sie sind noch nicht auf Druck geprüft, siehe PR-Beschreibung. */
+/* @media screen umschließt die GANZE Datei, Token-Block und Komponenten-Regeln. Im Druck greifen
+   dadurch die Light-Werte aus tokens.css, ohne dass sie hier ein zweites Mal stehen (eine Kopie
+   wäre eine zweite Quelle der Wahrheit und würde auseinanderlaufen). Ohne das druckt eine Seite
+   mit data-theme="dark" die volle dunkle Fläche: sehr viel Farbauftrag, und auf vielen Druckern
+   heller Text auf grauem Grund.
+   Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe
+   (co-200, ki-200, es-100, heller tx-primary). Auf dem hellen Druckgrund tragen die 1,2 bis 1,9:1,
+   die Zeile wäre also unlesbar. Nur den Token-Block zu schützen hätte den Text genau dort verloren,
+   wo eine eigene Dark-Regel greift. Neue Dark-Regeln deshalb immer INNERHALB dieses Blocks. */
 @media screen {
 [data-theme="dark"] {
   /* Native Controls (Checkbox, Radio, Scrollbar, Select-Popup) im Dark-Theme rendern lassen,
@@ -114,7 +117,6 @@
   --cbadge-aaa-bg:#194864; --cbadge-aaa-text:#70C8F0;
   --cbadge-fail-bg:#802020; --cbadge-fail-text:#FFA5A5; /* Dark-only: #F08080 ❌ 3,78:1 → 5,21:1 ✓ */
 }
-} /* Ende @media screen */
 /* Dark: Brand Wheel. Die Ringe lagen unter der alten Seite (1,69:1 und 1,46:1). Gegen die tiefere
    Seite fielen sie auf 1,06:1 und 1,10:1 und wären als Ringe verschwunden, deshalb wie die
    Bereichs-Tints über die Seite gehoben: 1,16:1 und 1,40:1 zur Seite, 1,21:1 zueinander (vorher
@@ -171,10 +173,15 @@
 [data-theme="dark"] .ep-select[data-area="ki"], [data-theme="dark"] .ep-combobox[data-area="ki"] { --sel-500: var(--ki-200) }
 [data-theme="dark"] .ep-select[data-area="es"], [data-theme="dark"] .ep-combobox[data-area="es"] { --sel-500: var(--es-100) }
 [data-theme="dark"] .ep-select[data-area="wo"], [data-theme="dark"] .ep-combobox[data-area="wo"] { --sel-500: var(--wo-200) }
-[data-theme="dark"] .chip { border-color:#818C99 }
-/* Dark-only: Hover-Rand des neutralen Chips. Light geht auf n-400 (#6E8585), im Dark ist das dunkler
-   als der Ruhe-Rand #818C99 — der Rand würde beim Überfahren schwächer statt kräftiger und läge mit
-   2,79:1 unter der 3:1-Schwelle für Nicht-Text. → n-200 = #C9D3D3. (Light: n-400 bleibt.) */
+/* Dark-only: Ruhe-Rand des neutralen Chips. Stand als hartkodiertes #818C99 da, dem alten --bd-Wert,
+   den die Flächen-Umstellung auf #6F7A89 gedämpft hat. Jetzt --bd-strong-c aus der Rahmen-Familie:
+   4,21:1 gegen die Chip-Fläche und 5,66:1 gegen die Seite. --bd-c wäre hier zu schwach (2,99:1 zur
+   Chip-Fläche), der Chip-Rand ist eine Bedienelement-Grenze und braucht 3:1 nach WCAG 1.4.11.
+   (Light: n-200, 1.5px, aus components.css.) */
+[data-theme="dark"] .chip { border-color: var(--bd-strong-c) }
+/* Dark-only: Hover-Rand des neutralen Chips. Light geht auf n-400 (#6E8585), im Dark liegt das mit
+   3,32:1 unter dem Ruhe-Rand: der Rand würde beim Überfahren schwächer statt kräftiger.
+   → n-200 = #C9D3D3, 8,51:1. (Light: n-400 bleibt.) */
 [data-theme="dark"] .chip:hover { border-color: var(--n-200) }
 /* Dark-only: Gedrückter Chip invertiert, wie das Segmented Control (dort --seg-fill -300 mit
    --seg-on -900). Light füllt mit n-700 und schreibt weiß; im Dark ergäbe das eine sehr dunkle
@@ -207,8 +214,15 @@
    Jetzt über die Token ✓ 1,78:1 und 1,79:1; Text darauf 7,60:1 und 8,34:1. */
 [data-theme="dark"] .snack-ok { background:var(--c-success-bg); color:#b0f0d0 }
 [data-theme="dark"] .snack-err { background:var(--c-error-bg); color:#fde8e8 }
-[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
-[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
+/* Dieselbe Familie wie die Snackbar darüber: die Kreisflächen standen als hartkodierte Kopien von
+   --c-success-bg und --c-error-bg (#052415 / #220808) und blieben beim Anheben der Status-Tints
+   zurück. Gegen die neue Seite trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche
+   mehr, nur noch ein farbiger Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und
+   1,33:1 zur Card. Der Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur
+   ❌ 3,78:1, --c-error (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
+   (Light: helle Tints #E6F9F1 / #FDEAEA mit dunklem Glyph, kein Fix nötig.) */
+[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:var(--c-success-bg); color:var(--c-success) }
+[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:var(--c-error-bg); color:var(--c-error) }
 /* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-Utilities,
    Badges, Icons; auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
 /* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
@@ -227,14 +241,17 @@
 [data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
 [data-theme="dark"] .btn-es { --c-ink: var(--es-100) }
 [data-theme="dark"] .btn-wo { --c-ink: var(--wo-200) }
-/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen (#9DA8B6 =
-   --bd-strong dark, ≥3:1) — der Rahmen macht den Button erkennbar, die Tönung unterscheidet ihn von
-   Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der -ink-Text (-200/-100) auch
-   auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei 4,43:1, knapp drunter). */
+/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen über
+   --bd-strong-c (vorher als #9DA8B6 hartkodiert, dem alten --bd-strong-Wert; die Gleichung stimmte
+   nach der Flächen-Umstellung nicht mehr). Auf den vier Tonal-Füllungen 3,64:1 (ki) bis 4,87:1 (es),
+   also durchgehend über der 3:1-Schwelle. Der Rahmen macht den Button erkennbar, die Tönung
+   unterscheidet ihn von Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der
+   -ink-Text (-200/-100) auch auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei
+   4,43:1, knapp drunter). */
 [data-theme="dark"] .btn-tonal {
   background: color-mix(in srgb, var(--c500) 18%, var(--bg-page));
   color: var(--c-ink);
-  border-color: #9DA8B6;
+  border-color: var(--bd-strong-c);
 }
 [data-theme="dark"] .btn-elevated { color: var(--c-ink) }
 [data-theme="dark"] .btn-outlined {
@@ -624,3 +641,4 @@
    1,23:1 (Default) bis 1,79:1 (Status) sehr nah am Grund, deshalb bekommt sie den Rand dazu.
    Er trägt 4,61:1 auf der Default-Fläche und 3,17:1 auf den Status-Flächen. */
 [data-theme="dark"] .snack { border: 1px solid var(--bd-strong-c) }
+} /* Ende @media screen, umschließt die ganze Datei (siehe Kopf) */

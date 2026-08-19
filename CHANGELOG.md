@@ -84,6 +84,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `brightness(.75)` auf Icon-Glyphen: das betraf Strichgrafik auf getönten Kacheln.
 - **Fokusringe folgen jetzt `var(--bg-page)`** statt einem hartkodierten `#333E48` und laufen bei
   künftigen Flächen-Änderungen automatisch mit.
+- **Drei hartkodierte Kopien im Dark auf ihre Token gezogen.** Sie hielten Werte, die die
+  Flächen-Umstellung ersetzt hat, und liefen dadurch aus der Familie:
+  `.a11y-rule-icon` trug die Kreisflächen als `#052415` / `#220808` und stand damit bei 1,06:1 bzw.
+  1,08:1 gegen die Seite, der Kreis war keine Fläche mehr (jetzt `--c-success-bg` / `--c-error-bg`,
+  1,78 und 1,79:1; der Fehler-Glyph geht mit auf `--c-error`, 5,21:1 statt 3,78:1).
+  Der Chip-Rahmen hielt den alten `--bd`-Wert `#818C99` (jetzt `--bd-strong-c`, 4,21:1 gegen die
+  Chip-Fläche; `--bd-c` wäre mit 2,99:1 unter der 3:1-Schwelle, die die Bedienelement-Grenze nach
+  WCAG 1.4.11 braucht). Der Tonal-Button-Rahmen hielt den alten `--bd-strong`-Wert `#9DA8B6`
+  (jetzt `--bd-strong-c`, 3,64:1 bis 4,87:1 auf den vier Tonal-Füllungen).
 
 - **Skip-Link erfüllt AA.** Weiß auf `--co-500` `#00BEBE` trug **2,31:1**. In Ruhe ist der Link
   geclippt, beim Fokus springt er sichtbar herein, also genau dann kaputt, wenn Tastaturnutzende ihn
@@ -118,10 +127,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.
 - **`--bg-plate`** (Light `#FFFFFF`, Dark `#E8EDED`): helle Platte unter Fremd-Assets, die nur in
   einer dunklen Fassung vorliegen (Kundenlogos).
-- **Druckausgabe:** Der Dark-Token-Block steht jetzt in `@media screen`. Eine Seite mit
-  `data-theme="dark"` druckte bisher die volle dunkle Fläche; jetzt greifen die Light-Werte aus
-  `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden. Bekannte Grenze: die
-  komponentenspezifischen `[data-theme="dark"]`-Regeln sind noch nicht auf Druck geprüft.
+- **Druckausgabe:** `dark-mode.css` steht jetzt komplett in `@media screen`, Token-Block und
+  Komponenten-Regeln. Eine Seite mit `data-theme="dark"` druckte bisher die volle dunkle Fläche;
+  jetzt greifen die Light-Werte aus `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden.
+  Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe
+  (`co-200`, `ki-200`, `es-100`, heller `tx-primary`), die auf dem hellen Druckgrund 1,2 bis 1,9:1
+  trägt; ein geschützter Token-Block allein hätte den Text genau dort verloren, wo eine eigene
+  Dark-Regel greift. Neue Dark-Regeln gehören innerhalb des Blocks, sonst drucken sie dunkel mit.
 - **CI-Gate gegen dunkel-auf-dunkel-Zustände** (`npm run check:dark-states`, in `css-core.yml`):
   Prüft jede `:hover`/`:focus`/`:active`-Regel in `components.css` darauf, ob sie einen nicht
   theme-awaren Ton setzt, dessen Kontrast gegen die dunklen Grundflächen unter der WCAG-Schwelle

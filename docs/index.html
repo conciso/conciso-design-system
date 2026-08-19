@@ -7095,7 +7095,7 @@ document.documentElement
   document.documentElement
     .dataset.theme = <span class="s">'dark'</span>;</div>
           <p><code>color-scheme: dark</code> ist im Dark-Theme fest auf <code>[data-theme="dark"]</code> gesetzt, damit <strong>native Controls</strong> (Checkbox, Radio, Scrollbar, Select-Popup) dark-thematisiert rendern statt hell auf dunklem Grund. Ohne diese Deklaration zeigt der Browser z.&nbsp;B. eine hell-thematisierte Checkbox im Dark Mode, optisch ein Fremdkörper.</p>
-          <p><strong>Druck:</strong> Der Dark-Token-Block steht in <code>@media screen</code>. Eine Seite mit gesetztem <code>data-theme="dark"</code> druckt deshalb die Light-Werte aus <code>tokens.css</code> statt der vollen dunklen Fläche, ohne dass diese Werte ein zweites Mal gepflegt werden müssen. Neue Dark-Tokens gehören in diesen Block, sonst drucken sie dunkel mit. Noch offen: die komponentenspezifischen <code>[data-theme="dark"]</code>-Regeln sind nicht auf Druck geprüft.</p>
+          <p><strong>Druck:</strong> <code>dark-mode.css</code> steht komplett in <code>@media screen</code>, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem <code>data-theme="dark"</code> druckt deshalb die Light-Werte aus <code>tokens.css</code> statt der vollen dunklen Fläche, ohne dass diese Werte ein zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe, die auf dem hellen Druckgrund nur 1,2 bis 1,9:1 trägt. Neue Dark-Regeln gehören innerhalb des Blocks, sonst drucken sie dunkel mit.</p>
         </div>
         <div class="a11y-card">
           <h3>Smooth-Scroll für In-Page-Anker</h3>

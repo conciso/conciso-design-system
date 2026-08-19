@@ -88,7 +88,7 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
   document.documentElement.setAttribute('data-theme', 'dark');
 ```
 
-**Druck.** Der Dark-Token-Block steht in `@media screen`. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die Light-Werte statt der vollen dunklen Fläche. Wer eigene Dark-Overrides ergänzt, legt sie in denselben Block, sonst drucken sie dunkel mit.
+**Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die Light-Werte statt der vollen dunklen Fläche. Wer eigene Dark-Overrides ergänzt, legt sie innerhalb dieses Blocks ab, sonst drucken sie dunkel mit.
 
 **Zwei Token, die sich anders verhalten als der Rest:**
 
