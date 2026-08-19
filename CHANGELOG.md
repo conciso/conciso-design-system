@@ -15,6 +15,18 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Kartentragende `n-50`-Sektionen erkennt der Dark Mode jetzt selbst.** Im Dark werden
+  `n-50`-Sektionen auf `bg-surface` gehoben, damit der Light-Rhythmus (weiß/grau) nicht flach wird.
+  Trägt so eine Sektion selbst Flächen auf `bg-surface`, trifft die Hebung genau deren Ton: **1,00:1**,
+  die Karte ist als Fläche weg und es bleibt die `--bd`-Haarlinie. Abgesichert war das über die
+  Klasse `.ep-section-cards`, die man setzen musste: von den **26** Sektionen, bei denen es darauf
+  ankam, trugen sie **9**. Im Browser gemessen (Chrome, `data-theme="dark"`): **17 Kollisionen**.
+  Jetzt erkennt `dark-mode.css` den Fall per `:has()` über die Komponenten mit `bg-surface`-Fläche
+  plus die inline gesetzten Kästen. Nachgemessen: 26 Sektionen liegen auf `bg-page`, die 17 ohne
+  solchen Inhalt behalten die Hebung (Rhythmus bleibt), **0 Kollisionen**. Kein Markup geändert.
+  `.ep-section-cards` bleibt als ausdrücklicher Override (Inhalt, den kein Selektor sieht; Browser
+  ohne `:has()`), ist aber nicht mehr Pflicht. Kommt eine neue `bg-surface`-Komponente dazu, gehört
+  ihr Selektor in die `:has()`-Liste; das steht in CONTRIBUTING § 5 und in der Doku-Seite.
 - **Schatten nur noch auf Karten, deren Fläche selbst klickbar ist.** `.card-elevated` setzte den
   Ruhe-Schatten `--e1` auf jeder Karte, auch auf `<article>`/`<div>`-Karten mit Buttons im Footer.
   Nach der Konvention „Elevation = Interaktivität" ist so eine Karte statisch: die Buttons sind die

@@ -308,14 +308,27 @@
    (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
    daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
 [data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
-/* Ausnahme .ep-section-cards: kartentragende n-50-Section, deren Inhalt erhoehte bg-surface-Cards sind.
-   Dark hat nur 2 Flaechen-Stufen (bg-page < bg-surface). Ein Element hebt sich nur ab, wenn es eine
-   ANDERE Stufe als sein Grund hat. Im Light: n-50-Flaeche grau, Cards bg-surface (weiss) = hellere
-   Stufe -> Cards heben sich. Wuerde die Section wie ueblich auf bg-surface gehoben, traefe sie auf die
-   bg-surface-Cards -> gleicher Ton, Cards verschwinden. Daher diese Sektionen NICHT heben: auf bg-page
-   belassen, dann sind die bg-surface-Cards die hellere Stufe (1,22:1) und heben sich ab wie im Light.
-   (Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.) Spezifitaet (0,3,0) +
-   Quellreihenfolge nach der Hebungsregel, damit dieser Override gewinnt. */
+/* Rücknahme der Hebung, wenn die Sektion selbst Flächen auf bg-surface trägt.
+   Dark hat nur 2 Flächen-Stufen (bg-page < bg-surface). Ein Element hebt sich nur ab, wenn es eine
+   ANDERE Stufe als sein Grund hat. Im Light: n-50-Fläche grau, Karten bg-surface (weiß) = hellere
+   Stufe, die Karten heben sich. Wird die Sektion wie oben auf bg-surface gehoben, trifft sie den Ton
+   ihrer eigenen Karten: 1,00:1, die Karte ist als Fläche weg und es bleibt nur die --bd-Haarlinie.
+   Also die Sektion runter statt die Karten hoch, weil keine dritte, hellere Stufe existiert.
+
+   Der Fall wird per :has() SELBST ERKANNT, statt an eine Klasse zu hängen, die man setzen muss:
+   von den 26 Sektionen, bei denen es darauf ankam, trugen nur 9 den Marker. Eine Konvention, die in
+   zwei von drei Fällen vergessen wird, gehört in den Selektor. Die Liste deckt die Komponenten mit
+   bg-surface-Fläche ab, plus per Attribut-Substring die inline gesetzten Kästen (Schreibweise im
+   Repo einheitlich ohne Leerzeichen). Kommt eine neue bg-surface-Komponente dazu, gehört sie hier
+   hinein. Spezifität 0,4,0 (:has() zählt mit dem spezifischsten Argument) und damit über der
+   Hebungsregel (0,3,0). */
+[data-theme="dark"] .ep-section[style*="var(--n-50)"]:has(
+  .card, .ep-card, .card-stat, .testimonial, .team-voice, .ds-card, .a11y-card, .el-card,
+  .tbl, .field, [style*="background:var(--bg-surface)"]
+) { background: var(--bg-page) !important }
+/* .ep-section-cards bleibt als ausdrücklicher Override: wirkt auch ohne :has()-Unterstützung und
+   deckt Inhalt ab, den kein Selektor sieht (per JS eingefügte Kacheln, künftige Komponenten).
+   Nicht mehr Pflicht, die Regel darüber greift von allein. */
 [data-theme="dark"] .ep-section.ep-section-cards { background: var(--bg-page) !important }
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
