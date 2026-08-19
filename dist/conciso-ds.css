@@ -372,6 +372,23 @@
    3,32:1 unter dem Ruhe-Rand: der Rand würde beim Überfahren schwächer statt kräftiger.
    → n-200 = #C9D3D3, 8,51:1. (Light: n-400 bleibt.) */
 [data-theme="dark"] .chip:hover { border-color: var(--n-200) }
+/* Dark-only: Ruhezustand der BEREICHS-Chips. Sie setzen Rahmen und Text in components.css auf die
+   dunklen Stufen (-500/-600/-700 Rahmen, -700/-800 Text), die im Dark nicht flippen: der Text stand
+   damit ❌ 1,35:1 (es-700) bis 2,36:1 (co-700) auf einer Karte, also dunkel-auf-dunkel, und der
+   es-Rahmen mit 2,30:1 unter der 3:1-Schwelle für die Bedienelement-Grenze. Jetzt wie überall im
+   Dark die hellen Pendants: Text -200 (es -100), 7,66 bis 10,25:1 ✓; Rahmen -300, 4,25 bis 9,48:1 ✓,
+   eine Stufe unter dem Text, damit die Schrift dominant bleibt wie im Light.
+   Der Hover geht auf -200/-100 (auf der getönten Füllung 5,78 bis 7,77:1), also kräftiger als die
+   Ruhe, gleiche Richtung wie beim neutralen Chip. Die Hover-Füllung --XX-50 flippt schon selbst.
+   (Light: -500/-600/-700-Rahmen mit -700/-800-Text, unverändert.) */
+[data-theme="dark"] .chip[data-area="co"] { border-color: var(--co-300); color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"] { border-color: var(--ki-300); color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"] { border-color: var(--es-300); color: var(--es-100) }
+[data-theme="dark"] .chip[data-area="wo"] { border-color: var(--wo-300); color: var(--wo-200) }
+[data-theme="dark"] .chip[data-area="co"]:hover { border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"]:hover { border-color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"]:hover { border-color: var(--es-100) }
+[data-theme="dark"] .chip[data-area="wo"]:hover { border-color: var(--wo-200) }
 /* Dark-only: Gedrückter Chip invertiert, wie das Segmented Control (dort --seg-fill -300 mit
    --seg-on -900). Light füllt mit n-700 und schreibt weiß; im Dark ergäbe das eine sehr dunkle
    Fläche auf dunklem Grund — ❌ 1,60:1 zwischen Chip und Seite, der ausgewählte Zustand war nur
@@ -1186,7 +1203,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
 .badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
 .badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
-.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+/* text-decoration:none, damit der Chip auch als <a> trägt (Tag-Link, Sprungmarke, externer Verweis)
+   und nicht unterstrichen rendert. Auf <button> ohne Wirkung. */
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;text-decoration:none;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
@@ -1243,9 +1262,12 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Cards ── */
 .card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
-/* Hover-Lift nur auf klickbaren Karten (Elevation = Interaktivität): statische Karten
-   (<article>/<div> mit Buttons innen) liften NICHT, nur Karten-Links (<a class="card card-elevated">). */
+/* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
+   selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
+   Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
+   Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
+   dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
@@ -2259,7 +2281,9 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-faq details[open] .ep-faq-caret{transform:rotate(180deg)}
 .ep-faq-a{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4);max-width:680px}
 /* ── Download CTA ── */
-.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
+/* Kein Schatten: der Block ist statisch, die Interaktion liegt in den Buttons darin
+   (Elevation = Interaktivität). Rahmen plus 4-px-Akzent oben tragen die Kartenform. */
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
 .cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
 .cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
@@ -2298,7 +2322,8 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-link:hover{border-bottom-color:currentColor}
 .cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
 /* Mit Vorschaubild */
-.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);box-shadow:var(--e1);overflow:hidden}
+/* Kein Schatten, gleiche Begründung wie .cta-dl: statischer Block mit Button darin. */
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden}
 .cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}

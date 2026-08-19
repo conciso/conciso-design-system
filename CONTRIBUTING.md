@@ -54,6 +54,8 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 - **Statische** Cards/Flächen ruhen **flach** mit Rahmen (`--e0` + `--bd`/`--bd-strong`).
 - **Interaktive** Elemente (Links, klickbare Cards `.ep-card-link`) tragen Schatten (`--e1`) und heben auf Hover (`--e3`).
 - Begründung: Schatten signalisiert „anfassbar". Statische Info-Cards mit Schatten täuschen Interaktivität vor.
+- **Entscheidend ist die Fläche, nicht der Inhalt.** Eine Karte mit Buttons oder Text-Links im Footer ist **statisch**: die Buttons sind die Interaktion, die Fläche führt nirgendwohin. Sie ruht flach. Schatten bekommt sie erst, wenn sie selbst der klickbare Bereich ist, also `<a class="card card-elevated">` oder `<a class="ep-card ep-card-link">`.
+- **Der Riegel steht im CSS:** `.card-elevated` ist auf `a.card-elevated` gescoped, eine `<article>`/`<div>`-Karte kann den Schatten also auch mit gesetzter Klasse nicht bekommen. Wer eine statische Fläche erhöhen will, findet keinen Weg dorthin, und das ist beabsichtigt. Gleiches gilt für Inline-`box-shadow` auf statischen Blöcken: nicht setzen, auch nicht mit Token.
 
 ---
 

@@ -75,7 +75,9 @@
 .badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
 .badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
 .badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
-.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+/* text-decoration:none, damit der Chip auch als <a> trägt (Tag-Link, Sprungmarke, externer Verweis)
+   und nicht unterstrichen rendert. Auf <button> ohne Wirkung. */
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;text-decoration:none;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
@@ -132,9 +134,12 @@
 /* ── Cards ── */
 .card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
-/* Hover-Lift nur auf klickbaren Karten (Elevation = Interaktivität): statische Karten
-   (<article>/<div> mit Buttons innen) liften NICHT, nur Karten-Links (<a class="card card-elevated">). */
+/* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
+   selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
+   Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
+   Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
+   dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
@@ -1148,7 +1153,9 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-faq details[open] .ep-faq-caret{transform:rotate(180deg)}
 .ep-faq-a{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4);max-width:680px}
 /* ── Download CTA ── */
-.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
+/* Kein Schatten: der Block ist statisch, die Interaktion liegt in den Buttons darin
+   (Elevation = Interaktivität). Rahmen plus 4-px-Akzent oben tragen die Kartenform. */
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
 .cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
 .cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
@@ -1187,7 +1194,8 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-link:hover{border-bottom-color:currentColor}
 .cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
 /* Mit Vorschaubild */
-.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);box-shadow:var(--e1);overflow:hidden}
+/* Kein Schatten, gleiche Begründung wie .cta-dl: statischer Block mit Button darin. */
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden}
 .cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}

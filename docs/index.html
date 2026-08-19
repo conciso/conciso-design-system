@@ -1558,7 +1558,7 @@
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
           <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;margin-bottom:var(--s3)">Libre Baskerville, Serifenschrift</div>
           <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Display · Headline<br>Hero-Überschriften · Seitentitel · Pull Quotes · emotionale Akzente</div>
-          <a class="t-co" href="https://fonts.google.com/specimen/Libre+Baskerville" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--font);text-decoration:none;border:1px solid var(--co-200);border-radius:var(--r-full);padding:5px 12px;transition:background var(--m-fast),color var(--m-fast)" onmouseover="this.style.background='var(--co-50)'" onmouseout="this.style.background='transparent'">
+          <a class="chip" data-area="co" href="https://fonts.google.com/specimen/Libre+Baskerville" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Auf Google Fonts ansehen
           </a>
@@ -1566,7 +1566,7 @@
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
           <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;margin-bottom:var(--s3)">Montserrat, Grotesk</div>
           <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Title · Body · Label<br>UI-Text · Fließtext · Buttons · Navigation · Captions</div>
-          <a class="t-co" href="https://fonts.google.com/specimen/Montserrat" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--font);text-decoration:none;border:1px solid var(--co-200);border-radius:var(--r-full);padding:5px 12px;transition:background var(--m-fast),color var(--m-fast)" onmouseover="this.style.background='var(--co-50)'" onmouseout="this.style.background='transparent'">
+          <a class="chip" data-area="co" href="https://fonts.google.com/specimen/Montserrat" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Auf Google Fonts ansehen
           </a>
@@ -2047,6 +2047,7 @@
 
       <h2 id="gt-elev-interaktiv" class="group-title">Interaktiv vs. statisch</h2>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Elevation ist ein <strong>Affordanz-Signal, kein Dekor</strong>: Eine erhöhte Fläche suggeriert „anfassbar". Damit das Signal trägt, ruhen <strong>statische</strong> Karten flach mit Rahmen (<code class="token">--bd-strong</code>, Level <code class="token">--e0</code>); Schatten bleibt <strong>interaktiven</strong> Karten vorbehalten. Tragen beide denselben Ruhe-Schatten, ist Klickbarkeit erst per Hover erfahrbar, schlecht auffindbar und für die Schnell-Erfassung mehrdeutig.</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Entscheidend ist, ob die <strong>Fläche</strong> klickbar ist, nicht ob die Karte Interaktion enthält: Eine Karte mit Buttons im Footer ist <strong>statisch</strong>, denn die Buttons sind die Interaktion, nicht die Karte. Sie ruht flach. Der Ruhe-Schatten hängt deshalb im CSS an <code class="token">a.card-elevated</code>, eine <code class="token">&lt;article&gt;</code>- oder <code class="token">&lt;div&gt;</code>-Karte bekommt ihn auch mit gesetzter Klasse nicht.</p>
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
         <div class="col-6">
           <span class="lbl">✓ Statisch · ruht flach</span>
@@ -2066,9 +2067,9 @@
       <table class="doc-table" style="margin-bottom:var(--s8)">
         <thead><tr><th>Typ</th><th>Ruhezustand</th><th>Hover/Focus</th><th>Klassen</th></tr></thead>
         <tbody>
-          <tr><td>Statisch</td><td><code class="token">--e0</code> + <code class="token">--bd-strong</code></td><td>unverändert</td><td><code class="token">.ep-card</code> · <code class="token">.card-stat</code> · <code class="token">.testimonial</code> · <code class="token">.ds-card</code> · <code class="token">.bw-pillar-card</code></td></tr>
+          <tr><td>Statisch</td><td><code class="token">--e0</code> + Rahmen (<code class="token">--bd</code> bzw. <code class="token">--bd-strong</code>)</td><td>unverändert</td><td><code class="token">.card</code> · <code class="token">.ep-card</code> · <code class="token">.card-stat</code> · <code class="token">.testimonial</code> · <code class="token">.ds-card</code> · <code class="token">.bw-pillar-card</code> · <code class="token">.cta-dl</code> · <code class="token">.cta-visual</code></td></tr>
           <tr><td>Interaktiv</td><td><code class="token">--e1</code></td><td><code class="token">--e3</code> + <code class="token">translateY(-2px)</code>, im Dark zusätzlich <code class="token">--bg-surface-hover</code></td><td><code class="token">.ep-card-link</code></td></tr>
-          <tr><td>Elevation-Opt-in</td><td><code class="token">--e1</code></td><td><code class="token">--e2</code> + Lift</td><td><code class="token">.card-elevated</code> (bewusst erhöht, überwiegend auf Links)</td></tr>
+          <tr><td>Link-Karte</td><td><code class="token">--e1</code></td><td><code class="token">--e2</code> + <code class="token">translateY(-2px)</code></td><td><code class="token">a.card.card-elevated</code> (wirkt nur auf <code class="token">&lt;a&gt;</code>, statische Karten bleiben flach)</td></tr>
         </tbody>
       </table>
 
@@ -3293,7 +3294,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
         <!-- ── Karte ── -->
         <div class="col-7">
-          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e2)">
+          <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
             <div style="background:var(--co-700);padding:var(--s5) var(--s6);display:flex;align-items:center;gap:var(--s3)">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span style="font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.85)">Newsletter</span>
@@ -3325,7 +3326,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
 
         <!-- ── Kompakt-Widget ── -->
         <div class="col-5">
-          <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);box-shadow:var(--e1)">
+          <div style="border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)">
             <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2)">Newsletter</div>
             <div style="font:400 18px/26px var(--font-display);color:var(--tx-primary);margin-bottom:var(--s1)">Auf dem Laufenden bleiben</div>
             <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Alle drei Monate neue Beiträge direkt ins Postfach.</div>
@@ -4266,10 +4267,10 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ CARDS ═══ -->
     <section class="ds-section" id="sec-cards">
       <h1 class="sec-title">Cards & Teaser</h1>
-      <p class="sec-sub">Generische Karten (Elevated · Filled · Outlined) · Inhaltskarten (Testimonial · Stat) · alle Brand Areas · barrierefrei.</p>
+      <p class="sec-sub">Generische Karten (statisch · Link-Karte) · Inhaltskarten (Testimonial · Stat) · alle Brand Areas · barrierefrei.</p>
       <h2 id="gt-cards-varianten" class="group-title">Generische Karten</h2>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
-        <article class="card card-elevated col-3" data-area="co">
+        <article class="card col-3" data-area="co">
           <div class="card-media">
             <svg class="ico-48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><path d="M19.9159 36C17.6732 36 15.64 35.4917 13.8165 34.4751C12.0139 33.4365 10.5886 32.011 9.54058 30.1989C8.51353 28.3646 8 26.2983 8 24C8 21.7017 8.51353 19.6464 9.54058 17.8343C10.5886 16 12.0139 14.5746 13.8165 13.558C15.64 12.5193 17.6837 12 19.9474 12C21.8547 12 23.5735 12.3536 25.1036 13.0608C26.3765 13.6411 27.48 14.4299 28.4141 15.4269C28.7644 15.8009 28.7231 16.3821 28.3558 16.7396L26.5121 18.5339C26.0925 18.9423 25.4176 18.8985 24.9933 18.4951C23.6469 17.2147 22.0488 16.5746 20.1989 16.5746C18.8365 16.5746 17.6208 16.895 16.5518 17.5359C15.4828 18.1547 14.6444 19.0276 14.0366 20.1547C13.4497 21.2818 13.1562 22.5635 13.1562 24C13.1562 25.4365 13.4497 26.7182 14.0366 27.8453C14.6444 28.9724 15.4828 29.8564 16.5518 30.4972C17.6208 31.116 18.8365 31.4254 20.1989 31.4254C22.049 31.4254 23.6473 30.7773 24.9938 29.4811C25.4173 29.0734 26.0955 29.0274 26.5168 29.4374L28.361 31.2323C28.7261 31.5876 28.7695 32.1645 28.4246 32.5393C27.4882 33.5567 26.3812 34.3567 25.1036 34.9392C23.5525 35.6464 21.8233 36 19.9159 36Z" fill="currentColor"/><path d="M35.8498 35.9519C34.6804 35.9519 33.6963 35.5309 32.8977 34.6888C32.099 33.8467 31.6997 32.7942 31.6997 31.5311C31.6997 30.2379 32.099 29.2004 32.8977 28.4185C33.6963 27.6065 34.6804 27.2005 35.8498 27.2005C37.0193 27.2005 38.0034 27.6065 38.802 28.4185C39.6007 29.2004 40 30.2379 40 31.5311C40 32.7942 39.6007 33.8467 38.802 34.6888C38.0034 35.5309 37.0193 35.9519 35.8498 35.9519Z" fill="currentColor"/></svg>
           </div>
@@ -4283,7 +4284,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <button class="btn btn-filled btn-sm btn-co">Kontakt</button>
           </div>
         </article>
-        <article class="card card-elevated col-3" data-area="ki">
+        <article class="card col-3" data-area="ki">
           <div class="card-media">
             <svg class="ico-48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><path d="M34.9392 21.6837C34.9392 20.0269 33.5959 18.6839 31.9392 18.6837H16.0613C14.4044 18.6837 13.0613 20.0268 13.0613 21.6837V34.5001C13.0613 36.1569 14.4045 37.5001 16.0613 37.5001H31.9392C33.5959 37.4999 34.9392 36.1568 34.9392 34.5001V21.6837ZM36.9392 34.5001C36.9392 37.2613 34.7004 39.4999 31.9392 39.5001H16.0613C13.2999 39.5001 11.0613 37.2615 11.0613 34.5001V21.6837C11.0613 18.9222 13.2999 16.6837 16.0613 16.6837H31.9392C34.7005 16.6839 36.9392 18.9224 36.9392 21.6837V34.5001Z" fill="currentColor"/><path d="M25.1433 11.9492C25.1433 11.149 24.4942 10.5001 23.6941 10.5C22.8938 10.5 22.2449 11.149 22.2449 11.9492C22.245 12.7494 22.8939 13.3984 23.6941 13.3984C24.4942 13.3983 25.1432 12.7493 25.1433 11.9492ZM27.1433 11.9492C27.1432 13.8538 25.5987 15.3983 23.6941 15.3984C21.7894 15.3984 20.245 13.8539 20.2449 11.9492C20.2449 10.0444 21.7893 8.5 23.6941 8.5C25.5988 8.50013 27.1433 10.0445 27.1433 11.9492Z" fill="currentColor"/><path d="M19.3271 25.6431C19.3271 24.8429 18.678 24.194 17.8778 24.1939C17.0776 24.1939 16.4286 24.8428 16.4286 25.6431C16.4288 26.4432 17.0777 27.0923 17.8778 27.0923C18.6779 27.0922 19.3269 26.4432 19.3271 25.6431ZM21.3271 25.6431C21.3269 27.5477 19.7825 29.0922 17.8778 29.0923C15.9731 29.0923 14.4288 27.5478 14.4286 25.6431C14.4286 23.7383 15.973 22.1939 17.8778 22.1939C19.7826 22.194 21.3271 23.7384 21.3271 25.6431Z" fill="currentColor"/><path d="M31.2658 25.6431C31.2658 24.8429 30.6168 24.194 29.8166 24.1939C29.0164 24.1939 28.3674 24.8428 28.3674 25.6431C28.3675 26.4432 29.0165 27.0923 29.8166 27.0923C30.6167 27.0922 31.2657 26.4432 31.2658 25.6431ZM33.2658 25.6431C33.2657 27.5477 31.7212 29.0922 29.8166 29.0923C27.9119 29.0923 26.3675 27.5478 26.3674 25.6431C26.3674 23.7383 27.9118 22.1939 29.8166 22.1939C31.7213 22.194 33.2658 23.7384 33.2658 25.6431Z" fill="currentColor"/><path d="M17.5613 31.55C17.5613 32.2404 17.0016 32.8 16.3113 32.8C15.6209 32.8 15.0613 32.2404 15.0613 31.55C15.0613 30.8596 15.6209 30.3 16.3113 30.3C17.0016 30.3 17.5613 30.8596 17.5613 31.55Z" fill="currentColor"/><path d="M21.0613 33.35C21.0613 34.0403 20.5016 34.6 19.8113 34.6C19.1209 34.6 18.5613 34.0403 18.5613 33.35C18.5613 32.6596 19.1209 32.1 19.8113 32.1C20.5016 32.1 21.0613 32.6596 21.0613 33.35Z" fill="currentColor"/><path d="M28.9612 33.35C28.9612 34.0403 28.4015 34.6 27.7112 34.6C27.0208 34.6 26.4612 34.0403 26.4612 33.35C26.4612 32.6596 27.0208 32.1 27.7112 32.1C28.4015 32.1 28.9612 32.6596 28.9612 33.35Z" fill="currentColor"/><path d="M24.9612 33.75C24.9612 34.4404 24.4015 35 23.7112 35C23.0208 35 22.4612 34.4404 22.4612 33.75C22.4612 33.0596 23.0208 32.5 23.7112 32.5C24.4015 32.5 24.9612 33.0596 24.9612 33.75Z" fill="currentColor"/><path d="M32.5613 31.55C32.5613 32.2404 32.0016 32.8 31.3113 32.8C30.6209 32.8 30.0613 32.2404 30.0613 31.55C30.0613 30.8596 30.6209 30.3 31.3113 30.3C32.0016 30.3 32.5613 30.8596 32.5613 31.55Z" fill="currentColor"/><path d="M22.7113 17.5V14.5C22.7113 13.9477 23.159 13.5 23.7113 13.5C24.2636 13.5 24.7113 13.9477 24.7113 14.5V17.5C24.7113 18.0523 24.2636 18.5 23.7113 18.5C23.159 18.5 22.7113 18.0523 22.7113 17.5Z" fill="currentColor"/></svg>
           </div>
@@ -4297,7 +4298,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <button class="btn btn-filled btn-sm btn-ki">Anfragen</button>
           </div>
         </article>
-        <article class="card card-elevated col-3" data-area="es">
+        <article class="card col-3" data-area="es">
           <div class="card-media">
             <svg class="ico-48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><path d="M9.99991 18.7447V16.7447H37.4042V18.7447H9.99991Z" fill="currentColor"/><path d="M37 14C37 12.3431 35.6569 11 34 11H14C12.3431 11 11 12.3431 11 14V34C11 35.6569 12.3431 37 14 37H34C35.6569 37 37 35.6569 37 34V14ZM39 34C39 36.7614 36.7614 39 34 39H14C11.2386 39 9 36.7614 9 34V14C9 11.2386 11.2386 9 14 9H34C36.7614 9 39 11.2386 39 14V34Z" fill="currentColor"/><path d="M15.4788 13.85C15.4788 14.5404 14.9191 15.1 14.2288 15.1C13.5384 15.1 12.9788 14.5404 12.9788 13.85C12.9788 13.1596 13.5384 12.6 14.2288 12.6C14.9191 12.6 15.4788 13.1596 15.4788 13.85Z" fill="currentColor"/><path d="M19 13.85C19 14.5403 18.4404 15.1 17.75 15.1C17.0596 15.1 16.5 14.5403 16.5 13.85C16.5 13.1596 17.0596 12.6 17.75 12.6C18.4404 12.6 19 13.1596 19 13.85Z" fill="currentColor"/><path d="M22.5 13.85C22.5 14.5404 21.9404 15.1 21.25 15.1C20.5596 15.1 20 14.5404 20 13.85C20 13.1596 20.5596 12.6 21.25 12.6C21.9404 12.6 22.5 13.1596 22.5 13.85Z" fill="currentColor"/><path d="M30.4887 22.0575C30.9035 21.693 31.5352 21.7336 31.8998 22.1484C32.2644 22.5632 32.2238 23.1949 31.809 23.5595L22.683 31.579C21.8909 32.2749 20.6943 32.2368 19.9487 31.4911L15.5483 27.0898C15.1579 26.6992 15.1578 26.0662 15.5483 25.6757C15.9388 25.2853 16.5718 25.2853 16.9623 25.6757L21.3637 30.0771L30.4887 22.0575Z" fill="currentColor"/></svg>
           </div>
@@ -4311,7 +4312,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <button class="btn btn-filled btn-sm btn-es">Anfragen</button>
           </div>
         </article>
-        <article class="card card-elevated col-3" data-area="wo">
+        <article class="card col-3" data-area="wo">
           <div class="card-media">
             <svg class="ico-48" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false"><path d="M27.142 15.4215C27.142 13.6866 25.7353 12.28 24.0004 12.2799C22.2654 12.2799 20.8588 13.6866 20.8588 15.4215C20.8589 17.1564 22.2655 18.5631 24.0004 18.5631C25.7352 18.563 27.1419 17.1563 27.142 15.4215ZM29.142 15.4215C29.1419 18.2609 26.8398 20.563 24.0004 20.5631C21.1609 20.5631 18.8589 18.261 18.8588 15.4215C18.8588 12.582 21.1609 10.2799 24.0004 10.2799C26.8398 10.28 29.142 12.582 29.142 15.4215Z" fill="currentColor"/><path d="M16.4924 32.5788C16.4924 30.8439 15.0857 29.4373 13.3508 29.4372C11.6159 29.4372 10.2092 30.8439 10.2092 32.5788C10.2093 34.3137 11.6159 35.7204 13.3508 35.7204C15.0856 35.7203 16.4923 34.3136 16.4924 32.5788ZM18.4924 32.5788C18.4923 35.4182 16.1902 37.7203 13.3508 37.7204C10.5114 37.7204 8.20933 35.4183 8.20923 32.5788C8.20923 29.7393 10.5113 27.4372 13.3508 27.4372C16.1903 27.4373 18.4924 29.7394 18.4924 32.5788Z" fill="currentColor"/><path d="M37.7911 32.5788C37.7911 30.8439 36.3844 29.4373 34.6495 29.4372C32.9146 29.4372 31.5079 30.8439 31.5079 32.5788C31.508 34.3137 32.9146 35.7204 34.6495 35.7204C36.3843 35.7203 37.791 34.3136 37.7911 32.5788ZM39.7911 32.5788C39.791 35.4182 37.4889 37.7203 34.6495 37.7204C31.81 37.7204 29.508 35.4183 29.5079 32.5788C29.5079 29.7393 31.81 27.4372 34.6495 27.4372C37.489 27.4373 39.7911 29.7394 39.7911 32.5788Z" fill="currentColor"/><path d="M24.7068 20.2698L15.5369 29.4397L14.1228 28.0257L23.2927 18.8558L24.7068 20.2698Z" fill="currentColor"/><path d="M23.2934 20.2698L32.4633 29.4397L33.8774 28.0257L24.7075 18.8558L23.2934 20.2698Z" fill="currentColor"/><path d="M17.7884 33.5787V31.5787H30.804V33.5787H17.7884Z" fill="currentColor"/></svg>
           </div>
@@ -4326,6 +4327,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </div>
         </article>
       </div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:820px">Diese vier Karten <strong>ruhen flach</strong> mit Rahmen: die Aktionen liegen in den Footer-Buttons, die Fläche selbst führt nirgendwohin. Schatten wäre hier ein falsches Versprechen. Er ist der Link-Karte vorbehalten (siehe <a class="body-link" href="#gt-elev-interaktiv">Elevation: interaktiv vs. statisch</a>) und hängt im CSS an <code class="token">a.card-elevated</code>, greift also nur, wenn die Karte selbst ein <code class="token">&lt;a&gt;</code> ist.</p>
 
       <h2 id="gt-cards-link" class="group-title">Klickbare Karte</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Wenn die ganze Karte zu einem Ziel führen soll, gibt es <strong>zwei Patterns</strong>, je nach Card-Typ und Inhaltsdichte:</p>
@@ -4582,19 +4584,19 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <!-- Kartentypen-Tabelle -->
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
         <div class="col-7">
-          <div class="doc-eyebrow">Drei Varianten</div>
+          <div class="doc-eyebrow">Zwei Varianten</div>
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Variante</th>
+                <th>Klasse</th>
                 <th>Wann einsetzen</th>
                 <th>Elevation</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Elevated</td><td>Standard-Teaser, Feature-Karten, Inhaltsübersichten</td><td><code class="token">--e1</code> + Tonal Overlay</td></tr>
-              <tr><td>Filled</td><td>Bereichskacheln auf farbigem Hintergrund, Hero-Elemente</td><td><code class="token">--e0</code> (Bereichsfarbe trägt)</td></tr>
-              <tr><td>Outlined</td><td>Listen, Tabellen, kompakte Darstellungen ohne visuelle Schwere</td><td><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
+              <tr><td>Statisch</td><td><code class="token">.card</code></td><td>Der Standard. Karten, deren Aktionen in Buttons oder Links im Footer liegen, dazu Listen- und Tabellen-Kontexte ohne visuelle Schwere</td><td><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
+              <tr><td>Link-Karte</td><td><code class="token">a.card.card-elevated</code></td><td>Wenn die ganze Karte zu einem Ziel führt: Listing-Teaser, Beitrags-, Job- und Event-Karten</td><td><code class="token">--e1</code>, Hover <code class="token">--e2</code> + Lift</td></tr>
             </tbody>
           </table>
         </div>
@@ -4624,7 +4626,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div style="display:flex;flex-direction:column;gap:var(--s3)">
             <div style="display:flex;gap:var(--s3);align-items:flex-start">
               <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
-              <div><strong style="color:var(--tx-primary);font-weight:600">Mit Media-Bereich</strong> (Generische Karten: Elevated, Filled, Outlined), die großflächige Fläche in der Bereichsfarbe <code style="font-family:'Courier New',monospace;font-size:12px">-50</code> trägt das Farbsignal bereits. Eine zusätzliche Linie wäre redundant und würde das ruhige Erscheinungsbild stören.</div>
+              <div><strong style="color:var(--tx-primary);font-weight:600">Mit Media-Bereich</strong> (generische Karten), die großflächige Fläche in der Bereichsfarbe <code style="font-family:'Courier New',monospace;font-size:12px">-50</code> trägt das Farbsignal bereits. Eine zusätzliche Linie wäre redundant und würde das ruhige Erscheinungsbild stören.</div>
             </div>
             <div style="display:flex;gap:var(--s3);align-items:flex-start">
               <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
@@ -4636,7 +4638,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <div class="col-4" style="display:flex;flex-direction:column;gap:var(--s4)">
           <div>
             <div style="font:500 12px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s2)">Mit Media-Bereich → keine Linie</div>
-            <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="border:var(--bd);border-radius:var(--r-lg);overflow:hidden">
               <div style="height:40px;background:var(--co-50);display:flex;align-items:center;justify-content:center">
                 <span style="font:400 12px/16px var(--font);color:var(--tx-secondary)">Media</span>
               </div>
@@ -4649,7 +4651,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           </div>
           <div>
             <div style="font:500 12px/16px var(--font);color:var(--tx-muted);margin-bottom:var(--s2)">Ohne Media-Bereich → Linie oben</div>
-            <div style="border:var(--bd);border-top:4px solid var(--co-500);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)">
+            <div style="border:var(--bd);border-top:4px solid var(--co-500);border-radius:var(--r-lg);overflow:hidden">
               <div style="padding:var(--s3) var(--s4)">
                 <div style="height:6px;border-radius:3px;background:var(--n-200);margin-bottom:6px;width:55%"></div>
                 <div style="height:8px;border-radius:3px;background:var(--n-100);margin-bottom:4px"></div>
@@ -4684,7 +4686,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eyebrow und Media konsequent in der Bereichsfarbe halten, Karte ist immer einem Bereich zugehörig</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Elevated für Standard-Teaser, Level 1 Schatten und Tonal Overlay sorgen für ruhige Tiefe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Schatten nur auf Link-Karten (<code class="token">a.card.card-elevated</code>), Karten mit Aktionen im Footer ruhen flach mit Rahmen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Max. 2 Aktionen im Card-Footer: Text-Button (sekundär) + Filled-Button (primär)</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Gleichartige Karten in einem Grid konsistent halten, gleiche Variante, gleiche Breite</span></li>
@@ -4693,10 +4695,10 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Kartentypen in derselben Reihe mischen, Elevated und Outlined nebeneinander wirken inkonsistent</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Statische und Link-Karten in derselben Reihe mischen, der Schatten liest sich dann als Zufall statt als Klick-Angebot</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 2 Filled Buttons im Footer, die Hierarchie wird unklar, eine Hauptaktion reicht</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarben einer Karte und ihrer Nachbarkarte mischen, jede Karte gehört zu einem Bereich</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Elevated Karten ohne Tonal Overlay verwenden, der Schatten allein reicht nicht für die Markenzugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Karte erhöhen, deren Fläche nirgendwohin führt, das verspricht Klickbarkeit, die es nicht gibt</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Langen Fließtext in Card-Body, statt dessen Teaser formulieren und auf eine Detailseite verlinken</span></li>
           </ul>
         </div>
@@ -11291,7 +11293,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <h2 class="ep-section-h2">Zwei Pakete, klare Preise</h2>
           <p class="ep-section-sub">Core für den schnellen, sicheren Einstieg. Pro für die maßgeschneiderte, tief integrierte Lösung.</p>
           <div class="layout-grid" style="align-items:stretch">
-            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:var(--bd);box-shadow:var(--e1)">
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:var(--bd)">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s6)">
                 <div style="display:flex;flex-direction:column;gap:var(--s2)">
                   <div style="min-height:var(--s8);display:flex;align-items:center;justify-content:space-between;gap:var(--s3)">
@@ -11315,7 +11317,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <button class="btn btn-outlined btn-ki btn-full" type="button">Core anfragen</button>
               </div>
             </div>
-            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:1px solid var(--ki-200);border-top:4px solid var(--ki-500);box-shadow:var(--e2)">
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:var(--bd);border-top:4px solid var(--ki-500)">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s6)">
                 <div style="display:flex;flex-direction:column;gap:var(--s2)">
                   <div style="min-height:var(--s8);display:flex;align-items:center;justify-content:space-between;gap:var(--s3)">
@@ -11428,7 +11430,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               <img src="assets/images/gespraech-tisch.jpg" alt="Person erläutert im Gespräch einen KI-Anwendungsfall" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
             </figure>
             <div class="col-8" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s6);align-items:stretch">
-            <div class="card card-elevated" data-area="ki" style="display:flex;flex-direction:column">
+            <div class="card" data-area="ki" style="display:flex;flex-direction:column">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Öffentlicher Sektor</span>
                 <h3 class="card-title" style="margin:0"><span>Onboarding per KI-Chatbot</span></h3>
@@ -11439,7 +11441,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 </div>
               </div>
             </div>
-            <div class="card card-elevated" data-area="ki" style="display:flex;flex-direction:column">
+            <div class="card" data-area="ki" style="display:flex;flex-direction:column">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s3)">
                 <span class="pill" data-area="ki" style="width:fit-content;margin-bottom:0">Software-Entwicklung</span>
                 <h3 class="card-title" style="margin:0"><span>Coding Assistant für Entwicklungsteams</span></h3>
@@ -11956,7 +11958,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
           <div class="layout-grid" style="align-items:stretch">
             <div class="col-6">
-              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
+              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500)">
                 <div class="card-body" style="display:flex;flex-direction:column;gap:var(--s4)">
                   <div style="display:flex;align-items:center;gap:var(--s3)">
                     <span aria-hidden="true" style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary)">01</span>
@@ -11974,7 +11976,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
             </div>
             <div class="col-6">
-              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500);box-shadow:var(--e1)">
+              <div class="card" data-area="ki" style="height:100%;border:var(--bd);border-top:4px solid var(--ki-500)">
                 <div class="card-body" style="display:flex;flex-direction:column;gap:var(--s4)">
                   <div style="display:flex;align-items:center;gap:var(--s3)">
                     <span aria-hidden="true" style="font:var(--ty-display-sm);line-height:1;color:var(--tx-primary)">02</span>
@@ -15140,7 +15142,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0;text-wrap:balance">Im Anschluss offene Runde mit den Speakern und Austausch bei Speis und Trank. In Zusammenarbeit mit den <strong>User Groups n8n und .NET</strong>.</p>
           </div>
           <div class="layout-grid">
-            <article class="card card-elevated col-4" data-area="es">
+            <article class="card col-4" data-area="es">
               <div class="card-media" style="aspect-ratio:16/9;background:linear-gradient(135deg,var(--es-100),var(--es-50));display:flex;align-items:center;justify-content:center">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7Z"/></svg>
               </div>
@@ -15150,7 +15152,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <div class="card-text">Plattform-Status, die letzten Finanzierungsrunden und was die Bewertung praktisch bedeutet. Was n8n von anderen Workflow-Tools unterscheidet.</div>
               </div>
             </article>
-            <article class="card card-elevated col-4" data-area="es">
+            <article class="card col-4" data-area="es">
               <div class="card-media" style="aspect-ratio:16/9;background:linear-gradient(135deg,var(--es-100),var(--es-50));display:flex;align-items:center;justify-content:center">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
               </div>
@@ -15160,7 +15162,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <div class="card-text">Eigene Workflows aus unserem Tagesgeschäft, Kunden-Beispiele und unsere selbst entwickelten n8n-Nodes. Was funktioniert, was wir gelernt haben.</div>
               </div>
             </article>
-            <article class="card card-elevated col-4" data-area="es">
+            <article class="card col-4" data-area="es">
               <div class="card-media" style="aspect-ratio:16/9;background:linear-gradient(135deg,var(--es-100),var(--es-50));display:flex;align-items:center;justify-content:center">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--es-700)" stroke-width="1.25" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z"/></svg>
               </div>

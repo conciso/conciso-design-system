@@ -11,14 +11,14 @@ const meta: Meta<CardComponent> = {
       description: {
         component:
           'Generische Teaser-Karte für Inhalte mit optionalem Medienbereich, ' +
-          'Eyebrow, Titel, Text und Fußzeilen-Aktion. Als flache oder erhöhte ' +
-          '(elevated) Variante und farblich an jede Brand Area angepasst.',
+          'Eyebrow, Titel, Text und Fußzeilen-Aktion, farblich an jede Brand Area ' +
+          'angepasst. Sie ruht flach mit Rahmen: Schatten tragen nach der Konvention ' +
+          '„Elevation = Interaktivität" nur Karten, deren Fläche selbst ein Link ist.',
       },
     },
   },
   argTypes: {
     area: { control: 'inline-radio', options: [undefined, 'co', 'ki', 'es', 'wo'] },
-    elevated: { control: 'boolean' },
     showMedia: { control: 'boolean' },
   },
   args: {
@@ -26,7 +26,6 @@ const meta: Meta<CardComponent> = {
     title: 'Effektive Software für den Mittelstand',
     text: 'Wie schlanke Architektur und klare Prozesse messbar Zeit und Kosten sparen.',
     area: 'es',
-    elevated: true,
     showMedia: true,
     actionLabel: 'Mehr erfahren',
   },
