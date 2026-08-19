@@ -32,6 +32,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `<article>` mit Footer-Button aus, also genau dieses Muster. Der `elevated`-Input entfällt (er
   wäre nach der CSS-Änderung wirkungslos), die Komponente rendert `<article class="card">`. Eine
   Link-Karten-Variante (`<a>` mit Ziel statt `<article>` mit Button) bleibt offen.
+- **Bereichs-Chips waren im Dark dunkel-auf-dunkel.** `.chip[data-area]` setzte Rahmen und Text auf
+  die dunklen Stufen (`-500`/`-600`/`-700` Rahmen, `-700`/`-800` Text), die im Dark nicht flippen:
+  der Text stand zwischen **1,35:1** (es) und **2,36:1** (co) auf einer Karte, der es-Rahmen mit
+  2,30:1 unter der 3:1-Schwelle für die Bedienelement-Grenze. Nur der *gedrückte* Zustand hatte
+  Dark-Regeln. Jetzt wie überall im Dark die hellen Pendants: Text `-200` (es `-100`) mit 7,66 bis
+  10,25:1, Rahmen `-300` mit 4,25 bis 9,48:1, Hover eine Stufe kräftiger. Betrifft 35 Chips in der
+  Doku. `check:dark-states` sah das nicht, weil es Zustands-Regeln prüft, nicht Ruhezustände.
+- **Karten-Varianten „Filled" und „Outlined" aus der Doku entfernt.** `.card-filled` und
+  `.card-outlined` existierten nie, weder im CSS noch im Markup noch in der Angular-Lib. Die
+  Varianten-Tabelle führt jetzt die zwei Zustände, die es gibt: statisch (`.card`) und Link-Karte
+  (`a.card.card-elevated`). Die Do/Don't-Liste und der Abschnitts-Untertitel sind nachgezogen,
+  ebenso zwei Aussagen zu einem „Tonal Overlay", das Karten nie gesetzt haben.
+- **Drei rohe Bereichston-Rahmen ersetzt.** Die Pro-Preiskarte trug `1px solid var(--ki-200)`
+  (im Light 1,27:1 gegen Weiß, im Dark eine leuchtende Haarlinie mit 10,25:1), jetzt `--bd`; die
+  4-px-Oberkante und die „Empfohlen"-Pill tragen die Hervorhebung weiter. Die zwei
+  Font-Specimen-Links nutzen jetzt die vorhandene `.chip`-Komponente mit `data-area` statt
+  Inline-Rahmen, Inline-Radius und zwei `onmouseover`/`onmouseout`-Handlern für den Hover.
+  `.chip` bekommt dafür `text-decoration:none`, damit es auch als `<a>` trägt.
 - **Dark-Mode-Flächen neu aufgesetzt.** `--bg-page` trug mit `#333E48` nur **10,92:1** gegen Weiß.
   Die Material-Dark-Theme-Guidance fordert für die Basisfläche mindestens **15,8:1**; der Wert ist
   kein Stilmittel, sondern der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch

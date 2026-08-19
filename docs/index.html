@@ -1558,7 +1558,7 @@
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
           <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;margin-bottom:var(--s3)">Libre Baskerville, Serifenschrift</div>
           <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Display · Headline<br>Hero-Überschriften · Seitentitel · Pull Quotes · emotionale Akzente</div>
-          <a class="t-co" href="https://fonts.google.com/specimen/Libre+Baskerville" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--font);text-decoration:none;border:1px solid var(--co-200);border-radius:var(--r-full);padding:5px 12px;transition:background var(--m-fast),color var(--m-fast)" onmouseover="this.style.background='var(--co-50)'" onmouseout="this.style.background='transparent'">
+          <a class="chip" data-area="co" href="https://fonts.google.com/specimen/Libre+Baskerville" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Auf Google Fonts ansehen
           </a>
@@ -1566,7 +1566,7 @@
         <div class="col-6" style="background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5)">
           <div class="t-co" style="font:500 12px/16px var(--font);letter-spacing:.07em;text-transform:uppercase;margin-bottom:var(--s3)">Montserrat, Grotesk</div>
           <div style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Title · Body · Label<br>UI-Text · Fließtext · Buttons · Navigation · Captions</div>
-          <a class="t-co" href="https://fonts.google.com/specimen/Montserrat" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font:500 12px/16px var(--font);text-decoration:none;border:1px solid var(--co-200);border-radius:var(--r-full);padding:5px 12px;transition:background var(--m-fast),color var(--m-fast)" onmouseover="this.style.background='var(--co-50)'" onmouseout="this.style.background='transparent'">
+          <a class="chip" data-area="co" href="https://fonts.google.com/specimen/Montserrat" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Auf Google Fonts ansehen
           </a>
@@ -4267,7 +4267,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ CARDS ═══ -->
     <section class="ds-section" id="sec-cards">
       <h1 class="sec-title">Cards & Teaser</h1>
-      <p class="sec-sub">Generische Karten (Elevated · Filled · Outlined) · Inhaltskarten (Testimonial · Stat) · alle Brand Areas · barrierefrei.</p>
+      <p class="sec-sub">Generische Karten (statisch · Link-Karte) · Inhaltskarten (Testimonial · Stat) · alle Brand Areas · barrierefrei.</p>
       <h2 id="gt-cards-varianten" class="group-title">Generische Karten</h2>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <article class="card col-3" data-area="co">
@@ -4584,19 +4584,19 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
       <!-- Kartentypen-Tabelle -->
       <div class="layout-grid" style="align-items:start;margin-bottom:var(--s6)">
         <div class="col-7">
-          <div class="doc-eyebrow">Drei Varianten</div>
+          <div class="doc-eyebrow">Zwei Varianten</div>
           <table class="doc-table">
             <thead>
               <tr>
                 <th>Variante</th>
+                <th>Klasse</th>
                 <th>Wann einsetzen</th>
                 <th>Elevation</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Elevated</td><td>Nur wenn die ganze Karte ein Link ist (<code class="token">a.card.card-elevated</code>): Listing-Teaser, Beitrags-, Job- und Event-Karten</td><td><code class="token">--e1</code>, Hover <code class="token">--e2</code></td></tr>
-              <tr><td>Filled</td><td>Bereichskacheln auf farbigem Hintergrund, Hero-Elemente</td><td><code class="token">--e0</code> (Bereichsfarbe trägt)</td></tr>
-              <tr><td>Outlined</td><td>Listen, Tabellen, kompakte Darstellungen ohne visuelle Schwere, und jede statische Karte mit Aktionen im Footer</td><td><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
+              <tr><td>Statisch</td><td><code class="token">.card</code></td><td>Der Standard. Karten, deren Aktionen in Buttons oder Links im Footer liegen, dazu Listen- und Tabellen-Kontexte ohne visuelle Schwere</td><td><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
+              <tr><td>Link-Karte</td><td><code class="token">a.card.card-elevated</code></td><td>Wenn die ganze Karte zu einem Ziel führt: Listing-Teaser, Beitrags-, Job- und Event-Karten</td><td><code class="token">--e1</code>, Hover <code class="token">--e2</code> + Lift</td></tr>
             </tbody>
           </table>
         </div>
@@ -4626,7 +4626,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div style="display:flex;flex-direction:column;gap:var(--s3)">
             <div style="display:flex;gap:var(--s3);align-items:flex-start">
               <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
-              <div><strong style="color:var(--tx-primary);font-weight:600">Mit Media-Bereich</strong> (Generische Karten: Elevated, Filled, Outlined), die großflächige Fläche in der Bereichsfarbe <code style="font-family:'Courier New',monospace;font-size:12px">-50</code> trägt das Farbsignal bereits. Eine zusätzliche Linie wäre redundant und würde das ruhige Erscheinungsbild stören.</div>
+              <div><strong style="color:var(--tx-primary);font-weight:600">Mit Media-Bereich</strong> (generische Karten), die großflächige Fläche in der Bereichsfarbe <code style="font-family:'Courier New',monospace;font-size:12px">-50</code> trägt das Farbsignal bereits. Eine zusätzliche Linie wäre redundant und würde das ruhige Erscheinungsbild stören.</div>
             </div>
             <div style="display:flex;gap:var(--s3);align-items:flex-start">
               <div style="width:4px;border-radius:2px;background:var(--co-500);flex-shrink:0;align-self:stretch"></div>
@@ -4686,7 +4686,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eyebrow und Media konsequent in der Bereichsfarbe halten, Karte ist immer einem Bereich zugehörig</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Elevated für Standard-Teaser, Level 1 Schatten und Tonal Overlay sorgen für ruhige Tiefe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Schatten nur auf Link-Karten (<code class="token">a.card.card-elevated</code>), Karten mit Aktionen im Footer ruhen flach mit Rahmen</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Max. 2 Aktionen im Card-Footer: Text-Button (sekundär) + Filled-Button (primär)</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Gleichartige Karten in einem Grid konsistent halten, gleiche Variante, gleiche Breite</span></li>
@@ -4695,10 +4695,10 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Kartentypen in derselben Reihe mischen, Elevated und Outlined nebeneinander wirken inkonsistent</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Statische und Link-Karten in derselben Reihe mischen, der Schatten liest sich dann als Zufall statt als Klick-Angebot</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als 2 Filled Buttons im Footer, die Hierarchie wird unklar, eine Hauptaktion reicht</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarben einer Karte und ihrer Nachbarkarte mischen, jede Karte gehört zu einem Bereich</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Elevated Karten ohne Tonal Overlay verwenden, der Schatten allein reicht nicht für die Markenzugehörigkeit</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Karte erhöhen, deren Fläche nirgendwohin führt, das verspricht Klickbarkeit, die es nicht gibt</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Langen Fließtext in Card-Body, statt dessen Teaser formulieren und auf eine Detailseite verlinken</span></li>
           </ul>
         </div>
@@ -11317,7 +11317,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <button class="btn btn-outlined btn-ki btn-full" type="button">Core anfragen</button>
               </div>
             </div>
-            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:1px solid var(--ki-200);border-top:4px solid var(--ki-500)">
+            <div class="card col-6" data-area="ki" style="display:flex;flex-direction:column;border:var(--bd);border-top:4px solid var(--ki-500)">
               <div class="card-body" style="flex:1;display:flex;flex-direction:column;gap:var(--s6)">
                 <div style="display:flex;flex-direction:column;gap:var(--s2)">
                   <div style="min-height:var(--s8);display:flex;align-items:center;justify-content:space-between;gap:var(--s3)">
