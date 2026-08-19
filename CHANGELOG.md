@@ -15,6 +15,23 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Schatten nur noch auf Karten, deren Fläche selbst klickbar ist.** `.card-elevated` setzte den
+  Ruhe-Schatten `--e1` auf jeder Karte, auch auf `<article>`/`<div>`-Karten mit Buttons im Footer.
+  Nach der Konvention „Elevation = Interaktivität" ist so eine Karte statisch: die Buttons sind die
+  Interaktion, die Fläche führt nirgendwohin, und ein Ruhe-Schatten verspricht Klickbarkeit, die es
+  nicht gibt. Der Hover-Lift war bereits auf `a.card-elevated` begrenzt, der Ruhe-Schatten nicht.
+  Die Variante hängt jetzt komplett an `a.card-elevated`; eine statische Karte fällt damit auf
+  `.card` zurück (flach, `--bd`-Rahmen) und kann den Schatten auch mit gesetzter Klasse nicht
+  bekommen. Betroffen waren 9 statische `.card-elevated`-Karten (generische Karten, Referenz- und
+  Themen-Karten der Beispielseiten), 6 Blöcke mit Inline-`box-shadow` (AI.Box-Preiskarten,
+  Agenda-Karten, zwei Newsletter-Widgets) sowie `.cta-dl` und `.cta-visual`, die den Schatten aus
+  dem CSS trugen. Alle behalten ihren Rahmen, die Kartenform bleibt. Die 44 Link-Karten
+  (`<a class="card card-elevated">`) sind unverändert. In der Doku ersetzt die Zeile „Link-Karte"
+  die bisherige Zeile „Elevation-Opt-in", die genau diesen Fall legitimiert hatte.
+- **Angular-Card rendert flach.** `CardComponent` gab per Default `card card-elevated` auf einem
+  `<article>` mit Footer-Button aus, also genau dieses Muster. Der `elevated`-Input entfällt (er
+  wäre nach der CSS-Änderung wirkungslos), die Komponente rendert `<article class="card">`. Eine
+  Link-Karten-Variante (`<a>` mit Ziel statt `<article>` mit Button) bleibt offen.
 - **Dark-Mode-Flächen neu aufgesetzt.** `--bg-page` trug mit `#333E48` nur **10,92:1** gegen Weiß.
   Die Material-Dark-Theme-Guidance fordert für die Basisfläche mindestens **15,8:1**; der Wert ist
   kein Stilmittel, sondern der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch

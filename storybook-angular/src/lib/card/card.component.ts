@@ -4,7 +4,13 @@ import type { CdsArea } from '../area';
 import { CDS_AREA_ICONS } from '../icons';
 
 /**
- * Card — Wrapper um `.card` / `.card-elevated` aus css/components.css → „Cards".
+ * Card — Wrapper um `.card` aus css/components.css → „Cards".
+ *
+ * Die Karte rendert `<article class="card">` und ruht damit flach mit Rahmen. Das folgt der
+ * Konvention „Elevation = Interaktivität": Schatten trägt eine Karte nur, wenn die Karte selbst
+ * der klickbare Bereich ist. Hier liegt die Interaktion in der Footer-Aktion, nicht in der Fläche.
+ * `.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated`; eine Link-Karten-Variante
+ * (`<a>` mit Ziel statt `<article>` mit Button) ist deshalb eine eigene Komponente/Variante.
  *
  * Bildet die im CSS vorgesehene Struktur ab: .card-media (bereichsgefärbt via
  * [data-area]) mit der echten Bereichs-Glyphe, .card-body mit .card-eyebrow /
@@ -19,7 +25,7 @@ import { CDS_AREA_ICONS } from '../icons';
   selector: 'cds-card',
   standalone: true,
   template: `
-    <article [class]="classes" [attr.data-area]="area() || null">
+    <article class="card" [attr.data-area]="area() || null">
       @if (showMedia()) {
         <div class="card-media" [innerHTML]="mediaSvg"></div>
       }
@@ -51,8 +57,6 @@ export class CardComponent {
   readonly text = input('Ein kurzer Anreißer-Text, der die Karte beschreibt.');
   /** Markenbereich → data-area (färbt Media-Glyphe + Eyebrow). */
   readonly area = input<CdsArea>();
-  /** Erhöhte Variante → .card-elevated. */
-  readonly elevated = input(true);
   /** Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen. */
   readonly showMedia = input(true);
   /** Kompakte Text-Aktion im Footer (leer = kein Footer). */
@@ -60,10 +64,6 @@ export class CardComponent {
 
   /** Klick auf die Footer-Aktion. */
   readonly actionClick = output<void>();
-
-  get classes(): string {
-    return this.elevated() ? 'card card-elevated' : 'card';
-  }
 
   get actionClasses(): string {
     // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
