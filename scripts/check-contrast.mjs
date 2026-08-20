@@ -11,8 +11,10 @@
  *
  * Drei Prüfungen:
  *   1. TEXT      – WCAG 1.4.3: 4,5:1, ab 24 px bzw. 18,66 px + fett 3:1.
- *   2. FÜLLUNGEN – Hausregel (CONTRIBUTING § 5): getönte Bauteil-Füllungen mindestens 1,3:1
- *                  gegen ihren Grund, sonst liest das Element nur noch als farbiger Text.
+ *   2. FÜLLUNGEN – Hausregel (CONTRIBUTING § 3): getönte Bauteil-Füllungen mindestens 1,3:1 gegen
+ *                  ihren Grund UND mindestens 10 L*-Punkte Helligkeitsabstand. Das zweite Kriterium
+ *                  ist nötig, weil satte Farben den Quotienten erfüllen können, ohne als Stufe zu
+ *                  lesen: die ES-Füllung im Dark lag bei 1,33:1 mit nur 8,3 L*.
  *   3. RAHMEN    – WCAG 1.4.11: Bedienelement-Grenzen 3:1, gerechnet gegen die günstigere der
  *                  beiden Seiten (innen/außen), weil eine sichtbare Seite genügt.
  *
@@ -108,6 +110,13 @@ function collect({ specimen, fillSelector, borderSelector }) {
     const s = [lum(fg), lum(bg)].sort((m, n) => n - m);
     return +((s[0] + 0.05) / (s[1] + 0.05)).toFixed(2);
   };
+  /**
+   * Helligkeit in L* (CIE-Lab, Y aus derselben Leuchtdichte). Zweites Kriterium für Füllungen:
+   * Der Kontrastquotient allein greift bei satten Farben zu kurz. Zwei Flächen können 1,33:1
+   * erfüllen und trotzdem nicht als Stufe lesen, wenn der Unterschied fast nur in Farbton und
+   * Sättigung liegt. Genau so lag die ES-Füllung im Dark: 1,33:1, aber nur 8,3 L*-Punkte Abstand.
+   */
+  const lstar = (c) => { const Y = lum(c); return 116 * (Y > 0.008856 ? Math.cbrt(Y) : 7.787 * Y + 16 / 116) - 16 };
   /** Effektiver Grund: Elternkette hoch, halbtransparente Schichten aufeinander komponiert. */
   const stack = (el, includeSelf) => {
     const layers = [];
@@ -176,7 +185,9 @@ function collect({ specimen, fillSelector, borderSelector }) {
     if (g.image || g.unknown) continue;
     const fill = own.a >= 0.999 ? own : over(own, g.bg);
     const r = ratio(fill, g.bg);
-    if (r < 1.3) out.fill.push({ sel: name(el), on: name(g.host), r, need: 1.3, path: path(el) });
+    const dL = Math.abs(lstar(fill) - lstar(g.bg));
+    if (r < 1.3 || dL < 10)
+      out.fill.push({ sel: name(el), on: name(g.host), r, need: 1.3, dL: +dL.toFixed(1), why: r < 1.3 ? 'Kontrast' : 'Helligkeit', path: path(el) });
   }
 
   for (const el of document.querySelectorAll(borderSelector)) {
@@ -232,7 +243,7 @@ for (const theme of ['light', 'dark']) {
   console.log(`\n── ${theme.toUpperCase()} ──  ${r.checked} Textknoten geprüft, ${r.overImage} über Bild/Verlauf (Pixelmessung nötig), ${r.specimen} Specimen ausgenommen, ${r.unknown} Farbe nicht auswertbar`);
   for (const [art, label, rows] of [
     ['text', 'Text (WCAG 1.4.3)', r.text],
-    ['fill', 'Füllungen (Hausregel 1,3:1)', r.fill],
+    ['fill', 'Füllungen (1,3:1 UND 10 L*)', r.fill],
     ['border', 'Bedienelement-Rahmen (WCAG 1.4.11)', r.border],
   ]) {
     const mark = ist[art] > soll[art] ? '⛔ REGRESSION' : ist[art] < soll[art] ? '↓ Restliste senken' : 'unverändert';
@@ -240,7 +251,7 @@ for (const theme of ['light', 'dark']) {
     if (ist[art] !== soll[art]) failed = true;
     if (LIST) {
       for (const x of rows.sort((a, b) => a.r - b.r))
-        console.log(`      ${String(x.r).padStart(5)}:1 (Soll ${x.need})  ${x.path}${x.color ? `  ${x.color}` : ''}${x.ground ? ` auf ${x.ground}` : ''}${x.txt ? `  "${x.txt}"` : ''}`);
+        console.log(`      ${String(x.r).padStart(5)}:1 (Soll ${x.need})${x.dL !== undefined ? `  ΔL* ${x.dL} (Soll 10, ${x.why})` : ''}  ${x.path}${x.color ? `  ${x.color}` : ''}${x.ground ? ` auf ${x.ground}` : ''}${x.txt ? `  "${x.txt}"` : ''}`);
     } else {
       for (const [k, v] of group(rows, (x) => `${x.sel} auf ${x.on || '-'}`).slice(0, 10))
         console.log(`      ${String(v.n).padStart(3)}x ${k.padEnd(34)} ${String(v.worst).padStart(5)}:1 (Soll ${v.ex.need})${v.ex.txt ? `  "${v.ex.txt}"` : ''}`);

@@ -15,6 +15,25 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Getönte Füllungen im Dark um 4 L\*-Punkte gehoben, und das Gate prüft jetzt zwei Werte.** Die
+  vier Bereichs-Füllungen erfüllten mit 1,33:1 den 1,3:1-Faustwert, hatten aber nur **8,3 L\***
+  Helligkeitsabstand zur Karte: der Unterschied lag fast vollständig in Farbton und Sättigung, und
+  eine satte Fläche auf gleicher Helligkeit liest als dunkler Fleck statt als hellere Stufe. Am
+  deutlichsten bei ES, weil Blau bei gleichem L\* am dunkelsten wirkt; genau dort ist es aufgefallen
+  (Pill der Veranstaltungskarte). Neu in Lab gerechnet, nur L angehoben, Farbton und Sättigung
+  unverändert: `--co-50` `#1F5651`, `--ki-50` `#43531C`, `--wo-50` `#205828`, `--es-50` `#34469D`.
+  Fläche jetzt 1,54 bis 1,55:1 zur Karte und 2,07 bis 2,09:1 zur Seite, ΔL\* 12,5 bis 12,7.
+  Dasselbe für die Status-Füllungen, die das neue Kriterium mit aufdeckte (ΔL\* 8,2 bis 8,4):
+  `--c-success-bg` `#1F573B`, `--c-warning-bg` `#5F4B1E`, `--c-error-bg` `#882725`,
+  `--badge-neu-bg` `#404F5D`. Beim Fehlerton bewusst bei ΔL\* 11 gestoppt, weil der Text darauf
+  sonst unter AA fällt (jetzt 4,74:1).
+  **Das Gate prüft Füllungen ab jetzt gegen 1,3:1 UND 10 L\***, sonst wäre genau dieser Fall wieder
+  durchgerutscht. Es hat dabei drei Folgefehler gefunden: Inline-Code (`.token`) trug im Dark
+  `co-300` und fiel auf der helleren Füllung auf 4,48:1, ebenso die Grid-Spalten-Labels; beide
+  laufen jetzt über `--co-ink`. Vier Code-Chips trugen zusätzlich eine semantische Inline-Farbe
+  (`--c-error` und Verwandte) und lagen bei 4,46:1; die Farbe ist raus, den Zweck erklärt die Zeile
+  daneben. Und ein CSS-Kommentar mit `a*/b*` hat beim Schreiben den Kommentar vorzeitig beendet und
+  den halben Dark-Token-Block gekippt: 1.705 gemeldete Verstöße, in einem Lauf gefunden.
 - **Alle Kontrast-Verstöße der Doku behoben: 183 auf 0, in beiden Modi.** Ausgangsstand nach dem
   Bau des Gates: Light 49 Text / 101 Füllungen / 6 Rahmen, Dark 20 / 0 / 0. Neun Gruppen, jede mit
   einer Ursache:
