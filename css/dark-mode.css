@@ -109,6 +109,11 @@
      Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
+  /* Pill- und Badge-Fuellung im Dark: gehoben gegenueber dem ruhigen -50-Tint. Im Light traegt die
+     dunkle Schrift auf zartem Grund die Praesenz; im Dark ist es umgekehrt, helle Schrift auf
+     dunklem Tint, und bei fast gleicher Helligkeit wie die Karte haelt nichts mehr die Flaeche.
+     Deshalb hier 1,54 bis 1,55:1 zur Karte und 12,5 bis 12,7 L* Helligkeitsabstand, in Lab
+     gerechnet mit unveraendertem Farbton. Text darauf 4,97 bis 6,64:1. */
   --co-fill:#1F5651; --ki-fill:#43531C; --es-fill:#34469D; --wo-fill:#205828;
   /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
      auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */

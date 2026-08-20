@@ -15,6 +15,17 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Pill und Bereichs-Badge folgen im Light dem Kachel-Rezept.** Zarter `--XX-50`-Tint mit
+  kräftiger dunkler Schrift (7,5 bis 12,3:1) statt kräftiger Füllung. Begründung wie bei den
+  Kacheln: WCAG verlangt für diese Fläche nichts, die Aussage steht im Label, und darüber
+  entscheidet das Markenrad. Auf dem zarten Grund wirkt die Schrift kräftiger, weil sie nicht mit
+  der Fläche konkurriert. **Im Dark bleibt die gehobene Füllung**, weil sich dort das Verhältnis
+  umdreht: helle Schrift auf dunklem Tint, und bei fast gleicher Helligkeit wie die Karte hält
+  nichts mehr die Fläche zusammen (1,54 bis 1,55:1 zur Karte, 12,5 bis 12,7 L*). Gleiche Rolle,
+  zwei Werte, wie bei `--XX-band`.
+  Das Gate prüft die 1,3:1-und-10-L*-Regel damit nur noch für **Status**-Füllungen, bei denen die
+  Farbfläche in dichten Kontexten der schnelle Hinweis ist, bevor das Label gelesen wird. Für
+  Label- und Dekor-Flächen bleibt es beim Text, und der wird ohnehin geprüft.
 - **Dekorative Flächen dürfen ruhig bleiben: Icon-Kacheln zurück auf den zarten Tint.** Beim
   Anheben der Füllungen waren die 48-px-Kacheln mitgelaufen, obwohl für sie nichts davon gilt: WCAG
   verlangt für eine dekorative Fläche keinen Kontrast (kein Bedienelement, kein bedeutungstragendes

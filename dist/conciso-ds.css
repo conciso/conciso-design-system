@@ -65,22 +65,21 @@
   --co-band:var(--co-50); --ki-band:var(--ki-50); --es-band:var(--es-50); --wo-band:var(--wo-50);
 
   /* ── Bauteil-Füllungen ──
-     --XX-fill ist die Füllung kleiner getönter Bauteile (Pill, Bereichs-Badge). Sie muss als
-     FLÄCHE lesen: Faustwert 1,3:1 gegen jeden Grund, auf dem sie vorkommt, also gegen Weiß und
-     gegen n-50 (CONTRIBUTING § 5). --XX-50 leistet das im Light nicht, dort trägt es als Füllung
-     nur 1,06:1 (ki) bis 1,14:1 (es) und das Bauteil liest nur noch als farbiger Text. Als zarter
-     Sektions-Tint ist derselbe Wert dagegen richtig, deshalb die Trennung, analog zu --XX-band.
-     Gemessen gegen Weiß / gegen n-50: co 1,56 / 1,46 · ki 1,42 / 1,32 · es 2,03 / 1,89 ·
-     wo 1,70 / 1,58. ki liegt zwei Stufen höher, weil der Ton so hell ist, dass -200 nur 1,27:1
-     trägt; dieselbe Einzelkalibrierung wie beim Chip-Rahmen (co-600 / ki-700 / es-500).
-     Dark-Werte in dark-mode.css. Kein --ro-fill: Rosé ist Akzent- und Statusfarbe, es gibt weder
-     ro-Pill noch ro-Badge.
+     --XX-fill ist die Füllung von Pill und Bereichs-Badge. Im Light ist das der ruhige Tint, also
+     dasselbe Rezept wie bei den Icon-Kacheln: zarte Fläche, kräftige dunkle Schrift darauf
+     (7,5 bis 11,4:1). WCAG verlangt für diese Fläche nichts, das Label trägt die Aussage, und
+     darüber entscheidet das Markenrad: „Ruhig". Die Schrift wirkt auf dem zarten Grund kräftiger,
+     weil sie nicht mit der Fläche konkurriert.
+     Getrennt wird es erst im Dark: dort liegt helle Schrift auf dunklem Tint, und wenn der Tint
+     fast die Helligkeit der Karte hat, hält nichts mehr die Pill zusammen. Deshalb dort eigene,
+     gehobene Werte (siehe dark-mode.css). Gleiche Rolle, zwei Werte, wie bei --XX-band.
+     Kein --ro-fill: Rosé ist Akzent- und Statusfarbe, es gibt weder ro-Pill noch ro-Badge.
 
      Abgrenzung nach oben und unten: --XX-50 bleibt der RUHIGE Tint, in beiden Modi. Er trägt
      dekorative Flächen (Icon-Kachel, Timeline-Marker, Hover-Füllung des Chips, Inline-Code), die
      nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig".
      --XX-band ist die große Sektionsfläche. Drei Rollen, drei Namen. */
-  --co-fill:var(--co-200); --ki-fill:var(--ki-400); --es-fill:var(--es-200); --wo-fill:var(--wo-200);
+  --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
 
 
   /* ── Neutrals ── */
@@ -333,6 +332,11 @@
      Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
+  /* Pill- und Badge-Fuellung im Dark: gehoben gegenueber dem ruhigen -50-Tint. Im Light traegt die
+     dunkle Schrift auf zartem Grund die Praesenz; im Dark ist es umgekehrt, helle Schrift auf
+     dunklem Tint, und bei fast gleicher Helligkeit wie die Karte haelt nichts mehr die Flaeche.
+     Deshalb hier 1,54 bis 1,55:1 zur Karte und 12,5 bis 12,7 L* Helligkeitsabstand, in Lab
+     gerechnet mit unveraendertem Farbton. Text darauf 4,97 bis 6,64:1. */
   --co-fill:#1F5651; --ki-fill:#43531C; --es-fill:#34469D; --wo-fill:#205828;
   /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
      auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */

@@ -53,17 +53,21 @@ const RESTLISTE = {
 const SPECIMEN = ['cswatch', 'cbadge'];
 
 /**
- * Bauteile, deren Füllung als FLÄCHE lesen muss: sie führen Text und stehen für eine Kategorie
- * oder einen Status. Für die gilt die Hausregel (1,3:1 und 10 L*).
- * NICHT hier drin: dekorative Flächen wie die Icon-Kachel (.ep-card-icon) und der Timeline-Marker
- * (.ep-tl-icon). WCAG verlangt für sie nichts (kein Bedienelement, kein bedeutungstragendes
- * Grafikobjekt), ihr Glyph ist aria-hidden und wiederholt das Eyebrow daneben. Sie tragen deshalb
- * bewusst den ruhigen --XX-tint. Was dort trägt, ist der Glyph-Kontrast, und der steht in der
- * Komponente dokumentiert. Neue textführende Füllung hier ergänzen, neue dekorative nicht.
+ * Bauteile, deren Füllung als FLÄCHE lesen muss: STATUS-Träger. Bei ihnen ist die Farbfläche der
+ * schnelle Hinweis in dichten Kontexten (Tabellenzeile, Liste), noch bevor das Label gelesen wird.
+ * Für sie gilt die Hausregel (1,3:1 und 10 L*).
+ * NICHT hier drin, und das ist eine bewusste Grenze:
+ *   · Dekorative Flächen (Icon-Kachel .ep-card-icon, Timeline-Marker .ep-tl-icon). WCAG verlangt
+ *     nichts, der Glyph ist aria-hidden und wiederholt das Eyebrow daneben.
+ *   · Bereichs-Pill und Bereichs-Badge. Sie benennen eine Kategorie, und das tut ihr Label; die
+ *     Fläche ist Dekor. Im Light tragen sie deshalb den ruhigen Tint mit kräftiger Schrift
+ *     (7,5 bis 11,4:1), wie die Kacheln. Im Dark liegt helle Schrift auf dunklem Tint, dort sind
+ *     die Werte gehoben, aber auch das ist eine Marken-, keine WCAG-Entscheidung.
+ * Was in beiden Fällen geprüft bleibt, ist der Text darauf, und der läuft über die Text-Prüfung.
+ * Neue Status-Füllung hier ergänzen, neue Label- oder Dekor-Fläche nicht.
  */
 const FILL_SELECTOR = [
-  '.pill', '.badge[data-area]', '.badge-ok', '.badge-warn', '.badge-err', '.badge-neu',
-  '.card-stat-trend',
+  '.badge-ok', '.badge-warn', '.badge-err', '.badge-neu', '.card-stat-trend',
 ].join(',');
 
 /* Bedienelemente, deren Rahmen die Grenze markiert (WCAG 1.4.11). */
