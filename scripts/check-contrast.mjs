@@ -39,7 +39,7 @@ const PAGE = 'file://' + join(ROOT, 'docs/index.html');
 
 /** Stand 2026-08-20. Jede behobene Gruppe senkt hier eine Zahl. Ziel: alles 0. */
 const RESTLISTE = {
-  light: { text: 56, fill: 101, border: 6 },
+  light: { text: 49, fill: 101, border: 6 },
   dark: { text: 20, fill: 0, border: 0 },
 };
 
@@ -72,9 +72,25 @@ function resolveChromium() {
 
 /** Läuft im Seitenkontext. Muss selbstständig sein, keine Closures von außen. */
 function collect({ specimen, fillSelector, borderSelector }) {
+  /**
+   * Computed-Farbe lesen. Zwei Formen, weil Chrome color-mix() NICHT als rgb() zurückgibt,
+   * sondern als color(srgb 0.95 0.987 0.987) mit Werten von 0 bis 1. Wer das als 0..255 liest,
+   * bekommt Beinah-Schwarz und damit erfundene Befunde. Alles, was keine dieser Formen hat
+   * (oklch, lab, …), wird NICHT geraten, sondern als nicht auswertbar gezählt.
+   */
   const parse = (c) => {
-    const v = (c || '').match(/[\d.]+/g);
-    return v ? { r: +v[0], g: +v[1], b: +v[2], a: v[3] === undefined ? 1 : +v[3] } : null;
+    if (!c) return null;
+    const srgb = /^color\(srgb\s+([-\d.eE%]+)\s+([-\d.eE%]+)\s+([-\d.eE%]+)(?:\s*\/\s*([-\d.eE%]+))?\s*\)$/.exec(c.trim());
+    if (srgb) {
+      const num = (t) => (t.endsWith('%') ? parseFloat(t) / 100 : parseFloat(t));
+      return { r: num(srgb[1]) * 255, g: num(srgb[2]) * 255, b: num(srgb[3]) * 255, a: srgb[4] === undefined ? 1 : num(srgb[4]) };
+    }
+    if (/^(rgb|rgba)\(/.test(c)) {
+      const v = c.match(/[\d.]+/g);
+      return v ? { r: +v[0], g: +v[1], b: +v[2], a: v[3] === undefined ? 1 : +v[3] } : null;
+    }
+    if (/^(transparent|none)$/.test(c.trim())) return { r: 0, g: 0, b: 0, a: 0 };
+    return { unparsed: c };
   };
   const over = (t, b) => ({
     r: t.r * t.a + b.r * (1 - t.a), g: t.g * t.a + b.g * (1 - t.a),
@@ -91,18 +107,19 @@ function collect({ specimen, fillSelector, borderSelector }) {
   /** Effektiver Grund: Elternkette hoch, halbtransparente Schichten aufeinander komponiert. */
   const stack = (el, includeSelf) => {
     const layers = [];
-    let node = includeSelf ? el : el.parentElement, image = false, host = null;
+    let node = includeSelf ? el : el.parentElement, image = false, host = null, unknown = false;
     while (node) {
       const cs = getComputedStyle(node);
       if (cs.backgroundImage && cs.backgroundImage !== 'none') image = true;
       const c = parse(cs.backgroundColor);
+      if (c && c.unparsed) { unknown = true; break }
       if (c && c.a > 0) { layers.push(c); if (!host) host = node; if (c.a >= 0.999) break }
       node = node.parentElement;
     }
     let base = { r: 255, g: 255, b: 255, a: 1 };
     if (layers.length && layers[layers.length - 1].a >= 0.999) base = layers.pop();
     for (let i = layers.length - 1; i >= 0; i--) base = over(layers[i], base);
-    return { bg: base, image, host: host || document.body };
+    return { bg: base, image, unknown, host: host || document.body };
   };
   const isSpecimen = (el) => {
     for (let a = el; a && a !== document.body; a = a.parentElement)
@@ -110,8 +127,21 @@ function collect({ specimen, fillSelector, borderSelector }) {
     return false;
   };
   const name = (el) => el.className.toString().trim().split(/\s+/)[0] || el.tagName.toLowerCase();
+  const hex = (c) => '#' + [c.r, c.g, c.b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+  /** Kurzer Pfad zum Auffinden im Markup: nächste id plus die letzten Glieder mit Klasse. */
+  const path = (el) => {
+    const parts = [];
+    for (let n = el; n && n !== document.body && parts.length < 4; n = n.parentElement) {
+      let s = n.tagName.toLowerCase();
+      if (n.id) { parts.unshift('#' + n.id); break }
+      const c = n.className.toString().trim().split(/\s+/).filter(Boolean).slice(0, 2);
+      if (c.length) s += '.' + c.join('.');
+      parts.unshift(s);
+    }
+    return parts.join(' > ');
+  };
 
-  const out = { text: [], fill: [], border: [], overImage: 0, specimen: 0, checked: 0 };
+  const out = { text: [], fill: [], border: [], overImage: 0, specimen: 0, unknown: 0, checked: 0 };
 
   for (const el of document.querySelectorAll('body *')) {
     const cs = getComputedStyle(el);
@@ -121,38 +151,40 @@ function collect({ specimen, fillSelector, borderSelector }) {
     if (!hasOwnText) continue;
     const g = stack(el, true);
     if (g.image) { out.overImage++; continue }
+    if (g.unknown) { out.unknown++; continue }
     if (isSpecimen(el)) { out.specimen++; continue }
     const raw = parse(cs.color);
-    if (!raw || raw.a === 0) continue;
+    if (!raw || raw.unparsed) { if (raw) out.unknown++; continue }
+    if (raw.a === 0) continue;
     const fg = raw.a >= 0.999 ? raw : over(raw, g.bg);
     const size = parseFloat(cs.fontSize), weight = parseInt(cs.fontWeight) || 400;
     const need = size >= 24 || (size >= 18.66 && weight >= 700) ? 3 : 4.5;
     const r = ratio(fg, g.bg);
     out.checked++;
-    if (r < need) out.text.push({ sel: name(el), on: name(g.host), r, need, size: Math.round(size), color: cs.color, txt: el.textContent.trim().slice(0, 44) });
+    if (r < need) out.text.push({ sel: name(el), on: name(g.host), r, need, size: Math.round(size), color: cs.color, ground: hex(g.bg), path: path(el), txt: el.textContent.trim().slice(0, 44) });
   }
 
   for (const el of document.querySelectorAll(fillSelector)) {
     const cs = getComputedStyle(el);
     const own = parse(cs.backgroundColor);
-    if (!own || own.a === 0 || isSpecimen(el)) continue;
+    if (!own || own.unparsed || own.a === 0 || isSpecimen(el)) { if (own && own.unparsed) out.unknown++; continue }
     const g = stack(el, false);
-    if (g.image) continue;
+    if (g.image || g.unknown) continue;
     const fill = own.a >= 0.999 ? own : over(own, g.bg);
     const r = ratio(fill, g.bg);
-    if (r < 1.3) out.fill.push({ sel: name(el), on: name(g.host), r, need: 1.3 });
+    if (r < 1.3) out.fill.push({ sel: name(el), on: name(g.host), r, need: 1.3, path: path(el) });
   }
 
   for (const el of document.querySelectorAll(borderSelector)) {
     const cs = getComputedStyle(el);
     const w = parseFloat(cs.borderTopWidth) || 0;
     const bc = parse(cs.borderTopColor);
-    if (!w || !bc || bc.a === 0 || isSpecimen(el)) continue;
+    if (!w || !bc || bc.unparsed || bc.a === 0 || isSpecimen(el)) { if (bc && bc.unparsed) out.unknown++; continue }
     const inner = stack(el, true), outer = stack(el, false);
-    if (inner.image || outer.image) continue;
+    if (inner.image || outer.image || inner.unknown || outer.unknown) continue;
     const b = bc.a >= 0.999 ? bc : over(bc, inner.bg);
     const r = Math.max(ratio(b, inner.bg), ratio(b, outer.bg));
-    if (r < 3) out.border.push({ sel: name(el), r, need: 3, color: cs.borderTopColor });
+    if (r < 3) out.border.push({ sel: name(el), r, need: 3, color: cs.borderTopColor, path: path(el) });
   }
   return out;
 }
@@ -168,6 +200,8 @@ const group = (rows, key) => {
   }
   return [...m.entries()].sort((a, b) => a[1].worst - b[1].worst);
 };
+
+const LIST = process.argv.includes('--list');   // jeden Fund einzeln mit Pfad ausgeben
 
 const chromium = resolveChromium();
 let browser;
@@ -191,7 +225,7 @@ for (const theme of ['light', 'dark']) {
   const soll = RESTLISTE[theme];
   const ist = { text: r.text.length, fill: r.fill.length, border: r.border.length };
 
-  console.log(`\n── ${theme.toUpperCase()} ──  ${r.checked} Textknoten geprüft, ${r.overImage} über Bild/Verlauf (Pixelmessung nötig), ${r.specimen} Specimen ausgenommen`);
+  console.log(`\n── ${theme.toUpperCase()} ──  ${r.checked} Textknoten geprüft, ${r.overImage} über Bild/Verlauf (Pixelmessung nötig), ${r.specimen} Specimen ausgenommen, ${r.unknown} Farbe nicht auswertbar`);
   for (const [art, label, rows] of [
     ['text', 'Text (WCAG 1.4.3)', r.text],
     ['fill', 'Füllungen (Hausregel 1,3:1)', r.fill],
@@ -200,8 +234,13 @@ for (const theme of ['light', 'dark']) {
     const mark = ist[art] > soll[art] ? '⛔ REGRESSION' : ist[art] < soll[art] ? '↓ Restliste senken' : 'unverändert';
     console.log(`   ${label}: ${ist[art]} (Restliste ${soll[art]}) ${mark}`);
     if (ist[art] !== soll[art]) failed = true;
-    for (const [k, v] of group(rows, (x) => `${x.sel} auf ${x.on || '-'}`).slice(0, 10))
-      console.log(`      ${String(v.n).padStart(3)}x ${k.padEnd(34)} ${String(v.worst).padStart(5)}:1 (Soll ${v.ex.need})${v.ex.txt ? `  "${v.ex.txt}"` : ''}`);
+    if (LIST) {
+      for (const x of rows.sort((a, b) => a.r - b.r))
+        console.log(`      ${String(x.r).padStart(5)}:1 (Soll ${x.need})  ${x.path}${x.color ? `  ${x.color}` : ''}${x.ground ? ` auf ${x.ground}` : ''}${x.txt ? `  "${x.txt}"` : ''}`);
+    } else {
+      for (const [k, v] of group(rows, (x) => `${x.sel} auf ${x.on || '-'}`).slice(0, 10))
+        console.log(`      ${String(v.n).padStart(3)}x ${k.padEnd(34)} ${String(v.worst).padStart(5)}:1 (Soll ${v.ex.need})${v.ex.txt ? `  "${v.ex.txt}"` : ''}`);
+    }
   }
 }
 await browser.close();
