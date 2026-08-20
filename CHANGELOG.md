@@ -28,6 +28,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Beschriftung bricht nicht mehr um (ein Umbruch bei „800 T" schob das Farbfeld dieser Spalte nach
   oben und ergab eine Stufe in der Reihe), und das Farbfeld behält seine 60 px Höhe. Unter 1024 px
   entfällt der Hexwert, dort ist eine Spalte zu schmal; er bleibt im `title` und per Klick kopierbar.
+  Und die Reihe ist jetzt eine Karte mit Haarlinie: ohne Rahmen verlor sie im Light ihre Kante, weil
+  die hellen Stufen und der weiße Beschriftungs-Streifen beide fast die Farbe der Seite haben
+  (`#E0F7F7` gegen Weiß sind 1,12:1). Dazu eine Linie zwischen Farbfeld und Beschriftung, aus
+  demselben Grund. Im Dark trennte sich der Streifen schon vorher von der Seite, dort ist beides
+  nur konsequent.
 - **Pill und Bereichs-Badge folgen im Light dem Kachel-Rezept.** Zarter `--XX-50`-Tint mit
   kräftiger dunkler Schrift (7,5 bis 12,3:1) statt kräftiger Füllung. Begründung wie bei den
   Kacheln: WCAG verlangt für diese Fläche nichts, die Aussage steht im Label, und darüber

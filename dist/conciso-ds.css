@@ -1078,12 +1078,12 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
-/* Rundung sitzt an den Farbfeldern, nicht an der Reihe: die Reihe klippte sonst den
-   Beschriftungs-Streifen an den Außenkanten ab. Gerundet wird nur oben, unten schließt der
-   Streifen bündig an. */
-.pal-row{display:flex;gap:2px}
-.pal-row .swatch:first-child{border-top-left-radius:var(--r-md)}
-.pal-row .swatch:last-child{border-top-right-radius:var(--r-md)}
+/* Die Reihe ist eine Karte: Haarlinie plus Rundung, Inhalt geklippt. Ohne den Rahmen verliert sie
+   im Light ihre Kante, weil die hellen Stufen (50, 100) und der weiße Beschriftungs-Streifen beide
+   fast die Farbe der Seite haben (#E0F7F7 gegen Weiß sind 1,12:1). Im Dark trennt sich der Streifen
+   von der Seite ohnehin, dort ist der Rahmen nur konsequent. Die Rundung liegt an der Karte, damit
+   sie oben UND unten greift; das Klippen betrifft nur die Ecken, nicht den Streifen. */
+.pal-row{display:flex;gap:2px;border:1px solid var(--bd-c);border-radius:var(--r-md);overflow:hidden}
 /* Farbfeld oben, Beschriftung auf einem neutralen Streifen darunter. Vorher saß die Beschriftung
    AUF der Farbe, und dort lässt sich der Kontrast nicht garantieren: bei sieben von hundert Stufen
    liegt die Leuchtdichte so in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht
@@ -1097,7 +1097,10 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* Der Streifen braucht Luft nach oben, sonst klebt die Beschriftung am Farbfeld. nowrap, weil ein
    Umbruch ("800 T") das Farbfeld dieser einen Spalte nach oben schöbe und die Reihe eine Stufe
    bekäme. */
+/* Linie zwischen Farbfeld und Beschriftung: im Light grenzt der weiße Streifen sonst nicht gegen
+   die hellen Stufen ab. Sie sitzt auf der ersten Zeile des Streifens, also nur einmal je Spalte. */
 .swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
+.swatch > span:first-of-type{border-top:1px solid var(--bd-c);padding-top:4px}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
 .swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
 /* Unter 1024 px wird eine Spalte zu schmal für den Hexwert. Er entfällt dann; der Wert steht
