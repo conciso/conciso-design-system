@@ -15,6 +15,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Bereichs-Rahmen der Team-Stimme erfüllt die 3:1-Schwelle.** `.team-voice[data-area]` tönt seinen
+  Rahmen in der Bereichsfarbe, und der Rahmen ist dort das tragende Farbsignal, weil das Quote-Icon
+  daneben dekorativ ist (`opacity` .25 im Light, .6 im Dark). Er trug im Light auf `-200` nur
+  **1,27:1** (ki) bis **2,03:1** (es) und im Dark auf `-800` nur **1,07:1** (wo) bis **1,63:1** (ki),
+  war also in beiden Modi als Signal nicht wahrnehmbar. Jetzt dieselben Stufen wie beim
+  Bereichs-Chip, die dort schon auf die 3:1-Schwelle für grafische Objekte ausgelegt sind: Light
+  `-600`/`-700`/`-500`/`-500` (3,29 bis 5,66:1), Dark `-300` (4,25 bis 9,48:1).
 - **Sektions-Rhythmus im Dark auf Light-Parität, Karten grenzen sich per Rand ab.** Im Dark werden
   `n-50`-Sektionen auf `bg-surface` gehoben, damit die Tonfolge dieselbe ist wie im Light. Für
   kartentragende Sektionen gab es dafür eine Ausnahme (`.ep-section-cards`), die die Hebung

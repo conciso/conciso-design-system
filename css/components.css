@@ -211,10 +211,15 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* Team-Stimmen: editoriale Reihen, Foto seitlich (abwechselnd L/R), fotostark für Repräsentation. Eigene Variante, lässt .testimonial unberührt. */
 .team-voices{display:flex;flex-direction:column;gap:var(--s6)}
 .team-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
-.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-200)}
-.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-200)}
-.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-200)}
-.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-200)}
+/* Bereichs-Rahmen: dieselben Stufen wie beim Bereichs-Chip, weil sie dort schon auf die
+   3:1-Schwelle für grafische Objekte ausgelegt sind. Vorher -200 für alle vier, das trug auf Weiß
+   nur 1,27:1 (ki) bis 2,03:1 (es), der Rahmen war als Bereichssignal nicht wahrnehmbar. Jetzt
+   3,29:1 (co) bis 5,66:1 (es). Das Quote-Icon bleibt dekorativ (opacity .25), der Rahmen ist damit
+   das tragende Farbsignal. Dark-Werte in dark-mode.css. */
+.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-600)}
+.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-700)}
+.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-500)}
+.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-500)}
 .team-voice-media{margin:0}
 .team-voice-media img{display:block;width:100%;height:100%;min-height:300px;object-fit:cover}
 .team-voice-body{padding:var(--s8);display:flex;flex-direction:column;gap:var(--s5);justify-content:center}
