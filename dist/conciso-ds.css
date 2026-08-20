@@ -74,8 +74,14 @@
      wo 1,70 / 1,58. ki liegt zwei Stufen höher, weil der Ton so hell ist, dass -200 nur 1,27:1
      trägt; dieselbe Einzelkalibrierung wie beim Chip-Rahmen (co-600 / ki-700 / es-500).
      Dark-Werte in dark-mode.css. Kein --ro-fill: Rosé ist Akzent- und Statusfarbe, es gibt weder
-     ro-Pill noch ro-Badge. */
+     ro-Pill noch ro-Badge.
+
+     Abgrenzung nach oben und unten: --XX-50 bleibt der RUHIGE Tint, in beiden Modi. Er trägt
+     dekorative Flächen (Icon-Kachel, Timeline-Marker, Hover-Füllung des Chips, Inline-Code), die
+     nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig".
+     --XX-band ist die große Sektionsfläche. Drei Rollen, drei Namen. */
   --co-fill:var(--co-200); --ki-fill:var(--ki-400); --es-fill:var(--es-200); --wo-fill:var(--wo-200);
+
 
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
@@ -314,7 +320,7 @@
      0,47 ueber AA. --ro-50 wird nicht als Fuellung eingesetzt (Rose ist Akzent- und Statusfarbe)
      und bleibt unveraendert.
      (Light: zarter Bereichstint auf Weiss, Bauteil-Fuellungen dort ueber --XX-fill.) */
-  --co-50:#1F5651; --ki-50:#43531C; --wo-50:#205828; --es-50:#34469D; --ro-50:#7E1F37;
+  --co-50:#134C47; --ki-50:#384912; --wo-50:#144E1F; --es-50:#253C92; --ro-50:#7E1F37;
   /* --XX-band = große getönte Sektionsfläche (Hero, CTA-Band), 16,5:1. Die Bänder lagen früher
      UNTER bg-page (14,0:1 gegen 10,9:1). Nach unten bleibt jetzt nur Faktor 1,20 bis Schwarz, sie
      liegen deshalb knapp ÜBER der Seite und trennen sich von ihr primär über den Farbton statt über
@@ -327,7 +333,7 @@
      Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
-  --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
+  --co-fill:#1F5651; --ki-fill:#43531C; --es-fill:#34469D; --wo-fill:#205828;
   /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
      auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */
   --co-ink:var(--co-200); --ki-ink:var(--ki-200); --es-ink:var(--es-100); --wo-ink:var(--wo-200);
@@ -2310,16 +2316,17 @@ img.logo-themed-light{display:none}
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
-/* Kachel-Füllung über --XX-fill statt inline var(--XX-50): der Sektions-Tint trug als Füllung nur
-   1,06:1 gegen die Karte, die Kachel war keine Fläche. Zugleich wandert die Farbe aus 76 inline
-   gesetzten style-Attributen in die Komponente. Glyph darauf bleibt der -700/-800-Ton (auf der
-   kräftigeren Füllung 4,74 bis 7,19:1, Schwelle für Grafik ist 3:1); im Dark hebt dark-mode.css
-   ihn wie bisher auf -100. */
-.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-fill)}
-.ep-card-icon[data-area="co"]{background:var(--co-fill)}
-.ep-card-icon[data-area="ki"]{background:var(--ki-fill)}
-.ep-card-icon[data-area="es"]{background:var(--es-fill)}
-.ep-card-icon[data-area="wo"]{background:var(--wo-fill)}
+/* Kachel-Fläche über --XX-50, den ruhigen Bereichston, und ohne Rand. Sie muss nicht als Fläche
+   lesen: WCAG verlangt für eine dekorative Fläche nichts, das Glyph ist aria-hidden und wiederholt
+   nur das Eyebrow daneben. Darüber entscheidet das Markenrad, und 48 px gesättigte Farbe sind das
+   Gegenteil von „Ruhig". Das Glyph trägt die Erkennbarkeit: -700/-800 auf dem Tint 7,5 bis 11,4:1,
+   im Dark hebt dark-mode.css es auf -100 (6,9 bis 8,6:1). Die Farbe kommt aus der Komponente, nicht
+   aus 76 inline gesetzten style-Attributen. */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-50)}
+.ep-card-icon[data-area="co"]{background:var(--co-50)}
+.ep-card-icon[data-area="ki"]{background:var(--ki-50)}
+.ep-card-icon[data-area="es"]{background:var(--es-50)}
+.ep-card-icon[data-area="wo"]{background:var(--wo-50)}
 /* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
    wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
    sind unberuehrt. */
@@ -2382,8 +2389,8 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
-/* Füllung über --co-fill, gleiche Begründung wie bei .ep-card-icon (co-50 trug 1,12:1). */
-.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-fill);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+/* Dekorative Fläche wie .ep-card-icon: ruhiger Tint, das Glyph trägt. */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
 .ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── FAQ-Accordion (native details/summary) ── */
 .ep-faq{max-width:none}

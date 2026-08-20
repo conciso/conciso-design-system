@@ -96,7 +96,7 @@
      0,47 ueber AA. --ro-50 wird nicht als Fuellung eingesetzt (Rose ist Akzent- und Statusfarbe)
      und bleibt unveraendert.
      (Light: zarter Bereichstint auf Weiss, Bauteil-Fuellungen dort ueber --XX-fill.) */
-  --co-50:#1F5651; --ki-50:#43531C; --wo-50:#205828; --es-50:#34469D; --ro-50:#7E1F37;
+  --co-50:#134C47; --ki-50:#384912; --wo-50:#144E1F; --es-50:#253C92; --ro-50:#7E1F37;
   /* --XX-band = große getönte Sektionsfläche (Hero, CTA-Band), 16,5:1. Die Bänder lagen früher
      UNTER bg-page (14,0:1 gegen 10,9:1). Nach unten bleibt jetzt nur Faktor 1,20 bis Schwarz, sie
      liegen deshalb knapp ÜBER der Seite und trennen sich von ihr primär über den Farbton statt über
@@ -109,7 +109,7 @@
      Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
-  --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
+  --co-fill:#1F5651; --ki-fill:#43531C; --es-fill:#34469D; --wo-fill:#205828;
   /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
      auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */
   --co-ink:var(--co-200); --ki-ink:var(--ki-200); --es-ink:var(--es-100); --wo-ink:var(--wo-200);

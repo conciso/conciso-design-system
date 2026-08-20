@@ -52,10 +52,18 @@ const RESTLISTE = {
 /* Swatches, die das Farbpaar selbst zeigen (Kontrast-Tabellen). Einzige Ausnahme. */
 const SPECIMEN = ['cswatch', 'cbadge'];
 
-/* Bauteile mit getönter Fläche, für die die 1,3:1-Hausregel gilt. Neue getönte Füllung hier ergänzen. */
+/**
+ * Bauteile, deren Füllung als FLÄCHE lesen muss: sie führen Text und stehen für eine Kategorie
+ * oder einen Status. Für die gilt die Hausregel (1,3:1 und 10 L*).
+ * NICHT hier drin: dekorative Flächen wie die Icon-Kachel (.ep-card-icon) und der Timeline-Marker
+ * (.ep-tl-icon). WCAG verlangt für sie nichts (kein Bedienelement, kein bedeutungstragendes
+ * Grafikobjekt), ihr Glyph ist aria-hidden und wiederholt das Eyebrow daneben. Sie tragen deshalb
+ * bewusst den ruhigen --XX-tint. Was dort trägt, ist der Glyph-Kontrast, und der steht in der
+ * Komponente dokumentiert. Neue textführende Füllung hier ergänzen, neue dekorative nicht.
+ */
 const FILL_SELECTOR = [
   '.pill', '.badge[data-area]', '.badge-ok', '.badge-warn', '.badge-err', '.badge-neu',
-  '.card-stat-trend', '.ep-card-icon', '.ep-tl-icon',
+  '.card-stat-trend',
 ].join(',');
 
 /* Bedienelemente, deren Rahmen die Grenze markiert (WCAG 1.4.11). */

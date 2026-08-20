@@ -50,8 +50,14 @@
      wo 1,70 / 1,58. ki liegt zwei Stufen höher, weil der Ton so hell ist, dass -200 nur 1,27:1
      trägt; dieselbe Einzelkalibrierung wie beim Chip-Rahmen (co-600 / ki-700 / es-500).
      Dark-Werte in dark-mode.css. Kein --ro-fill: Rosé ist Akzent- und Statusfarbe, es gibt weder
-     ro-Pill noch ro-Badge. */
+     ro-Pill noch ro-Badge.
+
+     Abgrenzung nach oben und unten: --XX-50 bleibt der RUHIGE Tint, in beiden Modi. Er trägt
+     dekorative Flächen (Icon-Kachel, Timeline-Marker, Hover-Füllung des Chips, Inline-Code), die
+     nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig".
+     --XX-band ist die große Sektionsfläche. Drei Rollen, drei Namen. */
   --co-fill:var(--co-200); --ki-fill:var(--ki-400); --es-fill:var(--es-200); --wo-fill:var(--wo-200);
+
 
   /* ── Neutrals ── */
   --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;

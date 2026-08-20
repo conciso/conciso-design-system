@@ -15,6 +15,21 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Dekorative Flächen dürfen ruhig bleiben: Icon-Kacheln zurück auf den zarten Tint.** Beim
+  Anheben der Füllungen waren die 48-px-Kacheln mitgelaufen, obwohl für sie nichts davon gilt: WCAG
+  verlangt für eine dekorative Fläche keinen Kontrast (kein Bedienelement, kein bedeutungstragendes
+  Grafikobjekt, das Glyph ist `aria-hidden` und wiederholt das Eyebrow daneben), und großflächig
+  gesättigte Farbe widerspricht dem Markenwert „Ruhig". Kacheln und Timeline-Marker tragen jetzt
+  wieder `--XX-50`, ohne Rand; die Erkennbarkeit trägt das Glyph mit 7,5 bis 11,4:1 im Light und
+  6,9 bis 8,6:1 im Dark, also mehr als auf der kräftigen Füllung (dort 4,7 bis 7,5:1).
+  Dazu die Rollen sauber getrennt, damit die Entscheidung am Token-Namen hängt: **`--XX-50`** ruhige
+  dekorative Fläche (in beiden Modi dasselbe Versprechen; im Dark stehen dort wieder die ruhigen
+  Werte) · **`--XX-fill`** textführendes Bauteil, muss lesen (im Dark eigene, gehobene Werte statt
+  einer Referenz auf `-50`) · **`--XX-band`** Sektionsfläche · **`--XX-ink`** farbiger Text.
+  Das Gate prüft die Hausregel entsprechend nur für textführende Füllungen; warum die Kacheln nicht
+  drin sind, steht im Skript.
+  CONTRIBUTING § 3 führt die Entscheidung jetzt zweistufig: WCAG ist Pflicht und gilt für den
+  Inhalt, darüber hinaus entscheidet das Markenrad und nicht der Kontrastrechner.
 - **Getönte Füllungen im Dark um 4 L\*-Punkte gehoben, und das Gate prüft jetzt zwei Werte.** Die
   vier Bereichs-Füllungen erfüllten mit 1,33:1 den 1,3:1-Faustwert, hatten aber nur **8,3 L\***
   Helligkeitsabstand zur Karte: der Unterschied lag fast vollständig in Farbton und Sättigung, und
