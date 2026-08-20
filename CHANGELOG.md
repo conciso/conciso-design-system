@@ -297,6 +297,20 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Text statt gegen den Bilddurchschnitt, und bei Verläufen an der Position des Textes statt am
   dichten Ende. Genau diese Lücke hatte den Hero-Befund erzeugt.
 
+### Documentation
+- **Die Rollen-Token sind jetzt dort dokumentiert, wo man sie sucht.** `--co-ink`, `--es-ink` und
+  `--wo-ink` standen in keiner Doku, die Token-Tabelle der Doku-Seite führte nur `--ki-ink` (die
+  anderen drei gab es bis vor Kurzem nicht), und `--XX-fill` stand nur in Prosa und in
+  CSS-Kommentaren. Auch die Consumer-Tabelle in `docs/GETTING-STARTED.md`, also die Tabelle, die
+  eine Anwendung liest, kannte beide Rollen nicht. Ergänzt: Familien-Zeilen in der Doku-Tabelle mit
+  Messwerten, dieselben zwei Rollen in der Consumer-Tabelle samt Leitsatz („nach der Rolle greifen,
+  nicht nach der Stufe"), die Rollen-Zuordnung als ersten Schritt in CONTRIBUTING § 10, beide
+  Prüfbefehle im Schritt „Prüfen" und in der PR-Checkliste, und ein Abschnitt „Prüfungen" im README:
+  dass es ein Kontrast-Gate gibt und was es garantiert, stand dort gar nicht.
+- **In die PR-Checkliste aufgenommen, was in dieser Runde zweimal gefehlt hat:** nach
+  Layout-Änderungen den geänderten Bereich in beiden Modi **und zwei Breiten** ansehen, also Kanten
+  und Umbrüche, nicht nur Farbwerte.
+
 ### Added
 - **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
   tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
