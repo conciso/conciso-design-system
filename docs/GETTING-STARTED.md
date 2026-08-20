@@ -90,13 +90,15 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
 
 **Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die Light-Werte statt der vollen dunklen Fläche. Wer eigene Dark-Overrides ergänzt, legt sie innerhalb dieses Blocks ab, sonst drucken sie dunkel mit.
 
-**Zwei Token, die sich anders verhalten als der Rest:**
+**Token, die sich anders verhalten als der Rest.** Wer eine Anwendung auf dem System baut, greift für Farbe nach der **Rolle**, nicht nach der Stufe. Die Stufe (`-700`, `-200`) gilt immer nur in einem Modus, die Rolle in beiden:
 
 | Token | Light | Dark | Zweck |
 |---|---|---|---|
 | `--bg-surface-hover` | `= --bg-surface` | `#2E3B46` | Interaktive Flächen im Hover. Im Dark tragen die Schatten auf der tiefen Basis weniger, die Tiefe kommt dort aus der Fläche. Ein **Zustand**, keine dritte statische Flächen-Stufe. Light bleibt bewusst gleich, dort trägt `--e3`. |
 | `--bg-plate` | `#FFFFFF` | `#E8EDED` | Helle Platte unter Fremd-Assets, die nur in dunkler Fassung vorliegen (z. B. Kundenlogos). Bleibt in beiden Modi hell, im Dark aber gedämpft, weil eine reinweiße Fläche dieser Größe auf dunklem Grund blendet. |
 | `--co-band` u. a. | `= --XX-50` | eigener, dunklerer Ton | Fläche großer getönter Sektionen (Hero, CTA-Band). Im Dark muss ein Band **dunkler** bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung dagegen **heller** als ihr Grund. Ein Wert kann beides nicht leisten, deshalb zwei Token: kleine Füllungen nutzen weiter `--XX-50`. |
+| `--co-ink` u. a. | `-700` (ki `-800`) | `-200` (es `-100`) | **Farbiger Text und farbige Icons.** Das einzige Token, mit dem farbiger Text in beiden Modi trägt. Ein fest gesetztes `-700` hat auf Weiß 5,52:1 und im Dark 3,17:1, ein fest gesetztes `-200` umgekehrt. Es gibt `--co-ink`, `--ki-ink`, `--es-ink`, `--wo-ink`. |
+| `--co-fill` u. a. | `= --XX-50` | eigener, gehobener Ton | **Füllung von Pill und Bereichs-Badge.** Light zarter Tint mit kräftiger dunkler Schrift, Dark ein gehobener Ton, weil dort helle Schrift auf dunklem Tint liegt. Für dekorative Flächen (Icon-Kachel) direkt `--XX-50` nehmen, die müssen sich nicht abheben. |
 | `--bd-c` / `--bd-strong-c` | `n-100` / `n-200` | `#6F7A89` / `#8694A5` | Die reinen Rahmenfarben. `--bd` und `--bd-strong` sind Shorthands (`1px solid …`) und lassen sich nicht in `border-color` einsetzen; Regeln, die nur die Farbe brauchen, nehmen die `-c`-Variante. |
 
 ## 4. JavaScript (optional)

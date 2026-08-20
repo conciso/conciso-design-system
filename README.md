@@ -75,7 +75,7 @@ import { icons } from '@conciso/design-system/icons';
 | `tokens/` | `tokens.json` · `tokens.scss` · `tokens.js` (Token-Export, generiert) |
 | `icons/` | `icons.json` · `icons.js` · `README.md` (Icon-Export, generiert) + `source/*.svg` (Quelle) |
 | `fonts/` | Self-Host-Fonts (woff2) + OFL-Lizenztexte; eingebunden über `css/fonts.css` |
-| `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) |
+| `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) · `check-dark-states.mjs` · `check-contrast.mjs` |
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 
 > Der konsumierbare Teil (`css/`, `dist/`, `tokens/`, `icons/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder). Icon-Details und Mapping: [`icons/README.md`](icons/README.md).
@@ -83,6 +83,16 @@ import { icons } from '@conciso/design-system/icons';
 ## Mitwirken / Erweitern
 
 Konventionen und der Workflow zum Hinzufügen von Tokens/Komponenten stehen in **[CONTRIBUTING.md](CONTRIBUTING.md)** — bitte vor Änderungen lesen. Das ist der Kern für eine konsistente, nachhaltige Pflege.
+
+### Prüfungen
+
+```bash
+npm run build             # Tokens, Icons, gebündeltes CSS (dist/ ist eingecheckt)
+npm run check:dark-states # Zustands-Regeln, die im Dark dunkel-auf-dunkel laufen
+npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
+```
+
+`check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und prüft Text (4,5:1 bzw. 3:1 bei Großtext), getönte Bauteil-Füllungen und Bedienelement-Grenzen (3:1). Es misst die **fertige Kette** und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Der Stand ist **0 Verstöße**; jede Abweichung meldet das Skript mit Pfad, Farbe und Sollwert (`--list` zeigt jeden Fund einzeln). Es braucht einen Browser und liegt deshalb am `storybook-angular`-Workspace (`cd storybook-angular && npm ci`); lokal genügt ein installiertes Chrome. In der Pipeline läuft es in `storybook-angular.yml`.
 
 ## Versionierung
 
