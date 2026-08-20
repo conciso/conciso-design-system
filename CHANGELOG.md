@@ -15,6 +15,18 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Pill- und Badge-Füllungen lesen im Light wieder als Fläche.** Beide füllten mit `--XX-50`, das
+  im Light gleichzeitig der zarte Sektions-Tint ist. Als Bauteil-Füllung trug es gegen seinen Grund
+  nur **1,06:1** (ki) bis **1,14:1** (es), ein Fall auf einer `wo-50`-Sektion sogar 1,00:1: das
+  Element las nur noch als farbiger Text und verfehlte den Faustwert von 1,3:1 aus CONTRIBUTING § 5.
+  Gemessen über alle 64 Pills und 39 Bereichs-Badges der Doku, in beiden Modi.
+  Neu dafür **`--co-fill` / `--ki-fill` / `--es-fill` / `--wo-fill`** (Light `-200`, ki `-400`, weil
+  der Ton so hell ist, dass `-200` nur 1,27:1 trägt; im Dark identisch mit `--XX-50`, das dort schon
+  auf genau diese Aufgabe kalibriert ist). Nachgemessen: Light 1,42 bis 2,03:1 gegen beide Gründe,
+  Dark unverändert 1,32 bis 1,79:1, Text überall über 5,6:1. Die ES-Pill nimmt dabei `--es-800`
+  statt `--es-700`, wie das ES-Badge, weil `-700` auf der kräftigeren Füllung nur 4,74:1 trüge.
+  WCAG war in beiden Modi schon vorher erfüllt, der Text trug 4,7 bis 11,4:1; verfehlt war die
+  Flächenwirkung. Kein `--ro-fill`: Rosé ist Akzent- und Statusfarbe ohne Pill und Badge.
 - **Bereichs-Rahmen der Team-Stimme erfüllt die 3:1-Schwelle.** `.team-voice[data-area]` tönt seinen
   Rahmen in der Bereichsfarbe, und der Rahmen ist dort das tragende Farbsignal, weil das Quote-Icon
   daneben dekorativ ist (`opacity` .25 im Light, .6 im Dark). Er trug im Light auf `-200` nur

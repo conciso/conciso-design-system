@@ -98,6 +98,12 @@
      Sättigung auf 0,60 begrenzt: großflächig gesättigte Farbe „vibriert" auf dunklem Grund.
      (Light: identisch mit --XX-50, dort gibt es den Konflikt nicht.) */
   --co-band:#092321; --ki-band:#1A2208; --wo-band:#09240E; --es-band:#111C44;
+  /* --XX-fill = Füllung kleiner Bauteile (Pill, Bereichs-Badge). Im Dark identisch mit --XX-50, das
+     hier ja schon auf genau diese Aufgabe kalibriert ist (1,78:1 zur Seite, 1,32:1 zur Karte). Das
+     Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
+     zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
+     also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
+  --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
   --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
   /* Badge text – lighter for dark backgrounds */
   /* Dark-only: badge-err-text #F08080 ❌ 3,78:1 auf der aufgehellten Fehler-Füllung #802020

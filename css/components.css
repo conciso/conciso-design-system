@@ -71,10 +71,12 @@
 .badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
 .badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
 /* Bereichs-Badges: --XX-50-Grund + --XX-800-Text. Dark-Overrides (dark-mode.css) heben den Text auf -200/-100, Grund bleibt die dunkle -50-Kachel. */
-.badge[data-area="co"]{background:var(--co-50);color:var(--co-800)}
-.badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
-.badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
-.badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+/* Füllung über --XX-fill, nicht --XX-50: die Füllung muss als Fläche lesen (1,3:1 gegen jeden
+   Grund), --XX-50 trug im Light nur 1,06 bis 1,14:1. Siehe Token-Kommentar in tokens.css. */
+.badge[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.badge[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.badge[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.badge[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
 /* text-decoration:none, damit der Chip auch als <a> trägt (Tag-Link, Sprungmarke, externer Verweis)
    und nicht unterstrichen rendert. Auf <button> ohne Wirkung. */
 .chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;text-decoration:none;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
@@ -1248,11 +1250,14 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-breadcrumb [aria-current="page"]{color:var(--tx-primary);font-weight:500}
 .article-breadcrumb-sep{margin:0 var(--s2)}
 /* Pill: Kategorie · Format · Lesezeit, area-aware */
-.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
-.pill[data-area="co"]{background:var(--co-50);color:var(--co-800)}
-.pill[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
-.pill[data-area="es"]{background:var(--es-50);color:var(--es-700)}
-.pill[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+/* Füllung über --XX-fill, gleiche Begründung wie beim Badge (siehe tokens.css). ES-Text auf -800
+   statt -700: auf der kräftigeren Füllung trägt -700 nur noch 4,74:1, -800 gibt Reserve und ist
+   derselbe Ton, den das ES-Badge längst nutzt. */
+.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.pill[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.pill[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
 .article-title{font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance}
 /* Lead-Paragraph für Artikel-Header: 18 px, eine Stufe über Body-Md (16) und unter Title-Sm (20).
    Bewusst hardcoded statt eigenes Token, weil Lead nur in einer Komponente vorkommt. */
