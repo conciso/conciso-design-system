@@ -15,6 +15,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Paletten-Beschriftung auf einen neutralen Streifen unter dem Farbfeld.** Sie saß auf der Farbe,
+  und dort ist der Kontrast nicht garantierbar: bei **7 von 100** Stufen liegt die Leuchtdichte so
+  in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht (auf `ki-700` schafft selbst
+  reines Schwarz nur 4,82:1). Die Zwischenlösung war eine Plakette auf genau diesen sieben, was als
+  Ungleichheit auffiel und wie ein Fehler las. Jetzt tragen alle Beschriftungen `--tx-secondary` auf
+  `--bg-surface`: **6,28:1 in beiden Modi**, das Farbfeld bleibt unverdeckt, und die 100 inline
+  gesetzten Label-Farben im Markup sind überflüssig geworden und entfernt. Der abzulesende Hexwert
+  ist Information, nicht Dekoration, und hat jetzt einen Grund, auf dem er trägt.
 - **Pill und Bereichs-Badge folgen im Light dem Kachel-Rezept.** Zarter `--XX-50`-Tint mit
   kräftiger dunkler Schrift (7,5 bis 12,3:1) statt kräftiger Füllung. Begründung wie bei den
   Kacheln: WCAG verlangt für diese Fläche nichts, die Aussage steht im Label, und darüber

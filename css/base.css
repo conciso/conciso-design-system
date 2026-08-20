@@ -140,19 +140,19 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
+/* Farbfeld oben, Beschriftung auf einem neutralen Streifen darunter. Vorher saß die Beschriftung
+   AUF der Farbe, und dort lässt sich der Kontrast nicht garantieren: bei sieben von hundert Stufen
+   liegt die Leuchtdichte so in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht
+   (auf ki-700 schafft selbst reines Schwarz nur 4,82:1). Auf dem neutralen Streifen sind es überall
+   6,28:1, in beiden Modi, und das Farbfeld bleibt unverdeckt. Der abzulesende Hexwert ist
+   Information, keine Dekoration, deshalb hat er einen Grund, auf dem er trägt. */
+.swatch{position:relative;flex:1;min-height:76px;display:flex;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden}
 /* Keine Deckkraft-Absenkung auf der Beschriftung: opacity .75 kostete jedes Label rund ein
    Viertel Kontrast, und auf dem Swatch steht der Hexwert, den man ablesen soll. Die Farbe wird
    je Swatch gesetzt (helle Fläche → dunkler Text und umgekehrt), das reicht als Abstufung. */
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.3}
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.4;background:var(--bg-surface);color:var(--tx-secondary);padding:0 6px}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
-.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em}
-/* Mittelton-Swatches: Deren Leuchtdichte liegt so in der Mitte, dass WEDER weißer noch dunkler
-   Text 4,5:1 erreicht. Auf ki-700 (#6B8208) schafft selbst reines Schwarz nur 4,82:1 und Weiß
-   4,36:1. Solche Stufen bekommen die Beschriftung auf einer Plakette; darauf trägt das ohnehin
-   gesetzte Weiß 5,33:1 (über Weiß gerechnet) bis 7:1, unabhängig von der Swatch-Farbe.
-   Nur diese Stufen, nicht alle: bei hellen und dunklen Swatches trägt die Farbe selbst. */
-.swatch.is-midtone span{background:rgba(17,17,17,.62);border-radius:3px;padding:0 4px;align-self:flex-start}
+.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding-bottom:2px}
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
 .swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
