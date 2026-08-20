@@ -1407,7 +1407,8 @@
         <div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Hintergrundflächen &amp; Rhythmus.</strong> Aufeinanderfolgende Sektionen wechseln im Standard zwischen Weiß (<code class="token">--bg-surface</code>) und ruhigem Grau (<code class="token">--n-50</code>). Das trennt die Abschnitte sichtbar, ohne Farbe einzubringen. Kein hartes <code class="token">#fff</code> verwenden, das schaltet im Dark Mode nicht mit, immer das Token <code class="token">--bg-surface</code>.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Marken-Tönung sparsam.</strong> Eine Bereichsfläche (<code class="token">-50</code>, z.&nbsp;B. <code class="token">--ki-50</code>) wirkt als <em>Akzent</em>, etwa als Aktions-Brücke direkt unter dem Hero, die dunkle <code class="token">-800</code> als CTA-Band am Seitenende bildet die Gegen-Klammer. Mehrere große getönte Bänder hintereinander lassen die Seite „bunt" wirken und schwächen die Bereichsfarbe dort, wo sie Bedeutung trägt (Kennzahlen, Akzentlinien). Faustregel: Tönung ist Akzent, nicht Standard-Grund.</p>
-          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Dark: nur zwei Flächen-Stufen.</strong> Statt Weiß/Grau gibt es im Dark nur <code class="token">--bg-page</code> (Basis, 17,5:1 gegen Weiß) und das hellere <code class="token">--bg-surface</code> (13,0:1); die Stufe dazwischen beträgt 1,35:1. Dazu kommt <code class="token">--bg-surface-hover</code>, das interaktive Flächen im Hover eine Stufe anhebt: im Dark tragen die schwarzen Schatten auf dieser Basis weniger, die Tiefe kommt dort aus der Fläche. Das ist ein <strong>Zustand</strong>, keine dritte statische Stufe. Der Rhythmus wird nachgebildet, indem <code class="token">n-50</code>-Sektionen auf <code class="token">--bg-surface</code> gehoben werden. Ein Element hebt sich nur ab, wenn sein Grund eine <em>andere</em> Stufe hat. <strong>Kartentragende <code class="token">n-50</code>-Sektionen</strong> sind daher ein Sonderfall: Würde die Sektion gehoben, träfe sie auf die ebenfalls <code class="token">bg-surface</code>-Cards → gleicher Ton (1,00:1), die Cards verschwinden als Fläche, es bleibt nur die <code class="token">--bd</code>-Haarlinie. Diesen Fall erkennt die Dark-Regel selbst: eine <code class="token">n-50</code>-Sektion, die Karten, Tabellen, Formularfelder oder inline auf <code class="token">bg-surface</code> gesetzte Kästen enthält, bleibt per <code class="token">:has()</code> auf <code class="token">bg-page</code>, sodass die <code class="token">bg-surface</code>-Flächen darin die hellere Stufe bilden — genau wie im Light (graue Sektion, weiße Cards). <strong>Nichts zu markieren.</strong> Die Klasse <code class="token">.ep-section-cards</code> bleibt als ausdrücklicher Override für Inhalt, den kein Selektor sieht (per JS eingefügte Kacheln, künftige Komponenten) und für Browser ohne <code class="token">:has()</code>. Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Dark: nur zwei Flächen-Stufen.</strong> Statt Weiß/Grau gibt es im Dark nur <code class="token">--bg-page</code> (Basis, 17,5:1 gegen Weiß) und das hellere <code class="token">--bg-surface</code> (13,0:1); die Stufe dazwischen beträgt 1,35:1. Dazu kommt <code class="token">--bg-surface-hover</code>, das interaktive Flächen im Hover eine Stufe anhebt: im Dark tragen die schwarzen Schatten auf dieser Basis weniger, die Tiefe kommt dort aus der Fläche. Das ist ein <strong>Zustand</strong>, keine dritte statische Stufe. Der Rhythmus wird nachgebildet, indem <code class="token">n-50</code>-Sektionen auf <code class="token">--bg-surface</code> gehoben werden, <strong>ausnahmslos</strong>. Damit ist die Tonfolge im Dark dieselbe wie im Light. <strong>Kartentragende Sektionen</strong> sind dabei kein Sonderfall: Eine gehobene Sektion trifft zwar den Ton ihrer eigenen <code class="token">bg-surface</code>-Karten, aber genau das passiert im Light auf weißen Sektionen auch (weiße Karte auf weißem Grund). Die Karte liest dort über ihren <strong>Rand</strong>, und im Dark ebenso: <code class="token">--bd-strong-c</code> trägt 4,21:1 gegen die Kartenfläche, deutlich mehr als die 1,10:1 der Haarlinie im Light. Auf <code class="token">bg-page</code>-Sektionen kommt die Tonstufe dazu.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><strong>Warum nicht die Sektion senken?</strong> Naheliegend wäre, kartentragende Sektionen auf <code class="token">bg-page</code> zu lassen, damit die Karten die hellere Stufe bilden. Das kostet aber den Rhythmus: die Sektion sitzt dann auf dem Ton ihrer Nachbarn. Gemessen über die 24 Beispielseiten (133 Abschnitte): mit dieser Rücknahme <strong>63</strong> verschmolzene Übergänge, ohne sie <strong>20</strong>, im Light sind es 17. Tiefe innerhalb einer Sektion ist über den Rand zu haben, der Rhythmus zwischen Sektionen nicht.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Helle <code class="token">-100</code>-Ränder auf getönten Flächen.</strong> Ein <code class="token">1px solid var(--XX-100)</code>-Rahmen ist im Light auf der <code class="token">-50</code>-Fläche ein zarter gleichfarbiger Whisper. <code class="token">-100</code> flippt aber nicht mit → im Dark wird daraus eine grelle helle Linie (7–11:1) auf der dunklen Tönung. Trennlinien und Rahmen getönter Flächen im Dark auf den neutralen <code class="token">var(--bd)</code> heben (Header-Trennlinien, Preisbox-Rahmen). Dieselbe Logik wie beim farbigen Text auf <code class="token">-100</code>-Kacheln oben: entscheidend ist, ob der Hintergrund mitflippt.</p>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:var(--s3) 0 0"><strong>Das gilt auch für neutrales <code class="token">--n-100</code>, nur andersherum.</strong> Im Light ist <code class="token">1px solid var(--n-100)</code> exakt das, was <code class="token">--bd</code> auflöst, der Rahmen sieht also richtig aus und die Abweichung fällt nie auf. Im Dark wird <code class="token">--n-100</code> zu einer <em>dunklen</em> Fläche und der Rahmen verschwindet: gemessen 1,18:1 gegen eine Karte, gegenüber 2,99:1 bei <code class="token">var(--bd)</code>. Getönt wird die Linie also grell, neutral wird sie unsichtbar, und beides aus demselben Grund. Deshalb für Rahmen und Trennlinien ausnahmslos <code class="token">var(--bd)</code> beziehungsweise <code class="token">var(--bd-strong)</code> verwenden, nie eine <code class="token">-100</code>-Stufe direkt.</p>
         </div>
@@ -8624,7 +8625,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <tr><td>Footer</td><td>Standard-Footer</td><td>grau</td></tr>
         </tbody>
       </table>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Rhythmus:</strong> Flächen weiß/<code class="token">--n-50</code> strikt alternieren, keine zwei gleichen Hintergründe stapeln; kartentragende <code class="token">--n-50</code>-Sektionen bleiben im Dark automatisch auf <code class="token">bg-page</code>, ohne Zusatzklasse. Nur der Hero ist randlos, Zwischenbilder als <code class="token">.ep-media-band</code> content-breit.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:760px"><strong>Rhythmus:</strong> Flächen weiß/<code class="token">--n-50</code> strikt alternieren, keine zwei gleichen Hintergründe stapeln; im Dark läuft dieselbe Folge, Karten grenzen sich dort per Rand ab statt per Tonstufe. Nur der Hero ist randlos, Zwischenbilder als <code class="token">.ep-media-band</code> content-breit.</p>
 
       <h2 id="gt-leistung-angebot" class="group-title">Angebots-Box</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:760px">Für Festpreis-Angebote: zweispaltig (<code class="token">.layout-grid</code>, <code class="token">align-items:start</code>), links die Box, rechts eine „Für wen das passt"-Häkchenliste. Die Box folgt der Konvention <a class="body-link" href="#gt-cards-verwendung">„Elevation = Interaktivität"</a>: statisch, also flach mit Rahmen und Top-Akzent, <strong>kein Schatten</strong>.</p>
@@ -12863,7 +12864,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Angebot + Für wen: Entscheidungsblock -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Das Angebot</div>
           <h2 class="ep-section-h2">Kompakt, klar, zum Festpreis.</h2>
           <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
@@ -13085,7 +13086,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <img src="assets/images/workshop-zuhoeren.jpg" alt="Teilnehmende hören in einem Training aufmerksam zu" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:center 30%">
         </figure>
         <!-- Trainings & Zertifizierungen: Preiskarten je Partner -->
-        <div class="ep-section ep-section-cards" id="scrum-kurse" style="background:var(--n-50)">
+        <div class="ep-section" id="scrum-kurse" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Trainings &amp; Zertifizierungen</div>
           <h2 class="ep-section-h2">Zertifizierung, die zählt.</h2>
           <p class="ep-section-sub">Zwei anerkannte Wege: die international etablierten Scrum.org-Assessments oder die Zertifizierung über den TÜV SÜD. Alle Preise verstehen sich zzgl. MwSt.</p>
@@ -13223,7 +13224,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Weiter im Thema -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Weiter im Thema</div>
           <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
           <p class="ep-section-sub">Ein Training ist ein Einstieg. Wenn es um die Zusammenarbeit im Alltag oder die ganze Organisation geht, begleiten wir auch darüber hinaus.</p>
@@ -13423,7 +13424,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Vier Säulen -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Vier Säulen</div>
           <h2 class="ep-section-h2">Worauf Lean Portfolio Management steht.</h2>
           <p class="ep-section-sub">Von der Vision bis zur Investition: vier Bausteine, die ineinandergreifen. Genau dabei unterstützen wir dich.</p>
@@ -13468,7 +13469,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </ul>
         </div>
         <!-- Weiter im Thema -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Weiter im Thema</div>
           <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
           <p class="ep-section-sub">Lean Portfolio Management steuert die große Linie. Auf Team- und Rollenebene begleiten wir euch ebenso.</p>
@@ -13657,7 +13658,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Die Lösung: einfacher, schneller, flexibler -->
-        <div class="ep-section ep-section-cards" id="kc-loesung" style="background:var(--n-50)">
+        <div class="ep-section" id="kc-loesung" style="background:var(--n-50)">
           <div class="ep-section-label t-es">Die Lösung</div>
           <h2 class="ep-section-h2">Keycloak macht IAM einfacher, schneller und flexibler.</h2>
           <p class="ep-section-sub">Eine offene, cloud-native Plattform für Identity- und Access-Management, die mitwächst statt zu bremsen.</p>
@@ -13933,7 +13934,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </ol>
         </div>
         <!-- Angebot + Für wen -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-es">Das Angebot</div>
           <h2 class="ep-section-h2">Ein Preis, ein klares Ergebnis.</h2>
           <div class="layout-grid" style="align-items:start;margin-top:var(--s6)">
@@ -13978,7 +13979,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Weiter im Thema -->
-        <div class="ep-section ep-section-cards" style="background:var(--n-50)">
+        <div class="ep-section" style="background:var(--n-50)">
           <div class="ep-section-label t-es">Weiter im Thema</div>
           <h2 class="ep-section-h2">Noch nicht das Richtige dabei?</h2>
           <p class="ep-section-sub">Eine Erweiterung ist der eine Weg. Manchmal geht es um das ganze Identity-Management oder um mehr als nur Keycloak.</p>
@@ -15708,7 +15709,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </div>
         </div>
         <!-- Termine: wiederholbare Termin-Zeile (Datum · Ort · Garantie-Badge · Anmeldung) -->
-        <div class="ep-section ep-section-cards" id="seminar-termine" style="background:var(--n-50)">
+        <div class="ep-section" id="seminar-termine" style="background:var(--n-50)">
           <div class="ep-section-label t-wo">Termine</div>
           <h2 class="ep-section-h2">Nächste Durchführungen</h2>
           <p class="ep-section-sub">Wähl einen passenden Termin, oder frag einen individuellen Inhouse-Termin an.</p>

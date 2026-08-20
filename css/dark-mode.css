@@ -308,28 +308,20 @@
    (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
    daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
 [data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
-/* Rücknahme der Hebung, wenn die Sektion selbst Flächen auf bg-surface trägt.
-   Dark hat nur 2 Flächen-Stufen (bg-page < bg-surface). Ein Element hebt sich nur ab, wenn es eine
-   ANDERE Stufe als sein Grund hat. Im Light: n-50-Fläche grau, Karten bg-surface (weiß) = hellere
-   Stufe, die Karten heben sich. Wird die Sektion wie oben auf bg-surface gehoben, trifft sie den Ton
-   ihrer eigenen Karten: 1,00:1, die Karte ist als Fläche weg und es bleibt nur die --bd-Haarlinie.
-   Also die Sektion runter statt die Karten hoch, weil keine dritte, hellere Stufe existiert.
+/* Die Hebung gilt AUSNAHMSLOS, auch für kartentragende Sektionen. Damit ist die Tonfolge im Dark
+   dieselbe wie im Light, und der Wechsel Basis/erhöht bleibt über die ganze Seite intakt.
 
-   Der Fall wird per :has() SELBST ERKANNT, statt an eine Klasse zu hängen, die man setzen muss:
-   von den 26 Sektionen, bei denen es darauf ankam, trugen nur 9 den Marker. Eine Konvention, die in
-   zwei von drei Fällen vergessen wird, gehört in den Selektor. Die Liste deckt die Komponenten mit
-   bg-surface-Fläche ab, plus per Attribut-Substring die inline gesetzten Kästen (Schreibweise im
-   Repo einheitlich ohne Leerzeichen). Kommt eine neue bg-surface-Komponente dazu, gehört sie hier
-   hinein. Spezifität 0,4,0 (:has() zählt mit dem spezifischsten Argument) und damit über der
-   Hebungsregel (0,3,0). */
-[data-theme="dark"] .ep-section[style*="var(--n-50)"]:has(
-  .card, .ep-card, .card-stat, .testimonial, .team-voice, .ds-card, .a11y-card, .el-card,
-  .tbl, .field, [style*="background:var(--bg-surface)"]
-) { background: var(--bg-page) !important }
-/* .ep-section-cards bleibt als ausdrücklicher Override: wirkt auch ohne :has()-Unterstützung und
-   deckt Inhalt ab, den kein Selektor sieht (per JS eingefügte Kacheln, künftige Komponenten).
-   Nicht mehr Pflicht, die Regel darüber greift von allein. */
-[data-theme="dark"] .ep-section.ep-section-cards { background: var(--bg-page) !important }
+   Warum keine Ausnahme: Eine gehobene Sektion trifft den Ton ihrer eigenen bg-surface-Karten. Die
+   naheliegende Antwort war, solche Sektionen auf bg-page zurückzuziehen, damit die Karten die
+   hellere Stufe bilden. Das kostet aber genau den Rhythmus, um den es hier geht: die Sektion sitzt
+   dann auf dem Ton ihrer Nachbarn. Gemessen über die 24 Beispielseiten (133 Abschnitte): mit
+   Rücknahme 63 verschmolzene Übergänge, ohne 20, im Light sind es 17.
+
+   Die Karten lesen deshalb über ihren RAND, nicht über eine Tonstufe. Das ist keine Notlösung,
+   sondern exakt das, was im Light auf weißen Sektionen längst passiert: weiße Karte auf weißem
+   Grund, abgegrenzt durch die --bd-Haarlinie (dort 1,10:1). Im Dark ist der Rand mit --bd-strong-c
+   sogar deutlicher (4,21:1 gegen die Kartenfläche), siehe die Rand-Regeln bei den Karten unten.
+   Auf bg-page-Sektionen bleibt es bei Tonstufe PLUS Rand. */
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
    erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */
@@ -353,6 +345,15 @@
    die hellere bg-surface-Fläche + --bd-strong-Rahmen. Schatten nur für interaktive .ep-card-link. */
 [data-theme="dark"] .ep-card { background: var(--bg-surface) !important }
 [data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
+/* Dark-only: Der Rand trägt die Kartenkante, weil die Karte auf einer gehobenen Sektion denselben
+   Ton hat wie ihr Grund (n-50-Sektionen werden im Dark auf bg-surface gehoben, siehe oben). Genau
+   wie im Light auf weißen Sektionen, dort übernimmt die --bd-Haarlinie. --bd-strong-c gibt 4,21:1
+   gegen die Kartenfläche, also klarer als die 1,10:1 im Light. .ep-card-link setzt in
+   components.css border-color:transparent, weil dort der Schatten allein trug; auf der tiefen
+   Dark-Basis trägt er das nicht mehr, gleiche Begründung wie bei den schwebenden Panels.
+   (Light: --bd-strong für .ep-card, transparenter Rand für die Link-Variante.) */
+[data-theme="dark"] .ep-card,
+[data-theme="dark"] .ep-card-link { border-color: var(--bd-strong-c) }
 /* Dark-only: Auf der tieferen Seite tragen die schwarzen Schatten weniger als auf dem alten
    #333E48. Der Hover hebt deshalb zusätzlich die Fläche (13,01:1 → 11,47:1), wie im
    Material-Overlay-Modell, wo Tiefe primär über Helligkeit entsteht. Das ist ein Zustand,
@@ -554,6 +555,14 @@
 [data-theme="dark"] .article-toc-list a:hover { color: var(--co-200) }
 
 /* ── Cards ── */
+/* Dark-only: Kartenkante über den Rand, dieselbe Begründung wie bei .ep-card oben. Auf einer
+   gehobenen n-50-Sektion hat die Karte den Ton ihres Grundes, der Rand macht sie zur Fläche:
+   --bd-strong-c = 4,21:1 gegen die Karte (Light: --bd, 1,10:1 auf weißer Sektion, dort reicht es).
+   Gilt auch für die Link-Karte, die im Light border:none trägt und sich auf --e1 verlässt: auf der
+   tiefen Dark-Basis trägt der schwarze Schatten das nicht mehr. Spezifität 0,2,0 schlägt
+   a.card-elevated (0,1,1), die Ladereihenfolge spielt also keine Rolle.
+   box-sizing ist global border-box, der Rand ändert die Kartengröße nicht. */
+[data-theme="dark"] .card { border: 1px solid var(--bd-strong-c) }
 /* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode.
    Eyebrow-Text auf bg-surface, nachgemessen nach der Flächen-Umstellung:
    co-200 (#80DEDE) 8,32:1 · ki-200 (#D6F06D) 10,25:1 · es-100 (#C8D9F5) 9,11:1 · wo-200 (#A3D48E) 7,66:1.
