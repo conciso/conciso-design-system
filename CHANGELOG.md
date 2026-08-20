@@ -15,6 +15,20 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Kontrast-Gate `npm run check:contrast`.** Rendert `docs/index.html` in beiden Modi in Chromium,
+  löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente
+  Schichten werden aufeinander komponiert) und prüft Text (4,5:1 bzw. 3:1), getönte
+  Bauteil-Füllungen (Hausregel 1,3:1) und Bedienelement-Rahmen (3:1). Es misst die **fertige Kette**
+  statt des CSS und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in
+  `storybook-angular.yml`, weil es einen Browser braucht; das Wurzelprojekt bleibt ohne
+  Dependencies. Genau **eine** dokumentierte Ausnahme: Swatches, die ein Farbpaar als Inhalt zeigen.
+  Text über Fotos und Verläufen wird gezählt, nicht gewertet (braucht Pixelmessung).
+  Absicherung als **Ratsche**: eine Zahl pro Kategorie im Skript, Fehlschlag wenn sie steigt und
+  ebenso wenn sie sinkt, ohne nachgezogen zu werden. Erster Stand, Light/Dark:
+  **56/20** Text, **101/0** Füllungen, **6/0** Rahmen. Ziel überall 0.
+  Nebenbefund beim Bau: die ersten Messläufe lasen Zwischenwerte der Theme-Animation, die Zahlen
+  wanderten je nach Wartezeit. Das Gate schaltet Übergänge vor der Messung ab, zwei Läufe
+  hintereinander liefern jetzt identische Zahlen.
 - **Pill- und Badge-Füllungen lesen im Light wieder als Fläche.** Beide füllten mit `--XX-50`, das
   im Light gleichzeitig der zarte Sektions-Tint ist. Als Bauteil-Füllung trug es gegen seinen Grund
   nur **1,06:1** (ki) bis **1,14:1** (es), ein Fall auf einer `wo-50`-Sektion sogar 1,00:1: das

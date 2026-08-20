@@ -46,6 +46,10 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 - **Gedämpfter Text:** `--tx-secondary`, **nicht** `--tx-muted` auf farbgetönten oder dunklen Card-Flächen (muted reißt dort AA).
 - **`--XX-ink` nur für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), die im Dark lesbar bleiben müssen (flippt Light `-800` / Dark `-200`). **Nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
 - **Farbiger Text/Icon auf heller `-100`-Kachel** (Chip, Häkchen-Kreis): fest auf `--XX-800`, **nicht** `.t-*`/`ink` — die `-100`-Kachel flippt im Dark nicht, `.t-*`/`ink` kippt auf hell `-200` → hell-auf-hell, unsichtbar.
+- **`npm run check:contrast` ist das Gate.** Es rendert `docs/index.html` in **beiden** Modi in Chromium, löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente Schichten werden aufeinander komponiert) und prüft drei Dinge: Text gegen 4,5:1 bzw. 3:1 bei Großtext, getönte Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1. Weil es die **fertige Kette** misst und nicht das CSS, findet es auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in `storybook-angular.yml`, weil es einen Browser braucht; lokal reicht ein installiertes Chrome.
+  - **Genau eine Ausnahme:** Swatches in den Kontrast-Tabellen (`.cswatch`, `.cbadge`), die ein Farbpaar als *Inhalt* zeigen und das gemessene Verhältnis daneben ausschreiben. Alles andere zählt, auch Paletten-Beschriftungen, Code-Blöcke und Specimen. Wer eine zweite Ausnahme braucht, hat sehr wahrscheinlich einen Befund vor sich.
+  - **Text über Fotos und Verläufen** wird nur gezählt, nicht gewertet: sein Grund steht nicht in der Elternkette, das braucht eine Pixelmessung (Vorgehen siehe Hero-Scrim im CHANGELOG).
+  - **Restliste statt Ausnahmeliste:** Das Gate vergleicht gegen eine Zahl pro Kategorie im Skript und schlägt fehl, wenn sie **steigt** (Regression) und ebenso, wenn sie **sinkt**, ohne nachgezogen zu werden. Der Stand bleibt so ehrlich im Repo sichtbar und kann sich nur nach unten bewegen. Ziel ist überall 0.
 
 ---
 

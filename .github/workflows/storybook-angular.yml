@@ -13,6 +13,9 @@ on:
       - 'icons/**'
       - 'fonts/**'
       - 'tokens/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'package.json'
       - '.github/workflows/storybook-angular.yml'
   pull_request:
     paths:
@@ -22,6 +25,9 @@ on:
       - 'icons/**'
       - 'fonts/**'
       - 'tokens/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'package.json'
       - '.github/workflows/storybook-angular.yml'
 
 concurrency:
@@ -55,3 +61,11 @@ jobs:
       # test-runner (Smoke + axe-a11y + play) dagegen.
       - name: Storybook-Tests
         run: npm run test-storybook:ci
+      # Kontrast-Gate der Doku-Seite. Hängt hier und nicht in css-core.yml, weil es einen
+      # Browser braucht: das Wurzelprojekt bleibt absichtlich ohne Dependencies, Playwright
+      # lebt in diesem Workspace und ist eine Zeile weiter oben schon installiert.
+      - name: Kontrast-Gate (Doku, beide Modi)
+        working-directory: .
+        # PLAYWRIGHT_BROWSERS_PATH=0 wie beim Install oben: der Browser liegt dann im
+        # playwright-core-Paket selbst, das Skript findet ihn von der Wurzel aus.
+        run: PLAYWRIGHT_BROWSERS_PATH=0 npm run check:contrast
