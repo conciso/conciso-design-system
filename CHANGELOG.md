@@ -23,6 +23,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `--bg-surface`: **6,28:1 in beiden Modi**, das Farbfeld bleibt unverdeckt, und die 100 inline
   gesetzten Label-Farben im Markup sind überflüssig geworden und entfernt. Der abzulesende Hexwert
   ist Information, nicht Dekoration, und hat jetzt einen Grund, auf dem er trägt.
+  Layout dazu: die Rundung sitzt an den Farbfeldern statt an der Reihe (die Reihe klippte sonst den
+  Streifen an den Außenkanten ab), der Streifen hat Luft nach oben statt am Farbfeld zu kleben, die
+  Beschriftung bricht nicht mehr um (ein Umbruch bei „800 T" schob das Farbfeld dieser Spalte nach
+  oben und ergab eine Stufe in der Reihe), und das Farbfeld behält seine 60 px Höhe. Unter 1024 px
+  entfällt der Hexwert, dort ist eine Spalte zu schmal; er bleibt im `title` und per Klick kopierbar.
 - **Pill und Bereichs-Badge folgen im Light dem Kachel-Rezept.** Zarter `--XX-50`-Tint mit
   kräftiger dunkler Schrift (7,5 bis 12,3:1) statt kräftiger Füllung. Begründung wie bei den
   Kacheln: WCAG verlangt für diese Fläche nichts, die Aussage steht im Label, und darüber

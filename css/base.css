@@ -139,20 +139,31 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
-.pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
+/* Rundung sitzt an den Farbfeldern, nicht an der Reihe: die Reihe klippte sonst den
+   Beschriftungs-Streifen an den Außenkanten ab. Gerundet wird nur oben, unten schließt der
+   Streifen bündig an. */
+.pal-row{display:flex;gap:2px}
+.pal-row .swatch:first-child{border-top-left-radius:var(--r-md)}
+.pal-row .swatch:last-child{border-top-right-radius:var(--r-md)}
 /* Farbfeld oben, Beschriftung auf einem neutralen Streifen darunter. Vorher saß die Beschriftung
    AUF der Farbe, und dort lässt sich der Kontrast nicht garantieren: bei sieben von hundert Stufen
    liegt die Leuchtdichte so in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht
    (auf ki-700 schafft selbst reines Schwarz nur 4,82:1). Auf dem neutralen Streifen sind es überall
    6,28:1, in beiden Modi, und das Farbfeld bleibt unverdeckt. Der abzulesende Hexwert ist
    Information, keine Dekoration, deshalb hat er einen Grund, auf dem er trägt. */
-.swatch{position:relative;flex:1;min-height:76px;display:flex;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden}
+.swatch{position:relative;flex:1;min-height:104px;display:flex;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden}
 /* Keine Deckkraft-Absenkung auf der Beschriftung: opacity .75 kostete jedes Label rund ein
    Viertel Kontrast, und auf dem Swatch steht der Hexwert, den man ablesen soll. Die Farbe wird
    je Swatch gesetzt (helle Fläche → dunkler Text und umgekehrt), das reicht als Abstufung. */
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.4;background:var(--bg-surface);color:var(--tx-secondary);padding:0 6px}
+/* Der Streifen braucht Luft nach oben, sonst klebt die Beschriftung am Farbfeld. nowrap, weil ein
+   Umbruch ("800 T") das Farbfeld dieser einen Spalte nach oben schöbe und die Reihe eine Stufe
+   bekäme. */
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
-.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding-bottom:2px}
+.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
+/* Unter 1024 px wird eine Spalte zu schmal für den Hexwert. Er entfällt dann; der Wert steht
+   weiterhin im title-Attribut und wird per Klick kopiert (docs/main.js). Die Stufe bleibt. */
+@media (max-width:1024px){ .swatch .swatch-hex{display:none} }
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
 .swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
