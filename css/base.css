@@ -81,7 +81,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+/* --co-ink, nicht co-500: die Signalfarbe trägt auf Weiß nur 2,31:1. Das Ink-Token flippt mit dem
+   Theme (Light co-700, Dark co-200), ein festes co-700 wäre im Dark 2,36:1 auf der Sidebar. */
+.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-ink);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
 
 /* ── Sidebar toggle button ── */
 .sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
@@ -139,9 +141,18 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
 .swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Keine Deckkraft-Absenkung auf der Beschriftung: opacity .75 kostete jedes Label rund ein
+   Viertel Kontrast, und auf dem Swatch steht der Hexwert, den man ablesen soll. Die Farbe wird
+   je Swatch gesetzt (helle Fläche → dunkler Text und umgekehrt), das reicht als Abstufung. */
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.3}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
-.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em}
+/* Mittelton-Swatches: Deren Leuchtdichte liegt so in der Mitte, dass WEDER weißer noch dunkler
+   Text 4,5:1 erreicht. Auf ki-700 (#6B8208) schafft selbst reines Schwarz nur 4,82:1 und Weiß
+   4,36:1. Solche Stufen bekommen die Beschriftung auf einer Plakette; darauf trägt das ohnehin
+   gesetzte Weiß 5,33:1 (über Weiß gerechnet) bis 7:1, unabhängig von der Swatch-Farbe.
+   Nur diese Stufen, nicht alle: bei hellen und dunklen Swatches trägt die Farbe selbst. */
+.swatch.is-midtone span{background:rgba(17,17,17,.62);border-radius:3px;padding:0 4px;align-self:flex-start}
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
 .swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}

@@ -27,7 +27,7 @@
   /* ── Corporate (Global Brand) ── */
   --co-500:#00BEBE; --co-50:#E0F7F7; --co-100:#B3ECEC; --co-200:#80DEDE;
   --co-300:#4DD0D0; --co-400:#26C2C2; --co-600:#009E9E; --co-700:#007575;
-  --co-800:#004F4F; --co-900:#002B2B;
+  --co-800:#004F4F; --co-900:#002B2B; --co-ink:var(--co-700);
 
   /* ── AI.Applied ── */
   --ki-500:#B5E61C; --ki-50:#F4FCD5; --ki-100:#E6F8A0; --ki-200:#D6F06D;
@@ -37,12 +37,19 @@
   /* ── Wirksame Organisationen ── */
   --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
   --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
-  --wo-800:#183A0E; --wo-900:#0A1F05;
+  --wo-800:#183A0E; --wo-900:#0A1F05; --wo-ink:var(--wo-700);
 
   /* ── Effektive Software ── */
   --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
   --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
-  --es-800:#112568; --es-900:#071035;
+  --es-800:#112568; --es-900:#071035; --es-ink:var(--es-700);
+
+  /* ── Bereichs-Akzenttext ──
+     --XX-ink ist farbiger Text und farbige Icons, die in BEIDEN Modi lesbar bleiben müssen:
+     Light der dunkle Ton (-700, ki -800 weil ki-700 nur 4,05:1 trägt), Dark der helle (-200,
+     es -100). Bisher gab es das nur für ki, und genau deshalb ist bei jeder Korrektur die Gefahr,
+     eine Light-Farbe zu setzen, die im Dark dunkel-auf-dunkel läuft: co-700 trägt auf Weiß 5,52:1
+     und auf der dunklen Seite nur 3,17:1. Wer farbigen Text setzt, nimmt --XX-ink. */
 
   /* ── Rosé ── */
   --ro-500:#C23060; --ro-50:#FDEDF2; --ro-100:#F9CEDD; --ro-200:#F0A0BE;
@@ -80,13 +87,19 @@
      Werte sind in beiden Modi auf AA-Lesbarkeit auf der jeweiligen page-bg ausgelegt.
      Light: dunklere/gedeckte Sättigung für Kontrast auf weiß. Dark-Overrides in dark-mode.css.
      --c-*-bg sind Tint-Hintergründe für Callouts; Text darauf via --badge-*-text. */
-  --c-success:#0E6644; --c-success-bg:#E6F9F1;  /* Text auf #fff: 6.99:1 ✓ AAA */
-  --c-warning:#8A5E0A; --c-warning-bg:#FEF4E0;  /* Text auf #fff: 5.70:1 ✓ AA */
-  --c-error:#B22020;   --c-error-bg:#FDEAEA;    /* Text auf #fff: 6.73:1 ✓ AAA */
+  /* Die -bg-Tints sind Bauteil-Füllungen (Callout, Status-Badge, Trend-Chip) und müssen als FLÄCHE
+     lesen: 1,3:1 gegen Weiß UND gegen n-50 (CONTRIBUTING § 3). Die alten Werte lagen bei 1,02 bis
+     1,16:1, das Element las nur noch als farbiger Text. Neu gemessen Fläche Weiß / n-50 und Text
+     darauf: success 1,43 / 1,33 mit 4,91:1 · warning 1,47 / 1,37 mit 4,84:1 · error 1,60 / 1,49
+     mit 4,99:1. Beim Warnton musste der Text mitwandern (--badge-warn-text), auf der kräftigeren
+     Füllung trug #8A5E0A nur 3,87:1. */
+  --c-success:#0E6644; --c-success-bg:#A9E5C8;  /* Text auf #fff: 6.99:1 ✓ AAA */
+  --c-warning:#785008; --c-warning-bg:#F5D08C;  /* Text auf #fff 7,12:1, auf dem eigenen Tint 4,84:1 (vorher #8A5E0A: 5,70 bzw. nur 3,87:1) */
+  --c-error:#9B2020;   --c-error-bg:#F5BFBF;    /* Text auf #fff 8,01:1, auf dem eigenen Tint 4,99:1 (vorher #B22020: 6,73 bzw. nur 4,19:1) */
 
   /* ── Component color tokens (theme-overridable) ── */
-  --badge-ok-text:#0e6644; --badge-warn-text:#8a5e0a; --badge-err-text:#9b2020;
-  --badge-neu-bg:var(--n-100); --badge-neu-text:var(--n-600);
+  --badge-ok-text:var(--c-success); --badge-warn-text:var(--c-warning); --badge-err-text:var(--c-error); /* dieselben Töne wie die semantischen Textfarben: sie stehen auf denselben Tints, zwei Werte dafür wären zwei Quellen der Wahrheit */
+  --badge-neu-bg:var(--n-200); --badge-neu-text:var(--n-600); /* n-200 statt n-100: als Füllung trug n-100 nur 1,18:1 gegen Weiß und 1,10:1 gegen n-50, n-200 gibt 1,53 / 1,42:1. Text darauf 6,69:1 */
   --cbadge-aa-bg:#E6F9F1; --cbadge-aa-text:#0a5c38;
   --cbadge-aaa-bg:#D0F0FF; --cbadge-aaa-text:#004466;
   --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
@@ -102,7 +115,10 @@
      (Kundenlogos). Im Dark gedämpft statt reinweiß, weil eine reinweiße Fläche dieser Größe
      auf dunklem Grund blendet. */
   --bg-plate:#FFFFFF;
-  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:#5E7676; /* AA 4.85:1; abgedunkelt von n-400 #6E8585 (3.9:1, AA-Fail für Normaltext) */
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:#5A7171; /* Auf Weiß 5,20:1, auf n-50 4,84:1, auf getönten Hellflächen 4,66 bis 4,73:1.
+     Vorher #5E7676: auf Weiß 4,85:1 ✓, aber auf n-50 und getönten Gründen nur 4,35 bis 4,51:1, also
+     genau dort unter AA, wo gedämpfter Text meist sitzt (Meta-Zeilen, Annotationen, Specimen-Labels).
+     Bleibt klar heller als --tx-secondary (#4A6565, 5,63 bis 6,29:1), die Hierarchie bleibt also. */
 
   /* ── Typography ── */
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
@@ -306,7 +322,9 @@
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
   --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
-  --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
+  /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
+     auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */
+  --co-ink:var(--co-200); --ki-ink:var(--ki-200); --es-ink:var(--es-100); --wo-ink:var(--wo-200);
   /* Badge text – lighter for dark backgrounds */
   /* Dark-only: badge-err-text #F08080 ❌ 3,78:1 auf der aufgehellten Fehler-Füllung #802020
      → #FFA5A5 ✓ 5,21:1. Damit derselbe Ton wie --c-error, eine Fehlerfarbe weniger im System.
@@ -361,6 +379,11 @@
 /* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
    dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
    heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+/* Dark-only: Der Slider OHNE Bereichsklasse fiel durchs Raster. Er nimmt den Fallback der
+   Komponente (--sl-text: co-700) und stand damit ❌ 2,36:1 auf der Karte, dunkel auf dunkel.
+   Die vier Bereichsklassen darunter waren gesetzt, der Grundfall nicht. → co-200 ✓ 8,32:1.
+   (Light: co-700 auf Weiß, 5,52:1.) */
+[data-theme="dark"] .field-slider-output { color: var(--sl-text, var(--co-200)) }
 [data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
 [data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
 [data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }
@@ -979,7 +1002,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+/* --co-ink, nicht co-500: die Signalfarbe trägt auf Weiß nur 2,31:1. Das Ink-Token flippt mit dem
+   Theme (Light co-700, Dark co-200), ein festes co-700 wäre im Dark 2,36:1 auf der Sidebar. */
+.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-ink);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
 
 /* ── Sidebar toggle button ── */
 .sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
@@ -1037,9 +1062,18 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
 .pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
 .swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Keine Deckkraft-Absenkung auf der Beschriftung: opacity .75 kostete jedes Label rund ein
+   Viertel Kontrast, und auf dem Swatch steht der Hexwert, den man ablesen soll. Die Farbe wird
+   je Swatch gesetzt (helle Fläche → dunkler Text und umgekehrt), das reicht als Abstufung. */
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.3}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
-.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em}
+/* Mittelton-Swatches: Deren Leuchtdichte liegt so in der Mitte, dass WEDER weißer noch dunkler
+   Text 4,5:1 erreicht. Auf ki-700 (#6B8208) schafft selbst reines Schwarz nur 4,82:1 und Weiß
+   4,36:1. Solche Stufen bekommen die Beschriftung auf einer Plakette; darauf trägt das ohnehin
+   gesetzte Weiß 5,33:1 (über Weiß gerechnet) bis 7:1, unabhängig von der Swatch-Farbe.
+   Nur diese Stufen, nicht alle: bei hellen und dunklen Swatches trägt die Farbe selbst. */
+.swatch.is-midtone span{background:rgba(17,17,17,.62);border-radius:3px;padding:0 4px;align-self:flex-start}
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
 .swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}
@@ -1287,7 +1321,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
    seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area"
    widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
+/* Rahmen über --field-border: n-200 trug als Bedienelement-Grenze nur 1,53:1 und verfehlte die
+   3:1-Schwelle aus WCAG 1.4.11. --field-border ist genau dafür da (Light n-400, 3,92:1). */
+.seg{display:inline-flex;border:1.5px solid var(--field-border);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
 .seg-ki{--seg-fill:var(--ki-800)}
 .seg-es{--seg-fill:var(--es-700)}
 .seg-wo{--seg-fill:var(--wo-700)}
@@ -1646,7 +1682,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
 .type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
 .type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
-.type-rem{font:var(--ty-body-xs);color:var(--co-600);margin-top:1px}
+/* --co-ink statt co-600: co-600 trug auf Weiß nur 3,29:1 (Normaltext braucht 4,5:1). Das Ink-Token
+   flippt mit dem Theme (Light co-700 5,52:1, Dark co-200 11,19:1); ein festes co-700 wäre im Dark
+   mit 3,17:1 dunkel-auf-dunkel. */
+.type-rem{font:var(--ty-body-xs);color:var(--co-ink);margin-top:1px}
 .type-token{font:400 0.75rem/1rem 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
 .type-sample{flex:1;color:var(--tx-primary)}
 
@@ -1833,7 +1872,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    verhindert, dass die Kombination später still durchfällt. */
 .cb-terminal .cb-body .c{color:var(--n-400)}
 .cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
-.cb-terminal .cb-out{color:rgba(180,210,180,.55)}
+/* Deckkraft .65, nicht .55: auf dem Terminal-Grund trug .55 nur 4,20:1, .65 gibt 5,07:1.
+   Die Ausgabe bleibt damit sichtbar gedämpft gegenüber dem Prompt, erfüllt aber AA. */
+.cb-terminal .cb-out{color:rgba(180,210,180,.65)}
+/* Kopier-Button im Terminal: der neutrale n-500 der hellen Variante trägt auf dem dunklen
+   Terminal-Header nur 3,09:1. n-200 gibt 12,70:1 und passt zur hellen Schrift daneben. */
+.cb-terminal .cb-copy{color:var(--n-200)}
 /* Inline code in Fließtext */
 .cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
@@ -2258,7 +2302,16 @@ img.logo-themed-light{display:none}
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
-.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+/* Kachel-Füllung über --XX-fill statt inline var(--XX-50): der Sektions-Tint trug als Füllung nur
+   1,06:1 gegen die Karte, die Kachel war keine Fläche. Zugleich wandert die Farbe aus 76 inline
+   gesetzten style-Attributen in die Komponente. Glyph darauf bleibt der -700/-800-Ton (auf der
+   kräftigeren Füllung 4,74 bis 7,19:1, Schwelle für Grafik ist 3:1); im Dark hebt dark-mode.css
+   ihn wie bisher auf -100. */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-fill)}
+.ep-card-icon[data-area="co"]{background:var(--co-fill)}
+.ep-card-icon[data-area="ki"]{background:var(--ki-fill)}
+.ep-card-icon[data-area="es"]{background:var(--es-fill)}
+.ep-card-icon[data-area="wo"]{background:var(--wo-fill)}
 /* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
    wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
    sind unberuehrt. */
@@ -2321,7 +2374,8 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
-.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+/* Füllung über --co-fill, gleiche Begründung wie bei .ep-card-icon (co-50 trug 1,12:1). */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-fill);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
 .ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── FAQ-Accordion (native details/summary) ── */
 .ep-faq{max-width:none}
@@ -2381,8 +2435,10 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}
 .cta-visual-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
-.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-600)}
-.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-800)}
+/* Alle vier auf --XX-ink: co lag auf co-600 und trug damit nur 3,29:1 auf Weiß. Das Ink-Token
+   flippt im Dark auf den hellen Ton, ein festes -700/-800 wäre dort dunkel-auf-dunkel. */
+.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-ink)}
+.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-ink)}
 .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-700)}
 .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-700)}
 .cta-visual-title{font:var(--ty-headline-xs);color:var(--tx-primary);margin:0 0 var(--s2)}

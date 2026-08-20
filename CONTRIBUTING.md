@@ -41,11 +41,13 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 
 ## 3. Farbe & Kontrast
 
-- **Farbiger Text auf Weiß:** Bereichsfarbe `-700` (Co · ES · WO erfüllen AA). **Ausnahme KI:** `-700` reißt AA (4,05:1) → `--ki-800` bzw. `--ki-ink` für Text/Filled-Buttons.
-- **Nie `-500` als Textfarbe** auf Weiß (zu hell; nur ES-500/Rosé-500 bestehen AA).
-- **Gedämpfter Text:** `--tx-secondary`, **nicht** `--tx-muted` auf farbgetönten oder dunklen Card-Flächen (muted reißt dort AA).
-- **`--XX-ink` nur für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), die im Dark lesbar bleiben müssen (flippt Light `-800` / Dark `-200`). **Nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
+- **Farbiger Text: immer `--XX-ink`.** Das Token flippt mit dem Theme (Light `-700`, KI `-800`, weil `ki-700` nur 4,05:1 trägt · Dark `-200`, ES `-100`) und ist damit der einzige Weg, farbigen Text zu setzen, ohne einen der beiden Modi zu verlieren. Ein fest gesetztes `-700` trägt auf Weiß 5,52:1 und im Dark nur 3,17:1; ein fest gesetztes `-200` umgekehrt. Es gibt `--co-ink`, `--ki-ink`, `--es-ink`, `--wo-ink`.
+- **Nie `-500`/`-600` als Textfarbe** auf Weiß: `co-600` trägt 3,29:1, `co-500` 2,31:1. `-600` ist auch für Großtext knapp; nur als Fläche oder Rahmen einsetzen.
+- **Getönte Fläche unter Text macht die Farbe nicht schwächer, sondern den Grund heller.** Ein Link mit `--co-ink` auf einem Status-Tint reißt AA (auf dem Erfolgs-Tint 3,87:1). Auf getönten Callout-Flächen erbt Text die Textfarbe des Callouts (`color:inherit`), die Unterstreichung trägt die Link-Affordanz.
+- **Gedämpfter Text:** `--tx-muted` ist auf 5,20:1 gegen Weiß ausgelegt und trägt auch auf `n-50` (4,84:1) und getönten Hellflächen (4,66:1). Auf **dunklen** Card-Flächen bleibt `--tx-secondary` die Wahl.
+- **`--XX-ink` ist für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), **nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
 - **Farbiger Text/Icon auf heller `-100`-Kachel** (Chip, Häkchen-Kreis): fest auf `--XX-800`, **nicht** `.t-*`/`ink` — die `-100`-Kachel flippt im Dark nicht, `.t-*`/`ink` kippt auf hell `-200` → hell-auf-hell, unsichtbar.
+- **Der Stand ist 0 Verstöße** in beiden Modi, gemessen über 11.585 Textknoten der Doku, alle getönten Bauteil-Füllungen und alle Bedienelement-Rahmen. Das ist kein Zielwert, sondern der Ist-Stand, den das Gate festhält.
 - **`npm run check:contrast` ist das Gate.** Es rendert `docs/index.html` in **beiden** Modi in Chromium, löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente Schichten werden aufeinander komponiert) und prüft drei Dinge: Text gegen 4,5:1 bzw. 3:1 bei Großtext, getönte Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1. Weil es die **fertige Kette** misst und nicht das CSS, findet es auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in `storybook-angular.yml`, weil es einen Browser braucht; lokal reicht ein installiertes Chrome.
   - **Genau eine Ausnahme:** Swatches in den Kontrast-Tabellen (`.cswatch`, `.cbadge`), die ein Farbpaar als *Inhalt* zeigen und das gemessene Verhältnis daneben ausschreiben. Alles andere zählt, auch Paletten-Beschriftungen, Code-Blöcke und Specimen. Wer eine zweite Ausnahme braucht, hat sehr wahrscheinlich einen Befund vor sich.
   - **Text über Fotos und Verläufen** wird nur gezählt, nicht gewertet: sein Grund steht nicht in der Elternkette, das braucht eine Pixelmessung (Vorgehen siehe Hero-Scrim im CHANGELOG).

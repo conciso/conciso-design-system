@@ -37,10 +37,14 @@ import { dirname, join } from 'node:path';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGE = 'file://' + join(ROOT, 'docs/index.html');
 
-/** Stand 2026-08-20. Jede behobene Gruppe senkt hier eine Zahl. Ziel: alles 0. */
+/**
+ * Stand 2026-08-20: alles 0. Ab hier ist jede Abweichung eine Regression, und der Fehlschlag
+ * nennt die Stelle. Der Weg dahin, zur Einordnung der Groessenordnung: Light 49 Text / 101
+ * Fuellungen / 6 Rahmen, Dark 20 / 0 / 0.
+ */
 const RESTLISTE = {
-  light: { text: 49, fill: 101, border: 6 },
-  dark: { text: 20, fill: 0, border: 0 },
+  light: { text: 0, fill: 0, border: 0 },
+  dark: { text: 0, fill: 0, border: 0 },
 };
 
 /* Swatches, die das Farbpaar selbst zeigen (Kontrast-Tabellen). Einzige Ausnahme. */

@@ -11,6 +11,7 @@ $co-600: #009E9E;
 $co-700: #007575;
 $co-800: #004F4F;
 $co-900: #002B2B;
+$co-ink: #007575;
 $ki-500: #B5E61C;
 $ki-50: #F4FCD5;
 $ki-100: #E6F8A0;
@@ -32,6 +33,7 @@ $wo-600: #347A22;
 $wo-700: #285E1A;
 $wo-800: #183A0E;
 $wo-900: #0A1F05;
+$wo-ink: #285E1A;
 $es-500: #2F5FD4;
 $es-50: #EAF0FB;
 $es-100: #C8D9F5;
@@ -42,6 +44,7 @@ $es-600: #2249B2;
 $es-700: #1B3D9A;
 $es-800: #112568;
 $es-900: #071035;
+$es-ink: #1B3D9A;
 $ro-500: #C23060;
 $ro-50: #FDEDF2;
 $ro-100: #F9CEDD;
@@ -72,15 +75,15 @@ $n-700: #1A2E2E;
 $n-800: #0D1F1F;
 $n-900: #060F0F;
 $c-success: #0E6644;
-$c-success-bg: #E6F9F1;
-$c-warning: #8A5E0A;
-$c-warning-bg: #FEF4E0;
-$c-error: #B22020;
-$c-error-bg: #FDEAEA;
-$badge-ok-text: #0e6644;
-$badge-warn-text: #8a5e0a;
-$badge-err-text: #9b2020;
-$badge-neu-bg: #E8EDED;
+$c-success-bg: #A9E5C8;
+$c-warning: #785008;
+$c-warning-bg: #F5D08C;
+$c-error: #9B2020;
+$c-error-bg: #F5BFBF;
+$badge-ok-text: #0E6644;
+$badge-warn-text: #785008;
+$badge-err-text: #9B2020;
+$badge-neu-bg: #C9D3D3;
 $badge-neu-text: #2E4545;
 $cbadge-aa-bg: #E6F9F1;
 $cbadge-aa-text: #0a5c38;
@@ -97,7 +100,7 @@ $bg-plate: #FFFFFF;
 $tx-brand: #333E48;
 $tx-primary: #333E48;
 $tx-secondary: #4A6565;
-$tx-muted: #5E7676;
+$tx-muted: #5A7171;
 $font: "'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif";
 $font-display: "'Libre Baskerville','Georgia',serif";
 $ty-caption: "400 0.75rem/1rem 'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif";
@@ -206,7 +209,10 @@ $conciso-dark: (
   "ki-fill": #384912,
   "es-fill": #253C92,
   "wo-fill": #144E1F,
+  "co-ink": #80DEDE,
   "ki-ink": #D6F06D,
+  "es-ink": #C8D9F5,
+  "wo-ink": #A3D48E,
   "badge-ok-text": #5CE8A0,
   "badge-warn-text": #F0C060,
   "badge-err-text": #FFA5A5,

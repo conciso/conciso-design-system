@@ -104,7 +104,9 @@
      zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
      also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
   --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
-  --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
+  /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
+     auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */
+  --co-ink:var(--co-200); --ki-ink:var(--ki-200); --es-ink:var(--es-100); --wo-ink:var(--wo-200);
   /* Badge text – lighter for dark backgrounds */
   /* Dark-only: badge-err-text #F08080 ❌ 3,78:1 auf der aufgehellten Fehler-Füllung #802020
      → #FFA5A5 ✓ 5,21:1. Damit derselbe Ton wie --c-error, eine Fehlerfarbe weniger im System.
@@ -159,6 +161,11 @@
 /* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
    dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
    heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+/* Dark-only: Der Slider OHNE Bereichsklasse fiel durchs Raster. Er nimmt den Fallback der
+   Komponente (--sl-text: co-700) und stand damit ❌ 2,36:1 auf der Karte, dunkel auf dunkel.
+   Die vier Bereichsklassen darunter waren gesetzt, der Grundfall nicht. → co-200 ✓ 8,32:1.
+   (Light: co-700 auf Weiß, 5,52:1.) */
+[data-theme="dark"] .field-slider-output { color: var(--sl-text, var(--co-200)) }
 [data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
 [data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
 [data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }

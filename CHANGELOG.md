@@ -15,6 +15,38 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Alle Kontrast-Verstöße der Doku behoben: 183 auf 0, in beiden Modi.** Ausgangsstand nach dem
+  Bau des Gates: Light 49 Text / 101 Füllungen / 6 Rahmen, Dark 20 / 0 / 0. Neun Gruppen, jede mit
+  einer Ursache:
+  - **Farbiger Text ohne Theme-Wechsel (17 Stellen).** `co-600` als Textfarbe trug auf Weiß nur
+    3,29:1. Dabei fiel auf, dass das System `--XX-ink` (Light `-700`/`-800`, Dark `-200`/`-100`)
+    nur für KI hatte. Die Familie ist jetzt vollständig: **`--co-ink`, `--es-ink`, `--wo-ink`**.
+    Ohne sie erzeugt jede Light-Korrektur einen Dark-Verstoß, was beim ersten Anlauf genau so
+    passiert ist (16 neue Dark-Befunde durch ein fest gesetztes `co-700`).
+  - **Getönte Füllungen (101).** 76 Icon-Kacheln, 13 Status- und neutrale Badges, 8 Timeline-Icons,
+    4 Trend-Chips lagen zwischen 1,02 und 1,16:1 gegen ihren Grund. Kacheln und Timeline-Icons
+    nutzen jetzt `--XX-fill`, die Status-Tints sind auf Flächenwirkung angehoben
+    (`--c-success-bg` `#A9E5C8`, `--c-warning-bg` `#F5D08C`, `--c-error-bg` `#F5BFBF`, Fläche 1,43
+    bis 1,60:1), der neutrale Badge auf `n-200`. Die Tint-Texte wandern mit: `--c-warning` auf
+    `#785008` und `--c-error` auf `#9B2020`, damit sie auf der kräftigeren Füllung 4,84 bzw. 4,99:1
+    tragen; `--badge-*-text` verweist jetzt auf dieselben Token statt eigene Werte zu führen.
+  - **60 inline gesetzte Kachel-Tints** sind aus dem Markup in die Komponente gewandert
+    (`.ep-card-icon[data-area]`).
+  - **`--tx-muted` auf `#5A7171`** (vorher `#5E7676`): auf Weiß 4,85:1 ✓, aber auf `n-50` und
+    getönten Gründen nur 4,35 bis 4,51:1, also genau dort unter AA, wo leiser Text meist sitzt.
+    Jetzt 4,66 bis 5,20:1 und weiter klar heller als `--tx-secondary`.
+  - **Paletten-Beschriftungen (11).** Die Labels trugen `opacity:.75` auf der Swatch-Farbe, 2,53
+    bis 4,36:1, und genau dort steht der Hexwert zum Ablesen. Deckkraft raus; für die
+    Mittelton-Stufen, auf denen weder weißer noch dunkler Text 4,5:1 erreicht (auf `ki-700`
+    schafft selbst Schwarz nur 4,82:1), gibt es `.swatch.is-midtone` mit einer Plakette.
+  - **Halbtransparentes Weiß auf Bereichsbändern (4).** `.7` bis `.85` trugen 3,54 bis 4,46:1.
+    Jetzt deckend; die dokumentierte Konvention nannte `.85` und ist mit korrigiert.
+  - **Bedienelement-Rahmen (6).** Segmented Control und vier inline gestylte Suchfelder nutzten
+    `n-200` (1,53:1) statt `--field-border` (3,92:1), also unter der 3:1-Schwelle aus WCAG 1.4.11.
+  - **Terminal-Variante des Code-Blocks (3).** Kopier-Button und Ausgabe-Zeilen trugen 3,09 bzw.
+    4,20:1 auf dem dunklen Grund.
+  - **Slider ohne Bereichsklasse (1).** Fiel im Dark auf den `co-700`-Fallback und stand mit
+    2,36:1 dunkel auf dunkel; die vier Bereichsvarianten waren gesetzt, der Grundfall nicht.
 - **Kontrast-Gate `npm run check:contrast`.** Rendert `docs/index.html` in beiden Modi in Chromium,
   löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente
   Schichten werden aufeinander komponiert) und prüft Text (4,5:1 bzw. 3:1), getönte

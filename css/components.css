@@ -113,7 +113,9 @@
    Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
    seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area"
    widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
+/* Rahmen über --field-border: n-200 trug als Bedienelement-Grenze nur 1,53:1 und verfehlte die
+   3:1-Schwelle aus WCAG 1.4.11. --field-border ist genau dafür da (Light n-400, 3,92:1). */
+.seg{display:inline-flex;border:1.5px solid var(--field-border);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
 .seg-ki{--seg-fill:var(--ki-800)}
 .seg-es{--seg-fill:var(--es-700)}
 .seg-wo{--seg-fill:var(--wo-700)}
@@ -472,7 +474,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
 .type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
 .type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
-.type-rem{font:var(--ty-body-xs);color:var(--co-600);margin-top:1px}
+/* --co-ink statt co-600: co-600 trug auf Weiß nur 3,29:1 (Normaltext braucht 4,5:1). Das Ink-Token
+   flippt mit dem Theme (Light co-700 5,52:1, Dark co-200 11,19:1); ein festes co-700 wäre im Dark
+   mit 3,17:1 dunkel-auf-dunkel. */
+.type-rem{font:var(--ty-body-xs);color:var(--co-ink);margin-top:1px}
 .type-token{font:400 0.75rem/1rem 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
 .type-sample{flex:1;color:var(--tx-primary)}
 
@@ -659,7 +664,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    verhindert, dass die Kombination später still durchfällt. */
 .cb-terminal .cb-body .c{color:var(--n-400)}
 .cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
-.cb-terminal .cb-out{color:rgba(180,210,180,.55)}
+/* Deckkraft .65, nicht .55: auf dem Terminal-Grund trug .55 nur 4,20:1, .65 gibt 5,07:1.
+   Die Ausgabe bleibt damit sichtbar gedämpft gegenüber dem Prompt, erfüllt aber AA. */
+.cb-terminal .cb-out{color:rgba(180,210,180,.65)}
+/* Kopier-Button im Terminal: der neutrale n-500 der hellen Variante trägt auf dem dunklen
+   Terminal-Header nur 3,09:1. n-200 gibt 12,70:1 und passt zur hellen Schrift daneben. */
+.cb-terminal .cb-copy{color:var(--n-200)}
 /* Inline code in Fließtext */
 .cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
@@ -1084,7 +1094,16 @@ img.logo-themed-light{display:none}
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
-.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+/* Kachel-Füllung über --XX-fill statt inline var(--XX-50): der Sektions-Tint trug als Füllung nur
+   1,06:1 gegen die Karte, die Kachel war keine Fläche. Zugleich wandert die Farbe aus 76 inline
+   gesetzten style-Attributen in die Komponente. Glyph darauf bleibt der -700/-800-Ton (auf der
+   kräftigeren Füllung 4,74 bis 7,19:1, Schwelle für Grafik ist 3:1); im Dark hebt dark-mode.css
+   ihn wie bisher auf -100. */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-fill)}
+.ep-card-icon[data-area="co"]{background:var(--co-fill)}
+.ep-card-icon[data-area="ki"]{background:var(--ki-fill)}
+.ep-card-icon[data-area="es"]{background:var(--es-fill)}
+.ep-card-icon[data-area="wo"]{background:var(--wo-fill)}
 /* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
    wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
    sind unberuehrt. */
@@ -1147,7 +1166,8 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
-.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+/* Füllung über --co-fill, gleiche Begründung wie bei .ep-card-icon (co-50 trug 1,12:1). */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-fill);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
 .ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── FAQ-Accordion (native details/summary) ── */
 .ep-faq{max-width:none}
@@ -1207,8 +1227,10 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}
 .cta-visual-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
-.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-600)}
-.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-800)}
+/* Alle vier auf --XX-ink: co lag auf co-600 und trug damit nur 3,29:1 auf Weiß. Das Ink-Token
+   flippt im Dark auf den hellen Ton, ein festes -700/-800 wäre dort dunkel-auf-dunkel. */
+.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-ink)}
+.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-ink)}
 .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-700)}
 .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-700)}
 .cta-visual-title{font:var(--ty-headline-xs);color:var(--tx-primary);margin:0 0 var(--s2)}
