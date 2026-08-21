@@ -10,7 +10,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 
 - **Tokens statt Hardcodes.** Nie rohe Hex-/px-Werte, wo ein Token existiert. Farben, Abstände, Radien, Typo, Elevation kommen aus `css/tokens.css`.
 - **Beide Modi mitdenken.** Jede Änderung in Light **und** Dark prüfen. Leitfrage bei fast jedem Bug dieser Codebasis: *„Flippt der Hintergrund mit dem Theme — und hat das Element eine andere Flächen-Stufe als sein Grund?"*
-- **AA ist Pflicht.** Normaltext ≥ 4,5:1, Großtext/UI ≥ 3:1. Disabled & rein dekorative (`aria-hidden`) Elemente ausgenommen.
+- **Konformitätsstufe AA ist Pflicht, AAA ist Zugabe.** Stufe AA schließt Stufe A ein: gefordert sind **alle** Erfolgskriterien beider Stufen, und zwar für jedes Thema, nicht nur für Kontrast (also auch Tastaturbedienung, Fokus, Struktur, Beschriftung, Bewegung, Zielgrößen). Für Kontrast konkret: Normaltext ≥ 4,5:1, Großtext/UI ≥ 3:1; disabled & rein dekorative (`aria-hidden`) Elemente ausgenommen. **AAA** nehmen wir mit, wo es ohne Nachteil für Gestaltung oder Verständlichkeit erreichbar ist (die meisten Textfarben liegen darüber, Touch-Targets bei 44 px statt der geforderten 24 px), aber es ist **kein Abnahmekriterium**: an einem AAA-Kriterium scheitert kein PR. Wer AAA an einer Stelle bewusst nicht erfüllt, schreibt es dazu, statt es offen zu lassen (Beispiel: der 2-px-Hover-Lift auf klickbaren Karten gegen 2.3.3).
 - **Elevation = Interaktivität.** Schatten ist ein Affordanz-Signal, kein Schmuck (siehe §4).
 
 ---
@@ -194,7 +194,7 @@ rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/na
 - [ ] Border/Trennlinien über `var(--bd)`, nicht rohes `-100`
 - [ ] Typo aus der 16/14/12-Skala, keine Freihand-Größen
 - [ ] In **Light und Dark** geprüft (Flächen-Stufen, Kontrast)
-- [ ] AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar
+- [ ] Stufe A und AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar; AAA optional und, wenn bewusst verfehlt, notiert
 - [ ] `npm run check:contrast` und `npm run check:dark-states` grün; nach Layout-Änderungen den geänderten Bereich in **beiden Modi und zwei Breiten** ansehen (Kanten, Umbrüche, nicht nur Farbwerte)
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert

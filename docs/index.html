@@ -167,6 +167,7 @@
           <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>Barrierefreiheit
         </button>
         <div class="nav-subnav" data-for="a11y">
+          <a class="nav-sub-item" href="#gt-a11y-anspruch">Anspruch</a>
           <a class="nav-sub-item" href="#gt-a11y-kontrast">Kontrastverhältnisse · Textfarben</a>
           <a class="nav-sub-item" href="#gt-a11y-akzent">Kontrastverhältnisse · Akzentfarben</a>
           <a class="nav-sub-item" href="#gt-a11y-kontrast-dark">Kontrastverhältnisse · Dark Mode</a>
@@ -7045,7 +7046,26 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
     <!-- ═══ A11Y ═══ -->
     <section class="ds-section" id="sec-a11y">
       <h1 class="sec-title">Barrierefreiheit</h1>
-      <p class="sec-sub">Kontrastverhältnisse aller Brand-Farben · Tastaturnavigation · ARIA Patterns · Touch Targets · Reduced Motion, nach WCAG 2.1 Level AA. Vollständige Kriterien-Übersicht: <a class="body-link" href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">WCAG 2.2 Quickref (W3C)</a>.</p>
+      <p class="sec-sub">Kontrastverhältnisse aller Brand-Farben · Tastaturnavigation · ARIA Patterns · Touch Targets · Reduced Motion. Pflicht sind die Stufen A und AA, AAA nehmen wir mit, wo es ohne Nachteil geht. Vollständige Kriterien-Übersicht: <a class="body-link" href="https://www.w3.org/WAI/WCAG22/quickref/" target="_blank" rel="noopener">WCAG 2.2 Quickref (W3C)</a>.</p>
+
+      <!-- ── Anspruch ── -->
+      <h2 id="gt-a11y-anspruch" class="group-title">Anspruch</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px">Das System ist auf <strong>Konformitätsstufe AA</strong> gebaut. Nach WCAG-Definition heißt das: <strong>alle</strong> Erfolgskriterien der Stufe A <strong>und</strong> alle der Stufe AA sind erfüllt. AA liegt also nicht über A, sondern schließt es ein. Der Anspruch gilt für jedes Kriterium, nicht nur für Kontrast: ebenso für Tastaturbedienung, Fokus, Struktur, Beschriftung, Bewegung und Zielgrößen.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:780px"><strong>Stufe AAA ist Zugabe, kein Abnahmekriterium.</strong> Wo sie ohne Nachteil für Gestaltung oder Verständlichkeit erreichbar ist, nehmen wir sie mit. Wo sie etwas kostet, bleibt AA der Maßstab. An einem AAA-Kriterium scheitert keine Änderung.</p>
+      <div class="a11y-grid">
+        <div class="a11y-card">
+          <h3>Pflicht: A und AA</h3>
+          <p>Gilt für alles, was das System ausliefert. Zwei Prüfungen laufen automatisch: <code class="token">npm run check:contrast</code> rendert die Doku in beiden Modi und muss 0 melden, <code class="token">npm run check:dark-states</code> findet Zustände, die im Dark Mode unlesbar würden. Alles, was sich nicht messen lässt (Tastaturpfad, Screenreader-Ausgabe), gehört in die Prüfung von Hand.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Freiwillig darüber</h3>
+          <p>An vielen Stellen liegt das System über der Pflicht. Die meisten Textfarben erreichen 7:1 und mehr und sind in den Tabellen unten als AAA markiert. Touch-Targets liegen bei 44 px, das ist 2.5.5 auf AAA, verlangt wären 24 px. Diese Marken zeigen den Überschuss, nicht die Messlatte: sie dürfen an einzelnen Stellen fehlen, ohne dass etwas kaputt ist.</p>
+        </div>
+        <div class="a11y-card">
+          <h3>Nicht erfüllt, bewusst</h3>
+          <p><strong>2.3.3 Animation from Interactions</strong> (AAA) verlangt, dass eine durch Bedienung ausgelöste Bewegung abschaltbar ist. Der Hover-Lift von 2 px auf klickbaren Karten und auf dem Störer läuft auch bei <code class="token">prefers-reduced-motion: reduce</code>, weil er die Klickbarkeit signalisiert. Auto-Bewegung ist davon getrennt: die Carousels respektieren die Einstellung.</p>
+        </div>
+      </div>
 
       <!-- ── Kontrast: Textfarben auf Weiß ── -->
       <h2 id="gt-a11y-kontrast" class="group-title">Kontrastverhältnisse · Textfarben auf Weiß</h2>

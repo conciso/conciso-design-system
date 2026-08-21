@@ -95,17 +95,21 @@ a11y ist **global scharf** geschaltet (`parameters.a11y = { test: 'error' }` in
 Einzelne Stories mit bekannten, im **CSS-Kern** liegenden Befunden setzen lokal
 `a11y: { test: 'todo' }`: im Panel weiter sichtbar, aber nicht blockierend.
 
-### Bekannte a11y-Befunde (auf `todo`, CSS-Kern)
+### Frühere a11y-Befunde im CSS-Kern (behoben)
 
-Diese `color-contrast`-Verstöße stammen aus `css/components.css` (nicht aus den
-Angular-Wrappern) und lassen sich nur im Kern beheben (+ `npm run build:css`,
-betrifft auch die Doku-Site):
+Diese drei `color-contrast`-Verstöße lagen in `css/components.css` und sind dort
+inzwischen behoben. Wer eine Story noch auf `a11y: { test: 'todo' }` findet, kann
+sie wieder scharf schalten:
 
-| Story | Element | Ist-Kontrast | Ursache |
+| Story | Element | Vorher | Jetzt |
 |---|---|---|---|
-| DownloadCta | `.cta-dl-eyebrow` (Bereich `co`) | 3.28:1 (Ziel 4.5:1) | `--co-600` statt `--co-700` (Ausreißer ggü. ki/es/wo) |
-| CodeBlock | `.cb-copy` | 3.31:1 (Ziel 4.5:1) | `--n-400` (laut `tokens.css` AA-Fail für Normaltext) |
-| Slider | `.field-slider-output.slider-{co,ki,wo}` | ~2–3:1 | `--sl-color = --XX-500/700` reißt AA (es-500 passt) |
+| DownloadCta | `.cta-dl-eyebrow` (Bereich `co`) | 3,28:1 mit `--co-600` | `--co-700`, 5,52:1 auf Weiß, damit konsistent zu ki-800/es-700/wo-700 |
+| CodeBlock | `.cb-copy` | 3,31:1 mit `--n-400` | `--n-500`, gegen den tatsächlichen Grund gemessen 5,32:1 im Light (auf `--n-100`) und 8,01:1 im Dark |
+| Slider | `.field-slider-output.slider-{co,ki,wo}` | ~2 bis 3:1, weil Thumb-Farbe und Textfarbe dasselbe Token waren | eigenes `--sl-text` für die Wert-Anzeige (co-700 5,5:1 · ki-800 8,0:1 · es-700 9,6:1 · wo-700 7,8:1); `--sl-color` färbt nur noch den Thumb, der als grafisches Element 3:1 braucht |
+
+Maßgeblich für den Kern ist `npm run check:contrast` im Repo-Root: es rendert die
+Doku-Site in beiden Modi und meldet aktuell 0 Verstöße. Der Anspruch dahinter
+steht in `CONTRIBUTING.md` §1.
 
 Rein in den Angular-Wrappern behobene a11y-Punkte (kein CSS-Kern nötig): `role`-
 Input → `roleLabel` umbenannt (kein ungültiges ARIA-`role` mehr auf Blockquote/
