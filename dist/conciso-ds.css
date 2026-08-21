@@ -203,11 +203,20 @@
   --icon-stroke-xl:2.5;
 
   /* ── Borders ──
+     Zwei Rollen, nicht zwei Stärken: --bd ist die Trennlinie INNERHALB eines Bauteils
+     (Card-Footer, Tabellenzeile, Caption-Kante), --bd-strong die AUSSENKANTE einer Fläche
+     (Karte, Kasten, schwebendes Panel). Beide sind 1px; die Kante muss nur mehr tragen, weil sie
+     eine Fläche gegen ihren Grund abgrenzt, während die Trennlinie innerhalb einer schon
+     abgegrenzten Fläche liegt.
+     --bd-strong-c war n-200 und trug im Light nur 1,53:1 gegen Weiß und 1,42:1 gegen eine
+     n-50-Sektion; eine weiße Karte auf weißem Grund war damit praktisch randlos, obwohl genau
+     dieser Rand sie laut Konvention zur Fläche macht. n-300 gibt 2,25:1 bzw. 2,09:1 und bleibt
+     ruhig. Der Dark-Wert (#8694A5, 4,21:1) war nie das Problem und ändert sich nicht.
      --bd-c / --bd-strong-c halten die reine Farbe. --bd und --bd-strong sind Shorthand-Werte und
      lassen sich nicht in border-color einsetzen; Regeln, die nur die Farbe brauchen (z. B. der
      verstärkte Rand schwebender Panels im Dark), greifen deshalb auf die -c-Variante zu, statt den
      Hexwert ein zweites Mal zu führen. */
-  --bd-c:var(--n-100); --bd-strong-c:var(--n-200);
+  --bd-c:var(--n-100); --bd-strong-c:var(--n-300);
   --bd:1px solid var(--bd-c); --bd-strong:1px solid var(--bd-strong-c);
   --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
 
@@ -566,8 +575,9 @@
 
    Die Karten lesen deshalb über ihren RAND, nicht über eine Tonstufe. Das ist keine Notlösung,
    sondern exakt das, was im Light auf weißen Sektionen längst passiert: weiße Karte auf weißem
-   Grund, abgegrenzt durch die --bd-Haarlinie (dort 1,10:1). Im Dark ist der Rand mit --bd-strong-c
-   sogar deutlicher (4,21:1 gegen die Kartenfläche), siehe die Rand-Regeln bei den Karten unten.
+   Grund, abgegrenzt durch die Kante. Die trägt im Light --bd-strong (2,25:1 gegen Weiß, 2,09:1
+   gegen eine n-50-Sektion), im Dark ist derselbe Rand mit 4,21:1 gegen die Kartenfläche noch
+   deutlicher, siehe die Rand-Regeln bei den Karten unten.
    Auf bg-page-Sektionen bleibt es bei Tonstufe PLUS Rand. */
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
@@ -594,8 +604,8 @@
 [data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
 /* Dark-only: Der Rand trägt die Kartenkante, weil die Karte auf einer gehobenen Sektion denselben
    Ton hat wie ihr Grund (n-50-Sektionen werden im Dark auf bg-surface gehoben, siehe oben). Genau
-   wie im Light auf weißen Sektionen, dort übernimmt die --bd-Haarlinie. --bd-strong-c gibt 4,21:1
-   gegen die Kartenfläche, also klarer als die 1,10:1 im Light. .ep-card-link setzt in
+   wie im Light auf weißen Sektionen, dort übernimmt dieselbe --bd-strong-Kante (2,25:1).
+   Im Dark gibt --bd-strong-c 4,21:1 gegen die Kartenfläche, also noch klarer. .ep-card-link setzt in
    components.css border-color:transparent, weil dort der Schatten allein trug; auf der tiefen
    Dark-Basis trägt er das nicht mehr, gleiche Begründung wie bei den schwebenden Panels.
    (Light: --bd-strong für .ep-card, transparenter Rand für die Link-Variante.) */
@@ -811,8 +821,9 @@
 /* ── Cards ── */
 /* Dark-only: Kartenkante über den Rand, dieselbe Begründung wie bei .ep-card oben. Auf einer
    gehobenen n-50-Sektion hat die Karte den Ton ihres Grundes, der Rand macht sie zur Fläche:
-   --bd-strong-c = 4,21:1 gegen die Karte (Light: --bd, 1,10:1 auf weißer Sektion, dort reicht es).
-   Gilt auch für die Link-Karte, die im Light border:none trägt und sich auf --e1 verlässt: auf der
+   --bd-strong-c = 4,21:1 gegen die Karte. .card trägt --bd-strong inzwischen in beiden Modi, diese
+   Regel ist aber NICHT redundant: sie hält mit Spezifität 0,2,0 auch die Link-Karte, die im Light
+   border:none trägt und sich auf --e1 verlässt: auf der
    tiefen Dark-Basis trägt der schwarze Schatten das nicht mehr. Spezifität 0,2,0 schlägt
    a.card-elevated (0,1,1), die Ladereihenfolge spielt also keine Rolle.
    box-sizing ist global border-box, der Rand ändert die Kartengröße nicht. */
@@ -1072,7 +1083,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .token{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
-.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
+.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
 .tbtn{display:inline-flex;align-items:center;gap:6px;padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
 .tbtn svg{width:14px;height:14px;flex:none}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
@@ -1136,7 +1147,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Area cards ── */
 .areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6);margin-bottom:var(--s8)}
 @media(max-width:768px){.areas-grid{grid-template-columns:1fr}}
-.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
+.area-card{border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
 .area-header h2{font:400 1rem/1.5rem var(--font-display);margin-bottom:4px}
 .area-header p{font:400 0.75rem/1rem var(--font)}
@@ -1298,7 +1309,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Showcase containers ── */
 .ds-card   {border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;flex:1}
-.ds-surface{border:var(--bd);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
+.ds-surface{border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
 .ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
 /* Formular-Karten in gleich hohen Grid-Spalten: das Textarea-Feld füllt den Leerraum, damit der
    Submit-Button unten bündig zur Nachbar-Karte sitzt. flex-basis:auto (natürliche Höhe) + grow,
@@ -1306,7 +1317,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .ds-inner-fill{display:flex;flex-direction:column}
 .ds-inner-fill .field:has(textarea){flex:1 1 auto;display:flex;flex-direction:column}
 .ds-inner-fill .field:has(textarea) textarea{flex:1 1 auto;min-height:96px}
-.clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd)}
+.clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd-strong)}
 
 /* ── Badges & Chips ── */
 .badge{display:inline-flex;align-items:center;gap:var(--s1);padding:3px 10px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em}
@@ -1380,7 +1391,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .atab-content.visible{display:block}
 
 /* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
 /* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
    selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
@@ -1579,7 +1590,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3"
    ansagen und „Vorname" nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
    sonst entsteht im Dark Mode eine dritte Flächenstufe über .bg-page < .bg-surface. */
-.bk-person{position:relative;border:var(--bd);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
+.bk-person{position:relative;border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
 .bk-person > .field:last-of-type{margin-bottom:0}
 .bk-person::after{content:"";display:block;clear:both}
 /* Wie .bk-legend gefloatet, damit die Legende in den Innenabstand rutscht statt in die
@@ -1611,7 +1622,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    sonst über tausend Pixel weiter oben verstreut. */
 /* Oben --s8: die Übersicht ist ein eigener Block und darf nicht am letzten Häkchen kleben.
    Das Bestätigungs-Häkchen darüber gibt nur --s4 mit, das reicht als Abstand nicht. */
-.bk-order{border:var(--bd);border-radius:var(--r-md);background:var(--bg-overlay);padding:var(--s5);margin:var(--s8) 0 var(--s5)}
+.bk-order{border:var(--bd-strong);border-radius:var(--r-md);background:var(--bg-overlay);padding:var(--s5);margin:var(--s8) 0 var(--s5)}
 .bk-order-title{font:var(--ty-name);color:var(--tx-primary);margin:0 0 var(--s4)}
 .bk-order-list{margin:0;display:flex;flex-direction:column;gap:var(--s2)}
 .bk-order-list > div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s2)}
@@ -1684,7 +1695,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .ep-combobox-control:focus-within{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
 
 /* Popup — gemeinsame Fläche für beide Komponenten, spiegelt .ep-nav-sub */
-.ep-select-menu,.ep-combobox-menu{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:20;display:none;flex-direction:column;gap:2px;max-height:288px;overflow-y:auto;margin:0;padding:var(--s2);list-style:none;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-select-menu,.ep-combobox-menu{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:20;display:none;flex-direction:column;gap:2px;max-height:288px;overflow-y:auto;margin:0;padding:var(--s2);list-style:none;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);box-shadow:var(--e3)}
 .ep-select.is-open .ep-select-menu,.ep-combobox.is-open .ep-combobox-menu{display:flex}
 .ep-select-menu:focus,.ep-combobox-menu:focus{outline:none}
 
@@ -1734,7 +1745,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .el-lbl{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
 
 /* ── Nav demo ── */
-.nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.nav-demo{background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
 .doc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 
 /* ── Snackbar ── */
@@ -1865,7 +1876,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 }
 
 /* ── A11y ── */
-.a11y-card{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
+.a11y-card{background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
 .a11y-card h3{font:var(--ty-title-sm);margin-bottom:var(--s2)}
 .a11y-card p{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s3)}
 .a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
@@ -2148,7 +2159,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    Dark-Variante, auf theme-reaktivem Grund würden sie im Dark unsichtbar. Die Platte bleibt also
    hell, wird im Dark aber über --bg-plate gedämpft (#E8EDED statt #FFFFFF): eine reinweiße Fläche
    dieser Größe stünde mit 17,51:1 gegen die Seite und blendet. Dunkle Logos darauf 14,73:1. */
-.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
 .logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
 .logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
@@ -2172,7 +2183,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 @media(prefers-reduced-motion:reduce){.logo-carousel-slide{transition:none}}
 
 /* ── Grid ── */
-.grid-vis{border:var(--bd);border-radius:var(--r-md);overflow:hidden}
+.grid-vis{border:var(--bd-strong);border-radius:var(--r-md);overflow:hidden}
 .grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
 .gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font:var(--ty-label-xs);color:var(--co-700);text-align:center}
 
@@ -2217,7 +2228,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* position:relative, damit .skip-link (position:absolute) sich am ep-Page-Frame orientiert
    und nicht außerhalb der Preview-Karte erscheint. overflow:hidden clipped die negative
    top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
-.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd);position:relative}
+.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd-strong);position:relative}
 .ep-page.visible{display:block}
 /* Beispielseiten nutzen die volle verfügbare Breite bis zum rechten Fensterrand (kein 1280/1500-Deckel):
    .ds-content ist flex:1 und füllt Fensterbreite − Sidebar. Der Karten-Rahmen (.ep-page: Radius/Schatten)
@@ -2291,7 +2302,7 @@ img.logo-themed-light{display:none}
    die Petrol-Färbung als Affordanz. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
 .ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
 .ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
-.ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
+.ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
 /* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
    Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable"). Nur pointer:fine
@@ -2332,7 +2343,7 @@ img.logo-themed-light{display:none}
 /* Such-Popover: Disclosure unter dem Such-Button, spiegelt .ep-nav-sub (bg-surface, --e3, --bd) */
 .ep-nav-search{position:relative;display:inline-flex}
 .ep-nav-search.is-open .ep-nav-search-toggle{background:var(--co-50);color:var(--co-700)}
-.ep-nav-search-pop{display:none;position:absolute;top:calc(100% + var(--s3));right:0;z-index:10;width:320px;max-width:90vw;padding:var(--s4);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-nav-search-pop{display:none;position:absolute;top:calc(100% + var(--s3));right:0;z-index:10;width:320px;max-width:90vw;padding:var(--s4);background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);box-shadow:var(--e3)}
 .ep-nav-search.is-open .ep-nav-search-pop{display:block}
 .ep-nav-search-form{display:flex;gap:var(--s2);align-items:center}
 .ep-nav-search-input{flex:1;min-width:0;height:44px;padding:0 var(--s3);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast)}
@@ -2538,7 +2549,7 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 /* ── Download CTA ── */
 /* Kein Schatten: der Block ist statisch, die Interaktion liegt in den Buttons darin
    (Elevation = Interaktivität). Rahmen plus 4-px-Akzent oben tragen die Kartenform. */
-.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
 .cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
 .cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
@@ -2559,7 +2570,7 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-dl-meta{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
 .cta-dl-actions{display:flex;flex-direction:column;gap:var(--s2);align-items:stretch;flex-shrink:0;min-width:152px}
 /* Compact strip */
-.cta-strip{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s4);background:var(--bg-surface);border:var(--bd);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
+.cta-strip{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s4);background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
 .cta-strip-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cta-strip[data-area="co"] .cta-strip-icon{background:var(--co-50);color:var(--co-700)}
 .cta-strip[data-area="ki"] .cta-strip-icon{background:var(--ki-50);color:var(--ki-700)}
@@ -2578,7 +2589,7 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
 /* Mit Vorschaubild */
 /* Kein Schatten, gleiche Begründung wie .cta-dl: statischer Block mit Button darin. */
-.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden}
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
 .cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}

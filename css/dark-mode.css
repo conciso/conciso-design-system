@@ -343,8 +343,9 @@
 
    Die Karten lesen deshalb über ihren RAND, nicht über eine Tonstufe. Das ist keine Notlösung,
    sondern exakt das, was im Light auf weißen Sektionen längst passiert: weiße Karte auf weißem
-   Grund, abgegrenzt durch die --bd-Haarlinie (dort 1,10:1). Im Dark ist der Rand mit --bd-strong-c
-   sogar deutlicher (4,21:1 gegen die Kartenfläche), siehe die Rand-Regeln bei den Karten unten.
+   Grund, abgegrenzt durch die Kante. Die trägt im Light --bd-strong (2,25:1 gegen Weiß, 2,09:1
+   gegen eine n-50-Sektion), im Dark ist derselbe Rand mit 4,21:1 gegen die Kartenfläche noch
+   deutlicher, siehe die Rand-Regeln bei den Karten unten.
    Auf bg-page-Sektionen bleibt es bei Tonstufe PLUS Rand. */
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
@@ -371,8 +372,8 @@
 [data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
 /* Dark-only: Der Rand trägt die Kartenkante, weil die Karte auf einer gehobenen Sektion denselben
    Ton hat wie ihr Grund (n-50-Sektionen werden im Dark auf bg-surface gehoben, siehe oben). Genau
-   wie im Light auf weißen Sektionen, dort übernimmt die --bd-Haarlinie. --bd-strong-c gibt 4,21:1
-   gegen die Kartenfläche, also klarer als die 1,10:1 im Light. .ep-card-link setzt in
+   wie im Light auf weißen Sektionen, dort übernimmt dieselbe --bd-strong-Kante (2,25:1).
+   Im Dark gibt --bd-strong-c 4,21:1 gegen die Kartenfläche, also noch klarer. .ep-card-link setzt in
    components.css border-color:transparent, weil dort der Schatten allein trug; auf der tiefen
    Dark-Basis trägt er das nicht mehr, gleiche Begründung wie bei den schwebenden Panels.
    (Light: --bd-strong für .ep-card, transparenter Rand für die Link-Variante.) */
@@ -588,8 +589,9 @@
 /* ── Cards ── */
 /* Dark-only: Kartenkante über den Rand, dieselbe Begründung wie bei .ep-card oben. Auf einer
    gehobenen n-50-Sektion hat die Karte den Ton ihres Grundes, der Rand macht sie zur Fläche:
-   --bd-strong-c = 4,21:1 gegen die Karte (Light: --bd, 1,10:1 auf weißer Sektion, dort reicht es).
-   Gilt auch für die Link-Karte, die im Light border:none trägt und sich auf --e1 verlässt: auf der
+   --bd-strong-c = 4,21:1 gegen die Karte. .card trägt --bd-strong inzwischen in beiden Modi, diese
+   Regel ist aber NICHT redundant: sie hält mit Spezifität 0,2,0 auch die Link-Karte, die im Light
+   border:none trägt und sich auf --e1 verlässt: auf der
    tiefen Dark-Basis trägt der schwarze Schatten das nicht mehr. Spezifität 0,2,0 schlägt
    a.card-elevated (0,1,1), die Ladereihenfolge spielt also keine Rolle.
    box-sizing ist global border-box, der Rand ändert die Kartengröße nicht. */

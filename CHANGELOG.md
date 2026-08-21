@@ -15,6 +15,29 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Fixed
+- **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
+  generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
+  einen 4-px-Bereichsakzent. Gemessen im Light: 1,18:1 gegen Weiss und 1,10:1 gegen eine
+  `n-50`-Sektion, gegenueber 1,53:1 bei den anderen. Alle Karten haben 1 px, der Unterschied kam
+  also aus Farbe und Akzent, nicht aus der Strichstaerke. Im Dark war beides nie ein Problem
+  (2,99:1 und 4,21:1). Zwei Ursachen: es gab keine Regel, wann welches Token gilt (§4 nannte
+  beide ohne Kriterium), und `.ep-card`, die Karte der Beispielseiten, nutzte laengst
+  `--bd-strong`, waehrend die dokumentierte `.card` bei `--bd` blieb.
+  Jetzt sind es **zwei Rollen statt zwei Staerken**: `--bd` ist die Trennlinie **innerhalb** eines
+  Bauteils (Card-Footer, Caption-Kante, Tabellenzeile), `--bd-strong` die **Aussenkante** einer
+  Flaeche. 18 Aussenkanten in `components.css`/`base.css` und 61 Demo-Kaesten in der Doku sind
+  umgestellt; Beispielcode blieb unberuehrt. Ausgenommen bleiben Bedienelemente: Formularfelder
+  und Buttons haben `--field-border` (4,13:1, WCAG 1.4.11), Pills und Chips ihren eigenen Rand,
+  deshalb behalten `.a11y-mode` und `.logo-carousel-pause` ihr `--bd`.
+  Dazu traegt `--bd-strong-c` im Light jetzt `n-300` statt `n-200`: **2,25:1** gegen Weiss und
+  **2,09:1** gegen eine `n-50`-Sektion. Der Dark-Wert bleibt unangetastet. Damit stimmt auch eine
+  Begruendung wieder, die das System schon fuehrte: §5 leitet den Sektions-Rhythmus daraus ab,
+  dass die weisse Karte auf weisser Sektion "ueber ihren Rand" liest, nannte im selben Satz aber
+  1,10:1 fuer Light. Die drei Kommentare in `dark-mode.css`, die 1,10:1 als ausreichend
+  bezeichneten, und der Wert in der Stoerer-Tabelle sind mitgezogen. Der 4-px-Bereichsakzent
+  bleibt Unterschied: die generische Karte zeigt ihren Bereich ueber die getoente Medienflaeche,
+  Testimonial und Stat-Karte haben keine, dort traegt die Oberkante die Bereichsfarbe.
+
 - **Zwei tote Nav-Links in der Barrierefreiheits-Sektion.** „Tastaturnavigation"
   (`#gt-a11y-keyboard`) und „Touch Targets" (`#gt-a11y-touch`) standen in der Sub-Navigation,
   ohne dass es die Ziele gab, während die Einleitung derselben Sektion beide Themen ankündigt.
