@@ -1,50 +1,151 @@
 name: Pakete veröffentlichen
 
-# Release-/tag-getriggerter Publish-Workflow (siehe CONTEXT.md, docs/adr/0004):
-# baut und veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht)
-# und @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im
-# Lockstep mit derselben Versionsnummer.
+# Veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht) und
+# @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im Lockstep
+# mit derselben Versionsnummer (siehe CONTEXT.md, docs/adr/0004).
 #
-# Der Consumer-Smoke-Test (consumer-smoke-test.yml) läuft hier als eigener,
-# per `uses:` eingebundener Job zuerst; der Publish-Job hängt per `needs:`
-# hart davon ab — schlägt der Smoke-Test fehl, wird nicht veröffentlicht (siehe
-# Kommentar in consumer-smoke-test.yml zu `workflow_call` als reusable Workflow).
+# AUSLÖSER: eine Versionsänderung auf main. Der Workflow läuft bei jedem Push auf
+# main, der eine der beiden package.json berührt, und entscheidet dann selbst, ob
+# es etwas zu veröffentlichen gibt. Maßgeblich ist dabei die REGISTRY, nicht ein
+# Diff gegen den Vorgänger-Commit: gefragt wird „liegt diese Version schon in
+# GitHub Packages?". Ein Diff wäre unzuverlässig, weil Squash-Merges und Pushes mit
+# mehreren Commits den Versionswechsel verstecken können. Liegt die Version bereits,
+# endet der Lauf still — der Push hat die package.json dann aus anderen Gründen
+# angefasst (Beschreibung, Dependencies).
 #
-# Trigger:
-#   - release (published): ein Maintainer taggt/veröffentlicht ein Release →
-#     echtes `npm publish`.
-#   - workflow_dispatch: manueller Lauf zur Verifikation VOR einem echten
-#     Release. Default ist ein Dry-Run (`npm publish --dry-run`) — prüft
-#     Registry-Auflösung, Tarball-Inhalt und publishConfig, ohne etwas zu
-#     veröffentlichen. `dry_run: false` erzwingt auch hierüber ein echtes Publish.
+# Damit gilt: Version anheben + nach main mergen = Release. Es gibt keinen Knopf,
+# den man vergessen kann. Wer vorher trocken prüfen will, startet den Workflow
+# manuell (workflow_dispatch) — der Default dort ist ein Dry-Run.
+#
+# KEIN `release: published`-Trigger: Dieser Workflow ERZEUGT Tag und Release selbst
+# (die CHANGELOG-Konvention verlangt den Tag `vX.Y.Z`). Mit dem Trigger würde er
+# sich durch sein eigenes Release rekursiv erneut auslösen.
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
+    paths:
+      - 'package.json'
+      - 'angular-lib/projects/design-system-angular/package.json'
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry-Run (kein echtes npm publish)'
+        description: 'Dry-Run (kein echtes npm publish, kein Tag, kein Release)'
         type: boolean
         default: true
 
+permissions:
+  contents: read
+  packages: read
+
 concurrency:
-  group: publish-${{ github.ref }}
-  # Ein laufender Publish wird nicht abgebrochen — ein halb veröffentlichtes
+  # Nicht pro Ref, sondern global: zwei gleichzeitige Publishes wären in jedem Fall
+  # falsch. Ein laufender Publish wird NICHT abgebrochen — ein halb veröffentlichtes
   # Paket-Paar wäre schlimmer als ein Warten auf den nächsten Lauf.
+  group: publish
   cancel-in-progress: false
 
 jobs:
+  # ── Vorprüfung: gibt es überhaupt etwas zu veröffentlichen? ──────────────────
+  # Bewusst ein eigener, billiger Job: er entscheidet, ob der Smoke-Test und der
+  # Publish-Job überhaupt anlaufen. So kostet ein Push, der die package.json ohne
+  # Versionswechsel anfasst, nur wenige Sekunden.
+  pruefen:
+    name: Version prüfen
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ermitteln.outputs.version }}
+      publish: ${{ steps.ermitteln.outputs.publish }}
+      dry: ${{ steps.ermitteln.outputs.dry }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@conciso'
+      - name: Lockstep-Versionen prüfen
+        id: lockstep
+        run: |
+          ROOT_VERSION=$(node -p "require('./package.json').version")
+          LIB_VERSION=$(node -p "require('./angular-lib/projects/design-system-angular/package.json').version")
+          if [ "$ROOT_VERSION" != "$LIB_VERSION" ]; then
+            echo "::error::Lockstep-Versionen weichen ab: @conciso/design-system@$ROOT_VERSION vs. @conciso/design-system-angular@$LIB_VERSION"
+            exit 1
+          fi
+          echo "version=$ROOT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Lockstep-Version: $ROOT_VERSION"
+      # Fängt den Fall „Version angehoben, CHANGELOG vergessen". Der Abschnitt ist
+      # der Release-Text, aus dem weiter unten das GitHub-Release entsteht.
+      - name: CHANGELOG-Abschnitt vorhanden?
+        run: |
+          VERSION="${{ steps.lockstep.outputs.version }}"
+          if ! grep -q "^## \[${VERSION}\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md hat keinen Abschnitt '## [${VERSION}]'. Version angehoben, aber der Unreleased-Block nicht geschlossen?"
+            exit 1
+          fi
+          echo "CHANGELOG-Abschnitt für ${VERSION} gefunden."
+      - name: Entscheiden, ob veröffentlicht wird
+        id: ermitteln
+        run: |
+          VERSION="${{ steps.lockstep.outputs.version }}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          # Dry-Run nur beim manuellen Start, und dort als Default.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
+            DRY=true
+          else
+            DRY=false
+          fi
+          echo "dry=$DRY" >> "$GITHUB_OUTPUT"
+
+          # Liegt die Version schon in der Registry? `npm view` scheitert auch dann,
+          # wenn das Paket noch gar nicht existiert — das ist der erwartete Fall vor
+          # dem ersten Release, deshalb wird der Fehler geschluckt.
+          EXISTS=false
+          for PKG in "@conciso/design-system" "@conciso/design-system-angular"; do
+            if npm view "${PKG}@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+              echo "${PKG}@${VERSION} liegt bereits in GitHub Packages."
+              EXISTS=true
+            fi
+          done
+
+          if [ "$EXISTS" = "true" ] && [ "$DRY" = "false" ]; then
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              # Manuell und ausdrücklich ohne Dry-Run angefordert → laut scheitern.
+              echo "::error::Version ${VERSION} ist bereits veröffentlicht. Version in beiden package.json erhöhen."
+              exit 1
+            fi
+            # Push-getrieben → still übergehen: die package.json wurde ohne
+            # Versionswechsel angefasst, das ist der Normalfall.
+            echo "::notice::Version ${VERSION} ist bereits veröffentlicht — nichts zu tun."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ── Harte Vorbedingung: konsumierbares Artefakt? ────────────────────────────
+  # Als reusable Workflow eingebunden (siehe Kommentar in consumer-smoke-test.yml),
+  # weil `needs:` nur innerhalb derselben Datei wirkt.
   consumer-smoke-test:
     name: Consumer-Smoke-Test (Vorbedingung)
+    needs: pruefen
+    if: needs.pruefen.outputs.publish == 'true'
     uses: ./.github/workflows/consumer-smoke-test.yml
 
   publish:
     name: Beide Pakete bauen und veröffentlichen
-    needs: consumer-smoke-test
+    needs: [pruefen, consumer-smoke-test]
+    if: needs.pruefen.outputs.publish == 'true'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      # contents: write für Tag und Release, die dieser Job selbst anlegt.
+      contents: write
       packages: write
+    env:
+      VERSION: ${{ needs.pruefen.outputs.version }}
+      DRY: ${{ needs.pruefen.outputs.dry }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -57,52 +158,15 @@ jobs:
       # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
       - name: Dependencies installieren
         run: npm ci
-      # Lockstep-Versionierung (docs/adr/0004): beide Pakete müssen dieselbe
-      # Versionsnummer tragen — sonst würde ein Konsument inkompatible
-      # Angular-Lib/CSS-Paare installieren können.
-      - name: Lockstep-Versionen prüfen
-        run: |
-          ROOT_VERSION=$(node -p "require('./package.json').version")
-          LIB_VERSION=$(node -p "require('./angular-lib/projects/design-system-angular/package.json').version")
-          if [ "$ROOT_VERSION" != "$LIB_VERSION" ]; then
-            echo "::error::Lockstep-Versionen weichen ab: @conciso/design-system@$ROOT_VERSION vs. @conciso/design-system-angular@$LIB_VERSION"
-            exit 1
-          fi
-          echo "Lockstep-Version: $ROOT_VERSION"
-      # Verhindert das halb veröffentlichte Paket-Paar (siehe Concurrency-Kommentar
-      # oben): schlägt VOR dem ersten `npm publish` fehl, wenn eine der beiden
-      # Versionen bereits in GitHub Packages existiert — statt mitten im zweiten
-      # Publish-Schritt mit einem 409 abzubrechen. `npm view` liefert bei Ersteinträgen
-      # (Paket existiert noch gar nicht) ebenfalls "nicht gefunden" — das ist der
-      # erwartete, unkritische Fall.
-      - name: Prüfen, ob diese Lockstep-Version schon veröffentlicht ist
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          for PKG in "@conciso/design-system" "@conciso/design-system-angular"; do
-            if npm view "${PKG}@${VERSION}" version --registry=https://npm.pkg.github.com 2>/dev/null; then
-              echo "::error::${PKG}@${VERSION} ist bereits in GitHub Packages veröffentlicht — Version in beiden package.json erhöhen, bevor dieser Workflow erneut läuft."
-              exit 1
-            fi
-          done
-          echo "Weder @conciso/design-system@${VERSION} noch @conciso/design-system-angular@${VERSION} sind bisher veröffentlicht."
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: CSS-Schicht bauen (@conciso/design-system)
         run: npm run build
       - name: Angular-Lib bauen (@conciso/design-system-angular)
         run: npm run build --workspace=angular-lib
-      # release → immer echtes Publish; workflow_dispatch → Dry-Run per
-      # Default, außer explizit mit dry_run=false gestartet.
       - name: Dry-Run-Flag bestimmen
         id: mode
         run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
-            echo "flag=" >> "$GITHUB_OUTPUT"
-          elif [ "${{ inputs.dry_run }}" = "false" ]; then
-            echo "flag=" >> "$GITHUB_OUTPUT"
-          else
-            echo "flag=--dry-run" >> "$GITHUB_OUTPUT"
-          fi
+          if [ "$DRY" = "true" ]; then echo "flag=--dry-run" >> "$GITHUB_OUTPUT";
+          else echo "flag=" >> "$GITHUB_OUTPUT"; fi
       - name: CSS-Schicht veröffentlichen
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
@@ -112,3 +176,29 @@ jobs:
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Der Tag macht die Konvention aus dem CHANGELOG wahr („Releases werden als
+      # Git-Tags vX.Y.Z markiert") — ohne ihn zeigt nichts im Repo auf die
+      # veröffentlichte Version. Läuft erst NACH den Publishes: ein Tag auf einem
+      # Stand, dessen Veröffentlichung scheiterte, wäre irreführend.
+      - name: Tag setzen und Release veröffentlichen
+        if: env.DRY == 'false'
+        run: |
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "::notice::Tag v${VERSION} existiert bereits — wird nicht neu gesetzt."
+          else
+            git tag "v${VERSION}"
+            git push origin "v${VERSION}"
+          fi
+          # Release-Text ist der CHANGELOG-Abschnitt dieser Version (bis zur
+          # nächsten Überschrift), damit Release-Notes und CHANGELOG nicht
+          # auseinanderlaufen.
+          awk -v v="## [${VERSION}]" '
+            index($0, v) == 1 { inside = 1; next }
+            inside && /^## \[/ { exit }
+            inside { print }
+          ' CHANGELOG.md > /tmp/release-notes.md
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --notes-file /tmp/release-notes.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
