@@ -31,16 +31,42 @@ bleibt bei der öffentlichen npm-Registry:
 
 **2. Token bereitstellen.** GitHub Packages verlangt Auth auch für **lesenden**
 Zugriff auf private Pakete. `${GITHUB_TOKEN}` in der `.npmrc` liest npm zur
-Laufzeit aus der Umgebungsvariable — dafür:
+Laufzeit aus der Umgebungsvariable — dafür, in dieser Reihenfolge:
 
-- **Lokal:** ein Personal Access Token (classic) mit Scope `read:packages`
-  erzeugen (GitHub → Settings → Developer settings → Personal access tokens) und
-  als `GITHUB_TOKEN` exportieren (z. B. in der Shell-Profildatei).
-- **In CI (GitHub Actions):** das von GitHub automatisch bereitgestellte
-  `secrets.GITHUB_TOKEN` reicht für den **Lese**-Zugriff innerhalb derselben
-  Organisation — kein eigenes PAT nötig, sofern das Workflow-`permissions`-Feld
-  `packages: read` erlaubt (Beispiel im Publish-Workflow,
-  [`.github/workflows/publish.yml`](../../../.github/workflows/publish.yml)).
+- **CI in derselben Organisation → kein Token nötig.** Das von GitHub automatisch
+  bereitgestellte `secrets.GITHUB_TOKEN` genügt für den **Lese**-Zugriff, sofern
+  das Workflow-`permissions`-Feld `packages: read` erlaubt (Beispiel im
+  Publish-Workflow, [`.github/workflows/publish.yml`](../../../.github/workflows/publish.yml)).
+  Voraussetzung ist einmalig, dass das Paket dem konsumierenden Repo freigegeben
+  ist: auf der Paket-Seite unter *Manage Actions access* → **Add Repository**
+  (Personen und Teams bekommen dort ebenso eine Rolle). Das Token ist kurzlebig und
+  an den Lauf gebunden — nichts zu verwalten, nichts zu rotieren.
+- **Lokale Rechner und CI außerhalb der Organisation → Token eines technischen
+  Users.** Nimm dafür **nicht** einen persönlichen Account: sonst hängt der Zugriff
+  aller Konsumenten daran, dass diese Person im Unternehmen bleibt und ihre Rechte
+  behält. Also einen Maschinen-Account anlegen (E-Mail-Verteiler statt
+  Personenpostfach, sonst verlagert sich das Problem nur), in die Organisation
+  einladen, Lesezugriff geben — und mit **diesem** Account das Token erzeugen:
+  *Settings → Developer settings → Personal access tokens → Tokens (classic)*,
+  Scope `read:packages` (nur `write:packages`, wenn von Hand publiziert werden
+  soll). In GitHub Actions als **Organisations-Secret** ablegen, dann teilen alle
+  konsumierenden Repos dasselbe Token und es wird an einer Stelle rotiert.
+
+> **Es muss ein *classic* Token sein.** GitHub Packages unterstützt laut
+> [Doku](https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages)
+> ausschließlich Personal Access Tokens (classic); fine-grained PATs und
+> GitHub-App-Installation-Tokens sind dort nicht vorgesehen
+> ([Roadmap-Issue #558](https://github.com/github/roadmap/issues/558)). Wer mit
+> einem fine-grained Token startet, verliert Zeit an einem 401/404, der wie ein
+> Rechteproblem aussieht.
+
+> Drei Fallstricke beim technischen User: (1) Ein Maschinen-Account belegt einen
+> **Lizenzplatz** — das ist der Preis für die Entkopplung von Personen. (2) Nutzt die
+> Organisation **SAML SSO**, muss das Token nach dem Anlegen ausdrücklich für die
+> Organisation autorisiert werden, sonst schlägt der Zugriff mit einem irreführenden
+> 401/404 fehl. (3) Setz ein **Ablaufdatum** und notiere die Rotation — ein Token
+> ohne Ablauf ist bequem, und sein Ausfall trifft später alle Konsumenten
+> gleichzeitig ohne Vorwarnung.
 
 **3. Installieren:**
 
