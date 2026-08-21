@@ -61,4 +61,7 @@ jobs:
       - name: Dependencies installieren
         run: npm ci
       - name: Consumer-Smoke-Test
-        run: scripts/consumer-smoke-test.sh
+        # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
+        # daran, dass das Execute-Bit jeden Checkout übersteht. Gleiche Konvention
+        # wie in pr-preview.yml.
+        run: bash scripts/consumer-smoke-test.sh
