@@ -30,7 +30,11 @@
   /* Restore borders that forced-colors removes */
   .chip { border: 2px solid ButtonText }
   .card,
-  .card-elevated { border: 2px solid CanvasText }
+  .card-elevated,
+  /* .stoerer liegt über einem Foto und verlässt sich im Light auf --bd-strong plus --e1.
+     Im Kontrastmodus fällt der Schatten weg, der 1px-Rand allein trägt die Kachel dann nicht
+     mehr gegen das Bild ab — gleiche 2px wie bei den übrigen Kartenflächen. */
+  .stoerer { border: 2px solid CanvasText }
   .badge { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText }
   /* Active states */
   .nav-item.active { border-left-color: Highlight; color: Highlight }
@@ -129,7 +133,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .token{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
-.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
+.theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
 .tbtn{display:inline-flex;align-items:center;gap:6px;padding:5px var(--s3);border-radius:var(--r-full);border:none;cursor:pointer;font:500 0.75rem/1rem var(--font);background:transparent;color:var(--tx-secondary);transition:background var(--m-fast),color var(--m-fast)}
 .tbtn svg{width:14px;height:14px;flex:none}
 .tbtn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
@@ -193,7 +197,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Area cards ── */
 .areas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s6);margin-bottom:var(--s8)}
 @media(max-width:768px){.areas-grid{grid-template-columns:1fr}}
-.area-card{border-radius:var(--r-lg);border:var(--bd);overflow:hidden;display:flex;flex-direction:column}
+.area-card{border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;display:flex;flex-direction:column}
 .area-header{padding:var(--s5) var(--s6);color:#fff}
 .area-header h2{font:400 1rem/1.5rem var(--font-display);margin-bottom:4px}
 .area-header p{font:400 0.75rem/1rem var(--font)}

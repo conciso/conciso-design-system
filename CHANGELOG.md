@@ -14,7 +14,140 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Fixed
+- **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
+  generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
+  einen 4-px-Bereichsakzent. Gemessen im Light: 1,18:1 gegen Weiss und 1,10:1 gegen eine
+  `n-50`-Sektion, gegenueber 1,53:1 bei den anderen. Alle Karten haben 1 px, der Unterschied kam
+  also aus Farbe und Akzent, nicht aus der Strichstaerke. Im Dark war beides nie ein Problem
+  (2,99:1 und 4,21:1). Zwei Ursachen: es gab keine Regel, wann welches Token gilt (§4 nannte
+  beide ohne Kriterium), und `.ep-card`, die Karte der Beispielseiten, nutzte laengst
+  `--bd-strong`, waehrend die dokumentierte `.card` bei `--bd` blieb.
+  Jetzt sind es **zwei Rollen statt zwei Staerken**: `--bd` ist die Trennlinie **innerhalb** eines
+  Bauteils (Card-Footer, Caption-Kante, Tabellenzeile), `--bd-strong` die **Aussenkante** einer
+  Flaeche. 18 Aussenkanten in `components.css`/`base.css` und 61 Demo-Kaesten in der Doku sind
+  umgestellt; Beispielcode blieb unberuehrt. Ausgenommen bleiben Bedienelemente: Formularfelder
+  und Buttons haben `--field-border` (4,13:1, WCAG 1.4.11), Pills und Chips ihren eigenen Rand,
+  deshalb behalten `.a11y-mode` und `.logo-carousel-pause` ihr `--bd`.
+  Dazu traegt `--bd-strong-c` im Light jetzt `n-300` statt `n-200`: **2,25:1** gegen Weiss und
+  **2,09:1** gegen eine `n-50`-Sektion. Der Dark-Wert bleibt unangetastet. Damit stimmt auch eine
+  Begruendung wieder, die das System schon fuehrte: §5 leitet den Sektions-Rhythmus daraus ab,
+  dass die weisse Karte auf weisser Sektion "ueber ihren Rand" liest, nannte im selben Satz aber
+  1,10:1 fuer Light. Die drei Kommentare in `dark-mode.css`, die 1,10:1 als ausreichend
+  bezeichneten, und der Wert in der Stoerer-Tabelle sind mitgezogen. Der 4-px-Bereichsakzent
+  bleibt Unterschied: die generische Karte zeigt ihren Bereich ueber die getoente Medienflaeche,
+  Testimonial und Stat-Karte haben keine, dort traegt die Oberkante die Bereichsfarbe.
+
+- **Zwei tote Nav-Links in der Barrierefreiheits-Sektion.** „Tastaturnavigation"
+  (`#gt-a11y-keyboard`) und „Touch Targets" (`#gt-a11y-touch`) standen in der Sub-Navigation,
+  ohne dass es die Ziele gab, während die Einleitung derselben Sektion beide Themen ankündigt.
+  Beide Blöcke sind jetzt geschrieben, siehe „Added".
+- **Fünf Überschriften waren über die Sidebar nicht erreichbar.** „Editoriale Kennzahl-Zeile",
+  „Kontrastverhältnisse · Dark Mode" und die beiden Verwendungs-Blöcke in Slider & Carousel
+  hatten keinen Nav-Eintrag. Weil diese Sektion zwei Bauteile dokumentiert, heißen ihre
+  Verwendungs-Blöcke jetzt „Bild-Carousel · Verwendung" und „Kundenlogo-Karussell · Verwendung",
+  nach dem schon beim Störer verwendeten Muster. `gt-colors-semantik` war dagegen kein
+  Gruppen-Titel, sondern das Label einer Spalte im Verwendungs-Block, angesprungen von einem
+  Querverweis; es heißt jetzt `colors-semantik`, damit `gt-` genau die Überschriften mit
+  Nav-Eintrag bezeichnet.
+- **Übersprungene Heading-Ebene in der Token-Sektion (WCAG 1.3.1).** `sec-tokens` ging von
+  `h1.sec-title` direkt auf nackte `h3` und war deshalb die einzige Grundlagen-Sektion ohne
+  Sub-Navigation, zwei Symptome derselben Ursache. Die fünf Token-Blöcke tragen ihre Überschrift
+  jetzt als `h2.group-title` und erscheinen in der Sidebar; `.token-section h3` entfällt.
+- **Fünf Anker trugen das Präfix einer fremden Sektion.** Reste früherer Umzüge:
+  `gt-nav-hero-image`, `gt-nav-hero-substrip` und `gt-carousel-hero` lagen in `sec-hero`,
+  `gt-logo-carousel*` in `sec-slider`. Alle sieben IDs der beiden Sektionen folgen jetzt ihrer
+  eigenen Sektion, samt der Querverweise im Fließtext.
+- **Inhaltsverzeichnis von `docs/GETTING-STARTED.md` unvollständig.** Es listete 8 Kapitel bei 9
+  vorhandenen: „Einheiten & medienübergreifende Nutzung" war als §7 eingeschoben worden, ohne das
+  Verzeichnis nachzuziehen, wodurch die letzten zwei Einträge auf `#7-icons-nutzen` und
+  `#8-frameworks` zeigten statt auf `#8-…` und `#9-…`. Alle 9 Anker lösen wieder auf.
+- **`README.md` beschrieb eine Gliederung, die es nicht mehr gibt.** Statt „32 Sektionen:
+  Foundations (…)" jetzt 35 Sektionen in den sechs aktuellen Gruppen.
+- **Störer bei 200 % Textgröße: Maße von px auf rem (WCAG 1.4.4).** Die Container-Query-Schwelle
+  stand als `1025px` da und skalierte damit nicht mit der Browser-Standardschriftgröße. Bei
+  verdoppelter Wurzel-Schrift wuchs die Kachel von 126 auf 290 px, das Overlay blieb aber an und
+  ragte gemessen 96 px in die Sub-Sektion. Jetzt `64.0625rem`: bei 150 % und 200 % verlangt die
+  Schwelle mehr Hero-Breite als vorhanden, das Set fällt also in den Block-Zweig unter dem Hero,
+  statt zu überlappen. Ebenso Kachelbreite (`22.5rem`) und Grid-Minimum (`16.25rem`).
+  Nebenbefund, der **nicht** vom Störer kommt: bei 200 % läuft die Doku-Seite horizontal über
+  (1498 statt 1440 px). Mit und ohne Störer identisch gemessen, kein Element der Beispielseite ragt
+  über den Viewport; das ist die Doku-Shell (252-px-Sidebar plus Content).
+- **Reflow bei 320 px strukturell abgesichert (WCAG 1.4.10).** Das Auto-Fit-Grid hatte einen
+  starren Boden von `16.25rem`; bei 320 px Viewport ist der Grund nur 256 px breit, die Spalte ragte
+  also 4 px in die Polsterung. Es entstand kein horizontaler Überlauf, weil das Padding es auffing —
+  das hielt aber nur zufällig. Jetzt `minmax(min(16.25rem,100%),1fr)`, die Spalte weicht auf 100 %
+  aus statt den Grund zu sprengen. Dazu mobil (≤ 768 px) derselbe Innenabstand wie `.ep-section`
+  (`--s6` statt `--s8`): im Block-Zweig steht das Set in der Sektionslogik der Seite und folgt deren
+  Rhythmus. Gemessen bei 320/360/400/768 px: kein Überlauf, ein bzw. zwei Spalten.
+- **`.stoerer` in die `forced-colors`-Rahmenliste aufgenommen.** Im Windows-Kontrastmodus entfernt
+  das OS `box-shadow`; `base.css` stellt für `.card` und `.card-elevated` deshalb `2px solid
+  CanvasText` her. Der Störer fehlte in der Liste und behielt nur seinen 1-px-Rand — genau im
+  schwierigsten Fall, nämlich über einem Foto und ohne den `--e1`, auf den er sich sonst stützt.
+  Der Fokus-Ring war nicht betroffen, die globale `:focus-visible`-Regel ersetzt ihn dort schon
+  durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
+
+### Added
+- **Tastaturnavigation und Touch Targets dokumentiert.** Beide Blöcke fehlten in einem System mit
+  AA-Ziel. Tastaturnavigation behandelt Fokusreihenfolge aus dem Markup (keine positiven
+  `tabindex`), Sprungziele mit `tabindex="-1"`, den Skip-Link, die Tastaturfalle, verdeckten Fokus
+  und ein gemeinsames Tastenset für neue Bauteile (2.1.1, 2.1.2, 2.4.3, 2.4.7, 2.4.11), dazu eine
+  Tabelle mit der tatsächlichen Belegung aller Bauteile aus `main.js`. Bei den Zielgrößen sind die
+  zwei Kriterien getrennt benannt, weil sie nicht dasselbe verlangen: 2.5.8 fordert auf AA 24 px,
+  2.5.5 auf AAA 44 px, und das System zielt auf 44 px. Die zwei Bauteile darunter (Segmented
+  Control, Area Tabs, je 40 px) stehen als bewusste Abweichung dabei, statt unerwähnt zu bleiben.
+  2.4.11 und 2.5.8 sind als Kriterien aus WCAG 2.2 gekennzeichnet, da die Sektion 2.1 nennt und es
+  dort auf AA keine Zielgrößen-Anforderung gibt.
+- **Sub-Navigation für Design Tokens und Beispielseiten.** Beide Sektionen waren in der Sidebar
+  ohne Tiefe. Die Beispielseiten sind der größte Teil der Doku, ihre Gliederung lag allein in der
+  Tab-Leiste. Die sechs Gruppen stehen jetzt in der Sidebar und ein Eintrag **öffnet** die erste
+  Beispielseite seiner Gruppe: gemessen bei 1440 px liegen fünf der sechs Gruppen-Labels in
+  derselben Grid-Zeile von `.ep-tabs` und die Leiste ist 328 px hoch, ein reiner Anker führte also
+  fünfmal an dieselbe Stelle. Umgesetzt über das vorhandene `activateExamplePage`; der `href` zeigt
+  auf den ersten Tab der Gruppe und bleibt ohne JS ein gültiges Sprungziel.
+- **`CONTRIBUTING.md` §11 „Doku-Struktur".** Für die Gliederung der Doku-Site gab es keine
+  geschriebene Regel, nur einen Halbsatz in §10 Schritt 4, der drei Inhaltsblöcke nennt. Der neue
+  Abschnitt hält fest: die sechs Gruppen und was hineingehört, Nav-Eintrag als Pflicht, das
+  Anker-Schema `gt-<sektion>-<thema>` und wofür das Präfix reserviert ist, „Aufbau" zuerst und
+  „Verwendung" zuletzt samt der Form `<Bauteil> · Verwendung`, die Bereichsreihenfolge, Nav-Label
+  gleich Überschrift oder deren Anfang, ein Trennzeichen pro Aufgabe, die Sprachregel und die
+  Heading-Ebenen samt der einen dokumentierten Ausnahme. Dazu zwei Einzeiler zum Selbstprüfen und
+  eine Zeile in der PR-Checkliste.
+
 ### Changed
+- **Reihenfolge und Benennung der Doku-Navigation.** „Verwendung" schließt eine Sektion ab, bei
+  Elevation und Tabelle stand danach noch ein Block. Icons listete die Bereiche als co/ki/wo/es,
+  kanonisch und wie bei Buttons ist co/ki/es/wo. Der Eintrag Design Tokens sitzt jetzt hinter
+  Elevation statt zwischen Icons und Barrierefreiheit, also hinter den vier Themen, deren Werte er
+  festhält. Bei diesen Umzügen ist die Zeilenmenge der Datei unverändert, nur die Reihenfolge.
+  Benennung: Gruppen- und Konzeptnamen deutsch (Foundations → Grundlagen, Components →
+  Komponenten, Page-Patterns → Seitenmuster, Colors → Farben, Typography → Typografie, CSS Design
+  Tokens → Design Tokens, WCAG 2.1 AA & Accessibility → Barrierefreiheit, Hero-Patterns → Hero),
+  etablierte Bauteil- und Token-Namen unverändert. „Brand Areas" bleibt: der Begriff steht 34 Mal
+  in der Doku-Prosa und je zwei Mal in CONTRIBUTING und CHANGELOG, nur die Sektion umzubenennen
+  hieße ein Ding, zwei Wörter. Nav-Label ist jetzt überall die Überschrift oder ihr Anfang
+  (vorher wichen 10 von 165 ab, am weitesten „Verschachtelung" für „Optional: Sub-Hierarchie per
+  `.footer-subtitle`", ohne ein gemeinsames Wort). Für „Name plus Zusatz" gilt ein Trennzeichen:
+  `·` bestimmt näher, `:` steht vor einem Satz, Klammern tragen einen kurzen Einschub.
+- **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen" auf
+  der Startseite und der Topnav-Eintrag „Events" heißen jetzt beide „Veranstaltungen". Für dieselbe Domäne
+  standen auf einer Seite drei Wörter: „Events" (Topnav), „Treffen" (Sektions-Label) und „Alle
+  Veranstaltungen ansehen" (Link am Sektionsende); dazu kommt die Übersichtsseite, die von
+  Veranstaltungen spricht. Mit dem Störer verlinken zwei Elemente derselben Seite auf dasselbe Ziel,
+  und dann sind zwei verschiedene Namen nicht mehr nur uneinheitlich: für Screenreader liest sich das
+  wie zwei verschiedene Inhalte. „Veranstaltungen" ist das Wort, das Übersichtsseite, Detailseite und
+  der Link am Sektionsende schon tragen. Angeglichen sind 27 Topnav-Einträge über alle
+  Beispielseiten, das Sektions-Label, die Karte und der CTA auf der Unternehmens-Übersicht, die
+  Anmeldungs-Einwilligung, der Hero-Eyebrow „Fokusevent" (jetzt „Fokusveranstaltung") sowie die
+  Doku-Prosa inklusive des Komponenten-Namens „Event-Card" (jetzt „Veranstaltungs-Card"). Im Wort
+  „Event" verbleiben nur technische Bezeichner (`gt-event-*`, `sec-events`, `pointer-events`,
+  `data-event-meta`, Bild-Dateinamen) und die internen Team-Aktivitäten auf der Arbeitgeber-Seite
+  („Teamevents", „Kochevents"): das sind andere Dinge, und zwei Dinge dürfen zwei Wörter haben.
+  Kontrolliert: 0 Textüberläufe in vier Breiten, das Wort ist mehr als doppelt so lang wie „Events"
+  und passt in das 240 px breite Dropdown-Panel.
+  CONTRIBUTING § 6 hält die Regel fest: ein Domänenwort pro Domäne über Nav, Sektions-Label und
+  Verweis-Komponenten. Dazu die Notiz, dass die Eyebrow-Form (`--ty-label-xs` + uppercase +
+  `--co-ink`) mit vier Rollen voll belegt ist und keine fünfte Bedeutung mehr tragen soll.
 - **Paletten-Beschriftung auf einen neutralen Streifen unter dem Farbfeld.** Sie saß auf der Farbe,
   und dort ist der Kontrast nicht garantierbar: bei **7 von 100** Stufen liegt die Leuchtdichte so
   in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht (auf `ki-700` schafft selbst
@@ -312,6 +445,74 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   und Umbrüche, nicht nur Farbwerte.
 
 ### Added
+- **Störer (`.stoerer`), Verweiskacheln über dem Hero, nur auf der Startseite.** Ein bis drei
+  Kacheln als Set oben rechts über dem Hero-Bild, je auf einen aktuellen Inhalt: nächste
+  Veranstaltung, neuer Wissensbeitrag, Pressemitteilung, Info. Default sind zwei, drei sind das
+  Maximum. Aufbau je Kachel: Typ-Glyph und Thema-Label in einer Zeile (Eyebrow, `--co-ink`), Titel
+  über zwei Zeilen, Meta-Zeile. Die ganze Kachel ist der Link, ein Tab-Stop, mit Hover und
+  Fokus. Klassen `.stoerer-hero` (Wrapper um Hero und Set) · `.stoerer-set` · `.stoerer-list` ·
+  `.stoerer` · `.stoerer-topic` · `.stoerer-title` · `.stoerer-meta` ·
+  `.stoerer-icon`. `.hero-image` bleibt unverändert und funktioniert weiter ohne Störer.
+  Die Entscheidungen, die das Bauteil tragen:
+  - **Typ-Glyph als Leading-Element im Thema-Label**, nicht rechts hinter einem Trenner. Material
+    trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the item's
+    subject or category", das Trailing-Element trägt „secondary information, actions, or status
+    indicators". Das Glyph ist ein reiner Typ-Marker, also eine Kategorie. Rechts stand es im Slot
+    für Aktionen und Status und konnte auf einer vollständig klickbaren Kachel als Button lesen.
+    NN/g ergänzt die andere Richtung („a text label must be present alongside an icon to clarify
+    its meaning"): die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe und wirkt
+    direkt neben dem Wort, das es doppelt. Gemessener Nebengewinn: ohne Icon-Spalte (57 px aus
+    Glyph, Polsterung, Trenner und Spaltenabstand) wächst die Textspalte von 269 auf 326 px, also
+    um 21 %, und die realistischen Titel der Startseite klammern nicht mehr. Kachelhöhe unverändert
+    126 px, weil das 16-px-Glyph in die 16 px hohe Label-Zeile passt. Preis ist die Salienz: 16 px
+    mit `--icon-stroke-micro` statt 24 px mit `-sm`, vertretbar weil das Glyph `aria-hidden` ist.
+    Damit entfällt `.stoerer-body`, dessen einziger Zweck der durchgehende Trenner war.
+  - **Eine Farbgebung für alle vier Typen**, der Inhaltstyp steht in Label und Icon. Vier
+    Bereichsfarben nebeneinander arbeiten gegeneinander und gegen die Hero-Headline, und das Set
+    liest dann als vier lose Kacheln statt als eines. Akzent ist durchgehend Corporate
+    (`--co-ink`), aus demselben Grund wie bei der Topnav: der Störer ist Chrome über dem Bild, kein
+    Bereichsinhalt. Kein `data-area`.
+  - **Deckende Fläche, kein Glas.** Über einem Foto ist der Grund unbekannt, eine halbtransparente
+    Kachel trägt je nach Bildstelle 2:1 oder 12:1, und `check:contrast` kann das nicht werten, weil
+    der Grund nicht in der Elternkette steht. Auf `--bg-surface` ist der Text messbar: Light 5,52
+    bis 10,92:1, Dark 8,32 bis 10,48:1. Das Bild bleibt sichtbar, weil die Kacheln klein sind, nicht
+    weil sie durchscheinen. Dazu ein `--bd-strong`-Rahmen schon im Light, abweichend von den
+    übrigen Karten: auf einer ausgebrannt hellen Bildstelle leistet der schwarze `--e1`-Schatten
+    keine Kante mehr.
+  - **Gleiche Höhe unabhängig von der Titellänge.** `min-height:2lh` außen reserviert zwei Zeilen,
+    das innere Element kappt per `line-clamp` mit Auslassungszeichen. Ein einzeiliger Titel lässt
+    dadurch sichtbar Luft zur Meta-Zeile, und das ist der gewollte Tausch: sonst springen die
+    Kacheln, sobald das CMS einen längeren Titel liefert. Der vollständige Titel bleibt im
+    zugänglichen Namen des Links, das Kappen ist rein visuell.
+  - **Overlay nach Hero-Breite, nicht nach Fensterbreite.** Bei 21:9 ist die Hero-Höhe die Breite ×
+    9/21; drei Kacheln brauchen 426 px Höhe und damit 994 px Hero-Breite. Eine Media Query auf
+    1025 px ließ ein Dreier-Set in der Doku-Vorschau (Hero 898 px im 1200-px-Fenster) 41 px in die
+    Sub-Sektion ragen. Die Entscheidung hängt deshalb an einer **Container-Query** auf
+    `.stoerer-hero` (Schwelle 1025 px, das Desktop-Tier der Responsive-Strategie), der ersten im
+    System. Ist der Hero schmaler, steht das Set als Block darunter; dasselbe passiert ohne
+    Container-Query-Support, dort greift die Regel nie und der funktionierende Fall bleibt stehen.
+  Barrierefreiheit: `<aside aria-label="Aktuelles">` als benannte Landmark, `<ul>`/`<li>` damit
+  Screenreader die Anzahl melden, Icon `aria-hidden` (es wiederholt das Label). Der Trennpunkt der
+  Meta-Zeile ist `aria-hidden` mit einem `.sr-only`-Komma daneben, sonst wird er verschluckt oder
+  als „Punkt" gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
+  zusätzlich den Titel (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach
+  Bildstelle kaum sichtbar, die Unterstreichung immer.
+  Ziel jeder Kachel ist die **eigene Seite des Inhalts** (Veranstaltungs-Detailseite,
+  Wissensbeitrag, Pressemeldung, Seminar-Landingpage), nie ein Anker der Startseite und kein
+  `target="_blank"`. Ein Anker wäre ein Versprechen, das die Kachel nicht hält: ihr zugänglicher
+  Name kündigt einen konkreten Inhalt an, geliefert würde eine Scroll-Position (WCAG 2.4.4).
+  Existiert für einen Anlass keine eigene Seite, ist er kein Störer-Kandidat.
+  Rolle gegenüber den Vorschau-Sektionen: der Störer ist eine **Abkürzung zum Inhalt**, dasselbe
+  Ziel wie eine Sektion weiter unten ist erlaubt und beabsichtigt. Die Sektion bleibt der kanonische Ort mit Bild
+  und Anreißer. Bedingung ist ein **Domänenwort pro Domäne**: sonst steht derselbe Inhalt zweimal
+  als Link mit verschiedenen Namen auf der Seite, und für Screenreader sind das zwei verschiedene
+  Dinge. Der Titel muss dafür im zugänglichen Namen der Kachel stehen, was der Aufbau von selbst
+  leistet.
+- **Icon `ui-megaphone`** (outline, `--icon-stroke-sm`) für den Störer-Typ Pressemitteilung.
+  `ui-newspaper` heißt im DS „Zeitung / Artikel" und bleibt das Artikel-Glyph für den
+  Wissensbeitrag; eine Verlautbarung braucht ein eigenes Zeichen, sonst ist das Icon zwischen den
+  beiden Typen kein Unterscheidungsmerkmal mehr. Veranstaltung nutzt `ui-calendar-days`, Info
+  `ui-information-circle`, beide bereits vorhanden.
 - **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
   tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
   zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.

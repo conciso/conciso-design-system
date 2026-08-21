@@ -1,6 +1,6 @@
 # Conciso Design System
 
-Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mode**, framework-agnostisch und auf **WCAG 2.1 AA** ausgelegt. Keine Build-Pflicht für die Nutzung — die Komponenten sind CSS-Klassen, die auf semantisches HTML angewendet werden, plus optionales Vanilla-JS für interaktive Muster (Theme-Toggle, Topnav-Dropdowns).
+Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mode**, framework-agnostisch und auf **WCAG 2.1 Stufe AA** ausgelegt (also alle Kriterien der Stufen A und AA; AAA wo ohne Nachteil erreichbar, aber nicht als Bedingung). Keine Build-Pflicht für die Nutzung — die Komponenten sind CSS-Klassen, die auf semantisches HTML angewendet werden, plus optionales Vanilla-JS für interaktive Muster (Theme-Toggle, Topnav-Dropdowns).
 
 > **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe [CHANGELOG](CHANGELOG.md).
 
@@ -20,7 +20,7 @@ open docs/index.html        # macOS
 npx serve .
 ```
 
-Sie enthält 32 Sektionen: Foundations (Marke, Farben, Typografie, Spacing, Elevation, Tokens), alle Komponenten mit Code-Snippets und Do/Don'ts, eine Barrierefreiheits-/Kontrast-Sektion sowie komplette Beispielseiten.
+Sie enthält 35 Sektionen in sechs Gruppen: **Marke** (Markenrad, Brand Areas, Logo, Bildsprache), **Grundlagen** (Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit), **Komponenten** mit Code-Snippets und Do/Don'ts, **Seitenmuster** (Wissensbeitrag, Veranstaltung, Seminar und die zugehörigen Übersichten), **Beispielseiten** als komplette Seiten und **Referenzen**.
 
 ## Nutzung im eigenen Projekt
 

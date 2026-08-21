@@ -91,7 +91,14 @@
     "name": "Zeitung / Artikel",
     "usage": [
       "ep-card-icon @co",
-      "ep-card-icon @ki"
+      "ep-card-icon @ki",
+      "stoerer-icon (Wissensbeitrag)"
+    ]
+  },
+  "ui-megaphone": {
+    "name": "Megafon / Verlautbarung",
+    "usage": [
+      "stoerer-icon (Pressemitteilung)"
     ]
   },
   "ui-user-group": {
@@ -124,7 +131,8 @@
     "name": "Kalender (Tage)",
     "usage": [
       "ep-card-icon @co",
-      "col-3"
+      "col-3",
+      "stoerer-icon (Veranstaltung)"
     ]
   },
   "ui-bolt": {
@@ -190,7 +198,9 @@
   },
   "ui-information-circle": {
     "name": "Info im Kreis",
-    "usage": []
+    "usage": [
+      "stoerer-icon (Info)"
+    ]
   },
   "co-mark": {
     "name": "Corporate – Logo-Zeichen „C.\" (nur mit Logo verwenden)",

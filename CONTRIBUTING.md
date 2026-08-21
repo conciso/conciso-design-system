@@ -10,7 +10,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 
 - **Tokens statt Hardcodes.** Nie rohe Hex-/px-Werte, wo ein Token existiert. Farben, Abstände, Radien, Typo, Elevation kommen aus `css/tokens.css`.
 - **Beide Modi mitdenken.** Jede Änderung in Light **und** Dark prüfen. Leitfrage bei fast jedem Bug dieser Codebasis: *„Flippt der Hintergrund mit dem Theme — und hat das Element eine andere Flächen-Stufe als sein Grund?"*
-- **AA ist Pflicht.** Normaltext ≥ 4,5:1, Großtext/UI ≥ 3:1. Disabled & rein dekorative (`aria-hidden`) Elemente ausgenommen.
+- **Konformitätsstufe AA ist Pflicht, AAA ist Zugabe.** Stufe AA schließt Stufe A ein: gefordert sind **alle** Erfolgskriterien beider Stufen, und zwar für jedes Thema, nicht nur für Kontrast (also auch Tastaturbedienung, Fokus, Struktur, Beschriftung, Bewegung, Zielgrößen). Für Kontrast konkret: Normaltext ≥ 4,5:1, Großtext/UI ≥ 3:1; disabled & rein dekorative (`aria-hidden`) Elemente ausgenommen. **AAA** nehmen wir mit, wo es ohne Nachteil für Gestaltung oder Verständlichkeit erreichbar ist (die meisten Textfarben liegen darüber, Touch-Targets bei 44 px statt der geforderten 24 px), aber es ist **kein Abnahmekriterium**: an einem AAA-Kriterium scheitert kein PR. Wer AAA an einer Stelle bewusst nicht erfüllt, schreibt es dazu, statt es offen zu lassen (Beispiel: der 2-px-Hover-Lift auf klickbaren Karten gegen 2.3.3).
 - **Elevation = Interaktivität.** Schatten ist ein Affordanz-Signal, kein Schmuck (siehe §4).
 
 ---
@@ -18,7 +18,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 ## 2. Namens-Konventionen
 
 **CSS-Klassen**
-- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular)
+- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular), `.stoerer*` (Störer über dem Hero)
 - Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen).
   Trägt eine Komponente eine Bereichsfläche, braucht sie **alle vier** Varianten, nicht nur die gerade
   benötigte. Sonst fällt ein Bereichsformular still auf den Corporate-Default zurück und trägt zwei
@@ -64,7 +64,8 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 ## 4. Elevation = Interaktivität
 
-- **Statische** Cards/Flächen ruhen **flach** mit Rahmen (`--e0` + `--bd`/`--bd-strong`).
+- **Statische** Cards/Flächen ruhen **flach** mit Rahmen (`--e0` + `--bd-strong`).
+- **`--bd` und `--bd-strong` sind zwei Rollen, nicht zwei Stärken.** Beide sind 1 px. `--bd-strong` ist die **Außenkante einer Fläche** (Karte, Kasten, schwebendes Panel), `--bd` die **Trennlinie innerhalb** eines Bauteils (Card-Footer, Testimonial-Footer, Caption-Kante, Tabellenzeile). Die Kante muss mehr tragen, weil sie eine Fläche gegen ihren Grund abgrenzt; die Trennlinie liegt innerhalb einer schon abgegrenzten Fläche. Wer eine neue Fläche baut, nimmt `--bd-strong`, ohne zu überlegen. Ausgenommen sind **Bedienelemente**: Formularfelder und Buttons haben mit `--field-border` (4,13:1) ihr eigenes Token, weil für sie WCAG 1.4.11 mit 3:1 gilt, und Pills/Chips tragen ihren eigenen, kräftigeren Rand.
 - **Interaktive** Elemente (Links, klickbare Cards `.ep-card-link`) tragen Schatten (`--e1`) und heben auf Hover (`--e3`).
 - Begründung: Schatten signalisiert „anfassbar". Statische Info-Cards mit Schatten täuschen Interaktivität vor.
 - **Entscheidend ist die Fläche, nicht der Inhalt.** Eine Karte mit Buttons oder Text-Links im Footer ist **statisch**: die Buttons sind die Interaktion, die Fläche führt nirgendwohin. Sie ruht flach. Schatten bekommt sie erst, wenn sie selbst der klickbare Bereich ist, also `<a class="card card-elevated">` oder `<a class="ep-card ep-card-link">`.
@@ -76,7 +77,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 - **Nur zwei Flächen-Stufen:** `--bg-page` (Basis) < `--bg-surface` (gehoben). **Keine dritte Stufe.** Ein Element hebt sich nur ab, wenn sein Grund eine *andere* Stufe hat.
 - **Section-Rhythmus:** `.ep-section` ist im Dark pauschal `bg-page`; `n-50`-Sektionen werden auf `bg-surface` gehoben; getönte Hero/CTA-Sektionen behalten ihren Bereichs-`-50`-Tint (co/ki/es/wo).
-- **Der Sektions-Rhythmus läuft im Dark wie im Light, ohne Ausnahme für Karten.** `n-50`-Sektionen werden im Dark auf `bg-surface` gehoben, alle, auch kartentragende. Eine gehobene Sektion hat damit denselben Ton wie ihre Karten, und das ist in Ordnung: im Light steht die weiße Karte auf der weißen Sektion genauso, sie liest über ihren **Rand**. Im Dark trägt der Rand `--bd-strong-c` (4,21:1 gegen die Kartenfläche) gegenüber 1,10:1 im Light. Deshalb braucht jede Kartenfläche im Dark einen Rand: `.card`, `.ep-card` und `.ep-card-link` bekommen ihn in `dark-mode.css`, auch die Link-Karten, die im Light `border:none` tragen und sich auf `--e1` verlassen. **Neue Kartenkomponente → Rand im Dark mitgeben.** Die Sektion zu senken (früher `.ep-section-cards`) ist kein Weg: gemessen über die 24 Beispielseiten kostet das 63 statt 20 verschmolzene Sektionsübergänge, bei 17 im Light.
+- **Der Sektions-Rhythmus läuft im Dark wie im Light, ohne Ausnahme für Karten.** `n-50`-Sektionen werden im Dark auf `bg-surface` gehoben, alle, auch kartentragende. Eine gehobene Sektion hat damit denselben Ton wie ihre Karten, und das ist in Ordnung: im Light steht die weiße Karte auf der weißen Sektion genauso, sie liest über ihren **Rand**. Damit das trägt, ist die Außenkante `--bd-strong`: im Light 2,25:1 gegen Weiß und 2,09:1 gegen eine `n-50`-Sektion, im Dark 4,21:1 gegen die Kartenfläche. Vorher stand dort `--bd` mit 1,10:1, die Begründung stützte sich also auf eine Linie, die man nicht sah. Deshalb braucht jede Kartenfläche im Dark einen Rand: `.card`, `.ep-card` und `.ep-card-link` bekommen ihn in `dark-mode.css`, auch die Link-Karten, die im Light `border:none` tragen und sich auf `--e1` verlassen. **Neue Kartenkomponente → Rand im Dark mitgeben.** Die Sektion zu senken (früher `.ep-section-cards`) ist kein Weg: gemessen über die 24 Beispielseiten kostet das 63 statt 20 verschmolzene Sektionsübergänge, bei 17 im Light.
 - **Getönte Flächen im Dark: zwei Token, zwei Aufgaben.** `--XX-50` ist die **kleine Füllung** (Badge, Pill, Icon-Kachel) und liegt bei 9,8:1, also 1,78:1 über der Seite und 1,32:1 über Karten. `--XX-band` ist die **große Sektionsfläche** (Hero, CTA-Band) und liegt bei 16,5:1, knapp über der Seite (1,06:1, dort trennt der Farbton) und weiterhin dunkler als die Karten darauf (1,27:1). Im Light sind beide identisch. Grund für die Trennung: ein Band muss *dunkler* als seine Karten bleiben, eine Füllung *heller* als ihr Grund, und bei `bg-page` auf 17,5:1 reicht der Spielraum nicht für beides. Neue getönte Flächen also nach Größe entscheiden, nicht nach Bereich. Sättigung **unter 0,70** halten (aktuell 0,60), sonst „vibriert" die Fläche auf dunklem Grund.
 - **Bereichsfarbe über die Klasse setzen, nie inline.** `.btn-filled` ohne `.btn-co`/`-ki`/`-es`/`-wo`, dafür mit einem inline gesetzten `--c500`, sieht im Light korrekt aus und bricht im Dark: die Dark-Regel für die **Fläche** hängt an der Bereichsklasse, die für die **Textfarbe** an `.btn-filled`. Ohne Klasse greift nur die zweite, und dunkler Text landet auf dunkler Fläche (gemessen 3,51:1). `npm run check:dark-states` kann das nicht sehen, weil der Bruch nicht in einer Regel steht, sondern im Markup entsteht.
 - **Eine textführende Füllung, die keine Fläche mehr bildet, ist ein Fehler.** Badge, Pill und Chip werden als Bauteil erkannt, weil ihre Fläche sich vom Grund abhebt (dekorative Flächen siehe oben, die dürfen zart bleiben). Faustwert: mindestens **1,3:1** gegen jeden Grund, auf dem sie vorkommen können (Seite *und* Karte). Darunter liest das Element nur noch als farbiger Text. Gegenprobe immer auf beiden Gründen rechnen, nicht nur auf einem. Dafür gibt es **`--XX-fill`**: Pill und Bereichs-Badge füllen damit, nicht mit `--XX-50` (das ist im Light der Sektions-Tint und trug als Füllung nur 1,06 bis 1,14:1). Neue getönte Bauteil-Füllung → `--XX-fill`.
@@ -85,7 +86,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 - **Schwebende Panels (Menüs, Popover) tragen im Dark einen `--bd-strong-c`-Rand.** Im Light grenzt `--e3` sie vom Inhalt darunter ab; auf der tiefen Basisfläche leistet ein schwarzer Schatten das nicht mehr. Gemessen stand ein Topnav-Menü über einem Hero-Foto nur 1,34:1 gegen die hellste Stelle daneben. Der Rand ist unabhängig davon lesbar, was zufällig hinter dem Panel liegt. Für reine Farbwerte gibt es `--bd-c` / `--bd-strong-c`; `--bd` und `--bd-strong` sind Shorthands und funktionieren in `border-color` nicht.
 - **Tiefe kommt im Dark primär aus der Fläche, nicht aus dem Schatten.** Auf 17,5:1 tragen die schwarzen `--e*`-Schatten wenig. Interaktive Flächen heben deshalb zusätzlich auf `--bg-surface-hover`. Das ist ein **Zustand**, keine dritte statische Stufe.
 - **`dark-mode.css` steht komplett in `@media screen`**, Token-Block und Komponenten-Regeln. Im Druck greifen dadurch die Light-Werte aus `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe (`co-200`, `ki-200`, `es-100`, heller `tx-primary`), die auf dem hellen Druckgrund 1,2 bis 1,9:1 trägt. Neue Dark-Regeln und neue Dark-Tokens gehören **innerhalb** des Blocks, sonst drucken sie dunkel mit.
-- **Trennlinien & Rahmen:** **nie** rohes `var(--XX-100)` oder `var(--n-100)` als Border — immer **`var(--bd)`** (theme-aware: Light `n-100`, Dark `#6F7A89`). Rohes `-100` ist im Dark entweder eine grelle helle Linie (getönt) oder unsichtbar (neutral, gemessen 1,18:1 gegen eine Karte statt 2,99:1). Der neutrale Fall ist der tückischere: im Light löst `--bd` genau auf `--n-100` auf, der Rahmen sieht dort also korrekt aus und die Abweichung fällt erst im Dark auf. Wer nur die Farbe braucht, nimmt `--bd-c` / `--bd-strong-c`.
+- **Trennlinien & Rahmen:** **nie** rohes `var(--XX-100)` oder `var(--n-100)` als Border — immer **`var(--bd)`** für Trennlinien und **`var(--bd-strong)`** für Außenkanten (Rollen-Regel in §4) (theme-aware: Light `n-100`, Dark `#6F7A89`). Rohes `-100` ist im Dark entweder eine grelle helle Linie (getönt) oder unsichtbar (neutral, gemessen 1,18:1 gegen eine Karte statt 2,99:1). Der neutrale Fall ist der tückischere: im Light löst `--bd` genau auf `--n-100` auf, der Rahmen sieht dort also korrekt aus und die Abweichung fällt erst im Dark auf. Wer nur die Farbe braucht, nimmt `--bd-c` / `--bd-strong-c`.
 - **`data-accent` tönt nur den Inhalt**, nicht die Chrome: Footer- und Topnav-`.t-co` werden auf `co` zurückgesetzt (`[data-accent] .ep-topnav .t-co` etc.). Die Nav bleibt überall Corporate.
 - **`data-accent` sitzt an jedem Container**, der einen Bereichsblock aufspannt (Seiten-Root `.ep-page`, aber auch nur der Wrapper um einen Block wie das Buchungsformular, eine Anmeldesektion oder ein Bereichsformular). Für einzelne Links im Block **keine** Inline-Bereichsfarbe schreiben, die bricht im Dark-Mode.
 - **Zustände (`:hover`, `:focus`, `:active`) brauchen im Dark einen eigenen Override.** `dark-mode.css` wird **vor** `components.css` geladen (Reihenfolge ist Teil der API). Eine Zustands-Regel in `components.css` gewinnt dadurch bei gleicher Spezifität gegen die Dark-Grundregel — setzt sie einen nicht mitflippenden Ton, läuft der Zustand im Dark dunkel-auf-dunkel. Faustregel: Der Zustand macht heller, nicht dunkler. Den Override mit `[data-theme="dark"]` davor schreiben, dadurch liegt er automatisch eine Spezifitätsstufe höher und die Ladereihenfolge spielt keine Rolle mehr. `npm run check:dark-states` prüft das und läuft in der Pipeline; bewusste Ausnahmen stehen mit Begründung im Skript.
@@ -103,6 +104,8 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 - **Deutsche Typografie:** Anführungszeichen „… " (99 unten öffnend, 66 oben schließend; U+201E / U+201C), **nicht** gerade ASCII-Quotes.
 - **Keine Gedankenstriche** (— / –) in Copy-Texten → Komma, Doppelpunkt, Punkt oder Klammern. (Begründung: Markenwert „Ruhig" + gerade/strichlose Interpunktion liest sich menschlicher.)
 - Hierarchie über **Weight/Case/Color**, nicht über Mini-Schriftgrößen.
+- **Die Eyebrow-Form ist voll belegt: keine fünfte Bedeutung darauf.** `--ty-label-xs` + `uppercase` + `letter-spacing:.09em` + `--co-ink` ist pixelgleich in vier Rollen im Einsatz: `.ep-hero-eyebrow` (Haltung, „Verbunden gedacht") · `.ep-section-label` (Sektions-Thema, „Was wir tun") · `.ep-card-eyebrow` (Brand Area, in Bereichsfarbe) · `.stoerer-topic` (Inhaltstyp, „Nächste Veranstaltung"). Aufgelöst wird das nur durch die Position (in einer Kachel, über einer Sektion), nicht durch die Form. Das trägt, ist aber die Grenze: eine neue Komponente, die noch eine Bedeutung auf dieselbe Form legt, macht die kleinste Label-Ebene beliebig. Wer eine fünfte Rolle braucht, gibt ihr ein eigenes Unterscheidungsmerkmal (Glyph vor dem Label, neutrale statt farbiger Schrift) oder benutzt eine vorhandene Rolle.
+- **Ein Domänenwort pro Domäne.** Nav, Sektions-Label und Verweis-Komponenten benennen dieselbe Sache mit demselben Wort. Auf der Startseite standen für Veranstaltungen zeitgleich „Events" (Nav), „Treffen" (Sektion) und „Alle Veranstaltungen ansehen" (Link). Das ist nicht nur unsauber: sobald zwei Elemente auf **dasselbe Ziel** verlinken, stehen dort zwei Links mit verschiedenen Namen, und für Screenreader sind das zwei verschiedene Dinge. Gegenprobe: das Wort auf der Seite suchen und die Varianten zählen. **Die Regel gilt pro Domäne, nicht pro Vokabel:** „Teamevents" und „Kochevents" auf der Arbeitgeber-Seite bleiben stehen, weil sie interne Team-Aktivitäten bezeichnen und nicht die Veranstaltungen mit Übersichtsseite, Anmeldung und Nav-Eintrag. Zwei Dinge, zwei Wörter ist richtig; ein Ding, zwei Wörter ist der Fehler.
 
 ---
 
@@ -110,6 +113,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 - Alle `padding`/`margin`/`gap` aus der Skala `--s1 … --s16`. Ausnahmen nur für Touch-Targets, Hairlines, Icon-Maße, Container-Breiten oder optische Korrekturen — und dann **mit Kommentar**.
 - Akzentbilder auf Content-Breite via `.ep-media-band` (nicht full-bleed), nur der Hero ist randlos.
+- **Hängt ein Layout am Platz *in* einem Bauteil, entscheidet die Container-Breite, nicht die Fensterbreite.** Eine Media Query fragt das Fenster; ob ein Overlay in sein Bezugselement passt, sagt aber dessen eigene Breite. Der Störer hing zuerst an `@media (min-width:1025px)` und ragte in der Doku-Vorschau 41 px in die nächste Sektion, weil der Hero dort 898 px breit war statt 1200. Jetzt trägt `.stoerer-hero` ein `container-type:inline-size` und die Regel steht in `@container`. Faustregel: Breakpoints auf **Viewport** für Seiten-Rhythmus (Sektionsabstände, Spaltenzahl), auf **Container** für alles, was in ein Elternelement passen muss. Ohne `@container`-Support greift die Regel nicht — der Default-Zweig muss deshalb der funktionierende Fall sein (beim Störer: Set als Block unter dem Hero).
 
 ---
 
@@ -132,11 +136,56 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
 3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
-4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung", Do/Don't).
+4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung", Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **CHANGELOG.md** ergänzen.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
+
+---
+
+## 11. Doku-Struktur (`docs/index.html`)
+
+Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einziger Index dient. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
+
+**Die sechs Gruppen.** Reihenfolge und Inhalt:
+
+| Gruppe | Was hineingehört |
+|---|---|
+| Marke | Markenrad, Brand Areas, Logo, Bildsprache |
+| Grundlagen | Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit. Design Tokens stehen hinter den Themen, deren Werte sie festhalten; Barrierefreiheit als querschnittliches Thema zuletzt |
+| Komponenten | einzelne Bauteile, in der Folge Aktion, Kennzeichnung, Eingabe, Feedback, Container, Daten, Editorial, Medien, Seiten-Chrome (Navigation, Hero, Footer in Lesereihenfolge) |
+| Seitenmuster | ganze Seitentypen samt ihrer Übersichten |
+| Beispielseiten | fertige Seiten als Tab-Leiste |
+| Referenzen | Quellen |
+
+**Nav-Eintrag ist Pflicht.** Jede `.ds-section` braucht ein `.nav-item`, jede `h2.group-title` einen `.nav-sub-item`. Keine Überschrift ohne Eintrag, kein Eintrag ohne Ziel.
+
+**Anker-Schema** `gt-<sektion>-<thema>`. Das Präfix ist die eigene Sektion, auch wenn der Inhalt von woanders kam. `gt-` ist reserviert für Überschriften mit Nav-Eintrag. Ein Anker, der nur Sprungziel eines Querverweises ist und keine Gruppe eröffnet, bekommt einen Namen ohne dieses Präfix (`colors-semantik`, `seminar-termine`).
+
+**Reihenfolge innerhalb der Sektion.** Bei Seitenmustern eröffnet „Aufbau", danach die Bausteine in der Lesereihenfolge der fertigen Seite. „Verwendung" schließt ab, immer zuletzt. Dokumentiert eine Sektion mehrere Bauteile, heißt der Block `<Bauteil> · Verwendung` (z. B. „Bild-Carousel · Verwendung", „Störer · Verwendung"), damit beide Einträge unterscheidbar bleiben.
+
+**Bereichsreihenfolge** überall co · ki · es · wo, wie in §2.
+
+**Nav-Label** ist die Überschrift oder ihr Anfang. Kürzen ist erlaubt, umformulieren nicht: wer in der Sidebar ein anderes Wort liest als über dem Absatz, sucht zweimal. Das gilt auch für Querverweise im Fließtext, die eine Sektion beim Namen nennen.
+
+**Ein Trennzeichen pro Aufgabe.** `·` bestimmt einen Namen näher („Bandstreifen · flache Variante"). `:` steht nur, wenn ein Satz folgt („Tonalität: Du statt Sie"). Klammern nur für einen kurzen Einschub („Shape (5 Stufen)"). Nicht mischen, sonst tragen drei Formen dieselbe Bedeutung.
+
+**Sprache.** Gruppen- und Konzeptnamen deutsch (Grundlagen, Komponenten, Farben, Typografie, Barrierefreiheit). Etablierte Bauteil- und Token-Namen bleiben in der Form, die im CSS und im Storybook steht (Buttons, Cards & Teaser, Dropdowns, Spacing, Elevation, Brand Areas). Maßstab ist nicht die Sprache, sondern ob der Begriff im System schon einen Namen hat: dann diesen, sonst deutsch.
+
+**Heading-Ebenen** `h1.sec-title` → `h2.group-title` → `h3`, ohne Stufe zu überspringen. Anker sitzen auf Überschriften. Einzige Ausnahme ist die Tab-Leiste der Beispielseiten: sie ist ein Bedienelement, keine Gliederung, ihre Einträge sind deshalb Buttons und die Sidebar verlinkt den ersten Tab der Gruppe.
+
+**So prüfst du es** (vor dem Commit, ersetzt kein Gate):
+
+```bash
+# Nav-Links ohne Ziel
+rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/nav
+rg -o '\sid="([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/ids
+comm -23 /tmp/nav /tmp/ids
+
+# gt-Überschriften ohne Nav-Eintrag
+rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/nav
+```
 
 ---
 
@@ -146,7 +195,8 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 - [ ] Border/Trennlinien über `var(--bd)`, nicht rohes `-100`
 - [ ] Typo aus der 16/14/12-Skala, keine Freihand-Größen
 - [ ] In **Light und Dark** geprüft (Flächen-Stufen, Kontrast)
-- [ ] AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar
+- [ ] Stufe A und AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar; AAA optional und, wenn bewusst verfehlt, notiert
 - [ ] `npm run check:contrast` und `npm run check:dark-states` grün; nach Layout-Änderungen den geänderten Bereich in **beiden Modi und zwei Breiten** ansehen (Kanten, Umbrüche, nicht nur Farbwerte)
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert
+- [ ] Nav-Eintrag gesetzt, kein Link ohne Ziel, keine Überschrift ohne Eintrag (§11)

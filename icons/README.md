@@ -101,7 +101,7 @@ Karten. Das Marken-Glyph ist dem Verweis auf den Bereich selbst vorbehalten.
 | `ui-briefcase-2` | Aktenkoffer (Variante) | outline | ep-section |
 | `ui-briefcase` | Aktenkoffer | outline (1.25) | ep-card-icon @co |
 | `ui-building-office` | Bürogebäude | outline (1.5) | ep-tl-icon |
-| `ui-calendar-days` | Kalender (Tage) | outline (1.25) | ep-card-icon @co, col-3 |
+| `ui-calendar-days` | Kalender (Tage) | outline (1.25) | ep-card-icon @co, col-3, stoerer-icon (Veranstaltung) |
 | `ui-calendar` | Kalender | outline (1) | card-meta |
 | `ui-caret-down` | Caret nach unten (Nav-Toggle) | outline | ep-tab-toggle, ep-nav-btn ep-nav-item-toggle, ep-nav-btn ep-nav-item-toggle t-co |
 | `ui-chart-bar` | Balkendiagramm | outline | ep-feature-icon @co |
@@ -126,7 +126,7 @@ Karten. Das Marken-Glyph ist dem Verweis auf den Bereich selbst vorbehalten.
 | `ui-folder` | Ordner | outline (1.25) | ep-card-icon @co |
 | `ui-hand-raised` | Erhobene Hand | outline (1.25) | ep-card-icon @co |
 | `ui-heart` | Herz | outline | ep-feature-icon @co |
-| `ui-information-circle` | Info im Kreis | outline (1.25) | — |
+| `ui-information-circle` | Info im Kreis | outline (1.25) | stoerer-icon (Info) |
 | `ui-link` | Kettenglied / Link | outline (1.5) | ep-feature-icon @ki |
 | `ui-list-bullet` | Aufzählungsliste | outline | — |
 | `ui-lock-closed-2` | Schloss (Variante) | outline (1.25) | ep-card-icon @ki |
@@ -134,7 +134,8 @@ Karten. Das Marken-Glyph ist dem Verweis auf den Bereich selbst vorbehalten.
 | `ui-magnifying-glass` | Lupe | outline (1.25) | ep-card-icon @ki |
 | `ui-map-pin-2` | Standort-Pin (Variante) | outline (1.25) | col-3 |
 | `ui-map-pin` | Standort-Pin | outline (1) | — |
-| `ui-newspaper` | Zeitung / Artikel | outline (1.25) | ep-card-icon @co, ep-card-icon @ki |
+| `ui-megaphone` | Megafon / Verlautbarung | outline (1.25) | stoerer-icon (Pressemitteilung) |
+| `ui-newspaper` | Zeitung / Artikel | outline (1.25) | ep-card-icon @co, ep-card-icon @ki, stoerer-icon (Wissensbeitrag) |
 | `ui-pause` | Pause | solid | logo-carousel-pause |
 | `ui-play` | Play | solid | icon-pause |
 | `ui-puzzle-piece` | Puzzleteil | outline (1.5) | ep-tl-icon |

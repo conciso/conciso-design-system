@@ -9,8 +9,9 @@ So bindest du das Conciso Design System in ein Projekt ein. Es ist **CSS-first u
 - [4. JavaScript (optional)](#4-javascript-optional)
 - [5. Erste Beispiele](#5-erste-beispiele)
 - [6. Tokens nutzen](#6-tokens-nutzen)
-- [7. Icons nutzen](#7-icons-nutzen)
-- [8. Frameworks](#8-frameworks)
+- [7. Einheiten & medienübergreifende Nutzung (Web / Print / PowerPoint)](#7-einheiten--medienübergreifende-nutzung-web--print--powerpoint)
+- [8. Icons nutzen](#8-icons-nutzen)
+- [9. Frameworks](#9-frameworks)
 
 ---
 
@@ -99,7 +100,7 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
 | `--co-band` u. a. | `= --XX-50` | eigener, dunklerer Ton | Fläche großer getönter Sektionen (Hero, CTA-Band). Im Dark muss ein Band **dunkler** bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung dagegen **heller** als ihr Grund. Ein Wert kann beides nicht leisten, deshalb zwei Token: kleine Füllungen nutzen weiter `--XX-50`. |
 | `--co-ink` u. a. | `-700` (ki `-800`) | `-200` (es `-100`) | **Farbiger Text und farbige Icons.** Das einzige Token, mit dem farbiger Text in beiden Modi trägt. Ein fest gesetztes `-700` hat auf Weiß 5,52:1 und im Dark 3,17:1, ein fest gesetztes `-200` umgekehrt. Es gibt `--co-ink`, `--ki-ink`, `--es-ink`, `--wo-ink`. |
 | `--co-fill` u. a. | `= --XX-50` | eigener, gehobener Ton | **Füllung von Pill und Bereichs-Badge.** Light zarter Tint mit kräftiger dunkler Schrift, Dark ein gehobener Ton, weil dort helle Schrift auf dunklem Tint liegt. Für dekorative Flächen (Icon-Kachel) direkt `--XX-50` nehmen, die müssen sich nicht abheben. |
-| `--bd-c` / `--bd-strong-c` | `n-100` / `n-200` | `#6F7A89` / `#8694A5` | Die reinen Rahmenfarben. `--bd` und `--bd-strong` sind Shorthands (`1px solid …`) und lassen sich nicht in `border-color` einsetzen; Regeln, die nur die Farbe brauchen, nehmen die `-c`-Variante. |
+| `--bd-c` / `--bd-strong-c` | `n-100` / `n-300` | `#6F7A89` / `#8694A5` | Zwei **Rollen**, nicht zwei Stärken (beide 1 px): `--bd` ist die Trennlinie **innerhalb** eines Bauteils, `--bd-strong` die **Außenkante** einer Fläche. Eine neue Karte oder ein neuer Kasten nimmt `--bd-strong`. Die `-c`-Varianten halten die reine Farbe, weil `--bd` / `--bd-strong` Shorthands (`1px solid …`) sind und in `border-color` nicht funktionieren. |
 
 ## 4. JavaScript (optional)
 
@@ -148,7 +149,7 @@ Im CSS direkt über `var(--token)`:
 }
 ```
 
-Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Tokens".
+Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Design Tokens".
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 

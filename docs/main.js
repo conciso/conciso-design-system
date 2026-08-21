@@ -39,9 +39,19 @@
     if (initialActive) updateSubNav(initialActive.dataset.section);
   }
 
-  /* ── Sub-nav anchor clicks: smooth scroll ── */
+  /* ── Sub-nav anchor clicks: smooth scroll ──
+     Die Beispielseiten-Einträge tragen zusätzlich data-ep. Bei ihnen öffnet der Klick die
+     Beispielseite der Gruppe (activateExamplePage scrollt selbst und respektiert dabei
+     prefers-reduced-motion), statt nur an die Tab-Leiste zu springen: fünf der sechs
+     Gruppen-Labels liegen in derselben Grid-Zeile, ein reiner Anker führte also fünfmal
+     an dieselbe Stelle. Ohne JS bleibt der href als Sprungziel auf den ersten Tab. */
   document.querySelectorAll('.nav-sub-item').forEach(function(link) {
     link.addEventListener('click', function(e) {
+      if (link.dataset.ep) {
+        e.preventDefault();
+        activateExamplePage(link.dataset.ep);
+        return;
+      }
       var targetId = link.getAttribute('href').slice(1);
       var target = document.getElementById(targetId);
       if (target) {

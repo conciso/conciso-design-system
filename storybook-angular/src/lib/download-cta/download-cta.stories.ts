@@ -11,8 +11,9 @@ const meta: Meta<DownloadCtaComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
-    // Bekannter CSS-Kern-Befund (.cta-dl-eyebrow --co-600, 3.28:1): im Panel weiter
-    // sichtbar, blockiert den Test-Runner aber nicht, bis der Kern gefixt ist.
+    // Der Grund für dieses 'todo' ist weg: .cta-dl-eyebrow trug --co-600 mit 3.28:1 und
+    // nutzt jetzt --co-700 mit 5,52:1 auf Weiß. Wieder scharf schalten, sobald der
+    // Test-Runner einmal grün durchgelaufen ist.
     a11y: { test: 'todo' },
     docs: {
       description: {
