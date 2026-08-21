@@ -2072,7 +2072,15 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .stoerer-hero{position:relative;container-type:inline-size;--stoerer-w:22.5rem}
 .stoerer-set{padding:var(--s8)}
 .ep-page .stoerer-set{padding-inline:max(var(--s8),calc(50% - 640px))}
-.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(16.25rem,1fr));gap:var(--s3)}
+/* Mobil derselbe Innenabstand wie .ep-section: 32 → 24px. Im Block-Zweig steht das Set in der
+   Sektionslogik der Seite, nicht mehr als Overlay, und folgt deshalb deren Rhythmus. */
+@media(max-width:768px){
+  .stoerer-set,.ep-page .stoerer-set{padding-inline:var(--s6)}
+}
+/* min(16.25rem,100%) statt 16.25rem als Boden: bei 320px Viewport (WCAG 1.4.10 Reflow) ist der
+   Grund nur 256px breit, ein starrer 260px-Boden ragte dort in die Polsterung. Mit min() weicht die
+   Spalte auf 100% aus, statt den Grund zu sprengen. */
+.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(16.25rem,100%),1fr));gap:var(--s3)}
 /* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Eine Spalte:
    Thema, Titel, Meta. Das Typ-Glyph sitzt IM Thema-Label, nicht in einer eigenen Spalte rechts.
 

@@ -24,6 +24,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Nebenbefund, der **nicht** vom Störer kommt: bei 200 % läuft die Doku-Seite horizontal über
   (1498 statt 1440 px). Mit und ohne Störer identisch gemessen, kein Element der Beispielseite ragt
   über den Viewport; das ist die Doku-Shell (252-px-Sidebar plus Content).
+- **Reflow bei 320 px strukturell abgesichert (WCAG 1.4.10).** Das Auto-Fit-Grid hatte einen
+  starren Boden von `16.25rem`; bei 320 px Viewport ist der Grund nur 256 px breit, die Spalte ragte
+  also 4 px in die Polsterung. Es entstand kein horizontaler Überlauf, weil das Padding es auffing —
+  das hielt aber nur zufällig. Jetzt `minmax(min(16.25rem,100%),1fr)`, die Spalte weicht auf 100 %
+  aus statt den Grund zu sprengen. Dazu mobil (≤ 768 px) derselbe Innenabstand wie `.ep-section`
+  (`--s6` statt `--s8`): im Block-Zweig steht das Set in der Sektionslogik der Seite und folgt deren
+  Rhythmus. Gemessen bei 320/360/400/768 px: kein Überlauf, ein bzw. zwei Spalten.
 - **`.stoerer` in die `forced-colors`-Rahmenliste aufgenommen.** Im Windows-Kontrastmodus entfernt
   das OS `box-shadow`; `base.css` stellt für `.card` und `.card-elevated` deshalb `2px solid
   CanvasText` her. Der Störer fehlte in der Liste und behielt nur seinen 1-px-Rand — genau im
