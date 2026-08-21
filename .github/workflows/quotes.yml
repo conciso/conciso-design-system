@@ -1,8 +1,10 @@
-# Anführungszeichen-Gate: findet kaputte Paare „…" (öffnend typografisch, schließend
-# gerades ASCII-") in deutschem Fließtext, siehe CONTRIBUTING § 6 und
+# Anführungszeichen-Gate: findet Paare, die typografisch öffnen (U+201E) und mit dem
+# geraden ASCII-Zeichen schließen statt mit U+201C, siehe CONTRIBUTING § 6 und
 # scripts/check-quotes.mjs. Bewusst OHNE Pfadfilter: Copy und Kommentare liegen überall
 # (docs/, css/, storybook-angular/, Markdown auf Root-Ebene), und der Check ist
 # dependency-frei und in Sekunden durch.
+# Das Fehlermuster steht hier als U+-Notation, nicht als Glyphenpaar — der Check prüft
+# diese Datei mit.
 name: Anführungszeichen
 
 on:
@@ -16,7 +18,7 @@ concurrency:
 
 jobs:
   check:
-    name: Kaputte „…"-Paare finden
+    name: Kaputte Anführungszeichen-Paare finden
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
