@@ -933,8 +933,9 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font:var(--ty-label-xs);color:var(--co-700);text-align:center}
 
 /* ── Token ── */
+/* Die Token-Blöcke tragen ihre Überschrift als .group-title wie jede andere Doku-Sektion,
+   damit sie in der Sub-Navigation erscheinen und die Heading-Ebene nicht überspringen. */
 .token-section{margin-bottom:var(--s8)}
-.token-section h3{font:var(--ty-title-sm);margin-bottom:var(--s3)}
 .ico-48{width:48px;height:48px}
 
 /* ── Example Pages ── */
