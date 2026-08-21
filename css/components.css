@@ -822,30 +822,43 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .stoerer-set{padding:var(--s8)}
 .ep-page .stoerer-set{padding-inline:max(var(--s8),calc(50% - 640px))}
 .stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s3)}
-/* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Zwei Flex-Spalten:
-   Textspalte plus Icon-Spalte. Ein früherer Grid-Aufbau ließ das Icon per grid-row:1/-1 über alle
-   Zeilen laufen — ohne explizite grid-template-rows löst -1 aber auf die erste Zeilenlinie auf, das
-   Icon saß in Zeile 1 und der Trenner reichte nur über das Thema-Label (gemessen 24px statt 108px).
-   Mit Flex spannt der Trenner die volle Texthöhe, egal wie viele Zeilen die Kachel führt. */
-.stoerer{display:flex;gap:var(--s4);padding:var(--s3) var(--s4);border-radius:var(--r-md);background:var(--bg-surface);border:var(--bd-strong);box-shadow:var(--e1);text-decoration:none;color:inherit;transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
+/* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Eine Spalte:
+   Thema, Titel, Meta. Das Typ-Glyph sitzt IM Thema-Label, nicht in einer eigenen Spalte rechts.
+
+   WARUM NICHT RECHTS, MIT TRENNER
+   Material trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the
+   item's subject or category", das Trailing-Element trägt „secondary information, actions, or status
+   indicators". Unser Glyph ist ein reiner Typ-Marker, also eine Kategorie, und gehört damit nach
+   vorn. Rechts hinter einer Trennlinie stand es im Slot für Aktionen und Status, auf einer
+   vollständig klickbaren Kachel also doppeldeutig: es kann als Button lesen.
+   NN/g ergänzt die andere Richtung: „a text label must be present alongside an icon to clarify its
+   meaning". Die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe, und die wirkt am
+   besten direkt neben dem Wort, das sie doppelt.
+   Messbarer Nebengewinn: ohne Icon-Spalte (24px Glyph + 16px Polsterung + 1px Trenner + 16px
+   Spaltenabstand = 57px) wächst die Textspalte von 269 auf 326px, also um 21%. Damit klammern die
+   realistischen Titel der Startseite nicht mehr. Die Kachelhöhe bleibt bei 126px, weil das 16px-Glyph
+   in die 16px hohe Label-Zeile passt.
+   Preis: das Glyph wird stiller (16px statt 24px, Stroke micro statt sm). Das ist vertretbar, weil es
+   aria-hidden ist und nichts trägt, was das Label nicht schon sagt. Wer einen kräftigen Typ-Marker
+   braucht, setzt ihn ins Leading, oben auf Label-Höhe, nicht zurück nach rechts. */
+.stoerer{display:flex;flex-direction:column;gap:var(--s1);padding:var(--s3) var(--s4);border-radius:var(--r-md);background:var(--bg-surface);border:var(--bd-strong);box-shadow:var(--e1);text-decoration:none;color:inherit;transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
 .stoerer:hover{background:var(--bg-surface-hover);box-shadow:var(--e3);transform:translateY(-2px)}
 /* Zweites Hover-Signal, das nicht an Farbe oder Schatten hängt: über einem Foto ist der
    Schatten-Zuwachs je nach Bildstelle kaum zu sehen, die Unterstreichung immer. */
 .stoerer:hover .stoerer-title>*{text-decoration:underline;text-underline-offset:2px}
 .stoerer:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
-/* min-width:0 hebt das Flex-Minimum auf, sonst sprengt ein langes Wort im Titel die Kachelbreite,
-   statt umzubrechen und geklammert zu werden. */
-.stoerer-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--s1)}
-.stoerer-topic{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-ink)}
+/* Thema-Zeile trägt das Glyph als Leading-Element. align-items:center stimmt optisch, solange das
+   Label einzeilig bleibt, und das ist die Regel (ein bis drei Wörter). */
+.stoerer-topic{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-ink)}
 /* Zwei Zeilen fest: min-height reserviert die Höhe, das innere Element kappt längere Titel per
    line-clamp mit Auslassungszeichen. Beides zusammen hält alle Kacheln eines Sets auf gleicher
    Höhe, unabhängig von der Titellänge im CMS (dieselbe Mechanik wie .card-title). */
 .stoerer-title{font:var(--ty-title-sm);color:var(--tx-primary);min-height:2lh}
 .stoerer-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
 .stoerer-meta{font:var(--ty-body-sm);color:var(--tx-secondary)}
-/* Trenner über die volle Texthöhe, Icon darin mittig. --bd, nicht rohes -100 (CONTRIBUTING §5). */
-.stoerer-icon{flex-shrink:0;display:flex;align-items:center;padding-left:var(--s4);border-left:var(--bd);color:var(--co-ink)}
-.stoerer-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
+/* 16px = Micro auf der Icon-Skala, dort gehört Stroke 1 dazu (24px trüge 1.25). Farbe erbt das
+   Glyph vom Thema-Label über currentColor, es braucht keine eigene. */
+.stoerer-icon{width:16px;height:16px;flex-shrink:0;stroke-width:var(--icon-stroke-micro)}
 
 @container (min-width:1025px){
   /* Overlay oben rechts: die Caption liegt unten links, die Sub-Sektion darunter, oben rechts

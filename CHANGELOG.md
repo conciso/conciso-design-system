@@ -334,12 +334,25 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Störer (`.stoerer`), Verweiskacheln über dem Hero, nur auf der Startseite.** Ein bis drei
   Kacheln als Set oben rechts über dem Hero-Bild, je auf einen aktuellen Inhalt: nächste
   Veranstaltung, neuer Wissensbeitrag, Pressemitteilung, Info. Default sind zwei, drei sind das
-  Maximum. Aufbau je Kachel: Thema-Label (Eyebrow, `--co-ink`), Titel über zwei Zeilen, Meta-Zeile,
-  Icon rechts hinter einem Trenner. Die ganze Kachel ist der Link, ein Tab-Stop, mit Hover und
+  Maximum. Aufbau je Kachel: Typ-Glyph und Thema-Label in einer Zeile (Eyebrow, `--co-ink`), Titel
+  über zwei Zeilen, Meta-Zeile. Die ganze Kachel ist der Link, ein Tab-Stop, mit Hover und
   Fokus. Klassen `.stoerer-hero` (Wrapper um Hero und Set) · `.stoerer-set` · `.stoerer-list` ·
-  `.stoerer` · `.stoerer-body` · `.stoerer-topic` · `.stoerer-title` · `.stoerer-meta` ·
+  `.stoerer` · `.stoerer-topic` · `.stoerer-title` · `.stoerer-meta` ·
   `.stoerer-icon`. `.hero-image` bleibt unverändert und funktioniert weiter ohne Störer.
-  Die vier Entscheidungen, die das Bauteil tragen:
+  Die Entscheidungen, die das Bauteil tragen:
+  - **Typ-Glyph als Leading-Element im Thema-Label**, nicht rechts hinter einem Trenner. Material
+    trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the item's
+    subject or category", das Trailing-Element trägt „secondary information, actions, or status
+    indicators". Das Glyph ist ein reiner Typ-Marker, also eine Kategorie. Rechts stand es im Slot
+    für Aktionen und Status und konnte auf einer vollständig klickbaren Kachel als Button lesen.
+    NN/g ergänzt die andere Richtung („a text label must be present alongside an icon to clarify
+    its meaning"): die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe und wirkt
+    direkt neben dem Wort, das es doppelt. Gemessener Nebengewinn: ohne Icon-Spalte (57 px aus
+    Glyph, Polsterung, Trenner und Spaltenabstand) wächst die Textspalte von 269 auf 326 px, also
+    um 21 %, und die realistischen Titel der Startseite klammern nicht mehr. Kachelhöhe unverändert
+    126 px, weil das 16-px-Glyph in die 16 px hohe Label-Zeile passt. Preis ist die Salienz: 16 px
+    mit `--icon-stroke-micro` statt 24 px mit `-sm`, vertretbar weil das Glyph `aria-hidden` ist.
+    Damit entfällt `.stoerer-body`, dessen einziger Zweck der durchgehende Trenner war.
   - **Eine Farbgebung für alle vier Typen**, der Inhaltstyp steht in Label und Icon. Vier
     Bereichsfarben nebeneinander arbeiten gegeneinander und gegen die Hero-Headline, und das Set
     liest dann als vier lose Kacheln statt als eines. Akzent ist durchgehend Corporate
