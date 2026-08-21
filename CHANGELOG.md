@@ -15,6 +15,17 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
+- **Sektions-Label „Treffen" auf der Startseite heißt jetzt „Veranstaltungen".** Für dieselbe Domäne
+  standen auf einer Seite drei Wörter: „Events" (Topnav), „Treffen" (Sektions-Label) und „Alle
+  Veranstaltungen ansehen" (Link am Sektionsende); dazu kommt die Übersichtsseite, die von
+  Veranstaltungen spricht. Mit dem Störer verlinken zwei Elemente derselben Seite auf dasselbe Ziel,
+  und dann sind zwei verschiedene Namen nicht mehr nur uneinheitlich: für Screenreader liest sich das
+  wie zwei verschiedene Inhalte. „Veranstaltungen" ist das Wort, das Übersichtsseite, Detailseite und
+  der Link am Sektionsende schon tragen. **Offen bleibt der Topnav-Eintrag „Events"** (28 Stellen über
+  alle Beispielseiten), das ist eine IA-Entscheidung und keine Layout-Korrektur.
+  CONTRIBUTING § 6 hält die Regel fest: ein Domänenwort pro Domäne über Nav, Sektions-Label und
+  Verweis-Komponenten. Dazu die Notiz, dass die Eyebrow-Form (`--ty-label-xs` + uppercase +
+  `--co-ink`) mit vier Rollen voll belegt ist und keine fünfte Bedeutung mehr tragen soll.
 - **Paletten-Beschriftung auf einen neutralen Streifen unter dem Farbfeld.** Sie saß auf der Farbe,
   und dort ist der Kontrast nicht garantierbar: bei **7 von 100** Stufen liegt die Leuchtdichte so
   in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht (auf `ki-700` schafft selbst
@@ -351,6 +362,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   als „Punkt" gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
   zusätzlich den Titel (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach
   Bildstelle kaum sichtbar, die Unterstreichung immer.
+  Rolle gegenüber den Vorschau-Sektionen: der Störer ist eine **Abkürzung**, dasselbe Ziel wie eine
+  Sektion weiter unten ist erlaubt und beabsichtigt. Die Sektion bleibt der kanonische Ort mit Bild
+  und Anreißer. Bedingung ist ein **Domänenwort pro Domäne**: sonst steht derselbe Inhalt zweimal
+  als Link mit verschiedenen Namen auf der Seite, und für Screenreader sind das zwei verschiedene
+  Dinge. Der Titel muss dafür im zugänglichen Namen der Kachel stehen, was der Aufbau von selbst
+  leistet.
 - **Icon `ui-megaphone`** (outline, `--icon-stroke-sm`) für den Störer-Typ Pressemitteilung.
   `ui-newspaper` heißt im DS „Zeitung / Artikel" und bleibt das Artikel-Glyph für den
   Wissensbeitrag; eine Verlautbarung braucht ein eigenes Zeichen, sonst ist das Icon zwischen den
