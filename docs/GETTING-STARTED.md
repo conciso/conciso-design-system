@@ -9,8 +9,9 @@ So bindest du das Conciso Design System in ein Projekt ein. Es ist **CSS-first u
 - [4. JavaScript (optional)](#4-javascript-optional)
 - [5. Erste Beispiele](#5-erste-beispiele)
 - [6. Tokens nutzen](#6-tokens-nutzen)
-- [7. Icons nutzen](#7-icons-nutzen)
-- [8. Frameworks](#8-frameworks)
+- [7. Einheiten & medienübergreifende Nutzung (Web / Print / PowerPoint)](#7-einheiten--medienübergreifende-nutzung-web--print--powerpoint)
+- [8. Icons nutzen](#8-icons-nutzen)
+- [9. Frameworks](#9-frameworks)
 
 ---
 
@@ -148,7 +149,7 @@ Im CSS direkt über `var(--token)`:
 }
 ```
 
-Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Tokens".
+Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Design Tokens".
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 

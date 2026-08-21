@@ -20,7 +20,7 @@ open docs/index.html        # macOS
 npx serve .
 ```
 
-Sie enthält 32 Sektionen: Foundations (Marke, Farben, Typografie, Spacing, Elevation, Tokens), alle Komponenten mit Code-Snippets und Do/Don'ts, eine Barrierefreiheits-/Kontrast-Sektion sowie komplette Beispielseiten.
+Sie enthält 35 Sektionen in sechs Gruppen: **Marke** (Markenrad, Brand Areas, Logo, Bildsprache), **Grundlagen** (Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit), **Komponenten** mit Code-Snippets und Do/Don'ts, **Seitenmuster** (Wissensbeitrag, Veranstaltung, Seminar und die zugehörigen Übersichten), **Beispielseiten** als komplette Seiten und **Referenzen**.
 
 ## Nutzung im eigenen Projekt
 
