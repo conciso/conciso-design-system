@@ -41,11 +41,17 @@ Ausführlich in [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md). Kurzfassung:
 
 Die Schriften (Montserrat + Libre Baskerville) liegen self-hosted unter `fonts/` und werden über `css/fonts.css` eingebunden — keine externe CDN-Anfrage. Das gebündelte `dist/conciso-ds.css` enthält die `@font-face`-Regeln bereits.
 
-**Variante B — als Git-Abhängigkeit pinnen** (intern, kein Registry):
+**Variante B — als npm-Paket aus GitHub Packages** (der empfohlene Weg):
 
+Das Paket liegt privat und org-scoped in GitHub Packages. Das Konsumenten-Projekt
+braucht dafür eine `.npmrc`, die den `@conciso`-Scope umleitet:
+
+```ini
+@conciso:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
 ```bash
-# auf einen Release-Tag pinnen:
-npm install github:conciso/conciso-design-system#v0.1.0
+npm install @conciso/design-system
 ```
 ```js
 import '@conciso/design-system/dist/conciso-ds.css';
@@ -55,7 +61,16 @@ import { tokens } from '@conciso/design-system/tokens';
 import { icons } from '@conciso/design-system/icons';
 ```
 
-> Das Paket ist **intern/proprietär** (`UNLICENSED`, `private`) und wird **nicht** in ein npm-Registry veröffentlicht. Nutzung also entweder über das eingebundene/kopierte CSS (Variante A) oder als gepinnte Git-Abhängigkeit (Variante B). Hinweis: Ein Git-Install zieht das ganze Repo inkl. der Demo-Bilder — bis die ausgelagert sind, ist für reine CSS-Nutzung das Vendoren von `dist/conciso-ds.css` + `fonts/` am schlanksten.
+> Das Paket ist **intern/proprietär** (`UNLICENSED`) und liegt nicht in der öffentlichen
+> npm-Registry — GitHub Packages verlangt daher Auth auch fürs Lesen (lokal ein Token mit
+> Scope `read:packages` als `GITHUB_TOKEN`, in GitHub Actions genügt `secrets.GITHUB_TOKEN`).
+> Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden), Begründung in
+> [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt Variante A
+> (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
+
+**Angular:** Für Angular gibt es Komponenten statt nur CSS-Klassen —
+`@conciso/design-system-angular` aus derselben Registry, im Lockstep auf derselben Version.
+Siehe [README der Lib](angular-lib/projects/design-system-angular/README.md).
 
 **Dark Mode:** `data-theme="dark"` am `<html>` setzen. Siehe [Getting Started](docs/GETTING-STARTED.md#3-dark-mode) für das Anti-Flash-Snippet.
 
