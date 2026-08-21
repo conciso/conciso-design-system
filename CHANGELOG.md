@@ -15,6 +15,32 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Fixed
+- **Zwei tote Nav-Links in der Barrierefreiheits-Sektion.** „Tastaturnavigation"
+  (`#gt-a11y-keyboard`) und „Touch Targets" (`#gt-a11y-touch`) standen in der Sub-Navigation,
+  ohne dass es die Ziele gab, während die Einleitung derselben Sektion beide Themen ankündigt.
+  Beide Blöcke sind jetzt geschrieben, siehe „Added".
+- **Fünf Überschriften waren über die Sidebar nicht erreichbar.** „Editoriale Kennzahl-Zeile",
+  „Kontrastverhältnisse · Dark Mode" und die beiden Verwendungs-Blöcke in Slider & Carousel
+  hatten keinen Nav-Eintrag. Weil diese Sektion zwei Bauteile dokumentiert, heißen ihre
+  Verwendungs-Blöcke jetzt „Bild-Carousel · Verwendung" und „Kundenlogo-Karussell · Verwendung",
+  nach dem schon beim Störer verwendeten Muster. `gt-colors-semantik` war dagegen kein
+  Gruppen-Titel, sondern das Label einer Spalte im Verwendungs-Block, angesprungen von einem
+  Querverweis; es heißt jetzt `colors-semantik`, damit `gt-` genau die Überschriften mit
+  Nav-Eintrag bezeichnet.
+- **Übersprungene Heading-Ebene in der Token-Sektion (WCAG 1.3.1).** `sec-tokens` ging von
+  `h1.sec-title` direkt auf nackte `h3` und war deshalb die einzige Grundlagen-Sektion ohne
+  Sub-Navigation, zwei Symptome derselben Ursache. Die fünf Token-Blöcke tragen ihre Überschrift
+  jetzt als `h2.group-title` und erscheinen in der Sidebar; `.token-section h3` entfällt.
+- **Fünf Anker trugen das Präfix einer fremden Sektion.** Reste früherer Umzüge:
+  `gt-nav-hero-image`, `gt-nav-hero-substrip` und `gt-carousel-hero` lagen in `sec-hero`,
+  `gt-logo-carousel*` in `sec-slider`. Alle sieben IDs der beiden Sektionen folgen jetzt ihrer
+  eigenen Sektion, samt der Querverweise im Fließtext.
+- **Inhaltsverzeichnis von `docs/GETTING-STARTED.md` unvollständig.** Es listete 8 Kapitel bei 9
+  vorhandenen: „Einheiten & medienübergreifende Nutzung" war als §7 eingeschoben worden, ohne das
+  Verzeichnis nachzuziehen, wodurch die letzten zwei Einträge auf `#7-icons-nutzen` und
+  `#8-frameworks` zeigten statt auf `#8-…` und `#9-…`. Alle 9 Anker lösen wieder auf.
+- **`README.md` beschrieb eine Gliederung, die es nicht mehr gibt.** Statt „32 Sektionen:
+  Foundations (…)" jetzt 35 Sektionen in den sechs aktuellen Gruppen.
 - **Störer bei 200 % Textgröße: Maße von px auf rem (WCAG 1.4.4).** Die Container-Query-Schwelle
   stand als `1025px` da und skalierte damit nicht mit der Browser-Standardschriftgröße. Bei
   verdoppelter Wurzel-Schrift wuchs die Kachel von 126 auf 290 px, das Overlay blieb aber an und
@@ -38,7 +64,48 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Der Fokus-Ring war nicht betroffen, die globale `:focus-visible`-Regel ersetzt ihn dort schon
   durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
 
+### Added
+- **Tastaturnavigation und Touch Targets dokumentiert.** Beide Blöcke fehlten in einem System mit
+  AA-Ziel. Tastaturnavigation behandelt Fokusreihenfolge aus dem Markup (keine positiven
+  `tabindex`), Sprungziele mit `tabindex="-1"`, den Skip-Link, die Tastaturfalle, verdeckten Fokus
+  und ein gemeinsames Tastenset für neue Bauteile (2.1.1, 2.1.2, 2.4.3, 2.4.7, 2.4.11), dazu eine
+  Tabelle mit der tatsächlichen Belegung aller Bauteile aus `main.js`. Bei den Zielgrößen sind die
+  zwei Kriterien getrennt benannt, weil sie nicht dasselbe verlangen: 2.5.8 fordert auf AA 24 px,
+  2.5.5 auf AAA 44 px, und das System zielt auf 44 px. Die zwei Bauteile darunter (Segmented
+  Control, Area Tabs, je 40 px) stehen als bewusste Abweichung dabei, statt unerwähnt zu bleiben.
+  2.4.11 und 2.5.8 sind als Kriterien aus WCAG 2.2 gekennzeichnet, da die Sektion 2.1 nennt und es
+  dort auf AA keine Zielgrößen-Anforderung gibt.
+- **Sub-Navigation für Design Tokens und Beispielseiten.** Beide Sektionen waren in der Sidebar
+  ohne Tiefe. Die Beispielseiten sind der größte Teil der Doku, ihre Gliederung lag allein in der
+  Tab-Leiste. Die sechs Gruppen stehen jetzt in der Sidebar und ein Eintrag **öffnet** die erste
+  Beispielseite seiner Gruppe: gemessen bei 1440 px liegen fünf der sechs Gruppen-Labels in
+  derselben Grid-Zeile von `.ep-tabs` und die Leiste ist 328 px hoch, ein reiner Anker führte also
+  fünfmal an dieselbe Stelle. Umgesetzt über das vorhandene `activateExamplePage`; der `href` zeigt
+  auf den ersten Tab der Gruppe und bleibt ohne JS ein gültiges Sprungziel.
+- **`CONTRIBUTING.md` §11 „Doku-Struktur".** Für die Gliederung der Doku-Site gab es keine
+  geschriebene Regel, nur einen Halbsatz in §10 Schritt 4, der drei Inhaltsblöcke nennt. Der neue
+  Abschnitt hält fest: die sechs Gruppen und was hineingehört, Nav-Eintrag als Pflicht, das
+  Anker-Schema `gt-<sektion>-<thema>` und wofür das Präfix reserviert ist, „Aufbau" zuerst und
+  „Verwendung" zuletzt samt der Form `<Bauteil> · Verwendung`, die Bereichsreihenfolge, Nav-Label
+  gleich Überschrift oder deren Anfang, ein Trennzeichen pro Aufgabe, die Sprachregel und die
+  Heading-Ebenen samt der einen dokumentierten Ausnahme. Dazu zwei Einzeiler zum Selbstprüfen und
+  eine Zeile in der PR-Checkliste.
+
 ### Changed
+- **Reihenfolge und Benennung der Doku-Navigation.** „Verwendung" schließt eine Sektion ab, bei
+  Elevation und Tabelle stand danach noch ein Block. Icons listete die Bereiche als co/ki/wo/es,
+  kanonisch und wie bei Buttons ist co/ki/es/wo. Der Eintrag Design Tokens sitzt jetzt hinter
+  Elevation statt zwischen Icons und Barrierefreiheit, also hinter den vier Themen, deren Werte er
+  festhält. Bei diesen Umzügen ist die Zeilenmenge der Datei unverändert, nur die Reihenfolge.
+  Benennung: Gruppen- und Konzeptnamen deutsch (Foundations → Grundlagen, Components →
+  Komponenten, Page-Patterns → Seitenmuster, Colors → Farben, Typography → Typografie, CSS Design
+  Tokens → Design Tokens, WCAG 2.1 AA & Accessibility → Barrierefreiheit, Hero-Patterns → Hero),
+  etablierte Bauteil- und Token-Namen unverändert. „Brand Areas" bleibt: der Begriff steht 34 Mal
+  in der Doku-Prosa und je zwei Mal in CONTRIBUTING und CHANGELOG, nur die Sektion umzubenennen
+  hieße ein Ding, zwei Wörter. Nav-Label ist jetzt überall die Überschrift oder ihr Anfang
+  (vorher wichen 10 von 165 ab, am weitesten „Verschachtelung" für „Optional: Sub-Hierarchie per
+  `.footer-subtitle`", ohne ein gemeinsames Wort). Für „Name plus Zusatz" gilt ein Trennzeichen:
+  `·` bestimmt näher, `:` steht vor einem Satz, Klammern tragen einen kurzen Einschub.
 - **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen" auf
   der Startseite und der Topnav-Eintrag „Events" heißen jetzt beide „Veranstaltungen". Für dieselbe Domäne
   standen auf einer Seite drei Wörter: „Events" (Topnav), „Treffen" (Sektions-Label) und „Alle

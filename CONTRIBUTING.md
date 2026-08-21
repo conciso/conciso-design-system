@@ -135,11 +135,56 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
 3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
-4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung", Do/Don't).
+4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung", Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **CHANGELOG.md** ergänzen.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
+
+---
+
+## 11. Doku-Struktur (`docs/index.html`)
+
+Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einziger Index dient. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
+
+**Die sechs Gruppen.** Reihenfolge und Inhalt:
+
+| Gruppe | Was hineingehört |
+|---|---|
+| Marke | Markenrad, Brand Areas, Logo, Bildsprache |
+| Grundlagen | Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit. Design Tokens stehen hinter den Themen, deren Werte sie festhalten; Barrierefreiheit als querschnittliches Thema zuletzt |
+| Komponenten | einzelne Bauteile, in der Folge Aktion, Kennzeichnung, Eingabe, Feedback, Container, Daten, Editorial, Medien, Seiten-Chrome (Navigation, Hero, Footer in Lesereihenfolge) |
+| Seitenmuster | ganze Seitentypen samt ihrer Übersichten |
+| Beispielseiten | fertige Seiten als Tab-Leiste |
+| Referenzen | Quellen |
+
+**Nav-Eintrag ist Pflicht.** Jede `.ds-section` braucht ein `.nav-item`, jede `h2.group-title` einen `.nav-sub-item`. Keine Überschrift ohne Eintrag, kein Eintrag ohne Ziel.
+
+**Anker-Schema** `gt-<sektion>-<thema>`. Das Präfix ist die eigene Sektion, auch wenn der Inhalt von woanders kam. `gt-` ist reserviert für Überschriften mit Nav-Eintrag. Ein Anker, der nur Sprungziel eines Querverweises ist und keine Gruppe eröffnet, bekommt einen Namen ohne dieses Präfix (`colors-semantik`, `seminar-termine`).
+
+**Reihenfolge innerhalb der Sektion.** Bei Seitenmustern eröffnet „Aufbau", danach die Bausteine in der Lesereihenfolge der fertigen Seite. „Verwendung" schließt ab, immer zuletzt. Dokumentiert eine Sektion mehrere Bauteile, heißt der Block `<Bauteil> · Verwendung` (z. B. „Bild-Carousel · Verwendung", „Störer · Verwendung"), damit beide Einträge unterscheidbar bleiben.
+
+**Bereichsreihenfolge** überall co · ki · es · wo, wie in §2.
+
+**Nav-Label** ist die Überschrift oder ihr Anfang. Kürzen ist erlaubt, umformulieren nicht: wer in der Sidebar ein anderes Wort liest als über dem Absatz, sucht zweimal. Das gilt auch für Querverweise im Fließtext, die eine Sektion beim Namen nennen.
+
+**Ein Trennzeichen pro Aufgabe.** `·` bestimmt einen Namen näher („Bandstreifen · flache Variante"). `:` steht nur, wenn ein Satz folgt („Tonalität: Du statt Sie"). Klammern nur für einen kurzen Einschub („Shape (5 Stufen)"). Nicht mischen, sonst tragen drei Formen dieselbe Bedeutung.
+
+**Sprache.** Gruppen- und Konzeptnamen deutsch (Grundlagen, Komponenten, Farben, Typografie, Barrierefreiheit). Etablierte Bauteil- und Token-Namen bleiben in der Form, die im CSS und im Storybook steht (Buttons, Cards & Teaser, Dropdowns, Spacing, Elevation, Brand Areas). Maßstab ist nicht die Sprache, sondern ob der Begriff im System schon einen Namen hat: dann diesen, sonst deutsch.
+
+**Heading-Ebenen** `h1.sec-title` → `h2.group-title` → `h3`, ohne Stufe zu überspringen. Anker sitzen auf Überschriften. Einzige Ausnahme ist die Tab-Leiste der Beispielseiten: sie ist ein Bedienelement, keine Gliederung, ihre Einträge sind deshalb Buttons und die Sidebar verlinkt den ersten Tab der Gruppe.
+
+**So prüfst du es** (vor dem Commit, ersetzt kein Gate):
+
+```bash
+# Nav-Links ohne Ziel
+rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/nav
+rg -o '\sid="([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/ids
+comm -23 /tmp/nav /tmp/ids
+
+# gt-Überschriften ohne Nav-Eintrag
+rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/nav
+```
 
 ---
 
@@ -153,3 +198,4 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 - [ ] `npm run check:contrast` und `npm run check:dark-states` grün; nach Layout-Änderungen den geänderten Bereich in **beiden Modi und zwei Breiten** ansehen (Kanten, Umbrüche, nicht nur Farbwerte)
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert
+- [ ] Nav-Eintrag gesetzt, kein Link ohne Ziel, keine Überschrift ohne Eintrag (§11)
