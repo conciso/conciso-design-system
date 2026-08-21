@@ -11,6 +11,7 @@
     "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006",
     "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
     "test-storybook:visual": "PLAYWRIGHT_BROWSERS_PATH=0 VISUAL=1 test-storybook --url http://localhost:6006",
+    "test:vitest": "PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
     "lint": "ng lint"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "@eslint/js": "^10.0.1",
     "@storybook/addon-a11y": "^10.5.6",
     "@storybook/addon-docs": "^10.5.6",
+    "@storybook/addon-vitest": "^10.5.6",
     "@storybook/angular-vite": "^10.5.6",
     "@storybook/test-runner": "^0.24.4",
     "@types/jest-image-snapshot": "^6.4.1",
@@ -49,6 +51,8 @@
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.2.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "vitest": "^4.1.0",
     "wait-on": "^9.0.10"
   }
 }

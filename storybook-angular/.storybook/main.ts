@@ -46,6 +46,9 @@ const config: StorybookConfig = {
     // axe-basierte Barrierefreiheits-Prüfung (Panel + passive Mitprüfung im
     // Test-Runner, aktuell nicht-blockierend).
     '@storybook/addon-a11y',
+    // Führt die Stories als Vitest-Tests aus (Browser-Mode via Playwright);
+    // Konfiguration in ../vitest.config.ts, Setup in ./vitest.setup.ts.
+    '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/angular-vite',
