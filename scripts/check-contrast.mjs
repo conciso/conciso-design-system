@@ -78,14 +78,22 @@ const BORDER_SELECTOR = [
 
 function resolveChromium() {
   const require = createRequire(import.meta.url);
-  const local = join(ROOT, 'storybook-angular/node_modules/playwright-core');
-  if (!existsSync(local)) {
-    console.error('Kontrast-Gate: playwright-core nicht gefunden.');
-    console.error('  → cd storybook-angular && npm ci    (der Browser lebt in diesem Workspace,');
-    console.error('    das Wurzelprojekt bleibt absichtlich ohne Dependencies)');
-    process.exit(1);
+  // playwright-core wird von storybook-angular deklariert, liegt physisch aber je nach
+  // Installations-Layout woanders: seit der npm-Workspaces-Umstellung hoistet npm es ins
+  // Wurzel-node_modules (damit storybook-angular und angular-lib EIN @angular/* teilen),
+  // bei einer isolierten Installation im Workspace selbst. Deshalb erst Nodes eigene
+  // Auflösung fragen und nur als Rückfall den verschachtelten Pfad prüfen — ein fest
+  // verdrahteter Pfad bricht bei jeder Änderung am Layout.
+  try {
+    return require('playwright-core').chromium;
+  } catch {
+    const nested = join(ROOT, 'storybook-angular/node_modules/playwright-core');
+    if (existsSync(nested)) return require(join(nested, 'index.js')).chromium;
   }
-  return require(join(local, 'index.js')).chromium;
+  console.error('Kontrast-Gate: playwright-core nicht gefunden.');
+  console.error('  → npm ci    (im Repo-Wurzelverzeichnis; npm-Workspaces installieren');
+  console.error('    storybook-angular und angular-lib mit)');
+  process.exit(1);
 }
 
 /** Läuft im Seitenkontext. Muss selbstständig sein, keine Closures von außen. */
