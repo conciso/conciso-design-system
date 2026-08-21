@@ -817,11 +817,18 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    Overlay mehr, sondern ein Unfall. Die Schwelle liegt bei 1025px, dem Desktop-Tier der
    Responsive-Strategie, und damit über dem Rechenwert von 994px. Ohne Container-Query-Support
    greift die Regel nicht und das Set bleibt in jeder Breite ein Block unter dem Hero, also der
-   funktionierende Fall. */
-.stoerer-hero{position:relative;container-type:inline-size;--stoerer-w:360px}
+   funktionierende Fall.
+
+   MASSE IN REM, NICHT PX (WCAG 1.4.4). Die Schwelle stand zuerst als 1025px da und skalierte damit
+   nicht mit der Browser-Standardschriftgröße: bei 200% Textgröße wuchs die Kachel von 126 auf 290px,
+   das Overlay blieb aber an und ragte gemessen 96px in die Sub-Sektion. In rem (64,0625rem = 1025px
+   bei Default-Wurzel) wandert die Schwelle mit: bei 200% verlangt sie 2050px Hero-Breite, das Set
+   fällt also in den Block-Zweig, statt kaputt zu überlappen. Dieselbe Rechnung gilt für die
+   Kachelbreite (22,5rem) und das Grid-Minimum (16,25rem). */
+.stoerer-hero{position:relative;container-type:inline-size;--stoerer-w:22.5rem}
 .stoerer-set{padding:var(--s8)}
 .ep-page .stoerer-set{padding-inline:max(var(--s8),calc(50% - 640px))}
-.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s3)}
+.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(16.25rem,1fr));gap:var(--s3)}
 /* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Eine Spalte:
    Thema, Titel, Meta. Das Typ-Glyph sitzt IM Thema-Label, nicht in einer eigenen Spalte rechts.
 
@@ -860,7 +867,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    Glyph vom Thema-Label über currentColor, es braucht keine eigene. */
 .stoerer-icon{width:16px;height:16px;flex-shrink:0;stroke-width:var(--icon-stroke-micro)}
 
-@container (min-width:1025px){
+@container (min-width:64.0625rem){
   /* Overlay oben rechts: die Caption liegt unten links, die Sub-Sektion darunter, oben rechts
      ist die freie Zone. Der Abstand liegt in top/right statt im Padding, sonst wächst die
      absolut positionierte Box über die Kachelbreite hinaus. */

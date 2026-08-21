@@ -14,6 +14,23 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Fixed
+- **Störer bei 200 % Textgröße: Maße von px auf rem (WCAG 1.4.4).** Die Container-Query-Schwelle
+  stand als `1025px` da und skalierte damit nicht mit der Browser-Standardschriftgröße. Bei
+  verdoppelter Wurzel-Schrift wuchs die Kachel von 126 auf 290 px, das Overlay blieb aber an und
+  ragte gemessen 96 px in die Sub-Sektion. Jetzt `64.0625rem`: bei 150 % und 200 % verlangt die
+  Schwelle mehr Hero-Breite als vorhanden, das Set fällt also in den Block-Zweig unter dem Hero,
+  statt zu überlappen. Ebenso Kachelbreite (`22.5rem`) und Grid-Minimum (`16.25rem`).
+  Nebenbefund, der **nicht** vom Störer kommt: bei 200 % läuft die Doku-Seite horizontal über
+  (1498 statt 1440 px). Mit und ohne Störer identisch gemessen, kein Element der Beispielseite ragt
+  über den Viewport; das ist die Doku-Shell (252-px-Sidebar plus Content).
+- **`.stoerer` in die `forced-colors`-Rahmenliste aufgenommen.** Im Windows-Kontrastmodus entfernt
+  das OS `box-shadow`; `base.css` stellt für `.card` und `.card-elevated` deshalb `2px solid
+  CanvasText` her. Der Störer fehlte in der Liste und behielt nur seinen 1-px-Rand — genau im
+  schwierigsten Fall, nämlich über einem Foto und ohne den `--e1`, auf den er sich sonst stützt.
+  Der Fokus-Ring war nicht betroffen, die globale `:focus-visible`-Regel ersetzt ihn dort schon
+  durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
+
 ### Changed
 - **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen" auf
   der Startseite und der Topnav-Eintrag „Events" heißen jetzt beide „Veranstaltungen". Für dieselbe Domäne

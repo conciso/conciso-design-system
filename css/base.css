@@ -30,7 +30,11 @@
   /* Restore borders that forced-colors removes */
   .chip { border: 2px solid ButtonText }
   .card,
-  .card-elevated { border: 2px solid CanvasText }
+  .card-elevated,
+  /* .stoerer liegt über einem Foto und verlässt sich im Light auf --bd-strong plus --e1.
+     Im Kontrastmodus fällt der Schatten weg, der 1px-Rand allein trägt die Kachel dann nicht
+     mehr gegen das Bild ab — gleiche 2px wie bei den übrigen Kartenflächen. */
+  .stoerer { border: 2px solid CanvasText }
   .badge { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText }
   /* Active states */
   .nav-item.active { border-left-color: Highlight; color: Highlight }
