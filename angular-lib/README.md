@@ -1,59 +1,65 @@
-# AngularLib
+# angular-lib — Workspace der Angular-Lib
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
+Angular-CLI-Workspace, der **ein einziges Projekt** enthält: die Bibliothek
+[`@conciso/design-system-angular`](projects/design-system-angular/README.md).
 
-## Development server
+Wer die Lib **benutzen** will (Installation, `.npmrc`, CSS + Fonts einbinden), findet
+alles im [README der Lib](projects/design-system-angular/README.md). Dieses Dokument
+beschreibt nur, wie man in diesem Workspace **arbeitet**.
 
-To start a local development server, run:
+## Nur ein Library-Projekt, keine App
 
-```bash
-ng serve
-```
+Der Workspace wurde mit `--no-create-application` angelegt: es gibt kein
+`serve`-, `test`- oder `e2e`-Target, weil hier nichts läuft, was man im Browser
+öffnen könnte — gebaut wird ein Paket im
+[Angular Package Format](https://angular.dev/tools/libraries/angular-package-format)
+via ng-packagr ([ADR-0004](../docs/adr/0004-verteilung-und-versionierung.md)).
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+`angular.json` führt entsprechend genau ein Projekt mit genau einem Target:
+`design-system-angular` → `build`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Bauen
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
-
-To build the project run:
+Erzeugt das APF-Paket unter `dist/design-system-angular/` — das ist das Artefakt,
+das veröffentlicht wird. Für einen Rebuild bei jeder Änderung:
 
 ```bash
-ng build
+npm run watch
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Beim Entwickeln braucht man das meist **nicht**: Storybook konsumiert die
+TS-Quelle direkt über ein tsconfig-Pfad-Mapping auf `public-api.ts`, nicht das
+gebaute Artefakt ([ADR-0002](../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
+Änderungen an einer Komponente sind dort also sofort sichtbar.
 
-## Running unit tests
+## npm-Workspaces: vom Repo-Wurzelverzeichnis installieren
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Dieser Workspace und `storybook-angular` sind npm-Workspaces des Wurzelprojekts und
+teilen sich **ein** `node_modules` und **ein** Lockfile. Das ist Absicht: sonst lädt
+jedes Projekt sein eigenes physisches `@angular/core`, und sobald dekorierte
+Komponenten die Projektgrenze überqueren, fallen die Typen nominell auseinander und
+im Browser laufen zwei Angular-Instanzen nebeneinander.
+
+Deshalb immer im Repo-Wurzelverzeichnis installieren, nie hier:
 
 ```bash
-ng test
+npm ci
 ```
 
-## Running end-to-end tests
+## Tests
 
-For end-to-end (e2e) testing, run:
+Die Lib hat bewusst **keine** eigenen `.spec.ts`-Unit-Tests. Abgesichert wird sie
+über zwei Ebenen ([ADR-0005](../docs/adr/0005-testebene-der-angular-lib.md)):
 
-```bash
-ng e2e
-```
+- **Storybook-Test-Runner + Visual-Snapshots** in `storybook-angular` — Verhalten
+  und Aussehen jeder Komponente, gegen die TS-Quelle dieser Lib.
+- **Consumer-Smoke-Test** (`scripts/consumer-smoke-test.sh` im Wurzelverzeichnis) —
+  baut und tarballt beide Pakete, installiert sie in eine echte Konsumenten-App und
+  fährt einen produktiven AOT-Build. Fängt genau das, was die andere Ebene nicht
+  sieht: APF-Metadaten, fehlende Re-Exports, peer-Dep-Auflösung, AOT-Template-Typen.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ein neuer Komponenten-Test gehört also als Story nach `storybook-angular`.

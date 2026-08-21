@@ -5,9 +5,11 @@ Die Komponenten sind **dünne Hüllen** über der framework-agnostischen
 [CSS-Schicht](../../../CONTEXT.md#css-schicht) (`@conciso/design-system`): Sie setzen
 nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 
-> **Pilot-Scheibe.** Button + Topnav (inkl. der von Topnav genutzten theme-switch
-> `cycle-button`) sind aus [Ticket 02](../../../.scratch/angular-components-lib/issues/02-pilot-button-topnav.md)
-> umgezogen. Die restlichen ~38 Komponenten folgen im Bulk-Umzug.
+> **Vollständig umgezogen.** Alle 37 Komponenten leben in dieser Lib und werden über
+> `public-api.ts` exportiert — samt ihrer öffentlichen Typen (`CdsArea`,
+> `CdsButtonVariant`, `ThemeMode`, …). `storybook-angular` enthält nur noch Stories
+> und importiert ausschließlich von hier
+> ([ADR-0002](../../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
 
 ## Installation aus GitHub Packages
 

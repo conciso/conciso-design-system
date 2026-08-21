@@ -80,8 +80,9 @@ entsprechend eng gepinnt (z.B. `0.1.x`). Siehe
 
 Die erste Extraktions-Runde: eine dünne vertikale Scheibe (Button + Topnav, wobei
 Topnav theme-switch `cycle-button` und Icons mitzieht), die die gesamte Kette
-Build → Pack → Konsum einmal komplett beweist, bevor die restlichen ~38 Komponenten
-im Bulk umziehen.
+Build → Pack → Konsum einmal komplett bewies, bevor die restlichen Komponenten im
+Bulk umzogen. Beides ist abgeschlossen — alle 37 Komponenten liegen in der
+[Angular-Lib](#angular-lib).
 
 ### DS-Glyphen
 
