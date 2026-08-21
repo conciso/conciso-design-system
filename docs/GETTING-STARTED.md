@@ -81,17 +81,37 @@ document.documentElement.removeAttribute('data-theme');      // hell (Default)
 
 Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`.
 
+**Genau zwei Modi.** Das System kennt Light und Dark, keinen dritten Modus, der der Betriebssystem-Präferenz folgt. `prefers-color-scheme` wird im ausgelieferten CSS nicht ausgewertet, Default ist Light. Wer die Systemvorgabe übernehmen will, wertet sie im eigenen Produkt aus und setzt das Attribut selbst:
+
+```js
+if (matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+**Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die Light-Werte statt der vollen dunklen Fläche. Wer eigene Dark-Overrides ergänzt, legt sie innerhalb dieses Blocks ab, sonst drucken sie dunkel mit.
+
+**Token, die sich anders verhalten als der Rest.** Wer eine Anwendung auf dem System baut, greift für Farbe nach der **Rolle**, nicht nach der Stufe. Die Stufe (`-700`, `-200`) gilt immer nur in einem Modus, die Rolle in beiden:
+
+| Token | Light | Dark | Zweck |
+|---|---|---|---|
+| `--bg-surface-hover` | `= --bg-surface` | `#2E3B46` | Interaktive Flächen im Hover. Im Dark tragen die Schatten auf der tiefen Basis weniger, die Tiefe kommt dort aus der Fläche. Ein **Zustand**, keine dritte statische Flächen-Stufe. Light bleibt bewusst gleich, dort trägt `--e3`. |
+| `--bg-plate` | `#FFFFFF` | `#E8EDED` | Helle Platte unter Fremd-Assets, die nur in dunkler Fassung vorliegen (z. B. Kundenlogos). Bleibt in beiden Modi hell, im Dark aber gedämpft, weil eine reinweiße Fläche dieser Größe auf dunklem Grund blendet. |
+| `--co-band` u. a. | `= --XX-50` | eigener, dunklerer Ton | Fläche großer getönter Sektionen (Hero, CTA-Band). Im Dark muss ein Band **dunkler** bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung dagegen **heller** als ihr Grund. Ein Wert kann beides nicht leisten, deshalb zwei Token: kleine Füllungen nutzen weiter `--XX-50`. |
+| `--co-ink` u. a. | `-700` (ki `-800`) | `-200` (es `-100`) | **Farbiger Text und farbige Icons.** Das einzige Token, mit dem farbiger Text in beiden Modi trägt. Ein fest gesetztes `-700` hat auf Weiß 5,52:1 und im Dark 3,17:1, ein fest gesetztes `-200` umgekehrt. Es gibt `--co-ink`, `--ki-ink`, `--es-ink`, `--wo-ink`. |
+| `--co-fill` u. a. | `= --XX-50` | eigener, gehobener Ton | **Füllung von Pill und Bereichs-Badge.** Light zarter Tint mit kräftiger dunkler Schrift, Dark ein gehobener Ton, weil dort helle Schrift auf dunklem Tint liegt. Für dekorative Flächen (Icon-Kachel) direkt `--XX-50` nehmen, die müssen sich nicht abheben. |
+| `--bd-c` / `--bd-strong-c` | `n-100` / `n-200` | `#6F7A89` / `#8694A5` | Die reinen Rahmenfarben. `--bd` und `--bd-strong` sind Shorthands (`1px solid …`) und lassen sich nicht in `border-color` einsetzen; Regeln, die nur die Farbe brauchen, nehmen die `-c`-Variante. |
+
 ## 4. JavaScript (optional)
 
 Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktioniert **komplett ohne JS**. JS wird nur für interaktive Muster gebraucht:
 
 - **Theme-Toggle** (Umschalt-Button + Persistenz)
-- **Topnav-Dropdowns** (klick-basiertes Disclosure-Menü: `aria-expanded`, Escape, Pfeiltasten, Außenklick)
+- **Topnav-Dropdowns** (Disclosure-Menü: Öffnen per Klick/Tap, Tastatur oder Hover; `aria-expanded`, Escape, Pfeiltasten, Außenklick)
 - **Back-to-Top-Button**
 
 Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
 
-> Topnav-Dropdowns sind bewusst **klick-only** (kein Hover-Öffnen) — barrierefrei und ohne „zwei Menüs gleichzeitig offen".
+> Topnav-Dropdowns öffnen per Klick/Tap, Tastatur und (auf `pointer:fine`) per Hover. Der Reveal hängt immer an `.is-open` (nie an reinem CSS-`:hover`), `aria-expanded` läuft mit, und es ist nie mehr als ein Menü gleichzeitig offen. Der Label-Klick navigiert weiterhin direkt zur Übersicht.
 
 ## 5. Erste Beispiele
 

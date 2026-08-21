@@ -14,7 +14,376 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Changed
+- **Paletten-Beschriftung auf einen neutralen Streifen unter dem Farbfeld.** Sie saß auf der Farbe,
+  und dort ist der Kontrast nicht garantierbar: bei **7 von 100** Stufen liegt die Leuchtdichte so
+  in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht (auf `ki-700` schafft selbst
+  reines Schwarz nur 4,82:1). Die Zwischenlösung war eine Plakette auf genau diesen sieben, was als
+  Ungleichheit auffiel und wie ein Fehler las. Jetzt tragen alle Beschriftungen `--tx-secondary` auf
+  `--bg-surface`: **6,28:1 in beiden Modi**, das Farbfeld bleibt unverdeckt, und die 100 inline
+  gesetzten Label-Farben im Markup sind überflüssig geworden und entfernt. Der abzulesende Hexwert
+  ist Information, nicht Dekoration, und hat jetzt einen Grund, auf dem er trägt.
+  Layout dazu: die Rundung sitzt an den Farbfeldern statt an der Reihe (die Reihe klippte sonst den
+  Streifen an den Außenkanten ab), der Streifen hat Luft nach oben statt am Farbfeld zu kleben, die
+  Beschriftung bricht nicht mehr um (ein Umbruch bei „800 T" schob das Farbfeld dieser Spalte nach
+  oben und ergab eine Stufe in der Reihe), und das Farbfeld behält seine 60 px Höhe. Unter 1024 px
+  entfällt der Hexwert, dort ist eine Spalte zu schmal; er bleibt im `title` und per Klick kopierbar.
+  Und die Reihe ist jetzt eine Karte mit Haarlinie: ohne Rahmen verlor sie im Light ihre Kante, weil
+  die hellen Stufen und der weiße Beschriftungs-Streifen beide fast die Farbe der Seite haben
+  (`#E0F7F7` gegen Weiß sind 1,12:1). Dazu eine Linie zwischen Farbfeld und Beschriftung, aus
+  demselben Grund. Im Dark trennte sich der Streifen schon vorher von der Seite, dort ist beides
+  nur konsequent.
+- **Pill und Bereichs-Badge folgen im Light dem Kachel-Rezept.** Zarter `--XX-50`-Tint mit
+  kräftiger dunkler Schrift (7,5 bis 12,3:1) statt kräftiger Füllung. Begründung wie bei den
+  Kacheln: WCAG verlangt für diese Fläche nichts, die Aussage steht im Label, und darüber
+  entscheidet das Markenrad. Auf dem zarten Grund wirkt die Schrift kräftiger, weil sie nicht mit
+  der Fläche konkurriert. **Im Dark bleibt die gehobene Füllung**, weil sich dort das Verhältnis
+  umdreht: helle Schrift auf dunklem Tint, und bei fast gleicher Helligkeit wie die Karte hält
+  nichts mehr die Fläche zusammen (1,54 bis 1,55:1 zur Karte, 12,5 bis 12,7 L*). Gleiche Rolle,
+  zwei Werte, wie bei `--XX-band`.
+  Das Gate prüft die 1,3:1-und-10-L*-Regel damit nur noch für **Status**-Füllungen, bei denen die
+  Farbfläche in dichten Kontexten der schnelle Hinweis ist, bevor das Label gelesen wird. Für
+  Label- und Dekor-Flächen bleibt es beim Text, und der wird ohnehin geprüft.
+- **Dekorative Flächen dürfen ruhig bleiben: Icon-Kacheln zurück auf den zarten Tint.** Beim
+  Anheben der Füllungen waren die 48-px-Kacheln mitgelaufen, obwohl für sie nichts davon gilt: WCAG
+  verlangt für eine dekorative Fläche keinen Kontrast (kein Bedienelement, kein bedeutungstragendes
+  Grafikobjekt, das Glyph ist `aria-hidden` und wiederholt das Eyebrow daneben), und großflächig
+  gesättigte Farbe widerspricht dem Markenwert „Ruhig". Kacheln und Timeline-Marker tragen jetzt
+  wieder `--XX-50`, ohne Rand; die Erkennbarkeit trägt das Glyph mit 7,5 bis 11,4:1 im Light und
+  6,9 bis 8,6:1 im Dark, also mehr als auf der kräftigen Füllung (dort 4,7 bis 7,5:1).
+  Dazu die Rollen sauber getrennt, damit die Entscheidung am Token-Namen hängt: **`--XX-50`** ruhige
+  dekorative Fläche (in beiden Modi dasselbe Versprechen; im Dark stehen dort wieder die ruhigen
+  Werte) · **`--XX-fill`** textführendes Bauteil, muss lesen (im Dark eigene, gehobene Werte statt
+  einer Referenz auf `-50`) · **`--XX-band`** Sektionsfläche · **`--XX-ink`** farbiger Text.
+  Das Gate prüft die Hausregel entsprechend nur für textführende Füllungen; warum die Kacheln nicht
+  drin sind, steht im Skript.
+  CONTRIBUTING § 3 führt die Entscheidung jetzt zweistufig: WCAG ist Pflicht und gilt für den
+  Inhalt, darüber hinaus entscheidet das Markenrad und nicht der Kontrastrechner.
+- **Getönte Füllungen im Dark um 4 L\*-Punkte gehoben, und das Gate prüft jetzt zwei Werte.** Die
+  vier Bereichs-Füllungen erfüllten mit 1,33:1 den 1,3:1-Faustwert, hatten aber nur **8,3 L\***
+  Helligkeitsabstand zur Karte: der Unterschied lag fast vollständig in Farbton und Sättigung, und
+  eine satte Fläche auf gleicher Helligkeit liest als dunkler Fleck statt als hellere Stufe. Am
+  deutlichsten bei ES, weil Blau bei gleichem L\* am dunkelsten wirkt; genau dort ist es aufgefallen
+  (Pill der Veranstaltungskarte). Neu in Lab gerechnet, nur L angehoben, Farbton und Sättigung
+  unverändert: `--co-50` `#1F5651`, `--ki-50` `#43531C`, `--wo-50` `#205828`, `--es-50` `#34469D`.
+  Fläche jetzt 1,54 bis 1,55:1 zur Karte und 2,07 bis 2,09:1 zur Seite, ΔL\* 12,5 bis 12,7.
+  Dasselbe für die Status-Füllungen, die das neue Kriterium mit aufdeckte (ΔL\* 8,2 bis 8,4):
+  `--c-success-bg` `#1F573B`, `--c-warning-bg` `#5F4B1E`, `--c-error-bg` `#882725`,
+  `--badge-neu-bg` `#404F5D`. Beim Fehlerton bewusst bei ΔL\* 11 gestoppt, weil der Text darauf
+  sonst unter AA fällt (jetzt 4,74:1).
+  **Das Gate prüft Füllungen ab jetzt gegen 1,3:1 UND 10 L\***, sonst wäre genau dieser Fall wieder
+  durchgerutscht. Es hat dabei drei Folgefehler gefunden: Inline-Code (`.token`) trug im Dark
+  `co-300` und fiel auf der helleren Füllung auf 4,48:1, ebenso die Grid-Spalten-Labels; beide
+  laufen jetzt über `--co-ink`. Vier Code-Chips trugen zusätzlich eine semantische Inline-Farbe
+  (`--c-error` und Verwandte) und lagen bei 4,46:1; die Farbe ist raus, den Zweck erklärt die Zeile
+  daneben. Und ein CSS-Kommentar mit `a*/b*` hat beim Schreiben den Kommentar vorzeitig beendet und
+  den halben Dark-Token-Block gekippt: 1.705 gemeldete Verstöße, in einem Lauf gefunden.
+- **Alle Kontrast-Verstöße der Doku behoben: 183 auf 0, in beiden Modi.** Ausgangsstand nach dem
+  Bau des Gates: Light 49 Text / 101 Füllungen / 6 Rahmen, Dark 20 / 0 / 0. Neun Gruppen, jede mit
+  einer Ursache:
+  - **Farbiger Text ohne Theme-Wechsel (17 Stellen).** `co-600` als Textfarbe trug auf Weiß nur
+    3,29:1. Dabei fiel auf, dass das System `--XX-ink` (Light `-700`/`-800`, Dark `-200`/`-100`)
+    nur für KI hatte. Die Familie ist jetzt vollständig: **`--co-ink`, `--es-ink`, `--wo-ink`**.
+    Ohne sie erzeugt jede Light-Korrektur einen Dark-Verstoß, was beim ersten Anlauf genau so
+    passiert ist (16 neue Dark-Befunde durch ein fest gesetztes `co-700`).
+  - **Getönte Füllungen (101).** 76 Icon-Kacheln, 13 Status- und neutrale Badges, 8 Timeline-Icons,
+    4 Trend-Chips lagen zwischen 1,02 und 1,16:1 gegen ihren Grund. Kacheln und Timeline-Icons
+    nutzen jetzt `--XX-fill`, die Status-Tints sind auf Flächenwirkung angehoben
+    (`--c-success-bg` `#A9E5C8`, `--c-warning-bg` `#F5D08C`, `--c-error-bg` `#F5BFBF`, Fläche 1,43
+    bis 1,60:1), der neutrale Badge auf `n-200`. Die Tint-Texte wandern mit: `--c-warning` auf
+    `#785008` und `--c-error` auf `#9B2020`, damit sie auf der kräftigeren Füllung 4,84 bzw. 4,99:1
+    tragen; `--badge-*-text` verweist jetzt auf dieselben Token statt eigene Werte zu führen.
+  - **60 inline gesetzte Kachel-Tints** sind aus dem Markup in die Komponente gewandert
+    (`.ep-card-icon[data-area]`).
+  - **`--tx-muted` auf `#5A7171`** (vorher `#5E7676`): auf Weiß 4,85:1 ✓, aber auf `n-50` und
+    getönten Gründen nur 4,35 bis 4,51:1, also genau dort unter AA, wo leiser Text meist sitzt.
+    Jetzt 4,66 bis 5,20:1 und weiter klar heller als `--tx-secondary`.
+  - **Paletten-Beschriftungen (11).** Die Labels trugen `opacity:.75` auf der Swatch-Farbe, 2,53
+    bis 4,36:1, und genau dort steht der Hexwert zum Ablesen. Deckkraft raus; für die
+    Mittelton-Stufen, auf denen weder weißer noch dunkler Text 4,5:1 erreicht (auf `ki-700`
+    schafft selbst Schwarz nur 4,82:1), gibt es `.swatch.is-midtone` mit einer Plakette.
+  - **Halbtransparentes Weiß auf Bereichsbändern (4).** `.7` bis `.85` trugen 3,54 bis 4,46:1.
+    Jetzt deckend; die dokumentierte Konvention nannte `.85` und ist mit korrigiert.
+  - **Bedienelement-Rahmen (6).** Segmented Control und vier inline gestylte Suchfelder nutzten
+    `n-200` (1,53:1) statt `--field-border` (3,92:1), also unter der 3:1-Schwelle aus WCAG 1.4.11.
+  - **Terminal-Variante des Code-Blocks (3).** Kopier-Button und Ausgabe-Zeilen trugen 3,09 bzw.
+    4,20:1 auf dem dunklen Grund.
+  - **Slider ohne Bereichsklasse (1).** Fiel im Dark auf den `co-700`-Fallback und stand mit
+    2,36:1 dunkel auf dunkel; die vier Bereichsvarianten waren gesetzt, der Grundfall nicht.
+- **Kontrast-Gate `npm run check:contrast`.** Rendert `docs/index.html` in beiden Modi in Chromium,
+  löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente
+  Schichten werden aufeinander komponiert) und prüft Text (4,5:1 bzw. 3:1), getönte
+  Bauteil-Füllungen (Hausregel 1,3:1) und Bedienelement-Rahmen (3:1). Es misst die **fertige Kette**
+  statt des CSS und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in
+  `storybook-angular.yml`, weil es einen Browser braucht; das Wurzelprojekt bleibt ohne
+  Dependencies. Genau **eine** dokumentierte Ausnahme: Swatches, die ein Farbpaar als Inhalt zeigen.
+  Text über Fotos und Verläufen wird gezählt, nicht gewertet (braucht Pixelmessung).
+  Absicherung als **Ratsche**: eine Zahl pro Kategorie im Skript, Fehlschlag wenn sie steigt und
+  ebenso wenn sie sinkt, ohne nachgezogen zu werden. Erster Stand, Light/Dark:
+  **56/20** Text, **101/0** Füllungen, **6/0** Rahmen. Ziel überall 0.
+  Nebenbefund beim Bau: die ersten Messläufe lasen Zwischenwerte der Theme-Animation, die Zahlen
+  wanderten je nach Wartezeit. Das Gate schaltet Übergänge vor der Messung ab, zwei Läufe
+  hintereinander liefern jetzt identische Zahlen.
+- **Pill- und Badge-Füllungen lesen im Light wieder als Fläche.** Beide füllten mit `--XX-50`, das
+  im Light gleichzeitig der zarte Sektions-Tint ist. Als Bauteil-Füllung trug es gegen seinen Grund
+  nur **1,06:1** (ki) bis **1,14:1** (es), ein Fall auf einer `wo-50`-Sektion sogar 1,00:1: das
+  Element las nur noch als farbiger Text und verfehlte den Faustwert von 1,3:1 aus CONTRIBUTING § 5.
+  Gemessen über alle 64 Pills und 39 Bereichs-Badges der Doku, in beiden Modi.
+  Neu dafür **`--co-fill` / `--ki-fill` / `--es-fill` / `--wo-fill`** (Light `-200`, ki `-400`, weil
+  der Ton so hell ist, dass `-200` nur 1,27:1 trägt; im Dark identisch mit `--XX-50`, das dort schon
+  auf genau diese Aufgabe kalibriert ist). Nachgemessen: Light 1,42 bis 2,03:1 gegen beide Gründe,
+  Dark unverändert 1,32 bis 1,79:1, Text überall über 5,6:1. Die ES-Pill nimmt dabei `--es-800`
+  statt `--es-700`, wie das ES-Badge, weil `-700` auf der kräftigeren Füllung nur 4,74:1 trüge.
+  WCAG war in beiden Modi schon vorher erfüllt, der Text trug 4,7 bis 11,4:1; verfehlt war die
+  Flächenwirkung. Kein `--ro-fill`: Rosé ist Akzent- und Statusfarbe ohne Pill und Badge.
+- **Bereichs-Rahmen der Team-Stimme erfüllt die 3:1-Schwelle.** `.team-voice[data-area]` tönt seinen
+  Rahmen in der Bereichsfarbe, und der Rahmen ist dort das tragende Farbsignal, weil das Quote-Icon
+  daneben dekorativ ist (`opacity` .25 im Light, .6 im Dark). Er trug im Light auf `-200` nur
+  **1,27:1** (ki) bis **2,03:1** (es) und im Dark auf `-800` nur **1,07:1** (wo) bis **1,63:1** (ki),
+  war also in beiden Modi als Signal nicht wahrnehmbar. Jetzt dieselben Stufen wie beim
+  Bereichs-Chip, die dort schon auf die 3:1-Schwelle für grafische Objekte ausgelegt sind: Light
+  `-600`/`-700`/`-500`/`-500` (3,29 bis 5,66:1), Dark `-300` (4,25 bis 9,48:1).
+- **Sektions-Rhythmus im Dark auf Light-Parität, Karten grenzen sich per Rand ab.** Im Dark werden
+  `n-50`-Sektionen auf `bg-surface` gehoben, damit die Tonfolge dieselbe ist wie im Light. Für
+  kartentragende Sektionen gab es dafür eine Ausnahme (`.ep-section-cards`), die die Hebung
+  zurücknahm, damit die Karten die hellere Stufe bilden. Die Ausnahme kostet aber genau den
+  Rhythmus: die Sektion sitzt dann auf dem Ton ihrer Nachbarn. Im Browser über die 24 Beispielseiten
+  gemessen (133 Abschnitte, Chrome, `data-theme="dark"`): **63** verschmolzene Sektionsübergänge mit
+  Rücknahme, **20** ohne, **17** im Light. Auf der Beispiel-Startseite: 1 gegen 0.
+  Die Ausnahme entfällt daher komplett, samt Klasse und ihren 9 Vorkommen im Markup. Stattdessen
+  tragen Karten im Dark einen Rand aus `--bd-strong-c` (**4,21:1** gegen die Kartenfläche):
+  `.card`, `.ep-card` und `.ep-card-link`, letztere auch dann, wenn sie im Light `border:none`
+  setzen und sich auf `--e1` verlassen. Das ist kein Notbehelf, sondern dasselbe Mittel, mit dem im
+  Light die weiße Karte auf der weißen Sektion liest, dort mit 1,10:1. Auf `bg-page`-Sektionen
+  kommt die Tonstufe dazu. Gegenprobe im Browser: keine Kartenfläche ohne Rand.
+- **Schatten nur noch auf Karten, deren Fläche selbst klickbar ist.** `.card-elevated` setzte den
+  Ruhe-Schatten `--e1` auf jeder Karte, auch auf `<article>`/`<div>`-Karten mit Buttons im Footer.
+  Nach der Konvention „Elevation = Interaktivität" ist so eine Karte statisch: die Buttons sind die
+  Interaktion, die Fläche führt nirgendwohin, und ein Ruhe-Schatten verspricht Klickbarkeit, die es
+  nicht gibt. Der Hover-Lift war bereits auf `a.card-elevated` begrenzt, der Ruhe-Schatten nicht.
+  Die Variante hängt jetzt komplett an `a.card-elevated`; eine statische Karte fällt damit auf
+  `.card` zurück (flach, `--bd`-Rahmen) und kann den Schatten auch mit gesetzter Klasse nicht
+  bekommen. Betroffen waren 9 statische `.card-elevated`-Karten (generische Karten, Referenz- und
+  Themen-Karten der Beispielseiten), 6 Blöcke mit Inline-`box-shadow` (AI.Box-Preiskarten,
+  Agenda-Karten, zwei Newsletter-Widgets) sowie `.cta-dl` und `.cta-visual`, die den Schatten aus
+  dem CSS trugen. Alle behalten ihren Rahmen, die Kartenform bleibt. Die 44 Link-Karten
+  (`<a class="card card-elevated">`) sind unverändert. In der Doku ersetzt die Zeile „Link-Karte"
+  die bisherige Zeile „Elevation-Opt-in", die genau diesen Fall legitimiert hatte.
+- **Angular-Card rendert flach.** `CardComponent` gab per Default `card card-elevated` auf einem
+  `<article>` mit Footer-Button aus, also genau dieses Muster. Der `elevated`-Input entfällt (er
+  wäre nach der CSS-Änderung wirkungslos), die Komponente rendert `<article class="card">`. Eine
+  Link-Karten-Variante (`<a>` mit Ziel statt `<article>` mit Button) bleibt offen.
+- **Bereichs-Chips waren im Dark dunkel-auf-dunkel.** `.chip[data-area]` setzte Rahmen und Text auf
+  die dunklen Stufen (`-500`/`-600`/`-700` Rahmen, `-700`/`-800` Text), die im Dark nicht flippen:
+  der Text stand zwischen **1,35:1** (es) und **2,36:1** (co) auf einer Karte, der es-Rahmen mit
+  2,30:1 unter der 3:1-Schwelle für die Bedienelement-Grenze. Nur der *gedrückte* Zustand hatte
+  Dark-Regeln. Jetzt wie überall im Dark die hellen Pendants: Text `-200` (es `-100`) mit 7,66 bis
+  10,25:1, Rahmen `-300` mit 4,25 bis 9,48:1, Hover eine Stufe kräftiger. Betrifft 35 Chips in der
+  Doku. `check:dark-states` sah das nicht, weil es Zustands-Regeln prüft, nicht Ruhezustände.
+- **Karten-Varianten „Filled" und „Outlined" aus der Doku entfernt.** `.card-filled` und
+  `.card-outlined` existierten nie, weder im CSS noch im Markup noch in der Angular-Lib. Die
+  Varianten-Tabelle führt jetzt die zwei Zustände, die es gibt: statisch (`.card`) und Link-Karte
+  (`a.card.card-elevated`). Die Do/Don't-Liste und der Abschnitts-Untertitel sind nachgezogen,
+  ebenso zwei Aussagen zu einem „Tonal Overlay", das Karten nie gesetzt haben.
+- **Drei rohe Bereichston-Rahmen ersetzt.** Die Pro-Preiskarte trug `1px solid var(--ki-200)`
+  (im Light 1,27:1 gegen Weiß, im Dark eine leuchtende Haarlinie mit 10,25:1), jetzt `--bd`; die
+  4-px-Oberkante und die „Empfohlen"-Pill tragen die Hervorhebung weiter. Die zwei
+  Font-Specimen-Links nutzen jetzt die vorhandene `.chip`-Komponente mit `data-area` statt
+  Inline-Rahmen, Inline-Radius und zwei `onmouseover`/`onmouseout`-Handlern für den Hover.
+  `.chip` bekommt dafür `text-decoration:none`, damit es auch als `<a>` trägt.
+- **Dark-Mode-Flächen neu aufgesetzt.** `--bg-page` trug mit `#333E48` nur **10,92:1** gegen Weiß.
+  Die Material-Dark-Theme-Guidance fordert für die Basisfläche mindestens **15,8:1**; der Wert ist
+  kein Stilmittel, sondern der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch
+  4,5:1 sichert. Ursache war strukturell: `#333E48` ist `--tx-brand` aus dem Light Mode, also eine
+  gegen Weiß optimierte **Textfarbe als Fläche**. Neu `#151A1F` (17,51:1), Farbwinkel 209 wie bisher,
+  der Marken-Slate bleibt erhalten. `--bg-surface` `#3F4B56` → `#28323D`; die Stufe zwischen Seite
+  und Karte wächst dabei von 1,223:1 auf **1,346:1**, weil mehr Kopfraum nach unten mehr Spielraum
+  nach oben schafft. Gemessen über alle 24 Beispielseiten im Dark: **117 → 24 Kontrast-Verstöße**,
+  die verbleibenden 24 sind ein vorbestehender, themeunabhängiger Befund am `.skip-link`
+  (weiß auf `--co-500` = 2,31:1, in Light identisch, separat zu beheben). Der größte Block waren
+  `--tx-muted` und Bereichstexte auf Karten, die mit 4,08:1 knapp unter AA lagen und jetzt bei
+  5,95:1 liegen.
+- **Getönte Flächen im Dark: `--XX-50` zerfällt in zwei Token.** Ein Wert kann zwei gegensätzliche
+  Aufgaben nicht mehr tragen. Ein **großes Band** muss dunkler bleiben als die Karten darauf, eine
+  **kleine Füllung** (Badge, Pill, Icon-Kachel) muss heller sein als ihr Grund, sonst liest sie
+  nicht mehr als Fläche. Bei `bg-page` auf 17,5:1 und Schwarz bei 21:1 reicht der Spielraum für
+  beides zusammen nicht. `--XX-50` ist jetzt die kleine Füllung (9,8:1, also 1,78:1 gegen die Seite
+  und 1,32:1 gegen Karten), das neue `--XX-band` die Sektionsfläche (16,5:1, 1,06:1 gegen die Seite
+  mit der Trennung über den Farbton, Karten darauf 1,27:1). Im Light sind beide identisch.
+  Gemessen über 199 Badge- und Pill-Instanzen: die Fläche gegen ihren Grund stand nach der ersten
+  Fassung bei **1,06:1** und damit praktisch nicht mehr da, jetzt bei 1,32 bis 1,79:1. Zum Vergleich
+  der Stand vor dem gesamten Umbau: 1,29:1 im schlechtesten Fall. Sättigung auf 0,60 begrenzt, weil
+  kräftig gesättigte Farbe großflächig auf dunklem Grund optisch vibriert.
+- **Acht Inline-Rahmen nutzten rohes `--n-100` statt `--bd`.** Das verstößt gegen die eigene Regel in
+  `CONTRIBUTING.md` § 5. Im Light sind beide Werte identisch, im Dark wird `--n-100` dunkel und der
+  Rahmen stand mit **1,18:1** gegen die Kartenfläche, war also praktisch unsichtbar. Jetzt `var(--bd)`
+  (2,99:1). Betraf `.card`-Elemente in der Doku, Light bleibt unverändert.
+- **Snackbar-Flächen im Dark waren hartkodierte Kopien.** `.snack-ok` und `.snack-err` trugen
+  `#052415` und `#220808`, also die alten Werte von `--c-success-bg` und `--c-error-bg`. Als die
+  Status-Tints angehoben wurden, blieben die Kopien zurück und standen nur noch **1,06:1** bzw.
+  **1,08:1** gegen die Seite, die Snackbar war als Fläche praktisch weg. Jetzt über die Token
+  (1,78 und 1,79:1). Zusätzlich zählt die Snackbar zu den schwebenden Panels und bekommt im Dark
+  denselben `--bd-strong-c`-Rand wie Menüs (5,66:1 gegen den Grund); das deckt auch die
+  Default-Variante ab, die mit `--n-700` nicht mitflippt und bei 1,23:1 lag.
+- **Schwebende Panels bekommen im Dark einen stärkeren Rand.** Menüs und Popover grenzen sich im
+  Light über `--e3` ab. Auf der tiefen Basisfläche trägt ein schwarzer Schatten das nicht mehr: ein
+  geöffnetes Topnav-Menü stand über dem Hero-Foto nur noch **1,34:1** gegen die hellste Stelle
+  daneben (vorher 1,92:1), weil die Panel-Fläche mitgesunken ist, das Foto darunter aber nicht.
+  Eine dritte statische Flächen-Stufe wäre der Material-Weg, würde aber die Zwei-Stufen-Konvention
+  brechen und einem Menü über einer Karte nur 1,13:1 bringen. Stattdessen übernimmt der Rand:
+  `--bd-strong-c` statt `--bd-c` für `.ep-nav-sub`, `.ep-select-menu`, `.ep-combobox-menu` und das
+  Suchpanel. Panel-Rand gegen den Untergrund 3,51 auf **4,95:1**, damit über dem Ausgangsstand
+  (4,15:1). Neu dafür `--bd-c` / `--bd-strong-c`, die reinen Rahmenfarben: `--bd` und `--bd-strong`
+  sind Shorthands und funktionieren in `border-color` nicht.
+- **Platzhalter in Formularfeldern erfüllen AA.** `.field` hatte keine `::placeholder`-Regel, es griff
+  Chromes Default `rgb(117,117,117)`: im Dark **2,82:1** und damit ein Verstoß, im Light 4,61:1 und
+  damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Jetzt `--tx-secondary` wie bei
+  Suchfeld, Footer-Newsletter, Combobox und Nav-Suche, die das längst taten; die Standard-Felder
+  waren der Ausreißer. Gemessen über 22 Felder: Dark 7,13:1, Light 6,29:1.
+- **Zwei Download-Buttons trugen im Dark dunklen Text auf dunkler Fläche** (3,51:1). Sie setzten die
+  Bereichsfarbe inline (`--c500:var(--co-700)`) statt über `.btn-co`. Die Dark-Regel für die Fläche
+  hängt an der Bereichsklasse, die für die Textfarbe an `.btn-filled`; ohne Klasse greift nur die
+  zweite. Jetzt `class="btn btn-filled btn-co"`, die inline gesetzten `--c600`/`--c700`/`--c900`
+  waren ohnehin tot (nirgends in `css/` referenziert). Vorbestehend, Light war nicht betroffen.
+- **Fehler-Badge-Text im Dark auf `#FFA5A5`.** `#F08080` trug auf der aufgehellten Fehler-Füllung
+  nur 3,78:1. Damit nutzen `--badge-err-text`, `--cbadge-fail-text` und `--c-error` denselben Ton,
+  eine Fehlerfarbe weniger im System.
+- **`--c-warning-bg` war im Dark unsichtbar.** `#231800` stand mit 1,00:1 gegen die neue Seite. Alle
+  drei Status-Tints und die drei Kontrast-Badge-Flächen auf die Tint-Stufe gehoben.
+- **Ränder im Dark nachgezogen.** Auf der tieferen Seite sprang `--bd` von 3,19:1 auf 5,12:1 und
+  wirkte drahtig, jetzt `#6F7A89`. `--field-border` von `--n-200` (11,46:1) auf `#869C9C`; als
+  einzige Grenze, die WCAG 1.4.11 zwingend braucht, liegt es mit 4,49:1 auf der Karte sicher über 3:1.
+- **Logo-Platte im Dark gedämpft.** Eine reinweiße Fläche dieser Größe stand mit 17,51:1 gegen die
+  Seite. Über das neue `--bg-plate` im Dark auf `#E8EDED`; dunkle Kundenlogos darauf 14,73:1.
+- **Fotos im Dark leicht gedämpft** (`filter: brightness(.92)` auf `.hero-image-media`,
+  `.ep-media-band`, `.article-figure`). Nicht zu verwechseln mit dem verworfenen
+  `brightness(.75)` auf Icon-Glyphen: das betraf Strichgrafik auf getönten Kacheln.
+- **Fokusringe folgen jetzt `var(--bg-page)`** statt einem hartkodierten `#333E48` und laufen bei
+  künftigen Flächen-Änderungen automatisch mit.
+- **Drei hartkodierte Kopien im Dark auf ihre Token gezogen.** Sie hielten Werte, die die
+  Flächen-Umstellung ersetzt hat, und liefen dadurch aus der Familie:
+  `.a11y-rule-icon` trug die Kreisflächen als `#052415` / `#220808` und stand damit bei 1,06:1 bzw.
+  1,08:1 gegen die Seite, der Kreis war keine Fläche mehr (jetzt `--c-success-bg` / `--c-error-bg`,
+  1,78 und 1,79:1; der Fehler-Glyph geht mit auf `--c-error`, 5,21:1 statt 3,78:1).
+  Der Chip-Rahmen hielt den alten `--bd`-Wert `#818C99` (jetzt `--bd-strong-c`, 4,21:1 gegen die
+  Chip-Fläche; `--bd-c` wäre mit 2,99:1 unter der 3:1-Schwelle, die die Bedienelement-Grenze nach
+  WCAG 1.4.11 braucht). Der Tonal-Button-Rahmen hielt den alten `--bd-strong`-Wert `#9DA8B6`
+  (jetzt `--bd-strong-c`, 3,64:1 bis 4,87:1 auf den vier Tonal-Füllungen).
+
+- **Skip-Link erfüllt AA.** Weiß auf `--co-500` `#00BEBE` trug **2,31:1**. In Ruhe ist der Link
+  geclippt, beim Fokus springt er sichtbar herein, also genau dann kaputt, wenn Tastaturnutzende ihn
+  brauchen. Jetzt `--co-700` (5,52:1), dieselbe Füllfarbe, die `.btn-filled.btn-co` verwendet.
+  Betraf beide Modi, `--co-*` flippt nicht.
+- **Hero-Scrim verdichtet.** Der Text liegt zwischen 23 % und 77 % der Caption-Höhe, der Eyebrow als
+  erstes Kind damit im obersten, schwächsten Abschnitt des Verlaufs. Dort stand er auf Alpha 0,30,
+  über einem ausgebrannt hellen Foto sind das 1,90:1; gemessen lagen bis zu **63 % der
+  Eyebrow-Fläche** unter 4,5:1. Der `text-shadow` hilft optisch, zählt für WCAG nicht. Die
+  Unterkante bleibt unverändert bei `.85`, verdichtet wird nur der obere Teil
+  (`.72` bei 60 %, `.66` bei 80 %). Bei 77 % jetzt Alpha 0,67 = 6,0:1 gegen ein weißes Foto.
+  Pixelgemessen über 51 Textblöcke auf 17 Seiten: Blöcke mit über 10 % Fläche unter 4,5:1 gehen von
+  **17 auf 0** (Light) und von 13 auf 0 (Dark).
+  Der erste Anlauf dafür erfüllte zwar alle Kontrastwerte, zeichnete aber eine sichtbare Linie quer
+  durchs Bild: er baute die Deckkraft auf zu kurzer Strecke auf. Gemessen an der zweiten Ableitung
+  der Zeilenhelligkeit lag er bei 21 bis 25 gegenüber 7,9 beim vorherigen Verlauf. **Mehr
+  Stützstellen halfen nicht** (eine weiche Kurve mit neun Stops maß 22,4). Gelöst über eine längere
+  Auslaufstrecke: die Caption bekommt oben eine fluide Polsterung bis 96 px, der Verlauf läuft mit
+  0,0066 Deckkraft pro Pixel aus und misst 9,2. Der Faustwert dazu steht jetzt in der Bildsprache.
+- **Code-Kommentare erfüllen AA.** `.cb-body .c` stand mit `--n-400` auf dem `--n-50`-Grund bei
+  3,65:1, jetzt `--tx-muted` (Light 4,51:1, Dark 8,9:1). Die Terminal-Variante hat einen fest
+  dunklen Grund in beiden Modi und behält deshalb `--n-400` (4,87:1) über eine eigene Regel.
+- **Scrim-Empfehlung in der Bildsprache korrigiert.** Die Doku nannte `rgba(0,0,0,.45)` und
+  widersprach damit ihrer eigenen Regel darüber: über einer ausgebrannten Bildstelle trägt das nur
+  rund 3:1. Neu mindestens `.60` für weiße Schrift, gerechnet gegen die **hellste** Stelle unter dem
+  Text statt gegen den Bilddurchschnitt, und bei Verläufen an der Position des Textes statt am
+  dichten Ende. Genau diese Lücke hatte den Hero-Befund erzeugt.
+
+### Documentation
+- **Die Rollen-Token sind jetzt dort dokumentiert, wo man sie sucht.** `--co-ink`, `--es-ink` und
+  `--wo-ink` standen in keiner Doku, die Token-Tabelle der Doku-Seite führte nur `--ki-ink` (die
+  anderen drei gab es bis vor Kurzem nicht), und `--XX-fill` stand nur in Prosa und in
+  CSS-Kommentaren. Auch die Consumer-Tabelle in `docs/GETTING-STARTED.md`, also die Tabelle, die
+  eine Anwendung liest, kannte beide Rollen nicht. Ergänzt: Familien-Zeilen in der Doku-Tabelle mit
+  Messwerten, dieselben zwei Rollen in der Consumer-Tabelle samt Leitsatz („nach der Rolle greifen,
+  nicht nach der Stufe"), die Rollen-Zuordnung als ersten Schritt in CONTRIBUTING § 10, beide
+  Prüfbefehle im Schritt „Prüfen" und in der PR-Checkliste, und ein Abschnitt „Prüfungen" im README:
+  dass es ein Kontrast-Gate gibt und was es garantiert, stand dort gar nicht.
+- **In die PR-Checkliste aufgenommen, was in dieser Runde zweimal gefehlt hat:** nach
+  Layout-Änderungen den geänderten Bereich in beiden Modi **und zwei Breiten** ansehen, also Kanten
+  und Umbrüche, nicht nur Farbwerte.
+
 ### Added
+- **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
+  tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
+  zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.
+- **`--bg-plate`** (Light `#FFFFFF`, Dark `#E8EDED`): helle Platte unter Fremd-Assets, die nur in
+  einer dunklen Fassung vorliegen (Kundenlogos).
+- **Druckausgabe:** `dark-mode.css` steht jetzt komplett in `@media screen`, Token-Block und
+  Komponenten-Regeln. Eine Seite mit `data-theme="dark"` druckte bisher die volle dunkle Fläche;
+  jetzt greifen die Light-Werte aus `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden.
+  Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe
+  (`co-200`, `ki-200`, `es-100`, heller `tx-primary`), die auf dem hellen Druckgrund 1,2 bis 1,9:1
+  trägt; ein geschützter Token-Block allein hätte den Text genau dort verloren, wo eine eigene
+  Dark-Regel greift. Neue Dark-Regeln gehören innerhalb des Blocks, sonst drucken sie dunkel mit.
+- **CI-Gate gegen dunkel-auf-dunkel-Zustände** (`npm run check:dark-states`, in `css-core.yml`):
+  Prüft jede `:hover`/`:focus`/`:active`-Regel in `components.css` darauf, ob sie einen nicht
+  theme-awaren Ton setzt, dessen Kontrast gegen die dunklen Grundflächen unter der WCAG-Schwelle
+  liegt (4,5:1 für Text, 3:1 für Ränder), ohne dass `dark-mode.css` nachzieht. Gerechnet wird echter
+  Kontrast, nicht die Stufennummer: `--co-500` ist `#00BEBE` und trägt im Dark, `--wo-800` ist
+  `#183A0E` und nicht. Auf dem Stand vor diesem Commit hätte der Check **acht** Verstöße gemeldet.
+  Bewusste Ausnahmen stehen mit Begründung im Skript, aktuell keine.
+  Dazu ein zweiter Check gegen **zerrissene Füllung/Text-Paare**: Eine Regel, die Hintergrund und
+  Textfarbe gemeinsam setzt, trägt ihren Kontrast selbst, aber nur solange das Paar zusammenbleibt.
+  Überschreibt eine andere Regel nur eine Hälfte, entsteht genau der Fehler, den der erste Check nicht
+  sieht. Der zweite bildet dafür die Kaskade je (Element, Theme, Zustand) nach und prüft die
+  tatsächlich gewinnende Kombination — paarweises Vergleichen reichte nicht, weil im Dark oft eine
+  spezifischere Regel den Text längst überschrieben hat.
+  Er hat sofort zwei Fehler gefunden, die von Hand durchgerutscht waren: die zu breite Chip-Inversion
+  und einen Icon-Hover auf `var(--n-100)`. Letzterer entlarvte eine falsche Annahme im ersten Check:
+  Tokens aus dem Dark-Block galten als „theme-aware und damit unkritisch", aber die Neutrals kippen
+  dort auf **dunkle** Werte (`--n-100` = `#1C2E2E`). Der Check wertet Tokens jetzt mit dem Wert aus,
+  den sie im Dark tatsächlich annehmen.
+- **Personengruppe mit Bio** (`.author-card-group.is-grid`): Zweispaltige Variante der bestehenden
+  Author-Card-Gruppe für zwei bis vier Personen mit Kurz-Bio, gedacht für die Trainer:innen einer
+  Seminar- oder Training-Landing. Die Karten selbst bleiben unverändert; die Variante setzt nur das
+  Raster (960 px Container, `minmax(0,1fr)` gegen Grid-Blowout, mobil einspaltig ab 768 px) und zieht
+  die gemeinsame `.author-card-group-eyebrow` per `:has()` auf dieselbe Breite. Dokumentiert mit einer
+  Regel an der Personenzahl: 1 Person groß mit 4:3-Bild, 2 bis 4 im Raster, darüber das
+  Team-Tile-Grid ohne Bio. Dokumentiert unter *Seminar & Training · Trainer:innen*, nicht bei der
+  Author Card: Trainer:innen kommen nur auf Seminar- und Training-Landings vor. Live auf der Beispielseite *Scrum Trainings*, deren Trainer:innen-Sektion
+  bisher nur einen Platzhaltertext ohne Personen trug.
+- **Komponente „Buchungsformular"** (`#sec-booking`, Klassen `.bk-*`): verbindliche Terminbuchung als
+  Komposition aus `.field`-Feldern, am Beispiel eines Seminars. Erste Formular-Komponente mit
+  **bedingten Feldblöcken** (Firma vs. Privatperson, abweichende Rechnungsadresse: `hidden` statt
+  `disabled`, `required` wird über `data-required` mitgeschaltet) und einem **Teilnehmenden-Repeater**
+  (Anzahl als führendes Feld, Namensblöcke folgen, Schutz vor stillem Datenverlust beim Verringern,
+  „Ich nehme selbst teil" belegt Block 1 vor). Live-Preiszeile und Anzahl als `role="status"`, Fehlerübersicht `.bk-errors` mit Sprunglisten,
+  `autocomplete`-Sections je Block, feldspezifische Fehlermeldungen über `data-err`.
+  Informationshierarchie in drei Stufen: Gruppe `--ty-title-sm` (20 px) mit Haarlinie, Untergruppe
+  (`.bk-subgroup`/`.bk-sublegend`) `--ty-name` (14 px), Feldlabel 12 px Versalien. Eine Gruppe ist
+  eine Entscheidung samt ihrer Folgen, bedingte Blöcke liegen als Untergruppe **in** der Gruppe
+  ihres Auslösers statt daneben. Preiszeile zweimal (bei der Anzahl mit `role="status"`, stumm über
+  dem Submit); nur Pflichtsternchen ohne zusätzliche „(optional)"-Marker; freiwilliges
+  Contentletter-Häkchen von den Pflicht-Bestätigungen abgesetzt.
+  **Bestellübersicht** (`.bk-order`) unmittelbar vor dem zahlungspflichtigen Button: Leistung,
+  Termin, Auftraggeber, Plätze und Gesamtbetrag, live aus dem Formular. Noch leere Zeilen bleiben
+  stehen und tragen `data-empty`, damit sichtbar ist, was fehlt, statt dass die Übersicht springt.
+  Dazu der Abschnitt **„Für die Umsetzung"**: Anforderungen an die Produktivfassung, allen voran
+  ein Zwischenspeicher gegen Datenverlust (Schlüssel, Speicherort, Wiederherstellungsreihenfolge,
+  `beforeunload`-Regel), sowie serverseitige Validierung, Platzkontingent, Doppel-Submit und Spam.
+  Dazu ein Entscheidungs-Abschnitt „Anfrage oder Direktbuchung", der das Formular gegen die adaptive
+  Kontaktseite abgrenzt; die Beispielseite Seminar bleibt bewusst beim Anfrage-Flow.
+
+- **Bereichs-Varianten für das Segmented Control** (`.seg-ki`, `.seg-es`, `.seg-wo`): Die Füllung des
+  gewählten Segments läuft jetzt über `--seg-fill`/`--seg-on` statt fest über `--co-700`, analog zum
+  `--c500`-Muster der Buttons. Default bleibt Corporate, bestehende Verwendungen ändern sich nicht.
+  Im Dark Mode kippt jede Variante auf ihren `-300`-Ton mit `-900`-Text.
+
+- **Doku · Abschnitt „Responsive"** (`#sec-responsive`): Übergabe-Spezifikation der Responsive-Strategie
+  als eigener Foundations-Abschnitt (bisher nur implizit im CSS + verstreut). Verbindliche 3-Stufen-Breakpoints
+  (Phone ≤ 520 · Mobile ≤ 768 · Tablet 769 bis 1024 · Desktop > 1024), Begründungen der nicht offensichtlichen
+  Bruchpunkte (520 vs. 768 bei Hero-CTAs, auto-fit vs. fix-spaltig, Hamburger ≤ 760, Doku-Sidebar ≤ 1024),
+  fluide Typo-Tokens (clamp, min ≥ 20 px, unitless Ratio) und vollständiges Komponenten-Inventar mit CSS-Quelle.
+  Plus Hinweise, was auf der echten Site übernommen werden muss vs. was mockup-gebunden ist.
 - **Angebots-Detailseiten (Beispielseiten)**: Fünf neue Landingpages für einzelne Angebote unterhalb der
   Bereiche, jeweils an den Bereich gebunden. Wirksame Organisationen: „Erste Hilfe bei Meetingflut"
   (Festpreis 3.600 €), „Scrum Trainings" (Preiskarten Scrum.org/TÜV SÜD), „Lean Portfolio Management"
@@ -71,6 +440,42 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
 
 ### Changed
+- **Preis und Rahmendaten stehen jetzt direkt nach dem Hero** (Beispielseite Seminar): Die
+  Lernziele-Sektion ist zweispaltig geworden, links die Bullet-Liste (`.col-8`), rechts der
+  Angebots-Kasten (`.col-4`, sticky). Gemessen rückt der Preis von **45 % auf 10 %** der Seitenhöhe.
+  Bewusst kein neuer Streifen unter dem Header, sondern der vorhandene Kasten neben dem ersten Inhalt.
+  Das Kontaktformular bleibt, wo es war, bei „Inhalte & Voraussetzungen"; beide Kästen tragen dadurch
+  je eine Aufgabe. Dazu eine Zwei-Spalten-Variante der Rahmendaten (`.ep-facts.is-grid`): Einspaltig
+  war der Kasten 470 px hoch gegen 256 px Inhalt daneben, also 214 px Leerraum. Zweispaltig sind es
+  299 px und 43 px Leerraum. Die Variante verzichtet auf die Haarlinien und wird über `auto-fit` in
+  schmalen Kästen von selbst wieder einspaltig.
+- **Fakten-Streifen aufgelöst, Angaben ziehen in den vorhandenen Kasten** (`.ep-facts`): Der flache
+  Key-Facts-Streifen unter dem Hero entfällt auf allen vier Angebots-/Seminar-Landings. Die Angaben
+  bleiben vollständig erhalten und stehen jetzt dort, wo über das Angebot entschieden wird, statt an
+  zwei Stellen. Neu ist dafür `.ep-facts`, eine einspaltige `<dl>` aus Label/Wert-Paaren
+  mit Haarlinie dazwischen, **ohne eigenen Rahmen**: sie zieht in einen Container ein, den die Seite
+  schon hat (Angebots-Box, Sticky-Sidebar), sonst entstünde Kasten im Kasten. Damit verschwinden auch
+  die viermal kopierten Inline-Styles des alten Streifens.
+  Pro Seite: *Seminar* → Dauer, Format, Gruppe und Sprache in die Sticky-Sidebar (der dortige separate
+  Sprache-Block entfällt, die Dublette zum Streifen ist damit weg). *Meetingflut* und
+  *Keycloak-Erweiterungen* → **keine** Liste, ihre Angebots-Box nannte Laufzeit, Leistung, Ergebnis und
+  Preis bereits vollständig, der Streifen war dort reine Dopplung. *Scrum Trainings* → eigener Kasten
+  einmal über den vier Preiskarten, weil die Angaben für alle vier gelten und die Seite keine
+  Angebots-Box hat.
+- **`data-accent` ist nicht mehr an `.ep-page` gebunden**: Die Akzent-Regeln für `.t-co` und
+  `.body-link` sowie die Chrome-Resets für Footer und Topnav laufen jetzt über `[data-accent="…"]`
+  statt `.ep-page[data-accent="…"]` (Light und Dark). Damit kann auch ein einzelner Block einen
+  Bereichs-Scope aufspannen, etwa ein Buchungsformular, eine Anmeldesektion oder ein
+  Bereichsformular in einer sonst corporate Seite, ohne Inline-Bereichsfarben an den Links (die im
+  Dark-Mode brechen würden). Abwärtskompatibel: die bestehenden `.ep-page[data-accent]`-Seiten
+  treffen den neuen Selektor unverändert.
+- **Topnav: Submenüs öffnen zusätzlich per Hover**: Auf Geräten mit echtem Hover (`pointer:fine`) klappt
+  das Submenü jetzt auch beim Überfahren des Top-Items auf (JS-gesteuert, kurzer Intent-Delay beim Öffnen,
+  verzögertes Schließen + unsichtbare Brücke über den Gap → WCAG 1.4.13 „hoverable/dismissible/persistent").
+  Klick/Tap, Tastatur und Touch bleiben unverändert; der Label-Klick navigiert weiterhin direkt zur
+  Übersicht (kein erzwungener 2-Klick). Der Reveal hängt weiter an `.is-open` (kein reines CSS-`:hover`),
+  `aria-expanded` läuft mit, `closeAllNavItems` verhindert zwei gleichzeitig offene Menüs. Escape schließt
+  jetzt auch ein rein per Hover geöffnetes Menü.
 - **Topnav: Top-Level-Parents als Link zur Übersicht (Split „Link + Caret-Disclosure")**: „Angewandte KI",
   „Leistungen" und „Unternehmen" sind jetzt echte `<a>`-Links auf ihre Übersichtsseite (`data-ep` = erstes
   Submenü-Ziel), statt reiner Aufklapp-Buttons. Ein **separater Caret-`<button>`** (`.ep-nav-item-toggle`,
@@ -112,6 +517,101 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   regeneriert. Neuer Doku-Abschnitt zur medienübergreifenden Nutzung (Web/Print/PowerPoint, px↔pt).
 
 ### Fixed
+- **Seminar-Sidebar in zwei Kästen geteilt**: Seit dem Umzug der Rahmendaten trug der eine Kasten zwei
+  Aufgaben, Nachschlage-Information und Kontaktformular, und die Formular-Überschrift saß als gefüllter
+  Bereichsbalken mitten im Element. Das las sich wie zwei zusammengeklebte Karten. Jetzt zwei Kästen mit
+  Abstand: oben Angebot und Rahmendaten, darunter das Formular mit seinem Balken dort, wo eine
+  Kartenüberschrift hingehört. Sticky-Verhalten und Formular unverändert.
+- **Rohe `var(--n-200)`-Rahmen auf `var(--bd-strong)` umgestellt** (Seminar-Sidebar, adaptive
+  Kontaktseite, vier Stellen): `--n-200` flippt im Dark nicht und ergab dort einen grellen `#C9D3D3`-Rahmen.
+  `--bd-strong` ist im Light derselbe Ton, im Dark `#9DA8B6`. Entspricht der Konvention „nie rohes
+  `-100`/`-200` als Border".
+- **Falsches Bereichs-Icon auf fünf Verweiskarten**: Karten, die auf eine Bereichs-Übersicht
+  verlinken, tragen das Marken-Glyph des Bereichs (`ki-bot`, `es-window-check`, `wo-network`,
+  solid, eingefärbt über `.ep-card-icon.t-XX`). Zehn Karten hielten sich daran, fünf nicht: die
+  „Weiter im Thema"-Blöcke der Angebots-Detailseiten (Meetingflut, Scrum, LPM, Keycloak,
+  Keycloak-Erweiterungen) zeigten ein generisches Heroicon mit inline gesetztem
+  `stroke="var(--XX-700)"` statt des Glyphs. `icons/README.md` hatte die Regel nur für
+  `/leistungen` und die Landingpage notiert; sie hängt jetzt am Anlass statt an einzelnen Seiten,
+  mit ausdrücklicher Abgrenzung zu den thematischen Outline-Icons inhaltlicher Karten.
+- **Hover bereichsgetönter Body-Links war im Dark Mode unlesbar**: In einem `data-accent`-Container
+  sprang `.body-link:hover` auch im Dark auf den `-800`-Ton, also dunkel auf dunkel. Gemessen:
+  `wo-800` auf `bg-page` = **1,17:1**, `es-800` = 1,29:1, weit unter der AA-Schwelle von 4,5:1. Der
+  Link verschwand beim Überfahren praktisch. Ursache: Die Light-Regel `[data-accent="wo"]
+  .body-link:hover` hat dieselbe Spezifität wie die Dark-Grundregel, und `components.css` wird nach
+  `dark-mode.css` geladen. Für den generischen `.body-link:hover` gab es den Dark-Override bereits,
+  für die drei Bereichsvarianten fehlte er. Jetzt ergänzt (`-100`, also heller statt dunkler, analog
+  zur bestehenden Regel): `wo-100` = 8,4:1, `es-100` = 7,6:1, `ki-100` entsprechend.
+  Ein systematischer Durchgang durch **alle** `:hover`-Regeln mit dunklen Tokens fand denselben Fehler
+  ein zweites Mal: der Chrome-Reset `[data-accent] .footer .body-link:hover` sprang im Dark auf
+  `co-800`, **1,97:1** → jetzt `co-100` = 14,3:1.
+- **Chip-Hover lief im Dark Mode rückwärts**: Der Rand nutzt beim Überfahren die kräftigeren
+  `-500`/`-600`/`-700`-Töne. Im Dark sind das die dunkleren, der Rand wurde also schwächer statt
+  kräftiger und die Affordanz kehrte sich um (`ki` ruhend `-400` #BEE82D → hover `-700` #6B8208).
+  Kein AA-Verstoß (alle Werte blieben über der 3:1-Schwelle für Nicht-Text), aber falsch herum.
+  Dark-Overrides ergänzt, jeweils eine Stufe heller als der Ruhezustand: co `-200`, ki `-300`,
+  es `-200`, wo `-200`.
+- **Gedrückter Chip war im Dark Mode kaum vom Grund zu unterscheiden**: Die Füllung `n-700` ergab
+  gegen `bg-page` nur **1,60:1**, der ausgewählte Zustand war praktisch nur am weißen Text erkennbar.
+  Er invertiert jetzt wie das Segmented Control, das dieses Muster im System bereits vorgibt
+  (`--seg-fill` `-300` mit `--seg-on` `-900`): helle Füllung `n-300` mit dunklem Text `n-900`,
+  Hover eine Stufe heller statt dunkler. Gemessen: Text auf Füllung 8,62:1, Füllung gegen Seite
+  4,85:1. Light bleibt unverändert bei `n-700` mit weißem Text.
+- **Drei weitere dunkel-auf-dunkel-Zustände**, gefunden durch den neuen Check statt durch Zufall:
+  der Hover-Rand des neutralen Chips (`n-400`, 2,79:1 und dunkler als der Ruhe-Rand → `n-200`) und
+  der Pause-Knopf im Logo-Karussell (`n-700`, **1,60:1** → `n-100`). Offen bleibt der gedrückte Chip:
+  seine Füllung ist im Dark eine sehr dunkle Fläche auf dunklem Grund. Der Zustand ist über den
+  weißen Text erkennbar, die sauberere Lösung wäre eine helle Füllung im Dark — das ist aber eine
+  Gestaltungsentscheidung und steht als dokumentierte Ausnahme im Check.
+- **Vergleichstabelle (`.ep-compare-*`) Dark-Mode-Kontrast**: Summary, ✓-Glyph (`.ep-compare-yes`) und
+- **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
+  fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
+  Feldern einen Corporate-Akzent und trug zwei Brand Areas gleichzeitig, entgegen der eigenen Regel
+  „ein Formular gehört zu genau einer Brand Area".
+- **Links im Buchungsformular blieben Corporate**: Die Inhouse-Anfrage im Helper und die beiden
+  Consent-Links standen auf `--co-700`, obwohl der Abschnitt genau zwei bewusste Corporate-Reste
+  ausweist (Fokusring, Feldrahmen im Fokus). Ursache war der fehlende Akzent-Scope: die Demo hängt
+  in einer Doku-Karte, nicht in einer `.ep-page`. Der Wrapper trägt jetzt `data-accent="ki"`.
+- **Consent-Links waren `<span>` statt Anker**: Die verlinkten Datenschutz- und Bedingungs-Hinweise in
+  den Einwilligungs-Checkboxen waren nicht per Tab erreichbar und wurden von Screenreadern nicht als
+  Link angesagt, obwohl genau dieser Text die Grundlage der Einwilligung ist. Jetzt durchgehend echte
+  `<a class="body-link">`: Buchungsformular (2×), beide Newsletter-Varianten und die Event-Anmeldung,
+  die als dritte Variante ein `<span class="t-es">` mit `text-decoration:underline` trug. Als
+  **systemweite Regel** dokumentiert (Inputs & Forms, Zeile „Link im Label", plus Do/Don't-Paar und
+  CONTRIBUTING § 8); die A11y-Zeile des Buchungsformulars verweist darauf. Die Übergabe-Tabelle
+  „Für die Umsetzung" fordert zusätzlich echte Ziele für die Rechtstexte (die Demos tragen `href="#"`)
+  und ein Öffnen ohne Formularverlust.
+- **Bereichsformulare tönten ihren Consent-Link nicht**: Neben dem Buchungsformular betraf das die
+  Event-Anmeldung (Sektion `#ev-anmeldung` trägt jetzt `data-accent="es"`) und die adaptive
+  Kontaktseite, wo `applyKontaktContext()` Header, Button und Häkchen umtönte, den Datenschutz-Link
+  im Consent-Label aber corporate ließ. Das Attribut sitzt dort am `<form>`, nicht an der Karte:
+  Telefon, E-Mail und Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate.
+  Bei `co` wird es entfernt, Corporate ist der Default.
+- **Bereichs-CTAs aus der Doku verloren ihren Kontext**: Der globale Anker-Handler rief
+  `activateExamplePage(epKey)` ohne Kontext-Objekt, anders als der `ep-page`-Handler. Ein Link mit
+  `data-k-bereich`/`data-k-anliegen` außerhalb einer Beispielseite (etwa „Inhouse-Termin anfragen"
+  im Buchungsformular) landete deshalb auf der neutralen Kontaktseite: keine Tönung, kein
+  vorbelegtes Thema, kein Anliegen. Beide Pfade geben den Kontext jetzt gleich weiter.
+- **`.helper` verfehlte AA im Dark Mode**: Hilfetexte unter Feldern nutzten `--tx-muted`, das auf
+  `--bg-surface` nur 4,1:1 erreicht (die Kontrast-Tabelle dokumentiert das dort ausdrücklich als
+  „Large Text / Non-Text"). Umgestellt auf `--tx-secondary`: 6,3:1 Light, 4,9:1 Dark. Betrifft alle
+  Formulare mit Hilfetext.
+- **Fehlerrahmen an Select und Textarea**: `.field.has-error` färbte nur `input` rot, ein fehlerhaftes
+  Pflicht-Select blieb optisch unmarkiert. Regel um `select` und `textarea` erweitert.
+- **`--c-error` verfehlte AA im Dark Mode auf `bg-surface`**: `#FF8E8E` war nur gegen `--bg-page`
+  geprüft (4,9:1). Inline-Fehlertext sitzt aber fast immer in einer Formularkarte auf `--bg-surface`,
+  dort waren es 4,0:1 bei 12 px. Angehoben auf `#FFA5A5`: 5,9:1 auf bg-page, 4,75:1 auf bg-surface.
+  Betrifft alle Fehlermeldungen, Required-Sternchen und ✕-Marker im Dark Mode.
+
+  der „Pro"-Header (`thead .ep-compare-pro`) nutzten rohes `co`/`ki`-`800` (`--ki-800` #475705), das im
+  Dark nicht mitflippt → dunkel-auf-dunkel (Core-Spalte auf `bg-page`, Pro-Spalte auf `--ki-50` #2A3411,
+  Häkchen faktisch unsichtbar). Dark-Override ergänzt: ✓ und Pro-Header auf `--ki-100`, Summary auf
+  `--ki-200` (Hover `--ki-100`), analog zum bestehenden `.ep-feature-icon`/`.ep-tier-label`-Muster.
+  Light-Mode unverändert.
+- **Hover-Farben auf `--tx-primary`-Text im Dark (`.footer-link`, `.article-toc`)**: Der Hover sprang auf
+  `--co-700`, das im Dark nicht flippt → der Link wurde beim Hovern dunkler statt heller (dunkel-auf-dunkel).
+  Dark-Override auf `--co-200` ergänzt (`.footer-link:hover`, `.article-toc-summary:hover`,
+  `.article-toc-list a:hover`), konsistent mit `.body-link:hover`. Light-Mode unverändert.
 - **`.cta-dl[data-area="co"]` Eyebrow-Kontrast (Light)**: `co-600` (#009E9E, 3,28:1, Uppercase-Label < AA)
   auf `co-700` (5,5:1) → jetzt konsistent mit ki-800/es-700/wo-700. Dark-Override (`co-200`) unverändert.
 - **Fokus-Ring global kontraststark (`--focus-ring` / `--focus-aa`)**: sichtbarer Ring im Light-Mode

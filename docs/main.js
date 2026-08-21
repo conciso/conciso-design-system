@@ -75,7 +75,10 @@
         activateSection(key);
         localStorage.setItem('ds-active-section', key);
       }
-      if (epKey) activateExamplePage(epKey);
+      /* data-k-bereich / data-k-anliegen mitgeben wie beim ep-page-Handler weiter unten, sonst
+         landet ein Bereichs-CTA aus der Doku (z. B. „Inhouse-Termin anfragen" im Buchungsformular)
+         auf der neutralen Kontaktseite ohne Tönung und ohne vorbelegtes Anliegen. */
+      if (epKey) activateExamplePage(epKey, { bereich: a.dataset.kBereich, anliegen: a.dataset.kAnliegen });
       if (target !== section) {
         requestAnimationFrame(function() { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       }
@@ -186,6 +189,14 @@
     if (eyebrow) eyebrow.textContent = t.eyebrow;
     var submit = page.querySelector('#kf-es-form button[type="submit"]');
     if (submit) { submit.classList.remove('btn-co', 'btn-ki', 'btn-es', 'btn-wo'); submit.classList.add(t.btn); }
+    /* Akzent-Scope am Formular, damit auch der Datenschutz-Link im Consent-Label mittönt statt
+       corporate zu bleiben. Nur am <form>, nicht an der Karte: Telefon, E-Mail und Maps-Link
+       daneben sind Unternehmens-Kontaktdaten und bleiben Corporate. co = Default, kein Attribut. */
+    var form = document.getElementById('kf-es-form');
+    if (form) {
+      if (bereich && KONTAKT_THEME[bereich] && bereich !== 'co') form.setAttribute('data-accent', bereich);
+      else form.removeAttribute('data-accent');
+    }
     var consent = document.getElementById('kf-es-consent');
     if (consent) consent.style.accentColor = t.bg;
     var topic = document.getElementById('kf-es-topic');
@@ -233,10 +244,22 @@
     });
   });
 
-  /* ── Topnav-Dropdowns (Leistungen/Unternehmen): Klick/Tap-Toggle mit aria-expanded ──
-     Maus öffnet weiterhin per CSS-Hover. Hier kommen Klick/Tap, Tastatur (Enter/Space),
-     Außenklick und Escape dazu — plus der korrekte aria-expanded-Zustand für Screenreader
-     und Touch-Geräte, die kein Hover kennen. */
+  /* ── Topnav-Dropdowns (Angewandte KI/Leistungen/Unternehmen) ──
+     Kern: Klick/Tap auf den Caret-Button, Tastatur (Enter/Space, Pfeile, Home/End, Escape),
+     Außenklick — alles mit korrektem aria-expanded für Screenreader und Touch-Geräte.
+     Der Label-Link (.ep-nav-btn) navigiert weiterhin direkt zur Übersicht.
+     Enhancement: Auf Geräten mit echtem Hover (pointer:fine) öffnet zusätzlich der Hover das
+     Flyout (Intent-Delay beim Öffnen, längere Verzögerung beim Schließen als Brücke über den
+     Gap zum Menü). Touch/Coarse-Pointer bekommen bewusst KEIN Hover-Öffnen (sonst Synthetik-
+     Hover/Double-Tap). Alles läuft über dieselbe is-open/aria-expanded-Logik, damit nur ein
+     Menü gleichzeitig offen ist (closeAllNavItems) und der SR-Zustand stimmt. */
+  var navHoverCapable = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function openNavItem(item) {
+    closeAllNavItems(item);
+    item.classList.add('is-open');
+    var t = item.querySelector('.ep-nav-item-toggle');
+    if (t) t.setAttribute('aria-expanded', 'true');
+  }
   function closeNavItem(item) {
     item.classList.remove('is-open');
     var t = item.querySelector('.ep-nav-item-toggle');
@@ -258,16 +281,30 @@
       if (!sub.id) sub.id = 'ep-nav-sub-' + i;
       btn.setAttribute('aria-controls', sub.id);
     }
+    /* Hover-Timer im Item-Scope, damit der Klick sie abbrechen kann (sonst würde ein noch offener
+       Öffnen-Timer ein gerade per Klick geschlossenes Menü wieder aufziehen). */
+    var openTimer, closeTimer;
     btn.addEventListener('click', function() {
-      var open = !item.classList.contains('is-open');
-      closeAllNavItems(item);
-      item.classList.toggle('is-open', open);
-      btn.setAttribute('aria-expanded', String(open));
+      clearTimeout(openTimer); clearTimeout(closeTimer);
+      if (item.classList.contains('is-open')) closeNavItem(item);
+      else openNavItem(item);
     });
     /* Tab aus dem Menü heraus schließt es */
     item.addEventListener('focusout', function(e) {
       if (!item.contains(e.relatedTarget)) closeNavItem(item);
     });
+    /* Hover-Öffnen (nur pointer:fine): Öffnen mit kurzem Intent-Delay, Schließen verzögert,
+       damit der Weg über den Gap ins Flyout die Brücke bleibt (WCAG 1.4.13 „hoverable"). */
+    if (navHoverCapable) {
+      item.addEventListener('mouseenter', function() {
+        clearTimeout(closeTimer);
+        openTimer = setTimeout(function() { openNavItem(item); }, 100);
+      });
+      item.addEventListener('mouseleave', function() {
+        clearTimeout(openTimer);
+        closeTimer = setTimeout(function() { closeNavItem(item); }, 250);
+      });
+    }
     /* Tastatur: Escape schließt (+Fokus zurück), Pfeile/Home/End navigieren die Einträge */
     item.addEventListener('keydown', function(e) {
       var links = Array.prototype.slice.call(item.querySelectorAll('.ep-nav-sub-btn'));
@@ -277,11 +314,7 @@
       }
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        if (!item.classList.contains('is-open')) {
-          closeAllNavItems(item);
-          item.classList.add('is-open');
-          btn.setAttribute('aria-expanded', 'true');
-        }
+        if (!item.classList.contains('is-open')) openNavItem(item);
         var di = links.indexOf(document.activeElement);
         (di === -1 || di === links.length - 1 ? links[0] : links[di + 1]).focus();
         return;
@@ -304,6 +337,11 @@
   document.addEventListener('click', function(e) {
     if (!e.target.closest) return;
     if (e.target.closest('[data-ep]') || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
+  });
+  /* Escape schließt auch ein rein per Hover geöffnetes Menü, wenn der Fokus nicht darin liegt
+     (der item-keydown-Handler greift nur bei Fokus im Item) — WCAG 1.4.13 „dismissible". */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeAllNavItems(null);
   });
 
   /* ── Mobile-Navigation: Hamburger-Button pro Topnav (per JS injiziert, kein Markup-Eingriff) ──
@@ -452,6 +490,31 @@
     });
   });
 
+  /* ── Formular-Fehlerzustand (geteilt von Kontakt- und Buchungsformular) ──
+     Erzeugt bzw. entfernt das dokumentierte Muster: .field.has-error am Wrapper plus
+     .error-msg[role="alert"] mit Warn-Icon darunter. */
+  var FORM_ERR_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg> ';
+  function clearError(field, input) {
+    if (field) field.classList.remove('has-error');
+    if (input) { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); }
+    var msg = field && field.querySelector('.error-msg');
+    if (msg) msg.remove();
+  }
+  /* quiet=true lässt role="alert" weg. Nötig bei langen Formularen, die stattdessen eine
+     Fehlerübersicht fokussieren: ein Dutzend gleichzeitig eingefügter Alerts ergibt beim
+     Screenreader eine unbrauchbare Ansage-Salve. Die Meldung bleibt über aria-describedby
+     mit dem Feld verbunden und wird beim Fokussieren gelesen. */
+  function setError(field, input, id, text, quiet) {
+    if (!field) return;
+    field.classList.add('has-error');
+    if (input) { input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id); }
+    var msg = document.createElement('span');
+    msg.className = 'error-msg'; msg.id = id;
+    if (!quiet) msg.setAttribute('role', 'alert');
+    msg.innerHTML = FORM_ERR_ICON + text;
+    field.appendChild(msg);
+  }
+
   /* ── Kontaktformular: Validierung + Fehler-/Erfolgszustand ──
      Hebt das Anfrageformular auf das dokumentierte Muster (.field.has-error + .error-msg[role=alert]
      für Fehler, role="status" für Erfolg). novalidate unterdrückt native Bubbles, damit die
@@ -460,21 +523,7 @@
     var form = document.getElementById('kf-es-form');
     if (!form) return;
     var success = document.getElementById('kf-es-success');
-    var ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg> ';
-    function clearError(field, input) {
-      if (field) field.classList.remove('has-error');
-      if (input) { input.removeAttribute('aria-invalid'); input.removeAttribute('aria-describedby'); }
-      var msg = field && field.querySelector('.error-msg');
-      if (msg) msg.remove();
-    }
-    function setError(field, input, id, text) {
-      if (field) field.classList.add('has-error');
-      if (input) { input.setAttribute('aria-invalid', 'true'); input.setAttribute('aria-describedby', id); }
-      var msg = document.createElement('span');
-      msg.className = 'error-msg'; msg.id = id; msg.setAttribute('role', 'alert');
-      msg.innerHTML = ICON + text;
-      field.appendChild(msg);
-    }
+    var ICON = FORM_ERR_ICON;
     var checks = [
       { input: 'kf-es-name', id: 'kf-es-name-err', test: function (v) { return v.value.trim() !== ''; }, msg: 'Bitte gib Deinen Namen an' },
       { input: 'kf-es-email', id: 'kf-es-email-err', test: function (v) { return v.value.trim() !== '' && v.validity.valid; }, msg: 'Bitte eine gültige E-Mail-Adresse eingeben' }
@@ -1227,6 +1276,334 @@
       var el = e.target.closest && e.target.closest('.is-copyable');
       if (el && document.activeElement === el) { e.preventDefault(); copy(el.dataset.hex, el); }
     });
+  })();
+
+  /* ── Buchungsformular: bedingte Felder, Teilnehmenden-Repeater, Preiszeile, Validierung ──
+     Läuft über jedes form[data-booking], ist also mehrfach instanziierbar. Alle Elemente werden
+     über data-bk-Hooks gefunden statt über feste IDs; die IDs selbst tragen den Formular-Prefix,
+     damit label/for eindeutig bleibt. Konfiguration am <form>: data-price (Preis pro Platz in Euro),
+     data-max (Höchstzahl Plätze). */
+  (function () {
+    var EURO = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    function hook(root, name) { return root.querySelector('[data-bk="' + name + '"]'); }
+
+    function setupBookingForm(form) {
+      var price = parseInt(form.dataset.price || '0', 10);
+      var max = parseInt(form.dataset.max || '12', 10);
+      var firmaBlock = hook(form, 'firma-block');
+      var rechnungToggle = hook(form, 'rechnung-abweichend');
+      var rechnungBlock = hook(form, 'rechnung-block');
+      var selbstTeil = hook(form, 'selbst-teil');
+      var anzahl = hook(form, 'anzahl');
+      var personen = hook(form, 'personen');
+      var template = hook(form, 'person-template');
+      var addBtn = hook(form, 'add-person');
+      /* Zwei Preiszeilen: eine bei der Anzahl (dort passiert die Änderung, deshalb role="status"),
+         eine über dem Submit (dort fällt die Entscheidung). Beide werden gemeinsam aktualisiert. */
+      var summaryCount = form.querySelectorAll('[data-bk="summary-count"]');
+      var summaryTotal = form.querySelectorAll('[data-bk="summary-total"]');
+      var errorBox = hook(form, 'errors');
+      var terminSelect = hook(form, 'termin');
+      var firmaName = hook(form, 'firma');
+      /* Das Erfolgspanel liegt außerhalb des Formulars, weil das Formular beim Absenden auf
+         hidden geht. Deshalb per ID aus data-success statt über einen Hook im Formular. */
+      var success = form.dataset.success ? document.getElementById(form.dataset.success) : null;
+      var kontakt = {
+        vorname: hook(form, 'kontakt-vorname'),
+        nachname: hook(form, 'kontakt-nachname'),
+        email: hook(form, 'kontakt-email')
+      };
+
+      /* Bedingte Blöcke: hidden statt disabled, damit eingegebene Werte erhalten bleiben und
+         beim Submit mitgehen. required wird mitgeschaltet, sonst blockiert ein unsichtbares
+         Pflichtfeld die Absendung. */
+      function toggleBlock(block, show) {
+        if (!block) return;
+        block.hidden = !show;
+        block.querySelectorAll('[data-required]').forEach(function (el) {
+          if (show) { el.setAttribute('required', ''); el.setAttribute('aria-required', 'true'); }
+          else {
+            el.removeAttribute('required'); el.removeAttribute('aria-required');
+            clearError(el.closest('.field'), el);
+          }
+        });
+      }
+
+      function kundentyp() {
+        var checked = form.querySelector('[data-bk="kundentyp"]:checked');
+        return checked ? checked.value : 'firma';
+      }
+
+      function blocks() { return Array.prototype.slice.call(personen.querySelectorAll('.bk-person')); }
+
+      function blockHasData(block) {
+        return Array.prototype.slice.call(block.querySelectorAll('input')).some(function (i) {
+          return i.value.trim() !== '';
+        });
+      }
+
+      /* IDs, label/for und autocomplete-Sections nach der aktuellen DOM-Reihenfolge neu setzen.
+         Die Feldwerte wandern dabei mit ihrem Knoten mit, es wird nichts umkopiert. */
+      function renumber() {
+        blocks().forEach(function (block, idx) {
+          var n = idx + 1;
+          var title = hook(block, 'person-title');
+          if (title) title.textContent = 'Teilnehmende ' + n;
+          block.querySelectorAll('.field').forEach(function (field) {
+            var input = field.querySelector('input');
+            var label = field.querySelector('label');
+            if (!input) return;
+            input.id = form.id + '-p' + n + '-' + input.dataset.bk.replace(/^p-/, '');
+            if (label) label.htmlFor = input.id;
+            if (input.dataset.ac) input.setAttribute('autocomplete', 'section-tn' + n + ' ' + input.dataset.ac);
+          });
+          var remove = hook(block, 'remove-person');
+          if (remove) {
+            /* Block 1 ist bei „Ich nehme selbst teil" an die Kontaktdaten gebunden und wird nicht
+               einzeln entfernt; stattdessen den Haken lösen. */
+            var locked = n === 1 && selbstTeil && selbstTeil.checked;
+            remove.hidden = locked || blocks().length < 2;
+            remove.setAttribute('aria-label', 'Teilnehmende ' + n + ' entfernen');
+          }
+          var hint = hook(block, 'person-hint');
+          if (hint) hint.hidden = !(n === 1 && selbstTeil && selbstTeil.checked);
+        });
+      }
+
+      function renderPersons(target) {
+        var current = blocks().length;
+        if (target > current) {
+          for (var i = current; i < target; i++) {
+            personen.appendChild(template.content.cloneNode(true));
+          }
+        } else if (target < current) {
+          var list = blocks();
+          for (var j = current - 1; j >= target; j--) list[j].parentNode.removeChild(list[j]);
+        }
+        renumber();
+        updateSummary();
+        syncPerson1();
+      }
+
+      function countError(text) {
+        var field = anzahl.closest('.field');
+        clearError(field, anzahl);
+        if (text) setError(field, anzahl, form.id + '-anzahl-err', text);
+      }
+
+      /* Anzahl reduzieren darf keine ausgefüllten Blöcke still verwerfen. */
+      function requestCount(next) {
+        var current = blocks().length;
+        next = Math.max(1, Math.min(max, next));
+        if (next < current) {
+          var list = blocks();
+          for (var i = current - 1; i >= next; i--) {
+            if (blockHasData(list[i])) {
+              anzahl.value = current;
+              countError('Teilnehmende ' + (i + 1) + ' enthält noch Daten. Entferne den Block direkt über „Entfernen".');
+              return;
+            }
+          }
+        }
+        countError('');
+        anzahl.value = next;
+        renderPersons(next);
+      }
+
+      function updateSummary() {
+        var n = blocks().length;
+        var total = EURO.format(price) + ' × ' + n + ' = ' + EURO.format(price * n) + ' zzgl. MwSt.';
+        summaryCount.forEach(function (el) { el.textContent = n === 1 ? '1 Platz' : n + ' Plätze'; });
+        summaryTotal.forEach(function (el) { el.textContent = total; });
+        renderOrder(n);
+      }
+
+      /* Bestellübersicht direkt über dem Submit. Leere Zeilen bleiben stehen und tragen
+         data-empty, statt zu verschwinden: eine Übersicht, die Zeilen ein- und ausblendet,
+         springt beim Ausfüllen und man sieht nicht, was noch fehlt. */
+      function setOrder(name, value, empty) {
+        var el = hook(form, name);
+        if (!el) return;
+        el.textContent = value;
+        if (empty) el.setAttribute('data-empty', ''); else el.removeAttribute('data-empty');
+      }
+
+      function renderOrder(n) {
+        var opt = terminSelect && terminSelect.options[terminSelect.selectedIndex];
+        var hasTermin = opt && terminSelect.value;
+        setOrder('order-termin', hasTermin ? opt.textContent : 'Noch nicht gewählt', !hasTermin);
+
+        var kunde;
+        if (kundentyp() === 'firma') kunde = firmaName && firmaName.value.trim();
+        else kunde = [kontakt.vorname, kontakt.nachname].map(function (f) {
+          return f ? f.value.trim() : '';
+        }).filter(Boolean).join(' ');
+        setOrder('order-kunde', kunde || 'Noch nicht ausgefüllt', !kunde);
+
+        setOrder('order-plaetze', String(n));
+        setOrder('order-total', EURO.format(price * n));
+        setOrder('order-note', n + ' × ' + EURO.format(price) + ', zzgl. MwSt.');
+      }
+
+      /* Block 1 folgt den Kontaktdaten, solange er nicht von Hand bearbeitet wurde. Die Felder
+         bleiben editierbar (nie disabled), sonst gingen die Werte beim Submit verloren. */
+      function syncPerson1() {
+        if (!selbstTeil) return;
+        var first = blocks()[0];
+        if (!first) return;
+        var map = { 'p-vorname': kontakt.vorname, 'p-nachname': kontakt.nachname, 'p-email': kontakt.email };
+        Object.keys(map).forEach(function (key) {
+          var target = hook(first, key);
+          var source = map[key];
+          if (!target || !source) return;
+          if (selbstTeil.checked && !target.dataset.touched) target.value = source.value;
+          else if (!selbstTeil.checked && !target.dataset.touched) target.value = '';
+        });
+      }
+
+      form.querySelectorAll('[data-bk="kundentyp"]').forEach(function (radio) {
+        radio.addEventListener('change', function () { toggleBlock(firmaBlock, kundentyp() === 'firma'); updateSummary(); });
+      });
+      if (rechnungToggle) rechnungToggle.addEventListener('change', function () {
+        toggleBlock(rechnungBlock, rechnungToggle.checked);
+      });
+      if (terminSelect) terminSelect.addEventListener('change', updateSummary);
+      if (firmaName) firmaName.addEventListener('input', updateSummary);
+      if (selbstTeil) selbstTeil.addEventListener('change', function () { syncPerson1(); renumber(); });
+      [kontakt.vorname, kontakt.nachname, kontakt.email].forEach(function (input) {
+        if (input) input.addEventListener('input', function () { syncPerson1(); updateSummary(); });
+      });
+      if (anzahl) {
+        anzahl.addEventListener('change', function () { requestCount(parseInt(anzahl.value, 10) || 1); });
+        anzahl.addEventListener('input', function () {
+          var v = parseInt(anzahl.value, 10);
+          if (!isNaN(v) && v >= 1 && v <= max) requestCount(v);
+        });
+      }
+      if (addBtn) addBtn.addEventListener('click', function () {
+        var before = blocks().length;
+        requestCount(before + 1);
+        var added = blocks()[before];
+        if (added) { var f = added.querySelector('input'); if (f) f.focus(); }
+      });
+      personen.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-bk="remove-person"]');
+        if (!btn) return;
+        var block = btn.closest('.bk-person');
+        block.parentNode.removeChild(block);
+        anzahl.value = blocks().length;
+        countError('');
+        renumber();
+        updateSummary();
+        anzahl.focus();
+      });
+      /* Nur echte Nutzereingaben markieren einen Teilnehmenden-Block als „von Hand bearbeitet"; die
+         programmatische Übernahme aus den Kontaktdaten löst kein input-Event aus. */
+      personen.addEventListener('input', function (e) {
+        if (e.target.dataset && e.target.dataset.bk) e.target.dataset.touched = '1';
+      });
+
+      /* Fehlerübersicht: ein fokussierbarer Kasten am Formularkopf mit Sprunglinks zu jedem
+         fehlerhaften Feld. Bei einem Formular dieser Länge ist der Sprung auf das erste
+         ungültige Feld allein zu wenig, weil man die übrigen Fehler nie zu sehen bekommt. */
+      function renderErrorList(items) {
+        if (!errorBox) return;
+        var list = hook(errorBox, 'error-list');
+        list.innerHTML = '';
+        items.forEach(function (item) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + item.id;
+          a.textContent = item.text;
+          a.dataset.target = item.id;
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+        errorBox.hidden = items.length === 0;
+      }
+
+      function dropFromErrorList(id) {
+        if (!errorBox || errorBox.hidden) return;
+        var link = errorBox.querySelector('[data-target="' + id + '"]');
+        if (link) link.closest('li').remove();
+        if (!errorBox.querySelector('li')) errorBox.hidden = true;
+      }
+
+      if (errorBox) errorBox.addEventListener('click', function (e) {
+        var link = e.target.closest('a[data-target]');
+        if (!link) return;
+        e.preventDefault(); e.stopPropagation();
+        var target = document.getElementById(link.dataset.target);
+        if (target) target.focus();
+      });
+
+      function checkConsent(box) {
+        var row = box.closest('.bk-consent');
+        var old = row.querySelector('.error-msg');
+        if (old) old.remove();
+        box.removeAttribute('aria-invalid'); box.removeAttribute('aria-describedby');
+        if (box.checked) return true;
+        box.setAttribute('aria-invalid', 'true');
+        box.setAttribute('aria-describedby', box.id + '-err');
+        var msg = document.createElement('span');
+        msg.className = 'error-msg'; msg.id = box.id + '-err';
+        msg.style.flexBasis = '100%';
+        msg.innerHTML = FORM_ERR_ICON + (box.dataset.err || 'Bitte bestätige diesen Punkt');
+        row.appendChild(msg);
+        return false;
+      }
+
+      function checkField(input) {
+        var field = input.closest('.field');
+        clearError(field, input);
+        if (input.closest('[hidden]')) return true;
+        if (input.value.trim() !== '' && input.validity.valid) return true;
+        setError(field, input, input.id + '-err', input.dataset.err || 'Bitte füll dieses Feld aus', true);
+        return false;
+      }
+
+      /* Nach einem gescheiterten Submit wird jedes Feld beim Tippen erneut geprüft. Einen Fehler
+         stehen zu lassen, obwohl er behoben ist, ist die häufigste Frustquelle in langen Formularen. */
+      form.addEventListener('input', function (e) {
+        if (!form.dataset.submitted) return;
+        var el = e.target;
+        if (el.hasAttribute('required') && el.closest('.field') && checkField(el)) dropFromErrorList(el.id);
+      });
+      form.addEventListener('change', function (e) {
+        if (!form.dataset.submitted) return;
+        var el = e.target;
+        if (el.dataset.bk === 'consent-required' && checkConsent(el)) dropFromErrorList(el.id);
+        else if (el.tagName === 'SELECT' && el.hasAttribute('required') && checkField(el)) dropFromErrorList(el.id);
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.dataset.submitted = '1';
+        var problems = [];
+        form.querySelectorAll('[required]').forEach(function (input) {
+          if (input.closest('[hidden]') || !input.closest('.field')) return;
+          if (!checkField(input)) problems.push({ id: input.id, text: input.dataset.err || 'Bitte füll dieses Feld aus' });
+        });
+        form.querySelectorAll('[data-bk="consent-required"]').forEach(function (box) {
+          if (!checkConsent(box)) problems.push({ id: box.id, text: box.dataset.err || 'Bitte bestätige diesen Punkt' });
+        });
+        renderErrorList(problems);
+        if (problems.length) {
+          if (errorBox) errorBox.focus();
+          else document.getElementById(problems[0].id).focus();
+          return;
+        }
+        form.hidden = true;
+        if (success) { success.hidden = false; success.focus(); }
+      });
+
+      toggleBlock(firmaBlock, kundentyp() === 'firma');
+      toggleBlock(rechnungBlock, rechnungToggle ? rechnungToggle.checked : false);
+      renderPersons(Math.max(1, parseInt(anzahl && anzahl.value, 10) || 1));
+    }
+
+    document.querySelectorAll('form[data-booking]').forEach(setupBookingForm);
   })();
 
 })();

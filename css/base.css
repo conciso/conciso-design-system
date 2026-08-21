@@ -56,7 +56,11 @@
 body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-primary);background:var(--bg-page);transition:background var(--m-std),color var(--m-std)}
 
 /* ── Skip link ── */
-.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-500);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:0.875rem;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
+/* Fläche co-700, nicht co-500: weiß auf #00BEBE trägt nur 2,31:1 und verfehlt AA für Normaltext.
+   In Ruhe ist der Link geclippt, beim Fokus springt er sichtbar herein, also genau dann, wenn
+   Tastaturnutzende ihn brauchen. co-700 (#007575) trägt weiß mit 5,52:1 und ist zugleich die
+   Füllfarbe, die .btn-filled.btn-co verwendet. Gilt in beiden Modi, co-* flippt nicht. */
+.skip-link{position:absolute;top:-100px;left:var(--s4);background:var(--co-700);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r-md);font-weight:600;font-size:0.875rem;z-index:9999;transition:top var(--m-fast);border:none;cursor:pointer;font-family:var(--font)}
 .skip-link:focus{top:var(--s4)}
 
 /* ── Layout ── */
@@ -77,7 +81,9 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 
 /* ── Sidebar ── */
 .nav-logo{padding:0 var(--s6) var(--s6);border-bottom:var(--bd);margin-bottom:var(--s5);display:flex;align-items:center;justify-content:space-between;gap:var(--s2)}
-.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-500);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
+/* --co-ink, nicht co-500: die Signalfarbe trägt auf Weiß nur 2,31:1. Das Ink-Token flippt mit dem
+   Theme (Light co-700, Dark co-200), ein festes co-700 wäre im Dark 2,36:1 auf der Sidebar. */
+.nav-logo-text{font:500 0.75rem/1rem var(--font);letter-spacing:.02em;text-transform:uppercase;color:var(--co-ink);white-space:nowrap;overflow:hidden;transition:opacity var(--m-std),width var(--m-std)}
 
 /* ── Sidebar toggle button ── */
 .sidebar-toggle{background:none;border:none;cursor:pointer;padding:4px;border-radius:var(--r-xs);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--m-fast),color var(--m-fast)}
@@ -133,11 +139,34 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* ── Color palettes ── */
 .pal-group{margin-bottom:var(--s8)}
 .pal-label{font:500 0.875rem/1.25rem var(--font);color:var(--tx-secondary);margin-bottom:var(--s3);display:flex;align-items:center;gap:var(--s2)}
-.pal-row{display:flex;gap:2px;border-radius:var(--r-md);overflow:hidden}
-.swatch{position:relative;flex:1;height:60px;display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px}
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;opacity:.75;line-height:1.3}
+/* Die Reihe ist eine Karte: Haarlinie plus Rundung, Inhalt geklippt. Ohne den Rahmen verliert sie
+   im Light ihre Kante, weil die hellen Stufen (50, 100) und der weiße Beschriftungs-Streifen beide
+   fast die Farbe der Seite haben (#E0F7F7 gegen Weiß sind 1,12:1). Im Dark trennt sich der Streifen
+   von der Seite ohnehin, dort ist der Rahmen nur konsequent. Die Rundung liegt an der Karte, damit
+   sie oben UND unten greift; das Klippen betrifft nur die Ecken, nicht den Streifen. */
+.pal-row{display:flex;gap:2px;border:1px solid var(--bd-c);border-radius:var(--r-md);overflow:hidden}
+/* Farbfeld oben, Beschriftung auf einem neutralen Streifen darunter. Vorher saß die Beschriftung
+   AUF der Farbe, und dort lässt sich der Kontrast nicht garantieren: bei sieben von hundert Stufen
+   liegt die Leuchtdichte so in der Mitte, dass weder weiße noch dunkle Schrift 4,5:1 erreicht
+   (auf ki-700 schafft selbst reines Schwarz nur 4,82:1). Auf dem neutralen Streifen sind es überall
+   6,28:1, in beiden Modi, und das Farbfeld bleibt unverdeckt. Der abzulesende Hexwert ist
+   Information, keine Dekoration, deshalb hat er einen Grund, auf dem er trägt. */
+.swatch{position:relative;flex:1;min-height:104px;display:flex;flex-direction:column;justify-content:flex-end;padding:0;overflow:hidden}
+/* Keine Deckkraft-Absenkung auf der Beschriftung: opacity .75 kostete jedes Label rund ein
+   Viertel Kontrast, und auf dem Swatch steht der Hexwert, den man ablesen soll. Die Farbe wird
+   je Swatch gesetzt (helle Fläche → dunkler Text und umgekehrt), das reicht als Abstufung. */
+/* Der Streifen braucht Luft nach oben, sonst klebt die Beschriftung am Farbfeld. nowrap, weil ein
+   Umbruch ("800 T") das Farbfeld dieser einen Spalte nach oben schöbe und die Reihe eine Stufe
+   bekäme. */
+/* Linie zwischen Farbfeld und Beschriftung: im Light grenzt der weiße Streifen sonst nicht gegen
+   die hellen Stufen ab. Sie sitzt auf der ersten Zeile des Streifens, also nur einmal je Spalte. */
+.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
+.swatch > span:first-of-type{border-top:1px solid var(--bd-c);padding-top:4px}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
-.swatch .swatch-hex{opacity:.92;text-transform:uppercase;letter-spacing:.01em}
+.swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
+/* Unter 1024 px wird eine Spalte zu schmal für den Hexwert. Er entfällt dann; der Wert steht
+   weiterhin im title-Attribut und wird per Klick kopiert (docs/main.js). Die Stufe bleibt. */
+@media (max-width:1024px){ .swatch .swatch-hex{display:none} }
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */
 .swatch.is-copyable,.clip-card.is-copyable{cursor:pointer}

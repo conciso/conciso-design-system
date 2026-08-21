@@ -3,70 +3,161 @@
 /* ════════════════════════════════════════════
    DARK MODE
    ════════════════════════════════════════════ */
+/* @media screen umschließt die GANZE Datei, Token-Block und Komponenten-Regeln. Im Druck greifen
+   dadurch die Light-Werte aus tokens.css, ohne dass sie hier ein zweites Mal stehen (eine Kopie
+   wäre eine zweite Quelle der Wahrheit und würde auseinanderlaufen). Ohne das druckt eine Seite
+   mit data-theme="dark" die volle dunkle Fläche: sehr viel Farbauftrag, und auf vielen Druckern
+   heller Text auf grauem Grund.
+   Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe
+   (co-200, ki-200, es-100, heller tx-primary). Auf dem hellen Druckgrund tragen die 1,2 bis 1,9:1,
+   die Zeile wäre also unlesbar. Nur den Token-Block zu schützen hätte den Text genau dort verloren,
+   wo eine eigene Dark-Regel greift. Neue Dark-Regeln deshalb immer INNERHALB dieses Blocks. */
+@media screen {
 [data-theme="dark"] {
   /* Native Controls (Checkbox, Radio, Scrollbar, Select-Popup) im Dark-Theme rendern lassen,
      statt hell-thematisiert auf dunklem Grund — sonst wirkt die Checkbox wie ein Fremdkörper. */
   color-scheme: dark;
-  /* Surfaces */
-  --bg-page:#333E48; --bg-surface:#3F4B56; --bg-overlay:rgba(0,190,190,.10); --bg-code:#060D0D;
+  /* Surfaces: Flächen-Leiter nach der Material-Dark-Theme-Guidance.
+     Dark-only: bg-page #333E48 ❌ 10,92:1 gegen Weiß → #151A1F ✓ 17,51:1. (Light: #FFFFFF.)
+     Gefordert sind mindestens 15,8:1. Die Schwelle ist kein Stilmittel, sondern der Puffer, der
+     Fließtext auch auf der höchsten Elevationsstufe noch 4,5:1 sichert. Der Altwert war wörtlich
+     --tx-brand aus dem Light Mode, also eine gegen Weiß optimierte Textfarbe, keine Fläche.
+     Farbwinkel 209 (Slate) durchgehend, damit der Marken-Ton erhalten bleibt.
+     Dark-only: Stufe bg-page zu bg-surface ❌ 1,223:1 → ✓ 1,346:1. Trotz tieferer Basis wächst die
+     Tiefe, weil mehr Kopfraum nach unten mehr Spielraum nach oben schafft. */
+  --bg-page:#151A1F; --bg-surface:#28323D; --bg-overlay:rgba(0,190,190,.10);
+  /* Dark-only: bg-code #060D0D ❌ 1,12:1 gegen die neue Seite, der Well verschwand → #07090C ✓
+     1,14:1, zusammen mit dem --bd-Rahmen ablesbar. (Light: n-800 als dunkler Well auf Weiß.) */
+  --bg-code:#07090C;
+  /* Dark-only: Hover interaktiver Flächen, 11,47:1. Die Schatten tragen auf 17,51:1 weniger als
+     auf dem alten #333E48, deshalb hebt der Zustand zusätzlich die Fläche. Entspricht etwa 14 dp
+     im Material-Overlay-Modell. Das ist ein Zustand, KEINE dritte statische Flächen-Stufe.
+     (Light: gleich bg-surface, dort trägt --e3 die Tiefe.) */
+  --bg-surface-hover:#2E3B46;
+  /* Dark-only: Logo-Platte #FFFFFF ❌ 17,51:1 gegen die Seite, blendet großflächig → #E8EDED ✓
+     14,81:1. Dunkle Kundenlogos darauf weiterhin 14,73:1. (Light: #FFFFFF.) */
+  --bg-plate:#E8EDED;
   /* Text */
   --tx-brand:#C4D8D8; --tx-primary:#DDE9E9; --tx-secondary:#A6C6C6; --tx-muted:#93B6B6; /* tx-secondary #A6C6C6 → AA auf bg-surface-Cards (4.9:1); tx-muted von #7A9E9E auf #93B6B6 angehoben → AA auf bg-page (5.0:1), bg-surface 4.1:1, bleibt klar unter tx-secondary */
-  /* Neutrals (only lowest, used as bg/border) */
-  --n-50:#0A1515; --n-100:#1C2E2E;
-  /* Borders */
-  --bd:1px solid #818C99; --bd-strong:1px solid #9DA8B6;
-  --field-border:var(--n-200); /* Dark: heller Rahmen (#C9D3D3) auf Feld-bg #3F4B56 ≈ 6.6:1 → WCAG 1.4.11 ✓ (n-400 waere hier zu dunkel) */
-  /* Focus – inner ring = bg-page color for "cutout" effect */
-  --focus-ring:0 0 0 3px #333E48,0 0 0 5px var(--co-500);
-  --focus-aa:0 0 0 2px #333E48,0 0 0 4px var(--co-500);
+  /* Neutrals (only lowest, used as bg/border), auf denselben Farbwinkel 209 gezogen.
+     Dark-only: n-100 #1C2E2E ❌ 1,09:1 gegen die neue bg-surface, Füllungen auf Cards
+     verschwanden → #1E262E ✓ 1,18:1 zur Card und 1,14:1 zur Seite, trägt also in beide
+     Richtungen. n-50 bleibt die tiefste Stufe, 19,25:1. (Light: #F5F7F7 / #E8EDED.) */
+  --n-50:#0B0F11; --n-100:#1E262E;
+  /* Borders. Dark-only: bd #818C99 ❌ auf der tieferen Seite 5,12:1, die Haarlinie wirkte drahtig
+     → #6F7A89 ✓ 4,02:1 auf der Seite, 2,99:1 auf der Card. bd ist dekorative Trennung, nicht das
+     alleinige Erkennungsmerkmal eines Bedienelements. (Light: n-100 / n-200.) */
+  --bd-c:#6F7A89; --bd-strong-c:#8694A5;
+  --bd:1px solid var(--bd-c); --bd-strong:1px solid var(--bd-strong-c);
+  /* Dark-only: field-border war n-200 #C9D3D3 ❌ 11,46:1 gegen die neue Seite, ein greller Rahmen
+     → #869C9C ✓ 6,04:1 auf der Seite und 4,49:1 auf der Card. Der Feldrahmen ist die einzige
+     Grenze, die WCAG 1.4.11 zwingend braucht, und liegt damit sicher über 3:1. (Light: n-400.) */
+  --field-border:#869C9C;
+  /* Focus: innerer Ring = bg-page für den Cutout-Effekt. Folgt jetzt dem Token statt einem
+     hartkodierten #333E48, dadurch laufen beide Ringe bei künftigen Flächen-Änderungen mit.
+     co-500 trägt 7,59:1 auf der Seite, 5,64:1 auf der Card, 4,98:1 auf der Hover-Card. */
+  --focus-ring:0 0 0 3px var(--bg-page),0 0 0 5px var(--co-500);
+  --focus-aa:0 0 0 2px var(--bg-page),0 0 0 4px var(--co-500);
   /* Elevation – heavier shadows on dark */
   --e1:0 1px 2px rgba(0,0,0,.60),0 1px 3px 1px rgba(0,0,0,.40);
   --e2:0 1px 2px rgba(0,0,0,.60),0 2px 6px 2px rgba(0,0,0,.40);
   --e3:0 1px 3px rgba(0,0,0,.60),0 4px 8px 3px rgba(0,0,0,.40);
   --e4:0 2px 3px rgba(0,0,0,.70),0 6px 10px 4px rgba(0,0,0,.40);
   --e5:0 4px 4px rgba(0,0,0,.70),0 8px 12px 6px rgba(0,0,0,.40);
-  /* Semantic backgrounds – darkened */
-  --c-success-bg:#052415; --c-warning-bg:#231800; --c-error-bg:#220808;
-  /* Semantic text colors – hellere Pendants für Lesbarkeit auf bg-page (#333E48).
+  /* Semantic backgrounds: Callout- und Badge-Tints, auf derselben Stufe wie die kleinen
+     Bereichs-Füllungen (9,8:1).
+     Dark-only: c-warning-bg #231800 ❌ 1,00:1 gegen die neue Seite, die Fläche war dort schlicht
+     unsichtbar → #544115 ✓ 1,79:1 zur Seite, 1,33:1 zur Card. success und error mitgezogen, damit
+     die drei Status-Flächen auf einer Stufe liegen. Statustexte darauf 5,2 bis 6,3:1.
+     (Light: helle Tints auf Weiß.) */
+  --c-success-bg:#1F573B; --c-warning-bg:#5F4B1E; --c-error-bg:#882725;
+  /* Semantic text colors: hellere Pendants für Lesbarkeit auf bg-page (#151A1F).
      Light-Pendants in tokens.css. Verwendung: ✓/✕-Marker, Required-Asterisk, Inline-Fehlertext. */
-  --c-success:#5CE8A0;  /* auf bg-page: 7.02:1 ✓ AAA */
-  --c-warning:#F0C060;  /* auf bg-page: 6.45:1 ✓ AAA */
-  --c-error:#FF8E8E;    /* auf bg-page: 4.94:1 ✓ AA */
-  /* Brand tints (Dark): gedämpfte dunkle Bereichstöne statt Near-Black. Behalten die Hue → Icon-Tiles,
-     Bereichs-Badges & getönte Flächen lesen als bereichsgetönte Surface statt als schwarzes Loch
-     (Near-Black lag wie der alte Tabellen-Header bei 1,69:1 zum Grund). ~1,2–1,4:1 zu bg-page, bleiben
-     aber dunkler als bg-surface, damit Icon-Tiles auch IN Cards (.ep-card-icon) sichtbar bleiben; helle
-     -100/-200-Glyphen/Texte darauf 7,5–10:1. (ro = Akzent/Status, nicht als Tile genutzt → near-black.) */
-  --co-50:#16302E; --ki-50:#2A3411; --wo-50:#18301C; --es-50:#1B2547; --ro-50:#180308;
-  --ki-ink:var(--ki-200); /* farbiger ki-Text/Icons im Dark (ki-800 wäre dunkel-auf-dunkel) */
+  --c-success:#5CE8A0;  /* auf bg-page: 11.26:1 ✓ AAA · auf bg-surface: 8.37:1 ✓ AAA */
+  --c-warning:#F0C060;  /* auf bg-page: 10.35:1 ✓ AAA · auf bg-surface: 7.69:1 ✓ AAA */
+  --c-error:#FFA5A5;    /* auf bg-page: 9.32:1 ✓ AAA · auf bg-surface: 6.93:1 ✓ AAA. Angehoben von
+                           #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
+                           erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
+  /* Brand tints (Dark), getrennt nach den zwei Jobs, die --XX-50 im Light in einem Wert erledigt.
+     Der Grund: Ein Band muss DUNKLER bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung
+     muss HELLER sein als ihr Grund, sonst liest sie nicht als Fläche. Bei einer Basis von 17,51:1
+     ist der Spielraum zu klein, damit ein Wert beides trägt.
+
+     --XX-50 = kleine Fuellung (Badges, Pills, Icon-Kacheln, getoente Select-Flaechen).
+     ZWEI Kriterien, nicht eins: Der Kontrastquotient allein greift bei satten Farben zu kurz. Die
+     Vorgaengerwerte trugen 1,33:1 gegen die Karte, erfuellten den 1,3:1-Faustwert also, hatten aber
+     nur 8,3 L*-Punkte Helligkeitsabstand. Der Unterschied lag damit fast vollstaendig in Farbton
+     und Saettigung, und eine satte Flaeche auf gleicher Helligkeit liest als dunkler Fleck statt
+     als hellere Stufe; am deutlichsten bei ES, weil Blau bei gleichem L* am dunkelsten wirkt.
+     Jetzt um gut 4 L*-Punkte gehoben, Farbton und Saettigung unveraendert (a und b in Lab gleich
+     gelassen, nur L angehoben): Flaeche 1,54 bis 1,55:1 gegen die Karte, 2,07 bis 2,09:1 gegen
+     die Seite, Helligkeitsabstand 12,5 bis 12,7 L*. Text darauf 4,97:1 (wo, der knappste) bis
+     6,64:1, helle -100-Glyphen 5,86 bis 7,34:1. Nach oben bleibt wenig Luft: der wo-Text liegt
+     0,47 ueber AA. --ro-50 wird nicht als Fuellung eingesetzt (Rose ist Akzent- und Statusfarbe)
+     und bleibt unveraendert.
+     (Light: zarter Bereichstint auf Weiss, Bauteil-Fuellungen dort ueber --XX-fill.) */
+  --co-50:#134C47; --ki-50:#384912; --wo-50:#144E1F; --es-50:#253C92; --ro-50:#7E1F37;
+  /* --XX-band = große getönte Sektionsfläche (Hero, CTA-Band), 16,5:1. Die Bänder lagen früher
+     UNTER bg-page (14,0:1 gegen 10,9:1). Nach unten bleibt jetzt nur Faktor 1,20 bis Schwarz, sie
+     liegen deshalb knapp ÜBER der Seite und trennen sich von ihr primär über den Farbton statt über
+     die Helligkeit (1,06:1). Karten darauf behalten 1,27:1 und bilden weiter die hellere Stufe.
+     Sättigung auf 0,60 begrenzt: großflächig gesättigte Farbe „vibriert" auf dunklem Grund.
+     (Light: identisch mit --XX-50, dort gibt es den Konflikt nicht.) */
+  --co-band:#092321; --ki-band:#1A2208; --wo-band:#09240E; --es-band:#111C44;
+  /* --XX-fill = Füllung kleiner Bauteile (Pill, Bereichs-Badge). Im Dark identisch mit --XX-50, das
+     hier ja schon auf genau diese Aufgabe kalibriert ist (1,78:1 zur Seite, 1,32:1 zur Karte). Das
+     Token existiert für den Light Mode, wo --XX-50 als Füllung nur 1,06 bis 1,14:1 trägt und
+     zugleich Sektions-Tint ist. OHNE diese vier Zeilen liefen Pill und Badge im Dark auf --XX-200,
+     also helle Füllung mit hellem Text. Wer --XX-50 im Dark anfasst, zieht diese Werte mit. */
+  /* Pill- und Badge-Fuellung im Dark: gehoben gegenueber dem ruhigen -50-Tint. Im Light traegt die
+     dunkle Schrift auf zartem Grund die Praesenz; im Dark ist es umgekehrt, helle Schrift auf
+     dunklem Tint, und bei fast gleicher Helligkeit wie die Karte haelt nichts mehr die Flaeche.
+     Deshalb hier 1,54 bis 1,55:1 zur Karte und 12,5 bis 12,7 L* Helligkeitsabstand, in Lab
+     gerechnet mit unveraendertem Farbton. Text darauf 4,97 bis 6,64:1. */
+  --co-fill:#1F5651; --ki-fill:#43531C; --es-fill:#34469D; --wo-fill:#205828;
+  /* Bereichs-Akzenttext im Dark: die hellen Pendants, gemessen auf der Seite 10,31 bis 13,79:1,
+     auf einer Karte 7,66 bis 10,25:1. Die Light-Werte (-700/-800) wären hier dunkel-auf-dunkel. */
+  --co-ink:var(--co-200); --ki-ink:var(--ki-200); --es-ink:var(--es-100); --wo-ink:var(--wo-200);
   /* Badge text – lighter for dark backgrounds */
-  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#F08080;
-  /* Neutraler Badge wie die Bereichs-Badges: dunkle -50-Kachel + heller Text (vorher medium #445060,
-     das fast auf bg-surface/Streifen lag und unsichtbar war). n-50 #0A1515 vs Streifen = 2,08:1, im
-     selben Bereich wie die Bereichs-Badges (2,0-2,2:1) → konsistentes Bild, kein Sonder-Rahmen nötig. */
-  --badge-neu-bg:var(--n-50); --badge-neu-text:#C4D8D8;
-  /* Contrast badge (dark) */
-  --cbadge-aa-bg:#052415; --cbadge-aa-text:#5CE8A0;
-  --cbadge-aaa-bg:#04141E; --cbadge-aaa-text:#70C8F0;
-  --cbadge-fail-bg:#220808; --cbadge-fail-text:#F08080;
+  /* Dark-only: badge-err-text #F08080 ❌ 3,78:1 auf der aufgehellten Fehler-Füllung #802020
+     → #FFA5A5 ✓ 5,21:1. Damit derselbe Ton wie --c-error, eine Fehlerfarbe weniger im System.
+     (Light: #9b2020 auf hellem Tint.) */
+  --badge-ok-text:#5CE8A0; --badge-warn-text:#F0C060; --badge-err-text:#FFA5A5;
+  /* Neutraler Badge, gleiche Stufe wie die Bereichs-Badges, damit das Bild konsistent bleibt und
+     kein Sonder-Rahmen nötig ist. Dark-only: lag als var(--n-50) bei 1,10:1 gegen die Seite ❌
+     (n-50 ist die tiefste Flächenstufe und damit dunkler als der Grund, der Badge verschwand)
+     → eigener Wert #364553 ✓ 1,78:1 zur Seite, 1,32:1 zur Card, Text darauf 6,64:1.
+     (Light: var(--n-100).) */
+  --badge-neu-bg:#404F5D; --badge-neu-text:#C4D8D8;
+  /* Contrast badge (dark): auf derselben Stufe wie die Bereichs- und Status-Füllungen (9,8:1),
+     sonst stünden die Badges in den Kontrast-Tabellen flächengleich auf ihrem Grund.
+     Je 1,78 bis 1,79:1 zur Seite, 1,32 bis 1,33:1 zur Card, Text darauf 5,2 bis 6,3:1. */
+  --cbadge-aa-bg:#134D31; --cbadge-aa-text:#5CE8A0;
+  --cbadge-aaa-bg:#194864; --cbadge-aaa-text:#70C8F0;
+  --cbadge-fail-bg:#802020; --cbadge-fail-text:#FFA5A5; /* Dark-only: #F08080 ❌ 3,78:1 → 5,21:1 ✓ */
 }
-/* Dark: Brand Wheel */
-[data-theme="dark"] .bw-outer { fill: #071616 }
-[data-theme="dark"] .bw-middle { fill: #0A2626 }
+/* Dark: Brand Wheel. Die Ringe lagen unter der alten Seite (1,69:1 und 1,46:1). Gegen die tiefere
+   Seite fielen sie auf 1,06:1 und 1,10:1 und wären als Ringe verschwunden, deshalb wie die
+   Bereichs-Tints über die Seite gehoben: 1,16:1 und 1,40:1 zur Seite, 1,21:1 zueinander (vorher
+   1,16:1). Die Divider-Striche laufen über var(--bg-page) und trennen die Ringe weiterhin. */
+[data-theme="dark"] .bw-outer { fill: #0B2B2B }
+[data-theme="dark"] .bw-middle { fill: #0E3A3A }
 [data-theme="dark"] .bw-divider { stroke: var(--bg-page) }
 [data-theme="dark"] .bw-ring-outline { stroke: var(--bg-page) }
 [data-theme="dark"] .bw-label-segment { fill: var(--co-200) }
 [data-theme="dark"] .bw-label-attr { fill: var(--co-300) }
 [data-theme="dark"] .bw-pillar-card { background: var(--bg-surface) }
-/* co-700 (#007575) on bg-surface (#3F4B56) = ~1.6:1 → co-300 (#4DD0D0) = ~4.8:1 ✓ AA */
+/* co-700 (#007575) on bg-surface (#28323D) = 2.36:1 → co-300 (#4DD0D0) = 6.97:1 ✓ AAA */
 [data-theme="dark"] .bw-pillar-title { color: var(--co-300) }
-/* Dark-only: tx-secondary (#8AAFAF) on bg-surface (#3F4B56) = 3.76:1 ❌ → tx-primary = 7.19:1 ✓ AAA. (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
+/* Dark-only: tx-secondary (#A6C6C6) on bg-surface (#28323D) = 7.13:1 → tx-primary = 10.48:1, hier
+   bewusst die kräftigere Stufe, weil die Attribute im Rad als Primärinformation gelesen werden.
+   (Light: #4A6565 auf #fff = 6.28:1 ✓, kein Fix nötig.) */
 [data-theme="dark"] .bw-pillar-attrs { color: var(--tx-primary) }
-/* co-700 (#007575) on bg-page (#333E48) = ~1.97:1 → co-200 (#80DEDE) = ~8.3:1 ✓ AAA */
+/* co-700 (#007575) on bg-page (#151A1F) = 3.17:1 ❌ für Normaltext → co-200 (#80DEDE) = 11.19:1 ✓ AAA */
 [data-theme="dark"] .doc-eyebrow { color: var(--co-200) }
 
 /* Dark: targeted component fixes that can't be token-driven */
-/* Select arrow: #4A6565 on #3F4B56 ≈ 1.1:1 → #8AAFAF (tx-secondary dark) ≈ 3.5:1 ✓ */
+/* Select arrow: n-500 (#4A6565) auf bg-surface (#28323D) = 2.07:1 ❌ → n-200 (#C9D3D3) = 8.51:1 ✓ */
 [data-theme="dark"] .field select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C9D3D3' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E") }
 /* Textarea-Resizer: der native Eck-Griff (dunkle Diagonalen) ist im Dark auf dem Feld-bg unsichtbar.
    Eigenen hellen Griff (#C9D3D3, 5,84:1) als background-image aufs Textarea legen — zuverlässiger
@@ -81,6 +172,11 @@
 /* Slider: --sl-color = Thumb, --sl-text = Wert-Anzeige. Die -500/-700/-800-Töne fallen im Dark auf dem
    dunklen Grund durch (Wert-Text ki/es/wo < 4,5:1, Thumb < 3:1). Beide auf die hellen -200/-100-Töne
    heben (5,3-7:1). Track (--n-200 #C9D3D3) bleibt hell/sichtbar; disabled (.38 opacity) ist 1.4.3-ausgenommen. */
+/* Dark-only: Der Slider OHNE Bereichsklasse fiel durchs Raster. Er nimmt den Fallback der
+   Komponente (--sl-text: co-700) und stand damit ❌ 2,36:1 auf der Karte, dunkel auf dunkel.
+   Die vier Bereichsklassen darunter waren gesetzt, der Grundfall nicht. → co-200 ✓ 8,32:1.
+   (Light: co-700 auf Weiß, 5,52:1.) */
+[data-theme="dark"] .field-slider-output { color: var(--sl-text, var(--co-200)) }
 [data-theme="dark"] .slider-co { --sl-color: var(--co-200); --sl-text: var(--co-200) }
 [data-theme="dark"] .slider-ki { --sl-color: var(--ki-200); --sl-text: var(--ki-200) }
 [data-theme="dark"] .slider-es { --sl-color: var(--es-100); --sl-text: var(--es-100) }
@@ -101,13 +197,73 @@
 [data-theme="dark"] .ep-select[data-area="ki"], [data-theme="dark"] .ep-combobox[data-area="ki"] { --sel-500: var(--ki-200) }
 [data-theme="dark"] .ep-select[data-area="es"], [data-theme="dark"] .ep-combobox[data-area="es"] { --sel-500: var(--es-100) }
 [data-theme="dark"] .ep-select[data-area="wo"], [data-theme="dark"] .ep-combobox[data-area="wo"] { --sel-500: var(--wo-200) }
-[data-theme="dark"] .chip { border-color:#818C99 }
+/* Dark-only: Ruhe-Rand des neutralen Chips. Stand als hartkodiertes #818C99 da, dem alten --bd-Wert,
+   den die Flächen-Umstellung auf #6F7A89 gedämpft hat. Jetzt --bd-strong-c aus der Rahmen-Familie:
+   4,21:1 gegen die Chip-Fläche und 5,66:1 gegen die Seite. --bd-c wäre hier zu schwach (2,99:1 zur
+   Chip-Fläche), der Chip-Rand ist eine Bedienelement-Grenze und braucht 3:1 nach WCAG 1.4.11.
+   (Light: n-200, 1.5px, aus components.css.) */
+[data-theme="dark"] .chip { border-color: var(--bd-strong-c) }
+/* Dark-only: Hover-Rand des neutralen Chips. Light geht auf n-400 (#6E8585), im Dark liegt das mit
+   3,32:1 unter dem Ruhe-Rand: der Rand würde beim Überfahren schwächer statt kräftiger.
+   → n-200 = #C9D3D3, 8,51:1. (Light: n-400 bleibt.) */
+[data-theme="dark"] .chip:hover { border-color: var(--n-200) }
+/* Dark-only: Ruhezustand der BEREICHS-Chips. Sie setzen Rahmen und Text in components.css auf die
+   dunklen Stufen (-500/-600/-700 Rahmen, -700/-800 Text), die im Dark nicht flippen: der Text stand
+   damit ❌ 1,35:1 (es-700) bis 2,36:1 (co-700) auf einer Karte, also dunkel-auf-dunkel, und der
+   es-Rahmen mit 2,30:1 unter der 3:1-Schwelle für die Bedienelement-Grenze. Jetzt wie überall im
+   Dark die hellen Pendants: Text -200 (es -100), 7,66 bis 10,25:1 ✓; Rahmen -300, 4,25 bis 9,48:1 ✓,
+   eine Stufe unter dem Text, damit die Schrift dominant bleibt wie im Light.
+   Der Hover geht auf -200/-100 (auf der getönten Füllung 5,78 bis 7,77:1), also kräftiger als die
+   Ruhe, gleiche Richtung wie beim neutralen Chip. Die Hover-Füllung --XX-50 flippt schon selbst.
+   (Light: -500/-600/-700-Rahmen mit -700/-800-Text, unverändert.) */
+[data-theme="dark"] .chip[data-area="co"] { border-color: var(--co-300); color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"] { border-color: var(--ki-300); color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"] { border-color: var(--es-300); color: var(--es-100) }
+[data-theme="dark"] .chip[data-area="wo"] { border-color: var(--wo-300); color: var(--wo-200) }
+[data-theme="dark"] .chip[data-area="co"]:hover { border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"]:hover { border-color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"]:hover { border-color: var(--es-100) }
+[data-theme="dark"] .chip[data-area="wo"]:hover { border-color: var(--wo-200) }
+/* Dark-only: Gedrückter Chip invertiert, wie das Segmented Control (dort --seg-fill -300 mit
+   --seg-on -900). Light füllt mit n-700 und schreibt weiß; im Dark ergäbe das eine sehr dunkle
+   Fläche auf dunklem Grund — ❌ 1,60:1 zwischen Chip und Seite, der ausgewählte Zustand war nur
+   noch am Text erkennbar. Helle Füllung n-300 mit dunklem Text n-900 ✓. Der Hover geht eine Stufe
+   heller (n-200) statt dunkler, damit die Richtung stimmt. (Light: n-700/n-800 bleiben.) */
+[data-theme="dark"] .chip[aria-pressed="true"] { background: var(--n-300); border-color: var(--n-300); color: var(--n-900) }
+[data-theme="dark"] .chip[aria-pressed="true"]:hover { background: var(--n-200); border-color: var(--n-200) }
+/* Die Bereichs-Chips setzen ihren gewählten Zustand mit eigener Regel (--XX-700/800 + weißer Text) und
+   brauchen deshalb eigene Dark-Regeln — sonst greift oben die neutrale Füllung, der weiße Text bleibt
+   stehen und ergibt ❌ 1,53:1. Gleiche Inversion wie beim Segmented Control, jeweils Bereichston -300
+   mit -900-Text; Hover eine Stufe heller. (Light: -700/-800 mit Weiß bleiben.) */
+[data-theme="dark"] .chip[data-area="co"][aria-pressed="true"] { background: var(--co-300); border-color: var(--co-300); color: var(--co-900) }
+[data-theme="dark"] .chip[data-area="ki"][aria-pressed="true"] { background: var(--ki-300); border-color: var(--ki-300); color: var(--ki-900) }
+[data-theme="dark"] .chip[data-area="es"][aria-pressed="true"] { background: var(--es-300); border-color: var(--es-300); color: var(--es-900) }
+[data-theme="dark"] .chip[data-area="wo"][aria-pressed="true"] { background: var(--wo-300); border-color: var(--wo-300); color: var(--wo-900) }
+[data-theme="dark"] .chip[data-area="co"][aria-pressed="true"]:hover { background: var(--co-200); border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"][aria-pressed="true"]:hover { background: var(--ki-200); border-color: var(--ki-200) }
+[data-theme="dark"] .chip[data-area="es"][aria-pressed="true"]:hover { background: var(--es-200); border-color: var(--es-200) }
+[data-theme="dark"] .chip[data-area="wo"][aria-pressed="true"]:hover { background: var(--wo-200); border-color: var(--wo-200) }
+/* Dark-only: Pause-Knopf im Logo-Karussell. Light dunkelt das Icon beim Hover auf n-700 (#1A2E2E),
+   im Dark sind das 1,60:1 auf der Karten-Fläche. → n-100 hebt es auf das hellste Neutral.
+   (Light: n-700 bleibt.) */
+[data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
-[data-theme="dark"] .snack-ok { background:#052415; color:#b0f0d0 }
-[data-theme="dark"] .snack-err { background:#220808; color:#fde8e8 }
-[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:#052415; color:#5CE8A0 }
-[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:#220808; color:#F08080 }
+/* Dark-only: Die Flächen standen hier als hartkodierte Kopien von --c-success-bg und --c-error-bg
+   (#052415 / #220808). Als die Status-Tints angehoben wurden, blieben die Kopien zurück und trugen
+   nur noch ❌ 1,06:1 bzw. 1,08:1 gegen die Seite, die Snackbar war als Fläche praktisch weg.
+   Jetzt über die Token ✓ 1,78:1 und 1,79:1; Text darauf 7,60:1 und 8,34:1. */
+[data-theme="dark"] .snack-ok { background:var(--c-success-bg); color:#b0f0d0 }
+[data-theme="dark"] .snack-err { background:var(--c-error-bg); color:#fde8e8 }
+/* Dieselbe Familie wie die Snackbar darüber: die Kreisflächen standen als hartkodierte Kopien von
+   --c-success-bg und --c-error-bg (#052415 / #220808) und blieben beim Anheben der Status-Tints
+   zurück. Gegen die neue Seite trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche
+   mehr, nur noch ein farbiger Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und
+   1,33:1 zur Card. Der Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur
+   ❌ 3,78:1, --c-error (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
+   (Light: helle Tints #E6F9F1 / #FDEAEA mit dunklem Glyph, kein Fix nötig.) */
+[data-theme="dark"] .a11y-ok .a11y-rule-icon { background:var(--c-success-bg); color:var(--c-success) }
+[data-theme="dark"] .a11y-fail .a11y-rule-icon { background:var(--c-error-bg); color:var(--c-error) }
 /* Dark: buttons – Text/Rahmen auf die Bereichs-Light-Tints (--c-ink = -200/-100, wie t-Utilities,
    Badges, Icons; auf der Skala) heben; Filled invertiert auf helle -300-Fläche + dunklen Text (s. u.). */
 /* Filled: die dunkle -700/-800-Fläche verschwimmt im Dark mit bg-page (1,1–2,0:1, Button "verschwindet").
@@ -126,14 +282,17 @@
 [data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
 [data-theme="dark"] .btn-es { --c-ink: var(--es-100) }
 [data-theme="dark"] .btn-wo { --c-ink: var(--wo-200) }
-/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen (#9DA8B6 =
-   --bd-strong dark, ≥3:1) — der Rahmen macht den Button erkennbar, die Tönung unterscheidet ihn von
-   Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der -ink-Text (-200/-100) auch
-   auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei 4,43:1, knapp drunter). */
+/* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen über
+   --bd-strong-c (vorher als #9DA8B6 hartkodiert, dem alten --bd-strong-Wert; die Gleichung stimmte
+   nach der Flächen-Umstellung nicht mehr). Auf den vier Tonal-Füllungen 3,64:1 (ki) bis 4,87:1 (es),
+   also durchgehend über der 3:1-Schwelle. Der Rahmen macht den Button erkennbar, die Tönung
+   unterscheidet ihn von Outlined (brand-Rahmen). Basis bg-page (nicht bg-surface): so trägt der
+   -ink-Text (-200/-100) auch auf der Tonal-Fläche AA (≥5:1; auf bg-surface lagen co/wo bei
+   4,43:1, knapp drunter). */
 [data-theme="dark"] .btn-tonal {
   background: color-mix(in srgb, var(--c500) 18%, var(--bg-page));
   color: var(--c-ink);
-  border-color: #9DA8B6;
+  border-color: var(--bd-strong-c);
 }
 [data-theme="dark"] .btn-elevated { color: var(--c-ink) }
 [data-theme="dark"] .btn-outlined {
@@ -173,22 +332,29 @@
    (Alternativ-Ton) — die „Abstufungen". Pauschal alles auf bg-page macht den Dark flach. n-50-Sektionen
    daher auf bg-surface heben (hellerer Dark-Surface-Tier, 1,22:1) → sichtbare Alternation Basis/erhöht. */
 [data-theme="dark"] .ep-section[style*="var(--n-50)"] { background: var(--bg-surface) !important }
-/* Ausnahme .ep-section-cards: kartentragende n-50-Section, deren Inhalt erhoehte bg-surface-Cards sind.
-   Dark hat nur 2 Flaechen-Stufen (bg-page < bg-surface). Ein Element hebt sich nur ab, wenn es eine
-   ANDERE Stufe als sein Grund hat. Im Light: n-50-Flaeche grau, Cards bg-surface (weiss) = hellere
-   Stufe -> Cards heben sich. Wuerde die Section wie ueblich auf bg-surface gehoben, traefe sie auf die
-   bg-surface-Cards -> gleicher Ton, Cards verschwinden. Daher diese Sektionen NICHT heben: auf bg-page
-   belassen, dann sind die bg-surface-Cards die hellere Stufe (1,22:1) und heben sich ab wie im Light.
-   (Section runter statt Cards hoch, weil keine dritte, hellere Stufe existiert.) Spezifitaet (0,3,0) +
-   Quellreihenfolge nach der Hebungsregel, damit dieser Override gewinnt. */
-[data-theme="dark"] .ep-section.ep-section-cards { background: var(--bg-page) !important }
+/* Die Hebung gilt AUSNAHMSLOS, auch für kartentragende Sektionen. Damit ist die Tonfolge im Dark
+   dieselbe wie im Light, und der Wechsel Basis/erhöht bleibt über die ganze Seite intakt.
+
+   Warum keine Ausnahme: Eine gehobene Sektion trifft den Ton ihrer eigenen bg-surface-Karten. Die
+   naheliegende Antwort war, solche Sektionen auf bg-page zurückzuziehen, damit die Karten die
+   hellere Stufe bilden. Das kostet aber genau den Rhythmus, um den es hier geht: die Sektion sitzt
+   dann auf dem Ton ihrer Nachbarn. Gemessen über die 24 Beispielseiten (133 Abschnitte): mit
+   Rücknahme 63 verschmolzene Übergänge, ohne 20, im Light sind es 17.
+
+   Die Karten lesen deshalb über ihren RAND, nicht über eine Tonstufe. Das ist keine Notlösung,
+   sondern exakt das, was im Light auf weißen Sektionen längst passiert: weiße Karte auf weißem
+   Grund, abgegrenzt durch die --bd-Haarlinie (dort 1,10:1). Im Dark ist der Rand mit --bd-strong-c
+   sogar deutlicher (4,21:1 gegen die Kartenfläche), siehe die Rand-Regeln bei den Karten unten.
+   Auf bg-page-Sektionen bleibt es bei Tonstufe PLUS Rand. */
 /* Getönte CTA-Sektionen: behalten im Dark ihren Bereichs-Tint (var(--XX-50) = gedämpfter Dunkston wie
    #16302E), statt vom pauschalen bg-page geschluckt zu werden → CTA-Band bleibt als getönte Fläche
    erkennbar. Texte/Labels darauf flippen auf helle Tints (8–10:1). */
-[data-theme="dark"] .ep-section[style*="var(--co-50)"] { background: var(--co-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--ki-50)"] { background: var(--ki-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--es-50)"] { background: var(--es-50) !important }
-[data-theme="dark"] .ep-section[style*="var(--wo-50)"] { background: var(--wo-50) !important }
+/* Getönte Sektionen ziehen --XX-band statt --XX-50: das Band muss dunkler bleiben als die Karten
+   darauf, die kleine --XX-50-Füllung dagegen heller als ihr Grund. Siehe Token-Block oben. */
+[data-theme="dark"] .ep-section[style*="var(--co-50)"] { background: var(--co-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--ki-50)"] { background: var(--ki-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--es-50)"] { background: var(--es-band) !important }
+[data-theme="dark"] .ep-section[style*="var(--wo-50)"] { background: var(--wo-band) !important }
 /* Header-Trennlinien: die getönten Beispielseiten-Header nutzen inline border-bottom mit dem hellen
    Bereichston var(--XX-100). Der flippt nicht → im Dark eine grelle helle Linie (~7–11:1). Auf den
    neutralen var(--bd) umstellen (~3–4:1), damit die Trennlinie dezent bleibt wie der gleichfarbige
@@ -203,12 +369,29 @@
    die hellere bg-surface-Fläche + --bd-strong-Rahmen. Schatten nur für interaktive .ep-card-link. */
 [data-theme="dark"] .ep-card { background: var(--bg-surface) !important }
 [data-theme="dark"] .ep-card-link { box-shadow: var(--e2) }
+/* Dark-only: Der Rand trägt die Kartenkante, weil die Karte auf einer gehobenen Sektion denselben
+   Ton hat wie ihr Grund (n-50-Sektionen werden im Dark auf bg-surface gehoben, siehe oben). Genau
+   wie im Light auf weißen Sektionen, dort übernimmt die --bd-Haarlinie. --bd-strong-c gibt 4,21:1
+   gegen die Kartenfläche, also klarer als die 1,10:1 im Light. .ep-card-link setzt in
+   components.css border-color:transparent, weil dort der Schatten allein trug; auf der tiefen
+   Dark-Basis trägt er das nicht mehr, gleiche Begründung wie bei den schwebenden Panels.
+   (Light: --bd-strong für .ep-card, transparenter Rand für die Link-Variante.) */
+[data-theme="dark"] .ep-card,
+[data-theme="dark"] .ep-card-link { border-color: var(--bd-strong-c) }
+/* Dark-only: Auf der tieferen Seite tragen die schwarzen Schatten weniger als auf dem alten
+   #333E48. Der Hover hebt deshalb zusätzlich die Fläche (13,01:1 → 11,47:1), wie im
+   Material-Overlay-Modell, wo Tiefe primär über Helligkeit entsteht. Das ist ein Zustand,
+   KEINE dritte statische Flächen-Stufe. Das !important schlägt die .ep-card-Grundregel oben.
+   (Light: bg-surface-hover = bg-surface, dort trägt --e3 die Tiefe allein.) */
+[data-theme="dark"] .ep-card-link:hover,
+[data-theme="dark"] .ep-card-link:focus-visible { background: var(--bg-surface-hover) !important }
 [data-theme="dark"] .ep-card-title { color: var(--tx-primary) !important }
 [data-theme="dark"] .ep-card-text { color: var(--tx-secondary) !important }
 /* ep-card-icon: Im Dark-Mode werden die --XX-50-Kacheln fast schwarz, die Glyph-Farben (--XX-700/800)
    bleiben aber dunkel → dunkel-auf-dunkel (KI 2.2:1, ES 2.1:1, WO 2.5:1, Corp 3.4:1; der alte
    filter:brightness(.75) verschlimmerte das auf bis zu 1.7:1). Glyph daher bereichsweise auf den
-   hellen --XX-100-Ton heben (13.8–15.6:1). CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
+   hellen --XX-100-Ton heben (nach der Flächen-Umstellung 7,49 bis 9,99:1, Schwelle für Icons ist 3:1).
+   CSS auf <svg> schlägt das Inline-stroke-Präsentationsattribut. */
 [data-theme="dark"] .ep-card-icon[data-area="co"] svg { stroke: var(--co-100) }
 /* Timeline-Marker: co-50-Tile wird im Dark dunkel → Icon auf helles co-100 heben */
 [data-theme="dark"] .ep-tl-icon svg { stroke: var(--co-100) }
@@ -233,6 +416,13 @@
 [data-theme="dark"] .ep-feature-icon[data-area="co"] { color: var(--co-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .ep-feature-icon[data-area="wo"] { color: var(--wo-100) }
+/* Dark-only: .ep-compare nutzt rohes --ki-800 (flippt nicht) für Summary, ✓-Glyph und Pro-Header
+   → dunkel-auf-dunkel: ❌ ki-800 #475705 auf bg-page/ki-50 #2A3411. Auf helle ki-Töne heben ✓,
+   analog .ep-feature-icon/.ep-tier-label. (Light: ki-800/ki-900 bleiben.) */
+[data-theme="dark"] .ep-compare-summary { color: var(--ki-200) }
+[data-theme="dark"] .ep-compare-summary:hover { color: var(--ki-100) }
+[data-theme="dark"] .ep-compare-yes { color: var(--ki-100) }
+[data-theme="dark"] .ep-compare-table thead .ep-compare-pro { color: var(--ki-100) }
 /* Testimonial-Zitatzeichen: --t-accent (-500) bei opacity .2 verschwindet im Dark auf der
    bg-surface-Karte (perzeptuell schwach, es-500 zudem zu dunkel). Im Dark auf den helleren -300-Ton
    + opacity .6 → erkennbarer, aber weiterhin dezenter Flourish (2,1–3,4:1, gleichmäßig über alle Bereiche). */
@@ -273,10 +463,15 @@
 [data-theme="dark"] [style*="var(--ki-50)"] svg[stroke^="var(--ki-"] { stroke: var(--ki-200) }
 [data-theme="dark"] [style*="var(--es-50)"] svg[stroke^="var(--es-"] { stroke: var(--es-100) }
 [data-theme="dark"] [style*="var(--wo-50)"] svg[stroke^="var(--wo-"] { stroke: var(--wo-200) }
-[data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-800) }
-[data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-800) }
-[data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-800) }
-[data-theme="dark"] .team-voice[data-area="wo"] { border-color: var(--wo-800) }
+/* Dark-only: Bereichs-Rahmen der Team-Stimme. Lag auf den -800-Stufen ❌ 1,07:1 (wo) bis 1,63:1 (ki)
+   gegen die Kartenfläche, der Rahmen war als Bereichssignal nicht vorhanden. Jetzt -300 wie beim
+   Bereichs-Chip ✓ 4,25:1 (es) bis 9,48:1 (ki), also über der 3:1-Schwelle für grafische Objekte.
+   Das Quote-Icon daneben ist dekorativ (opacity .6), der Rahmen trägt das Signal.
+   (Light: -600/-700/-500, 3,29 bis 5,66:1 auf Weiß.) */
+[data-theme="dark"] .team-voice[data-area="co"] { border-color: var(--co-300) }
+[data-theme="dark"] .team-voice[data-area="ki"] { border-color: var(--ki-300) }
+[data-theme="dark"] .team-voice[data-area="es"] { border-color: var(--es-300) }
+[data-theme="dark"] .team-voice[data-area="wo"] { border-color: var(--wo-300) }
 [data-theme="dark"] .ep-tier-label[data-area="ki"] { color: var(--ki-100) }
 [data-theme="dark"] .card-stat-strip { background: var(--bg-surface) }
 [data-theme="dark"] .card-stat-flat[data-area="co"] .card-stat-flat-value { color: var(--co-200) }
@@ -308,6 +503,14 @@
 [data-theme="dark"] .chip[data-area="ki"] { color: var(--ki-200); border-color: var(--ki-400) }
 [data-theme="dark"] .chip[data-area="es"] { color: var(--es-100); border-color: var(--es-300) }
 [data-theme="dark"] .chip[data-area="wo"] { color: var(--wo-200); border-color: var(--wo-300) }
+/* Dark-only: Der Hover-Rand nutzt im Light die kräftigeren -500/-600/-700-Töne. Im Dark sind das die
+   dunkleren, der Rand würde beim Überfahren also schwächer statt kräftiger — die Affordanz liefe
+   rückwärts (z.B. ki ruhend -400 #BEE82D → hover -700 #6B8208). Jeweils eine Stufe HELLER als der
+   Ruhezustand. (Light: -500/-600/-700 bleiben.) Spezifität 0,4,0 schlägt die Light-Regel. */
+[data-theme="dark"] .chip[data-area="co"]:hover { border-color: var(--co-200) }
+[data-theme="dark"] .chip[data-area="ki"]:hover { border-color: var(--ki-300) }
+[data-theme="dark"] .chip[data-area="es"]:hover { border-color: var(--es-200) }
+[data-theme="dark"] .chip[data-area="wo"]:hover { border-color: var(--wo-200) }
 /* Doku-Sidebar: aktiver Eintrag hat im Light co-700-Text auf hellem co-50. Im Dark ist co-50 fast schwarz
    (#16302E) → Text/Balken auf die hellen Töne heben (co-200 ~9,6:1 / co-300), sonst dunkel-auf-dunkel. */
 [data-theme="dark"] .nav-item.active { color: var(--co-200); border-left-color: var(--co-300) }
@@ -328,13 +531,21 @@
 [data-theme="dark"] .badge[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .badge[data-area="wo"] { color: var(--wo-200) }
 
-/* Segmented Control (dark): dunkles co-700 würde auf dunklem Grund nicht heraustreten → helle Füllung co-300 (#4DD0D0, ~4,7:1 gg. inaktive Segmente) mit dunklem co-900-Text (~9,9:1). */
-[data-theme="dark"] .seg-option input:checked + label { background: var(--co-300); color: var(--co-900) }
+/* Segmented Control (dark): die dunkle -700/-800-Füllung würde auf dunklem Grund nicht heraustreten
+   → helle -300-Füllung mit dunklem -900-Text (Corporate: #4DD0D0 ~4,7:1 gg. inaktive Segmente,
+   Text ~9,9:1). Die Bereichs-Varianten brauchen eigene Dark-Regeln, weil [data-theme] .seg
+   spezifischer ist als .seg-ki allein und die Light-Variante sonst überschreiben würde. */
+[data-theme="dark"] .seg    { --seg-fill: var(--co-300); --seg-on: var(--co-900) }
+[data-theme="dark"] .seg-ki { --seg-fill: var(--ki-300); --seg-on: var(--ki-900) }
+[data-theme="dark"] .seg-es { --seg-fill: var(--es-300); --seg-on: var(--es-900) }
+[data-theme="dark"] .seg-wo { --seg-fill: var(--wo-300); --seg-on: var(--wo-900) }
 
 /* ── Spacing & Grid + Code tokens ── */
 /* co-700 (#007575) auf co-50 (dark, #16302E) ~2,4:1 → co-300 (#4DD0D0) = 7,5:1 */
-[data-theme="dark"] .gcol  { color: var(--co-300) }
-[data-theme="dark"] .token { color: var(--co-300) }
+[data-theme="dark"] .gcol  { color: var(--co-ink) }   /* co-300 trug auf der gehobenen Fuellung nur 4,48:1, co-ink (co-200) 5,35:1 */
+/* Dark-only: co-300 trug auf der gehobenen co-Fuellung nur noch 4,48:1. Ueber --co-ink (im Dark
+   co-200) sind es 5,35:1, und farbiger Text laeuft damit ueber dasselbe Token wie ueberall sonst. */
+[data-theme="dark"] .token { color: var(--co-ink) }
 
 /* Body-Link / Card-CTA-Link / t-co: --co-700 auf bg-page = 1.97:1 ❌ → --co-200 = 6.97:1 ✓ AA */
 [data-theme="dark"] .body-link { color: var(--co-200) }
@@ -347,18 +558,46 @@
 [data-theme="dark"] .card-cta-link[data-area="es"] { color: var(--es-100) }
 [data-theme="dark"] .card-cta-link[data-area="wo"] { color: var(--wo-200) }
 [data-theme="dark"] .t-co { color: var(--co-200) }
-[data-theme="dark"] .ep-page[data-accent="ki"] .t-co { color: var(--ki-200) }
-[data-theme="dark"] .ep-page[data-accent="es"] .t-co { color: var(--es-200) }
-[data-theme="dark"] .ep-page[data-accent="wo"] .t-co { color: var(--wo-200) }
-[data-theme="dark"] .ep-page[data-accent="ki"] .body-link { color: var(--ki-200) }
-[data-theme="dark"] .ep-page[data-accent="es"] .body-link { color: var(--es-200) }
-[data-theme="dark"] .ep-page[data-accent="wo"] .body-link { color: var(--wo-200) }
-[data-theme="dark"] .ep-page[data-accent] .footer .body-link { color: var(--co-200) }
-[data-theme="dark"] .ep-page[data-accent] .ep-topnav .t-co { color: var(--co-200) }
+[data-theme="dark"] [data-accent="ki"] .t-co { color: var(--ki-200) }
+[data-theme="dark"] [data-accent="es"] .t-co { color: var(--es-200) }
+[data-theme="dark"] [data-accent="wo"] .t-co { color: var(--wo-200) }
+[data-theme="dark"] [data-accent="ki"] .body-link { color: var(--ki-200) }
+[data-theme="dark"] [data-accent="es"] .body-link { color: var(--es-200) }
+[data-theme="dark"] [data-accent="wo"] .body-link { color: var(--wo-200) }
+[data-theme="dark"] [data-accent] .footer .body-link { color: var(--co-200) }
+[data-theme="dark"] [data-accent] .ep-topnav .t-co { color: var(--co-200) }
+/* Dark-only: Hover der bereichsgetönten Body-Links. Light geht auf -800 (dunkler), im Dark ergäbe das
+   dunkel-auf-dunkel: ❌ wo-800 auf bg-page = 1,17:1 → wo-100 = 8,7:1 ✓. (Light: -800 bleibt.)
+   Nötig, weil die Light-Hover-Regel `[data-accent="wo"] .body-link:hover` dieselbe Spezifität hat wie
+   die Dark-Grundregel eine Zeile höher und components.css NACH dark-mode.css geladen wird — ohne
+   eigene :hover-Regel hier gewinnt sonst der Light-Wert. Analog zu .body-link:hover → co-100. */
+[data-theme="dark"] [data-accent="ki"] .body-link:hover { color: var(--ki-100) }
+[data-theme="dark"] [data-accent="es"] .body-link:hover { color: var(--es-100) }
+[data-theme="dark"] [data-accent="wo"] .body-link:hover { color: var(--wo-100) }
+/* Dark-only: derselbe Fall eine Regel weiter — der Chrome-Reset der Footer-Links auf area-getönten
+   Seiten. Light hebt den Hover auf co-800, im Dark ergibt das ❌ 1,97:1 auf dem Footer-Grund.
+   → co-100 ✓. (Light: co-800 bleibt.) Spezifität 0,5,0, damit die Ladereihenfolge egal ist. */
+[data-theme="dark"] [data-accent] .footer .body-link:hover { color: var(--co-100) }
+/* Dark-only: Hover-Zustände mit --co-700 auf theme-awarem tx-primary-Text (Footer-Link, Article-TOC)
+   → im Dark wäre der Hover dunkler statt heller: ❌ co-700 auf bg-page. Hover-Akzent auf --co-200 heben ✓,
+   analog .body-link:hover. (Light: co-700 bleibt.) */
+[data-theme="dark"] .footer-link:hover { color: var(--co-200) }
+[data-theme="dark"] .article-toc-summary:hover,
+[data-theme="dark"] .article-toc-list a:hover { color: var(--co-200) }
 
 /* ── Cards ── */
-/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode (verified ≥4.5:1) */
-/* co-200 (#80DEDE) ~4.9:1 · ai-200 (#D6F06D) ~6.1:1 · es-100 (#C8D9F5) ~5.4:1 · wo-200 (#A3D48E) ~4.6:1 */
+/* Dark-only: Kartenkante über den Rand, dieselbe Begründung wie bei .ep-card oben. Auf einer
+   gehobenen n-50-Sektion hat die Karte den Ton ihres Grundes, der Rand macht sie zur Fläche:
+   --bd-strong-c = 4,21:1 gegen die Karte (Light: --bd, 1,10:1 auf weißer Sektion, dort reicht es).
+   Gilt auch für die Link-Karte, die im Light border:none trägt und sich auf --e1 verlässt: auf der
+   tiefen Dark-Basis trägt der schwarze Schatten das nicht mehr. Spezifität 0,2,0 schlägt
+   a.card-elevated (0,1,1), die Ladereihenfolge spielt also keine Rolle.
+   box-sizing ist global border-box, der Rand ändert die Kartengröße nicht. */
+[data-theme="dark"] .card { border: 1px solid var(--bd-strong-c) }
+/* Area card icons/eyebrows – same shades used for area-specimen-text in dark mode.
+   Eyebrow-Text auf bg-surface, nachgemessen nach der Flächen-Umstellung:
+   co-200 (#80DEDE) 8,32:1 · ki-200 (#D6F06D) 10,25:1 · es-100 (#C8D9F5) 9,11:1 · wo-200 (#A3D48E) 7,66:1.
+   Dieselben Töne auf der getönten -50-Kachel (Icon-Glyph, Schwelle 3:1): 6,24 / 7,77 / 6,87 / 5,78:1. */
 [data-theme="dark"] .card[data-area="co"] .card-media{color:var(--co-200)}
 [data-theme="dark"] .card[data-area="ki"] .card-media{color:var(--ki-200)}
 [data-theme="dark"] .card[data-area="es"] .card-media{color:var(--es-100)}
@@ -383,7 +622,7 @@
 [data-theme="dark"] .card-stat[data-area="es"] .card-stat-value{color:var(--es-100)}
 [data-theme="dark"] .card-stat[data-area="wo"] .card-stat-value{color:var(--wo-200)}
 
-/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#3F4B56) ── */
+/* ── Area specimen text – lighter palette shades pass ≥4.5:1 on dark surface (#28323D) ── */
 [data-theme="dark"] [data-area="co"] .area-specimen-text { color: var(--co-200) }   /* #80DEDE · 4.92:1 */
 [data-theme="dark"] [data-area="ki"] .area-specimen-text { color: var(--ki-200) }   /* #D6F06D · 6.10:1 */
 [data-theme="dark"] [data-area="es"] .area-specimen-text { color: var(--es-100) }   /* #C8D9F5 · 5.41:1 */
@@ -424,11 +663,12 @@
 [data-theme="dark"] .cb-copy{border-color:var(--bd);color:var(--tx-muted)}
 [data-theme="dark"] .cb-copy:hover{background:var(--bg-overlay);color:var(--tx-primary)}
 [data-theme="dark"] .cb-body{background:var(--bg-surface);color:var(--tx-primary)}
-/* Syntax tokens auf bg-surface (#3F4B56) — alle ≥4.5:1 verifiziert */
+/* Syntax tokens auf bg-surface (#28323D), alle ≥4.5:1 verifiziert */
 [data-theme="dark"] .cb-body .k{color:var(--es-200)}   /* #98B7EE · 5.1:1 */
 [data-theme="dark"] .cb-body .v{color:var(--co-200)}   /* #80DEDE · 4.9:1 */
 [data-theme="dark"] .cb-body .s{color:var(--wo-200)}   /* #A3D48E · 4.6:1 */
-[data-theme="dark"] .cb-body .c{color:var(--tx-muted)} /* gedimmt, ok für Kommentare */
+/* .cb-body .c nutzt jetzt schon im Light var(--tx-muted), der Dark-Override wäre wirkungsgleich
+   und ist deshalb entfallen. Die Terminal-Variante hat ihre eigene Regel in components.css. */
 [data-theme="dark"] .cb-body .fn{color:var(--ro-200)}  /* #F0A0BE · 4.6:1 */
 [data-theme="dark"] .cb-numbered .cb-ln::before{color:var(--tx-muted)}
 /* Inline code – co-700 (#007575) ~1.6:1 auf co-50 dark → co-200 (#80DEDE) ~4.9:1 ✓ */
@@ -439,3 +679,36 @@
 [data-theme="dark"] .tbl thead th { background: var(--bg-surface) }
 [data-theme="dark"] .tbl--striped tbody tr:nth-child(even) td,
 [data-theme="dark"] .tbl--striped tbody tr:nth-child(even) th { background: var(--bg-surface) }
+
+/* ── Fotos im Dark dämpfen ──
+   Bisher gab es keine Behandlung: helle Fotos standen unverändert auf dem Seitengrund. Auf der
+   tieferen Fläche (17,51:1 statt 10,92:1) blendet ein großflächiges helles Bild deutlich stärker,
+   die Material-Guidance nennt das unter „große leuchtende Flächen begrenzen". .92 ist bewusst
+   knapp gewählt: Markenfotos sollen nicht ausgewaschen wirken, es geht nur um die Spitzlichter.
+   Nicht zu verwechseln mit dem verworfenen filter:brightness(.75) auf Icon-Glyphen weiter oben.
+   Das betraf Strichgrafik auf getönten Kacheln und drückte den Kontrast auf 1,7:1; hier liegt
+   Bildinhalt vor, kein bedeutungstragender Vordergrund auf einer Fläche. */
+[data-theme="dark"] .hero-image-media img,
+[data-theme="dark"] .ep-media-band img,
+[data-theme="dark"] .article-figure img { filter: brightness(.92) }
+
+/* ── Schwebende Panels: der Rand übernimmt, was der Schatten nicht mehr trägt ──
+   Menüs und Popover grenzen sich im Light über --e3 vom Inhalt darunter ab. Auf der tiefen
+   Basisfläche trägt ein schwarzer Schatten das nicht mehr. Gemessen stand ein geöffnetes
+   Topnav-Menü über dem Hero-Foto nur noch 1,34:1 gegen die hellste Stelle daneben (vorher 1,92:1),
+   weil die Panel-Fläche mitgesunken ist, das Foto darunter aber nicht.
+   Eine dritte statische Flächen-Stufe wäre der Material-Weg („höher gleich heller"), würde aber die
+   Zwei-Stufen-Konvention des Systems brechen und einem Menü über einer Karte nur 1,13:1 bringen.
+   Stattdessen übernimmt der Rand: --bd-strong-c statt --bd-c, das ist unabhängig davon lesbar, was
+   zufällig hinter dem Panel liegt, und erfüllt WCAG 1.4.11 für die Panel-Grenze deutlich.
+   (Light: --bd bleibt, dort trägt der Schatten auf hellem Grund.) */
+[data-theme="dark"] .ep-nav-sub,
+[data-theme="dark"] .ep-select-menu,
+[data-theme="dark"] .ep-combobox-menu,
+[data-theme="dark"] .ep-nav-search-panel { border-color: var(--bd-strong-c) }
+/* Die Snackbar gehört in dieselbe Familie: sie schwebt über beliebigem Inhalt und trägt im Light
+   keinen Rahmen, weil ihre dunkle Fläche auf hellem Grund für sich steht. Im Dark liegt sie mit
+   1,23:1 (Default) bis 1,79:1 (Status) sehr nah am Grund, deshalb bekommt sie den Rand dazu.
+   Er trägt 4,61:1 auf der Default-Fläche und 3,17:1 auf den Status-Flächen. */
+[data-theme="dark"] .snack { border: 1px solid var(--bd-strong-c) }
+} /* Ende @media screen, umschließt die ganze Datei (siehe Kopf) */

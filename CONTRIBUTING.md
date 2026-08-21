@@ -18,8 +18,12 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 ## 2. Namens-Konventionen
 
 **CSS-Klassen**
-- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`
-- Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen)
+- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular)
+- Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen).
+  Trägt eine Komponente eine Bereichsfläche, braucht sie **alle vier** Varianten, nicht nur die gerade
+  benötigte. Sonst fällt ein Bereichsformular still auf den Corporate-Default zurück und trägt zwei
+  Brand Areas gleichzeitig. Umsetzung über lokale Variablen wie bei `.btn` (`--c500`) und `.seg`
+  (`--seg-fill`/`--seg-on`), nicht über feste Farben in der Basisregel.
 - Beispielseiten-Muster: `.ep-*` (z. B. `.ep-card`, `.ep-nav-*`, `.ep-section`)
 - Text-/Akzent-Utilities: `.t-co` / `.t-ki` / `.t-es` / `.t-wo`
 - Doku-/Site-Meta: `.ds-*`
@@ -37,11 +41,24 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 
 ## 3. Farbe & Kontrast
 
-- **Farbiger Text auf Weiß:** Bereichsfarbe `-700` (Co · ES · WO erfüllen AA). **Ausnahme KI:** `-700` reißt AA (4,05:1) → `--ki-800` bzw. `--ki-ink` für Text/Filled-Buttons.
-- **Nie `-500` als Textfarbe** auf Weiß (zu hell; nur ES-500/Rosé-500 bestehen AA).
-- **Gedämpfter Text:** `--tx-secondary`, **nicht** `--tx-muted` auf farbgetönten oder dunklen Card-Flächen (muted reißt dort AA).
-- **`--XX-ink` nur für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), die im Dark lesbar bleiben müssen (flippt Light `-800` / Dark `-200`). **Nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
+**Zwei Ebenen, und sie werden oft verwechselt.**
+
+1. **WCAG ist Pflicht und gilt für den Inhalt.** Text 4,5:1 (Großtext 3:1). Grenzen von Bedienelementen und Grafik, die Bedeutung trägt, 3:1. Das war es. Für die *Fläche* einer Pill, eines Badges oder einer Icon-Kachel verlangt WCAG **nichts**: sie ist kein Bedienelement, und ein Glyph, der `aria-hidden` ist und nur das Label daneben wiederholt, trägt keine Bedeutung.
+2. **Darüber hinaus entscheidet das Markenrad**, nicht der Kontrastrechner. „Ruhig" heißt: eine dekorative Fläche darf zart bleiben. Deshalb tragen Icon-Kacheln und Timeline-Marker den ruhigen `--XX-50`-Tint ohne Rand, und das Glyph darauf trägt die Erkennbarkeit (7,5 bis 11,4:1 im Light, 6,9 bis 8,6:1 im Dark). 48 px gesättigte Farbe wären das Gegenteil davon.
+
+Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und Bereichs-Badge stehen für eine Kategorie, sie müssen als Bauteil lesen. Für sie, und nur für sie, gilt 1,3:1 **und** 10 L\*, und `npm run check:contrast` prüft das mit. Die Rollen haben eigene Token, damit die Entscheidung am Namen hängt und nicht am Gefühl: **`--XX-50`** ruhige dekorative Fläche · **`--XX-fill`** textführendes Bauteil · **`--XX-band`** große Sektionsfläche · **`--XX-ink`** farbiger Text.
+
+- **Farbiger Text: immer `--XX-ink`.** Das Token flippt mit dem Theme (Light `-700`, KI `-800`, weil `ki-700` nur 4,05:1 trägt · Dark `-200`, ES `-100`) und ist damit der einzige Weg, farbigen Text zu setzen, ohne einen der beiden Modi zu verlieren. Ein fest gesetztes `-700` trägt auf Weiß 5,52:1 und im Dark nur 3,17:1; ein fest gesetztes `-200` umgekehrt. Es gibt `--co-ink`, `--ki-ink`, `--es-ink`, `--wo-ink`.
+- **Nie `-500`/`-600` als Textfarbe** auf Weiß: `co-600` trägt 3,29:1, `co-500` 2,31:1. `-600` ist auch für Großtext knapp; nur als Fläche oder Rahmen einsetzen.
+- **Getönte Fläche unter Text macht die Farbe nicht schwächer, sondern den Grund heller.** Ein Link mit `--co-ink` auf einem Status-Tint reißt AA (auf dem Erfolgs-Tint 3,87:1). Auf getönten Callout-Flächen erbt Text die Textfarbe des Callouts (`color:inherit`), die Unterstreichung trägt die Link-Affordanz.
+- **Gedämpfter Text:** `--tx-muted` ist auf 5,20:1 gegen Weiß ausgelegt und trägt auch auf `n-50` (4,84:1) und getönten Hellflächen (4,66:1). Auf **dunklen** Card-Flächen bleibt `--tx-secondary` die Wahl.
+- **`--XX-ink` ist für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), **nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
 - **Farbiger Text/Icon auf heller `-100`-Kachel** (Chip, Häkchen-Kreis): fest auf `--XX-800`, **nicht** `.t-*`/`ink` — die `-100`-Kachel flippt im Dark nicht, `.t-*`/`ink` kippt auf hell `-200` → hell-auf-hell, unsichtbar.
+- **Der Stand ist 0 Verstöße** in beiden Modi, gemessen über 11.585 Textknoten der Doku, alle getönten Bauteil-Füllungen und alle Bedienelement-Rahmen. Das ist kein Zielwert, sondern der Ist-Stand, den das Gate festhält.
+- **`npm run check:contrast` ist das Gate.** Es rendert `docs/index.html` in **beiden** Modi in Chromium, löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente Schichten werden aufeinander komponiert) und prüft drei Dinge: Text gegen 4,5:1 bzw. 3:1 bei Großtext, getönte Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1. Weil es die **fertige Kette** misst und nicht das CSS, findet es auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in `storybook-angular.yml`, weil es einen Browser braucht; lokal reicht ein installiertes Chrome.
+  - **Genau eine Ausnahme:** Swatches in den Kontrast-Tabellen (`.cswatch`, `.cbadge`), die ein Farbpaar als *Inhalt* zeigen und das gemessene Verhältnis daneben ausschreiben. Alles andere zählt, auch Paletten-Beschriftungen, Code-Blöcke und Specimen. Wer eine zweite Ausnahme braucht, hat sehr wahrscheinlich einen Befund vor sich.
+  - **Text über Fotos und Verläufen** wird nur gezählt, nicht gewertet: sein Grund steht nicht in der Elternkette, das braucht eine Pixelmessung (Vorgehen siehe Hero-Scrim im CHANGELOG).
+  - **Restliste statt Ausnahmeliste:** Das Gate vergleicht gegen eine Zahl pro Kategorie im Skript und schlägt fehl, wenn sie **steigt** (Regression) und ebenso, wenn sie **sinkt**, ohne nachgezogen zu werden. Der Stand bleibt so ehrlich im Repo sichtbar und kann sich nur nach unten bewegen. Ziel ist überall 0.
 
 ---
 
@@ -50,6 +67,8 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 - **Statische** Cards/Flächen ruhen **flach** mit Rahmen (`--e0` + `--bd`/`--bd-strong`).
 - **Interaktive** Elemente (Links, klickbare Cards `.ep-card-link`) tragen Schatten (`--e1`) und heben auf Hover (`--e3`).
 - Begründung: Schatten signalisiert „anfassbar". Statische Info-Cards mit Schatten täuschen Interaktivität vor.
+- **Entscheidend ist die Fläche, nicht der Inhalt.** Eine Karte mit Buttons oder Text-Links im Footer ist **statisch**: die Buttons sind die Interaktion, die Fläche führt nirgendwohin. Sie ruht flach. Schatten bekommt sie erst, wenn sie selbst der klickbare Bereich ist, also `<a class="card card-elevated">` oder `<a class="ep-card ep-card-link">`.
+- **Der Riegel steht im CSS:** `.card-elevated` ist auf `a.card-elevated` gescoped, eine `<article>`/`<div>`-Karte kann den Schatten also auch mit gesetzter Klasse nicht bekommen. Wer eine statische Fläche erhöhen will, findet keinen Weg dorthin, und das ist beabsichtigt. Gleiches gilt für Inline-`box-shadow` auf statischen Blöcken: nicht setzen, auch nicht mit Token.
 
 ---
 
@@ -57,10 +76,21 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 
 - **Nur zwei Flächen-Stufen:** `--bg-page` (Basis) < `--bg-surface` (gehoben). **Keine dritte Stufe.** Ein Element hebt sich nur ab, wenn sein Grund eine *andere* Stufe hat.
 - **Section-Rhythmus:** `.ep-section` ist im Dark pauschal `bg-page`; `n-50`-Sektionen werden auf `bg-surface` gehoben; getönte Hero/CTA-Sektionen behalten ihren Bereichs-`-50`-Tint (co/ki/es/wo).
-- **Kartentragende `n-50`-Sektion** → Klasse **`.ep-section-cards`** vergeben: bleibt im Dark auf `bg-page`, damit die `bg-surface`-Cards die hellere Stufe bilden (sonst kollidieren Section & Cards auf demselben Ton).
-- **Getönte `-50`-Flächen im Dark** sind gedämpfte, *getönte* Dunkeltöne (nicht near-black), bleiben aber dunkler als `bg-surface`.
-- **Trennlinien & Rahmen:** **nie** rohes `var(--XX-100)` oder `var(--n-100)` als Border — immer **`var(--bd)`** (theme-aware: Light `n-100`, Dark `#818C99`). Rohes `-100` ist im Dark entweder eine grelle helle Linie (getönt) oder unsichtbar (neutral).
-- **`data-accent` tönt nur den Seiteninhalt**, nicht die Chrome: Footer- und Topnav-`.t-co` werden auf `co` zurückgesetzt (`.ep-page[data-accent] .ep-topnav .t-co` etc.). Die Nav bleibt überall Corporate.
+- **Der Sektions-Rhythmus läuft im Dark wie im Light, ohne Ausnahme für Karten.** `n-50`-Sektionen werden im Dark auf `bg-surface` gehoben, alle, auch kartentragende. Eine gehobene Sektion hat damit denselben Ton wie ihre Karten, und das ist in Ordnung: im Light steht die weiße Karte auf der weißen Sektion genauso, sie liest über ihren **Rand**. Im Dark trägt der Rand `--bd-strong-c` (4,21:1 gegen die Kartenfläche) gegenüber 1,10:1 im Light. Deshalb braucht jede Kartenfläche im Dark einen Rand: `.card`, `.ep-card` und `.ep-card-link` bekommen ihn in `dark-mode.css`, auch die Link-Karten, die im Light `border:none` tragen und sich auf `--e1` verlassen. **Neue Kartenkomponente → Rand im Dark mitgeben.** Die Sektion zu senken (früher `.ep-section-cards`) ist kein Weg: gemessen über die 24 Beispielseiten kostet das 63 statt 20 verschmolzene Sektionsübergänge, bei 17 im Light.
+- **Getönte Flächen im Dark: zwei Token, zwei Aufgaben.** `--XX-50` ist die **kleine Füllung** (Badge, Pill, Icon-Kachel) und liegt bei 9,8:1, also 1,78:1 über der Seite und 1,32:1 über Karten. `--XX-band` ist die **große Sektionsfläche** (Hero, CTA-Band) und liegt bei 16,5:1, knapp über der Seite (1,06:1, dort trennt der Farbton) und weiterhin dunkler als die Karten darauf (1,27:1). Im Light sind beide identisch. Grund für die Trennung: ein Band muss *dunkler* als seine Karten bleiben, eine Füllung *heller* als ihr Grund, und bei `bg-page` auf 17,5:1 reicht der Spielraum nicht für beides. Neue getönte Flächen also nach Größe entscheiden, nicht nach Bereich. Sättigung **unter 0,70** halten (aktuell 0,60), sonst „vibriert" die Fläche auf dunklem Grund.
+- **Bereichsfarbe über die Klasse setzen, nie inline.** `.btn-filled` ohne `.btn-co`/`-ki`/`-es`/`-wo`, dafür mit einem inline gesetzten `--c500`, sieht im Light korrekt aus und bricht im Dark: die Dark-Regel für die **Fläche** hängt an der Bereichsklasse, die für die **Textfarbe** an `.btn-filled`. Ohne Klasse greift nur die zweite, und dunkler Text landet auf dunkler Fläche (gemessen 3,51:1). `npm run check:dark-states` kann das nicht sehen, weil der Bruch nicht in einer Regel steht, sondern im Markup entsteht.
+- **Eine textführende Füllung, die keine Fläche mehr bildet, ist ein Fehler.** Badge, Pill und Chip werden als Bauteil erkannt, weil ihre Fläche sich vom Grund abhebt (dekorative Flächen siehe oben, die dürfen zart bleiben). Faustwert: mindestens **1,3:1** gegen jeden Grund, auf dem sie vorkommen können (Seite *und* Karte). Darunter liest das Element nur noch als farbiger Text. Gegenprobe immer auf beiden Gründen rechnen, nicht nur auf einem. Dafür gibt es **`--XX-fill`**: Pill und Bereichs-Badge füllen damit, nicht mit `--XX-50` (das ist im Light der Sektions-Tint und trug als Füllung nur 1,06 bis 1,14:1). Neue getönte Bauteil-Füllung → `--XX-fill`.
+- **Eine textführende Füllung braucht ZWEI Werte: 1,3:1 UND 10 L\*-Punkte Helligkeitsabstand.** Der Kontrastquotient allein unterschätzt satte Farben. Die Dark-Füllungen lagen bei 1,32 bis 1,33:1, erfüllten den Faustwert also, hatten aber nur **ΔL\* ≈ 8**: der Unterschied lag fast vollständig in Farbton und Sättigung, und eine satte Fläche auf gleicher Helligkeit liest als dunkler Fleck statt als hellere Stufe (am deutlichsten bei ES, weil Blau bei gleichem L\* am dunkelsten wirkt). Sie sind deshalb um gut 4 L\*-Punkte gehoben, Farbton und Sättigung unverändert: jetzt 1,54 bis 1,56:1 und ΔL\* 11 bis 12,7. **Beide Kriterien prüft `npm run check:contrast` mit.** Zum Anheben in Lab rechnen und nur L verändern, dann bleibt der Markenton erhalten.
+- **Die Basisfläche ist auf mindestens 15,8:1 gegen Weiß auszulegen.** Das ist die Material-Schwelle und zugleich der Puffer, der Fließtext auch auf der höchsten Elevationsstufe noch 4,5:1 sichert. Wer `--bg-page` im Dark anfasst, rechnet diesen Wert nach. **Nie eine Textfarbe als Fläche einsetzen:** Textfarben sind auf Lesbarkeit gegen Weiß optimiert und liegen dafür systematisch zu hoch.
+- **Schwebende Panels (Menüs, Popover) tragen im Dark einen `--bd-strong-c`-Rand.** Im Light grenzt `--e3` sie vom Inhalt darunter ab; auf der tiefen Basisfläche leistet ein schwarzer Schatten das nicht mehr. Gemessen stand ein Topnav-Menü über einem Hero-Foto nur 1,34:1 gegen die hellste Stelle daneben. Der Rand ist unabhängig davon lesbar, was zufällig hinter dem Panel liegt. Für reine Farbwerte gibt es `--bd-c` / `--bd-strong-c`; `--bd` und `--bd-strong` sind Shorthands und funktionieren in `border-color` nicht.
+- **Tiefe kommt im Dark primär aus der Fläche, nicht aus dem Schatten.** Auf 17,5:1 tragen die schwarzen `--e*`-Schatten wenig. Interaktive Flächen heben deshalb zusätzlich auf `--bg-surface-hover`. Das ist ein **Zustand**, keine dritte statische Stufe.
+- **`dark-mode.css` steht komplett in `@media screen`**, Token-Block und Komponenten-Regeln. Im Druck greifen dadurch die Light-Werte aus `tokens.css`, ohne dass sie ein zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit hinein: 183 von ihnen setzen eine helle Tint- oder Festfarbe (`co-200`, `ki-200`, `es-100`, heller `tx-primary`), die auf dem hellen Druckgrund 1,2 bis 1,9:1 trägt. Neue Dark-Regeln und neue Dark-Tokens gehören **innerhalb** des Blocks, sonst drucken sie dunkel mit.
+- **Trennlinien & Rahmen:** **nie** rohes `var(--XX-100)` oder `var(--n-100)` als Border — immer **`var(--bd)`** (theme-aware: Light `n-100`, Dark `#6F7A89`). Rohes `-100` ist im Dark entweder eine grelle helle Linie (getönt) oder unsichtbar (neutral, gemessen 1,18:1 gegen eine Karte statt 2,99:1). Der neutrale Fall ist der tückischere: im Light löst `--bd` genau auf `--n-100` auf, der Rahmen sieht dort also korrekt aus und die Abweichung fällt erst im Dark auf. Wer nur die Farbe braucht, nimmt `--bd-c` / `--bd-strong-c`.
+- **`data-accent` tönt nur den Inhalt**, nicht die Chrome: Footer- und Topnav-`.t-co` werden auf `co` zurückgesetzt (`[data-accent] .ep-topnav .t-co` etc.). Die Nav bleibt überall Corporate.
+- **`data-accent` sitzt an jedem Container**, der einen Bereichsblock aufspannt (Seiten-Root `.ep-page`, aber auch nur der Wrapper um einen Block wie das Buchungsformular, eine Anmeldesektion oder ein Bereichsformular). Für einzelne Links im Block **keine** Inline-Bereichsfarbe schreiben, die bricht im Dark-Mode.
+- **Zustände (`:hover`, `:focus`, `:active`) brauchen im Dark einen eigenen Override.** `dark-mode.css` wird **vor** `components.css` geladen (Reihenfolge ist Teil der API). Eine Zustands-Regel in `components.css` gewinnt dadurch bei gleicher Spezifität gegen die Dark-Grundregel — setzt sie einen nicht mitflippenden Ton, läuft der Zustand im Dark dunkel-auf-dunkel. Faustregel: Der Zustand macht heller, nicht dunkler. Den Override mit `[data-theme="dark"]` davor schreiben, dadurch liegt er automatisch eine Spezifitätsstufe höher und die Ladereihenfolge spielt keine Rolle mehr. `npm run check:dark-states` prüft das und läuft in der Pipeline; bewusste Ausnahmen stehen mit Begründung im Skript.
+- **Die Neutrals kippen im Dark, die Bereichstöne nicht.** `--n-50` und `--n-100` werden im Dark-Block neu belegt und werden dort **dunkel** (`--n-100` = `#1E262E` statt `#E8EDED`); alle anderen Stufen behalten ihren Wert. Wer im Dark ein helles Neutral braucht, nimmt `--n-200` (`#C9D3D3`, wird nicht umbelegt) oder `--tx-primary`. Ein Icon-Hover auf `var(--n-100)` sah in der Quelle nach „heller" aus und ergab 1,60:1. Entscheidend ist nie der Name eines Tokens, sondern sein Wert im jeweiligen Theme.
+- **Gewählte Zustände invertieren im Dark**, statt nur nachzudunkeln: Light füllt mit `-700`/`-800` und schreibt weiß, Dark füllt mit `-300` und schreibt `-900`. So machen es das Segmented Control (`--seg-fill`/`--seg-on`) und die gedrückten Chips. Grund: Eine dunkle Füllung auf dunklem Grund grenzt den Zustand nicht mehr ab (gemessen 1,13 bis 1,60:1), er wäre nur noch am Text erkennbar. Wird die Füllung eines solchen Paars von einer anderen Regel überschrieben, muss die Textfarbe mitgehen — sonst steht heller Grund unter weißem Text (1,53:1). `npm run check:dark-states` prüft genau das.
 - Dark-Overrides in `dark-mode.css` mit dem Format kommentieren: `/* Dark-only: … ❌ → … ✓. (Light: …) */`. In Kontrast-Tabellen `.a11y-mode`-Pill (`Light`/`Dark`/`Beide Modi`).
 - **Kein `*/` im Kommentar-Text** (z. B. `t-*/Badges`) — das schließt CSS-Kommentare vorzeitig und killt die Folgeregel.
 
@@ -85,7 +115,8 @@ Neue Tokens folgen demselben Präfix-Schema und gehören in `tokens.css` (Light 
 
 ## 8. Komponenten-Verhalten
 
-- **Topnav-Dropdowns sind klick-only** (Disclosure-Pattern in `js/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). **Kein Hover-Öffnen** wieder einführen — das öffnete Menüs unabhängig vom Klick-Zustand (zwei gleichzeitig offen) und ist ein A11y-Antipattern.
+- **Topnav-Dropdowns sind ein Disclosure-Pattern** (in `docs/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
+- **Verlinkte Rechtstexte in Einwilligungen sind echte `<a class="body-link">`**, nie ein `<span>` mit `cursor:pointer`. Ein Span ist nicht per Tab erreichbar und für Screenreader kein Link, obwohl genau dieser Text die Grundlage der Einwilligung ist. Im `<label for>` ist der Anker unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt kein Häkchen.
 - Icon-only Buttons brauchen `aria-label`. Tab-/Panel-Muster mit korrektem ARIA (`role`, `aria-selected`, `aria-controls`).
 
 ---
@@ -98,11 +129,11 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 
 ## 10. Eine Komponente / ein Token hinzufügen
 
-1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`.
+1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
 3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung", Do/Don't).
-5. **Prüfen:** Kontrast (AA) in Light **und** Dark; Tastatur-/Screenreader-Pfad bei interaktiven Komponenten.
+5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **CHANGELOG.md** ergänzen.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
@@ -116,5 +147,6 @@ In „Verwendung"-Sektionen die **positive Variante zuerst** (✓ links/oben), d
 - [ ] Typo aus der 16/14/12-Skala, keine Freihand-Größen
 - [ ] In **Light und Dark** geprüft (Flächen-Stufen, Kontrast)
 - [ ] AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar
+- [ ] `npm run check:contrast` und `npm run check:dark-states` grün; nach Layout-Änderungen den geänderten Bereich in **beiden Modi und zwei Breiten** ansehen (Kanten, Umbrüche, nicht nur Farbwerte)
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert

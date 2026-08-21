@@ -71,11 +71,15 @@
 .badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
 .badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
 /* Bereichs-Badges: --XX-50-Grund + --XX-800-Text. Dark-Overrides (dark-mode.css) heben den Text auf -200/-100, Grund bleibt die dunkle -50-Kachel. */
-.badge[data-area="co"]{background:var(--co-50);color:var(--co-800)}
-.badge[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
-.badge[data-area="es"]{background:var(--es-50);color:var(--es-800)}
-.badge[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
-.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+/* Füllung über --XX-fill, nicht --XX-50: die Füllung muss als Fläche lesen (1,3:1 gegen jeden
+   Grund), --XX-50 trug im Light nur 1,06 bis 1,14:1. Siehe Token-Kommentar in tokens.css. */
+.badge[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.badge[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.badge[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.badge[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
+/* text-decoration:none, damit der Chip auch als <a> trägt (Tag-Link, Sprungmarke, externer Verweis)
+   und nicht unterstrichen rendert. Auf <button> ohne Wirkung. */
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;text-decoration:none;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
 .chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
 .chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
@@ -105,13 +109,22 @@
    (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
    clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
    dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
-.seg{display:inline-flex;border:1.5px solid var(--n-200);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface)}
+/* Bereichs-Varianten wie bei .btn: Default ist Corporate, .seg-ki/-es/-wo überschreiben die
+   Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
+   seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area"
+   widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
+/* Rahmen über --field-border: n-200 trug als Bedienelement-Grenze nur 1,53:1 und verfehlte die
+   3:1-Schwelle aus WCAG 1.4.11. --field-border ist genau dafür da (Light n-400, 3,92:1). */
+.seg{display:inline-flex;border:1.5px solid var(--field-border);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
+.seg-ki{--seg-fill:var(--ki-800)}
+.seg-es{--seg-fill:var(--es-700)}
+.seg-wo{--seg-fill:var(--wo-700)}
 .seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
 .seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
 .seg-option input{position:absolute;width:1px;height:1px;opacity:0}
 .seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
-.seg-option input:checked + label{background:var(--co-700);color:#fff}
+.seg-option input:checked + label{background:var(--seg-fill);color:var(--seg-on)}
 
 /* ── Area Tabs ── */
 .area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
@@ -125,9 +138,12 @@
 /* ── Cards ── */
 .card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
-.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
-/* Hover-Lift nur auf klickbaren Karten (Elevation = Interaktivität): statische Karten
-   (<article>/<div> mit Buttons innen) liften NICHT, nur Karten-Links (<a class="card card-elevated">). */
+/* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
+   selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
+   Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
+   Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
+   dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
@@ -199,10 +215,15 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* Team-Stimmen: editoriale Reihen, Foto seitlich (abwechselnd L/R), fotostark für Repräsentation. Eigene Variante, lässt .testimonial unberührt. */
 .team-voices{display:flex;flex-direction:column;gap:var(--s6)}
 .team-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
-.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-200)}
-.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-200)}
-.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-200)}
-.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-200)}
+/* Bereichs-Rahmen: dieselben Stufen wie beim Bereichs-Chip, weil sie dort schon auf die
+   3:1-Schwelle für grafische Objekte ausgelegt sind. Vorher -200 für alle vier, das trug auf Weiß
+   nur 1,27:1 (ki) bis 2,03:1 (es), der Rahmen war als Bereichssignal nicht wahrnehmbar. Jetzt
+   3,29:1 (co) bis 5,66:1 (es). Das Quote-Icon bleibt dekorativ (opacity .25), der Rahmen ist damit
+   das tragende Farbsignal. Dark-Werte in dark-mode.css. */
+.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-600)}
+.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-700)}
+.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-500)}
+.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-500)}
 .team-voice-media{margin:0}
 .team-voice-media img{display:block;width:100%;height:100%;min-height:300px;object-fit:cover}
 .team-voice-body{padding:var(--s8);display:flex;flex-direction:column;gap:var(--s5);justify-content:center}
@@ -260,12 +281,116 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A6565' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
 .field textarea{resize:vertical;max-width:100%}
-/* Such-Feld (inline gestyltes input[type=search]): Placeholder explizit auf tx-secondary statt
-   UA-Default — theme-aware und lesbar in beiden Modi (Light 6,3:1 / Dark 4,9:1). */
+/* Placeholder explizit auf tx-secondary statt UA-Default. Chrome zeichnet Placeholder sonst mit
+   rgb(117,117,117): im Dark sind das auf der Feldfüllung 2,8:1 und damit ein AA-Verstoß, im Light
+   4,6:1 und damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Suchfeld,
+   Footer-Newsletter, Combobox und Nav-Suche setzten das bereits, die Standard-Felder waren der
+   Ausreißer. tx-secondary ist theme-aware und gemessen: Light 6,3:1, Dark 7,1:1. */
+.field input::placeholder,.field textarea::placeholder,
 [role="search"] input::placeholder{color:var(--tx-secondary)}
-.field.has-error input{border-color:var(--c-error)}
-.helper{font:var(--ty-body-xs);color:var(--tx-muted);margin-top:var(--s1)}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
+/* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
+   --bg-surface, dort erreicht --tx-muted im Dark Mode nur 4,1:1 und verfehlt AA für Kleintext
+   (siehe Kontrast-Tabelle in der Doku). --tx-secondary liegt bei 6,3:1 Light / 4,9:1 Dark. */
+.helper{font:var(--ty-body-xs);color:var(--tx-secondary);margin-top:var(--s1)}
 .error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
+
+/* ── Buchungsformular ──
+   Komposition aus .field-Feldern für verbindliche Buchungen (Seminartermin, Platzkontingent).
+   Neu gegenüber der Standard-Form: Fieldset-Gliederung, bedingte Blöcke (hidden-Attribut, kein
+   disabled), ein Teilnehmenden-Repeater und eine Live-Preiszeile. Bereichsfarbe kommt von außen
+   (.btn-wo, accent-color), die Klassen selbst bleiben bereichsneutral. */
+.bk-fieldset{border:0;padding:0;margin:0 0 var(--s8);min-inline-size:0}
+/* Trennlinie nur zwischen den Gruppen oberster Ebene, nicht vor der ersten. Der Kindselektor ist
+   wichtig: Untergruppen liegen innerhalb einer Gruppe und dürfen keine Linie bekommen, sonst
+   trennt sie die Linie von der Entscheidung, zu der sie gehören. */
+[data-booking] > .bk-fieldset + .bk-fieldset{border-top:var(--bd);padding-top:var(--s8)}
+/* Untergruppe: gliedert innerhalb einer Gruppe (Radio-Gruppe, bedingter Block) und trägt deshalb
+   ein Label auf Feldebene statt einer Überschrift. Kein Rahmen, keine Linie, nur Abstand. */
+.bk-subgroup{border:0;padding:0;margin:0 0 var(--s6);min-inline-size:0}
+.bk-subgroup[hidden]{display:none}
+.bk-subgroup:last-child{margin-bottom:0}
+/* Mittlere Stufe: 14 px halbfett, gemischte Schreibweise, --tx-primary. Damit sind drei Ebenen
+   unterscheidbar (20 px Gruppe / 14 px Untergruppe / 12 px Versal-Feldlabel). Dieselben Versalien
+   wie beim Feldlabel zu nehmen wäre derselbe Fehler wie vorher, nur eine Ebene tiefer. */
+.bk-sublegend{display:block;font:var(--ty-name);color:var(--tx-primary);padding:0;margin-bottom:var(--s3)}
+.bk-fieldset::after{content:"";display:block;clear:both}
+/* Gruppenüberschrift eine echte Stufe über dem Feldlabel: 20 px, gemischte Schreibweise,
+   --tx-primary gegen 12 px Versalien in --tx-secondary. Vorher waren beide typografisch
+   identisch, dadurch war die Fieldset-Gliederung semantisch da, aber optisch unsichtbar.
+   float statt display:block, weil ein gefloatetes <legend> nicht mehr in die obere Rahmenkante
+   gerendert wird und die Trennlinie deshalb durchgehend bleibt. */
+.bk-legend{float:left;width:100%;font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s4);padding:0}
+/* Ohne clear würde das erste Element der Gruppe neben dem 100 % breiten Float landen und sein
+   Label auf null Breite gequetscht. Alle Geschwister, nicht nur das erste: der absolut positionierte Entfernen-Button steht
+   dazwischen und nimmt kein clear an. */
+.bk-legend ~ *{clear:both}
+.bk-intro{font:var(--ty-body-sm);color:var(--tx-secondary);margin:calc(-1 * var(--s2)) 0 var(--s4)}
+/* Zweispalter, die auf Mobile einspaltig werden (der Inline-Zweispalter älterer Formulare tut das nicht). */
+.bk-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)}
+.bk-grid-plz{display:grid;grid-template-columns:minmax(96px,1fr) 2fr;gap:0 var(--s4)}
+/* Nur das Eingabefeld ist schmal, nicht der ganze .field-Wrapper: sonst würde die
+   Fehlermeldung darunter in eine 140-px-Spalte gequetscht. */
+.bk-count input{max-width:140px}
+/* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3"
+   ansagen und „Vorname" nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
+   sonst entsteht im Dark Mode eine dritte Flächenstufe über .bg-page < .bg-surface. */
+.bk-person{position:relative;border:var(--bd);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
+.bk-person > .field:last-of-type{margin-bottom:0}
+.bk-person::after{content:"";display:block;clear:both}
+/* Wie .bk-legend gefloatet, damit die Legende in den Innenabstand rutscht statt in die
+   Rahmenkante. Nur so liegt der Entfernen-Button auf einer Linie mit „Teilnehmende N" und
+   nicht neben dem ersten Feldlabel, wo er wie dessen Aktion aussieht. */
+.bk-person-title{float:left;width:100%;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0;margin-bottom:var(--s4)}
+.bk-person-title ~ *{clear:both}
+/* Absolut positioniert, weil <legend> das erste Kind des Fieldsets bleiben muss und sich
+   deshalb nicht mit dem Button in eine Flex-Zeile setzen lässt.
+   Achtung: jede Autorenregel mit display schlägt das hidden-Attribut (hier .btn{display:inline-flex}),
+   deshalb muss [hidden] explizit zurückgenommen werden. Gilt genauso für .bk-person-hint und
+   .bk-success. Wer im DS mit hidden arbeitet, braucht diese Zeile. */
+.bk-person-remove{position:absolute;top:var(--s3);right:var(--s4)}
+.bk-person-remove[hidden]{display:none}
+.bk-person-hint{display:block;margin:0 0 var(--s4)}
+.bk-person-hint[hidden]{display:none}
+/* Fehlerübersicht am Formularkopf: Sprungliste statt einer Salve gleichzeitiger Alerts. */
+.bk-errors{border:2px solid var(--c-error);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)}
+.bk-errors[hidden]{display:none}
+.bk-errors:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.bk-errors-title{font:var(--ty-title-sm);color:var(--c-error);margin:0 0 var(--s3)}
+.bk-errors ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-errors a{font:var(--ty-body-md);color:var(--c-error);text-decoration:underline}
+.bk-errors a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.bk-summary{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s2);background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s4);margin-bottom:var(--s5);font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-summary-total{font:var(--ty-title-sm);color:var(--tx-primary)}
+/* Bestellübersicht unmittelbar vor dem zahlungspflichtigen Button: was gebucht wird, für wen,
+   wie viele Plätze, Gesamtbetrag. Der bloße Betrag reicht hier nicht, die gebuchte Leistung steht
+   sonst über tausend Pixel weiter oben verstreut. */
+/* Oben --s8: die Übersicht ist ein eigener Block und darf nicht am letzten Häkchen kleben.
+   Das Bestätigungs-Häkchen darüber gibt nur --s4 mit, das reicht als Abstand nicht. */
+.bk-order{border:var(--bd);border-radius:var(--r-md);background:var(--bg-overlay);padding:var(--s5);margin:var(--s8) 0 var(--s5)}
+.bk-order-title{font:var(--ty-name);color:var(--tx-primary);margin:0 0 var(--s4)}
+.bk-order-list{margin:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-order-list > div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s2)}
+.bk-order-list dt{font:var(--ty-body-sm);color:var(--tx-secondary)}
+.bk-order-list dd{margin:0;font:var(--ty-body-md);color:var(--tx-primary);text-align:right}
+/* Noch nicht ausgefüllte Zeile bleibt lesbar, tritt aber zurück. */
+.bk-order-list dd[data-empty]{color:var(--tx-secondary)}
+.bk-order-total{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2);margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.bk-order-total-label{font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-order-total-value{font:var(--ty-title-sm);color:var(--tx-primary)}
+.bk-order-note{font:var(--ty-body-xs);color:var(--tx-secondary);margin:var(--s1) 0 0;text-align:right}
+.bk-consent{display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s4)}
+.bk-consent label{font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer}
+/* Freiwilliges Opt-in vom rechtlich erforderlichen Teil absetzen. Gleiche Optik direkt unter
+   zwei Pflicht-Häkchen liest sich sonst wie ein Dark Pattern, auch wenn keines gemeint ist. */
+.bk-consent-optional{border-top:var(--bd);padding-top:var(--s4);margin-top:var(--s5)}
+.bk-success{display:flex;align-items:flex-start;gap:var(--s3);background:var(--c-success-bg);color:var(--c-success);border-radius:var(--r-md);padding:var(--s5)}
+/* display:flex würde das hidden-Attribut aushebeln, deshalb explizit zurücknehmen. */
+.bk-success[hidden]{display:none}
+.bk-success:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+@media (max-width:768px){
+  .bk-grid-2,.bk-grid-plz{grid-template-columns:1fr}
+}
 
 /* ── Dropdowns: Custom Select & Combobox ──
    Zwei Auswahl-Komponenten über das native <select> hinaus:
@@ -349,7 +474,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
 .type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
 .type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
-.type-rem{font:var(--ty-body-xs);color:var(--co-600);margin-top:1px}
+/* --co-ink statt co-600: co-600 trug auf Weiß nur 3,29:1 (Normaltext braucht 4,5:1). Das Ink-Token
+   flippt mit dem Theme (Light co-700 5,52:1, Dark co-200 11,19:1); ein festes co-700 wäre im Dark
+   mit 3,17:1 dunkel-auf-dunkel. */
+.type-rem{font:var(--ty-body-xs);color:var(--co-ink);margin-top:1px}
 .type-token{font:400 0.75rem/1rem 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
 .type-sample{flex:1;color:var(--tx-primary)}
 
@@ -363,7 +491,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 /* ── Nav demo ── */
 .nav-demo{background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
-.doc-eyebrow{font:var(--ty-label-xs-strong);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
+.doc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
 
 /* ── Snackbar ── */
 .snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
@@ -414,22 +542,26 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .t-ki{color:var(--ki-800)}
 .t-es{color:var(--es-700)}
 .t-wo{color:var(--wo-700)}
-/* Detail-/Stellenseiten können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows) auf ihre Bereichsfarbe umstellen: data-accent am .ep-page-Root. ki nutzt -800 (700 verfehlt AA). */
-.ep-page[data-accent="ki"] .t-co{color:var(--ki-800)}
-.ep-page[data-accent="es"] .t-co{color:var(--es-700)}
-.ep-page[data-accent="wo"] .t-co{color:var(--wo-700)}
-.ep-page[data-accent="ki"] .body-link{color:var(--ki-800)}
-.ep-page[data-accent="es"] .body-link{color:var(--es-700)}
-.ep-page[data-accent="wo"] .body-link{color:var(--wo-700)}
-.ep-page[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
-.ep-page[data-accent="es"] .body-link:hover{color:var(--es-800)}
-.ep-page[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
+/* Bereichsgebundene Seiten und Blöcke können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows)
+   auf ihre Bereichsfarbe umstellen: data-accent am Seiten- oder Bereichs-Container. Nicht an .ep-page
+   gebunden, damit auch ein einzelner Block (z.B. ein Buchungsformular in einer Sektion) den Scope
+   aufspannen kann. ki nutzt -800 (700 verfehlt AA). */
+[data-accent="ki"] .t-co{color:var(--ki-800)}
+[data-accent="es"] .t-co{color:var(--es-700)}
+[data-accent="wo"] .t-co{color:var(--wo-700)}
+[data-accent="ki"] .body-link{color:var(--ki-800)}
+[data-accent="es"] .body-link{color:var(--es-700)}
+[data-accent="wo"] .body-link{color:var(--wo-700)}
+[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
+[data-accent="es"] .body-link:hover{color:var(--es-800)}
+[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
 /* Footer + Topnav bleiben Chrome (co), auch auf area-getönten Seiten: data-accent tönt nur den
    Seiteninhalt um, nicht die Navigation. Sonst wäre die aktive Sektion (.t-co am Nav-Toggle) z.B. auf
-   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten. */
-.ep-page[data-accent] .footer .body-link{color:var(--co-700)}
-.ep-page[data-accent] .footer .body-link:hover{color:var(--co-800)}
-.ep-page[data-accent] .ep-topnav .t-co{color:var(--co-700)}
+   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten.
+   Gleiche Spezifität wie die Akzent-Regeln darüber, gewinnen per Quellreihenfolge. */
+[data-accent] .footer .body-link{color:var(--co-700)}
+[data-accent] .footer .body-link:hover{color:var(--co-800)}
+[data-accent] .ep-topnav .t-co{color:var(--co-700)}
 
 /* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
 .footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
@@ -505,7 +637,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
 .a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
 .code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
-.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#6a8a6a}
+.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#739373}/* Kommentarfarbe: #6a8a6a trug auf --bg-code nur 4,43:1 und verfehlte AA knapp. Farbton und Saettigung bleiben, nur heller: Light 4,99:1, Dark 5,84:1. */
 /* ── Code-Block Komponente (Wissensbeitrag) ── */
 .cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
 .cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
@@ -514,7 +646,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
-.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--n-400)}.cb-body .fn{color:var(--ro-600)}
+/* .c = Kommentar. Vorher n-400 (#6E8585), das auf dem n-50-Grund der Blöcke nur 3,65:1 trug.
+   --tx-muted ist theme-aware und semantisch die gedämpfte Stufe: Light 4,51:1, Dark 8,9:1.
+   Wer --tx-muted oder --n-50 anfasst, prüft diesen Wert mit, die Reserve ist knapp. */
+.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--tx-muted)}.cb-body .fn{color:var(--ro-600)}
 /* Zeilennummern */
 .cb-body.cb-numbered{line-height:0}
 .cb-numbered .cb-ln{display:flex;gap:var(--s3);line-height:1.6}
@@ -523,8 +658,18 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-terminal .cb-header{background:#080f08}
 .cb-terminal .cb-lang{color:#5CE8A0}
 .cb-terminal .cb-body{background:#0b110b;color:#b8d8b8}
+/* Die Terminal-Variante hat einen fest dunklen Grund in BEIDEN Modi. Der theme-aware --tx-muted
+   der Standard-Blöcke liegt hier im Light bei 3,94:1 und verfehlt AA. Deshalb der nicht flippende
+   n-400 (4,87:1 in beiden Modi). Heute steht in keinem Terminal-Block ein Kommentar, die Regel
+   verhindert, dass die Kombination später still durchfällt. */
+.cb-terminal .cb-body .c{color:var(--n-400)}
 .cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
-.cb-terminal .cb-out{color:rgba(180,210,180,.55)}
+/* Deckkraft .65, nicht .55: auf dem Terminal-Grund trug .55 nur 4,20:1, .65 gibt 5,07:1.
+   Die Ausgabe bleibt damit sichtbar gedämpft gegenüber dem Prompt, erfüllt aber AA. */
+.cb-terminal .cb-out{color:rgba(180,210,180,.65)}
+/* Kopier-Button im Terminal: der neutrale n-500 der hellen Variante trägt auf dem dunklen
+   Terminal-Header nur 3,09:1. n-200 gibt 12,70:1 und passt zur hellen Schrift daneben. */
+.cb-terminal .cb-copy{color:var(--n-200)}
 /* Inline code in Fließtext */
 .cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
@@ -608,7 +753,28 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .hero-image{position:relative;overflow:hidden;margin:0}
 .hero-image-media{width:100%;aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px);overflow:hidden;background:var(--n-100);display:flex;align-items:center;justify-content:center}
 .hero-image-media img{width:100%;height:100%;object-fit:cover;display:block}
-.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.65) 50%,transparent 100%);padding:var(--s10) var(--s8);margin:0}
+/* Scrim über dem Hero-Foto. Zwei Anforderungen, die sich gegenseitig begrenzen:
+
+   (1) KONTRAST. Der Eyebrow ist das erste Kind und sitzt damit im obersten, schwächsten Abschnitt
+   des Verlaufs. Mit dem früheren Verlauf (.85 / .65 bei 50% / transparent) stand er dort auf Alpha
+   0,30: über einer ausgebrannt hellen Bildstelle sind das 1,90:1, gemessen lagen bis zu 63% der
+   Eyebrow-Fläche unter 4,5:1. Der text-shadow hilft optisch, zählt für WCAG nicht.
+
+   (2) KEINE SICHTBARE KANTE. Ein Verlauf wird nicht dort auffällig, wo er steil ist, sondern dort,
+   wo seine Steilheit springt. Entscheidend ist die Rate, mit der die Deckkraft an der OBERKANTE
+   einsetzt. Gemessen am gerenderten Bild (zweite Ableitung der Zeilenhelligkeit, über die Breite
+   gemittelt): früherer Verlauf 7,9. Ein Zwischenstand, der die Deckkraft auf kurzer Strecke aufbaute,
+   kam auf 21 bis 25 und zeichnete eine sichtbare Linie quer durchs Bild, unabhängig davon, wie viele
+   Stützstellen er hatte. Mehr Stops helfen also nicht.
+
+   Was hilft, ist eine längere Auslaufstrecke: die Deckkraft muss über genügend Pixel von 0 auf ihren
+   Wert kommen. Der Text endet 132px über der Unterkante; mit 96px Polsterung darüber ist der Kasten
+   228px hoch, der Eyebrow sitzt bei 58%, und der Auslauf läuft mit 0,0066 pro Pixel, also etwas
+   sanfter als beim früheren Verlauf (0,0076). Gemessene Kantigkeit 9,2 gegenüber 7,9. Deckkraft am
+   Eyebrow 0,63 statt 0,30.
+
+   Die Polsterung ist fluide, weil 96px auf einem 300px hohen Mobil-Hero zu viel wären. */
+.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.63) 58%,transparent 100%);padding:clamp(var(--s10), 6.7vw, calc(var(--s16) + var(--s8))) var(--s8) var(--s10);margin:0}
 .hero-image-caption-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 var(--s2);text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .hero-image-caption-title{font:var(--ty-serif-md);color:#fff;font-size:clamp(1.25rem, 0.943rem + 1.36vw, 2rem);line-height:1.25;margin:0 0 var(--s1);text-shadow:0 1px 3px rgba(0,0,0,.4)}
 .hero-image-caption-text{font:var(--ty-body-md);color:rgba(255,255,255,.92);margin:0;text-shadow:0 1px 2px rgba(0,0,0,.5)}
@@ -624,9 +790,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .logo-placeholder{font:700 1rem/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
 
 /* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
-/* Weiße Platte, fest #fff in BEIDEN Modi: Kundenlogos liegen oft farbig/dunkel vor und haben keine
-   Dark-Variante → auf theme-reaktivem Grund würden sie im Dark unsichtbar. Weiß bleibt weiß. */
-.logo-carousel{position:relative;background:#fff;border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+/* Helle Platte in BEIDEN Modi: Kundenlogos liegen oft farbig oder dunkel vor und haben keine
+   Dark-Variante, auf theme-reaktivem Grund würden sie im Dark unsichtbar. Die Platte bleibt also
+   hell, wird im Dark aber über --bg-plate gedämpft (#E8EDED statt #FFFFFF): eine reinweiße Fläche
+   dieser Größe stünde mit 17,51:1 gegen die Seite und blendet. Dunkle Logos darauf 14,73:1. */
+.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
 .logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
 .logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
 .logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
@@ -760,15 +928,22 @@ img.logo-themed-light{display:none}
 .ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
 .ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
-/* Klick/Tastatur-gesteuertes Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt
-   offene Geschwister (closeAllNavItems), Escape/Außenklick schließen. Beim Öffnen färbt sich der Toggle
-   Petrol und der Caret dreht. Hover gibt NUR die Petrol-Färbung als Affordanz — kein Auto-Öffnen: das
-   öffnete sonst Menüs unabhängig vom Klick-Zustand und ließ zwei gleichzeitig offen, weil Hover die per
-   Klick offenen Geschwister nicht schließt. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
+/* Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt offene Geschwister
+   (closeAllNavItems), Escape/Außenklick schließen. Reveal keift ausschließlich an .is-open (nie an
+   reinem CSS-:hover), damit aria-expanded mitläuft und nie zwei Menüs gleichzeitig offen sind.
+   Geöffnet wird per Klick/Tap, Tastatur ODER — nur auf pointer:fine — per Hover (JS-gesteuert, mit
+   Intent-Delay). Beim Öffnen färbt sich der Toggle Petrol und der Caret dreht; Hover gibt schon vorab
+   die Petrol-Färbung als Affordanz. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
 .ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
 .ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
 .ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+/* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
+   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable"). Nur pointer:fine
+   und nur solange offen — mobil ist .ep-nav-sub statisch, dort keine Brücke. */
+@media (hover:hover) and (pointer:fine){
+  .ep-nav-has-sub.is-open .ep-nav-sub::before{content:"";position:absolute;left:0;right:0;top:calc(-1*var(--s4));height:var(--s4)}
+}
 /* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
    Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
 .ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
@@ -867,6 +1042,25 @@ img.logo-themed-light{display:none}
    geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
    Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
 .ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
+/* Fakten-Liste: die Rahmendaten eines Angebots (Dauer, Format, Gruppe, Preis …) als Label/Wert-Paare
+   untereinander. Bewusst OHNE eigenen Rahmen und ohne Fläche: die Liste zieht in einen vorhandenen
+   Container ein (Angebots-Box, Sticky-Sidebar), ein eigener Rahmen ergäbe dort Kasten-im-Kasten.
+   Einspaltig auf allen Breiten, deshalb keine Media-Query nötig — und lange Werte wie „Schriftliche
+   Handlungsempfehlungen" brechen innerhalb ihres Paares um, statt wie im früheren mehrspaltigen
+   Streifen die Nachbarspalten zu verziehen. Bereichston der Labels über .t-XX im Markup (dark-safe),
+   nie als Inline-Farbe. */
+.ep-facts{margin:0}
+.ep-facts > div + div{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.ep-facts dt{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)}
+.ep-facts dd{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Zwei-Spalten-Variante für Kästen, die neben Inhalt stehen: Einspaltig macht der Kasten dort mehr
+   Höhe als der Inhalt daneben (gemessen 470 gegen 256 px, also 214 px Leerraum). Zweispaltig halbiert
+   die Liste. auto-fit statt fixer Spaltenzahl, damit sie in schmalen Kästen und mobil von selbst
+   einspaltig wird. Die Haarlinien entfallen dabei: Bei zwei Spalten trennen sie keine Zeilen mehr
+   eindeutig, und der Abstand gliedert bereits. Nur für kurze Werte gedacht — lange wie „Schriftliche
+   Handlungsempfehlungen" brauchen die einspaltige Grundform. */
+.ep-facts.is-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4) var(--s5)}
+.ep-facts.is-grid > div + div{margin-top:0;padding-top:0;border-top:0}
 /* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
    Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
 .ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}
@@ -900,7 +1094,17 @@ img.logo-themed-light{display:none}
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
    Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
-.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4)}
+/* Kachel-Fläche über --XX-50, den ruhigen Bereichston, und ohne Rand. Sie muss nicht als Fläche
+   lesen: WCAG verlangt für eine dekorative Fläche nichts, das Glyph ist aria-hidden und wiederholt
+   nur das Eyebrow daneben. Darüber entscheidet das Markenrad, und 48 px gesättigte Farbe sind das
+   Gegenteil von „Ruhig". Das Glyph trägt die Erkennbarkeit: -700/-800 auf dem Tint 7,5 bis 11,4:1,
+   im Dark hebt dark-mode.css es auf -100 (6,9 bis 8,6:1). Die Farbe kommt aus der Komponente, nicht
+   aus 76 inline gesetzten style-Attributen. */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-50)}
+.ep-card-icon[data-area="co"]{background:var(--co-50)}
+.ep-card-icon[data-area="ki"]{background:var(--ki-50)}
+.ep-card-icon[data-area="es"]{background:var(--es-50)}
+.ep-card-icon[data-area="wo"]{background:var(--wo-50)}
 /* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
    wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
    sind unberuehrt. */
@@ -916,7 +1120,7 @@ img.logo-themed-light{display:none}
 /* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
 /* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
    border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
-.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast)}
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
 .ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
 .ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
 /* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
@@ -963,6 +1167,7 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
+/* Dekorative Fläche wie .ep-card-icon: ruhiger Tint, das Glyph trägt. */
 .ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
 .ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
 /* ── FAQ-Accordion (native details/summary) ── */
@@ -976,7 +1181,9 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-faq details[open] .ep-faq-caret{transform:rotate(180deg)}
 .ep-faq-a{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4);max-width:680px}
 /* ── Download CTA ── */
-.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8);box-shadow:var(--e1)}
+/* Kein Schatten: der Block ist statisch, die Interaktion liegt in den Buttons darin
+   (Elevation = Interaktivität). Rahmen plus 4-px-Akzent oben tragen die Kartenform. */
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
 .cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
 .cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
 .cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
@@ -1015,13 +1222,16 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .cta-link:hover{border-bottom-color:currentColor}
 .cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
 /* Mit Vorschaubild */
-.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);box-shadow:var(--e1);overflow:hidden}
+/* Kein Schatten, gleiche Begründung wie .cta-dl: statischer Block mit Button darin. */
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-lg);overflow:hidden}
 .cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
 .cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}
 .cta-visual-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
-.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-600)}
-.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-800)}
+/* Alle vier auf --XX-ink: co lag auf co-600 und trug damit nur 3,29:1 auf Weiß. Das Ink-Token
+   flippt im Dark auf den hellen Ton, ein festes -700/-800 wäre dort dunkel-auf-dunkel. */
+.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-ink)}
+.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-ink)}
 .cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-700)}
 .cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-700)}
 .cta-visual-title{font:var(--ty-headline-xs);color:var(--tx-primary);margin:0 0 var(--s2)}
@@ -1063,11 +1273,14 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-breadcrumb [aria-current="page"]{color:var(--tx-primary);font-weight:500}
 .article-breadcrumb-sep{margin:0 var(--s2)}
 /* Pill: Kategorie · Format · Lesezeit, area-aware */
-.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-50);color:var(--co-800)}
-.pill[data-area="co"]{background:var(--co-50);color:var(--co-800)}
-.pill[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
-.pill[data-area="es"]{background:var(--es-50);color:var(--es-700)}
-.pill[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+/* Füllung über --XX-fill, gleiche Begründung wie beim Badge (siehe tokens.css). ES-Text auf -800
+   statt -700: auf der kräftigeren Füllung trägt -700 nur noch 4,74:1, -800 gibt Reserve und ist
+   derselbe Ton, den das ES-Badge längst nutzt. */
+.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.pill[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.pill[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
 .article-title{font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance}
 /* Lead-Paragraph für Artikel-Header: 18 px, eine Stufe über Body-Md (16) und unter Title-Sm (20).
    Bewusst hardcoded statt eigenes Token, weil Lead nur in einer Komponente vorkommt. */
@@ -1109,8 +1322,21 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Author-Card-Group: mehrere Author-Cards untereinander am Artikelende */
 .author-card-group{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
 .author-card-group .author-card{margin:0;max-width:none}
+/* Zwei-Spalten-Variante der Gruppe: für Personen mit Kurz-Bio, wo die gestapelte Liste zu lang
+   würde, typisch Trainer:innen auf einer Seminar-/Training-Landing (2 bis 4 Personen). Die Bio
+   ist dort das Vertrauenselement und darf nicht wegfallen, deshalb Raster statt Tile-Grid
+   (.article-avatar-xl ohne Bio, siehe #gt-article-team-tiles). 960 statt 720 px Container, weil
+   zwei Karten nebeneinander sonst je ~340 px hätten und der 64-px-Avatar den Text auf ~260 px
+   drückt. minmax(0,1fr) verhindert Grid-Blowout durch lange Namen. */
+.author-card-group.is-grid{max-width:960px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s8)}
+/* Mobil einspaltig, konsistent mit dem Kollaps der .layout-grid bei 768px. Engerer Abstand,
+   weil untereinander kein Spaltenabstand mehr trennt und --s8 dort als Loch wirken würde. */
+@media(max-width:768px){.author-card-group.is-grid{grid-template-columns:1fr;gap:var(--s6)}}
 /* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
 .author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
+/* Die Überschrift steht als Geschwister VOR der Gruppe und muss deren Container-Breite mitgehen,
+   sonst sitzt sie bei der Raster-Variante 120 px links neben der ersten Karte. */
+.author-card-group-eyebrow:has(+ .author-card-group.is-grid){max-width:960px}
 /* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
 .article-body{max-width:720px;margin:0 auto;font:var(--ty-body-md);color:var(--tx-primary);line-height:1.7}
 .article-body > p{margin:0 0 var(--s5)}

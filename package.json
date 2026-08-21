@@ -46,7 +46,9 @@
     "build:tokens": "node scripts/build-tokens.mjs",
     "build:icons": "node scripts/build-icons.mjs",
     "build:css": "node scripts/bundle-css.mjs",
-    "build": "npm run build:tokens && npm run build:icons && npm run build:css"
+    "check:dark-states": "node scripts/check-dark-states.mjs",
+    "build": "npm run build:tokens && npm run build:icons && npm run build:css",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "keywords": [
     "design-system",
