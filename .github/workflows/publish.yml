@@ -55,6 +55,8 @@ jobs:
     outputs:
       version: ${{ steps.ermitteln.outputs.version }}
       publish: ${{ steps.ermitteln.outputs.publish }}
+      publish_css: ${{ steps.ermitteln.outputs.publish_css }}
+      publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
       dry: ${{ steps.ermitteln.outputs.dry }}
     steps:
       - uses: actions/checkout@v4
@@ -98,29 +100,49 @@ jobs:
           fi
           echo "dry=$DRY" >> "$GITHUB_OUTPUT"
 
-          # Liegt die Version schon in der Registry? `npm view` scheitert auch dann,
-          # wenn das Paket noch gar nicht existiert — das ist der erwartete Fall vor
-          # dem ersten Release, deshalb wird der Fehler geschluckt.
-          EXISTS=false
-          for PKG in "@conciso/design-system" "@conciso/design-system-angular"; do
-            if npm view "${PKG}@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
-              echo "${PKG}@${VERSION} liegt bereits in GitHub Packages."
-              EXISTS=true
-            fi
-          done
+          # Existenz PRO PAKET prüfen, nicht "irgendeines von beiden". Sonst wäre ein
+          # halb geglückter Lauf (erstes Paket veröffentlicht, zweites gescheitert)
+          # nicht mehr zu heilen: der nächste Push würde still übergehen und das Paar
+          # dauerhaft auf verschiedenen Versionen stehen lassen.
+          # `npm view` scheitert auch dann, wenn das Paket noch gar nicht existiert —
+          # der erwartete Fall vor dem ersten Release, deshalb Fehler geschluckt.
+          vorhanden() {
+            npm view "$1@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1
+          }
+          CSS_EXISTS=false; LIB_EXISTS=false
+          vorhanden "@conciso/design-system"         && CSS_EXISTS=true
+          vorhanden "@conciso/design-system-angular" && LIB_EXISTS=true
+          echo "Registry-Stand für ${VERSION}: CSS-Schicht=${CSS_EXISTS}, Angular-Lib=${LIB_EXISTS}"
 
-          if [ "$EXISTS" = "true" ] && [ "$DRY" = "false" ]; then
+          if [ "$DRY" = "true" ]; then
+            # Ein Dry-Run soll BEIDE Pakete durchspielen, unabhängig vom Registry-Stand.
+            echo "publish=true"     >> "$GITHUB_OUTPUT"
+            echo "publish_css=true" >> "$GITHUB_OUTPUT"
+            echo "publish_lib=true" >> "$GITHUB_OUTPUT"
+          elif [ "$CSS_EXISTS" = "true" ] && [ "$LIB_EXISTS" = "true" ]; then
+            # Beide liegen → nichts zu tun.
             if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
               # Manuell und ausdrücklich ohne Dry-Run angefordert → laut scheitern.
-              echo "::error::Version ${VERSION} ist bereits veröffentlicht. Version in beiden package.json erhöhen."
+              echo "::error::Version ${VERSION} ist für beide Pakete bereits veröffentlicht. Version in beiden package.json erhöhen."
               exit 1
             fi
             # Push-getrieben → still übergehen: die package.json wurde ohne
             # Versionswechsel angefasst, das ist der Normalfall.
             echo "::notice::Version ${VERSION} ist bereits veröffentlicht — nichts zu tun."
-            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "publish=false"     >> "$GITHUB_OUTPUT"
+            echo "publish_css=false" >> "$GITHUB_OUTPUT"
+            echo "publish_lib=false" >> "$GITHUB_OUTPUT"
           else
+            # Mindestens eines fehlt → veröffentlichen, aber nur das Fehlende. Liegt
+            # genau eines schon, war ein vorheriger Lauf auf halber Strecke stehen
+            # geblieben: laut sagen und den Rest nachziehen (der Lauf heilt sich
+            # selbst, statt den Lockstep dauerhaft zu brechen).
+            if [ "$CSS_EXISTS" = "true" ] || [ "$LIB_EXISTS" = "true" ]; then
+              echo "::warning::Unvollständiger Release ${VERSION} gefunden (CSS=${CSS_EXISTS}, Lib=${LIB_EXISTS}) — ein vorheriger Lauf brach zwischen den Publishes ab. Es wird nur das fehlende Paket nachgezogen."
+            fi
             echo "publish=true" >> "$GITHUB_OUTPUT"
+            [ "$CSS_EXISTS" = "true" ] && echo "publish_css=false" >> "$GITHUB_OUTPUT" || echo "publish_css=true" >> "$GITHUB_OUTPUT"
+            [ "$LIB_EXISTS" = "true" ] && echo "publish_lib=false" >> "$GITHUB_OUTPUT" || echo "publish_lib=true" >> "$GITHUB_OUTPUT"
           fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -167,11 +189,16 @@ jobs:
         run: |
           if [ "$DRY" = "true" ]; then echo "flag=--dry-run" >> "$GITHUB_OUTPUT";
           else echo "flag=" >> "$GITHUB_OUTPUT"; fi
+      # Einzeln konditioniert: beim Nachziehen eines unvollständigen Releases wird
+      # nur das fehlende Paket veröffentlicht — ein zweites `npm publish` derselben
+      # Version würde sonst mit 409 abbrechen.
       - name: CSS-Schicht veröffentlichen
+        if: needs.pruefen.outputs.publish_css == 'true'
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Angular-Lib veröffentlichen
+        if: needs.pruefen.outputs.publish_lib == 'true'
         working-directory: angular-lib/dist/design-system-angular
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
@@ -197,8 +224,14 @@ jobs:
             inside && /^## \[/ { exit }
             inside { print }
           ' CHANGELOG.md > /tmp/release-notes.md
-          gh release create "v${VERSION}" \
-            --title "v${VERSION}" \
-            --notes-file /tmp/release-notes.md
+          # Beim Nachziehen eines unvollständigen Releases kann das Release schon
+          # existieren — dann nicht scheitern.
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            echo "::notice::Release v${VERSION} existiert bereits — wird nicht neu erstellt."
+          else
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file /tmp/release-notes.md
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

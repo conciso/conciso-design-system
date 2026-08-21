@@ -465,8 +465,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Distribution über GitHub Packages** (privat, org-scoped) für beide Pakete — kehrt die
   0.1.0-Entscheidung „intern/proprietär statt Registry-Publish" um, weil eine Angular-Lib als
   gebautes Artefakt ausgeliefert werden muss und ein Git-Tarball dafür nicht genügt.
-  `publishConfig` auf beiden `package.json`, dazu ein release-getriggerter Publish-Workflow, der
-  vor dem ersten `npm publish` prüft, ob die Lockstep-Version bereits veröffentlicht ist.
+  `publishConfig` auf beiden `package.json`, dazu ein Publish-Workflow, der auf eine
+  Versionsänderung auf `main` reagiert: Er prüft pro Paket, ob die Lockstep-Version schon in der
+  Registry liegt, veröffentlicht nur was fehlt, und legt Tag plus GitHub-Release selbst an
+  (Release-Text ist der CHANGELOG-Abschnitt der Version). Version anheben und mergen ist damit
+  das Release.
 - **Consumer-Smoke-Test als CI-Gate.** Eine committete Minimal-Konsumenten-App
   (`examples/consumer-fixture`) installiert die per `npm pack` gebauten Tarballs beider Pakete
   und fährt einen produktiven AOT-Build — außerhalb des Repos, damit die Modul-Auflösung nicht
