@@ -383,8 +383,13 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   als „Punkt" gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
   zusätzlich den Titel (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach
   Bildstelle kaum sichtbar, die Unterstreichung immer.
-  Rolle gegenüber den Vorschau-Sektionen: der Störer ist eine **Abkürzung**, dasselbe Ziel wie eine
-  Sektion weiter unten ist erlaubt und beabsichtigt. Die Sektion bleibt der kanonische Ort mit Bild
+  Ziel jeder Kachel ist die **eigene Seite des Inhalts** (Veranstaltungs-Detailseite,
+  Wissensbeitrag, Pressemeldung, Seminar-Landingpage), nie ein Anker der Startseite und kein
+  `target="_blank"`. Ein Anker wäre ein Versprechen, das die Kachel nicht hält: ihr zugänglicher
+  Name kündigt einen konkreten Inhalt an, geliefert würde eine Scroll-Position (WCAG 2.4.4).
+  Existiert für einen Anlass keine eigene Seite, ist er kein Störer-Kandidat.
+  Rolle gegenüber den Vorschau-Sektionen: der Störer ist eine **Abkürzung zum Inhalt**, dasselbe
+  Ziel wie eine Sektion weiter unten ist erlaubt und beabsichtigt. Die Sektion bleibt der kanonische Ort mit Bild
   und Anreißer. Bedingung ist ein **Domänenwort pro Domäne**: sonst steht derselbe Inhalt zweimal
   als Link mit verschiedenen Namen auf der Seite, und für Screenreader sind das zwei verschiedene
   Dinge. Der Titel muss dafür im zugänglichen Namen der Kachel stehen, was der Aufbau von selbst
