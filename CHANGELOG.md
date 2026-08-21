@@ -14,6 +14,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Geplant
+- Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
+  Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
+  `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
+  Team-Koordination), daher bewusst als separater Schritt.
+- Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
+
+## [1.0.0] - 2026-08-21
+
 ### Fixed
 - **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
   generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
@@ -445,6 +454,25 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   und Umbrüche, nicht nur Farbwerte.
 
 ### Added
+- **Angular-Komponenten-Bibliothek `@conciso/design-system-angular`.** Die 37 Angular-Wrapper
+  sind aus dem Storybook in eine eigene, publizierbare Lib extrahiert (Angular Package Format
+  via ng-packagr, ein einziger Einstiegspunkt `public-api.ts`, Angular 21). Die Wrapper sind
+  dünne Hüllen über der CSS-Schicht und liefern **kein eigenes CSS**: Konsumenten binden
+  `@conciso/design-system` (peerDependency, Lockstep-Version) samt Fonts global ein — der
+  copy-paste-fertige `angular.json`-Schnipsel steht im README der Lib. `storybook-angular`
+  enthält nur noch Stories und konsumiert die Lib. Architektur-Entscheidungen in
+  `docs/adr/0001`–`0005`, `CONTEXT.md` führt das Glossar.
+- **Distribution über GitHub Packages** (privat, org-scoped) für beide Pakete — kehrt die
+  0.1.0-Entscheidung „intern/proprietär statt Registry-Publish" um, weil eine Angular-Lib als
+  gebautes Artefakt ausgeliefert werden muss und ein Git-Tarball dafür nicht genügt.
+  `publishConfig` auf beiden `package.json`, dazu ein release-getriggerter Publish-Workflow, der
+  vor dem ersten `npm publish` prüft, ob die Lockstep-Version bereits veröffentlicht ist.
+- **Consumer-Smoke-Test als CI-Gate.** Eine committete Minimal-Konsumenten-App
+  (`examples/consumer-fixture`) installiert die per `npm pack` gebauten Tarballs beider Pakete
+  und fährt einen produktiven AOT-Build — außerhalb des Repos, damit die Modul-Auflösung nicht
+  über das Wurzel-`node_modules` leckt. Fängt, was Lint und Storybook strukturell nicht sehen:
+  unvollständige APF-Metadaten, fehlende Re-Exports, nicht deklarierte Abhängigkeiten,
+  AOT-Template-Typfehler. Ist harte Vorbedingung des Publish-Jobs.
 - **Störer (`.stoerer`), Verweiskacheln über dem Hero, nur auf der Startseite.** Ein bis drei
   Kacheln als Set oben rechts über dem Hero-Bild, je auf einen aktuellen Inhalt: nächste
   Veranstaltung, neuer Wissensbeitrag, Pressemitteilung, Info. Default sind zwei, drei sind das
@@ -847,13 +875,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   umgestellt, weißer Text erreicht damit AA (2,3:1 → 5,5:1); (2) Touch-Target auf `min-height:44px`
   bzw. 44 × 44 px beim Aufklapp-Toggle (WCAG 2.5.5, analog `.btn`); (3) Rahmen von `--n-200` auf
   das modusabhängige `--field-border` (WCAG 1.4.11: Light-Mode 1,5:1 → 3,9:1, Dark unverändert 5,8:1).
-
-### Geplant
-- Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
-  Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
-  `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
-  Team-Koordination), daher bewusst als separater Schritt.
-- Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
 
 ## [0.1.0] - 2026-06-25
 
