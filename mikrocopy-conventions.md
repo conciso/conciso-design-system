@@ -96,7 +96,7 @@ Beispiele: „WAS WIR TUN", „RUHIG · KLAR · ENERGIEGELADEN", „SEIT 2016 ·
 | Wirksame Organisationen / `wo` | Wirksame Organisationen |
 
 Im Header und Footer gilt die Reihenfolge: **Leistungen · Wissen · Über uns**.
-„Leistungen" bündelt KI · Software · Organisation. „Über uns" bündelt Profil-Infos (Team, Jobs, Referenzen, Events, Presse).
+„Leistungen" bündelt KI · Software · Organisation. „Über uns" bündelt Profil-Infos (Team, Jobs, Referenzen, Veranstaltungen, Presse).
 
 ### Sub-Disziplin-Notation
 

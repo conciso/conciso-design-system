@@ -15,14 +15,22 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Changed
-- **Sektions-Label „Treffen" auf der Startseite heißt jetzt „Veranstaltungen".** Für dieselbe Domäne
+- **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen" auf
+  der Startseite und der Topnav-Eintrag „Events" heißen jetzt beide „Veranstaltungen". Für dieselbe Domäne
   standen auf einer Seite drei Wörter: „Events" (Topnav), „Treffen" (Sektions-Label) und „Alle
   Veranstaltungen ansehen" (Link am Sektionsende); dazu kommt die Übersichtsseite, die von
   Veranstaltungen spricht. Mit dem Störer verlinken zwei Elemente derselben Seite auf dasselbe Ziel,
   und dann sind zwei verschiedene Namen nicht mehr nur uneinheitlich: für Screenreader liest sich das
   wie zwei verschiedene Inhalte. „Veranstaltungen" ist das Wort, das Übersichtsseite, Detailseite und
-  der Link am Sektionsende schon tragen. **Offen bleibt der Topnav-Eintrag „Events"** (28 Stellen über
-  alle Beispielseiten), das ist eine IA-Entscheidung und keine Layout-Korrektur.
+  der Link am Sektionsende schon tragen. Angeglichen sind 27 Topnav-Einträge über alle
+  Beispielseiten, das Sektions-Label, die Karte und der CTA auf der Unternehmens-Übersicht, die
+  Anmeldungs-Einwilligung, der Hero-Eyebrow „Fokusevent" (jetzt „Fokusveranstaltung") sowie die
+  Doku-Prosa inklusive des Komponenten-Namens „Event-Card" (jetzt „Veranstaltungs-Card"). Im Wort
+  „Event" verbleiben nur technische Bezeichner (`gt-event-*`, `sec-events`, `pointer-events`,
+  `data-event-meta`, Bild-Dateinamen) und die internen Team-Aktivitäten auf der Arbeitgeber-Seite
+  („Teamevents", „Kochevents"): das sind andere Dinge, und zwei Dinge dürfen zwei Wörter haben.
+  Kontrolliert: 0 Textüberläufe in vier Breiten, das Wort ist mehr als doppelt so lang wie „Events"
+  und passt in das 240 px breite Dropdown-Panel.
   CONTRIBUTING § 6 hält die Regel fest: ein Domänenwort pro Domäne über Nav, Sektions-Label und
   Verweis-Komponenten. Dazu die Notiz, dass die Eyebrow-Form (`--ty-label-xs` + uppercase +
   `--co-ink`) mit vier Rollen voll belegt ist und keine fünfte Bedeutung mehr tragen soll.

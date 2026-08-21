@@ -411,7 +411,7 @@
         </button>
         <div class="nav-subnav" data-for="events">
           <a class="nav-sub-item" href="#gt-events-aufbau">Aufbau</a>
-          <a class="nav-sub-item" href="#gt-events-card">Event-Card</a>
+          <a class="nav-sub-item" href="#gt-events-card">Veranstaltungs-Card</a>
           <a class="nav-sub-item" href="#gt-events-featured">Featured · horizontal</a>
           <a class="nav-sub-item" href="#gt-events-verwendung">Verwendung</a>
         </div>
@@ -666,7 +666,7 @@
         </div>
       </div>
       <div class="doc-eyebrow" style="margin-top:var(--s8)">Bereichs-Akzent · <code class="token">data-accent</code></div>
-      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Wo das Attribut sitzt:</strong> an jedem Container, der einen Bereichsblock aufspannt. Für eine ganze Seite ist das der <code class="token">.ep-page</code>-Root, für einen einzelnen Block der Wrapper um den Block, z.&nbsp;B. das <a class="body-link" href="#sec-booking">Buchungsformular</a> in einer sonst corporate Seite. Der Selektor ist bewusst nicht an <code class="token">.ep-page</code> gebunden, damit man für so einen Block keine Inline-Farben an die einzelnen Links schreiben muss (die brächen im Dark-Mode). <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Inhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt, sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em>, <em>Seminar-Landing (wo)</em>, am Buchungsformular (<code class="token">ki</code>), an der Event-Anmeldung (<code class="token">es</code>) und am <a class="body-link" href="#gt-inputs-kontakt-adaptiv">adaptiven Kontaktformular</a> (dynamisch per JS gesetzt).</p>
+      <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px">Detail- und Stellenseiten gehören oft zu einem Bereich (z.&nbsp;B. die Stelle <em>Java / JEE Developer</em> zu <strong>Effektive Software</strong>), nutzen aber Komponenten mit <code class="token">co</code>-Default-Akzent. Über <code class="token">data-accent="ki|es|wo"</code> werden die Default-Akzent-Utilities <code class="token">.t-co</code> (Überschriften-Icons, Bullets, Eyebrows) und <code class="token">.body-link</code> auf die Bereichsfarbe umgetönt: Light auf <code class="token">-700</code> (<code class="token">ki</code> auf <code class="token">-800</code>, da <code class="token">ki-700</code> die AA-Schwelle für Normaltext reißt), Dark-Override auf <code class="token">-200</code>. <strong>Wo das Attribut sitzt:</strong> an jedem Container, der einen Bereichsblock aufspannt. Für eine ganze Seite ist das der <code class="token">.ep-page</code>-Root, für einen einzelnen Block der Wrapper um den Block, z.&nbsp;B. das <a class="body-link" href="#sec-booking">Buchungsformular</a> in einer sonst corporate Seite. Der Selektor ist bewusst nicht an <code class="token">.ep-page</code> gebunden, damit man für so einen Block keine Inline-Farben an die einzelnen Links schreiben muss (die brächen im Dark-Mode). <strong>Abgrenzung:</strong> Buttons und CTA-Band werden weiterhin per Bereichs-Klasse gesetzt (<code class="token">.btn-es</code>, <code class="token">.btn-es.btn-on-band</code>, <code class="token">background:var(--es-700)</code>); <code class="token">data-accent</code> deckt nur die Text-/Link-Utilities im <strong>Inhalt</strong> ab. Die <strong>Chrome</strong> bleibt corporate: Footer-<code class="token">.body-link</code> und die Topnav (<code class="token">.ep-topnav .t-co</code>, z.&nbsp;B. die aktive Sektion) werden per Reset auf <code class="token">co</code> zurückgesetzt, sonst erschiene die aktive Nav-Sektion z.&nbsp;B. auf einer <code class="token">wo</code>-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten. Erprobt auf <em>Unternehmen · Stelle (Java/JEE)</em>, <em>Seminar-Landing (wo)</em>, am Buchungsformular (<code class="token">ki</code>), an der Veranstaltungs-Anmeldung (<code class="token">es</code>) und am <a class="body-link" href="#gt-inputs-kontakt-adaptiv">adaptiven Kontaktformular</a> (dynamisch per JS gesetzt).</p>
       <p style="font:400 14px/20px var(--font);color:var(--tx-secondary);max-width:820px;margin-top:var(--s4)"><strong>Eigenständige Bereichs-Text-Utilities:</strong> Dieselben Töne gibt es klassenbasiert als <code class="token">.t-co</code> / <code class="token">.t-ki</code> / <code class="token">.t-es</code> / <code class="token">.t-wo</code> (Light <code class="token">-700</code>, <code class="token">ki</code> <code class="token">-800</code>; Dark-Override auf <code class="token">-200</code>/<code class="token">-100</code>) für inline gesetzten Akzenttext wie Eyebrows, Labels oder Kennzahlen. <strong>Regel:</strong> bereichsfarbigen Text immer über diese Utilities, <code class="token">data-area</code> (Chips/Badges/Pills, CTA-Links via <code class="token">.card-cta-link[data-area]</code>) oder <code class="token">--ki-ink</code> führen, nie als rohes <code class="token">style="color:var(--XX-700/800)"</code> — das bliebe im Dark Mode dunkel-auf-dunkel.</p>
     </section>
 
@@ -831,7 +831,7 @@
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Herrscht Unsicherheit über die passende Anrede, tendiert Conciso zum Sie. Ein zu früh gesetztes Du kann distanzlos wirken, gerade im schriftlichen Erstkontakt.</p>
         </div>
         <div class="col-6">
-          <div class="doc-eyebrow">Events mit Leadership-Fokus</div>
+          <div class="doc-eyebrow">Veranstaltungen mit Leadership-Fokus</div>
           <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0">Bei Veranstaltungen, zu denen vorrangig Leadership- und Entscheider:innen-Positionen erwartet werden, erfolgt die Ansprache im Sie, in der Einladung wie vor Ort.</p>
         </div>
       </div>
@@ -1494,7 +1494,7 @@
 
       <h2 id="gt-type-body" class="group-title">Body</h2>
       <div class="type-row"><div class="type-meta"><span class="type-name">Body Medium</span><span class="type-spec">Montserrat · 16px / 24px · 400</span><span class="type-rem">1rem / 1.5rem</span><span class="type-token">--ty-body-md</span></div><div class="type-sample" style="font:var(--ty-body-md)">Standard-Fließtext · Card-Beschreibungen · Section-Subs · Form-Inputs. Mai 2026 von 14 auf 16 px gehoben (Browser-Default, iOS-Auto-Zoom-Fix, lesbarer für C-Level-Zielgruppe).</div></div>
-      <div class="type-row"><div class="type-meta"><span class="type-name">Body Small</span><span class="type-spec">Montserrat · 14px / 20px · 400</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-body-sm</span></div><div class="type-sample" style="font:var(--ty-body-sm)">Meta-Daten · Card-Meta-Zeile · Event-Strip (Datum · Ort · Format) · Counter · Consent-Texte.</div></div>
+      <div class="type-row"><div class="type-meta"><span class="type-name">Body Small</span><span class="type-spec">Montserrat · 14px / 20px · 400</span><span class="type-rem">0.875rem / 1.25rem</span><span class="type-token">--ty-body-sm</span></div><div class="type-sample" style="font:var(--ty-body-sm)">Meta-Daten · Card-Meta-Zeile · Veranstaltungs-Strip (Datum · Ort · Format) · Counter · Consent-Texte.</div></div>
       <div class="type-row"><div class="type-meta"><span class="type-name">Body X-Small</span><span class="type-spec">Montserrat · 12px / 16px · 400</span><span class="type-rem">0.75rem / 1rem</span><span class="type-token">--ty-body-xs</span></div><div class="type-sample" style="font:var(--ty-body-xs)">Captions · Zeitstempel · Fußnoten · Zusatzinfos.</div></div>
 
       <h2 id="gt-type-label" class="group-title">Label</h2>
@@ -2157,7 +2157,7 @@
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
               </div>
             </div>
@@ -2200,7 +2200,7 @@
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
               </div>
             </div>
@@ -2243,7 +2243,7 @@
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-navigation">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-navigation">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#sec-navigation">Presse</a>
               </div>
             </div>
@@ -2256,7 +2256,7 @@
       <!-- ── Topnav-Pattern für Beispielseiten ── -->
       <h2 id="gt-nav-topnav" class="group-title">Topnav für Customer-Pages</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Der Customer-Topnav-Pattern (Klassen <code class="token">.ep-topnav</code>, <code class="token">.ep-nav-links</code>, <code class="token">.ep-nav-btn</code>) folgt dem festgelegten IA-Schema:</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Angewandte KI · Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Angewandte KI“ führt als Link direkt auf die Übersichtsseite; der Caret daneben klappt das Submenü mit den KI-Produkten (AI.Engineering, AI.Automation, AI.Box) auf. „Leistungen“ (Link → Übersicht) bündelt Effektive Software und Wirksame Organisationen, „Unternehmen“ (Link → Überblick) ist der Hub mit Über uns, Jobs, Referenzen, Events, Presse.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Angewandte KI · Leistungen · Wissen · Unternehmen</strong> + Kontakt-Button (sekundär, outlined). „Angewandte KI“ führt als Link direkt auf die Übersichtsseite; der Caret daneben klappt das Submenü mit den KI-Produkten (AI.Engineering, AI.Automation, AI.Box) auf. „Leistungen“ (Link → Übersicht) bündelt Effektive Software und Wirksame Organisationen, „Unternehmen“ (Link → Überblick) ist der Hub mit Über uns, Jobs, Referenzen, Veranstaltungen, Presse.</p>
 
       <h3 style="font:var(--ty-label-md);margin-bottom:var(--s3);color:var(--tx-primary)">Layout-Anker</h3>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Logo + Nav-Links links, Kontakt-Button rechts.</strong> Mit nur wenigen Nav-Items würde <code class="token">justify-content: space-between</code> die Nav als isolierte Gruppe in der Mitte stranden lassen, die Bereichs-Links wirkten dann wie schwebend, ohne Bezug zum Logo oder zum CTA. Stattdessen verwendet <code class="token">.ep-topnav</code> einen <code class="token">gap</code>-basierten Flow (kein <code class="token">justify-content</code>) und drückt den Kontakt-Button per <code class="token">margin-left:auto</code> nach rechts. So hängt die Navigation direkt am Logo, der CTA bleibt weit weg als visueller Endpunkt, Apple- und Linear-Style. Funktioniert mit beliebig vielen Nav-Items, ohne dass das Layout wieder „verloren“ wirkt, wenn welche dazukommen oder wegfallen.</p>
@@ -3488,7 +3488,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
           <tr><td><code class="token">name="unterthema"</code></td><td>Freitext-Schlüssel, z. B. „AI.Automation Workshop"</td><td>Basis für eine konkrete bzw. teil-automatisierte Erstantwort</td></tr>
         </tbody>
       </table>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Produktion:</strong> Im Mockup setzt <code class="token">main.js</code> diese Felder aus dem CTA. In der echten Site stattdessen serverseitig aus Route/Query-Param (<code class="token">?bereich=…&amp;anliegen=…</code>) rendern und beim Submit auswerten. „Allgemeine Anfrage" (<code class="token">bereich=co</code>, leeres <code class="token">unterthema</code>) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld (Friktion vermeiden). Bewerbung, Event-Anmeldung und die verbindliche Terminbuchung (<a class="body-link" href="#sec-booking">Buchungsformular</a>) behalten ihren eigenen Flow; wann welcher Weg richtig ist, steht dort unter „Anfrage oder Direktbuchung".</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Produktion:</strong> Im Mockup setzt <code class="token">main.js</code> diese Felder aus dem CTA. In der echten Site stattdessen serverseitig aus Route/Query-Param (<code class="token">?bereich=…&amp;anliegen=…</code>) rendern und beim Submit auswerten. „Allgemeine Anfrage" (<code class="token">bereich=co</code>, leeres <code class="token">unterthema</code>) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld (Friktion vermeiden). Bewerbung, Veranstaltungs-Anmeldung und die verbindliche Terminbuchung (<a class="body-link" href="#sec-booking">Buchungsformular</a>) behalten ihren eigenen Flow; wann welcher Weg richtig ist, steht dort unter „Anfrage oder Direktbuchung".</p>
 
       <h2 id="gt-inputs-suche" class="group-title">Such-Feld</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten (z.&nbsp;B. <a class="body-link" href="#sec-listing">Wissens-Übersicht</a>). Kein sichtbares <code class="token">&lt;label&gt;</code>: Icon und Placeholder tragen den visuellen Kontext, ein <code class="token">aria-label</code> liefert den semantischen Namen für Screenreader.</p>
@@ -3964,7 +3964,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
               <tr><td><code class="token">.is-multi</code></td><td>Modifier am <code class="token">.ep-combobox</code> für Mehrfachauswahl mit Chips</td></tr>
               <tr><td><code class="token">.ep-combobox-clear</code></td><td>Lösch-Button (per JS injiziert), erscheint bei Texteingabe und leert das Feld; Multi behält die Chips</td></tr>
               <tr><td><code class="token">data-value</code></td><td>Maschinenwert je Option; sichtbarer Text ist das Label (oder <code class="token">data-label</code>)</td></tr>
-              <tr><td><code class="token">ep:change</code></td><td>Custom-Event bei Auswahl (<code class="token">detail.value</code>, <code class="token">detail.selected</code>) zum Anbinden eigener Logik</td></tr>
+              <tr><td><code class="token">ep:change</code></td><td>Custom-Veranstaltung bei Auswahl (<code class="token">detail.value</code>, <code class="token">detail.selected</code>) zum Anbinden eigener Logik</td></tr>
               <tr><td>Panel im Dark</td><td>Das Menü schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten verlassen: über einem Hero-Foto stand es gemessen nur 1,34:1 gegen die hellste Stelle daneben. Der Rand übernimmt deshalb im Dark <code class="token">--bd-strong-c</code> statt <code class="token">--bd-c</code>. Gilt für jedes schwebende Panel, auch <code class="token">.ep-nav-sub</code> und das Suchpanel</td></tr>
             </tbody>
           </table>
@@ -4841,7 +4841,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             </thead>
             <tbody>
               <tr><td>Statisch</td><td><code class="token">.card</code></td><td>Der Standard. Karten, deren Aktionen in Buttons oder Links im Footer liegen, dazu Listen- und Tabellen-Kontexte ohne visuelle Schwere</td><td><code class="token">--e0</code> + <code class="token">--bd</code></td></tr>
-              <tr><td>Link-Karte</td><td><code class="token">a.card.card-elevated</code></td><td>Wenn die ganze Karte zu einem Ziel führt: Listing-Teaser, Beitrags-, Job- und Event-Karten</td><td><code class="token">--e1</code>, Hover <code class="token">--e2</code> + Lift</td></tr>
+              <tr><td>Link-Karte</td><td><code class="token">a.card.card-elevated</code></td><td>Wenn die ganze Karte zu einem Ziel führt: Listing-Teaser, Beitrags-, Job- und Veranstaltungs-Karten</td><td><code class="token">--e1</code>, Hover <code class="token">--e2</code> + Lift</td></tr>
             </tbody>
           </table>
         </div>
@@ -6198,7 +6198,7 @@ console.<span class="fn">log</span>(<span class="s">'Brand:'</span>, brandColor)
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Vollflächiger CTA-Streifen am Ende jeder Customer-Page, direkt vor dem Footer. Trägt eine konkrete Headline, eine erklärende Subline und einen einzelnen Button auf der Bereichsfarbe als Hintergrund. Übernimmt die Funktion „letzte Einladung“, wenn die Nutzerin die Page durchgelesen hat, soll der Schritt zur Kontaktaufnahme leichtfallen.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Klassen:</strong> Container <code class="token">.ep-cta-band</code> (Padding <code class="token">var(--s12) var(--s8)</code>, zentriert), Headline <code class="token">.ep-cta-h2</code> (Display Md), Subline <code class="token">.ep-cta-sub</code> (Body Md, <code class="token">opacity:.85</code>). Hintergrund per Inline-Style auf <code class="token">--co-700</code>/<code class="token">--ki-800</code>/<code class="token">--es-700</code>/<code class="token">--wo-700</code> (dem Page-Bereich folgend), Schrift <code class="token">color:#fff</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Button-Inversion:</strong> Auf der dunklen Bereichs-Fläche wird der Filled-Button invertiert: Background weiß, Text in der Bereichsfarbe. Dafür gibt es die zusammengesetzte Modifier-Klasse <a class="body-link" href="#gt-btns-tokens"><code class="token">.btn-on-band</code></a>, die mit der Bereichs-Klasse kombiniert wird (<code class="token">.btn-co</code>/<code class="token">.btn-ki</code>/<code class="token">.btn-es</code>/<code class="token">.btn-wo</code>). Headline ist ein konkretes Angebot („Erstgespräch, 30 Minuten, kostenfrei.“), keine Marketing-Floskel; Button-Label ein Verb mit klarem Ziel.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch anfragen“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite ist per Default neutral (co); ein Bereichs-CTA übergibt via <code class="token">data-k-bereich</code>/<code class="token">data-k-anliegen</code> die Tönung und die Vorbelegung von Thema und Anliegen (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Event-Anmeldung).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Ziel des Buttons:</strong> Der CTA führt auf die <strong>adaptive Kontaktseite</strong> (Link mit <code class="token">data-ep="kontakt"</code>), nicht auf ein seitenweise wiederholtes Inline-Formular und kein Overlay/Modal. Eine „Gespräch anfragen“-Aktion ist überlegt, nicht impulsiv: Sie verdient eine fokussierte Zielseite mit Vertrauenselementen (Ansprechperson, Reaktionszeit, Telefon und Mail als gleichwertige Wege), ein Modal würde unterbrechen und dem ruhigen Markenton widersprechen. Die Kontaktseite ist per Default neutral (co); ein Bereichs-CTA übergibt via <code class="token">data-k-bereich</code>/<code class="token">data-k-anliegen</code> die Tönung und die Vorbelegung von Thema und Anliegen (eine Vorlage, parametrisiert), statt pro CTA eine eigene Seite zu pflegen. Genuin andere Handlungen behalten ihren eigenen Flow (Bewerbung, Veranstaltungs-Anmeldung).</p>
 
       <div class="ep-cta-band" style="background:var(--co-700);color:#fff;border-radius:var(--r-lg);margin-bottom:var(--s6)">
         <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
@@ -8445,13 +8445,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
     <!-- ═══ VERANSTALTUNG (DETAIL) ═══ -->
     <section class="ds-section" id="sec-event">
       <h1 class="sec-title">Veranstaltung</h1>
-      <p class="sec-sub">Page-Pattern für die Detail-Seite eines einzelnen Events: Hero-Image, Meta-Strip mit Key-Facts, Sub-Strip mit Anmeldungs-CTAs, Themen-Cards, Agenda, Speaker:innen und Anmeldungs-Form. Liegt in der Topnav unter „Unternehmen". Die vollständige Komposition steht als <a class="body-link" href="#sec-examples" data-ep="veranstaltung">Beispielseite Veranstaltung · Detail</a>. Die zugehörige Listing-Seite ist als <a class="body-link" href="#sec-events">Veranstaltungsübersicht</a> dokumentiert.</p>
+      <p class="sec-sub">Page-Pattern für die Detail-Seite einer einzelnen Veranstaltung: Hero-Image, Meta-Strip mit Key-Facts, Sub-Strip mit Anmeldungs-CTAs, Themen-Cards, Agenda, Speaker:innen und Anmeldungs-Form. Liegt in der Topnav unter „Unternehmen". Die vollständige Komposition steht als <a class="body-link" href="#sec-examples" data-ep="veranstaltung">Beispielseite Veranstaltung · Detail</a>. Die zugehörige Listing-Seite ist als <a class="body-link" href="#sec-events">Veranstaltungsübersicht</a> dokumentiert.</p>
 
       <h2 id="gt-event-aufbau" class="group-title">Aufbau</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Detail-Seite hat einen festen Aufbau, der den User vom „Worum geht's?" über „Wann/Wo/Wieviel?" zur Anmeldung führt:</p>
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
         <li><strong>Topnav</strong> mit „Unternehmen" als <code class="token">aria-current="page"</code>.</li>
-        <li><strong>Hero-Image</strong> (siehe <a class="body-link" href="#gt-nav-hero-image">Hero-Image</a>) mit Eyebrow im Schema „Fokusevent · Format · Preis", H1 (Event-Titel), Lead.</li>
+        <li><strong>Hero-Image</strong> (siehe <a class="body-link" href="#gt-nav-hero-image">Hero-Image</a>) mit Eyebrow im Schema „Fokusveranstaltung · Format · Preis", H1 (Veranstaltungs-Titel), Lead.</li>
         <li><strong>Meta-Strip</strong>: vier Info-Badges in einem Strip (Datum, Ort, Format, Eintritt). Details unter <a class="body-link" href="#gt-event-meta-strip">Meta-Strip</a>.</li>
         <li><strong>Sub-Strip</strong> in Bereichsfarbe-50 mit Markenrad-Eyebrow, Lead und zwei CTAs („Platz sichern" + „Programm ansehen" als In-Page-Anker).</li>
         <li><strong>Themen-Cards</strong> (3× <code class="token">.card.card-elevated.col-4</code>) mit „Input 1/2/3"-Eyebrow als Programm-Vorschau.</li>
@@ -8481,7 +8481,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
 
       <h2 id="gt-event-programm" class="group-title">Programm &amp; Speaker</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Agenda ist eine Zeit-Tabelle (Spalte 120&nbsp;px für Uhrzeit, Spalte 1fr für Titel + Speaker) mit Border-Bottom je Zeile. Uhrzeiten in <code class="token">font-variant-numeric:tabular-nums</code> für saubere vertikale Ausrichtung der Ziffern.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px">Speaker:innen folgen dem <a class="body-link" href="#gt-article-author">Author-Card-Pattern</a> mit Initialen oder Foto, Name, Rolle und kurzer Bio. Bei mehreren Speaker:innen pro Event analog zu <a class="body-link" href="#gt-article-multi-author">Mehrere Autor:innen</a>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px">Speaker:innen folgen dem <a class="body-link" href="#gt-article-author">Author-Card-Pattern</a> mit Initialen oder Foto, Name, Rolle und kurzer Bio. Bei mehreren Speaker:innen pro Veranstaltung analog zu <a class="body-link" href="#gt-article-multi-author">Mehrere Autor:innen</a>.</p>
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML · Agenda-Zeile</span></div>
 <pre class="cb-body"><span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"display:grid;grid-template-columns:120px 1fr;gap:var(--s4) var(--s6);padding:var(--s4) 0;border-bottom:1px solid var(--n-200);align-items:baseline"</span><span class="k">&gt;</span>
@@ -8494,7 +8494,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </div>
 
       <h2 id="gt-event-anmeldung" class="group-title">Anmeldung</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Anmeldungs-Form folgt dem <a class="body-link" href="#gt-inputs-kontakt">Kontaktformulare</a>-Pattern, aber im Bereich-Theme des Events: Header in Bereichsfarbe-700 mit weißem Text, Form-Body in <code class="token">var(--n-50)</code>. Anker-ID <code class="token">#ev-anmeldung</code> für den „Platz sichern"-Sprung aus dem Sub-Strip.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Anmeldungs-Form folgt dem <a class="body-link" href="#gt-inputs-kontakt">Kontaktformulare</a>-Pattern, aber im Bereich-Theme der Veranstaltung: Header in Bereichsfarbe-700 mit weißem Text, Form-Body in <code class="token">var(--n-50)</code>. Anker-ID <code class="token">#ev-anmeldung</code> für den „Platz sichern"-Sprung aus dem Sub-Strip.</p>
       <table class="doc-table" style="margin-bottom:var(--s8)">
         <thead><tr><th>Element</th><th>Regel</th></tr></thead>
         <tbody>
@@ -8511,11 +8511,11 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <table class="doc-table" style="margin-bottom:var(--s6)">
         <thead><tr><th>Format</th><th>Wofür</th><th>Typische Länge</th><th>Preis</th></tr></thead>
         <tbody>
-          <tr><td><strong>Meet-Up</strong></td><td>Kurze Abend-Events, Inputs + offene Runde, oft kostenlos</td><td>2–3 Stunden, abends</td><td>Kostenlos</td></tr>
-          <tr><td><strong>Konferenz</strong></td><td>Größere Multi-Speaker-Events mit Track-Programm</td><td>1–2 Tage</td><td>Eintritts-Tickets</td></tr>
+          <tr><td><strong>Meet-Up</strong></td><td>Kurze Abend-Veranstaltungen, Inputs + offene Runde, oft kostenlos</td><td>2–3 Stunden, abends</td><td>Kostenlos</td></tr>
+          <tr><td><strong>Konferenz</strong></td><td>Größere Multi-Speaker-Veranstaltungen mit Track-Programm</td><td>1–2 Tage</td><td>Eintritts-Tickets</td></tr>
           <tr><td><strong>Training</strong></td><td>Strukturierte Lerneinheit mit Hands-On-Anteil</td><td>Halbtägig bis mehrtägig</td><td>Pauschal pro Teilnehmer:in</td></tr>
           <tr><td><strong>Webinar</strong></td><td>Online-Format, häufig kürzer und niedrigschwelliger</td><td>1–4 Stunden, online</td><td>Kostenlos oder Pauschal</td></tr>
-          <tr><td><strong>Jobmesse</strong></td><td>Recruiting-Event, Conciso präsentiert sich potenziellen Bewerber:innen</td><td>Stunden bis halbtägig</td><td>Kostenlos</td></tr>
+          <tr><td><strong>Jobmesse</strong></td><td>Recruiting-Veranstaltung, Conciso präsentiert sich potenziellen Bewerber:innen</td><td>Stunden bis halbtägig</td><td>Kostenlos</td></tr>
         </tbody>
       </table>
       <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--co-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s8)">
@@ -8543,10 +8543,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <table class="doc-table" style="margin-bottom:var(--s8)">
         <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
         <tbody>
-          <tr><td>Hero-Eyebrow</td><td>Schema „Fokusevent · Format · Preis". Für Konferenzen kann „Fokusevent" durch „Konferenz" ersetzt werden.</td></tr>
+          <tr><td>Hero-Eyebrow</td><td>Schema „Fokusveranstaltung · Format · Preis". Für Konferenzen kann „Fokusveranstaltung" durch „Konferenz" ersetzt werden.</td></tr>
           <tr><td>Bereich-Theme</td><td>Komplette Seite trägt eine Bereichsfarbe (KI · ES · WO), nicht Corporate-Petrol. Meta-Strip-Badges, Sub-Strip, Submit-Button, Form-Header — alle in <code class="token">--{area}-700/-50</code>.</td></tr>
           <tr><td>Anker-Konvention</td><td><code class="token">#ev-anmeldung</code> für Form, <code class="token">#ev-agenda</code> für Agenda. Beide via In-Page-Anker-Handler smooth-scrollend.</td></tr>
-          <tr><td>Speaker-Pflicht</td><td>Jedes Event mindestens einer Speaker:in zuordnen, anonyme Programme reduzieren Anmeldebereitschaft.</td></tr>
+          <tr><td>Speaker-Pflicht</td><td>Jedes Veranstaltung mindestens einer Speaker:in zuordnen, anonyme Programme reduzieren Anmeldebereitschaft.</td></tr>
           <tr><td>Submit-Button-Label</td><td>Format-spezifisch: „Platz reservieren" (Meet-Up), „Anmelden &amp; bezahlen" (kostenpflichtiges Training), „Ticket buchen" (Konferenz).</td></tr>
         </tbody>
       </table>
@@ -8559,7 +8559,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Komplette Detail-Seite in einem Bereich-Theme halten. Mischfarben irritieren beim Anmeldeschritt — der User soll nicht raten, welcher Bereich antwortet.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Meta-Strip mit allen vier Badges (Datum, Ort, Format, Eintritt) — auch wenn ein Wert „Kostenlos" oder „Online" ist. Vollständigkeit schlägt Eleganz.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Speaker:innen mit Foto oder Initialen + Bio nennen. Macht das Event greifbar und unterstützt Vertrauen vor der Anmeldung.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Speaker:innen mit Foto oder Initialen + Bio nennen. Macht das Veranstaltung greifbar und unterstützt Vertrauen vor der Anmeldung.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Smooth-Scroll bei In-Page-Ankern. Hard-Jump bricht den Markenwert „Ruhig"; bei <code class="token">prefers-reduced-motion</code> bleibt der Hard-Jump erhalten.</span></li>
           </ul>
         </div>
@@ -8578,21 +8578,21 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
     <!-- ═══ VERANSTALTUNGSÜBERSICHT (LISTING) ═══ -->
     <section class="ds-section" id="sec-events">
       <h1 class="sec-title">Veranstaltungsübersicht</h1>
-      <p class="sec-sub">Listing-Seite für Veranstaltungen, parallel zur <a class="body-link" href="#sec-listing">Beitragsübersicht</a>: zentrierter Header mit Suche und Bereichs-Filter, Featured pro Bereich, Card-Grid darunter. Detail-Seite zum jeweiligen Event als separate <a class="body-link" href="#sec-event">Veranstaltung</a> dokumentiert. Komposition als <a class="body-link" href="#sec-examples" data-ep="ev-uebersicht">Beispielseite Veranstaltungen · Übersicht</a>.</p>
+      <p class="sec-sub">Listing-Seite für Veranstaltungen, parallel zur <a class="body-link" href="#sec-listing">Beitragsübersicht</a>: zentrierter Header mit Suche und Bereichs-Filter, Featured pro Bereich, Card-Grid darunter. Detail-Seite zum jeweiligen Veranstaltung als separate <a class="body-link" href="#sec-event">Veranstaltung</a> dokumentiert. Komposition als <a class="body-link" href="#sec-examples" data-ep="ev-uebersicht">Beispielseite Veranstaltungen · Übersicht</a>.</p>
 
       <h2 id="gt-events-aufbau" class="group-title">Aufbau</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Die Übersichts-Seite folgt im Wesentlichen dem <a class="body-link" href="#gt-listing-aufbau">Beitragsübersicht-Aufbau</a>: zentrierter Header, Such-Feld, Filter-Chips pro Bereich, Featured pro Bereich, Card-Grid darunter, „Mehr laden"-Block, CTA-Band, Footer. Such-Logik und Filter-aware-Featured sind 1:1 übernommen und über eine gemeinsame JS-Funktion <code class="token">setupListPage()</code> konfiguriert.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Event-spezifische Anpassungen:</strong></p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Anpassungen für Veranstaltungen:</strong></p>
       <ul style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s8) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
         <li><strong>Pill-Inhalt:</strong> „Bereich · Format" statt „Bereich · Lesezeit". Format-Vokabular ist auf fünf Begriffe begrenzt (siehe <a class="body-link" href="#gt-event-formate">Formate</a>).</li>
-        <li><strong>Card-Meta:</strong> Datum (mit Wochentag) und Ort sitzen <em>oberhalb</em> des Titels, nicht am Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment. Details unter <a class="body-link" href="#gt-events-card">Event-Card</a>.</li>
+        <li><strong>Card-Meta:</strong> Datum (mit Wochentag) und Ort sitzen <em>oberhalb</em> des Titels, nicht am Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment. Details unter <a class="body-link" href="#gt-events-card">Veranstaltungs-Card</a>.</li>
         <li><strong>Default-Featured:</strong> „Effektive Software" statt „Angewandte KI" (Conciso veranstaltet Tech-Meet-Ups häufiger als KI-Workshops).</li>
         <li><strong>Counter:</strong> „6 anstehend · 18 im Archiv" statt „6 von 24 Beiträgen", weil Veranstaltungen zeitlich gebunden sind und Vergangenes nicht im Default-View erscheint.</li>
         <li><strong>Empty-State-Sekundär-CTA:</strong> „Veranstaltungs-Newsletter" statt „Contentletter abonnieren" (Differenzierung Beitrags-Contentletter vs. Veranstaltungs-Newsletter).</li>
       </ul>
 
-      <h2 id="gt-events-card" class="group-title">Event-Card</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Reading-Flow ist auf die Event-Entscheidung optimiert. Für Veranstaltungen ist das Datum ein <strong>harter Filter</strong> („Kann ich überhaupt?") und gehört vor das Titel-Investment.</p>
+      <h2 id="gt-events-card" class="group-title">Veranstaltungs-Card</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Reading-Flow ist auf die Entscheidung für eine Veranstaltung optimiert. Für Veranstaltungen ist das Datum ein <strong>harter Filter</strong> („Kann ich überhaupt?") und gehört vor das Titel-Investment.</p>
 
       <div class="doc-eyebrow">Reihenfolge</div>
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
@@ -8620,7 +8620,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <h2 id="gt-events-featured" class="group-title">Featured · horizontale Großkarte</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Für Landing-Sektionen und Bereichs-Hubs, wenn <strong>genau ein</strong> kommender Termin hervorgehoben werden soll (kein Grid, kein Listing). Eine horizontale <code class="token">.card.card-elevated</code> als Anker, links das Bild im 1:1-Verhältnis (über <code class="token">background-image: url(…) center 35%/cover</code> auf einer minHeight-Spalte), rechts der Content-Block: Pill, Meta-Strip (Datum · Ort · Format), Titel, Lead, CTA. Das Karten-Grid ist <code class="token">grid-template-columns: 1fr 1fr</code>.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px"><strong>Editorial-Variant:</strong> Featured-Cards nutzen die eigene Klasse <code class="token">.card-title-hero</code> für den Titel: 24 px Libre Baskerville (Headline-sm) statt der 20 px Sans des Standard-<code class="token">.card-title</code>. Featured ist kein Grid-Card-Treatment, sondern ein editorialer Hero. Ein Termin oder ein Beitrag bekommt die alleinige Bühne, das rechtfertigt das Serif-Treatment auf der Mid-Tier-Stufe zwischen Section-H2 (28 px Serif) und Standard-Card-Title (20 px Sans), in sauberer 4-px-Treppe. Der Lead nutzt <code class="token">.card-text</code> wie alle Karten, der <code class="token">min-height:0</code>-Override deaktiviert die Grid-Stability (line-clamp + min-height), weil eine einzeln stehende Featured-Card keinen Nachbarn zum Abgleichen hat.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum nicht ein Grid mit drei Karten?</strong> Auf einer Landing ist die Frage „Was passiert als Nächstes?" wichtiger als „Welche Events laufen aktuell?". Ein einziges, atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die Übersichts-Seite (Listing) erfüllt die Breitenrolle, der Featured-Block auf der Landing erfüllt die Tiefenrolle. Ein Link unter der Karte („Alle Veranstaltungen ansehen →") führt ins Listing.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum nicht ein Grid mit drei Karten?</strong> Auf einer Landing ist die Frage „Was passiert als Nächstes?" wichtiger als „Welche Veranstaltungen laufen aktuell?". Ein einziges, atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die Übersichts-Seite (Listing) erfüllt die Breitenrolle, der Featured-Block auf der Landing erfüllt die Tiefenrolle. Ein Link unter der Karte („Alle Veranstaltungen ansehen →") führt ins Listing.</p>
 
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
@@ -8663,7 +8663,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <tbody>
           <tr><td>Pill-Vokabular</td><td>Nur die fünf <a class="body-link" href="#gt-event-formate">Formate</a>. Keine eigenen Wörter wie „Workshop", „Bootcamp", „Werkstatt".</td></tr>
           <tr><td>Pill-Margin</td><td>Im Card-Kontext <code class="token">style="margin-bottom:0"</code> überschreibt das globale <code class="token">.pill { margin-bottom:var(--s5) }</code>, damit Pill und Datum als Meta-Header gekoppelt sind.</td></tr>
-          <tr><td>Datums-Reihenfolge</td><td>Cards chronologisch sortiert, kommende Events zuerst. Vergangene Events kommen erst über „Frühere Veranstaltungen ansehen" oder im Archiv-Filter.</td></tr>
+          <tr><td>Datums-Reihenfolge</td><td>Cards chronologisch sortiert, kommende Veranstaltungen zuerst. Vergangene Veranstaltungen kommen erst über „Frühere Veranstaltungen ansehen" oder im Archiv-Filter.</td></tr>
           <tr><td>Datums-Format</td><td>Wochentag + ausgeschriebener Monat (siehe <a class="body-link" href="#gt-event-datum">Datum &amp; Uhrzeit</a>).</td></tr>
           <tr><td>Card-Ort</td><td>Stadt-Name (z.&nbsp;B. „Dortmund"), nicht der Venue. Für Webinar steht „Online". Auf der Detail-Seite zeigt der Meta-Strip dann den vollen Venue-Namen.</td></tr>
           <tr><td>Filter-Logik</td><td>Drei Bereichs-Chips (KI · ES · WO), kein Corporate-Chip (siehe <a class="body-link" href="#sec-listing">Beitragsübersicht</a>-Konvention).</td></tr>
@@ -8678,7 +8678,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="col-6">
           <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Datum vor Titel platzieren. Für Events ist „Kann ich da?" der wichtigste Filter und gehört vor das Title-Investment.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Datum vor Titel platzieren. Für Veranstaltungen ist „Kann ich da?" der wichtigste Filter und gehört vor das Title-Investment.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Wochentag mitgeben („Do, 5. Februar"). Bei Meet-Ups nach 18:00 macht der Wochentag den Unterschied zwischen „kann ich" und „kann ich nicht".</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Pill auf das Format-Vokabular beschränken. „Bootcamp" oder „Werkstatt" gehören in den Titel als Charakter, nicht in die Pill.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Monatsnamen ausschreiben. „Februar" statt „Feb", „März" statt „Mrz" — passt zur Marken-Tonalität, kein Tech-Look.</span></li>
@@ -8688,7 +8688,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Datum am Card-Fuß platzieren (Wissensbeitrag-Muster). User scrollen am Datum vorbei, lesen Titel und Body, und merken erst spät, dass der Termin nicht passt.</span></li>
-            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vergangene Events im Default-View mischen. Cards werden chronologisch nach vorne sortiert, Archiv-Zugang separat über den „Frühere Veranstaltungen ansehen"-Button.</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Vergangene Veranstaltungen im Default-View mischen. Cards werden chronologisch nach vorne sortiert, Archiv-Zugang separat über den „Frühere Veranstaltungen ansehen"-Button.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eigene Format-Begriffe einführen. Das Vokabular ist fünf Wörter, mehr verwässert die Erwartung des Users.</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Preis und Verfügbarkeit auf jeder Card. Macht die Cards laut und benötigt dauernd Pflege („Noch X Plätze"). Beides gehört auf die Detail-Seite.</span></li>
           </ul>
@@ -9042,7 +9042,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -9418,7 +9418,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -9544,7 +9544,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <div class="ep-section" style="background:var(--bg-surface)">
           <div class="ep-section-label t-co">Mehr entdecken</div>
           <h2 class="ep-section-h2">Vier Service-Bereiche.</h2>
-          <p class="ep-section-sub">Einstieg in Jobs, Referenzen, Events und Presse.</p>
+          <p class="ep-section-sub">Einstieg in Jobs, Referenzen, Veranstaltungen und Presse.</p>
           <div class="ep-cards" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
             <a class="ep-card ep-card-link" data-area="co" href="#sec-examples" data-ep="co-jobs" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" data-area="co"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"/></svg></div>
@@ -9560,9 +9560,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </a>
             <a class="ep-card ep-card-link" data-area="co" href="#sec-examples" data-ep="ev-uebersicht" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" data-area="co"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></div>
-              <div class="ep-card-title">Events</div>
+              <div class="ep-card-title">Veranstaltungen</div>
               <div class="ep-card-text">Wo Du uns triffst.</div>
-              <div class="ep-card-cta">Events ansehen <span aria-hidden="true">→</span></div>
+              <div class="ep-card-cta">Veranstaltungen ansehen <span aria-hidden="true">→</span></div>
             </a>
             <a class="ep-card ep-card-link" data-area="co" href="#" style="border-top:4px solid var(--co-500)">
               <div class="ep-card-icon" data-area="co"><svg viewBox="0 0 24 24" fill="none" stroke="var(--co-800)" stroke-width="1.25" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg></div>
@@ -9684,7 +9684,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -10014,7 +10014,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -10204,7 +10204,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             </div>
             <div class="ep-feature col-4">
               <span class="ep-feature-icon" data-area="co" aria-hidden="true" style="background:var(--bg-surface)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span>
-              <div class="ep-feature-body"><h3 class="ep-feature-title">Kunden-Events</h3><p class="ep-feature-text">Bei unseren Events kommst Du mit Kunden und Partnern ins Gespräch, und wer mag, bringt sich auch in die Orga ein.</p></div>
+              <div class="ep-feature-body"><h3 class="ep-feature-title">Kunden-Veranstaltungen</h3><p class="ep-feature-text">Bei unseren Veranstaltungen kommst Du mit Kunden und Partnern ins Gespräch, und wer mag, bringt sich auch in die Orga ein.</p></div>
             </div>
           </div>
         </div>
@@ -10430,7 +10430,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -10667,7 +10667,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -10859,7 +10859,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -11098,7 +11098,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -11399,7 +11399,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -11857,7 +11857,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -12101,7 +12101,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -12420,7 +12420,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -12714,7 +12714,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -13000,7 +13000,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -13294,7 +13294,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -13625,7 +13625,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -13870,7 +13870,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -14138,7 +14138,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -14380,7 +14380,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -14655,7 +14655,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -15022,7 +15022,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -15332,7 +15332,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" aria-current="page" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -15346,13 +15346,13 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
             <img src="assets/images/meetup-buehne.jpg" alt="Drei Speaker mit Mikrofonen auf der Bühne eines Conciso-Meet-Ups, Publikum im Vordergrund" loading="eager" style="object-position:center 20%">
           </div>
           <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Fokusevent · Meet-Up</p>
+            <p class="hero-image-caption-eyebrow">Fokusveranstaltung · Meet-Up</p>
             <h1 class="hero-image-caption-title">Effizienz durch n8n.</h1>
             <p class="hero-image-caption-text">Drei kurze Inputs aus der Conciso-Praxis, dann offene Runde. Warum n8n das Werkzeug für Workflow-Automatisierung ist.</p>
           </figcaption>
         </figure>
 
-        <!-- Event-Meta-Strip · Key Facts auf einen Blick -->
+        <!-- Veranstaltungs-Meta-Strip · Key Facts auf einen Blick -->
         <div class="ep-section" style="background:var(--bg-surface);padding-block:var(--s8);border-bottom:var(--bd)">
           <div class="layout-grid" data-event-meta style="align-items:stretch">
             <div class="col-3" style="display:flex;flex-direction:column;gap:var(--s3)">
@@ -15363,7 +15363,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <div class="t-es" style="font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase">Datum</div>
                 <div style="font:500 16px/24px var(--font);color:var(--tx-primary)">Do, 3. Dezember 2026</div>
                 <div style="font:var(--ty-body-md);color:var(--tx-secondary)">18:00 – 21:00 Uhr</div>
-                <a class="t-es" href="fokusevent-effizienz-n8n.ics" style="font:var(--ty-body-md);text-decoration:underline;margin-top:4px;display:inline-block;text-underline-offset:3px">Zum Kalender hinzufügen <span aria-hidden="true">→</span></a>
+                <a class="t-es" href="fokusveranstaltung-effizienz-n8n.ics" style="font:var(--ty-body-md);text-decoration:underline;margin-top:4px;display:inline-block;text-underline-offset:3px">Zum Kalender hinzufügen <span aria-hidden="true">→</span></a>
               </div>
             </div>
             <div class="col-3" style="display:flex;flex-direction:column;gap:var(--s3)">
@@ -15497,7 +15497,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Lead</p>
                 <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Marc Hoffmann</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">Senior Software Engineer · Conciso</p>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Marc baut seit acht Jahren Integrations-Pipelines für mittelständische Engineering-Teams. n8n ist sein Werkzeug seit Version 0.140; beim Fokusevent ordnet er die Plattform ein und erzählt, wo der Hype trägt und wo nicht.</p>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Marc baut seit acht Jahren Integrations-Pipelines für mittelständische Engineering-Teams. n8n ist sein Werkzeug seit Version 0.140; beim Fokusveranstaltung ordnet er die Plattform ein und erzählt, wo der Hype trägt und wo nicht.</p>
               </div>
             </div>
             <div class="col-6" style="display:flex;gap:var(--s5);align-items:flex-start">
@@ -15508,7 +15508,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <p class="t-es" style="font:500 12px/16px var(--font);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)">Co-Host</p>
                 <p style="font:var(--ty-name);color:var(--tx-primary);margin:0 0 4px">Stefan Klein</p>
                 <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 0 var(--s3)">DevOps & Platform Engineer · Conciso</p>
-                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Stefan hat unsere internen n8n-Workflows aufgebaut und an mehreren selbst entwickelten n8n-Nodes mitgearbeitet. Im Fokusevent zeigt er, was in der Praxis tatsächlich Zeit spart und wo Vorsicht angebracht ist.</p>
+                <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Stefan hat unsere internen n8n-Workflows aufgebaut und an mehreren selbst entwickelten n8n-Nodes mitgearbeitet. Im Fokusveranstaltung zeigt er, was in der Praxis tatsächlich Zeit spart und wo Vorsicht angebracht ist.</p>
               </div>
             </div>
           </div>
@@ -15566,7 +15566,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
               </div>
               <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s5)">
                 <input class="t-es" type="checkbox" id="f-ev-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--es-500);flex-shrink:0;cursor:pointer">
-                <label for="f-ev-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine Angaben zur Event-Organisation verwendet werden. <a class="body-link" href="#">Datenschutzhinweise</a></label>
+                <label for="f-ev-consent" style="font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer">Ich bin einverstanden, dass meine Angaben zur Veranstaltungs-Organisation verwendet werden. <a class="body-link" href="#">Datenschutzhinweise</a></label>
               </div>
               <button class="btn btn-filled btn-es btn-full">Platz reservieren</button>
               </div>
@@ -15663,7 +15663,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
            (?bereich=…&anliegen=…) rendern und beim Submit auswerten; "Allgemeine Anfrage"
            (bereich=co, leeres unterthema) geht ans allgemeine Postfach. Granularere Unterthemen
            kommen aus dem CTA, nicht aus einem zusätzlichen Pflichtfeld (Friktion vermeiden).
-           Eigene Flows behalten Bewerbung (ep-co-job-jee) und Event-Anmeldung (ep-veranstaltung). -->
+           Eigene Flows behalten Bewerbung (ep-co-job-jee) und Veranstaltungs-Anmeldung (ep-veranstaltung). -->
       <div class="ep-page" id="ep-kontakt" role="tabpanel" aria-labelledby="eptab-kontakt" tabindex="0">
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
@@ -15698,7 +15698,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
@@ -15903,7 +15903,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-ueber-uns">Über uns</a>
                 <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="co-arbeitgeber">Jobs</a>
                 <a class="ep-nav-sub-btn" href="#">Referenzen</a>
-                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Events</a>
+                <a class="ep-nav-sub-btn" href="#sec-examples" data-ep="ev-uebersicht">Veranstaltungen</a>
                 <a class="ep-nav-sub-btn" href="#">Presse</a>
               </div>
             </div>
