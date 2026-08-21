@@ -779,6 +779,88 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .hero-image-caption-title{font:var(--ty-serif-md);color:#fff;font-size:clamp(1.25rem, 0.943rem + 1.36vw, 2rem);line-height:1.25;margin:0 0 var(--s1);text-shadow:0 1px 3px rgba(0,0,0,.4)}
 .hero-image-caption-text{font:var(--ty-body-md);color:rgba(255,255,255,.92);margin:0;text-shadow:0 1px 2px rgba(0,0,0,.5)}
 
+/* ── Störer (Hero-Overlay, Startseite) ──
+   Kompakte Verweiskacheln auf je einen aktuellen Inhalt: nächste Veranstaltung, neuer
+   Wissensbeitrag, Pressemitteilung, Info (neue Seminar-Landingpage, neues Produkt). Ein bis
+   drei Kacheln als Set oben rechts über dem Hero-Bild, Default sind zwei. Der Wrapper
+   .stoerer-hero umschließt Hero + Set und spannt den Positionsrahmen auf; .hero-image bleibt
+   unangetastet und funktioniert weiter ohne Störer.
+
+   VIER ENTSCHEIDUNGEN, DIE ABSICHT SIND
+
+   (1) EINE FARBE FÜR ALLE VIER TYPEN. Der Inhaltstyp steht im Label und im Icon, nicht in der
+   Fläche. Vier Bereichsfarben nebeneinander würden gegeneinander und gegen die Hero-Headline
+   arbeiten; die Kacheln sind ein Set und müssen als eines lesen. Der Akzent ist deshalb
+   durchgehend Corporate (--co-ink), wie bei der Topnav: der Störer ist Chrome über dem Bild,
+   kein Bereichsinhalt. Aus demselben Grund gibt es hier kein data-area.
+
+   (2) DECKENDE FLÄCHE, KEIN GLAS. Über einem Foto ist der Grund unbekannt: eine
+   halbtransparente Kachel trägt je nach Bildstelle 2:1 oder 12:1, und keine Regel kann das
+   absichern (der Grund steht nicht in der Elternkette, `npm run check:contrast` zählt solchen
+   Text nur, statt ihn zu werten). Auf --bg-surface steht der Text dagegen auf einer bekannten
+   Fläche: Light 5,52 bis 10,90:1, Dark 8,32 bis 10,48:1. Das Bild bleibt sichtbar, weil die
+   Kacheln klein sind, nicht weil sie durchscheinen.
+
+   (3) RAHMEN IN BEIDEN MODI. Karten im DS verlassen sich im Light auf --e1 und bekommen erst
+   im Dark einen Rahmen (CONTRIBUTING §5). Hier liegt die Kachel aber auf einem Foto statt auf
+   einer bekannten Fläche: auf einer ausgebrannt hellen Bildstelle trägt der schwarze Schatten
+   nichts mehr, und die weiße Kachel hat dort keine Kante. Deshalb --bd-strong schon im Light.
+
+   (4) OVERLAY NACH HERO-BREITE, NICHT NACH VIEWPORT-BREITE. Bei 21:9 gilt Hero-Höhe = Breite
+   × 9/21 (der max-height-Deckel liegt bei mindestens 480px und greift hier nie). Eine Kachel ist
+   126px hoch (12px Polsterung, 100px Inhalt, 1px Rand je Seite), drei Kacheln plus zwei Abstände
+   und 24px Rand oben brauchen 426px Hero-Höhe, also 994px Hero-Breite. Ob die vorhanden ist, sagt
+   die Breite des Heros und nicht die des Fensters: mit einer Media Query auf 1025px ragte ein
+   Dreier-Set in der Doku-Vorschau (Hero 898px im 1200px-Fenster) 41px in die Sub-Sektion. Die
+   Entscheidung hängt deshalb an einer Container-Query auf .stoerer-hero. Darunter steht das Set
+   als normaler Block unter dem Hero; eine Kachel, die halb in die Sub-Sektion ragt, ist kein
+   Overlay mehr, sondern ein Unfall. Die Schwelle liegt bei 1025px, dem Desktop-Tier der
+   Responsive-Strategie, und damit über dem Rechenwert von 994px. Ohne Container-Query-Support
+   greift die Regel nicht und das Set bleibt in jeder Breite ein Block unter dem Hero, also der
+   funktionierende Fall. */
+.stoerer-hero{position:relative;container-type:inline-size;--stoerer-w:360px}
+.stoerer-set{padding:var(--s8)}
+.ep-page .stoerer-set{padding-inline:max(var(--s8),calc(50% - 640px))}
+.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--s3)}
+/* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Zwei Flex-Spalten:
+   Textspalte plus Icon-Spalte. Ein früherer Grid-Aufbau ließ das Icon per grid-row:1/-1 über alle
+   Zeilen laufen — ohne explizite grid-template-rows löst -1 aber auf die erste Zeilenlinie auf, das
+   Icon saß in Zeile 1 und der Trenner reichte nur über das Thema-Label (gemessen 24px statt 108px).
+   Mit Flex spannt der Trenner die volle Texthöhe, egal wie viele Zeilen die Kachel führt. */
+.stoerer{display:flex;gap:var(--s4);padding:var(--s3) var(--s4);border-radius:var(--r-md);background:var(--bg-surface);border:var(--bd-strong);box-shadow:var(--e1);text-decoration:none;color:inherit;transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
+.stoerer:hover{background:var(--bg-surface-hover);box-shadow:var(--e3);transform:translateY(-2px)}
+/* Zweites Hover-Signal, das nicht an Farbe oder Schatten hängt: über einem Foto ist der
+   Schatten-Zuwachs je nach Bildstelle kaum zu sehen, die Unterstreichung immer. */
+.stoerer:hover .stoerer-title>*{text-decoration:underline;text-underline-offset:2px}
+.stoerer:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
+/* min-width:0 hebt das Flex-Minimum auf, sonst sprengt ein langes Wort im Titel die Kachelbreite,
+   statt umzubrechen und geklammert zu werden. */
+.stoerer-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--s1)}
+.stoerer-topic{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-ink)}
+/* Zwei Zeilen fest: min-height reserviert die Höhe, das innere Element kappt längere Titel per
+   line-clamp mit Auslassungszeichen. Beides zusammen hält alle Kacheln eines Sets auf gleicher
+   Höhe, unabhängig von der Titellänge im CMS (dieselbe Mechanik wie .card-title). */
+.stoerer-title{font:var(--ty-title-sm);color:var(--tx-primary);min-height:2lh}
+.stoerer-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.stoerer-meta{font:var(--ty-body-sm);color:var(--tx-secondary)}
+/* Trenner über die volle Texthöhe, Icon darin mittig. --bd, nicht rohes -100 (CONTRIBUTING §5). */
+.stoerer-icon{flex-shrink:0;display:flex;align-items:center;padding-left:var(--s4);border-left:var(--bd);color:var(--co-ink)}
+.stoerer-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
+
+@container (min-width:1025px){
+  /* Overlay oben rechts: die Caption liegt unten links, die Sub-Sektion darunter, oben rechts
+     ist die freie Zone. Der Abstand liegt in top/right statt im Padding, sonst wächst die
+     absolut positionierte Box über die Kachelbreite hinaus. */
+  .stoerer-set,.ep-page .stoerer-set{position:absolute;top:var(--s6);right:var(--s8);padding:0}
+  .ep-page .stoerer-set{right:max(var(--s8),calc(50% - 640px))}
+  .stoerer-list{display:flex;flex-direction:column;width:var(--stoerer-w)}
+  /* Die Caption-Spalte endet vor den Kacheln, sonst läuft eine lange Headline darunter.
+     max-width auf die Kinder, nicht Padding auf die Caption: der Gradient bleibt vollbreit.
+     Der .stoerer-hero-Präfix bleibt stehen, obwohl derzeit nur .stoerer-hero ein Container ist:
+     sonst greift die Regel auf jeden Hero, sobald irgendein Vorfahre ein Container wird. */
+  .stoerer-hero .hero-image-caption>*{max-width:calc(100% - var(--stoerer-w) - var(--s6))}
+}
+
 @media(prefers-reduced-motion:reduce){.img-slide{transition:none}}
 
 /* ── Logo-Tiles (geteilt vom Logo-Karussell) ── */

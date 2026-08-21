@@ -338,6 +338,8 @@
           <a class="nav-sub-item" href="#gt-nav-hero-image">Hero-Image</a>
           <a class="nav-sub-item" href="#gt-carousel-hero">Slider-Hero</a>
           <a class="nav-sub-item" href="#gt-nav-hero-substrip">Reduzierte Sub-Sektion</a>
+          <a class="nav-sub-item" href="#gt-hero-stoerer">Störer (Startseite)</a>
+          <a class="nav-sub-item" href="#gt-hero-stoerer-verwendung">Störer · Verwendung</a>
         </div>
       </li>
       <li>
@@ -2523,7 +2525,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ HERO-PATTERNS ═══ -->
     <section class="ds-section" id="sec-hero">
       <h1 class="sec-title">Hero-Patterns</h1>
-      <p class="sec-sub">Drei Hero-Varianten für den Seitenkopf: Hero-Image mit Caption-Overlay (21:9, Standard auf allen Customer-Pages), Slider-Hero mit Crossfade-Rotation (optional), sowie eine reduzierte Sub-Sektion direkt unter dem Hero für CTAs (auf jeder Customer-Page Pflicht). Übergreifende Regeln zum Zusammenspiel mit der <a class="body-link" href="#sec-navigation">Navigation</a> stehen dort im Abschnitt „Verwendung“.</p>
+      <p class="sec-sub">Drei Hero-Varianten für den Seitenkopf: Hero-Image mit Caption-Overlay (21:9, Standard auf allen Customer-Pages), Slider-Hero mit Crossfade-Rotation (optional), sowie eine reduzierte Sub-Sektion direkt unter dem Hero für CTAs (auf jeder Customer-Page Pflicht). Dazu der <a class="body-link" href="#gt-hero-stoerer">Störer</a>, der ausschließlich auf der Startseite über dem Hero-Bild liegt. Übergreifende Regeln zum Zusammenspiel mit der <a class="body-link" href="#sec-navigation">Navigation</a> stehen dort im Abschnitt „Verwendung“.</p>
 
       <!-- ── Hero-Image (.hero-image) ── -->
       <h2 id="gt-nav-hero-image" class="group-title">Hero-Image mit Caption-Overlay</h2>
@@ -2734,6 +2736,240 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <span class="k">&lt;button</span> <span class="v">class</span>=<span class="s">"btn btn-outlined"</span> <span class="v">style</span>=<span class="s">"--c500:var(--co-700)"</span><span class="k">&gt;</span>Gespräch anfragen<span class="k">&lt;/button&gt;</span>
   <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- ── Störer (.stoerer) ── -->
+      <h2 id="gt-hero-stoerer" class="group-title">Störer über dem Hero (Startseite)</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)">Kompakte Verweiskacheln, die als Set oben rechts über dem Hero-Bild liegen und je auf <strong>einen</strong> aktuellen Inhalt zeigen: die nächste Veranstaltung, einen neuen Wissensbeitrag, eine Pressemitteilung oder eine allgemeine Info (neue Seminar-Landingpage, neues Produkt). Klassen <code class="token">.stoerer-hero</code> (Wrapper um Hero und Set) · <code class="token">.stoerer-set</code> · <code class="token">.stoerer-list</code> · <code class="token">.stoerer</code>.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Nur auf der Startseite.</strong> Auf Bereichs- und Detailseiten trägt der Hero genau eine Aussage; ein zweiter Aufmerksamkeitspunkt daneben würde sie schwächen. Die Weiterleitung übernimmt dort die <a class="body-link" href="#gt-nav-hero-substrip">reduzierte Sub-Sektion</a> unter dem Hero.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Ein Set, keine Einzelkacheln.</strong> Alle Kacheln eines Sets haben dieselbe Breite (<code class="token">--stoerer-w</code>, Default 360&nbsp;px), denselben Aufbau, dieselbe Typo-Hierarchie und dieselben Abstände. Die Höhe hält <code class="token">.stoerer-title</code> gleich: <code class="token">min-height:2lh</code> reserviert zwei Zeilen, das innere Element kappt längere Titel per <code class="token">line-clamp</code> mit Auslassungszeichen. Ein einzeiliger Titel lässt deshalb sichtbar Luft zur Meta-Zeile, und das ist gewollt, sonst springen die Kacheln, sobald das CMS einen längeren Titel liefert. <strong>Default sind zwei Kacheln, drei sind das Maximum.</strong></p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Eine Farbgebung für alle vier Typen.</strong> Der Inhaltstyp steht im Thema-Label und im Icon, nie in der Farbe. Vier Bereichsfarben nebeneinander würden gegeneinander und gegen die Hero-Headline arbeiten, und das Set würde als vier lose Kacheln lesen statt als eine Einheit. Der Akzent ist deshalb durchgehend Corporate (<code class="token">--co-ink</code>), aus demselben Grund wie bei der <a class="body-link" href="#sec-navigation">Topnav</a>: der Störer ist Chrome über dem Bild, kein Bereichsinhalt. Ein <code class="token">data-area</code> gibt es hier bewusst nicht.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Deckende Fläche, kein Glas.</strong> Über einem Foto ist der Grund unbekannt: eine halbtransparente Kachel trägt je nach Bildstelle 2:1 oder 12:1, und keine Regel kann das absichern, weil der Grund nicht in der Elternkette steht (<code class="token">npm run check:contrast</code> zählt solchen Text nur, statt ihn zu werten). Auf <code class="token">--bg-surface</code> steht der Text dagegen auf einer bekannten Fläche und ist messbar: Light 5,52 bis 10,92:1, Dark 8,32 bis 10,48:1. Das Bild bleibt sichtbar, weil die Kacheln <em>klein</em> sind, nicht weil sie durchscheinen. Dazu trägt die Kachel schon im Light einen <code class="token">--bd-strong</code>-Rahmen, abweichend von den übrigen Karten: auf einer ausgebrannt hellen Bildstelle leistet der schwarze <code class="token">--e1</code>-Schatten keine Kante mehr.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Platzierung.</strong> Oben rechts, weil die Caption unten links liegt und die Sub-Sektion direkt darunter, das ist die freie Zone. Damit eine lange Headline nicht unter die Kacheln läuft, endet die Caption-Spalte vor ihnen (<code class="token">max-width</code> auf die Caption-Kinder, der Gradient bleibt vollbreit).</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)"><strong>Responsive: Hero-Breite, nicht Fensterbreite.</strong> Bei 21:9 ist die Hero-Höhe die Breite × 9/21. Eine Kachel ist 126&nbsp;px hoch, drei plus Abstände und der Rand oben brauchen 426&nbsp;px Höhe und damit 994&nbsp;px Hero-Breite. Ob die da ist, sagt der <strong>Hero</strong> und nicht das Fenster: eine Media Query auf 1025&nbsp;px ließ ein Dreier-Set in dieser Doku-Vorschau (Hero 898&nbsp;px im 1200&nbsp;px-Fenster) 41&nbsp;px in die Sub-Sektion ragen. Die Entscheidung hängt deshalb an einer <strong>Container-Query</strong> auf <code class="token">.stoerer-hero</code>, Schwelle 1025&nbsp;px, dem Desktop-Tier der <a class="body-link" href="#sec-responsive">Responsive-Strategie</a>. Ist der Hero schmaler, steht das Set als normaler Block unter ihm, ein- oder zweispaltig je nach Platz. Dasselbe passiert in Browsern ohne Container-Query-Support, dort greift die Regel nie und der funktionierende Fall bleibt stehen. Eine Kachel, die halb in die Sub-Sektion ragt, wäre kein Overlay, sondern ein Unfall.</p>
+
+      <div style="margin-bottom:var(--s8);margin-left:calc(var(--s6) * -1);margin-right:calc(var(--s6) * -1)">
+        <div class="stoerer-hero">
+          <figure class="hero-image">
+            <div class="hero-image-media">
+              <img src="assets/images/team-gruppenbild.jpg" alt="Großes Conciso-Team beim Gruppenfoto vor dem Bürogebäude" loading="lazy" style="object-position:center 70%">
+            </div>
+            <figcaption class="hero-image-caption">
+              <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
+              <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
+              <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund.</p>
+            </figcaption>
+          </figure>
+          <aside class="stoerer-set" aria-label="Aktuelles">
+            <ul class="stoerer-list">
+              <li>
+                <a class="stoerer" href="#gt-hero-stoerer">
+                  <span class="stoerer-body">
+                    <span class="stoerer-topic">Nächste Veranstaltung</span>
+                    <span class="stoerer-title"><span>Effizienz durch n8n</span></span>
+                    <span class="stoerer-meta"><time datetime="2026-12-03">3. Dezember 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>Dortmund</span>
+                  </span>
+                  <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="stoerer" href="#gt-hero-stoerer">
+                  <span class="stoerer-body">
+                    <span class="stoerer-topic">Neu im Wissen</span>
+                    <span class="stoerer-title"><span>Warum 60 % der KI-Piloten nie in Produktion gehen</span></span>
+                    <span class="stoerer-meta"><time datetime="2026-05-13">13. Mai 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>8 min Lesezeit</span>
+                  </span>
+                  <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg></span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Die vier Inhaltstypen als Specimen -->
+      <div class="doc-eyebrow">Die vier Inhaltstypen</div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5)">Alle vier nebeneinander, damit der Unterschied sichtbar wird: gleiche Fläche, gleiche Typo, unterschieden allein durch Thema-Label und Icon. Im Einsatz stehen höchstens drei davon zusammen, deshalb ist das hier ein Specimen und trägt eine abweichende Grid-Breite.</p>
+      <ul class="stoerer-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));width:auto;margin-bottom:var(--s8)">
+        <li>
+          <a class="stoerer" href="#gt-hero-stoerer">
+            <span class="stoerer-body">
+              <span class="stoerer-topic">Nächste Veranstaltung</span>
+              <span class="stoerer-title"><span>Effizienz durch n8n</span></span>
+              <span class="stoerer-meta"><time datetime="2026-12-03">3. Dezember 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>Dortmund</span>
+            </span>
+            <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="stoerer" href="#gt-hero-stoerer">
+            <span class="stoerer-body">
+              <span class="stoerer-topic">Neu im Wissen</span>
+              <span class="stoerer-title"><span>Refactoring-Schulden ehrlich rechnen</span></span>
+              <span class="stoerer-meta"><time datetime="2026-04-22">22. April 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>7 min Lesezeit</span>
+            </span>
+            <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="stoerer" href="#gt-hero-stoerer">
+            <span class="stoerer-body">
+              <span class="stoerer-topic">Pressemitteilung</span>
+              <span class="stoerer-title"><span>Conciso begleitet Stadtwerke bei der KI-Einführung</span></span>
+              <span class="stoerer-meta"><time datetime="2026-08-12">12. August 2026</time></span>
+            </span>
+            <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46"/></svg></span>
+          </a>
+        </li>
+        <li>
+          <a class="stoerer" href="#gt-hero-stoerer">
+            <span class="stoerer-body">
+              <span class="stoerer-topic">Neu im Angebot</span>
+              <span class="stoerer-title"><span>Scrum Master Kurs, neue Termine ab Oktober</span></span>
+              <span class="stoerer-meta">Seminar · 2 Tage</span>
+            </span>
+            <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg></span>
+          </a>
+        </li>
+      </ul>
+
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Inhaltstyp</th><th>Thema-Label</th><th>Meta-Zeile</th><th>Icon (DS-Key)</th></tr></thead>
+        <tbody>
+          <tr><td>Veranstaltung</td><td>„Nächste Veranstaltung“</td><td>Datum · Ort</td><td><code class="token">ui-calendar-days</code> (Kalender)</td></tr>
+          <tr><td>Wissensbeitrag</td><td>„Neu im Wissen“</td><td>Datum · Lesezeit</td><td><code class="token">ui-newspaper</code> (Artikel)</td></tr>
+          <tr><td>Pressemitteilung</td><td>„Pressemitteilung“</td><td>Datum</td><td><code class="token">ui-megaphone</code> (Megafon)</td></tr>
+          <tr><td>Info</td><td>„Neu im Angebot“ oder Anlass-Label</td><td>Kurze Einordnung, z.&nbsp;B. Format und Dauer</td><td><code class="token">ui-information-circle</code> (Info)</td></tr>
+        </tbody>
+      </table>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)"><strong>Zum Icon-Mapping:</strong> <code class="token">ui-newspaper</code> heißt im DS „Zeitung / Artikel“ und ist dort seit Anfang an das Artikel-Glyph, deshalb trägt es den Wissensbeitrag. Die Pressemitteilung bekommt das Megafon: sie ist eine Verlautbarung, nicht ein Beitrag zum Lesen. Alle vier Icons sind <strong>Outline</strong> mit <code class="token">--icon-stroke-sm</code>, 24&nbsp;px, damit sie als Familie lesen. Ein fünfter Typ braucht ein fünftes Icon aus dieser Familie, keine Doppelbelegung, sonst ist das Icon kein Unterscheidungsmerkmal mehr. Quelle und Mapping: <a class="body-link" href="#sec-icons">Icons</a>.</p>
+
+      <!-- Code-Beispiel Störer -->
+      <div class="cb-wrap" style="margin-bottom:var(--s8)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="c">&lt;!-- Startseite: Hero + Störer-Set. Der Wrapper spannt nur den Positionsrahmen auf, --&gt;</span>
+<span class="c">&lt;!-- .hero-image bleibt unverändert und funktioniert weiter ohne Störer.          --&gt;</span>
+<span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"stoerer-hero"</span><span class="k">&gt;</span>
+  <span class="k">&lt;figure</span> <span class="v">class</span>=<span class="s">"hero-image"</span><span class="k">&gt;</span> … <span class="k">&lt;/figure&gt;</span>
+
+  <span class="c">&lt;!-- Landmark mit Namen: Screenreader können den Block anspringen oder überspringen --&gt;</span>
+  <span class="k">&lt;aside</span> <span class="v">class</span>=<span class="s">"stoerer-set"</span> <span class="v">aria-label</span>=<span class="s">"Aktuelles"</span><span class="k">&gt;</span>
+    <span class="k">&lt;ul</span> <span class="v">class</span>=<span class="s">"stoerer-list"</span><span class="k">&gt;</span>
+      <span class="k">&lt;li&gt;</span>
+        <span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"stoerer"</span> <span class="v">href</span>=<span class="s">"/veranstaltungen/effizienz-durch-n8n"</span><span class="k">&gt;</span>
+          <span class="c">&lt;!-- Textspalte: eigene Flex-Spalte, damit der Trenner links vom Icon --&gt;</span>
+          <span class="c">&lt;!-- über die volle Texthöhe läuft, egal wie viele Zeilen sie führt.    --&gt;</span>
+          <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"stoerer-body"</span><span class="k">&gt;</span>
+            <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"stoerer-topic"</span><span class="k">&gt;</span>Nächste Veranstaltung<span class="k">&lt;/span&gt;</span>
+            <span class="c">&lt;!-- inneres span trägt das line-clamp, außen sitzt die 2-Zeilen-Reserve --&gt;</span>
+            <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"stoerer-title"</span><span class="k">&gt;&lt;span&gt;</span>Effizienz durch n8n<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
+            <span class="c">&lt;!-- Trennpunkt aria-hidden, Komma als sr-only: der mittige Punkt wird sonst --&gt;</span>
+            <span class="c">&lt;!-- verschluckt oder als „Punkt" gelesen, Datum und Ort verschmelzen dann.   --&gt;</span>
+            <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"stoerer-meta"</span><span class="k">&gt;&lt;time</span> <span class="v">datetime</span>=<span class="s">"2026-12-03"</span><span class="k">&gt;</span>3. Dezember 2026<span class="k">&lt;/time&gt;</span><span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span> · <span class="k">&lt;/span&gt;&lt;span</span> <span class="v">class</span>=<span class="s">"sr-only"</span><span class="k">&gt;</span>, <span class="k">&lt;/span&gt;</span>Dortmund<span class="k">&lt;/span&gt;</span>
+          <span class="k">&lt;/span&gt;</span>
+          <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"stoerer-icon"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;svg</span> <span class="v">viewBox</span>=<span class="s">"0 0 24 24"</span> <span class="v">fill</span>=<span class="s">"none"</span> <span class="v">stroke</span>=<span class="s">"currentColor"</span><span class="k">&gt;</span><span class="c">&lt;!-- ui-calendar-days --&gt;</span><span class="k">&lt;/svg&gt;&lt;/span&gt;</span>
+        <span class="k">&lt;/a&gt;</span>
+      <span class="k">&lt;/li&gt;</span>
+      <span class="c">&lt;!-- zweite Kachel: identischer Aufbau, anderes Label und Icon --&gt;</span>
+    <span class="k">&lt;/ul&gt;</span>
+  <span class="k">&lt;/aside&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- Anatomie -->
+      <div class="doc-eyebrow">Anatomie</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Element</th><th>Klasse</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Wrapper</td><td><code class="token">.stoerer-hero</code></td><td>Umschließt Hero und Set, <code class="token">position:relative</code> plus <code class="token">container-type:inline-size</code>, hält <code class="token">--stoerer-w</code> (Default 360&nbsp;px). Nur hier, damit <code class="token">.hero-image</code> unangetastet bleibt und ohne Störer weiter funktioniert.</td></tr>
+          <tr><td>Set</td><td><code class="token">.stoerer-set</code></td><td><code class="token">&lt;aside aria-label="Aktuelles"&gt;</code>. Ab 1025&nbsp;px <strong>Hero-Breite</strong> absolut oben rechts (<code class="token">top:var(--s6)</code>, rechts am Content-Gutter), darunter ein normaler Block mit <code class="token">var(--s8)</code>-Polsterung.</td></tr>
+          <tr><td>Liste</td><td><code class="token">.stoerer-list</code></td><td><code class="token">&lt;ul&gt;</code> mit einem <code class="token">&lt;li&gt;</code> je Kachel, Screenreader melden die Anzahl. Overlay: Spalte in Kachelbreite. Block: Auto-Fit-Grid ab 260&nbsp;px. Abstand <code class="token">--s3</code>.</td></tr>
+          <tr><td>Kachel</td><td><code class="token">.stoerer</code></td><td><code class="token">&lt;a&gt;</code>, die ganze Fläche ist der Link. <code class="token">--bg-surface</code> deckend · <code class="token">--bd-strong</code> · <code class="token">--r-md</code> · <code class="token">--e1</code> · Polsterung <code class="token">var(--s3) var(--s4)</code>. Zwei Flex-Spalten, Abstand <code class="token">--s4</code>.</td></tr>
+          <tr><td>Textspalte</td><td><code class="token">.stoerer-body</code></td><td>Nimmt Thema, Titel und Meta auf, Abstand <code class="token">--s1</code>. Trägt <code class="token">min-width:0</code>, sonst sprengt ein langes Wort im Titel die Kachel statt umzubrechen. Sie ist der Grund, dass der Trenner links vom Icon die volle Texthöhe hat, unabhängig von der Zeilenzahl.</td></tr>
+          <tr><td>Thema</td><td><code class="token">.stoerer-topic</code></td><td>Label Xs, uppercase, <code class="token">letter-spacing:.09em</code>, <code class="token">--co-ink</code>. Ein bis drei Wörter, benennt den Inhaltstyp, nicht den Bereich.</td></tr>
+          <tr><td>Titel</td><td><code class="token">.stoerer-title</code></td><td>Title Sm, <code class="token">--tx-primary</code>, <code class="token">min-height:2lh</code> außen, <code class="token">line-clamp:2</code> im inneren <code class="token">&lt;span&gt;</code>. Kein Anreißer, kein CTA-Pfeil, der Titel ist die Aussage.</td></tr>
+          <tr><td>Meta</td><td><code class="token">.stoerer-meta</code></td><td>Body Sm, <code class="token">--tx-secondary</code>, eine Zeile, Inhalt nach Typ (siehe Tabelle oben). Datum als <code class="token">&lt;time datetime&gt;</code>.</td></tr>
+          <tr><td>Icon</td><td><code class="token">.stoerer-icon</code></td><td>Rechte Spalte, abgesetzt durch <code class="token">border-left:var(--bd)</code> plus <code class="token">var(--s4)</code> Abstand; der Trenner läuft über die volle Texthöhe, das Glyph sitzt darin mittig. 24&nbsp;px, <code class="token">--icon-stroke-sm</code>, <code class="token">--co-ink</code>, <code class="token">aria-hidden</code> (das Thema-Label sagt dasselbe in Worten).</td></tr>
+          <tr><td>Zustände</td><td><code class="token">:hover</code> / <code class="token">:focus-visible</code></td><td>Hover: <code class="token">--bg-surface-hover</code> + <code class="token">--e3</code> + 2&nbsp;px Lift + <strong>Titel unterstrichen</strong>. Fokus: <code class="token">--focus-ring</code> + <code class="token">--e3</code>.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Barrierefreiheit -->
+      <div class="doc-eyebrow">Barrierefreiheit</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th><th>Modus</th></tr></thead>
+        <tbody>
+          <tr><td>Kontrast Thema</td><td><code class="token">--co-ink</code> auf <code class="token">--bg-surface</code>: Light 5,52:1 · Dark 8,32:1 → AA ✓</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Kontrast Titel</td><td><code class="token">--tx-primary</code>: Light 10,92:1 · Dark 10,48:1 → AAA ✓</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Kontrast Meta</td><td><code class="token">--tx-secondary</code>: Light 6,29:1 · Dark 7,13:1 → AA ✓. Nicht <code class="token">--tx-muted</code>: gedämpfter Text braucht auf einer Kachel keine zweite Stufe, und die Meta-Zeile trägt hier die Fakten.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Deckende Fläche</td><td>Text über Foto lässt sich nicht messen (der Grund steht nicht in der Elternkette). Die Kachel ist deshalb opak, damit alle Werte oben überhaupt gelten. Kein <code class="token">backdrop-filter</code>, keine Alpha-Fläche.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Rahmen</td><td><code class="token">--bd-strong-c</code>: Light 1,53:1 gegen die Kachel (ruhige Kante gegen das Foto), Dark 4,21:1. Der Rahmen ist Kontur, kein Bedienelement-Rand: die Kachel ist über ihren Inhalt erkennbar.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Fokus</td><td><code class="token">--focus-ring</code> auf der ganzen Kachel (Light <code class="token">co-700</code> 5,5:1, Dark <code class="token">co-500</code> 4,7:1), zusätzlich <code class="token">--e3</code>. Ein Tab-Stop je Kachel, kein verschachtelter Link.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Hover ohne Farbe</td><td>Der Titel unterstreicht (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach Bildstelle kaum sichtbar, die Unterstreichung immer.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Landmark</td><td><code class="token">&lt;aside aria-label="Aktuelles"&gt;</code> nach der Caption im DOM: die H1 kommt zuerst, der Störer danach. Visuell steht er oben rechts, die Lesereihenfolge bleibt trotzdem sinnvoll (WCAG 1.3.2).</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Trennzeichen</td><td>Der mittige Punkt in der Meta-Zeile ist <code class="token">aria-hidden</code>, daneben steht ein <code class="token">.sr-only</code>-Komma. Ohne das wird er verschluckt oder als „Punkt“ gelesen, und Datum und Ort verschmelzen zu einem Wort.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+          <tr><td>Icon</td><td><code class="token">aria-hidden="true"</code>: es wiederholt nur das Thema-Label und trägt keine eigene Bedeutung. Also auch <em>kein</em> <code class="token">alt</code>-Text und keine Rolle.</td><td><span class="a11y-mode">Beide Modi</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="gt-hero-stoerer-verwendung" class="group-title">Störer · Verwendung</h2>
+
+      <!-- Markenwerte-Verbindung -->
+      <div style="background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)">
+        <div class="doc-eyebrow">Verbindung zum Markenrad</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)">
+          <div>
+            <div style="font:var(--ty-name);color:var(--tx-primary);margin-bottom:4px">Ruhig</div>
+            <div style="font:var(--ty-body-md);color:var(--tx-secondary)">Kleine Kacheln in einer Farbe, deckend, ohne Animation und ohne Schließen-Kreuz. Das Bild bleibt Bild, der Störer bleibt Hinweis.</div>
+          </div>
+          <div>
+            <div style="font:var(--ty-name);color:var(--tx-primary);margin-bottom:4px">Klar</div>
+            <div style="font:var(--ty-body-md);color:var(--tx-secondary)">Drei Zeilen, immer dieselben: Thema, Titel, Meta. Ein Ziel je Kachel, keine zweite Aktion darin. Wer die Kachel überfliegt, weiß, was ihn erwartet.</div>
+          </div>
+          <div>
+            <div style="font:var(--ty-name);color:var(--tx-primary);margin-bottom:4px">Energiegeladen</div>
+            <div style="font:var(--ty-body-md);color:var(--tx-secondary)">Er zeigt, dass etwas passiert, und zwar mit Datum. Das Aktuelle steht oben, nicht erst nach fünf Sektionen Scrollen.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Redaktionelle Regeln -->
+      <div class="doc-eyebrow">Redaktionelle Regeln</div>
+      <table class="doc-table" style="margin-bottom:var(--s8)">
+        <thead><tr><th>Aspekt</th><th>Regel</th></tr></thead>
+        <tbody>
+          <tr><td>Anzahl</td><td><strong>Default zwei, Maximum drei.</strong> Eine einzelne Kachel ist erlaubt, wenn nur ein Anlass aktuell ist. Vier und mehr erdrücken den Hero und lassen die Startseite wie ein Meldungs-Board wirken.</td></tr>
+          <tr><td>Ein Typ, eine Kachel</td><td>Kein Typ doppelt im Set. Zwei Veranstaltungs-Kacheln nebeneinander tragen dasselbe Label und dasselbe Icon, damit ist die Unterscheidung weg. Für mehrere Termine auf die <a class="body-link" href="#sec-events">Veranstaltungsübersicht</a> verlinken.</td></tr>
+          <tr><td>Thema-Label</td><td>Ein bis drei Wörter, benennt den <strong>Inhaltstyp</strong>, nicht den Bereich. „Nächste Veranstaltung“, nicht „Effektive Software“. Der Bereich steht auf der Zielseite.</td></tr>
+          <tr><td>Titel</td><td>Der Titel des Inhalts, gekürzt auf das, was in zwei Zeilen trägt. Kein Marketing-Zusatz, keine Ausrufezeichen. Redaktionell kürzen ist besser als das <code class="token">line-clamp</code> entscheiden zu lassen.</td></tr>
+          <tr><td>Meta</td><td>Nach Typ (siehe Tabelle oben), immer knapp und immer prüfbar. Datum als <code class="token">&lt;time&gt;</code>, damit es maschinenlesbar bleibt.</td></tr>
+          <tr><td>Aktualität</td><td>Ein Störer verfällt. Vergangene Termine und Meldungen älter als das gewählte Redaktionsfenster raus, sonst schadet der Block dem Vertrauen mehr, als er nützt.</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Dos & Don'ts -->
+      <div class="doc-eyebrow" style="margin-top:var(--s8)">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Alle Kacheln eines Sets in gleicher Breite, gleichem Aufbau und gleicher Typo-Hierarchie halten, sie sind ein Set</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Inhaltstyp über <strong>Thema-Label und Icon</strong> unterscheiden, die Farbgebung bleibt für alle Typen dieselbe</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die ganze Kachel als <code class="token">&lt;a&gt;</code> auszeichnen, ein Tab-Stop, sichtbarer Hover <em>und</em> Fokus</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Titel redaktionell auf zwei Zeilen kürzen, statt sich auf das <code class="token">line-clamp</code> zu verlassen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Den Störer der Startseite vorbehalten, auf allen anderen Seiten trägt der Hero eine Aussage</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Kacheln in Bereichsfarben einfärben oder <code class="token">data-area</code> setzen, dann konkurrieren sie untereinander und mit dem Hero</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Halbtransparente Fläche oder <code class="token">backdrop-filter</code>, der Kontrast hängt dann von der Bildstelle ab und ist nicht prüfbar</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehr als drei Kacheln, oder unterschiedlich große, oder eine Kachel mit Bild und Anreißer, das ist dann eine Card und gehört in eine Sektion</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Buttons, ein zweiter Link oder ein Schließen-Kreuz in der Kachel, das bricht den einen Tab-Stop und die eine Aussage</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Das Overlay über eine Media Query an die Fensterbreite hängen, oder das Set über die Caption-Headline legen. Maßgeblich ist die Hero-Breite, sonst ragen die Kacheln in die Sub-Sektion</span></li>
+          </ul>
+        </div>
       </div>
 
     </section>
@@ -8807,17 +9043,47 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           </nav>
           <a class="btn btn-filled btn-sm btn-co" href="#sec-examples" data-ep="kontakt">Kontakt</a>
         </div>
-        <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay -->
-        <figure class="hero-image" id="ep-landing-main" tabindex="-1">
-          <div class="hero-image-media">
-            <img src="assets/images/team-spaziergang.jpg" alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände" loading="eager" style="object-position:center 60%">
-          </div>
-          <figcaption class="hero-image-caption">
-            <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
-            <h1 class="hero-image-caption-title">KI, Software und Organisation für den Mittelstand.</h1>
-            <p class="hero-image-caption-text">Pragmatisch geplant, kraftvoll umgesetzt. Drei Disziplinen, eine Auftragslogik.</p>
-          </figcaption>
-        </figure>
+        <!-- Hero — Hero-Image-Komponente: vollbreit 21:9, Caption als Gradient-Overlay.
+             Der .stoerer-hero-Wrapper spannt nur den Positionsrahmen für die Störer auf;
+             ohne Störer bleibt das <figure> allein stehen. -->
+        <div class="stoerer-hero">
+          <figure class="hero-image" id="ep-landing-main" tabindex="-1">
+            <div class="hero-image-media">
+              <img src="assets/images/team-spaziergang.jpg" alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände" loading="eager" style="object-position:center 60%">
+            </div>
+            <figcaption class="hero-image-caption">
+              <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
+              <h1 class="hero-image-caption-title">KI, Software und Organisation für den Mittelstand.</h1>
+              <p class="hero-image-caption-text">Pragmatisch geplant, kraftvoll umgesetzt. Drei Disziplinen, eine Auftragslogik.</p>
+            </figcaption>
+          </figure>
+          <!-- Störer: nur auf der Startseite. Zwei Kacheln als Set, einheitlich Corporate,
+               der Inhaltstyp steht in Label und Icon. Höchstens drei. -->
+          <aside class="stoerer-set" aria-label="Aktuelles">
+            <ul class="stoerer-list">
+              <li>
+                <a class="stoerer" href="#sec-examples" data-ep="veranstaltung">
+                  <span class="stoerer-body">
+                    <span class="stoerer-topic">Nächste Veranstaltung</span>
+                    <span class="stoerer-title"><span>Effizienz durch n8n</span></span>
+                    <span class="stoerer-meta"><time datetime="2026-12-03">3. Dezember 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>Dortmund</span>
+                  </span>
+                  <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span>
+                </a>
+              </li>
+              <li>
+                <a class="stoerer" href="#sec-examples" data-ep="wb-ki">
+                  <span class="stoerer-body">
+                    <span class="stoerer-topic">Neu im Wissen</span>
+                    <span class="stoerer-title"><span>Warum 60 % der KI-Piloten nie in Produktion gehen</span></span>
+                    <span class="stoerer-meta"><time datetime="2026-05-13">13. Mai 2026</time><span aria-hidden="true"> · </span><span class="sr-only">, </span>8 min Lesezeit</span>
+                  </span>
+                  <span class="stoerer-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg></span>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
         <!-- Sub-Sektion direkt unter Hero: Brücke zu den Drei Bereichen.
              Eyebrow + Lead positioniert die Hörhaltung, der Drei-Spalter darunter
              kündigt die folgenden Bereichs-Cards typografisch an (Bereichsfarben

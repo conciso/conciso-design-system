@@ -312,6 +312,50 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   und Umbrüche, nicht nur Farbwerte.
 
 ### Added
+- **Störer (`.stoerer`), Verweiskacheln über dem Hero, nur auf der Startseite.** Ein bis drei
+  Kacheln als Set oben rechts über dem Hero-Bild, je auf einen aktuellen Inhalt: nächste
+  Veranstaltung, neuer Wissensbeitrag, Pressemitteilung, Info. Default sind zwei, drei sind das
+  Maximum. Aufbau je Kachel: Thema-Label (Eyebrow, `--co-ink`), Titel über zwei Zeilen, Meta-Zeile,
+  Icon rechts hinter einem Trenner. Die ganze Kachel ist der Link, ein Tab-Stop, mit Hover und
+  Fokus. Klassen `.stoerer-hero` (Wrapper um Hero und Set) · `.stoerer-set` · `.stoerer-list` ·
+  `.stoerer` · `.stoerer-body` · `.stoerer-topic` · `.stoerer-title` · `.stoerer-meta` ·
+  `.stoerer-icon`. `.hero-image` bleibt unverändert und funktioniert weiter ohne Störer.
+  Die vier Entscheidungen, die das Bauteil tragen:
+  - **Eine Farbgebung für alle vier Typen**, der Inhaltstyp steht in Label und Icon. Vier
+    Bereichsfarben nebeneinander arbeiten gegeneinander und gegen die Hero-Headline, und das Set
+    liest dann als vier lose Kacheln statt als eines. Akzent ist durchgehend Corporate
+    (`--co-ink`), aus demselben Grund wie bei der Topnav: der Störer ist Chrome über dem Bild, kein
+    Bereichsinhalt. Kein `data-area`.
+  - **Deckende Fläche, kein Glas.** Über einem Foto ist der Grund unbekannt, eine halbtransparente
+    Kachel trägt je nach Bildstelle 2:1 oder 12:1, und `check:contrast` kann das nicht werten, weil
+    der Grund nicht in der Elternkette steht. Auf `--bg-surface` ist der Text messbar: Light 5,52
+    bis 10,92:1, Dark 8,32 bis 10,48:1. Das Bild bleibt sichtbar, weil die Kacheln klein sind, nicht
+    weil sie durchscheinen. Dazu ein `--bd-strong`-Rahmen schon im Light, abweichend von den
+    übrigen Karten: auf einer ausgebrannt hellen Bildstelle leistet der schwarze `--e1`-Schatten
+    keine Kante mehr.
+  - **Gleiche Höhe unabhängig von der Titellänge.** `min-height:2lh` außen reserviert zwei Zeilen,
+    das innere Element kappt per `line-clamp` mit Auslassungszeichen. Ein einzeiliger Titel lässt
+    dadurch sichtbar Luft zur Meta-Zeile, und das ist der gewollte Tausch: sonst springen die
+    Kacheln, sobald das CMS einen längeren Titel liefert. Der vollständige Titel bleibt im
+    zugänglichen Namen des Links, das Kappen ist rein visuell.
+  - **Overlay nach Hero-Breite, nicht nach Fensterbreite.** Bei 21:9 ist die Hero-Höhe die Breite ×
+    9/21; drei Kacheln brauchen 426 px Höhe und damit 994 px Hero-Breite. Eine Media Query auf
+    1025 px ließ ein Dreier-Set in der Doku-Vorschau (Hero 898 px im 1200-px-Fenster) 41 px in die
+    Sub-Sektion ragen. Die Entscheidung hängt deshalb an einer **Container-Query** auf
+    `.stoerer-hero` (Schwelle 1025 px, das Desktop-Tier der Responsive-Strategie), der ersten im
+    System. Ist der Hero schmaler, steht das Set als Block darunter; dasselbe passiert ohne
+    Container-Query-Support, dort greift die Regel nie und der funktionierende Fall bleibt stehen.
+  Barrierefreiheit: `<aside aria-label="Aktuelles">` als benannte Landmark, `<ul>`/`<li>` damit
+  Screenreader die Anzahl melden, Icon `aria-hidden` (es wiederholt das Label). Der Trennpunkt der
+  Meta-Zeile ist `aria-hidden` mit einem `.sr-only`-Komma daneben, sonst wird er verschluckt oder
+  als „Punkt" gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
+  zusätzlich den Titel (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach
+  Bildstelle kaum sichtbar, die Unterstreichung immer.
+- **Icon `ui-megaphone`** (outline, `--icon-stroke-sm`) für den Störer-Typ Pressemitteilung.
+  `ui-newspaper` heißt im DS „Zeitung / Artikel" und bleibt das Artikel-Glyph für den
+  Wissensbeitrag; eine Verlautbarung braucht ein eigenes Zeichen, sonst ist das Icon zwischen den
+  beiden Typen kein Unterscheidungsmerkmal mehr. Veranstaltung nutzt `ui-calendar-days`, Info
+  `ui-information-circle`, beide bereits vorhanden.
 - **`--bg-surface-hover`** (Light `var(--bg-surface)`, Dark `#2E3B46`): Auf der tieferen Basisfläche
   tragen die schwarzen `--e*`-Schatten weniger, deshalb hebt der Hover interaktiver Karten
   zusätzlich die Fläche. Ein Zustand, keine dritte statische Flächen-Stufe.

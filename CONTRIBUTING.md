@@ -18,7 +18,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 ## 2. Namens-Konventionen
 
 **CSS-Klassen**
-- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular)
+- Komponenten: `.btn-*`, `.badge-*`, `.card-*`, `.chip*`, `.field`, `.seg*` (Segmented Control), `.bk-*` (Buchungsformular), `.stoerer*` (Störer über dem Hero)
 - Bereichs-Varianten: `-co` (Corporate) · `-ki` (AI.Applied) · `-es` (Effektive Software) · `-wo` (Wirksame Organisationen).
   Trägt eine Komponente eine Bereichsfläche, braucht sie **alle vier** Varianten, nicht nur die gerade
   benötigte. Sonst fällt ein Bereichsformular still auf den Corporate-Default zurück und trägt zwei
@@ -110,6 +110,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 - Alle `padding`/`margin`/`gap` aus der Skala `--s1 … --s16`. Ausnahmen nur für Touch-Targets, Hairlines, Icon-Maße, Container-Breiten oder optische Korrekturen — und dann **mit Kommentar**.
 - Akzentbilder auf Content-Breite via `.ep-media-band` (nicht full-bleed), nur der Hero ist randlos.
+- **Hängt ein Layout am Platz *in* einem Bauteil, entscheidet die Container-Breite, nicht die Fensterbreite.** Eine Media Query fragt das Fenster; ob ein Overlay in sein Bezugselement passt, sagt aber dessen eigene Breite. Der Störer hing zuerst an `@media (min-width:1025px)` und ragte in der Doku-Vorschau 41 px in die nächste Sektion, weil der Hero dort 898 px breit war statt 1200. Jetzt trägt `.stoerer-hero` ein `container-type:inline-size` und die Regel steht in `@container`. Faustregel: Breakpoints auf **Viewport** für Seiten-Rhythmus (Sektionsabstände, Spaltenzahl), auf **Container** für alles, was in ein Elternelement passen muss. Ohne `@container`-Support greift die Regel nicht — der Default-Zweig muss deshalb der funktionierende Fall sein (beim Störer: Set als Block unter dem Hero).
 
 ---
 
