@@ -37,8 +37,17 @@ const _subs = new Set<(m: CdsThemeMode) => void>();
 
 const onSystemChange = (e: MediaQueryListEvent): void => reflect(e.matches);
 
-/** Aufgelösten Zustand ans <html> schreiben (light = kein Attribut). */
+/**
+ * Aufgelösten Zustand ans <html> schreiben (light = kein Attribut).
+ *
+ * Der `document`-Guard ist für SSR/Prerender: Setzt ein Konsument den Modus dort
+ * (etwa ein persistiertes Theme in einem Initializer), gibt es kein `document`.
+ * Das Attribut wird dann übersprungen — der Modus bleibt im Signal erhalten und
+ * greift, sobald im Browser das nächste `apply()` läuft. Die Lib fasst den
+ * globalen Cascade sonst nicht an (siehe docs/adr/0001).
+ */
 function reflect(dark: boolean): void {
+  if (typeof document === 'undefined') return;
   const root = document.documentElement;
   if (dark) root.setAttribute('data-theme', 'dark');
   else root.removeAttribute('data-theme');
@@ -48,7 +57,9 @@ function reflect(dark: boolean): void {
 function apply(): void {
   _mql?.removeEventListener('change', onSystemChange);
   _mql = null;
-  if (_mode() === 'system') {
+  // `matchMedia` existiert nur im Browser; ohne diesen Guard bricht SSR/Prerender
+  // mit "window is not defined", sobald der Modus dort gesetzt wird.
+  if (_mode() === 'system' && typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
     _mql = window.matchMedia('(prefers-color-scheme: dark)');
     _mql.addEventListener('change', onSystemChange);
     reflect(_mql.matches);
