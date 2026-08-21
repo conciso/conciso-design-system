@@ -1,6 +1,6 @@
 # ADR-0005: Storybook-Test-Runner + Consumer-Smoke-Test als alleinige Testebene der Angular-Lib
 
-- Status: akzeptiert (ergänzt 2026-08-21, siehe „Ergänzung: zweiter Story-Runner")
+- Status: akzeptiert (ergänzt 2026-08-21, siehe „Ergänzung: zweiter Story-Runner“)
 - Datum: 2026-07-30
 
 ## Kontext
