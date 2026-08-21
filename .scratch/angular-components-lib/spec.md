@@ -162,7 +162,7 @@ der Wrapper (z.B. nicht die interne `classes`-getter-Ausgabe).
 - Deckt den Konsum-Vertrag ab, den kein bestehender Test sieht: APF-Metadaten,
   Vollständigkeit der Re-Exports in `public-api.ts`, peer-Dep-Auflösung,
   AOT-Template-Typfehler, Icon-Registrierung. Der Build subsumiert die APF-Gültigkeit
-  — kein separater „baut die Lib"-Test nötig.
+  — kein separater „baut die Lib“-Test nötig.
 - Läuft bei PR/Push **und** als harte Vorbedingung (`needs:`) des Publish-Jobs.
 - Prior Art: die bestehenden CI-Workflows (`storybook-angular.yml`, `css-core.yml`,
   `visual.yml`) — Node 22, Trigger auf `push` (main/`feat/**`) + `pull_request`.

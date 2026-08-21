@@ -11,7 +11,7 @@ export interface CdsSlide {
 let uid = 0;
 
 /**
- * Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider".
+ * Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider“.
  *
  * Crossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt
  * `.active` (opacity). Prev/Next-Buttons (.img-slider-btn) und Dots (.img-dot)

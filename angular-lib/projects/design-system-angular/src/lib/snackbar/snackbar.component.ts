@@ -3,11 +3,11 @@ import { Component, input, output } from '@angular/core';
 export type CdsSnackTone = 'def' | 'ok' | 'err';
 
 /**
- * Snackbar — Wrapper um `.snack` aus css/components.css → „Snackbar".
+ * Snackbar — Wrapper um `.snack` aus css/components.css → „Snackbar“.
  *
  * Kurze Statusmeldung in drei Tönen (.snack-def / .snack-ok / .snack-err) mit
  * führendem, tonfarbenem Icon (wie die Doku) und optionaler Aktion (.snack-act).
- * Ton „err" ist eine echte Fehlermeldung → role="alert" + aria-live="assertive";
+ * Ton „err“ ist eine echte Fehlermeldung → role="alert" + aria-live="assertive";
  * def/ok bleiben role="status" + aria-live="polite" (wie im Doku-Markup).
  * Konsumiert nur bestehende Klassen.
  */

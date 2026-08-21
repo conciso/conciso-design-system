@@ -37,7 +37,7 @@ gebaute Angular-Package-Format-Artefakt, das der Konsument tatsächlich bekommt.
 
 ## Verworfene Alternativen
 
-- **Alle ~40 Komponenten auf einmal:** schneller „fertig", aber Debugging aller
+- **Alle ~40 Komponenten auf einmal:** schneller „fertig“, aber Debugging aller
   Kopplungen gleichzeitig.
 - **Validierung per `npm link` / Pfad-Mapping:** schnell, testet aber nicht das
   gebaute APF-Artefakt — genau die Kopplung, die abgesichert werden soll, bliebe

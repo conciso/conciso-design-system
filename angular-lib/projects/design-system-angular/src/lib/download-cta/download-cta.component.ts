@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * DownloadCta — Wrapper um `.cta-dl` aus css/components.css → „Download CTA".
+ * DownloadCta — Wrapper um `.cta-dl` aus css/components.css → „Download CTA“.
  *
  * Aufmerksamkeitsstarker Download-Block mit bereichsgefärbtem Top-Akzent + Icon
  * (data-area), Eyebrow/Titel/Beschreibung/Meta und zwei Aktionen (primär/sekundär,

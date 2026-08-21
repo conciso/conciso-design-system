@@ -7,7 +7,7 @@ export type { CdsLogo } from '../logo/logo.component';
 let cdsLogoCarouselUid = 0;
 
 /**
- * LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel".
+ * LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel“.
  *
  * Diskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln
  * (`[aria-hidden]` je Slide). Das Autoplay pausiert bei Maus-Hover und Tastatur-Fokus

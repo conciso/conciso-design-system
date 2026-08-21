@@ -3,7 +3,7 @@ import type { CdsArea } from '../area';
 
 /**
  * Stil-Varianten des Buttons. `filled-on-band` ist der invertierte Filled-Button
- * für farbige Bereichs-Bänder (Doku: „On-Band-Modifier") — er wird hier als
+ * für farbige Bereichs-Bänder (Doku: „On-Band-Modifier“) — er wird hier als
  * eigener Variant-Wert geführt statt als abhängiges Flag, da das Invertieren nur
  * in Kombination mit `filled` je sinnvoll ist.
  */
@@ -16,7 +16,7 @@ export type CdsButtonSize = 'sm' | 'md' | 'lg';
  * Erfindet KEINE Styles: setzt ausschließlich die im Design System vorhandenen
  * Klassen (.btn, .btn-filled/.btn-tonal/.btn-elevated/.btn-outlined/.btn-text,
  * .btn-sm/.btn-lg, .btn-co/.btn-ki/.btn-es/.btn-wo, .btn-full, .btn-on-band)
- * zusammen. Siehe css/components.css → „Buttons". Der Klick wird als `clicked`
+ * zusammen. Siehe css/components.css → „Buttons“. Der Klick wird als `clicked`
  * ausgegeben (für Nutzung außerhalb reiner Formular-Submits).
  */
 @Component({

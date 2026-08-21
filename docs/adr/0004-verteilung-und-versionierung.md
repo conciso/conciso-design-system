@@ -5,7 +5,7 @@
 
 ## Kontext
 
-Damit „andere Projekte" die Angular-Komponenten nutzen können, braucht es einen
+Damit „andere Projekte“ die Angular-Komponenten nutzen können, braucht es einen
 Verteilweg. Anders als die CSS-Schicht (die vorgebaut im Repo liegt und heute per
 GitHub-Tarball installiert wird) muss eine Angular-Lib durch ng-packagr **gebaut**
 werden — ein `npm install github:...` auf den Quell-Code liefert kein nutzbares
@@ -39,7 +39,7 @@ zusammenpassen.
 
 ## Begründung
 
-- GitHub Packages passt zu „intern" und löst das Problem, dass ein Angular-Paket ein
+- GitHub Packages passt zu „intern“ und löst das Problem, dass ein Angular-Paket ein
   gebautes Artefakt (nicht Quell-Code) sein muss.
 - Beide Pakete in derselben Registry ergeben konsistente Konsumenten-DX und lassen
   die peer-Range sauber auflösen.

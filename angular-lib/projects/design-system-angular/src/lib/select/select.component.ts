@@ -23,7 +23,7 @@ let uid = 0;
 
 /**
  * Custom Select (cds-select) — gestylte Einzelauswahl über `.ep-select` aus
- * css/components.css → Doku „Dropdowns".
+ * css/components.css → Doku „Dropdowns“.
  *
  * Trigger-Button + Listbox-Popup mit Häkchen und Bereichs-Akzent (data-area).
  * Anders als die dünnen Wrapper trägt diese Komponente das Verhalten selbst — das
@@ -192,7 +192,7 @@ export class SelectComponent implements ControlValueAccessor {
   /**
    * `onTouched` erst, wenn der Fokus die GESAMTE Komponente verlässt — nicht schon beim
    * Öffnen, wenn er vom Trigger in die Listbox wandert (beides liegt im Host). Sonst
-   * wäre das Control „touched", bevor überhaupt ausgewählt wurde.
+   * wäre das Control „touched“, bevor überhaupt ausgewählt wurde.
    */
   @HostListener('focusout', ['$event'])
   onFocusOut(event: FocusEvent): void {

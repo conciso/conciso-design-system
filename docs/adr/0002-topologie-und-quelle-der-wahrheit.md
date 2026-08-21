@@ -47,7 +47,7 @@ nach der Extraktion die einzige Quelle der Wahrheit für den Komponenten-Code?
 ## Konsequenzen
 
 - Die Story-Imports in `storybook-angular` ändern sich von `../lib/*` auf den
-  Paketnamen bzw. den gemappten Pfad. „Unangetastet" gilt für das Storybook-Setup,
+  Paketnamen bzw. den gemappten Pfad. „Unangetastet“ gilt für das Storybook-Setup,
   nicht für die Story-Imports.
 - `foundations`-Stories (Farben/Typografie) bleiben in `storybook-angular` (keine
   Komponenten).
