@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { BlockquoteComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<BlockquoteComponent> = {

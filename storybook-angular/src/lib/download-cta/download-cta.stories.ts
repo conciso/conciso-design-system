@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { DownloadCtaComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cta-dl-eyebrow` (Bereich co) hat nur 3.28:1 Kontrast,

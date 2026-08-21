@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/angular';
-import { componentWrapperDecorator } from '@storybook/angular';
+import type { Preview } from '@storybook/angular-vite';
+import { componentWrapperDecorator } from '@storybook/angular-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
 import { UPDATE_GLOBALS } from 'storybook/internal/core-events';

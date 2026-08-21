@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 
 /**
  * Foundations-Story: zeigt die Typografie-Skala über die `--ty-*`-Font-Shorthand-Tokens

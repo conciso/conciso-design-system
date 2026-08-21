@@ -1,5 +1,5 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { TextFieldComponent } from '@conciso/design-system-angular';
 

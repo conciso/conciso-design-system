@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { FooterBottomComponent } from '@conciso/design-system-angular';
 
 // GitHub-Octocat (simple-icons, viewBox 0 0 24) — Beispiel für ein eigenes Social-Icon

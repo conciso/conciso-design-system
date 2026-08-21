@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { moduleMetadata } from '@storybook/angular-vite';
 import { FooterBottomComponent, FooterComponent, FooterMainComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FooterComponent> = {

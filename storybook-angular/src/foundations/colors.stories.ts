@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 
 /**
  * Foundations-Story: rendert die Marken-Farbtokens direkt aus der CSS-Schicht
