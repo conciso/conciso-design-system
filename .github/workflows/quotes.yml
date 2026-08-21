@@ -8,10 +8,6 @@
 name: Anführungszeichen
 
 on:
-  # Anders als die uebrigen Workflows nur main statt [main, 'feat/**']: pull_request unten
-  # hat keinen Branch-Filter und deckt jeden PR ab, egal wie der Branch heisst. feat/**
-  # zusaetzlich zu pruefen wuerde dort nur doppelt laufen — dieses Gate erzeugt keine
-  # Artefakte, die (wie bei visual.yml) einen eigenen push-Lauf brauchen.
   push:
     branches: [main]
   pull_request:
