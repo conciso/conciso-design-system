@@ -44,6 +44,6 @@ import { FieldShellComponent } from './field-shell.component';
   `,
 })
 export class SelectFieldComponent extends FieldBase {
-  /** Auswahloptionen (erste dient üblicherweise als Platzhalter, z. B. „Bitte wählen"). */
+  /** Auswahloptionen (erste dient üblicherweise als Platzhalter, z. B. „Bitte wählen“). */
   readonly options = input<string[]>([]);
 }

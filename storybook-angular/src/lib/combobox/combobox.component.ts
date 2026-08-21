@@ -20,7 +20,7 @@ let uid = 0;
 
 /**
  * Combobox (cds-combobox) — Tipp-Filter über `.ep-combobox` aus css/components.css
- * → Doku „Dropdowns". Wie der Custom Select, aber mit Substring-Filter im Feld (für
+ * → Doku „Dropdowns“. Wie der Custom Select, aber mit Substring-Filter im Feld (für
  * lange Listen). Optional Multi-Select mit Chips (`multi`).
  *
  * Verhalten/a11y selbst getragen: Input mit role=combobox (dort ist

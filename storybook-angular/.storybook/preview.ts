@@ -19,7 +19,7 @@ themeStore.subscribe((mode) => addons.getChannel().emit(UPDATE_GLOBALS, { global
  *   `.ep-page[data-accent="…"]` (via componentWrapperDecorator, display:contents,
  *   also ohne die Beispielseiten-Chrome). Genau diesen Selektor nutzt der Kern, um
  *   .body-link & bereichsabhängige Utilities zu tönen — es wird NICHTS gespiegelt
- *   oder gefaked. Default „aus" → Komponenten rendern isoliert; der Kontext ist ein
+ *   oder gefaked. Default „aus“ → Komponenten rendern isoliert; der Kontext ist ein
  *   bewusst wählbarer Seiten-Zustand, klar getrennt vom `area`-Input der Komponente.
  */
 const preview: Preview = {
@@ -138,7 +138,7 @@ const preview: Preview = {
       },
     ),
     // Toolbar → Store (still, ohne Rück-Emit). Der Store ist der EINZIGE Schreiber
-    // von data-theme (inkl. „system" via prefers-color-scheme) und teilt sich den
+    // von data-theme (inkl. „system“ via prefers-color-scheme) und teilt sich den
     // Zustand mit den Switcher-Komponenten → Toolbar und Komponenten bleiben synchron.
     (story, context) => {
       themeStore.setSilent(context.globals['theme'] as CdsThemeMode);

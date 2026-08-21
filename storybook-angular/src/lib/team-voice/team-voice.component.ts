@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen".
+ * TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.
  *
  * Editoriale Zitat-Reihe mit seitlichem Foto (im Grid abwechselnd links/rechts,
  * gesteuert per :nth-child innerhalb von `.team-voices`), bereichsgefärbtem

@@ -1,6 +1,6 @@
 import { Injectable, type Signal, signal } from '@angular/core';
 
-/** Drei Theme-Modi. „system" folgt der OS-Einstellung (prefers-color-scheme). */
+/** Drei Theme-Modi. „system“ folgt der OS-Einstellung (prefers-color-scheme). */
 export type CdsThemeMode = 'light' | 'dark' | 'system';
 
 /** Reihenfolge (Cycle-Button, Segment, Dropdown). */
@@ -21,7 +21,7 @@ export const CDS_THEME_LABEL: Record<CdsThemeMode, string> = {
   system: 'System',
 };
 
-/** tri = alle drei, binär = ohne „System". Basis des `showSystem`-Parameters. */
+/** tri = alle drei, binär = ohne „System“. Basis des `showSystem`-Parameters. */
 export function cdsThemeModes(showSystem: boolean): CdsThemeMode[] {
   return showSystem ? CDS_THEME_ORDER : CDS_THEME_ORDER.filter((m) => m !== 'system');
 }
@@ -44,7 +44,7 @@ function reflect(dark: boolean): void {
   else root.removeAttribute('data-theme');
 }
 
-/** Aktuellen Modus anwenden; „system" live an prefers-color-scheme koppeln. */
+/** Aktuellen Modus anwenden; „system“ live an prefers-color-scheme koppeln. */
 function apply(): void {
   _mql?.removeEventListener('change', onSystemChange);
   _mql = null;

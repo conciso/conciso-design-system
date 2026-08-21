@@ -10,7 +10,7 @@ export interface CdsFlatStat {
 
 /**
  * StatStrip — Wrapper um `.card-stat-strip` + `.card-stat-flat` aus
- * css/components.css → „Stat-Strip". Flacher Bandstreifen (auto-fit-Grid auf
+ * css/components.css → „Stat-Strip“. Flacher Bandstreifen (auto-fit-Grid auf
  * --n-50-Grund) mit zentrierten Kennzahlen ohne Rahmen/Schatten; Wert je
  * Bereich getönt via [data-area]. Genau wie docs/index.html.
  */

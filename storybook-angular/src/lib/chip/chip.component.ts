@@ -2,7 +2,7 @@ import { Component, input, model } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * Chip — Wrapper um `.chip` aus css/components.css → „Badges & Chips".
+ * Chip — Wrapper um `.chip` aus css/components.css → „Badges & Chips“.
  *
  * Interaktiver Filter-Chip auf Basis von `aria-pressed` (.chip[aria-pressed],
  * optional area-aware über [data-area]). Klick schaltet den Zustand um.

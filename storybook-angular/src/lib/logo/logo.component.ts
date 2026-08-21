@@ -16,7 +16,7 @@ export interface CdsLogo {
  *
  * Rendert bevorzugt ein **Bild** (`src`); ohne Bild fällt es auf den Text-`label`
  * als Platzhalter zurück (`.logo-placeholder`). So lässt es sich sowohl im
- * Logo-Carousel als auch eigenständig verwenden (Partner-Leiste, „Bekannt aus"-Reihe,
+ * Logo-Carousel als auch eigenständig verwenden (Partner-Leiste, „Bekannt aus“-Reihe,
  * Footer). Die Host-Klasse `logo-tile` trägt Flex-Zentrierung/Padding aus der portablen CSS.
  */
 @Component({

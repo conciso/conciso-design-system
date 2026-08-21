@@ -81,16 +81,16 @@ export const LesbarerZustand: Story = {
   },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    // Start: nur „Corporate" ist aktiv.
+    // Start: nur „Corporate“ ist aktiv.
     await expect(c.getByRole('button', { name: 'Corporate' })).toHaveAttribute(
       'aria-pressed',
       'true',
     );
     await expect(canvasElement).toHaveTextContent('Aktiv: Corporate');
-    // Klick auf „AI.Applied" → Zustand wird ausgelesen und angezeigt.
+    // Klick auf „AI.Applied“ → Zustand wird ausgelesen und angezeigt.
     await userEvent.click(c.getByRole('button', { name: 'AI.Applied' }));
     await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, AI.Applied');
-    // Erneuter Klick auf „Corporate" → wieder abgewählt.
+    // Erneuter Klick auf „Corporate“ → wieder abgewählt.
     await userEvent.click(c.getByRole('button', { name: 'Corporate' }));
     await expect(canvasElement).toHaveTextContent('Aktiv: AI.Applied');
   },

@@ -18,7 +18,7 @@ import type { CdsArea } from '../area';
 let uid = 0;
 
 /**
- * Slider — Wrapper um `.field-slider` / `.slider` aus css/components.css → „Slider".
+ * Slider — Wrapper um `.field-slider` / `.slider` aus css/components.css → „Slider“.
  *
  * Range-Eingabe mit Label + Live-Ausgabe, bereichsgefärbtem Thumb/Output
  * (.slider-<area> setzt --sl-color), automatisch berechneten Ticks und Helper-Text.
@@ -191,7 +191,7 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
     });
   }
 
-  /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k". */
+  /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k“. */
   private formatTick(v: number): string {
     const abs = Math.abs(v);
     const fmt = (x: number) => x.toLocaleString('de-DE', { maximumFractionDigits: 1 });

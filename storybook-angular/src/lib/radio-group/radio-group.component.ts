@@ -7,7 +7,7 @@ import type { CdsArea } from '../area';
 let uid = 0;
 
 /**
- * Radio-Gruppe (Optionsfelder) nach docs/index.html („Forms").
+ * Radio-Gruppe (Optionsfelder) nach docs/index.html („Forms“).
  *
  * Für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Bewusst KEIN
  * nachgebauter Kreis: native `<input type="radio">` mit `accent-color` in der
