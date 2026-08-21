@@ -1,0 +1,27 @@
+# Anführungszeichen-Gate: findet kaputte Paare „…" (öffnend typografisch, schließend
+# gerades ASCII-") in deutschem Fließtext, siehe CONTRIBUTING § 6 und
+# scripts/check-quotes.mjs. Bewusst OHNE Pfadfilter: Copy und Kommentare liegen überall
+# (docs/, css/, storybook-angular/, Markdown auf Root-Ebene), und der Check ist
+# dependency-frei und in Sekunden durch.
+name: Anführungszeichen
+
+on:
+  push:
+    branches: [main, 'feat/**']
+  pull_request:
+
+concurrency:
+  group: quotes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Kaputte „…"-Paare finden
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Anführungszeichen prüfen
+        run: npm run check:quotes
