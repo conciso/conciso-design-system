@@ -20,6 +20,10 @@ Style ausschließlich über diese Klassen und über `var(--token)`. Erfinde kein
 
 **Weitere Klassen:** `.badge` (+ `.badge-ok` / `.badge-warn` / `.badge-err` / `.badge-neu`), `.pill`, `.chip`, `.card`, `.ep-card` (statische Karte, flach), `.ep-card-link` (interaktive Karte, mit Schatten + Hover), `.field` (Formularfeld-Wrapper).
 
+**Karten mit Bild:** Die Bildspalte ist immer `.card-media` (Verhältnis 16/9, wie im Listing-Grid), das Bild darin ein `<img>` mit `object-fit:cover`; den Bildausschnitt setzt `object-position` am `<img>`, nicht `background-position` an einem Container. So passt **ein** Bild in **einem** Zuschnitt in alle Slots.
+- Listing-Card: `<a class="card card-elevated">` mit `.card-media` + `.card-body`.
+- Featured-Card (genau ein Beitrag oder Termin hervorgehoben): `<a class="card card-elevated card-featured">` mit `.card-media` + `.card-featured-body`. Layout, Spaltenteilung (Bild 60 %, auf Tablet-Breite 65 %, darunter gestapelt) und das Kürzen zu langer Texte stecken in der Klasse. **Kein `display:grid`, keine `grid-template-columns`, keine `min-height` und kein Padding ins `style`-Attribut**, das bricht das Bildverhältnis. Der Lead ist `.card-text` (wird gekappt, bevor Pill, Titel oder CTA weichen), der Titel `.card-title-hero`.
+
 **Tokens (immer `var(--…)`, nie rohe Hex/px):**
 - Farben: `--co-* --ki-* --es-* --wo-* --n-*` (Skala `-50 … -900`); semantisch `--c-success` / `--c-warning` / `--c-error`.
 - Flächen/Text: `--bg-page`, `--bg-surface`; `--tx-primary`, `--tx-secondary`.

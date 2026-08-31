@@ -88,6 +88,41 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
 
 ### Added
+- **`.card-featured`: Featured-Card mit dem Bildverhältnis der Listing-Cards.** Die Featured-Card
+  hatte kein definiertes Bildverhältnis. Die Bildspalte war ein `<div>` mit `min-height` und einem
+  CSS-`background-image`, ihre Höhe ergab sich aus dem Text daneben. Gemessen bei 1440 px Viewport:
+  **1,62**, während `.card-media` im Listing-Grid **1,778** (16/9) liefert. Redaktion musste damit
+  pro Beitrag zwei Zuschnitte pflegen, einen fürs Featured und einen fürs Grid.
+  Die Bildspalte trägt jetzt `.card-media` und damit dasselbe `aspect-ratio`, der Bildausschnitt
+  sitzt als `object-position` am `<img>` statt als `background-position` am Container. Ein Bild in
+  einem Zuschnitt passt damit in beide Slots.
+  Damit das Verhältnis unabhängig von der Textlänge hält, bestimmt das **Bild** die Kartenhöhe:
+  `.card-featured-body` liegt absolut und trägt nichts zur Zeilenhöhe bei. Als normale Spalte zieht
+  seine Inhaltshöhe die Zeile auf und streckt das Bild mit. Ein `aspect-ratio` auf der Karte genügt
+  dafür nicht, es ist eine Wunschgröße und verliert gegen die Inhaltshöhe (gemessen 1,50).
+  Spaltenteilung 60/40 statt 50/50, weil ein 16/9-Bild auf halber Kartenbreite zu flach für den
+  Content-Block ist: bei 50 % schrumpfte der Lead auf null Zeilen.
+- **Drei Stufen der Featured-Card, an der Kartenbreite statt am Viewport.** Alle Stufen hängen per
+  `@container` an der Karte (CONTRIBUTING § 7). Im Doku-Mockup ist die Karte bei 1180 px Viewport nur
+  814 px breit, bei 1024 px dagegen 958 px, weil die Doku-Sidebar unterschiedlich greift. Eine
+  Viewport-Regel träfe dort das Falsche.
+  Über **1000 px** Kartenbreite: Bild 60 %, Padding `s6 s8`, Lead drei Zeilen.
+  **900 bis 1000 px** (Tablet-Landscape): nebeneinander bleiben, aber verdichtet. Bild 65 %, Padding
+  `s4 s6`, Lead zwei Zeilen. Bei 16/9 heißt breiteres Bild auch höheres Bild, und diese Höhe
+  braucht der Content-Block. Vorher wurde hier gestapelt: das Bild wurde full width und 539 px hoch,
+  die Karte 807 px, auf einem 1024×768-iPad also höher als der Bildschirm. Jetzt 350 px.
+  Unter **900 px**: gestapelt wie die Grid-Cards, und das Lead-Kürzen wird zurückgenommen, weil
+  ohne feste Höhe kein Grund besteht, eine Zeile zu opfern. Tiefer nebeneinander zu bleiben lohnt
+  nicht, die Textspalte fiele unter 250 px, rund 30 Zeichen pro Zeile.
+- **Kürzen statt Verhältnis brechen: der Vorrang steht fest.** `.card-text` bringt sein `line-clamp`
+  mit und gibt als schrumpfendes Flex-Item zuerst nach, bevor Pill, Meta-Strip, Titel oder CTA
+  wegfallen. Dazu kappt `.card-title-hero` **innerhalb** der Featured-Card auf drei Zeilen: ohne
+  diesen Riegel frisst ein langer Titel die Höhe, die der Lead braucht, und schiebt danach Pill und
+  CTA aus der Karte (gemessen mit einem 18-Wort-Titel). Global bleibt `.card-title-hero`
+  unbeschnitten. Rest-Fall, bewusst so gelassen: schöpft ein Titel den Riegel voll aus, wird die
+  letzte Lead-Zeile angeschnitten statt mit Auslassungspunkten zu enden. Dann muss etwas nachgeben,
+  und eine halbe Lead-Zeile ist der geringste Schaden; die Karte bleibt in jedem Fall geschlossen.
+  Ein kleinerer `gap` verschiebt den Fall nur (1,98 statt 1,76 Zeilen) und löst ihn nicht.
 - **Tastaturnavigation und Touch Targets dokumentiert.** Beide Blöcke fehlten in einem System mit
   AA-Ziel. Tastaturnavigation behandelt Fokusreihenfolge aus dem Markup (keine positiven
   `tabindex`), Sprungziele mit `tabindex="-1"`, den Skip-Link, die Tastaturfalle, verdeckten Fokus
@@ -115,6 +150,17 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   eine Zeile in der PR-Checkliste.
 
 ### Changed
+- **Alle sieben Featured-Cards auf `.card-featured` umgestellt.** Wissen-Übersicht (drei
+  bereichsspezifische Varianten), Veranstaltungs-Übersicht (drei) und das Featured auf der Landing.
+  Damit liegt Layout, Spaltenteilung und das Kürzen in der Klasse statt im `style`-Attribut, und
+  die alte `min-height`-Konstruktion mit `background-image` ist restlos aus dem Repo. Geprüft über
+  alle drei Beispielseiten bei zehn Kartenbreiten von 1200 bis 375 px, Light und Dark: 16/9 hält
+  durchgängig, Pill und CTA bleiben sichtbar, der Lead endet auf Zeilenkante.
+- **Doku der Featured-Card beschrieb das Bild als 1:1 und die Geometrie als `min-height`-Spalte.**
+  Beides traf schon vor dieser Änderung nicht zu, gemessen waren es 1,62 und eine Spalte ohne
+  definiertes Verhältnis. Prosa, Vergleichstabelle und Code-Block sind auf 16:9, `.card-media` und
+  die drei Container-Stufen gezogen. In der Vergleichstabelle stand für den Lead außerdem noch
+  14 px, `.card-text` trägt Body-md mit 16 px.
 - **Reihenfolge und Benennung der Doku-Navigation.** „Verwendung“ schließt eine Sektion ab, bei
   Elevation und Tabelle stand danach noch ein Block. Icons listete die Bereiche als co/ki/wo/es,
   kanonisch und wie bei Buttons ist co/ki/es/wo. Der Eintrag Design Tokens sitzt jetzt hinter
