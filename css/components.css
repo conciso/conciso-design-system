@@ -213,14 +213,48 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* min-height:3lh reserviert im Grid Platz für den Gleichhöhen-Abgleich. Die Featured-Card
    steht allein, hat keinen Nachbarn, und der reservierte Platz ginge zulasten des Bildes. */
 .card-featured-body>.card-text{min-height:0}
-/* Nebeneinander nur, solange die KARTE breit genug ist — @container, nicht @media: die
-   Kartenbreite hängt am Platz im Layout (Sidebar, Section-Padding, Spaltenbreite), nicht am
-   Viewport. Unter 1000 px Kartenbreite wird das 16/9-Bild flacher als der Content-Block hoch
-   ist, der Lead würde auf null Zeilen schrumpfen. Dann gestapelt wie die Grid-Cards: Bild
-   full-width im 16/9 obenauf, Body zurück in den Fluss, nichts mehr zu kappen. */
+/* Auch der Titel braucht einen Riegel, sonst frisst ein langer Titel die Höhe, die der Lead
+   braucht, und danach die von Pill und CTA (gemessen mit einem 18-Wort-Titel: Lead auf null
+   Zeilen, Pill und CTA aus der Karte geschoben). Drei Zeilen sind für eine Hero-Card reichlich.
+   Nur hier, nicht global: .card-title-hero bleibt außerhalb der Featured-Card unbeschnitten. */
+.card-featured-body>.card-title-hero{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+/* Drei Stufen, alle an der KARTENBREITE per @container, nicht am Viewport: die Kartenbreite
+   hängt am Platz im Layout (Sidebar, Section-Padding, Spaltenbreite). Im Doku-Mockup ist die
+   Karte bei 1180 px Viewport nur 814 px breit, bei 1024 px dagegen 958 px — eine
+   Viewport-Regel träfe dort das Falsche.
+
+   Die Stufen greifen über die Reihenfolge: die 1000er-Regel gilt ab hier abwärts, die
+   900er-Regel überschreibt sie darunter wieder. Gleiche Spezifität, die spätere gewinnt.
+
+   1000 px abwärts (Tablet-Landscape): nebeneinander BLEIBEN, aber verdichtet. Das Bild auf
+   65 % statt 60 %, denn breiteres Bild heißt bei 16/9 auch höheres Bild und damit mehr Platz
+   für den Content-Block; dazu kleineres Padding. Ohne das schrumpft der Lead hier auf eine
+   oder null Zeilen. Gemessen bei 958 px Kartenbreite: Karte 350 px hoch, drei Lead-Zeilen,
+   rund 22 px Reserve (Veranstaltungs-Karte mit dreizeiligem Meta-Strip: 30 px). */
 @container (max-width:1000px){
+  .card-featured>.card-media{width:65%}
+  .card-featured-body{width:35%;padding:var(--s4) var(--s6)}
+  /* Lead auf zwei Zeilen: drei passen hier nicht mehr vollständig, und ein Lead, der als
+     Flex-Item unter seine line-clamp-Höhe gedrückt wird, endet mitten in der Zeile statt mit
+     Auslassungspunkten. Mit zwei Zeilen bleibt die Kante bei üblichen Titellängen sauber.
+     Rest-Fall: bei einem Titel, der den 3-Zeilen-Riegel voll ausschöpft, wird auch die zweite
+     Lead-Zeile angeschnitten. Das ist bewusst so gelassen — irgendetwas muss dann nachgeben,
+     und eine halbe Lead-Zeile ist der geringste Schaden. Titel kürzen behebt es an der
+     Quelle. Die Karte bleibt in jedem Fall geschlossen: Pill und CTA werden nicht mehr
+     hinausgeschoben, dafür sorgt der Titel-Riegel. */
+  .card-featured-body>.card-text{-webkit-line-clamp:2;line-clamp:2}
+}
+/* 900 px abwärts (Portrait, Smartphone, schmale Container): gestapelt wie die Grid-Cards.
+   Bild full-width im 16/9 obenauf, Body zurück in den Fluss, nichts mehr zu kappen. Tiefer
+   als 900 px nebeneinander zu bleiben lohnt nicht: die Textspalte wäre unter 250 px breit,
+   rund 30 Zeichen pro Zeile. */
+@container (max-width:900px){
   .card-featured>.card-media{width:100%}
   .card-featured-body{position:static;width:auto;padding:var(--s6)}
+  /* Lead zurück auf drei Zeilen: das Kürzen auf zwei gilt nur der knappen Höhe der
+     Tablet-Stufe. Gestapelt gibt es keine feste Höhe zu halten, also auch keinen Grund,
+     eine Zeile zu opfern. Ohne diese Rücknahme wirkt die 1000er-Regel bis aufs Handy durch. */
+  .card-featured-body>.card-text{-webkit-line-clamp:3;line-clamp:3}
 }
 
 /* ── Blockquote ── */
