@@ -13,7 +13,7 @@ export const icons = {
     ]
   },
   "co-mark": {
-    "name": "Corporate – Logo-Zeichen „C.\" (nur mit Logo verwenden)",
+    "name": "Corporate – Logo-Zeichen „C.“ (nur mit Logo verwenden)",
     "area": "co",
     "style": "solid",
     "viewBox": "0 0 24 24",

@@ -18,7 +18,7 @@ export interface CdsNavItem {
 }
 
 /**
- * Topnav — Wrapper um `.ep-topnav` aus css/components.css → „Topnav".
+ * Topnav — Wrapper um `.ep-topnav` aus css/components.css → „Topnav“.
  *
  * Customer-Navigation: Logo, Top-Level-Links mit optionalem Klapp-Submenü
  * (.ep-nav-has-sub / .ep-nav-sub, aria-expanded), rechts gebündelte Aktionen
@@ -26,7 +26,7 @@ export interface CdsNavItem {
  * Disclosure-Logik in Angular: nur ein Menü offen, Escape und Außenklick schließen.
  *
  * Der Theme-Umschalter ist fest der Cycle-Button (cds-theme-cycle); ob er auch
- * „System" anbietet, steuert `showSystemTheme` (durchgereicht an dessen showSystem).
+ * „System“ anbietet, steuert `showSystemTheme` (durchgereicht an dessen showSystem).
  */
 @Component({
   selector: 'cds-topnav',
@@ -166,7 +166,7 @@ export class TopnavComponent {
   readonly showSearch = input(true);
   /** Kontakt-/CTA-Button anzeigen. */
   readonly showCta = input(true);
-  /** Bietet der Theme-Cycle-Button im Header auch „System" an (tri) oder nur Hell/Dunkel? */
+  /** Bietet der Theme-Cycle-Button im Header auch „System“ an (tri) oder nur Hell/Dunkel? */
   readonly showSystemTheme = input(true);
   /** Href des aktuell aktiven Eintrags (Single Source of Truth). Nur der Eintrag
    *  — Top-Level ODER Sub — mit passendem href erhält aria-current="page". Dadurch

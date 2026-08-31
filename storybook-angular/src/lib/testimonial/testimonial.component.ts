@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * Testimonial — Wrapper um `.testimonial` aus css/components.css → „Testimonial Card".
+ * Testimonial — Wrapper um `.testimonial` aus css/components.css → „Testimonial Card“.
  *
  * Statische Zitat-Karte mit bereichsgefärbtem Top-Akzent (data-area), Quote-Icon
  * (.testimonial-icon, fill:currentColor), Zitat (blockquote) und Footer mit Name/Rolle.

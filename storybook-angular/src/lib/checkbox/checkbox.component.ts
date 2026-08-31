@@ -3,7 +3,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
 /**
- * Checkbox — Einwilligungs-/Consent-Feld nach docs/index.html („Forms").
+ * Checkbox — Einwilligungs-/Consent-Feld nach docs/index.html („Forms“).
  *
  * Bewusst KEIN nachgebautes Kästchen: ein natives `<input type="checkbox">` mit
  * `accent-color` in der Bereichsfarbe (genau wie die Doku), umschlossen von einem
@@ -41,7 +41,7 @@ import type { CdsArea } from '../area';
 export class CheckboxComponent implements ControlValueAccessor {
   /** Einwilligungstext neben der Checkbox. */
   readonly label = input('Ich bin einverstanden.');
-  /** Optionaler verlinkter Hinweis am Ende des Labels (z. B. „Datenschutzhinweise"). */
+  /** Optionaler verlinkter Hinweis am Ende des Labels (z. B. „Datenschutzhinweise“). */
   readonly linkLabel = input('');
   /** Ziel des verlinkten Hinweises. */
   readonly linkHref = input('#');

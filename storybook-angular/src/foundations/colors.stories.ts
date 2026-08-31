@@ -14,7 +14,7 @@ const meta: Meta = {
       description: {
         component:
           'Die Marken- und Neutral-Paletten als Live-Swatches direkt aus `css/tokens.css`. ' +
-          'Schaltet man oben das Theme auf „Dark", greifen die Overrides aus `css/dark-mode.css`.',
+          'Schaltet man oben das Theme auf „Dark“, greifen die Overrides aus `css/dark-mode.css`.',
       },
     },
   },

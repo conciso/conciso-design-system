@@ -29,7 +29,7 @@ Style ausschließlich über diese Klassen und über `var(--token)`. Erfinde kein
 ## Regeln (kurz)
 - Farbiger Text auf Weiß: Bereichsfarbe `-700` (bei `ki`: `-800`); nie `-500` als Textfarbe. Alles WCAG AA.
 - Elevation = Interaktivität: statische Flächen flach (`--bd`), nur interaktive bekommen Schatten.
-- Sprache (Marke „Ruhig"): deutsche Anführungszeichen „… ", keine Gedankenstriche in Copy.
+- Sprache (Marke „Ruhig“): deutsche Anführungszeichen „… “, keine Gedankenstriche in Copy.
 
 ## Wo die Wahrheit liegt
 - `styles.css` und das daraus importierte `_ds_bundle.css` enthalten alle Klassen und Token-Definitionen (`--*`). Lies sie, bevor du stylst.

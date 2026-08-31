@@ -66,7 +66,7 @@ export abstract class FieldBase implements ControlValueAccessor {
     this.value.set(value);
     this.onChange(value);
   }
-  /** Vom Template bei Verlassen des Felds → markiert das Control als „touched". */
+  /** Vom Template bei Verlassen des Felds → markiert das Control als „touched“. */
   handleBlur(): void {
     this.onTouched();
   }

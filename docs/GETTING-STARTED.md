@@ -149,7 +149,7 @@ Im CSS direkt über `var(--token)`:
 }
 ```
 
-Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Design Tokens".
+Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Design Tokens“.
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 
@@ -157,7 +157,7 @@ Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token
 
 Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline, Display), nicht feste Zahlen. Was über Medien hinweg trägt, ist die **Hierarchie**, die **Größenverhältnisse**, **Schriftfamilie**, **Schriftschnitt** und **Farbe**. Die konkrete **Einheit** wählt das jeweilige Medium:
 
-- **Web:** Schriftgrößen sind `rem`-basiert (`1rem = 16px` bei Standard-Root). `rem` respektiert die vom Nutzer im Browser eingestellte Schriftgröße (WCAG 1.4.4 „Resize Text"). Spacing/Radius bleiben in `px`.
+- **Web:** Schriftgrößen sind `rem`-basiert (`1rem = 16px` bei Standard-Root). `rem` respektiert die vom Nutzer im Browser eingestellte Schriftgröße (WCAG 1.4.4 „Resize Text“). Spacing/Radius bleiben in `px`.
 - **PowerPoint / Print:** Dort gilt `pt` (feste physische Größe, kein Browser-Resize). `rem` ist hier bedeutungslos, die Web-Umstellung betrifft PowerPoint also nicht.
 
 **Umrechnung** (96 dpi): `pt = px × 0,75`, d. h. `16px = 1rem = 12pt`.
@@ -170,7 +170,7 @@ Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline
 | Headline Md (Max) | 28 | 1.75 | 21 | 28 bis 32 |
 | Display Lg (Max) | 46 | 2.875 | 34,5 | 40+ |
 
-**Wichtig für Folien:** Die 1:1-Umrechnung px→pt ergibt für Folien zu kleine Schrift, weil Folien aus Distanz oder projiziert gelesen werden. Für PowerPoint deshalb die **Verhältnisse** übernehmen und absolut hochskalieren (Spalte „Folie"), nicht die Web-Zahlen 1:1. Schriften: **Montserrat** (Sans, Body/Label) und **Libre Baskerville** (Display/Serif); Schnitte 400 / 500 / 600.
+**Wichtig für Folien:** Die 1:1-Umrechnung px→pt ergibt für Folien zu kleine Schrift, weil Folien aus Distanz oder projiziert gelesen werden. Für PowerPoint deshalb die **Verhältnisse** übernehmen und absolut hochskalieren (Spalte „Folie“), nicht die Web-Zahlen 1:1. Schriften: **Montserrat** (Sans, Body/Label) und **Libre Baskerville** (Display/Serif); Schnitte 400 / 500 / 600.
 
 ## 8. Icons nutzen
 

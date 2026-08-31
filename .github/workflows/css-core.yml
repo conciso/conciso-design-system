@@ -2,7 +2,7 @@ name: CSS-Kern
 
 on:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
     paths:
       - 'css/**'
       - 'tokens/**'

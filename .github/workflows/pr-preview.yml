@@ -3,14 +3,14 @@ name: PR-Vorschau (Doku)
 # Baut pro PR eine offline lauffähige Vorschau der Design-System-Doku und stellt
 # sie auf zwei Wegen bereit:
 #
-#   1. IMMER — als Download-Artefakt „doku-preview" (kein Admin/SaaS nötig, läuft
+#   1. IMMER — als Download-Artefakt „doku-preview“ (kein Admin/SaaS nötig, läuft
 #      auch auf privatem Repo). Ein Bot-Kommentar am PR erklärt den Download.
 #      Reviewer: Artefakt laden → entpacken → index.html doppelklicken.
 #
 #   2. VORBEREITET — als GitHub-Pages-Live-URL pro PR. Dieser Schritt ist DORMANT,
 #      bis ein Admin ihn aktiviert. Zum Aktivieren (privates Repo → GitHub Team/
 #      Enterprise nötig):
-#        a) Settings → Pages → Source „Deploy from a branch" → gh-pages / (root).
+#        a) Settings → Pages → Source „Deploy from a branch“ → gh-pages / (root).
 #        b) Repo-Variable ENABLE_PAGES_PREVIEW = true setzen
 #           (Settings → Secrets and variables → Actions → Variables).
 #        c) Empfohlen: rossjrw/pr-preview-action unten auf einen geprüften Commit-

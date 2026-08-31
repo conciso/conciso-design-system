@@ -10,7 +10,7 @@ let uid = 0;
 
 /**
  * AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus
- * css/components.css → „Area Tabs". Bereichsgefärbte Tab-Leiste: der aktive Tab
+ * css/components.css → „Area Tabs“. Bereichsgefärbte Tab-Leiste: der aktive Tab
  * setzt `--atab-color` (Bereichs-700) für Text + Unterstrich, der Punkt nutzt
  * Bereichs-500. Umschalten per Klick (aria-selected / sichtbares Panel).
  *

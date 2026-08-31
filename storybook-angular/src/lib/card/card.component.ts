@@ -4,10 +4,10 @@ import type { CdsArea } from '../area';
 import { CDS_AREA_ICONS } from '../icons';
 
 /**
- * Card — Wrapper um `.card` aus css/components.css → „Cards".
+ * Card — Wrapper um `.card` aus css/components.css → „Cards“.
  *
  * Die Karte rendert `<article class="card">` und ruht damit flach mit Rahmen. Das folgt der
- * Konvention „Elevation = Interaktivität": Schatten trägt eine Karte nur, wenn die Karte selbst
+ * Konvention „Elevation = Interaktivität“: Schatten trägt eine Karte nur, wenn die Karte selbst
  * der klickbare Bereich ist. Hier liegt die Interaktion in der Footer-Aktion, nicht in der Fläche.
  * `.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated`; eine Link-Karten-Variante
  * (`<a>` mit Ziel statt `<article>` mit Button) ist deshalb eine eigene Komponente/Variante.

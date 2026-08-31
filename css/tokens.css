@@ -44,7 +44,7 @@
      --XX-fill ist die Füllung von Pill und Bereichs-Badge. Im Light ist das der ruhige Tint, also
      dasselbe Rezept wie bei den Icon-Kacheln: zarte Fläche, kräftige dunkle Schrift darauf
      (7,5 bis 11,4:1). WCAG verlangt für diese Fläche nichts, das Label trägt die Aussage, und
-     darüber entscheidet das Markenrad: „Ruhig". Die Schrift wirkt auf dem zarten Grund kräftiger,
+     darüber entscheidet das Markenrad: „Ruhig“. Die Schrift wirkt auf dem zarten Grund kräftiger,
      weil sie nicht mit der Fläche konkurriert.
      Getrennt wird es erst im Dark: dort liegt helle Schrift auf dunklem Tint, und wenn der Tint
      fast die Helligkeit der Karte hat, hält nichts mehr die Pill zusammen. Deshalb dort eigene,
@@ -53,7 +53,7 @@
 
      Abgrenzung nach oben und unten: --XX-50 bleibt der RUHIGE Tint, in beiden Modi. Er trägt
      dekorative Flächen (Icon-Kachel, Timeline-Marker, Hover-Füllung des Chips, Inline-Code), die
-     nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig".
+     nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig“.
      --XX-band ist die große Sektionsfläche. Drei Rollen, drei Namen. */
   --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
 

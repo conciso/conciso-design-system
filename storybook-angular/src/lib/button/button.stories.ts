@@ -22,7 +22,7 @@ const meta: Meta<ButtonComponent> = {
       options: ['filled', 'tonal', 'elevated', 'outlined', 'text', 'filled-on-band'],
       description:
         'Stil-Variante mit abnehmender Betonung: Filled, Tonal, Elevated, Outlined, Text. ' +
-        '„Filled (auf Band)" ist der invertierte Filled-Button für farbige Bereichs-Bänder.',
+        '„Filled (auf Band)“ ist der invertierte Filled-Button für farbige Bereichs-Bänder.',
     },
     area: {
       control: 'inline-radio',
@@ -125,7 +125,7 @@ export const AufBand: Story = {
   parameters: { layout: 'padded', controls: { disable: true } },
   // Invertierter Filled-Button (variant="filled-on-band") auf dem farbigen
   // Bereichs-Band — der einzige Kontext, in dem die Inversion Sinn ergibt
-  // (Doku: „On-Band-Modifier" / Page-End-CTA-Band). Band = --XX-700, ki = -800.
+  // (Doku: „On-Band-Modifier“ / Page-End-CTA-Band). Band = --XX-700, ki = -800.
   render: () => ({
     moduleMetadata: { imports: [ButtonComponent] },
     template: `

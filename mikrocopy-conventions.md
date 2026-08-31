@@ -4,8 +4,8 @@ Verbindliche Sprach-Regeln für alle Texte in der Conciso-Web-Präsenz und in Su
 
 ## Anrede
 
-- **Du-Form** durchgängig, kleingeschrieben im Fließtext: „Du schilderst Deine Situation."
-- **Großschreibung** in höflicher Anrede in CTAs und Formularfeldern: „Wie können wir Dir helfen?", „Dein Anliegen".
+- **Du-Form** durchgängig, kleingeschrieben im Fließtext: „Du schilderst Deine Situation.“
+- **Großschreibung** in höflicher Anrede in CTAs und Formularfeldern: „Wie können wir Dir helfen?“, „Dein Anliegen“.
 - Kein Mischen von Du- und Sie-Anreden auf einer Seite.
 
 ## Tonfall
@@ -18,29 +18,29 @@ Quelle: Markenrad — drei Achsen mit je drei Eigenschaften.
 | **Klar** | aufmerksam, präzise, pragmatisch | konkret statt blumig, kurze Sätze, eindeutige Verben |
 | **Energiegeladen** | kraftvoll, agil, leidenschaftlich | aktive Verben, Tempo wo angemessen, Überzeugung statt Floskel |
 
-Wenn ein Text sich anfühlt wie auf einer Beratungs-Mainstream-Seite („visionäre Lösungen für die digitale Transformation"), ist er nicht im Conciso-Ton.
+Wenn ein Text sich anfühlt wie auf einer Beratungs-Mainstream-Seite („visionäre Lösungen für die digitale Transformation“), ist er nicht im Conciso-Ton.
 
 ## Schreibregeln
 
 ### Aktiv statt Passiv
-- Ja: „Wir entwickeln Systeme, die halten."
-- Nein: „Es werden Systeme entwickelt, die halten."
+- Ja: „Wir entwickeln Systeme, die halten.“
+- Nein: „Es werden Systeme entwickelt, die halten.“
 
 ### Konkrete Verben statt Adjektiv-Nebel
-- Ja: „Wir hören erst zu, dann bauen wir."
-- Nein: „Aufmerksamer, partnerschaftlicher Ansatz."
+- Ja: „Wir hören erst zu, dann bauen wir.“
+- Nein: „Aufmerksamer, partnerschaftlicher Ansatz.“
 
 ### Kein Marketing-Sprech
 Vermeiden:
-- „state-of-the-art", „cutting-edge", „next level"
-- „digital transformation", „synergetische Lösungen"
-- „Wir bringen Ihre Marke aufs nächste Level"
+- „state-of-the-art“, „cutting-edge“, „next level“
+- „digital transformation“, „synergetische Lösungen“
+- „Wir bringen Ihre Marke aufs nächste Level“
 - Buzzwords ohne Substanz
 
 ### Zahlen sprechen
 Wo es Zahlen gibt: nutzen statt umschreiben.
-- Ja: „120+ Projekte, 10 Jahre, 70+ Menschen."
-- Nein: „Langjährige Erfahrung mit zahlreichen Kunden."
+- Ja: „120+ Projekte, 10 Jahre, 70+ Menschen.“
+- Nein: „Langjährige Erfahrung mit zahlreichen Kunden.“
 
 ### Markenrad-Adjektive bewusst einstreuen
 Die neun Eigenschaften des Markenrads (verlässlich · selbstsicher · kompetent · aufmerksam · präzise · pragmatisch · kraftvoll · agil · leidenschaftlich) sollten in Karten-Texten und längerer Copy spürbar werden — gern visuell hervorgehoben (`<strong>`).
@@ -52,12 +52,12 @@ Der Button-Text muss zur Folge-Aktion passen.
 
 | Folge-Aktion | Button-Text |
 |---|---|
-| Formular öffnet sich | „Nachricht schreiben" / „Kontakt aufnehmen" |
-| Calendly / Booking-Tool öffnet sich | „Termin buchen" / „Gespräch vereinbaren" |
-| Scroll zu Sektion innerhalb der Seite | „Unsere Leistungen" / „Mehr erfahren" |
-| Externe Seite | „Auf [Plattform] öffnen ↗" |
+| Formular öffnet sich | „Nachricht schreiben“ / „Kontakt aufnehmen“ |
+| Calendly / Booking-Tool öffnet sich | „Termin buchen“ / „Gespräch vereinbaren“ |
+| Scroll zu Sektion innerhalb der Seite | „Unsere Leistungen“ / „Mehr erfahren“ |
+| Externe Seite | „Auf [Plattform] öffnen ↗“ |
 
-Niemals generisches „Mehr" oder „Klick hier".
+Niemals generisches „Mehr“ oder „Klick hier“.
 
 ### Fehlermeldungen
 Drei Bestandteile, in dieser Reihenfolge:
@@ -65,15 +65,15 @@ Drei Bestandteile, in dieser Reihenfolge:
 2. **Warum** — falls relevant und kurz erklärbar
 3. **Was tun** — konkrete Handlungsmöglichkeit
 
-Beispiel: „Die E-Mail-Adresse ist nicht erreichbar. Möglicherweise ein Tippfehler — prüf den Eintrag, dann probier es erneut."
+Beispiel: „Die E-Mail-Adresse ist nicht erreichbar. Möglicherweise ein Tippfehler — prüf den Eintrag, dann probier es erneut.“
 
 ### Bestätigungen
 Konkret, nicht Floskel.
-- Ja: „Deine Nachricht ist bei uns. Wir melden uns innerhalb eines Werktags."
-- Nein: „Vielen Dank! Ihre Anfrage war erfolgreich."
+- Ja: „Deine Nachricht ist bei uns. Wir melden uns innerhalb eines Werktags.“
+- Nein: „Vielen Dank! Ihre Anfrage war erfolgreich.“
 
 ### Form-Labels und Placeholders
-- Label = Was ist das Feld? („E-Mail-Adresse", „Dein Anliegen")
+- Label = Was ist das Feld? („E-Mail-Adresse“, „Dein Anliegen“)
 - Placeholder = Beispiel oder Hilfestellung — nicht das Label wiederholen
 - Pflichtfeld-Markierung mit Sternchen + `aria-required="true"`
 
@@ -82,7 +82,7 @@ Konkret, nicht Floskel.
 - Kurz: 2–4 Wörter
 - Trenner: Mittelpunkt mit Spaces (` · `), nicht Komma oder Strich
 
-Beispiele: „WAS WIR TUN", „RUHIG · KLAR · ENERGIEGELADEN", „SEIT 2016 · DORTMUND"
+Beispiele: „WAS WIR TUN“, „RUHIG · KLAR · ENERGIEGELADEN“, „SEIT 2016 · DORTMUND“
 
 ## Begriffs-Architektur
 
@@ -96,7 +96,7 @@ Beispiele: „WAS WIR TUN", „RUHIG · KLAR · ENERGIEGELADEN", „SEIT 2016 ·
 | Wirksame Organisationen / `wo` | Wirksame Organisationen |
 
 Im Header und Footer gilt die Reihenfolge: **Leistungen · Wissen · Über uns**.
-„Leistungen" bündelt KI · Software · Organisation. „Über uns" bündelt Profil-Infos (Team, Jobs, Referenzen, Veranstaltungen, Presse).
+„Leistungen“ bündelt KI · Software · Organisation. „Über uns“ bündelt Profil-Infos (Team, Jobs, Referenzen, Veranstaltungen, Presse).
 
 ### Sub-Disziplin-Notation
 
@@ -111,10 +111,10 @@ Die Punkt-Notation beim KI-Bereich ist beabsichtigt (produktähnliche Marken-Arc
 ## Was nicht geht
 
 - Mischung Du / Sie auf einer Seite
-- „Erfolgreich!" als Bestätigungstext (Floskel)
-- Generische Button-Texte („Senden", „OK", „Weiter")
+- „Erfolgreich!“ als Bestätigungstext (Floskel)
+- Generische Button-Texte („Senden“, „OK“, „Weiter“)
 - Übertreibungen ohne Substanz
-- Anglizismen, wo deutsche Worte präziser sind („Termin buchen" > „Slot booken")
+- Anglizismen, wo deutsche Worte präziser sind („Termin buchen“ > „Slot booken“)
 
 ## Pflege
 

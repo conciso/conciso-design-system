@@ -2,9 +2,10 @@ name: Visual Tests
 
 # Visual-Regression im GEPINNTEN Playwright-Docker-Image, damit die pixelgenauen
 # Baselines deterministisch sind (Fonts/Antialiasing/OS identisch zu ihrer Erzeugung).
-#   - workflow_dispatch: Baselines (neu) erzeugen → Artefakt. (Verfügbar erst, wenn
-#     die Datei auf dem Default-Branch liegt — GitHub-Limitierung.)
-#   - push (Bootstrap): erzeugt Baselines automatisch, SOLANGE noch keine
+#   - workflow_dispatch: Baselines (neu) erzeugen → Artefakt. Der reguläre Weg,
+#     seit diese Datei auf dem Default-Branch liegt (davor bot GitHub den Dispatch
+#     nicht an, daher lief der Bootstrap über push auf Feature-Branches).
+#   - push auf main (Bootstrap): erzeugt Baselines automatisch, SOLANGE noch keine
 #     eingecheckt sind → Artefakt. Selbst-limitierend: sobald Baselines im Repo
 #     liegen, tut push nichts mehr.
 #   - pull_request: gegen die eingecheckten Baselines vergleichen (wenn vorhanden).
@@ -13,7 +14,7 @@ name: Visual Tests
 on:
   workflow_dispatch:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
     paths:
       - 'storybook-angular/**'
       - 'css/**'

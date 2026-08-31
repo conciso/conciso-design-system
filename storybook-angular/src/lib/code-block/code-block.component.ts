@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject, input, signal } from '@angular/core';
 
 /**
- * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block".
+ * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block“.
  *
  * Header mit Sprach-Label (.cb-lang) und optionalem Kopier-Button (.cb-copy),
  * darunter der Code in `pre.cb-body` (white-space:pre, horizontal scrollbar).
@@ -36,7 +36,7 @@ export class CodeBlockComponent {
   protected readonly copied = signal(false);
 
   private readonly destroyRef = inject(DestroyRef);
-  /** Reset-Timer des „Kopiert!"-Feedbacks; gemerkt, um ihn zu clearen. */
+  /** Reset-Timer des „Kopiert!“-Feedbacks; gemerkt, um ihn zu clearen. */
   private resetTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {

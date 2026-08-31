@@ -71,7 +71,7 @@ let uid = 0;
   `,
 })
 export class ScaleComponent implements ControlValueAccessor {
-  /** Feld-Label (die Frage), z. B. „Zufriedenheit". */
+  /** Feld-Label (die Frage), z. B. „Zufriedenheit“. */
   readonly label = input('Bewertung');
   /** Geordnete Skalen-Labels; sie sind zugleich die Werte. */
   readonly labels = input<string[]>(['Niedrig', 'Mittel', 'Hoch']);

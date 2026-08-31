@@ -8,7 +8,7 @@ export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
  * `.badge-{ok|warn|err|neu}` aus css/components.css.
  *
  * Trägt einen Zustand über semantische Farben (OK, Warnung, Fehler, Neutral) —
- * z. B. „Live", „Beta", „Deprecated", „Draft". Nicht interaktiv. Für die
+ * z. B. „Live“, „Beta“, „Deprecated“, „Draft“. Nicht interaktiv. Für die
  * Zuordnung zu einer Brand Area die Bereichs-Badge, für einen redaktionellen
  * Anker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.
  */

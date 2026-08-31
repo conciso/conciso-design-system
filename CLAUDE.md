@@ -1,3 +1,7 @@
+## Contributing standards
+
+Everything that goes into the repo follows `CONTRIBUTING.md` — in particular § 6 Typography: German copy uses typographic quotation marks („…“, U+201E / U+201C), never straight ASCII quotes. `npm run check:quotes` gates this in CI.
+
 ## Agent skills
 
 ### Issue tracker

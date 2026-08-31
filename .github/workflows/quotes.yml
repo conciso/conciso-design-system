@@ -1,0 +1,29 @@
+# Anführungszeichen-Gate: findet Paare, die typografisch öffnen (U+201E) und mit dem
+# geraden ASCII-Zeichen schließen statt mit U+201C, siehe CONTRIBUTING § 6 und
+# scripts/check-quotes.mjs. Bewusst OHNE Pfadfilter: Copy und Kommentare liegen überall
+# (docs/, css/, storybook-angular/, Markdown auf Root-Ebene), und der Check ist
+# dependency-frei und in Sekunden durch.
+# Das Fehlermuster steht hier als U+-Notation, nicht als Glyphenpaar — der Check prüft
+# diese Datei mit.
+name: Anführungszeichen
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: quotes-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Kaputte Anführungszeichen-Paare finden
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Anführungszeichen prüfen
+        run: npm run check:quotes

@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote".
+ * Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.
  *
  * Bereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),
  * Quote-Icon (ui-quote, dieselbe Glyphe wie docs/index.html), Zitat und

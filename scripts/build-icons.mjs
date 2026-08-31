@@ -124,7 +124,7 @@ const { svg } = icons['ki-bot'];
 (\`--XX-800\` Light / \`--XX-200\` Dark) — exakt wie \`.ep-card-icon.t-XX\` im DS.
 
 Die Regel hängt am **Anlass, nicht an der Seite**: Sie gilt auf \`/leistungen\` und der Landingpage
-genauso wie in „Weiter im Thema"-Blöcken tiefer liegender Detailseiten. Zuvor war sie nur für die
+genauso wie in „Weiter im Thema“-Blöcken tiefer liegender Detailseiten. Zuvor war sie nur für die
 ersten beiden Orte notiert, woraufhin fünf Verweiskarten auf Angebots-Detailseiten mit einem
 generischen Heroicon liefen.
 

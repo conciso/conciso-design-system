@@ -12,7 +12,7 @@ const meta: Meta<LogoComponent> = {
         component:
           'Einzelne Logo-Kachel. Zeigt bevorzugt ein **Bild** (`src`); ohne Bild fällt sie auf ' +
           'den Text-`label` als Platzhalter zurück. Eigenständig nutzbar (Partner-Leiste, ' +
-          '„Bekannt aus"-Reihe) oder als Baustein des `cds-logo-carousel`.',
+          '„Bekannt aus“-Reihe) oder als Baustein des `cds-logo-carousel`.',
       },
     },
   },

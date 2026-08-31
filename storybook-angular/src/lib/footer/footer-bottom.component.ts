@@ -57,7 +57,7 @@ export interface CdsSocialLink {
 })
 export class FooterBottomComponent {
   readonly copyright = input('© 2026 Conciso GmbH · Dortmund');
-  /** Optionale Versionsangabe (z. B. „Version 1.4.2"), hinter dem Copyright. */
+  /** Optionale Versionsangabe (z. B. „Version 1.4.2“), hinter dem Copyright. */
   readonly version = input<string>();
   /** Optionaler Support-/Hilfe-Link neben den Rechts-Links. */
   readonly support = input<CdsFooterLink>();

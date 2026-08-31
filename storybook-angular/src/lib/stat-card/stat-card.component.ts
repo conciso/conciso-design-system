@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
- * StatCard — Wrapper um `.card-stat` aus css/components.css → „Stat Card".
+ * StatCard — Wrapper um `.card-stat` aus css/components.css → „Stat Card“.
  *
  * Flache, statische Kennzahlen-Karte mit bereichsgefärbtem Top-Akzent (data-area),
  * großem Wert (.card-stat-value), Label (.card-stat-label) und optionalem

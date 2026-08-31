@@ -29,7 +29,7 @@ export default meta;
 type Story = StoryObj<CarouselComponent>;
 
 export const Interaktiv: Story = {
-  // Weiterblättern: „Nächste" wählt den zweiten Dot (role="tab" + aria-selected).
+  // Weiterblättern: „Nächste“ wählt den zweiten Dot (role="tab" + aria-selected).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const dots = c.getAllByRole('tab', { name: /^Folie / });

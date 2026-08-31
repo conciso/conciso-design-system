@@ -20,7 +20,7 @@
 // mindestens gleicher Spezifität nachzieht.
 //
 // Gerechnet wird mit echtem Kontrast, nicht mit der Stufennummer: --co-500 ist #00BEBE und trägt im
-// Dark problemlos, --wo-800 ist #183A0E und nicht. Eine Regel „ab Stufe 500" würde beide gleich
+// Dark problemlos, --wo-800 ist #183A0E und nicht. Eine Regel „ab Stufe 500“ würde beide gleich
 // behandeln und sechs Fehlalarme auf Fokus-Rändern erzeugen.
 //
 // ZWEITER CHECK: ZERRISSENE PAARE
@@ -31,7 +31,7 @@
 //
 // EINE ANNAHME, DIE SICH ALS FALSCH ERWIESEN HAT
 // Ursprünglich übersprang der erste Check alle Tokens, die im Dark-Block neu belegt sind, als
-// „theme-aware und damit unkritisch". Das stimmt nicht: Die Neutrals kippen dort auf DUNKLE Werte
+// „theme-aware und damit unkritisch“. Das stimmt nicht: Die Neutrals kippen dort auf DUNKLE Werte
 // (--n-100 = #1C2E2E statt #E8EDED). Ein Fix, der einen Icon-Hover auf var(--n-100) setzte, war
 // deshalb wirkungslos und fiel erst dem zweiten Check auf. Entscheidend ist nie der Name des Tokens,
 // sondern der Wert, den er im jeweiligen Theme annimmt.
