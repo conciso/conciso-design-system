@@ -55,11 +55,26 @@ const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--
 const BROKEN = /\u201E[^\u201E\u201C\u201D"]*"/g;
 
 let hits = 0;
+let skipped = 0;
 for (const file of files) {
-  // Symlinks überspringen (z. B. .claude/skills/* → Verzeichnisse); ihre Ziele sind
-  // selbst versioniert und werden als eigene Einträge geprüft.
-  if (!lstatSync(join(ROOT, file)).isFile()) continue;
-  const text = readFileSync(join(ROOT, file), 'utf8');
+  const path = join(ROOT, file);
+  let text;
+  try {
+    // Symlinks überspringen (z. B. .claude/skills/* → Verzeichnisse); ihre Ziele sind
+    // selbst versioniert und werden als eigene Einträge geprüft.
+    if (!lstatSync(path).isFile()) continue;
+    text = readFileSync(path, 'utf8');
+  } catch (err) {
+    // git ls-files listet auch Pfade, die im Working Tree gerade nicht lesbar sind:
+    // lokal gelöscht und noch nicht gestaged, kaputter Symlink, fehlende Rechte. Ohne
+    // dieses catch bricht der Check dort mit einem Stacktrace ab und meldet die
+    // Anführungszeichen der übrigen Dateien nicht mehr. In CI kann der Fall nach
+    // frischem Checkout nicht auftreten, lokal schon. Überspringen und benennen, aber
+    // nicht als Verstoß werten: der Check prüft Typografie, nicht den Working Tree.
+    console.error(`${file}: übersprungen, nicht lesbar (${err.code ?? err.message})`);
+    skipped++;
+    continue;
+  }
   if (!text.includes('\u201E')) continue;
   for (const m of text.matchAll(BROKEN)) {
     const line = text.slice(0, m.index).split('\n').length;
@@ -74,4 +89,7 @@ if (hits > 0) {
   console.error('Das schließende gerade Zeichen durch U+201C ersetzen.');
   process.exit(1);
 }
-console.log(`Anführungszeichen ok: ${files.length} Dateien geprüft, kein Paar schließt mit einem ASCII-Zeichen.`);
+console.log(
+  `Anführungszeichen ok: ${files.length - skipped} Dateien geprüft, kein Paar schließt mit einem ASCII-Zeichen.` +
+    (skipped > 0 ? ` (${skipped} nicht lesbar, übersprungen)` : ''),
+);
