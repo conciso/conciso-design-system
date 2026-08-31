@@ -1443,6 +1443,41 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-meta{display:flex;flex-direction:column;gap:var(--s1)}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
 
+/* ── Featured-Card: horizontale Großkarte ──
+   Genau ein Beitrag oder Termin auf der Bühne: Bild links, Content rechts.
+   Die Bildspalte trägt .card-media und damit dasselbe aspect-ratio:16/9 wie die Cards im
+   Listing-Grid. Das ist der Zweck der Klasse: Redaktion pflegt EIN Bild in EINEM Zuschnitt
+   für Featured UND Grid, statt je Slot einen eigenen.
+
+   Das BILD bestimmt die Kartenhöhe, nicht der Text. Darum liegt .card-featured-body absolut:
+   als normale Spalte zieht seine Inhaltshöhe die Zeile auf und streckt das Bild mit — genau
+   daran driftete das Verhältnis vorher auf 1,62. Ein aspect-ratio auf der Karte genügt dafür
+   nicht, es ist eine Wunschgröße und verliert gegen die Inhaltshöhe (gemessen 1,50). Absolut
+   positioniert trägt der Body nichts zur Höhe bei, das 16/9 gilt unabhängig von der Textlänge.
+
+   Zu viel Text wird gekappt, statt das Verhältnis zu brechen: .card-text bringt sein
+   line-clamp mit, und als schrumpfendes Flex-Item gibt der Lead nach, bevor Pill, Meta,
+   Titel oder CTA wegfallen. 60/40 statt 50/50, weil ein 16/9-Bild auf halber Kartenbreite
+   zu flach für den Content-Block ist: bei 60 % bleiben rund 26 px Reserve und drei
+   Lead-Zeilen, bei 50 % schrumpft der Lead auf null. Beide Prozentwerte gehören zusammen
+   und müssen 100 % ergeben, sonst klafft eine Lücke. */
+.card-featured{display:block;position:relative;overflow:hidden;container-type:inline-size}
+.card-featured>.card-media{width:60%}
+.card-featured>.card-media>img{width:100%;height:100%;object-fit:cover}
+.card-featured-body{position:absolute;top:0;right:0;bottom:0;width:40%;padding:var(--s6) var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4);overflow:hidden}
+/* min-height:3lh reserviert im Grid Platz für den Gleichhöhen-Abgleich. Die Featured-Card
+   steht allein, hat keinen Nachbarn, und der reservierte Platz ginge zulasten des Bildes. */
+.card-featured-body>.card-text{min-height:0}
+/* Nebeneinander nur, solange die KARTE breit genug ist — @container, nicht @media: die
+   Kartenbreite hängt am Platz im Layout (Sidebar, Section-Padding, Spaltenbreite), nicht am
+   Viewport. Unter 1000 px Kartenbreite wird das 16/9-Bild flacher als der Content-Block hoch
+   ist, der Lead würde auf null Zeilen schrumpfen. Dann gestapelt wie die Grid-Cards: Bild
+   full-width im 16/9 obenauf, Body zurück in den Fluss, nichts mehr zu kappen. */
+@container (max-width:1000px){
+  .card-featured>.card-media{width:100%}
+  .card-featured-body{position:static;width:auto;padding:var(--s6)}
+}
+
 /* ── Blockquote ── */
 .bq{padding:var(--s5) var(--s6);border-left:4px solid var(--bq-accent,var(--co-500));background:var(--bq-bg,var(--co-50));border-radius:var(--r-md);margin:0}
 .bq[data-area="co"]{--bq-accent:var(--co-500);--bq-bg:var(--co-50)}

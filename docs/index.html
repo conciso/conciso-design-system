@@ -8414,7 +8414,7 @@ document.querySelectorAll(
       <ol style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6) var(--s5);max-width:720px;display:flex;flex-direction:column;gap:var(--s2)">
         <li><strong>Topnav</strong> (siehe&nbsp;<a class="body-link" href="#sec-navigation">Navigation</a>): „Wissen“ mit <code class="token">aria-current="page"</code>.</li>
         <li><strong>Page-Header</strong>: H1, Lead, optionales Such-Feld (<code class="token">role="search"</code> mit Magnifier-Icon und <code class="token">&lt;input type="search"&gt;</code>), Filter-Chips. Zentriert, max. 720 px für die Lead-Breite. Reihenfolge folgt der User-Intent: spezifische Suche zuerst, Browse-Filter danach. <strong>Page-H1 trägt <code class="token">--ty-display-sm</code></strong> (36&nbsp;px Serif), nicht <code class="token">--ty-headline-sm</code> oder kleiner. Der H1 ist der alleinige Page-Anker (Listings haben kein Hero-Image) und muss visuell klar dominieren. Damit entsteht die Hierarchie 36 px H1 → 28 px Section-H2 → 24 px Featured-Card-Hero → 20 px Standard-Card-Titel.</li>
-        <li><strong>Featured-Beitrag</strong>: zweispaltige Hero-Card (Bild links, Inhalt rechts). Bereichsspezifisch, Details im nächsten Abschnitt.</li>
+        <li><strong>Featured-Beitrag</strong>: zweispaltige Hero-Card (Bild links im 16:9, Inhalt rechts). Bereichsspezifisch, Details im nächsten Abschnitt.</li>
         <li><strong>Beitrags-Grid</strong>: <code class="token">.card.card-elevated</code> in <code class="token">.col-4</code> mit Bild oben, Pill „Bereich · Lesezeit“, Titel, Lead und CTA „Beitrag lesen →“ am Karten-Unterrand.</li>
         <li><strong>„Mehr laden“-Block</strong> (optional, ab vielen Beiträgen): zentrierter Outline-Button mit Counter darunter (<code class="token">aria-live="polite"</code>), lädt die nächste Beitragsseite nach. Alternative zu Pagination oder Infinite-Scroll: Footer bleibt erreichbar, deterministisch zugänglich.</li>
         <li><strong>CTA-Band</strong> für Newsletter oder vergleichbare Conversion.</li>
@@ -8718,17 +8718,20 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       </table>
 
       <h2 id="gt-events-featured" class="group-title">Featured · horizontale Großkarte</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Für Landing-Sektionen und Bereichs-Hubs, wenn <strong>genau ein</strong> kommender Termin hervorgehoben werden soll (kein Grid, kein Listing). Eine horizontale <code class="token">.card.card-elevated</code> als Anker, links das Bild im 1:1-Verhältnis (über <code class="token">background-image: url(…) center 35%/cover</code> auf einer minHeight-Spalte), rechts der Content-Block: Pill, Meta-Strip (Datum · Ort · Format), Titel, Lead, CTA. Das Karten-Grid ist <code class="token">grid-template-columns: 1fr 1fr</code>.</p>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px"><strong>Editorial-Variant:</strong> Featured-Cards nutzen die eigene Klasse <code class="token">.card-title-hero</code> für den Titel: 24 px Libre Baskerville (Headline-sm) statt der 20 px Sans des Standard-<code class="token">.card-title</code>. Featured ist kein Grid-Card-Treatment, sondern ein editorialer Hero. Ein Termin oder ein Beitrag bekommt die alleinige Bühne, das rechtfertigt das Serif-Treatment auf der Mid-Tier-Stufe zwischen Section-H2 (28 px Serif) und Standard-Card-Title (20 px Sans), in sauberer 4-px-Treppe. Der Lead nutzt <code class="token">.card-text</code> wie alle Karten, der <code class="token">min-height:0</code>-Override deaktiviert die Grid-Stability (line-clamp + min-height), weil eine einzeln stehende Featured-Card keinen Nachbarn zum Abgleichen hat.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px">Für Landing-Sektionen und Bereichs-Hubs, wenn <strong>genau ein</strong> kommender Termin hervorgehoben werden soll (kein Grid, kein Listing). Eine horizontale <code class="token">.card.card-elevated.card-featured</code> als Anker, links das Bild im <strong>16:9-Verhältnis</strong>, rechts der Content-Block: Pill, Meta-Strip (Datum · Ort · Format), Titel, Lead, CTA. Die Bildspalte trägt <code class="token">.card-media</code> und damit genau das Verhältnis der Listing-Cards: Redaktion pflegt <strong>ein</strong> Bild in <strong>einem</strong> Zuschnitt für Featured und Grid. Die Spaltenteilung liegt in der Klasse (60 % Bild, 40 % Content), nicht im <code class="token">style</code>-Attribut.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4);max-width:720px"><strong>Editorial-Variant:</strong> Featured-Cards nutzen die eigene Klasse <code class="token">.card-title-hero</code> für den Titel: 24 px Libre Baskerville (Headline-sm) statt der 20 px Sans des Standard-<code class="token">.card-title</code>. Featured ist kein Grid-Card-Treatment, sondern ein editorialer Hero. Ein Termin oder ein Beitrag bekommt die alleinige Bühne, das rechtfertigt das Serif-Treatment auf der Mid-Tier-Stufe zwischen Section-H2 (28 px Serif) und Standard-Card-Title (20 px Sans), in sauberer 4-px-Treppe. Der Lead nutzt <code class="token">.card-text</code> wie alle Karten. Den <code class="token">min-height:0</code>-Override bringt <code class="token">.card-featured-body</code> mit: die Höhen-Reservierung der Grid-Stability hat ohne Nachbar-Card keinen Zweck und ginge hier zulasten des Bildes. Das <code class="token">line-clamp</code> bleibt und ist hier der Riegel, der zu langen Lead vom Bildverhältnis fernhält.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:720px"><strong>Warum nicht ein Grid mit drei Karten?</strong> Auf einer Landing ist die Frage „Was passiert als Nächstes?“ wichtiger als „Welche Veranstaltungen laufen aktuell?“. Ein einziges, atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die Übersichts-Seite (Listing) erfüllt die Breitenrolle, der Featured-Block auf der Landing erfüllt die Tiefenrolle. Ein Link unter der Karte („Alle Veranstaltungen ansehen →“) führt ins Listing.</p>
 
       <div class="cb-wrap" style="margin-bottom:var(--s8)">
         <div class="cb-header"><span class="cb-lang">HTML</span></div>
-        <pre class="cb-body"><span class="c">&lt;!-- Featured Veranstaltungs-Card, horizontal, 1:1 Bild + Content --&gt;</span>
-<span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated"</span> <span class="v">data-area</span>=<span class="s">"es"</span> <span class="v">href</span>=<span class="s">"/veranstaltungen/n8n"</span>
-   <span class="v">style</span>=<span class="s">"display:grid;grid-template-columns:1fr 1fr;overflow:hidden"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"min-height:320px;background:url('hero.jpg') center 35%/cover"</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)"</span><span class="k">&gt;</span>
+        <pre class="cb-body"><span class="c">&lt;!-- Featured Veranstaltungs-Card, horizontal, 16:9 Bild + Content.</span>
+<span class="c">     Bildspalte, Spaltenteilung und das Kappen zu langer Leads stecken in
+     .card-featured — kein Layout im style-Attribut. --&gt;</span>
+<span class="k">&lt;a</span> <span class="v">class</span>=<span class="s">"card card-elevated card-featured"</span> <span class="v">data-area</span>=<span class="s">"es"</span> <span class="v">href</span>=<span class="s">"/veranstaltungen/n8n"</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- Gleiches .card-media wie im Listing-Grid: aspect-ratio 16/9. Der Bildausschnitt
+       sitzt als object-position am img, nicht als background-position am Container. --&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"card-media"</span><span class="k">&gt;&lt;img</span> <span class="v">src</span>=<span class="s">"hero.jpg"</span> <span class="v">alt</span>=<span class="s">""</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span> <span class="v">style</span>=<span class="s">"object-position:center 35%"</span><span class="k">&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"card-featured-body"</span><span class="k">&gt;</span>
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"pill"</span> <span class="v">data-area</span>=<span class="s">"es"</span><span class="k">&gt;</span>Effektive Software<span class="k">&lt;/span&gt;</span>
     <span class="c">&lt;!-- Meta-Strip: alle drei Items einheitlich in --ty-body-md + --tx-muted (Trio aus einem Guss) --&gt;</span>
     <span class="k">&lt;div</span> <span class="v">style</span>=<span class="s">"display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-muted)"</span><span class="k">&gt;</span>
@@ -8737,7 +8740,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
       <span class="k">&lt;span&gt;</span>👥 Meet-Up<span class="k">&lt;/span&gt;</span>
     <span class="k">&lt;/div&gt;</span>
     <span class="k">&lt;h3</span> <span class="v">class</span>=<span class="s">"card-title-hero"</span><span class="k">&gt;</span>Effizienz durch n8n.<span class="k">&lt;/h3&gt;</span>
-    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"card-text"</span> <span class="v">style</span>=<span class="s">"min-height:0"</span><span class="k">&gt;</span>Drei kurze Inputs …<span class="k">&lt;/p&gt;</span>
+    <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"card-text"</span><span class="k">&gt;</span>Drei kurze Inputs …<span class="k">&lt;/p&gt;</span>
     <span class="k">&lt;span</span> <span class="v">class</span>=<span class="s">"card-cta-link"</span><span class="k">&gt;</span>Zur Veranstaltung <span class="k">&lt;span</span> <span class="v">aria-hidden</span>=<span class="s">"true"</span><span class="k">&gt;</span>→<span class="k">&lt;/span&gt;&lt;/span&gt;</span>
   <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/a&gt;</span></pre>
@@ -8747,10 +8750,10 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <thead><tr><th>Aspekt</th><th>Featured (Landing)</th><th>Standard-Card (Listing)</th></tr></thead>
         <tbody>
           <tr><td>Anlass</td><td>Genau ein hervorgehobener Termin</td><td>Mehrere parallel sichtbare Termine</td></tr>
-          <tr><td>Layout</td><td>Horizontal, 1:1 Bild + Content</td><td>Vertikal, 16:9 Bild über Content</td></tr>
-          <tr><td>Bild-Geometrie</td><td>Linke Spalte mit <code class="token">min-height:320px</code>, <code class="token">background:url(…) center 35%/cover</code></td><td><code class="token">.card-media</code> mit <code class="token">aspect-ratio:16/9</code></td></tr>
+          <tr><td>Layout</td><td>Horizontal, 16:9 Bild + Content (gestapelt unter 1000&nbsp;px Kartenbreite)</td><td>Vertikal, 16:9 Bild über Content</td></tr>
+          <tr><td>Bild-Geometrie</td><td><code class="token">.card-media</code> mit <code class="token">aspect-ratio:16/9</code>, Bildausschnitt über <code class="token">object-position</code> am <code class="token">&lt;img&gt;</code>. <strong>Dasselbe Verhältnis wie im Listing</strong> — ein Bild, ein Zuschnitt.</td><td><code class="token">.card-media</code> mit <code class="token">aspect-ratio:16/9</code></td></tr>
           <tr><td>Headline</td><td><code class="token">.card-title-hero</code> (24&nbsp;px Serif, Headline-sm), <code class="token">text-wrap:balance</code> standardmäßig in der Klasse. Editorial-Treatment für die Hero-Card-Bühne.</td><td><code class="token">.card-title</code> (20&nbsp;px Sans 500), line-clamp:2, <code class="token">min-height:2lh</code> für Grid-Stability</td></tr>
-          <tr><td>Lead</td><td><code class="token">.card-text</code> (14&nbsp;px Body), <code class="token">min-height:0</code>-Override</td><td><code class="token">.card-text</code> mit line-clamp:3, <code class="token">min-height:3lh</code></td></tr>
+          <tr><td>Lead</td><td><code class="token">.card-text</code> (16&nbsp;px Body-md), <code class="token">min-height:0</code> aus <code class="token">.card-featured-body</code>. Das <code class="token">line-clamp</code> bleibt: es hält das Bildverhältnis, wenn der Lead lang wird.</td><td><code class="token">.card-text</code> mit line-clamp:3, <code class="token">min-height:3lh</code></td></tr>
           <tr><td>Meta-Strip</td><td>Datum · Ort · Format <strong>vertikal gestapelt</strong> (<code class="token">flex-direction:column</code>) mit Micro-Icons, alle in <code class="token">--ty-body-sm</code> (14&nbsp;px) und <code class="token">--tx-muted</code>. Drei Listen-Zeilen mit <code class="token">gap:var(--s2)</code>, editorial-ruhig, ohne Wrap-Risiko.</td><td>Pill „Bereich“ über Datum (<code class="token">--ty-body-sm</code>, <code class="token">--tx-muted</code>) + Ort gestapelt</td></tr>
           <tr><td>CTA</td><td>„Zur Veranstaltung →“</td><td>„Zur Veranstaltung →“</td></tr>
         </tbody>
@@ -9390,9 +9393,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <div class="ep-section-label t-co">Veranstaltungen</div>
           <h2 class="ep-section-h2">Komm vorbei, hör zu, frag nach.</h2>
           <p class="ep-section-sub">Der nächste Termin aus unserer Praxis.</p>
-          <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden;margin-top:var(--s8)">
-            <div style="min-height:320px;background:url('assets/images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated card-featured" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="text-decoration:none;color:inherit;margin-top:var(--s8)">
+            <div class="card-media"><img src="assets/images/meetup-publikum.jpg" alt="" aria-hidden="true" style="object-position:30% 35%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm)">
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Do, 3. Dezember 2026 · 18:00</span>
@@ -9400,7 +9403,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>Meet-Up</span>
               </div>
               <h3 class="card-title-hero">Effizienz durch n8n.</h3>
-              <p class="card-text" style="min-height:0">Drei kurze Inputs aus der Conciso-Praxis und eine offene Runde: warum n8n als Plattform für Workflow-Automatisierung trägt.</p>
+              <p class="card-text">Drei kurze Inputs aus der Conciso-Praxis und eine offene Runde: warum n8n als Plattform für Workflow-Automatisierung trägt.</p>
               <span class="card-cta-link">Zur Veranstaltung <span aria-hidden="true">→</span></span>
             </div>
           </a>
@@ -14509,36 +14512,36 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-label" style="color:var(--tx-muted);margin-bottom:var(--s4)">Featured</p>
 
           <!-- Featured: Angewandte KI (Default für „Alle“ und „KI“) -->
-          <a class="card card-elevated" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated card-featured" data-area="ki" href="#sec-examples" data-ep="wb-ki" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="object-position:center 20%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
               <h2 class="card-title-hero">Warum 60 % der KI-Piloten nie in Produktion gehen</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben. Und warum AI Readiness wichtiger ist als KI-Begeisterung.</p>
+              <p class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben. Und warum AI Readiness wichtiger ist als KI-Begeisterung.</p>
               <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
           </a>
 
           <!-- Featured: Effektive Software -->
-          <a class="card card-elevated is-hidden" data-area="es" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/pair-laptop.jpg') center 50%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated is-hidden card-featured" data-area="es" href="#" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/pair-laptop.jpg" alt="" aria-hidden="true" style="object-position:center 50%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <h2 class="card-title-hero">Refactoring-Schulden ehrlich rechnen</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Wann der Umbau billiger ist als der nächste Workaround. Eine Praxis-Anleitung mit Entscheidungs­matrix für mittelgroße Codebasen, inklusive Beispielrechnung aus einem realen Migrations-Projekt.</p>
+              <p class="card-text">Wann der Umbau billiger ist als der nächste Workaround. Eine Praxis-Anleitung mit Entscheidungs­matrix für mittelgroße Codebasen, inklusive Beispielrechnung aus einem realen Migrations-Projekt.</p>
               <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
           </a>
 
           <!-- Featured: Wirksame Organisationen -->
-          <a class="card card-elevated is-hidden" data-area="wo" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated is-hidden card-featured" data-area="wo" href="#" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="object-position:center 20%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
               <h2 class="card-title-hero">Wandel, der wirklich bleibt</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Transformationen scheitern selten am Plan, fast immer an der Kultur. Was 200 Begleitungen darüber gelehrt haben, was Veränderung wirklich trägt, und woran man frühzeitig erkennt, dass sie kippt.</p>
+              <p class="card-text">Transformationen scheitern selten am Plan, fast immer an der Kultur. Was 200 Begleitungen darüber gelehrt haben, was Veränderung wirklich trägt, und woran man frühzeitig erkennt, dass sie kippt.</p>
               <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">12 min Lesezeit · <time datetime="2026-04-08">8. April 2026</time></p>
               <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
             </div>
@@ -15150,9 +15153,9 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
           <p class="ep-section-label" style="color:var(--tx-muted);margin-bottom:var(--s4)">Nächstes Highlight</p>
 
           <!-- Featured: Effektive Software (Default für „Alle“ und „ES“) -->
-          <a class="card card-elevated" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/meetup-publikum.jpg') 30% 35%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated card-featured" data-area="es" href="#sec-examples" data-ep="veranstaltung" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/meetup-publikum.jpg" alt="" aria-hidden="true" style="object-position:30% 35%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="es" aria-label="Bereich Effektive Software" style="width:fit-content;margin-bottom:0">Effektive Software</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Do, 3. Dezember 2026 · 18:00</span>
@@ -15160,15 +15163,15 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>Meet-Up</span>
               </div>
               <h2 class="card-title-hero">Effizienz durch n8n.</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Drei kurze Inputs aus der Conciso-Praxis und eine offene Runde: warum n8n als Plattform DAS Werkzeug für Workflow-Automatisierung ist. In Zusammenarbeit mit den User Groups n8n und .NET.</p>
+              <p class="card-text">Drei kurze Inputs aus der Conciso-Praxis und eine offene Runde: warum n8n als Plattform DAS Werkzeug für Workflow-Automatisierung ist. In Zusammenarbeit mit den User Groups n8n und .NET.</p>
               <span class="card-cta-link">Zur Veranstaltung <span aria-hidden="true">→</span></span>
             </div>
           </a>
 
           <!-- Featured: Angewandte KI -->
-          <a class="card card-elevated is-hidden" data-area="ki" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/whiteboard-ai-matrix.jpg') center 20%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated is-hidden card-featured" data-area="ki" href="#" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/whiteboard-ai-matrix.jpg" alt="" aria-hidden="true" style="object-position:center 20%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI" style="width:fit-content;margin-bottom:0">Angewandte KI</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Do, 14. Januar 2027 · ganztägig</span>
@@ -15176,15 +15179,15 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>Training</span>
               </div>
               <h2 class="card-title-hero">AI Readiness Check.</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Ein Tag mit unseren KI-Architektinnen: Use-Case-Bewertung, Daten-Reifegrad und Make-or-Buy-Entscheidung. Mit konkreter Roadmap am Ende.</p>
+              <p class="card-text">Ein Tag mit unseren KI-Architektinnen: Use-Case-Bewertung, Daten-Reifegrad und Make-or-Buy-Entscheidung. Mit konkreter Roadmap am Ende.</p>
               <span class="card-cta-link">Zur Veranstaltung <span aria-hidden="true">→</span></span>
             </div>
           </a>
 
           <!-- Featured: Wirksame Organisationen -->
-          <a class="card card-elevated is-hidden" data-area="wo" href="#" style="display:grid;grid-template-columns:1fr 1fr;text-decoration:none;color:inherit;overflow:hidden">
-            <div style="min-height:340px;background:url('assets/images/flipchart-diskussion.jpg') center 20%/cover" aria-hidden="true"></div>
-            <div style="padding:var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4)">
+          <a class="card card-elevated is-hidden card-featured" data-area="wo" href="#" style="text-decoration:none;color:inherit">
+            <div class="card-media"><img src="assets/images/flipchart-diskussion.jpg" alt="" aria-hidden="true" style="object-position:center 20%"></div>
+            <div class="card-featured-body">
               <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen" style="width:fit-content;margin-bottom:0">Wirksame Organisationen</span>
               <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);margin-top:0">
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>Mo &amp; Di, 22. / 23. Februar 2027</span>
@@ -15192,7 +15195,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
                 <span style="display:inline-flex;gap:var(--s2);align-items:center;color:var(--tx-muted);font:var(--ty-body-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg>Training</span>
               </div>
               <h2 class="card-title-hero">Transformations-Werkstatt.</h2>
-              <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Zwei Tage, an denen Führungskräfte ihre eigene Veränderungs-Initiative reflektieren: Muster, Hebel, Stolpersteine. Klein, eng begleitet, mit höchstens zwölf Teilnehmer:innen.</p>
+              <p class="card-text">Zwei Tage, an denen Führungskräfte ihre eigene Veränderungs-Initiative reflektieren: Muster, Hebel, Stolpersteine. Klein, eng begleitet, mit höchstens zwölf Teilnehmer:innen.</p>
               <span class="card-cta-link">Zur Veranstaltung <span aria-hidden="true">→</span></span>
             </div>
           </a>
