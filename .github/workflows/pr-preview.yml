@@ -28,6 +28,7 @@ on:
       - 'tokens/**'
       - 'dist/**'
       - 'icons/**'
+      - 'assets/**'
       - 'scripts/build-docs-preview.sh'
       - '.github/workflows/pr-preview.yml'
 

@@ -88,6 +88,33 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
 
 ### Added
+- **Die Brand-Logos werden jetzt ausgeliefert: `assets/brand/`.** Wer das Paket eingebunden hat,
+  bekam kein Logo. Die drei Wortmarken lagen unter `docs/assets/images/`, und `docs/` steht nicht in
+  `package.json` → `files`; einen `exports`-Eintrag für Assets gab es ebenfalls nicht. Dokumentiert
+  war das Logo dagegen vollständig (Doku-Sektion **Marke → Logo**), es fehlte allein der Weg zum
+  Developer. Zwei Nebenfolgen derselben Ablage: die Doku nannte in der Prosa den Pfad
+  `images/logo-conciso{,-light,-dark}.svg`, real war es `assets/images/…`, und Storybook mountete
+  für **9,7 KB** Logo den kompletten **164 MB** großen Demo-Bilderordner nach `/conciso/images`.
+  Die drei SVGs liegen jetzt unter `assets/brand/` und sind über `files` und
+  `exports["./assets/brand/*"]` Teil des Pakets, ansprechbar als
+  `@conciso/design-system/assets/brand/logo-conciso.svg`. Umgestellt sind 59 `src`-Attribute in
+  `docs/index.html` (Sektionen Logo, Navigation, Beispielseiten) auf `../assets/brand/`, die falsche
+  Prosa-Angabe, der Storybook-Mount (jetzt `assets/brand` → `/conciso/brand`, 164 MB auf 9,7 KB) samt
+  acht Story-Referenzen und das Vorschau-Skript, das die Root-Assets mitkopiert und `../assets/` wie
+  bisher `../css/` auf Geschwister-Ebene umschreibt. `assets/brand/README.md` beschreibt den Einbau,
+  verbindlich für Größen, Schutzraum und Verwendung bleibt die Doku-Sektion.
+  `logo-conciso.svg` trug noch XML-Prolog, `DOCTYPE` und drei ungenutzte Namespaces des Export-Tools,
+  die beiden anderen Varianten nicht. Sie sind entfernt, die Pfaddaten sind byte-identisch geblieben
+  (3609 auf 3355 Byte). Zwei der Dateien hatten fälschlich das Executable-Bit, jetzt `644`.
+  `width` und `height` bleiben an allen drei SVGs, anders als es CONTRIBUTING § 10 für
+  `icons/source/` vorschreibt: Icons werden inline eingebettet, Logos per `<img>`, und dort liefern
+  genau diese Attribute das intrinsische Seitenverhältnis und verhindern Layout-Shift. Die Begründung
+  steht in `assets/brand/README.md`, damit sie niemand gegen die Icon-Regel wegräumt.
+  Bewusst **nicht** Teil davon: ein Favicon- oder App-Icon-Set (die Wortmarke ist bei 7,6 zu 1 als
+  Favicon unbrauchbar, Quelle wäre `icons/source/co-mark.svg`), eine `currentColor`-Variante (der
+  CSS-Swap über `.logo-themed-default`/`-light` bleibt der Weg) und die Auslagerung der Demo-Fotos,
+  die weiter unter **Geplant** steht. Die Fremdmarken `logo-youtube-light.svg` und
+  `logo-linkedin-light.png` bleiben bei den Demo-Bildern, sie sind keine Conciso-Assets.
 - **`.card-featured`: Featured-Card mit dem Bildverhältnis der Listing-Cards.** Die Featured-Card
   hatte kein definiertes Bildverhältnis. Die Bildspalte war ein `<div>` mit `min-height` und einem
   CSS-`background-image`, ihre Höhe ergab sich aus dem Text daneben. Gemessen bei 1440 px Viewport:

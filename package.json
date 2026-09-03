@@ -18,6 +18,7 @@
     "tokens",
     "icons",
     "fonts",
+    "assets",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
@@ -34,7 +35,8 @@
     "./tokens.json": "./tokens/tokens.json",
     "./tokens.scss": "./tokens/tokens.scss",
     "./icons": "./icons/icons.js",
-    "./icons.json": "./icons/icons.json"
+    "./icons.json": "./icons/icons.json",
+    "./assets/brand/*": "./assets/brand/*"
   },
   "scripts": {
     "build:tokens": "node scripts/build-tokens.mjs",

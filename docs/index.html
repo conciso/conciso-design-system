@@ -874,12 +874,12 @@
       <p style="font:400 16px/26px var(--font);color:var(--tx-secondary);margin-bottom:var(--s8)">Das Logo ist die primäre Markenkennung. Es wird stets als Vektor (SVG) verwendet, nie verzerrt oder eingefärbt. Drei Varianten decken alle Anwendungskontexte ab: voll, hell, dunkel, die Wahl richtet sich nach Hintergrund und Lesbarkeit.</p>
 
       <h2 id="gt-logo-varianten" class="group-title">Varianten</h2>
-      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Jede Variante hat einen eindeutigen Anwendungsfall. Im Design System sind alle drei unter <code class="token">images/logo-conciso{,-light,-dark}.svg</code> abgelegt.</p>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6)">Jede Variante hat einen eindeutigen Anwendungsfall. Im Design System sind alle drei unter <code class="token">assets/brand/logo-conciso{,-light,-dark}.svg</code> abgelegt.</p>
       <div class="layout-grid" style="margin-bottom:var(--s8)">
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
           <!-- Panel-Background über --bg-plate: im Light reinweiß (der Anwendungsfall der Variante), im Dark auf #E8EDED gedämpft, damit die helle Platte auf der tiefen Seite nicht blendet. Die Wortmarke in --tx-brand bleibt darauf klar lesbar. -->
           <div style="background:var(--bg-plate);padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="assets/images/logo-conciso.svg" alt="Conciso, Default-Variante" style="height:36px;width:auto;display:block">
+            <img src="../assets/brand/logo-conciso.svg" alt="Conciso, Default-Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Default</div>
@@ -889,7 +889,7 @@
         </div>
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
           <div style="background:var(--n-700);padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="assets/images/logo-conciso-light.svg" alt="Conciso, helle Variante" style="height:36px;width:auto;display:block">
+            <img src="../assets/brand/logo-conciso-light.svg" alt="Conciso, helle Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Light</div>
@@ -900,7 +900,7 @@
         <div class="col-4" style="background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden">
           <!-- Panel-Background fest hell (Light-Wert von --n-50), nicht das theme-reaktive Token: das Monochrom-Logo ist fix in --tx-brand (#333E48) gezeichnet und bräuchte im Dark-Mode-dunklen --n-50 sonst dunkel-auf-dunkel. Demo eines dunklen Logos verlangt hellen Grund, analog zur #fff-Default-Karte. -->
           <div style="background:#F5F7F7;padding:var(--s8) var(--s6);display:flex;align-items:center;justify-content:center;min-height:120px">
-            <img src="assets/images/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style="height:36px;width:auto;display:block">
+            <img src="../assets/brand/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style="height:36px;width:auto;display:block">
           </div>
           <div style="padding:var(--s5) var(--s6);border-top:var(--bd)">
             <div class="doc-eyebrow" style="margin-bottom:var(--s2)">Dark</div>
@@ -936,8 +936,8 @@
         <div style="position:relative;display:inline-block;padding:36px">
           <div style="position:absolute;inset:0;border:1px dashed var(--co-300);border-radius:var(--r-sm);pointer-events:none"></div>
           <!-- Theme-abhängiges Logo: bg-surface ist im Dark-Mode dunkel, daher Default (dunkle Wortmarke) in Light, Weiß-Variante in Dark. Kein display:block inline — der .logo-themed-*-Toggle arbeitet über display:none/block. -->
-          <img src="assets/images/logo-conciso.svg" alt="" aria-hidden="true" class="logo-themed-default" style="height:36px;width:auto;vertical-align:middle">
-          <img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light" style="height:36px;width:auto;vertical-align:middle">
+          <img src="../assets/brand/logo-conciso.svg" alt="" aria-hidden="true" class="logo-themed-default" style="height:36px;width:auto;vertical-align:middle">
+          <img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light" style="height:36px;width:auto;vertical-align:middle">
         </div>
       </div>
 
@@ -2151,7 +2151,7 @@
       <span class="lbl" style="margin-bottom:var(--s3)">Default-Zustand · Landing</span>
       <div style="border:var(--bd-strong);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-navigation">Angewandte KI</a>
@@ -2194,7 +2194,7 @@
       <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Auf Bereichsseiten erbt der Submenü-Eintrag <code class="token">aria-current="page"</code>, und der zugehörige Toggle (hier „Angewandte KI“) wird Petrol gefärbt und trägt als aktive Sektion denselben Unterstrich. Beim bloßen Hover/Aufklappen erscheint dagegen kein Unterstrich. Öffnen per Hover, Klick/Tap oder Tastatur (<kbd>Enter</kbd>).</p>
       <div style="border:var(--bd-strong);border-radius:var(--r-md);margin-bottom:var(--s6)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn t-co" href="#sec-navigation">Angewandte KI</a>
@@ -2237,7 +2237,7 @@
       <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s3)">Das direkte Top-Item „Wissen“ (ohne Submenü) trägt <code class="token">aria-current="page"</code> selbst.</p>
       <div style="border:var(--bd-strong);border-radius:var(--r-md);margin-bottom:var(--s8)">
         <div class="ep-topnav" style="border-bottom:none">
-          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Landingpage" href="#sec-navigation"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-navigation">Angewandte KI</a>
@@ -9117,7 +9117,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-landing-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -9487,7 +9487,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Überblick hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -9753,7 +9753,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-ueber-uns-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Über uns hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -10083,7 +10083,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-arbeitgeber-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Arbeitgeber hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -10499,7 +10499,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-jobs-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Offene Stellen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -10736,7 +10736,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-co-job-jee-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen / Offene Stellen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -10928,7 +10928,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-leistungen-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -11167,7 +11167,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -11468,7 +11468,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-box-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -11926,7 +11926,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-eng-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -12170,7 +12170,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ai-auto-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + KI hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn t-co" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -12489,7 +12489,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-es-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -12783,7 +12783,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wo-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -13069,7 +13069,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wo-meetingflut-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -13363,7 +13363,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wo-scrum-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -13694,7 +13694,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wo-lpm-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -13939,7 +13939,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-es-keycloak-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -14207,7 +14207,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-es-keycloak-ext-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Software hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -14449,7 +14449,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wb-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -14724,7 +14724,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-wb-ki-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Wissen hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -15091,7 +15091,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-ev-uebersicht-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Unternehmen hervorgehoben (Veranstaltungen liegen dort) -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -15401,7 +15401,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-veranstaltung-main">Zum Hauptinhalt springen</a>
         <!-- Topnav -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -15767,7 +15767,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-kontakt-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Kontakt aktiv -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>
@@ -15972,7 +15972,7 @@ chip.addEventListener(<span class="s">'click'</span>, () =&gt; {
         <a class="skip-link" href="#ep-seminar-main">Zum Hauptinhalt springen</a>
         <!-- Topnav – Leistungen + Organisation hervorgehoben -->
         <div class="ep-topnav">
-          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="assets/images/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="assets/images/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
+          <a class="ep-logo" aria-label="Zur Startseite" href="#sec-examples" data-ep="landing"><img src="../assets/brand/logo-conciso.svg" alt="Conciso" class="logo-themed-default"><img src="../assets/brand/logo-conciso-light.svg" alt="" aria-hidden="true" class="logo-themed-light"></a>
           <nav class="ep-nav-links" aria-label="Hauptnavigation">
             <div class="ep-nav-item ep-nav-has-sub">
               <a class="ep-nav-btn" href="#sec-examples" data-ep="ai">Angewandte KI</a>

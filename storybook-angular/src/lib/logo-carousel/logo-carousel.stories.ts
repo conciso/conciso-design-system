@@ -61,17 +61,17 @@ export const MitBildern: Story = {
   args: {
     sets: [
       [
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'NORDWIND' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'MERIDIAN' },
       ],
       [
         { label: 'AVERA' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'KONTUR' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'STELLA' },
       ],
     ],

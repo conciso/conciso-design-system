@@ -29,7 +29,7 @@ type Story = StoryObj<LogoComponent>;
 /** Mit Bild: das Conciso-Logo als Stellvertreter (Kacheln liegen randlos auf weißer Platte). */
 export const MitBild: Story = {
   parameters: { snapshot: { skip: true } },
-  args: { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+  args: { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
 };
 
 /** Ohne Bild: Text-Platzhalter als Fallback. */

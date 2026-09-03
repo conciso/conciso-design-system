@@ -3,10 +3,10 @@ import { within, userEvent, expect } from 'storybook/test';
 import { TopnavComponent } from './topnav.component';
 
 // Echtes Conciso-Logo laut Doku (logo-conciso.svg / -light.svg), via staticDir
-// (.storybook/main.ts → /conciso/images) serviert. Theme-Swap (hell/dunkel) über
+// (.storybook/main.ts → /conciso/brand) serviert. Theme-Swap (hell/dunkel) über
 // die portablen Klassen .logo-themed-default/-light.
-const LOGO_DEFAULT = '/conciso/images/logo-conciso.svg';
-const LOGO_DARK = '/conciso/images/logo-conciso-light.svg';
+const LOGO_DEFAULT = '/conciso/brand/logo-conciso.svg';
+const LOGO_DARK = '/conciso/brand/logo-conciso-light.svg';
 
 const meta: Meta<TopnavComponent> = {
   title: 'Organisms/Topnav',
