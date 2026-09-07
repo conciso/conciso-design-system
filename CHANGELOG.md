@@ -15,6 +15,41 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Fixed
+- **Das Card-Layout stand im `style`-Attribut, nicht in der Klasse.** `.card-body` dokumentiert
+  `.card-cta-link--pinned`, und dessen `margin-top:auto` funktioniert ausschließlich im
+  Flex-Container. Die Klasse war aber nur `padding:var(--s5)`. Ergebnis: in den Doku-Mockups stand
+  die Flex-Spalte 43-mal im `style`-Attribut des Bodys, 41-mal zusätzlich an `.card` selbst (ohne
+  Flex-Spalte an der Karte greift `flex:1` am Body ins Leere), dazu 41-mal `flex:1` und 39-mal ein
+  `margin-bottom:0` an der Pill. Wer das dokumentierte Rezept ohne diese Inline-Styles übernahm,
+  bekam ein anderes Layout als die Doku zeigt: keine Abstände zwischen den Body-Kindern und einen
+  CTA, der nicht an der Unterkante sitzt.
+  Jetzt tragen die Klassen das Layout: `.card` ist `display:flex;flex-direction:column`,
+  `.card-body` eine Flex-Spalte mit `gap:var(--s3)` und `flex:1`. Der `gap` ist damit der einzige
+  vertikale Rhythmus der Karte, und die Kinder geben ihre Außenmargen ab (`.card-eyebrow`,
+  `.card-cta-link`; `.card-body > .pill` nimmt die Eigenmarge der Pill zurück wie im
+  Featured-Body). Das ist der Punkt: eine Außenmarge am Kind addiert sich im Flex-Layout zum
+  `gap`, statt zu kollabieren, und muss dann in jedem Kontext einzeln zurückgenommen werden.
+  `.card-featured` bleibt `display:block`, dort liegt der Body absolut.
+  **Sichtbar ändert sich zweierlei, im Browser nachgemessen.** In der Featured-Card rückt der CTA
+  von 24 px auf 16 px an die Zeile darüber und liegt damit im selben Rhythmus wie der übrige Body
+  (`gap:var(--s4)`); vorher kamen 8 px Marge dazu. Und in den sieben Anatomie-Demo-Karten, die
+  ihren Body nie inline geflext hatten, stehen Eyebrow, Titel und Text jetzt mit 12/12 px statt
+  8/0 px, die Karte wächst dadurch von 404 px auf 420 px. Alles andere bleibt gleich: die
+  Listing-Cards, deren Body vorher inline geflext war, rendern unverändert (12 px zwischen den
+  Kindern, gepinnte CTAs mit 20 px Padding-Luft an der Unterkante), das Bildverhältnis der
+  Featured-Card bleibt 1,778, kein horizontaler Overflow.
+  **Eine Ausnahme gehört zur Regel:** `.ep-feature-body` hat mit Absicht nur `gap:var(--s1)`, damit
+  Titel und Text als Einheit gelesen werden. Für den CTA ist das zu eng, deshalb trägt der
+  Container die Ausnahme (`.ep-feature-body > .card-cta-link{margin-top:var(--s2)}`) und die 13
+  Feature-CTAs stehen unverändert bei 12 px. Genau so gehört es: nicht das Kind bringt die Marge
+  überall mit, sondern der Container, der sie braucht, gibt sie seinem Kind.
+  In den Mockups sind alle 43 + 41 + 41 + 39 Inline-Deklarationen entfernt; geblieben sind vier
+  reine `gap`-Overrides (`--s4`, `--s6`), also Abstands-Entscheidungen, kein neu deklariertes
+  Layout.
+  `CONTRIBUTING.md` § 7 hält beide Regeln fest, an denen das hing: der Abstand gehört dem
+  Container, nicht dem Kind, und eine Klasse trägt das Layout, das ihr eigenes Rezept voraussetzt.
+  Prüfstein für künftige Bauteile: das Rezept aus der Doku muss allein mit seinen Klassen so
+  aussehen, wie die Doku es zeigt.
 - **Die Pill wurde in Flex-Spalten zum Balken.** `.pill` ist `inline-block`, wird als Flex-Item
   aber zu `block` blockifiziert, und ein Item mit auto-Cross-Size zieht `align-items:stretch` auf
   die volle Spaltenbreite. Im `.card-featured-body` (Flex-Spalte, `gap:var(--s4)`) heißt das:
@@ -31,11 +66,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   eine definierte Cross-Size `stretch` in beiden schlägt), und `.card-featured-body > .pill` nimmt
   die Eigenmarge dort zurück, wo der Body den Abstand als `gap` selbst trägt. In den Mockups sind
   alle 46 `width:fit-content` entfernt, die 7 Featured-Pills brauchen gar kein `style`-Attribut
-  mehr. Die 39 Pills in einem `.card-body` behalten `margin-bottom:0`: dort steckt die Flex-Spalte
-  samt `gap` im `style`-Attribut, nicht in der Klasse, also kann die Klasse den Abstand auch nicht
-  übernehmen. Doku: die Pill-Sektion, das Featured-Rezept und die technischen Regeln der
-  Veranstaltungs-Card nennen jetzt, was die Klasse leistet und was im Markup nichts zu suchen
-  hat.
+  mehr. Auch die 39 Pills in einem `.card-body` sind ihren Override los, seit `.card-body` seine
+  Flex-Spalte selbst trägt (siehe den Eintrag darüber). Doku: die Pill-Sektion, das
+  Featured-Rezept und die technischen Regeln der Veranstaltungs-Card nennen jetzt, was die Klasse
+  leistet und was im Markup nichts zu suchen hat.
 - **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
   generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
   einen 4-px-Bereichsakzent. Gemessen im Light: 1,18:1 gegen Weiss und 1,10:1 gegen eine

@@ -1391,7 +1391,15 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .atab-content.visible{display:block}
 
 /* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+/* Die Karte ist eine vertikale Spalte: Bild, Body, optionaler Footer. Das steht hier und nicht im
+   style-Attribut, weil das dokumentierte Rezept es voraussetzt: .card-body{flex:1} kann die
+   Resthöhe nur in einem Flex-Container einnehmen, und ohne diese Resthöhe hat
+   .card-cta-link--pinned kein margin-top:auto, an dem es sich ausrichten könnte. Die Karten in
+   einem .layout-grid werden von außen auf gleiche Höhe gezogen; der Body nimmt den Überschuss
+   auf, damit die CTA-Zeilen nebeneinanderliegender Karten auf einer Linie sitzen.
+   .card-featured bleibt display:block (weiter unten, spätere Regel gewinnt): dort liegt der Body
+   absolut, eine Flex-Spalte hätte da nichts zu verteilen. */
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
 /* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
    selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
@@ -1402,8 +1410,17 @@ a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
-.card-body{padding:var(--s5)}
-.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+/* Der Body ordnet seine Kinder, also gehört ihm auch der Abstand zwischen ihnen: eine Flex-Spalte
+   mit gap:var(--s3) als einziger vertikaler Rhythmus der Karte. Vorher trug jedes Kind seine
+   eigene Außenmarge, und wer den Body flexte, bekam Marge PLUS Gap (im Flex-Layout kollabieren
+   sie nicht). Darum haben .card-eyebrow und .card-cta-link hier keine Marge mehr, und die Pill
+   bekommt ihre unten zurückgenommen.
+   flex:1 lässt den Body die Resthöhe der Karte einnehmen. Nötig für .card-cta-link--pinned
+   (margin-top:auto braucht freien Raum im Container) und für gleich hohe Karten im Grid: ohne das
+   sammelt sich der Überschuss unter dem Body, statt in ihm. Auf einer nicht-flexen Karte ist die
+   Deklaration wirkungslos, nicht schädlich. */
+.card-body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1}
+.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase}
 /* Area-branded card media + eyebrow (token-driven, dark-mode overridable) */
 .card[data-area="co"] .card-media{background:var(--co-50);color:var(--co-700)}
 .card[data-area="ki"] .card-media{background:var(--ki-50);color:var(--ki-700)}
@@ -1438,6 +1455,10 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 @media(max-width:768px){
   .layout-grid .card-title,.layout-grid .card-text{min-height:0}
 }
+/* Wie im Featured-Body: die Eigenmarge der Pill (--s5, gedacht für den normalen Fluss) würde sich
+   zum gap des Bodys addieren, statt zu kollabieren. Der Abstand kommt aus dem Container. Nur
+   direkte Kinder, eine Pill tiefer im Body steht in einem eigenen Layout. */
+.card-body>.pill{margin-bottom:0}
 /* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
    nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
 .card-meta{display:flex;flex-direction:column;gap:var(--s1)}
@@ -2575,7 +2596,10 @@ img.logo-themed-light{display:none}
 /* Card-CTA-Link (z.B. „Beitrag lesen →“ am Karten-Fuß).
    Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
    --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
-.card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
+/* Kein margin-top: den Abstand zur Zeile darüber trägt der gap des .card-body. Die --pinned-
+   Variante setzt margin-top:auto und schiebt den CTA an die Unterkante, dort ersetzt das auto
+   jeden festen Wert ohnehin. */
+.card-cta-link{font:var(--ty-label-md);color:var(--co-700)}
 /* Bereichsvariante (optional): trägt die Akzentfarbe statt Corporate-Teal, wenn der CTA in einer
    Bereichs-Sektion sitzt. Shades wie .ep-card-cta; Dark-Overrides (→ -200/-100) in dark-mode.css. */
 .card-cta-link[data-area="co"]{color:var(--co-700)}
@@ -2602,6 +2626,10 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-feature-icon[data-area="es"]{background:var(--es-50);color:var(--es-800)}
 .ep-feature-icon[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
 .ep-feature-body{display:flex;flex-direction:column;gap:var(--s1)}
+/* Ausnahme, und sie gehört dem Container: der Gap ist hier absichtlich winzig (--s1), damit Titel
+   und Text als eine Einheit gelesen werden. Für den CTA ist das zu eng, er soll sich vom Text
+   lösen. Der Card-Body braucht das nicht, sein gap:var(--s3) trägt den Abstand schon. */
+.ep-feature-body>.card-cta-link{margin-top:var(--s2)}
 .ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
 .ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
 /* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
