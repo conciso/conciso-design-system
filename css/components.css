@@ -210,6 +210,14 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .card-featured>.card-media{width:60%}
 .card-featured>.card-media>img{width:100%;height:100%;object-fit:cover}
 .card-featured-body{position:absolute;top:0;right:0;bottom:0;width:40%;padding:var(--s6) var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4);overflow:hidden}
+/* Die Pill bringt eine Eigenmarge von --s5 mit, gedacht für den normalen Fluss (Pill über der H1
+   im Article-Header). Hier trägt der Body den Abstand als gap:var(--s4), und beide addieren sich:
+   im Flex-Layout kollabieren Marge und Gap nicht. Ergebnis wären 36 px unter der Pill statt 16 px,
+   und der Meta-Block löst sich vom Bereichs-Signal, mit dem er als Meta-Header zusammengehört. Der
+   Abstand gehört dem Container, nicht der Pill, also wird ihre Marge hier zurückgenommen. Nur für
+   direkte Kinder: eine Pill tiefer im Body (etwa in einer Zeile neben einem Titel) steht in einem
+   eigenen Layout und regelt ihren Abstand dort selbst. */
+.card-featured-body>.pill{margin-bottom:0}
 /* min-height:3lh reserviert im Grid Platz für den Gleichhöhen-Abgleich. Die Featured-Card
    steht allein, hat keinen Nachbarn, und der reservierte Platz ginge zulasten des Bildes. */
 .card-featured-body>.card-text{min-height:0}
@@ -1456,7 +1464,15 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Füllung über --XX-fill, gleiche Begründung wie beim Badge (siehe tokens.css). ES-Text auf -800
    statt -700: auf der kräftigeren Füllung trägt -700 nur noch 4,74:1, -800 gibt Reserve und ist
    derselbe Ton, den das ES-Badge längst nutzt. */
-.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
+/* width:fit-content hält die Pille eine Pille, auch als Flex- oder Grid-Item. Ein inline-block
+   wird als Flex-Item zu block blockifiziert, und ein Kind mit auto-Cross-Size wird von
+   align-items:stretch auf die volle Spaltenbreite gezogen: aus der Pille wird ein Balken
+   (gemessen im Featured-Body bei 1280 px Kartenbreite: 448 px statt 146 px). Im normalen Fluss
+   ist die Zeile ein No-Op, ein inline-block schrumpft dort ohnehin auf seinen Inhalt. Darum hier
+   an der Komponente und nicht als align-self je Container: die Pille bringt ihre Form selbst mit,
+   statt sie von jedem Layout einzeln zugewiesen zu bekommen. Deckt Flex und Grid in einem ab,
+   denn eine definierte Cross-Size schlägt stretch in beiden. */
+.pill{display:inline-block;width:fit-content;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
 .pill[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
 .pill[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
 .pill[data-area="es"]{background:var(--es-fill);color:var(--es-800)}

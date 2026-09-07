@@ -15,6 +15,27 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Fixed
+- **Die Pill wurde in Flex-Spalten zum Balken.** `.pill` ist `inline-block`, wird als Flex-Item
+  aber zu `block` blockifiziert, und ein Item mit auto-Cross-Size zieht `align-items:stretch` auf
+  die volle Spaltenbreite. Im `.card-featured-body` (Flex-Spalte, `gap:var(--s4)`) heißt das:
+  gemessen bei 1280 px Kartenbreite 448 px Pill-Breite statt 146 px, also exakt die Inhaltsbreite
+  des Bodys (40 % von 1280 px minus zweimal `--s8`). Dazu addierte sich die Eigenmarge der Pill
+  (`margin-bottom:var(--s5)`, gedacht für den normalen Fluss über einer Überschrift) zum `gap` des
+  Bodys, statt zu kollabieren: 36 px unter der Pill statt 16 px, wodurch sich der Meta-Block vom
+  Bereichs-Signal löste, mit dem er als Meta-Header zusammengehört.
+  Die Doku-Mockups zeigten den Fehler nicht, weil an jeder der 46 Pill-Instanzen
+  `style="width:fit-content;margin-bottom:0"` stand. Im Copy-Paste-Rezept der Featured-Card fehlte
+  dieser Override. Wer das Rezept übernahm, bekam den Balken.
+  Jetzt bringt `.pill` selbst `width:fit-content` mit (im normalen Fluss ein No-Op, ein
+  `inline-block` schrumpft dort ohnehin auf seinen Inhalt; deckt Flex und Grid in einem ab, weil
+  eine definierte Cross-Size `stretch` in beiden schlägt), und `.card-featured-body > .pill` nimmt
+  die Eigenmarge dort zurück, wo der Body den Abstand als `gap` selbst trägt. In den Mockups sind
+  alle 46 `width:fit-content` entfernt, die 7 Featured-Pills brauchen gar kein `style`-Attribut
+  mehr. Die 39 Pills in einem `.card-body` behalten `margin-bottom:0`: dort steckt die Flex-Spalte
+  samt `gap` im `style`-Attribut, nicht in der Klasse, also kann die Klasse den Abstand auch nicht
+  übernehmen. Doku: die Pill-Sektion, das Featured-Rezept und die technischen Regeln der
+  Veranstaltungs-Card nennen jetzt, was die Klasse leistet und was im Markup nichts zu suchen
+  hat.
 - **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
   generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
   einen 4-px-Bereichsakzent. Gemessen im Light: 1,18:1 gegen Weiss und 1,10:1 gegen eine
