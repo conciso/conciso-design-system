@@ -24,6 +24,61 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [1.0.0] - 2026-08-21
 
 ### Fixed
+- **Das Card-Layout stand im `style`-Attribut, nicht in der Klasse.** `.card-body` dokumentiert
+  `.card-cta-link--pinned`, und dessen `margin-top:auto` funktioniert ausschließlich im
+  Flex-Container. Die Klasse war aber nur `padding:var(--s5)`. Ergebnis: in den Doku-Mockups stand
+  die Flex-Spalte 43-mal im `style`-Attribut des Bodys, 41-mal zusätzlich an `.card` selbst (ohne
+  Flex-Spalte an der Karte greift `flex:1` am Body ins Leere), dazu 41-mal `flex:1` und 39-mal ein
+  `margin-bottom:0` an der Pill. Wer das dokumentierte Rezept ohne diese Inline-Styles übernahm,
+  bekam ein anderes Layout als die Doku zeigt: keine Abstände zwischen den Body-Kindern und einen
+  CTA, der nicht an der Unterkante sitzt.
+  Jetzt tragen die Klassen das Layout: `.card` ist `display:flex;flex-direction:column`,
+  `.card-body` eine Flex-Spalte mit `gap:var(--s3)` und `flex:1`. Der `gap` ist damit der einzige
+  vertikale Rhythmus der Karte, und die Kinder geben ihre Außenmargen ab (`.card-eyebrow`,
+  `.card-cta-link`; `.card-body > .pill` nimmt die Eigenmarge der Pill zurück wie im
+  Featured-Body). Das ist der Punkt: eine Außenmarge am Kind addiert sich im Flex-Layout zum
+  `gap`, statt zu kollabieren, und muss dann in jedem Kontext einzeln zurückgenommen werden.
+  `.card-featured` bleibt `display:block`, dort liegt der Body absolut.
+  **Sichtbar ändert sich zweierlei, im Browser nachgemessen.** In der Featured-Card rückt der CTA
+  von 24 px auf 16 px an die Zeile darüber und liegt damit im selben Rhythmus wie der übrige Body
+  (`gap:var(--s4)`); vorher kamen 8 px Marge dazu. Und in den sieben Anatomie-Demo-Karten, die
+  ihren Body nie inline geflext hatten, stehen Eyebrow, Titel und Text jetzt mit 12/12 px statt
+  8/0 px, die Karte wächst dadurch von 404 px auf 420 px. Alles andere bleibt gleich: die
+  Listing-Cards, deren Body vorher inline geflext war, rendern unverändert (12 px zwischen den
+  Kindern, gepinnte CTAs mit 20 px Padding-Luft an der Unterkante), das Bildverhältnis der
+  Featured-Card bleibt 1,778, kein horizontaler Overflow.
+  **Eine Ausnahme gehört zur Regel:** `.ep-feature-body` hat mit Absicht nur `gap:var(--s1)`, damit
+  Titel und Text als Einheit gelesen werden. Für den CTA ist das zu eng, deshalb trägt der
+  Container die Ausnahme (`.ep-feature-body > .card-cta-link{margin-top:var(--s2)}`) und die 13
+  Feature-CTAs stehen unverändert bei 12 px. Genau so gehört es: nicht das Kind bringt die Marge
+  überall mit, sondern der Container, der sie braucht, gibt sie seinem Kind.
+  In den Mockups sind alle 43 + 41 + 41 + 39 Inline-Deklarationen entfernt; geblieben sind vier
+  reine `gap`-Overrides (`--s4`, `--s6`), also Abstands-Entscheidungen, kein neu deklariertes
+  Layout.
+  `CONTRIBUTING.md` § 7 hält beide Regeln fest, an denen das hing: der Abstand gehört dem
+  Container, nicht dem Kind, und eine Klasse trägt das Layout, das ihr eigenes Rezept voraussetzt.
+  Prüfstein für künftige Bauteile: das Rezept aus der Doku muss allein mit seinen Klassen so
+  aussehen, wie die Doku es zeigt.
+- **Die Pill wurde in Flex-Spalten zum Balken.** `.pill` ist `inline-block`, wird als Flex-Item
+  aber zu `block` blockifiziert, und ein Item mit auto-Cross-Size zieht `align-items:stretch` auf
+  die volle Spaltenbreite. Im `.card-featured-body` (Flex-Spalte, `gap:var(--s4)`) heißt das:
+  gemessen bei 1280 px Kartenbreite 448 px Pill-Breite statt 146 px, also exakt die Inhaltsbreite
+  des Bodys (40 % von 1280 px minus zweimal `--s8`). Dazu addierte sich die Eigenmarge der Pill
+  (`margin-bottom:var(--s5)`, gedacht für den normalen Fluss über einer Überschrift) zum `gap` des
+  Bodys, statt zu kollabieren: 36 px unter der Pill statt 16 px, wodurch sich der Meta-Block vom
+  Bereichs-Signal löste, mit dem er als Meta-Header zusammengehört.
+  Die Doku-Mockups zeigten den Fehler nicht, weil an jeder der 46 Pill-Instanzen
+  `style="width:fit-content;margin-bottom:0"` stand. Im Copy-Paste-Rezept der Featured-Card fehlte
+  dieser Override. Wer das Rezept übernahm, bekam den Balken.
+  Jetzt bringt `.pill` selbst `width:fit-content` mit (im normalen Fluss ein No-Op, ein
+  `inline-block` schrumpft dort ohnehin auf seinen Inhalt; deckt Flex und Grid in einem ab, weil
+  eine definierte Cross-Size `stretch` in beiden schlägt), und `.card-featured-body > .pill` nimmt
+  die Eigenmarge dort zurück, wo der Body den Abstand als `gap` selbst trägt. In den Mockups sind
+  alle 46 `width:fit-content` entfernt, die 7 Featured-Pills brauchen gar kein `style`-Attribut
+  mehr. Auch die 39 Pills in einem `.card-body` sind ihren Override los, seit `.card-body` seine
+  Flex-Spalte selbst trägt (siehe den Eintrag darüber). Doku: die Pill-Sektion, das
+  Featured-Rezept und die technischen Regeln der Veranstaltungs-Card nennen jetzt, was die Klasse
+  leistet und was im Markup nichts zu suchen hat.
 - **Kartenraender waren im Light praktisch unsichtbar und untereinander uneinheitlich.** Die
   generische `.card` trug `--bd` (n-100), Testimonial- und Stat-Karte `--bd-strong` (n-200) plus
   einen 4-px-Bereichsakzent. Gemessen im Light: 1,18:1 gegen Weiss und 1,10:1 gegen eine
@@ -47,14 +102,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   bleibt Unterschied: die generische Karte zeigt ihren Bereich ueber die getoente Medienflaeche,
   Testimonial und Stat-Karte haben keine, dort traegt die Oberkante die Bereichsfarbe.
 
-- **Zwei tote Nav-Links in der Barrierefreiheits-Sektion.** „Tastaturnavigation"
-  (`#gt-a11y-keyboard`) und „Touch Targets" (`#gt-a11y-touch`) standen in der Sub-Navigation,
+- **Zwei tote Nav-Links in der Barrierefreiheits-Sektion.** „Tastaturnavigation“
+  (`#gt-a11y-keyboard`) und „Touch Targets“ (`#gt-a11y-touch`) standen in der Sub-Navigation,
   ohne dass es die Ziele gab, während die Einleitung derselben Sektion beide Themen ankündigt.
-  Beide Blöcke sind jetzt geschrieben, siehe „Added".
-- **Fünf Überschriften waren über die Sidebar nicht erreichbar.** „Editoriale Kennzahl-Zeile",
-  „Kontrastverhältnisse · Dark Mode" und die beiden Verwendungs-Blöcke in Slider & Carousel
+  Beide Blöcke sind jetzt geschrieben, siehe „Added“.
+- **Fünf Überschriften waren über die Sidebar nicht erreichbar.** „Editoriale Kennzahl-Zeile“,
+  „Kontrastverhältnisse · Dark Mode“ und die beiden Verwendungs-Blöcke in Slider & Carousel
   hatten keinen Nav-Eintrag. Weil diese Sektion zwei Bauteile dokumentiert, heißen ihre
-  Verwendungs-Blöcke jetzt „Bild-Carousel · Verwendung" und „Kundenlogo-Karussell · Verwendung",
+  Verwendungs-Blöcke jetzt „Bild-Carousel · Verwendung“ und „Kundenlogo-Karussell · Verwendung“,
   nach dem schon beim Störer verwendeten Muster. `gt-colors-semantik` war dagegen kein
   Gruppen-Titel, sondern das Label einer Spalte im Verwendungs-Block, angesprungen von einem
   Querverweis; es heißt jetzt `colors-semantik`, damit `gt-` genau die Überschriften mit
@@ -68,11 +123,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `gt-logo-carousel*` in `sec-slider`. Alle sieben IDs der beiden Sektionen folgen jetzt ihrer
   eigenen Sektion, samt der Querverweise im Fließtext.
 - **Inhaltsverzeichnis von `docs/GETTING-STARTED.md` unvollständig.** Es listete 8 Kapitel bei 9
-  vorhandenen: „Einheiten & medienübergreifende Nutzung" war als §7 eingeschoben worden, ohne das
+  vorhandenen: „Einheiten & medienübergreifende Nutzung“ war als §7 eingeschoben worden, ohne das
   Verzeichnis nachzuziehen, wodurch die letzten zwei Einträge auf `#7-icons-nutzen` und
   `#8-frameworks` zeigten statt auf `#8-…` und `#9-…`. Alle 9 Anker lösen wieder auf.
 - **`README.md` beschrieb eine Gliederung, die es nicht mehr gibt.** Statt „32 Sektionen:
-  Foundations (…)" jetzt 35 Sektionen in den sechs aktuellen Gruppen.
+  Foundations (…)“ jetzt 35 Sektionen in den sechs aktuellen Gruppen.
 - **Störer bei 200 % Textgröße: Maße von px auf rem (WCAG 1.4.4).** Die Container-Query-Schwelle
   stand als `1025px` da und skalierte damit nicht mit der Browser-Standardschriftgröße. Bei
   verdoppelter Wurzel-Schrift wuchs die Kachel von 126 auf 290 px, das Overlay blieb aber an und
@@ -97,6 +152,68 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   durch `outline: 3px solid Highlight` (in beiden Modi nachgemessen).
 
 ### Added
+- **Die Brand-Logos werden jetzt ausgeliefert: `assets/brand/`.** Wer das Paket eingebunden hat,
+  bekam kein Logo. Die drei Wortmarken lagen unter `docs/assets/images/`, und `docs/` steht nicht in
+  `package.json` → `files`; einen `exports`-Eintrag für Assets gab es ebenfalls nicht. Dokumentiert
+  war das Logo dagegen vollständig (Doku-Sektion **Marke → Logo**), es fehlte allein der Weg zum
+  Developer. Zwei Nebenfolgen derselben Ablage: die Doku nannte in der Prosa den Pfad
+  `images/logo-conciso{,-light,-dark}.svg`, real war es `assets/images/…`, und Storybook mountete
+  für **9,7 KB** Logo den kompletten **164 MB** großen Demo-Bilderordner nach `/conciso/images`.
+  Die drei SVGs liegen jetzt unter `assets/brand/` und sind über `files` und
+  `exports["./assets/brand/*"]` Teil des Pakets, ansprechbar als
+  `@conciso/design-system/assets/brand/logo-conciso.svg`. Umgestellt sind 59 `src`-Attribute in
+  `docs/index.html` (Sektionen Logo, Navigation, Beispielseiten) auf `../assets/brand/`, die falsche
+  Prosa-Angabe, der Storybook-Mount (jetzt `assets/brand` → `/conciso/brand`, 164 MB auf 9,7 KB) samt
+  acht Story-Referenzen und das Vorschau-Skript, das die Root-Assets mitkopiert und `../assets/` wie
+  bisher `../css/` auf Geschwister-Ebene umschreibt. `assets/brand/README.md` beschreibt den Einbau,
+  verbindlich für Größen, Schutzraum und Verwendung bleibt die Doku-Sektion.
+  `logo-conciso.svg` trug noch XML-Prolog, `DOCTYPE` und drei ungenutzte Namespaces des Export-Tools,
+  die beiden anderen Varianten nicht. Sie sind entfernt, die Pfaddaten sind byte-identisch geblieben
+  (3609 auf 3355 Byte). Zwei der Dateien hatten fälschlich das Executable-Bit, jetzt `644`.
+  `width` und `height` bleiben an allen drei SVGs, anders als es CONTRIBUTING § 10 für
+  `icons/source/` vorschreibt: Icons werden inline eingebettet, Logos per `<img>`, und dort liefern
+  genau diese Attribute das intrinsische Seitenverhältnis und verhindern Layout-Shift. Die Begründung
+  steht in `assets/brand/README.md`, damit sie niemand gegen die Icon-Regel wegräumt.
+  Bewusst **nicht** Teil davon: ein Favicon- oder App-Icon-Set (die Wortmarke ist bei 7,6 zu 1 als
+  Favicon unbrauchbar, Quelle wäre `icons/source/co-mark.svg`), eine `currentColor`-Variante (der
+  CSS-Swap über `.logo-themed-default`/`-light` bleibt der Weg) und die Auslagerung der Demo-Fotos,
+  die weiter unter **Geplant** steht. Die Fremdmarken `logo-youtube-light.svg` und
+  `logo-linkedin-light.png` bleiben bei den Demo-Bildern, sie sind keine Conciso-Assets.
+- **`.card-featured`: Featured-Card mit dem Bildverhältnis der Listing-Cards.** Die Featured-Card
+  hatte kein definiertes Bildverhältnis. Die Bildspalte war ein `<div>` mit `min-height` und einem
+  CSS-`background-image`, ihre Höhe ergab sich aus dem Text daneben. Gemessen bei 1440 px Viewport:
+  **1,62**, während `.card-media` im Listing-Grid **1,778** (16/9) liefert. Redaktion musste damit
+  pro Beitrag zwei Zuschnitte pflegen, einen fürs Featured und einen fürs Grid.
+  Die Bildspalte trägt jetzt `.card-media` und damit dasselbe `aspect-ratio`, der Bildausschnitt
+  sitzt als `object-position` am `<img>` statt als `background-position` am Container. Ein Bild in
+  einem Zuschnitt passt damit in beide Slots.
+  Damit das Verhältnis unabhängig von der Textlänge hält, bestimmt das **Bild** die Kartenhöhe:
+  `.card-featured-body` liegt absolut und trägt nichts zur Zeilenhöhe bei. Als normale Spalte zieht
+  seine Inhaltshöhe die Zeile auf und streckt das Bild mit. Ein `aspect-ratio` auf der Karte genügt
+  dafür nicht, es ist eine Wunschgröße und verliert gegen die Inhaltshöhe (gemessen 1,50).
+  Spaltenteilung 60/40 statt 50/50, weil ein 16/9-Bild auf halber Kartenbreite zu flach für den
+  Content-Block ist: bei 50 % schrumpfte der Lead auf null Zeilen.
+- **Drei Stufen der Featured-Card, an der Kartenbreite statt am Viewport.** Alle Stufen hängen per
+  `@container` an der Karte (CONTRIBUTING § 7). Im Doku-Mockup ist die Karte bei 1180 px Viewport nur
+  814 px breit, bei 1024 px dagegen 958 px, weil die Doku-Sidebar unterschiedlich greift. Eine
+  Viewport-Regel träfe dort das Falsche.
+  Über **1000 px** Kartenbreite: Bild 60 %, Padding `s6 s8`, Lead drei Zeilen.
+  **900 bis 1000 px** (Tablet-Landscape): nebeneinander bleiben, aber verdichtet. Bild 65 %, Padding
+  `s4 s6`, Lead zwei Zeilen. Bei 16/9 heißt breiteres Bild auch höheres Bild, und diese Höhe
+  braucht der Content-Block. Vorher wurde hier gestapelt: das Bild wurde full width und 539 px hoch,
+  die Karte 807 px, auf einem 1024×768-iPad also höher als der Bildschirm. Jetzt 350 px.
+  Unter **900 px**: gestapelt wie die Grid-Cards, und das Lead-Kürzen wird zurückgenommen, weil
+  ohne feste Höhe kein Grund besteht, eine Zeile zu opfern. Tiefer nebeneinander zu bleiben lohnt
+  nicht, die Textspalte fiele unter 250 px, rund 30 Zeichen pro Zeile.
+- **Kürzen statt Verhältnis brechen: der Vorrang steht fest.** `.card-text` bringt sein `line-clamp`
+  mit und gibt als schrumpfendes Flex-Item zuerst nach, bevor Pill, Meta-Strip, Titel oder CTA
+  wegfallen. Dazu kappt `.card-title-hero` **innerhalb** der Featured-Card auf drei Zeilen: ohne
+  diesen Riegel frisst ein langer Titel die Höhe, die der Lead braucht, und schiebt danach Pill und
+  CTA aus der Karte (gemessen mit einem 18-Wort-Titel). Global bleibt `.card-title-hero`
+  unbeschnitten. Rest-Fall, bewusst so gelassen: schöpft ein Titel den Riegel voll aus, wird die
+  letzte Lead-Zeile angeschnitten statt mit Auslassungspunkten zu enden. Dann muss etwas nachgeben,
+  und eine halbe Lead-Zeile ist der geringste Schaden; die Karte bleibt in jedem Fall geschlossen.
+  Ein kleinerer `gap` verschiebt den Fall nur (1,98 statt 1,76 Zeilen) und löst ihn nicht.
 - **Tastaturnavigation und Touch Targets dokumentiert.** Beide Blöcke fehlten in einem System mit
   AA-Ziel. Tastaturnavigation behandelt Fokusreihenfolge aus dem Markup (keine positiven
   `tabindex`), Sprungziele mit `tabindex="-1"`, den Skip-Link, die Tastaturfalle, verdeckten Fokus
@@ -114,17 +231,28 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   derselben Grid-Zeile von `.ep-tabs` und die Leiste ist 328 px hoch, ein reiner Anker führte also
   fünfmal an dieselbe Stelle. Umgesetzt über das vorhandene `activateExamplePage`; der `href` zeigt
   auf den ersten Tab der Gruppe und bleibt ohne JS ein gültiges Sprungziel.
-- **`CONTRIBUTING.md` §11 „Doku-Struktur".** Für die Gliederung der Doku-Site gab es keine
+- **`CONTRIBUTING.md` §11 „Doku-Struktur“.** Für die Gliederung der Doku-Site gab es keine
   geschriebene Regel, nur einen Halbsatz in §10 Schritt 4, der drei Inhaltsblöcke nennt. Der neue
   Abschnitt hält fest: die sechs Gruppen und was hineingehört, Nav-Eintrag als Pflicht, das
-  Anker-Schema `gt-<sektion>-<thema>` und wofür das Präfix reserviert ist, „Aufbau" zuerst und
-  „Verwendung" zuletzt samt der Form `<Bauteil> · Verwendung`, die Bereichsreihenfolge, Nav-Label
+  Anker-Schema `gt-<sektion>-<thema>` und wofür das Präfix reserviert ist, „Aufbau“ zuerst und
+  „Verwendung“ zuletzt samt der Form `<Bauteil> · Verwendung`, die Bereichsreihenfolge, Nav-Label
   gleich Überschrift oder deren Anfang, ein Trennzeichen pro Aufgabe, die Sprachregel und die
   Heading-Ebenen samt der einen dokumentierten Ausnahme. Dazu zwei Einzeiler zum Selbstprüfen und
   eine Zeile in der PR-Checkliste.
 
 ### Changed
-- **Reihenfolge und Benennung der Doku-Navigation.** „Verwendung" schließt eine Sektion ab, bei
+- **Alle sieben Featured-Cards auf `.card-featured` umgestellt.** Wissen-Übersicht (drei
+  bereichsspezifische Varianten), Veranstaltungs-Übersicht (drei) und das Featured auf der Landing.
+  Damit liegt Layout, Spaltenteilung und das Kürzen in der Klasse statt im `style`-Attribut, und
+  die alte `min-height`-Konstruktion mit `background-image` ist restlos aus dem Repo. Geprüft über
+  alle drei Beispielseiten bei zehn Kartenbreiten von 1200 bis 375 px, Light und Dark: 16/9 hält
+  durchgängig, Pill und CTA bleiben sichtbar, der Lead endet auf Zeilenkante.
+- **Doku der Featured-Card beschrieb das Bild als 1:1 und die Geometrie als `min-height`-Spalte.**
+  Beides traf schon vor dieser Änderung nicht zu, gemessen waren es 1,62 und eine Spalte ohne
+  definiertes Verhältnis. Prosa, Vergleichstabelle und Code-Block sind auf 16:9, `.card-media` und
+  die drei Container-Stufen gezogen. In der Vergleichstabelle stand für den Lead außerdem noch
+  14 px, `.card-text` trägt Body-md mit 16 px.
+- **Reihenfolge und Benennung der Doku-Navigation.** „Verwendung“ schließt eine Sektion ab, bei
   Elevation und Tabelle stand danach noch ein Block. Icons listete die Bereiche als co/ki/wo/es,
   kanonisch und wie bei Buttons ist co/ki/es/wo. Der Eintrag Design Tokens sitzt jetzt hinter
   Elevation statt zwischen Icons und Barrierefreiheit, also hinter den vier Themen, deren Werte er
@@ -132,27 +260,27 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Benennung: Gruppen- und Konzeptnamen deutsch (Foundations → Grundlagen, Components →
   Komponenten, Page-Patterns → Seitenmuster, Colors → Farben, Typography → Typografie, CSS Design
   Tokens → Design Tokens, WCAG 2.1 AA & Accessibility → Barrierefreiheit, Hero-Patterns → Hero),
-  etablierte Bauteil- und Token-Namen unverändert. „Brand Areas" bleibt: der Begriff steht 34 Mal
+  etablierte Bauteil- und Token-Namen unverändert. „Brand Areas“ bleibt: der Begriff steht 34 Mal
   in der Doku-Prosa und je zwei Mal in CONTRIBUTING und CHANGELOG, nur die Sektion umzubenennen
   hieße ein Ding, zwei Wörter. Nav-Label ist jetzt überall die Überschrift oder ihr Anfang
-  (vorher wichen 10 von 165 ab, am weitesten „Verschachtelung" für „Optional: Sub-Hierarchie per
-  `.footer-subtitle`", ohne ein gemeinsames Wort). Für „Name plus Zusatz" gilt ein Trennzeichen:
+  (vorher wichen 10 von 165 ab, am weitesten „Verschachtelung“ für „Optional: Sub-Hierarchie per
+  `.footer-subtitle`“, ohne ein gemeinsames Wort). Für „Name plus Zusatz“ gilt ein Trennzeichen:
   `·` bestimmt näher, `:` steht vor einem Satz, Klammern tragen einen kurzen Einschub.
-- **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen" auf
-  der Startseite und der Topnav-Eintrag „Events" heißen jetzt beide „Veranstaltungen". Für dieselbe Domäne
-  standen auf einer Seite drei Wörter: „Events" (Topnav), „Treffen" (Sektions-Label) und „Alle
-  Veranstaltungen ansehen" (Link am Sektionsende); dazu kommt die Übersichtsseite, die von
+- **Domänenwort für Veranstaltungen systemweit vereinheitlicht.** Das Sektions-Label „Treffen“ auf
+  der Startseite und der Topnav-Eintrag „Events“ heißen jetzt beide „Veranstaltungen“. Für dieselbe Domäne
+  standen auf einer Seite drei Wörter: „Events“ (Topnav), „Treffen“ (Sektions-Label) und „Alle
+  Veranstaltungen ansehen“ (Link am Sektionsende); dazu kommt die Übersichtsseite, die von
   Veranstaltungen spricht. Mit dem Störer verlinken zwei Elemente derselben Seite auf dasselbe Ziel,
   und dann sind zwei verschiedene Namen nicht mehr nur uneinheitlich: für Screenreader liest sich das
-  wie zwei verschiedene Inhalte. „Veranstaltungen" ist das Wort, das Übersichtsseite, Detailseite und
+  wie zwei verschiedene Inhalte. „Veranstaltungen“ ist das Wort, das Übersichtsseite, Detailseite und
   der Link am Sektionsende schon tragen. Angeglichen sind 27 Topnav-Einträge über alle
   Beispielseiten, das Sektions-Label, die Karte und der CTA auf der Unternehmens-Übersicht, die
-  Anmeldungs-Einwilligung, der Hero-Eyebrow „Fokusevent" (jetzt „Fokusveranstaltung") sowie die
-  Doku-Prosa inklusive des Komponenten-Namens „Event-Card" (jetzt „Veranstaltungs-Card"). Im Wort
-  „Event" verbleiben nur technische Bezeichner (`gt-event-*`, `sec-events`, `pointer-events`,
+  Anmeldungs-Einwilligung, der Hero-Eyebrow „Fokusevent“ (jetzt „Fokusveranstaltung“) sowie die
+  Doku-Prosa inklusive des Komponenten-Namens „Event-Card“ (jetzt „Veranstaltungs-Card“). Im Wort
+  „Event“ verbleiben nur technische Bezeichner (`gt-event-*`, `sec-events`, `pointer-events`,
   `data-event-meta`, Bild-Dateinamen) und die internen Team-Aktivitäten auf der Arbeitgeber-Seite
-  („Teamevents", „Kochevents"): das sind andere Dinge, und zwei Dinge dürfen zwei Wörter haben.
-  Kontrolliert: 0 Textüberläufe in vier Breiten, das Wort ist mehr als doppelt so lang wie „Events"
+  („Teamevents“, „Kochevents“): das sind andere Dinge, und zwei Dinge dürfen zwei Wörter haben.
+  Kontrolliert: 0 Textüberläufe in vier Breiten, das Wort ist mehr als doppelt so lang wie „Events“
   und passt in das 240 px breite Dropdown-Panel.
   CONTRIBUTING § 6 hält die Regel fest: ein Domänenwort pro Domäne über Nav, Sektions-Label und
   Verweis-Komponenten. Dazu die Notiz, dass die Eyebrow-Form (`--ty-label-xs` + uppercase +
@@ -167,7 +295,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   ist Information, nicht Dekoration, und hat jetzt einen Grund, auf dem er trägt.
   Layout dazu: die Rundung sitzt an den Farbfeldern statt an der Reihe (die Reihe klippte sonst den
   Streifen an den Außenkanten ab), der Streifen hat Luft nach oben statt am Farbfeld zu kleben, die
-  Beschriftung bricht nicht mehr um (ein Umbruch bei „800 T" schob das Farbfeld dieser Spalte nach
+  Beschriftung bricht nicht mehr um (ein Umbruch bei „800 T“ schob das Farbfeld dieser Spalte nach
   oben und ergab eine Stufe in der Reihe), und das Farbfeld behält seine 60 px Höhe. Unter 1024 px
   entfällt der Hexwert, dort ist eine Spalte zu schmal; er bleibt im `title` und per Klick kopierbar.
   Und die Reihe ist jetzt eine Karte mit Haarlinie: ohne Rahmen verlor sie im Light ihre Kante, weil
@@ -190,7 +318,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Anheben der Füllungen waren die 48-px-Kacheln mitgelaufen, obwohl für sie nichts davon gilt: WCAG
   verlangt für eine dekorative Fläche keinen Kontrast (kein Bedienelement, kein bedeutungstragendes
   Grafikobjekt, das Glyph ist `aria-hidden` und wiederholt das Eyebrow daneben), und großflächig
-  gesättigte Farbe widerspricht dem Markenwert „Ruhig". Kacheln und Timeline-Marker tragen jetzt
+  gesättigte Farbe widerspricht dem Markenwert „Ruhig“. Kacheln und Timeline-Marker tragen jetzt
   wieder `--XX-50`, ohne Rand; die Erkennbarkeit trägt das Glyph mit 7,5 bis 11,4:1 im Light und
   6,9 bis 8,6:1 im Dark, also mehr als auf der kräftigen Füllung (dort 4,7 bis 7,5:1).
   Dazu die Rollen sauber getrennt, damit die Entscheidung am Token-Namen hängt: **`--XX-50`** ruhige
@@ -300,7 +428,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   kommt die Tonstufe dazu. Gegenprobe im Browser: keine Kartenfläche ohne Rand.
 - **Schatten nur noch auf Karten, deren Fläche selbst klickbar ist.** `.card-elevated` setzte den
   Ruhe-Schatten `--e1` auf jeder Karte, auch auf `<article>`/`<div>`-Karten mit Buttons im Footer.
-  Nach der Konvention „Elevation = Interaktivität" ist so eine Karte statisch: die Buttons sind die
+  Nach der Konvention „Elevation = Interaktivität“ ist so eine Karte statisch: die Buttons sind die
   Interaktion, die Fläche führt nirgendwohin, und ein Ruhe-Schatten verspricht Klickbarkeit, die es
   nicht gibt. Der Hover-Lift war bereits auf `a.card-elevated` begrenzt, der Ruhe-Schatten nicht.
   Die Variante hängt jetzt komplett an `a.card-elevated`; eine statische Karte fällt damit auf
@@ -309,8 +437,8 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Themen-Karten der Beispielseiten), 6 Blöcke mit Inline-`box-shadow` (AI.Box-Preiskarten,
   Agenda-Karten, zwei Newsletter-Widgets) sowie `.cta-dl` und `.cta-visual`, die den Schatten aus
   dem CSS trugen. Alle behalten ihren Rahmen, die Kartenform bleibt. Die 44 Link-Karten
-  (`<a class="card card-elevated">`) sind unverändert. In der Doku ersetzt die Zeile „Link-Karte"
-  die bisherige Zeile „Elevation-Opt-in", die genau diesen Fall legitimiert hatte.
+  (`<a class="card card-elevated">`) sind unverändert. In der Doku ersetzt die Zeile „Link-Karte“
+  die bisherige Zeile „Elevation-Opt-in“, die genau diesen Fall legitimiert hatte.
 - **Angular-Card rendert flach.** `CardComponent` gab per Default `card card-elevated` auf einem
   `<article>` mit Footer-Button aus, also genau dieses Muster. Der `elevated`-Input entfällt (er
   wäre nach der CSS-Änderung wirkungslos), die Komponente rendert `<article class="card">`. Eine
@@ -322,14 +450,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Dark-Regeln. Jetzt wie überall im Dark die hellen Pendants: Text `-200` (es `-100`) mit 7,66 bis
   10,25:1, Rahmen `-300` mit 4,25 bis 9,48:1, Hover eine Stufe kräftiger. Betrifft 35 Chips in der
   Doku. `check:dark-states` sah das nicht, weil es Zustands-Regeln prüft, nicht Ruhezustände.
-- **Karten-Varianten „Filled" und „Outlined" aus der Doku entfernt.** `.card-filled` und
+- **Karten-Varianten „Filled“ und „Outlined“ aus der Doku entfernt.** `.card-filled` und
   `.card-outlined` existierten nie, weder im CSS noch im Markup noch in der Angular-Lib. Die
   Varianten-Tabelle führt jetzt die zwei Zustände, die es gibt: statisch (`.card`) und Link-Karte
   (`a.card.card-elevated`). Die Do/Don't-Liste und der Abschnitts-Untertitel sind nachgezogen,
-  ebenso zwei Aussagen zu einem „Tonal Overlay", das Karten nie gesetzt haben.
+  ebenso zwei Aussagen zu einem „Tonal Overlay“, das Karten nie gesetzt haben.
 - **Drei rohe Bereichston-Rahmen ersetzt.** Die Pro-Preiskarte trug `1px solid var(--ki-200)`
   (im Light 1,27:1 gegen Weiß, im Dark eine leuchtende Haarlinie mit 10,25:1), jetzt `--bd`; die
-  4-px-Oberkante und die „Empfohlen"-Pill tragen die Hervorhebung weiter. Die zwei
+  4-px-Oberkante und die „Empfohlen“-Pill tragen die Hervorhebung weiter. Die zwei
   Font-Specimen-Links nutzen jetzt die vorhandene `.chip`-Komponente mit `data-area` statt
   Inline-Rahmen, Inline-Radius und zwei `onmouseover`/`onmouseout`-Handlern für den Hover.
   `.chip` bekommt dafür `text-decoration:none`, damit es auch als `<a>` trägt.
@@ -446,8 +574,8 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   CSS-Kommentaren. Auch die Consumer-Tabelle in `docs/GETTING-STARTED.md`, also die Tabelle, die
   eine Anwendung liest, kannte beide Rollen nicht. Ergänzt: Familien-Zeilen in der Doku-Tabelle mit
   Messwerten, dieselben zwei Rollen in der Consumer-Tabelle samt Leitsatz („nach der Rolle greifen,
-  nicht nach der Stufe"), die Rollen-Zuordnung als ersten Schritt in CONTRIBUTING § 10, beide
-  Prüfbefehle im Schritt „Prüfen" und in der PR-Checkliste, und ein Abschnitt „Prüfungen" im README:
+  nicht nach der Stufe“), die Rollen-Zuordnung als ersten Schritt in CONTRIBUTING § 10, beide
+  Prüfbefehle im Schritt „Prüfen“ und in der PR-Checkliste, und ein Abschnitt „Prüfungen“ im README:
   dass es ein Kontrast-Gate gibt und was es garantiert, stand dort gar nicht.
 - **In die PR-Checkliste aufgenommen, was in dieser Runde zweimal gefehlt hat:** nach
   Layout-Änderungen den geänderten Bereich in beiden Modi **und zwei Breiten** ansehen, also Kanten
@@ -487,11 +615,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Die Entscheidungen, die das Bauteil tragen:
   - **Typ-Glyph als Leading-Element im Thema-Label**, nicht rechts hinter einem Trenner. Material
     trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the item's
-    subject or category", das Trailing-Element trägt „secondary information, actions, or status
-    indicators". Das Glyph ist ein reiner Typ-Marker, also eine Kategorie. Rechts stand es im Slot
+    subject or category“, das Trailing-Element trägt „secondary information, actions, or status
+    indicators“. Das Glyph ist ein reiner Typ-Marker, also eine Kategorie. Rechts stand es im Slot
     für Aktionen und Status und konnte auf einer vollständig klickbaren Kachel als Button lesen.
     NN/g ergänzt die andere Richtung („a text label must be present alongside an icon to clarify
-    its meaning"): die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe und wirkt
+    its meaning“): die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe und wirkt
     direkt neben dem Wort, das es doppelt. Gemessener Nebengewinn: ohne Icon-Spalte (57 px aus
     Glyph, Polsterung, Trenner und Spaltenabstand) wächst die Textspalte von 269 auf 326 px, also
     um 21 %, und die realistischen Titel der Startseite klammern nicht mehr. Kachelhöhe unverändert
@@ -525,7 +653,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Barrierefreiheit: `<aside aria-label="Aktuelles">` als benannte Landmark, `<ul>`/`<li>` damit
   Screenreader die Anzahl melden, Icon `aria-hidden` (es wiederholt das Label). Der Trennpunkt der
   Meta-Zeile ist `aria-hidden` mit einem `.sr-only`-Komma daneben, sonst wird er verschluckt oder
-  als „Punkt" gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
+  als „Punkt“ gelesen und Datum und Ort verschmelzen; im AX-Tree geprüft. Der Hover unterstreicht
   zusätzlich den Titel (WCAG 1.4.1): über einem Foto ist ein Schatten- oder Flächen-Zuwachs je nach
   Bildstelle kaum sichtbar, die Unterstreichung immer.
   Ziel jeder Kachel ist die **eigene Seite des Inhalts** (Veranstaltungs-Detailseite,
@@ -540,7 +668,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Dinge. Der Titel muss dafür im zugänglichen Namen der Kachel stehen, was der Aufbau von selbst
   leistet.
 - **Icon `ui-megaphone`** (outline, `--icon-stroke-sm`) für den Störer-Typ Pressemitteilung.
-  `ui-newspaper` heißt im DS „Zeitung / Artikel" und bleibt das Artikel-Glyph für den
+  `ui-newspaper` heißt im DS „Zeitung / Artikel“ und bleibt das Artikel-Glyph für den
   Wissensbeitrag; eine Verlautbarung braucht ein eigenes Zeichen, sonst ist das Icon zwischen den
   beiden Typen kein Unterscheidungsmerkmal mehr. Veranstaltung nutzt `ui-calendar-days`, Info
   `ui-information-circle`, beide bereits vorhanden.
@@ -571,7 +699,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   spezifischere Regel den Text längst überschrieben hat.
   Er hat sofort zwei Fehler gefunden, die von Hand durchgerutscht waren: die zu breite Chip-Inversion
   und einen Icon-Hover auf `var(--n-100)`. Letzterer entlarvte eine falsche Annahme im ersten Check:
-  Tokens aus dem Dark-Block galten als „theme-aware und damit unkritisch", aber die Neutrals kippen
+  Tokens aus dem Dark-Block galten als „theme-aware und damit unkritisch“, aber die Neutrals kippen
   dort auf **dunkle** Werte (`--n-100` = `#1C2E2E`). Der Check wertet Tokens jetzt mit dem Wert aus,
   den sie im Dark tatsächlich annehmen.
 - **Personengruppe mit Bio** (`.author-card-group.is-grid`): Zweispaltige Variante der bestehenden
@@ -583,26 +711,26 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Team-Tile-Grid ohne Bio. Dokumentiert unter *Seminar & Training · Trainer:innen*, nicht bei der
   Author Card: Trainer:innen kommen nur auf Seminar- und Training-Landings vor. Live auf der Beispielseite *Scrum Trainings*, deren Trainer:innen-Sektion
   bisher nur einen Platzhaltertext ohne Personen trug.
-- **Komponente „Buchungsformular"** (`#sec-booking`, Klassen `.bk-*`): verbindliche Terminbuchung als
+- **Komponente „Buchungsformular“** (`#sec-booking`, Klassen `.bk-*`): verbindliche Terminbuchung als
   Komposition aus `.field`-Feldern, am Beispiel eines Seminars. Erste Formular-Komponente mit
   **bedingten Feldblöcken** (Firma vs. Privatperson, abweichende Rechnungsadresse: `hidden` statt
   `disabled`, `required` wird über `data-required` mitgeschaltet) und einem **Teilnehmenden-Repeater**
   (Anzahl als führendes Feld, Namensblöcke folgen, Schutz vor stillem Datenverlust beim Verringern,
-  „Ich nehme selbst teil" belegt Block 1 vor). Live-Preiszeile und Anzahl als `role="status"`, Fehlerübersicht `.bk-errors` mit Sprunglisten,
+  „Ich nehme selbst teil“ belegt Block 1 vor). Live-Preiszeile und Anzahl als `role="status"`, Fehlerübersicht `.bk-errors` mit Sprunglisten,
   `autocomplete`-Sections je Block, feldspezifische Fehlermeldungen über `data-err`.
   Informationshierarchie in drei Stufen: Gruppe `--ty-title-sm` (20 px) mit Haarlinie, Untergruppe
   (`.bk-subgroup`/`.bk-sublegend`) `--ty-name` (14 px), Feldlabel 12 px Versalien. Eine Gruppe ist
   eine Entscheidung samt ihrer Folgen, bedingte Blöcke liegen als Untergruppe **in** der Gruppe
   ihres Auslösers statt daneben. Preiszeile zweimal (bei der Anzahl mit `role="status"`, stumm über
-  dem Submit); nur Pflichtsternchen ohne zusätzliche „(optional)"-Marker; freiwilliges
+  dem Submit); nur Pflichtsternchen ohne zusätzliche „(optional)“-Marker; freiwilliges
   Contentletter-Häkchen von den Pflicht-Bestätigungen abgesetzt.
   **Bestellübersicht** (`.bk-order`) unmittelbar vor dem zahlungspflichtigen Button: Leistung,
   Termin, Auftraggeber, Plätze und Gesamtbetrag, live aus dem Formular. Noch leere Zeilen bleiben
   stehen und tragen `data-empty`, damit sichtbar ist, was fehlt, statt dass die Übersicht springt.
-  Dazu der Abschnitt **„Für die Umsetzung"**: Anforderungen an die Produktivfassung, allen voran
+  Dazu der Abschnitt **„Für die Umsetzung“**: Anforderungen an die Produktivfassung, allen voran
   ein Zwischenspeicher gegen Datenverlust (Schlüssel, Speicherort, Wiederherstellungsreihenfolge,
   `beforeunload`-Regel), sowie serverseitige Validierung, Platzkontingent, Doppel-Submit und Spam.
-  Dazu ein Entscheidungs-Abschnitt „Anfrage oder Direktbuchung", der das Formular gegen die adaptive
+  Dazu ein Entscheidungs-Abschnitt „Anfrage oder Direktbuchung“, der das Formular gegen die adaptive
   Kontaktseite abgrenzt; die Beispielseite Seminar bleibt bewusst beim Anfrage-Flow.
 
 - **Bereichs-Varianten für das Segmented Control** (`.seg-ki`, `.seg-es`, `.seg-wo`): Die Füllung des
@@ -610,30 +738,30 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `--c500`-Muster der Buttons. Default bleibt Corporate, bestehende Verwendungen ändern sich nicht.
   Im Dark Mode kippt jede Variante auf ihren `-300`-Ton mit `-900`-Text.
 
-- **Doku · Abschnitt „Responsive"** (`#sec-responsive`): Übergabe-Spezifikation der Responsive-Strategie
+- **Doku · Abschnitt „Responsive“** (`#sec-responsive`): Übergabe-Spezifikation der Responsive-Strategie
   als eigener Foundations-Abschnitt (bisher nur implizit im CSS + verstreut). Verbindliche 3-Stufen-Breakpoints
   (Phone ≤ 520 · Mobile ≤ 768 · Tablet 769 bis 1024 · Desktop > 1024), Begründungen der nicht offensichtlichen
   Bruchpunkte (520 vs. 768 bei Hero-CTAs, auto-fit vs. fix-spaltig, Hamburger ≤ 760, Doku-Sidebar ≤ 1024),
   fluide Typo-Tokens (clamp, min ≥ 20 px, unitless Ratio) und vollständiges Komponenten-Inventar mit CSS-Quelle.
   Plus Hinweise, was auf der echten Site übernommen werden muss vs. was mockup-gebunden ist.
 - **Angebots-Detailseiten (Beispielseiten)**: Fünf neue Landingpages für einzelne Angebote unterhalb der
-  Bereiche, jeweils an den Bereich gebunden. Wirksame Organisationen: „Erste Hilfe bei Meetingflut"
-  (Festpreis 3.600 €), „Scrum Trainings" (Preiskarten Scrum.org/TÜV SÜD), „Lean Portfolio Management"
-  (Beratung ohne Festpreis). Effektive Software: „Identity mit Keycloak" (mit YouTube-Embeds) und
-  „Keycloak-Erweiterungen" (Festpreis 9.900 €). Die Bereichs-Tabs (ES, WO) sind dafür zu aufklappbaren
-  Baum-Tabs geworden; die „Konkrete Themen"-Einträge der Bereichsübersichten verlinken jetzt auf die Seiten.
+  Bereiche, jeweils an den Bereich gebunden. Wirksame Organisationen: „Erste Hilfe bei Meetingflut“
+  (Festpreis 3.600 €), „Scrum Trainings“ (Preiskarten Scrum.org/TÜV SÜD), „Lean Portfolio Management“
+  (Beratung ohne Festpreis). Effektive Software: „Identity mit Keycloak“ (mit YouTube-Embeds) und
+  „Keycloak-Erweiterungen“ (Festpreis 9.900 €). Die Bereichs-Tabs (ES, WO) sind dafür zu aufklappbaren
+  Baum-Tabs geworden; die „Konkrete Themen“-Einträge der Bereichsübersichten verlinken jetzt auf die Seiten.
 - **Video-Embed (Beispielseite Identity mit Keycloak)**: Zwei responsive YouTube-Embeds
   (`youtube-nocookie.com`, 16:9 via `aspect-ratio`, `title`, kein Autoplay, `loading="lazy"`). Referenzen
   (Social Proof) direkt nach der Lösung plus Mid-Page-CTA; Abschnitts-Hintergründe neu alterniert.
-- **Doku · Page-Pattern „Angebots-Detailseite"** (`#sec-leistung-detail`): Aufbau (Sektionsreihenfolge nach
-  Funnel-Logik), Angebots-Box (Festpreis-Box + „Für wen"), Preismodelle (Festpreis / mehrere Pakete /
+- **Doku · Page-Pattern „Angebots-Detailseite“** (`#sec-leistung-detail`): Aufbau (Sektionsreihenfolge nach
+  Funnel-Logik), Angebots-Box (Festpreis-Box + „Für wen“), Preismodelle (Festpreis / mehrere Pakete /
   Beratung ohne Festpreis), Cross-Links und Verwendung (Do/Don't).
-- **Doku · Barrierefreiheit „Video-Embed"** (`#gt-a11y-video`): `title`, Untertitel (WCAG 1.2.2),
+- **Doku · Barrierefreiheit „Video-Embed“** (`#gt-a11y-video`): `title`, Untertitel (WCAG 1.2.2),
   Transkript/Audiodeskription, kein Autoplay, responsiv, Datenschutz, Sprach-Kennzeichnung, Tastatur;
   inklusive Abgrenzung, was das DS liefert vs. was die Videoquelle liefern muss.
-- **KI-Wissensbeitrag (Beispielseite): Contentletter- + LinkedIn-CTA**: Nach „Weiterlesen" und vor dem
-  finalen CTA-Band ein „Dranbleiben"-Block als offene Feature-Liste (`.ep-feature`, zwei `col-6`): „Food
-  for your brain!" (Contentletter-Anmeldung) und „Stay connected!" (LinkedIn-Folgen, externer Link mit
+- **KI-Wissensbeitrag (Beispielseite): Contentletter- + LinkedIn-CTA**: Nach „Weiterlesen“ und vor dem
+  finalen CTA-Band ein „Dranbleiben“-Block als offene Feature-Liste (`.ep-feature`, zwei `col-6`): „Food
+  for your brain!“ (Contentletter-Anmeldung) und „Stay connected!“ (LinkedIn-Folgen, externer Link mit
   `target="_blank"`/`aria-label`). Bewusst als flache Feature-Liste statt Karte/Band, um sich vom Download-
   `.cta-dl` darüber abzuheben, ohne die Seite weiter zu verkasten. Corporate-Akzent (unternehmensweit).
 - **`.card-cta-link` als echter Link nutzbar**: `a.card-cta-link` ohne Default-Underline (Underline erst
@@ -644,7 +772,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   für die Nutzung in anderen Gestaltungsmitteln). Jeder Swatch und jede Farb-Clip-Card kopiert per
   Klick oder Tastatur (Enter/Space) den Hex in die Zwischenablage (`navigator.clipboard`, Fallback
   `execCommand`). Barrierefrei: `role="button"`, `tabindex`, `aria-label`, sichtbarer Inset-Fokus-Ring
-  (nicht vom `overflow:hidden` der `.pal-row` abgeschnitten), `aria-live`-Bestätigung + „✓"-Overlay.
+  (nicht vom `overflow:hidden` der `.pal-row` abgeschnitten), `aria-live`-Bestätigung + „✓“-Overlay.
   In den schmalen Bereichs-Übersichtskarten (`#sec-areas`) bleibt der Hex aus Platzgründen im
   title-Tooltip, Kopieren funktioniert dort ebenso.
 - **Icon-Bibliothek** als maschinenlesbarer Export: `icons/icons.json` · `icons.js`
@@ -664,9 +792,9 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   ≤ 520 px / 3 Spalten 521–768 px), `data-benefits` und `data-event-meta` (2×2 auf Tablet /
   1-spaltig ≤ 520 px). Alle auf `.layout-grid` gesetzt.
 
-- **Editoriale „Im Detail"-Sektion** auf der Beispielseite Wirksame Organisationen: offene
+- **Editoriale „Im Detail“-Sektion** auf der Beispielseite Wirksame Organisationen: offene
   Feature-Liste (`.ep-feature`, Alternative zu Karten) mit bis zu 8 Themen-Landingpages, Status
-  über die Aktionszeile (Link „Zur Landingpage" bei verfügbaren, „Landingpage folgt" bei in-Aufbau,
+  über die Aktionszeile (Link „Zur Landingpage“ bei verfügbaren, „Landingpage folgt“ bei in-Aufbau,
   ohne toten Link), plus content-breites Akzentbild als Sektions-Auftakt.
 - **Bereichsvariante `.card-cta-link[data-area="co|ki|es|wo"]`**: färbt den Text-CTA-Link in der
   Akzentfarbe statt Corporate-Teal (Shades wie `.ep-card-cta`), inkl. Dark-Overrides (`-200/-100`).
@@ -676,7 +804,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Lernziele-Sektion ist zweispaltig geworden, links die Bullet-Liste (`.col-8`), rechts der
   Angebots-Kasten (`.col-4`, sticky). Gemessen rückt der Preis von **45 % auf 10 %** der Seitenhöhe.
   Bewusst kein neuer Streifen unter dem Header, sondern der vorhandene Kasten neben dem ersten Inhalt.
-  Das Kontaktformular bleibt, wo es war, bei „Inhalte & Voraussetzungen"; beide Kästen tragen dadurch
+  Das Kontaktformular bleibt, wo es war, bei „Inhalte & Voraussetzungen“; beide Kästen tragen dadurch
   je eine Aufgabe. Dazu eine Zwei-Spalten-Variante der Rahmendaten (`.ep-facts.is-grid`): Einspaltig
   war der Kasten 470 px hoch gegen 256 px Inhalt daneben, also 214 px Leerraum. Zweispaltig sind es
   299 px und 43 px Leerraum. Die Variante verzichtet auf die Haarlinien und wird über `auto-fit` in
@@ -703,24 +831,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   treffen den neuen Selektor unverändert.
 - **Topnav: Submenüs öffnen zusätzlich per Hover**: Auf Geräten mit echtem Hover (`pointer:fine`) klappt
   das Submenü jetzt auch beim Überfahren des Top-Items auf (JS-gesteuert, kurzer Intent-Delay beim Öffnen,
-  verzögertes Schließen + unsichtbare Brücke über den Gap → WCAG 1.4.13 „hoverable/dismissible/persistent").
+  verzögertes Schließen + unsichtbare Brücke über den Gap → WCAG 1.4.13 „hoverable/dismissible/persistent“).
   Klick/Tap, Tastatur und Touch bleiben unverändert; der Label-Klick navigiert weiterhin direkt zur
   Übersicht (kein erzwungener 2-Klick). Der Reveal hängt weiter an `.is-open` (kein reines CSS-`:hover`),
   `aria-expanded` läuft mit, `closeAllNavItems` verhindert zwei gleichzeitig offene Menüs. Escape schließt
   jetzt auch ein rein per Hover geöffnetes Menü.
-- **Topnav: Top-Level-Parents als Link zur Übersicht (Split „Link + Caret-Disclosure")**: „Angewandte KI",
-  „Leistungen" und „Unternehmen" sind jetzt echte `<a>`-Links auf ihre Übersichtsseite (`data-ep` = erstes
+- **Topnav: Top-Level-Parents als Link zur Übersicht (Split „Link + Caret-Disclosure“)**: „Angewandte KI“,
+  „Leistungen“ und „Unternehmen“ sind jetzt echte `<a>`-Links auf ihre Übersichtsseite (`data-ep` = erstes
   Submenü-Ziel), statt reiner Aufklapp-Buttons. Ein **separater Caret-`<button>`** (`.ep-nav-item-toggle`,
   `aria-expanded`/`aria-controls`) öffnet das Submenü per Klick/Tastatur. UX: 1 Klick zur Übersicht statt
-  Umweg über den „Übersicht"-Dropdown-Eintrag; A11y: eigene Caret-Hit-Area ≥ 24 px (WCAG 2.5.8) + Fokus-Ring,
+  Umweg über den „Übersicht“-Dropdown-Eintrag; A11y: eigene Caret-Hit-Area ≥ 24 px (WCAG 2.5.8) + Fokus-Ring,
   mobil Link + Caret in einer Zeile mit ≥ 44 px Tap-Fläche. Der nicht-farbige Aktiv-Unterstrich (WCAG 1.4.1)
   sitzt jetzt am Parent-Link. Über alle Beispielseiten + Doku (`#gt-nav-topnav`) konsistent umgesetzt.
-- **KI-Wissensbeitrag „Weiterlesen": aktuelle Artikel-Cards** statt der alten `.ep-card`-Textkarten:
+- **KI-Wissensbeitrag „Weiterlesen“: aktuelle Artikel-Cards** statt der alten `.ep-card`-Textkarten:
   jetzt `.card.card-elevated` mit 16:9-Bild, `.pill`-Bereichslabel, `.card-title` und gepinntem
   `.card-cta-link`, im `.layout-grid` (col-4) — identisch zur Beitragsübersicht (`ep-wb-uebersicht`).
 - Topnav-Icon-Buttons und Hamburger auf 48 × 48 px (Touch-Target AAA, WCAG 2.5.5).
 - Icon-Doku (`#sec-icons`): Solid-Bereichs-Glyphen vs. Outline-UI-Icons klargestellt
-  (vorherige „nur Outline"-Aussage war unzutreffend); Verweis auf die Icon-Bibliothek.
+  (vorherige „nur Outline“-Aussage war unzutreffend); Verweis auf die Icon-Bibliothek.
 - **Headline/Display-Tokens fluid**: `--ty-headline-xs/sm/md` und `--ty-display-sm/md` nutzen
   jetzt `clamp()` mit unitless Ratio-Zeilenhöhe (Mirror von `--ty-display-lg`). Desktop-Maxima
   unverändert, Minima ≥ 20 px greifen am Phone. Typografie-Doku entsprechend aktualisiert.
@@ -739,7 +867,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   greifen — Voraussetzung für faithful Mobile/Tablet-Vorschau.
 - **Effektive-Software-Hero**: neues, thematisch passenderes Motiv (Entwickler, Laptop-Sticker
   Clean Code / Keycloak / Jakarta EE / Docker); web-optimiert (5000 px/5,1 MB → 2000 px/411 KB).
-- **Typografie durchgängig rem-basiert (WCAG 1.4.4 „Resize Text")**: Alle `--ty-*`-Tokens, die
+- **Typografie durchgängig rem-basiert (WCAG 1.4.4 „Resize Text“)**: Alle `--ty-*`-Tokens, die
   15 `.type-*`-Utilities und die hartcodierten Schriftgrößen in `base.css`/`components.css` von
   `px` auf `rem` umgestellt (Basis `1rem = 16px`). Die fluiden `clamp()`-Tokens nutzen jetzt
   `rem`-Min/Max und einen `rem + vw`-Mittel-Term (Zwei-Anker-Fluid-Kurve), sodass Schrift auch
@@ -757,11 +885,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Rohe `var(--n-200)`-Rahmen auf `var(--bd-strong)` umgestellt** (Seminar-Sidebar, adaptive
   Kontaktseite, vier Stellen): `--n-200` flippt im Dark nicht und ergab dort einen grellen `#C9D3D3`-Rahmen.
   `--bd-strong` ist im Light derselbe Ton, im Dark `#9DA8B6`. Entspricht der Konvention „nie rohes
-  `-100`/`-200` als Border".
+  `-100`/`-200` als Border“.
 - **Falsches Bereichs-Icon auf fünf Verweiskarten**: Karten, die auf eine Bereichs-Übersicht
   verlinken, tragen das Marken-Glyph des Bereichs (`ki-bot`, `es-window-check`, `wo-network`,
   solid, eingefärbt über `.ep-card-icon.t-XX`). Zehn Karten hielten sich daran, fünf nicht: die
-  „Weiter im Thema"-Blöcke der Angebots-Detailseiten (Meetingflut, Scrum, LPM, Keycloak,
+  „Weiter im Thema“-Blöcke der Angebots-Detailseiten (Meetingflut, Scrum, LPM, Keycloak,
   Keycloak-Erweiterungen) zeigten ein generisches Heroicon mit inline gesetztem
   `stroke="var(--XX-700)"` statt des Glyphs. `icons/README.md` hatte die Regel nur für
   `/leistungen` und die Landingpage notiert; sie hängt jetzt am Anlass statt an einzelnen Seiten,
@@ -799,7 +927,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Segmented Control trug in Bereichsformularen Corporate**: `.seg-option input:checked + label` war
   fest auf `--co-700` verdrahtet. Ein KI-, ES- oder WO-Formular bekam dadurch mitten zwischen seinen
   Feldern einen Corporate-Akzent und trug zwei Brand Areas gleichzeitig, entgegen der eigenen Regel
-  „ein Formular gehört zu genau einer Brand Area".
+  „ein Formular gehört zu genau einer Brand Area“.
 - **Links im Buchungsformular blieben Corporate**: Die Inhouse-Anfrage im Helper und die beiden
   Consent-Links standen auf `--co-700`, obwohl der Abschnitt genau zwei bewusste Corporate-Reste
   ausweist (Fokusring, Feldrahmen im Fokus). Ursache war der fehlende Akzent-Scope: die Demo hängt
@@ -809,9 +937,9 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Link angesagt, obwohl genau dieser Text die Grundlage der Einwilligung ist. Jetzt durchgehend echte
   `<a class="body-link">`: Buchungsformular (2×), beide Newsletter-Varianten und die Event-Anmeldung,
   die als dritte Variante ein `<span class="t-es">` mit `text-decoration:underline` trug. Als
-  **systemweite Regel** dokumentiert (Inputs & Forms, Zeile „Link im Label", plus Do/Don't-Paar und
+  **systemweite Regel** dokumentiert (Inputs & Forms, Zeile „Link im Label“, plus Do/Don't-Paar und
   CONTRIBUTING § 8); die A11y-Zeile des Buchungsformulars verweist darauf. Die Übergabe-Tabelle
-  „Für die Umsetzung" fordert zusätzlich echte Ziele für die Rechtstexte (die Demos tragen `href="#"`)
+  „Für die Umsetzung“ fordert zusätzlich echte Ziele für die Rechtstexte (die Demos tragen `href="#"`)
   und ein Öffnen ohne Formularverlust.
 - **Bereichsformulare tönten ihren Consent-Link nicht**: Neben dem Buchungsformular betraf das die
   Event-Anmeldung (Sektion `#ev-anmeldung` trägt jetzt `data-accent="es"`) und die adaptive
@@ -821,12 +949,12 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Bei `co` wird es entfernt, Corporate ist der Default.
 - **Bereichs-CTAs aus der Doku verloren ihren Kontext**: Der globale Anker-Handler rief
   `activateExamplePage(epKey)` ohne Kontext-Objekt, anders als der `ep-page`-Handler. Ein Link mit
-  `data-k-bereich`/`data-k-anliegen` außerhalb einer Beispielseite (etwa „Inhouse-Termin anfragen"
+  `data-k-bereich`/`data-k-anliegen` außerhalb einer Beispielseite (etwa „Inhouse-Termin anfragen“
   im Buchungsformular) landete deshalb auf der neutralen Kontaktseite: keine Tönung, kein
   vorbelegtes Thema, kein Anliegen. Beide Pfade geben den Kontext jetzt gleich weiter.
 - **`.helper` verfehlte AA im Dark Mode**: Hilfetexte unter Feldern nutzten `--tx-muted`, das auf
   `--bg-surface` nur 4,1:1 erreicht (die Kontrast-Tabelle dokumentiert das dort ausdrücklich als
-  „Large Text / Non-Text"). Umgestellt auf `--tx-secondary`: 6,3:1 Light, 4,9:1 Dark. Betrifft alle
+  „Large Text / Non-Text“). Umgestellt auf `--tx-secondary`: 6,3:1 Light, 4,9:1 Dark. Betrifft alle
   Formulare mit Hilfetext.
 - **Fehlerrahmen an Select und Textarea**: `.field.has-error` färbte nur `input` rot, ein fehlerhaftes
   Pflicht-Select blieb optisch unmarkiert. Regel um `select` und `textarea` erweitert.
@@ -835,7 +963,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   dort waren es 4,0:1 bei 12 px. Angehoben auf `#FFA5A5`: 5,9:1 auf bg-page, 4,75:1 auf bg-surface.
   Betrifft alle Fehlermeldungen, Required-Sternchen und ✕-Marker im Dark Mode.
 
-  der „Pro"-Header (`thead .ep-compare-pro`) nutzten rohes `co`/`ki`-`800` (`--ki-800` #475705), das im
+  der „Pro“-Header (`thead .ep-compare-pro`) nutzten rohes `co`/`ki`-`800` (`--ki-800` #475705), das im
   Dark nicht mitflippt → dunkel-auf-dunkel (Core-Spalte auf `bg-page`, Pro-Spalte auf `--ki-50` #2A3411,
   Häkchen faktisch unsichtbar). Dark-Override ergänzt: ✓ und Pro-Header auf `--ki-100`, Summary auf
   `--ki-200` (Hover `--ki-100`), analog zum bestehenden `.ep-feature-icon`/`.ep-tier-label`-Muster.
@@ -852,7 +980,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   nutzen. Dark-Mode unverändert `co-500` (dort 4,7:1 auf dunklem Grund; `co-700` wäre dunkel-auf-dunkel).
 - **Doku-Sidebar Struktur-Semantik**: Gruppen-Labels (`.nav-section`) sind jetzt `<h2>` (Screenreader-
   Outline der Navigation), und die Einträge jeder Gruppe liegen in `<ul class="nav-list">` mit
-  `aria-labelledby` auf das Gruppen-Heading (Ansage „Gruppe, Liste, N Einträge"). Reine Semantik-/
+  `aria-labelledby` auf das Gruppen-Heading (Ansage „Gruppe, Liste, N Einträge“). Reine Semantik-/
   Markup-Änderung, Optik und JS unverändert.
 - **Doku-Sidebar (`.nav-item`) barrierefrei**: (1) aktiver Eintrag-Text von `co-500` (#00BEBE auf
   `co-50` nur 2,07:1) auf `co-700` (4,95:1) → WCAG 1.4.3; Akzentbalken auf `co-600` (3,28:1, WCAG 1.4.11).
@@ -873,7 +1001,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Thumb-Farbe (`--sl-color`) entkoppelt (neues `--sl-text`), Wert nutzt jetzt dunklere Töne
   `co-700`/`ki-800`/`es-700`/`wo-700` → AA im Light-Mode (co 2,3:1, wo 3,3:1, ki 4,35:1 → 5,5–9,6:1),
   Thumb bleibt in Markenfarbe; (2) `aria-valuetext` an allen Slidern (initial + im `oninput`
-  synchronisiert), damit Screenreader „50.000 €" / „60 %" statt der Rohzahl ansagen.
+  synchronisiert), damit Screenreader „50.000 €“ / „60 %“ statt der Rohzahl ansagen.
 - **Beispielseiten-Chips (`.ep-tab`) barrierefrei**: (1) aktiver Chip von `co-500` auf `co-700`
   umgestellt, weißer Text erreicht damit AA (2,3:1 → 5,5:1); (2) Touch-Target auf `min-height:44px`
   bzw. 44 × 44 px beim Aufklapp-Toggle (WCAG 2.5.5, analog `.btn`); (3) Rahmen von `--n-200` auf

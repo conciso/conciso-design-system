@@ -19,7 +19,7 @@ const meta: Meta<FooterMainComponent> = {
           'Spalten werden projiziert (jedes Top-Level-Kind = eine Grid-Spalte). Spaltenanzahl/' +
           '-breiten über `columns` (grid-template-columns); ohne Angabe gilt das 3-Spalten-' +
           'Default. Adresse/Nav/Newsletter sind dadurch freie Kompositionen (siehe die ' +
-          'kombinierte „Footer"-Story), keine erzwungene Struktur.',
+          'kombinierte „Footer“-Story), keine erzwungene Struktur.',
       },
     },
   },

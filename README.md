@@ -59,7 +59,11 @@ import '@conciso/design-system/dist/conciso-ds.css';
 import { tokens } from '@conciso/design-system/tokens';
 // Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor):
 import { icons } from '@conciso/design-system/icons';
+// Brand-Logo (Wortmarke, drei Varianten):
+import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 ```
+
+Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
 
 > Das Paket ist **intern/proprietär** (`UNLICENSED`) und liegt nicht in der öffentlichen
 > npm-Registry — GitHub Packages verlangt daher Auth auch fürs Lesen (lokal ein Token mit

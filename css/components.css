@@ -111,7 +111,7 @@
    dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
 /* Bereichs-Varianten wie bei .btn: Default ist Corporate, .seg-ki/-es/-wo überschreiben die
    Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
-   seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area"
+   seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area“
    widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
 /* Rahmen über --field-border: n-200 trug als Bedienelement-Grenze nur 1,53:1 und verfehlte die
    3:1-Schwelle aus WCAG 1.4.11. --field-border ist genau dafür da (Light n-400, 3,92:1). */
@@ -136,7 +136,15 @@
 .atab-content.visible{display:block}
 
 /* ── Cards ── */
-.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;transition:box-shadow var(--m-std),transform var(--m-std)}
+/* Die Karte ist eine vertikale Spalte: Bild, Body, optionaler Footer. Das steht hier und nicht im
+   style-Attribut, weil das dokumentierte Rezept es voraussetzt: .card-body{flex:1} kann die
+   Resthöhe nur in einem Flex-Container einnehmen, und ohne diese Resthöhe hat
+   .card-cta-link--pinned kein margin-top:auto, an dem es sich ausrichten könnte. Die Karten in
+   einem .layout-grid werden von außen auf gleiche Höhe gezogen; der Body nimmt den Überschuss
+   auf, damit die CTA-Zeilen nebeneinanderliegender Karten auf einer Linie sitzen.
+   .card-featured bleibt display:block (weiter unten, spätere Regel gewinnt): dort liegt der Body
+   absolut, eine Flex-Spalte hätte da nichts zu verteilen. */
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow var(--m-std),transform var(--m-std)}
 /* Card-Varianten */
 /* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
    selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
@@ -147,8 +155,17 @@ a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 .card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
-.card-body{padding:var(--s5)}
-.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+/* Der Body ordnet seine Kinder, also gehört ihm auch der Abstand zwischen ihnen: eine Flex-Spalte
+   mit gap:var(--s3) als einziger vertikaler Rhythmus der Karte. Vorher trug jedes Kind seine
+   eigene Außenmarge, und wer den Body flexte, bekam Marge PLUS Gap (im Flex-Layout kollabieren
+   sie nicht). Darum haben .card-eyebrow und .card-cta-link hier keine Marge mehr, und die Pill
+   bekommt ihre unten zurückgenommen.
+   flex:1 lässt den Body die Resthöhe der Karte einnehmen. Nötig für .card-cta-link--pinned
+   (margin-top:auto braucht freien Raum im Container) und für gleich hohe Karten im Grid: ohne das
+   sammelt sich der Überschuss unter dem Body, statt in ihm. Auf einer nicht-flexen Karte ist die
+   Deklaration wirkungslos, nicht schädlich. */
+.card-body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1}
+.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase}
 /* Area-branded card media + eyebrow (token-driven, dark-mode overridable) */
 .card[data-area="co"] .card-media{background:var(--co-50);color:var(--co-700)}
 .card[data-area="ki"] .card-media{background:var(--ki-50);color:var(--ki-700)}
@@ -161,7 +178,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* card-title und card-text: line-clamp + min-height halten Karten in Grids visuell ausgerichtet,
    unabhängig davon ob Titel/Anreißer im aktuellen CMS-Stand 1, 2 oder 3 Zeilen lang sind.
    line-clamp kappt zu lange Inhalte; min-height (in lh-Units, skaliert mit Typografie-Tokens)
-   reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen".
+   reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen“.
    Trade-Off: bei aktuell kurzem Content sieht das wie ein Hohlraum aus, ist aber gewollt — das Layout
    muss morgen mit einer 2-zeiligen Headline umgehen, ohne dass jemand CSS-Klassen umtauschen muss. */
 /* Äußerer Container: reserviert min. 2-Zeilen-Höhe und zentriert den Inhalt vertikal mittig.
@@ -183,10 +200,91 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 @media(max-width:768px){
   .layout-grid .card-title,.layout-grid .card-text{min-height:0}
 }
+/* Wie im Featured-Body: die Eigenmarge der Pill (--s5, gedacht für den normalen Fluss) würde sich
+   zum gap des Bodys addieren, statt zu kollabieren. Der Abstand kommt aus dem Container. Nur
+   direkte Kinder, eine Pill tiefer im Body steht in einem eigenen Layout. */
+.card-body>.pill{margin-bottom:0}
 /* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
    nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
 .card-meta{display:flex;flex-direction:column;gap:var(--s1)}
 .card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
+
+/* ── Featured-Card: horizontale Großkarte ──
+   Genau ein Beitrag oder Termin auf der Bühne: Bild links, Content rechts.
+   Die Bildspalte trägt .card-media und damit dasselbe aspect-ratio:16/9 wie die Cards im
+   Listing-Grid. Das ist der Zweck der Klasse: Redaktion pflegt EIN Bild in EINEM Zuschnitt
+   für Featured UND Grid, statt je Slot einen eigenen.
+
+   Das BILD bestimmt die Kartenhöhe, nicht der Text. Darum liegt .card-featured-body absolut:
+   als normale Spalte zieht seine Inhaltshöhe die Zeile auf und streckt das Bild mit — genau
+   daran driftete das Verhältnis vorher auf 1,62. Ein aspect-ratio auf der Karte genügt dafür
+   nicht, es ist eine Wunschgröße und verliert gegen die Inhaltshöhe (gemessen 1,50). Absolut
+   positioniert trägt der Body nichts zur Höhe bei, das 16/9 gilt unabhängig von der Textlänge.
+
+   Zu viel Text wird gekappt, statt das Verhältnis zu brechen: .card-text bringt sein
+   line-clamp mit, und als schrumpfendes Flex-Item gibt der Lead nach, bevor Pill, Meta,
+   Titel oder CTA wegfallen. 60/40 statt 50/50, weil ein 16/9-Bild auf halber Kartenbreite
+   zu flach für den Content-Block ist: bei 60 % bleiben rund 26 px Reserve und drei
+   Lead-Zeilen, bei 50 % schrumpft der Lead auf null. Beide Prozentwerte gehören zusammen
+   und müssen 100 % ergeben, sonst klafft eine Lücke. */
+.card-featured{display:block;position:relative;overflow:hidden;container-type:inline-size}
+.card-featured>.card-media{width:60%}
+.card-featured>.card-media>img{width:100%;height:100%;object-fit:cover}
+.card-featured-body{position:absolute;top:0;right:0;bottom:0;width:40%;padding:var(--s6) var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4);overflow:hidden}
+/* Die Pill bringt eine Eigenmarge von --s5 mit, gedacht für den normalen Fluss (Pill über der H1
+   im Article-Header). Hier trägt der Body den Abstand als gap:var(--s4), und beide addieren sich:
+   im Flex-Layout kollabieren Marge und Gap nicht. Ergebnis wären 36 px unter der Pill statt 16 px,
+   und der Meta-Block löst sich vom Bereichs-Signal, mit dem er als Meta-Header zusammengehört. Der
+   Abstand gehört dem Container, nicht der Pill, also wird ihre Marge hier zurückgenommen. Nur für
+   direkte Kinder: eine Pill tiefer im Body (etwa in einer Zeile neben einem Titel) steht in einem
+   eigenen Layout und regelt ihren Abstand dort selbst. */
+.card-featured-body>.pill{margin-bottom:0}
+/* min-height:3lh reserviert im Grid Platz für den Gleichhöhen-Abgleich. Die Featured-Card
+   steht allein, hat keinen Nachbarn, und der reservierte Platz ginge zulasten des Bildes. */
+.card-featured-body>.card-text{min-height:0}
+/* Auch der Titel braucht einen Riegel, sonst frisst ein langer Titel die Höhe, die der Lead
+   braucht, und danach die von Pill und CTA (gemessen mit einem 18-Wort-Titel: Lead auf null
+   Zeilen, Pill und CTA aus der Karte geschoben). Drei Zeilen sind für eine Hero-Card reichlich.
+   Nur hier, nicht global: .card-title-hero bleibt außerhalb der Featured-Card unbeschnitten. */
+.card-featured-body>.card-title-hero{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+/* Drei Stufen, alle an der KARTENBREITE per @container, nicht am Viewport: die Kartenbreite
+   hängt am Platz im Layout (Sidebar, Section-Padding, Spaltenbreite). Im Doku-Mockup ist die
+   Karte bei 1180 px Viewport nur 814 px breit, bei 1024 px dagegen 958 px — eine
+   Viewport-Regel träfe dort das Falsche.
+
+   Die Stufen greifen über die Reihenfolge: die 1000er-Regel gilt ab hier abwärts, die
+   900er-Regel überschreibt sie darunter wieder. Gleiche Spezifität, die spätere gewinnt.
+
+   1000 px abwärts (Tablet-Landscape): nebeneinander BLEIBEN, aber verdichtet. Das Bild auf
+   65 % statt 60 %, denn breiteres Bild heißt bei 16/9 auch höheres Bild und damit mehr Platz
+   für den Content-Block; dazu kleineres Padding. Ohne das schrumpft der Lead hier auf eine
+   oder null Zeilen. Gemessen bei 958 px Kartenbreite: Karte 350 px hoch, drei Lead-Zeilen,
+   rund 22 px Reserve (Veranstaltungs-Karte mit dreizeiligem Meta-Strip: 30 px). */
+@container (max-width:1000px){
+  .card-featured>.card-media{width:65%}
+  .card-featured-body{width:35%;padding:var(--s4) var(--s6)}
+  /* Lead auf zwei Zeilen: drei passen hier nicht mehr vollständig, und ein Lead, der als
+     Flex-Item unter seine line-clamp-Höhe gedrückt wird, endet mitten in der Zeile statt mit
+     Auslassungspunkten. Mit zwei Zeilen bleibt die Kante bei üblichen Titellängen sauber.
+     Rest-Fall: bei einem Titel, der den 3-Zeilen-Riegel voll ausschöpft, wird auch die zweite
+     Lead-Zeile angeschnitten. Das ist bewusst so gelassen — irgendetwas muss dann nachgeben,
+     und eine halbe Lead-Zeile ist der geringste Schaden. Titel kürzen behebt es an der
+     Quelle. Die Karte bleibt in jedem Fall geschlossen: Pill und CTA werden nicht mehr
+     hinausgeschoben, dafür sorgt der Titel-Riegel. */
+  .card-featured-body>.card-text{-webkit-line-clamp:2;line-clamp:2}
+}
+/* 900 px abwärts (Portrait, Smartphone, schmale Container): gestapelt wie die Grid-Cards.
+   Bild full-width im 16/9 obenauf, Body zurück in den Fluss, nichts mehr zu kappen. Tiefer
+   als 900 px nebeneinander zu bleiben lohnt nicht: die Textspalte wäre unter 250 px breit,
+   rund 30 Zeichen pro Zeile. */
+@container (max-width:900px){
+  .card-featured>.card-media{width:100%}
+  .card-featured-body{position:static;width:auto;padding:var(--s6)}
+  /* Lead zurück auf drei Zeilen: das Kürzen auf zwei gilt nur der knappen Höhe der
+     Tablet-Stufe. Gestapelt gibt es keine feste Höhe zu halten, also auch keinen Grund,
+     eine Zeile zu opfern. Ohne diese Rücknahme wirkt die 1000er-Regel bis aufs Handy durch. */
+  .card-featured-body>.card-text{-webkit-line-clamp:3;line-clamp:3}
+}
 
 /* ── Blockquote ── */
 .bq{padding:var(--s5) var(--s6);border-left:4px solid var(--bq-accent,var(--co-500));background:var(--bq-bg,var(--co-50));border-radius:var(--r-md);margin:0}
@@ -202,7 +300,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .bq-role{font:var(--ty-body-xs);color:var(--tx-secondary);font-style:normal}
 
 /* ── Testimonial Card ── */
-/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+/* Statisch (Konvention „Elevation = Interaktivität“): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
 .testimonial{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--t-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6);margin:0;display:flex;flex-direction:column;gap:var(--s4)}
 .testimonial[data-area="co"]{--t-accent:var(--co-500)}
 .testimonial[data-area="ki"]{--t-accent:var(--ki-500)}
@@ -248,7 +346,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
   .team-voice-footer{grid-column:2;grid-row:2}
 }
 /* Stat Card */
-/* Statisch (Konvention „Elevation = Interaktivität"): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+/* Statisch (Konvention „Elevation = Interaktivität“): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
 .card-stat{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
 .card-stat[data-area="co"]{--st-accent:var(--co-500)}
 .card-stat[data-area="ki"]{--st-accent:var(--ki-500)}
@@ -332,14 +430,14 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* Nur das Eingabefeld ist schmal, nicht der ganze .field-Wrapper: sonst würde die
    Fehlermeldung darunter in eine 140-px-Spalte gequetscht. */
 .bk-count input{max-width:140px}
-/* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3"
-   ansagen und „Vorname" nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
+/* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3“
+   ansagen und „Vorname“ nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
    sonst entsteht im Dark Mode eine dritte Flächenstufe über .bg-page < .bg-surface. */
 .bk-person{position:relative;border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
 .bk-person > .field:last-of-type{margin-bottom:0}
 .bk-person::after{content:"";display:block;clear:both}
 /* Wie .bk-legend gefloatet, damit die Legende in den Innenabstand rutscht statt in die
-   Rahmenkante. Nur so liegt der Entfernen-Button auf einer Linie mit „Teilnehmende N" und
+   Rahmenkante. Nur so liegt der Entfernen-Button auf einer Linie mit „Teilnehmende N“ und
    nicht neben dem ersten Feldlabel, wo er wie dessen Aktion aussieht. */
 .bk-person-title{float:left;width:100%;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0;margin-bottom:var(--s4)}
 .bk-person-title ~ *{clear:both}
@@ -842,12 +940,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
    WARUM NICHT RECHTS, MIT TRENNER
    Material trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the
-   item's subject or category", das Trailing-Element trägt „secondary information, actions, or status
-   indicators". Unser Glyph ist ein reiner Typ-Marker, also eine Kategorie, und gehört damit nach
+   item's subject or category“, das Trailing-Element trägt „secondary information, actions, or status
+   indicators“. Unser Glyph ist ein reiner Typ-Marker, also eine Kategorie, und gehört damit nach
    vorn. Rechts hinter einer Trennlinie stand es im Slot für Aktionen und Status, auf einer
    vollständig klickbaren Kachel also doppeldeutig: es kann als Button lesen.
    NN/g ergänzt die andere Richtung: „a text label must be present alongside an icon to clarify its
-   meaning". Die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe, und die wirkt am
+   meaning“. Die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe, und die wirkt am
    besten direkt neben dem Wort, das sie doppelt.
    Messbarer Nebengewinn: ohne Icon-Spalte (24px Glyph + 16px Polsterung + 1px Trenner + 16px
    Spaltenabstand = 57px) wächst die Textspalte von 269 auf 326px, also um 21%. Damit klammern die
@@ -893,7 +991,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
 /* ── Logo-Tiles (geteilt vom Logo-Karussell) ── */
 /* Logos sitzen randlos auf der weißen Platte (.logo-carousel) — keine Einzel-Box, kein Hover-Lift:
-   Logos sind nicht klickbar, ein Lift wäre falsche Interaktions-Andeutung („Elevation = Interaktivität").
+   Logos sind nicht klickbar, ein Lift wäre falsche Interaktions-Andeutung („Elevation = Interaktivität“).
    Einheitliche, großzügige Logo-Höhe (100px) statt der alten 72px-Kachel mit nur ~48px nutzbarer Höhe. */
 .logo-tile{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:var(--s2) var(--s4)}
 .logo-tile img{max-height:100px;max-width:100%;width:auto;height:auto;object-fit:contain}
@@ -1050,7 +1148,7 @@ img.logo-themed-light{display:none}
 .ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
 .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
 /* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
-   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable"). Nur pointer:fine
+   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable“). Nur pointer:fine
    und nur solange offen — mobil ist .ep-nav-sub statisch, dort keine Brücke. */
 @media (hover:hover) and (pointer:fine){
   .ep-nav-has-sub.is-open .ep-nav-sub::before{content:"";position:absolute;left:0;right:0;top:calc(-1*var(--s4));height:var(--s4)}
@@ -1137,7 +1235,7 @@ img.logo-themed-light{display:none}
   .ep-hero-ctas{flex-direction:column;align-items:stretch}
   .ep-hero-ctas .btn{width:100%;justify-content:center}
 }
-/* Auszeichnungs-/Badge-Liste (z. B. „Ausgezeichnet als Arbeitgeber"): Desktop als zentrierte
+/* Auszeichnungs-/Badge-Liste (z. B. „Ausgezeichnet als Arbeitgeber“): Desktop als zentrierte
    Reihe. Auf Mobile (≤ 768px) als 2×2-Grid statt flex-wrap: zentriertes Wrappen richtet jede
    Zeile einzeln aus, sodass die unterschiedlich breiten Einträge versetzt erscheinen; das Grid
    fluchtet sie in zwei saubere Spalten (minmax(0,1fr) lässt lange Labels umbrechen). */
@@ -1149,7 +1247,7 @@ img.logo-themed-light{display:none}
 .ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
 .ep-section-h2{font:var(--ty-headline-md);color:var(--tx-primary);margin-bottom:var(--s2)}
 /* margin-bottom --s8 (32 px): Sub-Cards-Gap (32) ist bewusst kleiner als section-padding-bottom (48),
-   damit das Auge die Card-Reihe als „optisch mittig" wahrnimmt (psychologische Mitte liegt über der
+   damit das Auge die Card-Reihe als „optisch mittig“ wahrnimmt (psychologische Mitte liegt über der
    geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
    Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
 .ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
@@ -1157,7 +1255,7 @@ img.logo-themed-light{display:none}
    untereinander. Bewusst OHNE eigenen Rahmen und ohne Fläche: die Liste zieht in einen vorhandenen
    Container ein (Angebots-Box, Sticky-Sidebar), ein eigener Rahmen ergäbe dort Kasten-im-Kasten.
    Einspaltig auf allen Breiten, deshalb keine Media-Query nötig — und lange Werte wie „Schriftliche
-   Handlungsempfehlungen" brechen innerhalb ihres Paares um, statt wie im früheren mehrspaltigen
+   Handlungsempfehlungen“ brechen innerhalb ihres Paares um, statt wie im früheren mehrspaltigen
    Streifen die Nachbarspalten zu verziehen. Bereichston der Labels über .t-XX im Markup (dark-safe),
    nie als Inline-Farbe. */
 .ep-facts{margin:0}
@@ -1169,7 +1267,7 @@ img.logo-themed-light{display:none}
    die Liste. auto-fit statt fixer Spaltenzahl, damit sie in schmalen Kästen und mobil von selbst
    einspaltig wird. Die Haarlinien entfallen dabei: Bei zwei Spalten trennen sie keine Zeilen mehr
    eindeutig, und der Abstand gliedert bereits. Nur für kurze Werte gedacht — lange wie „Schriftliche
-   Handlungsempfehlungen" brauchen die einspaltige Grundform. */
+   Handlungsempfehlungen“ brauchen die einspaltige Grundform. */
 .ep-facts.is-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4) var(--s5)}
 .ep-facts.is-grid > div + div{margin-top:0;padding-top:0;border-top:0}
 /* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
@@ -1200,7 +1298,7 @@ img.logo-themed-light{display:none}
 .ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6)}
 /* Padding 24 (--s6) statt 20 (--s5), damit Innen-Atem ≥ 1,5× Außen-Gap (--s4 = 16 px).
    Sonst lösen sich die Cards visuell auf — Innen- und Außenabstand wären zu nah beieinander. */
-/* Konvention „Elevation = Interaktivität": statische Cards ruhen flach mit Rahmen (--bd-strong),
+/* Konvention „Elevation = Interaktivität“: statische Cards ruhen flach mit Rahmen (--bd-strong),
    kein Schatten. Schatten ist interaktiven Cards (.ep-card-link) vorbehalten → eindeutiges Affordanz-Signal. */
 .ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
 /* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
@@ -1208,7 +1306,7 @@ img.logo-themed-light{display:none}
 /* Kachel-Fläche über --XX-50, den ruhigen Bereichston, und ohne Rand. Sie muss nicht als Fläche
    lesen: WCAG verlangt für eine dekorative Fläche nichts, das Glyph ist aria-hidden und wiederholt
    nur das Eyebrow daneben. Darüber entscheidet das Markenrad, und 48 px gesättigte Farbe sind das
-   Gegenteil von „Ruhig". Das Glyph trägt die Erkennbarkeit: -700/-800 auf dem Tint 7,5 bis 11,4:1,
+   Gegenteil von „Ruhig“. Das Glyph trägt die Erkennbarkeit: -700/-800 auf dem Tint 7,5 bis 11,4:1,
    im Dark hebt dark-mode.css es auf -100 (6,9 bis 8,6:1). Die Farbe kommt aus der Komponente, nicht
    aus 76 inline gesetzten style-Attributen. */
 .ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-50)}
@@ -1240,10 +1338,13 @@ img.logo-themed-light{display:none}
 .ep-card[data-area="ki"] .ep-card-cta{color:var(--ki-800)}
 .ep-card[data-area="es"] .ep-card-cta{color:var(--es-700)}
 .ep-card[data-area="wo"] .ep-card-cta{color:var(--wo-700)}
-/* Card-CTA-Link (z.B. „Beitrag lesen →" am Karten-Fuß).
+/* Card-CTA-Link (z.B. „Beitrag lesen →“ am Karten-Fuß).
    Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
    --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
-.card-cta-link{font:var(--ty-label-md);color:var(--co-700);margin-top:var(--s2)}
+/* Kein margin-top: den Abstand zur Zeile darüber trägt der gap des .card-body. Die --pinned-
+   Variante setzt margin-top:auto und schiebt den CTA an die Unterkante, dort ersetzt das auto
+   jeden festen Wert ohnehin. */
+.card-cta-link{font:var(--ty-label-md);color:var(--co-700)}
 /* Bereichsvariante (optional): trägt die Akzentfarbe statt Corporate-Teal, wenn der CTA in einer
    Bereichs-Sektion sitzt. Shades wie .ep-card-cta; Dark-Overrides (→ -200/-100) in dark-mode.css. */
 .card-cta-link[data-area="co"]{color:var(--co-700)}
@@ -1270,6 +1371,10 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-feature-icon[data-area="es"]{background:var(--es-50);color:var(--es-800)}
 .ep-feature-icon[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
 .ep-feature-body{display:flex;flex-direction:column;gap:var(--s1)}
+/* Ausnahme, und sie gehört dem Container: der Gap ist hier absichtlich winzig (--s1), damit Titel
+   und Text als eine Einheit gelesen werden. Für den CTA ist das zu eng, er soll sich vom Text
+   lösen. Der Card-Body braucht das nicht, sein gap:var(--s3) trägt den Abstand schon. */
+.ep-feature-body>.card-cta-link{margin-top:var(--s2)}
 .ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
 .ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
 /* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
@@ -1387,7 +1492,15 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Füllung über --XX-fill, gleiche Begründung wie beim Badge (siehe tokens.css). ES-Text auf -800
    statt -700: auf der kräftigeren Füllung trägt -700 nur noch 4,74:1, -800 gibt Reserve und ist
    derselbe Ton, den das ES-Badge längst nutzt. */
-.pill{display:inline-block;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
+/* width:fit-content hält die Pille eine Pille, auch als Flex- oder Grid-Item. Ein inline-block
+   wird als Flex-Item zu block blockifiziert, und ein Kind mit auto-Cross-Size wird von
+   align-items:stretch auf die volle Spaltenbreite gezogen: aus der Pille wird ein Balken
+   (gemessen im Featured-Body bei 1280 px Kartenbreite: 448 px statt 146 px). Im normalen Fluss
+   ist die Zeile ein No-Op, ein inline-block schrumpft dort ohnehin auf seinen Inhalt. Darum hier
+   an der Komponente und nicht als align-self je Container: die Pille bringt ihre Form selbst mit,
+   statt sie von jedem Layout einzeln zugewiesen zu bekommen. Deckt Flex und Grid in einem ab,
+   denn eine definierte Cross-Size schlägt stretch in beiden. */
+.pill{display:inline-block;width:fit-content;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
 .pill[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
 .pill[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
 .pill[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
@@ -1443,7 +1556,7 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 /* Mobil einspaltig, konsistent mit dem Kollaps der .layout-grid bei 768px. Engerer Abstand,
    weil untereinander kein Spaltenabstand mehr trennt und --s8 dort als Loch wirken würde. */
 @media(max-width:768px){.author-card-group.is-grid{grid-template-columns:1fr;gap:var(--s6)}}
-/* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen"), ersetzt die Eyebrows der einzelnen Cards */
+/* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen“), ersetzt die Eyebrows der einzelnen Cards */
 .author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
 /* Die Überschrift steht als Geschwister VOR der Gruppe und muss deren Container-Breite mitgehen,
    sonst sitzt sie bei der Raster-Variante 120 px links neben der ersten Karte. */

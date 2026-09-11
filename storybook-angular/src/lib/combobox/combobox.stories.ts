@@ -86,7 +86,7 @@ export const MultiSelect: Story = {
   },
   // Statischer Ruhezustand (drei voreingestellte Chips, kein Fokus/Popup) — bewusst
   // OHNE play, damit der Visual-Snapshot deterministisch ist. Die Tipp-/Auswahl-
-  // Interaktion prüft „Multi-Select · Hinzufügen" (dort snapshot-frei).
+  // Interaktion prüft „Multi-Select · Hinzufügen“ (dort snapshot-frei).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     await expect(c.getAllByRole('button', { name: /Entfernen:/ })).toHaveLength(3);

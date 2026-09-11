@@ -20,6 +20,10 @@ Style ausschließlich über diese Klassen und über `var(--token)`. Erfinde kein
 
 **Weitere Klassen:** `.badge` (+ `.badge-ok` / `.badge-warn` / `.badge-err` / `.badge-neu`), `.pill`, `.chip`, `.card`, `.ep-card` (statische Karte, flach), `.ep-card-link` (interaktive Karte, mit Schatten + Hover), `.field` (Formularfeld-Wrapper).
 
+**Karten mit Bild:** Die Bildspalte ist immer `.card-media` (Verhältnis 16/9, wie im Listing-Grid), das Bild darin ein `<img>` mit `object-fit:cover`; den Bildausschnitt setzt `object-position` am `<img>`, nicht `background-position` an einem Container. So passt **ein** Bild in **einem** Zuschnitt in alle Slots.
+- Listing-Card: `<a class="card card-elevated">` mit `.card-media` + `.card-body`. Das Layout steckt in den Klassen: `.card` ist die Flex-Spalte, `.card-body` trägt `gap:var(--s3)` und `flex:1` (dadurch sitzt `.card-cta-link--pinned` an der Unterkante). **Kein `display:flex`, kein `flex:1` und keine Außenmarge an Body-Kindern ins `style`-Attribut**; braucht eine Karte mehr Luft, wird nur der `gap` überschrieben.
+- Featured-Card (genau ein Beitrag oder Termin hervorgehoben): `<a class="card card-elevated card-featured">` mit `.card-media` + `.card-featured-body`. Layout, Spaltenteilung (Bild 60 %, auf Tablet-Breite 65 %, darunter gestapelt) und das Kürzen zu langer Texte stecken in der Klasse. **Kein `display:grid`, keine `grid-template-columns`, keine `min-height` und kein Padding ins `style`-Attribut**, das bricht das Bildverhältnis. Der Lead ist `.card-text` (wird gekappt, bevor Pill, Titel oder CTA weichen), der Titel `.card-title-hero`. Auch die Pill braucht kein `style`: `width:fit-content` steckt in `.pill` selbst, ihre Eigenmarge nimmt `.card-featured-body > .pill` zurück.
+
 **Tokens (immer `var(--…)`, nie rohe Hex/px):**
 - Farben: `--co-* --ki-* --es-* --wo-* --n-*` (Skala `-50 … -900`); semantisch `--c-success` / `--c-warning` / `--c-error`.
 - Flächen/Text: `--bg-page`, `--bg-surface`; `--tx-primary`, `--tx-secondary`.
@@ -29,7 +33,7 @@ Style ausschließlich über diese Klassen und über `var(--token)`. Erfinde kein
 ## Regeln (kurz)
 - Farbiger Text auf Weiß: Bereichsfarbe `-700` (bei `ki`: `-800`); nie `-500` als Textfarbe. Alles WCAG AA.
 - Elevation = Interaktivität: statische Flächen flach (`--bd`), nur interaktive bekommen Schatten.
-- Sprache (Marke „Ruhig"): deutsche Anführungszeichen „… ", keine Gedankenstriche in Copy.
+- Sprache (Marke „Ruhig“): deutsche Anführungszeichen „… “, keine Gedankenstriche in Copy.
 
 ## Wo die Wahrheit liegt
 - `styles.css` und das daraus importierte `_ds_bundle.css` enthalten alle Klassen und Token-Definitionen (`--*`). Lies sie, bevor du stylst.

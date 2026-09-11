@@ -7,7 +7,7 @@ const meta: Meta<CheckboxComponent> = {
   component: CheckboxComponent,
   tags: ['autodocs'],
   // Der Datenschutz-Link (.body-link) ist Corporate — die Bereichs-Tönung ist ein
-  // SEITEN-Zustand, nicht Sache der Checkbox. Über den Toolbar-Umschalter „Bereich"
+  // SEITEN-Zustand, nicht Sache der Checkbox. Über den Toolbar-Umschalter „Bereich“
   // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann
   // tönt der CSS-Kern den Link. Bewusst entkoppelt vom `area`-Input der Komponente.
   parameters: {

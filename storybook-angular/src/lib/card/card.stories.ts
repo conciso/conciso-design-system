@@ -13,7 +13,7 @@ const meta: Meta<CardComponent> = {
           'Generische Teaser-Karte für Inhalte mit optionalem Medienbereich, ' +
           'Eyebrow, Titel, Text und Fußzeilen-Aktion, farblich an jede Brand Area ' +
           'angepasst. Sie ruht flach mit Rahmen: Schatten tragen nach der Konvention ' +
-          '„Elevation = Interaktivität" nur Karten, deren Fläche selbst ein Link ist.',
+          '„Elevation = Interaktivität“ nur Karten, deren Fläche selbst ein Link ist.',
       },
     },
   },

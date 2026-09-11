@@ -86,7 +86,7 @@
         localStorage.setItem('ds-active-section', key);
       }
       /* data-k-bereich / data-k-anliegen mitgeben wie beim ep-page-Handler weiter unten, sonst
-         landet ein Bereichs-CTA aus der Doku (z. B. „Inhouse-Termin anfragen" im Buchungsformular)
+         landet ein Bereichs-CTA aus der Doku (z. B. „Inhouse-Termin anfragen“ im Buchungsformular)
          auf der neutralen Kontaktseite ohne Tönung und ohne vorbelegtes Anliegen. */
       if (epKey) activateExamplePage(epKey, { bereich: a.dataset.kBereich, anliegen: a.dataset.kAnliegen });
       if (target !== section) {
@@ -304,7 +304,7 @@
       if (!item.contains(e.relatedTarget)) closeNavItem(item);
     });
     /* Hover-Öffnen (nur pointer:fine): Öffnen mit kurzem Intent-Delay, Schließen verzögert,
-       damit der Weg über den Gap ins Flyout die Brücke bleibt (WCAG 1.4.13 „hoverable"). */
+       damit der Weg über den Gap ins Flyout die Brücke bleibt (WCAG 1.4.13 „hoverable“). */
     if (navHoverCapable) {
       item.addEventListener('mouseenter', function() {
         clearTimeout(closeTimer);
@@ -349,7 +349,7 @@
     if (e.target.closest('[data-ep]') || !e.target.closest('.ep-nav-has-sub')) closeAllNavItems(null);
   });
   /* Escape schließt auch ein rein per Hover geöffnetes Menü, wenn der Fokus nicht darin liegt
-     (der item-keydown-Handler greift nur bei Fokus im Item) — WCAG 1.4.13 „dismissible". */
+     (der item-keydown-Handler greift nur bei Fokus im Item) — WCAG 1.4.13 „dismissible“. */
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeAllNavItems(null);
   });
@@ -483,8 +483,8 @@
     });
   });
 
-  /* In-Page-Anker innerhalb derselben ep-page (z. B. „Platz sichern" → #ev-anmeldung):
-     Browser-Default ist Hard-Jump und bricht den „Ruhig"-Markenwert. Hier sanftes Scrollen,
+  /* In-Page-Anker innerhalb derselben ep-page (z. B. „Platz sichern“ → #ev-anmeldung):
+     Browser-Default ist Hard-Jump und bricht den „Ruhig“-Markenwert. Hier sanftes Scrollen,
      respektiert prefers-reduced-motion und greift nur, wenn das Ziel in derselben ep-page liegt. */
   document.querySelectorAll('.ep-page a[href^="#"]:not([data-ep])').forEach(function(link) {
     link.addEventListener('click', function(e) {
@@ -578,7 +578,7 @@
     var prefix = opts.prefix;
     var defaultFeaturedArea = opts.defaultFeaturedArea || 'ki';
     var noun = opts.noun;
-    var nounPluralDat = opts.nounPluralDat; // für „keine X hinterlegt"
+    var nounPluralDat = opts.nounPluralDat; // für „keine X hinterlegt“
 
     var chips = page.querySelectorAll('.chip[data-filter]');
     var searchInput = page.querySelector('#' + prefix + '-search-input');
@@ -639,9 +639,9 @@
 
       if (isEmpty && emptyDetail) {
         if (hasQuery && f !== 'all') {
-          emptyDetail.textContent = 'Für „' + q + '" im Bereich ' + chipLabel(f) + ' gibt es aktuell keine ' + nounPluralDat + '.';
+          emptyDetail.textContent = 'Für „' + q + '“ im Bereich ' + chipLabel(f) + ' gibt es aktuell keine ' + nounPluralDat + '.';
         } else if (hasQuery) {
-          emptyDetail.textContent = 'Für „' + q + '" gibt es aktuell keine ' + nounPluralDat + '.';
+          emptyDetail.textContent = 'Für „' + q + '“ gibt es aktuell keine ' + nounPluralDat + '.';
         } else if (f !== 'all') {
           emptyDetail.textContent = 'Im Bereich ' + chipLabel(f) + ' sind aktuell keine ' + nounPluralDat + ' hinterlegt.';
         } else {
@@ -651,7 +651,7 @@
 
       if (resultCount) {
         if (hasQuery) {
-          resultCount.textContent = visibleGridCount + ' Treffer für „' + q + '"';
+          resultCount.textContent = visibleGridCount + ' Treffer für „' + q + '“';
         } else {
           resultCount.textContent = '';
         }
@@ -686,7 +686,7 @@
       });
     }
 
-    // Global „/"-Shortcut fokussiert die Suche, wenn diese Listing-Page aktiv ist
+    // Global „/“-Shortcut fokussiert die Suche, wenn diese Listing-Page aktiv ist
     document.addEventListener('keydown', function(e) {
       if (e.key !== '/') return;
       var active = document.activeElement;
@@ -1370,7 +1370,7 @@
           });
           var remove = hook(block, 'remove-person');
           if (remove) {
-            /* Block 1 ist bei „Ich nehme selbst teil" an die Kontaktdaten gebunden und wird nicht
+            /* Block 1 ist bei „Ich nehme selbst teil“ an die Kontaktdaten gebunden und wird nicht
                einzeln entfernt; stattdessen den Haken lösen. */
             var locked = n === 1 && selbstTeil && selbstTeil.checked;
             remove.hidden = locked || blocks().length < 2;
@@ -1411,7 +1411,7 @@
           for (var i = current - 1; i >= next; i--) {
             if (blockHasData(list[i])) {
               anzahl.value = current;
-              countError('Teilnehmende ' + (i + 1) + ' enthält noch Daten. Entferne den Block direkt über „Entfernen".');
+              countError('Teilnehmende ' + (i + 1) + ' enthält noch Daten. Entferne den Block direkt über „Entfernen“.');
               return;
             }
           }
@@ -1508,7 +1508,7 @@
         updateSummary();
         anzahl.focus();
       });
-      /* Nur echte Nutzereingaben markieren einen Teilnehmenden-Block als „von Hand bearbeitet"; die
+      /* Nur echte Nutzereingaben markieren einen Teilnehmenden-Block als „von Hand bearbeitet“; die
          programmatische Übernahme aus den Kontaktdaten löst kein input-Event aus. */
       personen.addEventListener('input', function (e) {
         if (e.target.dataset && e.target.dataset.bk) e.target.dataset.touched = '1';

@@ -36,8 +36,8 @@ export const Interaktiv: Story = {
   // Frame hängt vom Screenshot-Timing ab → nicht deterministisch. Funktion + a11y
   // sind über den play-Test unten abgedeckt.
   parameters: { snapshot: { skip: true } },
-  // Pause-Button stoppt das Autoplay (Label „Abspielen") und startet es wieder.
-  // Wichtig: am Ende wieder auf „Pausieren" (= läuft) und Fokus vom Carousel weg,
+  // Pause-Button stoppt das Autoplay (Label „Abspielen“) und startet es wieder.
+  // Wichtig: am Ende wieder auf „Pausieren“ (= läuft) und Fokus vom Carousel weg,
   // damit die Default-Story sichtbar autoplayt (Fokus/Hover pausieren sonst transient).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
@@ -61,17 +61,17 @@ export const MitBildern: Story = {
   args: {
     sets: [
       [
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'NORDWIND' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'MERIDIAN' },
       ],
       [
         { label: 'AVERA' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'KONTUR' },
-        { label: 'Conciso', src: '/conciso/images/logo-conciso.svg' },
+        { label: 'Conciso', src: '/conciso/brand/logo-conciso.svg' },
         { label: 'STELLA' },
       ],
     ],

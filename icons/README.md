@@ -51,7 +51,7 @@ const { svg } = icons['ki-bot'];
 (`--XX-800` Light / `--XX-200` Dark) — exakt wie `.ep-card-icon.t-XX` im DS.
 
 Die Regel hängt am **Anlass, nicht an der Seite**: Sie gilt auf `/leistungen` und der Landingpage
-genauso wie in „Weiter im Thema"-Blöcken tiefer liegender Detailseiten. Zuvor war sie nur für die
+genauso wie in „Weiter im Thema“-Blöcken tiefer liegender Detailseiten. Zuvor war sie nur für die
 ersten beiden Orte notiert, woraufhin fünf Verweiskarten auf Angebots-Detailseiten mit einem
 generischen Heroicon liefen.
 
@@ -66,7 +66,7 @@ Karten. Das Marken-Glyph ist dem Verweis auf den Bereich selbst vorbehalten.
 | Key | Name | Stil (Stroke-Width) | Verwendung (DS-Kontext) |
 |---|---|---|---|
 | `co-building` | Corporate / Unternehmen – Bereichs-Glyphe (Gebäude) | solid | icon-size-swatch @co |
-| `co-mark` | Corporate – Logo-Zeichen „C." (nur mit Logo verwenden) | solid | icon-size-swatch @co |
+| `co-mark` | Corporate – Logo-Zeichen „C.“ (nur mit Logo verwenden) | solid | icon-size-swatch @co |
 
 ### Angewandte KI
 
