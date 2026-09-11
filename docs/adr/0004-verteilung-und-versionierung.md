@@ -90,13 +90,13 @@ zusammenpassen.
 Ursprünglich war der Workflow **release-/tag-getriggert** gedacht und als
 `release: published` umgesetzt. Das war falsch: Ein Git-Tag löst kein
 `release`-Event aus, und die Release-Konvention dieses Repos sind Tags
-(CHANGELOG: „Releases werden als Git-Tags `vX.Y.Z` markiert"). Am Bestand belegt —
+(CHANGELOG: „Releases werden als Git-Tags `vX.Y.Z` markiert“). Am Bestand belegt —
 der Tag `v0.1.0` existiert, ein zugehöriges GitHub-Release nicht. Wer nach der
 Konvention getaggt hätte, hätte nichts veröffentlicht, ohne Warnung.
 
 Ausgelöst wird jetzt durch **eine Versionsänderung auf `main`**: ein Push, der eine
 der beiden `package.json` berührt. Ob veröffentlicht wird, entscheidet die
-**Registry** („liegt diese Version schon in GitHub Packages?") und nicht ein Diff
+**Registry** („liegt diese Version schon in GitHub Packages?“) und nicht ein Diff
 gegen den Vorgänger-Commit — ein Diff wäre unzuverlässig, weil Squash-Merges und
 Pushes mit mehreren Commits den Versionswechsel verstecken. Damit gilt: Version
 anheben und nach `main` mergen ist das Release; es gibt keinen Knopf, den man
@@ -112,7 +112,7 @@ Daraus folgt:
   er sich damit rekursiv selbst ausgelöst.
 - Die Existenzprüfung läuft **pro Paket**. Bricht ein Lauf zwischen den beiden
   Publishes ab, zieht der nächste nur das fehlende Paket nach und warnt laut. Eine
-  Prüfung auf „irgendeines von beiden liegt schon" würde in diesem Fall still
+  Prüfung auf „irgendeines von beiden liegt schon“ würde in diesem Fall still
   übergehen und den Lockstep dauerhaft brechen.
 - Zusätzliches Gate: fehlt der CHANGELOG-Abschnitt zur Version, bricht der Lauf ab
-  (fängt „Version angehoben, Unreleased-Block vergessen").
+  (fängt „Version angehoben, Unreleased-Block vergessen“).

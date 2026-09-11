@@ -591,7 +591,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   enthält nur noch Stories und konsumiert die Lib. Architektur-Entscheidungen in
   `docs/adr/0001`–`0005`, `CONTEXT.md` führt das Glossar.
 - **Distribution über GitHub Packages** (privat, org-scoped) für beide Pakete — kehrt die
-  0.1.0-Entscheidung „intern/proprietär statt Registry-Publish" um, weil eine Angular-Lib als
+  0.1.0-Entscheidung „intern/proprietär statt Registry-Publish“ um, weil eine Angular-Lib als
   gebautes Artefakt ausgeliefert werden muss und ein Git-Tarball dafür nicht genügt.
   `publishConfig` auf beiden `package.json`, dazu ein Publish-Workflow, der auf eine
   Versionsänderung auf `main` reagiert: Er prüft pro Paket, ob die Lockstep-Version schon in der

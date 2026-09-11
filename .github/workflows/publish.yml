@@ -8,7 +8,7 @@ name: Pakete veröffentlichen
 # main, der eine der beiden package.json berührt, und entscheidet dann selbst, ob
 # es etwas zu veröffentlichen gibt. Maßgeblich ist dabei die REGISTRY, nicht ein
 # Diff gegen den Vorgänger-Commit: gefragt wird „liegt diese Version schon in
-# GitHub Packages?". Ein Diff wäre unzuverlässig, weil Squash-Merges und Pushes mit
+# GitHub Packages?“. Ein Diff wäre unzuverlässig, weil Squash-Merges und Pushes mit
 # mehreren Commits den Versionswechsel verstecken können. Liegt die Version bereits,
 # endet der Lauf still — der Push hat die package.json dann aus anderen Gründen
 # angefasst (Beschreibung, Dependencies).
@@ -76,7 +76,7 @@ jobs:
           fi
           echo "version=$ROOT_VERSION" >> "$GITHUB_OUTPUT"
           echo "Lockstep-Version: $ROOT_VERSION"
-      # Fängt den Fall „Version angehoben, CHANGELOG vergessen". Der Abschnitt ist
+      # Fängt den Fall „Version angehoben, CHANGELOG vergessen“. Der Abschnitt ist
       # der Release-Text, aus dem weiter unten das GitHub-Release entsteht.
       - name: CHANGELOG-Abschnitt vorhanden?
         run: |
@@ -204,7 +204,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Der Tag macht die Konvention aus dem CHANGELOG wahr („Releases werden als
-      # Git-Tags vX.Y.Z markiert") — ohne ihn zeigt nichts im Repo auf die
+      # Git-Tags vX.Y.Z markiert“) — ohne ihn zeigt nichts im Repo auf die
       # veröffentlichte Version. Läuft erst NACH den Publishes: ein Tag auf einem
       # Stand, dessen Veröffentlichung scheiterte, wäre irreführend.
       - name: Tag setzen und Release veröffentlichen
