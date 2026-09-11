@@ -6,7 +6,7 @@ Everything that goes into the repo follows `CONTRIBUTING.md` â€” in particular Â
 
 ### Issue tracker
 
-Issues and specs live as local markdown files under `.scratch/<feature-slug>/`. See `docs/agents/issue-tracker.md`.
+Issues and specs live as local markdown files under `.scratch/<feature-slug>/`, which is gitignored and never committed. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
