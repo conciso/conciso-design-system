@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { ThemeSelectComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSelectComponent> = {

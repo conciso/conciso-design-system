@@ -1,6 +1,6 @@
 # ADR-0005: Storybook-Test-Runner + Consumer-Smoke-Test als alleinige Testebene der Angular-Lib
 
-- Status: akzeptiert
+- Status: akzeptiert (ergänzt 2026-08-21, siehe „Ergänzung: zweiter Story-Runner“)
 - Datum: 2026-07-30
 
 ## Kontext
@@ -46,3 +46,23 @@ stattdessen über zwei bestehende Seams abgesichert:
 - Bricht eine Komponente auf eine Art, die weder Storybook noch der
   Consumer-Smoke-Test abdecken (z.B. reine Internal-Logik ohne Template-Bezug), ist
   das ein Signal, diese ADR zu überdenken statt sie stillschweigend zu unterlaufen.
+
+## Ergänzung: zweiter Story-Runner (2026-08-21)
+
+Mit der Migration des Storybooks auf Vite (`@storybook/angular-vite`) führt
+`@storybook/addon-vitest` **dieselben Stories** zusätzlich als Vitest-Tests aus
+(`storybook-angular/vitest.config.ts`, `npm run test:vitest`; Browser-Mode via
+Playwright/Chromium, ohne laufenden Storybook-Server).
+
+Das ändert die Entscheidung dieser ADR nicht: Stories bleiben die einzige
+Testebene der Lib, es kommen keine `.spec.ts`-Unit-Tests hinzu. Es ändert nur den
+Ausführungsweg — Arbeitsteilung der beiden Runner:
+
+- **Vitest (addon-vitest)** — schneller Lauf für Interaktion (Play-Functions) und
+  a11y, direkt aus den Story-Quellen, geeignet für die lokale Feedback-Schleife.
+- **Storybook-Test-Runner** — bleibt für die Visual-Snapshots (jest-image-snapshot,
+  gepinntes Playwright-Docker-Image, siehe [ADR-0003](0003-pilot-scheibe-und-validierung.md))
+  und läuft in der CI weiterhin gegen den gebauten Storybook.
+
+Fällt einer der beiden Wege künftig weg (z.B. wenn Visual-Snapshots ebenfalls über
+Vitest laufen), ist das eine erneute Ergänzung hier — nicht ein stiller Umbau.

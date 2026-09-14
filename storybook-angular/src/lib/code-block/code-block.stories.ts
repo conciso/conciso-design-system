@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { CodeBlockComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cb-copy` hat nur 3.31:1 Kontrast, weil css/components.css

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { StatCardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatCardComponent> = {
