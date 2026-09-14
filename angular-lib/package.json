@@ -5,7 +5,9 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build design-system-angular",
-    "watch": "ng build design-system-angular --watch --configuration development"
+    "watch": "ng build design-system-angular --watch --configuration development",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "private": true,
   "packageManager": "npm@10.9.8",
@@ -25,8 +27,12 @@
     "@angular/cli": "^21.2.19",
     "@angular/compiler-cli": "^21.2.0",
     "@conciso/design-system": "file:..",
+    "@eslint/js": "^10.0.1",
+    "angular-eslint": "^21.4.0",
+    "eslint": "^10.6.0",
     "ng-packagr": "^21.2.0",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.59.2"
   }
 }

@@ -54,7 +54,19 @@
     "check:dark-states": "node scripts/check-dark-states.mjs",
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
     "check:contrast": "node scripts/check-contrast.mjs",
-    "check:quotes": "node scripts/check-quotes.mjs"
+    "check:quotes": "node scripts/check-quotes.mjs",
+    "build:angular-lib": "npm run --workspace angular-lib build",
+    "lint": "npm run lint:angular-lib && npm run lint:storybook",
+    "lint:angular-lib": "npm run --workspace angular-lib lint",
+    "lint:storybook": "npm run --workspace storybook-angular lint",
+    "storybook": "npm run --workspace storybook-angular storybook",
+    "build:storybook": "npm run --workspace storybook-angular build-storybook",
+    "test": "npm run test:vitest",
+    "test:vitest": "npm run --workspace storybook-angular test:vitest",
+    "test:storybook": "npm run --workspace storybook-angular test-storybook",
+    "test:storybook:ci": "npm run --workspace storybook-angular test-storybook:ci",
+    "test:visual": "npm run --workspace storybook-angular test-storybook:visual",
+    "playwright:install": "npm run --workspace storybook-angular playwright:install"
   },
   "keywords": [
     "design-system",

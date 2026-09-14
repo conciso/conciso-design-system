@@ -12,7 +12,8 @@
     "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
     "test-storybook:visual": "PLAYWRIGHT_BROWSERS_PATH=0 VISUAL=1 test-storybook --url http://localhost:6006",
     "test:vitest": "PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "dependencies": {
     "@ng-icons/core": "^33.3.0",
