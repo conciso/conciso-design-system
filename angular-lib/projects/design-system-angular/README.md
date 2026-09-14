@@ -7,7 +7,7 @@ nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 
 > **Vollständig umgezogen.** Alle 37 Komponenten leben in dieser Lib und werden über
 > `public-api.ts` exportiert — samt ihrer öffentlichen Typen (`CdsArea`,
-> `CdsButtonVariant`, `ThemeMode`, …). `storybook-angular` enthält nur noch Stories
+> `CdsButtonVariant`, `CdsThemeMode`, …). `storybook-angular` enthält nur noch Stories
 > und importiert ausschließlich von hier
 > ([ADR-0002](../../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
 

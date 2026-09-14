@@ -111,11 +111,11 @@ npm run check:dark-states # Zustands-Regeln, die im Dark dunkel-auf-dunkel laufe
 npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 ```
 
-`check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und prüft Text (4,5:1 bzw. 3:1 bei Großtext), getönte Bauteil-Füllungen und Bedienelement-Grenzen (3:1). Es misst die **fertige Kette** und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Der Stand ist **0 Verstöße**; jede Abweichung meldet das Skript mit Pfad, Farbe und Sollwert (`--list` zeigt jeden Fund einzeln). Es braucht einen Browser und liegt deshalb am `storybook-angular`-Workspace (`cd storybook-angular && npm ci`); lokal genügt ein installiertes Chrome. In der Pipeline läuft es in `storybook-angular.yml`.
+`check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und prüft Text (4,5:1 bzw. 3:1 bei Großtext), getönte Bauteil-Füllungen und Bedienelement-Grenzen (3:1). Es misst die **fertige Kette** und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Der Stand ist **0 Verstöße**; jede Abweichung meldet das Skript mit Pfad, Farbe und Sollwert (`--list` zeigt jeden Fund einzeln). Es braucht einen Browser; die Playwright-Abhängigkeit dafür hängt am `storybook-angular`-Workspace und kommt mit dem `npm install` **im Repo-Wurzelverzeichnis** mit (npm-Workspaces, das Skript findet sie auch hoisted); lokal genügt ein installiertes Chrome. In der Pipeline läuft es in `storybook-angular.yml`.
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Änderungen im [CHANGELOG](CHANGELOG.md). Releases werden als Git-Tags `vX.Y.Z` markiert — Konsument:innen pinnen auf einen Tag (kein Registry-Publish, das Paket ist intern/proprietär).
+[SemVer](https://semver.org/lang/de/). Änderungen im [CHANGELOG](CHANGELOG.md). Releases werden als Git-Tags `vX.Y.Z` markiert und nach GitHub Packages veröffentlicht. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 
 ## Lizenz & Kontakt
 

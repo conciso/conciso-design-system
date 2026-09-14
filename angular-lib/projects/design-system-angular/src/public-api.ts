@@ -2,7 +2,7 @@
  * Public API Surface von @conciso/design-system-angular
  *
  * Der einzige Einstiegspunkt der Angular-Lib. Alle Wrapper-Komponenten und ihre
- * öffentlichen Typen (CdsArea, CdsButtonVariant, CdsButtonSize, ThemeMode, …) werden
+ * öffentlichen Typen (CdsArea, CdsButtonVariant, CdsButtonSize, CdsThemeMode, …) werden
  * ausschließlich von hier re-exportiert — es gibt keine sekundären Entry-Points
  * (siehe docs/adr/0004-verteilung-und-versionierung.md).
  *

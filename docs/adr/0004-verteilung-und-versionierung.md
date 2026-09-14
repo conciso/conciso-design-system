@@ -27,7 +27,7 @@ zusammenpassen.
   gepinnt (z.B. `0.1.x`).
 - **Build:** Angular-CLI-Workspace + ng-packagr (Angular Package Format), **ein**
   Einstiegspunkt (`public-api.ts`), der Komponenten **und** öffentliche Typen
-  (`CdsArea`, `CdsButtonVariant`, `ThemeMode`, …) exportiert.
+  (`CdsArea`, `CdsButtonVariant`, `CdsThemeMode`, …) exportiert.
 - **peer-Range Angular:** `^21.2.0` (aktuelle Major, gegen die gebaut wird).
 - **Icons:** `@ng-icons/*` als normale `dependency` (vollständig gekapselt via
   `provideIcons`/`viewProviders`; kein globales Singleton).
