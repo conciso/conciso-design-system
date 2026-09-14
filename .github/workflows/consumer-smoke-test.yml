@@ -14,7 +14,7 @@ name: Consumer-Smoke-Test
 # sind der Weg, das trotzdem über Workflow-Grenzen hinweg abzubilden.
 on:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
     paths:
       - 'angular-lib/**'
       - 'examples/consumer-fixture/**'
