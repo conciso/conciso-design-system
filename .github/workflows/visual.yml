@@ -9,6 +9,8 @@ name: Visual Tests
 #     eingecheckt sind → Artefakt. Selbst-limitierend: sobald Baselines im Repo
 #     liegen, tut push nichts mehr.
 #   - pull_request: gegen die eingecheckten Baselines vergleichen (wenn vorhanden).
+# Die Pfadlisten decken angular-lib mit ab: die Komponenten-Templates liegen seit
+# der Extraktion dort, und genau sie verändern die Snapshots.
 # In allen Fällen: erzeugtes Artefakt runterladen, nach
 # storybook-angular/visual-snapshots/ committen → danach ist der PR-Vergleich scharf.
 on:
@@ -17,6 +19,7 @@ on:
     branches: [main]
     paths:
       - 'storybook-angular/**'
+      - 'angular-lib/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -26,6 +29,7 @@ on:
   pull_request:
     paths:
       - 'storybook-angular/**'
+      - 'angular-lib/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
