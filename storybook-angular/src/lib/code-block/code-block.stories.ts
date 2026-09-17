@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, userEvent, expect } from 'storybook/test';
 import { CodeBlockComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cb-copy` hat nur 3.31:1 Kontrast, weil css/components.css
@@ -42,5 +43,22 @@ export const Terminal: Story = {
     lang: 'bash',
     terminal: true,
     code: 'npm install\nnpm run storybook',
+  },
+};
+
+export const KopierButton: Story = {
+  name: 'Kopier-Button',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Clipboard-API im Test-Browser deterministisch mocken: ein echter Zugriff bräuchte
+  // Berechtigungen, die im headless Chromium nicht garantiert erteilt sind. Geprüft wird
+  // das sichtbare Feedback (Button-Text wechselt auf „Kopiert!“), nicht der echte Copy.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: () => Promise.resolve() },
+      configurable: true,
+    });
+    await userEvent.click(c.getByRole('button', { name: 'Kopieren' }));
+    await expect(await c.findByRole('button', { name: 'Kopiert!' })).toBeInTheDocument();
   },
 };

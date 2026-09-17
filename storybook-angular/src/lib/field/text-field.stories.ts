@@ -45,6 +45,15 @@ export const Fehlerzustand: Story = {
   },
 };
 
+export const Deaktiviert: Story = {
+  args: { fieldId: 'demo-email-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByLabelText(/E-Mail/)).toBeDisabled();
+  },
+};
+
 export const Formularbindung: Story = {
   name: 'Formularbindung',
   parameters: {

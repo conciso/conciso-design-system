@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, userEvent, expect, fn } from 'storybook/test';
 import { SnackbarComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SnackbarComponent> = {
@@ -30,6 +31,18 @@ export default meta;
 type Story = StoryObj<SnackbarComponent>;
 
 export const Interaktiv: Story = {};
+
+export const AktionsButton: Story = {
+  name: 'Aktions-Button',
+  parameters: { controls: { disable: true } },
+  args: { actionLabel: 'Jetzt senden', action: fn() },
+  // Klick auf die Aktion feuert action.
+  play: async ({ canvasElement, args }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole('button', { name: 'Jetzt senden' }));
+    await expect(args.action).toHaveBeenCalledTimes(1);
+  },
+};
 
 export const Toene: Story = {
   name: 'Töne',

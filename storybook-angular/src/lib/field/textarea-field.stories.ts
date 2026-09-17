@@ -36,6 +36,15 @@ type Story = StoryObj<TextareaFieldComponent>;
 
 export const Interaktiv: Story = {};
 
+export const Deaktiviert: Story = {
+  args: { fieldId: 'demo-message-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByLabelText(/Nachricht/)).toBeDisabled();
+  },
+};
+
 export const Formularbindung: Story = {
   name: 'Formularbindung',
   parameters: {

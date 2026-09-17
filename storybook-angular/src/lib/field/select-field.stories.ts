@@ -36,6 +36,30 @@ type Story = StoryObj<SelectFieldComponent>;
 
 export const Interaktiv: Story = {};
 
+export const Deaktiviert: Story = {
+  args: { fieldId: 'demo-area-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByLabelText(/Bereich/)).toBeDisabled();
+  },
+};
+
+export const LeereOptionsliste: Story = {
+  name: 'Leere Optionsliste',
+  args: { fieldId: 'demo-area-empty', options: [] },
+  parameters: { controls: { disable: true } },
+  // Randfall: keine Optionen → das native <select> bleibt leer, rendert aber ohne
+  // Fehler und bleibt fokussierbar.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const select = c.getByLabelText(/Bereich/) as HTMLSelectElement;
+    await expect(select.options).toHaveLength(0);
+    select.focus();
+    await expect(select).toHaveFocus();
+  },
+};
+
 export const Formularbindung: Story = {
   name: 'Formularbindung',
   parameters: {

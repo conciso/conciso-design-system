@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
-import { ThemeSelectComponent } from '@conciso/design-system-angular';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
+import { themeStore, ThemeSelectComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSelectComponent> = {
   title: 'Molecules/Theme-Dropdown',
@@ -32,4 +33,25 @@ export const Interaktiv: Story = {};
 export const Binaer: Story = {
   name: 'Binär (nur Hell/Dunkel)',
   args: { showSystem: false },
+};
+
+export const OptionWaehlen: Story = {
+  name: 'Option wählen',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Option „Dunkel“ wählen ändert den Modus im themeStore. Modul-Singleton — den
+  // Ausgangswert am Ende zwingend zurücksetzen, sonst färbt der Modus in
+  // nachfolgende Stories ab.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const original = themeStore.mode();
+    try {
+      themeStore.set('light');
+      await userEvent.click(c.getByRole('button'));
+      await userEvent.click(c.getByRole('option', { name: 'Dunkel' }));
+      await waitFor(() => expect(themeStore.mode()).toBe('dark'));
+      await expect(c.getByRole('button')).toHaveTextContent('Dunkel');
+    } finally {
+      themeStore.set(original);
+    }
+  },
 };

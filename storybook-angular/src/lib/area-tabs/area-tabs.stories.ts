@@ -59,6 +59,63 @@ export const Interaktiv: Story = {
   },
 };
 
+export const Tastatur: Story = {
+  name: 'Tastatur',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  render: () => ({
+    template: `
+      <cds-area-tabs>
+        <cds-area-tab area="co" label="Corporate">
+          <p style="${bodyStyle}">Marke, Haltung und konsistente Kommunikation.</p>
+        </cds-area-tab>
+        <cds-area-tab area="ki" label="Angewandte KI">
+          <p style="${bodyStyle}">KI-Lösungen mit echtem Geschäftsnutzen.</p>
+        </cds-area-tab>
+        <cds-area-tab area="es" label="Effektive Software">
+          <p style="${bodyStyle}">Schlanke Architektur, schnellere Lieferung.</p>
+        </cds-area-tab>
+        <cds-area-tab area="wo" label="Wirksame Organisationen">
+          <p style="${bodyStyle}">Teams, die lernen und sich anpassen.</p>
+        </cds-area-tab>
+      </cds-area-tabs>
+    `,
+  }),
+  // ArrowRight/-Left bewegen mit Umlauf in BEIDE Richtungen, Home/End springen an
+  // die Enden; der Fokus wandert mit (Roving Tabindex).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const tabs = c.getAllByRole('tab');
+    tabs[0].focus();
+    await expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[1]).toHaveFocus();
+
+    await userEvent.keyboard('{ArrowRight}{ArrowRight}');
+    await expect(tabs[3]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[3]).toHaveFocus();
+
+    // Umlauf vorwärts: ArrowRight am letzten Tab springt zum ersten.
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[0]).toHaveFocus();
+
+    // Umlauf rückwärts: ArrowLeft am ersten Tab springt zum letzten.
+    await userEvent.keyboard('{ArrowLeft}');
+    await expect(tabs[3]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[3]).toHaveFocus();
+
+    await userEvent.keyboard('{Home}');
+    await expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[0]).toHaveFocus();
+
+    await userEvent.keyboard('{End}');
+    await expect(tabs[3]).toHaveAttribute('aria-selected', 'true');
+    await expect(tabs[3]).toHaveFocus();
+  },
+};
+
 export const ReicherInhalt: Story = {
   name: 'Reicher Inhalt',
   // Neue Story ohne eingecheckte Baseline. visual.yml liegt noch nicht auf main →

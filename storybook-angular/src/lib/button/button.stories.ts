@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, userEvent, expect, fn } from 'storybook/test';
 import { ButtonComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ButtonComponent> = {
@@ -148,5 +149,27 @@ export const AufBand: Story = {
 };
 
 export const Deaktiviert: Story = {
-  args: { disabled: true, label: 'Nicht verfügbar' },
+  args: { disabled: true, label: 'Nicht verfügbar', clicked: fn() },
+  // Natives disabled-Attribut verhindert das Klick-Event bereits im Browser — clicked
+  // darf nicht feuern. .btn[disabled] setzt zusätzlich pointer-events:none (css/
+  // components.css), daher die Pointer-Events-Prüfung von userEvent hier bewusst
+  // abschalten (sonst bricht der Klickversuch selbst mit einem Fehler ab, statt die
+  // erwartete Nicht-Reaktion zu zeigen).
+  play: async ({ canvasElement, args }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole('button', { name: 'Nicht verfügbar' }), { pointerEventsCheck: 0 });
+    await expect(args.clicked).not.toHaveBeenCalled();
+  },
+};
+
+export const KlickVerhalten: Story = {
+  name: 'Klick-Verhalten',
+  parameters: { controls: { disable: true } },
+  args: { clicked: fn() },
+  // clicked feuert bei einem Klick auf den (nicht deaktivierten) Button.
+  play: async ({ canvasElement, args }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole('button', { name: 'Kontakt aufnehmen' }));
+    await expect(args.clicked).toHaveBeenCalledTimes(1);
+  },
 };

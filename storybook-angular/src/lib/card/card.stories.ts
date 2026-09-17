@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, userEvent, expect, fn } from 'storybook/test';
 import { CardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CardComponent> = {
@@ -35,6 +36,18 @@ export default meta;
 type Story = StoryObj<CardComponent>;
 
 export const Interaktiv: Story = {};
+
+export const FooterAktion: Story = {
+  name: 'Footer-Aktion',
+  parameters: { controls: { disable: true } },
+  args: { actionClick: fn() },
+  // Klick auf die Footer-Aktion feuert actionClick.
+  play: async ({ canvasElement, args }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole('button', { name: 'Mehr erfahren' }));
+    await expect(args.actionClick).toHaveBeenCalledTimes(1);
+  },
+};
 
 export const ProBereich: Story = {
   name: 'Eine Karte je Bereich',
