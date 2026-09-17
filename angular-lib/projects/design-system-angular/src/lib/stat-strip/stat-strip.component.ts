@@ -19,7 +19,7 @@ export interface CdsFlatStat {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-stat-strip" [style.border-radius]="rounded() ? 'var(--r-lg)' : null">
-      @for (stat of stats(); track stat.label) {
+      @for (stat of stats(); track stat) {
         <div class="card-stat-flat" [attr.data-area]="stat.area || null">
           <p class="card-stat-flat-value">{{ stat.value }}</p>
           <p class="card-stat-flat-label">{{ stat.label }}</p>
