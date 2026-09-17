@@ -8,9 +8,6 @@
     "storybook": "ng run conciso-ds-angular:storybook",
     "build-storybook": "ng run conciso-ds-angular:build-storybook",
     "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
-    "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006",
-    "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
-    "test-storybook:visual": "PLAYWRIGHT_BROWSERS_PATH=0 VISUAL=1 test-storybook --url http://localhost:6006",
     "test:vitest": "PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix"
@@ -41,13 +38,8 @@
     "@storybook/addon-mcp": "^10.6.0",
     "@storybook/addon-vitest": "^10.6.0",
     "@storybook/angular-vite": "^10.6.0",
-    "@storybook/test-runner": "^0.24.5",
-    "@types/jest-image-snapshot": "^6.4.1",
     "angular-eslint": "^21.4.0",
-    "concurrently": "^10.0.3",
     "eslint": "^10.6.0",
-    "http-server": "^14.1.1",
-    "jest-image-snapshot": "^6.5.2",
     "playwright": "^1.61.0",
     "remark-gfm": "^4.0.1",
     "storybook": "^10.6.0",
@@ -55,7 +47,6 @@
     "typescript-eslint": "^8.59.2",
     "vite": "^8.2.0",
     "@vitest/browser-playwright": "^4.1.0",
-    "vitest": "^4.1.0",
-    "wait-on": "^9.0.10"
+    "vitest": "^4.1.0"
   }
 }

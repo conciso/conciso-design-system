@@ -50,6 +50,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
 
 ### Changed
+- **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
+  statt zwei.** `npm run test:vitest` deckte bereits Smoke-Rendering, `play`-Funktionen und die
+  a11y-Prüfung ab; der zweite Lauf über `@storybook/test-runner` (`test-storybook:ci`) fuhr
+  dieselben 110 Tests redundant noch einmal und trug nur die Visual-Regression bei
+  (`jest-image-snapshot` in `.storybook/test-runner.ts`). Diese Logik steckt jetzt in einem
+  `afterEach`-Hook in `.storybook/vitest.setup.ts` (`expect(document.body).toMatchScreenshot(...)`,
+  nur mit `VISUAL=1`, Baselines weiterhin unter `visual-snapshots/<story-id>.png`,
+  `parameters.snapshot.skip` als Opt-out). `test-storybook`, `test-storybook:ci`,
+  `test-storybook:visual` sowie die Root-Skripte `test:storybook`, `test:storybook:ci`,
+  `test:visual` und die Pakete `@storybook/test-runner`, `jest-image-snapshot`,
+  `@types/jest-image-snapshot`, `http-server`, `wait-on`, `concurrently` sind entfernt. Grund: der
+  ESM-Loader-Hook, den Jest beim Laden von `test-runner.ts` registriert, bricht unter Angular 22 in
+  allen Stories ab (unter Angular 21 nur eine Deprecation-Warnung) — Vitest ist der von Angular
+  vorgesehene Testrunner, die zweite Schiene abzulösen entfernt den Blocker, statt ihn zu reparieren.
+  `.github/workflows/visual.yml` (kein `http-server`/`wait-on` mehr, Vitest startet seinen Server
+  selbst) und `.github/workflows/storybook-angular.yml` (Schritt „Storybook-Tests“ läuft jetzt über
+  `test:vitest`) sind entsprechend angepasst. Details und die Arbeitsteilung, die damit endet, in
+  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md).
 - **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
   in `storybook-angular/` sind auf `^10.6.0`, `@storybook/test-runner` auf `^0.24.5`.
   Der seit 10.6 in `@storybook/angular-vite` default gesetzte In-Process-Docgen-Server

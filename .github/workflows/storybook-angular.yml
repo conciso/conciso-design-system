@@ -90,10 +90,14 @@ jobs:
           "
       - name: Playwright-Browser installieren
         run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install --with-deps chromium
-      # Serviert den statischen Build, wartet auf den Port und fährt den
-      # test-runner (Smoke + axe-a11y + play) dagegen.
-      - name: Storybook-Tests
-        run: npm run test-storybook:ci
+      # Vitest (@storybook/addon-vitest, Browser-Mode via Playwright/Chromium)
+      # führt jede Story als Test aus (Smoke + axe-a11y + play), direkt aus der
+      # Quelle — kein statischer Build/Server nötig. Ersetzt den bisherigen
+      # Storybook-Test-Runner (Jest), der dieselben Stories redundant ein
+      # zweites Mal fuhr (siehe docs/adr/0005). Ohne VISUAL=1 keine
+      # Bildvergleiche; die laufen gepinnt in .github/workflows/visual.yml.
+      - name: Storybook-Tests (Vitest)
+        run: npm run test:vitest
       # Kontrast-Gate der Doku-Seite. Hängt hier und nicht in css-core.yml, weil es einen
       # Browser braucht: das Wurzelprojekt bleibt absichtlich ohne Dependencies, Playwright
       # lebt in diesem Workspace und ist eine Zeile weiter oben schon installiert.

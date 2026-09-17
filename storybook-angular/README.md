@@ -63,29 +63,33 @@ Storybook-UI (`vitest.setup.ts` wendet die Preview-Annotationen aus
 npm run test:vitest
 ```
 
-Der **Storybook Test-Runner** (`@storybook/test-runner`, Jest + Playwright)
-bleibt daneben bestehen — nicht redundant, sondern für zwei Aufgaben, die
-addon-vitest nicht abdeckt: **Visual-Regression** (`test-storybook:visual`,
-siehe `.github/workflows/visual.yml`) und den CI-Smoke-/A11y-Lauf gegen den
-gebauten statischen Build (`test-storybook:ci`, siehe
-`.github/workflows/storybook-angular.yml`). Jede Story ist damit weiterhin
-ein Smoke-Test (rendert fehlerfrei); die interaktiven Komponenten (Chip,
-AreaTabs, FAQ, Slider, Carousel, LogoCarousel, Topnav) tragen `play`-Funktionen
-(`storybook/test`), die das Verhalten prüfen (Klick/Tastatur + Assertions).
-Das a11y-Addon läuft dabei automatisch mit; axe-Verstöße lassen den Lauf
-fehlschlagen (siehe „a11y ist global scharf geschaltet“ weiter unten).
+Jede Story ist damit ein Smoke-Test (rendert fehlerfrei); die interaktiven
+Komponenten (Chip, AreaTabs, FAQ, Slider, Carousel, LogoCarousel, Topnav)
+tragen `play`-Funktionen (`storybook/test`), die das Verhalten prüfen
+(Klick/Tastatur + Assertions). Das a11y-Addon läuft dabei automatisch mit;
+axe-Verstöße lassen den Lauf fehlschlagen (siehe „a11y ist global scharf
+geschaltet“ weiter unten). `npm run test:vitest` ist außerdem die einzige
+Testschiene — ein früherer, redundanter zweiter Lauf über den Storybook
+Test-Runner (Jest) ist entfallen (siehe
+[ADR-0005](../docs/adr/0005-testebene-der-angular-lib.md)).
+
+**Visual-Regression** läuft in derselben Schiene, aber nur mit `VISUAL=1`
+(siehe `.storybook/vitest.setup.ts`): dann macht ein `afterEach`-Hook je Story
+einen Screenshot (`expect(document.body).toMatchScreenshot(...)`) und
+vergleicht ihn gegen `visual-snapshots/<story-id>.png`. Lokal ist das
+Rendering nicht pixelgleich zum gepinnten CI-Image — der scharfe Vergleich
+läuft in `.github/workflows/visual.yml`. Einzelne Stories mit nicht
+einfrierbaren, zeitgesteuerten Zuständen (z. B. Autoplay-Carousels) nehmen
+sich mit `parameters: { snapshot: { skip: true } }` heraus.
 
 ```bash
-# Storybook muss laufen …
-npm run storybook
-# … dann in einem zweiten Terminal:
-npm run test-storybook
+VISUAL=1 npm run test:vitest
 ```
 
 ### Playwright im Monoceros-Container dauerhaft einrichten
 
-Die npm-Pakete (`@storybook/test-runner`, `playwright`) persistieren bereits über
-`package.json` + den Workspace. Dauerhaft eingerichtet werden müssen nur zwei Teile:
+Das npm-Paket `playwright` persistiert bereits über `package.json` + den
+Workspace. Dauerhaft eingerichtet werden müssen nur zwei Teile:
 
 **1. System-Libs als feste Image-Bausteine** — auf dem **Host**, einmalig:
 
@@ -100,13 +104,13 @@ monoceros apply conciso-ds
 npm run playwright:install
 ```
 
-`playwright:install` und `test-storybook` setzen `PLAYWRIGHT_BROWSERS_PATH=0`, d. h.
+`playwright:install` und `test:vitest` setzen `PLAYWRIGHT_BROWSERS_PATH=0`, d. h.
 Chromium landet in `node_modules/` (Workspace) statt im Home-Cache — und überlebt
 damit `monoceros apply`. Nach Schritt 1 + 2 ist Testing nach jedem Rebuild sofort
 lauffähig, ohne weitere manuelle Schritte.
 
 a11y ist **global scharf** geschaltet (`parameters.a11y = { test: 'error' }` in
-`.storybook/preview.ts`) — axe-Verstöße lassen den Test-Runner fehlschlagen.
+`.storybook/preview.ts`) — axe-Verstöße lassen den Lauf fehlschlagen.
 Einzelne Stories mit bekannten, im **CSS-Kern** liegenden Befunden setzen lokal
 `a11y: { test: 'todo' }`: im Panel weiter sichtbar, aber nicht blockierend.
 

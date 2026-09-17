@@ -1,6 +1,7 @@
 # ADR-0005: Storybook-Test-Runner + Consumer-Smoke-Test als alleinige Testebene der Angular-Lib
 
-- Status: akzeptiert (ergänzt 2026-08-21, siehe „Ergänzung: zweiter Story-Runner“)
+- Status: akzeptiert (ergänzt 2026-08-21, siehe „Ergänzung: zweiter Story-Runner“; ergänzt
+  2026-09-17, siehe „Ergänzung: zweiter Story-Runner entfällt“)
 - Datum: 2026-07-30
 
 ## Kontext
@@ -87,3 +88,28 @@ nächsten Durchgang nicht erneut erarbeitet werden muss.
 Das ist kein Grund, die Entscheidung dieser ADR zu ändern. Es ist die eine bekannte Lücke: Wer sie
 schließen will, braucht eine dritte Testebene (echte Playwright-Tests außerhalb von Storybook) —
 und damit einen Nachtrag hier, der deren Pflege rechtfertigt.
+
+## Ergänzung: zweiter Story-Runner entfällt (2026-09-17)
+
+Die Arbeitsteilung aus der Ergänzung vom 2026-08-21 — Vitest für Interaktion/a11y, der
+Storybook-Test-Runner (Jest) für Visual-Snapshots — endet hier. Auslöser war nicht die
+Arbeitsteilung selbst, sondern ein Blocker: `test-runner.ts` registriert beim Laden über Jests
+`serverRequire` einen ESM-Loader-Hook; unter Angular 21 gibt das nur eine Deprecation-Warnung,
+unter Angular 22 bricht Jest damit in allen Stories ab (siehe `spike-angular-22.md`).
+
+Die Visual-Regression (`jest-image-snapshot`, `postVisit` je Story, `VISUAL=1`-Gating, Baselines
+unter `visual-snapshots/<story-id>.png`, `parameters.snapshot.skip` als Opt-out) ist nach
+`.storybook/vitest.setup.ts` portiert: ein `afterEach`-Hook, der nur mit `VISUAL=1` läuft und
+`@vitest/browser`s eigene `expect(document.body).toMatchScreenshot(...)`-Matcher-API nutzt (Vitest
+4, `@vitest/browser-playwright`). Layout/Fonts abwarten und Animationen/Transitions vor dem
+Screenshot einzufrieren bleibt erhalten, nur der Mechanismus dahinter (Playwright-Page-API vs.
+DOM-Zugriff im Browser-Test selbst) ist anders. `@storybook/test-runner`, `jest-image-snapshot`,
+`http-server`, `wait-on`, `concurrently` sowie `test-storybook`/`test-storybook:ci`/
+`test-storybook:visual` sind entfernt.
+
+Das ist kein Rückschritt bei der Trennung von Verhalten und Auslieferungs-Vertrag (siehe
+„Entscheidung“ oben) — nur eine einzige Ausführungsschiene statt zwei für denselben Story-Bestand.
+`npm run test:vitest` deckt jetzt Smoke, Interaktion, a11y und (mit `VISUAL=1`) Visual-Regression
+ab; `.github/workflows/storybook-angular.yml` fährt den regulären Lauf, das gepinnte
+Playwright-Docker-Image in `.github/workflows/visual.yml` den scharfen Bildvergleich — wie zuvor,
+nur über einen Runner statt zwei.
