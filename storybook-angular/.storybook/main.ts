@@ -73,6 +73,12 @@ const config: StorybookConfig = {
     // --transport http …“) nur bei explizitem true erreichbar; unset gilt nur
     // für den deprecated „storybook ai“-Proxy-Kanal.
     experimentalReview: true,
+    // Onboarding-Widget in der Seitenleiste und die Anleitungsseite im Menü aus.
+    // Beide sind für ein frisch aufgesetztes Storybook gedacht; dieses hier ist
+    // eingerichtet, dokumentiert und wird täglich benutzt. Die Checkliste nähme
+    // in der Seitenleiste nur Platz weg, den die Komponenten brauchen.
+    sidebarOnboardingChecklist: false,
+    menuOnboardingChecklist: false,
   },
   staticDirs: [
     { from: '../../css', to: '/conciso/css' },
