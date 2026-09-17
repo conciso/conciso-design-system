@@ -14,6 +14,36 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Changed
+- **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
+  in `storybook-angular/` sind auf `^10.6.0`, `@storybook/test-runner` auf `^0.24.5`.
+  Der seit 10.6 in `@storybook/angular-vite` default gesetzte In-Process-Docgen-Server
+  liest Inputs, Outputs und JSDoc direkt aus der TypeScript-Quelle der Angular-Lib und
+  speist damit Controls, Docs-Seiten und das Komponenten-Manifest (siehe nächster
+  Punkt). Die nie produktiv genutzte Compodoc-Pipeline ist entfernt (`compodoc`/
+  `compodocArgs` raus aus `main.ts` und den `angular.json`-Builder-Optionen). Details
+  und verworfene Alternativen in
+  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
+- **`@storybook/addon-mcp` aktiv: Komponenten-Manifest und CI-Gate dafür.**
+  `npm run build-storybook` schreibt jetzt `storybook-static/manifests/components.json`
+  (`meta.docgen: "angular-component-meta"`), der Dev-Server beantwortet unter `/mcp`
+  JSON-RPC für Agenten (u. a. `stories-preview`, `docs-show`, `test-run`). Die CI prüft
+  nach dem Build, dass dieses Manifest existiert und die erwartete Kennung trägt — ein
+  künftiges Update kann das Manifest damit nicht mehr stillschweigend abschalten.
+- **JSDoc `@internal` in der Angular-Lib gegen Interna in Props-Tabellen und Manifest.**
+  Der Docgen-Server dokumentiert grundsätzlich jedes öffentliche Member einer
+  Komponentenklasse; ohne Filter erschienen Template-Getter,
+  ControlValueAccessor-Methoden und Event-Handler in Docs-Props-Tabelle und Manifest.
+  Alle Nicht-API-Member der Lib tragen jetzt `@internal` und bleiben damit aus beiden
+  heraus — Agenten sehen über den MCP-Endpunkt dieselbe bereinigte API wie
+  Entwickler:innen im Docs-Panel.
+- **Storybook-Manager und Docs-Chrome im Conciso-Look.** Sidebar, Toolbar und
+  Docs-Seiten tragen jetzt Montserrat, die Conciso-Wortmarke und Corporate-Teal als
+  Akzent (`.storybook/theme.ts`, `manager.ts`, `manager-head.html`). Der Manager folgt
+  `prefers-color-scheme`, die Docs-Chrome bleibt fest im Light-Theme — beide sind
+  bewusst vom Toolbar-Theme-Schalter der Preview entkoppelt, der weiterhin nur die
+  Story-Vorschau steuert.
+
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
   Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
