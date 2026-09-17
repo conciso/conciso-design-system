@@ -51,7 +51,7 @@ export class CodeBlockComponent {
   protected readonly wrapClasses = computed(() => (this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap'));
 
   /** @internal */
-  copy(): void {
+  protected copy(): void {
     // Clipboard-API gibt es nur in sicheren Kontexten (https/localhost). Fehlt sie,
     // brechen wir sauber ab, statt über optional chaining still ins Leere zu laufen.
     if (!navigator.clipboard) return;

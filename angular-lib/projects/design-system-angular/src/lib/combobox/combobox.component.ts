@@ -239,7 +239,7 @@ export class ComboboxComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  selectedOptions(): CdsSelectOption[] {
+  protected selectedOptions(): CdsSelectOption[] {
     return this.selected()
       .map((v) => this.options().find((o) => o.value === v))
       .filter((o): o is CdsSelectOption => !!o);
@@ -250,7 +250,7 @@ export class ComboboxComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  filtered(): CdsSelectOption[] {
+  protected filtered(): CdsSelectOption[] {
     const q = this.query().trim().toLowerCase();
     const chosen = this.selected();
     return this.options().filter((o) => {
@@ -260,24 +260,24 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  isSelected(value: string): boolean {
+  protected isSelected(value: string): boolean {
     return this.selected().includes(value);
   }
 
   /** @internal */
-  focusInput(): void {
+  protected focusInput(): void {
     if (!this.disabled()) this.input()?.nativeElement.focus();
   }
 
   /** @internal */
-  openMenu(): void {
+  protected openMenu(): void {
     if (this.disabled() || this.open()) return;
     this.open.set(true);
     this.activeIndex.set(0);
   }
 
   /** @internal */
-  close(): void {
+  protected close(): void {
     this.open.set(false);
     if (this.multi()) {
       // Multi-Modus: keinen losen Filtertext stehen lassen, der zu keiner Auswahl
@@ -298,7 +298,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  select(opt: CdsSelectOption): void {
+  protected select(opt: CdsSelectOption): void {
     if (this.multi()) {
       const next = [...this.selected(), opt.value];
       this.values.set(next);
@@ -317,7 +317,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  removeValue(value: string, event?: Event): void {
+  protected removeValue(value: string, event?: Event): void {
     event?.stopPropagation();
     const next = this.selected().filter((v) => v !== value);
     this.values.set(next);
@@ -326,7 +326,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  clear(event?: Event): void {
+  protected clear(event?: Event): void {
     event?.stopPropagation();
     this.query.set('');
     this.activeIndex.set(0);
@@ -339,7 +339,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  onKeydown(event: KeyboardEvent): void {
+  protected onKeydown(event: KeyboardEvent): void {
     const opts = this.filtered();
     switch (event.key) {
       case 'ArrowDown':
@@ -401,7 +401,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  onDocPointerDown(event: PointerEvent): void {
+  protected onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close();
   }
 }

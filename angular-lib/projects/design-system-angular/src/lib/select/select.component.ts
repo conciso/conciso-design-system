@@ -168,7 +168,7 @@ export class SelectComponent implements ControlValueAccessor {
   private readonly typeaheadTimer = disposableTimeout();
 
   /** @internal */
-  selectedOption(): CdsSelectOption | undefined {
+  protected selectedOption(): CdsSelectOption | undefined {
     return this.options().find((o) => o.value === this.value());
   }
 
@@ -189,14 +189,14 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  close(focusTrigger = true): void {
+  protected close(focusTrigger = true): void {
     this.open.set(false);
     this.activeIndex.set(-1);
     if (focusTrigger) this.trigger()?.nativeElement.focus();
   }
 
   /** @internal */
-  select(i: number): void {
+  protected select(i: number): void {
     const opt = this.options()[i];
     if (!opt) return;
     this.value.set(opt.value);
@@ -217,7 +217,7 @@ export class SelectComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  onFocusOut(event: FocusEvent): void {
+  protected onFocusOut(event: FocusEvent): void {
     const next = event.relatedTarget as Node | null;
     if (!next || !this.host.nativeElement.contains(next)) this.markTouched();
   }
@@ -227,7 +227,7 @@ export class SelectComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  onTriggerKeydown(event: KeyboardEvent): void {
+  protected onTriggerKeydown(event: KeyboardEvent): void {
     if (this.open()) return;
     const key = event.key;
     if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'Enter' || key === ' ') {
@@ -241,7 +241,7 @@ export class SelectComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  onMenuKeydown(event: KeyboardEvent): void {
+  protected onMenuKeydown(event: KeyboardEvent): void {
     const key = event.key;
     switch (key) {
       case 'ArrowDown':
@@ -300,7 +300,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  onDocPointerDown(event: PointerEvent): void {
+  protected onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close(false);
   }
 }

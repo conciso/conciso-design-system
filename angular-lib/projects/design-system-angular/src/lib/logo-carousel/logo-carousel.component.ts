@@ -152,17 +152,17 @@ export class LogoCarouselComponent {
    *
    * @internal
    */
-  slideId(i: number): string {
+  protected slideId(i: number): string {
     return `cds-logo-set-${this.uid}-${i + 1}`;
   }
 
   /** @internal */
-  togglePause(): void {
+  protected togglePause(): void {
     this.paused.set(!this.paused());
   }
 
   /** @internal */
-  goTo(i: number): void {
+  protected goTo(i: number): void {
     this.active.set(i);
   }
 

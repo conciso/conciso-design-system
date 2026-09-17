@@ -248,14 +248,14 @@ export class TopnavComponent {
   }
 
   /** @internal */
-  onDocumentClick(event: MouseEvent): void {
+  protected onDocumentClick(event: MouseEvent): void {
     // Außenklick: NICHT den Fokus umsetzen — der Nutzer hat bewusst woanders
     // hingeklickt, dorthin den Fokus zu ziehen wäre ein eigener Fehler.
     if (!this.host.nativeElement.contains(event.target as Node)) this.closeAll();
   }
 
   /** @internal */
-  onEscape(): void {
+  protected onEscape(): void {
     this.closeWithFocusReturn();
   }
 

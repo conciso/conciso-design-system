@@ -69,7 +69,7 @@ export class CheckboxComponent extends CvaBase<boolean> {
   }
 
   /** @internal */
-  onCheckboxChange(event: Event): void {
+  protected onCheckboxChange(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.checked.set(checked);
     this.onChange(checked);

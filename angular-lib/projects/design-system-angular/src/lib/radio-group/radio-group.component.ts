@@ -85,7 +85,7 @@ export class RadioGroupComponent extends CvaBase<string> {
   }
 
   /** @internal */
-  onRadioChange(opt: string): void {
+  protected onRadioChange(opt: string): void {
     this.value.set(opt);
     this.onChange(opt);
     this.onTouched();
