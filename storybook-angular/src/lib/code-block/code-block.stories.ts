@@ -54,11 +54,17 @@ export const KopierButton: Story = {
   // das sichtbare Feedback (Button-Text wechselt auf „Kopiert!“), nicht der echte Copy.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    Object.defineProperty(navigator, 'clipboard', {
-      value: { writeText: () => Promise.resolve() },
-      configurable: true,
-    });
-    await userEvent.click(c.getByRole('button', { name: 'Kopieren' }));
-    await expect(await c.findByRole('button', { name: 'Kopiert!' })).toBeInTheDocument();
+    const originalClipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+    try {
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: () => Promise.resolve() },
+        configurable: true,
+      });
+      await userEvent.click(c.getByRole('button', { name: 'Kopieren' }));
+      await expect(await c.findByRole('button', { name: 'Kopiert!' })).toBeInTheDocument();
+    } finally {
+      if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);
+      else delete (navigator as Navigator & { clipboard?: Clipboard }).clipboard;
+    }
   },
 };
