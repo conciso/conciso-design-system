@@ -27,12 +27,15 @@ import { FieldShellComponent } from './field-shell.component';
       [fieldId]="fieldId()"
       [errorId]="errorId"
     >
+      <!-- required nativ zusätzlich zu aria-required: natives HTML5-required für die
+           Formular-Validierung im Browser, aria-required für den Screenreader-Zustand. -->
       <input
         [id]="fieldId()"
         [type]="type()"
         [placeholder]="placeholder()"
         [value]="value()"
         [disabled]="disabled()"
+        [attr.required]="required() ? '' : null"
         [attr.aria-required]="required() ? 'true' : null"
         [attr.aria-invalid]="error() ? 'true' : null"
         [attr.aria-describedby]="error() ? errorId : null"

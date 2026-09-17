@@ -22,7 +22,6 @@ export * from './lib/chip/chip.component';
 export * from './lib/pill/pill.component';
 
 // Bulk-Batch A: Form-Felder & Eingaben (Ticket 05)
-export * from './lib/field/field-shell.component';
 export * from './lib/field/text-field.component';
 export * from './lib/field/textarea-field.component';
 export * from './lib/field/select-field.component';

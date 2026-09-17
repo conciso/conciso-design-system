@@ -14,6 +14,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Breaking
+- **`FieldShellComponent` ist kein Export der öffentlichen API mehr.** Die Komponente war nie als
+  öffentliche API gedacht — ihre Klassendoku bezeichnet sie seit jeher als intern
+  („Präsentations-Hülle für alle Field-Komponenten“), es gab weder eine eigene Story noch JSDoc
+  dafür. Textfeld, Textbereich und Auswahlfeld beziehen sie weiterhin über den relativen Import
+  (`./field-shell.component`), nur der Re-Export aus `public-api.ts` entfällt. Wer eigene Feldtypen
+  baut, setzt die Klassen der CSS-Schicht (`.field`, `.helper`, `.error-msg`, …) direkt zusammen,
+  statt sich an eine interne Hilfskomponente zu binden.
+
 ### Changed
 - **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
   in `storybook-angular/` sind auf `^10.6.0`, `@storybook/test-runner` auf `^0.24.5`.
