@@ -286,6 +286,12 @@ export class TopnavComponent {
         toggle = this.host.nativeElement.querySelector<HTMLElement>('.ep-nav-search-toggle');
       }
     }
+    if (!toggle && this.navOpen()) {
+      const nav = this.host.nativeElement.querySelector(`#${this.navId}`);
+      if (nav && active && nav.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>('.ep-nav-burger');
+      }
+    }
     this.closeAll();
     toggle?.focus();
   }
