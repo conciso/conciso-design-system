@@ -12,6 +12,11 @@ Issues and specs live as local markdown files under `.scratch/<feature-slug>/`, 
 
 Default five canonical triage labels (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). See `docs/agents/triage-labels.md`.
 
+### Storybook-Werkzeuge
+
+Die Storybook-CLI stellt Agenten-Werkzeuge bereit (Komponenten-Doku, betroffene Stories, Tests) —
+größtenteils ohne laufenden Server. Siehe `docs/agents/storybook-tools.md`.
+
 ### Domain docs
 
 Single-context layout — `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
