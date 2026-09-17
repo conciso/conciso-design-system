@@ -68,7 +68,7 @@ in Docs-Props-Tabelle und Controls-Panel auf; vorher waren sie unsichtbar.
   Mehrwert, echtes Konfliktrisiko.
 - **`@storybook/addon-designs`.** Kein Figma-Bezug im Repo.
 - **`framework.options.propsTable: 'inputs'`** als Alternative zu Punkt 3: blendet auch
-  die 26 Outputs aus, die echte API sind.
+  Outputs aus, die echte API sind.
 - **Globaler `argTypesEnhancer` in `preview.ts`** als Alternative zu Punkt 3 (erster Versuch):
   verifiziert wirkungslos. Mit `experimentalDocgenServer` rendern Docs-ArgTypes und
   Controls-Panel aus dem `core/docgen`-Store (`useDocgenServiceRows`), nicht aus
