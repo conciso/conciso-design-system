@@ -1,0 +1,8 @@
+<!--
+  Bindet Montserrat in Storybooks Manager-Bundle (Sidebar, Toolbar, Panels) ein.
+  Der Manager ist ein eigenes React-Bundle und sieht preview-head.html nicht,
+  daher hier ein zweiter, unabhängiger Link auf dieselbe Quelle. fonts.css
+  referenziert die woff2-Dateien relativ als ../fonts/* → unter ./conciso/css/
+  serviert löst das korrekt auf ./conciso/fonts/* auf (self-hosted, kein CDN).
+-->
+<link rel="stylesheet" href="./conciso/css/fonts.css" />

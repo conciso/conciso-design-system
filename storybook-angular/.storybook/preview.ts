@@ -4,6 +4,7 @@ import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
 import { UPDATE_GLOBALS } from 'storybook/internal/core-events';
 import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
+import { concisoLight } from './theme';
 
 // Store → Toolbar: klickt man einen Theme-Switcher (Cycle/Segment/Dropdown),
 // aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und
@@ -84,7 +85,10 @@ const preview: Preview = {
     // a11y scharf: axe-Verstöße lassen den Test-Runner fehlschlagen. Einzelne
     // Stories mit bekannten CSS-Kern-Befunden setzen lokal test:'todo' (siehe dort).
     a11y: { test: 'error' },
-    docs: { toc: true },
+    // Docs-Chrome (Überschriften, Tabellen, Code-Blöcke) im Conciso-Look. Immer
+    // Light: das Docs-Theme ist nicht an den Toolbar-Theme-Schalter gekoppelt
+    // (Storybook kennt dafür keine Kopplung), siehe Follow-up-Notiz in der Spec.
+    docs: { toc: true, theme: concisoLight },
   },
   initialGlobals: {
     theme: 'light',

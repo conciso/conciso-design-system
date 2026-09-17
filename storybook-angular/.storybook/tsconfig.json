@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": []
   },
-  "include": ["../src/**/*.ts", "../.storybook/preview.ts"],
+  "include": ["../src/**/*.ts", "../.storybook/preview.ts", "../.storybook/manager.ts", "../.storybook/theme.ts"],
   "exclude": ["../src/main.ts"]
 }
