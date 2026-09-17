@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -10,7 +10,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-stat-card',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-stat" [attr.data-area]="area() || null">
       <p class="card-stat-value">{{ value() }}</p>

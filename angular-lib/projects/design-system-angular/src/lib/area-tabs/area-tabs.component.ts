@@ -1,5 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ElementRef, contentChildren, inject, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  contentChildren,
+  inject,
+  input,
+  model,
+} from '@angular/core';
 import type { CdsArea } from '../area';
 import { AreaTabComponent } from './area-tab.component';
 
@@ -20,7 +28,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-area-tabs',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
   template: `
     <div class="area-tabs" role="tablist" [attr.aria-label]="ariaLabel()">
@@ -53,7 +61,7 @@ let uid = 0;
         [id]="panelId(i)"
         [attr.aria-labelledby]="tabId(i)"
       >
-        <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        <ng-container [ngTemplateOutlet]="tab.content()"></ng-container>
       </div>
     }
   `,

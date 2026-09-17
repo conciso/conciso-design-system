@@ -1,14 +1,14 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   effect,
   ElementRef,
   forwardRef,
-  HostListener,
   inject,
   input,
   model,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -35,12 +35,15 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-combobox',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroChevronDown, heroXMark })],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ComboboxComponent), multi: true },
   ],
+  host: {
+    '(document:pointerdown)': 'onDocPointerDown($event)',
+  },
   template: `
     <div
       class="ep-combobox"
@@ -122,7 +125,7 @@ let uid = 0;
 })
 export class ComboboxComponent implements ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  @ViewChild('input') private input?: ElementRef<HTMLInputElement>;
+  private readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
   readonly label = input('Thema');
   readonly options = input<CdsSelectOption[]>([]);
@@ -138,11 +141,11 @@ export class ComboboxComponent implements ControlValueAccessor {
   readonly disabled = model(false);
 
   /** @internal */
-  readonly open = signal(false);
+  protected readonly open = signal(false);
   /** @internal */
-  readonly activeIndex = signal(0);
+  protected readonly activeIndex = signal(0);
   /** @internal */
-  readonly query = signal('');
+  protected readonly query = signal('');
   private readonly selected = signal<string[]>([]);
 
   private onChange: (value: string | string[]) => void = () => {
@@ -154,7 +157,7 @@ export class ComboboxComponent implements ControlValueAccessor {
 
   private readonly instance = ++uid;
   /** @internal */
-  readonly ids = {
+  protected readonly ids = {
     label: `cds-combobox-${this.instance}-label`,
     menu: `cds-combobox-${this.instance}-menu`,
     option: (i: number) => `cds-combobox-${this.instance}-opt-${i}`,
@@ -241,7 +244,7 @@ export class ComboboxComponent implements ControlValueAccessor {
 
   /** @internal */
   focusInput(): void {
-    if (!this.disabled()) this.input?.nativeElement.focus();
+    if (!this.disabled()) this.input()?.nativeElement.focus();
   }
 
   /** @internal */
@@ -266,7 +269,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  onInput(event: Event): void {
+  protected onInput(event: Event): void {
     this.query.set((event.target as HTMLInputElement).value);
     this.open.set(true);
     this.activeIndex.set(0);
@@ -310,7 +313,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 
@@ -374,7 +377,6 @@ export class ComboboxComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  @HostListener('document:pointerdown', ['$event'])
   onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close();
   }

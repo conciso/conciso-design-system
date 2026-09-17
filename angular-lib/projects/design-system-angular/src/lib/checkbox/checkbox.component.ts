@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, input, model } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
@@ -15,7 +15,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-checkbox',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CheckboxComponent), multi: true },
   ],
@@ -85,7 +85,7 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.onChange(checked);
   }
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 }

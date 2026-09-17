@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, input, viewChild } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -13,7 +13,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-area-tab',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<ng-template><ng-content></ng-content></ng-template>`,
 })
 export class AreaTabComponent {
@@ -23,5 +23,5 @@ export class AreaTabComponent {
   readonly label = input('');
 
   /** Projizierter Panel-Inhalt; von der Elternkomponente via Outlet gerendert. */
-  @ViewChild(TemplateRef, { static: true }) readonly content!: TemplateRef<unknown>;
+  readonly content = viewChild.required<TemplateRef<unknown>>(TemplateRef);
 }

@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
 import { CDS_AREA_ICONS } from '../icons';
@@ -23,11 +23,11 @@ import { CDS_AREA_ICONS } from '../icons';
  */
 @Component({
   selector: 'cds-card',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="card" [attr.data-area]="area() || null">
       @if (showMedia()) {
-        <div class="card-media" [innerHTML]="mediaSvg"></div>
+        <div class="card-media" [innerHTML]="mediaSvg()"></div>
       }
       <div class="card-body">
         @if (eyebrow()) {
@@ -43,7 +43,7 @@ import { CDS_AREA_ICONS } from '../icons';
       </div>
       @if (actionLabel()) {
         <div class="card-footer">
-          <button [class]="actionClasses" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
+          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
         </div>
       }
     </article>
@@ -69,20 +69,20 @@ export class CardComponent {
   readonly actionClick = output<void>();
 
   /** @internal */
-  get actionClasses(): string {
+  protected readonly actionClasses = computed(
     // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
-    return `btn btn-text btn-sm btn-${this.area() ?? 'co'}`;
-  }
+    () => `btn btn-text btn-sm btn-${this.area() ?? 'co'}`,
+  );
 
   /**
    * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche.
    *
    * @internal
    */
-  get mediaSvg(): SafeHtml {
+  protected readonly mediaSvg = computed<SafeHtml>(() => {
     const icon = CDS_AREA_ICONS[this.area() ?? 'co'];
     return this.sanitizer.bypassSecurityTrustHtml(
       `<svg class="ico-48" viewBox="${icon.viewBox}" fill="currentColor" aria-hidden="true" focusable="false">${icon.body}</svg>`,
     );
-  }
+  });
 }

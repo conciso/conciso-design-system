@@ -1,4 +1,4 @@
-import { Directive, input, model } from '@angular/core';
+import { computed, Directive, input, model } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 
 // Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
@@ -89,7 +89,5 @@ export abstract class FieldBase implements ControlValueAccessor {
   }
 
   /** @internal */
-  get errorId(): string {
-    return `${this.fieldId()}-error`;
-  }
+  protected readonly errorId = computed(() => `${this.fieldId()}-error`);
 }

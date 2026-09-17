@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
  * Präsentations-Hülle für alle Field-Komponenten (intern, nicht als eigene Story).
@@ -10,7 +10,7 @@ import { Component, input } from '@angular/core';
  */
 @Component({
   selector: 'cds-field-shell',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="field" [class.has-error]="!!error()">
       <label [attr.for]="fieldId()">

@@ -11,7 +11,6 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
  */
 @Component({
   selector: 'cds-theme-select',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SelectComponent],
   template: `
@@ -30,7 +29,7 @@ export class ThemeSelectComponent {
   );
 
   /** @internal */
-  onChange(value: string | undefined): void {
+  protected onChange(value: string | undefined): void {
     if (value) this.svc.set(value as CdsThemeMode);
   }
 }

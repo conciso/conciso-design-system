@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
 import { CDS_QUOTE_ICON } from '../icons';
@@ -14,7 +14,7 @@ import { CDS_QUOTE_ICON } from '../icons';
  */
 @Component({
   selector: 'cds-team-voice',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <figure class="team-voice" [attr.data-area]="area() || null">
       <div class="team-voice-media">
@@ -22,7 +22,7 @@ import { CDS_QUOTE_ICON } from '../icons';
       </div>
       <figcaption class="team-voice-body">
         <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon"></svg>
+        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
         <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name() }}</p>
@@ -54,9 +54,9 @@ export class TeamVoiceComponent {
    *
    * @internal
    */
-  get quoteIcon(): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body);
-  }
+  protected readonly quoteIcon = computed<SafeHtml>(() =>
+    this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body),
+  );
 
   /**
    * Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern.

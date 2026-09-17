@@ -1,4 +1,13 @@
-import { Component, ElementRef, effect, inject, input, model, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  effect,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { CdsLogo, LogoComponent } from '../logo/logo.component';
 import { nextDotsIndex } from '../shared/dots-keyboard';
 
@@ -26,7 +35,7 @@ let cdsLogoCarouselUid = 0;
  */
 @Component({
   selector: 'cds-logo-carousel',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [LogoComponent],
   template: `
     <div

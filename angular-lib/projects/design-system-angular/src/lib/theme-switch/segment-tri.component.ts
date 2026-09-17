@@ -30,7 +30,6 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  */
 @Component({
   selector: 'cds-theme-segment',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroSun, heroMoon, heroComputerDesktop })],

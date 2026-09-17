@@ -1,4 +1,4 @@
-import { Component, forwardRef, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, input, model } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
@@ -19,7 +19,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-radio-group',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RadioGroupComponent), multi: true },
   ],
@@ -101,7 +101,7 @@ export class RadioGroupComponent implements ControlValueAccessor {
     this.onTouched();
   }
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 }

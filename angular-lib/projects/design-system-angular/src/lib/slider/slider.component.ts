@@ -1,11 +1,14 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   forwardRef,
   inject,
   input,
   model,
+  numberAttribute,
   OnDestroy,
   signal,
 } from '@angular/core';
@@ -33,7 +36,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-slider',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SliderComponent), multi: true },
   ],
@@ -41,12 +44,12 @@ let uid = 0;
     <div class="field-slider">
       <div class="field-slider-header">
         <label class="field-slider-label" [attr.for]="sliderId()">{{ label() }}</label>
-        <output [class]="outputClasses" [attr.for]="sliderId()" [id]="sliderId() + '-out'">
-          {{ formatted }}
+        <output [class]="outputClasses()" [attr.for]="sliderId()" [id]="sliderId() + '-out'">
+          {{ formatted() }}
         </output>
       </div>
       <input
-        [class]="sliderClasses"
+        [class]="sliderClasses()"
         type="range"
         [id]="sliderId()"
         [min]="min()"
@@ -54,12 +57,12 @@ let uid = 0;
         [step]="step()"
         [value]="value()"
         [disabled]="disabled()"
-        [attr.aria-valuetext]="formatted"
+        [attr.aria-valuetext]="formatted()"
         [attr.aria-describedby]="helper() ? sliderId() + '-hint' : null"
         (input)="onInput($event)"
         (blur)="markTouched()"
       />
-      @if (tickItems.length) {
+      @if (tickItems().length) {
         <!-- Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb (22px, siehe
              css/components.css) läuft mittig von 11px bis (Breite − 11px). Das
              space-between des Kern-CSS träfe die Label-MITTEN nicht (bei vielen Ticks
@@ -69,7 +72,7 @@ let uid = 0;
           aria-hidden="true"
           style="position:relative;display:block;padding:0;height:16px"
         >
-          @for (t of tickItems; track $index) {
+          @for (t of tickItems(); track $index) {
             <span
               [style.left]="t.left"
               style="position:absolute;transform:translateX(-50%);white-space:nowrap"
@@ -93,18 +96,18 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   readonly label = input('Budget-Rahmen');
   /** Markenbereich → .slider-<area> (Thumb- + Output-Farbe). */
   readonly area = input<CdsArea>('co');
-  readonly min = input(10000);
-  readonly max = input(100000);
-  readonly step = input(5000);
+  readonly min = input(10000, { transform: numberAttribute });
+  readonly max = input(100000, { transform: numberAttribute });
+  readonly step = input(5000, { transform: numberAttribute });
   /** Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms. */
   readonly value = model(50000);
   /** Einheit, an den formatierten Wert angehängt (z. B. ' €'). */
   readonly unit = input(' €');
   /** Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem
    *  Slider automatisch reduziert. */
-  readonly tickCount = input(3);
+  readonly tickCount = input(3, { transform: numberAttribute });
   /** Mindestbreite (px) pro Tick-Label, ab der reduziert wird. */
-  readonly minTickSpacing = input(56);
+  readonly minTickSpacing = input(56, { transform: numberAttribute });
   readonly helper = input('Schritte: 5.000 €');
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
@@ -159,17 +162,13 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   }
 
   /** @internal */
-  get sliderClasses(): string {
-    return `slider slider-${this.area()}`;
-  }
+  protected readonly sliderClasses = computed(() => `slider slider-${this.area()}`);
   /** @internal */
-  get outputClasses(): string {
-    return `field-slider-output slider-${this.area()}`;
-  }
+  protected readonly outputClasses = computed(() => `field-slider-output slider-${this.area()}`);
   /** @internal */
-  get formatted(): string {
-    return `${this.value().toLocaleString('de-DE')}${this.unit()}`;
-  }
+  protected readonly formatted = computed(
+    () => `${this.value().toLocaleString('de-DE')}${this.unit()}`,
+  );
 
   /** Effektive Tick-Anzahl: Wunsch, aber auf das reduziert, was in die Breite passt. */
   private effectiveTickCount(): number {
@@ -187,7 +186,7 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
    *
    * @internal
    */
-  get tickItems(): { label: string; left: string }[] {
+  protected readonly tickItems = computed<{ label: string; left: string }[]>(() => {
     const n = this.effectiveTickCount();
     if (n < 1) return [];
     // left so, dass die Label-MITTE auf dem Thumb-Mittelpunkt liegt (Thumb 22px →
@@ -200,7 +199,7 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
       const p = i / (n - 1);
       return { label: this.formatTick(min + (max - min) * p), left: at(p) };
     });
-  }
+  });
 
   /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k“. */
   private formatTick(v: number): string {
@@ -212,13 +211,13 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   }
 
   /** @internal */
-  onInput(event: Event): void {
+  protected onInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);
     this.value.set(value);
     this.onChange(value);
   }
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 }

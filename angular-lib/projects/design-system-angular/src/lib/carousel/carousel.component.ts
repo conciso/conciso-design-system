@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, model } from '@angular/core';
 import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export interface CdsSlide {
@@ -22,10 +22,10 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-carousel',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      [class]="wrapClasses"
+      [class]="wrapClasses()"
       role="region"
       aria-roledescription="Bildschirmpräsentation"
       aria-label="Bildstrecke"
@@ -93,16 +93,16 @@ export class CarouselComponent {
   readonly hero = input(false);
 
   /** @internal */
-  get wrapClasses(): string {
-    return this.hero() ? 'img-slider img-slider-hero' : 'img-slider';
-  }
+  protected readonly wrapClasses = computed(() =>
+    this.hero() ? 'img-slider img-slider-hero' : 'img-slider',
+  );
 
   /** @internal */
-  prev(): void {
+  protected prev(): void {
     this.active.set((this.active() - 1 + this.slides().length) % this.slides().length);
   }
   /** @internal */
-  next(): void {
+  protected next(): void {
     this.active.set((this.active() + 1) % this.slides().length);
   }
 

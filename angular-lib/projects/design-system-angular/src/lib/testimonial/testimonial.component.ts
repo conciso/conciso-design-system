@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
 import { CDS_QUOTE_ICON } from '../icons';
@@ -12,11 +12,11 @@ import { CDS_QUOTE_ICON } from '../icons';
  */
 @Component({
   selector: 'cds-testimonial',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <figure class="testimonial" [attr.data-area]="area() || null">
       <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon"></svg>
+      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
       <blockquote>{{ quote() }}</blockquote>
       <figcaption class="testimonial-footer">
         <div>
@@ -45,7 +45,7 @@ export class TestimonialComponent {
    *
    * @internal
    */
-  get quoteIcon(): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body);
-  }
+  protected readonly quoteIcon = computed<SafeHtml>(() =>
+    this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body),
+  );
 }

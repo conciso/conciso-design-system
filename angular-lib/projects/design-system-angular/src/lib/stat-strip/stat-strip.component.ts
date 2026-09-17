@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /** Eine Kennzahl im Stat-Strip. */
@@ -16,10 +16,10 @@ export interface CdsFlatStat {
  */
 @Component({
   selector: 'cds-stat-strip',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-stat-strip" [style.border-radius]="rounded() ? 'var(--r-lg)' : null">
-      @for (stat of stats(); track stat) {
+      @for (stat of stats(); track stat.label) {
         <div class="card-stat-flat" [attr.data-area]="stat.area || null">
           <p class="card-stat-flat-value">{{ stat.value }}</p>
           <p class="card-stat-flat-label">{{ stat.label }}</p>

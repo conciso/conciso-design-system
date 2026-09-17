@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -16,8 +16,8 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-pill',
-  standalone: true,
-  template: `<span class="pill" [attr.data-area]="area()" [attr.aria-label]="computedAriaLabel">{{ label() }}</span>`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<span class="pill" [attr.data-area]="area()" [attr.aria-label]="computedAriaLabel()">{{ label() }}</span>`,
 })
 export class PillComponent {
   /** Sichtbarer Bereichsname. */
@@ -28,7 +28,5 @@ export class PillComponent {
   readonly ariaLabel = input<string>();
 
   /** @internal */
-  get computedAriaLabel(): string {
-    return this.ariaLabel() ?? `Bereich ${this.label()}`;
-  }
+  protected readonly computedAriaLabel = computed(() => this.ariaLabel() ?? `Bereich ${this.label()}`);
 }

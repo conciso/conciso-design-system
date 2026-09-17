@@ -1,13 +1,13 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   forwardRef,
-  HostListener,
   inject,
   input,
   model,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -38,12 +38,16 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-select',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroChevronDown, uiCheck })],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
   ],
+  host: {
+    '(focusout)': 'onFocusOut($event)',
+    '(document:pointerdown)': 'onDocPointerDown($event)',
+  },
   template: `
     <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled()" [attr.data-area]="area() || null">
       <span class="ep-select-label" [id]="ids.label">{{ label() }}</span>
@@ -103,8 +107,8 @@ let uid = 0;
 })
 export class SelectComponent implements ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  @ViewChild('trigger') private trigger?: ElementRef<HTMLButtonElement>;
-  @ViewChild('menu') private menu?: ElementRef<HTMLUListElement>;
+  private readonly trigger = viewChild<ElementRef<HTMLButtonElement>>('trigger');
+  private readonly menu = viewChild<ElementRef<HTMLUListElement>>('menu');
 
   readonly label = input('Bereich');
   readonly options = input<CdsSelectOption[]>([]);
@@ -118,9 +122,9 @@ export class SelectComponent implements ControlValueAccessor {
   readonly name = input<string>();
 
   /** @internal */
-  readonly open = signal(false);
+  protected readonly open = signal(false);
   /** @internal */
-  readonly activeIndex = signal(-1);
+  protected readonly activeIndex = signal(-1);
 
   private onChange: (value: string) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */
@@ -148,7 +152,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   private readonly instance = ++uid;
   /** @internal */
-  readonly ids = {
+  protected readonly ids = {
     label: `cds-select-${this.instance}-label`,
     value: `cds-select-${this.instance}-value`,
     menu: `cds-select-${this.instance}-menu`,
@@ -164,7 +168,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  toggle(): void {
+  protected toggle(): void {
     if (this.open()) this.close();
     else this.openMenu();
   }
@@ -176,14 +180,14 @@ export class SelectComponent implements ControlValueAccessor {
     this.open.set(true);
     // Fokus in die Listbox (nach Render, wenn sie sichtbar ist) — APG-Listbox-
     // Muster: aria-activedescendant liegt dort, nicht auf dem Button.
-    setTimeout(() => this.menu?.nativeElement.focus());
+    setTimeout(() => this.menu()?.nativeElement.focus());
   }
 
   /** @internal */
   close(focusTrigger = true): void {
     this.open.set(false);
     this.activeIndex.set(-1);
-    if (focusTrigger) this.trigger?.nativeElement.focus();
+    if (focusTrigger) this.trigger()?.nativeElement.focus();
   }
 
   /** @internal */
@@ -197,7 +201,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 
@@ -208,7 +212,6 @@ export class SelectComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  @HostListener('focusout', ['$event'])
   onFocusOut(event: FocusEvent): void {
     const next = event.relatedTarget as Node | null;
     if (!next || !this.host.nativeElement.contains(next)) this.markTouched();
@@ -293,7 +296,6 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   /** @internal */
-  @HostListener('document:pointerdown', ['$event'])
   onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close(false);
   }

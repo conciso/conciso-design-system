@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -10,7 +10,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-download-cta',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="cta-dl" [attr.data-area]="area() || null">
       <div class="cta-dl-icon">

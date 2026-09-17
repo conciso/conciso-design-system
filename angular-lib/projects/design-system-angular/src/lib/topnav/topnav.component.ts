@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
@@ -31,13 +31,17 @@ export interface CdsNavItem {
  */
 @Component({
   selector: 'cds-topnav',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ThemeCycleComponent, NgIcon],
   viewProviders: [provideIcons({ heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown })],
   // ng-icon rendert sein <svg> inline (vertical-align:baseline) → im 24px-Toggle säße der
   // 10px-Caret zu tief. Host auf Flex stellen zentriert das SVG unabhängig von der Baseline.
   // Wirkt nur hier (emulated); die portable .ep-nav-item-caret aus components.css bleibt unberührt.
   styles: `.ep-nav-item-caret { display: inline-flex; align-items: center; justify-content: center; }`,
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+    '(document:keydown.escape)': 'onEscape()',
+  },
   template: `
     <header class="ep-topnav" [class.nav-open]="navOpen()">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">
@@ -218,33 +222,32 @@ export class TopnavComponent {
   }
 
   /** @internal */
-  toggleSub(i: number): void {
+  protected toggleSub(i: number): void {
     this.openIndex.set(this.openIndex() === i ? -1 : i);
     this.searchOpen.set(false);
   }
 
   /** @internal */
-  toggleSearch(): void {
+  protected toggleSearch(): void {
     this.searchOpen.set(!this.searchOpen());
     this.openIndex.set(-1);
   }
 
   /** @internal */
-  toggleNav(): void {
+  protected toggleNav(): void {
     this.navOpen.set(!this.navOpen());
     this.openIndex.set(-1);
     this.searchOpen.set(false);
   }
 
   /** @internal */
-  closeAll(): void {
+  protected closeAll(): void {
     this.openIndex.set(-1);
     this.searchOpen.set(false);
     this.navOpen.set(false);
   }
 
   /** @internal */
-  @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     // Außenklick: NICHT den Fokus umsetzen — der Nutzer hat bewusst woanders
     // hingeklickt, dorthin den Fokus zu ziehen wäre ein eigener Fehler.
@@ -252,7 +255,6 @@ export class TopnavComponent {
   }
 
   /** @internal */
-  @HostListener('document:keydown.escape')
   onEscape(): void {
     this.closeWithFocusReturn();
   }

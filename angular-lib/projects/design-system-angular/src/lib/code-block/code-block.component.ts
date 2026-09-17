@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
 
 /**
  * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block“.
@@ -10,9 +10,9 @@ import { Component, DestroyRef, inject, input, signal } from '@angular/core';
  */
 @Component({
   selector: 'cds-code-block',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [class]="wrapClasses">
+    <div [class]="wrapClasses()">
       <div class="cb-header">
         <span class="cb-lang">{{ lang() }}</span>
         @if (copyable()) {
@@ -48,9 +48,7 @@ export class CodeBlockComponent {
   }
 
   /** @internal */
-  get wrapClasses(): string {
-    return this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap';
-  }
+  protected readonly wrapClasses = computed(() => (this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap'));
 
   /** @internal */
   copy(): void {

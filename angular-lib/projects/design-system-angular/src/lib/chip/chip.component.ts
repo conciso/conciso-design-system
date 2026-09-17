@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -12,7 +12,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-chip',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       class="chip"
@@ -34,7 +34,7 @@ export class ChipComponent {
   readonly pressed = model(false);
 
   /** @internal */
-  toggle(): void {
+  protected toggle(): void {
     this.pressed.set(!this.pressed());
   }
 }

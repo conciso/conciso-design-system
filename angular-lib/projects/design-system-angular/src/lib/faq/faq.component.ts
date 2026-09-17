@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** Ein FAQ-Eintrag. */
 export interface CdsFaqItem {
@@ -17,7 +17,7 @@ export interface CdsFaqItem {
  */
 @Component({
   selector: 'cds-faq',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ep-faq">
       @for (item of items(); track item.q) {

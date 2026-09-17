@@ -1,4 +1,12 @@
-import { Component, effect, forwardRef, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  forwardRef,
+  input,
+  model,
+} from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
 
@@ -25,7 +33,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-scale',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ScaleComponent), multi: true },
   ],
@@ -33,18 +41,18 @@ let uid = 0;
     <div class="field-slider">
       <div class="field-slider-header">
         <label class="field-slider-label" [attr.for]="scaleId()">{{ label() }}</label>
-        <output [class]="outputClasses" [attr.for]="scaleId()" [id]="scaleId() + '-out'">{{ currentLabel }}</output>
+        <output [class]="outputClasses()" [attr.for]="scaleId()" [id]="scaleId() + '-out'">{{ currentLabel() }}</output>
       </div>
       <input
-        [class]="sliderClasses"
+        [class]="sliderClasses()"
         type="range"
         [id]="scaleId()"
         min="0"
-        [max]="max"
+        [max]="max()"
         step="1"
         [value]="value()"
         [disabled]="disabled()"
-        [attr.aria-valuetext]="currentLabel"
+        [attr.aria-valuetext]="currentLabel()"
         [attr.aria-describedby]="helper() ? scaleId() + '-hint' : null"
         (input)="onInput($event)"
         (blur)="markTouched()"
@@ -59,7 +67,7 @@ let uid = 0;
           aria-hidden="true"
           style="position:relative;display:block;padding:0;height:16px"
         >
-          @for (t of tickItems; track $index) {
+          @for (t of tickItems(); track $index) {
             <span [style]="t.style">{{ t.label }}</span>
           }
         </div>
@@ -88,7 +96,7 @@ export class ScaleComponent implements ControlValueAccessor {
     // Index in [0, max] halten: schrumpft labels() unter den aktuellen Index, bliebe
     // sonst ein veralteter Index stehen → leeres <output>/aria-valuetext.
     effect(() => {
-      const max = this.max;
+      const max = this.max();
       const v = this.value();
       if (v > max) this.value.set(max);
       else if (v < 0) this.value.set(0);
@@ -106,7 +114,7 @@ export class ScaleComponent implements ControlValueAccessor {
   writeValue(value: number): void {
     // Auf gültigen Stufen-Index [0, max] klemmen (max = labels().length - 1).
     const n = typeof value === 'number' && !Number.isNaN(value) ? Math.round(value) : 0;
-    this.value.set(Math.min(this.max, Math.max(0, n)));
+    this.value.set(Math.min(this.max(), Math.max(0, n)));
   }
   /** @internal */
   registerOnChange(fn: (value: number) => void): void {
@@ -126,21 +134,13 @@ export class ScaleComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  get max(): number {
-    return Math.max(0, this.labels().length - 1);
-  }
+  protected readonly max = computed(() => Math.max(0, this.labels().length - 1));
   /** @internal */
-  get currentLabel(): string {
-    return this.labels()[this.value()] ?? '';
-  }
+  protected readonly currentLabel = computed(() => this.labels()[this.value()] ?? '');
   /** @internal */
-  get sliderClasses(): string {
-    return `slider slider-${this.area()}`;
-  }
+  protected readonly sliderClasses = computed(() => `slider slider-${this.area()}`);
   /** @internal */
-  get outputClasses(): string {
-    return `field-slider-output slider-${this.area()}`;
-  }
+  protected readonly outputClasses = computed(() => `field-slider-output slider-${this.area()}`);
 
   /**
    * Alle Labels + Positions-Style. Mitte-Labels sind auf ihrer Thumb-Position
@@ -151,7 +151,7 @@ export class ScaleComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  get tickItems(): { label: string; style: Record<string, string> }[] {
+  protected readonly tickItems = computed<{ label: string; style: Record<string, string> }[]>(() => {
     const labels = this.labels();
     const n = labels.length;
     const base: Record<string, string> = { position: 'absolute', 'white-space': 'nowrap' };
@@ -172,16 +172,16 @@ export class ScaleComponent implements ControlValueAccessor {
         style: { ...base, left: `calc(11px + ${p} * (100% - 22px))`, transform: 'translateX(-50%)' },
       };
     });
-  }
+  });
 
   /** @internal */
-  onInput(event: Event): void {
+  protected onInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);
     this.value.set(value);
     this.onChange(value);
   }
   /** @internal */
-  markTouched(): void {
+  protected markTouched(): void {
     this.onTouched();
   }
 }
