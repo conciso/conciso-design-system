@@ -14,14 +14,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
-### Added
-- **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
-  Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
-  des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
-  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
-  Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
-  deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
-
 ### Breaking
 - **Inhalts-Inputs von 16 Komponenten sind jetzt `input.required()`.** Betroffen:
   `BlockquoteComponent` (`quote`, `name`), `TestimonialComponent` (`quote`, `name`),
@@ -48,6 +40,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (`./field-shell.component`), nur der Re-Export aus `public-api.ts` entfällt. Wer eigene Feldtypen
   baut, setzt die Klassen der CSS-Schicht (`.field`, `.helper`, `.error-msg`, …) direkt zusammen,
   statt sich an eine interne Hilfskomponente zu binden.
+
+### Added
+- **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
+  Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
+  des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
+  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
+  Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
+  deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
 
 ### Changed
 - **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
@@ -78,8 +78,6 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `prefers-color-scheme`, die Docs-Chrome bleibt fest im Light-Theme — beide sind
   bewusst vom Toolbar-Theme-Schalter der Preview entkoppelt, der weiterhin nur die
   Story-Vorschau steuert.
-
-### Changed
 - **Alle Komponenten laufen mit `OnPush` und leiten Werte über `computed()` ab.** Abgeleitete
   Werte steckten bisher in Gettern, die bei jedem Change-Detection-Lauf neu rechneten; das
   explizite `standalone: true` war seit Angular 19 Rauschen. Template-Handler und interne
