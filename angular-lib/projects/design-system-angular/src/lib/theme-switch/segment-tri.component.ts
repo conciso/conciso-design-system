@@ -118,28 +118,37 @@ export class ThemeSegmentComponent {
 
   constructor() {
     // Thumb nach jedem Render neu setzen (Modus/Optionen als Abhängigkeiten lesen).
-    afterRenderEffect(() => {
-      this.svc.mode();
-      this.order();
-      this.positionThumb();
+    // In Phasen aufgeteilt (WP5 §5.4): erst LESEN (earlyRead), dann SCHREIBEN (write) —
+    // das vermeidet Layout-Thrashing (Read/Write im selben Durchlauf), das
+    // afterRenderEffect mit seinen Phasen genau dafür anbietet.
+    afterRenderEffect({
+      earlyRead: () => {
+        this.svc.mode();
+        this.order();
+        return this.measureThumb();
+      },
+      write: (rect) => this.applyThumb(rect()),
     });
 
-    // Layout-Änderungen ohne Signal (Breakpoint, Font-Load) → Thumb nachmessen.
+    // Layout-Änderungen ohne Signal (Breakpoint, Font-Load) → Thumb nachmessen. Der
+    // ResizeObserver-Callback läuft außerhalb von Angulars Render-Zyklus — dafür gibt
+    // es keine Phasen-API; Messen+Schreiben bleibt hier in einem Zug (unvermeidlich,
+    // da kein afterRenderEffect-Durchlauf beteiligt ist).
     afterNextRender(() => {
       const bar = this.bar()?.nativeElement;
       if (!bar) return;
-      const ro = new ResizeObserver(() => this.positionThumb());
+      const ro = new ResizeObserver(() => this.applyThumb(this.measureThumb()));
       ro.observe(bar);
       this.destroyRef.onDestroy(() => ro.disconnect());
     });
   }
 
-  /** Thumb exakt auf die aktive Zelle legen (Position + Größe). */
-  private positionThumb(): void {
+  /** Thumb-Geometrie relativ zur Leiste messen (reines Lesen, keine Schreibzugriffe). */
+  private measureThumb(): { width: number; height: number; x: number; y: number } | null {
     const thumb = this.thumb()?.nativeElement;
     const bar = this.bar()?.nativeElement;
     const el = this.opts()[this.order().indexOf(this.svc.mode())]?.nativeElement;
-    if (!thumb || !bar || !el) return;
+    if (!thumb || !bar || !el) return null;
 
     const barRect = bar.getBoundingClientRect();
     const r = el.getBoundingClientRect();
@@ -147,8 +156,15 @@ export class ThemeSegmentComponent {
     const bx = parseFloat(cs.borderLeftWidth) || 0;
     const by = parseFloat(cs.borderTopWidth) || 0;
 
-    thumb.style.width = `${r.width}px`;
-    thumb.style.height = `${r.height}px`;
-    thumb.style.transform = `translate(${r.left - barRect.left - bx}px, ${r.top - barRect.top - by}px)`;
+    return { width: r.width, height: r.height, x: r.left - barRect.left - bx, y: r.top - barRect.top - by };
+  }
+
+  /** Gemessene Geometrie auf den Thumb schreiben (reines Schreiben, kein Lesen). */
+  private applyThumb(rect: { width: number; height: number; x: number; y: number } | null): void {
+    const thumb = this.thumb()?.nativeElement;
+    if (!thumb || !rect) return;
+    thumb.style.width = `${rect.width}px`;
+    thumb.style.height = `${rect.height}px`;
+    thumb.style.transform = `translate(${rect.x}px, ${rect.y}px)`;
   }
 }

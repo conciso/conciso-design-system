@@ -7,8 +7,9 @@ import {
   input,
   model,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → eindeutige Default-id (label/for, output/for, aria).
 let uid = 0;
@@ -78,7 +79,7 @@ let uid = 0;
     </div>
   `,
 })
-export class ScaleComponent implements ControlValueAccessor {
+export class ScaleComponent extends CvaBase<number> {
   /** Feld-Label (die Frage), z. B. „Zufriedenheit“. */
   readonly label = input('Bewertung');
   /** Geordnete Skalen-Labels; sie sind zugleich die Werte. */
@@ -93,8 +94,17 @@ export class ScaleComponent implements ControlValueAccessor {
   readonly scaleId = input(`cds-scale-${++uid}`);
 
   constructor() {
+    super();
     // Index in [0, max] halten: schrumpft labels() unter den aktuellen Index, bliebe
-    // sonst ein veralteter Index stehen → leeres <output>/aria-valuetext.
+    // sonst ein veralteter Index stehen → leeres <output>/aria-valuetext. BEWUSST als
+    // effect() belassen (WP5 §5.3 geprüft, nicht auf computed()/linkedSignal
+    // umgestellt): `value` ist ein öffentliches, zweiseitig gebundenes model() — ein
+    // Konsument kann es per `[(value)]` DIREKT setzen, am CVA-Pfad (writeValue/
+    // normalizeValue) vorbei. computed()/linkedSignal erzeugen nur ein EIGENES,
+    // abgeleitetes Signal; sie können nicht in ein FREMDES, bereits bestehendes
+    // Writable-Signal zurückschreiben. Die Korrektur MUSS daher das model() selbst
+    // mutieren, damit die Zwei-Wege-Bindung beim Konsumenten den korrigierten Wert
+    // sieht (nicht nur die Anzeige) — das leistet nur effect().
     effect(() => {
       const max = this.max();
       const v = this.value();
@@ -103,30 +113,19 @@ export class ScaleComponent implements ControlValueAccessor {
     });
   }
 
-  private onChange: (value: number) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
-
   /** @internal */
-  writeValue(value: number): void {
+  protected override normalizeValue(value: number): number {
     // Auf gültigen Stufen-Index [0, max] klemmen (max = labels().length - 1).
     const n = typeof value === 'number' && !Number.isNaN(value) ? Math.round(value) : 0;
-    this.value.set(Math.min(this.max(), Math.max(0, n)));
+    return Math.min(this.max(), Math.max(0, n));
   }
   /** @internal */
-  registerOnChange(fn: (value: number) => void): void {
-    this.onChange = fn;
+  protected override applyValue(value: number): void {
+    this.value.set(value);
   }
   /** @internal */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  /** @internal */
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
   /**

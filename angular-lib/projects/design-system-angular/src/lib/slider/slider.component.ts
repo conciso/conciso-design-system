@@ -1,19 +1,20 @@
 import {
-  AfterViewInit,
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   ElementRef,
   forwardRef,
   inject,
   input,
   model,
   numberAttribute,
-  OnDestroy,
   signal,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
 // Ein konstanter Default würde bei mehreren Slidern kollidieren (doppelte id →
@@ -87,9 +88,9 @@ let uid = 0;
     </div>
   `,
 })
-export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class SliderComponent extends CvaBase<number> {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  private resizeObserver?: ResizeObserver;
+  private readonly destroyRef = inject(DestroyRef);
   /** Gemessene Slider-Breite (px); treibt die reaktive Tick-Reduktion. */
   private readonly width = signal(0);
 
@@ -113,52 +114,43 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   readonly disabled = model(false);
   readonly sliderId = input(`cds-slider-${++uid}`);
 
-  private onChange: (value: number) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
+  constructor() {
+    super();
+    // Erstmessung + ResizeObserver-Setup: reine Browser-Angelegenheit (Layout gibt es
+    // beim serverseitigen Rendern nicht) und läuft genau einmal nach dem ersten Render —
+    // afterNextRender ist der Ersatz für ngAfterViewInit + direktem DOM-Zugriff, der
+    // (anders als ngAfterViewInit) NIE beim SSR ausgeführt wird.
+    afterNextRender(() => {
+      const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
+      if (!el) return;
+      this.width.set(el.getBoundingClientRect().width);
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver((entries) => {
+          this.width.set(entries[0].contentRect.width);
+        });
+        ro.observe(el);
+        this.destroyRef.onDestroy(() => ro.disconnect());
+      }
+    });
+  }
 
   /** @internal */
-  writeValue(value: number): void {
+  protected override normalizeValue(value: number): number {
     // Auf [min, max] klemmen: ein Formularwert außerhalb des Bereichs würde sonst im
     // <output> stehen, während der native Thumb an min/max klemmt (Modell/UI-Mismatch).
     const n = typeof value === 'number' && !Number.isNaN(value) ? value : this.min();
-    this.value.set(this.clamp(n));
+    return this.clamp(n);
   }
   private clamp(v: number): number {
     return Math.min(this.max(), Math.max(this.min(), v));
   }
   /** @internal */
-  registerOnChange(fn: (value: number) => void): void {
-    this.onChange = fn;
+  protected override applyValue(value: number): void {
+    this.value.set(value);
   }
   /** @internal */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  /** @internal */
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
-  }
-
-  /** @internal */
-  ngAfterViewInit(): void {
-    const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
-    if (!el) return;
-    this.width.set(el.getBoundingClientRect().width);
-    if (typeof ResizeObserver !== 'undefined') {
-      this.resizeObserver = new ResizeObserver((entries) => {
-        this.width.set(entries[0].contentRect.width);
-      });
-      this.resizeObserver.observe(el);
-    }
-  }
-
-  /** @internal */
-  ngOnDestroy(): void {
-    this.resizeObserver?.disconnect();
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
   /** @internal */

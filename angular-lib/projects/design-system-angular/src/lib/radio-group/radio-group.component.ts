@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, input, model } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → jede Gruppe bekommt per Default einen EINDEUTIGEN name.
 // Gleiche names über Gruppen hinweg würden deren Radios fälschlich koppeln.
@@ -54,7 +55,7 @@ let uid = 0;
     </fieldset>
   `,
 })
-export class RadioGroupComponent implements ControlValueAccessor {
+export class RadioGroupComponent extends CvaBase<string> {
   /** Gruppen-Label (die Frage) → <legend>. */
   readonly legend = input('Optionen');
   /** Auswahloptionen (Label = Wert). */
@@ -70,28 +71,17 @@ export class RadioGroupComponent implements ControlValueAccessor {
   /** Brand Area → accent-color der Radios. */
   readonly area = input<CdsArea>('co');
 
-  private onChange: (value: string) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
-
   /** @internal */
-  writeValue(value: string): void {
-    this.value.set(value ?? '');
+  protected override normalizeValue(value: string): string {
+    return value ?? '';
   }
   /** @internal */
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
+  protected override applyValue(value: string): void {
+    this.value.set(value);
   }
   /** @internal */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  /** @internal */
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
   /** @internal */

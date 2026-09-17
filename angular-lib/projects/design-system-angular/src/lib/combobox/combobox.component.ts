@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
+  computed,
   ElementRef,
   forwardRef,
   inject,
   input,
+  linkedSignal,
   model,
   signal,
   viewChild,
@@ -15,6 +16,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown, heroXMark } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 import type { CdsSelectOption } from '../select/select.component';
+import { disposableTimeout } from '../shared/disposable-timeout';
 
 let uid = 0;
 
@@ -144,9 +146,50 @@ export class ComboboxComponent implements ControlValueAccessor {
   protected readonly open = signal(false);
   /** @internal */
   protected readonly activeIndex = signal(0);
-  /** @internal */
-  protected readonly query = signal('');
-  private readonly selected = signal<string[]>([]);
+
+  /**
+   * Aktuell gewählte Werte — reiner Ableitungszustand aus `[(value)]`/`[(values)]`,
+   * je nach Modus (WP5 §5.3: vorher ein per `effect()` nachgeführtes Signal; die
+   * `effect()`-Zustandsableitung ist das Anti-Muster, das die Angular-Doku
+   * ausdrücklich nennt). Alle Schreibpfade (`select()`, `removeValue()`,
+   * `writeValue()`) schreiben seitdem direkt in `value`/`values` — die Quelle,
+   * nicht mehr in dieses abgeleitete Signal.
+   *
+   * @internal
+   */
+  protected readonly selected = computed<string[]>(() =>
+    this.multi() ? this.values() : this.value() ? [this.value() as string] : [],
+  );
+
+  /** Label der aktuellen Einzelauswahl (leer bei Multi/keiner Auswahl). */
+  private readonly selectedLabel = computed(
+    () => this.options().find((o) => o.value === this.value())?.label ?? '',
+  );
+
+  /**
+   * Sichtbarer Filtertext im Feld. Vorgabe: leer im Multi-Modus, sonst das Label
+   * der aktuellen Auswahl — lokal überschreibbar (Tippen via `onInput`,
+   * `select()`/`clear()`/`close()` setzen ihn ebenfalls direkt). Aktualisiert sich
+   * NICHT von der Vorgabe her, während das Menü offen ist (Nutzer tippt gerade);
+   * erst das nächste Schließen übernimmt die neue Vorgabe. Ersetzt den Teil des
+   * bisherigen `effect()`, der `query` außerhalb des offenen Menüs nachführte
+   * (WP5 §5.3).
+   *
+   * @internal
+   */
+  protected readonly query = linkedSignal<
+    { open: boolean; multi: boolean; label: string },
+    string
+  >({
+    source: () => ({ open: this.open(), multi: this.multi(), label: this.selectedLabel() }),
+    computation: (src, previous) => {
+      // Offenes Menü: laufende Eingabe nicht überschreiben (entspricht dem alten
+      // `if (!this.open())`-Gate). Geschlossen: Multi zeigt nie ein Label (leeren),
+      // Einzelauswahl übernimmt das Label der aktuellen Auswahl.
+      if (src.open) return previous?.value ?? '';
+      return src.multi ? '' : src.label;
+    },
+  });
 
   private onChange: (value: string | string[]) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */
@@ -163,25 +206,6 @@ export class ComboboxComponent implements ControlValueAccessor {
     option: (i: number) => `cds-combobox-${this.instance}-opt-${i}`,
   };
 
-  constructor() {
-    // Inbound-Sync: interne Auswahl aus den [(value)]/[(values)]-Inputs ableiten –
-    // reaktiv, damit auch spätere programmatische Änderungen durchschlagen (nicht nur
-    // der Forms-Pfad via writeValue). Läuft initial und bei jeder Input-Änderung.
-    // Der Filtertext (query) wird nur außerhalb des offenen Menüs gesetzt, um die
-    // laufende Eingabe nicht zu überschreiben.
-    effect(() => {
-      if (this.multi()) {
-        this.selected.set([...this.values()]);
-      } else {
-        const v = this.value();
-        this.selected.set(v ? [v] : []);
-        if (!this.open()) {
-          this.query.set(v ? (this.options().find((o) => o.value === v)?.label ?? '') : '');
-        }
-      }
-    });
-  }
-
   /**
    * ControlValueAccessor — Formularwert ist string[] (multi) bzw. string (single).
    *
@@ -191,11 +215,9 @@ export class ComboboxComponent implements ControlValueAccessor {
     if (this.multi()) {
       const arr = Array.isArray(value) ? [...value] : [];
       this.values.set(arr);
-      this.selected.set(arr);
     } else {
       const v = typeof value === 'string' ? value : undefined;
       this.value.set(v);
-      this.selected.set(v ? [v] : []);
       this.query.set(v ? (this.options().find((o) => o.value === v)?.label ?? '') : '');
     }
   }
@@ -278,16 +300,15 @@ export class ComboboxComponent implements ControlValueAccessor {
   /** @internal */
   select(opt: CdsSelectOption): void {
     if (this.multi()) {
-      this.selected.update((vs) => [...vs, opt.value]);
-      this.values.set(this.selected());
-      this.onChange(this.selected());
+      const next = [...this.selected(), opt.value];
+      this.values.set(next);
+      this.onChange(next);
       this.onTouched();
       this.query.set('');
       this.activeIndex.set(0);
       this.focusInput(); // offen lassen, weiter hinzufügen
     } else {
       this.value.set(opt.value);
-      this.selected.set([opt.value]);
       this.onChange(opt.value);
       this.onTouched();
       this.query.set(opt.label);
@@ -298,9 +319,9 @@ export class ComboboxComponent implements ControlValueAccessor {
   /** @internal */
   removeValue(value: string, event?: Event): void {
     event?.stopPropagation();
-    this.selected.update((vs) => vs.filter((v) => v !== value));
-    this.values.set(this.selected());
-    this.onChange(this.selected());
+    const next = this.selected().filter((v) => v !== value);
+    this.values.set(next);
+    this.onChange(next);
     this.onTouched();
   }
 
@@ -368,8 +389,11 @@ export class ComboboxComponent implements ControlValueAccessor {
     }
   }
 
+  // Timer über DestroyRef aufgeräumt (WP5 §5.5).
+  private readonly scrollTimer = disposableTimeout();
+
   private scrollActive(): void {
-    setTimeout(() => {
+    this.scrollTimer.schedule(() => {
       this.host.nativeElement
         .querySelector(`#${CSS.escape(this.ids.option(this.activeIndex()))}`)
         ?.scrollIntoView({ block: 'nearest' });

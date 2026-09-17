@@ -13,6 +13,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown, uiCheck } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
+import { disposableTimeout } from '../shared/disposable-timeout';
 
 export interface CdsSelectOption {
   value: string;
@@ -160,7 +161,11 @@ export class SelectComponent implements ControlValueAccessor {
   };
 
   private typeBuffer = '';
-  private typeTimer?: ReturnType<typeof setTimeout>;
+  // Timer über DestroyRef aufgeräumt (WP5 §5.5) — dieselbe `disposableTimeout()`
+  // deckt sowohl Fire-and-forget (Fokus/Scroll) als auch Debounce (Type-ahead) ab.
+  private readonly menuFocusTimer = disposableTimeout();
+  private readonly scrollTimer = disposableTimeout();
+  private readonly typeaheadTimer = disposableTimeout();
 
   /** @internal */
   selectedOption(): CdsSelectOption | undefined {
@@ -180,7 +185,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.open.set(true);
     // Fokus in die Listbox (nach Render, wenn sie sichtbar ist) — APG-Listbox-
     // Muster: aria-activedescendant liegt dort, nicht auf dem Button.
-    setTimeout(() => this.menu()?.nativeElement.focus());
+    this.menuFocusTimer.schedule(() => this.menu()?.nativeElement.focus());
   }
 
   /** @internal */
@@ -282,15 +287,14 @@ export class SelectComponent implements ControlValueAccessor {
   private setActive(i: number): void {
     this.activeIndex.set(i);
     // Aktiven Eintrag in Sicht scrollen (lange Listen).
-    setTimeout(() => {
+    this.scrollTimer.schedule(() => {
       this.host.nativeElement.querySelector(`#${CSS.escape(this.ids.option(i))}`)?.scrollIntoView({ block: 'nearest' });
     });
   }
 
   private typeahead(char: string): void {
     this.typeBuffer += char.toLowerCase();
-    clearTimeout(this.typeTimer);
-    this.typeTimer = setTimeout(() => (this.typeBuffer = ''), 500);
+    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), 500);
     const match = this.options().findIndex((o) => o.label.toLowerCase().startsWith(this.typeBuffer));
     if (match >= 0) this.setActive(match);
   }
