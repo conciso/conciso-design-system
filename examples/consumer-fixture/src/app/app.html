@@ -1,0 +1,25 @@
+<cds-topnav logo="Consumer-Fixture" [showSearch]="false" ctaLabel="Loslegen" />
+
+<main style="padding: 2rem">
+  <h1>Consumer-Fixture</h1>
+  <p>Konsumiert <code>&#64;conciso/design-system-angular</code> als echtes Paket.</p>
+
+  <section style="display: flex; gap: 0.75rem; flex-wrap: wrap">
+    @for (area of areas; track area) {
+      @for (variant of variants; track variant) {
+        <cds-button [area]="area" [variant]="variant" [label]="area + ' / ' + variant" />
+      }
+    }
+  </section>
+
+  <!-- Formularfelder: ziehen NG_VALUE_ACCESSOR aus @angular/forms. -->
+  <section style="max-width: 32rem; margin-top: 2rem">
+    <cds-text-field label="Name" placeholder="Vor- und Nachname" />
+    <cds-checkbox label="Ich habe die Hinweise gelesen" />
+  </section>
+
+  <!-- Card: zieht DomSanitizer aus @angular/platform-browser. -->
+  <section style="max-width: 32rem; margin-top: 2rem">
+    <cds-card title="Kartentitel" area="co" />
+  </section>
+</main>

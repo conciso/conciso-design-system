@@ -1,0 +1,28 @@
+{
+  "name": "consumer-fixture",
+  "version": "0.0.0",
+  "description": "Consumer-Fixture (siehe CONTEXT.md#consumer-fixture, docs/adr/0004): committete Minimal-Angular-App, die die per npm pack gebauten Tarballs von @conciso/design-system-angular und @conciso/design-system installiert, CSS+Fonts global einbindet und den Consumer-Smoke-Test (produktiver AOT-ng-build) fährt. Absichtlich KEIN npm-Workspace-Mitglied — eigene node_modules, echte Tarball-Installation statt Quell-Code-Konsum.",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build"
+  },
+  "packageManager": "npm@10.9.8",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@conciso/design-system": "1.0.0",
+    "@conciso/design-system-angular": "1.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.19",
+    "@angular/cli": "^21.2.19",
+    "@angular/compiler-cli": "^21.2.0",
+    "typescript": "~5.9.2"
+  }
+}

@@ -2,6 +2,11 @@
 
 Issues and specs (you may know a spec as a PRD) for this repo live as markdown files in `.scratch/`.
 
+`.scratch/` is **gitignored**. It is local working state for whoever is driving the
+feature, not a repo artifact — the tickets carry mutable `Status:` lines and are of
+no use to someone consuming the design system. What has to outlive the branch goes
+into `docs/adr/` (decisions) and `CONTEXT.md` (vocabulary) instead.
+
 ## Conventions
 
 - One feature per directory: `.scratch/<feature-slug>/`

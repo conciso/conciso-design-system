@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { ThemeSegmentComponent } from './segment-tri.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { ThemeSegmentComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSegmentComponent> = {
   title: 'Molecules/Theme-Segment',

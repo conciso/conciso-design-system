@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { StatCardComponent } from './stat-card.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { StatCardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatCardComponent> = {
   title: 'Molecules/StatCard',

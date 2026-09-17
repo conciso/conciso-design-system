@@ -11,7 +11,9 @@
     "test-storybook": "PLAYWRIGHT_BROWSERS_PATH=0 test-storybook --url http://localhost:6006",
     "test-storybook:ci": "concurrently -k -s first -n SB,TEST -c magenta,blue \"http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npm run test-storybook\"",
     "test-storybook:visual": "PLAYWRIGHT_BROWSERS_PATH=0 VISUAL=1 test-storybook --url http://localhost:6006",
-    "lint": "ng lint"
+    "test:vitest": "PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "dependencies": {
     "@ng-icons/core": "^33.3.0",
@@ -25,16 +27,19 @@
     "@angular/platform-browser-dynamic": "^21.2.0",
     "rxjs": "^7.8.0",
     "tslib": "^2.6.0",
-    "zone.js": "^0.15.0"
+    "zone.js": "^0.16.0"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.7.0",
     "@angular-devkit/build-angular": "^21.2.0",
+    "@angular/build": "^21.2.0",
     "@angular/cli": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
     "@eslint/js": "^10.0.1",
-    "@storybook/addon-a11y": "^10.4.6",
-    "@storybook/addon-docs": "^10.4.6",
-    "@storybook/angular": "^10.4.6",
+    "@storybook/addon-a11y": "^10.5.6",
+    "@storybook/addon-docs": "^10.5.6",
+    "@storybook/addon-vitest": "^10.5.6",
+    "@storybook/angular-vite": "^10.5.6",
     "@storybook/test-runner": "^0.24.4",
     "@types/jest-image-snapshot": "^6.4.1",
     "angular-eslint": "^21.4.0",
@@ -42,10 +47,14 @@
     "eslint": "^10.6.0",
     "http-server": "^14.1.1",
     "jest-image-snapshot": "^6.5.2",
+    "playwright": "^1.61.0",
     "remark-gfm": "^4.0.1",
-    "storybook": "^10.4.6",
+    "storybook": "^10.5.6",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.59.2",
+    "vite": "^8.2.0",
+    "@vitest/browser-playwright": "^4.1.0",
+    "vitest": "^4.1.0",
     "wait-on": "^9.0.10"
   }
 }

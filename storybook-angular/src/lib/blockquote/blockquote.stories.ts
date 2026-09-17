@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { BlockquoteComponent } from './blockquote.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { BlockquoteComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<BlockquoteComponent> = {
   title: 'Molecules/Blockquote',

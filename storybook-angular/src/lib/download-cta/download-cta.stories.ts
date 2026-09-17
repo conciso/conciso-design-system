@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { DownloadCtaComponent } from './download-cta.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { DownloadCtaComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cta-dl-eyebrow` (Bereich co) hat nur 3.28:1 Kontrast,
 // weil css/components.css hier --co-600 statt --co-700 nutzt (Ausreißer ggü.

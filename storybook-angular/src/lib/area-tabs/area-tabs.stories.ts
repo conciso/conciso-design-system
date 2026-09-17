@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { moduleMetadata } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
-import { AreaTabComponent } from './area-tab.component';
-import { AreaTabsComponent } from './area-tabs.component';
+import { AreaTabComponent, AreaTabsComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<AreaTabsComponent> = {
   title: 'Organisms/AreaTabs',

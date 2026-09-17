@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
-import { CheckboxComponent } from './checkbox.component';
+import { CheckboxComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CheckboxComponent> = {
   title: 'Atoms/Checkbox',

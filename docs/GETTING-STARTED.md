@@ -32,17 +32,36 @@ tokens.css  →  dark-mode.css  →  base.css  →  components.css
 <link rel="stylesheet" href="css/components.css">
 ```
 
-**Variante B — als gepinnte Git-Abhängigkeit** (intern, kein Registry):
+**Variante B — als npm-Paket aus GitHub Packages** (der empfohlene Weg):
+
+Das Paket liegt privat und org-scoped in GitHub Packages, nicht in der öffentlichen
+npm-Registry. Dafür braucht das Konsumenten-Projekt eine `.npmrc`, die den
+`@conciso`-Scope umleitet:
+
+```ini
+@conciso:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
 
 ```bash
-npm install github:conciso/conciso-design-system#v0.1.0
+npm install @conciso/design-system
 ```
 ```js
 // gebündelt, korrekte Reihenfolge bereits enthalten:
 import '@conciso/design-system/dist/conciso-ds.css';
 ```
 
-> Das Paket ist intern/proprietär (`UNLICENSED`, `private`) und wird nicht in ein npm-Registry veröffentlicht. Für reine CSS-Nutzung ist das Vendoren von `dist/conciso-ds.css` + `fonts/` (Variante A) am schlanksten.
+> GitHub Packages verlangt Auth auch für **lesenden** Zugriff: lokal ein Personal
+> Access Token mit Scope `read:packages` als `GITHUB_TOKEN` exportieren, in GitHub
+> Actions genügt `secrets.GITHUB_TOKEN` mit `permissions: packages: read`. Committe
+> niemals den Token selbst — nur die `${GITHUB_TOKEN}`-Referenz gehört ins Repo. Die
+> ausführliche Anleitung steht im
+> [README der Angular-Lib](../angular-lib/projects/design-system-angular/README.md#installation-aus-github-packages),
+> die Entscheidung dahinter in
+> [ADR-0004](adr/0004-verteilung-und-versionierung.md).
+
+> Für reine CSS-Nutzung ohne npm ist das Vendoren von `dist/conciso-ds.css` + `fonts/`
+> (Variante A) weiterhin der schlankeste Weg.
 
 > Die Ladereihenfolge ist die häufigste Fehlerquelle. Wird `components.css` vor `tokens.css` geladen, fehlen die Variablen und nichts wird korrekt gestylt.
 
@@ -202,4 +221,29 @@ function CTA() {
 }
 ```
 
-Tokens lassen sich in JS/Styled-Components/Theme-Objekte über den Token-Export ziehen. Für eine echte Framework-**Komponentenbibliothek** (React/Vue-Wrapper) ist Storybook als Heimat vorgesehen — das kommt erst, wenn solche Wrapper gebaut werden (siehe `CONTRIBUTING.md`).
+Tokens lassen sich in JS/Styled-Components/Theme-Objekte über den Token-Export ziehen.
+
+### Angular
+
+Für Angular gibt es eine echte Komponentenbibliothek: **`@conciso/design-system-angular`**,
+aus derselben Registry wie oben (gleiche `.npmrc`, beide Pakete im
+[Lockstep](../CONTEXT.md#lockstep-versionierung) auf derselben Version):
+
+```bash
+npm install @conciso/design-system-angular @conciso/design-system
+```
+```ts
+import { ButtonComponent } from '@conciso/design-system-angular';
+```
+```html
+<cds-button area="co" variant="filled" label="Kontakt" />
+```
+
+Die Komponenten sind dünne Hüllen über den CSS-Klassen und liefern **kein eigenes CSS** —
+die CSS-Schicht und die Fonts bindet das konsumierende Projekt weiterhin selbst global ein
+(bei Angular über `styles`/`assets` in der `angular.json`). Den copy-paste-fertigen
+Schnipsel dafür, die vollständige Komponentenliste und die Installationsdetails enthält das
+[README der Lib](../angular-lib/projects/design-system-angular/README.md); ein lauffähiges
+Konsum-Beispiel liegt unter [`examples/consumer-fixture`](../examples/consumer-fixture).
+
+Für React/Vue existieren bislang keine Wrapper — dort gilt der globale CSS-Weg oben.

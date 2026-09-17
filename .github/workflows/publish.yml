@@ -1,0 +1,258 @@
+name: Pakete veröffentlichen
+
+# Veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht) und
+# @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im Lockstep
+# mit derselben Versionsnummer (siehe CONTEXT.md, docs/adr/0004).
+#
+# AUSLÖSER: eine Versionsänderung auf main. Der Workflow läuft bei jedem Push auf
+# main, der eine der beiden package.json berührt, und entscheidet dann selbst, ob
+# es etwas zu veröffentlichen gibt. Maßgeblich ist dabei die REGISTRY, nicht ein
+# Diff gegen den Vorgänger-Commit: gefragt wird „liegt diese Version schon in
+# GitHub Packages?“. Ein Diff wäre unzuverlässig, weil Squash-Merges und Pushes mit
+# mehreren Commits den Versionswechsel verstecken können. Liegt die Version bereits,
+# endet der Lauf still — der Push hat die package.json dann aus anderen Gründen
+# angefasst (Beschreibung, Dependencies).
+#
+# Damit gilt: Version anheben + nach main mergen = Release. Es gibt keinen Knopf,
+# den man vergessen kann. Wer vorher trocken prüfen will, startet den Workflow
+# manuell (workflow_dispatch) — der Default dort ist ein Dry-Run.
+#
+# KEIN `release: published`-Trigger: Dieser Workflow ERZEUGT Tag und Release selbst
+# (die CHANGELOG-Konvention verlangt den Tag `vX.Y.Z`). Mit dem Trigger würde er
+# sich durch sein eigenes Release rekursiv erneut auslösen.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'package.json'
+      - 'angular-lib/projects/design-system-angular/package.json'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry-Run (kein echtes npm publish, kein Tag, kein Release)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  # Nicht pro Ref, sondern global: zwei gleichzeitige Publishes wären in jedem Fall
+  # falsch. Ein laufender Publish wird NICHT abgebrochen — ein halb veröffentlichtes
+  # Paket-Paar wäre schlimmer als ein Warten auf den nächsten Lauf.
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  # ── Vorprüfung: gibt es überhaupt etwas zu veröffentlichen? ──────────────────
+  # Bewusst ein eigener, billiger Job: er entscheidet, ob der Smoke-Test und der
+  # Publish-Job überhaupt anlaufen. So kostet ein Push, der die package.json ohne
+  # Versionswechsel anfasst, nur wenige Sekunden.
+  pruefen:
+    name: Version prüfen
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ermitteln.outputs.version }}
+      publish: ${{ steps.ermitteln.outputs.publish }}
+      publish_css: ${{ steps.ermitteln.outputs.publish_css }}
+      publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
+      dry: ${{ steps.ermitteln.outputs.dry }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@conciso'
+      - name: Lockstep-Versionen prüfen
+        id: lockstep
+        run: |
+          ROOT_VERSION=$(node -p "require('./package.json').version")
+          LIB_VERSION=$(node -p "require('./angular-lib/projects/design-system-angular/package.json').version")
+          if [ "$ROOT_VERSION" != "$LIB_VERSION" ]; then
+            echo "::error::Lockstep-Versionen weichen ab: @conciso/design-system@$ROOT_VERSION vs. @conciso/design-system-angular@$LIB_VERSION"
+            exit 1
+          fi
+          echo "version=$ROOT_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Lockstep-Version: $ROOT_VERSION"
+      # Fängt den Fall „Version angehoben, CHANGELOG vergessen“. Der Abschnitt ist
+      # der Release-Text, aus dem weiter unten das GitHub-Release entsteht.
+      - name: CHANGELOG-Abschnitt vorhanden?
+        run: |
+          VERSION="${{ steps.lockstep.outputs.version }}"
+          if ! grep -q "^## \[${VERSION}\]" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md hat keinen Abschnitt '## [${VERSION}]'. Version angehoben, aber der Unreleased-Block nicht geschlossen?"
+            exit 1
+          fi
+          echo "CHANGELOG-Abschnitt für ${VERSION} gefunden."
+      - name: Entscheiden, ob veröffentlicht wird
+        id: ermitteln
+        run: |
+          VERSION="${{ steps.lockstep.outputs.version }}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+          # Dry-Run nur beim manuellen Start, und dort als Default.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
+            DRY=true
+          else
+            DRY=false
+          fi
+          echo "dry=$DRY" >> "$GITHUB_OUTPUT"
+
+          # Existenz PRO PAKET prüfen, nicht "irgendeines von beiden". Sonst wäre ein
+          # halb geglückter Lauf (erstes Paket veröffentlicht, zweites gescheitert)
+          # nicht mehr zu heilen: der nächste Push würde still übergehen und das Paar
+          # dauerhaft auf verschiedenen Versionen stehen lassen.
+          # `npm view` scheitert auch dann, wenn das Paket noch gar nicht existiert —
+          # der erwartete Fall vor dem ersten Release, deshalb Fehler geschluckt.
+          vorhanden() {
+            npm view "$1@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1
+          }
+          CSS_EXISTS=false; LIB_EXISTS=false
+          vorhanden "@conciso/design-system"         && CSS_EXISTS=true
+          vorhanden "@conciso/design-system-angular" && LIB_EXISTS=true
+          echo "Registry-Stand für ${VERSION}: CSS-Schicht=${CSS_EXISTS}, Angular-Lib=${LIB_EXISTS}"
+
+          # Tag und Release entstehen NACH den Publishes und sind damit der Teil, der
+          # eigenständig scheitern kann, während beide Pakete schon liegen. Ohne diese
+          # Prüfung wäre genau das nicht mehr zu heilen: der nächste Lauf sähe beide
+          # Pakete und überspränge den Job, der die Finalisierung nachholt.
+          # Tag über das Remote prüfen, nicht lokal — actions/checkout holt keine Tags.
+          TAG_EXISTS=false; RELEASE_EXISTS=false
+          git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1 && TAG_EXISTS=true
+          gh release view "v${VERSION}" >/dev/null 2>&1 && RELEASE_EXISTS=true
+          echo "Finalisierung für ${VERSION}: Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}"
+
+          if [ "$DRY" = "true" ]; then
+            # Ein Dry-Run soll BEIDE Pakete durchspielen, unabhängig vom Registry-Stand.
+            echo "publish=true"     >> "$GITHUB_OUTPUT"
+            echo "publish_css=true" >> "$GITHUB_OUTPUT"
+            echo "publish_lib=true" >> "$GITHUB_OUTPUT"
+          elif [ "$CSS_EXISTS" = "true" ] && [ "$LIB_EXISTS" = "true" ]; then
+            if [ "$TAG_EXISTS" = "false" ] || [ "$RELEASE_EXISTS" = "false" ]; then
+              # Beide Pakete liegen, aber die Finalisierung fehlt → ein vorheriger Lauf
+              # brach nach den Publishes ab. Job anlaufen lassen, beide Publishes aber
+              # überspringen; der Tag-/Release-Schritt ist idempotent und zieht nach.
+              echo "::warning::Version ${VERSION} ist veröffentlicht, aber die Finalisierung fehlt (Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}) — wird nachgeholt."
+              echo "publish=true"      >> "$GITHUB_OUTPUT"
+              echo "publish_css=false" >> "$GITHUB_OUTPUT"
+              echo "publish_lib=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            # Beide liegen, Tag und Release sind da → nichts zu tun.
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              # Manuell und ausdrücklich ohne Dry-Run angefordert → laut scheitern.
+              echo "::error::Version ${VERSION} ist für beide Pakete bereits veröffentlicht. Version in beiden package.json erhöhen."
+              exit 1
+            fi
+            # Push-getrieben → still übergehen: die package.json wurde ohne
+            # Versionswechsel angefasst, das ist der Normalfall.
+            echo "::notice::Version ${VERSION} ist bereits veröffentlicht — nichts zu tun."
+            echo "publish=false"     >> "$GITHUB_OUTPUT"
+            echo "publish_css=false" >> "$GITHUB_OUTPUT"
+            echo "publish_lib=false" >> "$GITHUB_OUTPUT"
+          else
+            # Mindestens eines fehlt → veröffentlichen, aber nur das Fehlende. Liegt
+            # genau eines schon, war ein vorheriger Lauf auf halber Strecke stehen
+            # geblieben: laut sagen und den Rest nachziehen (der Lauf heilt sich
+            # selbst, statt den Lockstep dauerhaft zu brechen).
+            if [ "$CSS_EXISTS" = "true" ] || [ "$LIB_EXISTS" = "true" ]; then
+              echo "::warning::Unvollständiger Release ${VERSION} gefunden (CSS=${CSS_EXISTS}, Lib=${LIB_EXISTS}) — ein vorheriger Lauf brach zwischen den Publishes ab. Es wird nur das fehlende Paket nachgezogen."
+            fi
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            [ "$CSS_EXISTS" = "true" ] && echo "publish_css=false" >> "$GITHUB_OUTPUT" || echo "publish_css=true" >> "$GITHUB_OUTPUT"
+            [ "$LIB_EXISTS" = "true" ] && echo "publish_lib=false" >> "$GITHUB_OUTPUT" || echo "publish_lib=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ── Harte Vorbedingung: konsumierbares Artefakt? ────────────────────────────
+  # Als reusable Workflow eingebunden (siehe Kommentar in consumer-smoke-test.yml),
+  # weil `needs:` nur innerhalb derselben Datei wirkt.
+  consumer-smoke-test:
+    name: Consumer-Smoke-Test (Vorbedingung)
+    needs: pruefen
+    if: needs.pruefen.outputs.publish == 'true'
+    uses: ./.github/workflows/consumer-smoke-test.yml
+
+  publish:
+    name: Beide Pakete bauen und veröffentlichen
+    needs: [pruefen, consumer-smoke-test]
+    if: needs.pruefen.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      # contents: write für Tag und Release, die dieser Job selbst anlegt.
+      contents: write
+      packages: write
+    env:
+      VERSION: ${{ needs.pruefen.outputs.version }}
+      DRY: ${{ needs.pruefen.outputs.dry }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+          registry-url: https://npm.pkg.github.com
+          scope: '@conciso'
+      # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
+      - name: Dependencies installieren
+        run: npm ci
+      - name: CSS-Schicht bauen (@conciso/design-system)
+        run: npm run build
+      - name: Angular-Lib bauen (@conciso/design-system-angular)
+        run: npm run build --workspace=angular-lib
+      - name: Dry-Run-Flag bestimmen
+        id: mode
+        run: |
+          if [ "$DRY" = "true" ]; then echo "flag=--dry-run" >> "$GITHUB_OUTPUT";
+          else echo "flag=" >> "$GITHUB_OUTPUT"; fi
+      # Einzeln konditioniert: beim Nachziehen eines unvollständigen Releases wird
+      # nur das fehlende Paket veröffentlicht — ein zweites `npm publish` derselben
+      # Version würde sonst mit 409 abbrechen.
+      - name: CSS-Schicht veröffentlichen
+        if: needs.pruefen.outputs.publish_css == 'true'
+        run: npm publish ${{ steps.mode.outputs.flag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Angular-Lib veröffentlichen
+        if: needs.pruefen.outputs.publish_lib == 'true'
+        working-directory: angular-lib/dist/design-system-angular
+        run: npm publish ${{ steps.mode.outputs.flag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Der Tag macht die Konvention aus dem CHANGELOG wahr („Releases werden als
+      # Git-Tags vX.Y.Z markiert“) — ohne ihn zeigt nichts im Repo auf die
+      # veröffentlichte Version. Läuft erst NACH den Publishes: ein Tag auf einem
+      # Stand, dessen Veröffentlichung scheiterte, wäre irreführend.
+      - name: Tag setzen und Release veröffentlichen
+        if: env.DRY == 'false'
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
+            echo "::notice::Tag v${VERSION} existiert bereits — wird nicht neu gesetzt."
+          else
+            git tag "v${VERSION}"
+            git push origin "v${VERSION}"
+          fi
+          # Release-Text ist der CHANGELOG-Abschnitt dieser Version (bis zur
+          # nächsten Überschrift), damit Release-Notes und CHANGELOG nicht
+          # auseinanderlaufen.
+          awk -v v="## [${VERSION}]" '
+            index($0, v) == 1 { inside = 1; next }
+            inside && /^## \[/ { exit }
+            inside { print }
+          ' CHANGELOG.md > /tmp/release-notes.md
+          # Beim Nachziehen eines unvollständigen Releases kann das Release schon
+          # existieren — dann nicht scheitern.
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            echo "::notice::Release v${VERSION} existiert bereits — wird nicht neu erstellt."
+          else
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --notes-file /tmp/release-notes.md
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

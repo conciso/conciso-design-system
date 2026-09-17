@@ -1,13 +1,16 @@
 name: Storybook / Angular
 
-# Läuft bei Änderungen an storybook-angular UND an der CSS-Schicht, die die
-# Stories rendern (die Preview linkt css/* und staticDirs css/dist/icons/fonts) —
-# so fangen die a11y-/Render-Tests auch CSS-Regressionen.
+# Läuft bei Änderungen an storybook-angular, an der Lib unter angular-lib (dort
+# liegen seit der Extraktion die Komponenten selbst — ohne diesen Eintrag bliebe
+# ein reiner Lib-PR ungetestet) UND an der CSS-Schicht, die die Stories rendern
+# (die Preview linkt css/* und staticDirs css/dist/icons/fonts) — so fangen die
+# a11y-/Render-Tests auch CSS-Regressionen.
 on:
   push:
     branches: [main]
     paths:
       - 'storybook-angular/**'
+      - 'angular-lib/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -20,6 +23,7 @@ on:
   pull_request:
     paths:
       - 'storybook-angular/**'
+      - 'angular-lib/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -47,8 +51,11 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: storybook-angular/package-lock.json
+          cache-dependency-path: package-lock.json
+      # npm-Workspace (storybook-angular + angular-lib teilen sich @angular/* etc. in
+      # einem Root-node_modules, siehe docs/adr/0002) → vom Repo-Root aus installieren.
       - name: Dependencies installieren
+        working-directory: .
         run: npm ci
       - name: Lint
         run: npm run lint

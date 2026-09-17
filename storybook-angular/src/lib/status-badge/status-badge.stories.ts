@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { StatusBadgeComponent } from './status-badge.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { StatusBadgeComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatusBadgeComponent> = {
   title: 'Atoms/Status-Badge',

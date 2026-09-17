@@ -3,8 +3,8 @@
  * Komponenten-Icons. Zwei bewusst getrennte Quellen:
  *
  * 1. **DS-eigene Glyphen** (`ui*`): aus dem generierten DS-Icon-Export
- *    (repo-root `icons/icons.js`, Single Source of Truth). Nur dort, wo das DS ein
- *    eigenes Glyph definiert, das KEIN bzw. ein abweichendes Heroicon-Pendant hat:
+ *    (Paket `@conciso/design-system/icons`, Single Source of Truth). Nur dort, wo das
+ *    DS ein eigenes Glyph definiert, das KEIN bzw. ein abweichendes Heroicon-Pendant hat:
  *      · `ui-caret-down` — kräftiger Caret (10er-viewBox), kein Heroicon-Pendant.
  *      · `ui-check`      — eigener Haken (12er-viewBox), weicht vom heroCheck (24er) ab.
  *
@@ -17,7 +17,10 @@
  * Komponenten importieren ausschließlich aus dieser Datei, nie direkt aus
  * `@ng-icons/heroicons`.
  */
-import { icons as dsIcons } from '../../../../icons/icons.js';
+// @ts-expect-error — @conciso/design-system liefert icons.js als reines generiertes JS ohne
+// eigene Typdeklaration; die Form ist in ds-icons-export.d.ts dokumentiert (ngtsc greift die
+// Ambient-Deklaration dort nicht, anders als tsc, deshalb die explizite Unterdrückung hier).
+import { icons as dsIcons } from '@conciso/design-system/icons';
 
 // Heroicons: glyph-identische (chevron/magnifying) + im DS fehlende Chrome-Icons.
 export {

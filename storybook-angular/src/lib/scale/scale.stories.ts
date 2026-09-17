@@ -1,7 +1,7 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, fireEvent, waitFor, expect } from 'storybook/test';
-import { ScaleComponent } from './scale.component';
+import { ScaleComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ScaleComponent> = {
   title: 'Atoms/Skala',

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
-import { ChipComponent } from './chip.component';
+import { ChipComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ChipComponent> = {
   title: 'Atoms/Chip',

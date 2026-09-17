@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { StatStripComponent } from './stat-strip.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { StatStripComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatStripComponent> = {
   title: 'Organisms/StatStrip',

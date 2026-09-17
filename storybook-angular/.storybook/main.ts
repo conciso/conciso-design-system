@@ -1,5 +1,16 @@
-import type { StorybookConfig } from '@storybook/angular';
+import { fileURLToPath } from 'node:url';
+import type { StorybookConfig } from '@storybook/angular-vite';
 import remarkGfm from 'remark-gfm';
+
+/**
+ * Quell-Einstieg der Angular-Library (identisch zum `paths`-Mapping in
+ * ../tsconfig.json). Webpack las das tsconfig-Mapping automatisch; Vites
+ * Dependency-Scan/Optimizer tut das nicht, deshalb wird derselbe Pfad unten als
+ * expliziter `resolve.alias` gesetzt.
+ */
+const angularLibEntry = fileURLToPath(
+  new URL('../../angular-lib/projects/design-system-angular/src/public-api.ts', import.meta.url)
+);
 
 /**
  * Storybook-Konfiguration für den Angular-Teil des Conciso Design Systems.
@@ -10,7 +21,7 @@ import remarkGfm from 'remark-gfm';
  * - Storybook serviert diese Verzeichnisse via `staticDirs` UNVERÄNDERT als
  *   statische Assets und bindet sie per <link> in preview-head.html ein
  *   (siehe ./preview-head.html). Es wird KEIN CSS kopiert, neu kompiliert oder
- *   durch den Angular-/Webpack-Build geschleust — die Angular-Komponenten
+ *   durch den Angular-/Vite-Build geschleust — die Angular-Komponenten
  *   konsumieren ausschließlich die bestehenden CSS-Klassen.
  */
 const config: StorybookConfig = {
@@ -35,18 +46,15 @@ const config: StorybookConfig = {
     // axe-basierte Barrierefreiheits-Prüfung (Panel + passive Mitprüfung im
     // Test-Runner, aktuell nicht-blockierend).
     '@storybook/addon-a11y',
+    // Führt die Stories als Vitest-Tests aus (Browser-Mode via Playwright);
+    // Konfiguration in ../vitest.config.ts, Setup in ./vitest.setup.ts.
+    '@storybook/addon-vitest',
   ],
   framework: {
-    name: '@storybook/angular',
-    options: {},
-  },
-  /**
-   * Dev-Server hört auf 0.0.0.0:6006 (siehe angular.json → architect.storybook.options)
-   * und ist hinter Traefik unter http://conciso-ds.localhost erreichbar. Damit der
-   * Builder Requests mit diesem Host-Header akzeptiert, wird er hier explizit erlaubt.
-   */
-  core: {
-    allowedHosts: ['conciso-ds.localhost', 'localhost', '.localhost'],
+    name: '@storybook/angular-vite',
+    // compodoc ist hier (wie zuvor in angular.json) bewusst aus — die Docs
+    // entstehen aus CSF/argTypes, nicht aus generierter compodoc-JSON.
+    options: { compodoc: false },
   },
   staticDirs: [
     { from: '../../css', to: '/conciso/css' },
@@ -58,14 +66,32 @@ const config: StorybookConfig = {
     // braucht ausschließlich die drei Wortmarken, kein Demo-Foto.
     { from: '../../assets/brand', to: '/conciso/brand' },
   ],
-  // Erlaubt das Importieren von .md-Dateien als Roh-String (webpack-5-eigenes
-  // asset/source, kein Extra-Loader). Damit kann die Einführungs-Seite die echte
-  // README.md rendern → eine einzige Quelle, README-Änderungen sind sofort sichtbar.
-  webpackFinal: async (config) => {
-    config.module ??= {};
-    config.module.rules ??= [];
-    config.module.rules.push({ test: /\.md$/, exclude: /node_modules/, type: 'asset/source' });
-    return config;
+  /**
+   * Dev-Server hört auf 0.0.0.0:6006 (siehe angular.json → architect.storybook.options)
+   * und ist hinter Traefik unter http://conciso-ds.localhost erreichbar. Vite prüft
+   * Host-Header selbst (server.allowedHosts), daher werden die Proxy-Hosts hier in
+   * der Vite-Server-Config erlaubt — der Nachfolger der früheren
+   * webpack-dev-server-Option `core.allowedHosts`.
+   *
+   * Markdown als Roh-String braucht keinen eigenen Loader mehr: Vite kann jede
+   * Datei nativ per `?raw`-Suffix importieren (z. B. `import readme from
+   * '../../README.md?raw'`) — die frühere webpackFinal-Regel (asset/source für
+   * *.md) entfällt ersatzlos.
+   */
+  viteFinal: async (viteConfig) => {
+    viteConfig.server = {
+      ...viteConfig.server,
+      host: '0.0.0.0',
+      allowedHosts: ['conciso-ds.localhost', 'localhost', '.localhost'],
+    };
+    viteConfig.resolve = {
+      ...viteConfig.resolve,
+      alias: {
+        ...viteConfig.resolve?.alias,
+        '@conciso/design-system-angular': angularLibEntry,
+      },
+    };
+    return viteConfig;
   },
 };
 

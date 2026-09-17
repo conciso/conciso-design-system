@@ -1,10 +1,10 @@
 /**
- * Typdeklaration für den generierten DS-Icon-ESM-Export (repo-root `icons/icons.js`).
- * Die Datei ist reines, generiertes JS ohne mitgelieferte Typen → hier deklariert,
- * damit die Registry (cds-icons.ts) sie typsicher importieren kann. Wildcard, weil
- * der Import über einen relativen Pfad (`../../../../icons/icons.js`) läuft.
+ * Typdeklaration für den generierten DS-Icon-ESM-Export, bezogen über das Paket
+ * `@conciso/design-system/icons` (Subpath-Export auf `icons/icons.js`, Single
+ * Source of Truth). Die Datei ist reines, generiertes JS ohne mitgelieferte Typen
+ * → hier deklariert, damit die Registry (cds-icons.ts) sie typsicher importieren kann.
  */
-declare module '*/icons/icons.js' {
+declare module '@conciso/design-system/icons' {
   export interface CdsIconEntry {
     name: string;
     area: string;

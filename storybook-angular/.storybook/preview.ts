@@ -1,9 +1,9 @@
-import type { Preview } from '@storybook/angular';
-import { componentWrapperDecorator } from '@storybook/angular';
+import type { Preview } from '@storybook/angular-vite';
+import { componentWrapperDecorator } from '@storybook/angular-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
 import { UPDATE_GLOBALS } from 'storybook/internal/core-events';
-import { themeStore, type CdsThemeMode } from '../src/lib/theme-switch/theme-mode';
+import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
 
 // Store → Toolbar: klickt man einen Theme-Switcher (Cycle/Segment/Dropdown),
 // aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und

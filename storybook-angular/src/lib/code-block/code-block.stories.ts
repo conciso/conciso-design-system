@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { CodeBlockComponent } from './code-block.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { CodeBlockComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cb-copy` hat nur 3.31:1 Kontrast, weil css/components.css
 // --n-400 als Textfarbe nutzt (laut tokens.css AA-Fail für Normaltext). Fix gehört

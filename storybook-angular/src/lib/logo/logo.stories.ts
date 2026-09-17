@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/angular';
-import { LogoComponent } from './logo.component';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { LogoComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<LogoComponent> = {
   title: 'Atoms/Logo',

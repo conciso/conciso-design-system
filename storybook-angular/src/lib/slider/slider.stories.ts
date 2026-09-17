@@ -1,7 +1,7 @@
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, fireEvent, waitFor, expect } from 'storybook/test';
-import { SliderComponent } from './slider.component';
+import { SliderComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SliderComponent> = {
   title: 'Atoms/Slider',

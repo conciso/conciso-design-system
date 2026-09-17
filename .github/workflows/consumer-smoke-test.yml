@@ -1,0 +1,67 @@
+name: Consumer-Smoke-Test
+
+# Baut Angular-Lib + CSS-Schicht, tarballt beide per `npm pack` und installiert
+# sie in die committete Consumer-Fixture (examples/consumer-fixture) — dann ein
+# produktiver AOT-`ng build` dort. Fängt Fehler ab, die kein anderer Test sieht:
+# unvollständige APF-Metadaten, fehlende Re-Exports in public-api.ts, nicht
+# auflösbare peer-Deps, AOT-Template-Typfehler, fehlende Icon-Registrierung.
+# Siehe CONTEXT.md#consumer-smoke-test, docs/adr/0003 + 0004.
+#
+# `workflow_call` macht den Job als reusable Workflow aufrufbar: Der künftige
+# Publish-Workflow (Ticket 04) kann ihn per `uses: ./.github/workflows/consumer-smoke-test.yml`
+# als eigenen Job einbinden und den Publish-Job per `needs:` darauf verdrahten —
+# `needs:` funktioniert nur innerhalb derselben Workflow-Datei, reusable Workflows
+# sind der Weg, das trotzdem über Workflow-Grenzen hinweg abzubilden.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'angular-lib/**'
+      - 'examples/consumer-fixture/**'
+      - 'scripts/consumer-smoke-test.sh'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/consumer-smoke-test.yml'
+  pull_request:
+    paths:
+      - 'angular-lib/**'
+      - 'examples/consumer-fixture/**'
+      - 'scripts/consumer-smoke-test.sh'
+      - 'css/**'
+      - 'dist/**'
+      - 'icons/**'
+      - 'fonts/**'
+      - 'tokens/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/consumer-smoke-test.yml'
+  workflow_call: {}
+
+concurrency:
+  group: consumer-smoke-test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  consumer-smoke-test:
+    name: AOT-Build der Consumer-Fixture (Tarball-Konsum)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Consumer-Smoke-Test
+        # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
+        # daran, dass das Execute-Bit jeden Checkout übersteht. Gleiche Konvention
+        # wie in pr-preview.yml.
+        run: bash scripts/consumer-smoke-test.sh

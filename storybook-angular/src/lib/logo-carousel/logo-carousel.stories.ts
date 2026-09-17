@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
-import { LogoCarouselComponent } from './logo-carousel.component';
+import { LogoCarouselComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<LogoCarouselComponent> = {
   title: 'Organisms/LogoCarousel',
