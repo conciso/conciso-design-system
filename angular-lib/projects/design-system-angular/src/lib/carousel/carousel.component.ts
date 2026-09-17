@@ -1,4 +1,5 @@
 import { Component, ElementRef, inject, input, model } from '@angular/core';
+import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export interface CdsSlide {
   image?: string;
@@ -116,30 +117,13 @@ export class CarouselComponent {
   /**
    * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
    * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   * Indexberechnung in `../shared/dots-keyboard.ts` (identisch mit LogoCarousel).
    *
    * @internal
    */
   protected onDotsKeydown(event: KeyboardEvent): void {
-    const n = this.slides().length;
-    if (!n) return;
-    const cur = this.active();
-    let next: number;
-    switch (event.key) {
-      case 'ArrowRight':
-        next = (cur + 1) % n;
-        break;
-      case 'ArrowLeft':
-        next = (cur - 1 + n) % n;
-        break;
-      case 'Home':
-        next = 0;
-        break;
-      case 'End':
-        next = n - 1;
-        break;
-      default:
-        return;
-    }
+    const next = nextDotsIndex(this.slides().length, this.active(), event.key);
+    if (next === null) return;
     event.preventDefault();
     this.active.set(next);
     this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[next]?.focus();

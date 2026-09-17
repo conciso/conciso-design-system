@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
@@ -146,6 +147,7 @@ export interface CdsNavItem {
 })
 export class TopnavComponent {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly document = inject(DOCUMENT);
 
   private readonly uid = ++cdsTopnavUid;
   /** @internal */
@@ -244,12 +246,45 @@ export class TopnavComponent {
   /** @internal */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
+    // Außenklick: NICHT den Fokus umsetzen — der Nutzer hat bewusst woanders
+    // hingeklickt, dorthin den Fokus zu ziehen wäre ein eigener Fehler.
     if (!this.host.nativeElement.contains(event.target as Node)) this.closeAll();
   }
 
   /** @internal */
   @HostListener('document:keydown.escape')
   onEscape(): void {
+    this.closeWithFocusReturn();
+  }
+
+  /**
+   * Wie `closeAll()`, gibt den Fokus aber an den öffnenden Toggle zurück (Submenü-
+   * bzw. Such-Toggle) — NUR wenn der Fokus beim Schließen tatsächlich innerhalb des
+   * schließenden Bereichs lag. `css/components.css:1148` setzt `.ep-nav-sub{display:
+   * none}`, `:1189` dasselbe für `.ep-nav-search-pop`: das fokussierte Element
+   * verschwindet damit aus dem Fokus-Baum und der Fokus fiele sonst ans `<body>`
+   * (WCAG 2.4.3). Nur für den Escape-Pfad gedacht.
+   *
+   * @internal
+   */
+  private closeWithFocusReturn(): void {
+    const active = this.document.activeElement;
+    let toggle: HTMLElement | null = null;
+    const i = this.openIndex();
+    if (i >= 0) {
+      const sub = this.host.nativeElement.querySelector(`#${this.subId(i)}`);
+      if (sub && active && sub.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>(
+          `[aria-controls="${this.subId(i)}"]`,
+        );
+      }
+    } else if (this.searchOpen()) {
+      const pop = this.host.nativeElement.querySelector('.ep-nav-search-pop');
+      if (pop && active && pop.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>('.ep-nav-search-toggle');
+      }
+    }
     this.closeAll();
+    toggle?.focus();
   }
 }

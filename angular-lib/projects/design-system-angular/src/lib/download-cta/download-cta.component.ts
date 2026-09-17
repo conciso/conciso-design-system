@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -31,9 +31,15 @@ import type { CdsArea } from '../area';
         }
       </div>
       <div class="cta-dl-actions">
-        <button [class]="'btn btn-filled btn-' + area()" type="button">{{ primaryLabel() }}</button>
+        <!-- Klassen direkt komponiert statt cds-button: .cta-dl-actions steht auf
+             flex-direction:column + align-items:stretch (css/components.css:1421) und
+             streckt seine Kinder; ein cds-button-Custom-Element streckt sich darüber
+             nicht mit. Die einzige Eingabe, die es zum Füllen der Spalte brächte, full,
+             zentriert über .btn-full (css/components.css:53) zugleich das Label und
+             würde den bisher linksbündigen Look ändern. -->
+        <button [class]="'btn btn-filled btn-' + area()" type="button" (click)="primaryClick.emit($event)">{{ primaryLabel() }}</button>
         @if (secondaryLabel()) {
-          <button [class]="'btn btn-text btn-' + area()" type="button">{{ secondaryLabel() }}</button>
+          <button [class]="'btn btn-text btn-' + area()" type="button" (click)="secondaryClick.emit($event)">{{ secondaryLabel() }}</button>
         }
       </div>
     </div>
@@ -50,4 +56,9 @@ export class DownloadCtaComponent {
   readonly meta = input('Figma · Version 1.0 · 48 MB');
   readonly primaryLabel = input('Herunterladen');
   readonly secondaryLabel = input('Vorschau ansehen');
+
+  /** Klick auf die primäre Aktion (Haupt-CTA). */
+  readonly primaryClick = output<MouseEvent>();
+  /** Klick auf die sekundäre Aktion (nur wenn `secondaryLabel` gesetzt ist). */
+  readonly secondaryClick = output<MouseEvent>();
 }

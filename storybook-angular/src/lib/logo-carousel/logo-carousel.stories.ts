@@ -51,6 +51,31 @@ export const Interaktiv: Story = {
   },
 };
 
+export const TastaturDots: Story = {
+  name: 'Tastatur (Dots)',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Dot-Leiste (role=tab in role=tablist): roving tabindex, ArrowRight mit Umlauf,
+  // Home/End an die Enden, Fokus wandert mit (1:1 wie beim Carousel).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('tab');
+    dots[0].focus();
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[1]).toHaveFocus();
+
+    await userEvent.keyboard('{End}');
+    await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[dots.length - 1]).toHaveFocus();
+
+    await userEvent.keyboard('{Home}');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveFocus();
+  },
+};
+
 /**
  * Reale Logos sind Bilder (`src`). Kacheln ohne Bild fallen auf den Text-`label`
  * als Platzhalter zurück – so bleibt das Set auch bei fehlendem Asset vollständig.

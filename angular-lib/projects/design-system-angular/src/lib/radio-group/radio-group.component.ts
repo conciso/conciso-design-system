@@ -41,6 +41,7 @@ let uid = 0;
               [checked]="opt === value()"
               [disabled]="disabled()"
               [attr.required]="required() ? '' : null"
+              [attr.aria-required]="required() ? 'true' : null"
               [style.accent-color]="'var(--' + area() + '-500)'"
               style="width:18px;height:18px;flex-shrink:0;cursor:pointer"
               (change)="onRadioChange(opt)"

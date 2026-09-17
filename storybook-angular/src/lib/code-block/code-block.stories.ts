@@ -11,10 +11,6 @@ const meta: Meta<CodeBlockComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
-    // Der Grund für dieses 'todo' ist weg: .cb-copy trug --n-400 mit 3.31:1 und nutzt
-    // jetzt --n-500 (gegen den echten Grund 5,32:1 im Light, 8,01:1 im Dark). Wieder
-    // scharf schalten, sobald der Test-Runner einmal grün durchgelaufen ist.
-    a11y: { test: 'todo' },
     docs: {
       description: {
         component:

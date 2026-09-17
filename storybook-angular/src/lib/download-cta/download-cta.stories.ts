@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, userEvent, expect, fn } from 'storybook/test';
 import { DownloadCtaComponent } from '@conciso/design-system-angular';
 
 // Bekannter a11y-Befund: `.cta-dl-eyebrow` (Bereich co) hat nur 3.28:1 Kontrast,
@@ -11,10 +12,6 @@ const meta: Meta<DownloadCtaComponent> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
-    // Der Grund für dieses 'todo' ist weg: .cta-dl-eyebrow trug --co-600 mit 3.28:1 und
-    // nutzt jetzt --co-700 mit 5,52:1 auf Weiß. Wieder scharf schalten, sobald der
-    // Test-Runner einmal grün durchgelaufen ist.
-    a11y: { test: 'todo' },
     docs: {
       description: {
         component:
@@ -35,10 +32,22 @@ const meta: Meta<DownloadCtaComponent> = {
     meta: 'Figma · Version 1.0 · 48 MB',
     primaryLabel: 'Herunterladen',
     secondaryLabel: 'Vorschau ansehen',
+    primaryClick: fn(),
+    secondaryClick: fn(),
   },
 };
 export default meta;
 
 type Story = StoryObj<DownloadCtaComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Beide Aktionen sind rohe <button>-Elemente mit (click)-gebundenem Output
+  // (primaryClick/secondaryClick) — vorher ohne jede Bindung, ein Klick verpuffte.
+  play: async ({ canvasElement, args }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByRole('button', { name: 'Herunterladen' }));
+    await expect(args.primaryClick).toHaveBeenCalledTimes(1);
+    await userEvent.click(c.getByRole('button', { name: 'Vorschau ansehen' }));
+    await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
+  },
+};

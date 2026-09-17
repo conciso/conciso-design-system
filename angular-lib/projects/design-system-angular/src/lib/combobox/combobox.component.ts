@@ -254,8 +254,12 @@ export class ComboboxComponent implements ControlValueAccessor {
   /** @internal */
   close(): void {
     this.open.set(false);
-    // Einzelauswahl: keinen losen Filtertext stehen lassen.
-    if (!this.multi()) {
+    if (this.multi()) {
+      // Multi-Modus: keinen losen Filtertext stehen lassen, der zu keiner Auswahl
+      // gehört (Auswahl läuft über die Chips, nicht über das Feld).
+      this.query.set('');
+    } else {
+      // Einzelauswahl: keinen losen Filtertext stehen lassen.
       const label = this.options().find((o) => o.value === this.value())?.label ?? '';
       this.query.set(label);
     }
@@ -322,7 +326,23 @@ export class ComboboxComponent implements ControlValueAccessor {
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this.activeIndex.set(Math.max(0, this.activeIndex() - 1));
+        if (!this.open()) this.openMenu();
+        else this.activeIndex.set(Math.max(0, this.activeIndex() - 1));
+        this.scrollActive();
+        break;
+      case 'Home':
+        // Nur bei offenem Menü abfangen (erste gefilterte Option) — bei
+        // geschlossenem Feld bleibt die native Cursor-Bewegung im Text erhalten.
+        if (!this.open()) return;
+        event.preventDefault();
+        this.activeIndex.set(0);
+        this.scrollActive();
+        break;
+      case 'End':
+        // Analog zu Home: nur bei offenem Menü (letzte gefilterte Option).
+        if (!this.open()) return;
+        event.preventDefault();
+        this.activeIndex.set(opts.length - 1);
         this.scrollActive();
         break;
       case 'Enter': {

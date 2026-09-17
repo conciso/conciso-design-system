@@ -74,6 +74,62 @@ export const Interaktiv: Story = {
   },
 };
 
+export const Tastatur: Story = {
+  name: 'Tastatur',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  args: {
+    label: 'Interessen',
+    options: INTERESSEN,
+    placeholder: 'Hinzufügen…',
+    area: 'wo',
+    multi: true,
+    values: [],
+  },
+  // Reine Tastatur, keine Klicks auf Optionen: ArrowDown/ArrowUp öffnen BEIDE das
+  // geschlossene Menü (vorher nur ArrowDown), Home/End springen auf die erste/letzte
+  // gefilterte Option, Enter wählt, Escape schließt und leert im Multi-Modus den
+  // stehen gebliebenen Filtertext (vorher blieb er stehen).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const input = c.getByRole('combobox');
+
+    // Fokus öffnet automatisch ((focus)="openMenu()") — für den eigentlichen
+    // Test erst wieder schließen.
+    await userEvent.click(input);
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    // ArrowDown öffnet das geschlossene Menü (Referenzverhalten, unverändert).
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+
+    // ArrowUp öffnet das geschlossene Menü genauso (der eigentliche Fix).
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(input).toHaveAttribute('aria-expanded', 'true');
+
+    // Home/End auf der (noch ungefilterten) Optionsliste.
+    const options = c.getAllByRole('option');
+    await userEvent.keyboard('{End}');
+    await expect(input).toHaveAttribute('aria-activedescendant', options[options.length - 1].id);
+    await userEvent.keyboard('{Home}');
+    await expect(input).toHaveAttribute('aria-activedescendant', options[0].id);
+
+    // Enter wählt die aktive (erste) Option → Chip „Künstliche Intelligenz“.
+    await userEvent.keyboard('{Enter}');
+    await expect(c.getAllByRole('button', { name: /Entfernen:/ })).toHaveLength(1);
+
+    // Filtertext ohne Auswahl tippen, dann Escape: schließt UND leert das Feld.
+    await userEvent.type(input, 'Cloud');
+    await expect(input).toHaveValue('Cloud');
+    await userEvent.keyboard('{Escape}');
+    await expect(input).toHaveValue('');
+    await expect(input).toHaveAttribute('aria-expanded', 'false');
+  },
+};
+
 export const MultiSelect: Story = {
   name: 'Multi-Select',
   args: {

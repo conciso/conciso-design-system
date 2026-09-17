@@ -1,5 +1,6 @@
 import { Component, ElementRef, effect, inject, input, model, signal } from '@angular/core';
 import { CdsLogo, LogoComponent } from '../logo/logo.component';
+import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export type { CdsLogo } from '../logo/logo.component';
 
@@ -74,9 +75,11 @@ let cdsLogoCarouselUid = 0;
             type="button"
             role="tab"
             [attr.aria-selected]="i === active()"
+            [attr.tabindex]="i === active() ? 0 : -1"
             [attr.aria-controls]="slideId(i)"
             [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
             (click)="goTo(i)"
+            (keydown)="onDotsKeydown($event)"
           ></button>
         }
       </div>
@@ -155,6 +158,22 @@ export class LogoCarouselComponent {
   /** @internal */
   goTo(i: number): void {
     this.active.set(i);
+  }
+
+  /**
+   * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
+   * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   * 1:1 übernommen von `carousel.component.ts` (Indexberechnung in
+   * `../shared/dots-keyboard.ts`, identisch für beide Komponenten).
+   *
+   * @internal
+   */
+  protected onDotsKeydown(event: KeyboardEvent): void {
+    const next = nextDotsIndex(this.sets().length, this.active(), event.key);
+    if (next === null) return;
+    event.preventDefault();
+    this.goTo(next);
+    this.host.nativeElement.querySelectorAll<HTMLElement>('.logo-carousel-dot')[next]?.focus();
   }
 
   /**
