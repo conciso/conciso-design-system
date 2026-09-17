@@ -66,3 +66,24 @@ Ausführungsweg — Arbeitsteilung der beiden Runner:
 
 Fällt einer der beiden Wege künftig weg (z.B. wenn Visual-Snapshots ebenfalls über
 Vitest laufen), ist das eine erneute Ergänzung hier — nicht ein stiller Umbau.
+
+## Ergänzung: eine Grenze dieser Testebene (2026-09-17)
+
+Beim Schließen der Testlücken aus dem Komponenten-Review trat ein Fall auf, den Stories
+grundsätzlich nicht abdecken können: die Tastatursteuerung von `cds-slider` und `cds-scale`.
+
+Beide beziehen sie vom nativen `<input type="range">`, im Browser funktioniert sie. Prüfen lässt
+sie sich hier trotzdem nicht. `userEvent.keyboard()` bildet Tastenverhalten in JavaScript nach und
+führt dafür eine Tabelle (`@testing-library/user-event`, `event/behavior/keydown.js`): Für die
+Pfeiltasten kennt sie nur `input[type="radio"]`, für Pos1 und Ende nur Textauswahl. Für
+`type="range"` gibt es keinen Eintrag, und die synthetischen Ereignisse lösen das native Stepping
+der Rendering-Engine nicht aus. Gegenprobe mit einem echten Tastendruck über Playwright auf ein
+rohes Range-Element: dort ändert sich der Wert korrekt.
+
+Ein Test dafür wäre also dauerhaft rot, ohne dass an der Komponente etwas fehlt. Er steht deshalb
+bewusst nicht im Repo; die Begründung liegt als Kommentar in beiden Story-Dateien, damit sie beim
+nächsten Durchgang nicht erneut erarbeitet werden muss.
+
+Das ist kein Grund, die Entscheidung dieser ADR zu ändern. Es ist die eine bekannte Lücke: Wer sie
+schließen will, braucht eine dritte Testebene (echte Playwright-Tests außerhalb von Storybook) —
+und damit einen Nachtrag hier, der deren Pflege rechtfertigt.

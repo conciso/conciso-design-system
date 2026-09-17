@@ -14,6 +14,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
+### Added
+- **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
+  Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
+  des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
+  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
+  Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
+  deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
+
 ### Breaking
 - **Inhalts-Inputs von 16 Komponenten sind jetzt `input.required()`.** Betroffen:
   `BlockquoteComponent` (`quote`, `name`), `TestimonialComponent` (`quote`, `name`),
@@ -70,6 +78,20 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `prefers-color-scheme`, die Docs-Chrome bleibt fest im Light-Theme — beide sind
   bewusst vom Toolbar-Theme-Schalter der Preview entkoppelt, der weiterhin nur die
   Story-Vorschau steuert.
+
+### Changed
+- **Alle Komponenten laufen mit `OnPush` und leiten Werte über `computed()` ab.** Abgeleitete
+  Werte steckten bisher in Gettern, die bei jedem Change-Detection-Lauf neu rechneten; das
+  explizite `standalone: true` war seit Angular 19 Rauschen. Template-Handler und interne
+  Zustandssignale sind jetzt `protected`, Legacy-Decorators sind den heutigen APIs gewichen. Die
+  Regeln dahinter stehen in [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md).
+  Für Konsumenten ändert sich am Verhalten nichts.
+- **Barrierefreiheits- und Verhaltenskorrekturen.** Die Dots des LogoCarousel waren als Tab-Leiste
+  ausgezeichnet, ohne auf Pfeiltasten zu reagieren. Die Topnav gab beim Schließen per Escape den
+  Fokus nicht an den öffnenden Knopf zurück, obwohl das CSS das Menü ausblendet — der Fokus fiel
+  ins Nichts. Die Combobox öffnete nicht auf Pfeil nach oben, kannte kein Pos1 und Ende und ließ im
+  Mehrfachmodus losen Filtertext stehen. Der DownloadCta hatte überhaupt keinen Output, ein Klick
+  auf seine Hauptaktion verpuffte.
 
 ### Geplant
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
