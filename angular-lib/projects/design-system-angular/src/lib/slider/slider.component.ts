@@ -117,6 +117,7 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: number): void {
     // Auf [min, max] klemmen: ein Formularwert außerhalb des Bereichs würde sonst im
     // <output> stehen, während der native Thumb an min/max klemmt (Modell/UI-Mismatch).
@@ -126,16 +127,20 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   private clamp(v: number): number {
     return Math.min(this.max(), Math.max(this.min(), v));
   }
+  /** @internal */
   registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
+  /** @internal */
   ngAfterViewInit(): void {
     const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
     if (!el) return;
@@ -148,16 +153,20 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
     }
   }
 
+  /** @internal */
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
   }
 
+  /** @internal */
   get sliderClasses(): string {
     return `slider slider-${this.area()}`;
   }
+  /** @internal */
   get outputClasses(): string {
     return `field-slider-output slider-${this.area()}`;
   }
+  /** @internal */
   get formatted(): string {
     return `${this.value().toLocaleString('de-DE')}${this.unit()}`;
   }
@@ -175,6 +184,8 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   /**
    * Gleichmäßig über [min, max] verteilte Ticks: Label (kompakt formatiert) plus
    * absolute Ziel-Position (left), zentriert auf die echte Thumb-Position.
+   *
+   * @internal
    */
   get tickItems(): { label: string; left: string }[] {
     const n = this.effectiveTickCount();
@@ -200,11 +211,13 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
     return fmt(v);
   }
 
+  /** @internal */
   onInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);
     this.value.set(value);
     this.onChange(value);
   }
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }

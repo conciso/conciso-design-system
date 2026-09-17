@@ -39,38 +39,56 @@ export abstract class FieldBase implements ControlValueAccessor {
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
 
-  // ControlValueAccessor-Callbacks (von Angular-Forms registriert).
+  /**
+   * ControlValueAccessor-Callbacks (von Angular-Forms registriert).
+   *
+   * @internal
+   */
   protected onChange: (value: string) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */
   };
+  /** @internal */
   protected onTouched: () => void = () => {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: string): void {
     this.value.set(value ?? '');
   }
+  /** @internal */
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
-  /** Vom Template bei Eingabe/Änderung des nativen Controls aufgerufen. */
+  /**
+   * Vom Template bei Eingabe/Änderung des nativen Controls aufgerufen.
+   *
+   * @internal
+   */
   handleInput(event: Event): void {
     const value = (event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
     this.value.set(value);
     this.onChange(value);
   }
-  /** Vom Template bei Verlassen des Felds → markiert das Control als „touched“. */
+  /**
+   * Vom Template bei Verlassen des Felds → markiert das Control als „touched“.
+   *
+   * @internal
+   */
   handleBlur(): void {
     this.onTouched();
   }
 
+  /** @internal */
   get errorId(): string {
     return `${this.fieldId()}-error`;
   }

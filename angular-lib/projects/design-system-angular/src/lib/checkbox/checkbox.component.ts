@@ -61,24 +61,30 @@ export class CheckboxComponent implements ControlValueAccessor {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: boolean): void {
     this.checked.set(!!value);
   }
+  /** @internal */
   registerOnChange(fn: (value: boolean) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
+  /** @internal */
   onCheckboxChange(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.checked.set(checked);
     this.onChange(checked);
   }
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }

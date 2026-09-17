@@ -94,17 +94,21 @@ export class CarouselComponent {
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */
   readonly hero = input(false);
 
+  /** @internal */
   get wrapClasses(): string {
     return this.hero() ? 'img-slider img-slider-hero' : 'img-slider';
   }
 
+  /** @internal */
   prev(): void {
     this.active.set((this.active() - 1 + this.slides().length) % this.slides().length);
   }
+  /** @internal */
   next(): void {
     this.active.set((this.active() + 1) % this.slides().length);
   }
 
+  /** @internal */
   protected slideId(i: number): string {
     return `cds-carousel-${this.instance}-slide-${i}`;
   }
@@ -112,6 +116,8 @@ export class CarouselComponent {
   /**
    * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
    * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   *
+   * @internal
    */
   protected onDotsKeydown(event: KeyboardEvent): void {
     const n = this.slides().length;
@@ -139,6 +145,7 @@ export class CarouselComponent {
     this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[next]?.focus();
   }
 
+  /** @internal */
   protected readonly placeholder =
     "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='450'%3E%3Crect%20width='800'%20height='450'%20fill='%23E8EDED'/%3E%3Ctext%20x='400'%20y='225'%20font-family='sans-serif'%20font-size='24'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EBild%3C/text%3E%3C/svg%3E";
 }

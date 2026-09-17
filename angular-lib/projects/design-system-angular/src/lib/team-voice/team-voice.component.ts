@@ -44,7 +44,11 @@ export class TeamVoiceComponent {
   readonly image = input('');
   readonly imageAlt = input('Teamfoto');
 
-  /** Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern. */
+  /**
+   * Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern.
+   *
+   * @internal
+   */
   protected readonly placeholder =
     "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='600'%20height='450'%3E%3Crect%20width='600'%20height='450'%20fill='%23E8EDED'/%3E%3Ctext%20x='300'%20y='225'%20font-family='sans-serif'%20font-size='22'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3ETeamfoto%3C/text%3E%3C/svg%3E";
 }

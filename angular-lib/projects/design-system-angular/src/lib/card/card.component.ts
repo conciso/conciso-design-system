@@ -65,12 +65,17 @@ export class CardComponent {
   /** Klick auf die Footer-Aktion. */
   readonly actionClick = output<void>();
 
+  /** @internal */
   get actionClasses(): string {
     // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
     return `btn btn-text btn-sm btn-${this.area() ?? 'co'}`;
   }
 
-  /** Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche. */
+  /**
+   * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche.
+   *
+   * @internal
+   */
   get mediaSvg(): SafeHtml {
     const icon = CDS_AREA_ICONS[this.area() ?? 'co'];
     return this.sanitizer.bypassSecurityTrustHtml(

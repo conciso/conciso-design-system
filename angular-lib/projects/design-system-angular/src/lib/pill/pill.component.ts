@@ -27,6 +27,7 @@ export class PillComponent {
   /** aria-label überschreiben; Default „Bereich <label>“. */
   readonly ariaLabel = input<string>();
 
+  /** @internal */
   get computedAriaLabel(): string {
     return this.ariaLabel() ?? `Bereich ${this.label()}`;
   }

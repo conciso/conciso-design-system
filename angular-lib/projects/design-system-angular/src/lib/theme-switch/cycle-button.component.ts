@@ -31,10 +31,14 @@ export class ThemeCycleComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
   readonly showSystem = input(true);
 
+  /** @internal */
   protected readonly svc = inject(ThemeModeService);
+  /** @internal */
   protected readonly icon = computed(() => CDS_THEME_ICON[this.svc.mode()]);
+  /** @internal */
   protected readonly label = computed(() => CDS_THEME_LABEL[this.svc.mode()]);
 
+  /** @internal */
   next(): void {
     const order = cdsThemeModes(this.showSystem());
     const i = order.indexOf(this.svc.mode());

@@ -102,31 +102,42 @@ export class ScaleComponent implements ControlValueAccessor {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: number): void {
     // Auf gültigen Stufen-Index [0, max] klemmen (max = labels().length - 1).
     const n = typeof value === 'number' && !Number.isNaN(value) ? Math.round(value) : 0;
     this.value.set(Math.min(this.max, Math.max(0, n)));
   }
+  /** @internal */
   registerOnChange(fn: (value: number) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
-  /** Oberer Index (aus der Label-Zahl abgeleitet, nicht exponiert). */
+  /**
+   * Oberer Index (aus der Label-Zahl abgeleitet, nicht exponiert).
+   *
+   * @internal
+   */
   get max(): number {
     return Math.max(0, this.labels().length - 1);
   }
+  /** @internal */
   get currentLabel(): string {
     return this.labels()[this.value()] ?? '';
   }
+  /** @internal */
   get sliderClasses(): string {
     return `slider slider-${this.area()}`;
   }
+  /** @internal */
   get outputClasses(): string {
     return `field-slider-output slider-${this.area()}`;
   }
@@ -137,6 +148,8 @@ export class ScaleComponent implements ControlValueAccessor {
    * (linksbündig bei 11px bzw. rechtsbündig bei Breite−11px), damit lange
    * Kategorie-Labels an den Enden nicht über den Rand hinaus abgeschnitten werden.
    * (11px = halbe Thumb-Breite, siehe css/components.css.)
+   *
+   * @internal
    */
   get tickItems(): { label: string; style: Record<string, string> }[] {
     const labels = this.labels();
@@ -161,11 +174,13 @@ export class ScaleComponent implements ControlValueAccessor {
     });
   }
 
+  /** @internal */
   onInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);
     this.value.set(value);
     this.onChange(value);
   }
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }

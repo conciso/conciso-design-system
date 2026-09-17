@@ -33,6 +33,7 @@ export class CodeBlockComponent {
   /** Kopier-Button anzeigen (.cb-copy). */
   readonly copyable = input(true);
 
+  /** @internal */
   protected readonly copied = signal(false);
 
   private readonly destroyRef = inject(DestroyRef);
@@ -44,10 +45,12 @@ export class CodeBlockComponent {
     this.destroyRef.onDestroy(() => this.clearResetTimer());
   }
 
+  /** @internal */
   get wrapClasses(): string {
     return this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap';
   }
 
+  /** @internal */
   copy(): void {
     // Clipboard-API gibt es nur in sicheren Kontexten (https/localhost). Fehlt sie,
     // brechen wir sauber ab, statt über optional chaining still ins Leere zu laufen.

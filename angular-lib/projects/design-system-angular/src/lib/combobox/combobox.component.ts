@@ -137,8 +137,11 @@ export class ComboboxComponent implements ControlValueAccessor {
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
 
+  /** @internal */
   readonly open = signal(false);
+  /** @internal */
   readonly activeIndex = signal(0);
+  /** @internal */
   readonly query = signal('');
   private readonly selected = signal<string[]>([]);
 
@@ -150,6 +153,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   };
 
   private readonly instance = ++uid;
+  /** @internal */
   readonly ids = {
     label: `cds-combobox-${this.instance}-label`,
     menu: `cds-combobox-${this.instance}-menu`,
@@ -175,7 +179,11 @@ export class ComboboxComponent implements ControlValueAccessor {
     });
   }
 
-  // ControlValueAccessor — Formularwert ist string[] (multi) bzw. string (single).
+  /**
+   * ControlValueAccessor — Formularwert ist string[] (multi) bzw. string (single).
+   *
+   * @internal
+   */
   writeValue(value: string | string[] | null): void {
     if (this.multi()) {
       const arr = Array.isArray(value) ? [...value] : [];
@@ -188,24 +196,35 @@ export class ComboboxComponent implements ControlValueAccessor {
       this.query.set(v ? (this.options().find((o) => o.value === v)?.label ?? '') : '');
     }
   }
+  /** @internal */
   registerOnChange(fn: (value: string | string[]) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
-  /** Aktuell gewählte Optionen (für die Chips im Multi-Modus). */
+  /**
+   * Aktuell gewählte Optionen (für die Chips im Multi-Modus).
+   *
+   * @internal
+   */
   selectedOptions(): CdsSelectOption[] {
     return this.selected()
       .map((v) => this.options().find((o) => o.value === v))
       .filter((o): o is CdsSelectOption => !!o);
   }
 
-  /** Gefilterte Optionen: Substring (case-insensitiv); im Multi-Modus ohne bereits Gewählte. */
+  /**
+   * Gefilterte Optionen: Substring (case-insensitiv); im Multi-Modus ohne bereits Gewählte.
+   *
+   * @internal
+   */
   filtered(): CdsSelectOption[] {
     const q = this.query().trim().toLowerCase();
     const chosen = this.selected();
@@ -215,20 +234,24 @@ export class ComboboxComponent implements ControlValueAccessor {
     });
   }
 
+  /** @internal */
   isSelected(value: string): boolean {
     return this.selected().includes(value);
   }
 
+  /** @internal */
   focusInput(): void {
     if (!this.disabled()) this.input?.nativeElement.focus();
   }
 
+  /** @internal */
   openMenu(): void {
     if (this.disabled() || this.open()) return;
     this.open.set(true);
     this.activeIndex.set(0);
   }
 
+  /** @internal */
   close(): void {
     this.open.set(false);
     // Einzelauswahl: keinen losen Filtertext stehen lassen.
@@ -238,12 +261,14 @@ export class ComboboxComponent implements ControlValueAccessor {
     }
   }
 
+  /** @internal */
   onInput(event: Event): void {
     this.query.set((event.target as HTMLInputElement).value);
     this.open.set(true);
     this.activeIndex.set(0);
   }
 
+  /** @internal */
   select(opt: CdsSelectOption): void {
     if (this.multi()) {
       this.selected.update((vs) => [...vs, opt.value]);
@@ -263,6 +288,7 @@ export class ComboboxComponent implements ControlValueAccessor {
     }
   }
 
+  /** @internal */
   removeValue(value: string, event?: Event): void {
     event?.stopPropagation();
     this.selected.update((vs) => vs.filter((v) => v !== value));
@@ -271,6 +297,7 @@ export class ComboboxComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
+  /** @internal */
   clear(event?: Event): void {
     event?.stopPropagation();
     this.query.set('');
@@ -278,10 +305,12 @@ export class ComboboxComponent implements ControlValueAccessor {
     this.focusInput();
   }
 
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }
 
+  /** @internal */
   onKeydown(event: KeyboardEvent): void {
     const opts = this.filtered();
     switch (event.key) {
@@ -324,6 +353,7 @@ export class ComboboxComponent implements ControlValueAccessor {
     });
   }
 
+  /** @internal */
   @HostListener('document:pointerdown', ['$event'])
   onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close();

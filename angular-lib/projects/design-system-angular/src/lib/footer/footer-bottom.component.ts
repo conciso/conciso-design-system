@@ -82,9 +82,11 @@ export class FooterBottomComponent {
     },
   };
 
+  /** @internal */
   protected socialPath(s: CdsSocialLink): string {
     return s.iconPath ?? (s.platform ? this.socialIcons[s.platform].d : '');
   }
+  /** @internal */
   protected socialLabel(s: CdsSocialLink): string {
     return s.label ?? (s.platform ? this.socialIcons[s.platform].label : '');
   }

@@ -102,10 +102,14 @@ export class ThemeSegmentComponent {
   /** true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär). */
   readonly showSystem = input(true);
 
+  /** @internal */
   protected readonly svc = inject(ThemeModeService);
+  /** @internal */
   protected readonly icon = CDS_THEME_ICON;
+  /** @internal */
   protected readonly label = CDS_THEME_LABEL;
 
+  /** @internal */
   protected readonly order = computed(() => cdsThemeModes(this.showSystem()));
 
   private readonly bar = viewChild<ElementRef<HTMLElement>>('bar');

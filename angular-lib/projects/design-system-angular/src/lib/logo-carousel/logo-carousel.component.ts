@@ -96,11 +96,23 @@ export class LogoCarouselComponent {
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
 
-  /** Vom Nutzer explizit pausiert (Pause-Button). */
+  /**
+   * Vom Nutzer explizit pausiert (Pause-Button).
+   *
+   * @internal
+   */
   protected readonly paused = signal(false);
-  /** Transiente Pause: Maus über dem Carousel. */
+  /**
+   * Transiente Pause: Maus über dem Carousel.
+   *
+   * @internal
+   */
   protected readonly hovered = signal(false);
-  /** Transiente Pause: Tastatur-Fokus innerhalb des Carousels. */
+  /**
+   * Transiente Pause: Tastatur-Fokus innerhalb des Carousels.
+   *
+   * @internal
+   */
   protected readonly focused = signal(false);
   /** Reduzierte Bewegung gewünscht → kein Autoplay. Einmal beim Erzeugen ermittelt. */
   private readonly reducedMotion = signal(
@@ -126,21 +138,31 @@ export class LogoCarouselComponent {
     });
   }
 
-  /** Stabile Slide-id für die aria-controls-Verknüpfung der Dots. */
+  /**
+   * Stabile Slide-id für die aria-controls-Verknüpfung der Dots.
+   *
+   * @internal
+   */
   slideId(i: number): string {
     return `cds-logo-set-${this.uid}-${i + 1}`;
   }
 
+  /** @internal */
   togglePause(): void {
     this.paused.set(!this.paused());
   }
 
+  /** @internal */
   goTo(i: number): void {
     this.active.set(i);
   }
 
-  /** Fokus-Pause nur aufheben, wenn der Fokus das Carousel ganz verlässt (nicht bei
-   *  Wechsel zwischen Kind-Elementen). */
+  /**
+   * Fokus-Pause nur aufheben, wenn der Fokus das Carousel ganz verlässt (nicht bei
+   *  Wechsel zwischen Kind-Elementen).
+   *
+   * @internal
+   */
   protected onFocusOut(event: FocusEvent): void {
     const next = event.relatedTarget as Node | null;
     if (!next || !this.host.nativeElement.contains(next)) this.focused.set(false);

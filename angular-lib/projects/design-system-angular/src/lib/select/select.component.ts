@@ -117,7 +117,9 @@ export class SelectComponent implements ControlValueAccessor {
   /** Optionaler Feldname → verstecktes Input für den Formular-Submit. */
   readonly name = input<string>();
 
+  /** @internal */
   readonly open = signal(false);
+  /** @internal */
   readonly activeIndex = signal(-1);
 
   private onChange: (value: string) => void = () => {
@@ -127,20 +129,25 @@ export class SelectComponent implements ControlValueAccessor {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: string | null): void {
     this.value.set(value ?? undefined);
   }
+  /** @internal */
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
   private readonly instance = ++uid;
+  /** @internal */
   readonly ids = {
     label: `cds-select-${this.instance}-label`,
     value: `cds-select-${this.instance}-value`,
@@ -151,10 +158,12 @@ export class SelectComponent implements ControlValueAccessor {
   private typeBuffer = '';
   private typeTimer?: ReturnType<typeof setTimeout>;
 
+  /** @internal */
   selectedOption(): CdsSelectOption | undefined {
     return this.options().find((o) => o.value === this.value());
   }
 
+  /** @internal */
   toggle(): void {
     if (this.open()) this.close();
     else this.openMenu();
@@ -170,12 +179,14 @@ export class SelectComponent implements ControlValueAccessor {
     setTimeout(() => this.menu?.nativeElement.focus());
   }
 
+  /** @internal */
   close(focusTrigger = true): void {
     this.open.set(false);
     this.activeIndex.set(-1);
     if (focusTrigger) this.trigger?.nativeElement.focus();
   }
 
+  /** @internal */
   select(i: number): void {
     const opt = this.options()[i];
     if (!opt) return;
@@ -185,6 +196,7 @@ export class SelectComponent implements ControlValueAccessor {
     this.close();
   }
 
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }
@@ -193,6 +205,8 @@ export class SelectComponent implements ControlValueAccessor {
    * `onTouched` erst, wenn der Fokus die GESAMTE Komponente verlässt — nicht schon beim
    * Öffnen, wenn er vom Trigger in die Listbox wandert (beides liegt im Host). Sonst
    * wäre das Control „touched“, bevor überhaupt ausgewählt wurde.
+   *
+   * @internal
    */
   @HostListener('focusout', ['$event'])
   onFocusOut(event: FocusEvent): void {
@@ -200,7 +214,11 @@ export class SelectComponent implements ControlValueAccessor {
     if (!next || !this.host.nativeElement.contains(next)) this.markTouched();
   }
 
-  /** Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus). */
+  /**
+   * Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus).
+   *
+   * @internal
+   */
   onTriggerKeydown(event: KeyboardEvent): void {
     if (this.open()) return;
     const key = event.key;
@@ -210,7 +228,11 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  /** Tastatur in der offenen Listbox: Navigation, Auswahl, Schließen, Type-ahead. */
+  /**
+   * Tastatur in der offenen Listbox: Navigation, Auswahl, Schließen, Type-ahead.
+   *
+   * @internal
+   */
   onMenuKeydown(event: KeyboardEvent): void {
     const key = event.key;
     switch (key) {
@@ -270,6 +292,7 @@ export class SelectComponent implements ControlValueAccessor {
     if (match >= 0) this.setActive(match);
   }
 
+  /** @internal */
   @HostListener('document:pointerdown', ['$event'])
   onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close(false);

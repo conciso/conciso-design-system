@@ -32,6 +32,7 @@ export class ChipComponent {
   /** Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model(). */
   readonly pressed = model(false);
 
+  /** @internal */
   toggle(): void {
     this.pressed.set(!this.pressed());
   }

@@ -50,6 +50,7 @@ export class ButtonComponent {
   /** Klick auf den Button (feuert nicht, wenn `disabled`). */
   readonly clicked = output<MouseEvent>();
 
+  /** @internal */
   get classes(): string {
     // filled-on-band = invertierter Filled-Button; rendert .btn-filled + .btn-on-band.
     const onBand = this.variant() === 'filled-on-band';

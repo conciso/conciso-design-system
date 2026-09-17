@@ -22,11 +22,14 @@ export class ThemeSelectComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
   readonly showSystem = input(true);
 
+  /** @internal */
   protected readonly svc = inject(ThemeModeService);
+  /** @internal */
   protected readonly options = computed<CdsSelectOption[]>(() =>
     cdsThemeModes(this.showSystem()).map((m) => ({ value: m, label: CDS_THEME_LABEL[m] })),
   );
 
+  /** @internal */
   onChange(value: string | undefined): void {
     if (value) this.svc.set(value as CdsThemeMode);
   }

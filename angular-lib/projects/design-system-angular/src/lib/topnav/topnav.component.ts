@@ -148,7 +148,9 @@ export class TopnavComponent {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
 
   private readonly uid = ++cdsTopnavUid;
+  /** @internal */
   protected readonly searchId = `cds-topnav-search-${this.uid}`;
+  /** @internal */
   protected readonly navId = `cds-topnav-nav-${this.uid}`;
 
   readonly logo = input('conciso.');
@@ -193,43 +195,59 @@ export class TopnavComponent {
     { label: 'Kontakt', href: '#kontakt' },
   ]);
 
+  /** @internal */
   protected readonly openIndex = signal(-1);
+  /** @internal */
   protected readonly searchOpen = signal(false);
-  /** Mobile-Menü offen? Schaltet .nav-open am Header (→ .ep-nav-links sichtbar). */
+  /**
+   * Mobile-Menü offen? Schaltet .nav-open am Header (→ .ep-nav-links sichtbar).
+   *
+   * @internal
+   */
   protected readonly navOpen = signal(false);
 
-  /** Eindeutige ID des Submenüs zu Eintrag i (Toggle aria-controls ↔ .ep-nav-sub). */
+  /**
+   * Eindeutige ID des Submenüs zu Eintrag i (Toggle aria-controls ↔ .ep-nav-sub).
+   *
+   * @internal
+   */
   protected subId(i: number): string {
     return `cds-topnav-sub-${this.uid}-${i}`;
   }
 
+  /** @internal */
   toggleSub(i: number): void {
     this.openIndex.set(this.openIndex() === i ? -1 : i);
     this.searchOpen.set(false);
   }
 
+  /** @internal */
   toggleSearch(): void {
     this.searchOpen.set(!this.searchOpen());
     this.openIndex.set(-1);
   }
 
+  /** @internal */
   toggleNav(): void {
     this.navOpen.set(!this.navOpen());
     this.openIndex.set(-1);
     this.searchOpen.set(false);
   }
 
+  /** @internal */
   closeAll(): void {
     this.openIndex.set(-1);
     this.searchOpen.set(false);
     this.navOpen.set(false);
   }
 
+  /** @internal */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     if (!this.host.nativeElement.contains(event.target as Node)) this.closeAll();
   }
 
+  /** @internal */
   @HostListener('document:keydown.escape')
   onEscape(): void {
     this.closeAll();

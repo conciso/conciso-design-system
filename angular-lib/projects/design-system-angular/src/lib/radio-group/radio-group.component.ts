@@ -76,24 +76,30 @@ export class RadioGroupComponent implements ControlValueAccessor {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: string): void {
     this.value.set(value ?? '');
   }
+  /** @internal */
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
+  /** @internal */
   onRadioChange(opt: string): void {
     this.value.set(opt);
     this.onChange(opt);
     this.onTouched();
   }
+  /** @internal */
   markTouched(): void {
     this.onTouched();
   }
