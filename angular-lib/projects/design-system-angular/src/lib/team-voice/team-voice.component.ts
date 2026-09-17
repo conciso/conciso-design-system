@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
+import { CDS_QUOTE_ICON } from '../icons';
 
 /**
  * TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.
@@ -20,9 +22,7 @@ import type { CdsArea } from '../area';
       </div>
       <figcaption class="team-voice-body">
         <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-        </svg>
+        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon"></svg>
         <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name() }}</p>
@@ -33,16 +33,30 @@ import type { CdsArea } from '../area';
   `,
 })
 export class TeamVoiceComponent {
-  readonly quote = input(
-    'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.',
-  );
-  readonly name = input('Lena Brandt');
-  readonly roleLabel = input('Softwareentwicklerin, seit 2021');
+  private readonly sanitizer = inject(DomSanitizer);
+
+  /** Zitattext. */
+  readonly quote = input.required<string>();
+  /** Name der zitierten Person. */
+  readonly name = input.required<string>();
+  /** Rolle/Funktion der zitierten Person (leer = keine Rollenzeile). */
+  readonly roleLabel = input('');
   /** Markenbereich → data-area (Akzentfarbe + Rahmen). */
   readonly area = input<CdsArea>('co');
   /** Bild-URL; leer = neutraler Platzhalter (Doku-Assets sind hier nicht eingebunden). */
   readonly image = input('');
+  /** Alternativtext des Fotos. */
   readonly imageAlt = input('Teamfoto');
+
+  /**
+   * Zitat-Icon aus der zentralen Icon-Registry (icons.ts) statt dreifach
+   * dupliziertem SVG-Pfad in Blockquote/Testimonial/TeamVoice.
+   *
+   * @internal
+   */
+  get quoteIcon(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body);
+  }
 
   /**
    * Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern.

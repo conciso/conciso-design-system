@@ -85,11 +85,8 @@ export class CarouselComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly instance = ++uid;
 
-  readonly slides = input<CdsSlide[]>([
-    { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
-    { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
-    { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
-  ]);
+  /** Anzuzeigende Slides (Bild optional, Titel/Text je Slide Pflicht). */
+  readonly slides = input.required<CdsSlide[]>();
   /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */

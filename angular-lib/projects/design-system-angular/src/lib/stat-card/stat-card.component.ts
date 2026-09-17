@@ -27,11 +27,14 @@ import type { CdsArea } from '../area';
   `,
 })
 export class StatCardComponent {
-  readonly value = input('98 %');
-  readonly label = input('Kundenzufriedenheit');
+  /** Anzeigewert der Kennzahl. */
+  readonly value = input.required<string>();
+  /** Beschriftung der Kennzahl. */
+  readonly label = input.required<string>();
   /** Markenbereich → data-area (Top-Akzent + Wertfarbe). */
   readonly area = input<CdsArea>('co');
   /** Trendrichtung → .card-stat-trend.up / .down (leer = kein Pill). */
   readonly trend = input<'up' | 'down'>();
-  readonly trendText = input('+12 %');
+  /** Text neben dem Trend-Pfeil (nur sichtbar, wenn `trend` gesetzt ist). */
+  readonly trendText = input('');
 }

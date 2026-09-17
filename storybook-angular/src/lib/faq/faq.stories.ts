@@ -18,6 +18,22 @@ const meta: Meta<FaqComponent> = {
       },
     },
   },
+  args: {
+    items: [
+      {
+        q: 'Wie läuft die Bewerbung ab?',
+        a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.',
+      },
+      {
+        q: 'Wo und wie arbeitet ihr?',
+        a: 'Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.',
+      },
+      {
+        q: 'Welche Technologien nutzt ihr?',
+        a: 'Moderne, langlebige Stacks — die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
+      },
+    ],
+  },
 };
 export default meta;
 

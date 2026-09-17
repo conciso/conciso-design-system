@@ -89,11 +89,8 @@ let cdsLogoCarouselUid = 0;
 export class LogoCarouselComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  readonly sets = input<CdsLogo[][]>([
-    [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
-    [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
-    [{ label: 'CASCADE' }, { label: 'VERTEX' }, { label: 'NIMBUS' }, { label: 'FORGE' }, { label: 'ATLAS' }],
-  ]);
+  /** Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set). */
+  readonly sets = input.required<CdsLogo[][]>();
   /** Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s). */
   readonly interval = input(6000);
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */

@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
+import { CDS_QUOTE_ICON } from '../icons';
 
 /**
  * Testimonial — Wrapper um `.testimonial` aus css/components.css → „Testimonial Card“.
@@ -14,9 +16,7 @@ import type { CdsArea } from '../area';
   template: `
     <figure class="testimonial" [attr.data-area]="area() || null">
       <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-      </svg>
+      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon"></svg>
       <blockquote>{{ quote() }}</blockquote>
       <figcaption class="testimonial-footer">
         <div>
@@ -28,11 +28,24 @@ import type { CdsArea } from '../area';
   `,
 })
 export class TestimonialComponent {
-  readonly quote = input(
-    'Conciso hat unsere Plattform spürbar verschlankt — weniger Code, klarere Prozesse, zufriedenere Teams.',
-  );
-  readonly name = input('Dr. Maria Schmidt');
-  readonly roleLabel = input('CTO, Beispiel GmbH');
+  private readonly sanitizer = inject(DomSanitizer);
+
+  /** Zitattext. */
+  readonly quote = input.required<string>();
+  /** Name der zitierten Person. */
+  readonly name = input.required<string>();
+  /** Rolle/Funktion der zitierten Person (leer = keine Rollenzeile im Footer). */
+  readonly roleLabel = input('');
   /** Markenbereich → data-area (Top-Akzent + Icon-Farbe). */
   readonly area = input<CdsArea>('co');
+
+  /**
+   * Zitat-Icon aus der zentralen Icon-Registry (icons.ts) statt dreifach
+   * dupliziertem SVG-Pfad in Blockquote/Testimonial/TeamVoice.
+   *
+   * @internal
+   */
+  get quoteIcon(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body);
+  }
 }

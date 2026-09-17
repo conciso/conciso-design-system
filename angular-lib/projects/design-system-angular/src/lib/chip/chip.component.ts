@@ -26,7 +26,8 @@ import type { CdsArea } from '../area';
   `,
 })
 export class ChipComponent {
-  readonly label = input('Filter');
+  /** Sichtbarer Text des Chips. */
+  readonly label = input.required<string>();
   /** Markenbereich → data-area (area-aware Outline). */
   readonly area = input<CdsArea>();
   /** Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model(). */

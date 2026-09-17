@@ -52,15 +52,18 @@ import { CDS_AREA_ICONS } from '../icons';
 export class CardComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
+  /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  readonly title = input('Kartentitel');
-  readonly text = input('Ein kurzer Anreißer-Text, der die Karte beschreibt.');
+  /** Kartentitel. */
+  readonly title = input.required<string>();
+  /** Anreißer-/Beschreibungstext der Karte. */
+  readonly text = input.required<string>();
   /** Markenbereich → data-area (färbt Media-Glyphe + Eyebrow). */
   readonly area = input<CdsArea>();
   /** Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen. */
   readonly showMedia = input(true);
   /** Kompakte Text-Aktion im Footer (leer = kein Footer). */
-  readonly actionLabel = input('Mehr erfahren');
+  readonly actionLabel = input('');
 
   /** Klick auf die Footer-Aktion. */
   readonly actionClick = output<void>();

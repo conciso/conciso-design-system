@@ -30,12 +30,7 @@ export interface CdsFlatStat {
 })
 export class StatStripComponent {
   /** Kennzahlen des Streifens. */
-  readonly stats = input<CdsFlatStat[]>([
-    { area: 'co', value: '94 %', label: 'Kundenzufriedenheit' },
-    { area: 'ki', value: '3×', label: 'Schnellere Prozesse durch KI' },
-    { area: 'es', value: '99,9 %', label: 'System-Uptime' },
-    { area: 'wo', value: '280+', label: 'Transformationsprojekte' },
-  ]);
+  readonly stats = input.required<CdsFlatStat[]>();
   /** Abgerundete Ecken (--r-lg) wie in der Doku-Verwendung. */
   readonly rounded = input(true);
 }

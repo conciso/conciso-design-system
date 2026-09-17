@@ -21,7 +21,7 @@ import type { CdsArea } from '../area';
 })
 export class PillComponent {
   /** Sichtbarer Bereichsname. */
-  readonly label = input('Angewandte KI');
+  readonly label = input.required<string>();
   /** Brand Area → data-area (Farbton; ohne Angabe greift der Corporate-Default). */
   readonly area = input<CdsArea>('ki');
   /** aria-label überschreiben; Default „Bereich <label>“. */

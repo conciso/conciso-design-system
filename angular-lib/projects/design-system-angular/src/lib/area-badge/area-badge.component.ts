@@ -15,7 +15,8 @@ import type { CdsArea } from '../area';
   template: `<span class="badge" [attr.data-area]="area()">{{ label() }}</span>`,
 })
 export class AreaBadgeComponent {
-  readonly label = input('Corporate');
+  /** Sichtbarer Text der Badge. */
+  readonly label = input.required<string>();
   /** Brand Area → data-area (bestimmt die Bereichsfarbe). */
   readonly area = input<CdsArea>('co');
 }

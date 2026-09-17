@@ -41,11 +41,13 @@ export type CdsSnackTone = 'def' | 'ok' | 'err';
   `,
 })
 export class SnackbarComponent {
-  readonly message = input('Formular gespeichert, noch nicht abgesendet.');
+  /** Anzuzeigender Statustext. */
+  readonly message = input.required<string>();
   /** Ton → .snack-def / .snack-ok / .snack-err */
   readonly tone = input<CdsSnackTone>('def');
   /** Optionaler Aktions-Button (.snack-act); leer = keiner. */
-  readonly actionLabel = input('Jetzt senden');
+  readonly actionLabel = input('');
+  /** Klick auf die optionale Aktion. */
   readonly action = output<void>();
 
   /** @internal */

@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
+import { CDS_QUOTE_ICON } from '../icons';
 
 /**
  * Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.
@@ -13,9 +15,7 @@ import type { CdsArea } from '../area';
   standalone: true,
   template: `
     <figure class="bq" [attr.data-area]="area() || null">
-      <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-      </svg>
+      <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon"></svg>
       <blockquote>{{ quote() }}</blockquote>
       @if (name() || roleLabel()) {
         <figcaption class="bq-caption">
@@ -31,11 +31,24 @@ import type { CdsArea } from '../area';
   `,
 })
 export class BlockquoteComponent {
-  readonly quote = input(
-    'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.',
-  );
-  readonly name = input('Maria Schneider');
-  readonly roleLabel = input('Head of Marketing, Musterunternehmen GmbH');
+  private readonly sanitizer = inject(DomSanitizer);
+
+  /** Zitattext. */
+  readonly quote = input.required<string>();
+  /** Name der zitierten Person. */
+  readonly name = input.required<string>();
+  /** Rolle/Funktion der zitierten Person (leer = keine Caption-Zeile dafür). */
+  readonly roleLabel = input('');
   /** Markenbereich → data-area (Akzentleiste + getönter Grund). */
   readonly area = input<CdsArea>('co');
+
+  /**
+   * Zitat-Icon aus der zentralen Icon-Registry (icons.ts) statt dreifach
+   * dupliziertem SVG-Pfad in Blockquote/Testimonial/TeamVoice.
+   *
+   * @internal
+   */
+  get quoteIcon(): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body);
+  }
 }

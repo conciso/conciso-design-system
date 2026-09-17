@@ -26,8 +26,10 @@ import { Component, DestroyRef, inject, input, signal } from '@angular/core';
   `,
 })
 export class CodeBlockComponent {
+  /** Sprach-Label im Header (.cb-lang), rein informativ, ohne Syntax-Highlighting. */
   readonly lang = input('HTML');
-  readonly code = input('<button class="btn btn-filled btn-co">Kontakt</button>');
+  /** Anzuzeigender Code (Klartext, `pre`-formatiert). */
+  readonly code = input.required<string>();
   /** Terminal-Optik → .cb-terminal. */
   readonly terminal = input(false);
   /** Kopier-Button anzeigen (.cb-copy). */

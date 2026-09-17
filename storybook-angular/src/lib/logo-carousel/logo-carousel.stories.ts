@@ -25,7 +25,15 @@ const meta: Meta<LogoCarouselComponent> = {
       control: { type: 'number', min: 1000, step: 500 },
     },
   },
-  args: { interval: 6000, active: 0 },
+  args: {
+    interval: 6000,
+    active: 0,
+    sets: [
+      [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
+      [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
+      [{ label: 'CASCADE' }, { label: 'VERTEX' }, { label: 'NIMBUS' }, { label: 'FORGE' }, { label: 'ATLAS' }],
+    ],
+  },
 };
 export default meta;
 

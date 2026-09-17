@@ -48,14 +48,18 @@ import type { CdsArea } from '../area';
 export class DownloadCtaComponent {
   /** Markenbereich → data-area (Top-Akzent, Icon-Tönung, Button-Farbe). */
   readonly area = input<CdsArea>('co');
-  readonly eyebrow = input('Conciso Design System');
-  readonly title = input('Figma-Bibliothek herunterladen');
-  readonly desc = input(
-    'Alle Komponenten, Tokens, Icons und Brand Assets, direkt einsatzbereit als Figma-Bibliothek.',
-  );
-  readonly meta = input('Figma · Version 1.0 · 48 MB');
-  readonly primaryLabel = input('Herunterladen');
-  readonly secondaryLabel = input('Vorschau ansehen');
+  /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
+  readonly eyebrow = input('');
+  /** Titel des Download-Angebots. */
+  readonly title = input.required<string>();
+  /** Beschreibungstext unterhalb des Titels (leer = keine Beschreibung). */
+  readonly desc = input('');
+  /** Zusatzinfo unterhalb der Beschreibung, z. B. Dateiformat/-größe (leer = keine Meta-Zeile). */
+  readonly meta = input('');
+  /** Beschriftung der primären Aktion. */
+  readonly primaryLabel = input.required<string>();
+  /** Beschriftung der sekundären Aktion (leer = ausgeblendet). */
+  readonly secondaryLabel = input('');
 
   /** Klick auf die primäre Aktion (Haupt-CTA). */
   readonly primaryClick = output<MouseEvent>();

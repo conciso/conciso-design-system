@@ -15,6 +15,24 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [Unreleased]
 
 ### Breaking
+- **Inhalts-Inputs von 16 Komponenten sind jetzt `input.required()`.** Betroffen:
+  `BlockquoteComponent` (`quote`, `name`), `TestimonialComponent` (`quote`, `name`),
+  `TeamVoiceComponent` (`quote`, `name`), `StatCardComponent` (`value`, `label`),
+  `StatStripComponent` (`stats`), `DownloadCtaComponent` (`title`, `primaryLabel`),
+  `FaqComponent` (`items`), `CarouselComponent` (`slides`), `LogoCarouselComponent`
+  (`sets`), `CardComponent` (`title`, `text`), `AreaBadgeComponent` (`label`),
+  `StatusBadgeComponent` (`label`), `ChipComponent` (`label`), `PillComponent`
+  (`label`), `CodeBlockComponent` (`code`) und `SnackbarComponent` (`message`). Diese
+  Inputs trugen bisher erfundenen Conciso-Beispieltext als Default (Namen, Zitate,
+  Kennzahlen, FAQ-Einträge, Slide-Inhalte …) — ein vergessenes Binding lieferte damit
+  unbemerkt Marketingtext statt eines auffälligen Fehlers aus. Fehlt der Wert jetzt,
+  wirft Angular zur Laufzeit `NG0950`; ein vergessenes Binding fällt damit sofort auf,
+  statt still Demo-Inhalt auszuliefern. Reines Beiwerk (`roleLabel`, `trendText`,
+  `eyebrow`/`desc`/`meta`/`secondaryLabel` bei DownloadCta, `actionLabel` bei Card und
+  Snackbar) bleibt optional, defaultet aber jetzt auf `''` statt auf erfundenen Text.
+  Die bisherigen Default-Texte sind nicht verloren — sie stehen jetzt als explizite
+  `args` in den jeweiligen Stories (`storybook-angular/src/lib/**/*.stories.ts`) und
+  rendern dort weiterhin unverändert.
 - **`FieldShellComponent` ist kein Export der öffentlichen API mehr.** Die Komponente war nie als
   öffentliche API gedacht — ihre Klassendoku bezeichnet sie seit jeher als intern
   („Präsentations-Hülle für alle Field-Komponenten“), es gab weder eine eigene Story noch JSDoc

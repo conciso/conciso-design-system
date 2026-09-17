@@ -22,7 +22,15 @@ const meta: Meta<CarouselComponent> = {
   argTypes: {
     hero: { control: 'boolean' },
   },
-  args: { active: 0, hero: false },
+  args: {
+    active: 0,
+    hero: false,
+    slides: [
+      { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
+      { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
+      { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
+    ],
+  },
 };
 export default meta;
 
