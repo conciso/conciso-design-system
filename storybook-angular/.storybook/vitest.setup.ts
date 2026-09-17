@@ -1,6 +1,6 @@
 import { beforeAll } from 'vitest';
 import { setProjectAnnotations } from '@storybook/angular-vite';
-// Workaround für einen Bug in @storybook/angular-vite (10.5.x):
+// Workaround für einen Bug in @storybook/angular-vite (10.5.x–10.6.0):
 // setProjectAnnotations() registriert als Framework-Default nur render/
 // renderToCanvas, NICHT aber applyDecorators aus dem Preview-Entry. Ohne
 // dessen prepareMain()-Schritt bleibt bei Component-only-Stories (ohne

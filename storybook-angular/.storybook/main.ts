@@ -49,12 +49,30 @@ const config: StorybookConfig = {
     // Führt die Stories als Vitest-Tests aus (Browser-Mode via Playwright);
     // Konfiguration in ../vitest.config.ts, Setup in ./vitest.setup.ts.
     '@storybook/addon-vitest',
+    // Schreibt beim Build manifests/{docs,components}.json und stellt im
+    // Dev-Server einen MCP-Endpunkt unter /mcp bereit (Tools u. a.
+    // stories-preview, test-run, docs-show, review-create).
+    '@storybook/addon-mcp',
   ],
   framework: {
     name: '@storybook/angular-vite',
-    // compodoc ist hier (wie zuvor in angular.json) bewusst aus — die Docs
-    // entstehen aus CSF/argTypes, nicht aus generierter compodoc-JSON.
-    options: { compodoc: false },
+    // Seit 10.6 ersetzt der In-Process-Docgen-Server (Default) die Compodoc-
+    // Pipeline; die Docs entstehen aus TypeScript-Quelle sowie CSF/argTypes.
+    options: {},
+  },
+  features: {
+    // Manifest für Agenten/MCP-Clients; addon-mcp erzwingt es ohnehin über
+    // seinen eigenen Features-Preset, hier zusätzlich explizit als Dokumentation
+    // der Absicht.
+    componentsManifest: true,
+    // Seit 10.6 in angular-vite bereits Default; explizit gesetzt als Schutz
+    // gegen einen künftigen Default-Wechsel. Liefert Inputs/Outputs/JSDoc aus
+    // der TS-Quelle für Controls, Docs und Manifest.
+    experimentalDocgenServer: true,
+    // `review-create` ist für direkte MCP-Clients (z. B. „claude mcp add
+    // --transport http …“) nur bei explizitem true erreichbar; unset gilt nur
+    // für den deprecated „storybook ai“-Proxy-Kanal.
+    experimentalReview: true,
   },
   staticDirs: [
     { from: '../../css', to: '/conciso/css' },
