@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/angular-vite';
 import { componentWrapperDecorator } from '@storybook/angular-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
-import { UPDATE_GLOBALS } from 'storybook/internal/core-events';
+import { GLOBALS_UPDATED, SET_GLOBALS, UPDATE_GLOBALS } from 'storybook/internal/core-events';
 import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
 import { concisoLight } from './theme';
 
@@ -11,6 +11,25 @@ import { concisoLight } from './theme';
 // alle Komponenten synchron. Die Gegenrichtung (Toolbar → Store) macht der
 // Theme-Decorator unten. getChannel() erst beim Emit holen (dann ist er bereit).
 themeStore.subscribe((mode) => addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }));
+
+// Toolbar → Store, auch OHNE Story-Render: Der Decorator unten läuft nur, wenn
+// eine Story rendert — reine MDX-Doku-Seiten (Icons, Hero, alle „Verwendung“-
+// Seiten, …) tun das nie, also blieb data-theme dort bisher auf dem zuletzt
+// gesetzten Wert stehen, egal was in der Toolbar steht. Dieser Listener sitzt
+// auf Modulebene und läuft einmal je Preview-Iframe, unabhängig vom Render.
+// SET_GLOBALS liefert den Ausgangszustand (Preview-Boot inkl. `&globals=`-Deep-
+// Link in der URL), GLOBALS_UPDATED jeden späteren Toolbar-Wechsel — beide
+// Ereignisse tragen die effektiven Globals unter `globals`, im installierten
+// Storybook-Dist verifiziert (node_modules/storybook/dist/core-events/index.js).
+// setSilent() vermeidet die Rückkopplung: es benachrichtigt NICHT die
+// `_subs`-Liste von themeStore, also emittiert das obige subscribe() kein
+// erneutes UPDATE_GLOBALS — ohne das gäbe es hier eine Emit-Schleife.
+const applyThemeFromGlobals = ({ globals }: { globals?: Record<string, unknown> }): void => {
+  const theme = globals?.['theme'] as CdsThemeMode | undefined;
+  if (theme) themeStore.setSilent(theme);
+};
+addons.getChannel().on(SET_GLOBALS, applyThemeFromGlobals);
+addons.getChannel().on(GLOBALS_UPDATED, applyThemeFromGlobals);
 
 /**
  * Zwei globale Toolbar-Umschalter (globalTypes), beide über den ECHTEN CSS-Kern:
@@ -32,53 +51,84 @@ const preview: Preview = {
     backgrounds: { disable: true },
     viewport: { options: MINIMAL_VIEWPORTS },
     options: {
-      // Atomic Design als primäre Sortierung: Grundlagen → Atoms → Molecules →
-      // Organisms. Innerhalb jeder Ebene die Komponenten in einer sinnvollen Reihe.
+      // Die Sortierung spiegelt die Gliederung der Doku-Site (`docs/index.html`,
+      // Regeln in `CONTRIBUTING.md` § 11): Gruppen, Sektionen und Bauteile stehen
+      // hier in derselben Reihenfolge wie dort, damit dieselbe Sache im Repo
+      // überall gleich heißt.
       storySort: {
+        // Storybooks Sidebar stellt an jedem Knoten Blätter immer vor Ordner —
+        // das kann storySort.order nicht verschränken. Deshalb ist jede Gruppe
+        // mit eigener Doku ein Ordner: erstes Kind ist die Doku-Seite
+        // („Verwendung“ bzw. die selbstbenannte Seite, z. B. „Wissensbeitrag“
+        // neben „FAQ“), danach folgen die Bauteile — auch wenn nur eines
+        // darunterhängt (Buttons/Button, Logo/Logo). Nicht aufgelöst sind
+        // Gruppen, die noch keine Doku-Seite haben; die bleiben unverändert
+        // alphabetisch.
         order: [
+          'Marke',
+          [
+            'Markenrad',
+            'Brand Areas',
+            ['Übersicht', 'AreaTabs'],
+            'Logo',
+            ['Verwendung', 'Logo'],
+            'Bildsprache',
+          ],
           'Grundlagen',
-          ['Farben', 'Typografie'],
-          'Atoms',
           [
-            'Button',
-            'Chip',
-            'Status-Badge',
-            'Bereichs-Badge',
-            'Pill',
-            'Checkbox',
-            'Slider',
-            'Skala',
-            'Theme-Cycle-Button',
+            'Farben',
+            'Typografie',
+            'Spacing & Grid',
+            'Responsive',
+            'Elevation',
+            'Design Tokens',
+            'Icons',
+            'Barrierefreiheit',
           ],
-          'Molecules',
+          'Komponenten',
           [
-            'Textfeld',
-            'Textbereich',
-            'Auswahlfeld',
-            'Radio',
-            'Custom Select',
-            'Combobox',
-            'Snackbar',
-            'Blockquote',
-            'StatCard',
-            'DownloadCta',
-            'Theme-Segment',
-            'Theme-Dropdown',
-          ],
-          'Organisms',
-          [
-            'Card',
-            'StatStrip',
-            'Carousel',
-            'LogoCarousel',
-            'Testimonial',
-            'TeamVoice',
-            'FAQ',
-            'AreaTabs',
-            'Topnav',
-            'CodeBlock',
+            'Buttons',
+            ['Verwendung', 'Button'],
+            'Chips, Badges & Pills',
+            ['Verwendung', 'Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
+            'Inputs & Forms',
+            ['Verwendung', 'Textfeld', 'Textbereich', 'Auswahlfeld', 'Radio', 'Checkbox', 'Slider', 'Skala'],
+            'Dropdowns',
+            ['Verwendung', 'Custom Select', 'Combobox'],
+            'Buchungsformular',
+            'Feedback',
+            ['Verwendung', 'Snackbar'],
+            'Cards & Teaser',
+            ['Verwendung', 'Card', 'StatCard', 'StatStrip'],
+            'Call to Action',
+            ['Verwendung', 'DownloadCta'],
+            'Tabelle',
+            'Zitate & Testimonials',
+            ['Verwendung', 'Blockquote', 'Testimonial', 'TeamVoice'],
+            'Code-Block',
+            ['Verwendung', 'Code-Block'],
+            'Slider & Carousel',
+            ['Verwendung', 'Carousel', 'LogoCarousel'],
+            'Navigation',
+            ['Verwendung', 'Topnav'],
+            'Hero',
             'Footer',
+            ['Verwendung', 'Komplett', 'Oberer Teil', 'Unterer Teil'],
+            'Theme-Umschalter',
+            ['Verwendung', 'Cycle-Button', 'Segment', 'Dropdown'],
           ],
+          'Seitenmuster',
+          [
+            'Wissensbeitrag',
+            ['Übersicht', 'FAQ'],
+            'Beitragsübersicht',
+            'Veranstaltung',
+            'Veranstaltungsübersicht',
+            'Seminar · Training',
+            'Angebots-Detailseite',
+          ],
+          'Beispielseiten',
+          'Referenzen',
         ],
       },
     },
@@ -88,7 +138,12 @@ const preview: Preview = {
     // Docs-Chrome (Überschriften, Tabellen, Code-Blöcke) im Conciso-Look. Immer
     // Light: das Docs-Theme ist nicht an den Toolbar-Theme-Schalter gekoppelt
     // (Storybook kennt dafür keine Kopplung), siehe Follow-up-Notiz in der Spec.
-    docs: { toc: true, theme: concisoLight },
+    docs: {
+      // Der Default von addon-docs erfasst nur h3 — die MDX-Seiten gliedern aber mit
+      // `##` (h2), darum hier explizit beide Ebenen einschließen.
+      toc: { headingSelector: 'h2, h3', title: 'Auf dieser Seite' },
+      theme: concisoLight,
+    },
   },
   initialGlobals: {
     theme: 'light',
@@ -144,6 +199,12 @@ const preview: Preview = {
     // Toolbar → Store (still, ohne Rück-Emit). Der Store ist der EINZIGE Schreiber
     // von data-theme (inkl. „system“ via prefers-color-scheme) und teilt sich den
     // Zustand mit den Switcher-Komponenten → Toolbar und Komponenten bleiben synchron.
+    // Koexistenz mit dem Listener oben: Der Decorator garantiert die Reihenfolge
+    // VOR dem Story-Render (kein Flackern im falschen Theme beim Mount); der
+    // Listener deckt zusätzlich die Seiten OHNE Story-Render ab (reine MDX-Doku),
+    // auf denen dieser Decorator nie läuft. Beide rufen setSilent() — für eine
+    // Story-Seite doppelt, aber dank des Gleichheits-Guards in setSilent() ohne
+    // messbaren Effekt (zweiter Aufruf ist ein No-op).
     (story, context) => {
       themeStore.setSilent(context.globals['theme'] as CdsThemeMode);
       return story();

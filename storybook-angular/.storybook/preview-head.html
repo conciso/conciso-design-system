@@ -50,4 +50,142 @@
     padding: 0 !important;
     border: 0 !important;
   }
+
+  /*
+    Doku-Typografie ans Design System ziehen: MDX- und Autodocs-Seiten bringen ihre
+    eigene Emotion-Typografie mit (Montserrat, 32/24/20px feste Überschriften, 14px
+    Fließtext), die mit der Doku-Site nichts zu tun hat. Betroffen sind h1 bis h3,
+    p, li, td, th und das Tabellen-Gerüst (table, thead-Trennlinie).
+
+    Maßstab ist die gebaute Doku-Site (docs/index.html): sie zieht ihr Aussehen aus
+    genau denselben css/base.css und css/components.css wie diese Storybook-Preview,
+    nicht mehr die fluiden --ty-display-* und --ty-headline-*-Tokens aus einem früheren
+    Zwischenschritt. h1 und h2 übernehmen deshalb die Werte ihrer Prosa-Klassen 1:1:
+    .sec-title (2rem/2.5rem) für h1, .group-title (1.5rem/2rem) für h2 — bewusst fest
+    statt clamp(): --ty-display-* und --ty-headline-* sind fluid gebaut, für
+    Marketing-Seiten, deren Breite mit dem Viewport wächst; die Doku-Spalte hier ist
+    ohnehin breitenbegrenzt, ein fluider Wert hätte dort nichts zu regeln. h3 wechselt
+    dagegen bewusst auf --ty-title-sm (Montserrat 500, Sans) statt --ty-headline-sm
+    (Serife): die Site trägt nur die beiden obersten Ebenen serifig, ab h3 übernimmt
+    die Grotesk (34× so in docs/index.html) — ein Lesbarkeits-Entscheid der Site,
+    keine Nachlässigkeit dieser Regel hier.
+
+    Scope bewusst auf .sbdocs-content beschränkt, plus :not(.docs-story *) und
+    :not(.sbdocs-preview *): in diesen beiden Containern liegen die gerenderten
+    Story-Vorschauen, also echte Komponenten-Instanzen (z. B. Textfeld-Label,
+    Absätze in einer Story). Deren Typografie darf ausschließlich aus
+    components.css/base.css kommen, sonst würde diese Doku-Schicht Komponenten
+    umstylen, die eigentlich ihre Darstellung nur aus der CSS-Schicht ziehen sollen.
+    Auf der Textfeld-Autodocs-Seite gemessen: 3 p und 12 label liegen im
+    .sbdocs-content-Teilbaum, aber nur 2 p und 0 label davon außerhalb von
+    .docs-story/.sbdocs-preview, der Rest sind Story-Interna.
+    :not() mit Nachfahren-Selektor statt Kind-Kombinator-Kette (z. B.
+    .sbdocs-content > p), weil die Verschachtelungstiefe je Doc-Block wechselt: th
+    liegt z. B. vier Ebenen unter .sbdocs-content, in der von Storybook generierten
+    Props-Tabelle (.docblock-argstable). Eine Kind-Kombinator-Kette müsste jeden
+    dieser Pfade einzeln kennen und bricht, sobald Storybook seine Wrapper-Divs
+    ändert; der Nachfahren-Ausschluss bleibt unabhängig von der Verschachtelungstiefe
+    korrekt. Das Inhaltsverzeichnis rechts liegt außerhalb von .sbdocs-content
+    (geprüft) und ist von diesen Regeln daher nicht betroffen.
+
+    Dritter Ausschluss :not(.sb-unstyled *): sb-unstyled ist die Konvention, mit
+    der ein MDX-Block sich von der Doku-Typografie abmeldet (Storybooks
+    <Unstyled>-Block aus @storybook/addon-docs/blocks). Der Block selbst rendert
+    nur ein div.sb-unstyled ohne eigenes CSS, meldet also weder Storybooks
+    Doku-Styles noch unsere ab. Roh eingebettetes Demo-Markup auf MDX-Seiten
+    unter src/docs landet nicht in .docs-story oder .sbdocs-preview und wäre
+    ohne diesen dritten Ausschluss weiterhin der Doku-Typografie ausgesetzt.
+    Innerhalb .sb-unstyled soll Demo-Markup ausschließlich aus
+    components.css/base.css gestaltet werden — erst damit wird <Unstyled> zum
+    wirksamen Opt-out für beides: Storybooks eigene Doku-Styles und diese Regeln.
+
+    Kein !important nötig: Storybooks eigene Regeln kommen über Emotion-Klassen mit
+    genau einer Klasse Spezifität (z. B. .css-0, .sbdocs-title, .css-1yelgyl in der
+    Props-Tabelle). Der Selektor hier (eine Klasse plus Elementname plus drei
+    :not()-Klauseln) ist spezifischer und gewinnt unabhängig davon, ob Storybooks
+    Emotion-Styles vor oder nach dieser Datei in den <head> injiziert werden.
+  */
+  .sbdocs-content h1:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    font: 400 2rem/2.5rem var(--font-display);
+    margin-bottom: var(--s2);
+  }
+  /*
+    :not([id='stories']) nimmt Storybooks eigene Sektionsüberschrift auf
+    Autodocs-Seiten aus ("stories" ist Storybooks fester Anker für den
+    Stories-Block, keine von Text abgeleitete Slug-ID — eine deutsche
+    Doku-Überschrift erzeugt diesen Slug praktisch nie). Absichtlich
+    Attribut-Selektor [id='stories'] statt ID-Selektor #stories: :not() übernimmt
+    die Spezifität seines Arguments, ein ID-Selektor würde diese eine Regel
+    auf (1,x,x) heben und aus der Reihe der übrigen h1/h3/p,li,td/th/table-
+    Regeln fallen. Der Attribut-Selektor bleibt bei (0,1,0) und hält alle
+    Regeln auf derselben Spezifitätsstufe.
+
+    border-top plus padding-top ist der eigentliche Abstandsgeber zwischen
+    Doku-Sektionen, 1:1 aus .group-title übernommen: die Site trennt Gruppen nicht
+    mit Luft allein, sondern mit einer Haarlinie (--bd) plus 40px Abstand davor
+    (margin-top: --s10) und 24px Polster danach (padding-top: --s6), bevor der Text
+    beginnt. margin-bottom: --s4 bleibt der Abstand zum nachfolgenden Absatz.
+  */
+  .sbdocs-content h2:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *):not([id='stories']) {
+    font: 400 1.5rem/2rem var(--font-display);
+    margin: var(--s10) 0 var(--s4);
+    padding-top: var(--s6);
+    border-top: var(--bd);
+  }
+  .sbdocs-content h3:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    font: var(--ty-title-sm);
+    margin: 0 0 var(--s2);
+  }
+  /*
+    Fließtext bekommt --ty-body-md (16px), aber mit line-height:1.7 statt den darin
+    enthaltenen 1.5 (24px): base.css setzt line-height:1.7 am body genau deshalb,
+    weil das die Zeilenhöhe für Fließtext auf der echten Site ist, während
+    --ty-body-md selbst für UI-Text innerhalb von Komponenten auf 1.5 abgestimmt ist.
+    Doku-Seiten sind Fließtext, keine Komponenten-Innereien, daher hier bewusst 1.7.
+  */
+  .sbdocs-content :is(p, li, td):not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    font: var(--ty-body-md);
+    line-height: 1.7;
+  }
+  /*
+    Tabellen an .doc-table angeglichen (css/components.css). border-collapse und
+    width:100% sind bereits Storybooks eigene Voreinstellung, für Markdown- wie für
+    die generierte Props-Tabelle (gemessen, hier also keine Verhaltensänderung) —
+    trotzdem explizit gesetzt, damit die Regel nicht von Storybooks Voreinstellung
+    abhängt. Die kräftige Trennlinie unter dem Tabellenkopf (--bd-strong) gab es
+    vorher gar nicht (0px); sie ist der eigentliche Unterschied zu .doc-table.
+    Die bisherige th-Regel zog --ty-label-md (14px/20px); .doc-table setzt für th
+    tatsächlich etwas anderes (12px/16px, Versalien, --tx-secondary statt dem
+    vererbten --tx-primary) — hier durch die realen Werte ersetzt. text-align: left
+    kommt jetzt ebenfalls aus .doc-table dazu, denn die Ausrichtung gehört zum
+    Schriftbild des Tabellenkopfs — bislang zentrierte die Markdown-Tabelle ihre th
+    per Storybook-Voreinstellung über bereits linksbündigen td, das war der letzte
+    sichtbare Unterschied zur Doku-Site. padding bleibt dagegen bewusst bei
+    Storybooks eigener Vorgabe (Markdown-Tabelle: 6px/13px; Props-Tabelle:
+    10px/15px/10px/20px): die Polsterung ist Layout der jeweils erzeugenden
+    Tabelle, keine Typografie, und ihre Vereinheitlichung wäre hier die
+    Verrenkung, nicht die Angleichung.
+
+    table und thead tr bekommen denselben dritten Ausschluss :not(.sb-unstyled *)
+    wie h1 bis th: Demo-Markup in <Unstyled> kann ein rohes <table> enthalten
+    (z. B. die Vorschau einer Tabellen-Komponente), das dann exakt wie eine
+    MDX-Tabelle vier Ebenen unter .sbdocs-content läge — ohne den Ausschluss
+    bekäme diese Tabelle Storybooks Voreinstellungen samt der Trennlinie unter
+    dem Kopf, obwohl sie ausschließlich aus components.css/base.css gestaltet
+    sein soll.
+  */
+  .sbdocs-content table:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .sbdocs-content thead tr:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    border-bottom: var(--bd-strong);
+  }
+  .sbdocs-content th:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
+    font: 500 0.75rem/1rem var(--font);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--tx-secondary);
+    text-align: left;
+  }
 </style>

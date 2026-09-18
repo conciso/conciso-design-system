@@ -25,11 +25,12 @@ const angularLibEntry = fileURLToPath(
  *   konsumieren ausschließlich die bestehenden CSS-Klassen.
  */
 const config: StorybookConfig = {
-  // Nur das Story-Muster: matcht *.stories.ts UND *.stories.mdx. Ein separates
-  // '../src/**/*.mdx' wäre nicht nur redundant, sondern löst – solange es keine
-  // reinen MDX-Doku-Seiten gibt – bei jedem Start die Warnung „No story files found
-  // for the specified pattern“ aus. Für eigenständige MDX-Seiten hier wieder ergänzen.
-  stories: ['../src/**/*.stories.@(ts|mdx)'],
+  // Zwei Muster sind nötig: '*.stories.@(ts|mdx)' matcht die Stories (inklusive an eine
+  // Story angehängter MDX-Docs-Seiten), '../src/**/*.mdx' zusätzlich die eigenständigen
+  // MDX-Doku-Seiten ohne zugehörige Story. Die Doku-Seiten der Gruppen Marke, Grundlagen,
+  // Seitenmuster, Beispielseiten und Referenzen liegen als solche eigenständigen
+  // MDX-Dateien unter src/docs/ und blieben ohne dieses zweite Muster unsichtbar.
+  stories: ['../src/**/*.stories.@(ts|mdx)', '../src/**/*.mdx'],
   // addon-docs nutzt MDX3, das GitHub-Flavored-Markdown-Tabellen NICHT von Haus aus
   // parst. remark-gfm aktiviert Tabellen (und übrige GFM-Syntax) in allen *.mdx-Dateien.
   addons: [
@@ -60,6 +61,10 @@ const config: StorybookConfig = {
     // Pipeline; die Docs entstehen aus TypeScript-Quelle sowie CSF/argTypes.
     options: {},
   },
+  // Autodocs-Eintrag jeder Komponente heißt sonst „Docs“ — einzige englische
+  // Zeile in einer durchgehend deutschen Navigation. „Übersicht“ ist bereits
+  // der Name, den die eigenständigen MDX-Doku-Seiten tragen (CONTRIBUTING.md § 11).
+  docs: { defaultName: 'Übersicht' },
   features: {
     // Manifest für Agenten/MCP-Clients; addon-mcp erzwingt es ohnehin über
     // seinen eigenen Features-Preset, hier zusätzlich explizit als Dokumentation

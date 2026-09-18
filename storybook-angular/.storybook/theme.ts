@@ -16,7 +16,7 @@ import { create } from 'storybook/theming';
 // Werte, die in Light und Dark identisch bleiben: Schriften, Marke, Rundungen.
 const shared = {
   fontBase: "'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif", // --font
-  fontCode: "ui-monospace,'SF Mono',Menlo,Consolas,monospace", // kein Mono-Token im DS
+  fontCode: "'Courier New', monospace", // --font-mono
   brandTitle: 'Conciso Design System',
   brandUrl: 'https://github.com/conciso/conciso-design-system',
   brandTarget: '_self',
