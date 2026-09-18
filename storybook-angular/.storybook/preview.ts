@@ -133,7 +133,7 @@ const preview: Preview = {
           'Seitenmuster',
           [
             'Wissensbeitrag',
-            ['Übersicht', 'FAQ'],
+            ['Übersicht', 'Article-Header', 'Avatar', 'FAQ'],
             'Beitragsübersicht',
             'Veranstaltung',
             'Veranstaltungsübersicht',

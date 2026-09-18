@@ -428,6 +428,64 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   „Tabelle“ entsprechend ergänzt (`['Übersicht', 'Tabelle', 'Vergleichstabelle']`),
   `storybook-angular/src/docs/komponenten/tabelle.mdx` nachgezogen. Befund zur Zeilenangabe im
   Ticket: `.scratch/angular-seitenbausteine/issues/20-ticket-10-falsche-zeilenangabe-doku-vorlage.md`.
+- **`ArticleHeaderComponent` (`cds-article-header`), `AvatarComponent` (`div[cdsAvatar]`) und
+  `AvatarStackComponent` (`cds-avatar-stack`), elftes Ticket der Seitenbausteine-Serie.** Wrapper
+  um `.article-header`/`-breadcrumb*`/`-title`/`-lead`/`-meta*` (css/components.css:1486–1519) und
+  `.article-avatar*` (css/components.css:1520–1545): der zentrierte Kopf eines Wissensbeitrags samt
+  Avatar-Stapel für mehrere Autor:innen. Hauptvorlage war
+  `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx` (Abschnitt „Article Header“), nicht
+  nur das Mockup. **Avatar bekommt einen Attributselektor** (`div[cdsAvatar]`, ADR-0008): ausgezählt
+  sitzen 8 der 11 Grundgrößen-Instanzen in `docs/index.html` als direkte Geschwister in einer von
+  3 `.article-avatar-stack`-Kacheln (Zeilen 8343–8344, 8373–8375, 8404–8406), wo der
+  CSS-Geschwister-Selektor
+  `.article-avatar-stack .article-avatar + .article-avatar` (css/components.css:1540) einen echten,
+  gemeinsamen Elternknoten braucht — ein Element-Selektor, der `.article-avatar` auf ein inneres
+  Element legt (wie `cds-facts` es mit `<dl>` tut), würde die Kette brechen. Gemessen per
+  `getBoundingClientRect()` in der Story „Avatar-Stapel“ (28 statt 40 px Abstand der linken Kanten
+  bei 40-px-Kacheln und `margin-left:-12px`) UND per Screenshot-Baseline
+  (`visual-snapshots/…avatar-stapel.png`, Kreise überlappen sichtbar mit weißem Halo-Rand) — nicht
+  nur an Computed Styles (ADR-0008, Fall 2). Zweiter, unabhängiger Grund für den Attributselektor:
+  `cds-article-header` projiziert den Avatar über `<ng-content select="[cdsAvatar], cds-avatar-stack">`,
+  dasselbe Attribut dient also zugleich als Host-Selektor UND als Projektions-Marker. `cds-pill`
+  bleibt dagegen eine echte Komponente (kein direkt komponiertes `<span class="pill">`): geprüft per
+  `docs show --id komponenten-chips-badges-pills-pill`, `PillComponent`s `.pill` sitzt zwar eine
+  Ebene unter seinem Host, `.article-header`/`.pill` haben aber (anders als `FeaturedCardComponent`s
+  `.card-featured-body>.pill`) keinen Kindselektor, der das verhindern würde — per Screenshot
+  bestätigt (`visual-snapshots/…interaktiv.png`). Neuer Input `pillAriaLabel` (wie bei
+  `FeaturedCardComponent`), weil `PillComponent`s eigener Default („Bereich `<label>`“) für die
+  Lesezeit-Pille des Wissensbeitrags nicht passt (`wissensbeitrag.mdx`: `aria-label="Lesezeit 8
+  Minuten"`) und aus einem freien `pill`-String nicht zuverlässig herleitbar ist. **Die Pille
+  rendert nur, wenn `area` UND `pill` gesetzt sind** — ausgezählt trägt jedes der 9 realen
+  `.pill`-Vorkommen im Article-Header-Kontext ein `data-area`, ein Fall ohne Bereich kommt im
+  Mockup nicht vor; statt einen Default zu erfinden (etwa `PillComponent`s eigenen, per
+  `strictTemplates`-Typüberbrückung durchgereichten), narrowt `@if (area(); as pillArea)`
+  `CdsArea | undefined` sauber auf `CdsArea`, ohne Typ-Cast, und ohne `area` bleibt die Pille
+  schlicht weg (Story „Pille ohne Bereich“). **Initialen werden
+  aus `name` abgeleitet** (`computed()`, erstes Zeichen von erstem und letztem Wort), kein eigener
+  Input. **`date`/`dateLabel` bleiben getrennt, anders als `cds-stoerer`**: `cds-stoerer` formatiert
+  ein ISO-Datum selbst nach `de-DE` (inkl. Umgehung des UTC-Mitternacht-Fallstricks bei
+  `new Date(iso)`); diese Komponente konstruiert dagegen nie ein `Date`-Objekt aus `date()` —
+  `dateLabel` liefert die sichtbare Schreibweise, ohne `dateLabel` steht `date` unverändert als
+  ISO-Text sichtbar (in der Story „Interaktiv“ als Warnfall demonstriert), der Zeitzonen-Fallstrick
+  kann so gar nicht erst auftreten. `aria-hidden="true"` ist an beiden Avatar-Komponenten fest
+  verdrahtet (kein Input): ausgezählt tragen 45 von 53 `.article-avatar`-Instanzen es direkt, die
+  restlichen 8 sitzen in einem bereits `aria-hidden`-tragenden Stapel (redundant, aber unschädlich).
+  Breadcrumb: letzter Eintrag rendert immer ohne Link mit `aria-current="page"`
+  (Akzeptanzkriterium), unabhängig von den beiden unvollständigen Wissensbeitrag-Inline-Beispielen,
+  die dafür keine Vorlage sind (siehe Befund unten). Meta-Strip rendert nur, wenn `authorName`
+  und/oder `date` etwas liefern (eine Stellenanzeige nutzt `.article-header` komplett ohne
+  `.article-meta`, das Ticket sieht dafür keine API vor). Neue Bauteil-Ebenen
+  `Seitenmuster/Wissensbeitrag/Article-Header` (Stories `Interaktiv`, `Ohne Breadcrumb`, `Mehrere
+  Autor:innen`) und `Seitenmuster/Wissensbeitrag/Avatar` (Stories `Avatar-Größen`,
+  `Avatar ohne Bild`, `Avatar mit Bild`, `Avatar-Stapel`), `storySort.order` der Sektion
+  „Wissensbeitrag“ entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar', 'FAQ']`),
+  Doku-Seite bleibt erstes Kind. Befunde:
+  `.scratch/angular-seitenbausteine/issues/20-breadcrumb-in-oder-vor-article-header.md`
+  (`docs/index.html:2423`, wörtlich: „Den Breadcrumb nicht in einen zentrierten `.article-header`
+  einbetten…“ — beide echten Beispielseiten folgen dem, 6 isolierte Doku-Demos inkl.
+  `wissensbeitrag.mdx` widersprechen dem ausdrücklich — die Komponente folgt der Ticket-Vorlage) und
+  `.scratch/angular-seitenbausteine/issues/21-pill-default-area-dokumentation-vs-code.md`
+  (`PillComponent.area` dokumentiert einen Corporate-Default, der Code liefert `'ki'`).
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene

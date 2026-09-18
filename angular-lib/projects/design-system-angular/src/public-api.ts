@@ -80,3 +80,7 @@ export * from './lib/facts/facts.component';
 export * from './lib/table/table.component';
 // Angular-Seitenbausteine (Ticket 10): aufklappbare Vergleichstabelle
 export * from './lib/compare/compare.component';
+// Angular-Seitenbausteine (Ticket 11): Beitrags-Kopf und Avatare
+export * from './lib/avatar/avatar.component';
+export * from './lib/avatar/avatar-stack.component';
+export * from './lib/article-header/article-header.component';
