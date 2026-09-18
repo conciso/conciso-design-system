@@ -204,6 +204,50 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Icon-Karte` (Stories `Interaktiv`, `Als Link`, `Anker ohne Href`, `Pro Bereich`,
   `Im Raster`, `Ohne CTA`), `storySort.order` der Sektion „Cards & Teaser“
   entsprechend ergänzt.
+- **`FeatureComponent` (`[cdsFeature]`), sechstes Ticket der Seitenbausteine-Serie:
+  die offene Feature-Zeile ohne Box und ohne Schatten (40 Vorkommen auf den
+  Beispielseiten).** Bildet `.ep-feature` ab (css/components.css:1363–1379):
+  Icon-Kachel links, Titel und Text rechts. Attributselektor von Anfang an
+  (`div[cdsFeature]`), nicht erst nach einem Fehlversuch: das Mockup setzt die
+  Spaltenklasse konsequent am selben Element wie `.ep-feature`
+  (`class="ep-feature col-4"`), das Bauteil ist damit selbst Grid-Kind UND Ziel
+  einer Layout-Klasse des Konsumenten — exakt das Kriterium aus
+  [ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md), hier vorab
+  angewandt statt nachträglich gemessen. Gemessen wurde trotzdem: die Story
+  „Dreispalter“ setzt drei `.ep-feature` mit stark unterschiedlich langem Text als
+  `col-4`-Geschwister in ein `.layout-grid` — alle drei 128px hoch, alle drei
+  Unterkanten bei y=128, der Grid-Zeilenausgleich greift direkt auf `.ep-feature`,
+  ohne Host-Element dazwischen. Das Icon kommt als projizierter Inhalt
+  (`<ng-content select="[cdsIcon]">`); `.ep-feature-icon` ist wie `.ep-card-icon`
+  ein Container, der Maße über den Nachfahren-Selektor `.ep-feature-icon svg`
+  durchreicht, geht darin aber weiter als die Icon-Karte: es setzt zusätzlich
+  `color` auf dem Container (`.ep-card-icon` tut das nicht), die vier
+  `[data-area]`-Varianten liefern also nicht nur die Kachelfarbe, sondern auch den
+  passenden Icon-Ton — ein projiziertes `<svg stroke="currentColor">` erbt ihn ohne
+  eigenes Zutun, das Mockup nutzt genau das (`docs/index.html:10406` u. a.). Der
+  optionale CTA (`.card-cta-link`), direktes Kind von `.ep-feature-body`, ist ein
+  echter `<a href>`, wenn `ctaHref` gesetzt ist, sonst ein `<span>` mit identischer
+  Optik — nie ein `<a>` ohne `href`. Ausgezählt in `docs/index.html`: alle 13
+  `.card-cta-link`-Vorkommen in `.ep-feature-body` sind entweder ein `<a href="…">`
+  (12×) oder ein `<span>` (1×, Platzhalter „Landingpage folgt“ ohne Ziel), niemals
+  ein `<a>` ohne `href` — dieselbe Falle, die `cds-icon-card` über `isLink()`
+  schließt, hier aber strukturell im `@if`/`@else`-Zweig statt am Host-Tag gelöst,
+  weil der Host bei `cdsFeature` immer `<div>` ist. Ein `<a>` ohne `href` wäre weder
+  fokussierbar noch hätte es eine Link-Rolle, sähe mit der `.card-cta-link`-Optik
+  aber trotzdem bedienbar aus; erster Entwurf hatte das nur über `[attr.href]="…||
+  null"` abgefedert, nicht ausgeschlossen. Zweite Korrektur an derselben Stelle:
+  der neue `ctaAriaLabel`-Input. Erster Entwurf ging davon aus, das Mockup verzichte
+  meist auf einen zusätzlichen `aria-label` — ausgezählt war das Gegenteil richtig:
+  von den 12 `<a class="card-cta-link">` tragen 11 einen `aria-label`, weil sich nur
+  3 verschiedene sichtbare Texte auf diese 12 Links verteilen (`„Zur Landingpage“`
+  allein zehnmal) und eine Screenreader-Linkliste sonst zehnmal denselben Namen
+  hörte. Das Mockup disambiguiert durchgängig mit `<sichtbarer Text>: <Ziel>`
+  (`aria-label="Zur Landingpage: KI Kickstart Workshops"`) — `ctaAriaLabel` bildet
+  genau das nach, Default `''` (sichtbarer `ctaLabel`-Text bleibt zugänglicher
+  Name), wirkt nur am `<a>`-Zweig. Neue Bauteil-Ebene
+  `Komponenten/Cards & Teaser/Feature-Liste` (Stories `Interaktiv`, `Dreispalter`,
+  `Mit CTA`, `Ohne Href`, `Pro Bereich`), `storySort.order` der Sektion
+  „Cards & Teaser“ entsprechend ergänzt.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
