@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
@@ -7,7 +6,7 @@ import type { CdsArea } from '../area';
 let uid = 0;
 
 /**
- * Section (cds-section) — Wrapper um `.ep-section` aus css/components.css
+ * Section (`[cdsSection]`) — Wrapper um `.ep-section` aus css/components.css
  * (css/components.css:1223–1253, mobiler Innenabstand: Zeile 1228) mit dem optionalen
  * Kopf-Trio `.ep-section-label` (Kicker) / `.ep-section-h2` (Überschrift) /
  * `.ep-section-sub` (Lead). Das strukturelle Grundgerüst, in dem auf den
@@ -18,66 +17,59 @@ let uid = 0;
  * Kopf, nur aus ihrem projizierten Inhalt (docs/index.html:9378). Der Inhalt selbst
  * kommt per `<ng-content>` und ist deshalb kein Input.
  *
- * **Entscheidung 1 — Landmark nur mit zugänglichem Namen.** Eine `<section>` ohne
- * accessible name wird von Screenreadern nicht als Region-Landmark angekündigt (HTML-AAM);
- * ohne Namen wäre sie in der Landmark-Navigation nur ein weiterer namenloser Eintrag. Die
- * Komponente rendert `<section aria-labelledby="…">` deshalb NUR, wenn ein Name
- * verfügbar ist: vorrangig die eigene, gerenderte `.ep-section-h2` (bekommt eine
- * generierte id), sonst — wenn `heading` leer bleibt, der Name aber von einer
- * Überschrift AUSSERHALB der Komponente kommt — die per `labelledBy` übergebene id.
- * Ist beides leer, bleibt es bei einem namenlosen `<div class="ep-section">`, statt ein
- * `<section>` zu rendern, das ohnehin keine Landmark-Rolle bekäme: Der fehlende Name
- * ist damit direkt im Markup sichtbar, nicht erst beim Prüfen des Accessibility-Trees.
+ * **Entscheidung 1 — Attributselektor, der Konsument wählt `<section>` oder `<div>`.**
+ * Erste Fassung war `cds-section` als eigenes Element, das intern selbst entschied:
+ * `<section aria-labelledby="…">`, wenn ein zugänglicher Name verfügbar war, sonst ein
+ * namenloses `<div>`. Das setzte voraus, dass ein `background` auf einem
+ * UMSCHLIESSENDEN Element sitzen musste (siehe Entscheidung 2) — gemessen im laufenden
+ * Storybook (siehe `docs/adr/0008-selektortyp-der-wrapper-komponenten.md`, „Fall 2“):
+ * `getComputedStyle(host).backgroundColor` und `host.getBoundingClientRect()`
+ * meldeten beide „passt“, der Screenshot zeigte trotzdem keine gemalte Fläche — ein
+ * unbekanntes Custom Element ohne eigene Inline-Inhalte, dessen einziges Kind als Block
+ * herausgebrochen wird, hat keine eigene Box zum Malen.
  *
- * **Entscheidung 2 — kein `background`-Input.** Das Mockup setzt Sektionsflächen
- * inline (`style="background:var(--bg-surface)"` / `--co-50` / …). Das ist der
- * Flächen-Rhythmus zwischen aufeinanderfolgenden Sektionen einer SEITE (Begründung
- * inkl. Messwerten in docs/index.html:1450, „Warum nicht die Sektion senken?“) — eine
- * Entscheidung, die nur die Seite treffen kann, weil nur sie ihre Nachbar-Sektionen
- * kennt. Ein Bauteil kennt seinen Kontext nicht (CONTRIBUTING.md §7) und bekäme mit
- * einem `background`-Input eine Zuständigkeit, die ihm nicht zusteht. Der Konsument setzt
- * die Fläche daher weiterhin selbst — und zwar auf einem UMSCHLIESSENDEN Element, nicht auf
- * dem `<cds-section>`-Host: Ein unbekanntes Custom Element ist ohne eigene CSS-Regel
- * standardmäßig `display:inline` (nichts im Repo setzt `cds-section{display:block}`), und ein
- * Inline-Element mit einem Block-Kind (`<section class="ep-section">`) malt seinen
- * Hintergrund nicht zuverlässig über dessen Fläche. `<div style="background:…"><cds-section
- * …></cds-section></div>` ist deshalb der richtige Ort, nicht `<cds-section
- * style="background:…">`.
+ * Die Komponente hängt sich deshalb als Attribut an ein vom Konsumenten geschriebenes
+ * `<section>` oder `<div>`, analog zu `cds-icon-card`
+ * (`icon-card/icon-card.component.ts`). Der Konsument entscheidet über das Tag, ob die
+ * Sektion überhaupt eine `<section>`-Landmark werden KANN; die Komponente entscheidet
+ * nur noch, ob sie `aria-labelledby` setzt (die eigene, gerenderte `.ep-section-h2` hat
+ * Vorrang, sonst — wenn `heading` leer bleibt — die per `labelledBy` übergebene id einer
+ * Überschrift außerhalb der Komponente). Schreibt der Konsument `<section cdsSection>`
+ * ohne Namen, bleibt es bei einer `<section>` ohne `aria-labelledby`: HTML-AAM gibt ihr
+ * dann keine Landmark-Rolle, aber das ist eine Entscheidung des Konsumenten, keine der
+ * Komponente — sie erzwingt kein Tag mehr.
+ *
+ * **Entscheidung 2 — kein `background`-Input, die Fläche darf jetzt aber am Host
+ * sitzen.** Das Mockup setzt Sektionsflächen inline (`style="background:var(--bg-surface)"`
+ * / `--co-50` / …). Das ist der Flächen-Rhythmus zwischen aufeinanderfolgenden
+ * Sektionen einer SEITE (Begründung inkl. Messwerten in docs/index.html:1450, „Warum
+ * nicht die Sektion senken?“) — eine Entscheidung, die nur die Seite treffen kann, weil
+ * nur sie ihre Nachbar-Sektionen kennt. Ein Bauteil kennt seinen Kontext nicht
+ * (CONTRIBUTING.md §7) und bekäme mit einem `background`-Input eine Zuständigkeit, die
+ * ihm nicht zusteht. Der Konsument setzt die Fläche deshalb weiterhin selbst — jetzt
+ * aber direkt auf dem Element, das `cdsSection` trägt (`<section cdsSection
+ * style="background:…">` bzw. `<div cdsSection style="…">`), denn dieses Element IST
+ * `.ep-section`, kein Host mehr davor. Das umschließende Element aus der ersten Fassung
+ * ist damit nicht mehr nötig (siehe Story „Fläche am Host“).
  */
 @Component({
-  selector: 'cds-section',
+  selector: 'section[cdsSection], div[cdsSection]',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet],
+  host: {
+    class: 'ep-section',
+    '[attr.aria-labelledby]': 'ariaLabelledBy()',
+  },
   template: `
-    @if (ariaLabelledBy(); as labelledById) {
-      <section class="ep-section" [attr.aria-labelledby]="labelledById">
-        <ng-container [ngTemplateOutlet]="body"></ng-container>
-      </section>
-    } @else {
-      <div class="ep-section">
-        <ng-container [ngTemplateOutlet]="body"></ng-container>
-      </div>
+    @if (label()) {
+      <div [class]="labelClasses()">{{ label() }}</div>
     }
-    <!--
-      Laufzeit-Wechsel geprüft (Spike, siehe PR-Historie): Springt "heading" zwischen
-      '' und einem Wert, wird der @if/@else-Zweig zerstört und neu aufgebaut — der per
-      <ng-content> projizierte Inhalt übersteht das trotzdem, weil Angular denselben
-      <ng-template>-Inhalt (inkl. der darin liegenden Projektion) über ngTemplateOutlet
-      erneut instanziiert, statt die Projektion an den Host zu binden. Kein Bug, keine
-      offene Frage.
-    -->
-    <ng-template #body>
-      @if (label()) {
-        <div [class]="labelClasses()">{{ label() }}</div>
-      }
-      @if (heading()) {
-        <h2 class="ep-section-h2" [id]="headingId">{{ heading() }}</h2>
-      }
-      @if (sub()) {
-        <p class="ep-section-sub">{{ sub() }}</p>
-      }
-      <ng-content></ng-content>
-    </ng-template>
+    @if (heading()) {
+      <h2 class="ep-section-h2" [id]="headingId">{{ heading() }}</h2>
+    }
+    @if (sub()) {
+      <p class="ep-section-sub">{{ sub() }}</p>
+    }
+    <ng-content></ng-content>
   `,
 })
 export class SectionComponent {
@@ -101,8 +93,9 @@ export class SectionComponent {
 
   /**
    * Zugänglicher Name der Sektion: die eigene Überschrift hat Vorrang, sonst die von
-   * außen übergebene id. `null`, wenn keins von beidem vorhanden ist — dann rendert die
-   * Komponente ein `<div>` statt eines `<section>` (Entscheidung 1 in der Klassendoku).
+   * außen übergebene id. `null`, wenn keins von beidem vorhanden ist — dann setzt die
+   * Komponente kein `aria-labelledby`. Ob der Host dadurch eine Landmark wird, hängt
+   * am Tag, das der Konsument gewählt hat (siehe Entscheidung 1 in der Klassendoku).
    *
    * @internal
    */
