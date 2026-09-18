@@ -130,7 +130,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .group-title{font:400 1.5rem/2rem var(--font-display);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
 .lbl{font:500 0.75rem/1rem var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
 .row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
-.token{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
+.token{font-family:var(--font-mono);font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
@@ -164,7 +164,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    bekäme. */
 /* Linie zwischen Farbfeld und Beschriftung: im Light grenzt der weiße Streifen sonst nicht gegen
    die hellen Stufen ab. Sie sitzt auf der ersten Zeile des Streifens, also nur einmal je Spalte. */
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
+.swatch span{font-size:0.75rem;font-family:var(--font-mono);font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
 .swatch > span:first-of-type{border-top:1px solid var(--bd-c);padding-top:4px}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
 .swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
@@ -182,7 +182,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
 .pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
-.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
+.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:var(--font-mono)}
 .pal-thresholds .thr-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-weight:700;margin-right:2px;font-size:0.75rem}
 .thr-aa-l{background:#dbeeff;color:#1a3a6b}
 .thr-aa{background:#c3f0e8;color:#0a4a38}
@@ -205,7 +205,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
 .area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
 .area-meta{font:400 0.75rem/1rem var(--font);color:var(--tx-secondary)}
-.area-meta code{font-size:0.75rem;font-family:'Courier New',monospace}
+.area-meta code{font-size:0.75rem;font-family:var(--font-mono)}
 
 /* Utility: hartes Verstecken (überschreibt Inline-display) */
 .is-hidden{display:none!important}

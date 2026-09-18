@@ -102,6 +102,7 @@ export const tokens = {
   "tx-muted": "#5A7171",
   "font": "'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif",
   "font-display": "'Libre Baskerville','Georgia',serif",
+  "font-mono": "'Courier New',monospace",
   "ty-caption": "400 0.75rem/1rem 'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif",
   "ty-body-xs": "400 0.75rem/1rem 'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif",
   "ty-body-sm": "400 0.875rem/1.25rem 'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif",

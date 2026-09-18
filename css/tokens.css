@@ -104,6 +104,9 @@
   /* ── Typography ── */
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
   --font-display:'Libre Baskerville','Georgia',serif;
+  /* --font-mono: dritte Schriftrolle des Systems (Code/Werte), bisher zehnmal hart im CSS.
+     Wert unverändert übernommen, reiner Struktur-Schritt, keine gerenderte Änderung. */
+  --font-mono:'Courier New',monospace;
 
   /* ── Typography Scale ──
      Einheiten rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): 1rem = 16px bei Default-Root
