@@ -397,6 +397,37 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `CONTRIBUTING.md` §12 das erste Kind. `storybook-angular/src/docs/komponenten/tabelle.mdx`
   entsprechend nachgezogen (die veraltete Aussage „kein eigenes Angular-Bauteil“ galt nur noch
   für die separat zu bauende Vergleichstabelle, `.ep-compare*`, Ticket 10).
+- **`CompareComponent` (`cds-compare`), zehntes Ticket der Seitenbausteine-Serie.** Wrapper um
+  `.ep-compare*` (css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den
+  zeilenweisen Direktvergleich mehrerer Pakete/Tarife hinter nativem `<details>`/`<summary>`.
+  **Mit Daten-Input, anders als `cds-table`:** ausgezählt sind alle 22 Datenzellen des einzigen
+  realen Vorkommens (`docs/index.html:11970–12038`, 11 Zeilen × 2 Spalten) entweder ein
+  Ja/Nein-Marker (18×) oder eine kurze Angabe (4×), nie ein Badge oder Link — `columns`/`rows`
+  statt `<ng-content>`, weil die Zell-Typisierung
+  (`boolean | string`) dem Konsumenten ohnehin keine zusätzliche Freiheit ließe. Ja/Nein-Zellen
+  tragen fest verdrahteten `.sr-only`-Text (`Enthalten`/`Nicht enthalten`, exakt aus dem Mockup
+  übernommen, nicht erfunden, Glyphen „✓“/„−“ U+2212), weil Farbe und Glyphe allein keine
+  Bedeutung tragen (WCAG 1.4.1). `caption` ist `input.required<string>()`, dieselbe Begründung
+  wie bei `cds-table`: die eigene Doku (`tabelle.mdx:91`) nennt `<caption class="sr-only">`
+  ausdrücklich als Teil des Bauteils. Anders als bei `cds-table` ist sie hier `.sr-only`, weil der
+  Klartext schon im `<summary>` steht. `rowsLabel` (erste Kopfzelle, „Funktion“ im Mockup) ist
+  dagegen Beiwerk mit Default `''`: ein leeres `<th scope="col">` bleibt eine gültige, in
+  Vergleichsmatrizen verbreitete Ecke, das Beispielwort steht deshalb in der Story statt in der
+  Klasse. Natives `<details>`/`<summary>` bleibt erhalten (Tastaturbedienung und Toggle kommen
+  vom Browser, das CSS hängt an `[open]`), `<details class="ep-compare">` sitzt deshalb im
+  Template, nicht am Host — ein `<cds-compare>`-Host ist ein unbekanntes Custom Element und kann
+  echte `<details>`-Semantik nicht annehmen (derselbe Grund wie bei `cds-table`s `.tbl-wrap`).
+  Element-Selektor, ADR-0008-Standardfall: `.ep-compare` ist im einzigen realen Vorkommen ein
+  gewöhnlicher Block-Nachfahre in `.ep-section`, kein Grid-/Flex-Kind, kein Tag-Wechsel. `open`
+  ist reiner Anfangszustand über `[attr.open]="open() ? '' : null"`, keine Zwei-Wege-Bindung —
+  Angular schreibt das Attribut nur bei einer Werteänderung des geprüften Ausdrucks, ein
+  nachfolgender nativer Toggle bleibt deshalb unangetastet (in der Story „Interaktiv“ per
+  Play-Funktion geprüft, nicht nur angenommen). `toggled` feuert bei jedem Auf-/Zuklappen mit dem
+  neuen Zustand. Neue Bauteil-Ebene `Komponenten/Tabelle/Vergleichstabelle` (Stories `Interaktiv`,
+  `Bereits offen`, `Mit Text-Zellen`, `Hervorgehobene Spalte`), `storySort.order` der Sektion
+  „Tabelle“ entsprechend ergänzt (`['Übersicht', 'Tabelle', 'Vergleichstabelle']`),
+  `storybook-angular/src/docs/komponenten/tabelle.mdx` nachgezogen. Befund zur Zeilenangabe im
+  Ticket: `.scratch/angular-seitenbausteine/issues/20-ticket-10-falsche-zeilenangabe-doku-vorlage.md`.
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene

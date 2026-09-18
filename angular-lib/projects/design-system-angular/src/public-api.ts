@@ -78,3 +78,5 @@ export * from './lib/tier/tier.component';
 export * from './lib/facts/facts.component';
 // Angular-Seitenbausteine (Ticket 09): Datentabelle
 export * from './lib/table/table.component';
+// Angular-Seitenbausteine (Ticket 10): aufklappbare Vergleichstabelle
+export * from './lib/compare/compare.component';

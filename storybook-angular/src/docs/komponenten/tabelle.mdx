@@ -9,9 +9,10 @@ Tastaturnavigation, in zwei Varianten: Standard und Gestreift, dazu eine
 aufklappbare Vergleichstabelle. Standard und Gestreift deckt das Angular-Bauteil
 `Komponenten/Tabelle/Tabelle` (`cds-table`) ab: es liefert `.tbl-wrap` samt
 Tastaturzugriff und Name sowie `.tbl`/`.tbl--striped`, der Konsument projiziert
-`<thead>`/`<tbody>`/`<tfoot>` unverändert hinein. Für die aufklappbare
-Vergleichstabelle (`.ep-compare*`) gibt es weiterhin kein eigenes Bauteil, die
-Klassen kommen direkt aus der CSS-Schicht.
+`<thead>`/`<tbody>`/`<tfoot>` unverändert hinein. Die aufklappbare Vergleichstabelle
+deckt `Komponenten/Tabelle/Vergleichstabelle` (`cds-compare`) ab: anders als
+`cds-table` bekommt sie einen Daten-Input (`columns`/`rows`), weil ihre Zellen auf
+Ja/Nein oder eine kurze Angabe begrenzt sind.
 
 Quelle: `docs/index.html#sec-table` (Zeilen 4979 bis 5208).
 
@@ -160,4 +161,6 @@ Enthalten/Nicht enthalten als `.ep-compare-yes` (✓) beziehungsweise `.ep-compa
 
 - Doku-Sektion: `docs/index.html#sec-table`
 - `Komponenten/Tabelle/Tabelle` (Angular-Bauteil `cds-table` für Standard und Gestreift)
+- `Komponenten/Tabelle/Vergleichstabelle` (Angular-Bauteil `cds-compare` für die aufklappbare
+  Vergleichstabelle)
 - `Komponenten/Chips, Badges & Pills/Status-Badge` (für Status-Zellen)
