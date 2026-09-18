@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Zitate & Testimonials" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Zitate & Testimonials führt vier Formen: Blockquote, Testimonial-Card, Team-Stimme und
+das offene Zitat. Alle Formen teilen dasselbe semantische Grundgerüst
+(`<figure>` + `<blockquote>` + `<figcaption>`). Nur das offene Zitat hat kein eigenes
+Bauteil, es ist ein CSS-Rezept ohne Karten-Chrome.
+
+## Wann welche Variante
+
+| Variante | Bauteil | Wann einsetzen |
+|---|---|---|
+| Blockquote | Story `Blockquote` | Kürzere Zitate (1 bis 3 Sätze, max. 200 Zeichen) im redaktionellen Kontext, eingebettet in Fließtext oder Abschnitte |
+| Testimonial-Card | Story `Testimonial` | Kundenreferenzen als eigenständige visuelle Einheit: Referenz-Sektionen, Hero-nahe Bereiche, Abschluss von Leistungsbeschreibungen, 2 bis 5 Sätze |
+| Team-Stimme | Story `TeamVoice` | Fotostarke, editoriale Variante der Testimonial-Card für Repräsentation (zum Beispiel Karriereseiten), volle Breite, großes Foto seitlich, abwechselnd links und rechts |
+| Offenes Zitat | bauteillos (CSS-Rezept, ohne Karten-Chrome) | Mehrere gleichrangige Stimmen in einer eigenen Sektion (zum Beispiel Workshop-Stimmen), Serif aufrecht statt kursiv, Trennung nur über Haarlinien |
+
+## Abgrenzung: Pull-Quote gegen Blockquote
+
+Zwei Muster teilen sich dieselbe typografische Familie, aber nicht denselben Zweck. Ein
+**Pull-Quote** (`.article-pullquote`, dokumentiert unter Seitenmuster/Wissensbeitrag)
+hebt einen Satz aus dem eigenen Lauftext typografisch hervor: ohne Attribution, denn
+die Autorin zitiert sich nicht selbst, sondern setzt einen Schlüsselsatz visuell ab. Der
+**Blockquote** (`.bq`, das Bauteil dieser Seite) ist dagegen ein wörtliches Zitat einer
+dritten Person (Kundin, Forschungsstimme, Branchen-Statement) mit Attribution (Name und
+Rolle) und einer area-getönten Akzent-Box samt Quote-Icon. Beide teilen den
+4-Pixel-Linksakzent in der Bereichsfarbe; der Pull-Quote bleibt bewusst „offen“ (Serif
+kursiv, kein Hintergrund, kein Icon), der Blockquote ist umrahmt. Details zum Pull-Quote
+stehen unter Seitenmuster/Wissensbeitrag.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Semantik | `<blockquote>` korrekt für Zitate verwenden, Screenreader kündigen es als „Blockzitat“ an |
+| Dekoration | SVG-Anführungszeichen und Avatar-Initialen mit `aria-hidden="true"` und `focusable="false"` ausblenden |
+| Attribution | `<figcaption>` verknüpft die Quellenangabe semantisch mit dem Zitat, kein zusätzliches ARIA nötig |
+| Kontrast | Zitattext und Name in `--tx-primary`, Rolle in `--tx-secondary`, Avatar-Text geprüft ≥4,5:1 auf Bereichshintergrund in Light und Dark |
+| Anführungszeichen | Im Zitattext direkt eingebettet („…“), `quotes: none` verhindert doppelte Browser-Anführungszeichen |
+
+### Team-Stimme: zusätzliche Regeln
+
+| Aspekt | Regel |
+|---|---|
+| Semantik | `<figure>` + `<blockquote>` + `<figcaption>`, Quote-Icon dekorativ (`aria-hidden="true"`, `focusable="false"`) |
+| Bild-Alt | Beschreibendes `alt`, das keine konkrete Identität behauptet, solange Platzhalter- oder Stimmungsfotos genutzt werden |
+| Elevation | Statisch, daher flacher Rahmen (`--bd-strong`), kein Schatten, keine Klick-Affordanz |
+| Bereichs-Rahmen | Trägt das Bereichssignal und muss die 3:1-Schwelle für grafische Objekte erfüllen: Light `-600`/`-700`/`-500` (3,29 bis 5,66:1 auf Weiß), Dark `-300` (4,25 bis 9,48:1 auf der Karte). Vorher trug er mit `-200` im Light nur 1,27 bis 2,03:1 und mit `-800` im Dark 1,07 bis 1,63:1, war also in beiden Modi kein Signal |
+| Responsive | Unter 768 px stapelt das Grid zu Foto oben, Text unten |
+
+## Dos & Don'ts
+
+**Tun**
+
+- `<figure>` + `<blockquote>` + `<figcaption>` als semantisches Grundgerüst nutzen
+- Echte Kundenstimmen verwenden, keine KI-generierten Platzhalter in der Produktion
+- Bereichsfarbe über `data-area` steuern, keine hardcodierten Farbwerte
+- Zitate authentisch halten: gesprochene Sprache, konkrete Ergebnisse, keine Marketingfloskeln
+- Testimonial-Cards auf gleiche Höhe bringen: `align-items:stretch` im Grid plus `flex:1` auf dem Zitattext hält die Attribution am unteren Rand ausgerichtet
+
+**Nicht tun**
+
+- `<blockquote>` für eingerückte Aufzählungen oder rein visuell hervorgehobenen Text verwenden
+- Anführungszeichen doppelt setzen, entweder im Text oder via CSS `content`, nicht beides
+- Attribution weglassen, jedes Zitat braucht eine überprüfbare Quelle
+- Mehr als 3 Testimonials in einer Reihe, Lesbarkeit und visuelle Balance leiden
+- Dekorative Icons mit `role="img"` oder `alt` versehen, sie sind `aria-hidden` und übermitteln keine Information
+
+## Verwandte Seiten
+
+- Komponenten/Zitate & Testimonials/Blockquote
+- Komponenten/Zitate & Testimonials/Testimonial
+- Komponenten/Zitate & Testimonials/TeamVoice
+- Seitenmuster/Wissensbeitrag (Abgrenzung Pull-Quote gegen Blockquote)

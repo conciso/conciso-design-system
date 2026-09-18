@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Feedback" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Drei Snackbar-Varianten (Default, OK, Fehler) für Kontaktformular, Newsletter-Anmeldung und Validierungsfehler auf Landingpages.
+
+## Wann welche Variante
+
+| Variante | Wann einsetzen | ARIA |
+|---|---|---|
+| Default | Neutrale Statusmeldung mit optionaler Aktion, Formular zwischengespeichert, Cookie-Einwilligung bestätigt | `role="status"` `aria-live="polite"` |
+| OK / Erfolg | Abgeschlossene Landingpage-Aktion, Kontaktformular gesendet, Newsletter-Anmeldung bestätigt | `role="status"` `aria-live="polite"` |
+| Fehler | Versand- oder Serverfehler nach Submit, bleibt sichtbar bis die Nutzerin aktiv reagiert | `role="alert"` `aria-live="assertive"` |
+
+| Eigenschaft | Regel |
+|---|---|
+| Auto-Dismiss | Default und OK nach 4 bis 6 Sekunden, Fehler-Snackbar bleibt offen |
+| Position | Unten links oder zentriert, nie über primären Aktionsschaltflächen |
+| Menge | Max. 1 Snackbar gleichzeitig, neue verdrängt die vorherige |
+| Aktion | Max. 1 Aktion pro Snackbar, kurzes Verb, max. 2 Wörter |
+
+Feldfehler gehören immer inline unter das betroffene Feld, nicht als Snackbar: die Snackbar transportiert nur den globalen Submit-Fehler, sonst verliert die Nutzerin den Bezug zum Feld.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Default & OK | `role="status"`, `aria-live="polite"` |
+| Fehler | `role="alert"`, `aria-live="assertive"`, bleibt offen bis aktive Reaktion |
+| Dark Mode | Die Snackbar schwebt über beliebigem Inhalt und kommt im Light ohne Rahmen aus. Im Dark liegt sie sehr nah am Grund, deshalb bekommt sie dort zusätzlich `--bd-strong-c` als Rand, dieselbe Regel wie bei Menüs und Popover |
+| Status-Flächen | Farbe aus `--c-success-bg` und `--c-error-bg`, nicht aus eigenen Hexwerten, sonst bleiben sie bei einer Token-Änderung zurück |
+
+## Dos & Don'ts
+
+**Tun**
+
+- OK-Snackbar nach erfolgreichem Formularversand, die Nutzerin bekommt klare Rückmeldung ohne Seitenwechsel.
+- Feldfehler inline direkt unter dem Eingabefeld zeigen, Snackbar nur für globale Submit-Fehler.
+- Fehler-Snackbar offen lassen, bis die Nutzerin aktiv reagiert, kein Auto-Dismiss bei kritischen Meldungen.
+- Aktions-Label als konkretes Verb, „Erneut versuchen“, „Jetzt senden“, „Schließen“.
+- `role="alert"` nur für Versand- oder Serverfehler, nicht für Bestätigungen und Hinweise.
+
+**Nicht tun**
+
+- Feldfehler als Snackbar, die Nutzerin verliert den Bezug zum betroffenen Feld.
+- OK-Snackbar auto-dismissen, bevor die Nutzerin sie gelesen hat, bei langen Erfolgstexten den Timer auf 6 Sekunden setzen.
+- Snackbar für nächste Schritte nutzen, nach Formularversand lieber per E-Mail oder Folgeseite bestätigen.
+- Mehrere Snackbars gleichzeitig anzeigen, eine neue Meldung verdrängt immer die vorherige.
+- Fehler-Snackbar als einzige Validierung verwenden, Pflichtfelder müssen schon vor dem Submit markiert sein.
+
+## Verwandte Seiten
+
+- Snackbar (`Komponenten/Feedback/Snackbar`)

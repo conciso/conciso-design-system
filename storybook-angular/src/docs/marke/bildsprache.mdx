@@ -1,0 +1,139 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+import icons from '../../../../icons/icons.json';
+
+<Meta title="Marke/Bildsprache" name="Übersicht" />
+
+# Bildsprache
+
+Fotografie · Illustration · vier Brand Areas, abgeleitet aus dem Markenrad.
+
+Bilder kommunizieren schneller als Worte. Die Bildsprache von Conciso übersetzt den Kernwert **Gelassenheit** in visuelle Reize: ruhige Kompositionen, klare Motive und echte Energie statt inszenierter Hochglanz-Ästhetik.
+
+## Grundprinzipien aus dem Markenrad
+
+Jeder der drei Markenpfeiler übersetzt sich direkt in visuelle Entscheidungen, von der Wahl des Motivs bis zur Bildbearbeitung.
+
+| Markenpfeiler | Eigenschaften | Bildsprache-Übersetzung |
+|---|---|---|
+| Ruhig | Verlässlich · Selbstsicher · Kompetent | Ausgewogene Komposition, großzügiger Weißraum, natürliches, diffuses Licht ohne harte Schatten, keine überfüllten Bildausschnitte |
+| Klar | Aufmerksam · Präzise · Pragmatisch | Scharfer Motivfokus, aufgeräumte Hintergründe, ein dominantes Motiv pro Bild, kein dekoratives Beiwerk ohne Zweck |
+| Energiegeladen | Kraftvoll · Agil · Leidenschaftlich | Echte Momente statt Pose, Menschen in echter Konzentration oder Zusammenarbeit, Bewegung und Dynamik, ohne Unruhe zu erzeugen |
+
+## Fotografie
+
+Jede Brand Area hat einen eigenen Bildkontext, die gemeinsamen Stilprinzipien (siehe unten) gelten übergreifend. Reihenfolge co · ki · es · wo.
+
+**Corporate · Vertrauen & Kompetenz.** Menschen im Gespräch, beim Beratungsgespräch oder in ruhiger Konzentration, neutrale, helle Büroumgebungen, Handshakes und partnerschaftliche Gesten, Blickkontakt und Offenheit. Stichworte: Gespräch, Partnerschaft, Büroatmosphäre.
+
+**Angewandte KI · Mensch & Technologie.** Nahaufnahmen von Screens und Interfaces, Menschen, die mit KI-Tools interagieren, abstrakte Datenmuster als visuelle Akzente, immer mit menschlichem Fokus: Technologie ist Werkzeug, nicht Hauptdarsteller. Stichworte: Interfaces, Interaktion, Muster & Daten.
+
+**Effektive Software · Fokus & Präzision.** Nahaufnahmen von Code und Interfaces, Entwickler in tiefer Konzentration, saubere, aufgeräumte Screens, Terminal, IDE und Architekturdiagramme als visuelle Metaphern. Stichworte: Code, Interfaces, Konzentration.
+
+**Wirksame Organisationen · Kollaboration & Wirkung.** Diverse Teams in echter Zusammenarbeit, Workshops, Retrospektiven, Whiteboard-Momente, echte Emotionen wie Lachen und Konzentration, keine uniformen Gruppenfotos ohne Leben. Stichworte: Teams, Workshop, Echte Momente.
+
+**Ergänzung aus `conciso-claude-powerpoint-instructions.md` § 7.2** (dort geführt, in der Doku-Sektion nicht vollständig): Effektive Software zusätzlich mit dem Stichwort *geometrische Strukturen*, Wirksame Organisationen zusätzlich mit *organische Strukturen* und *Wandel*.
+
+Storybook bindet bewusst keine Personenfotos ein: Der folgende Block zeigt je Brand Area nur den Bildslot und seine Bereichsfarbe, nicht das Motiv.
+
+export const imagerySlots = [
+  { area: 'co', iconKey: 'co-building', name: 'Corporate', keywords: 'Gespräch, Partnerschaft, Büroatmosphäre' },
+  { area: 'ki', iconKey: 'ki-bot', name: 'Angewandte KI', keywords: 'Interfaces, Interaktion, Muster & Daten' },
+  { area: 'es', iconKey: 'es-window-check', name: 'Effektive Software', keywords: 'Code, Interfaces, Konzentration' },
+  { area: 'wo', iconKey: 'wo-network', name: 'Wirksame Organisationen', keywords: 'Teams, Workshop, Echte Momente' },
+];
+
+export const ImagerySlot = ({ area, iconKey, name, keywords }) => {
+  const icon = icons[iconKey];
+  const svgAttrs =
+    icon.style === 'solid'
+      ? { fill: 'currentColor' }
+      : { fill: 'none', stroke: 'currentColor', strokeWidth: icon.strokeWidth || '1' };
+  return (
+    <div className="card" data-area={area}>
+      <div className="card-media">
+        <svg
+          viewBox={icon.viewBox}
+          width={64}
+          height={64}
+          aria-hidden="true"
+          {...svgAttrs}
+          dangerouslySetInnerHTML={{ __html: icon.body }}
+        />
+      </div>
+      <div className="card-body">
+        <span className="card-eyebrow">{name}</span>
+        <p className="card-text">{keywords}</p>
+      </div>
+    </div>
+  );
+};
+
+<Unstyled>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gap: 'var(--s5)',
+    }}
+  >
+    {imagerySlots.map((slot) => (
+      <ImagerySlot key={slot.area} {...slot} />
+    ))}
+  </div>
+</Unstyled>
+
+Die Kacheln oben zeigen Slot, Seitenverhältnis (16:9) und Bereichsfarbe je Brand Area; konkrete Beispielfotos zeigt weiterhin die Doku-Site (`docs/index.html#gt-imagery-beispiele`).
+
+## Stilprinzipien Fotografie
+
+- **Licht & Ton.** Natürliches, weiches Licht, helle, leicht entsättigte Töne, kein Filmdrama, kein HDR, Helligkeit leicht anheben, Kontrast etwas reduzieren.
+- **Komposition.** Drittel-Regel und goldener Schnitt, Freiflächen für Text-Overlays einplanen, ein dominantes Motiv, ruhige Umgebung, kein Informations-Overload im Bild.
+- **Menschen.** Authentische Personen aus echten Arbeitskontexten, diverse Repräsentation, Blickkontakt oder echte Konzentration, keine Stockphoto-Posen.
+
+## Illustration
+
+Illustrationen werden ergänzend eingesetzt, für abstrakte Konzepte, die sich nicht fotografisch abbilden lassen: KI-Prozesse, Systemarchitektur, Organisationsmodelle.
+
+- **Linienstil.** Klare, gleichmäßige Linien, keine Füllflächen ohne Bedeutung, Strichstärke konsistent.
+- **Geometrisch.** Vereinfachte Formen statt realistischer Darstellung, keine Gradients innerhalb von Figuren.
+- **Systemfarben.** Ausschließlich Design-System-Tokens (`--co-500`, `--ki-500` und so weiter), keine Freihandfarben.
+- **Weißraum.** Leere Fläche ist gestalterisches Element, nicht jeder Pixel muss belegt sein, Illustration atmen lassen.
+
+## Verwendung
+
+Kontext entscheidet über das richtige Bildformat: Hero-Bereiche brauchen Freiräume für Text, Teaser-Cards arbeiten mit Ausschnitten, Illustrationen kommen dort zum Einsatz, wo Fotos zu konkret wären.
+
+| Kontext | Empfehlung |
+|---|---|
+| Hero-Bereich | Querformat, heller, ruhiger Hintergrund im Bild, untere Bildhälfte frei für Text-Overlay, Foto darf nicht mit der Headline konkurrieren |
+| Card / Teaser | 16:9 oder 3:2, Motiv mittig, kein Text im Bild selbst, Brand-Area-Farbe als Eyebrow über dem Bild, nicht als Tint im Bild |
+| Wissensartikel | Illustration für abstrakte Prozesse, Foto für Praxisbeispiele, Bildunterschrift immer vorhanden, Bilder nie als einziger Informationsträger |
+| Testimonial | Porträt im quadratischen oder runden Ausschnitt, Blick zur Kamera oder leicht seitlich, neutraler, heller Hintergrund, kein Hintergrund-Clutter |
+
+### Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Alt-Text | Jedes inhaltstragende Bild benötigt einen beschreibenden `alt`-Text: er beschreibt, was zu sehen ist, nicht was das Bild bedeutet. Dekorative Bilder erhalten `alt=""` |
+| Text-Overlay | Text auf Foto-Hintergründen mindestens 4,5:1 (WCAG 1.4.3), gerechnet gegen die hellste Stelle unter dem Text, nicht gegen den Bilddurchschnitt: Fotos haben ausgebrannte Bereiche, dort entscheidet sich die Lesbarkeit. Weiße Schrift braucht dafür einen Scrim von mindestens `rgba(0,0,0,.60)`, `.45` reicht nicht (trägt über einer weißen Bildstelle nur rund 3:1). Bei einem Verlauf gilt der Wert an der Stelle, an der der Text sitzt, nicht am dichten Ende. `text-shadow` hilft optisch, zählt für WCAG nicht |
+| Auslaufstrecke des Scrims | Genauso wichtig wie der Deckkraft-Wert ist die Strecke, über die er aufgebaut wird: ein Verlauf fällt dort auf, wo seine Steilheit springt, nicht wo er dicht ist. Faustwert: rund 0,007 Deckkraft pro Pixel. Für 0,6 Deckkraft am obersten Textelement sind das etwa 90 px Auslauf darüber. Reicht die Höhe nicht, wächst die Polsterung, nicht die Steilheit |
+| Nicht allein | Informationen nie ausschließlich im Bild transportieren, der gleiche Inhalt muss als Text verfügbar sein (WCAG 1.1.1) |
+| Bewegung | Animierte Illustrationen oder Hintergrund-Videos mit `prefers-reduced-motion` pausieren |
+
+### Dos & Don'ts
+
+✓ Tun
+
+- Authentische Menschen aus echten Arbeitskontexten wählen, kein gestelltes Stockphoto-Lächeln.
+- Helles, leicht entsättigtes Farbklima beibehalten, Gelassenheit überträgt sich auf die Bildstimmung.
+- Freiraum für Text-Overlays im Bild einplanen, besonders bei Hero-Fotos.
+- Illustrationen ausschließlich mit Design-System-Tokens, Farb-Konsistenz auch im SVG.
+- Brand-Area-Farbe als Kontext-Element um das Bild herum einsetzen, nicht als Farbfilter im Bild.
+
+✕ Nicht tun
+
+- Generische Stockfotos (lachende Gruppe am Tisch, Handshake vor weißem Hintergrund): wirken unecht und austauschbar.
+- Übersättigte oder hochkontrastige Bearbeitungen widersprechen dem Markenwert Gelassenheit.
+- Bereichsfarbe als Tint-Filter über das Foto legen, wirkt aufdringlich und überdeckt die natürliche Bildstimmung.
+- Realistische oder fotografische Illustrationsstile, das bricht den klaren, geometrischen Linienstil.
+- Bilder ohne `alt`-Text oder mit generischem „Foto“: Screenreader-Nutzende erhalten keinen Mehrwert.

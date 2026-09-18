@@ -1,0 +1,66 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Chips, Badges & Pills" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Drei Formen, die leicht verwechselt werden: interaktive Filter-Chips (Toggle), passive Status- und Bereichs-Badges und redaktionelle Pills, alle je Brand Area farblich codiert (Bereichsreihenfolge co · ki · es · wo).
+
+## Wann welche Variante
+
+| Form | Interaktion | Rolle | Label |
+|---|---|---|---|
+| Chip | Interaktiv, Toggle über `aria-pressed="true/false"` | Aktive Filter- und Auswahlkomponente | Max. 3 Wörter, prägnante Kategorie- oder Filterbegriffe |
+| Badge | Passiv, kein Klickverhalten | Status- oder Bereichskennzeichnung neben einem Element | 1 bis 2 Wörter, kein Verb |
+| Pill | Passiv, kein Klickverhalten | Redaktioneller Eyebrow vor einem Titel, ordnet einen Inhalt einer Brand Area zu | 1 bis 3 Wörter, ausschließlich der Bereichsname |
+
+**Abgrenzung Pill gegen Bereichs-Badge**: beide nutzen den 50er-Hintergrund und den 700er- beziehungsweise 800er-Text der Brand Area, beide haben die abgerundete Form.
+
+| Aspekt | Pill | Bereichs-Badge |
+|---|---|---|
+| Rolle | Redaktionelle Meta-Markierung, ordnet einen Inhalt einer Brand Area zu, oft als Eyebrow vor Titeln | Status- oder Bereichs-Kennzeichnung neben Inhalts-Elementen (z. B. neben einem Modulnamen) |
+| Typografie | label-xs, uppercase, `letter-spacing: .09em` | label-xs, gemischte Schreibweise, `letter-spacing: .04em` |
+| Position | Im Lesefluss, vor dem Titel, bringt einen ruhigen visuellen Anker | Inline mit Listen-/Tabellenelementen oder neben Karten-Titeln |
+| Wahl-Indiz | „Was für eine Art Inhalt ist das?“, kategorisch und thematisch | „In welchem Zustand, welchem Bereich ist dieses Element?“, punktuell |
+
+Der spürbare Unterschied entsteht durch Großschreibung und Letter-Spacing: Die Pill wirkt feierlicher, die Badge alltäglicher. Faustregel: Steht unter der Markierung ein Titel oder Beitrag, den sie einordnet, dann Pill. Sitzt die Markierung neben einem Element wie Modulname oder Tabellenzelle, dann Badge. Status (Live, Beta, Deprecated, Draft) ist immer Badge, die Pill hat keine Status-Variante.
+
+**Die Eyebrow-Form ist voll belegt, keine fünfte Bedeutung darauf.** `--ty-label-xs` plus `uppercase`, `letter-spacing:.09em` und `--co-ink` ist pixelgleich in vier Rollen im Einsatz: `.ep-hero-eyebrow` (Haltung, „Verbunden gedacht“), `.ep-section-label` (Sektions-Thema, „Was wir tun“), `.ep-card-eyebrow` (Brand Area, in Bereichsfarbe) und `.stoerer-topic` (Inhaltstyp, „Nächste Veranstaltung“). Aufgelöst wird das nur durch die Position (in einer Kachel, über einer Sektion), nicht durch die Form. Eine neue Komponente, die eine fünfte Bedeutung auf dieselbe Form legt, macht die kleinste Label-Ebene beliebig. Wer eine fünfte Rolle braucht, gibt ihr ein eigenes Unterscheidungsmerkmal (Glyph vor dem Label, neutrale statt farbiger Schrift) oder benutzt eine vorhandene Rolle.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Interaktivität | Klickbare Chips als `<button>` oder `<a>` implementieren, nie als `<div>` mit `onClick`, nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar |
+| Auswahl-Zustand | Toggle-Chips mit `aria-pressed="true/false"` versehen, der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar |
+| Kontrast | Chip-, Badge- und Pill-Text auf dem jeweiligen Hintergrund mindestens 4,5 zu 1 prüfen, besonders bei markierten oder aktiven Chips, da sich Hintergrund und Textfarbe ändern |
+| Pill-`aria-label` | Pflicht bei Pills mit Trennzeichen (`·`), Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“. `aria-label` mit ausgeschriebener Form (z. B. „Bereich Effektive Software, Format Meet-Up“) schreibt die Aussprache vor. Bei Pills ohne Trennzeichen kann das `aria-label` entfallen, der sichtbare Text reicht |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Chips für aktive Filterauswahl, die Nutzerin steuert selbst, was sichtbar ist.
+- Badge für reinen Status, „Live“, „Beta“, „Deprecated“, „Draft“, immer ohne Klick-Handler.
+- Pill als redaktionellen Eyebrow vor einem Titel einsetzen, ordnet den Beitrag thematisch ein und stiftet Erwartung.
+- Bereichsfarbe konsequent einhalten, aktiver Chip einer Brand Area nutzt nur deren Farbtoken.
+- Chip-Labels auf max. 3 Wörter begrenzen, klare, scanbare Begriffe.
+- Semantische Statusfarben bei Badges einhalten, Grün für positiv, Gelb für Warnung, Rot für Fehler.
+- Pills mit Trennzeichen (`·`) immer mit einem `aria-label` in ausgeschriebener Form versehen.
+
+**Nicht tun**
+
+- Chips rein dekorativ einsetzen ohne Toggle-Funktion, verwirrt Nutzerinnen über Interaktivität.
+- Badges klickbar machen ohne visuelles Feedback, Badges sind keine Buttons.
+- Pills für Status verwenden, dafür gibt es Status-Badges, Pill ist redaktioneller Eyebrow, nicht Statusmarker.
+- Bereichsfarben im selben Kontext mischen, `data-area="co"` und `data-area="ki"` Chips nicht gemeinsam in einer Filterleiste.
+- Chip-Labels als vollständige Sätze, zu lang, passt nicht zur kompakten Form.
+- Mehr als 7 Chips in einer Gruppe, lieber kategorisieren oder eine Auswahlliste verwenden.
+- Mehrere Pills nebeneinander an demselben Inhalt, eine Pill pro Beitrag reicht.
+
+## Verwandte Seiten
+
+- Chip (`Komponenten/Chips, Badges & Pills/Chip`)
+- Status-Badge (`Komponenten/Chips, Badges & Pills/Status-Badge`)
+- Bereichs-Badge (`Komponenten/Chips, Badges & Pills/Bereichs-Badge`)
+- Pill (`Komponenten/Chips, Badges & Pills/Pill`)

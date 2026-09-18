@@ -1,0 +1,120 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Marke/Logo" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Verwendungsregeln zum Logo: Größen, Schutzraum, Einsatz nach Hintergrund, Barrierefreiheit und Dos & Don'ts. Die drei Varianten (Default, Light, Dark) zeigt die Story **`Marke/Logo/Logo`**; diese Seite ergänzt die Regeln dazu, inklusive des Hintergrund-Kontexts, den die Story allein nicht zeigt.
+
+Das Logo ist die primäre Markenkennung. Es wird stets als Vektor (SVG) verwendet, nie verzerrt oder eingefärbt.
+
+## Größen
+
+Die Höhe ist die maßgebliche Größenangabe, die Breite ergibt sich proportional aus dem Vektor (Verhältnis ≈ 7,6 : 1). Mindesthöhe nicht unterschreiten, sonst leidet die Lesbarkeit der „o.“-Form.
+
+| Kontext | Höhe | Hinweis |
+|---|---|---|
+| Topnav (Standard) | 24 px | Default-Variante, schaltet im Dark Mode auf Light um |
+| Footer | 32 px | Light-Variante, da Footer-Hintergrund `--n-700` immer dunkel ist |
+| Hero / Marketing-Header | 40 bis 48 px | Wenn das Logo selbst die Aufmerksamkeit tragen soll |
+| Mobile / kompakte Layouts | 20 px | Mindestgröße digital, darunter wird der Punkt schwer erkennbar |
+| Print | mindestens 12 mm | Mindestgröße im Druck, Punkt muss sauber drucken |
+
+## Schutzraum
+
+Um das Logo herum bleibt mindestens die Höhe des „C“ als freier Raum: keine konkurrierenden Elemente, kein Beschnitt durch andere Layout-Komponenten. Als Vielfaches ausgedrückt: die Referenzimplementierung der Doku-Site setzt ein Padding in Höhe des gesamten Logos (1:1-Clearance) an, eine praktikable Annäherung an dieselbe Regel.
+
+Das folgende Diagramm zeigt genau diese 1:1-Clearance: eine gestrichelte Box im Abstand einer vollen Logo-Höhe, hier 36 px, um die Wortmarke.
+
+<Unstyled>
+  <div style={{ background: 'var(--bg-surface)', border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', padding: 'var(--s10)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--s8)' }}>
+    {/* Padding 36px = exakte Logo-Image-Höhe (1:1-Clearance, Schutzraum-Regel der Brand Guidelines) */}
+    <div style={{ position: 'relative', display: 'inline-block', padding: '36px' }}>
+      <div style={{ position: 'absolute', inset: 0, border: '1px dashed var(--co-300)', borderRadius: 'var(--r-sm)', pointerEvents: 'none' }} />
+      {/* Theme-abhängiges Logo: --bg-surface ist im Dark Mode dunkel, daher Default (dunkle Wortmarke) im Light, Light-Variante im Dark. Der Wechsel läuft über .logo-themed-default/.logo-themed-light (display:none/block), nicht über Inline-Styles. */}
+      <img src="/conciso/brand/logo-conciso.svg" alt="" aria-hidden="true" className="logo-themed-default" style={{ height: '36px', width: 'auto', verticalAlign: 'middle' }} />
+      <img src="/conciso/brand/logo-conciso-light.svg" alt="" aria-hidden="true" className="logo-themed-light" style={{ height: '36px', width: 'auto', verticalAlign: 'middle' }} />
+    </div>
+  </div>
+</Unstyled>
+
+## Verwendung
+
+Die Wahl der Variante richtet sich nach Hintergrund und Kontext. Im Zweifel die Default-Variante auf hellem, neutralem Untergrund verwenden.
+
+So wirkt jede Variante auf dem Hintergrund, für den sie gedacht ist. Diesen Hintergrund-Kontext liefert die Story `Marke/Logo/Logo` allein nicht:
+
+<Unstyled>
+  <div className="layout-grid" style={{ marginBottom: 'var(--s8)' }}>
+    <div className="col-4" style={{ background: 'var(--bg-surface)', border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden' }}>
+      {/* --bg-plate: im Light reinweiß (der Anwendungsfall der Variante), im Dark gedämpft, damit die helle Platte auf der tiefen Seite nicht blendet. */}
+      <div style={{ background: 'var(--bg-plate)', padding: 'var(--s8) var(--s6)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '120px' }}>
+        <img src="/conciso/brand/logo-conciso.svg" alt="Conciso, Default-Variante" style={{ height: '36px', width: 'auto', display: 'block' }} />
+      </div>
+      <div style={{ padding: 'var(--s5) var(--s6)', borderTop: 'var(--bd)' }}>
+        <div className="doc-eyebrow" style={{ marginBottom: 'var(--s2)' }}>Default</div>
+        <div style={{ font: 'var(--ty-title-sm)', color: 'var(--tx-primary)', marginBottom: 'var(--s2)' }}>Vollfarbe</div>
+        <p style={{ font: 'var(--ty-body-md)', color: 'var(--tx-secondary)', margin: 0 }}>Wortmarke in <code className="token">--tx-brand</code> mit teal-Punkt in <code className="token">--co-500</code>. Standard für helle Hintergründe.</p>
+      </div>
+    </div>
+    <div className="col-4" style={{ background: 'var(--bg-surface)', border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden' }}>
+      <div style={{ background: 'var(--n-700)', padding: 'var(--s8) var(--s6)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '120px' }}>
+        <img src="/conciso/brand/logo-conciso-light.svg" alt="Conciso, helle Variante" style={{ height: '36px', width: 'auto', display: 'block' }} />
+      </div>
+      <div style={{ padding: 'var(--s5) var(--s6)', borderTop: 'var(--bd)' }}>
+        <div className="doc-eyebrow" style={{ marginBottom: 'var(--s2)' }}>Light</div>
+        <div style={{ font: 'var(--ty-title-sm)', color: 'var(--tx-primary)', marginBottom: 'var(--s2)' }}>Weiß</div>
+        <p style={{ font: 'var(--ty-body-md)', color: 'var(--tx-secondary)', margin: 0 }}>Vollständig weiß, für dunkle Hintergründe (Footer, Hero-Gradients, Dark Mode).</p>
+      </div>
+    </div>
+    <div className="col-4" style={{ background: 'var(--bg-surface)', border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden' }}>
+      {/* Panel-Hintergrund fest hell (#F5F7F7), nicht das theme-reaktive Token: das Monochrom-Logo ist fix in --tx-brand gezeichnet und bräuchte im Dark Mode sonst dunkel-auf-dunkel. */}
+      <div style={{ background: '#F5F7F7', padding: 'var(--s8) var(--s6)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '120px' }}>
+        <img src="/conciso/brand/logo-conciso-dark.svg" alt="Conciso, monochrom-dunkle Variante" style={{ height: '36px', width: 'auto', display: 'block' }} />
+      </div>
+      <div style={{ padding: 'var(--s5) var(--s6)', borderTop: 'var(--bd)' }}>
+        <div className="doc-eyebrow" style={{ marginBottom: 'var(--s2)' }}>Dark</div>
+        <div style={{ font: 'var(--ty-title-sm)', color: 'var(--tx-primary)', marginBottom: 'var(--s2)' }}>Monochrom</div>
+        <p style={{ font: 'var(--ty-body-md)', color: 'var(--tx-secondary)', margin: 0 }}>Komplett in <code className="token">--tx-brand</code>, ohne teal-Punkt. Für Druck, Stempel, einfarbige Anwendungen oder wenn der Akzent visuell stört.</p>
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+| Hintergrund | Variante | Begründung |
+|---|---|---|
+| Weiß / hell-neutral | Default | Volle Brand-Identität mit teal-Akzent |
+| Dunkel (mindestens 60 % Schwarzanteil) | Light | Vollständig weiß für maximale Lesbarkeit |
+| Bereichsfarbe (`--co/ki/es/wo-500`) | Light oder Dark | Default vermeiden, der teal-Punkt konkurriert mit der Bereichsfarbe |
+| Foto / unruhiger Hintergrund | Light auf Scrim | Halbtransparente dunkle Fläche unter Logo legen, dann Light verwenden |
+| Druck monochrom, Stempel, Embossing | Dark | Kein Akzent verfügbar, komplett einfarbig |
+| Dark-Mode-Interfaces | Light (auto-swap) | Wechsel via `[data-theme="dark"]`-Selektor |
+
+### Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Alt-Text | Inhaltlich tragend (zum Beispiel Footer-Brand): `alt="Conciso"`. Dekorativ daneben (zum Beispiel Topnav-Wortmarke neben Text-Logo): `alt=""` mit `aria-hidden="true"` |
+| Kontrast | Mindestens 3:1 zwischen Logo und Hintergrund (WCAG 1.4.11, Non-Text Contrast). Default auf Weiß: 11,7:1. Light auf `--n-700`: 15,3:1 |
+| Theme-Wechsel | Logo-Swap via CSS und `[data-theme="dark"]`-Selektor, funktioniert ohne JS und respektiert die Nutzer-Präferenz |
+| Skalierung | SVG ist auflösungsunabhängig, bleibt scharf bei beliebigem Browser-Zoom (WCAG 1.4.4) |
+
+### Dos & Don'ts
+
+✓ Tun
+
+- Default-Variante auf hellen, neutralen Hintergründen: der teal-Punkt verankert die Brand-Identität.
+- Light-Variante auf dunklen Hintergründen ab `--n-700` oder Hero-Gradients.
+- Dark-Variante (monochrom) für Druck, Stempel oder wo der teal-Punkt visuell stört.
+- Schutzraum von mindestens der „C“-Höhe um das Logo herum freihalten.
+- Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.
+- Theme-Swap nutzen: `.logo-themed-default` + `.logo-themed-light`, schaltet automatisch via `[data-theme]`.
+
+✕ Nicht tun
+
+- Logo stauchen, dehnen, rotieren oder schief stellen: immer proportional und gerade.
+- Den teal-Punkt durch andere Bereichsfarben ersetzen (KI-Lime, ES-Blau, WO-Grün), Default ist immer `--co-500`.
+- Default-Variante auf dunklem Hintergrund einsetzen: die dunkle Schrift verschwindet, der teal-Punkt wird zur isolierten Insel.
+- Logo unter 20 px Höhe digital oder 12 mm im Druck verwenden, der Punkt zerfällt.
+- Logo als PNG oder JPG einbinden, immer SVG verwenden, damit es scharf bleibt und der Theme-Swap funktioniert.
+- Logo als dekoratives Element in Texten, Mustern oder Hintergrundgrafiken einsetzen, es bleibt eigenständig.

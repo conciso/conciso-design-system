@@ -1,0 +1,96 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Call to Action" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Call to Action deckt zwei Pattern-Familien ab: das Page-End-CTA-Band als letzte, konkrete
+Einladung am Ende jeder Customer-Page, und vier Download-CTA-Varianten für
+Ressourcen-Downloads. Ergänzend dokumentiert diese Seite den Editorial Split als
+sekundäre Konversionsfläche neben dem primären Page-End-CTA. Nur die vier
+Download-Varianten haben ein eigenes Bauteil (`DownloadCta`); Page-End-CTA-Band und
+Editorial Split sind CSS-Rezepte ohne Angular-Komponente.
+
+## Wann welche Variante
+
+| Variante | Bauteil | Wann einsetzen |
+|---|---|---|
+| Page-End-CTA-Band | bauteillos (CSS-Rezept `.ep-cta-band`) | Letzte Einladung am Ende jeder Customer-Page, direkt vor dem Footer, genau ein Button auf der Bereichsfarbe als Hintergrund |
+| Editorial Split | bauteillos (CSS-Rezept `.ep-section` + `.layout-grid`) | Sekundäre oder tertiäre Konversionsfläche neben dem primären Page-End-CTA (zum Beispiel ein Karriere-Block auf der Landing), ohne Card-Chrome |
+| Download · Hero | `DownloadCta` | Hauptressource einer Seite, Landing Pages, Ressourcenseiten, Kampagnen, maximal einmal pro Seite |
+| Download · Mit Vorschaubild | `DownloadCta` | Whitepapers und Reports, deren Deckblatt als Vorschau den Inhalt sofort greifbar macht |
+| Download · Kompakt | `DownloadCta` | Ressourcenlisten mit mehreren Downloads (zum Beispiel eine Mediathek) |
+| Download · Minimal | `DownloadCta` | Quellenangaben, Fließtext-Links oder Nebenbereiche (Footer, Blog, Dokumentation) |
+
+### Page-End-CTA-Band (bauteillos)
+
+Container `.ep-cta-band` mit Padding `var(--s12) var(--s8)`, zentriert. Hintergrund per
+Inline-Style auf der Bereichsfarbe (`--co-700` / `--ki-800` / `--es-700` / `--wo-700`),
+Schrift `color:#fff`. Auf der dunklen Fläche wird der Filled-Button über die
+zusammengesetzte Modifier-Klasse `.btn-on-band` invertiert (weißer Hintergrund, Text in
+der Bereichsfarbe). Der Button führt auf die adaptive Kontaktseite
+(`data-ep="kontakt"`), nie auf ein Overlay oder Modal.
+
+```html
+<div class="ep-cta-band" style="background:var(--co-700);color:#fff">
+  <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
+  <p class="ep-cta-sub">Du schilderst Deine Situation, wir geben eine erste Einschätzung.</p>
+  <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
+</div>
+```
+
+### Editorial Split (bauteillos)
+
+Ruhige 2-Spalten-Aufteilung in einer normalen `.ep-section`: links ein Foto im
+4:3-Format mit `--r-md`, rechts Eyebrow, H2, Lead und Button. Kein Card-Container, kein
+Schatten, keine Border. Bühne entsteht über die Hintergrundfarbe der Sektion
+(typischerweise `--co-50` oder `--n-50`) und über das Foto links, nicht über
+Card-Chrome, das dem Markenwert „Ruhig“ widerspräche.
+
+```html
+<div class="ep-section" style="background:var(--co-50)">
+  <div class="layout-grid" style="align-items:center">
+    <div class="col-6">
+      <img src="bild.jpg" alt="Beschreibend"
+           style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r-md)">
+    </div>
+    <div class="col-6">
+      <div class="ep-section-label t-co">Karriere</div>
+      <h2 class="ep-section-h2">Dein Fußabdruck bei Conciso.</h2>
+      <p class="ep-section-sub">Projekte mit Wirkung, ein Team, das füreinander einsteht.</p>
+      <button class="btn btn-filled btn-co">Stellen entdecken</button>
+    </div>
+  </div>
+</div>
+```
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Button-Label | `aria-label` mit Dateiname und Format auf dem Download-Button setzen (zum Beispiel „Figma-Bibliothek herunterladen (Figma, 48 MB)“), der Text „Herunterladen“ allein nennt kein Ziel |
+| Format- und Größenangabe | Dateiformat und Dateigröße immer sichtbar im Markup, nicht nur im Button-Label |
+| Brand Area | Bereichsfarbe des zugehörigen Dokuments nutzen, keine bereichsfremde Farbe |
+| Kontrast auf Bereichsfläche | Der Filled-Button wird auf der farbigen Fläche des Page-End-CTA-Band über `.btn-on-band` invertiert (weißer Hintergrund, Text in Bereichsfarbe); ohne Inversion würde der Button auf der eigenen Bereichsfarbe stehen und Kontrast verlieren |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Dateiformat und -größe immer angeben, Nutzer sollen vor dem Download wissen, was sie erhalten
+- Brand-Area-Farbe des zugehörigen Dokuments verwenden, stärkt die visuelle Zugehörigkeit
+- `aria-label` auf dem Button setzen, zum Beispiel „Figma-Bibliothek herunterladen (Figma, 48 MB)“
+- Pro Seite maximal einen Hero-CTA, mehrere Hero-Blöcke erzeugen visuelle Konkurrenz
+
+**Nicht tun**
+
+- Download-Button ohne Format und Größe, erhöht die kognitive Last und bricht Vertrauen
+- Hero-Variante für unwichtige Sekundär-Downloads, die Größe signalisiert Wichtigkeit
+- Generisches „Herunterladen“ ohne Dateinamen, schlecht für Screenreader und Kontext
+- Bereichsfremde Farbe für ein Dokument verwenden, bricht den thematischen Zusammenhang
+
+## Verwandte Seiten
+
+- Komponenten/Call to Action/DownloadCta (Story, deckt alle vier Download-Varianten ab)
+- Doku-Sektion: `docs/index.html#gt-cta-band` (Page-End-CTA-Band)
+- Doku-Sektion: `docs/index.html#gt-cta-editorial` (Editorial Split)

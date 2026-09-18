@@ -1,0 +1,139 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Seitenmuster/Veranstaltung" name="Übersicht" />
+
+# Veranstaltung
+
+Page-Pattern für die Detail-Seite einer einzelnen Veranstaltung: Hero-Image, Meta-Strip mit
+Key-Facts, Sub-Strip mit Anmeldungs-CTAs, Themen-Cards, Agenda, Speaker:innen und
+Anmeldungs-Form. Liegt in der Topnav unter „Unternehmen“. Quelle:
+`docs/index.html#sec-event`. Die zugehörige Listing-Seite ist
+`Seitenmuster/Veranstaltungsübersicht`.
+
+## Aufbau
+
+Die Detail-Seite führt vom „Worum geht's?“ über „Wann, wo, wieviel?“ zur Anmeldung:
+
+1. **Topnav** mit „Unternehmen“ als `aria-current="page"`.
+2. **Hero-Image** (siehe `Komponenten/Hero`) mit Eyebrow im Schema „Fokusveranstaltung ·
+   Format · Preis“, H1 (Veranstaltungs-Titel), Lead.
+3. **Meta-Strip:** vier Info-Badges in einem Strip (Datum, Ort, Format, Eintritt), siehe
+   unten.
+4. **Sub-Strip** in Bereichsfarbe-50 mit Markenrad-Eyebrow, Lead und zwei CTAs („Platz
+   sichern“ plus „Programm ansehen“ als In-Page-Anker).
+5. **Themen-Cards** (3× `.card.card-elevated.col-4`) mit „Input 1/2/3“-Eyebrow als
+   Programm-Vorschau.
+6. **Agenda und Speaker** (siehe unten).
+7. **Anmeldungs-Form** (siehe unten).
+8. **Page-End-CTA-Band** und **Footer** (siehe `Komponenten/Footer`).
+
+In-Page-Anker (`href="#ev-anmeldung"`, `href="#ev-agenda"`) animieren das Scrollen. Bei
+`prefers-reduced-motion: reduce` bleibt der Hard-Jump erhalten.
+
+## Meta-Strip
+
+Direkt unter dem Hero stehen vier Info-Badges in einem Strip: Datum, Ort, Format, Eintritt.
+Sie beantworten die Hard-Filter-Fragen, bevor der Besuch in die Themen-Cards einsteigt.
+
+| Element | Spezifikation |
+|---|---|
+| Container | `.layout-grid` mit vier `.col-3`-Spalten, vertikaler Strip mit `padding-block:var(--s8)`, Border-Bottom in `--n-100` |
+| Badge | 40×40 Round (`--r-full`) in Bereichsfarbe-50 (`--{area}-50`) |
+| Icon | Small (24×24, Stroke 1,25) in Bereichsfarbe-700 (`--{area}-700`) |
+| Label | Eyebrow-Style: `--ty-label-xs`, `letter-spacing:.09em`, uppercase, `color:var(--{area}-700)` |
+| Value | 16 px medium (`font:500 16px/24px var(--font)`), `color:var(--tx-primary)` |
+| Helper | Optional in `--ty-body-md`, `--tx-secondary`, z. B. „18:00 bis 21:00 Uhr“ unter dem Datum |
+| Sekundär-Link | Optional, unterstrichen in Bereichsfarbe-700, z. B. „Karte öffnen →“ |
+
+## Programm & Speaker
+
+Die Agenda ist eine Zeit-Tabelle (Spalte 120 px für Uhrzeit, Spalte 1fr für Titel plus
+Speaker) mit Border-Bottom je Zeile. Uhrzeiten in `font-variant-numeric:tabular-nums` für
+saubere vertikale Ausrichtung der Ziffern.
+
+Speaker:innen folgen dem Author-Card-Pattern (siehe `Seitenmuster/Wissensbeitrag`, Abschnitt
+Author Card) mit Initialen oder Foto, Name, Rolle und kurzer Bio. Bei mehreren
+Speaker:innen pro Veranstaltung analog zu „Mehrere Autor:innen“ im selben Muster.
+
+```html
+<div style="display:grid;grid-template-columns:120px 1fr;gap:var(--s4) var(--s6);padding:var(--s4) 0;border-bottom:1px solid var(--n-200);align-items:baseline">
+  <div style="font:500 14px/20px var(--font);color:var(--es-700);font-variant-numeric:tabular-nums">18:30 bis 18:50</div>
+  <div>
+    <div style="font:500 16px/24px var(--font);color:var(--tx-primary)">Input 1 · Warum n8n gerade jetzt</div>
+    <div style="font:var(--ty-body-md);color:var(--tx-secondary)">mit Marc Hoffmann</div>
+  </div>
+</div>
+```
+
+## Anmeldung
+
+Die Anmeldungs-Form folgt dem Kontaktformular-Pattern (siehe
+`Komponenten/Inputs & Forms/Textfeld` und verwandte Felder), aber im Bereich-Theme der
+Veranstaltung: Header in Bereichsfarbe-700 mit weißem Text, Form-Body in `var(--n-50)`.
+Anker-ID `#ev-anmeldung` für den „Platz sichern“-Sprung aus dem Sub-Strip.
+
+| Element | Regel |
+|---|---|
+| Form-Header | Vollbreite Banner in `--{area}-700` mit weißem Text, trägt H2 und kurzen Lead |
+| Form-Body | `background:var(--n-50)`, `padding:var(--s6)`, Felder zweispaltig (Vorname, Nachname), Single-Field für E-Mail, Select für Rolle/Erfahrung, Textarea für „Was Dich beschäftigt“ |
+| Submit-Button | `.btn.btn-filled.btn-{area}.btn-full`, Text formatabhängig: „Platz reservieren“ (Meet-Up), „Anmelden & bezahlen“ (kostenpflichtiges Training) |
+| Anker-ID | `id="ev-anmeldung"` auf dem Form-Container |
+| Datenschutz-Konsent | Checkbox vor dem Submit-Button, `accent-color:var(--{area}-700)` trifft das Bereich-Theme auch im nativen Browser-Render |
+
+## Formate
+
+Conciso nutzt ausschließlich fünf Veranstaltungsformate. Pill, Format-Filter und das
+Format-Feld im Meta-Strip kennen nur diese Begriffe.
+
+| Format | Wofür | Typische Länge | Preis |
+|---|---|---|---|
+| Meet-Up | Kurze Abend-Veranstaltungen, Inputs plus offene Runde, oft kostenlos | 2 bis 3 Stunden, abends | Kostenlos |
+| Konferenz | Größere Multi-Speaker-Veranstaltungen mit Track-Programm | 1 bis 2 Tage | Eintritts-Tickets |
+| Training | Strukturierte Lerneinheit mit Hands-On-Anteil | Halbtägig bis mehrtägig | Pauschal pro Teilnehmer:in |
+| Webinar | Online-Format, meist kürzer und niedrigschwelliger | 1 bis 4 Stunden, online | Kostenlos oder Pauschal |
+| Jobmesse | Recruiting-Veranstaltung | Stunden bis halbtägig | Kostenlos |
+
+**Charakter-Wörter im Titel sind erlaubt.** Titel wie „Refactoring Bootcamp“ oder
+„Retro-Werkstatt“ dürfen Marketing-Wörter als Branding tragen. Die Pill kategorisiert
+dennoch nach den fünf Formaten. Klebt der Charakter-Begriff direkt an der Pill und die
+Inkonsistenz fällt auf (Titel „AI Readiness Workshop“, Pill „Training“), wird der Titel
+umbenannt.
+
+## Datum & Uhrzeit
+
+Zwei Prinzipien: Wochentag als Hard-Filter zuerst, Monatsnamen ausgeschrieben.
+
+| Kontext | Format | Beispiel |
+|---|---|---|
+| Eintägig mit Uhrzeit | Wt, T. Monat JJJJ · HH:MM | Fr, 5. Februar 2027 · 18:00 |
+| Eintägig ganztägig | Wt, T. Monat JJJJ · ganztägig | Di, 9. März 2027 · ganztägig |
+| Halbtägig | Wt, T. Monat JJJJ · halbtägig | Do, 10. Juni 2027 · halbtägig |
+| Mehrtägig | Wt1 & Wt2, T1. / T2. Monat JJJJ | Mo & Di, 22. / 23. Februar 2027 |
+| Zeitspanne (Meta-Strip-Helper) | HH:MM bis HH:MM Uhr | 18:00 bis 21:00 Uhr |
+
+Wochentag-Abkürzungen: Mo, Di, Mi, Do, Fr, Sa, So (zwei Buchstaben, ohne Punkt). Bei
+Mehrtages-Spans optional ausgeschrieben, im Card-Kontext kurz halten.
+
+## Verwendung
+
+| Aspekt | Regel |
+|---|---|
+| Hero-Eyebrow | Schema „Fokusveranstaltung · Format · Preis“, für Konferenzen ersetzbar durch „Konferenz“ |
+| Bereich-Theme | Komplette Seite trägt eine Bereichsfarbe (ki, es, wo), nicht Corporate-Petrol |
+| Anker-Konvention | `#ev-anmeldung` für Form, `#ev-agenda` für Agenda, beide smooth-scrollend |
+| Speaker-Pflicht | Jede Veranstaltung mindestens einer Speaker:in zuordnen, anonyme Programme reduzieren die Anmeldebereitschaft |
+| Submit-Button-Label | Format-spezifisch: „Platz reservieren“ (Meet-Up), „Anmelden & bezahlen“ (kostenpflichtig), „Ticket buchen“ (Konferenz) |
+
+**Dos**
+- Komplette Detail-Seite in einem Bereich-Theme halten, Mischfarben irritieren beim
+  Anmeldeschritt.
+- Meta-Strip mit allen vier Badges zeigen, auch wenn ein Wert „Kostenlos“ oder „Online“
+  ist.
+- Speaker:innen mit Foto oder Initialen plus Bio nennen.
+- Smooth-Scroll bei In-Page-Ankern, außer bei `prefers-reduced-motion`.
+
+**Don'ts**
+- Generic-Form ohne Bereich-Header.
+- Eigene Format-Begriffe einführen.
+- Programm ohne Uhrzeiten oder ohne benannte Speaker.
+- Datum nur als Zahl („05.02.2027“) ohne Wochentag und ausgeschriebenen Monat.

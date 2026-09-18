@@ -1,0 +1,365 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Buchungsformular" name="Übersicht" />
+
+# Buchungsformular
+
+Verbindliche Buchung eines konkreten Termins, am Beispiel eines Seminars
+(`Seitenmuster/Seminar · Training`). Komposition aus den Feldern von
+`Komponenten/Inputs & Forms/*`, ergänzt um drei Dinge, die es dort noch nicht gibt:
+Gliederung in Fieldsets, bedingte Feldblöcke und einen Teilnehmenden-Repeater.
+Klassen-Präfix `.bk-*`, Logik in `main.js` über `data-bk`-Hooks.
+
+**Für dieses Formular gibt es kein eigenes Angular-Bauteil.** Ein Consumer setzt es
+aus vorhandenen Wrapper-Komponenten zusammen: den Feldern aus
+`Komponenten/Inputs & Forms/*` (Textfeld, Auswahlfeld, Checkbox, Radio), den
+Dropdowns aus `Komponenten/Dropdowns/*` und dem Button aus `Komponenten/Buttons/Button`.
+Die `.bk-*`-Klassen selbst kommen aus der CSS-Schicht und sind bereichsneutral, der
+Bereichs-Akzent kommt ausschließlich über `data-accent` am umgebenden Container
+(siehe unten).
+
+Quelle: `docs/index.html#sec-booking` (Zeilen 4025 bis 4524).
+
+## Aufbau
+
+Die Reihenfolge folgt der Entscheidungslogik der Buchenden: erst, was gebucht wird,
+dann, wer bucht und zahlt, dann, wer teilnimmt, zuletzt die Rechtsfolge. Kaufmännisch
+heikle Felder (Rechnungsanschrift) stehen bewusst vor den Teilnehmenden, weil sie zur
+buchenden Partei gehören und nicht zur Teilnehmerliste.
+
+| Gruppe | Untergruppe | Inhalt | Warum an dieser Stelle |
+|---|---|---|---|
+| Termin | — | Select mit den offenen Durchführungen (Pflicht) | Bestimmt Preis und Verfügbarkeit, also die Grundlage aller folgenden Felder |
+| Auftraggeber | Anmeldung als | Segmented Control „Firma“ / „Privatperson“ | Weiche vor vielen Feldern, steht in derselben Gruppe wie das, was sie schaltet |
+| Auftraggeber | Firmendaten | Firma (Pflicht), Abteilung, USt-IdNr., Bestellnummer oder Kostenstelle | Bedingt, nur bei „Firma“. Bestellnummer gehört hierher, weil sie auf die Rechnung muss |
+| Auftraggeber | Kontaktperson | Vorname, Nachname, E-Mail (alle Pflicht), Telefon | Empfängerin der Bestätigung, gehört zur buchenden Partei, nicht zwingend teilnehmend |
+| Rechnungsanschrift | — | Straße, PLZ, Ort (Pflicht), Land, Checkbox „andere Adresse“ | Anschrift der buchenden Partei, als Standardfall gesetzt, nicht als Sonderfall |
+| Rechnungsanschrift | Abweichende Rechnungsadresse | Empfänger, Anschrift (Pflicht), Rechnungs-E-Mail | Opt-in, eingeblendet von der Checkbox darüber, der Normalfall bleibt kurz |
+| Teilnehmende | — | „Ich nehme selbst teil“, Anzahl (Pflicht), Preiszeile, je Person Vorname, Nachname, E-Mail | Erst jetzt sinnvoll: die Anzahl entscheidet über Preis und Platzkontingent |
+| Abschluss | — | Anmerkungen, Teilnahmebedingungen (Pflicht), Datenschutz (Pflicht), Contentletter, Bestellübersicht, Submit | Rechtsfolge unmittelbar vor dem Button, nicht weiter oben versteckt |
+
+**Einseitig statt mehrstufig.** Das Formular ist lang, aber nicht komplex. Ein Stepper
+würde die Gesamtlänge verbergen, das Zurückspringen erschweren und einen Zustand
+einführen, den es sonst nirgends im System gibt. Die Gliederung leisten die
+Fieldsets: sichtbare Gruppen mit Legende, alle gleichzeitig scan- und korrigierbar.
+
+**Drei Typo-Stufen, sonst trägt die Gliederung nicht.** Gruppe `--ty-title-sm`
+(20 px, gemischt, `--tx-primary`), Untergruppe `--ty-name` (14 px halbfett, gemischt),
+Feldlabel 12 px Versalien in `--tx-secondary`. Zwei benachbarte Ebenen auf demselben
+Token laufen zu lassen ist der naheliegende Fehler: Die Gliederung ist dann
+semantisch vorhanden und optisch unsichtbar, und ein Formular über 4.000 px lässt
+sich nicht mehr überfliegen.
+
+**Die Trennlinie gehört nur zwischen die Gruppen.** Sie sitzt über jedem
+`.bk-fieldset` der obersten Ebene, nie über einer `.bk-subgroup`. Der Grund ist
+inhaltlich, nicht dekorativ: Eine Linie zwischen „Anmeldung als“ und „Firmendaten“
+schneidet die Weiche von dem ab, was sie schaltet, und zerlegt eine Entscheidung in
+zwei scheinbar unabhängige Blöcke. Eine Gruppe ist deshalb eine Entscheidung samt
+ihrer Folgen, kein Themenwort: „Auftraggeber“ umfasst die Weiche, die bedingten
+Firmendaten und die Kontaktperson, „Rechnungsanschrift“ umfasst die Adresse und den
+abweichenden Sonderfall.
+
+**Zwei Stellen für den Preis, mit unterschiedlicher Aufgabe.** Bei der Anzahl steht
+die Preiszeile `.bk-summary` mit `role="status"`, dort ändert sich der Wert und muss
+angesagt werden. Unmittelbar über dem Button steht die Bestellübersicht `.bk-order`
+mit Leistung, Termin, Auftraggeber, Plätzen und Gesamtbetrag. Der bloße Betrag würde
+dort nicht reichen: Was genau gebucht wird, steht sonst über tausend Pixel weiter
+oben verstreut, und im Moment der verbindlichen Zusage ist nichts davon sichtbar.
+
+**Leere Zeilen der Übersicht bleiben stehen** und tragen `data-empty` („Noch nicht
+gewählt“, gedämpft). Eine Übersicht, die Zeilen ein- und ausblendet, springt beim
+Ausfüllen, und man sieht nicht, was noch fehlt. Die Übersicht ist bewusst keine
+Live-Region: Sie wiederholt nur, was im Formular schon steht, und würde sonst jede
+Änderung ein zweites Mal ansagen.
+
+**Nur Sternchen, kein „(optional)“.** Die Required-Marker trennen Pflicht- und
+Kannfelder bereits, eine zweite Auszeichnung macht das Formular unnötig laut
+(dieselbe Konvention wie bei der Newsletter-Anmeldung in
+`Komponenten/Inputs & Forms/Verwendung`). Das freiwillige Contentletter-Häkchen ist
+am Schluss durch eine Haarlinie von den beiden Pflicht-Bestätigungen getrennt:
+gleiche Optik direkt darunter liest sich wie ein Dark Pattern, auch wenn keines
+gemeint ist.
+
+### Bereichs-Akzent
+
+Ein Formular trägt genau eine Brand Area. Header, Eyebrow, Buttons und Segmented
+Control tragen dafür die passenden Bereichsklassen (z. B. `.btn-ki`, `.seg-ki`), und
+Checkboxen setzen `accent-color:var(--ki-ink)`. Die Links im Formular (Inhouse-
+Anfrage, Bedingungen, Datenschutz) tönt `data-accent="ki"` am umgebenden Container
+mit: keine Inline-Farbe am einzelnen Link, sonst greift der Dark-Mode-Override nicht.
+Die `.bk-*`-Klassen selbst sind bereichsneutral, der Akzent kommt ausschließlich von
+außen.
+
+**Warum `--ki-ink` statt `--ki-500` für Checkboxen:** Die anderen Bereiche setzen
+`accent-color` auf ihr `-500`. Das Limette-Grün von KI erreicht auf Weiß aber nur
+rund 1,4:1 und wäre als angehakte Box kaum zu erkennen. `--ki-ink` ist der dafür
+vorgesehene modusbewusste Token (`--ki-800` im Light, `--ki-200` im Dark), dieselbe
+Logik wie bei `.btn-ki`. Zwei Corporate-Töne bleiben bewusst stehen: der Fokusring
+und der Feldrahmen im Fokus, weil Fokus Systemfeedback ist und keine Markenfläche.
+
+## Code-Rezept
+
+Minimales Markup: eine Gruppe mit Untergruppe, ein bedingter Block, der
+Teilnehmenden-Repeater, die Fehlerübersicht, die Bestellübersicht und eine
+Pflicht-Checkbox mit verlinktem Rechtstext.
+
+```html
+<!-- Bereich am umgebenden Container, nicht am Formular: data-accent tönt .body-link
+     und .t-co im Block auf die Bereichsfarbe. Die .bk-*-Klassen selbst sind
+     bereichsneutral. -->
+<div data-accent="ki">
+
+  <!-- Konfiguration am Formular: Preis pro Platz, Höchstzahl. novalidate, damit die
+       Inline-Meldungen statt der nativen Browser-Bubbles erscheinen. -->
+  <form id="bk-demo" data-booking data-price="1290" data-max="12" novalidate>
+
+    <!-- Gruppe = eine Entscheidung samt ihrer Folgen. Untergruppen gliedern
+         innerhalb, verschachtelte fieldsets geben Screenreadern die Zugehörigkeit
+         mit. -->
+    <fieldset class="bk-fieldset">
+      <legend class="bk-legend">Auftraggeber</legend>
+
+      <fieldset class="bk-subgroup">
+        <legend class="bk-sublegend">Anmeldung als</legend>
+        <div class="seg seg-ki">…</div>
+      </fieldset>
+
+      <!-- Bedingter Block: hidden statt disabled, als Untergruppe IN der Gruppe
+           seines Auslösers. data-required markiert Felder, die nur im
+           eingeblendeten Zustand Pflicht sind; main.js setzt required mit. -->
+      <fieldset class="bk-subgroup" data-bk="firma-block" hidden>
+        <legend class="bk-sublegend">Firmendaten</legend>
+        <input type="text" id="bk-demo-firma" data-required
+               autocomplete="organization" data-err="Bitte gib den Firmennamen an">
+      </fieldset>
+
+      <fieldset class="bk-subgroup">
+        <legend class="bk-sublegend">Kontaktperson</legend>
+        <div class="bk-grid-2"><!-- kollabiert unter 768 px einspaltig -->
+          <div class="field">…</div>
+        </div>
+      </fieldset>
+    </fieldset>
+
+    <!-- Repeater: Container + template. main.js klont pro Platz einen Block, vergibt
+         id/for und autocomplete-Section nach Position (section-tn1, section-tn2, …). -->
+    <input type="number" data-bk="anzahl" value="1" min="1" max="12" required>
+    <div class="bk-summary" role="status">…</div>
+    <div data-bk="personen"></div>
+    <template data-bk="person-template">
+      <fieldset class="bk-person"><!-- Gruppe, nicht nur Optik -->
+        <legend class="bk-person-title" data-bk="person-title">Teilnehmende 1</legend>
+        <input type="text" data-bk="p-vorname" data-ac="given-name" required>
+      </fieldset>
+    </template>
+
+    <!-- Fehlerübersicht am Formularkopf: bekommt nach gescheitertem Submit den
+         Fokus. -->
+    <div class="bk-errors" data-bk="errors" role="alert" tabindex="-1" hidden>
+      <ul data-bk="error-list"></ul>
+    </div>
+
+    <!-- Bestellübersicht unmittelbar vor dem Button. Leere Zeilen bleiben stehen
+         und tragen data-empty, statt zu verschwinden. -->
+    <div class="bk-order">
+      <dl class="bk-order-list">
+        <div><dt>Termin</dt><dd data-bk="order-termin" data-empty>Noch nicht gewählt</dd></div>
+      </dl>
+      <div class="bk-order-total">…</div>
+    </div>
+
+    <!-- Pflicht-Checkbox: data-bk="consent-required" + eigene Fehlermeldung. Der
+         verlinkte Hinweis ist ein echter Anker, kein span: sonst ist er nicht per
+         Tab erreichbar und wird nicht als Link angesagt. -->
+    <div class="bk-consent">
+      <input type="checkbox" id="bk-demo-agb" data-bk="consent-required"
+             data-err="Bitte akzeptiere die Teilnahme- und Stornobedingungen">
+      <label for="bk-demo-agb">Ich akzeptiere die
+        <a class="body-link" href="/teilnahmebedingungen">Teilnahme- und Stornobedingungen</a>.
+      </label>
+    </div>
+  </form>
+</div>
+```
+
+## Bedingte Felder
+
+Zwei Weichen blenden Feldblöcke ein und aus. Beide folgen derselben Mechanik: das
+`hidden`-Attribut am Block, `data-required` an den Feldern, die nur im sichtbaren
+Zustand Pflicht sind.
+
+| Auslöser | Eingeblendet | Verhalten |
+|---|---|---|
+| Segmented Control „Firma“ | Fieldset Firmendaten | Firma wird Pflichtfeld. Bei „Privatperson“ verschwindet der Block samt Fehlerzustand |
+| Checkbox „Rechnung geht an eine andere Adresse“ | Fieldset Abweichende Rechnungsadresse | Empfänger, Straße, PLZ und Ort werden Pflichtfelder |
+
+| Regel | Begründung |
+|---|---|
+| `hidden` statt `disabled` | Deaktivierte Felder werden beim Submit nicht mitgesendet und von Screenreadern übersprungen. Ausgeblendete Felder behalten ihren Wert und kommen beim Wiedereinblenden unverändert zurück |
+| `required` mitschalten | Ein unsichtbares Pflichtfeld blockiert die Absendung ohne sichtbare Ursache. `data-required` ist die Merkmarkierung, `required` wird beim Einblenden gesetzt und beim Ausblenden entfernt |
+| Fehlerzustand beim Ausblenden aufräumen | Sonst bleibt eine `.error-msg` im DOM stehen und wird beim nächsten Einblenden erneut angesagt |
+| Block liegt in der Gruppe seines Auslösers | Ein bedingter Block ist keine eigene Gruppe, sondern eine `.bk-subgroup` innerhalb der Gruppe, die ihn schaltet. Als Geschwister-Gruppe mit eigener Trennlinie wirkt er unabhängig, obwohl er ohne seinen Auslöser gar nicht existiert |
+| Block bleibt an seiner Position | Der eingeblendete Block erscheint unter seinem Auslöser, nicht am Formularanfang. Kein Layout-Sprung, kein Suchen |
+| Fokus wandert nicht automatisch | Ein erzwungener Fokussprung nach dem Klick auf eine Checkbox reißt Tastatur- und Screenreader-Nutzende aus dem Kontext. Der nächste Tab landet ohnehin im neuen Block |
+
+## Teilnehmende
+
+**Warum die Anzahl ein eigenes Feld ist.** Ein reiner „Weitere Person
+hinzufügen“-Repeater leitet die Anzahl aus der Listenlänge ab. Für eine Buchung
+reicht das nicht, weil die Zahl kaufmännisch trägt: Sie bestimmt den Preis und muss
+gegen das Platzkontingent des Termins validiert werden (`min`/`max`). Deshalb ist die
+Anzahl das führende Feld, die Namensblöcke folgen ihr, und der Hinzufügen-Button
+erhöht sie, statt sie zu umgehen. So gibt es genau eine Quelle der Wahrheit.
+
+| Interaktion | Verhalten |
+|---|---|
+| Anzahl erhöhen | Es werden Blöcke am Ende ergänzt. Bereits eingegebene Namen bleiben unberührt |
+| Anzahl verringern | Nur leere Blöcke am Ende fallen weg. Enthält einer noch Daten, bleibt die Anzahl stehen und eine `.error-msg` nennt den betroffenen Block |
+| „Weitere Person hinzufügen“ | Erhöht die Anzahl um eins und setzt den Fokus in das erste Feld des neuen Blocks |
+| „Entfernen“ | Löscht genau diesen Block, nummeriert die übrigen neu, senkt die Anzahl und setzt den Fokus auf das Anzahl-Feld. Ab zwei Blöcken sichtbar |
+| „Ich nehme selbst teil“ | Block 1 übernimmt Vorname, Nachname und E-Mail aus dem Kontakt und folgt weiteren Änderungen, bis der Block von Hand bearbeitet wird. Die Felder bleiben editierbar. Solange der Haken sitzt, hat Block 1 keinen Entfernen-Button |
+| Preiszeile | `.bk-summary` mit `role="status"`. Zeigt Plätze, Einzelpreis und Summe, aktualisiert bei jeder Änderung der Anzahl |
+| Blockgrenze | Jeder Block ist ein `<fieldset class="bk-person">` mit `<legend>`. Ohne diese Gruppe hört ein Screenreader dreimal nur „Vorname“, ohne zu wissen, zu wem |
+
+**Warum keine Auto-Nummerierung per CSS-Counter.** Die Blocknummer steckt nicht nur
+in der Überschrift, sondern auch in `id`, `for` und der `autocomplete`-Section. Beim
+Entfernen eines mittleren Blocks werden alle drei über `renumber()` neu vergeben,
+während die Feldwerte mit ihrem DOM-Knoten mitwandern. Es wird nichts umkopiert,
+deshalb kann dabei auch nichts verloren gehen.
+
+## Validierung & Barrierefreiheit
+
+Das Formular nutzt dasselbe Muster wie die Kontaktformulare in
+`Komponenten/Inputs & Forms/Verwendung`: `novalidate` unterdrückt die nativen
+Bubbles, geprüft wird beim Submit, Fehler erscheinen als `.field.has-error` plus
+`.error-msg` mit `role="alert"` unter dem Feld, der Fokus springt auf das erste
+ungültige Feld. Die Helfer `setError()` und `clearError()` in `main.js` sind für
+Kontakt- und Buchungsformular dieselben.
+
+**Feldspezifische Meldungen.** Jedes Pflichtfeld trägt sein `data-err` im Markup
+(„Bitte gib den Ort an“ statt „Dieses Feld ist erforderlich“). Bei einem Formular
+dieser Länge ist eine generische Meldung wertlos, sobald mehrere Fehler gleichzeitig
+stehen. Ausgeblendete Blöcke werden übersprungen, geprüft wird nur, was sichtbar
+ist.
+
+**Fehlerübersicht statt Alert-Salve.** Das kurze Kontaktformular gibt jeder Meldung
+ein `role="alert"`, bei drei Feldern funktioniert das. Hier entstehen bei einem
+leeren Submit über zehn Meldungen gleichzeitig, und gleichzeitig eingefügte Alerts
+ergeben beim Screenreader eine unbrauchbare Ansage. Deshalb sammelt `.bk-errors` am
+Formularkopf alle Fehler als Sprungliste, trägt selbst das `role="alert"` und
+bekommt den Fokus. Die Meldungen am Feld bleiben über `aria-describedby` verbunden
+und werden beim Fokussieren gelesen, tragen aber kein eigenes `role="alert"` mehr
+(Parameter `quiet` an `setError()`).
+
+**Nachvalidierung.** Erst geprüft wird beim Absenden, nicht beim Tippen, damit
+niemand beim Ausfüllen angemeckert wird. Nach einem gescheiterten Submit kippt das
+Formular in den Nachvalidierungs-Modus: Jede Korrektur räumt die Meldung am Feld und
+den zugehörigen Eintrag in der Übersicht sofort weg.
+
+| Aspekt | Regel |
+|---|---|
+| Gruppierung | Jeder Abschnitt und jeder Teilnehmendenblock ist ein `<fieldset>` mit `<legend>`. Screenreader sagen die Gruppe vor dem Feld an, dadurch bleibt „Vorname“ in Block 3 unterscheidbar von „Vorname“ im Kontakt |
+| Pflicht-Checkboxen | `aria-required="true"` an der Box selbst. Das sichtbare `*` im Label ist `aria-hidden`, ohne das Attribut wäre die Pflicht rein optisch |
+| Verlinkte Bestätigungen | Teilnahmebedingungen und Datenschutzhinweise sind echte `<a class="body-link">` im Label, kein `<span>` |
+| Fehlerübersicht | `.bk-errors` mit `role="alert"` und `tabindex="-1"`, wird nach einem gescheiterten Submit fokussiert. Die Einträge sind Sprunglinks auf das jeweilige Feld |
+| Autofill | Durchgängige `autocomplete`-Tokens. Die abweichende Rechnungsadresse trägt `section-rechnung`, jeder Teilnehmendenblock `section-tn1`, `section-tn2` und so weiter, damit der Browser die Blöcke nicht gegenseitig überschreibt (WCAG 1.3.5) |
+| Anzahl und Preis | `.bk-summary` trägt `role="status"`. Jede Änderung von Anzahl, Termin oder Personenliste wird dadurch angesagt, ohne den Fokus zu stören |
+| Fokusführung | Hinzufügen setzt den Fokus in den neuen Block, Entfernen zurück auf das Anzahl-Feld |
+| Entfernen-Button | `aria-label="Teilnehmende 3 entfernen"`, weil „Entfernen“ allein in einer Liste gleichlautender Buttons mehrdeutig ist |
+| Pflichtfelder | Sichtbares `*` (`aria-hidden`) plus `aria-required="true"`. Der Hinweis „Mit * markierte Felder sind Pflichtfelder“ steht vor dem ersten Feld |
+| Bestellübersicht | Bewusst ohne `role="status"`, sie fasst nur zusammen, was im Formular schon steht. Semantisch eine `<dl>`, damit Bezeichnung und Wert paarweise gelesen werden |
+| Erfolgszustand | `.bk-success` mit `role="status"` und `tabindex="-1"`, wird nach dem Absenden fokussiert. Das Formular geht auf `hidden` |
+| Touch & Tastatur | Alle Felder und Buttons ab 44 px Höhe, native Radios und Checkboxen mit `accent-color`, Fokusring über `--focus-ring` |
+
+## Anfrage oder Direktbuchung
+
+Im System gibt es zwei Wege, wie aus Interesse ein Termin wird. Sie schließen sich
+nicht aus, sie gehören zu unterschiedlichen Angeboten. Die Entscheidung fällt am
+Angebot, nicht am Formular.
+
+| Kriterium | Anfrage (adaptive Kontaktseite) | Direktbuchung (dieses Formular) |
+|---|---|---|
+| Preis | individuell, wird im Gespräch bestimmt | fester Listenpreis pro Platz, sofort berechenbar |
+| Verfügbarkeit | offen, Termin entsteht erst | feste Durchführungen mit Platzkontingent |
+| Rechtsfolge | unverbindlich | verbindlich, Submit-Label benennt die Zahlungspflicht |
+| Datenbedarf | Name, E-Mail, Anliegen | zusätzlich Rechnungsanschrift und Teilnehmendenliste |
+| Typische Fälle | Inhouse-Training, Beratung, Workshop nach Zuschnitt | offenes Seminar mit veröffentlichter Terminliste |
+
+Die Beispielseite Seminar (`Seitenmuster/Seminar · Training`) bleibt bewusst beim
+Anfrage-Flow: Die Termin-Zeilen führen über `data-k-bereich` und `data-k-anliegen`
+auf die Kontaktseite. Das Buchungsformular ist die Variante für Angebote, bei denen
+Preis und Kontingent feststehen.
+
+## Für die Umsetzung
+
+Die Referenz-Demo in der Doku-Site ist vollständig bedienbar, aber ein Mockup ohne
+Backend. Wer die Komponente in die echte Site überführt, ob Mensch oder Assistent,
+braucht die folgenden Punkte als Anforderungen, nicht als Ideen.
+
+**Wichtigster Punkt: Schutz gegen Datenverlust.** Ein ausgefülltes Formular enthält
+bis zu zwölf Teilnehmende mit je drei Feldern, dazu Kontakt und zwei Anschriften. Ein
+versehentliches Zurück, ein geschlossener Tab oder ein abgestürzter Browser wirft
+alles weg. Das Referenz-Markup hat keinen Zwischenspeicher; in Produktion ist er
+Pflicht, nicht optional.
+
+| Anforderung | Umsetzung |
+|---|---|
+| Entwurf laufend sichern | Bei jedem `input` und `change` den Formularstand entprellt (ca. 500 ms) unter einem stabilen Schlüssel ablegen, zum Beispiel `booking-draft:<formular-id>` |
+| Wo ablegen | `sessionStorage` für den laufenden Tab. `localStorage` nur, wenn der Entwurf einen Browserneustart überleben soll, dann mit Ablaufdatum. Keine Zahlungs- oder Ausweisdaten, und Namen sowie Anschriften sind personenbezogen: Aufbewahrungsdauer und Rechtsgrundlage vorher mit dem internen Datenschutzbeauftragten klären (Michael Didion / Harry Ursinus, datenschutz@conciso.de) |
+| Wiederherstellen mit Ansage | Beim Laden nicht still befüllen. Einen Hinweis über dem Formular zeigen, mit der Möglichkeit, den Entwurf zu verwerfen |
+| Entwurf verwerfen | Nach erfolgreichem Submit den Schlüssel löschen, sonst taucht die alte Buchung bei der nächsten wieder auf |
+| Warnung beim Verlassen | `beforeunload` nur registrieren, solange es ungespeicherte Änderungen gibt, und nach dem Submit wieder abmelden |
+| Reihenfolge beim Wiederherstellen | Erst Kundentyp und die Checkbox für die abweichende Rechnungsadresse setzen, dann die bedingten Blöcke einblenden, dann die Anzahl setzen (das erzeugt die Teilnehmendenblöcke), erst danach die Werte der Personen eintragen |
+| Nicht mit „Ich nehme selbst teil“ kollidieren | Die Übernahme aus den Kontaktdaten läuft nur, solange ein Feld nicht von Hand bearbeitet wurde. Beim Wiederherstellen deshalb auch dieses Merkmal mitsichern |
+
+| Thema | Anforderung |
+|---|---|
+| Serverseitige Validierung | Die Prüfungen im Browser sind Komfort, keine Absicherung. Jede Regel muss serverseitig gespiegelt werden, inklusive der bedingten Pflichtfelder |
+| Platzkontingent | `data-max` ist im Referenz-Markup fest. Real kommt die Obergrenze pro Termin aus dem Backend und muss beim Submit erneut geprüft werden. Ausverkaufte Termine gehören nicht in den Select |
+| Doppelte Buchungen | Submit-Button nach dem ersten Klick sperren und die Anfrage mit einem Idempotenzschlüssel versehen |
+| Preis | `data-price` ist Anzeige, nie Berechnungsgrundlage. Die Summe entsteht serverseitig aus dem Termin |
+| Bestellübersicht | Welche Angaben bei einer zahlungspflichtigen Buchung zwingend unmittelbar vor dem Absenden stehen müssen, vor dem Livegang rechtlich prüfen lassen |
+| Ziele der Rechtstexte | Real zeigen die Consent-Links auf die veröffentlichten Seiten und öffnen sie so, dass das ausgefüllte Formular nicht verloren geht (`target="_blank"` mit `rel="noopener"` oder ein Overlay) |
+| Bereichsfarbe | `data-accent="ki|es|wo"` sitzt am Container um das Formular, nicht am Formular selbst und nicht an den einzelnen Elementen |
+| Spam | Kein sichtbares Captcha als erste Wahl. Zeitmessung und ein verstecktes Honeypot-Feld reichen für ein Formular dieser Länge meist aus und kosten keine Barrierefreiheit |
+
+## Verwendung
+
+<div className="doc-eyebrow">Dos & Don'ts</div>
+
+**✓ Tun**
+
+- Anzahl und Namensblöcke synchron halten, mit der Anzahl als einziger Quelle der Wahrheit
+- Bedingte Blöcke ein- und ausblenden statt Felder zu deaktivieren, und `required` mitschalten
+- Die Rechnungsanschrift des Anmelders als Standard setzen, die Abweichung als Opt-in anbieten
+- Das Submit-Label die Rechtsfolge benennen lassen, hier „Zahlungspflichtig buchen“
+- Jedem Pflichtfeld eine eigene Fehlermeldung über `data-err` geben
+- Ab etwa fünf Pflichtfeldern eine Fehlerübersicht zeigen und sie fokussieren, statt nur auf das erste Feld zu springen
+- Fehler beim Korrigieren sofort wieder wegräumen, am Feld und in der Übersicht
+- Gruppenüberschrift und Feldlabel typografisch klar trennen, sonst ist die Gliederung nur semantisch da
+- Eine Gruppe als eine Entscheidung samt ihrer Folgen behandeln, nicht als Themenwort
+- Vor dem zahlungspflichtigen Button zusammenfassen, was gebucht wird, nicht nur den Betrag
+- Den Bereich einmal über `data-accent` am umgebenden Container setzen, dann tönen auch die Links im Formular mit
+- Verlinkte Rechtstexte in den Bestätigungen als echten `<a>` auszeichnen
+
+**✕ Nicht tun**
+
+- Die Anzahl reduzieren und dabei ausgefüllte Namensblöcke still verwerfen
+- Teilnehmendenblock 1 nach „Ich nehme selbst teil“ auf `disabled` setzen, die Werte gingen beim Submit verloren
+- Firmen- und Rechnungsfelder auch Privatpersonen zeigen, nur mit „(optional)“ entschärft
+- Unverbindliche Anfrage und zahlungspflichtige Buchung in einem Formular mischen
+- Das Formular in einen Stepper zerlegen, nur um es kürzer wirken zu lassen
+- Ein Dutzend Meldungen mit `role="alert"` gleichzeitig einfügen, das ergibt eine unverständliche Ansage
+- Die Teilnehmendenblöcke nur optisch durch eine Überschrift trennen, ohne `<fieldset>`
+- Pflichtsternchen und „(optional)“ gleichzeitig setzen, eine der beiden Auszeichnungen reicht
+- Ein freiwilliges Marketing-Häkchen optisch gleichrangig unter die Pflicht-Bestätigungen setzen
+- Eine Trennlinie zwischen eine Weiche und die Felder legen, die sie schaltet
+- Einzelnen Links im Formular eine Inline-Bereichsfarbe geben, das bricht im Dark Mode
+- Den verlinkten Rechtstext als `<span>` mit `cursor:pointer` bauen, er ist dann für Tastatur und Screenreader kein Link
+
+## Verwandte Seiten
+
+- `Komponenten/Inputs & Forms/*` (Textfeld, Auswahlfeld, Checkbox, Radio)
+- `Komponenten/Dropdowns/*`
+- `Komponenten/Buttons/Button`
+- Doku-Sektion: `docs/index.html#sec-booking`

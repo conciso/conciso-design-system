@@ -1,0 +1,140 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Marke/Markenrad" name="Übersicht" />
+
+# Markenrad
+
+Der Kernwert **Gelassenheit** entfaltet sich in drei Markenpfeilern (Ruhig, Klar, Energiegeladen) mit je drei charakterisierenden Eigenschaften. Das Unternehmen erzeugt Gelassenheit, auf ruhige, klare und energiegeladene Weise.
+
+Diese Seite ist die Begründungsschicht für die übrige Marke-Dokumentation (Brand Areas, Logo, Bildsprache): Wer eine dortige Regel hinterfragt, findet die Begründung hier.
+
+{/* Geometrie bewusst aus docs/index.html dupliziert: die Doku-Site ist eine statische
+    Einzeldatei ohne Build, es gibt keinen gemeinsamen Import-Pfad für dieses SVG. Farben
+    und Schriftgrößen kommen aus den .bw-*-Klassen in css/components.css und
+    css/dark-mode.css, deshalb stimmt das Rad in Light und Dark automatisch mit der
+    Doku-Site überein. */}
+
+<Unstyled>
+  <div className="bw-wrap">
+    <svg viewBox="0 0 520 520" className="bw-svg" role="img" aria-labelledby="bw-title bw-desc">
+      <title id="bw-title">Markenrad: Ruhige Energie</title>
+      <desc id="bw-desc">Kreisdiagramm mit Kernwert Gelassenheit im Zentrum. Pfeiler Ruhig mit den Eigenschaften Verlässlich, Selbstsicher, Kompetent. Pfeiler Klar mit Aufmerksam, Präzise, Pragmatisch. Pfeiler Energiegeladen mit Kraftvoll, Agil, Leidenschaftlich.</desc>
+
+      <path className="bw-outer" d="M 73.8 367.5 A 215 215 0 0 1 260 45 L 260 100 A 160 160 0 0 0 121.4 340 Z" />
+      <path className="bw-outer" d="M 260 45 A 215 215 0 0 1 446.2 367.5 L 398.6 340 A 160 160 0 0 0 260 100 Z" />
+      <path className="bw-outer" d="M 446.2 367.5 A 215 215 0 0 1 73.8 367.5 L 121.4 340 A 160 160 0 0 0 398.6 340 Z" />
+
+      <path className="bw-middle" d="M 121.4 340 A 160 160 0 0 1 260 100 L 260 175 A 85 85 0 0 0 186.4 302.5 Z" />
+      <path className="bw-middle" d="M 260 100 A 160 160 0 0 1 398.6 340 L 333.6 302.5 A 85 85 0 0 0 260 175 Z" />
+      <path className="bw-middle" d="M 398.6 340 A 160 160 0 0 1 121.4 340 L 186.4 302.5 A 85 85 0 0 0 333.6 302.5 Z" />
+
+      <circle className="bw-inner" cx="260" cy="260" r="85" />
+
+      <line className="bw-divider" x1="260" y1="260" x2="260" y2="45" />
+      <line className="bw-divider" x1="260" y1="260" x2="446.2" y2="367.5" />
+      <line className="bw-divider" x1="260" y1="260" x2="73.8" y2="367.5" />
+
+      <circle className="bw-ring-outline" cx="260" cy="260" r="215" />
+
+      <text className="bw-label-core" x="260" y="260" textAnchor="middle" dominantBaseline="middle">GELASSENHEIT</text>
+
+      <text className="bw-label-segment" x="154" y="199" textAnchor="middle" dominantBaseline="middle">RUHIG</text>
+      <text className="bw-label-segment" x="366" y="199" textAnchor="middle" dominantBaseline="middle">KLAR</text>
+      <text className="bw-label-segment" x="260" y="382" textAnchor="middle" dominantBaseline="middle">ENERGIEGELADEN</text>
+
+      <text className="bw-label-attr" x="75.8" y="292.5" textAnchor="middle" dominantBaseline="middle">VERLÄSSLICH</text>
+      <text className="bw-label-attr" x="98" y="166.5" textAnchor="middle" dominantBaseline="middle">SELBSTSICHER</text>
+      <text className="bw-label-attr" x="196" y="84" textAnchor="middle" dominantBaseline="middle">KOMPETENT</text>
+
+      <text className="bw-label-attr" x="324" y="84" textAnchor="middle" dominantBaseline="middle">AUFMERKSAM</text>
+      <text className="bw-label-attr" x="422" y="166.5" textAnchor="middle" dominantBaseline="middle">PRÄZISE</text>
+      <text className="bw-label-attr" x="444" y="292.5" textAnchor="middle" dominantBaseline="middle">PRAGMATISCH</text>
+
+      <text className="bw-label-attr" x="380" y="403" textAnchor="middle" dominantBaseline="middle">KRAFTVOLL</text>
+      <text className="bw-label-attr" x="260" y="447" textAnchor="middle" dominantBaseline="middle">AGIL</text>
+      <text className="bw-label-attr" x="140" y="403" textAnchor="middle" dominantBaseline="middle">LEIDENSCHAFTLICH</text>
+    </svg>
+  </div>
+</Unstyled>
+
+## Drei Markenpfeiler
+
+| Pfeiler | Eigenschaften | Sprachliche Wirkung |
+|---|---|---|
+| Ruhig | Verlässlich · Selbstsicher · Kompetent | nicht aufgeregt, keine Verkaufs-Rhetorik, keine Übertreibungen |
+| Klar | Aufmerksam · Präzise · Pragmatisch | konkret statt blumig, kurze Sätze, eindeutige Verben |
+| Energiegeladen | Kraftvoll · Agil · Leidenschaftlich | aktive Verben, Tempo wo angemessen, Überzeugung statt Floskel |
+
+Wirkt ein Text wie auf einer Beratungs-Mainstream-Seite („visionäre Lösungen für die digitale Transformation“), ist er nicht im Conciso-Ton.
+
+Die neun Eigenschaften (verlässlich, selbstsicher, kompetent, aufmerksam, präzise, pragmatisch, kraftvoll, agil, leidenschaftlich) sollen in Karten-Texten und längerer Copy spürbar werden, gern visuell hervorgehoben (`<strong>`).
+
+## Sprache & Schreibweise
+
+Primärsprache ist **Deutsch**: alle Customer-Pages, Marketing-Texte, UI-Labels, Komponenten-Beispieltexte und Design-System-Dokumentation. Englische Fachbegriffe (zum Beispiel Token-Namen, Komponenten-Klassen, Code-Beispiele) bleiben unverändert, im Fließtext wird der englische Begriff übersetzt oder erläutert. Lokalisierung in andere Sprachen ist nicht vorgesehen.
+
+### Anführungszeichen
+
+Deutsche Typografie-Konvention „99 … 66“: öffnend unten, schließend oben.
+
+| Zeichen | Unicode | Position |
+|---|---|---|
+| „ | U+201E | Öffnend, unten (sieht aus wie 99) |
+| “ | U+201C | Schließend, oben (sieht aus wie 66) |
+
+Nicht verwenden: ASCII-`"` (U+0022, gerade), `”` (U+201D, „99 oben“) oder die englische Konvention `“…”`. `npm run check:quotes` prüft das Gate, auch für nicht committete Dateien.
+
+### Keine Gedankenstriche
+
+Em-Dashes (U+2014) und En-Dashes (U+2013) in eigenen Copy-Texten vermeiden. Sie wirken im deutschen Lesefluss englisch-zitathaft und schwächen den ruhigen Markenton.
+
+| Statt | Lieber |
+|---|---|
+| Wir machen Software &#8212; und zwar gute. | Wir machen Software, und zwar gute. |
+| Drei Bereiche &#8211; ein Anspruch. | Drei Bereiche, ein Anspruch. |
+| Schau Dir an, wie wir arbeiten &#8212; oder buch direkt ein Erstgespräch. | Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch. |
+
+Ersatz: Komma, Doppelpunkt, Punkt oder Klammern. Der mittige Punkt `·` (U+00B7) bleibt als Trenner in Meta-Listen erlaubt („Bereich · Lesezeit“).
+
+### Schreibregeln aus der Mikrocopy
+
+Aus `mikrocopy-conventions.md`, schärfer als die allgemeine Tonalität:
+
+- **Aktiv statt Passiv.** „Wir entwickeln Systeme, die halten“ statt „Es werden Systeme entwickelt, die halten“.
+- **Konkrete Verben statt Adjektiv-Nebel.** „Wir hören erst zu, dann bauen wir“ statt „Aufmerksamer, partnerschaftlicher Ansatz“.
+- **Kein Marketing-Sprech.** Vermeiden: „state-of-the-art“, „cutting-edge“, „next level“, „digital transformation“, „synergetische Lösungen“, Buzzwords ohne Substanz.
+- **Zahlen sprechen.** „120+ Projekte, 10 Jahre, 70+ Menschen“ statt „Langjährige Erfahrung mit zahlreichen Kunden“.
+
+## Tonalität: Du statt Sie
+
+Auf der gesamten Webseite spricht Conciso Leserinnen und Leser mit **Du** an. Diese Entscheidung ist keine Stilfrage, sondern fällt direkt aus dem Markenrad: Wer Gelassenheit erzeugen will, kann nicht in der Distanz des „Sie“ sprechen. Das Du ist der konsequenteste Weg, die drei Pfeiler in einem Wort zusammenzubringen, und bleibt höflich, weil die Tonalität ruhig, klar und ehrlich ist, nicht kumpelhaft.
+
+| Pfeiler | wird zu |
+|---|---|
+| Ruhig | Vertrauen ohne Distanz. Das Du nimmt das Förmliche heraus, ohne die Verlässlichkeit zu verlieren. |
+| Klar | Direktheit ohne Floskeln. Wir sagen, was Sache ist, kürzer, präziser, ohne Konjunktiv-Wolken. |
+| Energiegeladen | Persönlichkeit ohne Lautstärke. Das Du holt die Leser:innen ins Gespräch, nicht ins Auditorium. |
+
+**Anrede** (aus `mikrocopy-conventions.md`, schärfer als der allgemeine Grundsatz):
+
+- Du-Form durchgängig, kleingeschrieben im Fließtext: „Du schilderst Deine Situation.“
+- Großschreibung in der höflichen Anrede, in CTAs und Formularfeldern: „Wie können wir Dir helfen?“, „Dein Anliegen“.
+- Kein Mischen von Du- und Sie-Anreden auf einer Seite.
+- Das Du wird konsequent großgeschrieben (Du, Dir, Dein, Deinem): eine Stilentscheidung, kein Tippfehler.
+
+### Ausnahme: Wann das Sie gilt
+
+Das Du ist die Regel für alle öffentlichen und redaktionellen Texte. In der direkten Kommunikation zwischen Dienstleister und Kunde kann die Hierarchie ein Sie verlangen. Dann geht Angemessenheit vor Marke: im Zweifel lieber das Sie wählen, als die Anrede zu erzwingen. Das Du folgt, sobald das Gegenüber es anbietet oder selbst nutzt.
+
+- **E-Mail an Kund:innen.** Herrscht Unsicherheit über die passende Anrede, tendiert Conciso zum Sie. Ein zu früh gesetztes Du kann distanzlos wirken, gerade im schriftlichen Erstkontakt.
+- **Veranstaltungen mit Leadership-Fokus.** Bei Veranstaltungen, zu denen vorrangig Leadership- und Entscheider:innen-Positionen erwartet werden, erfolgt die Ansprache im Sie, in der Einladung wie vor Ort.
+
+## Was nicht geht
+
+Aus `mikrocopy-conventions.md`:
+
+- Mischung Du / Sie auf einer Seite.
+- „Erfolgreich!“ als Bestätigungstext (Floskel).
+- Generische Button-Texte („Senden“, „OK“, „Weiter“).
+- Übertreibungen ohne Substanz.
+- Anglizismen, wo deutsche Worte präziser sind („Termin buchen“ statt „Slot booken“).

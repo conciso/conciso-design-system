@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Marke/Brand Areas" name="Übersicht" tags={['angular']} />
+
+# Brand Areas
+
+Vier Unternehmensbereiche mit eigenem Farbsystem, alle konsistent und stimmig als System. Reihenfolge überall co · ki · es · wo.
+
+## Die vier Bereiche
+
+Werte aus der CSS-Schicht (`css/tokens.css`), nicht aus dieser Doku-Kopie.
+
+| Kürzel | Bereich | Thema | Token-Präfix | Primär (`--XX-500`) | Text (`--XX-ink`) |
+|---|---|---|---|---|---|
+| `co` | Corporate | Marke · Kommunikation · Strategie | `--co-*` | `--co-500` (`#00BEBE`) | `--co-ink` = `--co-700` (`#007575`) |
+| `ki` | Angewandte KI | Intelligenz · Automatisierung · Wirkung | `--ki-*` | `--ki-500` (`#B5E61C`) | `--ki-ink` = `--ki-800` (`#475705`) |
+| `es` | Effektive Software | Präzision · Verlässlichkeit · Qualität | `--es-*` | `--es-500` (`#2F5FD4`) | `--es-ink` = `--es-700` (`#1B3D9A`) |
+| `wo` | Wirksame Organisationen | Struktur · Wirkung · Wandel | `--wo-*` | `--wo-500` (`#44A030`) | `--wo-ink` = `--wo-700` (`#285E1A`) |
+
+`--ki-ink` zeigt auf `-800`, nicht auf `-700` wie die übrigen drei Bereiche: `ki-700` trägt im Light-Modus nur 4,05:1 und reißt damit die AA-Schwelle für Normaltext.
+
+## Bereichs-Komponenten Vergleich
+
+Dieselben Bauteile (Buttons in Filled/Tonal/Outlined/Text, Bereichs-Badge, zwei Chips) einmal je Bereich, um die vier Paletten nebeneinander zu prüfen. Buttons und Badge/Chip-Flächen setzen ihre Bereichsfarbe klassenbasiert (`.btn-co`, `.btn-ki`, `.btn-es`, `.btn-wo`, `data-area`), nicht über `data-accent` (siehe unten).
+
+Die Bauteile selbst existieren bereits als eigene Stories (Buttons, Chip, Bereichs-Badge); dieser Vergleich wird deshalb nicht als Markup nachgebaut, sondern lebt in der Story **`Marke/Brand Areas/AreaTabs`**.
+
+## Bereichs-Kontext: `data-accent`
+
+Detail- und Stellenseiten gehören oft zu einem Bereich, nutzen aber Komponenten mit `co`-Default-Akzent (zum Beispiel die Stelle „Java / JEE Developer“ zu Effektive Software). Über `data-accent="ki|es|wo"` werden die Default-Akzent-Utilities `.t-co` (Überschriften-Icons, Bullets, Eyebrows) und `.body-link` auf die Bereichsfarbe umgetönt: Light auf `-700` (`ki` auf `-800`, aus demselben Grund wie oben), Dark-Override auf `-200`.
+
+- **Wo das Attribut sitzt.** Am Container, der einen Bereichsblock aufspannt: für eine ganze Seite der `.ep-page`-Root, für einen einzelnen Block der Wrapper um den Block (zum Beispiel ein Buchungsformular in einer sonst corporate Seite). Der Selektor ist bewusst nicht an `.ep-page` gebunden, sonst bräuchte so ein Block Inline-Farben an den einzelnen Links, die im Dark Mode brechen würden.
+- **Was es nicht abdeckt.** Buttons und CTA-Band bleiben Bereichs-Klassen (`.btn-es`, `.btn-es.btn-on-band`), `data-accent` tönt nur Text-/Link-Utilities im Inhalt.
+- **Chrome bleibt corporate.** Footer-`.body-link` und Topnav (`.ep-topnav .t-co`, zum Beispiel die aktive Sektion) werden per Reset auf `co` zurückgesetzt. Ohne diesen Reset erschiene die aktive Nav-Sektion auf einer `wo`-Seite grün statt Petrol, inkonsistent zur Nav aller anderen Seiten.
+
+### Bereichs-Umschalter in der Storybook-Toolbar
+
+Die Toolbar (`areaContext` in `.storybook/preview.ts`) setzt genau diesen Selektor, nicht eine Simulation davon: bei aktiver Auswahl hüllt ein `componentWrapperDecorator` die Story in `<div [class.ep-page]="cdsAreaCtx" [attr.data-accent]="cdsAreaCtx || null" style="display:contents">`. Der `display:contents`-Wrapper trägt kein eigenes Layout, also keine Nebenwirkungen wie zusätzliches `.ep-page`-Padding, nur die echte Tönung durch den CSS-Kern.
+
+Default ist `none`: Komponenten rendern ohne Bereichs-Kontext, isoliert. Die Toolbar-Werte sind, in dieser Reihenfolge, `co` (Corporate), `ki` (Toolbar-Beschriftung „AI.Applied“), `es` (Effektive Software) und `wo` (Wirksame Organisationen). Das Toolbar-Label für `ki` weicht damit vom Bereichsnamen auf dieser Seite und in der Doku-Site ab, die durchgängig „Angewandte KI“ schreiben.
+
+Der Bereichs-Kontext der Seite ist ein eigener, bewusst wählbarer Zustand, getrennt vom `area`-Input einzelner Komponenten.
+
+## Eigenständige Bereichs-Text-Utilities
+
+Dieselben Töne gibt es klassenbasiert als `.t-co` / `.t-ki` / `.t-es` / `.t-wo` (Light `-700`, `ki` `-800`, Dark-Override `-200`/`-100`) für inline gesetzten Akzenttext wie Eyebrows, Labels oder Kennzahlen.
+
+Bereichsfarbigen Text immer über diese Utilities, `data-area` (Chips, Badges, Pills, CTA-Links via `.card-cta-link[data-area]`) oder `--ki-ink` führen, nie als rohes `style="color:var(--XX-700/800)"`, das bliebe im Dark Mode dunkel-auf-dunkel.

@@ -1,0 +1,129 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Theme-Umschalter" name="Verwendung" tags={['angular']} />
+
+# Theme-Umschalter · Verwendung
+
+Diese Seite ist die Ausnahme in diesem Spiegel: Die drei Bauteile Cycle-Button,
+Segment und Dropdown haben in `docs/index.html` keine Sektion (0 Treffer bei der
+Suche nach „Theme“ beziehungsweise „Umschalter“). Die Doku-Site kennt diesen
+Umschalter nicht, das Spiegel-Prinzip dieser Docs-Struktur (Docs-Sektion wird
+Storybook-Ordner) hat für ihn also keine Quelle. Diese Seite behauptet deshalb
+keine Vollständigkeit gegenüber der Doku-Site, sondern beschreibt das Bauteil aus
+dem Repo selbst: der Angular-Lib
+(`angular-lib/projects/design-system-angular/src/lib/theme-switch/`) und der
+Storybook-Konfiguration (`.storybook/preview.ts`).
+
+## Dreistufiger Modus
+
+`CdsThemeMode` kennt drei Werte: `light`, `dark`, `system`. `system` folgt der
+Betriebssystem-Einstellung (`prefers-color-scheme`). Die Reihenfolge, in der alle
+drei Umschalter zyklen beziehungsweise Optionen anbieten, ist fest:
+`CDS_THEME_ORDER = ['light', 'dark', 'system']`.
+
+| Modus | Label | Icon-Key |
+|---|---|---|
+| `light` | Hell | `heroSun` |
+| `dark` | Dunkel | `heroMoon` |
+| `system` | System | `heroComputerDesktop` |
+
+Alle drei Umschalter teilen denselben `showSystem`-Parameter: `true` zeigt alle drei
+Modi (tri), `false` blendet „System“ aus und zyklt nur zwischen Hell und Dunkel
+(binär). Die Auswahl trifft `cdsThemeModes(showSystem)` in `theme-mode.ts`.
+
+## `themeStore` als einziger Schreiber von `data-theme`
+
+Alle drei Komponenten und die Storybook-Toolbar lesen und schreiben über
+`themeStore` (`theme-mode.ts`), eine modul-globale Quelle, kein Angular-Service:
+Jede Story hat ihre eigene App-Instanz mit eigenem Root-Injector, Angular-DI allein
+würde den Zustand also nicht über alle Stories hinweg teilen. `ThemeModeService` ist
+nur ein dünner Injectable-Wrapper darüber für `inject(ThemeModeService)` im
+gewohnten Muster.
+
+`themeStore` ist die **einzige** Stelle im System, die das Attribut `data-theme` am
+`<html>`-Element setzt oder entfernt:
+
+- `dark` gesetzt → `data-theme="dark"`.
+- `light` → Attribut entfernt (Light ist der Default ohne Attribut).
+- `system` → koppelt live an `window.matchMedia('(prefers-color-scheme: dark)')`
+  und reflektiert dessen `matches`-Wert als `dark` oder `light`; ein
+  `change`-Listener hält das synchron, solange der Modus `system` bleibt.
+
+Ein `document`/`window`-Guard schützt SSR und Prerendering: Ohne `document` wird
+das Attribut übersprungen, der Modus bleibt im Signal erhalten und greift, sobald im
+Browser das nächste `apply()` läuft. Die Lib fasst den globalen Cascade sonst nicht
+an (siehe `docs/adr/0001`).
+
+## Synchronisation mit der Storybook-Toolbar
+
+`.storybook/preview.ts` verdrahtet zwei Richtungen:
+
+1. **Store → Toolbar.** `themeStore.subscribe(...)` emittiert bei jeder Änderung
+   `UPDATE_GLOBALS` an den Storybook-Channel, damit der globale
+   Theme-Toolbar-Schalter mitwandert, wenn eine Story-Komponente den Modus ändert.
+2. **Toolbar → Store.** Ein Decorator ruft bei jedem Kontextwechsel
+   `themeStore.setSilent(context.globals['theme'])` auf: `setSilent` wendet den
+   Modus an, **ohne** erneut zu emittieren, sonst entstünde eine Rückkopplungs-
+   schleife zwischen Toolbar und Store.
+
+Damit bleiben Toolbar, Docs-Vorschau und alle drei Switcher-Komponenten immer
+denselben Modus zeigen. Das Docs-Chrome selbst (Überschriften, Tabellen) bleibt
+davon unabhängig immer im Light-Theme (`concisoLight`), weil Storybook Toolbar- und
+Docs-Theme nicht koppelt.
+
+## Dark Mode: der Unterbau aus der CSS-Schicht
+
+Der CSS-Schicht-Vertrag (`docs/GETTING-STARTED.md` § 3) kennt nur ein Attribut:
+
+```js
+document.documentElement.setAttribute('data-theme', 'dark'); // dunkel
+document.documentElement.removeAttribute('data-theme');      // hell (Default)
+```
+
+**Genau zwei Modi in der ausgelieferten CSS.** Das System kennt Light und Dark,
+keinen dritten Modus, der der Betriebssystem-Präferenz folgt: `prefers-color-scheme`
+wird im ausgelieferten CSS nicht ausgewertet, Default ist Light. Der dritte,
+UI-seitige Modus „System“ der drei Theme-Umschalter-Komponenten liegt deshalb eine
+Ebene **über** der CSS-Schicht: `themeStore` löst `system` selbst über
+`matchMedia` auf und schreibt der CSS-Schicht am Ende immer nur einen der zwei
+Zustände, die sie kennt (`data-theme="dark"` gesetzt oder entfernt). Ein Consumer,
+der die Betriebssystem-Präferenz ohne diese Komponenten übernehmen will, wertet sie
+im eigenen Produkt genauso aus:
+
+```js
+if (matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+**Anti-Flash-Snippet.** Als erstes Skript im `<head>`, vor dem CSS-Paint, damit beim
+Reload nicht kurz Light aufblitzt. Liest die gespeicherte Präferenz aus
+`localStorage`:
+
+```html
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem('ds-theme');
+      if (t && t !== 'light') document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+```
+
+Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`.
+Die drei Angular-Umschalter selbst persistieren nicht; das bleibt Aufgabe des
+Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt.
+
+**Warum das für jede Komponente gilt (CONTRIBUTING § 5).** `data-theme` ist der
+einzige Schalter im System: Alle Token flippen darüber, keine Komponente wertet
+`prefers-color-scheme` selbst aus oder führt eine eigene dritte Flächen-Stufe ein.
+Weil `themeStore` der einzige Schreiber dieses Attributs ist, bleibt diese Garantie
+auch mit drei unterschiedlichen Umschalter-Bauteilen (Cycle-Button, Segment,
+Dropdown) und der Storybook-Toolbar intakt: Es gibt genau eine Quelle der Wahrheit
+für den Modus, unabhängig davon, über welchen Umschalter er gesetzt wurde.
+
+## Verwandte Seiten
+
+- `Komponenten/Theme-Umschalter/Cycle-Button` (Icon-Button, ein Klick zyklt durch die Modi, vorgesehen für den Header)
+- `Komponenten/Theme-Umschalter/Segment` (Segment-Leiste zum Hovern, immer responsiv und animiert)
+- `Komponenten/Theme-Umschalter/Dropdown` (Custom Select, vorgesehen nur in den Einstellungen, nicht als persistentes Element)

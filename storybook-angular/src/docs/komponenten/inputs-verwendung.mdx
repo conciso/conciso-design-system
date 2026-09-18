@@ -1,0 +1,148 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Inputs & Forms" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Feldkomponenten (Text · E-Mail · Select · Textarea · Checkbox · Radio), bereichsspezifische Kontaktformulare, das Such-Feld als Landmark, die Newsletter-Anmeldung (Karte und Kompakt-Widget) sowie der Slider. Durchgängig WCAG AA: Labels, `aria-required`, `aria-invalid`, `role="alert"`.
+
+## Wann welche Variante
+
+### Feldkomponenten
+
+| Feld | Wann einsetzen |
+|---|---|
+| Text Input | Name, Firma, Betreff, alle einzeiligen Freitextangaben |
+| E-Mail Input | Immer `type="email"` für automatische Formatvalidierung und Mobile-Keyboard |
+| Select | Vorgegebene Optionsliste (z. B. Bereich, Anliegen), max. 8 Optionen, sonst Freitext |
+| Textarea | Freitext-Nachrichten, mindestens 3 Zeilen Höhe, kein festes Maxlength |
+| Checkbox | Einwilligung (Newsletter, DSGVO), immer mit verlinktem Datenschutzhinweis als echtem `<a class="body-link">` |
+| Radio | 2 bis 6 sich gegenseitig ausschließende Optionen (z. B. bevorzugter Kontaktweg), für mehr Optionen ein Select, für Mehrfachauswahl Checkboxen |
+| Segmented Control | Kompakte Radio-Variante für 2 bis 4 kurze, gleichrangige Optionen nebeneinander (`.seg`), bei längeren Labels oder Beschreibungen die Radio-Liste |
+
+Der Select-Platzhalter (erste Option „Bitte wählen…“) trägt `value=""` plus `disabled` plus `selected`, damit er als unerlaubter Wert zählt: Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet. Radio und Segmented Control bleiben immer **native** `<input type="radio">`, kein nachgebauter Kreis, die Gruppe sitzt in einem `<fieldset>` mit `<legend>`, alle Optionen teilen denselben `name`. In einem Bereichsformular sind die Modifier `.seg-ki`, `.seg-es` und `.seg-wo` Pflicht, sonst sitzt mitten zwischen den Feldern ein Corporate-Akzent und das Formular trägt zwei Bereiche gleichzeitig.
+
+### Kontaktformulare je Bereich
+
+Jedes Formular trägt die Akzentfarbe der Brand Area, Header und Submit-Button passen sich an.
+
+| Bereich | Header | Submit | Fokusring |
+|---|---|---|---|
+| Corporate | `--co-700` | `.btn-co` | Teal |
+| Angewandte KI | `--ki-800` | `.btn-ki` | Lime |
+| Effektive Software | `--es-700` | `.btn-es` | Blau |
+| Wirksame Organisationen | `--wo-700` | `.btn-wo` | Grün |
+
+### Adaptive Kontaktseite
+
+Statt eines eigenen Formulars pro Bereich gibt es eine Anfrageseite, die sich am Einstieg orientiert. Default ist die neutrale Corporate-Tönung, kommt die Nutzerin über einen Bereichs-CTA, übernimmt das Formular Farbe, Thema und ein vorbelegtes Anliegen. So bleibt die Seite auch für unentschlossene und bereichsübergreifende Nutzer richtig und vermeidet Near-Duplicate-Seiten.
+
+Der CTA trägt `data-ep="kontakt"` plus optional `data-k-bereich="ki|es|wo"` und `data-k-anliegen="…"`. `applyKontaktContext()` tönt Header, Button und Consent-Häkchen, setzt das Thema-Select und belegt „Dein Anliegen“ vor.
+
+| Einstieg | Tönung | Thema | Anliegen (vorbelegt) |
+|---|---|---|---|
+| Topnav / Footer „Kontakt“ | co | Allgemeine Anfrage | (leer) |
+| AI.Automation · „Workshop anfragen“ | ki | Angewandte KI | AI.Automation Workshop |
+| Effektive Software · „Gespräch anfragen“ | es | Effektive Software | (leer) |
+| Wirksame Organisationen · „Transformation starten“ | wo | Wirksame Organisationen | Wirksame Organisationen: Transformation |
+
+Zwei `<input type="hidden">` transportieren den Herkunfts-Kontext stabil, unabhängig vom editierbaren Freitext: `name="bereich"` (Werte `ki`, `es`, `wo`, `co`) ordnet an das richtige Team-Postfach zu, `name="unterthema"` liefert die Basis für eine konkrete Erstantwort. Der Akzent hängt am Formular (`data-accent` am `<form>`), nicht an der ganzen Karte: Telefon, E-Mail und der Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate, unabhängig davon, aus welchem Bereich die Anfrage kommt. In Produktion werden diese Felder serverseitig aus Route oder Query-Parameter gerendert, nicht per Client-Skript.
+
+### Such-Feld
+
+Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten. Kein sichtbares `<label>`: Icon und Placeholder tragen den visuellen Kontext, ein `aria-label` liefert den semantischen Namen für Screenreader. Struktur: Wrapper `<div role="search">` mit eigenem `aria-label` (z. B. „Beiträge durchsuchen“) macht das Such-Feld zur Landmark, die Screenreader-Nutzerinnen direkt anspringen können.
+
+```html
+<div role="search" aria-label="Beiträge durchsuchen" style="position:relative">
+  <svg aria-hidden="true" focusable="false">…</svg>
+  <input type="search" aria-label="Beiträge nach Stichwort durchsuchen"
+         placeholder="Beitrag suchen" autocomplete="off">
+</div>
+```
+
+Stil-Konventionen: Pill-Radius (`--r-full`), Border `1.5px solid var(--field-border)`, Hintergrund `--bg-surface`, Font `--ty-body-md`. `autocomplete="off"` verhindert Browser-Vorschläge in einer Filterung.
+
+### Newsletter-Anmeldung
+
+Zwei generische Varianten für Landingpages und Inline-Bereiche: eine eigenständige Karte und ein kompaktes Widget. Die Footer-Variante „Contentletter abonnieren“ ist ein eigenes Field-Pattern im Footer (eigene Klassen `.footer-newsletter-form`, `.footer-field`) und dort dokumentiert.
+
+Alle Varianten sprechen die Nutzerin in Du-Form an, das Name-Feld fragt explizit nach dem Vornamen, nicht dem vollen Namen, damit der Zweck klar ist: persönliche Anrede im Contentletter. Optional-Marker entfallen, weil die Required-Sternchen bereits Pflicht- und Optional-Felder trennen, eine zweite „(optional)“-Auszeichnung würde das Formular unnötig laut machen.
+
+| Aspekt | `.field` (Standard-Form) | `.footer-field` (Utility-Form) |
+|---|---|---|
+| Label-Token | `--ty-label-sm`, uppercase, `--tx-secondary` | Identisch |
+| Input-Border | `2px solid --field-border` | `1px solid --field-border` |
+| Input-Höhe | `min-height:44px` | `height:44px` |
+| Error-State | `.field.has-error` | `.footer-field.has-error` |
+
+Labels sind in beiden Patterns identisch (uppercase, `--ty-label-sm`, `--tx-secondary`), damit die Form-Sprache des Systems über Konversions- und Utility-Zonen hinweg konsistent bleibt.
+
+### Slider
+
+Numerische Wertauswahl mit nativer Tastatursteuerung (Pfeiltasten, Pos1, Ende). Basiert auf `<input type="range">` mit verknüpftem `<label>` und semantisch korrektem `<output>`, der Browser setzt `role="slider"`, `aria-valuemin/max/now` automatisch.
+
+```html
+<div class="field-slider">
+  <div class="field-slider-header">
+    <label class="field-slider-label" for="my-slider">Budget-Rahmen</label>
+    <output class="field-slider-output slider-co" for="my-slider" id="my-out">50.000 €</output>
+  </div>
+  <!-- aria-valuetext trägt Einheit/Format für Screenreader, valuenow allein wäre nur „50000“ -->
+  <input class="slider slider-co" type="range" id="my-slider"
+         min="10000" max="100000" step="5000" value="50000"
+         aria-describedby="my-hint" aria-valuetext="50.000 €">
+  <span class="helper" id="my-hint">Schritte: 5.000 €</span>
+</div>
+```
+
+| Taste | Funktion |
+|---|---|
+| Pfeil links / Pfeil unten | Wert um 1 Schritt verringern |
+| Pfeil rechts / Pfeil oben | Wert um 1 Schritt erhöhen |
+| Pos1 | Minimalwert springen |
+| Ende | Maximalwert springen |
+
+## Barrierefreiheit
+
+| Attribut | Pflicht / Zweck |
+|---|---|
+| `label` | Jedes Feld braucht ein sichtbares Label, kein Placeholder als Ersatz |
+| `aria-required` | Pflichtfelder mit `aria-required="true"` und sichtbarem `*` kennzeichnen |
+| `aria-invalid` | Bei Validierungsfehler `aria-invalid="true"` setzen, Screenreader meldet Fehlerfeld |
+| `role="alert"` | Fehlermeldung erhält `role="alert"`, wird sofort vorgelesen, ohne Fokusverschiebung |
+| Link im Label | Verlinkte Rechtstexte in Einwilligungen (Datenschutz, Teilnahmebedingungen) sind echte `<a class="body-link">`, kein `<span>` mit `cursor:pointer`, sonst nicht per Tab erreichbar und für Screenreader kein Link, obwohl dieser Text die Grundlage der Einwilligung ist. Im `<label for>` unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt also kein Häkchen |
+| `autocomplete` | Passende Werte setzen (`name`, `email`, …), erleichtert Ausfüllen auf Mobile |
+
+Feld-Rahmen nutzen den modusbewussten Token `--field-border` mit mindestens 3 zu 1 gegen den Feld-Hintergrund (WCAG 1.4.11). Der Rahmen ist der einzige Umriss des Feldes, sobald es auf einer Karte sitzt, dort ist die Feldfüllung mit `--bg-surface` identisch mit dem Grund. Platzhalter-Text immer explizit auf `--tx-secondary` setzen, nie dem Browser überlassen, sonst unterschreitet die Browser-Standardfarbe im Dark Mode den AA-Kontrast.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Jedes Feld mit sichtbarem Label versehen, Placeholder allein ist keine barrierefreie Beschriftung.
+- Fehlermeldungen direkt unter dem betroffenen Feld anzeigen, kontextnah und sofort lesbar.
+- Bereichsfarbe konsequent für Header und Submit-Button nutzen, das Formular gehört zum Bereichskontext.
+- Nur Pflichtfelder mit `*` markieren, unnötige Pflichtfelder reduzieren die Konversionsrate.
+- Genau ein Submit-Button pro Formular, klare Primäraktion, kein zweiter Filled-Button daneben.
+- Verlinkte Rechtstexte in Einwilligungen als echten `<a>` auszeichnen, damit sie per Tab erreichbar sind.
+
+**Nicht tun**
+
+- Placeholder als einzige Feldbeschriftung, verschwindet beim Tippen und ist nicht barrierefrei.
+- Disabled-Felder ohne Erklärung, die Nutzerin versteht nicht, warum das Feld nicht ausfüllbar ist.
+- Bereichsfarben in einem Formular mischen, jedes Formular gehört zu genau einer Brand Area.
+- Fehlermeldung nur per Farbe signalisieren, immer auch Text und Icon für farbenblinde Nutzende.
+- Mehr als 7 bis 8 Formularfelder ohne Abschnitte, lieber in Schritte oder Gruppen aufteilen.
+- Den Datenschutzhinweis im Einwilligungs-Label als `<span>` mit `cursor:pointer` bauen, er sieht aus wie ein Link und ist keiner.
+
+## Verwandte Seiten
+
+- Textfeld (`Komponenten/Inputs & Forms/Textfeld`)
+- Textbereich (`Komponenten/Inputs & Forms/Textbereich`)
+- Auswahlfeld (`Komponenten/Inputs & Forms/Auswahlfeld`)
+- Radio (`Komponenten/Inputs & Forms/Radio`)
+- Checkbox (`Komponenten/Inputs & Forms/Checkbox`)
+- Slider (`Komponenten/Inputs & Forms/Slider`)
+- Skala (`Komponenten/Inputs & Forms/Skala`)
+- Für Auswahl jenseits des nativen `<select>`: Custom Select und Combobox (`Komponenten/Dropdowns/Verwendung`)
+- Für die Footer-Newsletter-Variante: Footer (`Komponenten/Footer`)

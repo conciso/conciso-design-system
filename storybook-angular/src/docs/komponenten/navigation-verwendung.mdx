@@ -1,0 +1,218 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Navigation" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Navigation führt drei Elemente: Topnav, Breadcrumb und Back-to-Top-Button. Nur die
+Topnav hat ein eigenes Bauteil (Story `Topnav`); Breadcrumb und Back-to-Top sind
+CSS-Rezepte ohne Angular-Komponente.
+
+## Wann welches Element
+
+| Element | Bauteil | Wann einsetzen |
+|---|---|---|
+| Topnav | Story `Topnav` | Auf jeder Customer-Page als persistente Kopfzeile: Logo, vier Top-Items, Kontakt-CTA |
+| Breadcrumb | bauteillos (CSS-Rezept `.article-breadcrumb`) | Auf Unterseiten ab der zweiten Ebene, zeigt den Pfad von der Startseite zur aktuellen Seite |
+| Back-to-Top-Button | bauteillos (CSS-Rezept `.back-to-top`) | Auf jeder Customer-Page, sticky unten rechts, erscheint ab `scrollY > 400px` |
+
+## Topnav: Aufbau
+
+| Element | Regel |
+|---|---|
+| Logo | Immer ganz links, immer sichtbar, Verlässlichkeit in der ersten Sekunde |
+| Top-Items | Vier Einträge: Angewandte KI · Leistungen · Wissen · Unternehmen. „Angewandte KI“, „Leistungen“ und „Unternehmen“ sind Links zur jeweiligen Übersicht mit aufklappbarem Submenü über einen separaten Caret-Button, „Wissen“ ist ein einfacher Link ohne Submenü. Aktiver Eintrag über `aria-current="page"` |
+| CTA-Button | Genau ein Outlined-Button, Label „Kontakt“, Brand-Petrol (`--co-700`), ganz rechts über `margin-left:auto` |
+| Layout und Hintergrund | `.ep-topnav` mit `--bg-surface`, `border-bottom:var(--bd)`, Padding `var(--s4) var(--s8)` (rund 64 px hoch). Ein `gap`-basierter Flow (kein `justify-content`) hält die Nav am Logo, der CTA wird per `margin-left:auto` nach rechts gedrückt, das Layout bleibt stabil, egal wie viele Nav-Items dazukommen |
+
+Das Schema zeigt den Nav-Bar-Wireframe und darunter die zugehörige Callout-Zeile mit den
+nummerierten Hinweisen ①②③ zu Logo, Top-Items und Kontakt-Button.
+
+<Unstyled>
+  <div style={{ border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden', marginBottom: 'var(--s8)' }}>
+    {/* Nav-Bar-Schema */}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--s4)',
+        padding: '0 var(--s6)',
+        height: '64px',
+        background: 'var(--bg-surface)',
+        borderBottom: 'var(--bd)',
+      }}
+    >
+      <div
+        style={{
+          background: 'var(--co-700)',
+          borderRadius: 'var(--r-xs)',
+          padding: '3px 10px',
+          font: '700 12px/16px var(--font)',
+          color: '#fff',
+          flexShrink: 0,
+        }}
+      >
+        Logo
+      </div>
+      <div style={{ display: 'flex', gap: 'var(--s5)', flex: 1, alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 'var(--s1)',
+            font: '400 12px/16px var(--font)',
+            color: 'var(--tx-secondary)',
+          }}
+        >
+          Angewandte KI <span style={{ opacity: 0.5 }}>▾</span>
+        </div>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 'var(--s1)',
+            font: '400 12px/16px var(--font)',
+            color: 'var(--tx-secondary)',
+          }}
+        >
+          Leistungen <span style={{ opacity: 0.5 }}>▾</span>
+        </div>
+        <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>Wissen</div>
+        <div
+          className="t-co"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 'var(--s1)',
+            font: '600 12px/16px var(--font)',
+          }}
+        >
+          Unternehmen <span style={{ opacity: 0.5 }}>▾</span>
+        </div>
+      </div>
+      <div
+        className="t-co"
+        style={{
+          border: '1.5px solid var(--co-700)',
+          borderRadius: 'var(--r-full)',
+          padding: '2px 12px',
+          font: '600 12px/16px var(--font)',
+          flexShrink: 0,
+        }}
+      >
+        Kontakt
+      </div>
+    </div>
+    {/* Callout-Zeile zur Nav */}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 'var(--s4)',
+        padding: 'var(--s3) var(--s6)',
+        background: 'var(--bg-overlay)',
+      }}
+    >
+      <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-muted)', flexShrink: 0, width: '80px' }}>
+        ① Logo<br />immer links
+      </div>
+      <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-muted)', flex: 1 }}>
+        ② Top-Items · 4 Einträge · „Angewandte KI“, „Leistungen“ und „Unternehmen“ mit aufklappbarem Submenü,
+        „Wissen“ ohne · aktiver Eintrag in
+        Brand-Petrol via <code className="token" style={{ fontSize: '12px' }}>aria-current="page"</code>
+      </div>
+      <div
+        style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-muted)', flexShrink: 0, textAlign: 'right' }}
+      >
+        ③ Outlined „Kontakt“<br />ganz rechts
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+**Aktiv-Markierung:** Aktiver Punkt über `aria-current="page"` ausgezeichnet und
+zusätzlich durch einen nicht-farbigen Indikator bestätigt: Top-Level-Links tragen einen
+dezenten Akzent-Unterstrich, Submenü-Einträge eine Tönungsfläche (`--co-50`) plus
+Fettung. Die Markierung hängt also nie allein an der Farbe (WCAG 1.4.1). Nur Hover und
+das bloße Aufklappen markieren ausschließlich über Farbe und Caret-Drehung, den
+Unterstrich gibt es allein im Aktiv-Zustand.
+
+## Topnav-Dropdowns: Disclosure-Pattern
+
+Jedes Top-Item mit Submenü besteht aus zwei getrennten Bedienelementen: dem Label-Link
+(`.ep-nav-btn`, ein echtes `<a>`), der direkt zur Übersichtsseite navigiert, und einem
+separaten Caret-Button (`.ep-nav-item-toggle`), der ausschließlich das Submenü öffnet
+und schließt. Es ist ein Disclosure-Pattern aus Links, kein Menü-Widget, deshalb bewusst
+ohne `aria-haspopup`.
+
+- `aria-expanded` (`true`/`false`) und `aria-controls` sitzen auf dem Caret-Button; die JS-Klasse `.is-open` markiert das geöffnete `.ep-nav-has-sub`.
+- Geöffnet wird per Klick/Tap, Tastatur (`Enter`/`Space` auf dem Caret) oder, nur auf Geräten mit echtem Hover (`pointer:fine`), per Hover (JS-gesteuert mit Intent-Verzögerung und unsichtbarer Brücke über den Gap, WCAG 1.4.13).
+- Pfeiltasten (`↓`/`↑`) sowie `Home`/`End` navigieren die Einträge innerhalb des geöffneten Submenüs.
+- `Escape` schließt das Submenü und gibt den Fokus auf den Caret zurück; ein Klick außerhalb, das Heraustabben oder eine Navigation schließen ebenfalls.
+- **Kein reines CSS-`:hover`-Öffnen:** Der Reveal hängt immer an `.is-open`, damit `aria-expanded` mitläuft.
+- **Nie zwei Menüs gleichzeitig offen:** Vor jedem Öffnen ruft das JS `closeAllNavItems`.
+- Der Label-Link navigiert unverändert direkt zur Übersicht, nur der Caret-Button klappt auf; ein Klick auf das Label öffnet oder schließt kein Menü.
+- Mobil (ab 760 px und darunter): ein Hamburger-Button wird injiziert, Submenüs öffnen dort inline statt als schwebendes Overlay.
+- Der Caret-Button hat eine eigene Hit-Area ≥ 24 px (WCAG 2.5.8); mobil liegen Label und Caret in einer Zeile mit ≥ 44 px Tap-Fläche.
+
+## Breadcrumb
+
+Auf Unterseiten (zweite Ebene und tiefer) sitzt über dem Inhalt eine Breadcrumb-Leiste
+(`.article-breadcrumb`). Sie zeigt den Pfad von der Startseite bis zur aktuellen Seite;
+das letzte Element ist die aktuelle Seite, trägt `aria-current="page"` und ist kein
+Link.
+
+| Aspekt | Regel |
+|---|---|
+| Hülle | Eigene `.ep-section` mit `padding-block:var(--s5)` und `--bg-surface`, direkt unter der Topnav; das `<nav>` mit `margin-bottom:0` |
+| Ausrichtung | Immer linksbündig, auch auf redaktionellen Seiten (Wissensbeitrag, Stellen-Detail). Titel und Lead dürfen darunter zentriert sein, der Breadcrumb bleibt links |
+| Pfad | Startseite → … → aktuelle Seite; Trenner `.article-breadcrumb-sep` (dekorativ, `aria-hidden`); letztes Element `aria-current="page"`, ohne Link |
+| Nicht | Den Breadcrumb nicht in einen zentrierten `.article-header` einbetten, sonst wird er mittig ausgerichtet und bekommt einen abweichenden Abstand zur Nav |
+
+## Back-to-Top-Button
+
+Globaler Page-Button, der nach `scrollY > 400px` sanft eingeblendet wird und beim Klick
+smooth zum Seitenanfang scrollt. Sitzt sticky unten rechts (`position:fixed`), damit er
+auf langen Seiten ohne Scrollen erreichbar bleibt; typischer Anwendungsfall:
+Wissensbeiträge, Bereichsseiten, Listen-Übersichten. Gehört auf jede Customer-Page, auch
+Landing-Pages, Detailseiten und Beispielartikel.
+
+- `aria-label="Nach oben scrollen"`, der reine Caret-Icon-Button braucht eine textuelle Beschriftung.
+- `type="button"`, verhindert Submit-Verhalten in einem Form-Kontext.
+- Tastatur: per `Tab` erreichbar, `Enter`/`Space` löst aus, keine zusätzliche ARIA-Rolle nötig (natives `<button>`).
+- Reduced Motion: bei `prefers-reduced-motion: reduce` springt die Seite ohne Smooth-Scroll-Animation an den Anfang (WCAG 2.3.3).
+- Touch-Target: 44×44 px erfüllt WCAG 2.5.5 (Target Size).
+- Fokus-Ring: `var(--focus-ring)` bei Tastaturfokus, sichtbar gegen den weißen Hintergrund und gegen farbige Inhalte.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Semantik | `<nav>` mit `aria-label="Hauptnavigation"`, wenn mehrere Navigationsbereiche auf einer Seite stehen, listen Screenreader alle Landmarks auf |
+| Aktiver Eintrag | `aria-current="page"` auf dem aktiven Nav-Link setzen, der visuelle Active-State allein ist für Screenreader nicht erkennbar |
+| Tastatur | Alle Nav-Items per `Tab`; `Enter`/`Space` öffnet das Submenü; `↓`/`↑` und `Home`/`End` navigieren die Einträge; `Esc` schließt (Fokus zurück zum Toggle), vollständig ohne Maus bedienbar |
+| Dropdown-Zustand | Das Label ist ein `<a>`-Link zur Übersicht; ein separater Caret-`<button>` trägt per JS `aria-expanded` und `aria-controls` auf das Submenü (Disclosure aus Links, kein Menü-Widget, daher kein `aria-haspopup`); geöffnet wird per Klick/Tastatur und, additiv nur auf `pointer:fine`, per Hover (JS-gesteuert über `.is-open`, nie rein per CSS-`:hover`) |
+| Skip-Link | „Zum Inhalt springen“-Link als erstes fokussierbares Element, ermöglicht Tastaturnutzern das Überspringen langer Navigationen |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Aktiven Eintrag über `aria-current="page"` und zusätzlich einen nicht-farbigen Indikator markieren (Unterstrich beziehungsweise Tönungsfläche plus Fettung), nie nur über Farbe (WCAG 1.4.1)
+- Genau einen Outlined-Kontakt-Button ganz rechts, per `margin-left:auto` vom Nav-Flow abgesetzt
+- Label-Link und Caret-Button als getrennte Bedienelemente führen: Label navigiert, Caret klappt auf
+- Breadcrumb immer linksbündig setzen, auch wenn Titel und Lead darunter zentriert sind
+- Back-to-Top auf jeder Customer-Page einbinden, inklusive Fallback auf einen Hard-Jump bei `prefers-reduced-motion`
+
+**Nicht tun**
+
+- Dropdown-Menüs rein über CSS `:hover` öffnen, nicht per Tastatur erreichbar; `aria-expanded` für den Toggle nutzen
+- Vom IA-Schema (Angewandte KI · Leistungen · Wissen · Unternehmen plus Kontakt) abweichen oder zusätzliche Top-Items ergänzen, das verwässert die Customer-Page-Navigation
+- Breadcrumb in einen zentrierten `.article-header` einbetten, sonst verschiebt sich seine Ausrichtung
+- Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen
+- Back-to-Top ohne `aria-label` oder ohne Fallback bei `prefers-reduced-motion` ausliefern
+
+## Verwandte Seiten
+
+- Komponenten/Navigation/Topnav
+- Komponenten/Hero (Zusammenspiel von Topnav und Hero)

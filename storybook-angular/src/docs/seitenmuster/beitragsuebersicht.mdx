@@ -1,0 +1,115 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Seitenmuster/Beitragsübersicht" name="Übersicht" />
+
+# Beitragsübersicht
+
+Page-Pattern für Listing-Seiten mit Bereichs-Filter: zentrierter Header mit Lead,
+Filter-Chip-Leiste, ein Featured-Beitrag pro Bereich, der mit dem Filter rotiert, darunter
+ein Card-Grid. Quelle: `docs/index.html#sec-listing`. Dasselbe Pattern trägt auch
+`Seitenmuster/Veranstaltungsübersicht`, dort mit „Format · Preis“ statt „Lesezeit“ in der
+Pill und dem Anmeldungs-Flow statt des Beitrags-Lesers.
+
+## Aufbau
+
+Die Seite folgt einem Lesefluss von Orientierung über kuratierte Empfehlung zur freien
+Erkundung:
+
+1. **Topnav** (siehe `Komponenten/Navigation/Topnav`): „Wissen“ mit `aria-current="page"`.
+2. **Page-Header:** H1, Lead, optionales Such-Feld (`role="search"` mit Magnifier-Icon und
+   `<input type="search">`), Filter-Chips. Zentriert, max. 720 px für die Lead-Breite. Der
+   H1 trägt `--ty-display-sm` (36 px Serif), nicht kleiner, er ist der alleinige Page-Anker
+   (Listings haben kein Hero-Image). So entsteht die Hierarchie 36 px H1, 28 px Section-H2,
+   24 px Featured-Card-Hero, 20 px Standard-Card-Titel.
+3. **Featured-Beitrag:** zweispaltige Hero-Card (Bild links im 16:9, Inhalt rechts),
+   bereichsspezifisch, siehe Filter-aware Featured unten.
+4. **Beitrags-Grid:** `.card.card-elevated` in `.col-4` mit Bild oben, Pill „Bereich ·
+   Lesezeit“, Titel, Lead und CTA „Beitrag lesen →“ am Karten-Unterrand.
+5. **„Mehr laden“-Block** (optional, ab vielen Beiträgen): zentrierter Outline-Button mit
+   Counter darunter (`aria-live="polite"`), lädt die nächste Beitragsseite nach. Alternative
+   zu Pagination oder Infinite-Scroll, der Footer bleibt erreichbar und deterministisch
+   zugänglich.
+6. **CTA-Band** für Newsletter oder vergleichbare Conversion.
+7. **Footer** (siehe `Komponenten/Footer`).
+
+**Header-Pattern, Editorial statt Marketing:** Der Page-Header ist bewusst zentriert, weil
+die Seite zum Lesen und Stöbern einlädt, nicht zum Scannen einer Service-Übersicht. Das
+folgt derselben Logik wie der Article-Header in `Seitenmuster/Wissensbeitrag`. Auf
+Listing-Seiten gilt Editorial-Konvention, auf Service- und Marketing-Seiten
+Marketing-Konvention (linksbündig, `.ep-section-*`).
+
+## Such-Verhalten
+
+Such-Konzept als Phase-1-Implementierung: vollständig client-seitig, ohne Backend.
+Funktioniert verlässlich bis rund 100 Beiträge, danach lohnt eine indexierte Lösung (Algolia,
+Meilisearch, eigener Service). Die folgenden Regeln beschreiben das Verhalten, nicht die
+Implementierung aus `docs/main.js`.
+
+| Aspekt | Verhalten |
+|---|---|
+| Instant-Search | Filtert beim Tippen mit 300 ms Debounce, kein Submit, keine separate Result-Page |
+| Such-Scope | Titel plus Lead plus Pill pro Card (case-insensitive Substring-Match), Body-Text bewusst ausgespart (zu teuer client-seitig, erzeugt False Positives) |
+| Kombination mit Filter | AND-Logik: aktiver Bereichs-Filter plus Suche ergibt die engere Schnittmenge |
+| Featured-Verhalten | Wird bei aktiver Suche komplett ausgeblendet, Featured ist redaktionell kuratiert, nicht algorithmisch |
+| Live-Count | `.wb-result-count` mit `role="status" aria-live="polite"`, nur während aktiver Suche sichtbar |
+| Empty State | Eigener Block ersetzt das Grid, kontextueller Detailtext, zwei Exit-Pfade (Reset, Newsletter) |
+| „Mehr laden“ | Wird bei aktiver Suche ausgeblendet, bei Filter-only bleibt der Block aktiv |
+
+**Tastatur und A11y:**
+
+| Eingabe | Aktion |
+|---|---|
+| `/` | Global-Shortcut, fokussiert das Such-Feld, wenn der Fokus nicht bereits in einem anderen Eingabefeld liegt |
+| `Esc` | Leert das Such-Feld, Fokus bleibt im Feld, Filter werden nicht zurückgesetzt |
+| `role="search"` | Landmark um das gesamte Such-Feld, Screenreader können direkt dorthin springen |
+| `<input type="search">` | Natives Such-Input mit Browser-X-Button zum Leeren, `aria-label` statt sichtbarem Label |
+
+## Filter-aware Featured
+
+Der Featured-Block enthält pro Bereich eine eigene Hero-Card. Alle drei Cards liegen im
+selben Container und tragen `data-area="ki|es|wo"`. Per Default ist eine sichtbar, die
+anderen tragen `.is-hidden`. Beim Klick auf einen Filter-Chip blendet das JS die passende
+Variante ein. Für den Filter „Alle“ zeigt der Editorial-Pick (im Beispiel die KI-Variante).
+
+**Warum diese Variante:** Ein statisches Featured würde beim Filtern auf andere Bereiche
+thematisch nicht zur Auswahl passen. Eine versteckte Featured-Section lässt das Layout beim
+Filterwechsel um die Höhe der Card springen. Ein Featured pro Bereich erhält die topische
+Kohärenz und vermeidet zugleich Layout-Sprünge.
+
+**Typografie:** Der Titel der Featured-Card nutzt `.card-title-hero` (24 px Serif,
+Headline-sm) statt des Standard-`.card-title` (20 px Sans), das Featured ist ein
+editorialer Hero, kein Grid-Card.
+
+```html
+<section id="wb-featured-section">
+  <p class="ep-section-label">Featured</p>
+  <a class="card card-elevated" data-area="ki" href="…">…</a>
+  <a class="card card-elevated is-hidden" data-area="es" href="…">…</a>
+  <a class="card card-elevated is-hidden" data-area="wo" href="…">…</a>
+</section>
+```
+
+## Verwendung
+
+| Aspekt | Regel |
+|---|---|
+| Filter-Chips | Toggle-Buttons mit `aria-pressed` und `data-filter="all\|ki\|es\|wo"`, aktiver Chip gefüllt in Petrol mit weißem Text |
+| Featured pro Bereich | Jede Variante als `.card.card-elevated` mit `data-area` im selben Container, nur eine sichtbar |
+| „Alle“-Default | Zeigt den Editorial-Pick, Konvention für Conciso: KI-Variante als Lead-Thema |
+| Grid-Karten | `.card.card-elevated.col-4` mit `data-area` auf Karte und Pill, CTA-Farbe einheitlich `--co-700` |
+| Pill-Form | „Bereich · Lesezeit“ mit `data-area` für den Bereichston, auf Listing-Seiten ohne Breadcrumb zulässig |
+| Layout-Stabilität | Featured-Section nie ganz verstecken, nur den Inhalt austauschen, sonst springt das Layout |
+
+**Dos**
+- Pro Bereich eine eigene Featured-Variante pflegen, kuratierter Top-Beitrag für die
+  jeweilige Zielgruppe.
+- CTAs im Grid einheitlich in `--co-700`, die Bereichsfarbe trägt die Pill.
+- Featured-Card visuell anders strukturieren als Grid-Karten, damit die Hierarchie sofort
+  lesbar ist.
+
+**Don'ts**
+- Featured beim Filterwechsel komplett ausblenden, das Layout springt um die Card-Höhe.
+- Statisches Featured eines Bereichs zeigen, während ein anderer Bereich aktiv gefiltert
+  ist.
+- Featured und Grid-Karten gleich darstellen, ohne Hierarchie scrollen Nutzende am
+  redaktionellen Anker vorbei.

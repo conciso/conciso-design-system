@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Beispielseiten/Übersicht" name="Übersicht" />
+
+# Beispielseiten
+
+Die Doku-Site zeigt unter „Beispielseiten“ sechs fertige Seiten als Tab-Leiste (Allgemein,
+Leistungen, Wissen, Unternehmen, Veranstaltungen, Kontakt), jede zusammengesetzt aus den
+Komponenten und Seitenmustern, die im Storybook einzeln dokumentiert sind. Sie zeigen die
+Bauteile im Zusammenspiel einer echten Seite statt isoliert in einer Story.
+
+Diese Seite baut die sechs Beispielseiten **nicht nach**. Sie sind Kompositionen der
+CSS-Schicht ohne Angular-Entsprechung, sie im Storybook zu duplizieren hieße, die Quelle der
+Wahrheit zu verdoppeln. Für die fertigen Seiten selbst gilt `docs/index.html`, Gruppe
+Beispielseiten, als Quelle.
+
+| Tab | Zweck | Bausteine |
+|---|---|---|
+| Allgemein · Startseite | Gemischte Einstiegsseite, die alle vier Brand Areas vereint und in die übrigen Tabs verweist | Topnav, Hero, `Marke/Brand Areas`, Cards & Teaser, Testimonials, Featured-Veranstaltung (siehe `Seitenmuster/Veranstaltungsübersicht`), CTA-Band, Footer |
+| Leistungen | Bereichs- und Angebotsseiten, von der Übersicht der drei Disziplinen (Angewandte KI, Effektive Software, Wirksame Organisationen) bis zur einzelnen Angebots-Detailseite (u. a. AI.Engineering, AI.Automation, AI.Box, Identity mit Keycloak, Keycloak-Erweiterungen, Erste Hilfe bei Meetingflut, Scrum Trainings, Lean Portfolio Management) | `Seitenmuster/Angebots-Detailseite` (Angebots-Box, Preismodelle, Cross-Links), Cards & Teaser |
+| Wissen | Beitragsübersicht und ein Beispiel-Wissensbeitrag im Bereich Angewandte KI | `Seitenmuster/Beitragsübersicht`, `Seitenmuster/Wissensbeitrag` |
+| Unternehmen | Unternehmensseiten von Überblick über Über uns und Arbeitgeber bis zur einzelnen Stellenanzeige (Offene Stellen, Stelle Java/JEE) | Story-Zeitstrahl, Team-Roster, Team-Tile-Grid (alle drei in `Seitenmuster/Wissensbeitrag` dokumentiert), `Seitenmuster/Wissensbeitrag/FAQ`, Cards & Teaser |
+| Veranstaltungen | Veranstaltungsübersicht, eine Veranstaltungs-Detailseite und eine Seminar-Landing | `Seitenmuster/Veranstaltungsübersicht`, `Seitenmuster/Veranstaltung`, `Seitenmuster/Seminar · Training` |
+| Kontakt | Adaptive Anfrageseite, die Bereich und Anliegen aus verlinkten CTAs vorbelegt (`data-k-bereich`/`data-k-anliegen`, siehe Termine-Modul und Angebots-Box) | `Komponenten/Inputs & Forms/Textfeld` und verwandte Felder, `Komponenten/Buttons/Button` |
+
+Für den Aufbau, die Regeln und die Barrierefreiheits-Anforderungen der einzelnen
+Seitentypen gelten die jeweiligen `Seitenmuster/*`-Seiten, für das fertige Ergebnis
+`docs/index.html`.

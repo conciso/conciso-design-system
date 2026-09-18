@@ -1,0 +1,280 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Grundlagen/Elevation" name="Übersicht" />
+
+# Elevation
+
+6 Ebenen, Shadow + Tonal Overlay (Primärfarbe auf Oberfläche). Quelle:
+`docs/index.html#sec-elevation`.
+
+## Elevation = Interaktivität (CONTRIBUTING § 4)
+
+Statische Cards und Flächen ruhen flach mit Rahmen (`--e0` + `--bd-strong`). Interaktive
+Elemente (Links, klickbare Cards `.ep-card-link`) tragen Schatten (`--e1`) und heben auf
+Hover (`--e3`). Begründung: Schatten signalisiert anfassbar, statische Info-Cards mit
+Schatten täuschen Interaktivität vor.
+
+Entscheidend ist die Fläche, nicht der Inhalt. Eine Karte mit Buttons oder Text-Links im
+Footer ist statisch, die Buttons sind die Interaktion, die Fläche führt nirgendwohin. Sie
+ruht flach. Schatten bekommt sie erst, wenn sie selbst der klickbare Bereich ist, also
+`<a class="card card-elevated">` oder `<a class="ep-card ep-card-link">`.
+
+Der Riegel steht im CSS: `.card-elevated` ist auf `a.card-elevated` gescoped, eine
+`<article>`- oder `<div>`-Karte kann den Schatten also auch mit gesetzter Klasse nicht
+bekommen. Gleiches gilt für Inline-`box-shadow` auf statischen Blöcken, nicht setzen, auch
+nicht mit Token.
+
+## Shadow Elevation
+
+Die sechs Ebenen im direkten Vergleich, gerendert mit den Werten aus der Tabelle unten.
+Level 0 bleibt flach mit Rahmen, ab Level 1 trägt jede Kachel den zugehörigen
+Schatten-Token.
+
+export const ElevationSwatch = ({ style, swatchLabel, body }) => (
+  <div className="el-card col-2" style={style}>
+    <span className="el-lbl">{swatchLabel}</span>
+    {body}
+  </div>
+);
+
+export const shadowSwatches = [
+  { style: { border: 'var(--bd-strong)' }, swatchLabel: 'Level 0', body: 'Flat · Outlined' },
+  { style: { boxShadow: 'var(--e1)' }, swatchLabel: 'Level 1', body: 'Card · FAB' },
+  { style: { boxShadow: 'var(--e2)' }, swatchLabel: 'Level 2', body: 'Chip · Hover' },
+  { style: { boxShadow: 'var(--e3)' }, swatchLabel: 'Level 3', body: 'Nav Drawer' },
+  { style: { boxShadow: 'var(--e4)' }, swatchLabel: 'Level 4', body: 'Modal · Sheet' },
+  { style: { boxShadow: 'var(--e5)' }, swatchLabel: 'Level 5', body: 'Tooltip · Dialog' },
+];
+
+<Unstyled>
+  <div className="layout-grid" style={{ padding: 'var(--s6) 0' }}>
+    {shadowSwatches.map((swatch) => (
+      <ElevationSwatch key={swatch.swatchLabel} {...swatch} />
+    ))}
+  </div>
+</Unstyled>
+
+| Level | Token | Einsatz |
+|---|---|---|
+| 0 | `--e0` | Flat, Outlined, Seiten-Hintergrund, Tabellen |
+| 1 | `--e1` | Card, FAB, Standard-Cards, Listen-Karten |
+| 2 | `--e2` | Chip, Hover, Dropdown-Anker |
+| 3 | `--e3` | Nav Drawer, Side Sheet, persistente Panels |
+| 4 | `--e4` | Modal, Sheet, Dialoge mit Scrim |
+| 5 | `--e5` | Tooltip, Dialog, Snackbar, Autocomplete-Dropdown |
+
+Werte aus `css/tokens.css`:
+
+```css
+--e0: none;
+--e1: 0 1px 2px rgba(0,0,0,.30), 0 1px 3px 1px rgba(0,0,0,.15);
+--e2: 0 1px 2px rgba(0,0,0,.30), 0 2px 6px 2px rgba(0,0,0,.15);
+--e3: 0 1px 3px rgba(0,0,0,.30), 0 4px 8px 3px rgba(0,0,0,.15);
+--e4: 0 2px 3px rgba(0,0,0,.30), 0 6px 10px 4px rgba(0,0,0,.15);
+--e5: 0 4px 4px rgba(0,0,0,.30), 0 8px 12px 6px rgba(0,0,0,.15);
+```
+
+Kombinationsregel: Level 1 bis 2 können Schatten oder Tonal Overlay einsetzen. Level 3 bis
+5 kombinieren beide, der Schatten signalisiert Abstand zur Seite, die Tönung verstärkt die
+visuelle Zugehörigkeit zur Primärfarbe.
+
+## Tonal Elevation
+
+Zusätzlich zur Shadow-Elevation wird eine semitransparente Schicht der Primärfarbe auf
+Oberflächen gelegt. Je höher das Level, desto stärker die Tönung, Tiefe durch Farbe statt
+nur Schatten.
+
+Die Kachel-Reihe macht den Unterschied sichtbar: von 0 % (reine `--bg-surface`) bis 14 %
+Tonal-Anteil auf Level 5.
+
+export const tonalSwatches = [
+  { style: { background: 'var(--bg-surface)' }, swatchLabel: '0 % Tonal', body: 'Level 0' },
+  { style: { background: 'color-mix(in srgb, var(--co-500) 5%, var(--bg-surface))' }, swatchLabel: '5 % Tonal', body: 'Level 1' },
+  { style: { background: 'color-mix(in srgb, var(--co-500) 8%, var(--bg-surface))' }, swatchLabel: '8 % Tonal', body: 'Level 2' },
+  { style: { background: 'color-mix(in srgb, var(--co-500) 11%, var(--bg-surface))' }, swatchLabel: '11 % Tonal', body: 'Level 3' },
+  { style: { background: 'color-mix(in srgb, var(--co-500) 12%, var(--bg-surface))' }, swatchLabel: '12 % Tonal', body: 'Level 4' },
+  { style: { background: 'color-mix(in srgb, var(--co-500) 14%, var(--bg-surface))' }, swatchLabel: '14 % Tonal', body: 'Level 5' },
+];
+
+<Unstyled>
+  <div className="layout-grid" style={{ marginBottom: 'var(--s4)' }}>
+    {tonalSwatches.map((swatch) => (
+      <ElevationSwatch key={swatch.swatchLabel} {...swatch} />
+    ))}
+  </div>
+</Unstyled>
+
+| Level | Tonal-Anteil | Token |
+|---|---|---|
+| 0 | 0 % | `--bg-surface` (kein Tonal Overlay) |
+| 1 | 5 % | `--tonal-1` |
+| 2 | 8 % | `--tonal-2` |
+| 3 | 11 % | `--tonal-3` |
+| 4 | 12 % | `--tonal-4` |
+| 5 | 14 % | `--tonal-5` |
+
+Werte aus `css/tokens.css` (Beispiel für die Corporate-Primärfarbe):
+
+```css
+--tonal-1: rgba(0,190,190,.05);
+--tonal-2: rgba(0,190,190,.08);
+--tonal-3: rgba(0,190,190,.11);
+--tonal-4: rgba(0,190,190,.12);
+--tonal-5: rgba(0,190,190,.14);
+```
+
+## Interaktiv versus statisch
+
+Zwei Karten mit identischem farbigen Top-Border machen den Unterschied sichtbar: Links ruht
+die Fläche flach mit Rahmen, rechts trägt sie den Ruhe-Schatten `--e1` und würde auf Hover zu
+`--e3` wechseln.
+
+<Unstyled>
+  <div className="layout-grid" style={{ alignItems: 'start', marginBottom: 'var(--s6)' }}>
+    <div className="col-6">
+      <span className="lbl">✓ Statisch · ruht flach</span>
+      <div
+        style={{
+          border: 'var(--bd-strong)',
+          borderTop: '4px solid var(--ki-500)',
+          borderRadius: 'var(--r-lg)',
+          padding: 'var(--s5)',
+          background: 'var(--bg-surface)',
+        }}
+      >
+        <span className="el-lbl">Rahmen, kein Schatten</span>
+        <div style={{ font: 'var(--ty-body-sm)', color: 'var(--tx-secondary)' }}>
+          Stat-Karte · Testimonial · Info-/Feature-Karte
+        </div>
+      </div>
+    </div>
+    <div className="col-6">
+      <span className="lbl">✓ Interaktiv · ruht auf --e1, hebt auf Hover</span>
+      <div
+        style={{
+          boxShadow: 'var(--e1)',
+          borderTop: '4px solid var(--ki-500)',
+          borderRadius: 'var(--r-lg)',
+          padding: 'var(--s5)',
+          background: 'var(--bg-surface)',
+        }}
+      >
+        <span className="el-lbl">Schatten + Hover-Lift → --e3</span>
+        <div style={{ font: 'var(--ty-body-sm)', color: 'var(--tx-secondary)' }}>
+          Klickbare Karte / Link-Karte
+        </div>
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+| Typ | Ruhezustand | Hover/Focus | Klassen |
+|---|---|---|---|
+| Statisch | `--e0` + Rahmen (`--bd` bzw. `--bd-strong`) | unverändert | `.card` · `.ep-card` · `.card-stat` · `.testimonial` · `.ds-card` · `.bw-pillar-card` · `.cta-dl` · `.cta-visual` |
+| Interaktiv | `--e1` | `--e3` + `translateY(-2px)`, im Dark zusätzlich `--bg-surface-hover` | `.ep-card-link` |
+| Link-Karte | `--e1` | `--e2` + `translateY(-2px)` | `a.card.card-elevated` (wirkt nur auf `<a>`, statische Karten bleiben flach) |
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Forced Colors | Windows High Contrast unterdrückt Schatten vollständig, Elevation nie als einziges Unterscheidungsmerkmal einsetzen, immer auch Border oder Hintergrundfarbe nutzen |
+| Nicht allein | Elevation allein kommuniziert keine Bedeutung für Screenreader, strukturelle Hierarchie muss zusätzlich durch Semantik (`<header>`, `<main>`, Überschriften) ausgedrückt werden |
+| Kontrast | Oberflächen-Kontrast zwischen `--bg-page` und `--bg-surface` prüfen, auch ohne Schatten müssen Karten und Panels erkennbar sein |
+| Schwebende Panels im Dark | Menüs und Popover liegen über fremdem Inhalt, den sie nicht kennen. Auf der tiefen Basisfläche trägt ein schwarzer Schatten sie dort nicht mehr, gemessen stand ein Topnav-Menü über einem Hero-Foto nur 1,34:1 gegen die hellste Stelle daneben. Sie bekommen deshalb im Dark den stärkeren Rand `--bd-strong-c`, der unabhängig vom Untergrund liest. |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Level steigt mit z-Index: je weiter vorn ein Element liegt, desto höher sein
+  Elevation-Level
+- Level 1 für Standard-Cards und Listen-Elemente im normalen Seitenkontext
+- Level 3 bis 5 nur für Elemente, die anderen Inhalt überlagern: Drawer, Modal, Tooltip
+- Tonal Overlay ab Level 3 zusätzlich zum Schatten, verstärkt die Zugehörigkeit zur
+  Primärfarbe
+- Level 0 (kein Schatten) für Outlined-Varianten im Tabellen- oder Listen-Kontext
+
+**Nicht tun**
+
+- Schatten als Dekoration ohne semantischen Grund, Elevation kommuniziert immer räumliche
+  Hierarchie
+- Mehrere Level-5-Elemente gleichzeitig sichtbar, zu viel visuelle Konkurrenz auf einer
+  Ebene
+- Level überspringen (zum Beispiel direkt von 0 auf 4), verwirrt die wahrgenommene
+  räumliche Hierarchie
+- Eigene `box-shadow`-Werte statt Tokens, bricht die Konsistenz im Dark Mode
+- Tonal Overlay ohne zugehörigen Schatten auf Level 3 bis 5, die Kombination beider ist die
+  Regel
+
+## Verwendung
+
+Sechs schematische Beispiel-Kacheln zeigen je Elevation-Level ein typisches Bauteil, von der
+Outlined Card auf Level 0 bis zum Tooltip auf Level 5.
+
+export const usageLevels = [
+  { level: 0, cardStyle: { border: 'var(--bd-strong)' }, label: 'Outlined Card', desc: 'Tabelle · Listeneintrag' },
+  { level: 1, cardStyle: { boxShadow: 'var(--e1)' }, label: 'Standard-Card', desc: 'Produktkarte · FAB' },
+  { level: 2, cardStyle: { boxShadow: 'var(--e2)', minHeight: 90 }, label: 'Chip · Hover', chip: true },
+  { level: 3, cardStyle: { boxShadow: 'var(--e3)', minHeight: 90 }, label: 'Nav Drawer', desc: 'Sidebar · Panel' },
+  { level: 4, cardStyle: { boxShadow: 'var(--e4)', minHeight: 90 }, label: 'Modal · Sheet', desc: 'Dialog · Overlay' },
+  { level: 5, cardStyle: { boxShadow: 'var(--e5)', minHeight: 90 }, label: 'Tooltip · Dialog', desc: 'Snackbar · Autocomplete' },
+];
+
+export const UsageLevelCard = ({ level, cardStyle, label, desc, chip }) => (
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      style={{
+        font: '500 12px/16px var(--font)',
+        letterSpacing: '.06em',
+        textTransform: 'uppercase',
+        color: 'var(--tx-muted)',
+        marginBottom: 'var(--s2)',
+      }}
+    >
+      Level {level}
+    </div>
+    <div
+      style={{
+        borderRadius: 'var(--r-lg)',
+        padding: 'var(--s4)',
+        background: 'var(--bg-surface)',
+        flex: 1,
+        ...cardStyle,
+      }}
+    >
+      <span className="el-lbl">{label}</span>
+      {chip ? (
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            padding: '4px 10px',
+            borderRadius: 'var(--r-full)',
+            background: 'var(--bg-overlay)',
+            boxShadow: 'var(--e2)',
+            font: '500 12px/16px var(--font)',
+            color: 'var(--tx-primary)',
+          }}
+        >
+          Chip
+        </div>
+      ) : (
+        <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>{desc}</div>
+      )}
+    </div>
+  </div>
+);
+
+<Unstyled>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--s4)' }}>
+    {usageLevels.map((item) => (
+      <UsageLevelCard key={item.level} {...item} />
+    ))}
+  </div>
+</Unstyled>
+
+## Siehe auch
+
+- `docs/index.html#gt-elev-verwendung`
+- CONTRIBUTING.md § 4 Elevation = Interaktivität

@@ -1,0 +1,128 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Grundlagen/Design Tokens" name="Übersicht" />
+
+# Design Tokens
+
+Alle Tokens als CSS Custom Properties, Framework-unabhängig. Quelle:
+`docs/index.html#sec-tokens`.
+
+Die **CSS-Schicht** (`@conciso/design-system`) ist die Quelle der Wahrheit für Aussehen
+und Tokens. Die **Angular-Lib** (`@conciso/design-system-angular`) liefert dünne
+Wrapper-Komponenten über der CSS-Schicht und bringt selbst keine Styles mit, ein Consumer
+bindet die CSS-Schicht separat und global ein.
+
+## Präfix-Schema
+
+| Gruppe | Präfixe |
+|---|---|
+| Farbe | `--co-* --ki-* --es-* --wo-* --ro-* --n-*` (Skala `-50` bis `-900`), semantisch `--c-success/-warning/-error` |
+| Flächen/Text | `--bg-* --tx-*` |
+| Typo | `--ty-*`, `--font` / `--font-display` |
+| Maß | `--s1…--s16` (Spacing), `--r-*` (Radius), `--e0…--e5` (Elevation), `--tonal-*` |
+| Sonstiges | `--m-*` (Motion), `--bd` / `--bd-strong` (Border), `--focus-*`, `--icon-stroke-*` |
+
+Neue Tokens folgen demselben Präfix-Schema und gehören in `css/tokens.css` (Light, Source
+of Truth), Dark-Abweichungen in `css/dark-mode.css`.
+
+## Rollen-Zuordnung (CONTRIBUTING § 10 Schritt 1)
+
+Vor einem neuen Token prüfen, ob die Rolle schon ein Token hat, eine neue Rolle braucht
+einen neuen Namen, eine bekannte Rolle nicht:
+
+| Rolle | Token |
+|---|---|
+| Farbiger Text | `--XX-ink` |
+| Füllung eines textführenden Bauteils | `--XX-fill` |
+| Dekorative Fläche | `--XX-50` |
+| Sektionsfläche | `--XX-band` |
+| Rahmenfarbe | `--bd-c` / `--bd-strong-c` |
+
+## Brand & Bereiche
+
+```css
+/* Global */
+--tx-brand:     #333E48;
+--font:         'Montserrat', system-ui, sans-serif;
+--font-display: 'Libre Baskerville', Georgia, serif;
+
+/* Corporate */
+--co-500: #00BEBE; --co-700: #007575; --co-50: #E0F7F7; --co-800: #004F4F;
+
+/* Angewandte KI, Akzent 500, Text ab 700 */
+--ki-500: #B5E61C; --ki-700: #6B8208; --ki-50: #F4FCD5; --ki-800: #475705;
+
+/* Effektive Software */
+--es-500: #2F5FD4; --es-700: #1B3D9A; --es-50: #EAF0FB; --es-800: #112568;
+
+/* Wirksame Organisationen */
+--wo-500: #44A030; --wo-700: #285E1A; --wo-50: #EBF5E6; --wo-800: #183A0E;
+```
+
+## Shape (5 Stufen)
+
+```css
+--r-xs:   4px;    /* extraSmall, kleine Icons, Swatches */
+--r-sm:   8px;    /* small, Chips, Text Fields, Menus */
+--r-md:  12px;    /* medium, Cards, FABs */
+--r-lg:  16px;    /* large, große Cards, Sheets */
+--r-xl:  28px;    /* extraLarge, Drawers, Dialoge */
+--r-full: 9999px; /* full, Buttons, Badges, Pills */
+```
+
+## Elevation (6 Ebenen)
+
+```css
+/* Shadow Elevation */
+--e0: none;
+--e1: 0 1px 2px rgba(0,0,0,.30), 0 1px 3px 1px rgba(0,0,0,.15);
+--e2: 0 1px 2px rgba(0,0,0,.30), 0 2px 6px 2px rgba(0,0,0,.15);
+--e3: 0 1px 3px rgba(0,0,0,.30), 0 4px 8px 3px rgba(0,0,0,.15);
+
+/* Tonal Elevation, Primärfarbe auf Surface */
+color-mix(in srgb, var(--co-500) 5%,  var(--bg-surface)); /* Level 1 */
+color-mix(in srgb, var(--co-500) 8%,  var(--bg-surface)); /* Level 2 */
+color-mix(in srgb, var(--co-500) 11%, var(--bg-surface)); /* Level 3 */
+```
+
+Details zu allen 6 Ebenen und der Interaktiv/Statisch-Regel: `Grundlagen/Elevation`.
+
+## Button-Typen
+
+5 Varianten, aufsteigend nach Betonung:
+
+| Klasse | Darstellung | Betonung |
+|---|---|---|
+| `.btn-filled` | Hintergrund Primärfarbe, Text auf Primärfarbe | höchste |
+| `.btn-tonal` | Hintergrund Primary-Container | mittlere |
+| `.btn-elevated` | Hintergrund Surface + Schatten | leichte |
+| `.btn-outlined` | Rahmen Primärfarbe | niedrige |
+| `.btn-text` | nur Textfarbe Primärfarbe | minimale |
+
+## Spacing & Motion
+
+```css
+--s4: 16px; --s6: 24px; --s8: 32px; --s16: 64px;
+--m-fast: 150ms cubic-bezier(.4,0,.2,1);
+--focus-ring: 0 0 0 3px var(--co-50), 0 0 0 5px var(--co-700);
+```
+
+Vollständige Spacing-Skala (`--s1` bis `--s16`) und ihre Ausnahmen: `Grundlagen/Spacing &
+Grid`.
+
+## Dateien
+
+| Datei | Inhalt |
+|---|---|
+| `css/tokens.css` | Light-Werte, kanonische Quelle (Source of Truth) |
+| `css/dark-mode.css` | Dark-Abweichungen, komplett in `@media screen` |
+| `tokens/` | Generierter Export (`tokens.json`, `tokens.scss`, `tokens.js`), nicht manuell editieren |
+
+Nach jeder Änderung an `css/tokens.css` oder `css/dark-mode.css`: `npm run build:tokens`
+ausführen, das Skript liest beide Dateien und schreibt den Export nach `tokens/` neu.
+
+## Siehe auch
+
+- `docs/index.html#gt-tokens-spacing`
+- CONTRIBUTING.md § 2 Namens-Konventionen, § 10 Eine Komponente / ein Token hinzufügen
+- CONTEXT.md, Abschnitte CSS-Schicht, Angular-Lib, Wrapper-Komponente
