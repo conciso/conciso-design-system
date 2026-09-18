@@ -90,3 +90,6 @@ export * from './lib/article-toc/article-toc.component';
 export * from './lib/article-callout/article-callout.component';
 export * from './lib/article-figure/article-figure.component';
 export * from './lib/article-pullquote/article-pullquote.component';
+// Angular-Seitenbausteine (Ticket 13): Autoren-Karte und -Gruppe
+export * from './lib/author-card/author-card.component';
+export * from './lib/author-card/author-card-group.component';

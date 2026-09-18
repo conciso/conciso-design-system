@@ -142,6 +142,7 @@ const preview: Preview = {
               'Figure',
               'Pull-Quote',
               'FAQ',
+              'Author-Card',
             ],
             'Beitragsübersicht',
             'Veranstaltung',

@@ -533,6 +533,55 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `…/Pull-Quote` (`Interaktiv`, `Pro Bereich`), `storySort.order` der Sektion „Wissensbeitrag“
   entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar', 'Inhaltsverzeichnis',
   'Callout', 'Figure', 'Pull-Quote', 'FAQ']`), Doku-Seite bleibt erstes Kind.
+- **`AuthorCardComponent` (`div[cdsAuthorCard]`) und `AuthorCardGroupComponent`
+  (`cds-author-card-group`), dreizehntes und letztes Ticket der Seitenbausteine-Serie.**
+  Wrapper um `.author-card*` (css/components.css:1602–1606) und `.author-card-group*`
+  (css/components.css:1547–1563): der Avatar-plus-Bio-Strip am Ende eines
+  Wissensbeitrags, einzeln oder als gestapelte/`is-grid`-Gruppe. **`cds-author-card`
+  bekommt einen Attributselektor** (ADR-0008), gemessen statt nur hergeleitet: eine
+  Spike-Story hat den Element-Selektor- und den Attributselektor-Aufbau nebeneinander
+  im `.is-grid`-Fall gebaut und mit `getBoundingClientRect()` verglichen — Element-
+  Selektor liefert `.author-card`-Höhen von 84/204 px bei ungleich langen Bios (der
+  unsichtbare Host wird auf 204 px gestreckt, die sichtbare Box eine Ebene darunter
+  bleibt bei ihrer Inhaltshöhe), Attributselektor liefert 204/204 px. **Ehrlicher
+  Unterschied zu `cds-icon-card`:** die Baseline-Screenshots beider Spike-Varianten
+  waren byte-identisch (sha1 gleich) — `.author-card` hat anders als `.ep-card` weder
+  Hintergrund noch Rahmen noch Schatten, der Fehler ist heute rein strukturell
+  (falsches Boxmodell), nicht optisch sichtbar, wird aber real, sobald die Karte
+  künftig Rahmen/Hintergrund/Hover bekommt, und verfälscht schon heute jede Messung
+  auf die tatsächliche Kartenhöhe. `cds-author-card-group` bleibt Element-Selektor
+  (ADR-0008-Standardfall für die Gruppe selbst), setzt `.author-card-group` aber auf
+  ein INNERES `<div>` statt auf den Host: `.author-card-group-eyebrow:has(+
+  .author-card-group.is-grid)` (css/components.css:1563) verlangt, dass die
+  Gruppen-Eyebrow ein unmittelbares Geschwister von `.author-card-group` bleibt, was
+  mit der Klasse auf dem Host (Eyebrow müsste dann als Kind darin stehen und würde im
+  Raster zur eigenen Grid-Zelle) nicht ginge. **`area` ist bewusst KEIN Input von
+  `cds-author-card`** — ausgezählt tragen alle 17 realen `.author-card`-Vorkommen
+  `data-area`, und sowohl `docs/index.html:8185` als auch `wissensbeitrag.mdx:199`
+  behaupten wörtlich, das färbe „nur den Avatar“; tatsächlich hat `css/components.css`
+  (Light UND Dark) keine einzige `.author-card[data-area]`-Regel, die Bereichsfarbe
+  kommt ausschließlich vom `area`-Input des projizierten `[cdsAvatar]` (Ticket 11) —
+  ein Input, der hier nur ein wirkungsloses Attribut setzt, wäre eine erfundene
+  Konfiguration ohne Gegenwert (Befund, nicht im Wrapper geflickt:
+  `.scratch/angular-seitenbausteine/issues/24-css-luecke-author-card-data-area.md`).
+  **`roleLabel`, nicht `role` wie im Ticket-Text** (gemessene Abweichung): ein erster
+  Entwurf mit `role`-Input ließ axe bei jeder Story mit echtem Rollentext auf
+  `aria-roles` fehlschlagen, weil ein ungebundenes `role="…"`-Attribut zusätzlich als
+  natives ARIA-`role` im DOM stehen bleibt — dieselbe Kollision, die
+  `BlockquoteComponent`/`TestimonialComponent`/`TeamVoiceComponent` bereits mit
+  `roleLabel` umgehen; diese Komponente folgt demselben, etablierten Muster. Avatar
+  projiziert über `[cdsAvatar]`, wie bei `cds-article-header`: Größe/Bereich setzt der
+  Konsument direkt am Avatar. Eyebrow rendert als `<h3>`, nur wenn gesetzt — sowohl
+  an der Einzelkarte (`.author-card-eyebrow`) als auch an der Gruppe
+  (`.author-card-group-eyebrow`), deckungsgleich mit den realen, vollständigen
+  Mockup-Seiten (die isolierte `<p>`-Variante einer Doku-Illustration ohne eigene
+  `<h2>`-Hierarchie bleibt außen vor). Neue Bauteil-Ebene
+  `Seitenmuster/Wissensbeitrag/Author-Card` (Stories `Interaktiv`, `Zwei Autor:innen`,
+  `Als Raster`, `Ohne Bio` — „Als Raster“ mit bewusst ungleich langen Bios, pinnt
+  gleiche Kartenhöhen per `getBoundingClientRect()`), `storySort.order` der Sektion
+  „Wissensbeitrag“ entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar',
+  'Inhaltsverzeichnis', 'Callout', 'Figure', 'Pull-Quote', 'FAQ', 'Author-Card']`),
+  Doku-Seite bleibt erstes Kind.
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
