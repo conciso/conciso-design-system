@@ -63,3 +63,6 @@ export * from './lib/hero-image/hero-image.component';
 // Angular-Seitenbausteine (Ticket 03): Störer-Kacheln über dem Hero
 export * from './lib/stoerer/stoerer.component';
 export * from './lib/stoerer/stoerer-set.component';
+// Angular-Seitenbausteine (Ticket 04): Klickbare Karte und Featured-Karte
+export * from './lib/link-card/link-card.component';
+export * from './lib/featured-card/featured-card.component';

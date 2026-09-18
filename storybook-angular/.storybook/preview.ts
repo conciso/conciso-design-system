@@ -99,7 +99,7 @@ const preview: Preview = {
             'Feedback',
             ['Verwendung', 'Snackbar'],
             'Cards & Teaser',
-            ['Verwendung', 'Card', 'StatCard', 'StatStrip'],
+            ['Verwendung', 'Card', 'Klickbare Karte', 'Featured-Karte', 'StatCard', 'StatStrip'],
             'Call to Action',
             ['Verwendung', 'DownloadCta'],
             'Tabelle',

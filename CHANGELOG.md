@@ -106,6 +106,47 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (umschließt Hero-Bild UND Set) bleibt bewusst beim Konsumenten. Neue Bauteil-Ebene
   `Komponenten/Hero/Störer` (Stories `Interaktiv`, `Zwei Kacheln über dem Hero`,
   `Ohne Meta`), `storySort.order` der Sektion „Hero“ um `Störer` ergänzt.
+- **`LinkCardComponent` (`cds-link-card`) und `FeaturedCardComponent`
+  (`cds-featured-card`), viertes Ticket der Seitenbausteine-Serie: die beiden
+  klickbaren Kartenvarianten, die `CardComponent` laut eigener Klassendoku bewusst
+  nicht abdeckt.** `cds-link-card` ist ein echtes `<a class="card card-elevated">`
+  (css/components.css:147–154) — die ganze Fläche ist der Link und trägt deshalb
+  nach `CONTRIBUTING.md` §4 den Schatten, den `cds-card` nicht trägt; Struktur wie
+  `cds-card` (optionale bereichsgefärbte `.card-media`, `.card-eyebrow`/`.card-title`/
+  `.card-text`), dazu ein optionaler Fuß `.card-cta-link` (`ctaLabel`, leer = kein
+  Fuß) mit `ctaPinned` (`--pinned`, unten angeheftet für gleich hohe Karten im
+  Raster) — als `<span>`, nicht als zweites `<a>`, weil die Karte selbst schon `<a>`
+  ist. `cds-featured-card` bildet `.card-featured` ab (css/components.css:230–249):
+  Bild links 60 %, Textspalte rechts 40 % als absolut positioniertes Overlay, mit
+  `.card-title-hero` (Serif-Editorial-Titel) und optionaler `.pill`; mit gesetztem
+  `href` ein `<a class="card card-elevated card-featured">`, sonst ein `<article
+  class="card card-featured">` ohne `.card-elevated` (die Klasse wirkt laut §4
+  ohnehin nur auf `a.card-elevated`, eine `<article>` bekäme den Schatten auch mit
+  gesetzter Klasse nicht). Media und Body stehen dafür einmal in einem gemeinsamen
+  `<ng-template>` und werden in beiden Zweigen (`<a>`/`<article>`) per
+  `<ng-container [ngTemplateOutlet]>` eingesetzt — dasselbe Muster wie
+  `SectionComponent`; `<ng-container>` rendert selbst kein Element, die
+  Kindselektoren bleiben unberührt. **Die Pill ist direkt komponiertes Markup, kein
+  `<cds-pill>`:** `.card-featured` arbeitet mit direkten Kindselektoren
+  (`.card-featured>.card-media`, `.card-featured-body>.pill`/`-.card-text`/
+  `-.card-title-hero`); `<cds-pill>` rendert sein `.pill`-Element eine Ebene unter
+  dem eigenen Host, ein projiziertes `<cds-pill>` stünde also zwischen
+  `.card-featured-body` und `.pill` und die Kindselektoren griffen still nicht mehr
+  (Layout bricht, kein Fehler). Dieselbe Abwägung wie in `download-cta.component.ts`
+  (Kommentar über den Buttons): Klassen direkt komponieren statt eine
+  Wrapper-Komponente dazwischenzusetzen. Weil die Pille direkt komponiert wird,
+  übernimmt `cds-featured-card` auch die `aria-label`-Regel von `PillComponent` von
+  Hand: `pillAriaLabel` überschreibt den Default „Bereich `<pill>`“ für Fälle, in
+  denen die Pille keinen Bereich benennt (z. B. „12 min Lesezeit“ →
+  `aria-label="Lesezeit 12 Minuten"`). Im laufenden Storybook geprüft: die
+  gerenderte Kette hat exakt die Kindselektoren, auf die das CSS zielt, kein
+  zusätzliches Element dazwischen, kein `<cds-pill>`-Tag im DOM — erneut gemessen
+  nach der Umstellung auf `ngTemplateOutlet`, unverändertes Ergebnis. Neue
+  Bauteil-Ebenen `Komponenten/Cards & Teaser/Klickbare Karte` (Stories `Interaktiv`,
+  `Pro Bereich`, `Im Raster`) und `Komponenten/Cards & Teaser/Featured-Karte`
+  (Stories `Interaktiv`, `Pro Bereich`, `Pille als Lesezeit`, `Ohne Pill`,
+  `Ohne Link`; bewusst **kein** Grid-Beispiel — die Doku verlangt „genau einer auf
+  der Bühne“), `storySort.order` der Sektion „Cards & Teaser“ entsprechend ergänzt.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
