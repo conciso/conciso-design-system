@@ -48,6 +48,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
   Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
   deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
+- **`--font-mono` als dritte Schriftrolle des Systems.** Das System hatte Tokens für Grotesk
+  (`--font`) und Serife (`--font-display`), aber keines für die dicktengleiche Schrift — die stand
+  stattdessen zehnmal hart in `css/base.css` und `css/components.css` und weitere zehnmal in
+  Inline-Styles von `docs/index.html`. Der Wert bleibt unverändert `'Courier New',monospace`, es
+  ändert sich kein gerendertes Pixel; der Schritt ist rein strukturell. Sein Zweck: die Frage, ob
+  Courier New die richtige Bildschirmschrift für Code ist, fällt ab jetzt an einer Stelle statt an
+  zwanzig. Storybooks Doku- und Manager-Chrome (`fontCode` in `.storybook/theme.ts`) zeigt auf
+  denselben Stack, damit Doku-Site und Storybook denselben Code-Satz rendern.
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
@@ -108,8 +116,73 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   ins Nichts. Die Combobox öffnete nicht auf Pfeil nach oben, kannte kein Pos1 und Ende und ließ im
   Mehrfachmodus losen Filtertext stehen. Der DownloadCta hatte überhaupt keinen Output, ein Klick
   auf seine Hauptaktion verpuffte.
-
-### Geplant
+- **Doku-Darstellung in Sidebar und Doku-Seiten aufgeräumt, vier kleine Korrekturen.** Das
+  Inhaltsverzeichnis der Doku-Seiten (`docs.toc` in `preview.ts`) erfasste per Default nur
+  `h3`, die 34 MDX-Seiten gliedern aber mit `##` (h2) — ganze Seiten ohne h3 hatten dadurch
+  gar kein Inhaltsverzeichnis; jetzt `h2, h3`. Der Autodocs-Eintrag jeder Komponente hieß
+  „Docs“, die einzige englische Zeile in einer durchgehend deutschen Navigation — jetzt
+  „Übersicht“ (`docs.defaultName` in `main.ts`), das Wort, das die eigenständigen MDX-Seiten
+  schon tragen. „Beispielseiten“ stand als einziges Wurzel-Blatt ohne Ordner ganz oben in der
+  Sidebar vor „Marke“, weil Storybook Blätter vor Ordnern sortiert — jetzt ein Ordner mit dem
+  Kind „Übersicht“ (`beispielseiten.mdx`), analog zu „Referenzen/Quellen“. Und die drei am
+  wenigsten befüllten Wurzeln (Seitenmuster, Beispielseiten, Referenzen) starten zugeklappt
+  (`collapsedRoots` in `manager.tsx`) — 149 der 181 Sidebar-Einträge hängen unter
+  „Komponenten“, das bleibt wie Marke und Grundlagen offen.
+- **Doku-Seiten von Storybook an die Typografie der Doku-Site angeglichen.** Die Doku-Chrome
+  brachte ihre eigene Emotion-Typografie mit: Überschriften in Montserrat 700 (32/24/20 px),
+  Fließtext 14 px — also weder die Display-Schrift der Marke noch die eigene Body-Größe. Maßstab
+  ist jetzt `docs/index.html`, die gebaute Referenz, die ihr Aussehen aus denselben CSS-Dateien
+  zieht: h1 wie `.sec-title` (Libre Baskerville 400, 2rem/2.5rem), h2 wie `.group-title`
+  (1.5rem/2rem plus Haarlinie, 40 px darüber, 24 px Polster, 16 px darunter), ab h3 bewusst
+  Grotesk (`--ty-title-sm`), Fließtext und Tabellenzellen 16 px mit `line-height:1.7` wie am
+  `body` in `base.css`, Tabellenköpfe und die kräftige Kopf-Trennlinie wie `.doc-table`
+  (`preview-head.html`). Feste Größen statt der fluiden `--ty-display-*`/`--ty-headline-*`-Tokens:
+  die sind für Seiten gedacht, deren Breite mit dem Viewport wächst, eine Doku-Spalte ist
+  breitenbegrenzt. Die Haarlinie über h2 ist dabei der eigentliche Abstandsgeber — die Doku-Site
+  gliedert nicht mit Luft allein. Die Regeln sparen `.docs-story` und `.sbdocs-preview` aus: dort
+  stehen gerenderte Komponenten, deren Darstellung ausschließlich aus der CSS-Schicht kommen darf.
+  Storybooks eigene Sektionsüberschrift „Stories“ bleibt ebenfalls unangetastet.
+- **`<Unstyled>` schaltet die Doku-Typografie jetzt tatsächlich ab.** Die Typografie-Regeln der
+  Doku-Seiten sparten bisher nur die Story-Vorschauen aus. Rohes Demo-Markup, das MDX-Seiten
+  direkt einbetten, fiel weiter darunter: gemessen rendert ein
+  `<h1 class="hero-image-caption-title">` als Doku-Überschrift (Libre Baskerville 32 px, dunkel)
+  statt als Bauteil (`--ty-serif-md`, weiß, `line-height:1.25`) — die Doku-Regel gewinnt mit
+  Spezifität (0,3,1) gegen die Bauteil-Klasse mit (0,1,0). Storybooks eigener Block `<Unstyled>`
+  half nicht, weil er nur `<div class="sb-unstyled">` rendert und kein CSS mitbringt. Alle sieben
+  Regeln sparen `.sb-unstyled` jetzt aus — dieselbe Konvention, die Storybooks eigenes Stylesheet
+  dafür benutzt. Damit können Doku-Seiten echte Live-Beispiele einbetten, die aussehen wie auf
+  der Site, statt sie in Code-Blöcken zu beschreiben.
+- **Theme-Umschalter wirkt jetzt auch auf Doku-Seiten ohne eingebettete Story.**
+  `themeStore.setSilent()` stand ausschließlich im Story-Decorator, der pro Story-Render läuft.
+  Auf den 34 eigenständigen MDX-Seiten (Icons, Hero, Tabelle, Buchungsformular, alle
+  Seitenmuster, alle „Verwendung“-Seiten) rendert keine Story — dort schrieb niemand
+  `data-theme` ans `<html>` des Preview-Frames, gemessen blieb es `null`, der Umschalter war
+  wirkungslos. Ein Listener auf Modulebene hört jetzt zusätzlich auf `setGlobals` (Erst-Load)
+  und `globalsUpdated` (jede Änderung) und setzt den Store direkt; beide Ereignisnamen und ihre
+  Nutzlast wurden gegen den installierten Dist geprüft. `setSilent` benachrichtigt keine
+  Abonnenten, deshalb entsteht keine Rückkopplung mit der Gegenrichtung Store→Toolbar — je
+  Umschaltvorgang gezählt: genau ein `updateGlobals`, ein `globalsUpdated`. Der Decorator bleibt
+  daneben stehen. Damit rendern Live-Beispiele auf Doku-Seiten im Dark Mode korrekt; die
+  Doku-Chrome selbst bleibt weiterhin hell (bekannter Follow-up aus ADR-0006).
+- **Seitenleiste entrümpelt.** Storybooks Typ-Icons und das rote „A“-Badge sind weg: das Badge
+  hängte an einem Tag, das 158 von 181 Einträgen tragen, und markierte damit nichts. Die Zeilen
+  stehen auf 32 px statt 28, zwischen den Wurzelgruppen liegt Luft, und Ordner wie Blätter
+  derselben Ebene beginnen auf derselben Textkante — vorher standen Blätter 14 px weiter rechts,
+  was vom Icon verdeckt war und sie fälschlich als Kinder des Ordners darüber lesen ließ. Der
+  Aufklapp-Chevron bleibt erhalten: er sitzt im selben Wrapper wie das Typ-Icon, weshalb die
+  Regel das Icon selbst trifft und nicht den Wrapper. Mit dem Badge entfallen auch die
+  Umbenennung von `manager.ts` zu `.tsx` und die `jsx`-Option in der `tsconfig.json`, die es
+  allein nötig gemacht hatte. Wirkt erst nach einem Neustart — der Manager liest
+  `manager-head.html` und `manager.ts` nur beim Prozessstart.
+- **Icons-Seite zeigt jetzt Icons.** Die Seite erklärte Icons auf 105 Zeilen, ohne ein einziges zu
+  zeigen. Alle 74 Glyphen aus `icons/icons.json` rendern jetzt live, getrennt nach den fünf
+  Bereichs-Glyphen in ihrer Bereichsfarbe und den 69 bereichsneutralen UI-Icons, jeweils mit dem
+  Schlüssel, den ein Entwickler importiert. Dabei fielen drei Aussagen der Seite als falsch auf
+  und wurden korrigiert: die Registry hält je Schlüssel genau eine Variante, nicht fünf Größen;
+  die Größe wird über `width`/`height` oder CSS gesetzt, nicht durch Wahl einer Variante; und die
+  Farbe ist nicht eingebrannt, sondern kommt über `currentColor` vom Consumer. Die fünf
+  handoptimierten Größenvarianten existieren nur als Inline-SVG in `docs/index.html`, nicht im
+  veröffentlichten Paket.
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
   Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
   `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,
