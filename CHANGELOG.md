@@ -42,6 +42,22 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   statt sich an eine interne Hilfskomponente zu binden.
 
 ### Added
+- **`SectionComponent` (`cds-section`), erste Angular-Wrapper-Komponente für die
+  Seitenbausteine der Beispielseiten.** Wrapper um `.ep-section` samt dem optionalen
+  Kopf-Trio `.ep-section-label`/`-h2`/`-sub` (`label`, `heading`, `sub`, alle
+  Beiwerk), dazu `area` (`.t-{area}` auf dem Label) und `labelledBy`. Die Komponente
+  rendert `<section aria-labelledby="…">` nur, wenn ein zugänglicher Name verfügbar
+  ist (eigene Überschrift oder per `labelledBy` übergeben), sonst ein namenloses
+  `<div>` — eine `<section>` ohne Namen wäre für Screenreader ohnehin keine Landmark.
+  Bewusst **kein** `background`-Input: Die Sektionsfläche ist Teil des
+  Flächen-Rhythmus einer Seite (siehe „Verwendung“ in `docs/index.html#sec-section`)
+  und damit eine Entscheidung der Seite, nicht des Bauteils. Neue Doku-Sektion
+  „Sektion“ in der Gruppe Komponenten
+  (vor Navigation) sowie Storybook-Stories unter `Komponenten/Sektion/Sektion`
+  (`Interaktiv`, `Ohne Kopf`, `Nur Überschrift`, `Bereichsgefärbtes Label`), Icon
+  `ui-viewfinder-circle` in `SECTION_ICON_KEYS`. Erstes Ticket der
+  Seitenbausteine-Serie (`.scratch/angular-seitenbausteine/spec.md`); die
+  Kopf-Trio-Struktur trägt 133 der Beispielseiten-Sektionen, 85 davon mit Kopfzeile.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut

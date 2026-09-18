@@ -60,6 +60,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'komponenten-zitate-testimonials': 'ui-chat-bubble-left-right',
   'komponenten-code-block': 'ui-code-bracket-square',
   'komponenten-slider-carousel': 'ui-square-2-stack',
+  'komponenten-sektion': 'ui-viewfinder-circle',
   'komponenten-navigation': 'ui-bars-3',
   'komponenten-hero--übersicht': 'ui-computer-desktop',
   'komponenten-footer': 'ui-bars-3-center-left',

@@ -109,6 +109,7 @@ const preview: Preview = {
             ['Verwendung', 'Code-Block'],
             'Slider & Carousel',
             ['Verwendung', 'Carousel', 'LogoCarousel'],
+            'Sektion',
             'Navigation',
             ['Verwendung', 'Topnav'],
             'Hero',

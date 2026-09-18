@@ -55,3 +55,6 @@ export * from './lib/snackbar/snackbar.component';
 export * from './lib/testimonial/testimonial.component';
 export * from './lib/team-voice/team-voice.component';
 export * from './lib/download-cta/download-cta.component';
+
+// Angular-Seitenbausteine (.scratch/angular-seitenbausteine, Ticket 01): Sektions-Gerüst
+export * from './lib/section/section.component';

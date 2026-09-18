@@ -332,6 +332,15 @@
         </div>
       </li>
       <li>
+        <button class="nav-item" data-section="section">
+          <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 0 0 3.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0 1 20.25 6v1.5m0 9V18A2.25 2.25 0 0 1 18 20.25h-1.5m-9 0H6A2.25 2.25 0 0 1 3.75 18v-1.5M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>Sektion
+        </button>
+        <div class="nav-subnav" data-for="section">
+          <a class="nav-sub-item" href="#gt-section-aufbau">Aufbau</a>
+          <a class="nav-sub-item" href="#gt-section-verwendung">Verwendung</a>
+        </div>
+      </li>
+      <li>
         <button class="nav-item" data-section="navigation">
           <svg class="nav-icon" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>Navigation
         </button>
@@ -2146,6 +2155,60 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══ SEKTION ═══ -->
+    <section class="ds-section" id="sec-section">
+      <h1 class="sec-title">Sektion</h1>
+      <p class="sec-sub">Das strukturelle Gerüst, in dem auf den Beispielseiten praktisch jeder andere Baustein sitzt: <code class="token">.ep-section</code> mit dem optionalen Kopf-Trio aus Kicker, Überschrift und Lead. 133 Vorkommen in den Beispielseiten, 85 davon mit Kopfzeile.</p>
+
+      <h2 id="gt-section-aufbau" class="group-title">Aufbau</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:780px">Drei Klassen bilden den Kopf: <code class="token">.ep-section-label</code> (Kicker, bereichsfärbbar über <code class="token">.t-co</code>/<code class="token">.t-ki</code>/<code class="token">.t-es</code>/<code class="token">.t-wo</code>), <code class="token">.ep-section-h2</code> (Überschrift) und <code class="token">.ep-section-sub</code> (Lead). Alle drei sind Beiwerk: Eine Sektion besteht auch ganz ohne Kopf, nur aus ihrem Inhalt darunter.</p>
+
+      <div class="ep-section" style="background:var(--n-50);border-radius:var(--r-lg)">
+        <div class="ep-section-label t-co">Was wir tun</div>
+        <h2 class="ep-section-h2">So ist eine Sektion aufgebaut.</h2>
+        <p class="ep-section-sub">Kicker, Überschrift und Lead sind Beiwerk, der Inhalt darunter ist frei.</p>
+        <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:0">Alles unterhalb des Kopfes ist beliebiger Inhalt, hier ein einfacher Absatz als Platzhalter.</p>
+      </div>
+
+      <div class="cb-wrap" style="margin-top:var(--s6);margin-bottom:var(--s6)">
+        <div class="cb-header"><span class="cb-lang">HTML</span></div>
+        <pre class="cb-body"><span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section"</span> <span class="v">style</span>=<span class="s">"background:var(--n-50)"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="v">class</span>=<span class="s">"ep-section-label t-co"</span><span class="k">&gt;</span>Was wir tun<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;h2</span> <span class="v">class</span>=<span class="s">"ep-section-h2"</span><span class="k">&gt;</span>So ist eine Sektion aufgebaut.<span class="k">&lt;/h2&gt;</span>
+  <span class="k">&lt;p</span> <span class="v">class</span>=<span class="s">"ep-section-sub"</span><span class="k">&gt;</span>Kicker, Überschrift und Lead sind Beiwerk, der Inhalt darunter ist frei.<span class="k">&lt;/p&gt;</span>
+  <span class="c">&lt;!-- beliebiger Inhalt --&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+      </div>
+
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8);max-width:780px">Im Angular-Wrapper (<code class="token">cds-section</code>) rendert die Komponente ein <code class="token">&lt;section&gt;</code> nur, wenn ein zugänglicher Name verfügbar ist: entweder die eigene Überschrift (per <code class="token">aria-labelledby</code> auf eine generierte id) oder eine per <code class="token">labelledBy</code> übergebene id einer Überschrift außerhalb der Komponente. Fehlt beides, bleibt es bei einem namenlosen <code class="token">&lt;div&gt;</code>, denn ein <code class="token">&lt;section&gt;</code> ohne zugänglichen Namen wird von Screenreadern ohnehin nicht als Landmark angekündigt.</p>
+
+      <!-- Verwendung -->
+      <h2 id="gt-section-verwendung" class="group-title">Verwendung</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s6);max-width:780px"><strong>Die Fläche gehört der Seite, nicht dem Bauteil.</strong> Sektionen wechseln im Rhythmus zwischen <code class="token">--bg-surface</code> und <code class="token">--n-50</code> (siehe <a class="body-link" href="#gt-colors-verwendung">Hintergrundflächen &amp; Rhythmus</a>), auf einzelnen Sektionsflächen kommt zusätzlich eine Bereichstönung als Akzent vor. Welche Fläche eine Sektion trägt, hängt von ihren Nachbarn ab, und nur die Seite kennt diese Nachbarn. Deshalb setzt <code class="token">.ep-section</code> selbst keinen Hintergrund, und <code class="token">cds-section</code> hat konsequent keinen <code class="token">background</code>-Input: Die Fläche kommt per Klasse oder Inline-Style von einem umschließenden Element, wie im Aufbau-Beispiel oben. Im Angular-Wrapper gehört sie nicht auf den <code class="token">&lt;cds-section&gt;</code>-Host selbst: Ein unbekanntes Custom Element bleibt ohne eigene CSS-Regel <code class="token">display:inline</code> und malt seinen Hintergrund nicht zuverlässig über sein Block-Kind (<code class="token">&lt;section class="ep-section"&gt;</code>) hinweg.</p>
+
+      <!-- Dos & Don'ts -->
+      <div class="doc-eyebrow">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Die Hintergrundfläche als Klasse/Style auf einem umschließenden Element setzen, im Wechsel mit den Nachbar-Sektionen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Kicker, Überschrift und Lead weglassen, wenn eine Sektion keinen eigenen Kopf braucht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ohne eigene Überschrift <code class="token">labelledBy</code> auf eine vorhandene Überschrift setzen, damit die Sektion einen zugänglichen Namen behält</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Hintergrundfarbe fest in die Komponente einbauen, sie kennt ihre Nachbar-Sektionen nicht</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mehrere getönte Sektionen direkt hintereinander setzen, das wirkt schnell bunt statt ruhig</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eine Sektion ohne Überschrift und ohne <code class="token">labelledBy</code> als <code class="token">&lt;section&gt;</code> erzwingen, sie bliebe für Screenreader ohnehin namenlos</span></li>
+          </ul>
         </div>
       </div>
 
