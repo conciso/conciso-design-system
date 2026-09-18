@@ -58,3 +58,5 @@ export * from './lib/download-cta/download-cta.component';
 
 // Angular-Seitenbausteine (.scratch/angular-seitenbausteine, Ticket 01): Sektions-Gerüst
 export * from './lib/section/section.component';
+// Angular-Seitenbausteine (Ticket 02): Hero-Bild
+export * from './lib/hero-image/hero-image.component';

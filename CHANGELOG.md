@@ -58,6 +58,28 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `ui-viewfinder-circle` in `SECTION_ICON_KEYS`. Erstes Ticket der
   Seitenbausteine-Serie (`.scratch/angular-seitenbausteine/spec.md`); die
   Kopf-Trio-Struktur trägt 133 der Beispielseiten-Sektionen, 85 davon mit Kopfzeile.
+- **`HeroImageComponent` (`cds-hero-image`), zweites Ticket der Seitenbausteine-Serie.**
+  Wrapper um `.hero-image` (`css/components.css:851–878`) samt optionaler Caption als
+  Gradient-Overlay (`-caption`, `-caption-eyebrow`, `-caption-title`, `-caption-text`):
+  vollbreites, randloses `<figure>` im 21:9-Format, Standard-Hero auf allen
+  Customer-Pages (17 Vorkommen in den Beispielseiten). `src`/`alt` sind
+  `input.required()`, `eyebrow`/`heading`/`text` Beiwerk. Bleiben alle drei Textteile
+  leer, entfällt das `<figcaption>` vollständig statt leer zu rendern. Neuer Input
+  `headingLevel` (`1` Default, `2`) macht die Heading-Ebene des Caption-Titels
+  explizit, für Beitrags-Heros, die unter einem eigenen `<h1>` (Article-Header)
+  sitzen und sonst eine zweite Top-Überschrift bekämen. `objectPosition` als
+  Style-Binding direkt am `<img>` (nicht als Klasse, die CSS-Schicht hat dafür keinen
+  Modifier) — die eine bewusste Ausnahme von der Regel, dass Inline-Styles aus dem
+  Mockup nicht in die Komponente wandern, weil der Bildausschnitt eine Eigenschaft
+  des konkreten Bildes ist, nicht der Seite. `eager` (Default `true`) steuert
+  `loading="eager"`/`"lazy"`. Bewusst **kein** `tabindex`/`id`-Handling: Das
+  Sprungziel des Skip-Links ist eine Entscheidung der Seite, der Konsument setzt
+  beides am `<cds-hero-image>`-Host. Neue Bauteil-Ebene `Komponenten/Hero/Hero-Bild`
+  unter der bestehenden Doku-Sektion „Hero“ (bisher nur MDX-Übersicht) mit vier
+  Stories (`Interaktiv`, `Ohne Caption`, `Beitrags-Hero (h2)`, `Bildausschnitt`);
+  Icon `ui-computer-desktop` in `SECTION_ICON_KEYS` von der bisher verschmolzenen
+  Ein-Kind-ID (`komponenten-hero--übersicht`) auf die jetzt eigenständige
+  Sektions-ID (`komponenten-hero`) umgehängt.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut

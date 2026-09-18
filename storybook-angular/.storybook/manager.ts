@@ -62,7 +62,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'komponenten-slider-carousel': 'ui-square-2-stack',
   'komponenten-sektion': 'ui-viewfinder-circle',
   'komponenten-navigation': 'ui-bars-3',
-  'komponenten-hero--übersicht': 'ui-computer-desktop',
+  'komponenten-hero': 'ui-computer-desktop',
   'komponenten-footer': 'ui-bars-3-center-left',
   'komponenten-theme-umschalter': 'ui-sun',
   'seitenmuster-wissensbeitrag': 'ui-document-text',

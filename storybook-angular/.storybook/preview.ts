@@ -113,6 +113,7 @@ const preview: Preview = {
             'Navigation',
             ['Verwendung', 'Topnav'],
             'Hero',
+            ['Übersicht', 'Hero-Bild'],
             'Footer',
             ['Verwendung', 'Komplett', 'Oberer Teil', 'Unterer Teil'],
             'Theme-Umschalter',
