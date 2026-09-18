@@ -84,3 +84,9 @@ export * from './lib/compare/compare.component';
 export * from './lib/avatar/avatar.component';
 export * from './lib/avatar/avatar-stack.component';
 export * from './lib/article-header/article-header.component';
+// Angular-Seitenbausteine (Ticket 12): Artikel-Körper (Inhaltsverzeichnis, Callout,
+// Figure, Pull-Quote)
+export * from './lib/article-toc/article-toc.component';
+export * from './lib/article-callout/article-callout.component';
+export * from './lib/article-figure/article-figure.component';
+export * from './lib/article-pullquote/article-pullquote.component';

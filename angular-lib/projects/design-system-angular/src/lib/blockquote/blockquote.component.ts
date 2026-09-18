@@ -9,6 +9,14 @@ import { CDS_QUOTE_ICON } from '../icons';
  * Bereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),
  * Quote-Icon (ui-quote, dieselbe Glyphe wie docs/index.html), Zitat und
  * Caption (Name/Rolle). Nur bestehende Klassen.
+ *
+ * **Nicht `cds-article-pullquote` (`.article-pullquote`).** Dieses Bauteil ist
+ * ein eigenständiges Zitat: eine dritte, benannte Person (`name`/`roleLabel` sind
+ * Pflicht), mit getönter Akzent-Box und Quote-Icon. `cds-article-pullquote` ist
+ * dagegen ein typografischer Akzent im eigenen Lauftext eines Wissensbeitrags,
+ * ohne Attribution, ohne Box, ohne Icon — der Autor zitiert dort einen Satz aus
+ * dem eigenen Text, nicht eine dritte Stimme. Volle Abgrenzung samt Tabelle in
+ * dessen Klassendoku (`article-pullquote.component.ts`).
  */
 @Component({
   selector: 'cds-blockquote',

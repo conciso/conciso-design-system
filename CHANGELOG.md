@@ -486,6 +486,53 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `wissensbeitrag.mdx` widersprechen dem ausdrücklich — die Komponente folgt der Ticket-Vorlage) und
   `.scratch/angular-seitenbausteine/issues/21-pill-default-area-dokumentation-vs-code.md`
   (`PillComponent.area` dokumentiert einen Corporate-Default, der Code liefert `'ki'`).
+- **`ArticleTocComponent` (`cds-article-toc`), `ArticleCalloutComponent` (`cds-article-callout`),
+  `ArticleFigureComponent` (`cds-article-figure`) und `ArticlePullquoteComponent`
+  (`cds-article-pullquote`), zwölftes Ticket der Seitenbausteine-Serie („Artikel-Körper“).**
+  Wrapper um `.article-toc*` (css/components.css:1577–1589), `.article-callout*`
+  (css/components.css:1591–1600), `.article-figure`/`.article-figcaption`
+  (css/components.css:1573–1575) und `.article-pullquote` (css/components.css:1608–1612): die
+  vier Bausteine im Lauftext eines Wissensbeitrags. `.article-body` selbst bekommt bewusst
+  **keine** Komponente — reiner Typografie-Kontext, dessen Kindselektor (`.article-body > p`)
+  eine Zwischenebene stören würde; der Konsument schreibt weiterhin `<div class="article-body">`
+  selbst (neue Story „Im Artikel-Body“ in `Seitenmuster/Wissensbeitrag/Inhaltsverzeichnis`, zeigt
+  alle vier Bausteine im rohen Kontext). Alle vier bleiben Element-Selektoren
+  (ADR-0008-Standardfall): ausgezählt sitzt keines der insgesamt 12 realen Vorkommen als
+  Grid-/Flex-Kind, keines trägt eine `col-*`-Klasse, keines steht in einem
+  Geschwister-Kombinator, kein Tag variiert (immer `<details>`/`<aside>`/`<figure>`/
+  `<blockquote>`) — je eigens geprüft, nicht pauschal übernommen. **`cds-article-toc` ist das
+  zweite Vorkommen des `<details>`-mit-drehendem-Caret-Musters neben `cds-compare` (Ticket 10),
+  bewusst NICHT zusammengezogen (ADR-0007 §5):** natives `<details>`/`<summary>`, `aria-label`
+  am `<summary>` fest verdrahtet (wortgleich in beiden realen Vorkommen), kein `toggled`-Output
+  (anders als `cds-compare`, weil die Ticket-API keinen vorsieht). **`cds-article-callout`
+  projiziert Absätze als direkte Kinder** (`.article-callout > p`, Ticket-Vorgabe): `<ng-content>`
+  fügt kein eigenes Element ein, geprüft per `:scope > p` in der Story „Interaktiv“. Dabei ein
+  bekannter, vorbestehender CSS-Befund entdeckt und NICHT im Wrapper geflickt (ADR-0001):
+  `.article-callout-eyebrow` (Spezifität 0,1,0) verliert gegen `.article-callout > p`
+  (Spezifität 0,1,1) bei Schriftgröße, -gewicht und Randabstand, in jedem Bereich, weil die
+  Eyebrow selbst ein `<p>` UND ein direktes Kind ist — gemessen in rohem Markup ohne Angular
+  (Playwright/Chromium), siehe
+  `.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`.
+  Zusätzlich trägt `<aside>` jetzt `aria-labelledby` auf die Eyebrow, sobald eine gesetzt ist
+  (ARIA-Zusatz, keine CSS-Änderung): mehrere `.article-callout` auf derselben Seite wären sonst
+  gleichnamige, ununterscheidbare `complementary`-Landmarks (axe `landmark-unique`, gemessen auch
+  in rohem Markup ohne Angular, siehe
+  `.scratch/angular-seitenbausteine/issues/23-doku-luecke-callout-landmark-label.md`).
+  **`cds-article-pullquote` grenzt sich wechselseitig von `cds-blockquote` ab** (Ticket-Vorgabe):
+  Pull-Quote zitiert den eigenen Lauftext ohne Attribution, Box oder Icon, Blockquote zitiert eine
+  benannte dritte Person mit getönter Box und Quote-Icon — beide Klassendocs verweisen
+  aufeinander. `quote` enthält die deutschen Anführungszeichen bereits als Teil des Texts
+  (`quotes:none`, keine CSS-generierten Marken in der gesamten Zitat-Familie), die Komponente
+  ergänzt keine eigenen. `area` (Callout und Pull-Quote) hat den verteidigbaren Default `'co'`:
+  die Basisregel ohne `[data-area]` rendert bereits identisch zu `[data-area="co"]`. `loading="lazy"`
+  ist an `cds-article-figure` fest verdrahtet (2 von 3 realen Vorkommen, der dritte ist ein
+  captionsloses Lead-Bild außerhalb von `.article-body` mit `eager`/`fetchpriority`, für das die
+  Ticket-API kein Input vorsieht). Neue Bauteil-Ebenen `Seitenmuster/Wissensbeitrag/
+  Inhaltsverzeichnis` (Stories `Interaktiv`, `Bereits offen`, `Im Artikel-Body`), `…/Callout`
+  (`Interaktiv`, `Pro Bereich`, `Ohne Eyebrow`), `…/Figure` (`Interaktiv`, `Ohne Caption`) und
+  `…/Pull-Quote` (`Interaktiv`, `Pro Bereich`), `storySort.order` der Sektion „Wissensbeitrag“
+  entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar', 'Inhaltsverzeichnis',
+  'Callout', 'Figure', 'Pull-Quote', 'FAQ']`), Doku-Seite bleibt erstes Kind.
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
