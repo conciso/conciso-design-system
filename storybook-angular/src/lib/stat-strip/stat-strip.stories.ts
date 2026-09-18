@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { StatStripComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatStripComponent> = {
-  title: 'Organisms/StatStrip',
+  title: 'Komponenten/Cards & Teaser/StatStrip',
   component: StatStripComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',
     docs: {

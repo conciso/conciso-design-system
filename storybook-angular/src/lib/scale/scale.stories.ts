@@ -14,9 +14,9 @@ import { ScaleComponent } from '@conciso/design-system-angular';
 // strukturell nie grün. Gegenprobe mit echtem Playwright-Tastendruck auf ein
 // rohes Range-Input: dort ändert sich der Wert korrekt.
 const meta: Meta<ScaleComponent> = {
-  title: 'Atoms/Skala',
+  title: 'Komponenten/Inputs & Forms/Skala',
   component: ScaleComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

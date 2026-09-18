@@ -7,9 +7,9 @@ import { CodeBlockComponent } from '@conciso/design-system-angular';
 // in den CSS-Kern; bis dahin bewusst offen. Siehe README.
 
 const meta: Meta<CodeBlockComponent> = {
-  title: 'Organisms/CodeBlock',
+  title: 'Komponenten/Code-Block/Code-Block',
   component: CodeBlockComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { themeStore, ThemeCycleComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeCycleComponent> = {
-  title: 'Atoms/Theme-Cycle-Button',
+  title: 'Komponenten/Theme-Umschalter/Cycle-Button',
   component: ThemeCycleComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

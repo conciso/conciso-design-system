@@ -7,9 +7,9 @@ import { DownloadCtaComponent } from '@conciso/design-system-angular';
 // ki/es/wo). Fix gehört in den CSS-Kern; bis dahin bewusst offen. Siehe README.
 
 const meta: Meta<DownloadCtaComponent> = {
-  title: 'Molecules/DownloadCta',
+  title: 'Komponenten/Call to Action/DownloadCta',
   component: DownloadCtaComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

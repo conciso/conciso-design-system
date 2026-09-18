@@ -4,9 +4,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { TextareaFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TextareaFieldComponent> = {
-  title: 'Molecules/Textbereich',
+  title: 'Komponenten/Inputs & Forms/Textbereich',
   component: TextareaFieldComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

@@ -3,9 +3,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { themeStore, ThemeSelectComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSelectComponent> = {
-  title: 'Molecules/Theme-Dropdown',
+  title: 'Komponenten/Theme-Umschalter/Dropdown',
   component: ThemeSelectComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

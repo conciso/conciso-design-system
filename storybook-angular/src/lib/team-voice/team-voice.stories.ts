@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { TeamVoiceComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TeamVoiceComponent> = {
-  title: 'Organisms/TeamVoice',
+  title: 'Komponenten/Zitate & Testimonials/TeamVoice',
   component: TeamVoiceComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

@@ -28,9 +28,9 @@ const INTERESSEN = [
 ];
 
 const meta: Meta<ComboboxComponent> = {
-  title: 'Molecules/Combobox',
+  title: 'Komponenten/Dropdowns/Combobox',
   component: ComboboxComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

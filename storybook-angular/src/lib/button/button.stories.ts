@@ -3,9 +3,9 @@ import { within, userEvent, expect, fn } from 'storybook/test';
 import { ButtonComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ButtonComponent> = {
-  title: 'Atoms/Button',
+  title: 'Komponenten/Buttons/Button',
   component: ButtonComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { BlockquoteComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<BlockquoteComponent> = {
-  title: 'Molecules/Blockquote',
+  title: 'Komponenten/Zitate & Testimonials/Blockquote',
   component: BlockquoteComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

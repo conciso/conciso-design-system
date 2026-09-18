@@ -3,9 +3,9 @@ import { within, userEvent, expect, fn } from 'storybook/test';
 import { SnackbarComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SnackbarComponent> = {
-  title: 'Molecules/Snackbar',
+  title: 'Komponenten/Feedback/Snackbar',
   component: SnackbarComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

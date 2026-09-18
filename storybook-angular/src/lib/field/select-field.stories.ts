@@ -4,9 +4,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { SelectFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SelectFieldComponent> = {
-  title: 'Molecules/Auswahlfeld',
+  title: 'Komponenten/Inputs & Forms/Auswahlfeld',
   component: SelectFieldComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

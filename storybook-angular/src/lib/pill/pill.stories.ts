@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { PillComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<PillComponent> = {
-  title: 'Atoms/Pill',
+  title: 'Komponenten/Chips, Badges & Pills/Pill',
   component: PillComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

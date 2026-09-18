@@ -4,9 +4,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { RadioGroupComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<RadioGroupComponent> = {
-  title: 'Molecules/Radio',
+  title: 'Komponenten/Inputs & Forms/Radio',
   component: RadioGroupComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

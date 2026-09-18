@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { themeStore, ThemeSegmentComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ThemeSegmentComponent> = {
-  title: 'Molecules/Theme-Segment',
+  title: 'Komponenten/Theme-Umschalter/Segment',
   component: ThemeSegmentComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

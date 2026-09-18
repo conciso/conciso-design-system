@@ -9,9 +9,9 @@ const LOGO_DEFAULT = '/conciso/brand/logo-conciso.svg';
 const LOGO_DARK = '/conciso/brand/logo-conciso-light.svg';
 
 const meta: Meta<TopnavComponent> = {
-  title: 'Organisms/Topnav',
+  title: 'Komponenten/Navigation/Topnav',
   component: TopnavComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',
     docs: {

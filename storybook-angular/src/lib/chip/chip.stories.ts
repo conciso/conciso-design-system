@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { ChipComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<ChipComponent> = {
-  title: 'Atoms/Chip',
+  title: 'Komponenten/Chips, Badges & Pills/Chip',
   component: ChipComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

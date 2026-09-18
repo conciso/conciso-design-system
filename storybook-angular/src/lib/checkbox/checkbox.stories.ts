@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { CheckboxComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CheckboxComponent> = {
-  title: 'Atoms/Checkbox',
+  title: 'Komponenten/Inputs & Forms/Checkbox',
   component: CheckboxComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   // Der Datenschutz-Link (.body-link) ist Corporate — die Bereichs-Tönung ist ein
   // SEITEN-Zustand, nicht Sache der Checkbox. Über den Toolbar-Umschalter „Bereich“
   // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann

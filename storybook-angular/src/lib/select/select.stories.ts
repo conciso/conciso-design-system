@@ -11,9 +11,9 @@ const AREAS = [
 ];
 
 const meta: Meta<SelectComponent> = {
-  title: 'Molecules/Custom Select',
+  title: 'Komponenten/Dropdowns/Custom Select',
   component: SelectComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

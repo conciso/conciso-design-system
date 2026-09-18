@@ -3,9 +3,9 @@ import { within, userEvent, expect, fn } from 'storybook/test';
 import { CardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CardComponent> = {
-  title: 'Organisms/Card',
+  title: 'Komponenten/Cards & Teaser/Card',
   component: CardComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

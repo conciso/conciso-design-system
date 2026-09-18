@@ -14,9 +14,9 @@ import { SliderComponent } from '@conciso/design-system-angular';
 // strukturell nie grün. Gegenprobe mit echtem Playwright-Tastendruck auf ein
 // rohes Range-Input: dort ändert sich der Wert korrekt.
 const meta: Meta<SliderComponent> = {
-  title: 'Atoms/Slider',
+  title: 'Komponenten/Inputs & Forms/Slider',
   component: SliderComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { FaqComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FaqComponent> = {
-  title: 'Organisms/FAQ',
+  title: 'Seitenmuster/Wissensbeitrag/FAQ',
   component: FaqComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

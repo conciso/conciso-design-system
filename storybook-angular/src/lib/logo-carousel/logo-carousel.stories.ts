@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { LogoCarouselComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<LogoCarouselComponent> = {
-  title: 'Organisms/LogoCarousel',
+  title: 'Komponenten/Slider & Carousel/LogoCarousel',
   component: LogoCarouselComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

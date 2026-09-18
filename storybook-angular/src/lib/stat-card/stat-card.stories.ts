@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { StatCardComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<StatCardComponent> = {
-  title: 'Molecules/StatCard',
+  title: 'Komponenten/Cards & Teaser/StatCard',
   component: StatCardComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
