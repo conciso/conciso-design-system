@@ -60,3 +60,6 @@ export * from './lib/download-cta/download-cta.component';
 export * from './lib/section/section.component';
 // Angular-Seitenbausteine (Ticket 02): Hero-Bild
 export * from './lib/hero-image/hero-image.component';
+// Angular-Seitenbausteine (Ticket 03): Störer-Kacheln über dem Hero
+export * from './lib/stoerer/stoerer.component';
+export * from './lib/stoerer/stoerer-set.component';

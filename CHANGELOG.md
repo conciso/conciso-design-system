@@ -80,6 +80,32 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Icon `ui-computer-desktop` in `SECTION_ICON_KEYS` von der bisher verschmolzenen
   Ein-Kind-ID (`komponenten-hero--übersicht`) auf die jetzt eigenständige
   Sektions-ID (`komponenten-hero`) umgehängt.
+- **`StoererComponent` (`cds-stoerer`) und `StoererSetComponent` (`cds-stoerer-set`),
+  drittes Ticket der Seitenbausteine-Serie.** Wrapper um `.stoerer`/`-set`/`-list`
+  (`css/components.css:926–974`): das Verweiskachel-Set, das ausschließlich auf der
+  Startseite oben rechts über dem Hero-Bild liegt. `cds-stoerer` ist eine vollständig
+  klickbare `<a class="stoerer">` mit Pflicht-Inputs `topic`/`title`/`href` und
+  Beiwerk `meta`/`date` (ISO, formatiert als deutsches Langdatum); bleiben `meta` und
+  `date` beide leer, entfällt die Meta-Zeile vollständig statt leer zu rendern. Der
+  `sr-only`-Trenner zwischen Datum und Ort/Lesezeit bleibt erhalten, wenn beide
+  gesetzt sind. Das Icon ist wie bei `cds-icon-card` (Ticket 05) projizierter Inhalt
+  (`<ng-content select="[cdsIcon]">`, nicht ein `icon`-Input), weil die
+  Störer-Icons wechselnde Heroicons sind, keine DS-Bereichsglyphen; abweichend von
+  Ticket 05 trägt das projizierte `<svg>` die Klasse `stoerer-icon` selbst, weil
+  `.stoerer-icon` (anders als `.ep-card-icon`) direkt auf dem SVG sitzt, ohne
+  Container, der die Größe per Nachfahren-Selektor durchreichen könnte. **Die
+  `<li>`-Frage:** `.stoerer-list` ist ein `<ul>`, seine Kacheln müssen echte `<li>`
+  sein, sonst bekommen sie laut HTML-AAM keine `listitem`-Rolle. Ein `display:
+  contents`-Wrapper hätte neues CSS gebraucht (ADR-0001 verbietet das); gelöst über
+  dasselbe `TemplateRef`/`ngTemplateOutlet`-Muster, das `cds-area-tabs`/`cds-area-tab`
+  bereits etabliert: `cds-stoerer` rendert in ein internes `<ng-template>`,
+  `cds-stoerer-set` liest die projizierten Kacheln per `contentChildren()` und setzt
+  ihr Markup direkt in ein selbst gerendertes `<li>` — im laufenden Storybook geprüft,
+  `<cds-stoerer>` taucht im gerenderten DOM nirgends auf, `<ul class="stoerer-list">`
+  hat ausschließlich `<li>` als direkte Kinder. Der Positionsrahmen `.stoerer-hero`
+  (umschließt Hero-Bild UND Set) bleibt bewusst beim Konsumenten. Neue Bauteil-Ebene
+  `Komponenten/Hero/Störer` (Stories `Interaktiv`, `Zwei Kacheln über dem Hero`,
+  `Ohne Meta`), `storySort.order` der Sektion „Hero“ um `Störer` ergänzt.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut

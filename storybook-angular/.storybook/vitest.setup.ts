@@ -46,6 +46,28 @@ interface StoryTestContext {
   task: { meta: { storyId?: string } };
 }
 
+/**
+ * `toMatchScreenshot()` sanitisiert den übergebenen Namen selbst zu einem
+ * Dateinamen, entfernt dabei aber Umlaute/ß ersatzlos statt sie zu
+ * transliterieren (z. B. "komponenten-hero-störer" → "komponenten-hero-strer"
+ * statt "…-stoerer"). Das widerspricht der Namenskonvention der Baselines
+ * (Story-Titel und -Name folgen der Sidebar-Taxonomie, siehe CONTRIBUTING §12,
+ * und die Dateinamen sollen dieser Taxonomie lesbar folgen). Deshalb hier
+ * selbst transliterieren, BEVOR der Name an `toMatchScreenshot()` geht — sonst
+ * baut die nächste Komponente mit Umlaut im Titel (z. B. eine künftige
+ * `Störer`-Schwester) wieder einen verstümmelten Dateinamen.
+ */
+function transliterateGerman(id: string): string {
+  return id
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/Ä/g, 'Ae')
+    .replace(/Ö/g, 'Oe')
+    .replace(/Ü/g, 'Ue')
+    .replace(/ß/g, 'ss');
+}
+
 afterEach(async (context) => {
   if (!VISUAL) return;
 
@@ -75,7 +97,7 @@ afterEach(async (context) => {
   document.head.appendChild(freeze);
 
   try {
-    await expect(document.body).toMatchScreenshot(storyId);
+    await expect(document.body).toMatchScreenshot(transliterateGerman(storyId));
   } finally {
     freeze.remove();
   }
