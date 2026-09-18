@@ -72,3 +72,7 @@ export * from './lib/icon-card/icon-card.component';
 export * from './lib/feature/feature.component';
 // Angular-Seitenbausteine (Ticket 07): Page-End-CTA-Band
 export * from './lib/cta-band/cta-band.component';
+// Angular-Seitenbausteine (Ticket 08): Tier-Trenner und Fakten-Liste (cds-award-list
+// zurückgestellt, siehe .scratch/angular-seitenbausteine/issues/08-angebots-bausteine.md)
+export * from './lib/tier/tier.component';
+export * from './lib/facts/facts.component';

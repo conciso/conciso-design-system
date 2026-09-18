@@ -305,6 +305,52 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Ein/Aus-Schalter behandelt (Zeile 181) und nicht in die Farbmischung mit dem
   Hintergrund einrechnet — ein blinder Fleck des Gates (Ticket 17), kein Beleg dafür,
   dass der Befund neu wäre.
+- **`TierComponent` (`cds-tier`) und `FactsComponent` (`cds-facts`), achtes Ticket der
+  Seitenbausteine-Serie: die Angebots-Bausteine (`cds-award-list` zurückgestellt,
+  siehe unten).** `cds-tier` bildet `.ep-tier` ab (css/components.css:1381–1384):
+  Label + Haarlinie, die eine Offene Feature-Liste in Pakete gliedert (z. B. „In
+  jedem Paket enthalten“ vor „Zusätzlich mit Pro“). Element-Selektor, der
+  ADR-0008-Standardfall — ausgezählt: keines der 4 `.ep-tier`-Vorkommen in
+  `docs/index.html` sitzt in einem Grid/Flex, das seine Kinder streckt, keines
+  trägt eine `col-*`-Klasse, das Tag variiert nicht. `area` ist auf `'ki'` typisiert,
+  nicht auf die vollen vier Markenbereiche: `css/components.css` kennt
+  ausschließlich `.ep-tier-label[data-area="ki"]` (Dark-Override
+  `css/dark-mode.css:476`), für `co`/`es`/`wo` existiert keine einzige Regel —
+  ausgezählt: 3 von 4 `.ep-tier-label`-Vorkommen setzen `ki`, eines gar kein
+  `data-area`, keines einen anderen Bereich. Ein `CdsArea`-Input hätte für drei von
+  vier gültigen Werten ein wirkungsloses `data-area`-Attribut geschrieben; der
+  eingeschränkte Typ macht das strukturell unmöglich, statt es nur im JSDoc zu
+  behaupten. `.ep-tier-rule` ist rein dekorativ und trägt `aria-hidden="true"`. Neue
+  Bauteil-Ebene `Komponenten/Cards & Teaser/Tier-Trenner` (Stories `Interaktiv`,
+  `Pro Bereich`), `storySort.order` der Sektion „Cards & Teaser“ entsprechend ergänzt.
+  `cds-facts` bildet `.ep-facts` ab (css/components.css:1261–1272): die
+  Definitionsliste für Angebots-Eckdaten (Termin, Dauer, Ort, Preis), einspaltig mit
+  Haarlinie zwischen den Paaren oder als `.is-grid` zweispaltig für Kästen neben
+  Inhalt. Ebenfalls Element-Selektor: analog zu `cds-faq` trägt die INNERE `<dl
+  class="ep-facts">` die CSS-Klasse, nicht der Host — die Semantik einer
+  Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element kann es nicht
+  annehmen; da `.ep-facts > div + div` nur Nachfahren der eigenen Vorlage anspricht,
+  bricht die zusätzliche Host-Ebene nichts (kein „Fläche am Host“-Fall wie bei
+  `cds-section`). Jedes Fakten-Paar rendert deshalb exakt als `<div><dt>…</dt>
+  <dd>…</dd></div>`, weil genau dieser Selektor den Trenner ab dem zweiten Paar
+  setzt. Über die Ticket-Skizze hinaus ergänzt: ein `area`-Input, der `.t-{area}`
+  auf jedes `<dt>` anwendet — der CSS-Kommentar zu dieser Klasse
+  (css/components.css:1259) nennt `.t-XX` ausdrücklich als sanktionierten Weg für
+  den Bereichston der Labels, und alle 3 realen `.ep-facts`-Vorkommen in
+  `docs/index.html` setzen ihn einheitlich (`.t-wo`) auf jedem `<dt>` derselben
+  Liste; ohne den Input hätte sich keines originalgetreu nachbauen lassen. Neue
+  Bauteil-Ebene `Seitenmuster/Seminar · Training/Fakten-Liste` (Stories
+  `Interaktiv`, `Als Raster`), `storySort.order` entsprechend ergänzt — die Sektion
+  „Seminar · Training“ wechselt dabei von einer flachen Doku-Seite zu einer Sektion
+  mit Bauteil-Ebene, `Übersicht` bleibt per `CONTRIBUTING.md` §12 das erste Kind.
+  **`cds-award-list` zurückgestellt:** `.ep-award-list` (css/components.css:
+  1242–1245) kommt in `docs/index.html` außerhalb der Beispielseiten nicht vor — die
+  einzige Erwähnung außerhalb ist eine Zeile der Responsive-Verhaltenstabelle
+  (`docs/index.html:1963`), kein eigener Doku-Abschnitt mit Verwendung und
+  Code-Beispiel nach `CONTRIBUTING.md` §10.4. Statt einen neuen Produktions-Doku-
+  Abschnitt ungeprüft anzulegen, ist das Bauteil aus diesem Ticket herausgelöst;
+  Entscheidung und nächster Schritt stehen in
+  `.scratch/angular-seitenbausteine/issues/18-doku-luecke-ep-award-list.md`.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
