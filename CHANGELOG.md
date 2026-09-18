@@ -42,20 +42,30 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   statt sich an eine interne Hilfskomponente zu binden.
 
 ### Added
-- **`SectionComponent` (`cds-section`), erste Angular-Wrapper-Komponente für die
-  Seitenbausteine der Beispielseiten.** Wrapper um `.ep-section` samt dem optionalen
+- **`SectionComponent` (`[cdsSection]`), erste Angular-Wrapper-Komponente für die
+  Seitenbausteine der Beispielseiten — und wie `cds-icon-card` (Ticket 05) auf
+  Attributselektor umgestellt.** Wrapper um `.ep-section` samt dem optionalen
   Kopf-Trio `.ep-section-label`/`-h2`/`-sub` (`label`, `heading`, `sub`, alle
-  Beiwerk), dazu `area` (`.t-{area}` auf dem Label) und `labelledBy`. Die Komponente
-  rendert `<section aria-labelledby="…">` nur, wenn ein zugänglicher Name verfügbar
-  ist (eigene Überschrift oder per `labelledBy` übergeben), sonst ein namenloses
-  `<div>` — eine `<section>` ohne Namen wäre für Screenreader ohnehin keine Landmark.
-  Bewusst **kein** `background`-Input: Die Sektionsfläche ist Teil des
-  Flächen-Rhythmus einer Seite (siehe „Verwendung“ in `docs/index.html#sec-section`)
-  und damit eine Entscheidung der Seite, nicht des Bauteils. Neue Doku-Sektion
-  „Sektion“ in der Gruppe Komponenten
-  (vor Navigation) sowie Storybook-Stories unter `Komponenten/Sektion/Sektion`
-  (`Interaktiv`, `Ohne Kopf`, `Nur Überschrift`, `Bereichsgefärbtes Label`), Icon
-  `ui-viewfinder-circle` in `SECTION_ICON_KEYS`. Erstes Ticket der
+  Beiwerk), dazu `area` (`.t-{area}` auf dem Label) und `labelledBy`. Erste Fassung
+  war `cds-section` als eigenes Element, das selbst zwischen `<section
+  aria-labelledby="…">` (mit zugänglichem Namen) und einem namenlosen `<div>` wählte.
+  Eine Sektionsfläche musste dabei auf einem UMSCHLIESSENDEN Element sitzen, nicht auf
+  dem `<cds-section>`-Host — gemessen im laufenden Storybook (Details in
+  `docs/adr/0008-selektortyp-der-wrapper-komponenten.md`, „Fall 2“): Host-`background`
+  wurde von `getComputedStyle` und `getBoundingClientRect()` beide als korrekt gemeldet,
+  der Screenshot zeigte trotzdem keinen einzigen gemalten Pixel — ein unbekanntes
+  Custom Element ohne eigenen Inline-Inhalt, dessen Block-Kind herausgebrochen wird,
+  hat keine eigene Box zu füllen. Jetzt `section[cdsSection], div[cdsSection]`: der
+  Konsument wählt das Tag (und damit, ob überhaupt eine `<section>`-Landmark möglich
+  ist), die Komponente setzt nur noch `aria-labelledby`, wenn ein Name verfügbar ist.
+  Die Fläche sitzt jetzt direkt am Host (`<section cdsSection
+  style="background:…">`), kein umschließendes Element mehr nötig — bewusst weiterhin
+  **kein** `background`-Input, die Sektionsfläche bleibt eine Entscheidung der Seite,
+  nicht des Bauteils. `@if`/`@else`, `<ng-template>` und `NgTemplateOutlet` entfallen,
+  das Template ist jetzt linear. Neue Story `Fläche am Host`, `Interaktiv`/`Ohne
+  Kopf`/`Benannt von außen`/`Nur Überschrift`/`Bereichsgefärbtes Label` auf
+  `<section cdsSection>`/`<div cdsSection>` umgestellt. Doku-Sektion „Sektion“
+  (`docs/index.html#sec-section`) entsprechend nachgezogen. Erstes Ticket der
   Seitenbausteine-Serie (`.scratch/angular-seitenbausteine/spec.md`); die
   Kopf-Trio-Struktur trägt 133 der Beispielseiten-Sektionen, 85 davon mit Kopfzeile.
 - **`HeroImageComponent` (`cds-hero-image`), zweites Ticket der Seitenbausteine-Serie.**
@@ -147,6 +157,53 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (Stories `Interaktiv`, `Pro Bereich`, `Pille als Lesezeit`, `Ohne Pill`,
   `Ohne Link`; bewusst **kein** Grid-Beispiel — die Doku verlangt „genau einer auf
   der Bühne“), `storySort.order` der Sektion „Cards & Teaser“ entsprechend ergänzt.
+- **`IconCardComponent` (`[cdsIconCard]`), fünftes Ticket der Seitenbausteine-Serie:
+  die Icon-Teaser-Kachel der Beispielseiten (81 Vorkommen) — UND erste Komponente mit
+  Attributselektor statt eigenem Element.** Bildet `.ep-card` ab
+  (css/components.css:1298–1340): farbige Icon-Kachel, Eyebrow, Titel, Text, optionale
+  Pfeil-CTA-Zeile. Erste Fassung war `cds-icon-card` als eigenes Element mit
+  `href`-Input (`<a>`/`<div>` per `@if`/`@else`). Gemessen im laufenden Storybook: zwei
+  Karten mit unterschiedlich langem Text ergaben im `.ep-cards`-Grid ungleiche
+  `.ep-card`-Höhen (174px/270px), weil `align-items:stretch` nur den unsichtbaren
+  `<cds-icon-card>`-Host streckt, nicht das `.ep-card`-Element eine Ebene darunter.
+  Dieselbe Messung ohne Host-Wrapper (rohes Markup direkt in `.ep-cards`) ergab
+  306px/306px, CTA-Unterkanten auf identischer Y-Koordinate — die CSS-Schicht gleicht
+  Kartenhöhen also korrekt aus, der Fehler saß im Wrapper-Element. Konsequenz, analog
+  zu Angular Materials `a[mat-button], button[mat-button]`: Die Komponente ist jetzt
+  `a[cdsIconCard], div[cdsIconCard]`, hängt sich also als Attribut an ein vom
+  Konsumenten geschriebenes `<a>`/`<div>`, statt ein eigenes Host-Element zu sein.
+  `href` ist damit kein Input mehr (natives Attribut am `<a>`). `.ep-card-link` hängt
+  bewusst an „ist `<a>` UND hat `href`“, nicht am Tag allein: Ein `<a cdsIconCard>`
+  ohne `href` ist weder fokussierbar noch hat es eine Link-Rolle, hätte mit dem Tag
+  allein aber trotzdem den Link-Look (Schatten, Hover) bekommen — genau die Garantie,
+  die die frühere `href`-Input-Fassung strukturell hatte (leerer String → zwingend der
+  `<div>`-Zweig). Die Prüfung sitzt als **Methode im Host-Binding**
+  (`'[class.ep-card-link]': 'isLink()'`), nicht als einmalig berechnetes Feld, weil
+  `href` zur Laufzeit gesetzt werden kann: Host-Bindings werden bei jedem Refresh der
+  ELTERN-Ansicht neu ausgewertet, unabhängig vom OnPush-Status der Komponente selbst
+  — kein Sonderfall des in ADR-0007 §3 verworfenen Getter-Musters (das betraf
+  Getter in der eigenen Kindvorlage). Empirisch mit einem Signal-getriebenen
+  `[attr.href]`-Toggle zur Laufzeit geprüft (Spike, seither gelöscht): kein `effect()`
+  nötig. Neue Story „Anker ohne Href“ pinnt den Fall. Erneut gemessen: alle Karten
+  306px, CTA-Unterkanten deckungsgleich — als Regressionsschutz jetzt eine
+  Play-Funktion in der Story „Im Raster“ mit bewusst unterschiedlich langen Texten
+  (vorher unauffällig gleich lang). `@angular-eslint/component-selector` erlaubt dafür
+  jetzt zusätzlich zum Element-Standard (`kebab-case`, weiterhin für alle anderen
+  Komponenten) einen `cds`-Attributselektor (`camelCase`) als benannte Ausnahme
+  ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)).
+  Das Icon kommt als projizierter Inhalt (`<ng-content select="[cdsIcon]">`), anders
+  als bei `cds-stoerer` aber OHNE dass das SVG eine eigene Größenklasse tragen muss:
+  `.ep-card-icon` ist ein echter Container und reicht Maße/Stroke über den
+  Nachfahren-Selektor `.ep-card-icon svg` durch. `data-area` sitzt auf Karte (Host),
+  Icon-Kachel und Eyebrow, wie im Mockup; die CTA-Farbe braucht kein eigenes
+  `data-area`, sie kommt über `.ep-card[data-area] .ep-card-cta`. **Kein
+  `cdsIconCards`-Raster:** `.ep-cards` ist ein reines `display:grid` ohne Struktur
+  oder Verhalten (dieselbe Begründung wie beim Verzicht auf einen
+  `layout-grid`-Wrapper, siehe `spec.md`) — Konsumenten schreiben `<div
+  class="ep-cards">` von Hand. Neue Bauteil-Ebene `Komponenten/Cards & Teaser/
+  Icon-Karte` (Stories `Interaktiv`, `Als Link`, `Anker ohne Href`, `Pro Bereich`,
+  `Im Raster`, `Ohne CTA`), `storySort.order` der Sektion „Cards & Teaser“
+  entsprechend ergänzt.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
