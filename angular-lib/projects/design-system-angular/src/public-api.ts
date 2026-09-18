@@ -70,3 +70,5 @@ export * from './lib/featured-card/featured-card.component';
 export * from './lib/icon-card/icon-card.component';
 // Angular-Seitenbausteine (Ticket 06): Feature-Liste
 export * from './lib/feature/feature.component';
+// Angular-Seitenbausteine (Ticket 07): Page-End-CTA-Band
+export * from './lib/cta-band/cta-band.component';

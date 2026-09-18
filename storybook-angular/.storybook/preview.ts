@@ -110,7 +110,7 @@ const preview: Preview = {
               'StatStrip',
             ],
             'Call to Action',
-            ['Verwendung', 'DownloadCta'],
+            ['Verwendung', 'CTA-Band', 'DownloadCta'],
             'Tabelle',
             'Zitate & Testimonials',
             ['Verwendung', 'Blockquote', 'Testimonial', 'TeamVoice'],

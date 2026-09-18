@@ -248,6 +248,63 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `Komponenten/Cards & Teaser/Feature-Liste` (Stories `Interaktiv`, `Dreispalter`,
   `Mit CTA`, `Ohne Href`, `Pro Bereich`), `storySort.order` der Sektion
   „Cards & Teaser“ entsprechend ergänzt.
+- **`CtaBandComponent` (`[cdsCtaBand]`), siebtes Ticket der Seitenbausteine-Serie: das
+  bereichsgefärbte Page-End-CTA-Band am Ende jeder Customer-Page.** Bildet
+  `.ep-cta-band` samt Kopf-Duo `.ep-cta-h2`/`.ep-cta-sub` und einer Aktion ab
+  (css/components.css:1456; 22 Vorkommen auf den Beispielseiten, ausnahmslos genau
+  eine Aktion). Vier Entscheidungen, alle gemessen statt hergeleitet: **(1)**
+  Attributselektor (`div[cdsCtaBand]`), derselbe „Fläche am Host“-Fall wie
+  `cds-section` ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)) —
+  `.ep-cta-band` trägt kein `[data-area]` (per Grep geprüft), die Bandfläche kommt in
+  allen 22 Vorkommen als Inline-Style direkt am Element; ein Element-Selektor hätte
+  denselben ungemalten Hintergrund reproduziert, den ADR-0008 „Fall 2“ für
+  `cds-section` maß. Nur `<div>`, kein `<section>`-Zwilling: keines der 22 Vorkommen
+  variiert das Tag. **(2)** `area` färbt nur `.btn-{area}` auf der Aktion, nicht die
+  Bandfläche — dieselbe Konsumenten-Zuständigkeit wie bei `cds-section`, hier
+  zusätzlich erzwungen, weil das CSS an dieser Klasse ohnehin keinen
+  `[data-area]`-Haken kennt. **(3)** Die `.btn-filled`+`.btn-on-band`-Klassen sind
+  direkt komponiert, nicht über `cds-button` projiziert (Präzedenzfall
+  `download-cta.component.ts`) — härterer Grund als dort: `cds-button` kennt zwar
+  `.btn-on-band` (`variant="filled-on-band"`, geprüft über `npx storybook tools docs
+  show --id komponenten-buttons-button`, Story „Auf Bereichs-Band“), rendert aber
+  IMMER ein `<button>` und kann die geforderte `primaryHref`-gesetzt-→-`<a>`-
+  Verzweigung strukturell nicht erfüllen. **(4)** Bewusst nur EINE Aktion, kein
+  `secondaryLabel`. Ein erster Entwurf bot eine zweite Aktion an, ungeprüft gegen das
+  Mockup — die Korrektur kam aus zwei Gegenproben: keines der 22 Vorkommen zeigt eine
+  zweite Aktion, und `.btn-{area}.btn-on-band{color:…}`
+  (css/components.css:47–51) überschreibt die Textfarbe JEDER Variante auf denselben
+  Ton, den die Doku als Bandhintergrund nennt — nur `.btn-filled` tauscht zusätzlich
+  die Füllung gegen Weiß, jede andere Variante wäre Text in Bandfarbe auf Bandfarbe.
+  Eine zweite Aktion hätte also zwangsläufig dieselbe Optik wie die erste getragen,
+  keine Hierarchie. Diese CSS-Lücke ist jetzt
+  `.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`;
+  die Komponente trägt bis zu ihrer Klärung nur eine Aktion, ohne eigenes
+  Flex-Layout dafür (das hätte eine Darstellung erfunden, die die CSS-Schicht unter
+  diesem Namen nicht kennt — `display:flex;gap:var(--s3);flex-wrap:wrap` existiert
+  bereits identisch als `.ep-hero-ctas`, css/components.css:1222, für einen anderen
+  Bauteiltyp). Eine einzelne Aktion zentriert sich stattdessen über das ererbte
+  `.ep-cta-band{text-align:center}` von selbst, genau wie in allen 22
+  Mockup-Vorkommen. Kein `aria-label`-Input: anders als bei `cds-feature` (11 von 12
+  mit `aria-label`) trägt keines der 22 Band-Vorkommen einen `aria-label` auf seiner
+  Aktion, ausgezählt statt geschätzt. Die Aktion folgt demselben Muster wie bei
+  `cds-feature`: gesetztes Href → echter `<a href>`, sonst `<button>` mit feuerndem
+  Output, nie ein `<a>` ohne Ziel. Neue Bauteil-Ebene
+  `Komponenten/Call to Action/CTA-Band` (Stories `Interaktiv`, `Pro Bereich`, `Als
+  Links`), `storySort.order` der Sektion „Call to Action“ entsprechend ergänzt.
+  **Nebenbefunde (CSS-/Gate-Kern, nicht in diesem Ticket behoben, jetzt eigene
+  Tickets 15–17):** `.ep-cta-sub` (`opacity:.85`) unterschreitet auf `--co-700` den
+  AA-Textkontrast (4,46:1 statt 4,5:1, WCAG-Formel gegen die Token-Werte gerechnet;
+  axe meldet dasselbe in den Storybook-Interaktionstests) — auf
+  `--ki-800`/`--es-700`/`--wo-700` liegt derselbe Text bei 6,1–7,4:1, „co“ ist der
+  systematische Ausreißer, wie schon beim bekannten `.cta-dl-eyebrow`-Befund in
+  `download-cta.stories.ts` (Ticket 15). Identisches rohes HTML (docs/index.html:6304
+  ff.) hat denselben Fehler, kein Wrapper-Artefakt. Die betroffenen Stories setzen
+  lokal `a11y: { test: 'todo' }` (dieselbe Ausnahme, die `preview.ts` für bekannte
+  CSS-Kern-Befunde vorsieht). Zusätzlich: `check:contrast`
+  (`scripts/check-contrast.mjs`) übersieht diesen Fall, weil es `opacity` nur als
+  Ein/Aus-Schalter behandelt (Zeile 181) und nicht in die Farbmischung mit dem
+  Hintergrund einrechnet — ein blinder Fleck des Gates (Ticket 17), kein Beleg dafür,
+  dass der Befund neu wäre.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut

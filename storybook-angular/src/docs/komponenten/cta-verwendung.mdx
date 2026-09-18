@@ -7,35 +7,49 @@ import { Meta } from '@storybook/addon-docs/blocks';
 Call to Action deckt zwei Pattern-Familien ab: das Page-End-CTA-Band als letzte, konkrete
 Einladung am Ende jeder Customer-Page, und vier Download-CTA-Varianten für
 Ressourcen-Downloads. Ergänzend dokumentiert diese Seite den Editorial Split als
-sekundäre Konversionsfläche neben dem primären Page-End-CTA. Nur die vier
-Download-Varianten haben ein eigenes Bauteil (`DownloadCta`); Page-End-CTA-Band und
-Editorial Split sind CSS-Rezepte ohne Angular-Komponente.
+sekundäre Konversionsfläche neben dem primären Page-End-CTA. Das Page-End-CTA-Band hat
+seit Ticket 07 der Seitenbausteine-Serie ein eigenes Bauteil (`CtaBand`, Attributselektor
+`[cdsCtaBand]`), ebenso die vier Download-Varianten (`DownloadCta`); der Editorial Split
+bleibt ein CSS-Rezept ohne Angular-Komponente.
 
 ## Wann welche Variante
 
 | Variante | Bauteil | Wann einsetzen |
 |---|---|---|
-| Page-End-CTA-Band | bauteillos (CSS-Rezept `.ep-cta-band`) | Letzte Einladung am Ende jeder Customer-Page, direkt vor dem Footer, genau ein Button auf der Bereichsfarbe als Hintergrund |
+| Page-End-CTA-Band | `CtaBand` (`[cdsCtaBand]`) | Letzte Einladung am Ende jeder Customer-Page, direkt vor dem Footer, eine Aktion auf der Bereichsfarbe als Hintergrund |
 | Editorial Split | bauteillos (CSS-Rezept `.ep-section` + `.layout-grid`) | Sekundäre oder tertiäre Konversionsfläche neben dem primären Page-End-CTA (zum Beispiel ein Karriere-Block auf der Landing), ohne Card-Chrome |
 | Download · Hero | `DownloadCta` | Hauptressource einer Seite, Landing Pages, Ressourcenseiten, Kampagnen, maximal einmal pro Seite |
 | Download · Mit Vorschaubild | `DownloadCta` | Whitepapers und Reports, deren Deckblatt als Vorschau den Inhalt sofort greifbar macht |
 | Download · Kompakt | `DownloadCta` | Ressourcenlisten mit mehreren Downloads (zum Beispiel eine Mediathek) |
 | Download · Minimal | `DownloadCta` | Quellenangaben, Fließtext-Links oder Nebenbereiche (Footer, Blog, Dokumentation) |
 
-### Page-End-CTA-Band (bauteillos)
+### Page-End-CTA-Band (`CtaBand`)
 
-Container `.ep-cta-band` mit Padding `var(--s12) var(--s8)`, zentriert. Hintergrund per
-Inline-Style auf der Bereichsfarbe (`--co-700` / `--ki-800` / `--es-700` / `--wo-700`),
-Schrift `color:#fff`. Auf der dunklen Fläche wird der Filled-Button über die
-zusammengesetzte Modifier-Klasse `.btn-on-band` invertiert (weißer Hintergrund, Text in
-der Bereichsfarbe). Der Button führt auf die adaptive Kontaktseite
-(`data-ep="kontakt"`), nie auf ein Overlay oder Modal.
+Attributselektor `[cdsCtaBand]` statt eigenem Element: die Bandfläche ist im Mockup
+ausnahmslos ein Inline-Style direkt am Element (`.ep-cta-band`, Padding
+`var(--s12) var(--s8)`, zentriert) — ein eigenes Element würde denselben „Fläche am
+Host“-Fehler reproduzieren, den `docs/adr/0008` für `cds-section` gemessen hat. Der
+Konsument setzt Hintergrund und Schrift deshalb
+weiterhin selbst, auf demselben `<div cdsCtaBand>`, das die Komponente trägt:
+Bereichsfarbe (`--co-700` / `--ki-800` / `--es-700` / `--wo-700`), Schrift `color:#fff`.
+Auf der dunklen Fläche wird der Filled-Button über die zusammengesetzte Modifier-Klasse
+`.btn-on-band` invertiert (weißer Hintergrund, Text in der Bereichsfarbe) — die
+Komponente setzt diese Klassen direkt (`cds-button` kennt zwar den Modifier, kann aber
+keinen `<a>` rendern, siehe `cta-band.component.ts`). Die Aktion führt in der
+Regel auf die adaptive Kontaktseite (`data-ep="kontakt"`), nie auf ein Overlay oder
+Modal. Bewusst nur EINE Aktion, kein `secondaryLabel`: keines der 22
+Mockup-Vorkommen zeigt eine zweite, und `.btn-on-band` lässt sich mit den
+vorhandenen CSS-Klassen ohnehin nicht in einer zurückhaltenderen zweiten Variante
+bauen (jede Nicht-`filled`-Variante würde Text in Bandfarbe auf Bandfarbe zeigen —
+festgehalten in
+`.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`).
 
 ```html
-<div class="ep-cta-band" style="background:var(--co-700);color:#fff">
-  <h2 class="ep-cta-h2">Erstgespräch, 30 Minuten, kostenfrei.</h2>
-  <p class="ep-cta-sub">Du schilderst Deine Situation, wir geben eine erste Einschätzung.</p>
-  <button class="btn btn-filled btn-co btn-on-band">Termin buchen</button>
+<div cdsCtaBand
+     heading="Erstgespräch, 30 Minuten, kostenfrei."
+     sub="Du schilderst Deine Situation, wir geben eine erste Einschätzung."
+     primaryLabel="Termin buchen"
+     style="background:var(--co-700);color:#fff">
 </div>
 ```
 
@@ -91,6 +105,7 @@ Card-Chrome, das dem Markenwert „Ruhig“ widerspräche.
 
 ## Verwandte Seiten
 
+- Komponenten/Call to Action/CTA-Band (Story, deckt `CtaBand` ab)
 - Komponenten/Call to Action/DownloadCta (Story, deckt alle vier Download-Varianten ab)
 - Doku-Sektion: `docs/index.html#gt-cta-band` (Page-End-CTA-Band)
 - Doku-Sektion: `docs/index.html#gt-cta-editorial` (Editorial Split)
