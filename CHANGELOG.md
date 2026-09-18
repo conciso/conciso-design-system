@@ -365,6 +365,38 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Courier New die richtige Bildschirmschrift für Code ist, fällt ab jetzt an einer Stelle statt an
   zwanzig. Storybooks Doku- und Manager-Chrome (`fontCode` in `.storybook/theme.ts`) zeigt auf
   denselben Stack, damit Doku-Site und Storybook denselben Code-Satz rendern.
+- **`TableComponent` (`cds-table`), neuntes Ticket der Seitenbausteine-Serie.** Wrapper um
+  `.tbl`/`.tbl-wrap` (css/components.css:1462–1480): die Datentabelle mit horizontalem
+  Scroll-Container. Ausgezählt: außerhalb der Doku-Sektion `sec-table` selbst kommt
+  `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten (`docs/index.html:8622`, `15080`).
+  **Kein Daten-Input** —
+  eine `columns`/`rows`-API hätte Zellinhalte auf Strings festgelegt, die Beispielseiten setzen
+  darin Badges, Links und `data-num`; der Konsument projiziert `<thead>`/`<tbody>`/`<tfoot>`
+  unverändert per `<ng-content>`, die Komponente liefert nur `.tbl-wrap`, `.tbl`, `<caption>` und
+  `.tbl--striped`. Element-Selektor, ADR-0008-Standardfall wie `cds-facts`/`cds-faq`: ausgezählt,
+  keines der 5 `.tbl-wrap`-Vorkommen in `docs/index.html` (Zeilen 5061, 5116, 5236, 8622, 15080)
+  ist selbst ein direktes Grid-/Flex-Kind, keines variiert das Tag — `.tbl-wrap`/`.tbl` sitzen
+  deshalb im eigenen Template der Komponente, nicht am Host. Im laufenden Storybook geprüft: die
+  gerenderte Kette hat `<table class="tbl">` direkt unter `<div class="tbl-wrap">`, `<caption>`
+  als erstes Kind, danach ohne zusätzlichen Knoten die projizierten `<thead>`/`<tbody>`-Elemente —
+  `<ng-content>` fügt selbst kein DOM-Element ein. `caption` ist `input.required<string>()`,
+  abweichend von der ursprünglichen Ticket-Skizze (dort optional mit Default `''`): die eigene
+  Doku (`tabelle.mdx:137`) nennt `<caption>` „Pflicht, Screenreader lesen den Titel vor, bevor
+  die Zellen vorgelesen werden“, und alle 5 realen `.tbl`-Vorkommen in `docs/index.html` haben
+  eine — nach ADR-0007 §2 ist `caption` damit Inhalt, nicht Beiwerk. `.tbl-wrap` ist deshalb
+  immer per Tastatur erreichbar (`tabindex="0"`, eigener `:focus-visible`-Ring) UND immer
+  benannt (`role="region"` + `aria-label`, `scrollLabel` hat Vorrang, sonst `caption`, kann dank
+  Pflicht-`caption` nie leer werden). **`.tbl-sort` bleibt außen vor:** die Klasse liefert nur den
+  Button-Look, es gibt keine zugehörige Sortierlogik in `docs/main.js` — ein Wrapper, der sie
+  anböte, täuschte Funktion vor, die nicht existiert. Neuer Befund
+  `.scratch/angular-seitenbausteine/issues/19-fehlende-sortierlogik-tbl-sort.md`. Neue
+  Bauteil-Ebene `Komponenten/Tabelle/Tabelle` (Stories `Interaktiv`, `Gestreift`,
+  `Mit Zahlenspalte`, `Mit Fußzeile`, `Schmaler Viewport`), `storySort.order` und
+  `SECTION_ICON_KEYS` entsprechend ergänzt — die Sektion „Tabelle“ wechselt dabei von einer
+  flachen Doku-Seite zu einer Sektion mit Bauteil-Ebene, `Übersicht` bleibt per
+  `CONTRIBUTING.md` §12 das erste Kind. `storybook-angular/src/docs/komponenten/tabelle.mdx`
+  entsprechend nachgezogen (die veraltete Aussage „kein eigenes Angular-Bauteil“ galt nur noch
+  für die separat zu bauende Vergleichstabelle, `.ep-compare*`, Ticket 10).
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene

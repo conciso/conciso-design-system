@@ -6,8 +6,12 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 Barrierefreie Datentabellen mit `<caption>`, `scope`-Attributen und
 Tastaturnavigation, in zwei Varianten: Standard und Gestreift, dazu eine
-aufklappbare Vergleichstabelle. Für die Tabelle gibt es kein eigenes
-Angular-Bauteil; die Klassen kommen direkt aus der CSS-Schicht.
+aufklappbare Vergleichstabelle. Standard und Gestreift deckt das Angular-Bauteil
+`Komponenten/Tabelle/Tabelle` (`cds-table`) ab: es liefert `.tbl-wrap` samt
+Tastaturzugriff und Name sowie `.tbl`/`.tbl--striped`, der Konsument projiziert
+`<thead>`/`<tbody>`/`<tfoot>` unverändert hinein. Für die aufklappbare
+Vergleichstabelle (`.ep-compare*`) gibt es weiterhin kein eigenes Bauteil, die
+Klassen kommen direkt aus der CSS-Schicht.
 
 Quelle: `docs/index.html#sec-table` (Zeilen 4979 bis 5208).
 
@@ -155,4 +159,5 @@ Enthalten/Nicht enthalten als `.ep-compare-yes` (✓) beziehungsweise `.ep-compa
 ## Verwandte Seiten
 
 - Doku-Sektion: `docs/index.html#sec-table`
+- `Komponenten/Tabelle/Tabelle` (Angular-Bauteil `cds-table` für Standard und Gestreift)
 - `Komponenten/Chips, Badges & Pills/Status-Badge` (für Status-Zellen)

@@ -56,7 +56,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'komponenten-feedback': 'ui-chat-bubble-oval-left-ellipsis',
   'komponenten-cards-teaser': 'ui-rectangle-stack',
   'komponenten-call-to-action': 'ui-arrow-down-tray-2',
-  'komponenten-tabelle--übersicht': 'ui-table-cells',
+  'komponenten-tabelle': 'ui-table-cells',
   'komponenten-zitate-testimonials': 'ui-chat-bubble-left-right',
   'komponenten-code-block': 'ui-code-bracket-square',
   'komponenten-slider-carousel': 'ui-square-2-stack',

@@ -113,6 +113,7 @@ const preview: Preview = {
             'Call to Action',
             ['Verwendung', 'CTA-Band', 'DownloadCta'],
             'Tabelle',
+            ['Übersicht', 'Tabelle'],
             'Zitate & Testimonials',
             ['Verwendung', 'Blockquote', 'Testimonial', 'TeamVoice'],
             'Code-Block',

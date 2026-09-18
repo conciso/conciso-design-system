@@ -76,3 +76,5 @@ export * from './lib/cta-band/cta-band.component';
 // zurückgestellt, siehe .scratch/angular-seitenbausteine/issues/08-angebots-bausteine.md)
 export * from './lib/tier/tier.component';
 export * from './lib/facts/facts.component';
+// Angular-Seitenbausteine (Ticket 09): Datentabelle
+export * from './lib/table/table.component';
