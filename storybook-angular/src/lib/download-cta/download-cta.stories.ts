@@ -39,11 +39,22 @@ type Story = StoryObj<DownloadCtaComponent>;
 export const Interaktiv: Story = {
   // Beide Aktionen sind rohe <button>-Elemente mit (click)-gebundenem Output
   // (primaryClick/secondaryClick) — vorher ohne jede Bindung, ein Klick verpuffte.
+  //
+  // Der Accessible Name ist seit der a11y-Nachbesserung nicht mehr der reine Button-Text
+  // (der bliebe generisch, „Herunterladen“ allein nennt kein Ziel), sondern
+  // „<Label>: <Titel> (<Meta>)“ — genau wie beim Combobox-Remove-Button
+  // (`aria-label="'Entfernen: ' + opt.label"`) matchen wir hier per Regex auf den
+  // Label-Präfix statt auf den vollen, von den Args abhängigen String.
   play: async ({ canvasElement, args }) => {
     const c = within(canvasElement);
-    await userEvent.click(c.getByRole('button', { name: 'Herunterladen' }));
+    const primary = c.getByRole('button', { name: /^Herunterladen:/ });
+    await expect(primary).toHaveAccessibleName(`${args.primaryLabel}: ${args.title} (${args.meta})`);
+    await userEvent.click(primary);
     await expect(args.primaryClick).toHaveBeenCalledTimes(1);
-    await userEvent.click(c.getByRole('button', { name: 'Vorschau ansehen' }));
+
+    const secondary = c.getByRole('button', { name: /^Vorschau ansehen:/ });
+    await expect(secondary).toHaveAccessibleName(`${args.secondaryLabel}: ${args.title} (${args.meta})`);
+    await userEvent.click(secondary);
     await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
   },
 };
