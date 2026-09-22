@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
-import { within, userEvent, expect } from 'storybook/test';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { CodeBlockComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CodeBlockComponent> = {
@@ -68,14 +68,18 @@ export const KopierButton: Story = {
         value: { writeText: () => Promise.resolve() },
         configurable: true,
       });
-      // Accessible Name kommt jetzt vom aria-label, nicht vom sichtbaren Text: „Kopieren“
-      // allein nennt kein Ziel (a11y-Regel aus code-block-verwendung.mdx).
+      // Accessible Name kommt vom aria-label und bleibt stabil — ein Bedienelement trägt
+      // den Namen seiner Funktion, nicht den seines letzten Ereignisses (a11y-Regel aus
+      // code-block-verwendung.mdx). Der Button heißt vor und nach dem Klick gleich.
       const button = c.getByRole('button', { name: 'Code kopieren' });
-      expect(button).toHaveAttribute('aria-live', 'polite');
       await userEvent.click(button);
-      // aria-live auf dem Button selbst kündigt den Label-Wechsel an, ohne eine separate
-      // Live-Region zu brauchen — der Button bleibt für Screenreader ein Button.
-      await expect(await c.findByRole('button', { name: 'Code kopiert' })).toBeInTheDocument();
+      // Die Erfolgsmeldung wird jetzt in der eigenen Live-Region angekündigt, nicht mehr
+      // über einen Namenswechsel am Button.
+      // waitFor, weil die Region von Anfang an im DOM steht: findByRole kehrt sofort
+      // zurück, der Text erscheint aber erst, wenn die clipboard-Promise aufgeloest ist.
+      const status = await c.findByRole('status');
+      await waitFor(() => expect(status).toHaveTextContent('Code kopiert.'));
+      expect(c.getByRole('button', { name: 'Code kopieren' })).toBeInTheDocument();
       expect(button).toHaveTextContent('Kopiert!');
     } finally {
       if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);

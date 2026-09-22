@@ -24,7 +24,7 @@ die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
 |---|---|
 | Semantik | `<pre><code>` als Grundgerüst, Screenreader kündigen den Inhalt als „Code“ an; `<pre>` allein reicht nicht |
 | Scrollbarkeit | Scrollbare `<pre>`-Blöcke mit `tabindex="0"` versehen, sonst per Tastatur nicht erreichbar |
-| Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel; nach dem Kopieren den Label aktualisieren (`aria-live`) |
+| Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren **stabil** — ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`role="status"`, `.sr-only`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an |
 
 ### Bekannter a11y-Befund: Kontrast des Copy-Buttons
 
