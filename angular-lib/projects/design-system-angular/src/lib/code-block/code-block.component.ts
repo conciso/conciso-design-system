@@ -7,6 +7,18 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input
  * darunter der Code in `pre.cb-body` (white-space:pre, horizontal scrollbar).
  * Optionale Terminal-Variante (.cb-terminal). Syntax-Highlighting-Spans
  * (.k/.v/.s/…) werden hier bewusst nicht gesetzt — der Code bleibt Klartext.
+ *
+ * A11y (siehe docs/komponenten/code-block-verwendung.mdx, Abschnitt „Barrierefreiheit“):
+ * - `<code>` im `<pre>` als semantisches Grundgerüst, damit Screenreader den Inhalt
+ *   als „Code“ ankündigen. `.cb-body code{font:inherit}` in components.css fängt den
+ *   Browser-Default (`code{font-family:monospace}`) ab, sonst würde das verschachtelte
+ *   `<code>` eine andere Schrift als der Rest des Blocks zeigen.
+ * - `tabindex="0"` auf `pre.cb-body`, weil der Block bei langen Zeilen horizontal
+ *   scrollt und sonst per Tastatur nicht erreichbar wäre.
+ * - `aria-label` auf dem Kopier-Button, weil der sichtbare Text „Kopieren“ allein kein
+ *   Ziel nennt; `aria-live="polite"` direkt am Button, damit der Label-Wechsel nach dem
+ *   Kopieren („Code kopiert“) auch vorgelesen wird, ohne eine zusätzliche Live-Region
+ *   einzuführen.
  */
 @Component({
   selector: 'cds-code-block',
@@ -16,12 +28,18 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input
       <div class="cb-header">
         <span class="cb-lang">{{ lang() }}</span>
         @if (copyable()) {
-          <button class="cb-copy" type="button" (click)="copy()">
+          <button
+            class="cb-copy"
+            type="button"
+            [attr.aria-label]="copyLabel()"
+            aria-live="polite"
+            (click)="copy()"
+          >
             {{ copied() ? 'Kopiert!' : 'Kopieren' }}
           </button>
         }
       </div>
-      <pre class="cb-body">{{ code() }}</pre>
+      <pre class="cb-body" tabindex="0"><code>{{ code() }}</code></pre>
     </div>
   `,
 })
@@ -49,6 +67,13 @@ export class CodeBlockComponent {
 
   /** @internal */
   protected readonly wrapClasses = computed(() => (this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap'));
+
+  /**
+   * Accessible Name des Kopier-Buttons, vor und nach dem Kopieren.
+   *
+   * @internal
+   */
+  protected readonly copyLabel = computed(() => (this.copied() ? 'Code kopiert' : 'Code kopieren'));
 
   /** @internal */
   protected copy(): void {
