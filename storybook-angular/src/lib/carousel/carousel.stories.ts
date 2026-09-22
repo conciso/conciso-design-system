@@ -38,13 +38,24 @@ type Story = StoryObj<CarouselComponent>;
 
 export const Interaktiv: Story = {
   // Weiterblättern: „Nächste“ wählt den zweiten Dot (role="tab" + aria-selected).
+  // Zusätzlich: inaktive Slides tragen aria-hidden, sonst läse ein Screenreader
+  // Titel/Text aller Folien vor (siehe slider-verwendung.mdx).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const dots = c.getAllByRole('tab', { name: /^Folie / });
+    // Slides sind für Screenreader per role="group" gruppiert. `hidden: true` ist
+    // nötig, weil Testing Library aria-hidden-Elemente sonst aus der Rollen-Query
+    // ausschließt – genau das wollen wir hier ja prüfen.
+    const slides = c.getAllByRole('group', { name: /^Folie /, hidden: true });
     await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(slides[0]).toHaveAttribute('aria-hidden', 'false');
+    await expect(slides[1]).toHaveAttribute('aria-hidden', 'true');
+
     await userEvent.click(c.getByRole('button', { name: 'Nächste Slide' }));
     await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[0]).toHaveAttribute('aria-selected', 'false');
+    await expect(slides[1]).toHaveAttribute('aria-hidden', 'false');
+    await expect(slides[0]).toHaveAttribute('aria-hidden', 'true');
   },
 };
 
