@@ -2002,6 +2002,16 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
 .cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:var(--font-mono);font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
+/* Semantisches <code> im <pre> (a11y): der Browser-Default (code{font-family:monospace})
+   würde sonst eine andere Schrift als der Rest des Blocks zeigen, obwohl .cb-body die
+   Schrift schon per var(--font-mono) setzt. font:inherit gleicht das exakt an. */
+.cb-body code{font:inherit}
+/* .cb-body ist jetzt per tabindex="0" fokussierbar (horizontales Scrollen per Tastatur).
+   Der Ring sitzt auf .cb-wrap statt auf .cb-body selbst: .cb-wrap clippt per overflow:hidden
+   die Ecken, ein box-shadow-Ring direkt auf .cb-body würde dort abgeschnitten. Gleiches
+   :has()-Muster wie bei .seg weiter oben in dieser Datei. */
+.cb-body:focus-visible{outline:none}
+.cb-wrap:has(.cb-body:focus-visible){box-shadow:var(--focus-ring)}
 /* .c = Kommentar. Vorher n-400 (#6E8585), das auf dem n-50-Grund der Blöcke nur 3,65:1 trug.
    --tx-muted ist theme-aware und semantisch die gedämpfte Stufe: Light 4,51:1, Dark 8,9:1.
    Wer --tx-muted oder --n-50 anfasst, prüft diesen Wert mit, die Reserve ist knapp. */
