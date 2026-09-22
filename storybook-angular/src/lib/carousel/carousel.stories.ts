@@ -43,10 +43,13 @@ export const Interaktiv: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const dots = c.getAllByRole('tab', { name: /^Folie / });
-    // Slides sind für Screenreader per role="group" gruppiert. `hidden: true` ist
-    // nötig, weil Testing Library aria-hidden-Elemente sonst aus der Rollen-Query
-    // ausschließt – genau das wollen wir hier ja prüfen.
-    const slides = c.getAllByRole('group', { name: /^Folie /, hidden: true });
+    // Bewusst über die Klasse statt über die Rolle: `aria-hidden="true"` nimmt ein
+    // Element aus dem Accessibility-Baum, damit verliert es Rolle UND berechenbaren
+    // Namen. `getAllByRole('group', { name: …, hidden: true })` findet die inaktiven
+    // Folien deshalb nicht — der Namensfilter läuft ins Leere. Geprüft wird hier
+    // ohnehin das Attribut selbst, nicht die Auffindbarkeit (gleiches Vorgehen wie
+    // in topnav.stories.ts für `[aria-current]`).
+    const slides = canvasElement.querySelectorAll('.img-slide');
     await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
     await expect(slides[0]).toHaveAttribute('aria-hidden', 'false');
     await expect(slides[1]).toHaveAttribute('aria-hidden', 'true');
