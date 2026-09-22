@@ -52,7 +52,10 @@ const config: StorybookConfig = {
     '@storybook/addon-vitest',
     // Schreibt beim Build manifests/{docs,components}.json und stellt im
     // Dev-Server einen MCP-Endpunkt unter /mcp bereit (Tools u. a.
-    // stories-preview, test-run, docs-show, review-create).
+    // stories-preview, test-run, docs-show, review-create). Der Endpunkt ist
+    // ohne Authentifizierung im lokalen Netz erreichbar, weil angular.json den
+    // Dev-Server auf 0.0.0.0 bindet; die Abwägung dazu steht in ADR-0006
+    // („Der MCP-Endpunkt ist im lokalen Netz erreichbar — bewusst“).
     '@storybook/addon-mcp',
   ],
   framework: {

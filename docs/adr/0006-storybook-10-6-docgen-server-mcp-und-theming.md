@@ -115,3 +115,31 @@ in Docs-Props-Tabelle und Controls-Panel auf; vorher waren sie unsichtbar.
   es Preview-Annotationen seit 10.3 selbst anwendet — ob `vitest.setup.ts` damit ganz
   entfallen kann, ist ungeprüft; (b) die Docs-Chrome folgt nicht dem Toolbar-Theme
   (Storybook bietet dafür keinen Haken ohne eigenen `DocsContainer`).
+
+### Der MCP-Endpunkt ist im lokalen Netz erreichbar — bewusst
+
+`angular.json` bindet den Dev-Server auf `"host": "0.0.0.0"`, also an alle Interfaces.
+Das stand dort schon vor diesem Schritt, damit sich Storybook von anderen Geräten
+aufrufen lässt; neu ist, dass unter `/mcp` jetzt eine JSON-RPC-Oberfläche daran hängt.
+Wer den Port erreicht, kann ihre Werkzeuge aufrufen — eine Authentifizierung gibt es nicht.
+
+Geprüft, was hinter den Werkzeugen steckt, statt von den Namen auszugehen: Der
+überwiegende Teil ist lesend (`stories-preview`, `stories-changed`,
+`stories-find-by-component`, `docs-list`, `docs-show`, `docs-show-story`,
+`get-storybook-story-instructions`). Eine Ausnahme: `test-run` läuft über
+`boot-test-runner.ts` in `@storybook/addon-vitest` und startet dort per
+`executeNodeCommand` einen Node-Prozess. Bei `review-create` ließ sich die
+Implementierung im ausgelieferten Bundle nicht auflösen; dort liegt nur die
+Statusseite, die den Namen listet.
+
+Wir nehmen das in Kauf, aus vier Gründen: Die Bindung öffnet nichts nach außen, ein
+Zugriff setzt Anwesenheit im selben Netz voraus. Über `test-run` lässt sich kein
+fremder Code einschleusen, nur der ausführen, der ohnehin im Repo liegt. Der
+Lesezugriff betrifft Stories und Doku eines Design Systems, das zur Veröffentlichung
+bestimmt ist. Und die Erreichbarkeit im Netz ist der Zweck der Einstellung.
+
+Die Grenze der Abwägung: In einem fremden Netz — Konferenz- oder öffentliches WLAN —
+ist „im selben Netz“ eine deutlich schwächere Schranke als im Firmennetz. Wer dort mit
+laufendem Dev-Server arbeitet, startet ihn mit `npm run storybook -- --host 127.0.0.1`.
+Sollte der Endpunkt je Werkzeuge bekommen, die über Lesen und Testläufe hinausgehen,
+ist diese Abwägung neu zu treffen.
