@@ -10,7 +10,7 @@ const meta: Meta<ThemeCycleComponent> = {
     docs: {
       description: {
         component:
-          'Theme-Umschalter als einzelner Icon-Button: ein Klick zyklt durch die Modi, das ' +
+          'Theme-Umschalter als einzelner Icon-Button: ein Klick schaltet der Reihe nach durch die Modi, das ' +
           'Icon zeigt den aktuellen. Vorgesehener Einsatz: im Header (kompakt, ein Tap). ' +
           '`showSystem` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.',
       },
@@ -37,7 +37,7 @@ export const Binaer: Story = {
 export const KlickZyklus: Story = {
   name: 'Klick-Zyklus',
   parameters: { snapshot: { skip: true }, controls: { disable: true } },
-  // Klick zyklt Hell → Dunkel → System (und zurück), das aria-label wandert mit.
+  // Klicks durchlaufen Hell → Dunkel → System (und zurück), das aria-label wandert mit.
   // themeStore ist ein Modul-Singleton (geteilt mit der Storybook-Toolbar und den
   // anderen Theme-Switchern) — den Ausgangswert am Ende zwingend zurücksetzen,
   // sonst färbt der Modus in nachfolgende Stories ab.
@@ -64,7 +64,7 @@ export const KlickZyklusBinaer: Story = {
   name: 'Klick-Zyklus · binär',
   args: { showSystem: false },
   parameters: { snapshot: { skip: true }, controls: { disable: true } },
-  // Mit showSystem=false zyklt nur Hell ↔ Dunkel, „System“ wird übersprungen.
+  // Mit showSystem=false wechselt nur Hell ↔ Dunkel, „System“ wird übersprungen.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const button = c.getByRole('button');

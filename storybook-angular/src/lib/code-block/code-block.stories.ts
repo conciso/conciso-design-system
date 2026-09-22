@@ -2,10 +2,6 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { CodeBlockComponent } from '@conciso/design-system-angular';
 
-// Bekannter a11y-Befund: `.cb-copy` hat nur 3.31:1 Kontrast, weil css/components.css
-// --n-400 als Textfarbe nutzt (laut tokens.css AA-Fail für Normaltext). Fix gehört
-// in den CSS-Kern; bis dahin bewusst offen. Siehe README.
-
 const meta: Meta<CodeBlockComponent> = {
   title: 'Komponenten/Code-Block/Code-Block',
   component: CodeBlockComponent,

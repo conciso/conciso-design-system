@@ -60,7 +60,7 @@ export abstract class FieldBase extends CvaBase<string> {
    *
    * @internal
    */
-  handleInput(event: Event): void {
+  protected handleInput(event: Event): void {
     const value = (event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
     this.value.set(value);
     this.onChange(value);
@@ -70,7 +70,7 @@ export abstract class FieldBase extends CvaBase<string> {
    *
    * @internal
    */
-  handleBlur(): void {
+  protected handleBlur(): void {
     this.onTouched();
   }
 

@@ -22,6 +22,14 @@ export class AreaTabComponent {
   /** Beschriftung im Tab-Button. */
   readonly label = input('');
 
-  /** Projizierter Panel-Inhalt; von der Elternkomponente via Outlet gerendert. */
+  /**
+   * Projizierter Panel-Inhalt; von der Elternkomponente via Outlet gerendert.
+   *
+   * Bleibt `public`, weil `cds-area-tabs` ihn von außen liest — anders als die
+   * internen Signale, die ADR-0007 auf `protected` stellt. `@internal` hält ihn
+   * trotzdem aus Props-Tabelle und Manifest heraus: Input/Output ist er nicht.
+   *
+   * @internal
+   */
   readonly content = viewChild.required<TemplateRef<unknown>>(TemplateRef);
 }

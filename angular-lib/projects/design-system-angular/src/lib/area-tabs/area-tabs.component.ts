@@ -75,7 +75,7 @@ export class AreaTabsComponent {
    *
    * @internal
    */
-  readonly tabs = contentChildren(AreaTabComponent);
+  protected readonly tabs = contentChildren(AreaTabComponent);
   /** Index des aktiven Tabs. Two-Way (`[(active)]`). */
   readonly active = model(0);
   /** Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby). */

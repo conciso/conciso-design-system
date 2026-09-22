@@ -2,10 +2,6 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect, fn } from 'storybook/test';
 import { DownloadCtaComponent } from '@conciso/design-system-angular';
 
-// Bekannter a11y-Befund: `.cta-dl-eyebrow` (Bereich co) hat nur 3.28:1 Kontrast,
-// weil css/components.css hier --co-600 statt --co-700 nutzt (Ausreißer ggü.
-// ki/es/wo). Fix gehört in den CSS-Kern; bis dahin bewusst offen. Siehe README.
-
 const meta: Meta<DownloadCtaComponent> = {
   title: 'Komponenten/Call to Action/DownloadCta',
   component: DownloadCtaComponent,
