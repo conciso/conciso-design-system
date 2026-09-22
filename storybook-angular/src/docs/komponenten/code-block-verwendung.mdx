@@ -26,18 +26,6 @@ die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
 | Scrollbarkeit | Scrollbare `<pre>`-Blöcke mit `tabindex="0"` versehen, sonst per Tastatur nicht erreichbar |
 | Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren **stabil** — ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`role="status"`, `.sr-only`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an |
 
-### Bekannter a11y-Befund: Kontrast des Copy-Buttons
-
-Die Story `Komponenten/Code-Block/Code-Block` trägt einen bewusst offen gelassenen Befund: Der
-Copy-Button (`.cb-copy`) erreicht nur **3,31:1 Kontrast**, weil `css/components.css` für
-seinen Text `--n-400` verwendet, laut `tokens.css` ein AA-Fail für Normaltext
-(Schwellenwert 4,5:1). Der Fix gehört in den CSS-Kern (`css/components.css`), nicht in
-die Story, und ist zum Zeitpunkt dieser Seite noch offen; die Story dokumentiert den
-Befund als Kommentar direkt im Quelltext. Der interaktive Test der Story
-(„Kopier-Button“) prüft das sichtbare Verhalten (Button-Text wechselt auf „Kopiert!“),
-nicht den Kontrast; der Snapshot-Test ist für diese Story bewusst übersprungen, weil der
-Klick den Clipboard-Zugriff im Test deterministisch mockt statt echt zuzugreifen.
-
 ## Dos & Don'ts
 
 **Tun**
