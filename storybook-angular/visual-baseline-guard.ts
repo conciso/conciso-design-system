@@ -51,9 +51,12 @@ const HOW_TO = `So entstehen Baselines richtig:
        gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapshots
   3. Die Bilder committen — danach ist der PR-Vergleich scharf.
 
-Nur lokale Abweichungen ansehen, ohne Baselines zu überschreiben:
+Lokale Abweichungen ansehen, ohne bestehende Baselines zu überschreiben:
        VISUAL=1 npm run test:vitest
   (ohne --update; schreibt Diff-Bilder nach visual-snapshots/__diff_output__/)
+  Ausnahme: Fehlt einer Story die Baseline ganz, legt Vitest sie auch ohne
+  --update an. Ein so entstandenes Bild stammt von dieser Maschine und
+  gehört nicht in den Commit.
 
 Siehe CONTRIBUTING § 13 und die Kommentare in .github/workflows/visual.yml.`;
 

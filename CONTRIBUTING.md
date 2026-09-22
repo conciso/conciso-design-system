@@ -225,7 +225,9 @@ gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapsho
 git add storybook-angular/visual-snapshots && git commit
 ```
 
-**Lokal prüfen, ohne Baselines anzufassen:** `VISUAL=1 npm run test:vitest` — ohne `--update` — vergleicht gegen die eingecheckten Bilder und legt jede Abweichung als Ist- und Diff-Bild unter `visual-snapshots/__diff_output__/` ab. Das ist der Weg, um zu sehen, was sich geändert hat.
+**Lokal prüfen, ohne bestehende Baselines anzufassen:** `VISUAL=1 npm run test:vitest`, ohne `--update`, vergleicht gegen die eingecheckten Bilder und legt jede Abweichung als Ist- und Diff-Bild unter `visual-snapshots/__diff_output__/` ab. Das ist der Weg, um zu sehen, was sich geändert hat.
+
+**Die Ausnahme: eine Story ohne Baseline.** Fehlt das Bild ganz, legt Vitest es auch ohne `--update` an, und zwar auf der lokalen Maschine. Es sieht nach einer regulär entstandenen Baseline aus, ist aber keine. Wer eine Story hinzufügt, holt deren Baseline wie jede andere aus dem CI-Artefakt und nimmt das lokal entstandene Bild vorher wieder aus dem Arbeitsverzeichnis. Der Guard greift hier nicht, der Visual-Job in der CI meldet es.
 
 **`--update` verweigert lokal den Dienst.** `storybook-angular/visual-baseline-guard.ts` bricht ab, sobald `VISUAL=1` und `--update` zusammentreffen, ohne dass der Lauf sich als gepinnt ausweist (`VISUAL_BASELINES=pinned-ci`, gesetzt vom Erzeugungsschritt in `visual.yml`). Wer bewusst lokal erzeugen will, setzt `VISUAL_BASELINES=local-throwaway`; so entstandene Bilder gehören nicht in einen Commit.
 

@@ -91,7 +91,7 @@ jobs:
           VISUAL: '1'
           # Weist diesen Lauf gegenüber `visual-baseline-guard.ts` als den gepinnten
           # Container aus. Ohne diese Variable verweigert `--update` den Dienst — das
-          # Gate gegen lokal erzeugte Baselines, die lokal gruen und hier rot sind.
+          # Gate gegen lokal erzeugte Baselines, die lokal grün und hier rot sind.
           VISUAL_BASELINES: pinned-ci
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
