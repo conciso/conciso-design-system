@@ -26,7 +26,15 @@
  * genau so auch den Fall aus PR 28 gemeldet).
  */
 
-/** Name der Variable, die den Erzeugungsort der Baselines benennt. */
+/**
+ * Name der Variable, die den Erzeugungsort der Baselines benennt.
+ *
+ * Damit die Befehle unten auch vom Repo-Root aus stimmen, endet das dortige
+ * `test:vitest`-Script auf `--`: ohne diesen Separator schluckt npm ein
+ * nachgestelltes `--update` (es expandiert es zu `--update-notifier`), der
+ * Workspace-Lauf startet dann ohne Update-Modus und dieser Guard sieht nichts.
+ * Wer das `--` entfernt, macht den Notausgang still wirkungslos.
+ */
 export const BASELINE_ENV_VAR = 'VISUAL_BASELINES';
 
 /**
