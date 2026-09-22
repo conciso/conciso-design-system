@@ -211,6 +211,30 @@ Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer
 
 ---
 
+## 13. Visual-Regression (`storybook-angular/visual-snapshots`)
+
+Jede Story wird zusätzlich als Bild gegen eine eingecheckte Baseline geprüft (Gate `VISUAL=1`, Vitests `toMatchScreenshot`, Opt-out je Story über `parameters.snapshot.skip`). Die Bilder liegen unter `storybook-angular/visual-snapshots/<story-id>.png`.
+
+**Baselines entstehen ausschließlich in der CI.** Sie sind pixelgenau an die Umgebung gebunden, in der sie aufgenommen wurden. Zwischen einer Entwicklermaschine und dem in `.github/workflows/visual.yml` gepinnten Playwright-Image unterscheiden sich Schriftrasterung *und* Glyphenbreiten — Beschriftungen wandern horizontal, die Bauteile mit ihnen. Lokal erzeugte Bilder sind deshalb lokal grün und in der CI rot, und zwar nicht an einzelnen Stories, sondern an fast allen.
+
+**Der Ablauf**, wenn sich Snapshots berechtigt ändern:
+
+```bash
+gh workflow run visual.yml --ref <branch>
+gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapshots
+git add storybook-angular/visual-snapshots && git commit
+```
+
+**Lokal prüfen, ohne Baselines anzufassen:** `VISUAL=1 npm run test:vitest` — ohne `--update` — vergleicht gegen die eingecheckten Bilder und legt jede Abweichung als Ist- und Diff-Bild unter `visual-snapshots/__diff_output__/` ab. Das ist der Weg, um zu sehen, was sich geändert hat.
+
+**`--update` verweigert lokal den Dienst.** `storybook-angular/visual-baseline-guard.ts` bricht ab, sobald `VISUAL=1` und `--update` zusammentreffen, ohne dass der Lauf sich als gepinnt ausweist (`VISUAL_BASELINES=pinned-ci`, gesetzt vom Erzeugungsschritt in `visual.yml`). Wer bewusst lokal erzeugen will, setzt `VISUAL_BASELINES=local-throwaway`; so entstandene Bilder gehören nicht in einen Commit.
+
+**Toleranz:** höchstens 1 % der Bildpunkte *und* höchstens 150 Bildpunkte absolut, der strengere Wert gewinnt. Die Ratio allein ist zu locker, weil der Screenshot `document.body` ist und bei zentrierten Stories größtenteils leere Fläche zeigt; Begründung im Kommentar in `vitest.config.ts`.
+
+**Die Fehldeutung, die diesen Abschnitt veranlasst hat:** Wenn ein *lokaler* Lauf flächendeckend Abweichungen meldet, hat sich nicht die Render-Umgebung geändert — der Vergleich findet nur am falschen Ort statt. Bevor jemand Baselines neu setzt oder Schwellwerte anhebt, ist die Gegenprobe billig: ein Ist-Bild aus dem `visual-diffs`-Artefakt des fehlgeschlagenen CI-Laufs gegen die eingecheckte Baseline halten (`cmp`). Sind die beiden bytegleich, rendert die CI unverändert und die Ursache liegt woanders.
+
+---
+
 ## PR-Checkliste
 
 - [ ] Nur Tokens verwendet (keine rohen Hex-/px-Werte ohne Begründung)
@@ -222,3 +246,4 @@ Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert
 - [ ] Nav-Eintrag gesetzt, kein Link ohne Ziel, keine Überschrift ohne Eintrag (§11)
+- [ ] Geänderte Visual-Baselines stammen aus einem `visual-baselines`-Artefakt der CI, nicht aus einem lokalen `--update` (§13)
