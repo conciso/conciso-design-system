@@ -33,15 +33,34 @@ on:
       - 'scripts/**'
       - 'package.json'
       - '.github/workflows/storybook-angular.yml'
+  # Manueller Nachtrigger für einen Pages-Deploy ohne neuen Push auf main
+  # (z. B. nach dem Aktivieren von Pages, oder um einen fehlgeschlagenen
+  # Deploy zu wiederholen).
+  workflow_dispatch: {}
 
+# Ein gemeinsamer Concurrency-Kanal für den ganzen Workflow würde einen bereits
+# laufenden Pages-Deploy abbrechen können, sobald derselbe Ref (main) erneut
+# gepusht wird — GitHub Pages verträgt aber keinen abgebrochenen Deploy gut
+# (die Umgebung bleibt im Zustand „in progress“ hängen). cancel-in-progress
+# bleibt daher für Lint/Build/Tests aktiv (schnelles Feedback bei mehreren
+# Pushes/PRs ist hier erwünscht), gilt aber nur für den `verify`-Kanal; der
+# Deploy nach GitHub Pages läuft in einer eigenen Gruppe ohne Abbruch (siehe
+# `deploy`-Job unten).
 concurrency:
   group: storybook-angular-${{ github.ref }}
   cancel-in-progress: true
+
+# Minimalberechtigung auf Workflow-Ebene; der Deploy-Job hebt sie gezielt für
+# sich selbst an (pages: write, id-token: write).
+permissions:
+  contents: read
 
 jobs:
   verify:
     name: Lint, Build, Tests
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: storybook-angular
@@ -106,3 +125,36 @@ jobs:
         # PLAYWRIGHT_BROWSERS_PATH=0 wie beim Install oben: der Browser liegt dann im
         # playwright-core-Paket selbst, das Skript findet ihn von der Wurzel aus.
         run: PLAYWRIGHT_BROWSERS_PATH=0 npm run check:contrast
+      # Nur hochladen, wenn danach auch tatsächlich deployt wird (Push auf main
+      # oder manueller Trigger) — dieselbe Bedingung wie im deploy-Job. Sonst
+      # läge bei jedem PR ein ungenutztes Pages-Artefakt herum.
+      - name: Storybook-Build als Pages-Artefakt hochladen
+        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-angular/storybook-static
+
+  deploy:
+    name: Auf GitHub Pages veröffentlichen
+    needs: verify
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Eigener, job-scoped Concurrency-Kanal (überschreibt die Workflow-weite
+    # Gruppe oben nur für diesen Job): cancel-in-progress bleibt aus, ein
+    # bereits laufender Pages-Deploy soll zu Ende laufen statt in einem
+    # halbfertigen Zustand abgebrochen zu werden. Ein neuer Lauf wartet
+    # stattdessen in der Warteschlange (GitHub-Pages-Deployments sind ohnehin
+    # seriell: pro Environment läuft immer nur einer).
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Auf GitHub Pages deployen
+        id: deployment
+        uses: actions/deploy-pages@v4
