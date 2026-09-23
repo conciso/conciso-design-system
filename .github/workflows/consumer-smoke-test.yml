@@ -51,6 +51,11 @@ on:
         required: false
         type: string
         default: ''
+      ref:
+        description: 'Commit, aus dem gebaut wird (leer = der auslösende Commit)'
+        required: false
+        type: string
+        default: ''
 
 concurrency:
   group: consumer-smoke-test-${{ github.ref }}
@@ -62,6 +67,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Beim Aufruf aus publish.yml ggf. ein älterer Quellstand (Nachziehen eines halben
+          # Releases); bei push/pull_request ist inputs.ref leer → auslösender Commit.
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22

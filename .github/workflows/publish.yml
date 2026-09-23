@@ -56,6 +56,7 @@ jobs:
       # Finalisierung kommt die Version aus dem letzten Tag, nicht aus der Engine.
       version: ${{ steps.ermitteln.outputs.version }}
       notes: ${{ steps.ermitteln.outputs.notes }}
+      source_sha: ${{ steps.ermitteln.outputs.source_sha }}
       publish: ${{ steps.ermitteln.outputs.publish }}
       publish_css: ${{ steps.ermitteln.outputs.publish_css }}
       publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
@@ -129,6 +130,11 @@ jobs:
             DRY=false
           fi
           echo "dry=$DRY" >> "$GITHUB_OUTPUT"
+          # Quellstand, aus dem gebaut und getaggt wird: standardmäßig der ausgelöste
+          # Commit, nur das Nachziehen eines halben Releases setzt ihn weiter unten um.
+          # Per trap genau einmal geschrieben, egal über welches `exit` das Skript endet.
+          SOURCE_SHA="${{ github.sha }}"
+          trap 'echo "source_sha=$SOURCE_SHA" >> "$GITHUB_OUTPUT"' EXIT
 
           # Existenz PRO PAKET prüfen, nicht "irgendeines von beiden". Sonst wäre ein
           # halb geglückter Lauf (erstes Paket veröffentlicht, zweites gescheitert)
@@ -192,6 +198,20 @@ jobs:
             # selbst, statt den Lockstep dauerhaft zu brechen).
             if [ "$CSS_EXISTS" = "true" ] || [ "$LIB_EXISTS" = "true" ]; then
               echo "::warning::Unvollständiger Release ${VERSION} gefunden (CSS=${CSS_EXISTS}, Lib=${LIB_EXISTS}) — ein vorheriger Lauf brach zwischen den Publishes ab. Es wird nur das fehlende Paket nachgezogen."
+              # Das fehlende Paket muss aus DEMSELBEN Quellstand gebaut werden wie das
+              # vorhandene, sonst tragen die Lockstep-Pakete dieselbe Version, aber
+              # verschiedene Inhalte — ist seit dem abgebrochenen Lauf ein weiterer Commit
+              # auf main gelandet, wäre der aktuelle Checkout der falsche. npm vermerkt beim
+              # Publish den Commit als `gitHead`; von dort wird gebaut (und getaggt).
+              if [ "$CSS_EXISTS" = "true" ]; then VORHANDEN="@conciso/design-system"; else VORHANDEN="@conciso/design-system-angular"; fi
+              SOURCE_SHA=$(npm view "${VORHANDEN}@${VERSION}" gitHead --registry=https://npm.pkg.github.com 2>/dev/null || true)
+              if [ -z "$SOURCE_SHA" ]; then
+                # Ohne bekannten Quellstand lieber laut scheitern als ein Paar mit
+                # auseinanderlaufendem Inhalt veröffentlichen.
+                echo "::error::${VORHANDEN}@${VERSION} hat kein gitHead in der Registry — der Quellstand für das fehlende Paket ist unbekannt. Manuell nachziehen."
+                exit 1
+              fi
+              echo "Fehlendes Paket wird aus ${SOURCE_SHA} gebaut (Quellstand von ${VORHANDEN}@${VERSION})."
             fi
             echo "publish=true" >> "$GITHUB_OUTPUT"
             [ "$CSS_EXISTS" = "true" ] && echo "publish_css=false" >> "$GITHUB_OUTPUT" || echo "publish_css=true" >> "$GITHUB_OUTPUT"
@@ -221,6 +241,8 @@ jobs:
     uses: ./.github/workflows/consumer-smoke-test.yml
     with:
       version: ${{ needs.pruefen.outputs.version }}
+      # Denselben Quellstand prüfen, der gleich gebaut wird (siehe `source_sha` in `ermitteln`).
+      ref: ${{ needs.pruefen.outputs.source_sha }}
 
   publish:
     name: Beide Pakete bauen und veröffentlichen
@@ -235,7 +257,12 @@ jobs:
       VERSION: ${{ needs.pruefen.outputs.version }}
       DRY: ${{ needs.pruefen.outputs.dry }}
     steps:
+      # Nicht zwingend der ausgelöste Commit: beim Nachziehen eines halben Releases der
+      # Quellstand des schon veröffentlichten Pakets (siehe `ermitteln`), damit beide
+      # Lockstep-Pakete denselben Inhalt tragen und der Tag auf diesem Stand landet.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.pruefen.outputs.source_sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
