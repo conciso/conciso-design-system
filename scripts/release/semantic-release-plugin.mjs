@@ -12,38 +12,54 @@
 // Text unhandlich, eine Datei via actions/upload-artifact ist die robustere Übergabe
 // (Spec Regel 6: „… oder gleichwertig in Dateien/$GITHUB_OUTPUT“).
 import { writeFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { analyzeCommits as baseAnalyzeCommits } from '@semantic-release/commit-analyzer';
 import { generateNotes as baseGenerateNotes } from '@semantic-release/release-notes-generator';
 import { filterRelevantCommits } from './filter-commits.mjs';
 import { enrichCommit } from './git-commit-files.mjs';
-import { BUMP_RULES } from './compute-bump.mjs';
+import { BUMP_RULES, PARSER_OPTS } from './compute-bump.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const NOTES_OUTPUT_PATH = join(ROOT, 'release-notes-generated.md');
 
-// WICHTIG: Der Standard-Preset "angular" von @semantic-release/commit-analyzer /
-// -release-notes-generator kennt in seinem headerPattern KEIN „!“ (nur ein
-// BREAKING-CHANGE-Footer gilt dort als breaking, siehe conventional-changelog-angular/src/parser.js).
-// Ein Commit wie „feat(lib)!: …“ OHNE zusätzlichen Footer würde damit unbemerkt GAR KEIN
-// Release auslösen statt major — ein eigenständiger Bruch von ADR-0008 Regel 4 („! ODER
-// BREAKING CHANGE:“), unabhängig davon, dass compute-bump.mjs „!“ für die PR-Job-Summary
-// korrekt erkennt. Verifiziert: ohne diesen Override liefert analyzeCommits für
-// „feat(lib)!: …“ ohne Footer `null` statt `major`.
+// Parser-Optionen (breakingHeaderPattern für „!“, noteKeywords für BREAKING-CHANGE) stehen in
+// compute-bump.mjs — dieselben für Analyzer, Notes und die PR-Übersicht, Begründung dort.
+
+// Release-Notes: jeder relevante Commit erscheint (ADR-0008). Der Preset „angular“ verwirft im
+// Writer alle nicht-breaking Commits außerhalb von feat/fix/perf/revert — ein build(deps), das
+// einen Patch auslöst, fehlte damit in den Notes des eigenen Releases, ebenso docs/chore an
+// ausgeliefertem Inhalt. Dieser Transform behält sie: Er ruft den Preset-Transform auf und,
+// wenn der verwirft, ein zweites Mal mit einer Markierungs-Note — die hebt das Verwerfen auf
+// und wird danach wieder entfernt. So bleiben Gruppierung, Links und Formatierung des Presets
+// erhalten. Typen, die der Preset nicht benennt (chore, ohne Typ), landen unter „Sonstiges“.
 //
-// Der naheliegende Fix (preset: 'conventionalcommits', das „!“ nativ kennt) bricht: dessen
-// installierte Version verlangt einen neueren conventional-changelog-writer, als
-// @semantic-release/release-notes-generator@14 mitbringt („Missing helper“-Fehler beim
-// Rendern). Stattdessen bleibt der Preset „angular“ (kompatibel, unverändert), und nur der
-// Parser bekommt zusätzlich `breakingHeaderPattern` — ein offizieller Mechanismus von
-// conventional-commits-parser (siehe CommitParser.js#parseBreakingHeader): matcht das Muster
-// auf den Header, ohne dass bereits ein Footer-Note existiert, wird eine synthetische
-// „BREAKING CHANGE“-Note aus der dritten Gruppe (dem Subject) erzeugt — genau das, was
-// commit-analyzer für `{ breaking: true }`-Regeln prüft (`commit.notes.length > 0`).
-export const BREAKING_HEADER_PARSER_OPTS = {
-  parserOpts: { breakingHeaderPattern: /^(\w*)(?:\((.*)\))?!: (.*)$/ },
-};
+// Geladen wird der Preset aus Sicht des Notes-Generators: dieselbe Version, die er selbst nutzt
+// (er bringt eine eigene mit, die von der im Root-node_modules abweicht).
+const ausSichtDesGenerators = createRequire(
+  createRequire(import.meta.url).resolve('@semantic-release/release-notes-generator'),
+);
+const { default: angularPreset } = await import(
+  pathToFileURL(ausSichtDesGenerators.resolve('conventional-changelog-angular')).href
+);
+const presetTransform = angularPreset().writer.transform;
+const BEHALTEN = '\u0000behalten';
+
+export function transformAlleBehalten(commit, context) {
+  const regulaer = presetTransform(commit, context);
+  if (regulaer) return regulaer;
+  const erzwungen = presetTransform(
+    { ...commit, notes: [...(commit.notes ?? []), { title: 'BREAKING CHANGE', text: BEHALTEN }] },
+    context,
+  );
+  if (!erzwungen) return erzwungen;
+  return {
+    ...erzwungen,
+    notes: erzwungen.notes.filter((note) => note.text !== BEHALTEN),
+    type: erzwungen.type && erzwungen.type !== commit.type ? erzwungen.type : 'Sonstiges',
+  };
+}
 
 // semantic-release liefert pro Commit nur hash/message/gitTags/committerDate — welche
 // Dateien er berührt und ob es ein Merge-Commit ist, liefert es NICHT mit (siehe
@@ -59,8 +75,8 @@ export async function analyzeCommits(pluginConfig, context) {
   return baseAnalyzeCommits(
     // BUMP_RULES ist dasselbe Format, das @semantic-release/commit-analyzer als
     // `releaseRules` erwartet — direkt aus compute-bump.mjs übernommen, keine zweite
-    // Bump-Tabelle mit eigener Bedeutung. breakingHeaderPattern s.o.
-    { ...pluginConfig, ...BREAKING_HEADER_PARSER_OPTS, releaseRules: BUMP_RULES },
+    // Bump-Tabelle mit eigener Bedeutung.
+    { ...pluginConfig, ...PARSER_OPTS, releaseRules: BUMP_RULES },
     { ...context, commits: relevant },
   );
 }
@@ -77,7 +93,7 @@ const FROZEN_CHANGELOG_LINK =
 export async function generateNotes(pluginConfig, context) {
   const relevant = filterCommits(context.commits, context.cwd);
   const generated = await baseGenerateNotes(
-    { ...pluginConfig, ...BREAKING_HEADER_PARSER_OPTS },
+    { ...pluginConfig, ...PARSER_OPTS, writerOpts: { transform: transformAlleBehalten } },
     { ...context, commits: relevant },
   );
   const notes = `${FROZEN_CHANGELOG_LINK}\n\n${generated}`;

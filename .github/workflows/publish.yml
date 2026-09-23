@@ -51,6 +51,13 @@ jobs:
   pruefen:
     name: Version prüfen
     runs-on: ubuntu-latest
+    permissions:
+      # contents: write, obwohl dieser Job nichts schreibt: semantic-release prüft auch im
+      # --dry-run per `git push --dry-run`, ob es auf main pushen DÜRFTE, und bricht mit
+      # EGITNOPERMISSION ab, bevor es die Commits überhaupt auswertet. Getaggt und
+      # veröffentlicht wird weiterhin nur im `publish`-Job.
+      contents: write
+      packages: read
     outputs:
       # Aus `ermitteln`, nicht direkt aus der Engine: beim Nachholen einer abgebrochenen
       # Finalisierung kommt die Version aus dem letzten Tag, nicht aus der Engine.

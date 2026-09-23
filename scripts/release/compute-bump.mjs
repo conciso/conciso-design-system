@@ -1,23 +1,22 @@
 // Bump-Berechnung (ADR-0008 Regel 4): aus den bereits gefilterten, veröffentlichungsrelevanten
 // Commits die SemVer-Stufe ermitteln. feat → minor; fix, perf, build(deps) → patch; „!“ am Typ
-// oder ein „BREAKING CHANGE:“-Footer → major (unabhängig vom Typ); alles andere → kein Release.
-// Scopes außer `deps` bei `build` wirken sich nicht aus.
-
-// Conventional-Commit-Kopfzeile: `typ(scope)!: betreff` oder `typ: betreff`.
-const HEADER = /^(\w+)(?:\(([^)]+)\))?(!)?:\s*.+$/;
-// Footer-Token nach Conventional-Commits-Konvention: eigene Zeile, „BREAKING CHANGE:“ ODER
-// „BREAKING-CHANGE:“ (beide Schreibweisen sind laut Spec gültig), nicht irgendwo im
-// Fließtext des Bodys erwähnt.
-const BREAKING_FOOTER = /^BREAKING[ -]CHANGE:/m;
-
-const RANK = { patch: 1, minor: 2, major: 3 };
+// oder ein Footer „BREAKING CHANGE:“ / „BREAKING-CHANGE:“ → major (unabhängig vom Typ); alles
+// andere → kein Release. Scopes außer `deps` bei `build` wirken sich nicht aus.
+//
+// EINE Implementierung für Engine und PR-Übersicht: computeBump() ruft denselben
+// @semantic-release/commit-analyzer mit denselben Regeln und Parser-Optionen auf wie die Engine
+// (semantic-release-plugin.mjs). Eine eigene Nachbildung der Regeln lief bei Sonderfällen
+// auseinander — Revert-Paare (der Analyzer streicht einen Commit samt seinem Revert) und die
+// Bindestrich-Schreibweise des Footers —, sodass die PR-Übersicht ein anderes Release anzeigte,
+// als die Engine dann erzeugte.
+import { analyzeCommits } from '@semantic-release/commit-analyzer';
 
 // EINE Tabelle für die Bump-Regeln aus ADR-0008 Regel 4 — exportiert, damit
 // semantic-release-plugin.mjs sie 1:1 als `releaseRules` für
 // @semantic-release/commit-analyzer übernimmt, statt sie ein zweites Mal von Hand
 // nachzubilden (sonst könnten beide Stellen bei einer künftigen Regeländerung
-// auseinanderlaufen). `breaking: true` matcht unabhängig vom Typ (siehe matchesRule unten);
-// alles ohne passende Regel löst kein Release aus.
+// auseinanderlaufen). `breaking: true` matcht unabhängig vom Typ; alles ohne passende Regel
+// löst kein Release aus (siehe die Revert-Regel für den einen Rückfall des Analyzers).
 export const BUMP_RULES = [
   { breaking: true, release: 'major' },
   { type: 'feat', release: 'minor' },
@@ -31,40 +30,49 @@ export const BUMP_RULES = [
   { revert: true, release: false },
 ];
 
-function matchesRule(rule, { type, scope, breaking }) {
-  // Reverts haben keinen Conventional-Commit-Header (`Revert "feat: …"`) und kommen hier
-  // gar nicht erst an; die Regel oben existiert nur für den commit-analyzer.
-  if (rule.revert) return false;
-  if (rule.breaking) return breaking;
-  if (rule.type !== type) return false;
-  if (rule.scope !== undefined && rule.scope !== scope) return false;
-  return true;
-}
+// Parser-Optionen, die Engine (Analyzer UND Notes) und PR-Übersicht gemeinsam nutzen.
+//
+// breakingHeaderPattern: Der Preset „angular“ kennt in seinem headerPattern KEIN „!“ — ein
+// `feat(lib)!: …` ohne Footer löste damit gar kein Release aus statt major. Mit dem Muster
+// erzeugt conventional-commits-parser für einen „!“-Header eine synthetische Breaking-Note,
+// genau das, was der Analyzer für `{ breaking: true }` prüft. (Der Preset
+// „conventionalcommits“ kennt „!“ nativ, verlangt aber einen neueren
+// conventional-changelog-writer, als @semantic-release/release-notes-generator mitbringt.)
+//
+// noteKeywords: Der Preset kennt nur „BREAKING CHANGE“. Die Conventional-Commits-Spezifikation
+// erlaubt ausdrücklich auch „BREAKING-CHANGE“ — ohne diese Ergänzung wäre so ein Footer für die
+// Engine kein Bruch.
+export const PARSER_OPTS = {
+  parserOpts: {
+    breakingHeaderPattern: /^(\w*)(?:\((.*)\))?!: (.*)$/,
+    noteKeywords: ['BREAKING CHANGE', 'BREAKING-CHANGE'],
+  },
+};
 
-function bumpForCommit(commit) {
-  const match = HEADER.exec((commit.subject ?? '').trim());
-  if (!match) return null;
-
-  const [, type, scope, bang] = match;
-  const breaking = Boolean(bang) || BREAKING_FOOTER.test(commit.body ?? '');
-
-  for (const rule of BUMP_RULES) {
-    if (matchesRule(rule, { type, scope, breaking })) return rule.release;
-  }
-  return null;
-}
+const STILL = { log: () => {}, error: () => {}, warn: () => {}, success: () => {} };
 
 /**
- * @param {{ subject: string, body?: string }[]} commits Bereits gefilterte, relevante Commits.
- * @returns {'major'|'minor'|'patch'|null} Höchste ausgelöste Stufe, null = kein Release.
+ * @param {{ hash?: string, message?: string, subject?: string, body?: string }[]} commits
+ *   Bereits gefilterte, relevante Commits in CHRONOLOGISCHER Reihenfolge (älteste zuerst).
+ *   Ohne `hash` wird ein Platzhalter vergeben (nur für Tests); Revert-Paare erkennt der
+ *   Analyzer über echte Hashes.
+ * @returns {Promise<'major'|'minor'|'patch'|null>} Höchste ausgelöste Stufe, null = kein Release.
  */
-export function computeBump(commits) {
-  let bump = null;
-  for (const commit of commits) {
-    const candidate = bumpForCommit(commit);
-    if (candidate && (!bump || RANK[candidate] > RANK[bump])) bump = candidate;
-  }
-  return bump;
+export async function computeBump(commits) {
+  if (commits.length === 0) return null;
+  // Der Analyzer erwartet die Reihenfolge von `git log` (neueste zuerst), so wie semantic-release
+  // sie liefert: nur dann findet sein Revert-Filter zu einem Revert den früheren Commit und
+  // streicht beide. Chronologisch übergeben, bliebe das Paar stehen — und die PR-Übersicht
+  // meldete ein Release, das die Engine nicht erzeugt.
+  const eingabe = [...commits].reverse().map((commit, i) => ({
+    hash: commit.hash ?? String(i + 1).padStart(40, '0'),
+    message: commit.message ?? [commit.subject, commit.body].filter(Boolean).join('\n\n'),
+  }));
+  const stufe = await analyzeCommits(
+    { releaseRules: BUMP_RULES, ...PARSER_OPTS },
+    { commits: eingabe, logger: STILL, cwd: process.cwd(), env: process.env },
+  );
+  return stufe ?? null;
 }
 
 /**

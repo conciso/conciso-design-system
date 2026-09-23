@@ -84,7 +84,9 @@ async function main() {
     console.log('Keine veröffentlichungsrelevanten Commits in diesem PR — nichts zu prüfen.');
   }
 
-  const bump = computeBump(relevant);
+  // Derselbe commit-analyzer wie in der Engine (siehe compute-bump.mjs); `relevant` ist
+  // chronologisch, so wie computeBump es erwartet.
+  const bump = await computeBump(relevant);
   const lastTag = latestReleaseTag();
   const lastVersion = lastTag ? lastTag.replace(/^v/, '') : '0.0.0';
   const version = bump ? nextVersion(lastVersion, bump) : null;

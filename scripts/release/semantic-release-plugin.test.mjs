@@ -12,14 +12,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { analyzeCommits } from '@semantic-release/commit-analyzer';
-import { BUMP_RULES } from './compute-bump.mjs';
-import { BREAKING_HEADER_PARSER_OPTS } from './semantic-release-plugin.mjs';
+import { generateNotes as baseGenerateNotes } from '@semantic-release/release-notes-generator';
+import { BUMP_RULES, PARSER_OPTS } from './compute-bump.mjs';
+import { transformAlleBehalten } from './semantic-release-plugin.mjs';
 
 const logger = { log: () => {}, error: () => {} };
 
 function analyze(commits) {
   return analyzeCommits(
-    { releaseRules: BUMP_RULES, ...BREAKING_HEADER_PARSER_OPTS },
+    { releaseRules: BUMP_RULES, ...PARSER_OPTS },
     { commits, logger, cwd: process.cwd(), env: process.env },
   );
 }
@@ -32,7 +33,7 @@ test('ein "!" am Header OHNE BREAKING CHANGE-Footer löst trotzdem major aus', a
 test('ohne breakingHeaderPattern würde derselbe Commit KEIN Release auslösen (Beleg für den Bug)', async () => {
   // Dokumentiert den Ist-Zustand vor dem Fix: der Standard-Preset „angular“ ignoriert „!“
   // vollständig, wenn kein Footer da ist. Schlägt dieser Test irgendwann fehl, hat sich das
-  // Verhalten von @semantic-release/commit-analyzer geändert und BREAKING_HEADER_PARSER_OPTS
+  // Verhalten von @semantic-release/commit-analyzer geändert und PARSER_OPTS
   // ist ggf. nicht mehr nötig — dann bewusst prüfen, nicht nur die Assertion drehen.
   const commits = [{ hash: 'abc1234', message: 'feat(lib)!: nur Header-Bang, kein Footer' }];
   const result = await analyzeCommits(
@@ -69,4 +70,52 @@ test('ein Git-Revert löst KEIN Release aus (kein Rückfall auf die Standardrege
 test('feat ohne "!" und ohne Footer bleibt minor (kein falsch-positives major)', async () => {
   const commits = [{ hash: 'ghi9012', message: 'feat(lib): neue Variante ergänzen' }];
   assert.equal(await analyze(commits), 'minor');
+});
+
+test('BREAKING-CHANGE: (Bindestrich) im Footer löst auch in der Engine major aus', async () => {
+  // Der Preset kennt nur „BREAKING CHANGE“; ohne noteKeywords in PARSER_OPTS lief die
+  // Engine hier auf patch, während die PR-Übersicht major zeigte.
+  const commits = [{ hash: 'mno7890', message: 'fix(lib): Signal umbenennen\n\nBREAKING-CHANGE: altes Signal entfernt' }];
+  assert.equal(await analyze(commits), 'major');
+});
+
+// Notes so erzeugen wie generateNotes() im Plugin, aber ohne Git-Aufrufe für den Pfadfilter
+// (die Commits hier gelten als bereits gefiltert).
+function notes(commits, writerOpts) {
+  return baseGenerateNotes(
+    { ...PARSER_OPTS, ...(writerOpts ? { writerOpts } : {}) },
+    {
+      commits,
+      logger,
+      cwd: process.cwd(),
+      env: process.env,
+      options: { repositoryUrl: 'https://github.com/conciso/conciso-design-system' },
+      lastRelease: { gitTag: 'v2.0.0' },
+      nextRelease: { version: '2.0.1', gitTag: 'v2.0.1' },
+    },
+  );
+}
+
+const nichtVomPresetBenannt = [
+  { hash: 'a'.repeat(40), message: 'build(deps): ng-icons auf 36 heben' },
+  { hash: 'b'.repeat(40), message: 'docs(readme): Installationsschritt ergänzen' },
+  { hash: 'c'.repeat(40), message: 'chore: Paket-Metadaten aufräumen' },
+];
+
+test('Notes: build(deps), docs und chore an ausgeliefertem Inhalt erscheinen', async () => {
+  const text = await notes(
+    [{ hash: 'd'.repeat(40), message: 'fix(css): Fokusring nachziehen' }, ...nichtVomPresetBenannt],
+    { transform: transformAlleBehalten },
+  );
+  assert.match(text, /ng-icons auf 36 heben/);
+  assert.match(text, /Installationsschritt ergänzen/);
+  assert.match(text, /Paket-Metadaten aufräumen/);
+  assert.match(text, /Fokusring nachziehen/);
+  assert.doesNotMatch(text, /behalten/, 'die Markierungs-Note darf nicht in den Notes stehen');
+  assert.doesNotMatch(text, /BREAKING/, 'kein Commit hier ist breaking');
+});
+
+test('Notes: ohne den Transform fehlen genau diese Commits (Beleg für den Bug)', async () => {
+  const text = await notes(nichtVomPresetBenannt);
+  assert.doesNotMatch(text, /ng-icons auf 36 heben/);
 });
