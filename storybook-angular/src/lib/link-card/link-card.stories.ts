@@ -132,9 +132,9 @@ export const ImRaster: Story = {
   play: async ({ canvasElement }) => {
     const pinned = canvasElement.querySelectorAll('.card-cta-link--pinned');
     await expect(pinned).toHaveLength(3);
-    const heights = [...canvasElement.querySelectorAll('a.card')].map((card) => card.getBoundingClientRect().height);
+    const heights = Array.from(canvasElement.querySelectorAll('a.card')).map((card) => card.getBoundingClientRect().height);
     await expect(new Set(heights).size).toBe(1);
-    const ctaBottoms = [...pinned].map((cta) => cta.getBoundingClientRect().bottom);
+    const ctaBottoms = Array.from(pinned).map((cta) => cta.getBoundingClientRect().bottom);
     await expect(new Set(ctaBottoms).size).toBe(1);
   },
 };

@@ -83,7 +83,7 @@ export const KopierButton: Story = {
       expect(button).toHaveTextContent('Kopiert!');
     } finally {
       if (originalClipboard) Object.defineProperty(navigator, 'clipboard', originalClipboard);
-      else delete (navigator as Navigator & { clipboard?: Clipboard }).clipboard;
+      else delete (navigator as { clipboard?: Clipboard }).clipboard;
     }
   },
 };
