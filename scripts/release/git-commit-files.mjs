@@ -22,7 +22,8 @@ export function enrichCommit(hash, cwd = process.cwd()) {
   const isMerge = parents.length > 1;
   const files = isMerge
     ? []
-    : git(['diff-tree', '--no-commit-id', '--name-only', '-r', hash], cwd)
+    : // --root: ohne liefert diff-tree für den allerersten Commit (keine Eltern) nichts.
+      git(['diff-tree', '--root', '--no-commit-id', '--name-only', '-r', hash], cwd)
         .split('\n')
         .filter(Boolean);
   return { isMerge, files };

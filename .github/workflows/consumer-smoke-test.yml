@@ -58,7 +58,11 @@ on:
         default: ''
 
 concurrency:
-  group: consumer-smoke-test-${{ github.ref }}
+  # github.workflow ist bei einem Aufruf aus publish.yml der Name des AUFRUFERS. So bekommt
+  # der Smoke-Test als Publish-Vorbedingung eine eigene Gruppe und kann nicht von einem
+  # eigenständigen Lauf für einen späteren Push abgebrochen werden — sonst fiele der
+  # wartende Publish-Job still aus.
+  group: consumer-smoke-test-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:

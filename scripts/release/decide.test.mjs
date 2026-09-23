@@ -79,6 +79,32 @@ test('Tag da, GitHub-Release fehlt → nachholen, auch wenn die Engine schon Neu
   });
 });
 
+test('Tag und Release da, aber ein Paket fehlt in der Tag-Version → nachziehen aus dem Tag', () => {
+  assert.deepEqual(decide({ ...sauber, libVersions: ['1.0.0'], engineVersion: '2.0.1' }), {
+    mode: 'nachziehen',
+    version: '2.0.0',
+    publishCss: false,
+    publishLib: true,
+    source: 'tag',
+    notes: 'keine',
+  });
+});
+
+test('fehlendes Paket UND fehlendes Release → nachziehen, Notes aus dem Tag', () => {
+  const d = decide({ ...sauber, tagHasRelease: false, cssVersions: ['1.0.0'] });
+  assert.equal(d.mode, 'nachziehen');
+  assert.equal(d.publishCss, true);
+  assert.equal(d.notes, 'tag');
+});
+
+test('Alt-Tag (leichtgewichtig, vor ADR-0008) mit fehlendem Paket → nur Hinweis, kein Blockieren', () => {
+  // Aus solchen Checkouts lässt sich nicht bauen (kein stamp-version.mjs); ein Nachzieh-
+  // Versuch würde jeden weiteren Release blockieren. Deshalb: sagen, aber weitermachen.
+  const d = decide({ ...sauber, tagIsAnnotated: false, libVersions: ['1.0.0'], engineVersion: '2.0.1' });
+  assert.equal(d.mode, 'neu');
+  assert.match(d.hinweis, /2\.0\.0/);
+});
+
 test('leichtgewichtiger Alt-Tag ohne Release → Notes von GitHub als Rückfall', () => {
   const d = decide({ ...sauber, tagHasRelease: false, tagIsAnnotated: false });
   assert.equal(d.mode, 'finalisieren');

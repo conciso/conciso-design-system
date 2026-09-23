@@ -67,20 +67,42 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
       notes: 'range',
     };
   }
+  // Getaggt, aber ein Paket fehlt in der Tag-Version (etwa eine gelöschte Paketversion):
+  // aus dem Tag-Commit nachziehen. Nur für annotierte Tags — die stammen aus diesem
+  // Workflow, ihr Checkout enthält die Release-Skripte. Aus einem leichtgewichtigen Alt-Tag
+  // (vor ADR-0008) lässt sich so nicht bauen; ein Versuch würde jeden weiteren Release
+  // blockieren. Dort nur ein Hinweis, die Entscheidung läuft weiter.
+  let hinweis;
+  const fehltCss = getaggt && !cssVersions.includes(getaggt);
+  const fehltLib = getaggt && !libVersions.includes(getaggt);
+  if (fehltCss || fehltLib) {
+    if (tagIsAnnotated) {
+      return {
+        mode: 'nachziehen',
+        version: getaggt,
+        ...beide(fehltCss, fehltLib),
+        source: 'tag',
+        notes: tagHasRelease ? 'keine' : 'tag',
+      };
+    }
+    hinweis = `Tag ${latestTag} ist ein Alt-Tag, aber ${[fehltCss && 'die CSS-Schicht', fehltLib && 'die Angular-Lib'].filter(Boolean).join(' und ')} fehlt in Version ${getaggt} — bitte manuell prüfen.`;
+  }
+  const mitHinweis = (ergebnis) => (hinweis ? { ...ergebnis, hinweis } : ergebnis);
+
   if (getaggt && !tagHasRelease) {
-    return {
+    return mitHinweis({
       mode: 'finalisieren',
       version: getaggt,
       publishCss: false,
       publishLib: false,
       source: 'tag',
       notes: tagIsAnnotated ? 'tag' : 'github',
-    };
+    });
   }
   if (engineVersion) {
-    return { mode: 'neu', version: engineVersion, ...beide(true, true), source: 'head', notes: 'engine' };
+    return mitHinweis({ mode: 'neu', version: engineVersion, ...beide(true, true), source: 'head', notes: 'engine' });
   }
-  return { mode: 'nichts' };
+  return mitHinweis({ mode: 'nichts' });
 }
 
 // `npm view … versions --json` liefert ein Array, bei genau einer Version aber einen String.
@@ -116,5 +138,6 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
           `source=${d.source}`,
           `notes_source=${d.notes}`,
         ];
+  if (d.hinweis) zeilen.push(`hinweis=${d.hinweis}`);
   console.log(zeilen.join('\n'));
 }

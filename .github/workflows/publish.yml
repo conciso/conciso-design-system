@@ -107,16 +107,35 @@ jobs:
           # Letzter Release-Tag (lokal vorhanden dank fetch-depth: 0) und ob er fertig ist.
           LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
           TAG_HAS_RELEASE=false; TAG_IS_ANNOTATED=false
+          # Beide Abfragen unten scheitern „geschlossen“: Nur ein ausdrückliches „gibt es
+          # nicht“ zählt als leer. Ein Ausfall, ein Rate-Limit oder ein Auth-Fehler bricht den
+          # Lauf ab — als „leer“ gelesen, würde er einen unfertigen Release übersehen und
+          # darüber hinweg eine neue Version veröffentlichen.
           if [ -n "$LATEST_TAG" ]; then
-            gh release view "$LATEST_TAG" >/dev/null 2>&1 && TAG_HAS_RELEASE=true
+            if FEHLER=$(gh release view "$LATEST_TAG" 2>&1 >/dev/null); then
+              TAG_HAS_RELEASE=true
+            elif ! echo "$FEHLER" | grep -qi "release not found"; then
+              echo "::error::GitHub-Release zu ${LATEST_TAG} nicht abfragbar: ${FEHLER}"
+              exit 1
+            fi
             [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ] && TAG_IS_ANNOTATED=true
           fi
-          # Alle veröffentlichten Versionen pro Paket. `npm view` scheitert auch, wenn das
-          # Paket noch gar nicht existiert — dann eben keine Versionen.
-          versionen() { npm view "$1" versions --json --registry="$REGISTRY" 2>/dev/null || echo '[]'; }
-          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY
-          export CSS_VERSIONS="$(versionen @conciso/design-system)"
-          export LIB_VERSIONS="$(versionen @conciso/design-system-angular)"
+          # Alle veröffentlichten Versionen pro Paket; E404 = Paket existiert noch nicht.
+          versionen() {
+            local AUSGABE
+            if AUSGABE=$(npm view "$1" versions --json --registry="$REGISTRY" 2>&1); then
+              echo "$AUSGABE"
+            elif echo "$AUSGABE" | grep -q "E404"; then
+              echo '[]'
+            else
+              echo "::error::Registry-Abfrage für $1 fehlgeschlagen: ${AUSGABE}" >&2
+              return 1
+            fi
+          }
+          # Getrennt zuweisen: `export X=$(…)` würde den Exit-Code der Abfrage verschlucken.
+          CSS_VERSIONS=$(versionen @conciso/design-system) || exit 1
+          LIB_VERSIONS=$(versionen @conciso/design-system-angular) || exit 1
+          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY CSS_VERSIONS LIB_VERSIONS
           export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
           echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
 
@@ -125,6 +144,8 @@ jobs:
           echo "$ENTSCHEIDUNG"
           wert() { echo "$ENTSCHEIDUNG" | sed -n "s/^$1=//p"; }
           MODE=$(wert mode); VERSION=$(wert version)
+          HINWEIS=$(wert hinweis)
+          [ -n "$HINWEIS" ] && echo "::warning::${HINWEIS}"
           if [ "$MODE" = "nichts" ]; then
             echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
             { echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false"; } >> "$GITHUB_OUTPUT"
@@ -163,6 +184,8 @@ jobs:
             # --cleanup=verbatim beim Taggen (siehe unten) hält die #-Überschriften darin.
             tag)    git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md ;;
             github) rm -f release-notes-generated.md ;;
+            # Das GitHub-Release existiert schon, es braucht keine Notes.
+            keine)  rm -f release-notes-generated.md ;;
           esac
           if [ -s release-notes-generated.md ]; then echo "notes=true" >> "$GITHUB_OUTPUT"; else echo "notes=false" >> "$GITHUB_OUTPUT"; fi
 
@@ -199,7 +222,9 @@ jobs:
   consumer-smoke-test:
     name: Consumer-Smoke-Test (Vorbedingung)
     needs: pruefen
-    if: needs.pruefen.outputs.publish == 'true'
+    # Nur wenn wirklich ein Paket gebaut wird — beim reinen Finalisieren (Tag/Release
+    # nachholen) nicht: dort kann der Quellstand ein Alt-Tag ohne Release-Skripte sein.
+    if: needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true'
     uses: ./.github/workflows/consumer-smoke-test.yml
     with:
       version: ${{ needs.pruefen.outputs.version }}
@@ -209,7 +234,11 @@ jobs:
   publish:
     name: Beide Pakete bauen und veröffentlichen
     needs: [pruefen, consumer-smoke-test]
-    if: needs.pruefen.outputs.publish == 'true'
+    # always(), weil ein übersprungener Smoke-Test (reines Finalisieren, s. o.) den Job sonst
+    # mitüberspringen würde. Gescheitert oder abgebrochen darf er aber nicht sein.
+    if: >-
+      always() && needs.pruefen.outputs.publish == 'true' &&
+      (needs.consumer-smoke-test.result == 'success' || needs.consumer-smoke-test.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:
       # contents: write für Tag und Release, die dieser Job selbst anlegt.
@@ -220,6 +249,8 @@ jobs:
     env:
       VERSION: ${{ needs.pruefen.outputs.version }}
       DRY: ${{ needs.pruefen.outputs.dry }}
+      # Ob überhaupt ein Paket gebaut wird. Sonst (reines Finalisieren) nur Tag/Release.
+      BAUEN: ${{ needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' }}
     steps:
       # Nicht zwingend der ausgelöste Commit: beim Nachziehen eines halben Releases der
       # Quellstand des schon veröffentlichten Pakets (siehe `ermitteln`), damit beide
@@ -228,6 +259,7 @@ jobs:
         with:
           ref: ${{ needs.pruefen.outputs.source_sha }}
       - uses: actions/setup-node@v4
+        if: env.BAUEN == 'true'
         with:
           node-version: 22
           cache: npm
@@ -236,14 +268,18 @@ jobs:
           scope: '@conciso'
       # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
       - name: Dependencies installieren
+        if: env.BAUEN == 'true'
         run: npm ci
       # Schreibt die ermittelte Version in beide package.json + die Peer-Pin der Lib
       # (Spec Regel 7). NIE committet — nur der Checkout dieses Runs trägt sie.
       - name: Version in die Artefakte stempeln
+        if: env.BAUEN == 'true'
         run: node scripts/release/stamp-version.mjs "$VERSION"
       - name: CSS-Schicht bauen (@conciso/design-system)
+        if: env.BAUEN == 'true'
         run: npm run build
       - name: Angular-Lib bauen (@conciso/design-system-angular)
+        if: env.BAUEN == 'true'
         run: npm run build --workspace=angular-lib
       - name: Dry-Run-Flag bestimmen
         id: mode
