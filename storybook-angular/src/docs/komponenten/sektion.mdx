@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Sektion" name="Übersicht" />
+
+# Sektion
+
+Das strukturelle Gerüst, in dem auf den Beispielseiten praktisch jeder andere
+Baustein sitzt: `.ep-section` mit dem optionalen Kopf-Trio aus Kicker, Überschrift
+und Lead. 133 Vorkommen in den Beispielseiten, 85 davon mit Kopfzeile. Das
+Angular-Bauteil ist `Komponenten/Sektion/Sektion` (`[cdsSection]`).
+
+Quelle: `docs/index.html#sec-section`.
+
+## Aufbau
+
+Drei Klassen bilden den Kopf: `.ep-section-label` (Kicker, bereichsfärbbar über
+`.t-co` / `.t-ki` / `.t-es` / `.t-wo`), `.ep-section-h2` (Überschrift) und
+`.ep-section-sub` (Lead). Alle drei sind Beiwerk: Eine Sektion besteht auch ganz
+ohne Kopf, nur aus ihrem Inhalt darunter.
+
+```html
+<div class="ep-section" style="background:var(--n-50)">
+  <div class="ep-section-label t-co">Was wir tun</div>
+  <h2 class="ep-section-h2">So ist eine Sektion aufgebaut.</h2>
+  <p class="ep-section-sub">Kicker, Überschrift und Lead sind Beiwerk, der Inhalt darunter ist frei.</p>
+  <!-- beliebiger Inhalt -->
+</div>
+```
+
+## Angular-Wrapper
+
+`[cdsSection]` ist ein Attributselektor statt eines eigenen Elements
+(`docs/adr/0008-selektortyp-der-wrapper-komponenten.md`). Der
+Konsument wählt das Tag: `<section cdsSection>` oder `<div cdsSection>`. Die
+Komponente setzt `aria-labelledby`, wenn ein zugänglicher Name verfügbar ist:
+entweder die eigene Überschrift oder eine per `labelledBy` übergebene id einer
+Überschrift außerhalb der Komponente. Fehlt beides, setzt sie kein
+`aria-labelledby`.
+
+## Verwendung
+
+Die Fläche gehört der Seite, nicht dem Bauteil. Sektionen wechseln im Rhythmus
+zwischen `--bg-surface` und `--n-50`, auf einzelnen Sektionsflächen kommt
+zusätzlich eine Bereichstönung als Akzent vor. Welche Fläche eine Sektion trägt,
+hängt von ihren Nachbarn ab, und nur die Seite kennt diese Nachbarn. Deshalb setzt
+`.ep-section` selbst keinen Hintergrund, und `[cdsSection]` hat keinen
+`background`-Input: Die Fläche kommt per Klasse oder Inline-Style direkt an das
+Element, das `cdsSection` trägt (`<section cdsSection style="background:…">`).

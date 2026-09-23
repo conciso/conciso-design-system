@@ -55,3 +55,41 @@ export * from './lib/snackbar/snackbar.component';
 export * from './lib/testimonial/testimonial.component';
 export * from './lib/team-voice/team-voice.component';
 export * from './lib/download-cta/download-cta.component';
+
+// Angular-Seitenbausteine (.scratch/angular-seitenbausteine, Ticket 01): Sektions-Gerüst
+export * from './lib/section/section.component';
+// Angular-Seitenbausteine (Ticket 02): Hero-Bild
+export * from './lib/hero-image/hero-image.component';
+// Angular-Seitenbausteine (Ticket 03): Störer-Kacheln über dem Hero
+export * from './lib/stoerer/stoerer.component';
+export * from './lib/stoerer/stoerer-set.component';
+// Angular-Seitenbausteine (Ticket 04): Klickbare Karte und Featured-Karte
+export * from './lib/link-card/link-card.component';
+export * from './lib/featured-card/featured-card.component';
+// Angular-Seitenbausteine (Ticket 05): Icon-Karte
+export * from './lib/icon-card/icon-card.component';
+// Angular-Seitenbausteine (Ticket 06): Feature-Liste
+export * from './lib/feature/feature.component';
+// Angular-Seitenbausteine (Ticket 07): Page-End-CTA-Band
+export * from './lib/cta-band/cta-band.component';
+// Angular-Seitenbausteine (Ticket 08): Tier-Trenner und Fakten-Liste (cds-award-list
+// zurückgestellt, siehe .scratch/angular-seitenbausteine/issues/08-angebots-bausteine.md)
+export * from './lib/tier/tier.component';
+export * from './lib/facts/facts.component';
+// Angular-Seitenbausteine (Ticket 09): Datentabelle
+export * from './lib/table/table.component';
+// Angular-Seitenbausteine (Ticket 10): aufklappbare Vergleichstabelle
+export * from './lib/compare/compare.component';
+// Angular-Seitenbausteine (Ticket 11): Beitrags-Kopf und Avatare
+export * from './lib/avatar/avatar.component';
+export * from './lib/avatar/avatar-stack.component';
+export * from './lib/article-header/article-header.component';
+// Angular-Seitenbausteine (Ticket 12): Artikel-Körper (Inhaltsverzeichnis, Callout,
+// Figure, Pull-Quote)
+export * from './lib/article-toc/article-toc.component';
+export * from './lib/article-callout/article-callout.component';
+export * from './lib/article-figure/article-figure.component';
+export * from './lib/article-pullquote/article-pullquote.component';
+// Angular-Seitenbausteine (Ticket 13): Autoren-Karte und -Gruppe
+export * from './lib/author-card/author-card.component';
+export * from './lib/author-card/author-card-group.component';

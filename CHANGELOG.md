@@ -60,6 +60,315 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `ControlValueAccessor` bleiben notwendigerweise `public` und tragen nur `@internal`.
 
 ### Added
+- **`SectionComponent` (`[cdsSection]`), erste Angular-Wrapper-Komponente für die
+  Seitenbausteine der Beispielseiten — und wie `cds-icon-card` (Ticket 05) auf
+  Attributselektor umgestellt.** Wrapper um `.ep-section` samt dem optionalen
+  Kopf-Trio `.ep-section-label`/`-h2`/`-sub` (`label`, `heading`, `sub`, alle
+  Beiwerk), dazu `area` (`.t-{area}` auf dem Label) und `labelledBy`. Erste Fassung
+  war `cds-section` als eigenes Element, das selbst zwischen `<section
+  aria-labelledby="…">` (mit zugänglichem Namen) und einem namenlosen `<div>` wählte.
+  Eine Sektionsfläche musste dabei auf einem UMSCHLIESSENDEN Element sitzen, nicht auf
+  dem `<cds-section>`-Host — gemessen im laufenden Storybook (Details in
+  `docs/adr/0008-selektortyp-der-wrapper-komponenten.md`, „Fall 2“): Host-`background`
+  wurde von `getComputedStyle` und `getBoundingClientRect()` beide als korrekt gemeldet,
+  der Screenshot zeigte trotzdem keinen einzigen gemalten Pixel — ein unbekanntes
+  Custom Element ohne eigenen Inline-Inhalt, dessen Block-Kind herausgebrochen wird,
+  hat keine eigene Box zu füllen. Jetzt `section[cdsSection], div[cdsSection]`: der
+  Konsument wählt das Tag (und damit, ob überhaupt eine `<section>`-Landmark möglich
+  ist), die Komponente setzt nur noch `aria-labelledby`, wenn ein Name verfügbar ist.
+  Die Fläche sitzt jetzt direkt am Host (`<section cdsSection
+  style="background:…">`), kein umschließendes Element mehr nötig — bewusst weiterhin
+  **kein** `background`-Input, die Sektionsfläche bleibt eine Entscheidung der Seite,
+  nicht des Bauteils. `@if`/`@else`, `<ng-template>` und `NgTemplateOutlet` entfallen,
+  das Template ist jetzt linear. Neue Story `Fläche am Host`, `Interaktiv`/`Ohne
+  Kopf`/`Benannt von außen`/`Nur Überschrift`/`Bereichsgefärbtes Label` auf
+  `<section cdsSection>`/`<div cdsSection>` umgestellt. Doku-Sektion „Sektion“
+  (`docs/index.html#sec-section`) entsprechend nachgezogen. Erstes Ticket der
+  Seitenbausteine-Serie (`.scratch/angular-seitenbausteine/spec.md`); die
+  Kopf-Trio-Struktur trägt 133 der Beispielseiten-Sektionen, 85 davon mit Kopfzeile.
+- **`HeroImageComponent` (`cds-hero-image`), zweites Ticket der Seitenbausteine-Serie.**
+  Wrapper um `.hero-image` (`css/components.css:851–878`) samt optionaler Caption als
+  Gradient-Overlay (`-caption`, `-caption-eyebrow`, `-caption-title`, `-caption-text`):
+  vollbreites, randloses `<figure>` im 21:9-Format, Standard-Hero auf allen
+  Customer-Pages (17 Vorkommen in den Beispielseiten). `src`/`alt` sind
+  `input.required()`, `eyebrow`/`heading`/`text` Beiwerk. Bleiben alle drei Textteile
+  leer, entfällt das `<figcaption>` vollständig statt leer zu rendern. Neuer Input
+  `headingLevel` (`1` Default, `2`) macht die Heading-Ebene des Caption-Titels
+  explizit, für Beitrags-Heros, die unter einem eigenen `<h1>` (Article-Header)
+  sitzen und sonst eine zweite Top-Überschrift bekämen. `objectPosition` als
+  Style-Binding direkt am `<img>` (nicht als Klasse, die CSS-Schicht hat dafür keinen
+  Modifier) — die eine bewusste Ausnahme von der Regel, dass Inline-Styles aus dem
+  Mockup nicht in die Komponente wandern, weil der Bildausschnitt eine Eigenschaft
+  des konkreten Bildes ist, nicht der Seite. `eager` (Default `true`) steuert
+  `loading="eager"`/`"lazy"`. Bewusst **kein** `tabindex`/`id`-Handling: Das
+  Sprungziel des Skip-Links ist eine Entscheidung der Seite, der Konsument setzt
+  beides am `<cds-hero-image>`-Host. Neue Bauteil-Ebene `Komponenten/Hero/Hero-Bild`
+  unter der bestehenden Doku-Sektion „Hero“ (bisher nur MDX-Übersicht) mit vier
+  Stories (`Interaktiv`, `Ohne Caption`, `Beitrags-Hero (h2)`, `Bildausschnitt`);
+  Icon `ui-computer-desktop` in `SECTION_ICON_KEYS` von der bisher verschmolzenen
+  Ein-Kind-ID (`komponenten-hero--übersicht`) auf die jetzt eigenständige
+  Sektions-ID (`komponenten-hero`) umgehängt.
+- **`StoererComponent` (`cds-stoerer`) und `StoererSetComponent` (`cds-stoerer-set`),
+  drittes Ticket der Seitenbausteine-Serie.** Wrapper um `.stoerer`/`-set`/`-list`
+  (`css/components.css:926–974`): das Verweiskachel-Set, das ausschließlich auf der
+  Startseite oben rechts über dem Hero-Bild liegt. `cds-stoerer` ist eine vollständig
+  klickbare `<a class="stoerer">` mit Pflicht-Inputs `topic`/`title`/`href` und
+  Beiwerk `meta`/`date` (ISO, formatiert als deutsches Langdatum); bleiben `meta` und
+  `date` beide leer, entfällt die Meta-Zeile vollständig statt leer zu rendern. Der
+  `sr-only`-Trenner zwischen Datum und Ort/Lesezeit bleibt erhalten, wenn beide
+  gesetzt sind. Das Icon ist wie bei `cds-icon-card` (Ticket 05) projizierter Inhalt
+  (`<ng-content select="[cdsIcon]">`, nicht ein `icon`-Input), weil die
+  Störer-Icons wechselnde Heroicons sind, keine DS-Bereichsglyphen; abweichend von
+  Ticket 05 trägt das projizierte `<svg>` die Klasse `stoerer-icon` selbst, weil
+  `.stoerer-icon` (anders als `.ep-card-icon`) direkt auf dem SVG sitzt, ohne
+  Container, der die Größe per Nachfahren-Selektor durchreichen könnte. **Die
+  `<li>`-Frage:** `.stoerer-list` ist ein `<ul>`, seine Kacheln müssen echte `<li>`
+  sein, sonst bekommen sie laut HTML-AAM keine `listitem`-Rolle. Ein `display:
+  contents`-Wrapper hätte neues CSS gebraucht (ADR-0001 verbietet das); gelöst über
+  dasselbe `TemplateRef`/`ngTemplateOutlet`-Muster, das `cds-area-tabs`/`cds-area-tab`
+  bereits etabliert: `cds-stoerer` rendert in ein internes `<ng-template>`,
+  `cds-stoerer-set` liest die projizierten Kacheln per `contentChildren()` und setzt
+  ihr Markup direkt in ein selbst gerendertes `<li>` — im laufenden Storybook geprüft,
+  `<cds-stoerer>` taucht im gerenderten DOM nirgends auf, `<ul class="stoerer-list">`
+  hat ausschließlich `<li>` als direkte Kinder. Der Positionsrahmen `.stoerer-hero`
+  (umschließt Hero-Bild UND Set) bleibt bewusst beim Konsumenten. Neue Bauteil-Ebene
+  `Komponenten/Hero/Störer` (Stories `Interaktiv`, `Zwei Kacheln über dem Hero`,
+  `Ohne Meta`), `storySort.order` der Sektion „Hero“ um `Störer` ergänzt.
+- **`LinkCardComponent` (`cds-link-card`) und `FeaturedCardComponent`
+  (`cds-featured-card`), viertes Ticket der Seitenbausteine-Serie: die beiden
+  klickbaren Kartenvarianten, die `CardComponent` laut eigener Klassendoku bewusst
+  nicht abdeckt.** `cds-link-card` ist ein echtes `<a class="card card-elevated">`
+  (css/components.css:147–154) — die ganze Fläche ist der Link und trägt deshalb
+  nach `CONTRIBUTING.md` §4 den Schatten, den `cds-card` nicht trägt; Struktur wie
+  `cds-card` (optionale bereichsgefärbte `.card-media`, `.card-eyebrow`/`.card-title`/
+  `.card-text`), dazu ein optionaler Fuß `.card-cta-link` (`ctaLabel`, leer = kein
+  Fuß) mit `ctaPinned` (`--pinned`, unten angeheftet für gleich hohe Karten im
+  Raster) — als `<span>`, nicht als zweites `<a>`, weil die Karte selbst schon `<a>`
+  ist. `cds-featured-card` bildet `.card-featured` ab (css/components.css:230–249):
+  Bild links 60 %, Textspalte rechts 40 % als absolut positioniertes Overlay, mit
+  `.card-title-hero` (Serif-Editorial-Titel) und optionaler `.pill`; mit gesetztem
+  `href` ein `<a class="card card-elevated card-featured">`, sonst ein `<article
+  class="card card-featured">` ohne `.card-elevated` (die Klasse wirkt laut §4
+  ohnehin nur auf `a.card-elevated`, eine `<article>` bekäme den Schatten auch mit
+  gesetzter Klasse nicht). Media und Body stehen dafür einmal in einem gemeinsamen
+  `<ng-template>` und werden in beiden Zweigen (`<a>`/`<article>`) per
+  `<ng-container [ngTemplateOutlet]>` eingesetzt — dasselbe Muster wie
+  `SectionComponent`; `<ng-container>` rendert selbst kein Element, die
+  Kindselektoren bleiben unberührt. **Die Pill ist direkt komponiertes Markup, kein
+  `<cds-pill>`:** `.card-featured` arbeitet mit direkten Kindselektoren
+  (`.card-featured>.card-media`, `.card-featured-body>.pill`/`-.card-text`/
+  `-.card-title-hero`); `<cds-pill>` rendert sein `.pill`-Element eine Ebene unter
+  dem eigenen Host, ein projiziertes `<cds-pill>` stünde also zwischen
+  `.card-featured-body` und `.pill` und die Kindselektoren griffen still nicht mehr
+  (Layout bricht, kein Fehler). Dieselbe Abwägung wie in `download-cta.component.ts`
+  (Kommentar über den Buttons): Klassen direkt komponieren statt eine
+  Wrapper-Komponente dazwischenzusetzen. Weil die Pille direkt komponiert wird,
+  übernimmt `cds-featured-card` auch die `aria-label`-Regel von `PillComponent` von
+  Hand: `pillAriaLabel` überschreibt den Default „Bereich `<pill>`“ für Fälle, in
+  denen die Pille keinen Bereich benennt (z. B. „12 min Lesezeit“ →
+  `aria-label="Lesezeit 12 Minuten"`). Im laufenden Storybook geprüft: die
+  gerenderte Kette hat exakt die Kindselektoren, auf die das CSS zielt, kein
+  zusätzliches Element dazwischen, kein `<cds-pill>`-Tag im DOM — erneut gemessen
+  nach der Umstellung auf `ngTemplateOutlet`, unverändertes Ergebnis. Neue
+  Bauteil-Ebenen `Komponenten/Cards & Teaser/Klickbare Karte` (Stories `Interaktiv`,
+  `Pro Bereich`, `Im Raster`) und `Komponenten/Cards & Teaser/Featured-Karte`
+  (Stories `Interaktiv`, `Pro Bereich`, `Pille als Lesezeit`, `Ohne Pill`,
+  `Ohne Link`; bewusst **kein** Grid-Beispiel — die Doku verlangt „genau einer auf
+  der Bühne“), `storySort.order` der Sektion „Cards & Teaser“ entsprechend ergänzt.
+- **`IconCardComponent` (`[cdsIconCard]`), fünftes Ticket der Seitenbausteine-Serie:
+  die Icon-Teaser-Kachel der Beispielseiten (81 Vorkommen) — UND erste Komponente mit
+  Attributselektor statt eigenem Element.** Bildet `.ep-card` ab
+  (css/components.css:1298–1340): farbige Icon-Kachel, Eyebrow, Titel, Text, optionale
+  Pfeil-CTA-Zeile. Erste Fassung war `cds-icon-card` als eigenes Element mit
+  `href`-Input (`<a>`/`<div>` per `@if`/`@else`). Gemessen im laufenden Storybook: zwei
+  Karten mit unterschiedlich langem Text ergaben im `.ep-cards`-Grid ungleiche
+  `.ep-card`-Höhen (174px/270px), weil `align-items:stretch` nur den unsichtbaren
+  `<cds-icon-card>`-Host streckt, nicht das `.ep-card`-Element eine Ebene darunter.
+  Dieselbe Messung ohne Host-Wrapper (rohes Markup direkt in `.ep-cards`) ergab
+  306px/306px, CTA-Unterkanten auf identischer Y-Koordinate — die CSS-Schicht gleicht
+  Kartenhöhen also korrekt aus, der Fehler saß im Wrapper-Element. Konsequenz, analog
+  zu Angular Materials `a[mat-button], button[mat-button]`: Die Komponente ist jetzt
+  `a[cdsIconCard], div[cdsIconCard]`, hängt sich also als Attribut an ein vom
+  Konsumenten geschriebenes `<a>`/`<div>`, statt ein eigenes Host-Element zu sein.
+  `href` ist damit kein Input mehr (natives Attribut am `<a>`). `.ep-card-link` hängt
+  bewusst an „ist `<a>` UND hat `href`“, nicht am Tag allein: Ein `<a cdsIconCard>`
+  ohne `href` ist weder fokussierbar noch hat es eine Link-Rolle, hätte mit dem Tag
+  allein aber trotzdem den Link-Look (Schatten, Hover) bekommen — genau die Garantie,
+  die die frühere `href`-Input-Fassung strukturell hatte (leerer String → zwingend der
+  `<div>`-Zweig). Die Prüfung sitzt als **Methode im Host-Binding**
+  (`'[class.ep-card-link]': 'isLink()'`), nicht als einmalig berechnetes Feld, weil
+  `href` zur Laufzeit gesetzt werden kann: Host-Bindings werden bei jedem Refresh der
+  ELTERN-Ansicht neu ausgewertet, unabhängig vom OnPush-Status der Komponente selbst
+  — kein Sonderfall des in ADR-0007 §3 verworfenen Getter-Musters (das betraf
+  Getter in der eigenen Kindvorlage). Empirisch mit einem Signal-getriebenen
+  `[attr.href]`-Toggle zur Laufzeit geprüft (Spike, seither gelöscht): kein `effect()`
+  nötig. Neue Story „Anker ohne Href“ pinnt den Fall. Erneut gemessen: alle Karten
+  306px, CTA-Unterkanten deckungsgleich — als Regressionsschutz jetzt eine
+  Play-Funktion in der Story „Im Raster“ mit bewusst unterschiedlich langen Texten
+  (vorher unauffällig gleich lang). `@angular-eslint/component-selector` erlaubt dafür
+  jetzt zusätzlich zum Element-Standard (`kebab-case`, weiterhin für alle anderen
+  Komponenten) einen `cds`-Attributselektor (`camelCase`) als benannte Ausnahme
+  ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)).
+  Das Icon kommt als projizierter Inhalt (`<ng-content select="[cdsIcon]">`), anders
+  als bei `cds-stoerer` aber OHNE dass das SVG eine eigene Größenklasse tragen muss:
+  `.ep-card-icon` ist ein echter Container und reicht Maße/Stroke über den
+  Nachfahren-Selektor `.ep-card-icon svg` durch. `data-area` sitzt auf Karte (Host),
+  Icon-Kachel und Eyebrow, wie im Mockup; die CTA-Farbe braucht kein eigenes
+  `data-area`, sie kommt über `.ep-card[data-area] .ep-card-cta`. **Kein
+  `cdsIconCards`-Raster:** `.ep-cards` ist ein reines `display:grid` ohne Struktur
+  oder Verhalten (dieselbe Begründung wie beim Verzicht auf einen
+  `layout-grid`-Wrapper, siehe `spec.md`) — Konsumenten schreiben `<div
+  class="ep-cards">` von Hand. Neue Bauteil-Ebene `Komponenten/Cards & Teaser/
+  Icon-Karte` (Stories `Interaktiv`, `Als Link`, `Anker ohne Href`, `Pro Bereich`,
+  `Im Raster`, `Ohne CTA`), `storySort.order` der Sektion „Cards & Teaser“
+  entsprechend ergänzt.
+- **`FeatureComponent` (`[cdsFeature]`), sechstes Ticket der Seitenbausteine-Serie:
+  die offene Feature-Zeile ohne Box und ohne Schatten (40 Vorkommen auf den
+  Beispielseiten).** Bildet `.ep-feature` ab (css/components.css:1363–1379):
+  Icon-Kachel links, Titel und Text rechts. Attributselektor von Anfang an
+  (`div[cdsFeature]`), nicht erst nach einem Fehlversuch: das Mockup setzt die
+  Spaltenklasse konsequent am selben Element wie `.ep-feature`
+  (`class="ep-feature col-4"`), das Bauteil ist damit selbst Grid-Kind UND Ziel
+  einer Layout-Klasse des Konsumenten — exakt das Kriterium aus
+  [ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md), hier vorab
+  angewandt statt nachträglich gemessen. Gemessen wurde trotzdem: die Story
+  „Dreispalter“ setzt drei `.ep-feature` mit stark unterschiedlich langem Text als
+  `col-4`-Geschwister in ein `.layout-grid` — alle drei 128px hoch, alle drei
+  Unterkanten bei y=128, der Grid-Zeilenausgleich greift direkt auf `.ep-feature`,
+  ohne Host-Element dazwischen. Das Icon kommt als projizierter Inhalt
+  (`<ng-content select="[cdsIcon]">`); `.ep-feature-icon` ist wie `.ep-card-icon`
+  ein Container, der Maße über den Nachfahren-Selektor `.ep-feature-icon svg`
+  durchreicht, geht darin aber weiter als die Icon-Karte: es setzt zusätzlich
+  `color` auf dem Container (`.ep-card-icon` tut das nicht), die vier
+  `[data-area]`-Varianten liefern also nicht nur die Kachelfarbe, sondern auch den
+  passenden Icon-Ton — ein projiziertes `<svg stroke="currentColor">` erbt ihn ohne
+  eigenes Zutun, das Mockup nutzt genau das (`docs/index.html:10406` u. a.). Der
+  optionale CTA (`.card-cta-link`), direktes Kind von `.ep-feature-body`, ist ein
+  echter `<a href>`, wenn `ctaHref` gesetzt ist, sonst ein `<span>` mit identischer
+  Optik — nie ein `<a>` ohne `href`. Ausgezählt in `docs/index.html`: alle 13
+  `.card-cta-link`-Vorkommen in `.ep-feature-body` sind entweder ein `<a href="…">`
+  (12×) oder ein `<span>` (1×, Platzhalter „Landingpage folgt“ ohne Ziel), niemals
+  ein `<a>` ohne `href` — dieselbe Falle, die `cds-icon-card` über `isLink()`
+  schließt, hier aber strukturell im `@if`/`@else`-Zweig statt am Host-Tag gelöst,
+  weil der Host bei `cdsFeature` immer `<div>` ist. Ein `<a>` ohne `href` wäre weder
+  fokussierbar noch hätte es eine Link-Rolle, sähe mit der `.card-cta-link`-Optik
+  aber trotzdem bedienbar aus; erster Entwurf hatte das nur über `[attr.href]="…||
+  null"` abgefedert, nicht ausgeschlossen. Zweite Korrektur an derselben Stelle:
+  der neue `ctaAriaLabel`-Input. Erster Entwurf ging davon aus, das Mockup verzichte
+  meist auf einen zusätzlichen `aria-label` — ausgezählt war das Gegenteil richtig:
+  von den 12 `<a class="card-cta-link">` tragen 11 einen `aria-label`, weil sich nur
+  3 verschiedene sichtbare Texte auf diese 12 Links verteilen (`„Zur Landingpage“`
+  allein zehnmal) und eine Screenreader-Linkliste sonst zehnmal denselben Namen
+  hörte. Das Mockup disambiguiert durchgängig mit `<sichtbarer Text>: <Ziel>`
+  (`aria-label="Zur Landingpage: KI Kickstart Workshops"`) — `ctaAriaLabel` bildet
+  genau das nach, Default `''` (sichtbarer `ctaLabel`-Text bleibt zugänglicher
+  Name), wirkt nur am `<a>`-Zweig. Neue Bauteil-Ebene
+  `Komponenten/Cards & Teaser/Feature-Liste` (Stories `Interaktiv`, `Dreispalter`,
+  `Mit CTA`, `Ohne Href`, `Pro Bereich`), `storySort.order` der Sektion
+  „Cards & Teaser“ entsprechend ergänzt.
+- **`CtaBandComponent` (`[cdsCtaBand]`), siebtes Ticket der Seitenbausteine-Serie: das
+  bereichsgefärbte Page-End-CTA-Band am Ende jeder Customer-Page.** Bildet
+  `.ep-cta-band` samt Kopf-Duo `.ep-cta-h2`/`.ep-cta-sub` und einer Aktion ab
+  (css/components.css:1456; 22 Vorkommen auf den Beispielseiten, ausnahmslos genau
+  eine Aktion). Vier Entscheidungen, alle gemessen statt hergeleitet: **(1)**
+  Attributselektor (`div[cdsCtaBand]`), derselbe „Fläche am Host“-Fall wie
+  `cds-section` ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)) —
+  `.ep-cta-band` trägt kein `[data-area]` (per Grep geprüft), die Bandfläche kommt in
+  allen 22 Vorkommen als Inline-Style direkt am Element; ein Element-Selektor hätte
+  denselben ungemalten Hintergrund reproduziert, den ADR-0008 „Fall 2“ für
+  `cds-section` maß. Nur `<div>`, kein `<section>`-Zwilling: keines der 22 Vorkommen
+  variiert das Tag. **(2)** `area` färbt nur `.btn-{area}` auf der Aktion, nicht die
+  Bandfläche — dieselbe Konsumenten-Zuständigkeit wie bei `cds-section`, hier
+  zusätzlich erzwungen, weil das CSS an dieser Klasse ohnehin keinen
+  `[data-area]`-Haken kennt. **(3)** Die `.btn-filled`+`.btn-on-band`-Klassen sind
+  direkt komponiert, nicht über `cds-button` projiziert (Präzedenzfall
+  `download-cta.component.ts`) — härterer Grund als dort: `cds-button` kennt zwar
+  `.btn-on-band` (`variant="filled-on-band"`, geprüft über `npx storybook tools docs
+  show --id komponenten-buttons-button`, Story „Auf Bereichs-Band“), rendert aber
+  IMMER ein `<button>` und kann die geforderte `primaryHref`-gesetzt-→-`<a>`-
+  Verzweigung strukturell nicht erfüllen. **(4)** Bewusst nur EINE Aktion, kein
+  `secondaryLabel`. Ein erster Entwurf bot eine zweite Aktion an, ungeprüft gegen das
+  Mockup — die Korrektur kam aus zwei Gegenproben: keines der 22 Vorkommen zeigt eine
+  zweite Aktion, und `.btn-{area}.btn-on-band{color:…}`
+  (css/components.css:47–51) überschreibt die Textfarbe JEDER Variante auf denselben
+  Ton, den die Doku als Bandhintergrund nennt — nur `.btn-filled` tauscht zusätzlich
+  die Füllung gegen Weiß, jede andere Variante wäre Text in Bandfarbe auf Bandfarbe.
+  Eine zweite Aktion hätte also zwangsläufig dieselbe Optik wie die erste getragen,
+  keine Hierarchie. Diese CSS-Lücke ist jetzt
+  `.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`;
+  die Komponente trägt bis zu ihrer Klärung nur eine Aktion, ohne eigenes
+  Flex-Layout dafür (das hätte eine Darstellung erfunden, die die CSS-Schicht unter
+  diesem Namen nicht kennt — `display:flex;gap:var(--s3);flex-wrap:wrap` existiert
+  bereits identisch als `.ep-hero-ctas`, css/components.css:1222, für einen anderen
+  Bauteiltyp). Eine einzelne Aktion zentriert sich stattdessen über das ererbte
+  `.ep-cta-band{text-align:center}` von selbst, genau wie in allen 22
+  Mockup-Vorkommen. Kein `aria-label`-Input: anders als bei `cds-feature` (11 von 12
+  mit `aria-label`) trägt keines der 22 Band-Vorkommen einen `aria-label` auf seiner
+  Aktion, ausgezählt statt geschätzt. Die Aktion folgt demselben Muster wie bei
+  `cds-feature`: gesetztes Href → echter `<a href>`, sonst `<button>` mit feuerndem
+  Output, nie ein `<a>` ohne Ziel. Neue Bauteil-Ebene
+  `Komponenten/Call to Action/CTA-Band` (Stories `Interaktiv`, `Pro Bereich`, `Als
+  Links`), `storySort.order` der Sektion „Call to Action“ entsprechend ergänzt.
+  **Nebenbefunde (CSS-/Gate-Kern, nicht in diesem Ticket behoben, jetzt eigene
+  Tickets 15–17):** `.ep-cta-sub` (`opacity:.85`) unterschreitet auf `--co-700` den
+  AA-Textkontrast (4,46:1 statt 4,5:1, WCAG-Formel gegen die Token-Werte gerechnet;
+  axe meldet dasselbe in den Storybook-Interaktionstests) — auf
+  `--ki-800`/`--es-700`/`--wo-700` liegt derselbe Text bei 6,1–7,4:1, „co“ ist der
+  systematische Ausreißer, wie schon beim bekannten `.cta-dl-eyebrow`-Befund in
+  `download-cta.stories.ts` (Ticket 15). Identisches rohes HTML (docs/index.html:6304
+  ff.) hat denselben Fehler, kein Wrapper-Artefakt. Die betroffenen Stories setzen
+  lokal `a11y: { test: 'todo' }` (dieselbe Ausnahme, die `preview.ts` für bekannte
+  CSS-Kern-Befunde vorsieht). Zusätzlich: `check:contrast`
+  (`scripts/check-contrast.mjs`) übersieht diesen Fall, weil es `opacity` nur als
+  Ein/Aus-Schalter behandelt (Zeile 181) und nicht in die Farbmischung mit dem
+  Hintergrund einrechnet — ein blinder Fleck des Gates (Ticket 17), kein Beleg dafür,
+  dass der Befund neu wäre.
+- **`TierComponent` (`cds-tier`) und `FactsComponent` (`cds-facts`), achtes Ticket der
+  Seitenbausteine-Serie: die Angebots-Bausteine (`cds-award-list` zurückgestellt,
+  siehe unten).** `cds-tier` bildet `.ep-tier` ab (css/components.css:1381–1384):
+  Label + Haarlinie, die eine Offene Feature-Liste in Pakete gliedert (z. B. „In
+  jedem Paket enthalten“ vor „Zusätzlich mit Pro“). Element-Selektor, der
+  ADR-0008-Standardfall — ausgezählt: keines der 4 `.ep-tier`-Vorkommen in
+  `docs/index.html` sitzt in einem Grid/Flex, das seine Kinder streckt, keines
+  trägt eine `col-*`-Klasse, das Tag variiert nicht. `area` ist auf `'ki'` typisiert,
+  nicht auf die vollen vier Markenbereiche: `css/components.css` kennt
+  ausschließlich `.ep-tier-label[data-area="ki"]` (Dark-Override
+  `css/dark-mode.css:476`), für `co`/`es`/`wo` existiert keine einzige Regel —
+  ausgezählt: 3 von 4 `.ep-tier-label`-Vorkommen setzen `ki`, eines gar kein
+  `data-area`, keines einen anderen Bereich. Ein `CdsArea`-Input hätte für drei von
+  vier gültigen Werten ein wirkungsloses `data-area`-Attribut geschrieben; der
+  eingeschränkte Typ macht das strukturell unmöglich, statt es nur im JSDoc zu
+  behaupten. `.ep-tier-rule` ist rein dekorativ und trägt `aria-hidden="true"`. Neue
+  Bauteil-Ebene `Komponenten/Cards & Teaser/Tier-Trenner` (Stories `Interaktiv`,
+  `Pro Bereich`), `storySort.order` der Sektion „Cards & Teaser“ entsprechend ergänzt.
+  `cds-facts` bildet `.ep-facts` ab (css/components.css:1261–1272): die
+  Definitionsliste für Angebots-Eckdaten (Termin, Dauer, Ort, Preis), einspaltig mit
+  Haarlinie zwischen den Paaren oder als `.is-grid` zweispaltig für Kästen neben
+  Inhalt. Ebenfalls Element-Selektor: analog zu `cds-faq` trägt die INNERE `<dl
+  class="ep-facts">` die CSS-Klasse, nicht der Host — die Semantik einer
+  Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element kann es nicht
+  annehmen; da `.ep-facts > div + div` nur Nachfahren der eigenen Vorlage anspricht,
+  bricht die zusätzliche Host-Ebene nichts (kein „Fläche am Host“-Fall wie bei
+  `cds-section`). Jedes Fakten-Paar rendert deshalb exakt als `<div><dt>…</dt>
+  <dd>…</dd></div>`, weil genau dieser Selektor den Trenner ab dem zweiten Paar
+  setzt. Über die Ticket-Skizze hinaus ergänzt: ein `area`-Input, der `.t-{area}`
+  auf jedes `<dt>` anwendet — der CSS-Kommentar zu dieser Klasse
+  (css/components.css:1259) nennt `.t-XX` ausdrücklich als sanktionierten Weg für
+  den Bereichston der Labels, und alle 3 realen `.ep-facts`-Vorkommen in
+  `docs/index.html` setzen ihn einheitlich (`.t-wo`) auf jedem `<dt>` derselben
+  Liste; ohne den Input hätte sich keines originalgetreu nachbauen lassen. Neue
+  Bauteil-Ebene `Seitenmuster/Seminar · Training/Fakten-Liste` (Stories
+  `Interaktiv`, `Als Raster`), `storySort.order` entsprechend ergänzt — die Sektion
+  „Seminar · Training“ wechselt dabei von einer flachen Doku-Seite zu einer Sektion
+  mit Bauteil-Ebene, `Übersicht` bleibt per `CONTRIBUTING.md` §12 das erste Kind.
+  **`cds-award-list` zurückgestellt:** `.ep-award-list` (css/components.css:
+  1242–1245) kommt in `docs/index.html` außerhalb der Beispielseiten nicht vor — die
+  einzige Erwähnung außerhalb ist eine Zeile der Responsive-Verhaltenstabelle
+  (`docs/index.html:1963`), kein eigener Doku-Abschnitt mit Verwendung und
+  Code-Beispiel nach `CONTRIBUTING.md` §10.4. Statt einen neuen Produktions-Doku-
+  Abschnitt ungeprüft anzulegen, ist das Bauteil aus diesem Ticket herausgelöst;
+  Entscheidung und nächster Schritt stehen in
+  `.scratch/angular-seitenbausteine/issues/18-doku-luecke-ep-award-list.md`.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
@@ -74,6 +383,223 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Courier New die richtige Bildschirmschrift für Code ist, fällt ab jetzt an einer Stelle statt an
   zwanzig. Storybooks Doku- und Manager-Chrome (`fontCode` in `.storybook/theme.ts`) zeigt auf
   denselben Stack, damit Doku-Site und Storybook denselben Code-Satz rendern.
+- **`TableComponent` (`cds-table`), neuntes Ticket der Seitenbausteine-Serie.** Wrapper um
+  `.tbl`/`.tbl-wrap` (css/components.css:1462–1480): die Datentabelle mit horizontalem
+  Scroll-Container. Ausgezählt: außerhalb der Doku-Sektion `sec-table` selbst kommt
+  `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten (`docs/index.html:8622`, `15080`).
+  **Kein Daten-Input** —
+  eine `columns`/`rows`-API hätte Zellinhalte auf Strings festgelegt, die Beispielseiten setzen
+  darin Badges, Links und `data-num`; der Konsument projiziert `<thead>`/`<tbody>`/`<tfoot>`
+  unverändert per `<ng-content>`, die Komponente liefert nur `.tbl-wrap`, `.tbl`, `<caption>` und
+  `.tbl--striped`. Element-Selektor, ADR-0008-Standardfall wie `cds-facts`/`cds-faq`: ausgezählt,
+  keines der 5 `.tbl-wrap`-Vorkommen in `docs/index.html` (Zeilen 5061, 5116, 5236, 8622, 15080)
+  ist selbst ein direktes Grid-/Flex-Kind, keines variiert das Tag — `.tbl-wrap`/`.tbl` sitzen
+  deshalb im eigenen Template der Komponente, nicht am Host. Im laufenden Storybook geprüft: die
+  gerenderte Kette hat `<table class="tbl">` direkt unter `<div class="tbl-wrap">`, `<caption>`
+  als erstes Kind, danach ohne zusätzlichen Knoten die projizierten `<thead>`/`<tbody>`-Elemente —
+  `<ng-content>` fügt selbst kein DOM-Element ein. `caption` ist `input.required<string>()`,
+  abweichend von der ursprünglichen Ticket-Skizze (dort optional mit Default `''`): die eigene
+  Doku (`tabelle.mdx:137`) nennt `<caption>` „Pflicht, Screenreader lesen den Titel vor, bevor
+  die Zellen vorgelesen werden“, und alle 5 realen `.tbl`-Vorkommen in `docs/index.html` haben
+  eine — nach ADR-0007 §2 ist `caption` damit Inhalt, nicht Beiwerk. `.tbl-wrap` ist deshalb
+  immer per Tastatur erreichbar (`tabindex="0"`, eigener `:focus-visible`-Ring) UND immer
+  benannt (`role="region"` + `aria-label`, `scrollLabel` hat Vorrang, sonst `caption`, kann dank
+  Pflicht-`caption` nie leer werden). **`.tbl-sort` bleibt außen vor:** die Klasse liefert nur den
+  Button-Look, es gibt keine zugehörige Sortierlogik in `docs/main.js` — ein Wrapper, der sie
+  anböte, täuschte Funktion vor, die nicht existiert. Neuer Befund
+  `.scratch/angular-seitenbausteine/issues/19-fehlende-sortierlogik-tbl-sort.md`. Neue
+  Bauteil-Ebene `Komponenten/Tabelle/Tabelle` (Stories `Interaktiv`, `Gestreift`,
+  `Mit Zahlenspalte`, `Mit Fußzeile`, `Schmaler Viewport`), `storySort.order` und
+  `SECTION_ICON_KEYS` entsprechend ergänzt — die Sektion „Tabelle“ wechselt dabei von einer
+  flachen Doku-Seite zu einer Sektion mit Bauteil-Ebene, `Übersicht` bleibt per
+  `CONTRIBUTING.md` §12 das erste Kind. `storybook-angular/src/docs/komponenten/tabelle.mdx`
+  entsprechend nachgezogen (die veraltete Aussage „kein eigenes Angular-Bauteil“ galt nur noch
+  für die separat zu bauende Vergleichstabelle, `.ep-compare*`, Ticket 10).
+- **`CompareComponent` (`cds-compare`), zehntes Ticket der Seitenbausteine-Serie.** Wrapper um
+  `.ep-compare*` (css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den
+  zeilenweisen Direktvergleich mehrerer Pakete/Tarife hinter nativem `<details>`/`<summary>`.
+  **Mit Daten-Input, anders als `cds-table`:** ausgezählt sind alle 22 Datenzellen des einzigen
+  realen Vorkommens (`docs/index.html:11970–12038`, 11 Zeilen × 2 Spalten) entweder ein
+  Ja/Nein-Marker (18×) oder eine kurze Angabe (4×), nie ein Badge oder Link — `columns`/`rows`
+  statt `<ng-content>`, weil die Zell-Typisierung
+  (`boolean | string`) dem Konsumenten ohnehin keine zusätzliche Freiheit ließe. Ja/Nein-Zellen
+  tragen fest verdrahteten `.sr-only`-Text (`Enthalten`/`Nicht enthalten`, exakt aus dem Mockup
+  übernommen, nicht erfunden, Glyphen „✓“/„−“ U+2212), weil Farbe und Glyphe allein keine
+  Bedeutung tragen (WCAG 1.4.1). `caption` ist `input.required<string>()`, dieselbe Begründung
+  wie bei `cds-table`: die eigene Doku (`tabelle.mdx:91`) nennt `<caption class="sr-only">`
+  ausdrücklich als Teil des Bauteils. Anders als bei `cds-table` ist sie hier `.sr-only`, weil der
+  Klartext schon im `<summary>` steht. `rowsLabel` (erste Kopfzelle, „Funktion“ im Mockup) ist
+  dagegen Beiwerk mit Default `''`: ein leeres `<th scope="col">` bleibt eine gültige, in
+  Vergleichsmatrizen verbreitete Ecke, das Beispielwort steht deshalb in der Story statt in der
+  Klasse. Natives `<details>`/`<summary>` bleibt erhalten (Tastaturbedienung und Toggle kommen
+  vom Browser, das CSS hängt an `[open]`), `<details class="ep-compare">` sitzt deshalb im
+  Template, nicht am Host — ein `<cds-compare>`-Host ist ein unbekanntes Custom Element und kann
+  echte `<details>`-Semantik nicht annehmen (derselbe Grund wie bei `cds-table`s `.tbl-wrap`).
+  Element-Selektor, ADR-0008-Standardfall: `.ep-compare` ist im einzigen realen Vorkommen ein
+  gewöhnlicher Block-Nachfahre in `.ep-section`, kein Grid-/Flex-Kind, kein Tag-Wechsel. `open`
+  ist reiner Anfangszustand über `[attr.open]="open() ? '' : null"`, keine Zwei-Wege-Bindung —
+  Angular schreibt das Attribut nur bei einer Werteänderung des geprüften Ausdrucks, ein
+  nachfolgender nativer Toggle bleibt deshalb unangetastet (in der Story „Interaktiv“ per
+  Play-Funktion geprüft, nicht nur angenommen). `toggled` feuert bei jedem Auf-/Zuklappen mit dem
+  neuen Zustand. Neue Bauteil-Ebene `Komponenten/Tabelle/Vergleichstabelle` (Stories `Interaktiv`,
+  `Bereits offen`, `Mit Text-Zellen`, `Hervorgehobene Spalte`), `storySort.order` der Sektion
+  „Tabelle“ entsprechend ergänzt (`['Übersicht', 'Tabelle', 'Vergleichstabelle']`),
+  `storybook-angular/src/docs/komponenten/tabelle.mdx` nachgezogen. Befund zur Zeilenangabe im
+  Ticket: `.scratch/angular-seitenbausteine/issues/20-ticket-10-falsche-zeilenangabe-doku-vorlage.md`.
+- **`ArticleHeaderComponent` (`cds-article-header`), `AvatarComponent` (`div[cdsAvatar]`) und
+  `AvatarStackComponent` (`cds-avatar-stack`), elftes Ticket der Seitenbausteine-Serie.** Wrapper
+  um `.article-header`/`-breadcrumb*`/`-title`/`-lead`/`-meta*` (css/components.css:1486–1519) und
+  `.article-avatar*` (css/components.css:1520–1545): der zentrierte Kopf eines Wissensbeitrags samt
+  Avatar-Stapel für mehrere Autor:innen. Hauptvorlage war
+  `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx` (Abschnitt „Article Header“), nicht
+  nur das Mockup. **Avatar bekommt einen Attributselektor** (`div[cdsAvatar]`, ADR-0008): ausgezählt
+  sitzen 8 der 11 Grundgrößen-Instanzen in `docs/index.html` als direkte Geschwister in einer von
+  3 `.article-avatar-stack`-Kacheln (Zeilen 8343–8344, 8373–8375, 8404–8406), wo der
+  CSS-Geschwister-Selektor
+  `.article-avatar-stack .article-avatar + .article-avatar` (css/components.css:1540) einen echten,
+  gemeinsamen Elternknoten braucht — ein Element-Selektor, der `.article-avatar` auf ein inneres
+  Element legt (wie `cds-facts` es mit `<dl>` tut), würde die Kette brechen. Gemessen per
+  `getBoundingClientRect()` in der Story „Avatar-Stapel“ (28 statt 40 px Abstand der linken Kanten
+  bei 40-px-Kacheln und `margin-left:-12px`) UND per Screenshot-Baseline
+  (`visual-snapshots/…avatar-stapel.png`, Kreise überlappen sichtbar mit weißem Halo-Rand) — nicht
+  nur an Computed Styles (ADR-0008, Fall 2). Zweiter, unabhängiger Grund für den Attributselektor:
+  `cds-article-header` projiziert den Avatar über `<ng-content select="[cdsAvatar], cds-avatar-stack">`,
+  dasselbe Attribut dient also zugleich als Host-Selektor UND als Projektions-Marker. `cds-pill`
+  bleibt dagegen eine echte Komponente (kein direkt komponiertes `<span class="pill">`): geprüft per
+  `docs show --id komponenten-chips-badges-pills-pill`, `PillComponent`s `.pill` sitzt zwar eine
+  Ebene unter seinem Host, `.article-header`/`.pill` haben aber (anders als `FeaturedCardComponent`s
+  `.card-featured-body>.pill`) keinen Kindselektor, der das verhindern würde — per Screenshot
+  bestätigt (`visual-snapshots/…interaktiv.png`). Neuer Input `pillAriaLabel` (wie bei
+  `FeaturedCardComponent`), weil `PillComponent`s eigener Default („Bereich `<label>`“) für die
+  Lesezeit-Pille des Wissensbeitrags nicht passt (`wissensbeitrag.mdx`: `aria-label="Lesezeit 8
+  Minuten"`) und aus einem freien `pill`-String nicht zuverlässig herleitbar ist. **Die Pille
+  rendert nur, wenn `area` UND `pill` gesetzt sind** — ausgezählt trägt jedes der 9 realen
+  `.pill`-Vorkommen im Article-Header-Kontext ein `data-area`, ein Fall ohne Bereich kommt im
+  Mockup nicht vor; statt einen Default zu erfinden (etwa `PillComponent`s eigenen, per
+  `strictTemplates`-Typüberbrückung durchgereichten), narrowt `@if (area(); as pillArea)`
+  `CdsArea | undefined` sauber auf `CdsArea`, ohne Typ-Cast, und ohne `area` bleibt die Pille
+  schlicht weg (Story „Pille ohne Bereich“). **Initialen werden
+  aus `name` abgeleitet** (`computed()`, erstes Zeichen von erstem und letztem Wort), kein eigener
+  Input. **`date`/`dateLabel` bleiben getrennt, anders als `cds-stoerer`**: `cds-stoerer` formatiert
+  ein ISO-Datum selbst nach `de-DE` (inkl. Umgehung des UTC-Mitternacht-Fallstricks bei
+  `new Date(iso)`); diese Komponente konstruiert dagegen nie ein `Date`-Objekt aus `date()` —
+  `dateLabel` liefert die sichtbare Schreibweise, ohne `dateLabel` steht `date` unverändert als
+  ISO-Text sichtbar (in der Story „Interaktiv“ als Warnfall demonstriert), der Zeitzonen-Fallstrick
+  kann so gar nicht erst auftreten. `aria-hidden="true"` ist an beiden Avatar-Komponenten fest
+  verdrahtet (kein Input): ausgezählt tragen 45 von 53 `.article-avatar`-Instanzen es direkt, die
+  restlichen 8 sitzen in einem bereits `aria-hidden`-tragenden Stapel (redundant, aber unschädlich).
+  Breadcrumb: letzter Eintrag rendert immer ohne Link mit `aria-current="page"`
+  (Akzeptanzkriterium), unabhängig von den beiden unvollständigen Wissensbeitrag-Inline-Beispielen,
+  die dafür keine Vorlage sind (siehe Befund unten). Meta-Strip rendert nur, wenn `authorName`
+  und/oder `date` etwas liefern (eine Stellenanzeige nutzt `.article-header` komplett ohne
+  `.article-meta`, das Ticket sieht dafür keine API vor). Neue Bauteil-Ebenen
+  `Seitenmuster/Wissensbeitrag/Article-Header` (Stories `Interaktiv`, `Ohne Breadcrumb`, `Mehrere
+  Autor:innen`) und `Seitenmuster/Wissensbeitrag/Avatar` (Stories `Avatar-Größen`,
+  `Avatar ohne Bild`, `Avatar mit Bild`, `Avatar-Stapel`), `storySort.order` der Sektion
+  „Wissensbeitrag“ entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar', 'FAQ']`),
+  Doku-Seite bleibt erstes Kind. Befunde:
+  `.scratch/angular-seitenbausteine/issues/20-breadcrumb-in-oder-vor-article-header.md`
+  (`docs/index.html:2423`, wörtlich: „Den Breadcrumb nicht in einen zentrierten `.article-header`
+  einbetten…“ — beide echten Beispielseiten folgen dem, 6 isolierte Doku-Demos inkl.
+  `wissensbeitrag.mdx` widersprechen dem ausdrücklich — die Komponente folgt der Ticket-Vorlage) und
+  `.scratch/angular-seitenbausteine/issues/21-pill-default-area-dokumentation-vs-code.md`
+  (`PillComponent.area` dokumentiert einen Corporate-Default, der Code liefert `'ki'`).
+- **`ArticleTocComponent` (`cds-article-toc`), `ArticleCalloutComponent` (`cds-article-callout`),
+  `ArticleFigureComponent` (`cds-article-figure`) und `ArticlePullquoteComponent`
+  (`cds-article-pullquote`), zwölftes Ticket der Seitenbausteine-Serie („Artikel-Körper“).**
+  Wrapper um `.article-toc*` (css/components.css:1577–1589), `.article-callout*`
+  (css/components.css:1591–1600), `.article-figure`/`.article-figcaption`
+  (css/components.css:1573–1575) und `.article-pullquote` (css/components.css:1608–1612): die
+  vier Bausteine im Lauftext eines Wissensbeitrags. `.article-body` selbst bekommt bewusst
+  **keine** Komponente — reiner Typografie-Kontext, dessen Kindselektor (`.article-body > p`)
+  eine Zwischenebene stören würde; der Konsument schreibt weiterhin `<div class="article-body">`
+  selbst (neue Story „Im Artikel-Body“ in `Seitenmuster/Wissensbeitrag/Inhaltsverzeichnis`, zeigt
+  alle vier Bausteine im rohen Kontext). Alle vier bleiben Element-Selektoren
+  (ADR-0008-Standardfall): ausgezählt sitzt keines der insgesamt 12 realen Vorkommen als
+  Grid-/Flex-Kind, keines trägt eine `col-*`-Klasse, keines steht in einem
+  Geschwister-Kombinator, kein Tag variiert (immer `<details>`/`<aside>`/`<figure>`/
+  `<blockquote>`) — je eigens geprüft, nicht pauschal übernommen. **`cds-article-toc` ist das
+  zweite Vorkommen des `<details>`-mit-drehendem-Caret-Musters neben `cds-compare` (Ticket 10),
+  bewusst NICHT zusammengezogen (ADR-0007 §5):** natives `<details>`/`<summary>`, `aria-label`
+  am `<summary>` fest verdrahtet (wortgleich in beiden realen Vorkommen), kein `toggled`-Output
+  (anders als `cds-compare`, weil die Ticket-API keinen vorsieht). **`cds-article-callout`
+  projiziert Absätze als direkte Kinder** (`.article-callout > p`, Ticket-Vorgabe): `<ng-content>`
+  fügt kein eigenes Element ein, geprüft per `:scope > p` in der Story „Interaktiv“. Dabei ein
+  bekannter, vorbestehender CSS-Befund entdeckt und NICHT im Wrapper geflickt (ADR-0001):
+  `.article-callout-eyebrow` (Spezifität 0,1,0) verliert gegen `.article-callout > p`
+  (Spezifität 0,1,1) bei Schriftgröße, -gewicht und Randabstand, in jedem Bereich, weil die
+  Eyebrow selbst ein `<p>` UND ein direktes Kind ist — gemessen in rohem Markup ohne Angular
+  (Playwright/Chromium), siehe
+  `.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`.
+  Zusätzlich trägt `<aside>` jetzt `aria-labelledby` auf die Eyebrow, sobald eine gesetzt ist
+  (ARIA-Zusatz, keine CSS-Änderung): mehrere `.article-callout` auf derselben Seite wären sonst
+  gleichnamige, ununterscheidbare `complementary`-Landmarks (axe `landmark-unique`, gemessen auch
+  in rohem Markup ohne Angular, siehe
+  `.scratch/angular-seitenbausteine/issues/23-doku-luecke-callout-landmark-label.md`).
+  **`cds-article-pullquote` grenzt sich wechselseitig von `cds-blockquote` ab** (Ticket-Vorgabe):
+  Pull-Quote zitiert den eigenen Lauftext ohne Attribution, Box oder Icon, Blockquote zitiert eine
+  benannte dritte Person mit getönter Box und Quote-Icon — beide Klassendocs verweisen
+  aufeinander. `quote` enthält die deutschen Anführungszeichen bereits als Teil des Texts
+  (`quotes:none`, keine CSS-generierten Marken in der gesamten Zitat-Familie), die Komponente
+  ergänzt keine eigenen. `area` (Callout und Pull-Quote) hat den verteidigbaren Default `'co'`:
+  die Basisregel ohne `[data-area]` rendert bereits identisch zu `[data-area="co"]`. `loading="lazy"`
+  ist an `cds-article-figure` fest verdrahtet (2 von 3 realen Vorkommen, der dritte ist ein
+  captionsloses Lead-Bild außerhalb von `.article-body` mit `eager`/`fetchpriority`, für das die
+  Ticket-API kein Input vorsieht). Neue Bauteil-Ebenen `Seitenmuster/Wissensbeitrag/
+  Inhaltsverzeichnis` (Stories `Interaktiv`, `Bereits offen`, `Im Artikel-Body`), `…/Callout`
+  (`Interaktiv`, `Pro Bereich`, `Ohne Eyebrow`), `…/Figure` (`Interaktiv`, `Ohne Caption`) und
+  `…/Pull-Quote` (`Interaktiv`, `Pro Bereich`), `storySort.order` der Sektion „Wissensbeitrag“
+  entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar', 'Inhaltsverzeichnis',
+  'Callout', 'Figure', 'Pull-Quote', 'FAQ']`), Doku-Seite bleibt erstes Kind.
+- **`AuthorCardComponent` (`div[cdsAuthorCard]`) und `AuthorCardGroupComponent`
+  (`cds-author-card-group`), dreizehntes und letztes Ticket der Seitenbausteine-Serie.**
+  Wrapper um `.author-card*` (css/components.css:1602–1606) und `.author-card-group*`
+  (css/components.css:1547–1563): der Avatar-plus-Bio-Strip am Ende eines
+  Wissensbeitrags, einzeln oder als gestapelte/`is-grid`-Gruppe. **`cds-author-card`
+  bekommt einen Attributselektor** (ADR-0008), gemessen statt nur hergeleitet: eine
+  Spike-Story hat den Element-Selektor- und den Attributselektor-Aufbau nebeneinander
+  im `.is-grid`-Fall gebaut und mit `getBoundingClientRect()` verglichen — Element-
+  Selektor liefert `.author-card`-Höhen von 84/204 px bei ungleich langen Bios (der
+  unsichtbare Host wird auf 204 px gestreckt, die sichtbare Box eine Ebene darunter
+  bleibt bei ihrer Inhaltshöhe), Attributselektor liefert 204/204 px. **Ehrlicher
+  Unterschied zu `cds-icon-card`:** die Baseline-Screenshots beider Spike-Varianten
+  waren byte-identisch (sha1 gleich) — `.author-card` hat anders als `.ep-card` weder
+  Hintergrund noch Rahmen noch Schatten, der Fehler ist heute rein strukturell
+  (falsches Boxmodell), nicht optisch sichtbar, wird aber real, sobald die Karte
+  künftig Rahmen/Hintergrund/Hover bekommt, und verfälscht schon heute jede Messung
+  auf die tatsächliche Kartenhöhe. `cds-author-card-group` bleibt Element-Selektor
+  (ADR-0008-Standardfall für die Gruppe selbst), setzt `.author-card-group` aber auf
+  ein INNERES `<div>` statt auf den Host: `.author-card-group-eyebrow:has(+
+  .author-card-group.is-grid)` (css/components.css:1563) verlangt, dass die
+  Gruppen-Eyebrow ein unmittelbares Geschwister von `.author-card-group` bleibt, was
+  mit der Klasse auf dem Host (Eyebrow müsste dann als Kind darin stehen und würde im
+  Raster zur eigenen Grid-Zelle) nicht ginge. **`area` ist bewusst KEIN Input von
+  `cds-author-card`** — ausgezählt tragen alle 17 realen `.author-card`-Vorkommen
+  `data-area`, und sowohl `docs/index.html:8185` als auch `wissensbeitrag.mdx:199`
+  behaupten wörtlich, das färbe „nur den Avatar“; tatsächlich hat `css/components.css`
+  (Light UND Dark) keine einzige `.author-card[data-area]`-Regel, die Bereichsfarbe
+  kommt ausschließlich vom `area`-Input des projizierten `[cdsAvatar]` (Ticket 11) —
+  ein Input, der hier nur ein wirkungsloses Attribut setzt, wäre eine erfundene
+  Konfiguration ohne Gegenwert (Befund, nicht im Wrapper geflickt:
+  `.scratch/angular-seitenbausteine/issues/24-css-luecke-author-card-data-area.md`).
+  **`roleLabel`, nicht `role` wie im Ticket-Text** (gemessene Abweichung): ein erster
+  Entwurf mit `role`-Input ließ axe bei jeder Story mit echtem Rollentext auf
+  `aria-roles` fehlschlagen, weil ein ungebundenes `role="…"`-Attribut zusätzlich als
+  natives ARIA-`role` im DOM stehen bleibt — dieselbe Kollision, die
+  `BlockquoteComponent`/`TestimonialComponent`/`TeamVoiceComponent` bereits mit
+  `roleLabel` umgehen; diese Komponente folgt demselben, etablierten Muster. Avatar
+  projiziert über `[cdsAvatar]`, wie bei `cds-article-header`: Größe/Bereich setzt der
+  Konsument direkt am Avatar. Eyebrow rendert als `<h3>`, nur wenn gesetzt — sowohl
+  an der Einzelkarte (`.author-card-eyebrow`) als auch an der Gruppe
+  (`.author-card-group-eyebrow`), deckungsgleich mit den realen, vollständigen
+  Mockup-Seiten (die isolierte `<p>`-Variante einer Doku-Illustration ohne eigene
+  `<h2>`-Hierarchie bleibt außen vor). Neue Bauteil-Ebene
+  `Seitenmuster/Wissensbeitrag/Author-Card` (Stories `Interaktiv`, `Zwei Autor:innen`,
+  `Als Raster`, `Ohne Bio` — „Als Raster“ mit bewusst ungleich langen Bios, pinnt
+  gleiche Kartenhöhen per `getBoundingClientRect()`), `storySort.order` der Sektion
+  „Wissensbeitrag“ entsprechend ergänzt (`['Übersicht', 'Article-Header', 'Avatar',
+  'Inhaltsverzeichnis', 'Callout', 'Figure', 'Pull-Quote', 'FAQ', 'Author-Card']`),
+  Doku-Seite bleibt erstes Kind.
 
 ### Changed
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene

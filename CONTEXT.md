@@ -42,6 +42,13 @@ die vorhandenen CSS-Klassen der [CSS-Schicht](#css-schicht) zusammensetzt (z.B.
 **keine Styles mit**; der Konsument muss die CSS-Schicht separat global einbinden.
 Siehe [ADR-0001](docs/adr/0001-angular-lib-als-css-wrapper.md).
 
+Die meisten Wrapper tragen einen Element-Selektor (`cds-card`). Muss das gestylte
+CSS-Element dagegen selbst die Stelle im DOM einnehmen, die es ohne Angular einnähme —
+als Grid- oder Flex-Kind, als Ziel einer Layout-Klasse des Konsumenten, oder weil sein
+Tag zwischen `<a>` und `<div>` wechselt —, dann trägt der Host die CSS-Klasse und die
+Komponente einen Attributselektor (`<div cdsIconCard>`). Siehe
+[ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md).
+
 ### Quelle der Wahrheit (Komponenten-Code)
 
 Der Komponenten-Code lebt **in der Angular-Lib**, nicht im Storybook. `storybook-angular`
