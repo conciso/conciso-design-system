@@ -1,0 +1,30 @@
+/*
+ * Typprüfung für die Node-seitigen Config-Dateien (Vitest-Config, Baseline-Guard).
+ * Getrennt von tsconfig.json, weil sie Node-ESM sind (.mts) und einander mit
+ * Dateiendung importieren: Vites künftiger nativer Config-Loader lässt Node die
+ * Dateien direkt laden, und Node verlangt die volle Endung. TypeScript erlaubt das
+ * nur mit allowImportingTsExtensions, das wiederum noEmit oder
+ * emitDeclarationOnly voraussetzt — das verträgt sich nicht mit dem
+ * Angular-Compiler, der tsconfig.json nutzt.
+ * tsconfig.json verweist per "references" hierher, damit Editoren diese
+ * Einstellungen für die beiden Dateien finden. Ein referenziertes Projekt darf
+ * die Ausgabe nicht abschalten (TS6310), daher emitDeclarationOnly statt noEmit;
+ * Ausgabe entsteht nur bei `tsc -b` und landet im ignorierten dist/.
+ */
+{
+  "compilerOptions": {
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist/out-tsc/node",
+    "tsBuildInfoFile": "dist/out-tsc/node/tsconfig.node.tsbuildinfo",
+    "allowImportingTsExtensions": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["vitest.config.mts", "visual-baseline-guard.mts"]
+}

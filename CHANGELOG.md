@@ -602,6 +602,17 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Doku-Seite bleibt erstes Kind.
 
 ### Changed
+- **`npm run test` und `npm run playwright:install` laufen auch unter Windows.** Beide Skripte
+  setzten `PLAYWRIGHT_BROWSERS_PATH=0` in Unix-Syntax, an der `cmd.exe` scheiterte; sie gehen
+  jetzt über `cross-env` (neue devDependency in `storybook-angular`).
+- **`storybook-angular/vitest.config.ts` und `visual-baseline-guard.ts` heißen jetzt `.mts`.** Vite
+  warnte, beide nutzten ESM-Syntax, würden aber als CommonJS geladen, und ein Import ohne
+  Dateiendung vertrage sich nicht mit dem nativen Config-Loader, den Vite künftig zum Default
+  machen will. `"type": "module"` für den ganzen Workspace kam nicht infrage, weil
+  `eslint.config.js` dort CommonJS ist. Den Import mit `.mts`-Endung akzeptiert TypeScript nur mit
+  `allowImportingTsExtensions`; die beiden Dateien bekommen dafür eine eigene
+  `tsconfig.node.json`, auf die `tsconfig.json` per `references` verweist, damit Editoren sie
+  ohne Fehlermeldung prüfen.
 - **Storybook-Workspace führt `@angular/animations` und `@angular/platform-browser-dynamic`
   nicht mehr als eigene Abhängigkeiten.** Beide sind seit Angular 22 als veraltet markiert, und
   weder die Stories noch das Framework importieren sie. `@angular/animations` bleibt im Baum,

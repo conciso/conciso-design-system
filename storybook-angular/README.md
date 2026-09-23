@@ -104,7 +104,8 @@ monoceros apply conciso-ds
 npm run playwright:install
 ```
 
-`playwright:install` und `test:vitest` setzen `PLAYWRIGHT_BROWSERS_PATH=0`, d. h.
+`playwright:install` und `test:vitest` setzen `PLAYWRIGHT_BROWSERS_PATH=0` (über
+`cross-env`, damit das auch unter Windows funktioniert), d. h.
 Chromium landet in `node_modules/` (Workspace) statt im Home-Cache — und überlebt
 damit `monoceros apply`. Nach Schritt 1 + 2 ist Testing nach jedem Rebuild sofort
 lauffähig, ohne weitere manuelle Schritte.

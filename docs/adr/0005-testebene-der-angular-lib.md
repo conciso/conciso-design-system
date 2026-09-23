@@ -52,7 +52,7 @@ stattdessen über zwei bestehende Seams abgesichert:
 
 Mit der Migration des Storybooks auf Vite (`@storybook/angular-vite`) führt
 `@storybook/addon-vitest` **dieselben Stories** zusätzlich als Vitest-Tests aus
-(`storybook-angular/vitest.config.ts`, `npm run test:vitest`; Browser-Mode via
+(`storybook-angular/vitest.config.mts`, `npm run test:vitest`; Browser-Mode via
 Playwright/Chromium, ohne laufenden Storybook-Server).
 
 Das ändert die Entscheidung dieser ADR nicht: Stories bleiben die einzige

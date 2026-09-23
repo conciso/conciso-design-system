@@ -29,5 +29,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["src/**/*.ts", ".storybook/preview.ts"]
+  "include": ["src/**/*.ts", ".storybook/preview.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
