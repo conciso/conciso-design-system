@@ -14,7 +14,12 @@
 // (release-notes-generated.md) — ein zweiter Weg über `generateNotesCmd` wäre nur eine
 // zweite Quelle für denselben Text.
 export default {
-  branches: ['main'],
+  // Release-Branch ist main. RELEASE_BRANCH setzt publish.yml nur beim MANUELLEN Start auf den
+  // Branch, von dem aus gestartet wurde — damit lässt sich die Engine vor einem Merge einmal
+  // echt durchspielen (semantic-release steigt auf einem fremden Branch sonst sofort aus,
+  // noch vor der Berechtigungsprüfung). Veröffentlicht wird von dort nie: publish.yml
+  // erzwingt außerhalb von main den Dry-Run.
+  branches: [process.env.RELEASE_BRANCH || 'main'],
   tagFormat: 'v${version}',
   plugins: [
     './scripts/release/semantic-release-plugin.mjs',

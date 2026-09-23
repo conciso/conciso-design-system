@@ -93,6 +93,9 @@ jobs:
         run: npx semantic-release --dry-run --no-ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Nur beim manuellen Start der Branch, von dem aus gestartet wurde (siehe
+          # release.config.mjs); ein Push-Lauf rechnet immer auf main.
+          RELEASE_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
       # Die eigentliche Entscheidung trifft scripts/release/decide.mjs (mit Tests); dieser
       # Schritt sammelt nur die Fakten dafür und bereitet danach Quellstand und Notes vor.
       # Grundsatz: ERST einen unfertigen früheren Release abschließen, DANN Neues — siehe
@@ -102,8 +105,13 @@ jobs:
         run: |
           REGISTRY=https://npm.pkg.github.com
 
-          # Dry-Run nur beim manuellen Start, und dort als Default.
+          # Dry-Run nur beim manuellen Start, und dort als Default. Außerhalb von main IMMER
+          # Dry-Run, auch mit dry_run=false: ein Probelauf vor dem Merge (manuell auf dem
+          # Feature-Branch gestartet) darf nie veröffentlichen, taggen oder ein Release anlegen.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
+            DRY=true
+          elif [ "${{ github.ref }}" != "refs/heads/main" ]; then
+            echo "::notice::Lauf außerhalb von main (${{ github.ref_name }}) — erzwungener Dry-Run."
             DRY=true
           else
             DRY=false
