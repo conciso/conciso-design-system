@@ -57,6 +57,7 @@ jobs:
       version: ${{ steps.ermitteln.outputs.version }}
       notes: ${{ steps.ermitteln.outputs.notes }}
       source_sha: ${{ steps.ermitteln.outputs.source_sha }}
+      mode: ${{ steps.ermitteln.outputs.mode }}
       publish: ${{ steps.ermitteln.outputs.publish }}
       publish_css: ${{ steps.ermitteln.outputs.publish_css }}
       publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
@@ -85,43 +86,14 @@ jobs:
         run: npx semantic-release --dry-run --no-ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Die eigentliche Entscheidung trifft scripts/release/decide.mjs (mit Tests); dieser
+      # Schritt sammelt nur die Fakten dafür und bereitet danach Quellstand und Notes vor.
+      # Grundsatz: ERST einen unfertigen früheren Release abschließen, DANN Neues — siehe
+      # Kopfkommentar in decide.mjs.
       - name: Entscheiden, ob veröffentlicht wird
         id: ermitteln
         run: |
-          VERSION="${{ steps.engine.outputs.version }}"
-          NOTES=true
-
-          if [ -z "$VERSION" ]; then
-            # Die Engine meldet nichts Neues. Das heißt aber nur: seit dem letzten Tag kam
-            # kein relevanter Commit. Brach ein früherer Lauf NACH dem Tag-Push, aber VOR
-            # `gh release create` ab, ist genau dieser letzte Tag unfertig — und die Engine
-            # sieht ihn als abgeschlossen an. Deshalb den letzten Tag selbst prüfen und bei
-            # fehlendem GitHub-Release die Finalisierung nachholen. Die Engine rechnet ab
-            # diesem Tag und kann die Notes nicht mehr erzeugen — sie stehen aber als
-            # Nachricht im annotierten Tag (siehe „Tag setzen“ unten) und werden von dort
-            # wiederverwendet: dieselben pfadgefilterten Notes wie im regulären Lauf.
-            LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
-            if [ -n "$LATEST_TAG" ] && ! gh release view "$LATEST_TAG" >/dev/null 2>&1; then
-              VERSION="${LATEST_TAG#v}"
-              # Nur ein annotierter Tag trägt Notes; bei einem leichtgewichtigen Tag lieferte
-              # %(contents) stattdessen die Commit-Nachricht.
-              if [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ]; then
-                git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md
-              fi
-              if [ -s release-notes-generated.md ]; then NOTES=true; else NOTES=false; fi
-              echo "::warning::Tag ${LATEST_TAG} existiert, das GitHub-Release dazu fehlt — ein vorheriger Lauf brach bei der Finalisierung ab. Wird nachgeholt (Notes aus dem Tag: ${NOTES})."
-            else
-              echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
-              echo "publish=false"     >> "$GITHUB_OUTPUT"
-              echo "publish_css=false" >> "$GITHUB_OUTPUT"
-              echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-              echo "dry=false"         >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-          fi
-          echo "Ermittelte Version: ${VERSION}"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "notes=$NOTES"     >> "$GITHUB_OUTPUT"
+          REGISTRY=https://npm.pkg.github.com
 
           # Dry-Run nur beim manuellen Start, und dort als Default.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
@@ -130,93 +102,83 @@ jobs:
             DRY=false
           fi
           echo "dry=$DRY" >> "$GITHUB_OUTPUT"
-          # Quellstand, aus dem gebaut und getaggt wird: standardmäßig der ausgelöste
-          # Commit, nur das Nachziehen eines halben Releases setzt ihn weiter unten um.
-          # Per trap genau einmal geschrieben, egal über welches `exit` das Skript endet.
-          SOURCE_SHA="${{ github.sha }}"
-          trap 'echo "source_sha=$SOURCE_SHA" >> "$GITHUB_OUTPUT"' EXIT
 
-          # Existenz PRO PAKET prüfen, nicht "irgendeines von beiden". Sonst wäre ein
-          # halb geglückter Lauf (erstes Paket veröffentlicht, zweites gescheitert)
-          # nicht mehr zu heilen: der nächste Push würde still übergehen und das Paar
-          # dauerhaft auf verschiedenen Versionen stehen lassen.
-          # `npm view` scheitert auch dann, wenn das Paket noch gar nicht existiert —
-          # der erwartete Fall vor dem ersten Release, deshalb Fehler geschluckt.
-          vorhanden() {
-            npm view "$1@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1
-          }
-          CSS_EXISTS=false; LIB_EXISTS=false
-          vorhanden "@conciso/design-system"         && CSS_EXISTS=true
-          vorhanden "@conciso/design-system-angular" && LIB_EXISTS=true
-          echo "Registry-Stand für ${VERSION}: CSS-Schicht=${CSS_EXISTS}, Angular-Lib=${LIB_EXISTS}"
+          # ── Fakten sammeln ──
+          # Letzter Release-Tag (lokal vorhanden dank fetch-depth: 0) und ob er fertig ist.
+          LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+          TAG_HAS_RELEASE=false; TAG_IS_ANNOTATED=false
+          if [ -n "$LATEST_TAG" ]; then
+            gh release view "$LATEST_TAG" >/dev/null 2>&1 && TAG_HAS_RELEASE=true
+            [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ] && TAG_IS_ANNOTATED=true
+          fi
+          # Alle veröffentlichten Versionen pro Paket. `npm view` scheitert auch, wenn das
+          # Paket noch gar nicht existiert — dann eben keine Versionen.
+          versionen() { npm view "$1" versions --json --registry="$REGISTRY" 2>/dev/null || echo '[]'; }
+          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY
+          export CSS_VERSIONS="$(versionen @conciso/design-system)"
+          export LIB_VERSIONS="$(versionen @conciso/design-system-angular)"
+          export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
+          echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
 
-          # Tag und Release entstehen NACH den Publishes und sind damit der Teil, der
-          # eigenständig scheitern kann, während beide Pakete schon liegen. Ohne diese
-          # Prüfung wäre genau das nicht mehr zu heilen: der nächste Lauf sähe beide
-          # Pakete und überspränge den Job, der die Finalisierung nachholt. Bleibt der
-          # Lauf bei genau derselben Version stehen, weil kein neuer Tag entstand, liefert
-          # die Engine oben erneut dieselbe Version — die Heilung greift also unverändert.
-          # Tag über das Remote prüfen, nicht lokal — actions/checkout holt keine Tags.
-          TAG_EXISTS=false; RELEASE_EXISTS=false
-          git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1 && TAG_EXISTS=true
-          gh release view "v${VERSION}" >/dev/null 2>&1 && RELEASE_EXISTS=true
-          echo "Finalisierung für ${VERSION}: Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}"
+          # ── Entscheiden ──
+          ENTSCHEIDUNG=$(node scripts/release/decide.mjs)
+          echo "$ENTSCHEIDUNG"
+          wert() { echo "$ENTSCHEIDUNG" | sed -n "s/^$1=//p"; }
+          MODE=$(wert mode); VERSION=$(wert version)
+          if [ "$MODE" = "nichts" ]; then
+            echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
+            { echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false"; } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
-          if [ "$DRY" = "true" ]; then
-            # Ein Dry-Run soll BEIDE Pakete durchspielen, unabhängig vom Registry-Stand.
-            echo "publish=true"     >> "$GITHUB_OUTPUT"
-            echo "publish_css=true" >> "$GITHUB_OUTPUT"
-            echo "publish_lib=true" >> "$GITHUB_OUTPUT"
-          elif [ "$CSS_EXISTS" = "true" ] && [ "$LIB_EXISTS" = "true" ]; then
-            if [ "$TAG_EXISTS" = "false" ] || [ "$RELEASE_EXISTS" = "false" ]; then
-              # Beide Pakete liegen, aber die Finalisierung fehlt → ein vorheriger Lauf
-              # brach nach den Publishes ab. Job anlaufen lassen, beide Publishes aber
-              # überspringen; der Tag-/Release-Schritt ist idempotent und zieht nach.
-              echo "::warning::Version ${VERSION} ist veröffentlicht, aber die Finalisierung fehlt (Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}) — wird nachgeholt."
-              echo "publish=true"      >> "$GITHUB_OUTPUT"
-              echo "publish_css=false" >> "$GITHUB_OUTPUT"
-              echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            # Beide liegen, Tag und Release sind da → nichts zu tun.
-            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-              # Manuell und ausdrücklich ohne Dry-Run angefordert → laut scheitern.
-              echo "::error::Version ${VERSION} ist für beide Pakete bereits veröffentlicht."
-              exit 1
-            fi
-            # Push-getrieben, aber die Engine lieferte trotzdem dieselbe Version wie zuvor
-            # (kann nicht regulär vorkommen, da ein neuer Tag entstehen würde) → still
-            # übergehen statt erneut zu veröffentlichen.
-            echo "::notice::Version ${VERSION} ist bereits veröffentlicht — nichts zu tun."
-            echo "publish=false"     >> "$GITHUB_OUTPUT"
-            echo "publish_css=false" >> "$GITHUB_OUTPUT"
-            echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-          else
-            # Mindestens eines fehlt → veröffentlichen, aber nur das Fehlende. Liegt
-            # genau eines schon, war ein vorheriger Lauf auf halber Strecke stehen
-            # geblieben: laut sagen und den Rest nachziehen (der Lauf heilt sich
-            # selbst, statt den Lockstep dauerhaft zu brechen).
-            if [ "$CSS_EXISTS" = "true" ] || [ "$LIB_EXISTS" = "true" ]; then
-              echo "::warning::Unvollständiger Release ${VERSION} gefunden (CSS=${CSS_EXISTS}, Lib=${LIB_EXISTS}) — ein vorheriger Lauf brach zwischen den Publishes ab. Es wird nur das fehlende Paket nachgezogen."
-              # Das fehlende Paket muss aus DEMSELBEN Quellstand gebaut werden wie das
-              # vorhandene, sonst tragen die Lockstep-Pakete dieselbe Version, aber
-              # verschiedene Inhalte — ist seit dem abgebrochenen Lauf ein weiterer Commit
-              # auf main gelandet, wäre der aktuelle Checkout der falsche. npm vermerkt beim
-              # Publish den Commit als `gitHead`; von dort wird gebaut (und getaggt).
-              if [ "$CSS_EXISTS" = "true" ]; then VORHANDEN="@conciso/design-system"; else VORHANDEN="@conciso/design-system-angular"; fi
-              SOURCE_SHA=$(npm view "${VORHANDEN}@${VERSION}" gitHead --registry=https://npm.pkg.github.com 2>/dev/null || true)
+          # ── Quellstand: aus welchem Commit gebaut und getaggt wird ──
+          case "$(wert source)" in
+            head) SOURCE_SHA="${{ github.sha }}" ;;
+            tag)  SOURCE_SHA=$(git rev-list -n 1 "$LATEST_TAG") ;;
+            registry)
+              # Das Nachzuziehende muss aus DEMSELBEN Quellstand kommen wie das schon
+              # Veröffentlichte, sonst tragen die Lockstep-Pakete dieselbe Version, aber
+              # verschiedene Inhalte (und der Tag landet auf einem späteren Commit). npm
+              # vermerkt beim Publish den Commit als `gitHead`.
+              SOURCE_SHA=""
+              for PAKET in @conciso/design-system @conciso/design-system-angular; do
+                [ -n "$SOURCE_SHA" ] && break
+                SOURCE_SHA=$(npm view "${PAKET}@${VERSION}" gitHead --registry="$REGISTRY" 2>/dev/null || true)
+              done
               if [ -z "$SOURCE_SHA" ]; then
                 # Ohne bekannten Quellstand lieber laut scheitern als ein Paar mit
                 # auseinanderlaufendem Inhalt veröffentlichen.
-                echo "::error::${VORHANDEN}@${VERSION} hat kein gitHead in der Registry — der Quellstand für das fehlende Paket ist unbekannt. Manuell nachziehen."
+                echo "::error::Version ${VERSION} liegt ohne gitHead in der Registry — der Quellstand ist unbekannt. Manuell nachziehen."
                 exit 1
-              fi
-              echo "Fehlendes Paket wird aus ${SOURCE_SHA} gebaut (Quellstand von ${VORHANDEN}@${VERSION})."
-            fi
-            echo "publish=true" >> "$GITHUB_OUTPUT"
-            [ "$CSS_EXISTS" = "true" ] && echo "publish_css=false" >> "$GITHUB_OUTPUT" || echo "publish_css=true" >> "$GITHUB_OUTPUT"
-            [ "$LIB_EXISTS" = "true" ] && echo "publish_lib=false" >> "$GITHUB_OUTPUT" || echo "publish_lib=true" >> "$GITHUB_OUTPUT"
-          fi
+              fi ;;
+          esac
+          echo "source_sha=$SOURCE_SHA" >> "$GITHUB_OUTPUT"
+
+          # ── Notes: immer dieselben pfadgefilterten, nur je nach Fall anders beschafft ──
+          # Die Engine hat ihre Notes oben schon geschrieben (Bereich letzter Tag..HEAD);
+          # außer im Modus `neu` passen die nicht und werden ersetzt oder verworfen.
+          case "$(wert notes_source)" in
+            engine) ;;
+            range)  node scripts/release/notes-for-range.mjs "$LATEST_TAG" "$SOURCE_SHA" "$VERSION" ;;
+            # --cleanup=verbatim beim Taggen (siehe unten) hält die #-Überschriften darin.
+            tag)    git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md ;;
+            github) rm -f release-notes-generated.md ;;
+          esac
+          if [ -s release-notes-generated.md ]; then echo "notes=true" >> "$GITHUB_OUTPUT"; else echo "notes=false" >> "$GITHUB_OUTPUT"; fi
+
+          # ── Ergebnis weiterreichen ──
+          {
+            echo "version=$VERSION"
+            echo "mode=$MODE"
+            echo "publish=true"
+            echo "publish_css=$(wert publish_css)"
+            echo "publish_lib=$(wert publish_lib)"
+          } >> "$GITHUB_OUTPUT"
+          case "$MODE" in
+            nachziehen)   echo "::warning::Unfertiger Release ${VERSION} gefunden (ein vorheriger Lauf brach ab) — wird aus ${SOURCE_SHA} abgeschlossen. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
+            finalisieren) echo "::warning::Tag v${VERSION} hat kein GitHub-Release (ein vorheriger Lauf brach ab) — wird nachgeholt. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
+            neu)          echo "Neue Version: ${VERSION}" ;;
+          esac
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -253,6 +215,8 @@ jobs:
       # contents: write für Tag und Release, die dieser Job selbst anlegt.
       contents: write
       packages: write
+      # actions: write für den erneuten Anstoß nach einer Heilung (letzter Schritt).
+      actions: write
     env:
       VERSION: ${{ needs.pruefen.outputs.version }}
       DRY: ${{ needs.pruefen.outputs.dry }}
@@ -346,5 +310,16 @@ jobs:
               --title "v${VERSION}" \
               --generate-notes
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Nach `nachziehen`/`finalisieren` hat dieser Lauf nur Altes abgeschlossen und die
+      # inzwischen gelandeten Commits bewusst liegen lassen (siehe decide.mjs). Ein neuer
+      # Lauf ab dem jetzt fertigen Tag holt sie ab, statt bis zum nächsten Push zu warten.
+      # workflow_dispatch ist das einzige Ereignis, das der GITHUB_TOKEN auslösen darf. Keine
+      # Schleife: jeder Anstoß folgt auf einen abgeschlossenen Release, der danach nicht mehr
+      # als unfertig gilt; scheitert die Heilung, endet der Lauf vor diesem Schritt.
+      - name: Nach der Heilung erneut anstoßen
+        if: env.DRY == 'false' && needs.pruefen.outputs.mode != 'neu'
+        run: gh workflow run publish.yml --ref main -f dry_run=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
