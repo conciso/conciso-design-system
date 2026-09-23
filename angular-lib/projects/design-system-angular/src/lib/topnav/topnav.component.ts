@@ -58,7 +58,7 @@ export interface CdsNavItem {
       </a>
 
       <nav class="ep-nav-links" [id]="navId" aria-label="Hauptnavigation">
-        @for (item of links(); track item.label; let i = $index) {
+        @for (item of links(); track $index; let i = $index) {
           @if (item.sub?.length) {
             <div class="ep-nav-item ep-nav-has-sub" [class.is-open]="openIndex() === i">
               <!-- Label = eigener Link (führt z. B. auf eine Übersichtsseite), NICHT der Toggle.
@@ -83,7 +83,7 @@ export interface CdsNavItem {
                 <ng-icon class="ep-nav-item-caret" name="uiCaretDown" size="10px" aria-hidden="true" />
               </button>
               <div class="ep-nav-sub" [id]="subId(i)">
-                @for (s of item.sub; track s.label) {
+                @for (s of item.sub; track $index) {
                   <a class="ep-nav-sub-btn" [href]="s.href" [attr.aria-current]="s.href === activeHref() ? 'page' : null" (click)="closeAll()">
                     {{ s.label }}
                   </a>
