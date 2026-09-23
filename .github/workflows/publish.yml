@@ -84,13 +84,6 @@ jobs:
         run: npx semantic-release --dry-run --no-ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Notizen als Artefakt weiterreichen
-        if: steps.engine.outputs.version != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-notes
-          path: release-notes-generated.md
-          retention-days: 1
       - name: Entscheiden, ob veröffentlicht wird
         id: ermitteln
         run: |
@@ -102,14 +95,20 @@ jobs:
             # kein relevanter Commit. Brach ein früherer Lauf NACH dem Tag-Push, aber VOR
             # `gh release create` ab, ist genau dieser letzte Tag unfertig — und die Engine
             # sieht ihn als abgeschlossen an. Deshalb den letzten Tag selbst prüfen und bei
-            # fehlendem GitHub-Release die Finalisierung nachholen. Die generierten Notes
-            # gibt es dann nicht mehr (die Engine rechnet ab diesem Tag), der Publish-Job
-            # fällt auf die von GitHub erzeugten Notes zurück.
+            # fehlendem GitHub-Release die Finalisierung nachholen. Die Engine rechnet ab
+            # diesem Tag und kann die Notes nicht mehr erzeugen — sie stehen aber als
+            # Nachricht im annotierten Tag (siehe „Tag setzen“ unten) und werden von dort
+            # wiederverwendet: dieselben pfadgefilterten Notes wie im regulären Lauf.
             LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
             if [ -n "$LATEST_TAG" ] && ! gh release view "$LATEST_TAG" >/dev/null 2>&1; then
               VERSION="${LATEST_TAG#v}"
-              NOTES=false
-              echo "::warning::Tag ${LATEST_TAG} existiert, das GitHub-Release dazu fehlt — ein vorheriger Lauf brach bei der Finalisierung ab. Wird nachgeholt."
+              # Nur ein annotierter Tag trägt Notes; bei einem leichtgewichtigen Tag lieferte
+              # %(contents) stattdessen die Commit-Nachricht.
+              if [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ]; then
+                git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md
+              fi
+              if [ -s release-notes-generated.md ]; then NOTES=true; else NOTES=false; fi
+              echo "::warning::Tag ${LATEST_TAG} existiert, das GitHub-Release dazu fehlt — ein vorheriger Lauf brach bei der Finalisierung ab. Wird nachgeholt (Notes aus dem Tag: ${NOTES})."
             else
               echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
               echo "publish=false"     >> "$GITHUB_OUTPUT"
@@ -201,6 +200,15 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Nach `ermitteln`, nicht direkt nach der Engine: beim Nachholen einer abgebrochenen
+      # Finalisierung stammen die Notes aus dem annotierten Tag, nicht aus der Engine.
+      - name: Notizen als Artefakt weiterreichen
+        if: steps.ermitteln.outputs.publish == 'true' && steps.ermitteln.outputs.notes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release-notes-generated.md
+          retention-days: 1
 
   # ── Harte Vorbedingung: konsumierbares Artefakt? ────────────────────────────
   # Als reusable Workflow eingebunden (siehe Kommentar in consumer-smoke-test.yml),
@@ -280,7 +288,19 @@ jobs:
           if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
             echo "::notice::Tag v${VERSION} existiert bereits — wird nicht neu gesetzt."
           else
-            git tag "v${VERSION}"
+            # Annotierter Tag mit den Release-Notes als Nachricht: Scheitert gleich danach
+            # `gh release create`, holt der nächste Lauf das Release mit genau diesen
+            # (pfadgefilterten) Notes nach, statt sie neu erzeugen zu müssen (siehe
+            # `ermitteln`). Ein annotierter Tag braucht eine Identität. `--cleanup=verbatim`
+            # ist Pflicht: der Standard „strip“ löscht jede Zeile, die mit # beginnt — also
+            # sämtliche Markdown-Überschriften der Notes.
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if [ -s release-notes-generated.md ]; then
+              git tag -a "v${VERSION}" --cleanup=verbatim -F release-notes-generated.md
+            else
+              git tag -a "v${VERSION}" -m "v${VERSION}"
+            fi
             git push origin "v${VERSION}"
           fi
           # Beim Nachziehen eines unvollständigen Releases kann das Release schon
@@ -292,8 +312,9 @@ jobs:
               --title "v${VERSION}" \
               --notes-file release-notes-generated.md
           else
-            # Nachgeholte Finalisierung (siehe `ermitteln`): Die Engine-Notes gibt es nicht
-            # mehr, GitHub erzeugt sie aus den Commits seit dem vorherigen Tag.
+            # Letzter Rückfall, nur beim Nachholen für einen Tag ohne gespeicherte Notes
+            # (leichtgewichtiger Tag aus der Zeit vor ADR-0008): GitHub erzeugt die Notes
+            # aus den Commits seit dem vorherigen Tag — ungefiltert, aber besser als keine.
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \
               --generate-notes

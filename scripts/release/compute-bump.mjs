@@ -24,9 +24,17 @@ export const BUMP_RULES = [
   { type: 'fix', release: 'patch' },
   { type: 'perf', release: 'patch' },
   { type: 'build', scope: 'deps', release: 'patch' },
+  // Ausdrücklich KEIN Release für Git-Reverts. Nötig, weil @semantic-release/commit-analyzer
+  // bei einem Commit ohne passende eigene Regel auf seine Standardregeln zurückfällt — und
+  // die machen aus einem Revert ein patch. `release: false` zählt dort als Treffer und
+  // verhindert den Rückfall. Wer einen Revert ausliefern will, schreibt einen `fix:`.
+  { revert: true, release: false },
 ];
 
 function matchesRule(rule, { type, scope, breaking }) {
+  // Reverts haben keinen Conventional-Commit-Header (`Revert "feat: …"`) und kommen hier
+  // gar nicht erst an; die Regel oben existiert nur für den commit-analyzer.
+  if (rule.revert) return false;
   if (rule.breaking) return breaking;
   if (rule.type !== type) return false;
   if (rule.scope !== undefined && rule.scope !== scope) return false;

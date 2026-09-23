@@ -52,6 +52,20 @@ test('ein regulärer BREAKING CHANGE-Footer funktioniert weiterhin (Regressionss
   assert.equal(await analyze(commits), 'major');
 });
 
+test('ein Git-Revert löst KEIN Release aus (kein Rückfall auf die Standardregeln)', async () => {
+  // Ohne die explizite Revert-Regel in BUMP_RULES fiele der commit-analyzer auf seine
+  // Standardregeln zurück, die einen Revert als patch werten — die PR-Summary
+  // (computeBump) sagte dann „Kein Release“, veröffentlicht würde trotzdem.
+  const commits = [
+    {
+      hash: 'jkl3456',
+      message:
+        'Revert "feat(lib): neue Variante ergänzen"\n\nThis reverts commit ghi9012ghi9012ghi9012ghi9012ghi9012ghi90.',
+    },
+  ];
+  assert.equal(await analyze(commits), null);
+});
+
 test('feat ohne "!" und ohne Footer bleibt minor (kein falsch-positives major)', async () => {
   const commits = [{ hash: 'ghi9012', message: 'feat(lib): neue Variante ergänzen' }];
   assert.equal(await analyze(commits), 'minor');

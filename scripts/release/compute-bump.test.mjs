@@ -76,6 +76,18 @@ test('höchste Stufe über mehrere Commits gewinnt', () => {
   );
 });
 
+test('ein Git-Revert löst kein Release aus (gleich wie der commit-analyzer)', () => {
+  assert.equal(
+    computeBump([
+      {
+        subject: 'Revert "feat(lib): neue Variante ergänzen"',
+        body: 'This reverts commit ghi9012ghi9012ghi9012ghi9012ghi9012ghi90.',
+      },
+    ]),
+    null,
+  );
+});
+
 test('leere Commit-Liste löst kein Release aus', () => {
   assert.equal(computeBump([]), null);
 });
