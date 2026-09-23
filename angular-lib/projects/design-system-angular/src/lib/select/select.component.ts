@@ -1,18 +1,19 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   forwardRef,
-  HostListener,
   inject,
   input,
   model,
   signal,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroChevronDown, uiCheck } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
+import { disposableTimeout } from '../shared/disposable-timeout';
 
 export interface CdsSelectOption {
   value: string;
@@ -38,12 +39,16 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-select',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroChevronDown, uiCheck })],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
   ],
+  host: {
+    '(focusout)': 'onFocusOut($event)',
+    '(document:pointerdown)': 'onDocPointerDown($event)',
+  },
   template: `
     <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled()" [attr.data-area]="area() || null">
       <span class="ep-select-label" [id]="ids.label">{{ label() }}</span>
@@ -103,8 +108,8 @@ let uid = 0;
 })
 export class SelectComponent implements ControlValueAccessor {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  @ViewChild('trigger') private trigger?: ElementRef<HTMLButtonElement>;
-  @ViewChild('menu') private menu?: ElementRef<HTMLUListElement>;
+  private readonly trigger = viewChild<ElementRef<HTMLButtonElement>>('trigger');
+  private readonly menu = viewChild<ElementRef<HTMLUListElement>>('menu');
 
   readonly label = input('Bereich');
   readonly options = input<CdsSelectOption[]>([]);
@@ -117,8 +122,10 @@ export class SelectComponent implements ControlValueAccessor {
   /** Optionaler Feldname → verstecktes Input für den Formular-Submit. */
   readonly name = input<string>();
 
-  readonly open = signal(false);
-  readonly activeIndex = signal(-1);
+  /** @internal */
+  protected readonly open = signal(false);
+  /** @internal */
+  protected readonly activeIndex = signal(-1);
 
   private onChange: (value: string) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */
@@ -127,21 +134,26 @@ export class SelectComponent implements ControlValueAccessor {
     /* von Angular-Forms via registerOnTouched gesetzt */
   };
 
+  /** @internal */
   writeValue(value: string | null): void {
     this.value.set(value ?? undefined);
   }
+  /** @internal */
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
+  /** @internal */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
+  /** @internal */
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
   }
 
   private readonly instance = ++uid;
-  readonly ids = {
+  /** @internal */
+  protected readonly ids = {
     label: `cds-select-${this.instance}-label`,
     value: `cds-select-${this.instance}-value`,
     menu: `cds-select-${this.instance}-menu`,
@@ -149,13 +161,19 @@ export class SelectComponent implements ControlValueAccessor {
   };
 
   private typeBuffer = '';
-  private typeTimer?: ReturnType<typeof setTimeout>;
+  // Timer über DestroyRef aufgeräumt (WP5 §5.5) — dieselbe `disposableTimeout()`
+  // deckt sowohl Fire-and-forget (Fokus/Scroll) als auch Debounce (Type-ahead) ab.
+  private readonly menuFocusTimer = disposableTimeout();
+  private readonly scrollTimer = disposableTimeout();
+  private readonly typeaheadTimer = disposableTimeout();
 
-  selectedOption(): CdsSelectOption | undefined {
+  /** @internal */
+  protected selectedOption(): CdsSelectOption | undefined {
     return this.options().find((o) => o.value === this.value());
   }
 
-  toggle(): void {
+  /** @internal */
+  protected toggle(): void {
     if (this.open()) this.close();
     else this.openMenu();
   }
@@ -167,16 +185,18 @@ export class SelectComponent implements ControlValueAccessor {
     this.open.set(true);
     // Fokus in die Listbox (nach Render, wenn sie sichtbar ist) — APG-Listbox-
     // Muster: aria-activedescendant liegt dort, nicht auf dem Button.
-    setTimeout(() => this.menu?.nativeElement.focus());
+    this.menuFocusTimer.schedule(() => this.menu()?.nativeElement.focus());
   }
 
-  close(focusTrigger = true): void {
+  /** @internal */
+  protected close(focusTrigger = true): void {
     this.open.set(false);
     this.activeIndex.set(-1);
-    if (focusTrigger) this.trigger?.nativeElement.focus();
+    if (focusTrigger) this.trigger()?.nativeElement.focus();
   }
 
-  select(i: number): void {
+  /** @internal */
+  protected select(i: number): void {
     const opt = this.options()[i];
     if (!opt) return;
     this.value.set(opt.value);
@@ -185,7 +205,8 @@ export class SelectComponent implements ControlValueAccessor {
     this.close();
   }
 
-  markTouched(): void {
+  /** @internal */
+  protected markTouched(): void {
     this.onTouched();
   }
 
@@ -193,15 +214,20 @@ export class SelectComponent implements ControlValueAccessor {
    * `onTouched` erst, wenn der Fokus die GESAMTE Komponente verlässt — nicht schon beim
    * Öffnen, wenn er vom Trigger in die Listbox wandert (beides liegt im Host). Sonst
    * wäre das Control „touched“, bevor überhaupt ausgewählt wurde.
+   *
+   * @internal
    */
-  @HostListener('focusout', ['$event'])
-  onFocusOut(event: FocusEvent): void {
+  protected onFocusOut(event: FocusEvent): void {
     const next = event.relatedTarget as Node | null;
     if (!next || !this.host.nativeElement.contains(next)) this.markTouched();
   }
 
-  /** Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus). */
-  onTriggerKeydown(event: KeyboardEvent): void {
+  /**
+   * Tastatur am Trigger-Button: nur Öffnen (im offenen Zustand hat die Listbox Fokus).
+   *
+   * @internal
+   */
+  protected onTriggerKeydown(event: KeyboardEvent): void {
     if (this.open()) return;
     const key = event.key;
     if (key === 'ArrowDown' || key === 'ArrowUp' || key === 'Enter' || key === ' ') {
@@ -210,8 +236,12 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  /** Tastatur in der offenen Listbox: Navigation, Auswahl, Schließen, Type-ahead. */
-  onMenuKeydown(event: KeyboardEvent): void {
+  /**
+   * Tastatur in der offenen Listbox: Navigation, Auswahl, Schließen, Type-ahead.
+   *
+   * @internal
+   */
+  protected onMenuKeydown(event: KeyboardEvent): void {
     const key = event.key;
     switch (key) {
       case 'ArrowDown':
@@ -257,21 +287,20 @@ export class SelectComponent implements ControlValueAccessor {
   private setActive(i: number): void {
     this.activeIndex.set(i);
     // Aktiven Eintrag in Sicht scrollen (lange Listen).
-    setTimeout(() => {
+    this.scrollTimer.schedule(() => {
       this.host.nativeElement.querySelector(`#${CSS.escape(this.ids.option(i))}`)?.scrollIntoView({ block: 'nearest' });
     });
   }
 
   private typeahead(char: string): void {
     this.typeBuffer += char.toLowerCase();
-    clearTimeout(this.typeTimer);
-    this.typeTimer = setTimeout(() => (this.typeBuffer = ''), 500);
+    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), 500);
     const match = this.options().findIndex((o) => o.label.toLowerCase().startsWith(this.typeBuffer));
     if (match >= 0) this.setActive(match);
   }
 
-  @HostListener('document:pointerdown', ['$event'])
-  onDocPointerDown(event: PointerEvent): void {
+  /** @internal */
+  protected onDocPointerDown(event: PointerEvent): void {
     if (this.open() && !this.host.nativeElement.contains(event.target as Node)) this.close(false);
   }
 }

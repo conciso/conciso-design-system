@@ -4,9 +4,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { TextFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TextFieldComponent> = {
-  title: 'Molecules/Textfeld',
+  title: 'Komponenten/Inputs & Forms/Textfeld',
   component: TextFieldComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -42,6 +42,15 @@ export const Fehlerzustand: Story = {
   args: {
     error: 'Bitte eine gültige E-Mail-Adresse eingeben.',
     fieldId: 'demo-email-error',
+  },
+};
+
+export const Deaktiviert: Story = {
+  args: { fieldId: 'demo-email-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByLabelText(/E-Mail/)).toBeDisabled();
   },
 };
 

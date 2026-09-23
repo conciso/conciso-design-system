@@ -1,4 +1,4 @@
-import { Injectable, type Signal, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 /** Drei Theme-Modi. „system“ folgt der OS-Einstellung (prefers-color-scheme). */
 export type CdsThemeMode = 'light' | 'dark' | 'system';
@@ -70,7 +70,7 @@ function apply(): void {
 
 export const themeStore = {
   /** Readonly-Signal des aktuellen Modus (Komponenten lesen hierüber). */
-  mode: _mode.asReadonly() as Signal<CdsThemeMode>,
+  mode: _mode.asReadonly(),
 
   /** Setzen + anwenden + Abonnenten benachrichtigen (z. B. Toolbar-Sync). */
   set(mode: CdsThemeMode): void {

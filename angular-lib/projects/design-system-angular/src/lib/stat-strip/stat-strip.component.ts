@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /** Eine Kennzahl im Stat-Strip. */
@@ -16,7 +16,7 @@ export interface CdsFlatStat {
  */
 @Component({
   selector: 'cds-stat-strip',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-stat-strip" [style.border-radius]="rounded() ? 'var(--r-lg)' : null">
       @for (stat of stats(); track stat) {
@@ -30,12 +30,7 @@ export interface CdsFlatStat {
 })
 export class StatStripComponent {
   /** Kennzahlen des Streifens. */
-  readonly stats = input<CdsFlatStat[]>([
-    { area: 'co', value: '94 %', label: 'Kundenzufriedenheit' },
-    { area: 'ki', value: '3×', label: 'Schnellere Prozesse durch KI' },
-    { area: 'es', value: '99,9 %', label: 'System-Uptime' },
-    { area: 'wo', value: '280+', label: 'Transformationsprojekte' },
-  ]);
+  readonly stats = input.required<CdsFlatStat[]>();
   /** Abgerundete Ecken (--r-lg) wie in der Doku-Verwendung. */
   readonly rounded = input(true);
 }

@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Code-Block" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Code-Block stellt Quellcode und Terminal-Ausgaben für Wissens- und Technikbeiträge dar:
+Standard, mit Zeilennummern, Terminal und Inline-Code. Alle vier sind Varianten
+derselben Story `Komponenten/Code-Block/Code-Block` (gesteuert über die Property `terminal` sowie
+die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
+
+## Wann welche Variante
+
+| Variante | Wann einsetzen | Nicht geeignet für |
+|---|---|---|
+| Standard | Einzelne Funktionen, Konfigurationen, kurze Snippets | Shell-Befehle, langen Fließtext-Kontext |
+| Mit Zeilennummern | Wenn im Begleittext auf bestimmte Zeilen verwiesen wird (ab etwa 10 Zeilen) | Snippets unter 5 Zeilen, Terminal-Ausgaben |
+| Terminal | Installations- und Setup-Befehle, CLI-Workflows | Programm-Code mit Syntax-Highlighting |
+| Inline-Code | Bezeichner, Tokens, Klassen im Fließtext, maximal eine Zeile | Mehrzeilige Snippets, vollständige Statements |
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Semantik | `<pre><code>` als Grundgerüst, Screenreader kündigen den Inhalt als „Code“ an; `<pre>` allein reicht nicht |
+| Scrollbarkeit | Scrollbare `<pre>`-Blöcke mit `tabindex="0"` versehen, sonst per Tastatur nicht erreichbar |
+| Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren **stabil** — ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`role="status"`, `.sr-only`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Sprache beziehungsweise Programmiersprache immer sichtbar im Header angeben, erleichtert das Lesen und ermöglicht Syntax-Highlighting
+- Zeilennummern nur ab etwa 10 Zeilen beziehungsweise wenn der Begleittext explizit auf Zeilen verweist (zum Beispiel „Zeile 8 setzt den Radius“)
+- Terminal-Variante für alle Shell-Befehle und Ausgaben, der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt
+- Copy-Button immer einbauen mit `aria-label`, Leser kopieren Code häufiger als sie ihn abtippen
+- `<pre><code>` als semantisches Grundgerüst verwenden
+- Code-Block immer mit einer kurzen Einleitung im Fließtext versehen, Kontext vor dem Block, nicht danach
+
+**Nicht tun**
+
+- Inline-Code für mehrzeilige Snippets oder Beispiele, ab 2 Zeilen gehört der Inhalt in einen Block
+- Screenshots von Code statt echtem Text, nicht kopierbar und nicht zugänglich für Screenreader
+- Highlight-Klassen (`.k`, `.s` …) für rein dekorative Farben zweckentfremden, sie tragen Bedeutung und sollten semantisch korrekt eingesetzt werden
+- Terminal und Code-Block mischen, Shell-Befehle und Programm-Code gehören in getrennte Blöcke
+- Eigene Hintergrundfarben außerhalb der Token setzen, bricht Konsistenz und Dark-Mode-Kompatibilität
+- Code ohne Sprachkennzeichnung ausliefern, Syntax-Highlighting und Screenreader-Kontext fehlen dann
+- Zu lange Zeilen ohne Umbruch oder Block-Code direkt im Fließtext ohne visuellen Abstand
+
+## Verwandte Seiten
+
+- Komponenten/Code-Block/Code-Block (Story, alle vier Varianten)

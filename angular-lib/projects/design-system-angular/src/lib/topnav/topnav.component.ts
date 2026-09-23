@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, inject, input, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, input, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
@@ -30,13 +31,17 @@ export interface CdsNavItem {
  */
 @Component({
   selector: 'cds-topnav',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ThemeCycleComponent, NgIcon],
   viewProviders: [provideIcons({ heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown })],
   // ng-icon rendert sein <svg> inline (vertical-align:baseline) → im 24px-Toggle säße der
   // 10px-Caret zu tief. Host auf Flex stellen zentriert das SVG unabhängig von der Baseline.
   // Wirkt nur hier (emulated); die portable .ep-nav-item-caret aus components.css bleibt unberührt.
   styles: `.ep-nav-item-caret { display: inline-flex; align-items: center; justify-content: center; }`,
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+    '(document:keydown.escape)': 'onEscape()',
+  },
   template: `
     <header class="ep-topnav" [class.nav-open]="navOpen()">
       <a class="ep-logo" href="#" (click)="$event.preventDefault()">
@@ -146,9 +151,12 @@ export interface CdsNavItem {
 })
 export class TopnavComponent {
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly document = inject(DOCUMENT);
 
   private readonly uid = ++cdsTopnavUid;
+  /** @internal */
   protected readonly searchId = `cds-topnav-search-${this.uid}`;
+  /** @internal */
   protected readonly navId = `cds-topnav-nav-${this.uid}`;
 
   readonly logo = input('conciso.');
@@ -193,45 +201,98 @@ export class TopnavComponent {
     { label: 'Kontakt', href: '#kontakt' },
   ]);
 
+  /** @internal */
   protected readonly openIndex = signal(-1);
+  /** @internal */
   protected readonly searchOpen = signal(false);
-  /** Mobile-Menü offen? Schaltet .nav-open am Header (→ .ep-nav-links sichtbar). */
+  /**
+   * Mobile-Menü offen? Schaltet .nav-open am Header (→ .ep-nav-links sichtbar).
+   *
+   * @internal
+   */
   protected readonly navOpen = signal(false);
 
-  /** Eindeutige ID des Submenüs zu Eintrag i (Toggle aria-controls ↔ .ep-nav-sub). */
+  /**
+   * Eindeutige ID des Submenüs zu Eintrag i (Toggle aria-controls ↔ .ep-nav-sub).
+   *
+   * @internal
+   */
   protected subId(i: number): string {
     return `cds-topnav-sub-${this.uid}-${i}`;
   }
 
-  toggleSub(i: number): void {
+  /** @internal */
+  protected toggleSub(i: number): void {
     this.openIndex.set(this.openIndex() === i ? -1 : i);
     this.searchOpen.set(false);
   }
 
-  toggleSearch(): void {
+  /** @internal */
+  protected toggleSearch(): void {
     this.searchOpen.set(!this.searchOpen());
     this.openIndex.set(-1);
   }
 
-  toggleNav(): void {
+  /** @internal */
+  protected toggleNav(): void {
     this.navOpen.set(!this.navOpen());
     this.openIndex.set(-1);
     this.searchOpen.set(false);
   }
 
-  closeAll(): void {
+  /** @internal */
+  protected closeAll(): void {
     this.openIndex.set(-1);
     this.searchOpen.set(false);
     this.navOpen.set(false);
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
+  /** @internal */
+  protected onDocumentClick(event: MouseEvent): void {
+    // Außenklick: NICHT den Fokus umsetzen — der Nutzer hat bewusst woanders
+    // hingeklickt, dorthin den Fokus zu ziehen wäre ein eigener Fehler.
     if (!this.host.nativeElement.contains(event.target as Node)) this.closeAll();
   }
 
-  @HostListener('document:keydown.escape')
-  onEscape(): void {
+  /** @internal */
+  protected onEscape(): void {
+    this.closeWithFocusReturn();
+  }
+
+  /**
+   * Wie `closeAll()`, gibt den Fokus aber an den öffnenden Toggle zurück (Submenü-
+   * bzw. Such-Toggle) — NUR wenn der Fokus beim Schließen tatsächlich innerhalb des
+   * schließenden Bereichs lag. `css/components.css:1148` setzt `.ep-nav-sub{display:
+   * none}`, `:1189` dasselbe für `.ep-nav-search-pop`: das fokussierte Element
+   * verschwindet damit aus dem Fokus-Baum und der Fokus fiele sonst ans `<body>`
+   * (WCAG 2.4.3). Nur für den Escape-Pfad gedacht.
+   *
+   * @internal
+   */
+  private closeWithFocusReturn(): void {
+    const active = this.document.activeElement;
+    let toggle: HTMLElement | null = null;
+    const i = this.openIndex();
+    if (i >= 0) {
+      const sub = this.host.nativeElement.querySelector(`#${this.subId(i)}`);
+      if (sub && active && sub.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>(
+          `[aria-controls="${this.subId(i)}"]`,
+        );
+      }
+    } else if (this.searchOpen()) {
+      const pop = this.host.nativeElement.querySelector('.ep-nav-search-pop');
+      if (pop && active && pop.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>('.ep-nav-search-toggle');
+      }
+    }
+    if (!toggle && this.navOpen()) {
+      const nav = this.host.nativeElement.querySelector(`#${this.navId}`);
+      if (nav && active && nav.contains(active)) {
+        toggle = this.host.nativeElement.querySelector<HTMLElement>('.ep-nav-burger');
+      }
+    }
     this.closeAll();
+    toggle?.focus();
   }
 }

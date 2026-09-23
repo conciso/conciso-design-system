@@ -53,24 +53,43 @@ Die **Foundations**-Stories rendern Farben und Typografie live aus den
 
 ## Tests
 
-Getestet wird über den **Storybook Test-Runner** (`@storybook/test-runner`,
-Jest + Playwright). Jede Story ist ein Smoke-Test (rendert fehlerfrei); die
-interaktiven Komponenten (Chip, AreaTabs, FAQ, Slider, Carousel, LogoCarousel,
-Topnav) tragen `play`-Funktionen (`storybook/test`), die das Verhalten prüfen
-(Klick/Tastatur + Assertions). Das a11y-Addon läuft dabei automatisch mit und
-meldet axe-Verstöße (aktuell nicht-blockierend).
+Primärer lokaler Weg ist **`npm run test:vitest`** (`@storybook/addon-vitest`,
+Browser-Mode via Playwright/Chromium): führt jede Story als Vitest-Test aus
+(Smoke-Render + `play`-Funktionen), inklusive derselben a11y-Prüfung wie im
+Storybook-UI (`vitest.setup.ts` wendet die Preview-Annotationen aus
+`preview.ts` an, siehe Kommentar dort). Kein laufender Dev-Server nötig.
 
 ```bash
-# Storybook muss laufen …
-npm run storybook
-# … dann in einem zweiten Terminal:
-npm run test-storybook
+npm run test:vitest
+```
+
+Jede Story ist damit ein Smoke-Test (rendert fehlerfrei); die interaktiven
+Komponenten (Chip, AreaTabs, FAQ, Slider, Carousel, LogoCarousel, Topnav)
+tragen `play`-Funktionen (`storybook/test`), die das Verhalten prüfen
+(Klick/Tastatur + Assertions). Das a11y-Addon läuft dabei automatisch mit;
+axe-Verstöße lassen den Lauf fehlschlagen (siehe „a11y ist global scharf
+geschaltet“ weiter unten). `npm run test:vitest` ist außerdem die einzige
+Testschiene — ein früherer, redundanter zweiter Lauf über den Storybook
+Test-Runner (Jest) ist entfallen (siehe
+[ADR-0005](../docs/adr/0005-testebene-der-angular-lib.md)).
+
+**Visual-Regression** läuft in derselben Schiene, aber nur mit `VISUAL=1`
+(siehe `.storybook/vitest.setup.ts`): dann macht ein `afterEach`-Hook je Story
+einen Screenshot (`expect(document.body).toMatchScreenshot(...)`) und
+vergleicht ihn gegen `visual-snapshots/<story-id>.png`. Lokal ist das
+Rendering nicht pixelgleich zum gepinnten CI-Image — der scharfe Vergleich
+läuft in `.github/workflows/visual.yml`. Einzelne Stories mit nicht
+einfrierbaren, zeitgesteuerten Zuständen (z. B. Autoplay-Carousels) nehmen
+sich mit `parameters: { snapshot: { skip: true } }` heraus.
+
+```bash
+VISUAL=1 npm run test:vitest
 ```
 
 ### Playwright im Monoceros-Container dauerhaft einrichten
 
-Die npm-Pakete (`@storybook/test-runner`, `playwright`) persistieren bereits über
-`package.json` + den Workspace. Dauerhaft eingerichtet werden müssen nur zwei Teile:
+Das npm-Paket `playwright` persistiert bereits über `package.json` + den
+Workspace. Dauerhaft eingerichtet werden müssen nur zwei Teile:
 
 **1. System-Libs als feste Image-Bausteine** — auf dem **Host**, einmalig:
 
@@ -85,13 +104,13 @@ monoceros apply conciso-ds
 npm run playwright:install
 ```
 
-`playwright:install` und `test-storybook` setzen `PLAYWRIGHT_BROWSERS_PATH=0`, d. h.
+`playwright:install` und `test:vitest` setzen `PLAYWRIGHT_BROWSERS_PATH=0`, d. h.
 Chromium landet in `node_modules/` (Workspace) statt im Home-Cache — und überlebt
 damit `monoceros apply`. Nach Schritt 1 + 2 ist Testing nach jedem Rebuild sofort
 lauffähig, ohne weitere manuelle Schritte.
 
 a11y ist **global scharf** geschaltet (`parameters.a11y = { test: 'error' }` in
-`.storybook/preview.ts`) — axe-Verstöße lassen den Test-Runner fehlschlagen.
+`.storybook/preview.ts`) — axe-Verstöße lassen den Lauf fehlschlagen.
 Einzelne Stories mit bekannten, im **CSS-Kern** liegenden Befunden setzen lokal
 `a11y: { test: 'todo' }`: im Panel weiter sichtbar, aber nicht blockierend.
 
@@ -116,6 +135,61 @@ Input → `roleLabel` umbenannt (kein ungültiges ARIA-`role` mehr auf Blockquot
 Testimonial/TeamVoice), LogoCarousel-Dots als `tablist`/`tab` (gültiges
 `aria-selected`), AreaTabs-Aktivfarbe für `ki` auf `--ki-800` (AA).
 
+## MCP-Anbindung für Agenten
+
+Storybook läuft mit `@storybook/addon-mcp`. Bei laufendem `npm run storybook`
+antwortet der Dev-Server unter `http://localhost:6006/mcp` auf JSON-RPC. Anbinden
+z. B. mit der Claude-Code-CLI:
+
+```bash
+claude mcp add --transport http conciso-ds-storybook http://localhost:6006/mcp
+```
+
+Verfügbare Tools: `stories-preview`, `stories-changed`, `stories-find-by-component`,
+`test-run`, `docs-list`, `docs-show`, `docs-show-story`, `review-create`,
+`get-storybook-story-instructions`.
+
+`npm run build-storybook` schreibt zusätzlich
+`storybook-static/manifests/components.json` — Quelle ist derselbe TS-Docgen
+(`meta.docgen: "angular-component-meta"`), der auch Controls und Docs-Seiten
+speist. CI prüft nach dem Build, dass dieses Manifest existiert und die
+erwartete `meta.docgen`-Kennung trägt (Schritt „Komponenten-Manifest vorhanden“
+in `.github/workflows/storybook-angular.yml`).
+
+### Props-Tabellen = Inputs + Outputs
+
+Der Docgen-Server dokumentiert grundsätzlich jedes öffentliche Member einer
+Komponentenklasse. Template-Getter, ControlValueAccessor-Methoden und
+Event-Handler in der Angular-Lib tragen deshalb JSDoc `@internal` und bleiben
+so aus Props-Tabelle **und** MCP-Manifest heraus. Regel für neue Komponenten:
+alles, was nicht Input oder Output ist, bekommt `@internal`. Beschreibungen in
+der Props-Tabelle kommen aus dem JSDoc der Lib; Story-`argTypes` überschreiben
+nur, wo sie bewusst gesetzt sind. Details und die verworfenen Alternativen
+(`propsTable: 'inputs'`, ein globaler `argTypesEnhancer`) stehen in
+[`docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md`](../docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
+
+## Storybook-Oberfläche im Conciso-Look
+
+Sidebar, Toolbar und Addon-Panels (der „Manager“) sowie die Docs-Seiten-Chrome
+tragen das Conciso-Farbschema statt des Storybook-Defaults:
+
+- `.storybook/theme.ts` definiert zwei `create()`-Themes (Light/Dark) mit
+  Werten aus `css/tokens.css` bzw. `css/dark-mode.css` (Token-Name im
+  Kommentar je Zeile).
+- `.storybook/manager.ts` wählt beim Laden nach `prefers-color-scheme`
+  zwischen beiden — **nicht** nach dem Toolbar-Theme-Schalter der Preview.
+  Der Toolbar-Schalter (Hell/Dunkel/System) steuert ausschließlich die
+  Preview (`data-theme` am `<html>` des Story-Frames) und bleibt damit
+  bidirektional synchron mit den Theme-Switcher-Komponenten der Lib; das
+  Manager-Chrome ist kein Teil des Design Systems und folgt daher nur dem
+  Betriebssystem.
+- `.storybook/manager-head.html` bindet Montserrat (`fonts.css`,
+  self-hosted) ins Manager-Bundle ein — der Manager läuft als eigenes
+  React-Bundle und sieht `preview-head.html` nicht.
+- `parameters.docs.theme` in `.storybook/preview.ts` setzt das Light-Theme
+  fest für die Docs-Seiten-Chrome (Überschriften, Tabellen, Code-Blöcke).
+
 ## Versionen
 
-Angular 21 · Storybook 10 (`@storybook/angular`, Webpack-5-Builder).
+Angular 21 · Storybook 10.6 (`@storybook/angular-vite`, Vite-Builder,
+In-Process-Docgen ohne Compodoc).

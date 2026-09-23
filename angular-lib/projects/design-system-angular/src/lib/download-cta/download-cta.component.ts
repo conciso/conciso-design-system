@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -10,7 +10,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-download-cta',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="cta-dl" [attr.data-area]="area() || null">
       <div class="cta-dl-icon">
@@ -31,9 +31,25 @@ import type { CdsArea } from '../area';
         }
       </div>
       <div class="cta-dl-actions">
-        <button [class]="'btn btn-filled btn-' + area()" type="button">{{ primaryLabel() }}</button>
+        <!-- Klassen direkt komponiert statt cds-button: .cta-dl-actions steht auf
+             flex-direction:column + align-items:stretch (css/components.css:1421) und
+             streckt seine Kinder; ein cds-button-Custom-Element streckt sich darüber
+             nicht mit. Die einzige Eingabe, die es zum Füllen der Spalte brächte, full,
+             zentriert über .btn-full (css/components.css:53) zugleich das Label und
+             würde den bisher linksbündigen Look ändern. -->
+        <button
+          [class]="'btn btn-filled btn-' + area()"
+          type="button"
+          [attr.aria-label]="primaryAriaLabel()"
+          (click)="primaryClick.emit($event)"
+        >{{ primaryLabel() }}</button>
         @if (secondaryLabel()) {
-          <button [class]="'btn btn-text btn-' + area()" type="button">{{ secondaryLabel() }}</button>
+          <button
+            [class]="'btn btn-text btn-' + area()"
+            type="button"
+            [attr.aria-label]="secondaryAriaLabel()"
+            (click)="secondaryClick.emit($event)"
+          >{{ secondaryLabel() }}</button>
         }
       </div>
     </div>
@@ -42,12 +58,44 @@ import type { CdsArea } from '../area';
 export class DownloadCtaComponent {
   /** Markenbereich → data-area (Top-Akzent, Icon-Tönung, Button-Farbe). */
   readonly area = input<CdsArea>('co');
-  readonly eyebrow = input('Conciso Design System');
-  readonly title = input('Figma-Bibliothek herunterladen');
-  readonly desc = input(
-    'Alle Komponenten, Tokens, Icons und Brand Assets, direkt einsatzbereit als Figma-Bibliothek.',
+  /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
+  readonly eyebrow = input('');
+  /** Titel des Download-Angebots. */
+  readonly title = input.required<string>();
+  /** Beschreibungstext unterhalb des Titels (leer = keine Beschreibung). */
+  readonly desc = input('');
+  /** Zusatzinfo unterhalb der Beschreibung, z. B. Dateiformat/-größe (leer = keine Meta-Zeile). */
+  readonly meta = input('');
+  /** Beschriftung der primären Aktion. */
+  readonly primaryLabel = input.required<string>();
+  /** Beschriftung der sekundären Aktion (leer = ausgeblendet). */
+  readonly secondaryLabel = input('');
+
+  /** Klick auf die primäre Aktion (Haupt-CTA). */
+  readonly primaryClick = output<MouseEvent>();
+  /** Klick auf die sekundäre Aktion (nur wenn `secondaryLabel` gesetzt ist). */
+  readonly secondaryClick = output<MouseEvent>();
+
+  /**
+   * Accessible Name der primären Aktion (cta-verwendung.mdx „Barrierefreiheit“: Button-Label
+   * muss Ressource und Format nennen). Der sichtbare Button-Text bleibt `primaryLabel`
+   * (meist knapp, z. B. „Herunterladen“) — er selbst nennt kein Ziel, der Titel steht nur
+   * visuell daneben (`<h3 class="cta-dl-title">`) und erreicht den Accessible Name nicht.
+   * Wer per Button-Liste navigiert, hört sonst nur die generische Aktion ohne Bezug.
+   * Muster wie bei `PillComponent.computedAriaLabel`/Combobox-Remove-Buttons: „Aktion: Ziel“,
+   * Format/Größe aus `meta` in Klammern angehängt, sofern gesetzt.
+   *
+   * @internal
+   */
+  protected readonly primaryAriaLabel = computed(
+    () => `${this.primaryLabel()}: ${this.title()}${this.meta() ? ` (${this.meta()})` : ''}`,
   );
-  readonly meta = input('Figma · Version 1.0 · 48 MB');
-  readonly primaryLabel = input('Herunterladen');
-  readonly secondaryLabel = input('Vorschau ansehen');
+
+  /** Analog zu `primaryAriaLabel`, für die sekundäre Aktion.
+   *
+   * @internal
+   */
+  protected readonly secondaryAriaLabel = computed(
+    () => `${this.secondaryLabel()}: ${this.title()}${this.meta() ? ` (${this.meta()})` : ''}`,
+  );
 }

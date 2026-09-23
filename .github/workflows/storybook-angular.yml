@@ -62,12 +62,42 @@ jobs:
       # build-storybook nutzt den Angular-Compiler → deckt zugleich den Typecheck ab.
       - name: Storybook bauen
         run: npm run build-storybook
+      # Das Manifest ist die Schnittstelle für Agenten/MCP-Clients (addon-mcp,
+      # experimentalDocgenServer); ohne dieses Gate fiele ein stilles Wegfallen
+      # (z. B. durch ein zukünftiges Storybook-Update oder eine geänderte
+      # Addon-Konfiguration) nicht auf.
+      - name: Komponenten-Manifest vorhanden
+        run: |
+          node -e "
+            const fs = require('node:fs');
+            const path = 'storybook-static/manifests/components.json';
+            if (!fs.existsSync(path)) {
+              console.error('Manifest fehlt: ' + path);
+              process.exit(1);
+            }
+            const manifest = JSON.parse(fs.readFileSync(path, 'utf8'));
+            const docgen = manifest.meta && manifest.meta.docgen;
+            if (docgen !== 'angular-component-meta') {
+              console.error('meta.docgen erwartet \"angular-component-meta\", war: ' + docgen);
+              process.exit(1);
+            }
+            const count = Object.keys(manifest.components || {}).length;
+            if (count < 1) {
+              console.error('Manifest enthaelt keine Komponenten-Eintraege');
+              process.exit(1);
+            }
+            console.log('Manifest ok: docgen=' + docgen + ', Eintraege=' + count);
+          "
       - name: Playwright-Browser installieren
         run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install --with-deps chromium
-      # Serviert den statischen Build, wartet auf den Port und fährt den
-      # test-runner (Smoke + axe-a11y + play) dagegen.
-      - name: Storybook-Tests
-        run: npm run test-storybook:ci
+      # Vitest (@storybook/addon-vitest, Browser-Mode via Playwright/Chromium)
+      # führt jede Story als Test aus (Smoke + axe-a11y + play), direkt aus der
+      # Quelle — kein statischer Build/Server nötig. Ersetzt den bisherigen
+      # Storybook-Test-Runner (Jest), der dieselben Stories redundant ein
+      # zweites Mal fuhr (siehe docs/adr/0005). Ohne VISUAL=1 keine
+      # Bildvergleiche; die laufen gepinnt in .github/workflows/visual.yml.
+      - name: Storybook-Tests (Vitest)
+        run: npm run test:vitest
       # Kontrast-Gate der Doku-Seite. Hängt hier und nicht in css-core.yml, weil es einen
       # Browser braucht: das Wurzelprojekt bleibt absichtlich ohne Dependencies, Playwright
       # lebt in diesem Workspace und ist eine Zeile weiter oben schon installiert.

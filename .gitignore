@@ -19,3 +19,9 @@ ds-bundle/
 # Lokaler Issue-Tracker der Agenten-Skills: Arbeitsstand, bewusst NICHT versioniert
 # (siehe docs/agents/issue-tracker.md)
 .scratch/
+
+# Angular-Build-Cache (wird bei jedem Build neu erzeugt)
+.angular/
+
+# Worktrees der Claude-Code-Agenten (kurzlebig, nie Teil des Repos)
+.claude/worktrees/

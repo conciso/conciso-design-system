@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Dropdowns" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Auswahl-Komponenten über das native `<select>` hinaus: Custom Select (gestylte Einzelauswahl mit Listbox-Popup, Häkchen und Bereichs-Akzent) und Combobox (Tipp-Filter über langen Listen, optional Multi-Select mit Chips). Beide sind markup-getrieben, semantisches HTML genügt, das Skript ergänzt IDs, ARIA-Zustände und Tastatur. Durchgängig WCAG AA: `role="listbox"`/`role="option"`, `aria-expanded`, `aria-activedescendant`, Fokusring in beiden Modi.
+
+## Wann welche Variante
+
+| Form | Wann einsetzen |
+|---|---|
+| Natives `<select>` | Standard für kurze Listen (bis 8 Optionen) in Formularen, siehe Inputs & Forms |
+| Custom Select | Wenn die Auswahl optisch zum Bereich gehören soll (Häkchen, Tönung) oder das native Popup nicht ausreicht |
+| Combobox | Ab ca. 10 Optionen, wo Tippen schneller ist als Scrollen |
+| Multi-Select | Nur für echte Mehrfachauswahl (Tags, Filter). Kein eigenes Bauteil: Multi-Select ist der Modifier `.is-multi` auf der Combobox, keine separate Komponente |
+
+| Baustein | Zweck |
+|---|---|
+| `.ep-select` | Gestylte Einzelauswahl, `data-area` setzt den Bereichs-Akzent, `data-name` erzeugt ein verstecktes Feld für den Submit |
+| `.ep-combobox` | Tipp-Filter über langen Listen, `data-empty-text` setzt den Leerzustand |
+| `.is-multi` | Modifier am `.ep-combobox` für Mehrfachauswahl mit Chips |
+| `.ep-combobox-clear` | Lösch-Button (per Skript injiziert), erscheint bei Texteingabe und leert das Feld, Multi behält die Chips |
+| `data-value` | Maschinenwert je Option, sichtbarer Text ist das Label (oder `data-label`) |
+| `ep:change` | Custom-Ereignis bei Auswahl (`detail.value`, `detail.selected`) zum Anbinden eigener Logik |
+
+Das Popup schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten verlassen, der Rand übernimmt deshalb im Dark Mode `--bd-strong-c` statt `--bd-c`. Gilt für jedes schwebende Panel, auch das Topnav-Untermenü und das Suchpanel.
+
+## Barrierefreiheit
+
+| Attribut / Verhalten | Zweck |
+|---|---|
+| `role="listbox"` / `option` | Popup und Einträge als Auswahlliste ausgewiesen, vom Skript gesetzt beziehungsweise ergänzt |
+| `aria-expanded` | Offen-Zustand am Trigger beziehungsweise am Combobox-Input |
+| `aria-activedescendant` | Tastaturcursor ohne Fokusverlust, der hervorgehobene Eintrag wird vorgelesen |
+| Tastatur | Pfeiltasten, Pos1/Ende, Type-ahead (Select), Enter wählt, Esc/Tab schließt |
+| Fokusring | Neutral-Teal `--focus-ring` in beiden Modi, mindestens 3 zu 1 Rahmenkontrast |
+
+Beim Schließen ohne Auswahl bleibt kein loser Filtertext stehen: die Einzelauswahl fällt auf das Label der gewählten Option zurück (beziehungsweise leert), getippter Text bleibt nie im Feld hängen.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Natives `<select>` für kurze Listen behalten, Custom Select erst, wenn Bereichs-Akzent oder Popup-Styling gebraucht wird.
+- Combobox ab ca. 10 Optionen einsetzen, wo Tippen schneller filtert als Scrollen.
+- Jedes Dropdown mit sichtbarem `.ep-select-label` versehen, Placeholder ist kein Label.
+- Den Bereichs-Akzent zur Brand Area der Seite passend wählen (Corporate, Angewandte KI, Effektive Software, Wirksame Organisationen).
+
+**Nicht tun**
+
+- Custom Select für eine Ja/Nein- oder Zwei-Optionen-Wahl, dafür sind Radios oder ein nativer Select besser.
+- Den Fokusrahmen pro Bereich einfärben, der Akzent gehört in den gewählten Eintrag, nicht in den Fokus.
+- Multi-Select als Notlösung für eine Einzelauswahl, das verwirrt die Erwartung an die Eingabe.
+- Mehrere Bereichs-Akzente in einem Formular mischen, ein Formular gehört zu genau einer Brand Area.
+
+## Verwandte Seiten
+
+- Custom Select (`Komponenten/Dropdowns/Custom Select`)
+- Combobox (`Komponenten/Dropdowns/Combobox`), Multi-Select ist der Modus `.is-multi` derselben Story

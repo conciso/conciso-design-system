@@ -3,10 +3,20 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, fireEvent, waitFor, expect } from 'storybook/test';
 import { SliderComponent } from '@conciso/design-system-angular';
 
+// Warum es hier keinen Tastatur-play-Test gibt: Die Tastatursteuerung stammt vom
+// nativen <input type=range> und funktioniert im Browser. Sie lässt sich mit den
+// Mitteln dieser Testebene aber nicht prüfen — `userEvent.keyboard()` bildet
+// Tastenverhalten in JavaScript nach, und seine Tabelle
+// (@testing-library/user-event, event/behavior/keydown.js) kennt für
+// ArrowLeft/ArrowRight nur input[type=radio] und für Pos1/Ende nur Textauswahl;
+// für type=range gibt es keinen Eintrag. Die synthetischen Events lösen Blinks
+// natives Stepping nicht aus, der Wert bleibt stehen. Ein Test dafür wäre
+// strukturell nie grün. Gegenprobe mit echtem Playwright-Tastendruck auf ein
+// rohes Range-Input: dort ändert sich der Wert korrekt.
 const meta: Meta<SliderComponent> = {
-  title: 'Atoms/Slider',
+  title: 'Komponenten/Inputs & Forms/Slider',
   component: SliderComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -51,6 +61,15 @@ export const Interaktiv: Story = {
     const slider = c.getByRole('slider');
     fireEvent.input(slider, { target: { value: '75000' } });
     await waitFor(() => expect(c.getByText('75.000 €')).toBeInTheDocument());
+  },
+};
+
+export const Deaktiviert: Story = {
+  args: { sliderId: 'demo-slider-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('slider')).toBeDisabled();
   },
 };
 

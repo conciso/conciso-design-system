@@ -1,0 +1,216 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+import icons from '../../../../icons/icons.json';
+
+<Meta title="Grundlagen/Icons" name="Übersicht" />
+
+# Icons
+
+Bereichsspezifische Icons, SVG inline, Farbgebung über die jeweilige Brand Area via
+`currentColor`. Quelle der Wahrheit: `icons/icons.json` (generiert aus
+`icons/source/*.svg`), siehe `icons/README.md`.
+
+Zwei Stile koexistieren: Der Großteil der generischen UI-Icons (Pfeile, Hinweise,
+Schließen, Feature-Symbole) ist im Outline-Stil aus [heroicons.com](https://heroicons.com)
+(MIT-Lizenz), ein kleinerer Teil (zum Beispiel Play/Pause, Download) ist Solid. Die fünf
+Bereichs-Glyphen (Corporate ×2, Angewandte KI, Effektive Software, Wirksame
+Organisationen) sind durchgehend Solid (gefüllte Multi-Path-Symbole). Jeder Schlüssel
+liegt in der Registry als genau eine Variante vor — die Größe wird über `width`/`height`
+oder CSS gesetzt, die `viewBox` bleibt dabei erhalten. Alle 99 Icons: siehe Galerie unten.
+
+## Größen & Stroke-Width
+
+Für Outline-Icons skaliert die Stroke-Width mit der Icon-Größe, damit die visuelle
+Gewichtung konsistent bleibt: Micro-Icons brauchen feine Linien, XLarge-Icons vertragen
+kräftigere Konturen. Die Werte stehen als CSS Custom Properties (`--icon-stroke-micro` bis
+`--icon-stroke-xl`) in `css/tokens.css`.
+
+| Größe | Bezeichnung | Stroke-Width | Verwendung |
+|---|---|---|---|
+| 16 × 16 | Micro | 1 px | Inline-Icons in Text, Tabellenzeilen, kleine UI-Elemente |
+| 24 × 24 | Small | 1,25 px | Standard-UI, Navigation, Buttons, Formulare |
+| 32 × 32 | Medium | 1,5 px | Karten, Listen, Sidebar-Einträge |
+| 48 × 48 | Large | 2 px | Feature-Bereiche, Onboarding, Erklär-Abschnitte |
+| 64 × 64 | XLarge | 2,5 px | Leere Zustände, Illustrationen, Hero-Bereiche |
+
+## Die vier Bereichs-Glyph-Familien
+
+Jede Bereichs-Glyphe ist ein SVG mit `fill="currentColor"` — die Farbe ist nicht
+eingebrannt, sondern wird vom Consumer über die CSS-Eigenschaft `color` auf dem
+Wrapper-Element gesetzt.
+
+| Bereich | Hintergrund | `color` |
+|---|---|---|
+| Corporate | `--co-50` (#E0F7F7) | `--tx-brand` (#333E48) |
+| Angewandte KI | `--ki-50` (#F4FCD5) | `--ki-800` (#475705) |
+| Effektive Software | `--es-50` (#EAF0FB) | `--es-700` (#1B3D9A) |
+| Wirksame Organisationen | `--wo-50` (#EBF5E6) | `--wo-800` (#183A0E) |
+
+Sonderfall Logo-Zeichen: Das C-Zeichen ist die Bereichsmarke von Corporate und
+ausschließlich in Kombination mit dem Conciso-Logo zu verwenden. Für reguläre
+Bereichs-Icons im Thema Unternehmen gilt wie bei den anderen Bereichen: Hintergrundfarbe
+`--co-50`, `color: var(--co-800)`.
+
+## Galerie
+
+export const AREA_COLOR = {
+  co: 'var(--tx-brand)',
+  ki: 'var(--ki-800)',
+  es: 'var(--es-700)',
+  wo: 'var(--wo-800)',
+};
+
+export const AREA_BG = {
+  co: 'var(--co-50)',
+  ki: 'var(--ki-50)',
+  es: 'var(--es-50)',
+  wo: 'var(--wo-50)',
+};
+
+export const areaIcons = Object.entries(icons).filter(([, icon]) => icon.area !== 'ui');
+export const uiIcons = Object.entries(icons).filter(([, icon]) => icon.area === 'ui');
+
+export const IconTile = ({ iconKey, icon, background, color, border }) => {
+  const [vbWidth, vbHeight] = icon.viewBox.split(' ').slice(2).map(Number);
+  const svgAttrs =
+    icon.style === 'solid'
+      ? { fill: 'currentColor' }
+      : { fill: 'none', stroke: 'currentColor', strokeWidth: icon.strokeWidth || '1' };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--s2)' }}>
+      <div
+        className="icon-size-swatch"
+        data-area={icon.area}
+        title={icon.name}
+        style={{
+          background,
+          color,
+          border,
+          borderRadius: 'var(--r-md)',
+          width: 56,
+          height: 56,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <svg
+          viewBox={icon.viewBox}
+          width={vbWidth}
+          height={vbHeight}
+          aria-hidden="true"
+          {...svgAttrs}
+          dangerouslySetInnerHTML={{ __html: icon.body }}
+        />
+      </div>
+      <span className="lbl">{iconKey}</span>
+    </div>
+  );
+};
+
+Alle 99 Icons aus der Registry (`icons/icons.json`), live gerendert. Unter jeder Kachel
+steht der Schlüssel, den ein Entwickler tatsächlich importiert; der Name aus der Registry
+liegt als Tooltip (`title`-Attribut) auf der Kachel.
+
+### Bereichs-Glyphen
+
+Die fünf Bereichs-Glyphen, je in ihrer Bereichsfarbe (Hintergrund `--XX-50`, `color` aus
+der Tabelle oben — `currentColor` im SVG übernimmt diese Farbe).
+
+<Unstyled>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--s6)' }}>
+    {areaIcons.map(([key, icon]) => (
+      <IconTile
+        key={key}
+        iconKey={key}
+        icon={icon}
+        background={AREA_BG[icon.area]}
+        color={AREA_COLOR[icon.area]}
+      />
+    ))}
+  </div>
+</Unstyled>
+
+### UI-Icons
+
+Die 94 bereichsneutralen UI-Icons auf neutraler Fläche, Farbe `--tx-primary`.
+
+<Unstyled>
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(88px, 1fr))',
+      gap: 'var(--s5)',
+    }}
+  >
+    {uiIcons.map(([key, icon]) => (
+      <IconTile
+        key={key}
+        iconKey={key}
+        icon={icon}
+        background="var(--bg-surface)"
+        color="var(--tx-primary)"
+        border="var(--bd-strong)"
+      />
+    ))}
+  </div>
+</Unstyled>
+
+## Verwendungsregeln
+
+**Technische Regeln**
+
+| Eigenschaft | Regel |
+|---|---|
+| Quelle | [heroicons.com](https://heroicons.com), Stil Outline. Keine eigenen Icons zeichnen. |
+| Format | SVG inline, kein `<img>`, damit Farbe über CSS steuerbar bleibt |
+| Größen | Ausschließlich 16, 24, 32, 48, 64 px, keine Zwischenwerte |
+| Stroke-Width | Outline-Icons: 1, 1,25, 1,5, 2, 2,5 px, passend zur Größe |
+| Hintergrund-Rect | Im Code entfernen, Hintergrundfarbe kommt vom Parent-Element |
+| Barrierefreiheit | Dekorativ: `aria-hidden="true"`, bedeutungstragend: `role="img"` + `aria-label` |
+| viewBox | Bleibt bei jeder Darstellungsgröße unverändert (ein Wert pro Glyph in der Registry); Größe über `width`/`height` oder CSS setzen |
+
+## Wie ein Icon entsteht (CONTRIBUTING § 10 Schritt 3)
+
+1. Normalisiertes SVG unter `icons/source/{area|ui}-{name}.svg` ablegen. Farben als
+   `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (die
+   Größe setzt der Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`.
+2. `npm run build:icons` ausführen. Das Skript generiert `icons/icons.json`,
+   `icons/icons.js` und `icons/README.md` aus `icons/source/`.
+3. Label und Verwendung optional in `icons/manifest.json` pflegen.
+
+Quelle ist ausschließlich `icons/source/*.svg`, die generierten Dateien
+(`icons/icons.json`, `icons/icons.js`) werden nie von Hand editiert.
+
+## DS-Glyphen
+
+DS-Glyphen sind Design-System-eigene Icons (`ui*`), die aus `@conciso/design-system/icons`
+(generiertes `icons/icons.js`) stammen, nicht aus `@ng-icons`. Die zentrale Icon-Registry
+`icons/cds-icons.ts` in der Angular-Lib ist die einzige Import-Fläche für
+Komponenten-Icons: Komponenten importieren nie direkt aus `@ng-icons/heroicons`. Ein
+Heroicon wird nur dort registriert, wo das Design System (noch) kein eigenes Glyph
+definiert; bekommt es später ein DS-Pendant, wird ausschließlich `cds-icons.ts`
+umgestellt.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Größe über `width`/`height` oder CSS setzen — die `viewBox` bleibt dabei unverändert
+- Das Hintergrund-`<rect>` vor dem Einbinden entfernen, es dient nur der Designvorschau
+- Bereichsfarbe für Hintergrund und Pfad einhalten, Konsistenz über alle Brand Areas
+- Dekorative Icons mit `aria-hidden="true"` ausblenden, Screenreader überspringen sie
+
+**Nicht tun**
+
+- Icons zwischen Bereichen tauschen, jedes Icon gehört zu genau einer Brand Area
+- Nicht-standardisierte Größen verwenden (zum Beispiel 20 px, 36 px), bricht den visuellen
+  Rhythmus
+- Icons als `<img src>` einbinden, verhindert Farbanpassung und Dark-Mode-Unterstützung
+- Das Hintergrund-Rect im Code belassen, erzeugt ungewollte farbige Fläche im Layout
+
+## Siehe auch
+
+- `docs/index.html#gt-icons-verwendung`
+- CONTRIBUTING.md § 10 Schritt 3
+- CONTEXT.md, Abschnitt DS-Glyphen
+- `icons/README.md`

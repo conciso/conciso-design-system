@@ -1,0 +1,158 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Tabelle" name="Übersicht" />
+
+# Tabelle
+
+Barrierefreie Datentabellen mit `<caption>`, `scope`-Attributen und
+Tastaturnavigation, in zwei Varianten: Standard und Gestreift, dazu eine
+aufklappbare Vergleichstabelle. Für die Tabelle gibt es kein eigenes
+Angular-Bauteil; die Klassen kommen direkt aus der CSS-Schicht.
+
+Quelle: `docs/index.html#sec-table` (Zeilen 4979 bis 5208).
+
+## Standard
+
+Zeilentrenner, Hover-Highlight, numerische Spalten rechtsbündig. Der
+Scroll-Container ist per Tastatur fokussierbar (`tabindex="0"`).
+
+```html
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="Leistungsübersicht Tabelle">
+  <table class="tbl">
+    <caption>Beratungsleistungen im Überblick</caption>
+    <thead>
+      <tr>
+        <th scope="col">Leistung</th>
+        <th scope="col">Format</th>
+        <th scope="col" data-num>Dauer (Tage)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">KI-Readiness Assessment</th>
+        <td>Workshop &amp; Analyse</td>
+        <td data-num>2</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Numerische Spalten bekommen `data-num` an `<th>`/`<td>`, nicht eine eigene Klasse:
+`.tbl td[data-num]`/`.tbl th[data-num]` richten rechtsbündig aus und schalten auf
+tabellarische Ziffern (`font-variant-numeric: tabular-nums`) um.
+
+## Gestreift
+
+Modifier `.tbl--striped` für Tabellen mit vielen Zeilen, verbessert die Lesbarkeit
+ohne zusätzliche Rahmen.
+
+```html
+<div class="tbl-wrap" tabindex="0" role="region" aria-label="Veranstaltungskalender Tabelle">
+  <table class="tbl tbl--striped">
+    <caption>Veranstaltungen &amp; Workshops 2025</caption>
+    <thead>
+      <tr>
+        <th scope="col">Datum</th>
+        <th scope="col">Veranstaltung</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>15. Jan 2025</td>
+        <th scope="row">KI im Unternehmensalltag, Einstiegsworkshop</th>
+        <td>Abgeschlossen</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Sortierbare Spaltenüberschriften nutzen `.tbl-sort` (ein `<button>` in der `<th>`)
+zusammen mit `aria-sort="ascending"` bzw. `"descending"` auf der `<th>`; `.tbl--striped`
+und `.tbl-sort` lassen sich kombinieren, gestreift und sortierbar für
+datenintensive Ansichten.
+
+## Vergleichstabelle (aufklappbar)
+
+Für den zeilenweisen Vergleich zweier oder mehrerer Pakete beziehungsweise Tarife.
+Preiskarten tragen Preis und drei bis vier Highlights (Konversion), die vollständige
+Merkmalsliste steckt in der aufklappbaren Tabelle (Tiefenvergleich auf Abruf). So
+bleibt der Schnell-Scan kurz, und Karten und Tabelle überschneiden sich nicht.
+Erprobt auf der Beispielseite Angewandte KI, AI.Box (Leistungspakete).
+
+Aufklappbar via nativem `<details>`/`<summary>` (`.ep-compare`, standardmäßig zu,
+gleiche Mechanik wie das Inhaltsverzeichnis in `Seitenmuster/Wissensbeitrag`).
+Tabelle `.ep-compare-table` mit `<caption class="sr-only">` und `scope`-Attributen.
+Die empfohlene Spalte wird über `.ep-compare-pro` (bereichsgetönt) hervorgehoben.
+Enthalten/Nicht enthalten als `.ep-compare-yes` (✓) beziehungsweise `.ep-compare-no`
+(−), jeweils mit `.sr-only`-Text, da Farbe und Glyph allein keine Bedeutung tragen
+(WCAG 1.4.1).
+
+```html
+<details class="ep-compare">
+  <summary class="ep-compare-summary">Alle Funktionen vergleichen</summary>
+  <div class="ep-compare-table-wrap">
+    <table class="ep-compare-table">
+      <caption class="sr-only">Funktionsvergleich Core und Pro</caption>
+      <thead>
+        <tr>
+          <th scope="col">Funktion</th>
+          <th scope="col">Core</th>
+          <th scope="col" class="ep-compare-pro">Pro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Hosting in Deutschland</th>
+          <td><span class="ep-compare-yes" aria-hidden="true">✓</span><span class="sr-only">Enthalten</span></td>
+          <td class="ep-compare-pro">…</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+```
+
+## Verwendung
+
+<div className="doc-eyebrow">Wann welche Variante?</div>
+
+| Variante | Wann einsetzen |
+|---|---|
+| Standard | Für Tabellen mit bis zu 6 Zeilen, klare Zeilentrenner reichen zur Orientierung |
+| Gestreift (`.tbl--striped`) | Ab ca. 7 Zeilen, der alternierende Hintergrund verbessert die Lesbarkeit ohne zusätzliche Rahmen |
+| Sortierbar (`.tbl-sort`) | Wenn Nutzer die Reihenfolge selbst bestimmen müssen, Klick auf die Spaltenüberschrift sortiert auf- oder absteigend |
+| Kombination | `.tbl--striped` und `.tbl-sort` lassen sich kombinieren, gestreift und sortierbar für datenintensive Ansichten |
+
+<div className="doc-eyebrow">Barrierefreiheit</div>
+
+| Attribut / Element | Zweck |
+|---|---|
+| `<caption>` | Pflicht, Screenreader lesen den Titel vor, bevor die Zellen vorgelesen werden |
+| `scope="col"` | Auf alle `<th>` im `<thead>`, ordnet Spaltenüberschriften den Zellen darunter zu |
+| `scope="row"` | Wenn die erste Spalte eine Zeilenüberschrift ist, ordnet die Überschrift den Zellen rechts davon zu |
+| `tabindex="0"` | Auf dem Scroll-Container, macht horizontales Scrollen per Tastatur erreichbar |
+| `role="region"` + `aria-label` | Auf dem Scroll-Container, kennzeichnet ihn als benannten Landmark für Screenreader |
+
+<div className="doc-eyebrow">Dos & Don'ts</div>
+
+**✓ Tun**
+
+- `<caption>` und `scope`-Attribute immer setzen, auch bei einfachen Tabellen
+- Numerische Spalten über `data-num` rechtsbündig ausrichten, erleichtert den Vergleich von Zahlen
+- Scroll-Container verwenden statt die Tabelle zu verkleinern, Lesbarkeit hat Vorrang
+- Spaltenüberschriften kurz und eindeutig benennen, maximal zwei bis drei Wörter
+
+**✕ Nicht tun**
+
+- Tabellen für Seiten-Layouts verwenden, dafür CSS Grid oder Flexbox nutzen
+- Mehr als sieben bis acht Spalten, lieber aufteilen oder Prioritäten setzen
+- Langen Fließtext in Zellen, Tabellen sind für strukturierte, scannbare Daten gedacht
+- Nur Farbe zur Bedeutungsvermittlung nutzen, Status-Badges zusätzlich mit Text kennzeichnen (siehe `Komponenten/Chips, Badges & Pills/Status-Badge`)
+
+## Verwandte Seiten
+
+- Doku-Sektion: `docs/index.html#sec-table`
+- `Komponenten/Chips, Badges & Pills/Status-Badge` (für Status-Zellen)

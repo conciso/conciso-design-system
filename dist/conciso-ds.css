@@ -128,6 +128,9 @@
   /* ── Typography ── */
   --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
   --font-display:'Libre Baskerville','Georgia',serif;
+  /* --font-mono: dritte Schriftrolle des Systems (Code/Werte), bisher zehnmal hart im CSS.
+     Wert unverändert übernommen, reiner Struktur-Schritt, keine gerenderte Änderung. */
+  --font-mono:'Courier New',monospace;
 
   /* ── Typography Scale ──
      Einheiten rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): 1rem = 16px bei Default-Root
@@ -1080,7 +1083,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .group-title{font:400 1.5rem/2rem var(--font-display);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);padding-top:var(--s6);border-top:var(--bd)}
 .lbl{font:500 0.75rem/1rem var(--font);letter-spacing:.07em;text-transform:uppercase;color:var(--tx-muted);display:block;margin-bottom:var(--s2)}
 .row{display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start}
-.token{font-family:'Courier New',monospace;font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
+.token{font-family:var(--font-mono);font-size:0.75rem;color:var(--co-700);background:var(--co-50);padding:2px 7px;border-radius:var(--r-xs)}
 
 /* ── Theme switcher ── */
 .theme-bar{position:fixed;top:var(--s3);right:var(--s4);display:flex;gap:var(--s2);z-index:200;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-full);padding:4px;box-shadow:var(--e2)}
@@ -1114,7 +1117,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    bekäme. */
 /* Linie zwischen Farbfeld und Beschriftung: im Light grenzt der weiße Streifen sonst nicht gegen
    die hellen Stufen ab. Sie sitzt auf der ersten Zeile des Streifens, also nur einmal je Spalte. */
-.swatch span{font-size:0.75rem;font-family:'Courier New',monospace;font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
+.swatch span{font-size:0.75rem;font-family:var(--font-mono);font-weight:600;line-height:1.5;background:var(--bg-surface);color:var(--tx-secondary);padding:5px 6px 0;white-space:nowrap}
 .swatch > span:first-of-type{border-top:1px solid var(--bd-c);padding-top:4px}
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
 .swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
@@ -1132,7 +1135,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .clip-card.is-copied::after{content:"✓ Kopiert";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.82);color:#fff;font:600 0.875rem/1 var(--font)}
 .ai-warning{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--ki-50);border-radius:var(--r-md);font-size:0.75rem;color:var(--ki-800);border:1px solid var(--ki-200)}
 .pal-note{margin-top:var(--s3);padding:var(--s3) var(--s4);background:var(--c-warning-bg);border-radius:var(--r-md);font-size:0.75rem;color:#5a3e00;border:1px solid #e8d080}
-.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:'Courier New',monospace}
+.pal-thresholds{margin-top:var(--s2);padding:var(--s2) var(--s4);background:#EDF4FF;border-radius:var(--r-md);font-size:0.75rem;color:#1a3a6b;border:1px solid #b8d0f0;font-family:var(--font-mono)}
 .pal-thresholds .thr-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-weight:700;margin-right:2px;font-size:0.75rem}
 .thr-aa-l{background:#dbeeff;color:#1a3a6b}
 .thr-aa{background:#c3f0e8;color:#0a4a38}
@@ -1155,7 +1158,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 .area-swatch-row{display:flex;gap:3px;margin-bottom:var(--s3)}
 .area-swatch{width:28px;height:28px;border-radius:var(--r-xs)}
 .area-meta{font:400 0.75rem/1rem var(--font);color:var(--tx-secondary)}
-.area-meta code{font-size:0.75rem;font-family:'Courier New',monospace}
+.area-meta code{font-size:0.75rem;font-family:var(--font-mono)}
 
 /* Utility: hartes Verstecken (überschreibt Inline-display) */
 .is-hidden{display:none!important}
@@ -1831,7 +1834,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    flippt mit dem Theme (Light co-700 5,52:1, Dark co-200 11,19:1); ein festes co-700 wäre im Dark
    mit 3,17:1 dunkel-auf-dunkel. */
 .type-rem{font:var(--ty-body-xs);color:var(--co-ink);margin-top:1px}
-.type-token{font:400 0.75rem/1rem 'Courier New',monospace;color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
+.type-token{font:400 0.75rem/1rem var(--font-mono);color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
 .type-sample{flex:1;color:var(--tx-primary)}
 
 /* ── Spacing ── */
@@ -1979,7 +1982,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-card p{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s3)}
 .a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
 .a11y-grid .a11y-card{margin-bottom:0}
-.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:'Courier New',monospace;font-size:0.75rem;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
+.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:var(--font-mono);font-size:0.75rem;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
 .a11y-table{width:100%;border-collapse:collapse;font:var(--ty-body-md);margin:var(--s3) 0}
 .a11y-table th{text-align:left;padding:var(--s2) var(--s3);background:var(--n-50);border-bottom:2px solid var(--n-200);font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
 .a11y-table td{padding:var(--s2) var(--s3);border-bottom:var(--bd);vertical-align:top;line-height:1.5}
@@ -1989,7 +1992,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.875rem;font-weight:700;flex-shrink:0;margin-top:1px}
 .a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
 .a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
-.code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
+.code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:var(--font-mono);font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
 .code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#739373}/* Kommentarfarbe: #6a8a6a trug auf --bg-code nur 4,43:1 und verfehlte AA knapp. Farbton und Saettigung bleiben, nur heller: Light 4,99:1, Dark 5,84:1. */
 /* ── Code-Block Komponente (Wissensbeitrag) ── */
 .cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
@@ -1998,7 +2001,17 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-500);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
 .cb-copy:hover{background:var(--n-200);color:var(--n-600)}
 .cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
-.cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:'Courier New',monospace;font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
+.cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:var(--font-mono);font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
+/* Semantisches <code> im <pre> (a11y): der Browser-Default (code{font-family:monospace})
+   würde sonst eine andere Schrift als der Rest des Blocks zeigen, obwohl .cb-body die
+   Schrift schon per var(--font-mono) setzt. font:inherit gleicht das exakt an. */
+.cb-body code{font:inherit}
+/* .cb-body ist jetzt per tabindex="0" fokussierbar (horizontales Scrollen per Tastatur).
+   Der Ring sitzt auf .cb-wrap statt auf .cb-body selbst: .cb-wrap clippt per overflow:hidden
+   die Ecken, ein box-shadow-Ring direkt auf .cb-body würde dort abgeschnitten. Gleiches
+   :has()-Muster wie bei .seg weiter oben in dieser Datei. */
+.cb-body:focus-visible{outline:none}
+.cb-wrap:has(.cb-body:focus-visible){box-shadow:var(--focus-ring)}
 /* .c = Kommentar. Vorher n-400 (#6E8585), das auf dem n-50-Grund der Blöcke nur 3,65:1 trug.
    --tx-muted ist theme-aware und semantisch die gedämpfte Stufe: Light 4,51:1, Dark 8,9:1.
    Wer --tx-muted oder --n-50 anfasst, prüft diesen Wert mit, die Reserve ist knapp. */
@@ -2024,7 +2037,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
    Terminal-Header nur 3,09:1. n-200 gibt 12,70:1 und passt zur hellen Schrift daneben. */
 .cb-terminal .cb-copy{color:var(--n-200)}
 /* Inline code in Fließtext */
-.cb-prose code{font-family:'Courier New',monospace;font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
+.cb-prose code{font-family:var(--font-mono);font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
 .contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
 .contrast-row:last-child{border-bottom:none}
 /* Keine Doppellinie: folgt direkt eine Gruppen-Überschrift (mit eigenem border-top als Trenner),
@@ -2033,7 +2046,7 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .cswatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem}
 .cinfo{flex:1;min-width:160px}
 .cname{font:var(--ty-label-md)}
-.cratio{font-size:0.8125rem;color:var(--tx-secondary);font-family:'Courier New',monospace}
+.cratio{font-size:0.8125rem;color:var(--tx-secondary);font-family:var(--font-mono)}
 .cbadge{display:inline-flex;align-items:center;padding:3px var(--s2);border-radius:var(--r-full);font:var(--ty-label-xs)}
 .c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
 .c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}

@@ -1,0 +1,69 @@
+<!--
+  Bindet Montserrat in Storybooks Manager-Bundle (Sidebar, Toolbar, Panels) ein.
+  Der Manager ist ein eigenes React-Bundle und sieht preview-head.html nicht,
+  daher hier ein zweiter, unabhängiger Link auf dieselbe Quelle. fonts.css
+  referenziert die woff2-Dateien relativ als ../fonts/* → unter ./conciso/css/
+  serviert löst das korrekt auf ./conciso/fonts/* auf (self-hosted, kein CDN).
+-->
+<link rel="stylesheet" href="./conciso/css/fonts.css" />
+
+<style>
+  /*
+    Keine Icons in der Seitenleiste: Hierarchie soll allein über Einrückung,
+    Gewicht und Gruppenabstand entstehen. Die Typ-Icons sind <svg
+    viewBox="0 0 14 14"> in einem Wrapper-Div, das zugleich den 8×8-Chevron
+    zum Auf-/Zuklappen von Ordnern enthält. :has() auf dem Wrapper (frühere
+    Fassung dieser Regel) blendet daher den Chevron mit aus — gemessen:
+    getBoundingClientRect() liefert 0×0, obwohl getComputedStyle weiterhin
+    8px und visibility:visible meldet, weil ein Vorfahre display:none
+    bekommt. Ergebnis: Zeilen sind nicht mehr als auf-/zuklappbar erkennbar.
+    Deshalb zielt die Regel direkt auf das Icon-svg, nicht auf den Wrapper.
+    Zeilen-Elemente (Ordner- und Blatt-Zeilen) tragen ein id-Attribut, die
+    Bedienknöpfe (Kontextmenü je Zeile, Auf-/Zuklapp-Knopf der
+    Gruppenüberschriften) nicht — obwohl auch sie svg[viewBox="0 0 14 14"]
+    enthalten. [id] trennt beides und lässt die Bedienknöpfe sichtbar.
+    #storybook-explorer-tree ist Storybooks stabiler Anker, Emotion-Hashes
+    nicht — kein !important nötig, unsere ID-Spezifität (1,1,1) liegt über
+    Storybooks Emotion-Klassen (0,1,0).
+  */
+  #storybook-explorer-tree a[id] svg[viewBox="0 0 14 14"],
+  #storybook-explorer-tree button[id] svg[viewBox="0 0 14 14"] {
+    display: none;
+  }
+
+  /*
+    Gleicht die Blatt-Zeilen aus. Storybook gibt Blättern mehr
+    Innenabstand links als Ordnern; der Unterschied war bisher vom
+    Typ-Icon verdeckt. Ohne Ausgleich stünden Blätter rechts von den
+    Ordnern derselben Ebene und läsen sich fälschlich als deren Kinder.
+    Gemessen am laufenden Manager, nur mit ausgeblendetem Typ-Icon:
+    Ordner beginnen bei x=20, Blätter bei x=40. Mit text-indent -20px
+    stehen beide bei x=20, ein Blatt der zweiten Ebene bei x=38 — 18px
+    Versatz je Ebene. Ordner brauchen keinen eigenen Ausgleich; eine
+    zusätzliche Regel auf button[id] würde sie nach links aus der Kante
+    schieben. Die Zahl hängt an Storybooks Icon- und Chevron-Breite;
+    ändert die sich, muss sie nachgezogen werden.
+  */
+  #storybook-explorer-tree a[id] {
+    text-indent: -20px;
+  }
+
+  /*
+    Zeilenhöhe 28→32px: lockert eine Liste von 181 Einträgen in vier Ebenen
+    auf, die vorher durchgehend gleichförmig war.
+  */
+  #storybook-explorer-tree a[id],
+  #storybook-explorer-tree button[id] {
+    min-height: 32px;
+    padding-top: 7px;
+    padding-bottom: 6px;
+  }
+
+  /*
+    Abstand zwischen den Wurzelgruppen, aus demselben Grund wie die
+    Zeilenhöhe oben.
+  */
+  #storybook-explorer-tree > div + div {
+    margin-top: 16px;
+  }
+</style>

@@ -1,0 +1,210 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Cards & Teaser" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Generische Karten (statisch, Link-Karte) und Inhaltskarten (Stat), alle Brand Areas, barrierefrei. Der Abschnitt deckt mehr ab, als es eigene Bauteile gibt: die editoriale Kennzahl-Zeile und die offene Feature-Liste sind reine CSS-Rezepte ohne eigene Komponente, die klickbare Karte ist ein Modus des Karten-Bauteils.
+
+## Anatomie
+
+Die folgende Anatomie zeigt die fünf Bausteine einer generischen Karte: Media-Bereich, Eyebrow, Title, Text und Footer. Die Ziffern korrespondieren mit den Begriffen, die in den übrigen Abschnitten dieser Seite verwendet werden.
+
+<Unstyled>
+  <div style={{ border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden' }}>
+    <div
+      style={{
+        height: 60,
+        background: 'var(--co-50)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottom: 'var(--bd)',
+      }}
+    >
+      <span style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>
+        ① Media, Bereichsfarbe <code className="token">-50</code>
+      </span>
+    </div>
+    <div style={{ padding: 'var(--s4)' }}>
+      <div
+        className="t-co"
+        style={{
+          font: '500 12px/16px var(--font)',
+          letterSpacing: '.08em',
+          textTransform: 'uppercase',
+          marginBottom: 'var(--s1)',
+        }}
+      >
+        ② Eyebrow, Bereichsname
+      </div>
+      <div
+        style={{
+          font: '500 16px/24px var(--font)',
+          color: 'var(--tx-primary)',
+          marginBottom: 'var(--s1)',
+        }}
+      >
+        ③ Title, Kernaussage
+      </div>
+      <div style={{ font: 'var(--ty-body-md)', color: 'var(--tx-secondary)', marginBottom: 'var(--s4)' }}>
+        ④ Text, max. 2 Sätze, konkret
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: 'var(--s2)',
+          borderTop: 'var(--bd)',
+          paddingTop: 'var(--s3)',
+        }}
+      >
+        <span style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-muted)' }}>
+          ⑤ Footer, max. 2 Aktionen
+        </span>
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+## Wann welche Variante
+
+| Variante | Klasse | Wann einsetzen | Elevation |
+|---|---|---|---|
+| Statisch | `.card` | Der Standard, Karten deren Aktionen in Footer-Buttons liegen, dazu Listen- und Tabellen-Kontexte ohne visuelle Schwere | `--e0` + Rahmen |
+| Link-Karte | `a.card.card-elevated` | Wenn die ganze Karte zu einem Ziel führt: Listing-Teaser, Beitrags-, Job- und Veranstaltungs-Karten | `--e1`, Hover `--e2` + Lift |
+
+**Klickbare Karte als Modus.** Wenn die ganze Karte zu einem Ziel führen soll, gibt es zwei Patterns, je nach Karten-Typ und Inhaltsdichte:
+
+| Pattern | Wrapping | Wann einsetzen |
+|---|---|---|
+| `.ep-card.ep-card-link` | `<a class="ep-card ep-card-link">` | Kompakte Teaser-Kacheln mit Icon, Eyebrow, Titel, kurzem Text und CTA-Pfeil-Zeile, ohne Card-Footer-Buttons |
+| `a.card.card-elevated` | `<a class="card card-elevated">` | Textreiche Listing-Cards mit Card-Media, Card-Body (Pill, Titel, Text, Meta-Zeile) und implizitem „Beitrag lesen →“-Anker am Ende |
+| `a.card.card-elevated.card-featured` | `<a class="card card-elevated card-featured">` | Horizontale Großkarte für genau einen hervorgehobenen Beitrag oder Termin, Bild links im 16:9, Content rechts |
+
+**Weitere CSS-Rezepte ohne eigenes Bauteil**, sinnvoll dort, wo ein weiteres Karten-Grid die Seite überladen würde:
+
+| Muster | Rolle | Wann statt Karte |
+|---|---|---|
+| Stat-Karte (`.card-stat`) | Eigenständige KPI-Kachel mit Rahmen | Kennzahlen auf Landingpages, Jahresberichten, Dashboards |
+| Bandstreifen (`.card-stat-strip` / `.card-stat-flat`) | Flache Variante ohne Rahmen und Schatten | Kompakte KPI-Bänder, Footer-Stats, Hero-Anschluss-Sektionen |
+| Editoriale Kennzahl-Zeile | Redaktioneller Fließinhalt, nur durch Haarlinien getrennt, kein Karten-Chrome | Case-, Projekt- und Leistungslisten, wenn auf der Seite bereits Karten-Grids stehen |
+| Offene Feature-Liste (`.ep-feature`) | Icon-geführte Aufzählung ohne Rahmen, Schatten oder Media-Fläche | Vollständiger Funktionsumfang, wenn ein weiteres Karten-Grid überladen würde |
+
+Karten sind für Angebots-Menüs und Teaser da: Lösungs- und Leistungskacheln, Artikel-Vorschauen, Elemente, die zu einem Ziel führen und als abgeschlossene, klickbare Einheit funktionieren. Für Stimmen, Funktions- und Case-Listen ist meist eine offene, redaktionelle Darstellung die bessere Wahl: direkt auf der Fläche, durch Haarlinien getrennt. Das hält inhaltsdichte Abschnitte luftig und vermeidet den Eindruck einer Kachelwand, wenn mehrere Karten-Grids aufeinanderfolgen.
+
+**Testimonial-Karte**: wohnt unter `Komponenten/Zitate & Testimonials/Testimonial`, hier nur der Querverweis. Zitat mit Quellenangabe, farbiger Top-Border signalisiert die Brand Area, Auszeichnung über `<figure>` + `<blockquote>` für korrekte Semantik.
+
+<Unstyled>
+  <div className="layout-grid">
+    <div className="col-4">
+      <div
+        style={{
+          font: '500 12px/16px var(--font)',
+          color: 'var(--tx-muted)',
+          marginBottom: 'var(--s2)',
+        }}
+      >
+        Mit Media-Bereich → keine Linie
+      </div>
+      <div style={{ border: 'var(--bd-strong)', borderRadius: 'var(--r-lg)', overflow: 'hidden' }}>
+        <div
+          style={{
+            height: 40,
+            background: 'var(--co-50)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <span style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>
+            Media
+          </span>
+        </div>
+        <div style={{ padding: 'var(--s3) var(--s4)' }}>
+          <div
+            style={{
+              height: 6,
+              borderRadius: 3,
+              background: 'var(--n-200)',
+              marginBottom: 6,
+              width: '55%',
+            }}
+          />
+          <div style={{ height: 8, borderRadius: 3, background: 'var(--n-100)', marginBottom: 4 }} />
+          <div style={{ height: 8, borderRadius: 3, background: 'var(--n-100)', width: '80%' }} />
+        </div>
+      </div>
+    </div>
+    <div className="col-4">
+      <div
+        style={{
+          font: '500 12px/16px var(--font)',
+          color: 'var(--tx-muted)',
+          marginBottom: 'var(--s2)',
+        }}
+      >
+        Ohne Media-Bereich → Linie oben
+      </div>
+      <div
+        style={{
+          border: 'var(--bd-strong)',
+          borderTop: '4px solid var(--co-500)',
+          borderRadius: 'var(--r-lg)',
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ padding: 'var(--s3) var(--s4)' }}>
+          <div
+            style={{
+              height: 6,
+              borderRadius: 3,
+              background: 'var(--n-200)',
+              marginBottom: 6,
+              width: '55%',
+            }}
+          />
+          <div style={{ height: 8, borderRadius: 3, background: 'var(--n-100)', marginBottom: 4 }} />
+          <div style={{ height: 8, borderRadius: 3, background: 'var(--n-100)', width: '80%' }} />
+        </div>
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Semantik | `<article>` für eigenständige Cards, Screenreader listen Artikel als navigierbare Landmark, Überschriften-Hierarchie einhalten (Card-Titel als `h3` unter einer Section-`h2`) |
+| Klickbereich | Wenn die ganze Karte zu einem Ziel führt: das umschließende Element auf `<a>` oder `<button>` umstellen, nie `<div>` mit `onclick`. Pfeil-Suffix in `<span aria-hidden="true">` hüllen, Focus-Ring sichtbar lassen. Trägt die Karte nur passive Information, gehören Interaktionselemente ausschließlich in den Card-Footer |
+| Bilder & Icons | Card-Media-Bilder mit beschreibendem `alt`-Text versehen, dekorative SVGs mit `aria-hidden="true"` + `focusable="false"` ausblenden |
+
+**Bildslots sind 16/9 und kommen aus `.card-media`.** Listing-Grid und Featured-Card teilen sich das Verhältnis, damit Redaktion pro Beitrag ein Bild in einem Zuschnitt pflegt statt einen je Slot. Den Bildausschnitt setzt `object-position` am `<img>`, nicht `background-position` an einem Container, sonst gilt der Zuschnitt nur in einem Slot. Eigene Verhältnisse haben nur Hero und Slider (21/9) sowie Avatare (1/1). Reicht die Höhe nicht, wird Text gekappt, nicht das Verhältnis gedehnt.
+
+**Der Abstand gehört dem Container, nicht dem Kind.** `.card-body` ist eine Flex-Spalte mit `gap: var(--s3)`, das ist der einzige vertikale Rhythmus der Karte. `.card-eyebrow`, `.card-cta-link` und die Pill setzen im Card-Body keine eigene Marge, sonst addiert sie sich zum `gap`, statt zu kollabieren, denn im Flex-Layout kollabieren Margen nicht. Braucht eine Karte mehr Luft, wird nur der `gap` überschrieben, nicht eine Marge nachgeschoben.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Eyebrow und Media konsequent in der Bereichsfarbe halten, die Karte ist immer einem Bereich zugehörig.
+- Schatten nur auf Link-Karten (`a.card.card-elevated`), Karten mit Aktionen im Footer ruhen flach mit Rahmen.
+- Max. 2 Aktionen im Card-Footer: Text-Button (sekundär) plus Filled-Button (primär).
+- Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext.
+- Gleichartige Karten in einem Grid konsistent halten, gleiche Variante, gleiche Breite.
+
+**Nicht tun**
+
+- Statische und Link-Karten in derselben Reihe mischen, der Schatten liest sich dann als Zufall statt als Klick-Angebot.
+- Mehr als 2 Filled Buttons im Footer, die Hierarchie wird unklar, eine Hauptaktion reicht.
+- Bereichsfarben einer Karte und ihrer Nachbarkarte mischen, jede Karte gehört zu einem Bereich.
+- Eine Karte erhöhen, deren Fläche nirgendwohin führt, das verspricht Klickbarkeit, die es nicht gibt.
+- Langen Fließtext in Card-Body, stattdessen einen Teaser formulieren und auf eine Detailseite verlinken.
+
+## Verwandte Seiten
+
+- Card (`Komponenten/Cards & Teaser/Card`)
+- StatCard (`Komponenten/Cards & Teaser/StatCard`)
+- StatStrip (`Komponenten/Cards & Teaser/StatStrip`)
+- Testimonial (`Komponenten/Zitate & Testimonials/Testimonial`), Zitat-Karte mit Quellenangabe, hier nur verlinkt

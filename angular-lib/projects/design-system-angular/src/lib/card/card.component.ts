@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { CdsArea } from '../area';
 import { CDS_AREA_ICONS } from '../icons';
@@ -23,11 +23,11 @@ import { CDS_AREA_ICONS } from '../icons';
  */
 @Component({
   selector: 'cds-card',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <article class="card" [attr.data-area]="area() || null">
       @if (showMedia()) {
-        <div class="card-media" [innerHTML]="mediaSvg"></div>
+        <div class="card-media" [innerHTML]="mediaSvg()"></div>
       }
       <div class="card-body">
         @if (eyebrow()) {
@@ -43,7 +43,7 @@ import { CDS_AREA_ICONS } from '../icons';
       </div>
       @if (actionLabel()) {
         <div class="card-footer">
-          <button [class]="actionClasses" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
+          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
         </div>
       }
     </article>
@@ -52,29 +52,37 @@ import { CDS_AREA_ICONS } from '../icons';
 export class CardComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
+  /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  readonly title = input('Kartentitel');
-  readonly text = input('Ein kurzer Anreißer-Text, der die Karte beschreibt.');
+  /** Kartentitel. */
+  readonly title = input.required<string>();
+  /** Anreißer-/Beschreibungstext der Karte. */
+  readonly text = input.required<string>();
   /** Markenbereich → data-area (färbt Media-Glyphe + Eyebrow). */
   readonly area = input<CdsArea>();
   /** Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen. */
   readonly showMedia = input(true);
   /** Kompakte Text-Aktion im Footer (leer = kein Footer). */
-  readonly actionLabel = input('Mehr erfahren');
+  readonly actionLabel = input('');
 
   /** Klick auf die Footer-Aktion. */
   readonly actionClick = output<void>();
 
-  get actionClasses(): string {
+  /** @internal */
+  protected readonly actionClasses = computed(
     // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
-    return `btn btn-text btn-sm btn-${this.area() ?? 'co'}`;
-  }
+    () => `btn btn-text btn-sm btn-${this.area() ?? 'co'}`,
+  );
 
-  /** Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche. */
-  get mediaSvg(): SafeHtml {
+  /**
+   * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche.
+   *
+   * @internal
+   */
+  protected readonly mediaSvg = computed<SafeHtml>(() => {
     const icon = CDS_AREA_ICONS[this.area() ?? 'co'];
     return this.sanitizer.bypassSecurityTrustHtml(
       `<svg class="ico-48" viewBox="${icon.viewBox}" fill="currentColor" aria-hidden="true" focusable="false">${icon.body}</svg>`,
     );
-  }
+  });
 }

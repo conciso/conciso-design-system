@@ -1,5 +1,5 @@
-import { Directive, input, model } from '@angular/core';
-import type { ControlValueAccessor } from '@angular/forms';
+import { computed, Directive, input, model } from '@angular/core';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
 // Ein konstanter Default würde bei mehreren Feldern kollidieren (doppelte id →
@@ -13,7 +13,10 @@ let uid = 0;
  * `ControlValueAccessor` binden sich die Felder direkt an Angular-Formulare
  * (`[(ngModel)]`, `formControlName`) — der übliche Weg für eine Komponenten-
  * bibliothek. Zusätzlich ist `value` ein `model()`, sodass ohne Formular auch
- * `[(value)]` und der `valueChange`-Output funktionieren.
+ * `[(value)]` und der `valueChange`-Output funktionieren. Den ControlValueAccessor-
+ * Kitt (onChange/onTouched, writeValue, registerOnChange/-Touched, setDisabledState)
+ * erbt sie von `CvaBase` (`lib/shared/cva-base.directive.ts`) — geteilt mit
+ * Checkbox/RadioGroup/Slider/Scale, die dieselbe Boilerplate wortgleich hatten.
  *
  * Angular vererbt Inputs/Logik über eine mit `@Directive()` dekorierte abstrakte
  * Basisklasse — deshalb steht die LOGIK hier. Das gemeinsame MARKUP (Label/Helper/
@@ -22,7 +25,7 @@ let uid = 0;
  * Provider setzt jede konkrete Komponente selbst (forwardRef auf ihre Klasse).
  */
 @Directive()
-export abstract class FieldBase implements ControlValueAccessor {
+export abstract class FieldBase extends CvaBase<string> {
   /** Sichtbares Label. */
   readonly label = input('');
   /** Optionaler Hilfetext unter dem Feld. */
@@ -39,39 +42,38 @@ export abstract class FieldBase implements ControlValueAccessor {
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
 
-  // ControlValueAccessor-Callbacks (von Angular-Forms registriert).
-  protected onChange: (value: string) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  protected onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
-
-  writeValue(value: string): void {
-    this.value.set(value ?? '');
+  /** @internal */
+  protected override normalizeValue(value: string): string {
+    return value ?? '';
   }
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
+  /** @internal */
+  protected override applyValue(value: string): void {
+    this.value.set(value);
   }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  /** @internal */
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
-  /** Vom Template bei Eingabe/Änderung des nativen Controls aufgerufen. */
-  handleInput(event: Event): void {
+  /**
+   * Vom Template bei Eingabe/Änderung des nativen Controls aufgerufen.
+   *
+   * @internal
+   */
+  protected handleInput(event: Event): void {
     const value = (event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
     this.value.set(value);
     this.onChange(value);
   }
-  /** Vom Template bei Verlassen des Felds → markiert das Control als „touched“. */
-  handleBlur(): void {
+  /**
+   * Vom Template bei Verlassen des Felds → markiert das Control als „touched“.
+   *
+   * @internal
+   */
+  protected handleBlur(): void {
     this.onTouched();
   }
 
-  get errorId(): string {
-    return `${this.fieldId()}-error`;
-  }
+  /** @internal */
+  protected readonly errorId = computed(() => `${this.fieldId()}-error`);
 }

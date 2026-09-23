@@ -11,9 +11,9 @@ const AREAS = [
 ];
 
 const meta: Meta<SelectComponent> = {
-  title: 'Molecules/Custom Select',
+  title: 'Komponenten/Dropdowns/Custom Select',
   component: SelectComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -68,6 +68,52 @@ export const Geoeffnet: Story = {
 export const Deaktiviert: Story = {
   args: { label: 'Bereich', value: 'co', disabled: true },
   parameters: { controls: { disable: true } },
+};
+
+export const Tastatur: Story = {
+  name: 'Tastatur',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Vollständigstes Tastatur-Handling der Lib: ArrowDown öffnet den geschlossenen
+  // Trigger, ArrowDown/-Up bewegen (geklemmt, kein Umlauf), Home/End an die Enden,
+  // Type-ahead springt zur passenden Option, Enter wählt + schließt, Escape schließt
+  // ohne Auswahl und gibt den Fokus an den Trigger zurück.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const trigger = c.getByRole('button');
+
+    trigger.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
+    const listbox = c.getByRole('listbox');
+    await waitFor(() => expect(listbox).toHaveFocus());
+    const options = c.getAllByRole('option');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[0].id);
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[1].id);
+    await userEvent.keyboard('{End}');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[options.length - 1].id);
+    await userEvent.keyboard('{Home}');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[0].id);
+
+    // Escape schließt OHNE Auswahl, Fokus geht zurück auf den Trigger.
+    await userEvent.keyboard('{Escape}');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toHaveFocus();
+    await expect(trigger).toHaveTextContent('Bitte wählen…');
+
+    // Erneut öffnen, Type-ahead springt zur ersten Option, deren Label mit „e“ beginnt
+    // („Effektive Software“).
+    await userEvent.keyboard('{ArrowDown}');
+    await waitFor(() => expect(listbox).toHaveFocus());
+    await userEvent.keyboard('e');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[2].id);
+
+    // Enter wählt die aktive Option und schließt die Listbox.
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(trigger).toHaveTextContent('Effektive Software'));
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  },
 };
 
 export const Formularbindung: Story = {

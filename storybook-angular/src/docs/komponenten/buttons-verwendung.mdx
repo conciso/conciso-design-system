@@ -1,0 +1,138 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Buttons" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Buttons sind die primäre Aktions-Komponente des Systems: fünf Stilvarianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Standard · Small · Large) und der Inversions-Modifier `.btn-on-band` für Buttons auf farbigen Bereichs-Bändern. Jede Variante steht in allen vier Brand Areas zur Verfügung (Bereichsreihenfolge co · ki · es · wo), das Mindestmaß für ein Touch-Target ist 44 Pixel.
+
+## Wann welche Variante
+
+Die Hierarchie ist verbindlich: Filled vor Tonal oder Outlined vor Text. Pro Kontext höchstens ein Filled-Button, sonst ist die Hauptaktion nicht mehr eindeutig erkennbar. Elevated steht außerhalb dieser Kette und markiert eine freistehende, vom Hintergrund abgehobene Aktion.
+
+So löst sich die Hierarchie in typischen Kontexten auf: ein Dialog mit Text- neben Filled-Button, ein Formular mit Outlined- neben Filled-Button und eine Feature-Karte mit Text- neben Tonal-Button.
+
+<Unstyled>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--s4)' }}>
+    <div
+      style={{
+        border: 'var(--bd-strong)',
+        borderRadius: 'var(--r-lg)',
+        padding: 'var(--s5)',
+        background: 'var(--bg-surface)',
+      }}
+    >
+      <div style={{ font: '500 16px/24px var(--font)', color: 'var(--tx-primary)', marginBottom: 'var(--s2)' }}>
+        Aktion bestätigen
+      </div>
+      <div style={{ font: '400 14px/20px var(--font)', color: 'var(--tx-secondary)', marginBottom: 'var(--s5)' }}>
+        Möchtest du die Änderungen wirklich speichern?
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--s2)', marginBottom: 'var(--s3)' }}>
+        <button className="btn btn-text btn-sm btn-co">Abbrechen</button>
+        <button className="btn btn-filled btn-sm btn-co">Speichern</button>
+      </div>
+      <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)', textAlign: 'right' }}>
+        Text → Abbrechen &nbsp;·&nbsp; Filled → Hauptaktion
+      </div>
+    </div>
+    <div
+      style={{
+        border: 'var(--bd-strong)',
+        borderRadius: 'var(--r-lg)',
+        padding: 'var(--s5)',
+        background: 'var(--bg-surface)',
+      }}
+    >
+      <div style={{ font: '500 16px/24px var(--font)', color: 'var(--tx-primary)', marginBottom: 'var(--s4)' }}>
+        Formular einreichen
+      </div>
+      <div
+        style={{
+          height: '32px',
+          background: 'var(--bg-overlay)',
+          borderRadius: 'var(--r-sm)',
+          border: 'var(--bd-strong)',
+          marginBottom: 'var(--s5)',
+        }}
+      ></div>
+      <div style={{ display: 'flex', gap: 'var(--s2)', marginBottom: 'var(--s3)' }}>
+        <button className="btn btn-outlined btn-sm btn-co">Vorschau</button>
+        <button className="btn btn-filled btn-sm btn-co">Absenden</button>
+      </div>
+      <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>
+        Outlined → Alternativaktion &nbsp;·&nbsp; Filled → Primäraktion
+      </div>
+    </div>
+    <div
+      style={{
+        border: 'var(--bd-strong)',
+        borderRadius: 'var(--r-lg)',
+        padding: 'var(--s5)',
+        background: 'var(--bg-surface)',
+      }}
+    >
+      <div style={{ font: '500 16px/24px var(--font)', color: 'var(--tx-primary)', marginBottom: 'var(--s2)' }}>
+        Feature entdecken
+      </div>
+      <div style={{ font: '400 14px/20px var(--font)', color: 'var(--tx-secondary)', marginBottom: 'var(--s5)' }}>
+        Drei Bereiche, ein Ziel, Gelassenheit durch klare Struktur.
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--s2)', marginBottom: 'var(--s3)' }}>
+        <button className="btn btn-text btn-sm btn-co">Mehr erfahren</button>
+        <button className="btn btn-tonal btn-sm btn-co">Jetzt starten</button>
+      </div>
+      <div style={{ font: '400 12px/16px var(--font)', color: 'var(--tx-secondary)' }}>
+        Text → Nebenaktion &nbsp;·&nbsp; Tonal → unterstützende Aktion
+      </div>
+    </div>
+  </div>
+</Unstyled>
+
+| Variante | Rolle in der Hierarchie | Einsatz | Beispiele |
+|---|---|---|---|
+| Filled | 1. Primäre Hauptaktion | Max. 1 bis 2 pro Kontext | Speichern, Absenden, Starten |
+| Tonal | 2. Sekundäre Bestätigung | Neben Filled oder eigenständig | Weiter, Übernehmen |
+| Outlined | 2. Gleichwertige Alternative | Ohne Primärfokus | Vorschau, Exportieren |
+| Text | 3. Nebenaktion | Niedrigste Priorität, link-ähnliche Funktion | Abbrechen, Mehr erfahren |
+| Elevated | Außerhalb der Hierarchie | Freistehende Aktion, visuell vom Hintergrund getrennt | Schwebende Elemente, FAB |
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Icon-only | Buttons ohne sichtbaren Text benötigen `aria-label`, der SVG-Inhalt allein reicht für Screenreader nicht aus |
+| Disabled | `aria-disabled="true"` statt HTML `disabled`, wenn der Button im Fokus-Flow bleiben soll, `disabled` entfernt das Element aus der Tastaturreihenfolge |
+| Touch-Target | Mindestgröße 44 mal 44 Pixel für alle Button-Varianten (WCAG 2.5.5), `btn-sm` bei Bedarf mit zusätzlichem Padding kompensieren |
+| Focus-Ring | Nie `outline: none` ohne sichtbaren Ersatz, der Design-System-Focus-Ring (`--focus-aa`) muss für alle Buttons erhalten bleiben |
+| Filled auf Bereichs-Section | Filled-Buttons auf hellen Bereichs-Hintergründen (`--co-50`, `--ki-50`, `--wo-50`, `--es-50`) brauchen eine ausreichend dunkle Variante mit weißer Schrift, sonst fehlt der UI-Komponenten-Kontrast (WCAG 1.4.11, mindestens 3 zu 1) zwischen Button-Fläche und Section |
+
+Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt: `.btn-co` auf `--co-700`, `.btn-ki` auf `--ki-800`, `.btn-es` auf `--es-700`. Die Default-Farbe von `.btn-wo` (`--wo-700`) ist im Allgemeinen passend, verfehlt aber auf `--wo-50`-Sub-Streifen den Kontrast. Dort die Bereichs-Klasse mit einem minimalen Inline-Override kombinieren:
+
+```html
+<button class="btn btn-filled btn-wo" style="--c500:var(--wo-600)">
+```
+
+`--c50` erbt korrekt von `.btn-wo`, ein `color`-Override entfällt, weil der Default aus `.btn-filled` (Weiß) bereits greift.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Pro Kontext maximal ein Filled Button, klare Priorisierung der Hauptaktion für die Nutzerin.
+- Verb-Labels: konkret und handlungsorientiert, „Starten“, „Speichern“, „Anfragen“, „Absenden“.
+- Hierarchie konsequent einhalten: Filled vor Tonal oder Outlined vor Text.
+- Bereichsklasse passend zum Seitenkontext: `.btn-co`, `.btn-ki`, `.btn-es`, `.btn-wo`.
+- Touch-Target mindestens 44 Pixel einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung.
+
+**Nicht tun**
+
+- Mehrere Filled Buttons nebeneinander, das lässt keine klare Primäraktion erkennen.
+- Substantive oder lange Phrasen als Labels, „Antragsformular einreichen“ statt lieber „Absenden“.
+- Disabled-State ohne sichtbare Begründung, Helper-Text oder Tooltip nutzen, um zu erklären warum.
+- Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer `.btn-co`, nie `.btn-ki`.
+- Filled-Button mit `--area-500` auf hellem Bereichs-Hintergrund (`--area-50`), stattdessen die dunklere Bereichs-Variante nutzen (siehe Barrierefreiheits-Tabelle oben).
+
+## Verwandte Seiten
+
+- Buttons (`Komponenten/Buttons/Button`), alle Stilvarianten, Größen und Zustände als Stories.

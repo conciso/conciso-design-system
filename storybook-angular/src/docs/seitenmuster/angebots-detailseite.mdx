@@ -1,0 +1,90 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Seitenmuster/Angebots-Detailseite" name="Übersicht" />
+
+# Angebots-Detailseite
+
+Page-Pattern für die Landingpage eines einzelnen Angebots unterhalb eines Bereichs, an den
+Bereich gebunden (`data-accent`). Quelle: `docs/index.html#sec-leistung-detail`. Beispiele
+in der Doku-Site: Erste Hilfe bei Meetingflut, Scrum Trainings, Lean Portfolio Management,
+Identity mit Keycloak, Keycloak-Erweiterungen (siehe `Beispielseiten`, Gruppe Leistungen).
+
+## Aufbau
+
+Reihenfolge nach Funnel-Logik: Aufmerksamkeit, Problem, Lösung, Vertrauen, Abschluss. Nicht
+jede Sektion ist Pflicht, Angebots-Box und zusätzliche Rahmendaten hängen am Preismodell.
+
+| Sektion | Inhalt | Hintergrund |
+|---|---|---|
+| Topnav + Breadcrumb | Startseite / Bereich / Angebot, Leistungen plus Bereich hervorgehoben | weiß |
+| Hero | Hero-Image mit Caption, Eyebrow „Bereich · Kategorie“, H1 = Angebot, Lead | Bild |
+| Rahmendaten (nur falls die Angebots-Box sie nicht schon nennt) | Dauer, Umfang, Ergebnis, Preis als `.ep-facts` in der Angebots-Box, nicht als eigener Streifen | — |
+| Intro / Worum es geht | Zweispaltig, Serif-Lead plus Fließtext plus Bild plus CTAs | `--n-50` |
+| Problem / Herausforderung (optional) | Karten oder leichte Textblöcke (Akzentbalken) | weiß |
+| Ablauf / Lösung | Nummerierte Schritte (`<ol>`) oder Karten-Reihe | `--n-50` |
+| Angebots-Box + „Für wen“ (bei Festpreis) | Zweispaltig: Preis-Box plus Zielgruppe | `--n-50` |
+| Social Proof (optional) | Referenzen / Experte, direkt nach der Lösung | wechselnd |
+| Weiter im Thema | Zwei Cross-Link-Karten | wechselnd |
+| CTA-Band | Bereich-700, genau ein Handlungsaufruf | Bereich-700 |
+| Footer | Standard-Footer (siehe `Komponenten/Footer`) | grau |
+
+**Rhythmus:** Flächen weiß/`--n-50` strikt alternieren, keine zwei gleichen Hintergründe
+stapeln, im Dark läuft dieselbe Folge, Karten grenzen sich dort per Rand ab statt per
+Tonstufe. Nur der Hero ist randlos, Zwischenbilder als `.ep-media-band` content-breit.
+
+## Angebots-Box
+
+Für Festpreis-Angebote: zweispaltig (`.layout-grid`, `align-items:start`), links die Box,
+rechts eine „Für wen das passt“-Häkchenliste. Die Box folgt der Konvention Elevation gleich
+Interaktivität (siehe `Komponenten/Cards & Teaser/Card`): statisch, also flach mit Rahmen
+und Top-Akzent, kein Schatten.
+
+| Element | Umsetzung |
+|---|---|
+| Container | `background:var(--bg-surface)`, `border:var(--bd-strong)`, `border-top:4px solid var(--XX-500)`, `border-radius:var(--r-lg)`, `padding:var(--s8)` |
+| Label | `--ty-label-xs`, uppercase, Bereichston über `.t-XX` (z. B. „Festpreis · in 3 Wochen“) |
+| Preis | `--ty-display-sm` · `--tx-primary`, MwSt.-Zusatz `--ty-body-sm` · `--tx-secondary` |
+| Leistungen | Häkchenliste, Haken über `.t-XX` („✓“), Text `--ty-body-md` |
+| CTA | `.btn-filled` in Bereichsfarbe → Kontaktseite (`data-k-bereich`/`data-k-anliegen`) |
+| „Für wen“ | `.col-5`-Häkchenliste, gleiche Haken, ohne Rahmen |
+
+**Fallstricke:** Padding aus der Skala, es gibt kein `--s7`, sonst fällt `padding` auf 0.
+Farbige Haken und Labels immer über `.t-XX` (dark-safe), nie als Inline-Bereichsfarbe. Nicht
+den dünnen 1-px-Rand nutzen: Mit dem 4-px-Top-Akzent entstehen sonst „Ohren“ an den oberen
+Ecken, daher `--bd-strong`.
+
+## Preismodelle
+
+Drei Fälle, je nach Angebot:
+
+| Modell | Darstellung | Beispiel |
+|---|---|---|
+| Festpreis | Angebots-Box, sie nennt Laufzeit, Leistung und Ergebnis meist schon selbst, dann entfallen zusätzliche Rahmendaten | Meetingflut (3.600 €), Keycloak-Erweiterungen (9.900 €) |
+| Mehrere Pakete / Varianten | Preiskarten je Variante, nach Anbieter gruppiert | Scrum Trainings (Scrum.org / TÜV SÜD) |
+| Beratung ohne Festpreis | Kein Preis, CTA „individuelles Angebot“ | Lean Portfolio Management |
+
+Die MwSt.-Angabe (zzgl. oder inkl.) immer aus der Quelle übernehmen und je Seite einheitlich
+halten. Preis nur einmal laut zeigen (Angebots-Box oder Preiskarte), nicht mehrfach
+wiederholen. Steht er dort, gehört er nicht zusätzlich in die Rahmendaten (siehe
+`Seitenmuster/Seminar · Training`, Abschnitt Rahmendaten).
+
+## Cross-Links „Weiter im Thema“
+
+Am Seitenende vor dem CTA-Band zwei `.ep-card-link`-Karten: zuerst Geschwister-Angebote im
+selben Bereich, dann ein Nachbar-Bereich als Cross-Sell. Titel als Frage, kurzer Text,
+`.ep-card-cta` „… ansehen →“. Verweise nur auf real existierende Seiten, „Landingpage
+folgt“ bleibt ohne Link.
+
+## Verwendung
+
+**Dos**
+- Genau ein CTA-Ziel pro Seite (Kontaktformular), Erst- und Schluss-CTA konsistent
+  benennen.
+- Social Proof (Referenzen/Experte) direkt nach der Lösung, solange das Interesse hoch ist.
+- Nur die Sektionen bauen, die das Angebot trägt, ohne Preis keine leere Preis-Box.
+
+**Don'ts**
+- Mehrere Card-Reihen stapeln, stattdessen leichte Textblöcke (Akzentbalken) zwischen den
+  Card-Sektionen einstreuen.
+- Denselben Preis mehrfach laut wiederholen (Strip plus Karte plus Fließtext).
+- Sie-Anrede verwenden, das System ist durchgängig du/ihr.

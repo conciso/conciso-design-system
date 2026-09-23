@@ -1,7 +1,10 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
+/** Ein FAQ-Eintrag. */
 export interface CdsFaqItem {
+  /** Frage (Summary-Zeile). */
   q: string;
+  /** Antworttext. */
   a: string;
 }
 
@@ -14,7 +17,7 @@ export interface CdsFaqItem {
  */
 @Component({
   selector: 'cds-faq',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="ep-faq">
       @for (item of items(); track item.q) {
@@ -44,18 +47,6 @@ export interface CdsFaqItem {
   `,
 })
 export class FaqComponent {
-  readonly items = input<CdsFaqItem[]>([
-    {
-      q: 'Wie läuft die Bewerbung ab?',
-      a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.',
-    },
-    {
-      q: 'Wo und wie arbeitet ihr?',
-      a: 'Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.',
-    },
-    {
-      q: 'Welche Technologien nutzt ihr?',
-      a: 'Moderne, langlebige Stacks — die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
-    },
-  ]);
+  /** Fragen-/Antworten-Liste des Akkordeons. */
+  readonly items = input.required<CdsFaqItem[]>();
 }

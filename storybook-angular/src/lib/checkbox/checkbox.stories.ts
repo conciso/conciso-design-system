@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { CheckboxComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CheckboxComponent> = {
-  title: 'Atoms/Checkbox',
+  title: 'Komponenten/Inputs & Forms/Checkbox',
   component: CheckboxComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   // Der Datenschutz-Link (.body-link) ist Corporate — die Bereichs-Tönung ist ein
   // SEITEN-Zustand, nicht Sache der Checkbox. Über den Toolbar-Umschalter „Bereich“
   // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann
@@ -44,6 +44,32 @@ export default meta;
 type Story = StoryObj<CheckboxComponent>;
 
 export const Interaktiv: Story = {};
+
+export const Deaktiviert: Story = {
+  args: { disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('checkbox')).toBeDisabled();
+  },
+};
+
+export const Tastatur: Story = {
+  name: 'Tastatur',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Leertaste auf der fokussierten Checkbox schaltet checked um (natives Verhalten
+  // von <input type="checkbox">, hier über echte Tastatur statt Klick geprüft).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const checkbox = c.getByRole('checkbox');
+    checkbox.focus();
+    await expect(checkbox).not.toBeChecked();
+    await userEvent.keyboard(' ');
+    await expect(checkbox).toBeChecked();
+    await userEvent.keyboard(' ');
+    await expect(checkbox).not.toBeChecked();
+  },
+};
 
 export const LesbarerZustand: Story = {
   name: 'Lesbarer Zustand',

@@ -9,9 +9,9 @@ const LOGO_DEFAULT = '/conciso/brand/logo-conciso.svg';
 const LOGO_DARK = '/conciso/brand/logo-conciso-light.svg';
 
 const meta: Meta<TopnavComponent> = {
-  title: 'Organisms/Topnav',
+  title: 'Komponenten/Navigation/Topnav',
   component: TopnavComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -71,6 +71,20 @@ export const Interaktiv: Story = {
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     // Single Source of Truth: höchstens ein Eintrag ist aktiv (aria-current="page").
     await expect(canvasElement.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
+
+    // Fokus-Rückgabe (WCAG 2.4.3): Submenü per Tastatur öffnen, mit Tab hinein
+    // fokussieren, Escape schließt UND gibt den Fokus an den Toggle zurück — die
+    // CSS blendet .ep-nav-sub per display:none aus, sobald .is-open fehlt, das
+    // fokussierte Element verschwindet sonst und der Fokus fiele ans <body>.
+    toggle.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.tab();
+    const subLink = c.getByRole('link', { name: 'Angewandte KI' });
+    await expect(subLink).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(toggle).toHaveFocus();
   },
 };
 

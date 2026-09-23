@@ -1,16 +1,20 @@
 import {
-  AfterViewInit,
+  afterNextRender,
+  ChangeDetectionStrategy,
   Component,
+  computed,
+  DestroyRef,
   ElementRef,
   forwardRef,
   inject,
   input,
   model,
-  OnDestroy,
+  numberAttribute,
   signal,
 } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → jede Instanz bekommt per Default eine EINDEUTIGE id.
 // Ein konstanter Default würde bei mehreren Slidern kollidieren (doppelte id →
@@ -33,7 +37,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-slider',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SliderComponent), multi: true },
   ],
@@ -41,12 +45,12 @@ let uid = 0;
     <div class="field-slider">
       <div class="field-slider-header">
         <label class="field-slider-label" [attr.for]="sliderId()">{{ label() }}</label>
-        <output [class]="outputClasses" [attr.for]="sliderId()" [id]="sliderId() + '-out'">
-          {{ formatted }}
+        <output [class]="outputClasses()" [attr.for]="sliderId()" [id]="sliderId() + '-out'">
+          {{ formatted() }}
         </output>
       </div>
       <input
-        [class]="sliderClasses"
+        [class]="sliderClasses()"
         type="range"
         [id]="sliderId()"
         [min]="min()"
@@ -54,12 +58,12 @@ let uid = 0;
         [step]="step()"
         [value]="value()"
         [disabled]="disabled()"
-        [attr.aria-valuetext]="formatted"
+        [attr.aria-valuetext]="formatted()"
         [attr.aria-describedby]="helper() ? sliderId() + '-hint' : null"
         (input)="onInput($event)"
         (blur)="markTouched()"
       />
-      @if (tickItems.length) {
+      @if (tickItems().length) {
         <!-- Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb (22px, siehe
              css/components.css) läuft mittig von 11px bis (Breite − 11px). Das
              space-between des Kern-CSS träfe die Label-MITTEN nicht (bei vielen Ticks
@@ -69,7 +73,7 @@ let uid = 0;
           aria-hidden="true"
           style="position:relative;display:block;padding:0;height:16px"
         >
-          @for (t of tickItems; track $index) {
+          @for (t of tickItems(); track $index) {
             <span
               [style.left]="t.left"
               style="position:absolute;transform:translateX(-50%);white-space:nowrap"
@@ -84,83 +88,79 @@ let uid = 0;
     </div>
   `,
 })
-export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
+export class SliderComponent extends CvaBase<number> {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
-  private resizeObserver?: ResizeObserver;
+  private readonly destroyRef = inject(DestroyRef);
   /** Gemessene Slider-Breite (px); treibt die reaktive Tick-Reduktion. */
   private readonly width = signal(0);
 
   readonly label = input('Budget-Rahmen');
   /** Markenbereich → .slider-<area> (Thumb- + Output-Farbe). */
   readonly area = input<CdsArea>('co');
-  readonly min = input(10000);
-  readonly max = input(100000);
-  readonly step = input(5000);
+  readonly min = input(10000, { transform: numberAttribute });
+  readonly max = input(100000, { transform: numberAttribute });
+  readonly step = input(5000, { transform: numberAttribute });
   /** Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms. */
   readonly value = model(50000);
   /** Einheit, an den formatierten Wert angehängt (z. B. ' €'). */
   readonly unit = input(' €');
   /** Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem
    *  Slider automatisch reduziert. */
-  readonly tickCount = input(3);
+  readonly tickCount = input(3, { transform: numberAttribute });
   /** Mindestbreite (px) pro Tick-Label, ab der reduziert wird. */
-  readonly minTickSpacing = input(56);
+  readonly minTickSpacing = input(56, { transform: numberAttribute });
   readonly helper = input('Schritte: 5.000 €');
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
   readonly sliderId = input(`cds-slider-${++uid}`);
 
-  private onChange: (value: number) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
+  constructor() {
+    super();
+    // Erstmessung + ResizeObserver-Setup: reine Browser-Angelegenheit (Layout gibt es
+    // beim serverseitigen Rendern nicht) und läuft genau einmal nach dem ersten Render —
+    // afterNextRender ist der Ersatz für ngAfterViewInit + direktem DOM-Zugriff, der
+    // (anders als ngAfterViewInit) NIE beim SSR ausgeführt wird.
+    afterNextRender(() => {
+      const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
+      if (!el) return;
+      this.width.set(el.getBoundingClientRect().width);
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver((entries) => {
+          this.width.set(entries[0].contentRect.width);
+        });
+        ro.observe(el);
+        this.destroyRef.onDestroy(() => ro.disconnect());
+      }
+    });
+  }
 
-  writeValue(value: number): void {
+  /** @internal */
+  protected override normalizeValue(value: number): number {
     // Auf [min, max] klemmen: ein Formularwert außerhalb des Bereichs würde sonst im
     // <output> stehen, während der native Thumb an min/max klemmt (Modell/UI-Mismatch).
     const n = typeof value === 'number' && !Number.isNaN(value) ? value : this.min();
-    this.value.set(this.clamp(n));
+    return this.clamp(n);
   }
   private clamp(v: number): number {
     return Math.min(this.max(), Math.max(this.min(), v));
   }
-  registerOnChange(fn: (value: number) => void): void {
-    this.onChange = fn;
+  /** @internal */
+  protected override applyValue(value: number): void {
+    this.value.set(value);
   }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
-  }
-
-  ngAfterViewInit(): void {
-    const el = this.host.nativeElement.querySelector<HTMLElement>('.field-slider');
-    if (!el) return;
-    this.width.set(el.getBoundingClientRect().width);
-    if (typeof ResizeObserver !== 'undefined') {
-      this.resizeObserver = new ResizeObserver((entries) => {
-        this.width.set(entries[0].contentRect.width);
-      });
-      this.resizeObserver.observe(el);
-    }
+  /** @internal */
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
-  ngOnDestroy(): void {
-    this.resizeObserver?.disconnect();
-  }
-
-  get sliderClasses(): string {
-    return `slider slider-${this.area()}`;
-  }
-  get outputClasses(): string {
-    return `field-slider-output slider-${this.area()}`;
-  }
-  get formatted(): string {
-    return `${this.value().toLocaleString('de-DE')}${this.unit()}`;
-  }
+  /** @internal */
+  protected readonly sliderClasses = computed(() => `slider slider-${this.area()}`);
+  /** @internal */
+  protected readonly outputClasses = computed(() => `field-slider-output slider-${this.area()}`);
+  /** @internal */
+  protected readonly formatted = computed(
+    () => `${this.value().toLocaleString('de-DE')}${this.unit()}`,
+  );
 
   /** Effektive Tick-Anzahl: Wunsch, aber auf das reduziert, was in die Breite passt. */
   private effectiveTickCount(): number {
@@ -175,8 +175,10 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
   /**
    * Gleichmäßig über [min, max] verteilte Ticks: Label (kompakt formatiert) plus
    * absolute Ziel-Position (left), zentriert auf die echte Thumb-Position.
+   *
+   * @internal
    */
-  get tickItems(): { label: string; left: string }[] {
+  protected readonly tickItems = computed<{ label: string; left: string }[]>(() => {
     const n = this.effectiveTickCount();
     if (n < 1) return [];
     // left so, dass die Label-MITTE auf dem Thumb-Mittelpunkt liegt (Thumb 22px →
@@ -189,7 +191,7 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
       const p = i / (n - 1);
       return { label: this.formatTick(min + (max - min) * p), left: at(p) };
     });
-  }
+  });
 
   /** Kompakte Tick-Beschriftung: k/M-Kurzform (de-DE), z. B. 32500 → „32,5k“. */
   private formatTick(v: number): string {
@@ -200,12 +202,14 @@ export class SliderComponent implements AfterViewInit, OnDestroy, ControlValueAc
     return fmt(v);
   }
 
-  onInput(event: Event): void {
+  /** @internal */
+  protected onInput(event: Event): void {
     const value = Number((event.target as HTMLInputElement).value);
     this.value.set(value);
     this.onChange(value);
   }
-  markTouched(): void {
+  /** @internal */
+  protected markTouched(): void {
     this.onTouched();
   }
 }

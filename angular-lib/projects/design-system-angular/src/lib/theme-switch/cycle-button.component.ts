@@ -12,7 +12,6 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  */
 @Component({
   selector: 'cds-theme-cycle',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIcon],
   viewProviders: [provideIcons({ heroSun, heroMoon, heroComputerDesktop })],
@@ -31,11 +30,15 @@ export class ThemeCycleComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
   readonly showSystem = input(true);
 
+  /** @internal */
   protected readonly svc = inject(ThemeModeService);
+  /** @internal */
   protected readonly icon = computed(() => CDS_THEME_ICON[this.svc.mode()]);
+  /** @internal */
   protected readonly label = computed(() => CDS_THEME_LABEL[this.svc.mode()]);
 
-  next(): void {
+  /** @internal */
+  protected next(): void {
     const order = cdsThemeModes(this.showSystem());
     const i = order.indexOf(this.svc.mode());
     this.svc.set(order[(i + 1) % order.length]);

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -11,11 +11,12 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-area-badge',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span class="badge" [attr.data-area]="area()">{{ label() }}</span>`,
 })
 export class AreaBadgeComponent {
-  readonly label = input('Corporate');
+  /** Sichtbarer Text der Badge. */
+  readonly label = input.required<string>();
   /** Brand Area → data-area (bestimmt die Bereichsfarbe). */
   readonly area = input<CdsArea>('co');
 }

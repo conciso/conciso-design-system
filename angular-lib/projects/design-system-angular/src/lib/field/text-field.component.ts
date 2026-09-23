@@ -1,4 +1,4 @@
-import { Component, forwardRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FieldBase } from './field-base.directive';
 import { FieldShellComponent } from './field-shell.component';
@@ -13,7 +13,7 @@ import { FieldShellComponent } from './field-shell.component';
  */
 @Component({
   selector: 'cds-text-field',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FieldShellComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextFieldComponent), multi: true },
@@ -25,17 +25,20 @@ import { FieldShellComponent } from './field-shell.component';
       [helper]="helper()"
       [error]="error()"
       [fieldId]="fieldId()"
-      [errorId]="errorId"
+      [errorId]="errorId()"
     >
+      <!-- required nativ zusätzlich zu aria-required: natives HTML5-required für die
+           Formular-Validierung im Browser, aria-required für den Screenreader-Zustand. -->
       <input
         [id]="fieldId()"
         [type]="type()"
         [placeholder]="placeholder()"
         [value]="value()"
         [disabled]="disabled()"
+        [attr.required]="required() ? '' : null"
         [attr.aria-required]="required() ? 'true' : null"
         [attr.aria-invalid]="error() ? 'true' : null"
-        [attr.aria-describedby]="error() ? errorId : null"
+        [attr.aria-describedby]="error() ? errorId() : null"
         (input)="handleInput($event)"
         (blur)="handleBlur()"
       />

@@ -11,7 +11,6 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
  */
 @Component({
   selector: 'cds-theme-select',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SelectComponent],
   template: `
@@ -22,12 +21,15 @@ export class ThemeSelectComponent {
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
   readonly showSystem = input(true);
 
+  /** @internal */
   protected readonly svc = inject(ThemeModeService);
+  /** @internal */
   protected readonly options = computed<CdsSelectOption[]>(() =>
     cdsThemeModes(this.showSystem()).map((m) => ({ value: m, label: CDS_THEME_LABEL[m] })),
   );
 
-  onChange(value: string | undefined): void {
+  /** @internal */
+  protected onChange(value: string | undefined): void {
     if (value) this.svc.set(value as CdsThemeMode);
   }
 }

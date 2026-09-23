@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -21,13 +21,13 @@ export type CdsButtonSize = 'sm' | 'md' | 'lg';
  */
 @Component({
   selector: 'cds-button',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   // .btn-full setzt width:100% auf dem <button> — greift aber nur, wenn auch der
   // Host die Zeile füllt (Custom Elements sind display:inline und schrumpfen auf
   // Inhaltsbreite). Bei full=true daher den Host auf block stellen.
   host: { '[style.display]': "full() ? 'block' : null" },
   template: `
-    <button [class]="classes" [disabled]="disabled()" [attr.type]="type()" (click)="clicked.emit($event)">
+    <button [class]="classes()" [disabled]="disabled()" [attr.type]="type()" (click)="clicked.emit($event)">
       {{ label() }}
     </button>
   `,
@@ -50,7 +50,8 @@ export class ButtonComponent {
   /** Klick auf den Button (feuert nicht, wenn `disabled`). */
   readonly clicked = output<MouseEvent>();
 
-  get classes(): string {
+  /** @internal */
+  protected readonly classes = computed(() => {
     // filled-on-band = invertierter Filled-Button; rendert .btn-filled + .btn-on-band.
     const onBand = this.variant() === 'filled-on-band';
     const cls = ['btn', `btn-${onBand ? 'filled' : this.variant()}`, `btn-${this.area()}`];
@@ -59,5 +60,5 @@ export class ButtonComponent {
     if (this.full()) cls.push('btn-full');
     if (onBand) cls.push('btn-on-band');
     return cls.join(' ');
-  }
+  });
 }

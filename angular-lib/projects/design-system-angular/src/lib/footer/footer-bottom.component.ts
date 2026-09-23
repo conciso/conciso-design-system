@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export interface CdsFooterLink {
   label: string;
@@ -26,7 +26,7 @@ export interface CdsSocialLink {
  */
 @Component({
   selector: 'cds-footer-bottom',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'footer-btm' },
   template: `
     <span
@@ -82,9 +82,11 @@ export class FooterBottomComponent {
     },
   };
 
+  /** @internal */
   protected socialPath(s: CdsSocialLink): string {
     return s.iconPath ?? (s.platform ? this.socialIcons[s.platform].d : '');
   }
+  /** @internal */
   protected socialLabel(s: CdsSocialLink): string {
     return s.label ?? (s.platform ? this.socialIcons[s.platform].label : '');
   }

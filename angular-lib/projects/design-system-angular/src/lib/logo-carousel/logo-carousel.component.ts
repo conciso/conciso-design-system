@@ -1,5 +1,15 @@
-import { Component, ElementRef, effect, inject, input, model, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  effect,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { CdsLogo, LogoComponent } from '../logo/logo.component';
+import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export type { CdsLogo } from '../logo/logo.component';
 
@@ -25,7 +35,7 @@ let cdsLogoCarouselUid = 0;
  */
 @Component({
   selector: 'cds-logo-carousel',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [LogoComponent],
   template: `
     <div
@@ -74,9 +84,11 @@ let cdsLogoCarouselUid = 0;
             type="button"
             role="tab"
             [attr.aria-selected]="i === active()"
+            [attr.tabindex]="i === active() ? 0 : -1"
             [attr.aria-controls]="slideId(i)"
             [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
             (click)="goTo(i)"
+            (keydown)="onDotsKeydown($event)"
           ></button>
         }
       </div>
@@ -86,21 +98,30 @@ let cdsLogoCarouselUid = 0;
 export class LogoCarouselComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  readonly sets = input<CdsLogo[][]>([
-    [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
-    [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
-    [{ label: 'CASCADE' }, { label: 'VERTEX' }, { label: 'NIMBUS' }, { label: 'FORGE' }, { label: 'ATLAS' }],
-  ]);
+  /** Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set). */
+  readonly sets = input.required<CdsLogo[][]>();
   /** Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s). */
   readonly interval = input(6000);
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
 
-  /** Vom Nutzer explizit pausiert (Pause-Button). */
+  /**
+   * Vom Nutzer explizit pausiert (Pause-Button).
+   *
+   * @internal
+   */
   protected readonly paused = signal(false);
-  /** Transiente Pause: Maus über dem Carousel. */
+  /**
+   * Transiente Pause: Maus über dem Carousel.
+   *
+   * @internal
+   */
   protected readonly hovered = signal(false);
-  /** Transiente Pause: Tastatur-Fokus innerhalb des Carousels. */
+  /**
+   * Transiente Pause: Tastatur-Fokus innerhalb des Carousels.
+   *
+   * @internal
+   */
   protected readonly focused = signal(false);
   /** Reduzierte Bewegung gewünscht → kein Autoplay. Einmal beim Erzeugen ermittelt. */
   private readonly reducedMotion = signal(
@@ -126,21 +147,47 @@ export class LogoCarouselComponent {
     });
   }
 
-  /** Stabile Slide-id für die aria-controls-Verknüpfung der Dots. */
-  slideId(i: number): string {
+  /**
+   * Stabile Slide-id für die aria-controls-Verknüpfung der Dots.
+   *
+   * @internal
+   */
+  protected slideId(i: number): string {
     return `cds-logo-set-${this.uid}-${i + 1}`;
   }
 
-  togglePause(): void {
+  /** @internal */
+  protected togglePause(): void {
     this.paused.set(!this.paused());
   }
 
-  goTo(i: number): void {
+  /** @internal */
+  protected goTo(i: number): void {
     this.active.set(i);
   }
 
-  /** Fokus-Pause nur aufheben, wenn der Fokus das Carousel ganz verlässt (nicht bei
-   *  Wechsel zwischen Kind-Elementen). */
+  /**
+   * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
+   * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   * 1:1 übernommen von `carousel.component.ts` (Indexberechnung in
+   * `../shared/dots-keyboard.ts`, identisch für beide Komponenten).
+   *
+   * @internal
+   */
+  protected onDotsKeydown(event: KeyboardEvent): void {
+    const next = nextDotsIndex(this.sets().length, this.active(), event.key);
+    if (next === null) return;
+    event.preventDefault();
+    this.goTo(next);
+    this.host.nativeElement.querySelectorAll<HTMLElement>('.logo-carousel-dot')[next]?.focus();
+  }
+
+  /**
+   * Fokus-Pause nur aufheben, wenn der Fokus das Carousel ganz verlässt (nicht bei
+   *  Wechsel zwischen Kind-Elementen).
+   *
+   * @internal
+   */
   protected onFocusOut(event: FocusEvent): void {
     const next = event.relatedTarget as Node | null;
     if (!next || !this.host.nativeElement.contains(next)) this.focused.set(false);

@@ -3,10 +3,10 @@ import { moduleMetadata } from '@storybook/angular-vite';
 import { FooterMainComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FooterMainComponent> = {
-  title: 'Organisms/Footer/Oberer Teil',
+  title: 'Komponenten/Footer/Oberer Teil',
   component: FooterMainComponent,
   decorators: [moduleMetadata({ imports: [FooterMainComponent] })],
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',
     // Projizierter Inhalt / neue Struktur ohne passende Baseline (visual.yml noch

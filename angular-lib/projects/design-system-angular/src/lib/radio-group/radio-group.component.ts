@@ -1,6 +1,7 @@
-import { Component, forwardRef, input, model } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, forwardRef, input, model } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 // Modulweiter Zähler → jede Gruppe bekommt per Default einen EINDEUTIGEN name.
 // Gleiche names über Gruppen hinweg würden deren Radios fälschlich koppeln.
@@ -19,7 +20,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-radio-group',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RadioGroupComponent), multi: true },
   ],
@@ -41,6 +42,7 @@ let uid = 0;
               [checked]="opt === value()"
               [disabled]="disabled()"
               [attr.required]="required() ? '' : null"
+              [attr.aria-required]="required() ? 'true' : null"
               [style.accent-color]="'var(--' + area() + '-500)'"
               style="width:18px;height:18px;flex-shrink:0;cursor:pointer"
               (change)="onRadioChange(opt)"
@@ -53,7 +55,7 @@ let uid = 0;
     </fieldset>
   `,
 })
-export class RadioGroupComponent implements ControlValueAccessor {
+export class RadioGroupComponent extends CvaBase<string> {
   /** Gruppen-Label (die Frage) → <legend>. */
   readonly legend = input('Optionen');
   /** Auswahloptionen (Label = Wert). */
@@ -69,32 +71,27 @@ export class RadioGroupComponent implements ControlValueAccessor {
   /** Brand Area → accent-color der Radios. */
   readonly area = input<CdsArea>('co');
 
-  private onChange: (value: string) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
-
-  writeValue(value: string): void {
-    this.value.set(value ?? '');
+  /** @internal */
+  protected override normalizeValue(value: string): string {
+    return value ?? '';
   }
-  registerOnChange(fn: (value: string) => void): void {
-    this.onChange = fn;
+  /** @internal */
+  protected override applyValue(value: string): void {
+    this.value.set(value);
   }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  /** @internal */
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
-  onRadioChange(opt: string): void {
+  /** @internal */
+  protected onRadioChange(opt: string): void {
     this.value.set(opt);
     this.onChange(opt);
     this.onTouched();
   }
-  markTouched(): void {
+  /** @internal */
+  protected markTouched(): void {
     this.onTouched();
   }
 }

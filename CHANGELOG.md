@@ -14,7 +14,185 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 ## [Unreleased]
 
-### Geplant
+### Breaking
+- **Inhalts-Inputs von 16 Komponenten sind jetzt `input.required()`.** Betroffen:
+  `BlockquoteComponent` (`quote`, `name`), `TestimonialComponent` (`quote`, `name`),
+  `TeamVoiceComponent` (`quote`, `name`), `StatCardComponent` (`value`, `label`),
+  `StatStripComponent` (`stats`), `DownloadCtaComponent` (`title`, `primaryLabel`),
+  `FaqComponent` (`items`), `CarouselComponent` (`slides`), `LogoCarouselComponent`
+  (`sets`), `CardComponent` (`title`, `text`), `AreaBadgeComponent` (`label`),
+  `StatusBadgeComponent` (`label`), `ChipComponent` (`label`), `PillComponent`
+  (`label`), `CodeBlockComponent` (`code`) und `SnackbarComponent` (`message`). Diese
+  Inputs trugen bisher erfundenen Conciso-Beispieltext als Default (Namen, Zitate,
+  Kennzahlen, FAQ-Einträge, Slide-Inhalte …) — ein vergessenes Binding lieferte damit
+  unbemerkt Marketingtext statt eines auffälligen Fehlers aus. Fehlt der Wert jetzt,
+  wirft Angular zur Laufzeit `NG0950`; ein vergessenes Binding fällt damit sofort auf,
+  statt still Demo-Inhalt auszuliefern. Reines Beiwerk (`roleLabel`, `trendText`,
+  `eyebrow`/`desc`/`meta`/`secondaryLabel` bei DownloadCta, `actionLabel` bei Card und
+  Snackbar) bleibt optional, defaultet aber jetzt auf `''` statt auf erfundenen Text.
+  Die bisherigen Default-Texte sind nicht verloren — sie stehen jetzt als explizite
+  `args` in den jeweiligen Stories (`storybook-angular/src/lib/**/*.stories.ts`) und
+  rendern dort weiterhin unverändert.
+- **`FieldShellComponent` ist kein Export der öffentlichen API mehr.** Die Komponente war nie als
+  öffentliche API gedacht — ihre Klassendoku bezeichnet sie seit jeher als intern
+  („Präsentations-Hülle für alle Field-Komponenten“), es gab weder eine eigene Story noch JSDoc
+  dafür. Textfeld, Textbereich und Auswahlfeld beziehen sie weiterhin über den relativen Import
+  (`./field-shell.component`), nur der Re-Export aus `public-api.ts` entfällt. Wer eigene Feldtypen
+  baut, setzt die Klassen der CSS-Schicht (`.field`, `.helper`, `.error-msg`, …) direkt zusammen,
+  statt sich an eine interne Hilfskomponente zu binden.
+- **97 interne Member sind von `public` auf `protected` gewechselt, darunter 35 Methoden.**
+  Betroffen sind Template-Handler und internes Zustandsgerüst, etwa `ChipComponent.toggle`,
+  `SelectComponent.open`/`close`/`select`, `CarouselComponent.next`/`goTo` und die
+  `handleInput`/`handleBlur` der Feld-Basis. Sie waren nie als API gedacht, standen aber in der
+  generierten TypeScript-Oberfläche und seit dem Docgen-Server aus
+  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md) auch in Props-Tabelle
+  und Manifest. Wer eine dieser Methoden von außen aufgerufen hat, kompiliert nicht mehr; der
+  vorgesehene Weg führt über Inputs und Outputs. Die Regel dahinter steht in
+  [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md): Interfaces wie
+  `ControlValueAccessor` bleiben notwendigerweise `public` und tragen nur `@internal`.
+
+### Added
+- **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
+  Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
+  des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
+  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
+  Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
+  deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
+- **`--font-mono` als dritte Schriftrolle des Systems.** Das System hatte Tokens für Grotesk
+  (`--font`) und Serife (`--font-display`), aber keines für die dicktengleiche Schrift — die stand
+  stattdessen zehnmal hart in `css/base.css` und `css/components.css` und weitere zehnmal in
+  Inline-Styles von `docs/index.html`. Der Wert bleibt unverändert `'Courier New',monospace`, es
+  ändert sich kein gerendertes Pixel; der Schritt ist rein strukturell. Sein Zweck: die Frage, ob
+  Courier New die richtige Bildschirmschrift für Code ist, fällt ab jetzt an einer Stelle statt an
+  zwanzig. Storybooks Doku- und Manager-Chrome (`fontCode` in `.storybook/theme.ts`) zeigt auf
+  denselben Stack, damit Doku-Site und Storybook denselben Code-Satz rendern.
+
+### Changed
+- **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
+  statt zwei.** `npm run test:vitest` deckte bereits Smoke-Rendering, `play`-Funktionen und die
+  a11y-Prüfung ab; der zweite Lauf über `@storybook/test-runner` (`test-storybook:ci`) fuhr
+  dieselben 110 Tests redundant noch einmal und trug nur die Visual-Regression bei
+  (`jest-image-snapshot` in `.storybook/test-runner.ts`). Diese Logik steckt jetzt in einem
+  `afterEach`-Hook in `.storybook/vitest.setup.ts` (`expect(document.body).toMatchScreenshot(...)`,
+  nur mit `VISUAL=1`, Baselines weiterhin unter `visual-snapshots/<story-id>.png`,
+  `parameters.snapshot.skip` als Opt-out). `test-storybook`, `test-storybook:ci`,
+  `test-storybook:visual` sowie die Root-Skripte `test:storybook`, `test:storybook:ci`,
+  `test:visual` und die Pakete `@storybook/test-runner`, `jest-image-snapshot`,
+  `@types/jest-image-snapshot`, `http-server`, `wait-on`, `concurrently` sind entfernt. Grund: der
+  ESM-Loader-Hook, den Jest beim Laden von `test-runner.ts` registriert, bricht unter Angular 22 in
+  allen Stories ab (unter Angular 21 nur eine Deprecation-Warnung) — Vitest ist der von Angular
+  vorgesehene Testrunner, die zweite Schiene abzulösen entfernt den Blocker, statt ihn zu reparieren.
+  `.github/workflows/visual.yml` (kein `http-server`/`wait-on` mehr, Vitest startet seinen Server
+  selbst) und `.github/workflows/storybook-angular.yml` (Schritt „Storybook-Tests“ läuft jetzt über
+  `test:vitest`) sind entsprechend angepasst. Details und die Arbeitsteilung, die damit endet, in
+  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md).
+- **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
+  in `storybook-angular/` sind auf `^10.6.0`, `@storybook/test-runner` auf `^0.24.5`.
+  Der seit 10.6 in `@storybook/angular-vite` default gesetzte In-Process-Docgen-Server
+  liest Inputs, Outputs und JSDoc direkt aus der TypeScript-Quelle der Angular-Lib und
+  speist damit Controls, Docs-Seiten und das Komponenten-Manifest (siehe nächster
+  Punkt). Die nie produktiv genutzte Compodoc-Pipeline ist entfernt (`compodoc`/
+  `compodocArgs` raus aus `main.ts` und den `angular.json`-Builder-Optionen). Details
+  und verworfene Alternativen in
+  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
+- **`@storybook/addon-mcp` aktiv: Komponenten-Manifest und CI-Gate dafür.**
+  `npm run build-storybook` schreibt jetzt `storybook-static/manifests/components.json`
+  (`meta.docgen: "angular-component-meta"`), der Dev-Server beantwortet unter `/mcp`
+  JSON-RPC für Agenten (u. a. `stories-preview`, `docs-show`, `test-run`). Die CI prüft
+  nach dem Build, dass dieses Manifest existiert und die erwartete Kennung trägt — ein
+  künftiges Update kann das Manifest damit nicht mehr stillschweigend abschalten.
+- **JSDoc `@internal` in der Angular-Lib gegen Interna in Props-Tabellen und Manifest.**
+  Der Docgen-Server dokumentiert grundsätzlich jedes öffentliche Member einer
+  Komponentenklasse; ohne Filter erschienen Template-Getter,
+  ControlValueAccessor-Methoden und Event-Handler in Docs-Props-Tabelle und Manifest.
+  Alle Nicht-API-Member der Lib tragen jetzt `@internal` und bleiben damit aus beiden
+  heraus — Agenten sehen über den MCP-Endpunkt dieselbe bereinigte API wie
+  Entwickler:innen im Docs-Panel.
+- **Storybook-Manager und Docs-Chrome im Conciso-Look.** Sidebar, Toolbar und
+  Docs-Seiten tragen jetzt Montserrat, die Conciso-Wortmarke und Corporate-Teal als
+  Akzent (`.storybook/theme.ts`, `manager.ts`, `manager-head.html`). Der Manager folgt
+  `prefers-color-scheme`, die Docs-Chrome bleibt fest im Light-Theme — beide sind
+  bewusst vom Toolbar-Theme-Schalter der Preview entkoppelt, der weiterhin nur die
+  Story-Vorschau steuert.
+- **Alle Komponenten laufen mit `OnPush` und leiten Werte über `computed()` ab.** Abgeleitete
+  Werte steckten bisher in Gettern, die bei jedem Change-Detection-Lauf neu rechneten; das
+  explizite `standalone: true` war seit Angular 19 Rauschen. Template-Handler und interne
+  Zustandssignale sind jetzt `protected`, Legacy-Decorators sind den heutigen APIs gewichen. Die
+  Regeln dahinter stehen in [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md).
+  Für Konsumenten ändert sich am Verhalten nichts.
+- **Barrierefreiheits- und Verhaltenskorrekturen.** Die Dots des LogoCarousel waren als Tab-Leiste
+  ausgezeichnet, ohne auf Pfeiltasten zu reagieren. Die Topnav gab beim Schließen per Escape den
+  Fokus nicht an den öffnenden Knopf zurück, obwohl das CSS das Menü ausblendet — der Fokus fiel
+  ins Nichts. Die Combobox öffnete nicht auf Pfeil nach oben, kannte kein Pos1 und Ende und ließ im
+  Mehrfachmodus losen Filtertext stehen. Der DownloadCta hatte überhaupt keinen Output, ein Klick
+  auf seine Hauptaktion verpuffte.
+- **Doku-Darstellung in Sidebar und Doku-Seiten aufgeräumt, vier kleine Korrekturen.** Das
+  Inhaltsverzeichnis der Doku-Seiten (`docs.toc` in `preview.ts`) erfasste per Default nur
+  `h3`, die 34 MDX-Seiten gliedern aber mit `##` (h2) — ganze Seiten ohne h3 hatten dadurch
+  gar kein Inhaltsverzeichnis; jetzt `h2, h3`. Der Autodocs-Eintrag jeder Komponente hieß
+  „Docs“, die einzige englische Zeile in einer durchgehend deutschen Navigation — jetzt
+  „Übersicht“ (`docs.defaultName` in `main.ts`), das Wort, das die eigenständigen MDX-Seiten
+  schon tragen. „Beispielseiten“ stand als einziges Wurzel-Blatt ohne Ordner ganz oben in der
+  Sidebar vor „Marke“, weil Storybook Blätter vor Ordnern sortiert — jetzt ein Ordner mit dem
+  Kind „Übersicht“ (`beispielseiten.mdx`), analog zu „Referenzen/Quellen“. Und die drei am
+  wenigsten befüllten Wurzeln (Seitenmuster, Beispielseiten, Referenzen) starten zugeklappt
+  (`collapsedRoots` in `manager.tsx`) — 149 der 181 Sidebar-Einträge hängen unter
+  „Komponenten“, das bleibt wie Marke und Grundlagen offen.
+- **Doku-Seiten von Storybook an die Typografie der Doku-Site angeglichen.** Die Doku-Chrome
+  brachte ihre eigene Emotion-Typografie mit: Überschriften in Montserrat 700 (32/24/20 px),
+  Fließtext 14 px — also weder die Display-Schrift der Marke noch die eigene Body-Größe. Maßstab
+  ist jetzt `docs/index.html`, die gebaute Referenz, die ihr Aussehen aus denselben CSS-Dateien
+  zieht: h1 wie `.sec-title` (Libre Baskerville 400, 2rem/2.5rem), h2 wie `.group-title`
+  (1.5rem/2rem plus Haarlinie, 40 px darüber, 24 px Polster, 16 px darunter), ab h3 bewusst
+  Grotesk (`--ty-title-sm`), Fließtext und Tabellenzellen 16 px mit `line-height:1.7` wie am
+  `body` in `base.css`, Tabellenköpfe und die kräftige Kopf-Trennlinie wie `.doc-table`
+  (`preview-head.html`). Feste Größen statt der fluiden `--ty-display-*`/`--ty-headline-*`-Tokens:
+  die sind für Seiten gedacht, deren Breite mit dem Viewport wächst, eine Doku-Spalte ist
+  breitenbegrenzt. Die Haarlinie über h2 ist dabei der eigentliche Abstandsgeber — die Doku-Site
+  gliedert nicht mit Luft allein. Die Regeln sparen `.docs-story` und `.sbdocs-preview` aus: dort
+  stehen gerenderte Komponenten, deren Darstellung ausschließlich aus der CSS-Schicht kommen darf.
+  Storybooks eigene Sektionsüberschrift „Stories“ bleibt ebenfalls unangetastet.
+- **`<Unstyled>` schaltet die Doku-Typografie jetzt tatsächlich ab.** Die Typografie-Regeln der
+  Doku-Seiten sparten bisher nur die Story-Vorschauen aus. Rohes Demo-Markup, das MDX-Seiten
+  direkt einbetten, fiel weiter darunter: gemessen rendert ein
+  `<h1 class="hero-image-caption-title">` als Doku-Überschrift (Libre Baskerville 32 px, dunkel)
+  statt als Bauteil (`--ty-serif-md`, weiß, `line-height:1.25`) — die Doku-Regel gewinnt mit
+  Spezifität (0,3,1) gegen die Bauteil-Klasse mit (0,1,0). Storybooks eigener Block `<Unstyled>`
+  half nicht, weil er nur `<div class="sb-unstyled">` rendert und kein CSS mitbringt. Alle sieben
+  Regeln sparen `.sb-unstyled` jetzt aus — dieselbe Konvention, die Storybooks eigenes Stylesheet
+  dafür benutzt. Damit können Doku-Seiten echte Live-Beispiele einbetten, die aussehen wie auf
+  der Site, statt sie in Code-Blöcken zu beschreiben.
+- **Theme-Umschalter wirkt jetzt auch auf Doku-Seiten ohne eingebettete Story.**
+  `themeStore.setSilent()` stand ausschließlich im Story-Decorator, der pro Story-Render läuft.
+  Auf den 34 eigenständigen MDX-Seiten (Icons, Hero, Tabelle, Buchungsformular, alle
+  Seitenmuster, alle „Verwendung“-Seiten) rendert keine Story — dort schrieb niemand
+  `data-theme` ans `<html>` des Preview-Frames, gemessen blieb es `null`, der Umschalter war
+  wirkungslos. Ein Listener auf Modulebene hört jetzt zusätzlich auf `setGlobals` (Erst-Load)
+  und `globalsUpdated` (jede Änderung) und setzt den Store direkt; beide Ereignisnamen und ihre
+  Nutzlast wurden gegen den installierten Dist geprüft. `setSilent` benachrichtigt keine
+  Abonnenten, deshalb entsteht keine Rückkopplung mit der Gegenrichtung Store→Toolbar — je
+  Umschaltvorgang gezählt: genau ein `updateGlobals`, ein `globalsUpdated`. Der Decorator bleibt
+  daneben stehen. Damit rendern Live-Beispiele auf Doku-Seiten im Dark Mode korrekt; die
+  Doku-Chrome selbst bleibt weiterhin hell (bekannter Follow-up aus ADR-0006).
+- **Seitenleiste entrümpelt.** Storybooks Typ-Icons und das rote „A“-Badge sind weg: das Badge
+  hängte an einem Tag, das 158 von 181 Einträgen tragen, und markierte damit nichts. Die Zeilen
+  stehen auf 32 px statt 28, zwischen den Wurzelgruppen liegt Luft, und Ordner wie Blätter
+  derselben Ebene beginnen auf derselben Textkante — vorher standen Blätter 14 px weiter rechts,
+  was vom Icon verdeckt war und sie fälschlich als Kinder des Ordners darüber lesen ließ. Der
+  Aufklapp-Chevron bleibt erhalten: er sitzt im selben Wrapper wie das Typ-Icon, weshalb die
+  Regel das Icon selbst trifft und nicht den Wrapper. Mit dem Badge entfallen auch die
+  Umbenennung von `manager.ts` zu `.tsx` und die `jsx`-Option in der `tsconfig.json`, die es
+  allein nötig gemacht hatte. Wirkt erst nach einem Neustart — der Manager liest
+  `manager-head.html` und `manager.ts` nur beim Prozessstart.
+- **Icons-Seite zeigt jetzt Icons.** Die Seite erklärte Icons auf 105 Zeilen, ohne ein einziges zu
+  zeigen. Alle 74 Glyphen aus `icons/icons.json` rendern jetzt live, getrennt nach den fünf
+  Bereichs-Glyphen in ihrer Bereichsfarbe und den 69 bereichsneutralen UI-Icons, jeweils mit dem
+  Schlüssel, den ein Entwickler importiert. Dabei fielen drei Aussagen der Seite als falsch auf
+  und wurden korrigiert: die Registry hält je Schlüssel genau eine Variante, nicht fünf Größen;
+  die Größe wird über `width`/`height` oder CSS gesetzt, nicht durch Wahl einer Variante; und die
+  Farbe ist nicht eingebrannt, sondern kommt über `currentColor` vom Consumer. Die fünf
+  handoptimierten Größenvarianten existieren nur als Inline-SVG in `docs/index.html`, nicht im
+  veröffentlichten Paket.
 - Git LFS für `docs/assets/images/` + History-Bereinigung (entfernt die ~159 MB
   Bilder aus dem Git-Verlauf). Erfordert `git lfs` (noch nicht installiert) und
   `git lfs migrate` bzw. `git filter-repo` — schreibt die History um (Force-Push,

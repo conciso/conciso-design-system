@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
  * Footer — oberer Teil (`.footer-main`): helles Band als **generisches Spalten-Layout**.
@@ -19,7 +19,7 @@ import { Component, input } from '@angular/core';
  */
 @Component({
   selector: 'cds-footer-main',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'footer-main' },
   styles: [':host{display:block}'],
   template: `

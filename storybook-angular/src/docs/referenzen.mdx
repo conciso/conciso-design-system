@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Referenzen/Quellen" name="Übersicht" />
+
+# Quellen
+
+Externe Referenzen, die als Grundlage für Entscheidungen in diesem Design System dienten,
+sowie die Repo-internen Dokumente, die den Rest des Systems erschließen. Quelle der
+externen Referenzen: `docs/index.html#sec-sources`.
+
+## Externe Referenzen
+
+| Thema | Quelle | Wofür |
+|---|---|---|
+| Komponentensystem | [Material Design](https://m3.material.io) | Grundlage für Komponentenarchitektur, Elevationssystem, Button-Typen, Card-Varianten und Spacing-Prinzipien |
+| Typografie | [Google Fonts](https://fonts.google.com) | Quelle für Libre Baskerville (Display/Headline) und Montserrat (Title/Body/Label), beide frei lizenziert (SIL Open Font License) |
+| Icons | [Heroicons](https://heroicons.com) | Icon-Bibliothek von Steve Schoger und den Machern von Tailwind CSS, Quelle für alle UI-Icons im Outline-Stil, frei unter MIT-Lizenz, optimiert auf 24×24 |
+| Barrierefreiheit | [WCAG 2.2 Quickref](https://www.w3.org/WAI/WCAG22/quickref/) | Offizielle Kriterien-Übersicht des W3C, Referenz für alle WCAG-Verweise in `Grundlagen/Barrierefreiheit` (Kontrast, Tastaturnavigation, ARIA, Touch Targets, Reduzierte Bewegung) |
+
+## Repo-Dokumente
+
+Wer im Storybook landet und den Rest des Repos nicht kennt, findet hier den Einstieg:
+
+| Dokument | Wofür man es aufschlägt |
+|---|---|
+| `README.md` | Einstieg ins Repo: was das Design System ist, für wen es gedacht ist und wie die Doku-Site lokal geöffnet wird |
+| `CONTRIBUTING.md` | Die Konventionen, nach denen das System gebaut ist: Namensschema, Farbe und Kontrast, Elevation, Dark Mode, Typografie, Spacing, Doku-Struktur |
+| `CONTEXT.md` | Das Glossar des Repos: CSS-Schicht, Angular-Lib, Wrapper-Komponente, DS-Glyphen und weitere Begriffe genau so verwenden, wie sie dort definiert sind |
+| `docs/GETTING-STARTED.md` | Wie das Design System in ein Projekt eingebunden wird: Einbindereihenfolge der CSS-Dateien, Fonts, Dark Mode, optionales JavaScript, Tokens, Icons, Frameworks |
+| `docs/adr/` | Die Architekturentscheidungen des Repos als einzelne ADRs, etwa zur Angular-Lib als CSS-Wrapper (ADR-0001) oder zu Storybook, Docgen-Server und MCP (ADR-0006) |
+| `docs/agents/` | Die Agenten-Skills dieses Repos: Issue-Tracker, Triage-Labels, Storybook-Werkzeuge und die Domain-Doku-Struktur |

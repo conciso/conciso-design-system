@@ -1,0 +1,165 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Footer" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Footer ist ein Zwei-Band-Layout: heller Main-Bereich mit Spalten-Grid (Brand & Kontakt ·
+Wichtige Inhalte · Contentletter abonnieren) und dunkler Bottom-Streifen für Copyright,
+Pflichtangaben und Social-Icons. Drei Stories bilden das ab: `Footer/Komplett` (die volle Demo),
+`Footer/Oberer Teil` (das Main-Band) und `Footer/Unterer Teil` (der Bottom-Streifen).
+`cds-footer-main` ist dabei ein generisches Spalten-Layout: Jedes Top-Level-Kind wird
+eine eigene Grid-Spalte, die Spaltenzahl ist nicht fest auf drei begrenzt.
+
+## Anatomie
+
+Das folgende Schema zeigt die fünf nummerierten Zonen des Footers, von der
+Brand-Spalte links bis zu den Social-Icons rechts im dunklen Bottom-Streifen. Es
+ergänzt die Spalten-Struktur unten um die räumliche Anordnung.
+
+<Unstyled>
+  <div
+    style={{
+      border: 'var(--bd-strong)',
+      borderRadius: 'var(--r-lg)',
+      overflow: 'hidden',
+      font: '400 12px/16px var(--font)',
+    }}
+  >
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: '1.2fr 1fr 1.3fr',
+        gap: 0,
+        borderBottom: 'var(--bd)',
+        background: 'var(--n-50)',
+      }}
+    >
+      <div style={{ padding: 'var(--s4)', borderRight: 'var(--bd)' }}>
+        <div className="t-co" style={{ fontWeight: 700, marginBottom: '4px' }}>
+          ① Brand & Kontakt
+        </div>
+        <div style={{ color: 'var(--tx-muted)' }}>Wortmarke + Adresse + Karten + Telefon/E-Mail</div>
+      </div>
+      <div style={{ padding: 'var(--s4)', borderRight: 'var(--bd)' }}>
+        <div style={{ fontWeight: 600, color: 'var(--tx-primary)', marginBottom: '4px' }}>
+          ② Wichtige Inhalte
+        </div>
+        <div style={{ color: 'var(--tx-muted)' }}>
+          Sechs Top-Level-Links
+          <br />
+          (Bereiche · Beiträge · Jobs · Kontakt)
+        </div>
+      </div>
+      <div style={{ padding: 'var(--s4)' }}>
+        <div className="t-co" style={{ fontWeight: 700, marginBottom: '4px' }}>
+          ③ Contentletter abonnieren
+        </div>
+        <div style={{ color: 'var(--tx-muted)' }}>Lead + Name-Feld + E-Mail-Feld + Consent + Pill-Button</div>
+      </div>
+    </div>
+    <div
+      style={{
+        padding: 'var(--s3) var(--s4)',
+        background: 'var(--n-700)',
+        color: 'var(--n-300)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--s4)',
+      }}
+    >
+      <span>④ © Jahr Firma · Standort · Datenschutz · Impressum</span>
+      <span style={{ marginLeft: 'auto' }}>⑤ LinkedIn · YouTube</span>
+    </div>
+  </div>
+</Unstyled>
+
+## Spalten-Struktur
+
+| Spalte | Inhalt | Hinweis |
+|---|---|---|
+| 1, Brand & Kontakt | Wort-Marke „Conciso GmbH“ (`.footer-brand`) plus Postadresse, Karten-Links (Google Maps, OpenStreetMap, Apple Karten), Telefon, Fax, E-Mail, als `<address class="footer-address">` semantisch markiert | Breitere Spalte (1.2fr). Kein Logo-Bild, weil die sticky Topnav das Logo bereits trägt |
+| 2, Wichtige Inhalte | Eine flache Liste mit sechs Top-Level-Zielen: Angewandte KI · Effektive Software · Wirksame Organisationen · Beiträge · Jobs · Kontakt | Bewusst konsolidiert statt nach Themen aufgeteilt, der Footer ist Wiederfindungs-Anker, keine zweite Hauptnavigation |
+| 3, Contentletter abonnieren | Gestapelte Form: Lead → Name-Feld → E-Mail-Feld → Datenschutz-Consent → Anmelden-Button (Pill, natürliche Breite) | Consent steht vor dem Submit, damit Tab- und Klickpfad keine Anmeldung ohne gelesene Datenschutzinfo erlauben (DSGVO und Trust) |
+| Bottom-Zeile | Dunkler Streifen: Copyright plus Pflichtangaben (Datenschutz, Impressum) linksbündig, Social-Icons (LinkedIn, YouTube) rechtsbündig via `margin-left:auto` | Pflichtangaben links, der sticky Back-to-Top-Button rechts unten würde rechts platzierte Links sonst überlagern |
+
+## Typografie: ruhige Utility-Zone
+
+`.footer-brand` und `.footer-htitle` nutzen `--ty-title-sm` (Sans 500, 18/26 px),
+bewusst ohne Uppercase und ohne Letter-Spacing. Der Footer ist eine
+Wiederfindungs- und Pflichtangaben-Zone, keine editoriale Bühne: Familie (Sans statt
+Serif), Größe (18 px statt 28 px Headline-md) und Gewicht (500 statt 400 Serif) rücken
+die Headlines gegenüber Section-H2 bewusst in den Hintergrund. Caps und Letter-Spacing
+würden ein zweites Konversions-Signal neben dem Page-End-CTA-Band darüber erzeugen,
+Reibung statt Ruhe.
+
+| Klasse | Token | Rolle |
+|---|---|---|
+| `.footer-brand` | `--ty-title-sm` | Wortmarke „Conciso GmbH“ in Spalte 1 |
+| `.footer-htitle` | `--ty-title-sm` | Spalten-Titel („Wichtige Inhalte“, „Contentletter abonnieren“) |
+| `.footer-subtitle` | Label-Größe (12 px) | Optionale Zwischen-Überschrift bei Sub-Area-Aufgliederung |
+
+## Contentletter-Form
+
+Eine bewusst leisere Variante der Form-Komponente: Felder sind kompakter (14 px Body
+statt 16 px) und die Border ist 1 px statt 2 px, passend zur Utility-Zone. Labels sind
+identisch mit `.field label` (Uppercase, `--ty-label-sm`, letter-spacing .06em,
+`--tx-secondary`), damit die Form-Sprache zonenübergreifend gleich liest.
+
+| Klasse | Rolle | Hinweis |
+|---|---|---|
+| `.footer-newsletter-form` | Form-Container | Submit-Button via `align-self:flex-start` auf natürliche Pill-Breite |
+| `.footer-field` | Feld-Wrapper (`<label>`) | Implizite Label-Input-Verknüpfung, keine `for`/`id`-Paare nötig |
+| `.footer-field-label` | Sichtbarer Label-Text | `--ty-label-sm`, Uppercase, letter-spacing .06em |
+| `.footer-field.has-error` | Inline-Validierungs-State | Border kippt auf `--c-error`, Fehlertext via `.error-msg` |
+| `.footer-newsletter-consent` | DSGVO-Checkbox-Zeile | Sitzt zwingend vor dem Submit |
+
+Der Rechtstext in der Einwilligung ist ein echtes `<a class="body-link">`, nie ein
+`<span>` mit `cursor:pointer` (CONTRIBUTING § 8): Ein Span ist per Tab nicht erreichbar
+und für Screenreader kein Link, obwohl genau dieser Text die Grundlage der Einwilligung
+ist. Im `<label for>` ist der Anker unkritisch, die Label-Aktivierung läuft bei
+interaktiven Nachfahren nicht, ein Klick auf den Link setzt kein Häkchen.
+
+## Sub-Hierarchie
+
+Aktuell nutzt keine Footer-Spalte eine Sub-Hierarchie. Soll eine Spalte künftig in
+Sub-Areas mit eigenen Listen aufgegliedert werden, steht dafür `.footer-subtitle`
+bereit: eine Zwischen-Überschrift auf Label-Größe, eine Stufe unter `.footer-htitle`,
+die eine zweite konkurrierende Headline-Ebene innerhalb einer Spalte vermeidet.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Landmark | `<footer>` mit `aria-label="Seitenfuß"`; jede eingebettete `<nav>` braucht ein eigenes `aria-label` (zum Beispiel „Wichtige Inhalte“, „Rechtliche Hinweise“, „Soziale Netzwerke“), damit Screenreader Haupt- und Footer-Navigation unterscheiden |
+| Adresse | Postanschrift und Kontaktdaten als `<address>` semantisch markiert |
+| Karten-Links | Externe Ziele (`target="_blank"`) tragen `rel="noopener"` und ein `aria-label`, das Ziel und „neues Tab“ nennt |
+| Social-Icons | Bild-Links ohne sichtbaren Text brauchen ein `aria-label` auf dem `<a>` (das Icon-Bild selbst mit leerem `alt=""`) |
+| Consent-Link | Der Rechtstext in der Contentletter-Einwilligung ist ein echtes `<a class="body-link">`, nie ein `<span>` mit `cursor:pointer` (CONTRIBUTING § 8) |
+| Reihenfolge im Formular | Die Consent-Checkbox steht vor dem Submit-Button, Tab- und Klickpfad können ohne die Einwilligung nicht abschließen |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Wortmarke „Conciso GmbH“ als Brand-Anker im Main-Band verwenden, die sticky Topnav trägt das Logo schon, ein Logo-Bild hier wäre Doppelung
+- Navigation als konsolidierte Spalte „Wichtige Inhalte“ mit maximal 6 bis 8 Top-Level-Zielen führen, der Footer ist Wiederfindungs-Anker, keine zweite Hauptnavigation
+- Jede `<nav>` mit eindeutigem `aria-label` versehen (Wichtige Inhalte · Rechtliche Hinweise · Soziale Netzwerke)
+- Datenschutz und Impressum linksbündig in der Bottom-Bar setzen, verhindert Kollision mit dem sticky Back-to-Top-Button rechts unten
+- Consent vor Submit in der Contentletter-Form platzieren, Tab- und Klickpfad führt durch die Einwilligung, bevor abgesendet wird (DSGVO und Trust)
+- Spalten-Headlines (`.footer-brand`, `.footer-htitle`) in Title-sm halten, Mixed Case, Sans 500, 18 px, der Footer ist Wiederfindungs-Zone, keine Headline-Bühne
+
+**Nicht tun**
+
+- Logo-Bild im Brand-Bereich zeigen, redundant zur sticky Topnav, die die Marke bereits trägt
+- Spalten-Headlines auf Headline-Serifen-Token oder Uppercase plus Letter-Spacing setzen, sie würden mit dem Erstgespräch-CTA-Band darüber um Aufmerksamkeit konkurrieren
+- Footer als primäre Navigation verwenden, er ist eine Ergänzung, kein Ersatz für die Topnav
+- Mehr als etwa 8 Items in der Wichtige-Inhalte-Liste führen, der Footer würde zur Mini-Sitemap, tiefere Inhalte gehören auf den jeweiligen Bereichs-Hub
+- Datenschutz und Impressum rechts in der Bottom-Bar oder in der Wichtige-Inhalte-Spalte platzieren, sie gehören in den dunklen Bottom-Streifen linksbündig
+- Footer ohne Copyright-Jahr und Firmennamen ausliefern, beide sind rechtlich relevant und müssen aktuell sein
+
+## Verwandte Seiten
+
+- Komponenten/Footer/Komplett
+- Komponenten/Footer/Oberer Teil
+- Komponenten/Footer/Unterer Teil

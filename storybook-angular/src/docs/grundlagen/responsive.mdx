@@ -1,0 +1,97 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Grundlagen/Responsive" name="Übersicht" />
+
+# Responsive
+
+Verbindliche Breakpoints, fluide Typografie und das dokumentierte Verhalten pro
+Komponente. Quelle: `docs/index.html#sec-responsive`.
+
+## Breakpoints
+
+Drei Stufen, definiert über die Viewport-Breite. Der Hauptbruch liegt bei 768 px (Mobile
+zu Desktop-Grid). Ein zweiter, feinerer Bruch bei 520 px steuert Layouts, die auf kleinen
+Phones weiter herunterbrechen müssen. Alle Regeln sind `max-width`-basiert
+(Desktop-first), außer der fix-spaltigen Tablet-Zwischenstufe.
+
+| Stufe | Bereich | Verhalten |
+|---|---|---|
+| Phone | ≤ 520 px | Engste Stufe. Hero-CTAs stapeln full-width, mehrspaltige Sonderraster (Roster, Benefits) brechen auf ihre kleinste Spaltenzahl herunter. |
+| Mobile | ≤ 768 px | Hauptbruch. `.layout-grid` kollabiert auf 1 Spalte, Section-Innenabstand schrumpft, Topnav wird zum Hamburger (technisch ab ≤ 760 px, siehe unten). |
+| Tablet | 769 bis 1024 px | Zwischenstufe nur für fix-spaltige Layouts (explizite `min-width:769px`-Regel). `auto-fit`-Grids regeln diesen Bereich selbst und brauchen keine eigene Regel. |
+| Desktop | > 1024 px | Referenzzustand. Alle Fixwerte (Grid-Spannweiten, Typo-Maxima, Paddings) gelten hier unverändert. |
+
+**Faustregel für neue Layouts:** Ein `auto-fit`/`auto-fill`-Grid (zum Beispiel
+`.ep-cards`, `.card-stat-strip`) braucht keine Tablet-Regel, es füllt Spalten selbst auf.
+Ein Layout mit fixer Spaltenzahl (Footer, Benefits, Roster) braucht eine explizite
+Tablet-Regel (769 bis 1024 px) zwischen Desktop und Mobile, sonst springt es hart von
+n-spaltig auf einspaltig.
+
+## Warum diese Bruchpunkte
+
+Die vier nicht offensichtlichen Entscheidungen. Ohne diese Begründungen wirken die Werte
+willkürlich und werden beim Refactoring erfahrungsgemäß geglättet, obwohl sie bewusst so
+liegen.
+
+| Entscheidung | Begründung |
+|---|---|
+| Hero-CTAs stapeln erst bei ≤ 520 px, nicht schon bei 768 px | Auf Phablet und kleinem Tablet (521 bis 768 px) liefen full-width-Buttons breiter als der gekappte Intro-Text und wirkten überdehnt. Dort behalten sie natürliche Breite und dürfen umbrechen. Erst am echten Phone werden sie full-width gestapelt. |
+| `auto-fit`-Grids ohne Tablet-Regel, fix-spaltige Grids mit | `auto-fit` verteilt Spalten anhand einer `minmax()`-Mindestbreite selbst, eine feste Tablet-Regel wäre redundant und würde kollidieren. Fix-spaltige Raster (col-N) haben diese Automatik nicht und brauchen die Zwischenstufe. |
+| Hamburger ab ≤ 760 px, nicht 768 px | Bewusst 8 px unter dem Grid-Bruch, damit der Navigations-Umbau nicht exakt auf derselben Breite wie das Grid-Reflow passiert. Trennt die beiden Umbrüche optisch und vermeidet ein gleichzeitiges Springen von Nav und Inhalt. |
+| Doku-Sidebar aus ab ≤ 1024 px | Reine Mockup-Krücke der Doku-Site, für die echte Site irrelevant. |
+
+## Fluide Typografie
+
+Alle Headline- und Display-Tokens skalieren fluid per `clamp(min, preferred, max)`. Das
+Maximum entspricht dem bisherigen Desktop-Fixwert (Desktop unverändert), das Minimum
+greift am Phone. Die Zeilenhöhe ist eine unitless Ratio (skaliert mit), nie ein Fixwert
+und nie unter 1. Alle Minima liegen bei mindestens 20 px (Font-Size-Minimum). Body- und
+Label-Tokens sind bewusst nicht fluid, sie haben feste Größen.
+
+| Token | Min (Phone) | Max (Desktop) | Ratio |
+|---|---|---|---|
+| `--ty-headline-xs` | 20 px | 22 px | 1,35 |
+| `--ty-headline-sm` | 21 px | 24 px | 1,33 |
+| `--ty-headline-md` | 23 px | 28 px | 1,3 |
+| `--ty-display-sm` | 28 px | 36 px | 1,22 |
+| `--ty-display-md` | 30 px | 40 px | 1,2 |
+| `--ty-display-lg` | 28 px | 46 px | 1,15 |
+
+Quelle der Werte: `css/tokens.css`. Wer die Skala ändert, hält `min` ≥ 20 px und behält
+die unitless Ratio bei (nicht auf px umstellen).
+
+## Komponenten-Verhalten
+
+Vollständiges Inventar der responsiven Sonderregeln. Alles, was hier nicht steht, folgt
+dem Standard (`.layout-grid` auf 1 Spalte ab ≤ 768 px).
+
+| Komponente | Bruchpunkt | Verhalten | Quelle |
+|---|---|---|---|
+| `.layout-grid` | ≤ 768 px | Kollabiert auf 1 Spalte, alle `col-N`-Spannweiten werden auf `grid-column:auto` zurückgesetzt (sonst brechen ungleiche Splits verschieden breit um). | base.css |
+| `.ep-section` | ≤ 768 px | Innenabstand horizontal von `--s8` (32 px) auf `--s6` (24 px). Greift nicht auf Sektionen mit inline gesetztem Padding. | components.css |
+| `.ep-hero-ctas` | ≤ 520 px | Buttons stapeln als Spalte, full-width (`width:100%`). Darüber natürliche Breite mit Umbruch. | components.css |
+| Topnav (Hamburger) | ≤ 760 px | JS injiziert den Hamburger-Button, Nav klappt unter dem Logo auf, Submenüs öffnen inline statt als Overlay. | components.css + main.js |
+| Topnav-Submenü (Hover) | `hover + pointer:fine` | Hover-Öffnen nur auf echten Zeigergeräten (nicht Touch). Klick navigiert weiter. Kein reines CSS-`:hover`-Reveal. | components.css + main.js |
+| `.footer-grid` | 769 bis 1024 px, ≤ 768 px | Tablet 3 zu 2 Spalten. Mobile zu 1 Spalte. (Fix-spaltig, daher explizite Tablet-Regel.) | components.css |
+| `[data-team-roster]` | ≤ 768 px, ≤ 520 px | Tablet 3 Spalten. Phone 2 Spalten. `minmax(0,1fr)` gegen Grid-Blowout bei langen Namen. | base.css |
+| `[data-benefits]`, `[data-event-meta]` | ≤ 768 px, ≤ 520 px | Tablet 2×2. Phone 1 Spalte. Desktop 4-spaltig. | base.css |
+| `[data-team-tiles]` | ≤ 768 px | 2×2 statt einspaltig, damit die 4 Köpfe kompakt bleiben. | base.css |
+| `.ep-award-list` | ≤ 768 px | Von zentrierter Flex-Reihe auf 2×2-Grid (`justify-self:start`), behebt versetztes Umbrechen. | components.css |
+| `.team-voice` | ≤ 768 px | Einspaltig, Body wird zum Pull-Quote (Quote-Icon im linken Gutter, Zitat rechts), spart die eigene Icon-Zeile. | components.css |
+| `.article-avatar-xl` | ≤ 768 px | Von fix 160 px auf `min(112px,72%)` mit `aspect-ratio:1`, damit es in den mehrspaltigen Team-Grids nicht überläuft. | components.css |
+| Karten in Grids (`.card-title`, `.card-text`) | ≤ 768 px | Die Gleichhöhen-Sicherung (`min-height:2lh/3lh`) wird auf 0 gesetzt, weil einspaltige Karten keinen Nachbarn zum Abgleichen haben. `line-clamp` bleibt aktiv. | components.css |
+| Editorial-Split-Text (`.ep-section-sub` im Grid) | ≤ 768 px | Der inline 520-px-Cap wird aufgehoben, damit der gestapelte Text bündig zur Bildbreite läuft statt schmaler. | base.css |
+
+## Viewport versus Container (CONTRIBUTING § 7)
+
+Breakpoints auf Viewport (`@media`) gelten für den Seiten-Rhythmus: Sektionsabstände,
+Spaltenzahl. Breakpoints auf Container (`@container`) gelten für alles, was in ein
+Elternelement passen muss, nicht in das Browserfenster: Ob ein Overlay in sein
+Bezugselement passt, sagt dessen eigene Breite, nicht die Fensterbreite. Ohne
+`@container`-Support greift die Container-Regel nicht, der Default-Zweig muss deshalb der
+funktionierende Fall sein.
+
+## Siehe auch
+
+- `docs/index.html#gt-responsive-umsetzung`
+- CONTRIBUTING.md § 7 Spacing & Layout

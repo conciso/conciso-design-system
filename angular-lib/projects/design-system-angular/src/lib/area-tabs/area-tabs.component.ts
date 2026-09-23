@@ -1,5 +1,13 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ElementRef, contentChildren, inject, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  contentChildren,
+  inject,
+  input,
+  model,
+} from '@angular/core';
 import type { CdsArea } from '../area';
 import { AreaTabComponent } from './area-tab.component';
 
@@ -20,7 +28,7 @@ let uid = 0;
  */
 @Component({
   selector: 'cds-area-tabs',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
   template: `
     <div class="area-tabs" role="tablist" [attr.aria-label]="ariaLabel()">
@@ -53,7 +61,7 @@ let uid = 0;
         [id]="panelId(i)"
         [attr.aria-labelledby]="tabId(i)"
       >
-        <ng-container [ngTemplateOutlet]="tab.content"></ng-container>
+        <ng-container [ngTemplateOutlet]="tab.content()"></ng-container>
       </div>
     }
   `,
@@ -62,21 +70,31 @@ export class AreaTabsComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly instance = ++uid;
 
-  /** Die Tabs kommen als projizierte `<cds-area-tab>`-Kinder. */
-  readonly tabs = contentChildren(AreaTabComponent);
+  /**
+   * Die Tabs kommen als projizierte `<cds-area-tab>`-Kinder.
+   *
+   * @internal
+   */
+  protected readonly tabs = contentChildren(AreaTabComponent);
   /** Index des aktiven Tabs. Two-Way (`[(active)]`). */
   readonly active = model(0);
   /** Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby). */
   readonly ariaLabel = input('Bereiche');
 
-  /** Aktiv-Akzent je Bereich: ki braucht -800 (700 reißt AA), sonst -700 (wie .t-*). */
+  /**
+   * Aktiv-Akzent je Bereich: ki braucht -800 (700 reißt AA), sonst -700 (wie .t-*).
+   *
+   * @internal
+   */
   protected atabAccent(area: CdsArea): string {
     return area === 'ki' ? 'var(--ki-800)' : `var(--${area}-700)`;
   }
 
+  /** @internal */
   protected tabId(i: number): string {
     return `cds-atab-${this.instance}-${i}`;
   }
+  /** @internal */
   protected panelId(i: number): string {
     return `cds-atab-${this.instance}-panel-${i}`;
   }
@@ -86,6 +104,8 @@ export class AreaTabsComponent {
    * Umlauf, Home/End springen an die Enden. Der Fokus wird mitgeführt (Roving
    * Tabindex: nur der aktive Tab ist per Tab erreichbar). Panels laden sofort, daher
    * ist Auswahl = Fokus (APG-empfohlen).
+   *
+   * @internal
    */
   protected onKeydown(event: KeyboardEvent): void {
     const n = this.tabs().length;

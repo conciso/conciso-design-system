@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { LogoCarouselComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<LogoCarouselComponent> = {
-  title: 'Organisms/LogoCarousel',
+  title: 'Komponenten/Slider & Carousel/LogoCarousel',
   component: LogoCarouselComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -25,7 +25,15 @@ const meta: Meta<LogoCarouselComponent> = {
       control: { type: 'number', min: 1000, step: 500 },
     },
   },
-  args: { interval: 6000, active: 0 },
+  args: {
+    interval: 6000,
+    active: 0,
+    sets: [
+      [{ label: 'NORDWIND' }, { label: 'MERIDIAN' }, { label: 'AVERA' }, { label: 'KONTUR' }, { label: 'STELLA' }],
+      [{ label: 'VOLTAIC' }, { label: 'HEXAGON' }, { label: 'LUMEN' }, { label: 'PRAXIS' }, { label: 'ORBIT' }],
+      [{ label: 'CASCADE' }, { label: 'VERTEX' }, { label: 'NIMBUS' }, { label: 'FORGE' }, { label: 'ATLAS' }],
+    ],
+  },
 };
 export default meta;
 
@@ -48,6 +56,31 @@ export const Interaktiv: Story = {
     await expect(pause).toHaveAttribute('aria-label', 'Pausieren');
     // Fokus aus dem Carousel nehmen → Fokus-Pause endet, Autoplay läuft sichtbar.
     (pause as HTMLElement).blur();
+  },
+};
+
+export const TastaturDots: Story = {
+  name: 'Tastatur (Dots)',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Dot-Leiste (role=tab in role=tablist): roving tabindex, ArrowRight mit Umlauf,
+  // Home/End an die Enden, Fokus wandert mit (1:1 wie beim Carousel).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('tab');
+    dots[0].focus();
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[1]).toHaveFocus();
+
+    await userEvent.keyboard('{End}');
+    await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[dots.length - 1]).toHaveFocus();
+
+    await userEvent.keyboard('{Home}');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveFocus();
   },
 };
 

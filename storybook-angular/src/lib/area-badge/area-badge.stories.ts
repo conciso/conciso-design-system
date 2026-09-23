@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { AreaBadgeComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<AreaBadgeComponent> = {
-  title: 'Atoms/Bereichs-Badge',
+  title: 'Komponenten/Chips, Badges & Pills/Bereichs-Badge',
   component: AreaBadgeComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     docs: {
       description: {

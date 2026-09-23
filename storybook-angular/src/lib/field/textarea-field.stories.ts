@@ -4,9 +4,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { TextareaFieldComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TextareaFieldComponent> = {
-  title: 'Molecules/Textbereich',
+  title: 'Komponenten/Inputs & Forms/Textbereich',
   component: TextareaFieldComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -35,6 +35,15 @@ export default meta;
 type Story = StoryObj<TextareaFieldComponent>;
 
 export const Interaktiv: Story = {};
+
+export const Deaktiviert: Story = {
+  args: { fieldId: 'demo-message-disabled', disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByLabelText(/Nachricht/)).toBeDisabled();
+  },
+};
 
 export const Formularbindung: Story = {
   name: 'Formularbindung',

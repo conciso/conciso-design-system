@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { TestimonialComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TestimonialComponent> = {
-  title: 'Organisms/Testimonial',
+  title: 'Komponenten/Zitate & Testimonials/Testimonial',
   component: TestimonialComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {

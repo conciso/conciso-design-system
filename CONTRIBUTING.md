@@ -192,6 +192,25 @@ rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/na
 
 ---
 
+## 12. Storybook-Sidebar (`storybook-angular/src`)
+
+Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer eigenen Taxonomie.
+
+**Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Doku-Site. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
+
+**Die Doku-Seite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Doku-Seite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
+
+**Vier Eigenheiten der Seitenleiste**, die jede Umstellung trifft (alle in Storybook 10.6 im Browser gemessen, nicht aus der Doku übernommen):
+
+- Blätter stehen immer vor Ordnern desselben Knotens, `storySort.order` sortiert nur innerhalb dieser beiden Klassen.
+- Eine eigenständige MDX-Seite ohne `name` heißt in der Seitenleiste wörtlich „Docs“; `title` ist der Ordnerpfad, `name` der Blattname.
+- Ein Schrägstrich im Sektionsnamen ist ein Pfadtrenner. Für ein näher bestimmendes Trennzeichen den Mittelpunkt `·` nehmen, wie in §11.
+- Ein Titel aus nur einem Segment wird zur Wurzel und rutscht über alle benannten Gruppen, unabhängig von `storySort.order`. Deshalb behalten auch Gruppen mit nur einer Seite (Beispielseiten, Referenzen) ihren zweistufigen Pfad.
+
+**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Doku-Site, gerendert über `sidebar.renderLabel` im Manager aus `icons/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
+
+---
+
 ## PR-Checkliste
 
 - [ ] Nur Tokens verwendet (keine rohen Hex-/px-Werte ohne Begründung)

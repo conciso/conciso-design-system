@@ -1,4 +1,5 @@
-import { Component, ElementRef, inject, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, model } from '@angular/core';
+import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export interface CdsSlide {
   image?: string;
@@ -14,17 +15,19 @@ let uid = 0;
  * Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider“.
  *
  * Crossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt
- * `.active` (opacity). Prev/Next-Buttons (.img-slider-btn) und Dots (.img-dot)
- * steuern den Index. Optionale Hero-Variante (.img-slider-hero). Ohne Bild-URL
- * wird ein neutraler Platzhalter gezeigt. Der aktive Index ist über `[(active)]`
- * (model) beobacht-/steuerbar.
+ * `.active` (opacity). Inaktive Slides bekommen zusätzlich `[aria-hidden]`, sonst
+ * läse ein Screenreader Titel und Text jeder Folie vor, obwohl visuell nur eine
+ * sichtbar ist (identisches Muster wie beim LogoCarousel). Prev/Next-Buttons
+ * (.img-slider-btn) und Dots (.img-dot) steuern den Index. Optionale Hero-Variante
+ * (.img-slider-hero). Ohne Bild-URL wird ein neutraler Platzhalter gezeigt. Der
+ * aktive Index ist über `[(active)]` (model) beobacht-/steuerbar.
  */
 @Component({
   selector: 'cds-carousel',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      [class]="wrapClasses"
+      [class]="wrapClasses()"
       role="region"
       aria-roledescription="Bildschirmpräsentation"
       aria-label="Bildstrecke"
@@ -37,6 +40,7 @@ let uid = 0;
             aria-roledescription="Folie"
             [id]="slideId(i)"
             [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
+            [attr.aria-hidden]="i !== active()"
             [class.active]="i === active()"
           >
             <div class="img-slide-media">
@@ -84,27 +88,28 @@ export class CarouselComponent {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly instance = ++uid;
 
-  readonly slides = input<CdsSlide[]>([
-    { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
-    { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
-    { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
-  ]);
+  /** Anzuzeigende Slides (Bild optional, Titel/Text je Slide Pflicht). */
+  readonly slides = input.required<CdsSlide[]>();
   /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */
   readonly hero = input(false);
 
-  get wrapClasses(): string {
-    return this.hero() ? 'img-slider img-slider-hero' : 'img-slider';
-  }
+  /** @internal */
+  protected readonly wrapClasses = computed(() =>
+    this.hero() ? 'img-slider img-slider-hero' : 'img-slider',
+  );
 
-  prev(): void {
+  /** @internal */
+  protected prev(): void {
     this.active.set((this.active() - 1 + this.slides().length) % this.slides().length);
   }
-  next(): void {
+  /** @internal */
+  protected next(): void {
     this.active.set((this.active() + 1) % this.slides().length);
   }
 
+  /** @internal */
   protected slideId(i: number): string {
     return `cds-carousel-${this.instance}-slide-${i}`;
   }
@@ -112,33 +117,19 @@ export class CarouselComponent {
   /**
    * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
    * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
+   * Indexberechnung in `../shared/dots-keyboard.ts` (identisch mit LogoCarousel).
+   *
+   * @internal
    */
   protected onDotsKeydown(event: KeyboardEvent): void {
-    const n = this.slides().length;
-    if (!n) return;
-    const cur = this.active();
-    let next: number;
-    switch (event.key) {
-      case 'ArrowRight':
-        next = (cur + 1) % n;
-        break;
-      case 'ArrowLeft':
-        next = (cur - 1 + n) % n;
-        break;
-      case 'Home':
-        next = 0;
-        break;
-      case 'End':
-        next = n - 1;
-        break;
-      default:
-        return;
-    }
+    const next = nextDotsIndex(this.slides().length, this.active(), event.key);
+    if (next === null) return;
     event.preventDefault();
     this.active.set(next);
     this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[next]?.focus();
   }
 
+  /** @internal */
   protected readonly placeholder =
     "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='450'%3E%3Crect%20width='800'%20height='450'%20fill='%23E8EDED'/%3E%3Ctext%20x='400'%20y='225'%20font-family='sans-serif'%20font-size='24'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EBild%3C/text%3E%3C/svg%3E";
 }

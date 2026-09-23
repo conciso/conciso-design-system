@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** Ein Logo: in der Regel ein Bild; der Text dient als Alt-Fallback und als Platzhalter. */
 export interface CdsLogo {
@@ -21,7 +21,7 @@ export interface CdsLogo {
  */
 @Component({
   selector: 'cds-logo',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'logo-tile' },
   template: `
     @if (src()) {

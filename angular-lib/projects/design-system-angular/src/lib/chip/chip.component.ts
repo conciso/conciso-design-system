@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -12,7 +12,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-chip',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
       class="chip"
@@ -26,13 +26,15 @@ import type { CdsArea } from '../area';
   `,
 })
 export class ChipComponent {
-  readonly label = input('Filter');
+  /** Sichtbarer Text des Chips. */
+  readonly label = input.required<string>();
   /** Markenbereich → data-area (area-aware Outline). */
   readonly area = input<CdsArea>();
   /** Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model(). */
   readonly pressed = model(false);
 
-  toggle(): void {
+  /** @internal */
+  protected toggle(): void {
     this.pressed.set(!this.pressed());
   }
 }

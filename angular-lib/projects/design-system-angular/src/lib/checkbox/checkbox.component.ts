@@ -1,6 +1,7 @@
-import { Component, forwardRef, input, model } from '@angular/core';
-import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, forwardRef, input, model } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { CdsArea } from '../area';
+import { CvaBase } from '../shared/cva-base.directive';
 
 /**
  * Checkbox — Einwilligungs-/Consent-Feld nach docs/index.html („Forms“).
@@ -15,7 +16,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-checkbox',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CheckboxComponent), multi: true },
   ],
@@ -38,7 +39,7 @@ import type { CdsArea } from '../area';
     </label>
   `,
 })
-export class CheckboxComponent implements ControlValueAccessor {
+export class CheckboxComponent extends CvaBase<boolean> {
   /** Einwilligungstext neben der Checkbox. */
   readonly label = input('Ich bin einverstanden.');
   /** Optionaler verlinkter Hinweis am Ende des Labels (z. B. „Datenschutzhinweise“). */
@@ -54,32 +55,27 @@ export class CheckboxComponent implements ControlValueAccessor {
   /** Brand Area → accent-color der Checkbox. */
   readonly area = input<CdsArea>('co');
 
-  private onChange: (value: boolean) => void = () => {
-    /* von Angular-Forms via registerOnChange gesetzt */
-  };
-  private onTouched: () => void = () => {
-    /* von Angular-Forms via registerOnTouched gesetzt */
-  };
-
-  writeValue(value: boolean): void {
-    this.checked.set(!!value);
+  /** @internal */
+  protected override normalizeValue(value: boolean): boolean {
+    return !!value;
   }
-  registerOnChange(fn: (value: boolean) => void): void {
-    this.onChange = fn;
+  /** @internal */
+  protected override applyValue(value: boolean): void {
+    this.checked.set(value);
   }
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  /** @internal */
+  protected override applyDisabled(disabled: boolean): void {
+    this.disabled.set(disabled);
   }
 
-  onCheckboxChange(event: Event): void {
+  /** @internal */
+  protected onCheckboxChange(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.checked.set(checked);
     this.onChange(checked);
   }
-  markTouched(): void {
+  /** @internal */
+  protected markTouched(): void {
     this.onTouched();
   }
 }

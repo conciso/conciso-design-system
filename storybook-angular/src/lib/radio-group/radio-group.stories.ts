@@ -4,9 +4,9 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { RadioGroupComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<RadioGroupComponent> = {
-  title: 'Molecules/Radio',
+  title: 'Komponenten/Inputs & Forms/Radio',
   component: RadioGroupComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -38,6 +38,46 @@ export default meta;
 type Story = StoryObj<RadioGroupComponent>;
 
 export const Interaktiv: Story = {};
+
+export const Deaktiviert: Story = {
+  args: { disabled: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    for (const radio of c.getAllByRole('radio')) {
+      await expect(radio).toBeDisabled();
+    }
+  },
+};
+
+export const Tastatur: Story = {
+  name: 'Tastatur',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Radios teilen einen name → Pfeiltasten wechseln die Auswahl UND den Fokus
+  // innerhalb der Gruppe, ganz ohne Tab (userEvent bildet damit dieselbe
+  // name-basierte Gruppierung nach, die Browser für natives radio-Verhalten nutzen).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const email = c.getByRole('radio', { name: 'E-Mail' });
+    const telefon = c.getByRole('radio', { name: 'Telefon' });
+    const beides = c.getByRole('radio', { name: 'Beides' });
+
+    email.focus();
+    await expect(email).toBeChecked();
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(telefon).toBeChecked();
+    await expect(telefon).toHaveFocus();
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(beides).toBeChecked();
+    await expect(beides).toHaveFocus();
+
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(telefon).toBeChecked();
+    await expect(telefon).toHaveFocus();
+  },
+};
 
 export const Formularbindung: Story = {
   name: 'Formularbindung',

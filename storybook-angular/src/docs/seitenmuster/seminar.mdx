@@ -1,0 +1,147 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Seitenmuster/Seminar · Training" name="Übersicht" />
+
+# Seminar · Training
+
+Page-Pattern für die Landingpage eines einzelnen Seminars oder Trainings, an einen Bereich
+gebunden (Beispiel: Wirksame Organisationen, `data-accent="wo"`). Quelle:
+`docs/index.html#sec-seminar`.
+
+## Aufbau
+
+Reihenfolge nach Entscheidungslogik: erst Orientierung und Vertrauen, dann Buchung, dann
+Tiefe. Das Vertrauen (Trainer) steht bewusst vor den Terminen.
+
+| Sektion | Inhalt | Hintergrund |
+|---|---|---|
+| Hero | Pill-Eyebrow plus große Headline plus Subline, kein CTA | Bereich-50 (getönt) |
+| Lernziele plus Angebots-Kasten | Zweispaltig: links (`.col-8`) die scanbare Bullet-Liste, rechts (`.col-4`) Preis und Rahmendaten. Ein eigener Fakten-Streifen unter dem Header entfällt bewusst | weiß |
+| Trainer | Bei einer Person das Profil groß, bei zwei bis vier `.author-card-group.is-grid` (siehe unten) | weiß |
+| Termine | Wiederholbare Termin-Zeilen plus Anmeldung | grau (`--n-50`) |
+| Inhalte & Voraussetzungen | Zweispaltig, Fließtext plus Sidebar | weiß |
+
+**Rhythmus:** ein getönter Hero als Akzent, danach Weiß/Grau-Wechsel, die letzte Sektion
+bleibt weiß, sodass der graue Footer sich klar absetzt (Haarlinie).
+
+## Rahmendaten · `.ep-facts`
+
+Dauer, Format, Gruppengröße, Sprache, Preis: die Angaben, an denen sich entscheidet, ob ein
+Angebot passt. Sie stehen als semantische `<dl>` mit `.ep-facts`, einspaltig, Label über
+Wert, Haarlinie zwischen den Paaren. Labels tragen den Bereichston über `.t-XX`, nie als
+Inline-Farbe.
+
+**Zwei Darstellungen:** einspaltig als Grundform, zweispaltig über `.is-grid` für Kästen,
+die neben Inhalt stehen (macht den Kasten kompakter, verzichtet dafür auf die Haarlinien und
+eignet sich nur für kurze Werte, lange Werte brauchen die Grundform). Über `auto-fit` wird
+sie in schmalen Kästen von selbst wieder einspaltig.
+
+Die Liste bringt keinen eigenen Rahmen und keine Fläche mit, sie zieht in einen Container
+ein, den die Seite schon hat (Angebots-Box oder Sticky-Sidebar). Nur wenn eine Seite keinen
+solchen Container hat, bekommt sie einen schlichten eigenen. Vorher prüfen, was der
+Container schon sagt: Eine Angebots-Box nennt Laufzeit, Leistung und Ergebnis oft bereits
+im Label und in der Häkchenliste, dann entfällt die Liste ganz. Doppelte Angaben sind
+schlimmer als fehlende, sie lesen sich wie zwei Quellen, die sich widersprechen könnten.
+
+**Kein eigener Streifen unter dem Hero.** Die Angaben standen früher als eigener
+Key-Facts-Streifen zwischen Hero und erster Inhaltssektion. Sie sitzen jetzt dort, wo auch
+über das Angebot entschieden wird, das hält sie an einer Stelle statt an zweien.
+
+```html
+<!-- Ohne eigenen Rahmen: steht bereits in einer Angebots-Box oder Sidebar. -->
+<dl class="ep-facts">
+  <div>
+    <dt class="t-wo">Dauer</dt>
+    <dd>2 Tage, 9 bis 17 Uhr</dd>
+  </div>
+  <!-- weitere Paare, nur Angaben, die der Container nicht schon nennt -->
+</dl>
+```
+
+## Trainer:innen
+
+Die Sektion steht bewusst vor den Terminen: Wer bucht, will vorher wissen, wer vorne steht.
+Trainer:innen kommen nur auf Seminar- und Training-Landings vor, nicht in Wissensbeiträgen.
+Markup-seitig sind sie keine eigene Komponente, sondern die Author Card (siehe
+`Seitenmuster/Wissensbeitrag`, Abschnitt Author Card) in einer Gruppe:
+`.author-card-group` stapelt untereinander, `.author-card-group.is-grid` stellt sie
+zweispaltig. Eine gemeinsame `.author-card-group-eyebrow` ersetzt die Eyebrows der einzelnen
+Karten, trägt die Sektion bereits ein `.ep-section-label` plus H2, entfällt sie.
+
+**Wann welche Darstellung:** Die Entscheidung fällt an der Personenzahl, nicht am
+Geschmack.
+
+| Personen | Darstellung | Warum |
+|---|---|---|
+| 1 | Große Sektion: Bild im Format 4:3 in `.col-5`, Name, Rolle und Bio in `.col-7` | Bei genau einer Person trägt das große Bild, ein 64-px-Avatar wirkt beiläufig, obwohl die Person hier das Vertrauen stiftet |
+| 2 bis 4 | `.author-card-group.is-grid`, Avatar `.article-avatar-lg` (64 px), ein bis zwei Sätze Bio | Gestapelt würden vier volle Bios die Sektion über 1.500 px lang machen und die Termine aus dem Blick schieben |
+| Mehr als 4 | Nicht mit diesem Muster, auf die durchführenden Personen kürzen oder auf das Team-Tile-Grid ohne Bio wechseln | Ab der dritten Reihe liest niemand mehr Bios |
+
+**Warum Raster statt Tile-Grid:** Das Team-Tile-Grid (siehe `Seitenmuster/Wissensbeitrag`)
+stellt vier Personen kompakter dar, aber ohne Bio. Auf einer Landing, die etwas verkauft,
+ist die Bio das Argument, sie beantwortet, warum diese Person das Training hält. Container
+ist 960 statt 720 px, weil zwei Karten nebeneinander sonst je rund 340 px hätten und der
+Avatar den Text auf etwa 260 px drückt. Mobil kollabiert das Raster bei 768 px einspaltig.
+
+```html
+<!-- Gemeinsame Überschrift ist optional: Trägt die Sektion bereits ein
+     .ep-section-label plus H2, entfällt sie. -->
+<p class="author-card-group-eyebrow">Trainer:innen</p>
+<div class="author-card-group is-grid">
+  <!-- Unveränderte Author Card, nur ohne .author-card-eyebrow -->
+  <div class="author-card" data-area="wo">
+    <div class="article-avatar article-avatar-lg" data-area="wo" aria-hidden="true">TM</div>
+    <div>
+      <p class="author-card-name">Tobias Mehnert</p>
+      <p class="author-card-role">Senior-Berater Organisationsentwicklung</p>
+      <p class="author-card-bio">Begleitet seit über 15 Jahren Veränderungsvorhaben.</p>
+    </div>
+  </div>
+  <!-- 1 bis 3 weitere Karten, insgesamt maximal 4 -->
+</div>
+```
+
+## Termine-Modul
+
+Beliebig wiederholbare Termin-Zeile (`<li>`) mit linker Bereichs-Akzentleiste. Der
+Anmeldebutton führt auf die adaptive Kontaktseite mit vorbelegtem Bereich und Anliegen.
+
+**Anfrage statt Direktbuchung:** Das ist bewusst so, weil Seminartermine bei Conciso oft im
+Gespräch entstehen. Steht bei einem Angebot der Preis pro Platz fest und ist das Kontingent
+bekannt, gehört stattdessen das Buchungsformular (siehe `Komponenten/Buchungsformular`) auf
+die Seite.
+
+| Element | Umsetzung |
+|---|---|
+| Datum / Ort | Datum `--ty-title-sm`, Ort oder „Online“ `--ty-body-sm` · `--tx-secondary` |
+| Termingarantie / Status | `.badge-ok` „Durchführung garantiert“ wenn gesichert, sonst neutraler Status-Text („Noch Plätze frei“) |
+| Anmeldung | `.btn-sm` in Bereichsfarbe „Platz anfragen“ → Kontaktseite (`data-k-bereich`/`data-k-anliegen`) |
+| Leerzustand | Ohne offene Termine entfällt die Liste, stattdessen Hinweis „nur auf Anfrage“ plus Outlined-CTA „Termin anfragen“ |
+
+## Inhalte & Sticky-Sidebar
+
+Hauptteil zweispaltig (`.layout-grid`, `align-items:start`): links (`.col-8`) langer
+Fließtext mit eingestreuten Bildern und den Voraussetzungen als Unterabschnitt, rechts
+(`.col-4`) das Kontaktformular. Preis und Rahmendaten sitzen nicht hier, sondern weiter oben
+neben den Lernzielen. Die Formular-Überschrift ist ein gefüllter Bereichsbalken und sitzt
+oben auf ihrer eigenen Karte.
+
+**Sticky:** Die Sidebar trägt `position:sticky;top:var(--s4)` und läuft in Produktion beim
+Scrollen mit. Auf Mobile rutscht die Sidebar unter den Fließtext.
+
+## Buchungs-Anker
+
+Am Ende der Inhalte ein dezenter Text-Link „Zu den Terminen“ als In-Page-Anker auf die
+Termine-Sektion (`id="seminar-termine"`), smooth-scrollend. Schließt die Buchungs-Schleife
+ohne zweites CTA-Band.
+
+## Verwendung
+
+**Dos**
+- Vertrauen (Trainer, Belege) vor die Termine setzen, die Buchung folgt der Überzeugung.
+- Rahmendaten und Preis dort zeigen, wo über das Angebot entschieden wird, das
+  Termine-Modul auch im Leerzustand bedienen.
+
+**Don'ts**
+- Viele große Bilder pro Sektion, wenige platzierte Bilder halten den Lesefluss ruhig.
+- Buchungs-CTA nur ganz oben, ohne Anker am Seitenende.

@@ -3,9 +3,9 @@ import { within, userEvent, expect } from 'storybook/test';
 import { FaqComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<FaqComponent> = {
-  title: 'Organisms/FAQ',
+  title: 'Seitenmuster/Wissensbeitrag/FAQ',
   component: FaqComponent,
-  tags: ['autodocs'],
+  tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
     docs: {
@@ -17,6 +17,22 @@ const meta: Meta<FaqComponent> = {
           'Fragenliste rechts.',
       },
     },
+  },
+  args: {
+    items: [
+      {
+        q: 'Wie läuft die Bewerbung ab?',
+        a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.',
+      },
+      {
+        q: 'Wo und wie arbeitet ihr?',
+        a: 'Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.',
+      },
+      {
+        q: 'Welche Technologien nutzt ihr?',
+        a: 'Moderne, langlebige Stacks — die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
+      },
+    ],
   },
 };
 export default meta;

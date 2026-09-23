@@ -1,0 +1,108 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Komponenten/Slider & Carousel" name="Verwendung" tags={['angular']} />
+
+# Verwendung
+
+Slider & Carousel führt zwei getrennte Formen: das Bild-Carousel zur Seiten-Integration
+(Story `Carousel`) und das Kundenlogo-Karussell (Story `LogoCarousel`) als CSS-Laufband.
+Beide sind WCAG 2.1 AA konform und respektieren `prefers-reduced-motion`. Die
+Slider-Hero-Variante für den Seitenkopf ist unter Komponenten/Hero dokumentiert.
+
+## Bild-Carousel · Verwendung
+
+Eingebettet in Seiteninhalt, maximal 780 px breit, abgerundete Ecken (16:9). Caption
+erscheint unterhalb des Bildes auf weißem Grund, keine Modifier-Klasse nötig, nur die
+Basis-Klasse `.img-slider`. Übergang per Crossfade über 600 ms; unter
+`prefers-reduced-motion: reduce` entfällt die Transition automatisch.
+
+### Barrierefreiheit & ARIA
+
+| Attribut | Zweck |
+|---|---|
+| `role="region"` | Semantischer Landmark für den gesamten Slider |
+| `aria-roledescription` | „Bildschirmpräsentation“, Screenreader liest den Typ vor |
+| `role="group"` auf Slide | Fasst Bild und Caption je Folie zusammen |
+| `aria-hidden="true"` | Inaktive Slides werden übersprungen (setzt JS) |
+| `aria-label` auf Button | „Vorherige / Nächste Folie“, kein Icon-only |
+| `role="tablist"` Dots | Dot-Navigation als Tab-Gruppe, bekanntes Tastatur-Pattern |
+
+| Taste | Funktion |
+|---|---|
+| ← | Vorherige Folie |
+| → | Nächste Folie |
+| Tab | Fokus auf Prev/Next-Button oder Dot |
+| Enter / Space | Dot oder Button aktivieren |
+
+### Dos & Don'ts
+
+**Tun**
+
+- Immer aussagekräftiges `alt`-Attribut bei echten Bildern, kein `alt=""` bei inhaltlichen Fotos
+- Caption für jede Folie, gibt dem Inhalt auch ohne Bild ausreichend Kontext
+- Bilder mit `object-fit: cover` und fester Höhe einsetzen, verhindert Layout-Sprünge beim Laden
+
+**Nicht tun**
+
+- Kein Auto-Play ohne Pause-Button, WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung
+- Mehr als 6 bis 7 Slides, Nutzende verlieren die Orientierung, lieber eine separate Galerie verwenden
+- Kartentypen oder Seitenverhältnisse innerhalb eines Carousels mischen, einheitliche Bildgröße halten
+
+## Kundenlogo-Karussell · Verwendung
+
+Diskrete Sets von je 5 Logos, die alle 6 Sekunden per Crossfade wechseln. Pausiert
+automatisch bei Hover und Tastatur-Fokus, zusätzlich manueller Pause-Button (WCAG
+2.2.2). Pagination-Dots erlauben gezieltes Springen, Tastatur-Navigation über Pfeil-,
+Home- und End-Taste. Die Logos sitzen randlos auf einer hellen Platte (`--bg-plate`),
+die in beiden Themes hell bleibt, weil Kundenlogos meist nur in einer farbigen
+beziehungsweise dunklen Fassung ohne Dark-Variante vorliegen. Kein Hover-Effekt, da die
+Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
+
+### Barrierefreiheit
+
+| Attribut | Zweck |
+|---|---|
+| `role="region"` + `aria-roledescription` | Semantischer Landmark mit Karussell-Hinweis für Screenreader |
+| `aria-hidden` | Inaktive Sets werden Screenreader-seitig ausgeblendet, nur das sichtbare Set wird vorgelesen |
+| `role="group"` pro Set | Logos als Gruppe gebündelt mit eigenem `aria-label` („Set 1 von 2“) |
+| `role="tablist"` + `role="tab"` | Pagination-Dots als Tab-Pattern, `aria-selected` markiert das aktive Set, Roving-Tabindex |
+| `aria-pressed` auf Pause-Button | Toggle-State (pausiert / läuft) für Screenreader hörbar |
+| Tastatur-Navigation | Pfeil-Tasten wechseln Sets, Home / End springen zum ersten / letzten Set, Pause via Space oder Enter |
+| `prefers-reduced-motion` | Auto-Rotation und Crossfade deaktiviert, Set 1 bleibt statisch sichtbar, Dots bleiben nutzbar |
+
+### Dos & Don'ts
+
+**Tun**
+
+- Genau 5 Logos pro Set, gleiche Anzahl in allen Sets für gleichmäßiges Grid
+- Logos als SVG einbinden, skalieren verlustfrei auf jede Displaydichte
+- Einheitliche Tile-Höhe (72 px), unterschiedliche Logo-Proportionen über `object-fit: contain` angleichen
+- Pro Set eine eindeutige `id` für die `aria-controls`-Verknüpfung der Dots
+
+**Nicht tun**
+
+- Keine Kundennamen in bunten Markenfarben, Logos einheitlich grau oder schwarz halten
+- Mehr als 3 Sets vermeiden, ab 4 Sets wird die Pagination unübersichtlich und wirkt zu werblich
+- Intervall unter 5 Sekunden setzen, gibt Lesenden keine Zeit, ein Logo aufzunehmen
+
+## Bewegungs-Anforderung (prefers-reduced-motion)
+
+Die globale Barrierefreiheits-Sektion (Grundlagen/Barrierefreiheit) hält für
+`prefers-reduced-motion: reduce` die Basisregel fest: `animation-duration`,
+`transition-duration` und `scroll-behavior` fallen auf `0.01ms` beziehungsweise `auto`
+zurück (WCAG 2.3.3 AAA). Für die beiden Karussell-Typen gilt zusätzlich:
+
+- **Bild-Carousel:** die Crossfade-Transition (600 ms) entfällt automatisch, keine gesonderte Handhabung im Markup nötig.
+- **Kundenlogo-Karussell:** bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel; die Pagination-Dots bleiben bedienbar.
+
+Von der Ausnahme unberührt bleibt der 2-Pixel-Hover-Lift auf klickbaren Karten und dem
+Störer: Er läuft auch unter `prefers-reduced-motion: reduce` weiter, weil er reine
+Klickbarkeit signalisiert. Auto-Bewegung ist davon getrennt zu betrachten, nur sie
+respektieren die Carousels.
+
+## Verwandte Seiten
+
+- Komponenten/Slider & Carousel/Carousel
+- Komponenten/Slider & Carousel/LogoCarousel
+- Komponenten/Hero (Slider-Hero-Variante)
+- Grundlagen/Barrierefreiheit (Basisregel `prefers-reduced-motion`)

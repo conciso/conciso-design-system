@@ -64,8 +64,6 @@ jobs:
       - name: Dependencies installieren
         working-directory: .
         run: npm ci
-      - name: Storybook bauen
-        run: npm run build-storybook
       # Das Image bringt Browser mit; die Scripts pinnen aber PLAYWRIGHT_BROWSERS_PATH=0
       # (→ node_modules). Chromium dort sicherstellen (gleicher Build wie im Image).
       - name: Chromium bereitstellen
@@ -79,22 +77,22 @@ jobs:
             echo "exist=false" >> "$GITHUB_OUTPUT"
           fi
       # Erzeugen bei dispatch oder push-Bootstrap (noch keine Baselines);
-      # vergleichen bei PR mit vorhandenen Baselines.
+      # vergleichen bei PR mit vorhandenen Baselines. Kein http-server/wait-on
+      # mehr nötig: Vitest startet seinen eigenen (Vite-)Server und rendert die
+      # Stories direkt aus der Quelle, ohne den `storybook-static`-Build.
       - name: Visual-Tests
         if: >
           github.event_name == 'workflow_dispatch' ||
           (github.event_name == 'push' && steps.bl.outputs.exist == 'false') ||
           (github.event_name == 'pull_request' && steps.bl.outputs.exist == 'true')
+        env:
+          VISUAL: '1'
         run: |
-          npx http-server storybook-static --port 6006 --silent &
-          SB_PID=$!
-          npx wait-on tcp:127.0.0.1:6006
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            npm run test-storybook:visual          # vergleichen
+            npm run test:vitest                # vergleichen
           else
-            npm run test-storybook:visual -- -u    # (neu) erzeugen/aktualisieren
+            npm run test:vitest -- --update     # (neu) erzeugen/aktualisieren
           fi
-          kill "$SB_PID" 2>/dev/null || true
       - name: Hinweis — noch keine Baselines
         if: github.event_name == 'pull_request' && steps.bl.outputs.exist == 'false'
         run: echo "::notice::Keine Visual-Baselines eingecheckt — Vergleich übersprungen. Das visual-baselines-Artefakt eines push/dispatch-Laufs nach storybook-angular/visual-snapshots/ committen."

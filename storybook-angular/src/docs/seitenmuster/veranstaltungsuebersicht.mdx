@@ -1,0 +1,121 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Seitenmuster/Veranstaltungsübersicht" name="Übersicht" />
+
+# Veranstaltungsübersicht
+
+Listing-Seite für Veranstaltungen, parallel zu `Seitenmuster/Beitragsübersicht`: zentrierter
+Header mit Suche und Bereichs-Filter, Featured pro Bereich, Card-Grid darunter. Quelle:
+`docs/index.html#sec-events`. Die Detail-Seite ist separat als `Seitenmuster/Veranstaltung`
+dokumentiert.
+
+## Aufbau
+
+Die Übersichts-Seite folgt im Wesentlichen dem Aufbau der Beitragsübersicht: zentrierter
+Header, Such-Feld, Filter-Chips pro Bereich, Featured pro Bereich, Card-Grid darunter,
+„Mehr laden“-Block, CTA-Band, Footer. Such-Logik und Filter-aware-Featured sind 1:1
+übernommen und über eine gemeinsame Funktion `setupListPage()` konfiguriert.
+
+**Anpassungen gegenüber der Beitragsübersicht:**
+
+- **Pill-Inhalt:** „Bereich · Format“ statt „Bereich · Lesezeit“, das Format-Vokabular ist
+  auf fünf Begriffe begrenzt (siehe `Seitenmuster/Veranstaltung`, Abschnitt Formate).
+- **Card-Meta:** Datum (mit Wochentag) und Ort sitzen oberhalb des Titels, nicht am
+  Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment.
+- **Default-Featured:** „Effektive Software“ statt „Angewandte KI“.
+- **Counter:** „6 anstehend · 18 im Archiv“ statt „6 von 24 Beiträgen“, weil Veranstaltungen
+  zeitlich gebunden sind und Vergangenes nicht im Default-View erscheint.
+- **Empty-State-Sekundär-CTA:** „Veranstaltungs-Newsletter“ statt „Contentletter
+  abonnieren“.
+
+## Veranstaltungs-Card
+
+Der Reading-Flow ist auf die Entscheidung für eine Veranstaltung optimiert. Für
+Veranstaltungen ist das Datum ein harter Filter („Kann ich überhaupt?“) und gehört vor das
+Titel-Investment.
+
+**Reihenfolge:** Bild (Atmosphäre, optional), Pill „Bereich · Format“ (Filter-Check), Datum
+mit Wochentag (Kalender-Check), Ort („Dortmund“ für vor Ort, „Online“ für Webinar), Titel
+(Interesse-Hook), Body (worum geht's), CTA „Zur Veranstaltung →“.
+
+| Element | Style | Begründung |
+|---|---|---|
+| Pill | `.pill` mit `data-area`, ohne `style` | Bereichsfarbe als Filter-Signal, die Eigenmarge nehmen `.card-body` und `.card-featured-body` selbst zurück |
+| Meta-Trio (Datum, Ort, Format) | `--ty-body-sm` (14 px), `--tx-muted`, vertikal gestapelt | Editorial-Listen-Look, Hard-Filter über die Reihenfolge, nicht über visuelle Hervorhebung |
+| Ort-Spezifik | Stadt-Name oder „Online“ | Bei Webinaren „Online“, sonst Stadt-Name, nicht der Venue |
+| Icons | Micro (16×16, Stroke 1) | Konvention für Inline-Meta-Icons |
+| CTA | `color:var(--co-700)`, `margin-top:auto` | Einheitliche Bereichs-übergreifende CTA-Farbe, Auto-Margin für gemeinsame Baseline |
+
+## Featured, horizontale Großkarte
+
+Für Landing-Sektionen und Bereichs-Hubs, wenn genau ein kommender Termin hervorgehoben
+werden soll (kein Grid, kein Listing). Eine horizontale `.card.card-elevated.card-featured`
+als Anker, links das Bild im 16:9-Verhältnis, rechts der Content-Block: Pill, Meta-Strip
+(Datum, Ort, Format), Titel, Lead, CTA. Die Bildspalte trägt `.card-media` mit demselben
+Verhältnis wie die Listing-Cards, Redaktion pflegt ein Bild in einem Zuschnitt für Featured
+und Grid. Die Spaltenteilung (60 Prozent Bild, 40 Prozent Content) liegt in der Klasse, nicht
+im `style`-Attribut. Auf Tablet-Breite verschiebt sie sich auf 65/35, unter 900 px
+Kartenbreite wird gestapelt.
+
+**Editorial-Variant:** Featured-Cards nutzen `.card-title-hero` (24 px Serif, Headline-sm)
+statt der 20 px Sans des Standard-`.card-title`. Ein Termin bekommt die alleinige Bühne,
+das rechtfertigt das Serif-Treatment zwischen Section-H2 (28 px Serif) und
+Standard-Card-Title (20 px Sans).
+
+**Warum nicht ein Grid mit drei Karten?** Auf einer Landing ist die Frage „Was passiert als
+Nächstes?“ wichtiger als „Welche Veranstaltungen laufen aktuell?“. Ein einziges,
+atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die
+Übersichts-Seite erfüllt die Breitenrolle, der Featured-Block auf der Landing die
+Tiefenrolle.
+
+```html
+<a class="card card-elevated card-featured" data-area="es" href="/veranstaltungen/n8n">
+  <div class="card-media"><img src="hero.jpg" alt="" aria-hidden="true" style="object-position:center 35%"></div>
+  <div class="card-featured-body">
+    <span class="pill" data-area="es">Effektive Software</span>
+    <div style="display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-muted)">
+      <span>Do, 3. Dezember 2026 · 18:00</span>
+      <span>WORKGARDEN Dortmund</span>
+      <span>Meet-Up</span>
+    </div>
+    <h3 class="card-title-hero">Effizienz durch n8n.</h3>
+    <p class="card-text">Drei kurze Inputs …</p>
+    <span class="card-cta-link">Zur Veranstaltung <span aria-hidden="true">→</span></span>
+  </div>
+</a>
+```
+
+| Aspekt | Featured (Landing) | Standard-Card (Listing) |
+|---|---|---|
+| Anlass | Genau ein hervorgehobener Termin | Mehrere parallel sichtbare Termine |
+| Layout | Horizontal, 16:9 Bild plus Content, drei Stufen nach Kartenbreite | Vertikal, 16:9 Bild über Content |
+| Headline | `.card-title-hero` (24 px Serif) | `.card-title` (20 px Sans), `line-clamp:2` |
+| Lead | `.card-text`, `min-height:0`, `line-clamp` bleibt als Riegel gegen zu lange Leads | `.card-text` mit `line-clamp:3` |
+| Meta-Strip | Datum, Ort, Format vertikal gestapelt, `--ty-body-sm`, `--tx-muted` | Pill „Bereich“ über Datum plus Ort gestapelt |
+| Kürzen bei zu viel Text | Das Bild bestimmt die Höhe, der Lead gibt zuerst nach (`line-clamp`) | Titel `line-clamp:2`, Text `line-clamp:3`, Gleichhöhe über `min-height` |
+
+## Verwendung
+
+| Aspekt | Regel |
+|---|---|
+| Pill-Vokabular | Nur die fünf Formate, keine eigenen Wörter wie „Workshop“ oder „Bootcamp“ |
+| Pill-Margin | Kein `margin-bottom` im Markup, `.card-body` und `.card-featured-body` nehmen die Eigenmarge der Pill selbst zurück |
+| Pill-Breite | Kein `width:fit-content` und kein `align-self` im Markup, die Pill bringt das selbst mit |
+| Datums-Reihenfolge | Cards chronologisch, kommende Veranstaltungen zuerst, Vergangenes über „Frühere Veranstaltungen ansehen“ oder Archiv-Filter |
+| Datums-Format | Wochentag plus ausgeschriebener Monat |
+| Card-Ort | Stadt-Name, nicht der Venue, für Webinar „Online“ |
+| Filter-Logik | Drei Bereichs-Chips (ki, es, wo), kein Corporate-Chip |
+| Such-Scope | Titel plus Lead plus Pill über `setupListPage()`, Datum und Ort sind nicht Teil des Such-Index |
+| CTA-Text | Einheitlich „Zur Veranstaltung →“ |
+
+**Dos**
+- Datum vor Titel platzieren, „Kann ich da?“ ist der wichtigste Filter.
+- Wochentag mitgeben, macht bei Meet-Ups nach 18:00 den Unterschied.
+- Pill auf das Format-Vokabular beschränken, Charakter-Begriffe gehören in den Titel.
+- Monatsnamen ausschreiben, passt zur Marken-Tonalität.
+
+**Don'ts**
+- Datum am Card-Fuß platzieren (Wissensbeitrag-Muster).
+- Vergangene Veranstaltungen im Default-View mischen.
+- Eigene Format-Begriffe einführen.
+- Preis und Verfügbarkeit auf jeder Card zeigen, das gehört auf die Detail-Seite.

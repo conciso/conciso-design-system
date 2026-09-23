@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -10,7 +10,7 @@ import type { CdsArea } from '../area';
  */
 @Component({
   selector: 'cds-stat-card',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card-stat" [attr.data-area]="area() || null">
       <p class="card-stat-value">{{ value() }}</p>
@@ -27,11 +27,14 @@ import type { CdsArea } from '../area';
   `,
 })
 export class StatCardComponent {
-  readonly value = input('98 %');
-  readonly label = input('Kundenzufriedenheit');
+  /** Anzeigewert der Kennzahl. */
+  readonly value = input.required<string>();
+  /** Beschriftung der Kennzahl. */
+  readonly label = input.required<string>();
   /** Markenbereich → data-area (Top-Akzent + Wertfarbe). */
   readonly area = input<CdsArea>('co');
   /** Trendrichtung → .card-stat-trend.up / .down (leer = kein Pill). */
   readonly trend = input<'up' | 'down'>();
-  readonly trendText = input('+12 %');
+  /** Text neben dem Trend-Pfeil (nur sichtbar, wenn `trend` gesetzt ist). */
+  readonly trendText = input('');
 }

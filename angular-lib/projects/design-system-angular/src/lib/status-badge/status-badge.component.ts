@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /** Status-Töne der Badge-Klassen (.badge-ok / .badge-warn / .badge-err / .badge-neu). */
 export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
@@ -14,11 +14,12 @@ export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
  */
 @Component({
   selector: 'cds-status-badge',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span class="badge badge-{{ tone() }}">{{ label() }}</span>`,
 })
 export class StatusBadgeComponent {
-  readonly label = input('Live');
+  /** Sichtbarer Text der Badge. */
+  readonly label = input.required<string>();
   /** Status-Ton → semantische Farbe. */
   readonly tone = input<CdsBadgeTone>('ok');
 }

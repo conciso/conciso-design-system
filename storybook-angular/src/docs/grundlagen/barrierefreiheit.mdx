@@ -1,0 +1,459 @@
+import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
+
+<Meta title="Grundlagen/Barrierefreiheit" name="Übersicht" />
+
+# Barrierefreiheit
+
+Kontrastverhältnisse aller Brand-Farben, Tastaturnavigation, ARIA Patterns, Touch
+Targets, Reduced Motion. Pflicht sind die Stufen A und AA, AAA nehmen wir mit, wo es ohne
+Nachteil geht. Vollständige Kriterien-Übersicht:
+[WCAG 2.2 Quickref (W3C)](https://www.w3.org/WAI/WCAG22/quickref/). Quelle:
+`docs/index.html#sec-a11y`.
+
+## Anspruch
+
+Das System ist auf Konformitätsstufe AA gebaut. Nach WCAG-Definition heißt das: alle
+Erfolgskriterien der Stufe A und alle der Stufe AA sind erfüllt. AA liegt also nicht über
+A, sondern schließt es ein. Der Anspruch gilt für jedes Kriterium, nicht nur für Kontrast,
+ebenso für Tastaturbedienung, Fokus, Struktur, Beschriftung, Bewegung und Zielgrößen.
+
+Stufe AAA ist Zugabe, kein Abnahmekriterium. Wo sie ohne Nachteil für Gestaltung oder
+Verständlichkeit erreichbar ist, nehmen wir sie mit. Wo sie etwas kostet, bleibt AA der
+Maßstab. An einem AAA-Kriterium scheitert keine Änderung.
+
+**Pflicht, A und AA.** Gilt für alles, was das System ausliefert. Zwei Prüfungen laufen
+automatisch: `npm run check:contrast` rendert die Doku in beiden Modi und muss 0 melden,
+`npm run check:dark-states` findet Zustände, die im Dark Mode unlesbar würden. Alles, was
+sich nicht messen lässt (Tastaturpfad, Screenreader-Ausgabe), gehört in die Prüfung von
+Hand.
+
+**Freiwillig darüber.** An vielen Stellen liegt das System über der Pflicht. Die meisten
+Textfarben erreichen 7:1 und mehr (AAA). Touch-Targets liegen bei 44 px, das ist 2.5.5 auf
+AAA, verlangt wären 24 px. Diese Marken zeigen den Überschuss, nicht die Messlatte, sie
+dürfen an einzelnen Stellen fehlen, ohne dass etwas kaputt ist.
+
+**Nicht erfüllt, bewusst.** 2.3.3 Animation from Interactions (AAA) verlangt, dass eine
+durch Bedienung ausgelöste Bewegung abschaltbar ist. Der Hover-Lift von 2 px auf
+klickbaren Karten und auf dem Störer läuft auch bei `prefers-reduced-motion: reduce`, weil
+er die Klickbarkeit signalisiert. Auto-Bewegung ist davon getrennt, die Carousels
+respektieren die Einstellung.
+
+## Kontrastverhältnisse · Textfarben auf Weiß
+
+Die Modus-Markierung zeigt, auf welchen Theme-Modus sich ein Wert bezieht: Light für die
+hellen Token-Werte (Page-Background `#FFFFFF`), Dark für die dunklen Pendants
+(Page-Background `#151A1F`).
+
+| Farbe | Wert (Light) | Kontrast auf Weiß | Einsatz | Stufe |
+|---|---|---|---|---|
+| `--tx-primary` | #333E48 | 10,4:1 | Fließtext, Headlines, UI-Labels | AAA |
+| `--tx-secondary` | #4A6565 | 5,8:1 | Lead, Sub-Titel, Captions | AA |
+| `--tx-muted` | #5A7171 | 5,25:1 | Leise Texte: Eyebrow, Counter, Meta-Angaben, Captions. Abgedunkelt von #6E8585 (3,9:1), das AA für Normaltext verfehlte | AA |
+| Corporate 700 | #007575 | 5,5:1 | Links, farbige Überschriften | AA |
+| Angewandte KI 800 | #475705 | 8,1:1 | Texteinsatz (700 mit 4,4:1 nicht ausreichend) | AAA |
+| Angewandte KI 700 | #6B8208 | 4,4:1 | Knapp unter 4,5:1 AA-Schwelle | Fail |
+| Effektive Software 500 | #2F5FD4 | 5,7:1 | Links, farbige Überschriften, Akzentflächen. Button-Background nutzt `--es-700` (`.btn-es`) | AA |
+| Effektive Software 700 | #1B3D9A | 9,7:1 | Fließtext, dunkle Überschriften | AAA |
+| Wirksame Organisationen 600 | #347A22 | 5,3:1 | Buttons mit weißer Schrift (mindestens 600) | AA |
+| Wirksame Organisationen 700 | #285E1A | 7,8:1 | Texteinsatz, Links | AAA |
+| Rosé 500 | #C23060 | 5,3:1 | Links, Buttons, farbige Labels | AA |
+| Rosé 700 | #7E1639 | 10,2:1 | Texteinsatz, dunkle Überschriften | AAA |
+
+Angewandte-KI-700 ist die einzige Zeile, die AA für Normaltext verfehlt (4,4:1 gegen die
+4,5:1-Schwelle), deshalb trägt farbiger KI-Text `--ki-800`, nicht `--ki-700`.
+
+Der folgende Block zeigt zusätzlich zur Tabelle die tatsächliche Farbe jedes Tokens als
+Fläche und macht die Lesbarkeit der weißen „Aa“-Beschriftung direkt sichtbar, statt sie nur
+als Zahl zu benennen. Werte 1:1 aus `docs/index.html#gt-a11y-kontrast` übernommen.
+
+export const withCode = (text) =>
+  text.split('`').map((part, i) =>
+    i % 2 === 1 ? <code key={i} className="token">{part}</code> : part
+  );
+
+export const ContrastRow = ({ bg, fg, mode, name, ratio, badgeText, badgeClass }) => (
+  <div className="contrast-row">
+    <div className="cswatch" style={{ background: bg, color: fg }}>Aa</div>
+    <div className="cinfo">
+      <div className="cname">
+        <span className="a11y-mode">{mode}</span>
+        {withCode(name)}
+      </div>
+      <div className="cratio">{withCode(ratio)}</div>
+    </div>
+    <span className={`cbadge ${badgeClass}`}>{badgeText}</span>
+  </div>
+);
+
+export const contrastTextLight = [
+  { bg: '#333E48', fg: '#fff', mode: 'Light', name: "`--tx-primary` #333E48 auf Weiß", ratio: "10,4:1, Fließtext, Headlines, UI-Labels", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#4A6565', fg: '#fff', mode: 'Light', name: "`--tx-secondary` #4A6565 auf Weiß", ratio: "5,8:1, Lead, Sub-Titel, Captions", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#5A7171', fg: '#fff', mode: 'Light', name: "`--tx-muted` #5A7171 auf Weiß", ratio: "5,25:1, leise Texte: Eyebrow, Counter, Meta-Angaben, Captions · abgedunkelt von #6E8585 (3,9:1), das AA für Normaltext verfehlte", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#007575', fg: '#fff', mode: 'Light', name: "Corporate 700 #007575 auf Weiß", ratio: "5,5:1, Links, farbige Überschriften", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#475705', fg: '#fff', mode: 'Light', name: "Angewandte KI 800 #475705 auf Weiß", ratio: "8,1:1, Texteinsatz (700 mit 4,4:1 nicht ausreichend)", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#6B8208', fg: '#fff', mode: 'Light', name: "Angewandte KI 700 #6B8208 auf Weiß", ratio: "4,4:1, knapp unter 4,5:1 AA-Schwelle", badgeText: 'Fail ✗', badgeClass: 'c-fail-badge' },
+  { bg: '#2F5FD4', fg: '#fff', mode: 'Light', name: "Effektive Software 500 #2F5FD4 auf Weiß", ratio: "5,7:1, Links, farbige Überschriften, Akzentflächen · Button-Background nutzt `--es-700` (`.btn-es`)", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#1B3D9A', fg: '#fff', mode: 'Light', name: "Effektive Software 700 #1B3D9A auf Weiß", ratio: "9,7:1, Fließtext, dunkle Überschriften", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#347A22', fg: '#fff', mode: 'Light', name: "Wirksame Organisationen 600 #347A22 auf Weiß", ratio: "5,3:1, Buttons mit weißer Schrift (mind. 600)", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#285E1A', fg: '#fff', mode: 'Light', name: "Wirksame Organisationen 700 #285E1A auf Weiß", ratio: "7,8:1, Texteinsatz, Links", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#C23060', fg: '#fff', mode: 'Light', name: "Rosé 500 #C23060 auf Weiß", ratio: "5,3:1, Links, Buttons, farbige Labels", badgeText: 'AA ✓', badgeClass: 'c-aa' },
+  { bg: '#7E1639', fg: '#fff', mode: 'Light', name: "Rosé 700 #7E1639 auf Weiß", ratio: "10,2:1, Texteinsatz, dunkle Überschriften", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+];
+
+<Unstyled>
+  {contrastTextLight.map((row, i) => (
+    <ContrastRow key={i} {...row} />
+  ))}
+</Unstyled>
+
+## Kontrastverhältnisse · Akzentfarben (nicht für Text)
+
+| Farbe | Wert | Kontrast auf Weiß | Hinweis |
+|---|---|---|---|
+| Corporate 500 | #00BEBE | 2,3:1 | Nur als Hintergrundfläche, dunkler Text #002B2B (6,0:1 auf der Fläche) |
+| Angewandte KI 500 | #B5E61C | 1,4:1 | Ausschließlich als Akzent, Text #475705 auf der Fläche (5,6:1) |
+| Wirksame Organisationen 500 | #44A030 | 3,3:1 | Nur Large Text / UI-Komponenten, weiße Schrift auf 500 verfehlt (3,3:1), mindestens 600 verwenden |
+
+Der Block zeigt, wie kräftig die reine Akzentfläche wirkt und mit welcher (nicht weißen)
+Textfarbe die „Aa“-Beschriftung überhaupt lesbar bleibt, was die Tabelle nur als Fließtext
+nennt. Werte 1:1 aus `docs/index.html#gt-a11y-akzent` übernommen.
+
+export const contrastAccent = [
+  { bg: '#00BEBE', fg: '#002B2B', mode: 'Light', name: "Corporate 500 #00BEBE, Akzentfläche", ratio: "2,3:1 auf Weiß, nur als Hintergrundfläche · dunkler Text: #002B2B (6,0:1 ✓)", badgeText: 'Fläche only', badgeClass: 'c-fail-badge' },
+  { bg: '#B5E61C', fg: '#475705', mode: 'Light', name: "Angewandte KI 500 #B5E61C, Akzentfläche", ratio: "1,4:1 auf Weiß, ausschließlich als Akzent · Text: #475705 auf Fläche (5,6:1 ✓)", badgeText: 'Fläche only', badgeClass: 'c-fail-badge' },
+  { bg: '#44A030', fg: '#0A1F05', mode: 'Light', name: "Wirksame Organisationen 500 #44A030", ratio: "3,3:1 auf Weiß, nur Large Text / UI-Komponenten · weiße Schrift: 3,3:1 ✗ → mind. 600 verwenden", badgeText: 'AA Large ✓', badgeClass: 'c-aa' },
+];
+
+<Unstyled>
+  {contrastAccent.map((row, i) => (
+    <ContrastRow key={i} {...row} />
+  ))}
+</Unstyled>
+
+## Kontrastverhältnisse · Dark Mode
+
+Im Dark Mode ist die Page-Background `#151A1F` (Token `--bg-page`), gehobene Flächen wie
+Karten sitzen auf `#28323D` (`--bg-surface`). Die Basisfläche trägt 17,5:1 gegen Weiß und
+liegt damit über der Material-Schwelle von 15,8:1, die sicherstellt, dass Fließtext auch
+auf der höchsten Elevationsstufe noch 4,5:1 erreicht.
+
+| Farbe | Wert (Dark) | Kontrast auf `#151A1F` | Einsatz | Stufe |
+|---|---|---|---|---|
+| `--tx-primary` | #DDE9E9 | 14,1:1 | Fließtext, Headlines, UI-Labels. Auf bg-surface 10,5:1 | AAA |
+| `--tx-secondary` | #A6C6C6 | 9,6:1 | Lead, Sub-Titel, Captions, Body in Karten. Auf bg-surface 7,1:1 | AAA |
+| `--tx-muted` | #93B6B6 | 8,0:1 | Gedämpfte Meta-Angaben. Auf bg-surface 6,0:1 (vorher 4,1:1, verfehlte dort AA) | AAA |
+| Corporate 200 | #80DEDE | 11,2:1 | Eyebrows, Card-Eyebrows, Bereichs-Text. Light-Pendant `--co-700` | AAA |
+| Corporate 300 | #4DD0D0 | 9,4:1 | Pillar-Titles, Code-Tokens, Footer-Links. Light-Pendant `--co-700` | AAA |
+| Angewandte KI 200 | #D6F06D | 13,8:1 | KI-Bereichstexte, Tab-Active-State. Light-Pendant `--ki-800` | AAA |
+| Effektive Software 200 | #98B7EE | 8,6:1 | ES-Bereichstexte. Light-Pendant `--es-700` | AAA |
+| Wirksame Organisationen 200 | #A3D48E | 10,3:1 | WO-Bereichstexte. Light-Pendant `--wo-700` | AAA |
+| `--c-success` | #5CE8A0 | 11,3:1 | Erfolgs-Marker in Do/Don't-Listen. Light-Pendant #0E6644 (6,99:1) | AAA |
+| `--c-warning` | #F0C060 | 10,4:1 | Hinweise, Beta-Zustände. Light-Pendant #8A5E0A (5,70:1) | AAA |
+| `--c-error` | #FFA5A5 | 9,3:1 | Fehler-Marker, Inline-Fehlertext, Required-Asterisks. Auf bg-surface 6,9:1. Light-Pendant #B22020 (6,73:1) | AAA |
+
+Der Block zeigt dieselben Farben, wie sie im Dark Mode tatsächlich erscheinen, inklusive
+der bei den Status-Farben vom Muster abweichenden Textfarbe für „Aa“, was die Tabelle nicht
+abbildet. Werte 1:1 aus `docs/index.html#gt-a11y-kontrast-dark` übernommen. Die Zeilen
+tragen ihre Dark-Werte als feste Hex-Angaben (kein CSS-Token, kein `data-theme`-Wrapper):
+genau wie in `docs/index.html` selbst sind Fläche und „Aa“-Textfarbe pro Zeile hart codiert,
+deshalb bleibt der Block unabhängig vom aktuell aktiven Storybook-Theme korrekt.
+
+export const contrastDark = [
+  { bg: '#DDE9E9', fg: '#151A1F', mode: 'Dark', name: "`--tx-primary` #DDE9E9 auf #151A1F", ratio: "14,1:1, Fließtext, Headlines, UI-Labels · auf bg-surface 10,5:1", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#A6C6C6', fg: '#151A1F', mode: 'Dark', name: "`--tx-secondary` #A6C6C6 auf #151A1F", ratio: "9,6:1, Lead, Sub-Titel, Captions, Body in Karten · auf bg-surface 7,1:1", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#93B6B6', fg: '#151A1F', mode: 'Dark', name: "`--tx-muted` #93B6B6 auf #151A1F", ratio: "8,0:1, gedämpfte Meta-Angaben · auf bg-surface 6,0:1 (vorher 4,1:1, verfehlte dort AA)", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#80DEDE', fg: '#151A1F', mode: 'Dark', name: "Corporate 200 #80DEDE auf #151A1F", ratio: "11,2:1, Eyebrows, Card-Eyebrows, Bereichs-Text · Light-Pendant: `--co-700`", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#4DD0D0', fg: '#151A1F', mode: 'Dark', name: "Corporate 300 #4DD0D0 auf #151A1F", ratio: "9,4:1, Pillar-Titles, Code-Tokens, Footer-Links · Light-Pendant: `--co-700`", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#D6F06D', fg: '#151A1F', mode: 'Dark', name: "Angewandte KI 200 #D6F06D auf #151A1F", ratio: "13,8:1, KI-Bereichstexte, Tab-Active-State · Light-Pendant: `--ki-800`", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#98B7EE', fg: '#151A1F', mode: 'Dark', name: "Effektive Software 200 #98B7EE auf #151A1F", ratio: "8,6:1, ES-Bereichstexte · Light-Pendant: `--es-700`", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#A3D48E', fg: '#151A1F', mode: 'Dark', name: "Wirksame Organisationen 200 #A3D48E auf #151A1F", ratio: "10,3:1, WO-Bereichstexte · Light-Pendant: `--wo-700`", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#5CE8A0', fg: '#092417', mode: 'Dark', name: "`--c-success` #5CE8A0 auf #151A1F", ratio: "11,3:1, ✓-Marker in Do/Don't-Listen · Light-Pendant: #0E6644 (6,99:1 ✓)", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#F0C060', fg: '#271E0A', mode: 'Dark', name: "`--c-warning` #F0C060 auf #151A1F", ratio: "10,4:1, Hinweise, Beta-Zustände · Light-Pendant: #8A5E0A (5,70:1 ✓)", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+  { bg: '#FFA5A5', fg: '#3D0F0F', mode: 'Dark', name: "`--c-error` #FFA5A5 auf #151A1F", ratio: "9,3:1, ✕-Marker, Inline-Fehlertext, Required-Asterisks · auf bg-surface 6,9:1 · Light-Pendant: #B22020 (6,73:1 ✓)", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
+];
+
+<Unstyled>
+  {contrastDark.map((row, i) => (
+    <ContrastRow key={i} {...row} />
+  ))}
+</Unstyled>
+
+## Tastaturnavigation
+
+Jede Funktion ist ohne Maus erreichbar. Vier Kriterien greifen zusammen: 2.1.1 Keyboard
+(alles bedienbar), 2.1.2 No Keyboard Trap (überall wieder heraus), 2.4.3 Focus Order
+(sinnvolle Reihenfolge) und 2.4.7 Focus Visible (man sieht, wo man steht).
+
+- **Reihenfolge kommt aus dem Markup.** Die Tab-Folge ergibt sich aus der
+  DOM-Reihenfolge, nicht aus der CSS-Position (WCAG 2.4.3). Regel: keine positiven
+  `tabindex`-Werte, sie stellen die Kette global um.
+- **Sprungziele mit `tabindex="-1"`.** Ein Anker allein bewegt in manchen Browsern nur den
+  Scroll, nicht den Fokus. Landepunkte wie `#main-content` tragen deshalb
+  `tabindex="-1"`, programmatisch fokussierbar, aber nicht in der Tab-Kette.
+- **Skip-Link zuerst.** Erstes fokussierbares Element der Seite, außerhalb des Viewports
+  geparkt und erst im Fokus sichtbar (WCAG 2.4.1). Überspringt die Navigation und setzt
+  den Fokus auf den Hauptinhalt.
+- **Keine Tastaturfalle.** Jedes Element, das den Fokus einfängt, gibt ihn wieder her
+  (WCAG 2.1.2). Escape schließt Submenüs, Dropdowns und die Suche und setzt den Fokus auf
+  das auslösende Element zurück.
+- **Fokus darf nicht verdeckt sein.** Das fokussierte Element muss sichtbar bleiben, nicht
+  hinter einer klebenden Leiste liegen (2.4.11, neu in WCAG 2.2).
+- **Ein Bauteil, ein Muster.** Gleichartige Bauteile nehmen dieselben Tasten. Alles, was
+  eine Liste von Optionen öffnet (Submenü, Custom Select, Combobox), reagiert auf
+  Pfeil-runter/-hoch, Home/End und Escape.
+
+| Bauteil | Tasten | Verhalten |
+|---|---|---|
+| Skip-Link | Enter | setzt den Fokus auf den Hauptinhalt |
+| Topnav-Submenü | Enter, Space, Pfeil ↓/↑, Home, End, Esc | Caret öffnet, Pfeile wandern durch die Einträge, Esc schließt und gibt den Fokus zurück |
+| Custom Select | Enter, Space, Pfeil ↓/↑, Home, End, Esc, Tab, Buchstabe | öffnet und wählt, ein Buchstabe springt zur passenden Option (Puffer 600 ms), Tab schließt und geht weiter |
+| Combobox & Multi-Select | Pfeil ↓/↑, Home, End, Enter, Esc, Backspace | wie Select, Backspace im leeren Feld entfernt die letzte Auswahl |
+| Bild-Carousel | Pfeil ←/→ | eine Slide zurück oder vor |
+| Logo-Karussell | Pfeil ←/↑/→/↓, Home, End | auf den Pagination-Dots, jede Taste pausiert zusätzlich den Auto-Wechsel |
+| Such-Feld der Beitragsübersicht | `/`, Esc | `/` fokussiert die Suche, Esc leert das Feld |
+
+## Touch Targets
+
+Zwei Kriterien regeln die Zielgröße, und sie verlangen nicht dasselbe: 2.5.8 Target Size
+(Minimum) fordert auf AA mindestens 24 × 24 px, 2.5.5 Target Size (Enhanced) auf AAA
+mindestens 44 × 44 px. 2.5.8 ist neu in WCAG 2.2, in 2.1 gibt es auf AA gar keine
+Zielgrößen-Anforderung. Das System zielt auf 44 px, liegt damit über der AA-Pflicht und
+trifft zugleich die Empfehlung der Plattform-Guidelines. Wo 44 px nicht erreichbar sind,
+gilt 24 px als harte Untergrenze.
+
+Abstand zählt mit: 2.5.8 lässt kleinere Ziele zu, wenn genug Freiraum um sie liegt.
+Zwischen benachbarten Zielen deshalb mindestens `--s2` (8 px), damit ein Daumen nicht zwei
+Aktionen gleichzeitig trifft.
+
+| Bauteil | Maß | Wo gesetzt |
+|---|---|---|
+| Buttons, alle Varianten | `min-height: 44px` | `.btn` |
+| Formularfelder (Input, Textarea, Select) | `min-height: 44px` | `.field input`, `textarea`, `select` |
+| Back-to-Top-Button | 44 × 44 px | `.back-to-top` |
+| Carousel-Pfeile | 44 × 44 px | `.img-slider-btn` |
+| Beispielseiten-Tabs und Aufklapp-Caret | 44 px | `.ep-tab`, `.ep-tab-toggle` |
+| Topnav-Suchfeld | `height: 44px` | `.ep-nav-search-input` |
+| Topnav-Caret, mobil | 44 × 44 px | `.ep-nav-item-toggle` im Mobil-Breakpoint |
+| Snackbar | `min-height: 48px` | `.snack` |
+
+Zwei bewusste Abweichungen: Segmented Control (`.seg-option label`) und Area Tabs
+(`.atab`) liegen bei `min-height: 40px`. Beide sind Zeilen in einer dicht gesetzten
+Umschaltgruppe, in der 44 px die Leiste optisch auseinanderziehen würden. Sie erfüllen
+2.5.8 (AA) deutlich, verfehlen 2.5.5 (AAA) um 4 px. Neue Bauteile orientieren sich an
+44 px, nicht an diesen beiden.
+
+**Die 44-px-Ausnahme von der Spacing-Skala:** Die 44 stehen hartcodiert im CSS, weil die
+Spacing-Skala keinen 44-px-Schritt hat. Das ist eine der erlaubten Ausnahmen der
+Strict-Scale-Konvention (siehe `Grundlagen/Spacing & Grid`): Werte, die eine physische
+Mindestgröße beschreiben, folgen ihrer eigenen Logik statt dem 8pt-Rhythmus.
+
+## ARIA Patterns
+
+**Focus-Ring.** Sichtbarer Fokusindikator für alle interaktiven Elemente (WCAG 2.4.7).
+
+```css
+--focus-ring: 0 0 0 3px var(--co-50), 0 0 0 5px var(--co-700);
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+```
+
+**Formulare & Fehler.** Fehlermeldungen programmatisch mit dem Feld verknüpfen (WCAG
+1.3.1, 3.3.1).
+
+```html
+<input aria-invalid="true" aria-describedby="err-id">
+<span id="err-id" role="alert">Pflichtfeld</span>
+```
+
+**Dekorative Icons.** SVGs ohne inhaltliche Bedeutung vor Screenreadern verbergen (WCAG
+1.1.1).
+
+```html
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+  <path d="…"/>
+</svg>
+```
+
+**Icon-only Buttons.** Buttons ohne sichtbares Label brauchen ein zugängliches
+Textalternativ (WCAG 1.1.1).
+
+```html
+<button aria-label="Menü öffnen">
+  <svg aria-hidden="true" focusable="false">…</svg>
+</button>
+```
+
+**Tab Panels.** Tabs als Tablist mit vollständigen ARIA-Relationen (WCAG 4.1.2).
+
+```html
+<div role="tablist">
+  <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Tab 1</button>
+</div>
+<div role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">…</div>
+```
+
+**Live Regions.** Dynamische Inhalte für Screenreader ankündigen (WCAG 4.1.3).
+
+```html
+<!-- Status, höflich, unterbricht nicht -->
+<div role="status" aria-live="polite">Gespeichert.</div>
+
+<!-- Alert, sofort, unterbricht -->
+<div role="alert" aria-live="assertive">Verbindungsfehler.</div>
+```
+
+**Toggle & Filter-Buttons.** Buttons mit zwei Zuständen (gedrückt, nicht gedrückt)
+brauchen `aria-pressed`, damit Screenreader den Status ansagen (WCAG 4.1.2). Verwendung
+unter anderem bei Filter-Chips.
+
+```html
+<button class="chip" aria-pressed="true" data-area="ki">Angewandte KI</button>
+
+/* Style stützt sich auf das ARIA-Attribut, nicht auf eine separate
+   .sel- oder .active-Klasse */
+.chip[aria-pressed="true"] { … }
+```
+
+**Such-Feld als Landmark.** Such-Bereiche bekommen `role="search"` plus eigenes
+`aria-label`, damit wird das Suchfeld zur Landmark, die Screenreader-Nutzerinnen direkt
+anspringen (WCAG 1.3.1, 2.4.6).
+
+```html
+<div role="search" aria-label="Beiträge durchsuchen">
+  <svg aria-hidden="true" focusable="false">…</svg>
+  <input type="search" aria-label="Beiträge nach Stichwort durchsuchen">
+</div>
+```
+
+**Aktive Navigation.** Der aktive Eintrag in einer Navigation wird via
+`aria-current="page"` markiert, ein sichtbarer Active-State allein reicht für
+Screenreader nicht (WCAG 1.3.1).
+
+```html
+<a class="ep-nav-btn" href="/ueber-uns" aria-current="page">Unternehmen</a>
+
+.ep-nav-btn[aria-current="page"] { color: var(--co-700); }
+```
+
+**Visuell versteckt (`.sr-only`).** Text nur für Screenreader, visuell entfernt. Trägt die
+Bedeutung hinter rein grafischen Markern (Häkchen, Minus) in Vergleichstabellen, Glyph
+allein reicht nicht (WCAG 1.1.1, 1.3.1).
+
+```html
+<td>
+  <span class="ep-compare-yes" aria-hidden="true">✓</span>
+  <span class="sr-only">Enthalten</span>
+</td>
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+```
+
+## Reduzierte Bewegung & High Contrast
+
+**`prefers-reduced-motion`.** Nutzer mit Gleichgewichts- oder Aufmerksamkeitsstörungen
+können Animationen deaktivieren (WCAG 2.3.3 AAA).
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+**`forced-colors` (High Contrast).** Windows High Contrast Mode ersetzt Farben durch
+Systemfarben, Grenzen durch Borders statt nur Farbe ausdrücken.
+
+```css
+@media (forced-colors: active) {
+  .btn-filled {
+    border: 2px solid ButtonText;
+    forced-color-adjust: none;
+  }
+  .btn-outlined { border-color: ButtonText; }
+}
+```
+
+**Theme-Umschaltung.** Das Design System kennt genau zwei Modi, Light und Dark.
+Umgeschaltet wird ausschließlich über das Attribut `[data-theme="dark"]` am `<html>`.
+Einen dritten Modus, der der Betriebssystem-Präferenz folgt, gibt es bewusst nicht,
+`prefers-color-scheme` wird im ausgelieferten CSS nicht ausgewertet, Standard ist Light.
+`color-scheme: dark` ist im Dark-Theme fest gesetzt, damit native Controls (Checkbox,
+Radio, Scrollbar, Select-Popup) dark-thematisiert rendern.
+
+**Smooth-Scroll für In-Page-Anker.** Klicks auf In-Page-Anker innerhalb derselben Seite
+animieren das Scrollen statt hart zu springen. Bei `prefers-reduced-motion: reduce` wird
+der Hard-Jump beibehalten, weil sanftes Scrollen für vestibulär empfindliche Nutzerinnen
+Schwindel auslösen kann (WCAG 2.3.3).
+
+## Video-Embed
+
+Videos (zum Beispiel YouTube) werden als responsiver `<iframe>` eingebunden. Ein
+Großteil der Barrierefreiheit hängt am Videoinhalt selbst (Untertitel, Transkript) und
+lässt sich nicht allein über das Embed erzwingen.
+
+```html
+<iframe
+  src="https://www.youtube-nocookie.com/embed/ID"
+  title="Was ist Keycloak? Erklärt von …"
+  loading="lazy"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  style="width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg)"></iframe>
+```
+
+- **iframe braucht `title`.** Jeder Video-iframe bekommt einen aussagekräftigen `title`
+  (WCAG 4.1.2), Screenreader kündigen den Frame damit benannt an.
+- **Untertitel (WCAG 1.2.2, AA).** Aufgezeichnete Videos brauchen Untertitel. Automatische
+  YouTube-Untertitel allein erfüllen die Anforderung nicht (Qualität, Zeichensetzung).
+  Fremdsprachige Videos bekommen Untertitel in der Seitensprache.
+- **Transkript & Audiodeskription.** Ein Transkript in der Nähe des Videos hilft allen,
+  die es nicht abspielen können, und dient Suchmaschinen. Enthält das Bild Informationen,
+  die im Ton fehlen, ist zusätzlich eine Audiodeskription nötig (WCAG 1.2.3/1.2.5).
+- **Kein Autoplay.** Nie `autoplay=1` setzen, Ton und Bewegung starten erst auf Klick
+  (WCAG 1.4.2, 2.2.2), das respektiert auch `prefers-reduced-motion`.
+- **Responsiv und ohne Rahmen.** `width:100%` plus `aspect-ratio:16/9` hält das Video
+  seitenbreit ohne horizontales Scrollen.
+- **Datenschutz.** Einbindung über `youtube-nocookie.com` und `loading="lazy"` reduziert
+  Tracking und Ladelast. Für die produktive Seite gilt zusätzlich: erst nach Einwilligung
+  laden, da beim Abspielen Cookies gesetzt werden.
+- **Sprache kennzeichnen.** Weicht die Videosprache von der Seitensprache ab, im
+  umgebenden Text ausweisen (zum Beispiel Videosprache Englisch).
+- **Fokus & Tastatur.** Der YouTube-Player ist tastaturbedienbar und beschriftet, der
+  iframe ist fokussierbar, keine positiven `tabindex`-Werte vergeben.
+
+Was das Design-System liefert versus was der Videoinhalt liefern muss: Embed-seitig sind
+`title`, kein Autoplay, responsives 16:9, Datenschutz-Host und Sprach-Hinweis abgedeckt.
+Untertitel, Transkript und Audiodeskription hängen an der Videoquelle und müssen beim
+Upload hinterlegt werden, das kann das Design System nicht erzwingen.
+
+## Gates
+
+- `npm run check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und muss
+  0 Befunde melden (Text gegen 4,5:1 beziehungsweise 3:1 bei Großtext, getönte
+  Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1).
+- `npm run check:dark-states` findet Zustände (Hover, Focus, Active), die im Dark Mode
+  dunkel auf dunkel und damit unlesbar würden.
+- Storybook fährt `@storybook/addon-a11y` global scharf: `a11y: { test: 'error' }` in
+  `.storybook/preview.ts`, axe-Verstöße lassen den Test-Runner fehlschlagen.
+- Einzelne Stories mit einem bekannten, im CSS-Kern liegenden Befund dürfen lokal
+  `a11y: { test: 'todo' }` setzen (im Panel weiter sichtbar, aber nicht blockierend). Zum
+  Zeitpunkt dieser Seite sind in `storybook-angular/src/lib` **keine** aktiven
+  `test: 'todo'`-Overrides gesetzt. `storybook-angular/README.md` dokumentiert drei
+  frühere, inzwischen im CSS-Kern behobene Befunde (DownloadCta-Eyebrow, CodeBlock-Copy,
+  Slider-Wertanzeige) als Referenz dafür, wie eine solche Ausnahme aussieht und wann sie
+  wieder scharf geschaltet wird.
+
+## Siehe auch
+
+- `docs/index.html#gt-a11y-touch` (44-px-Ausnahme)
+- CONTRIBUTING.md § 1 Grundprinzipien, § 3 Farbe & Kontrast
+- `storybook-angular/README.md`, Abschnitt „Frühere a11y-Befunde im CSS-Kern (behoben)“
