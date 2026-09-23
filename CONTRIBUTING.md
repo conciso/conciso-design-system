@@ -141,7 +141,7 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
-6. **Commit-Konvention einhalten** (§ 13) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
+6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
 
@@ -211,7 +211,33 @@ Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer
 
 ---
 
-## 13. Commit-Konvention und Releases
+## 13. Visual-Regression (`storybook-angular/visual-snapshots`)
+
+Jede Story wird zusätzlich als Bild gegen eine eingecheckte Baseline geprüft (Gate `VISUAL=1`, Vitests `toMatchScreenshot`, Opt-out je Story über `parameters.snapshot.skip`). Die Bilder liegen unter `storybook-angular/visual-snapshots/<story-id>.png`.
+
+**Baselines entstehen ausschließlich in der CI.** Sie sind pixelgenau an die Umgebung gebunden, in der sie aufgenommen wurden. Zwischen einer Entwicklermaschine und dem in `.github/workflows/visual.yml` gepinnten Playwright-Image unterscheiden sich Schriftrasterung *und* Glyphenbreiten — Beschriftungen wandern horizontal, die Bauteile mit ihnen. Lokal erzeugte Bilder sind deshalb lokal grün und in der CI rot, und zwar nicht an einzelnen Stories, sondern an fast allen.
+
+**Der Ablauf**, wenn sich Snapshots berechtigt ändern:
+
+```bash
+gh workflow run visual.yml --ref <branch>
+gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapshots
+git add storybook-angular/visual-snapshots && git commit
+```
+
+**Lokal prüfen, ohne bestehende Baselines anzufassen:** `VISUAL=1 npm run test:vitest`, ohne `--update`, vergleicht gegen die eingecheckten Bilder und legt jede Abweichung als Ist- und Diff-Bild unter `visual-snapshots/__diff_output__/` ab. Das ist der Weg, um zu sehen, was sich geändert hat.
+
+**Die Ausnahme: eine Story ohne Baseline.** Fehlt das Bild ganz, legt Vitest es auch ohne `--update` an, und zwar auf der lokalen Maschine. Es sieht nach einer regulär entstandenen Baseline aus, ist aber keine. Wer eine Story hinzufügt, holt deren Baseline wie jede andere aus dem CI-Artefakt und nimmt das lokal entstandene Bild vorher wieder aus dem Arbeitsverzeichnis. Der Guard greift hier nicht, der Visual-Job in der CI meldet es.
+
+**`--update` verweigert lokal den Dienst.** `storybook-angular/visual-baseline-guard.ts` bricht ab, sobald `VISUAL=1` und `--update` zusammentreffen, ohne dass der Lauf sich als gepinnt ausweist (`VISUAL_BASELINES=pinned-ci`, gesetzt vom Erzeugungsschritt in `visual.yml`). Wer bewusst lokal erzeugen will, setzt `VISUAL_BASELINES=local-throwaway`; so entstandene Bilder gehören nicht in einen Commit.
+
+**Toleranz:** höchstens 1 % der Bildpunkte *und* höchstens 150 Bildpunkte absolut, der strengere Wert gewinnt. Die Ratio allein ist zu locker, weil der Screenshot `document.body` ist und bei zentrierten Stories größtenteils leere Fläche zeigt; Begründung im Kommentar in `vitest.config.ts`.
+
+**Die Fehldeutung, die diesen Abschnitt veranlasst hat:** Wenn ein *lokaler* Lauf flächendeckend Abweichungen meldet, hat sich nicht die Render-Umgebung geändert — der Vergleich findet nur am falschen Ort statt. Bevor jemand Baselines neu setzt oder Schwellwerte anhebt, ist die Gegenprobe billig: ein Ist-Bild aus dem `visual-diffs`-Artefakt des fehlgeschlagenen CI-Laufs gegen die eingecheckte Baseline halten (`cmp`). Sind die beiden bytegleich, rendert die CI unverändert und die Ursache liegt woanders.
+
+---
+
+## 14. Commit-Konvention und Releases
 
 Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf `main` (siehe [ADR-0008](docs/adr/0008-release-ausloesung-und-versionsquelle.md)). Das CHANGELOG wird dafür **nicht mehr** von Hand ergänzt — an seine Stelle tritt der Commit selbst.
 
@@ -234,4 +260,5 @@ Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf 
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
 - [ ] Doku in `index.html` ergänzt
 - [ ] Nav-Eintrag gesetzt, kein Link ohne Ziel, keine Überschrift ohne Eintrag (§11)
-- [ ] Veröffentlichungsrelevante Commits folgen der Commit-Konvention (§13); nicht relevante sind frei
+- [ ] Geänderte Visual-Baselines stammen aus einem `visual-baselines`-Artefakt der CI, nicht aus einem lokalen `--update` (§13)
+- [ ] Veröffentlichungsrelevante Commits folgen der Commit-Konvention (§14); nicht relevante sind frei

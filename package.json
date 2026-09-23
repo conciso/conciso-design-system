@@ -64,7 +64,7 @@
     "storybook": "npm run --workspace storybook-angular storybook",
     "build:storybook": "npm run --workspace storybook-angular build-storybook",
     "test": "npm run test:vitest",
-    "test:vitest": "npm run --workspace storybook-angular test:vitest",
+    "test:vitest": "npm run --workspace storybook-angular test:vitest --",
     "playwright:install": "npm run --workspace storybook-angular playwright:install"
   },
   "keywords": [
