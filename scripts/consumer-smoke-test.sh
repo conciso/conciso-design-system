@@ -26,8 +26,8 @@
 # docs/adr/0010-release-ausloesung-und-versionsquelle.md). Mit einem Versions-Argument
 # stempelt der Test zuerst über scripts/release/stamp-version.mjs — genau das Artefakt,
 # das der Publish-Workflow tatsächlich veröffentlicht (Spec Regel 8 „Smoke-Test testet das
-# gestempelte Artefakt“). Die Stempelung bleibt lokal im Checkout dieses Laufs, sie wird
-# nie committet.
+# gestempelte Artefakt“). Nach dem Lauf werden beide Manifeste wieder auf ihren Stand
+# davor zurückgesetzt; gestempelt wird also nie etwas, das man committen könnte.
 #
 # Aufruf: scripts/consumer-smoke-test.sh [version]
 set -euo pipefail
@@ -36,13 +36,27 @@ VERSION="${1:-}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FIXTURE_SRC="$ROOT/examples/consumer-fixture"
 WORK="$(mktemp -d)"
-trap 'rm -rf "$WORK"' EXIT
+LIB_PKG="$ROOT/angular-lib/projects/design-system-angular/package.json"
+
+# Das Stempeln schreibt in die committeten Manifeste. Beim Aufräumen werden beide wieder auf
+# den Stand vor dem Lauf gesetzt — sonst bliebe ein lokaler Lauf mit Version gestempelt,
+# und ein späterer Lauf ohne Version prüfte nicht mehr den Platzhalter 0.0.0.
+aufraeumen() {
+  if [ -f "$WORK/root-package.json" ]; then
+    cp "$WORK/root-package.json" "$ROOT/package.json"
+    cp "$WORK/lib-package.json" "$LIB_PKG"
+  fi
+  rm -rf "$WORK"
+}
+trap aufraeumen EXIT
 
 PACK_DIR="$WORK/pack"
 FIXTURE="$WORK/consumer-fixture"
 mkdir -p "$PACK_DIR"
 
 if [ -n "$VERSION" ]; then
+  cp "$ROOT/package.json" "$WORK/root-package.json"
+  cp "$LIB_PKG" "$WORK/lib-package.json"
   echo "→ Version $VERSION vor dem Build stempeln (package.json + Peer-Pin der Lib)"
   (cd "$ROOT" && node scripts/release/stamp-version.mjs "$VERSION")
 fi

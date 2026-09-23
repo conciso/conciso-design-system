@@ -52,6 +52,19 @@ test('Deckungs-Check: jeder Eintrag im root files-Feld ist abgedeckt', () => {
   assert.deepEqual(checkCoverage(), []);
 });
 
+test('Deckungs-Check meldet eine fehlende feste Build-Eingabe (angular.json)', async () => {
+  // Gegen eine Kopie der Liste ohne angular.json: der Check muss genau diesen Eintrag melden.
+  const modul = await import('./relevant-paths.mjs');
+  const index = modul.RELEVANT_PATH_PREFIXES.indexOf('angular-lib/angular.json');
+  assert.notEqual(index, -1);
+  modul.RELEVANT_PATH_PREFIXES.splice(index, 1);
+  try {
+    assert.deepEqual(modul.checkCoverage(), ['angular-lib/angular.json']);
+  } finally {
+    modul.RELEVANT_PATH_PREFIXES.splice(index, 0, 'angular-lib/angular.json');
+  }
+});
+
 test('Deckungs-Check verlangt auch die fest verdrahteten Angular-Build-Eingaben', () => {
   assert.ok(RELEVANT_PATH_PREFIXES.includes('angular-lib/package.json'));
   assert.ok(RELEVANT_PATH_PREFIXES.includes('angular-lib/tsconfig.json'));

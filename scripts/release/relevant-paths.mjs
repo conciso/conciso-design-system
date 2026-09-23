@@ -98,6 +98,7 @@ export function checkCoverage(root = ROOT) {
   // deren Build-Eingaben aus demselben Grund).
   const requiredPrefixes = [
     'angular-lib/projects/design-system-angular/',
+    'angular-lib/angular.json',
     'angular-lib/package.json',
     'angular-lib/tsconfig.json',
     'scripts/release/stamp-version.mjs',

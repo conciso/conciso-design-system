@@ -50,7 +50,7 @@ function hoechste(versionen) {
  * @returns {{ mode: 'nichts' } | {
  *   mode: 'neu'|'nachziehen'|'finalisieren', version: string,
  *   publishCss: boolean, publishLib: boolean,
- *   source: 'head'|'registry'|'tag', notes: 'engine'|'range'|'tag'|'github',
+ *   source: 'head'|'registry'|'tag', notes: 'engine'|'range'|'tag'|'github'|'keine',
  * }}
  */
 export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, libVersions, engineVersion, dry }) {
