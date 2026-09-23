@@ -38,10 +38,18 @@ import { CDS_AREA_ICONS } from '../icons';
  * CTA-Farbe in gemischten Bereichs-Listen bewusst einheitlich Corporate-Petrol
  * (`docs/index.html:8762`: „CTA-Farbe einheitlich `--co-700`“), unabhängig vom
  * `area` der Karte. Der Fuß bleibt deshalb ohne `data-area`-Bindung.
+ *
+ * **Entscheidung — Host als Flex-Container.** Im Raster ist der Host das
+ * Grid-Kind, das `align-items:stretch` auf Zeilenhöhe zieht, nicht `a.card`. Ohne
+ * eigene Regel blieb die Karte auf Inhaltshöhe, und eine Karte ohne Eyebrow endete
+ * samt `--pinned`-Fuß höher als ihre Nachbarn. `:host{display:flex}` mit
+ * `flex:1` an der Karte gibt die gestreckte Höhe an `a.card` weiter; Story
+ * „Im Raster“ pinnt das.
  */
 @Component({
   selector: 'cds-link-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [':host{display:flex}', ':host>.card{flex:1;min-width:0}'],
   template: `
     <a class="card card-elevated" [href]="href()" [attr.data-area]="area() || null">
       @if (showMedia()) {

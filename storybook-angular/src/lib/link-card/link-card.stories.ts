@@ -117,16 +117,24 @@ export const ImRaster: Story = {
           title="Schlanke Architektur senkt Betriebskosten"
           text="Ein längerer Anreißer über zwei Zeilen, damit der Höhenunterschied zwischen den Karten sichtbar wird und --pinned trotzdem greift."
           href="#wissensbeitrag-architektur" ctaLabel="Beitrag lesen" [ctaPinned]="true"></cds-link-card>
-        <cds-link-card class="col-4" area="wo" eyebrow="Wirksame Organisationen"
+        <cds-link-card class="col-4" area="wo"
           title="Teams, die sich selbst organisieren"
           text="Wie verteilte Verantwortung Entscheidungen beschleunigt."
           href="#wissensbeitrag-teams" ctaLabel="Beitrag lesen" [ctaPinned]="true"></cds-link-card>
       </div>
     `,
   }),
-  // --pinned erscheint auf allen drei Karten, sobald das Flag gesetzt ist.
+  // --pinned erscheint auf allen drei Karten, sobald das Flag gesetzt ist. Die
+  // dritte Karte hat bewusst keine Eyebrow und ist damit von Haus aus kürzer:
+  // Titel und Anreißer sind per line-clamp/min-height auf feste Zeilen gebracht,
+  // die Eyebrow nicht. Gleich hoch werden die Karten dann nur, wenn a.card die
+  // vom Raster gestreckte Höhe des Hosts übernimmt.
   play: async ({ canvasElement }) => {
     const pinned = canvasElement.querySelectorAll('.card-cta-link--pinned');
     await expect(pinned).toHaveLength(3);
+    const heights = [...canvasElement.querySelectorAll('a.card')].map((card) => card.getBoundingClientRect().height);
+    await expect(new Set(heights).size).toBe(1);
+    const ctaBottoms = [...pinned].map((cta) => cta.getBoundingClientRect().bottom);
+    await expect(new Set(ctaBottoms).size).toBe(1);
   },
 };
