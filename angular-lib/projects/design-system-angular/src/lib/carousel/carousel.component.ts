@@ -33,7 +33,7 @@ let uid = 0;
       aria-label="Bildstrecke"
     >
       <div class="img-slider-track">
-        @for (slide of slides(); track slide.title; let i = $index) {
+        @for (slide of slides(); track $index; let i = $index) {
           <div
             class="img-slide"
             role="group"
@@ -66,7 +66,7 @@ let uid = 0;
       </button>
 
       <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
-        @for (slide of slides(); track slide.title; let i = $index) {
+        @for (slide of slides(); track $index; let i = $index) {
           <button
             class="img-dot"
             type="button"
