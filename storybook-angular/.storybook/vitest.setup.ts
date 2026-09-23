@@ -49,8 +49,8 @@ interface StoryTestContext {
 /**
  * `toMatchScreenshot()` sanitisiert den übergebenen Namen selbst zu einem
  * Dateinamen, entfernt dabei aber Umlaute/ß ersatzlos statt sie zu
- * transliterieren (z. B. "komponenten-hero-störer" → "komponenten-hero-strer"
- * statt "…-stoerer"). Das widerspricht der Namenskonvention der Baselines
+ * transliterieren (z. B. `komponenten-hero-störer` → `komponenten-hero-strer`
+ * statt `…-stoerer`). Das widerspricht der Namenskonvention der Baselines
  * (Story-Titel und -Name folgen der Sidebar-Taxonomie, siehe CONTRIBUTING §12,
  * und die Dateinamen sollen dieser Taxonomie lesbar folgen). Deshalb hier
  * selbst transliterieren, BEVOR der Name an `toMatchScreenshot()` geht — sonst
