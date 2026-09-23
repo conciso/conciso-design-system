@@ -72,3 +72,20 @@ test('Deckungs-Check schlägt fehl, wenn ein neuer files-Eintrag nicht abgedeckt
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test('Deckungs-Check nutzt dieselbe Präfix-Logik wie isRelevant (Dateien und Unterordner)', () => {
+  // Ein files-Eintrag unterhalb eines gepflegten Ordners ist durch diesen abgedeckt —
+  // genauso wie isRelevant eine Änderung daran als relevant wertet. Ein Name, der nur mit
+  // demselben Text beginnt („cssx“), ist dagegen kein Unterpfad von „css/“.
+  const dir = mkdtempSync(join(tmpdir(), 'relevant-paths-coverage-'));
+  try {
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ files: ['css/components.css', 'tokens/sub', 'icons/', 'README.md', 'cssx'] }),
+    );
+    assert.deepEqual(checkCoverage(dir), ['cssx']);
+    assert.equal(isRelevant(['css/components.css']), true);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});

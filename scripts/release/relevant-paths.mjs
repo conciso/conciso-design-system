@@ -66,9 +66,15 @@ function asDirPrefix(entry) {
   return entry.endsWith('/') ? entry : `${entry}/`;
 }
 
+// Dieselbe Präfix-Logik wie isPathRelevant: Ein files-Eintrag ist abgedeckt, wenn er selbst
+// als Datei relevant ist (z. B. „css/components.css“ unter „css/“, „README.md“ exakt) oder
+// als Verzeichnis unter einem gepflegten Ordner liegt bzw. ihm entspricht („css“, „tokens/sub“).
 function isEntryCovered(entry) {
   const dirPrefix = asDirPrefix(entry);
-  return RELEVANT_PATH_PREFIXES.some((prefix) => prefix === entry || prefix === dirPrefix);
+  return (
+    isPathRelevant(entry) ||
+    RELEVANT_PATH_PREFIXES.some((prefix) => prefix.endsWith('/') && dirPrefix.startsWith(prefix))
+  );
 }
 
 /**
