@@ -57,6 +57,13 @@ test('Deckungs-Check verlangt auch die fest verdrahteten Angular-Build-Eingaben'
   assert.ok(RELEVANT_PATH_PREFIXES.includes('angular-lib/tsconfig.json'));
 });
 
+test('das Stempel-Skript ist eine Build-Eingabe (es schreibt Version und Peer-Pin ins Paket)', () => {
+  // Läuft im Publish-Job vor beiden Builds; ein Fix daran ändert die ausgelieferten Manifeste
+  // und muss ein Release auslösen können.
+  assert.equal(isRelevant(['scripts/release/stamp-version.mjs']), true);
+  assert.deepEqual(checkCoverage(), []);
+});
+
 test('Deckungs-Check schlägt fehl, wenn ein neuer files-Eintrag nicht abgedeckt ist', () => {
   // Regressionsschutz für das Akzeptanzkriterium „Coverage-Check fällt, wenn ein neuer
   // Eintrag zu files hinzukommt, ohne einen passenden veröffentlichungsrelevanten Pfad“ —

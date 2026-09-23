@@ -40,6 +40,9 @@ export const RELEVANT_PATH_PREFIXES = [
   'scripts/build-tokens.mjs',
   'scripts/build-icons.mjs',
   'scripts/bundle-css.mjs',
+  // Stempelt im Publish-Job vor beiden Builds Version und Peer-Pin in die Manifeste — ein
+  // Fix daran ändert den ausgelieferten Inhalt.
+  'scripts/release/stamp-version.mjs',
   // ABSICHTLICH NICHT dabei: package-lock.json. Es ist EIN gemeinsames Lockfile für alle
   // drei npm-Workspaces (Root, angular-lib UND storybook-angular). Würde es pauschal als
   // relevant gelten, würde jede Dependency-Änderung releasen, auch eine reine
@@ -97,6 +100,7 @@ export function checkCoverage(root = ROOT) {
     'angular-lib/projects/design-system-angular/',
     'angular-lib/package.json',
     'angular-lib/tsconfig.json',
+    'scripts/release/stamp-version.mjs',
   ];
   for (const entry of requiredPrefixes) {
     if (!RELEVANT_PATH_PREFIXES.includes(entry)) missing.push(entry);
