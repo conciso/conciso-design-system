@@ -16,10 +16,14 @@ function git(args) {
   return execFileSync('git', args, { encoding: 'utf8' }).trim();
 }
 
-function latestReleaseTag() {
-  const tags = git(['tag', '--list', 'v*', '--sort=-v:refname']);
-  const [latest] = tags.split('\n').filter(Boolean);
-  return latest ?? null;
+// Letzter Release-Tag, der vom PR-Kopf aus erreichbar ist — derselbe, ab dem die Engine nach
+// dem Merge rechnet (nicht einfach der höchste Tag im Repo).
+function latestReleaseTag(head) {
+  try {
+    return git(['describe', '--tags', '--abbrev=0', '--match', 'v[0-9]*', head]);
+  } catch {
+    return null;
+  }
 }
 
 function getCommits(range) {
@@ -40,13 +44,18 @@ async function lintCommit(message, config) {
   });
 }
 
-function buildSummary(bump, version, relevant) {
+function buildSummary({ bump, releaseBump, version, lastTag, relevant }) {
   const lines = [];
-  lines.push(
-    bump
-      ? `Dieser PR löst Release **${version}** (${bump}) aus.`
-      : 'Kein Release.',
-  );
+  if (!bump) {
+    lines.push('Kein Release.');
+  } else {
+    lines.push(`Dieser PR löst ein Release aus (eigene Commits: ${bump}).`);
+    lines.push(
+      '',
+      `Nach dem Merge entsteht **${version}** (${releaseBump}) — gerechnet ab ${lastTag ?? 'dem ersten Commit'}, ` +
+        'zusammen mit den noch nicht veröffentlichten Commits auf der Basis.',
+    );
+  }
   lines.push('', '### Veröffentlichungsrelevante Commits', '');
   if (relevant.length === 0) {
     lines.push('_Keine._');
@@ -87,11 +96,20 @@ async function main() {
   // Derselbe commit-analyzer wie in der Engine (siehe compute-bump.mjs); `relevant` ist
   // chronologisch, so wie computeBump es erwartet.
   const bump = await computeBump(relevant);
-  const lastTag = latestReleaseTag();
-  const lastVersion = lastTag ? lastTag.replace(/^v/, '') : '0.0.0';
-  const version = bump ? nextVersion(lastVersion, bump) : null;
 
-  const summary = buildSummary(bump, version, relevant);
+  // Die Zielversion NICHT aus den PR-Commits allein: liegen auf der Basis schon relevante
+  // Commits ohne Tag (etwa während ihr Publish-Lauf noch läuft), rechnet die Engine nach dem
+  // Merge ab dem letzten Tag über alle zusammen. Dasselbe hier — ob der PR überhaupt ein
+  // Release auslöst, entscheiden aber weiterhin nur seine eigenen Commits.
+  const head = range.split('..').pop() || 'HEAD';
+  const lastTag = latestReleaseTag(head);
+  const lastVersion = lastTag ? lastTag.replace(/^v/, '') : '0.0.0';
+  const releaseBump = bump
+    ? await computeBump(filterRelevantCommits(getCommits(lastTag ? `${lastTag}..${head}` : head)))
+    : null;
+  const version = releaseBump ? nextVersion(lastVersion, releaseBump) : null;
+
+  const summary = buildSummary({ bump, releaseBump, version, lastTag, relevant });
   console.log(`\n${summary}`);
   const summaryPath = process.env.GITHUB_STEP_SUMMARY;
   if (summaryPath) appendFileSync(summaryPath, `${summary}\n`);
