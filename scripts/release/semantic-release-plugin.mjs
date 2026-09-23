@@ -1,5 +1,5 @@
 // Dünne Hülle um @semantic-release/commit-analyzer + @semantic-release/release-notes-generator
-// (ADR-0009 Regel 6): filtert Commits zuerst über den gemeinsamen Pfad-Filter
+// (ADR-0010 Regel 6): filtert Commits zuerst über den gemeinsamen Pfad-Filter
 // (relevant-paths.mjs / filter-commits.mjs) und wendet dann die Bump-Regeln aus
 // compute-bump.mjs als `releaseRules` auf den Analyzer an. So bleibt die Bump-Logik an
 // EINER Stelle definiert (Regel 4) statt zusätzlich in einer semantic-release-eigenen
@@ -27,7 +27,7 @@ export const NOTES_OUTPUT_PATH = join(ROOT, 'release-notes-generated.md');
 // Parser-Optionen (breakingHeaderPattern für „!“, noteKeywords für BREAKING-CHANGE) stehen in
 // compute-bump.mjs — dieselben für Analyzer, Notes und die PR-Übersicht, Begründung dort.
 
-// Release-Notes: jeder relevante Commit erscheint (ADR-0009). Der Preset „angular“ verwirft im
+// Release-Notes: jeder relevante Commit erscheint (ADR-0010). Der Preset „angular“ verwirft im
 // Writer alle nicht-breaking Commits außerhalb von feat/fix/perf/revert — ein build(deps), das
 // einen Patch auslöst, fehlte damit in den Notes des eigenen Releases, ebenso docs/chore an
 // ausgeliefertem Inhalt. Dieser Transform behält sie: Er ruft den Preset-Transform auf und,

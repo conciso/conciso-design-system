@@ -23,7 +23,7 @@
 # storybook-angular + angular-lib). Führt selbst KEIN Root-Install aus.
 #
 # Testet standardmäßig den versionsfreien Platzhalter 0.0.0 (siehe
-# docs/adr/0009-release-ausloesung-und-versionsquelle.md). Mit einem Versions-Argument
+# docs/adr/0010-release-ausloesung-und-versionsquelle.md). Mit einem Versions-Argument
 # stempelt der Test zuerst über scripts/release/stamp-version.mjs — genau das Artefakt,
 # das der Publish-Workflow tatsächlich veröffentlicht (Spec Regel 8 „Smoke-Test testet das
 # gestempelte Artefakt“). Die Stempelung bleibt lokal im Checkout dieses Laufs, sie wird

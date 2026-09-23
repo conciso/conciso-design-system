@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// commitlint hart, aber nur für veröffentlichungsrelevante Commits (ADR-0009 Regel 5).
+// commitlint hart, aber nur für veröffentlichungsrelevante Commits (ADR-0010 Regel 5).
 // Läuft im PR-Job „Commitlint“ über jeden Commit des PRs (Basis..HEAD): nicht-relevante
 // Commits (Storybook, Beispielseiten, Doku, CI) werden nicht einmal geprüft, auch wenn sie
 // keine Conventional Commits sind. Schreibt zusätzlich die Job-Summary (Spec Regel 10):

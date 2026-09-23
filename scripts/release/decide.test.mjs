@@ -114,7 +114,7 @@ test('unfertiger letzter Tag hat Vorrang vor einem halben Stand darüber (älter
   assert.equal(ohnePaket.source, 'tag');
 });
 
-test('Alt-Tag (leichtgewichtig, vor ADR-0009) mit fehlendem Paket → nur Hinweis, kein Blockieren', () => {
+test('Alt-Tag (leichtgewichtig, vor ADR-0010) mit fehlendem Paket → nur Hinweis, kein Blockieren', () => {
   // Aus solchen Checkouts lässt sich nicht bauen (kein stamp-version.mjs); ein Nachzieh-
   // Versuch würde jeden weiteren Release blockieren. Deshalb: sagen, aber weitermachen.
   const d = decide({ ...sauber, tagIsAnnotated: false, libVersions: ['1.0.0'], engineVersion: '2.0.1' });

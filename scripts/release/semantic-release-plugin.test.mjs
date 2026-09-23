@@ -2,7 +2,7 @@
 // Standard-Preset „angular“ von @semantic-release/commit-analyzer /
 // -release-notes-generator kennt kein „!“ im Header — nur ein BREAKING-CHANGE:-Footer galt
 // dort als breaking. Ein Commit wie „feat(lib)!: …“ OHNE Footer hätte damit unbemerkt GAR
-// KEIN Release ausgelöst statt major (ADR-0009 Regel 4), obwohl compute-bump.mjs (für die
+// KEIN Release ausgelöst statt major (ADR-0010 Regel 4), obwohl compute-bump.mjs (für die
 // PR-Job-Summary) „!“ korrekt erkennt — zwei Stellen, die auseinanderlaufen konnten.
 // Getestet wird hier bewusst DIREKT gegen @semantic-release/commit-analyzer mit den
 // exportierten Optionen aus semantic-release-plugin.mjs (statt über dessen `analyzeCommits`,
@@ -121,7 +121,7 @@ test('Notes: ohne den Transform fehlen genau diese Commits (Beleg für den Bug)'
 });
 
 test('Notes: ein Commit und sein Revert im selben Release fehlen beide (heben sich auf)', async () => {
-  // Gewollt (ADR-0009): die Änderung wurde nie ausgeliefert. Der Notes-Generator streicht das
+  // Gewollt (ADR-0010): die Änderung wurde nie ausgeliefert. Der Notes-Generator streicht das
   // Paar selbst, noch vor dem Writer — derselbe Filter, mit dem die Engine es auch aus der
   // Bump-Berechnung nimmt. Der auslösende fix bleibt stehen.
   const feat = 'e'.repeat(40);

@@ -1,6 +1,6 @@
 // Ergänzt einen Commit-Hash um die Angaben, die filterRelevantCommits() braucht: ob es ein
 // Merge-Commit ist (mehr als ein Parent) und, falls nicht, welche Dateien er berührt.
-// ADR-0009 Regel 1: Merge-Commits berühren nichts selbst (`git diff-tree` ohne `-m`) — hier
+// ADR-0010 Regel 1: Merge-Commits berühren nichts selbst (`git diff-tree` ohne `-m`) — hier
 // über die Parent-Anzahl erkannt, robuster als sich auf ein leeres diff-tree-Ergebnis zu
 // verlassen. Gemeinsam genutzt vom semantic-release-Plugin und dem commitlint-Check, damit
 // beide dieselbe Definition von „berührte Dateien“ verwenden.

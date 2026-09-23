@@ -1,4 +1,4 @@
-# Absicherung der Release-Skripte (ADR-0009) in zwei Jobs:
+# Absicherung der Release-Skripte (ADR-0010) in zwei Jobs:
 #
 # 1. Deckungs-Check der veröffentlichungsrelevanten Pfade (scripts/release/relevant-paths.mjs):
 #    jeder Eintrag im root `files`-Feld und die Build-Eingaben der Angular-Lib müssen in der
