@@ -52,7 +52,10 @@ jobs:
     name: Version prüfen
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.engine.outputs.version }}
+      # Aus `ermitteln`, nicht direkt aus der Engine: beim Nachholen einer abgebrochenen
+      # Finalisierung kommt die Version aus dem letzten Tag, nicht aus der Engine.
+      version: ${{ steps.ermitteln.outputs.version }}
+      notes: ${{ steps.ermitteln.outputs.notes }}
       publish: ${{ steps.ermitteln.outputs.publish }}
       publish_css: ${{ steps.ermitteln.outputs.publish_css }}
       publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
@@ -92,16 +95,33 @@ jobs:
         id: ermitteln
         run: |
           VERSION="${{ steps.engine.outputs.version }}"
+          NOTES=true
 
           if [ -z "$VERSION" ]; then
-            echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
-            echo "publish=false"     >> "$GITHUB_OUTPUT"
-            echo "publish_css=false" >> "$GITHUB_OUTPUT"
-            echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-            echo "dry=false"         >> "$GITHUB_OUTPUT"
-            exit 0
+            # Die Engine meldet nichts Neues. Das heißt aber nur: seit dem letzten Tag kam
+            # kein relevanter Commit. Brach ein früherer Lauf NACH dem Tag-Push, aber VOR
+            # `gh release create` ab, ist genau dieser letzte Tag unfertig — und die Engine
+            # sieht ihn als abgeschlossen an. Deshalb den letzten Tag selbst prüfen und bei
+            # fehlendem GitHub-Release die Finalisierung nachholen. Die generierten Notes
+            # gibt es dann nicht mehr (die Engine rechnet ab diesem Tag), der Publish-Job
+            # fällt auf die von GitHub erzeugten Notes zurück.
+            LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+            if [ -n "$LATEST_TAG" ] && ! gh release view "$LATEST_TAG" >/dev/null 2>&1; then
+              VERSION="${LATEST_TAG#v}"
+              NOTES=false
+              echo "::warning::Tag ${LATEST_TAG} existiert, das GitHub-Release dazu fehlt — ein vorheriger Lauf brach bei der Finalisierung ab. Wird nachgeholt."
+            else
+              echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
+              echo "publish=false"     >> "$GITHUB_OUTPUT"
+              echo "publish_css=false" >> "$GITHUB_OUTPUT"
+              echo "publish_lib=false" >> "$GITHUB_OUTPUT"
+              echo "dry=false"         >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
           fi
           echo "Ermittelte Version: ${VERSION}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "notes=$NOTES"     >> "$GITHUB_OUTPUT"
 
           # Dry-Run nur beim manuellen Start, und dort als Default.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
@@ -246,7 +266,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release-Notizen herunterladen
-        if: env.DRY == 'false'
+        if: env.DRY == 'false' && needs.pruefen.outputs.notes == 'true'
         uses: actions/download-artifact@v4
         with:
           name: release-notes
@@ -267,10 +287,16 @@ jobs:
           # existieren — dann nicht scheitern.
           if gh release view "v${VERSION}" >/dev/null 2>&1; then
             echo "::notice::Release v${VERSION} existiert bereits — wird nicht neu erstellt."
-          else
+          elif [ -f release-notes-generated.md ]; then
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \
               --notes-file release-notes-generated.md
+          else
+            # Nachgeholte Finalisierung (siehe `ermitteln`): Die Engine-Notes gibt es nicht
+            # mehr, GitHub erzeugt sie aus den Commits seit dem vorherigen Tag.
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --generate-notes
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
