@@ -12,7 +12,13 @@ Versionspolitik:
 
 Releases werden als Git-Tags `vX.Y.Z` markiert.
 
-## [Unreleased]
+> **Eingefroren ab Version 2.0.0.** Ab hier entsteht ein Release automatisch aus
+> Conventional Commits (siehe
+> [ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)); die Notizen dazu
+> stehen im jeweiligen GitHub-Release, nicht mehr in dieser Datei. Die
+> Abschnitte unterhalb dieser Zeile sind der letzte handgeschriebene Stand.
+
+## [2.0.0] - 2026-09-23
 
 ### Breaking
 - **`@conciso/design-system-angular` verlangt jetzt Angular 22.** Die peerDependencies

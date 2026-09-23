@@ -1,6 +1,6 @@
 {
   "name": "@conciso/design-system",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Conciso Design System — Design Tokens, CSS-Komponenten und Light/Dark-Mode, framework-agnostisch und WCAG-AA-konform.",
   "license": "UNLICENSED",
   "repository": {
@@ -55,6 +55,8 @@
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:quotes": "node scripts/check-quotes.mjs",
+    "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
+    "test:release": "node --test scripts/release/*.test.mjs",
     "build:angular-lib": "npm run --workspace angular-lib build",
     "lint": "npm run lint:angular-lib && npm run lint:storybook",
     "lint:angular-lib": "npm run --workspace angular-lib lint",
@@ -70,5 +72,15 @@
     "design-tokens",
     "css",
     "conciso"
-  ]
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@commitlint/lint": "^21.2.3",
+    "@commitlint/load": "^21.2.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "semantic-release": "^25.0.9"
+  }
 }

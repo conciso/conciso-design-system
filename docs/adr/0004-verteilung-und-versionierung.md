@@ -88,6 +88,15 @@ zusammenpassen.
 
 ## Nachtrag: Auslöser des Publish-Workflows
 
+> **Abgelöst durch [ADR-0010](0010-release-ausloesung-und-versionsquelle.md).**
+> Ein Release entsteht inzwischen ohne Versionsanhebung aus den Commits auf `main`.
+> Der folgende Text ist der **historische** Stand. Nicht mehr gültig sind: der
+> Auslöser „Versionsänderung in einer `package.json`“, die Registry als Instanz, die
+> über das Ob entscheidet, die Release-Notes aus dem CHANGELOG und das
+> CHANGELOG-Gate (der CHANGELOG ist eingefroren). Weiter gelten nur: Tag und
+> GitHub-Release erst **nach** den Publishes, kein `release: published`-Trigger und
+> die Existenzprüfung **pro Paket** samt Nachziehen eines halben Releases.
+
 Ursprünglich war der Workflow **release-/tag-getriggert** gedacht und als
 `release: published` umgesetzt. Das war falsch: Ein Git-Tag löst kein
 `release`-Event aus, und die Release-Konvention dieses Repos sind Tags

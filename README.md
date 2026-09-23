@@ -2,7 +2,7 @@
 
 Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mode**, framework-agnostisch und auf **WCAG 2.1 Stufe AA** ausgelegt (also alle Kriterien der Stufen A und AA; AAA wo ohne Nachteil erreichbar, aber nicht als Bedingung). Keine Build-Pflicht für die Nutzung — die Komponenten sind CSS-Klassen, die auf semantisches HTML angewendet werden, plus optionales Vanilla-JS für interaktive Muster (Theme-Toggle, Topnav-Dropdowns).
 
-> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe [CHANGELOG](CHANGELOG.md).
+> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe die GitHub-Releases dieses Repos und den eingefrorenen Stand im [CHANGELOG](CHANGELOG.md).
 
 ## Für wen?
 
@@ -121,7 +121,7 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Änderungen im [CHANGELOG](CHANGELOG.md). Releases werden als Git-Tags `vX.Y.Z` markiert und nach GitHub Packages veröffentlicht. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
+[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)) und werden nach GitHub Packages veröffentlicht. Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 
 ## Lizenz & Kontakt
 

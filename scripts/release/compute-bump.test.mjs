@@ -1,0 +1,131 @@
+// Tests für scripts/release/compute-bump.mjs (Seam: Bump-Stufe aus gefilterten Commits —
+// .scratch/automatische-releases/spec.md Regel 4).
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { computeBump, nextVersion } from './compute-bump.mjs';
+
+test('feat ergibt minor', async () => {
+  assert.equal(await computeBump([{ subject: 'feat(button): Variante ghost ergänzen' }]), 'minor');
+});
+
+test('fix ergibt patch', async () => {
+  assert.equal(await computeBump([{ subject: 'fix(a11y): Fokusring nachziehen' }]), 'patch');
+});
+
+test('perf ergibt patch', async () => {
+  assert.equal(await computeBump([{ subject: 'perf(css): Bundle-Größe senken' }]), 'patch');
+});
+
+test('build(deps) ergibt patch', async () => {
+  assert.equal(await computeBump([{ subject: 'build(deps): Angular auf 21.3 heben' }]), 'patch');
+});
+
+test('build ohne deps-Scope löst kein Release aus', async () => {
+  assert.equal(await computeBump([{ subject: 'build(ci): Cache-Key ändern' }]), null);
+});
+
+test('! am Typ ergibt major, unabhängig vom Typ', async () => {
+  assert.equal(await computeBump([{ subject: 'feat(lib)!: Pflichtfeld einführen' }]), 'major');
+  assert.equal(await computeBump([{ subject: 'build(deps)!: Peer-Range anheben' }]), 'major');
+});
+
+test('BREAKING CHANGE: im Footer ergibt major', async () => {
+  assert.equal(
+    await computeBump([
+      { subject: 'fix(lib): Verhalten korrigieren', body: 'BREAKING CHANGE: altes Signal entfernt' },
+    ]),
+    'major',
+  );
+});
+
+test('BREAKING-CHANGE: (Bindestrich-Schreibweise) im Footer ergibt ebenfalls major', async () => {
+  assert.equal(
+    await computeBump([
+      { subject: 'fix(lib): Verhalten korrigieren', body: 'BREAKING-CHANGE: altes Signal entfernt' },
+    ]),
+    'major',
+  );
+});
+
+test('BREAKING CHANGE mitten im Fließtext (kein eigenes Footer-Token) löst NICHT major aus', async () => {
+  // Conventional-Commits-Footer sind eigene Zeilen; eine bloße Erwähnung im Fließtext ist
+  // kein Footer-Token und darf die Bump-Stufe nicht auf major heben.
+  assert.equal(
+    await computeBump([
+      {
+        subject: 'fix(lib): Verhalten korrigieren',
+        body: 'Dieser Fix behebt keine BREAKING CHANGE: es ist nur eine Erwähnung im Text.',
+      },
+    ]),
+    'patch',
+  );
+});
+
+test('docs ergibt kein Release', async () => {
+  assert.equal(await computeBump([{ subject: 'docs(readme): Tippfehler beheben' }]), null);
+});
+
+test('höchste Stufe über mehrere Commits gewinnt', async () => {
+  assert.equal(
+    await computeBump([
+      { subject: 'fix(a11y): Fokusring nachziehen' },
+      { subject: 'feat(button): Variante ghost ergänzen' },
+      { subject: 'docs(readme): Tippfehler beheben' },
+    ]),
+    'minor',
+  );
+});
+
+test('ein Git-Revert löst kein Release aus (gleich wie der commit-analyzer)', async () => {
+  assert.equal(
+    await computeBump([
+      {
+        subject: 'Revert "feat(lib): neue Variante ergänzen"',
+        body: 'This reverts commit ghi9012ghi9012ghi9012ghi9012ghi9012ghi90.',
+      },
+    ]),
+    null,
+  );
+});
+
+test('Revert-Paar: feat plus dessen Git-Revert heben sich auf (wie in der Engine)', async () => {
+  // Der Analyzer streicht einen Commit samt seinem Revert, bevor die Regeln greifen. Die
+  // PR-Übersicht muss dasselbe zeigen, sonst meldet sie ein Release, das nie entsteht.
+  const feat = 'a'.repeat(40);
+  assert.equal(
+    await computeBump([
+      { hash: feat, subject: 'feat(lib): neue Variante ergänzen' },
+      {
+        hash: 'b'.repeat(40),
+        subject: 'Revert "feat(lib): neue Variante ergänzen"',
+        body: `This reverts commit ${feat}.`,
+      },
+    ]),
+    null,
+  );
+});
+
+test('Revert eines ANDEREN Commits lässt das feat stehen', async () => {
+  assert.equal(
+    await computeBump([
+      { hash: 'a'.repeat(40), subject: 'feat(lib): neue Variante ergänzen' },
+      {
+        hash: 'b'.repeat(40),
+        subject: 'Revert "fix(lib): alter Fix"',
+        body: `This reverts commit ${'c'.repeat(40)}.`,
+      },
+    ]),
+    'minor',
+  );
+});
+
+test('leere Commit-Liste löst kein Release aus', async () => {
+  assert.equal(await computeBump([]), null);
+});
+
+test('nextVersion erhöht die richtige Stelle und setzt niedrigere auf 0', async () => {
+  assert.equal(nextVersion('1.0.0', 'major'), '2.0.0');
+  assert.equal(nextVersion('1.2.3', 'minor'), '1.3.0');
+  assert.equal(nextVersion('1.2.3', 'patch'), '1.2.4');
+  assert.equal(nextVersion('1.2.3', null), null);
+});

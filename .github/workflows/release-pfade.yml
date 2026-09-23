@@ -1,0 +1,48 @@
+# Absicherung der Release-Skripte (ADR-0010) in zwei Jobs:
+#
+# 1. Deckungs-Check der veröffentlichungsrelevanten Pfade (scripts/release/relevant-paths.mjs):
+#    jeder Eintrag im root `files`-Feld und die Build-Eingaben der Angular-Lib müssen in der
+#    EINEN gepflegten Pfadliste stehen, sonst könnte ein neu ausgeliefertes Verzeichnis
+#    unbemerkt niemals ein Release auslösen. Dependency-frei (nur node:fs/url/path) und läuft
+#    deshalb ohne `npm ci`, ähnlich quotes.yml.
+# 2. Unit-Tests der Release-Skripte (`npm run test:release`), mit `npm ci`.
+name: Release-Pfade
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: release-pfade-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deckung:
+    name: Deckung der veröffentlichungsrelevanten Pfade prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deckung prüfen
+        run: npm run check:relevant-paths
+
+  # Die Unit-Tests der Release-Skripte (Pfadfilter, Bump-Regeln, Stempeln, Anbindung an
+  # den commit-analyzer). Eigener Job, weil der Plugin-Test @semantic-release/* braucht
+  # und damit `npm ci` — der Deckungs-Check oben bleibt so dependency-frei und schnell.
+  tests:
+    name: Release-Skripte testen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Tests ausführen
+        run: npm run test:release

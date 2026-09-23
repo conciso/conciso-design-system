@@ -25,3 +25,9 @@ ds-bundle/
 
 # Worktrees der Claude-Code-Agenten (kurzlebig, nie Teil des Repos)
 .claude/worktrees/
+
+# Ausgabe des semantic-release-Dry-Runs (siehe release.config.mjs, ADR-0010) — Version und
+# Notes werden im Publish-Workflow nach $GITHUB_OUTPUT bzw. per Artefakt weitergereicht,
+# nie committet.
+/release-version.txt
+/release-notes-generated.md

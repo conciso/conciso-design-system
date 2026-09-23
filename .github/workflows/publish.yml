@@ -4,28 +4,27 @@ name: Pakete veröffentlichen
 # @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im Lockstep
 # mit derselben Versionsnummer (siehe CONTEXT.md, docs/adr/0004).
 #
-# AUSLÖSER: eine Versionsänderung auf main. Der Workflow läuft bei jedem Push auf
-# main, der eine der beiden package.json berührt, und entscheidet dann selbst, ob
-# es etwas zu veröffentlichen gibt. Maßgeblich ist dabei die REGISTRY, nicht ein
-# Diff gegen den Vorgänger-Commit: gefragt wird „liegt diese Version schon in
-# GitHub Packages?“. Ein Diff wäre unzuverlässig, weil Squash-Merges und Pushes mit
-# mehreren Commits den Versionswechsel verstecken können. Liegt die Version bereits,
-# endet der Lauf still — der Push hat die package.json dann aus anderen Gründen
-# angefasst (Beschreibung, Dependencies).
+# AUSLÖSER: jeder Push auf main. Ob und welche Version veröffentlicht wird, ermittelt der
+# Job „pruefen“ über die COMMITS, nicht über einen Versionswechsel in package.json — das
+# Repo ist versionsfrei (docs/adr/0010-release-ausloesung-und-versionsquelle.md): beide
+# package.json tragen dauerhaft den Platzhalter 0.0.0. `semantic-release --dry-run` wertet
+# die Commits seit dem letzten Tag aus (nur veröffentlichungsrelevante zählen, siehe
+# scripts/release/relevant-paths.mjs) und liefert Version und Notizen. Gibt es kein
+# veröffentlichungsrelevantes `feat`/`fix`/`perf`/`build(deps)`/Breaking-Change seit dem
+# letzten Tag, bleibt die Version leer — der Lauf endet still.
 #
-# Damit gilt: Version anheben + nach main mergen = Release. Es gibt keinen Knopf,
-# den man vergessen kann. Wer vorher trocken prüfen will, startet den Workflow
-# manuell (workflow_dispatch) — der Default dort ist ein Dry-Run.
+# Damit gilt: ein Commit mit passendem Typ auf main ist das Release. Es gibt keinen
+# Knopf, den man vergessen kann. Wer vorher trocken prüfen will, startet den Workflow
+# manuell (workflow_dispatch) — der Default dort ist ein Dry-Run für Publish/Tag/Release;
+# die Versionsermittlung selbst läuft immer als semantic-release-Dry-Run (kein Plugin dort
+# veröffentlicht oder taggt, das bleibt Aufgabe dieses Workflows, siehe release.config.mjs).
 #
 # KEIN `release: published`-Trigger: Dieser Workflow ERZEUGT Tag und Release selbst
-# (die CHANGELOG-Konvention verlangt den Tag `vX.Y.Z`). Mit dem Trigger würde er
-# sich durch sein eigenes Release rekursiv erneut auslösen.
+# (die CHANGELOG-Konvention verlangt den Tag `vX.Y.Z`, ab 2.0.0 tragen GitHub-Releases die
+# Notes). Mit dem Trigger würde er sich durch sein eigenes Release rekursiv erneut auslösen.
 on:
   push:
     branches: [main]
-    paths:
-      - 'package.json'
-      - 'angular-lib/projects/design-system-angular/package.json'
   workflow_dispatch:
     inputs:
       dry_run:
@@ -47,151 +46,243 @@ concurrency:
 jobs:
   # ── Vorprüfung: gibt es überhaupt etwas zu veröffentlichen? ──────────────────
   # Bewusst ein eigener, billiger Job: er entscheidet, ob der Smoke-Test und der
-  # Publish-Job überhaupt anlaufen. So kostet ein Push, der die package.json ohne
-  # Versionswechsel anfasst, nur wenige Sekunden.
+  # Publish-Job überhaupt anlaufen. So kostet ein Push ohne veröffentlichungsrelevante
+  # Commits seit dem letzten Tag nur wenige Sekunden.
   pruefen:
     name: Version prüfen
     runs-on: ubuntu-latest
+    permissions:
+      # contents: write, obwohl dieser Job nichts schreibt: semantic-release prüft auch im
+      # --dry-run per `git push --dry-run`, ob es auf main pushen DÜRFTE, und bricht mit
+      # EGITNOPERMISSION ab, bevor es die Commits überhaupt auswertet. Getaggt und
+      # veröffentlicht wird weiterhin nur im `publish`-Job.
+      contents: write
+      packages: read
     outputs:
+      # Aus `ermitteln`, nicht direkt aus der Engine: beim Nachholen einer abgebrochenen
+      # Finalisierung kommt die Version aus dem letzten Tag, nicht aus der Engine.
       version: ${{ steps.ermitteln.outputs.version }}
+      notes: ${{ steps.ermitteln.outputs.notes }}
+      source_sha: ${{ steps.ermitteln.outputs.source_sha }}
+      mode: ${{ steps.ermitteln.outputs.mode }}
       publish: ${{ steps.ermitteln.outputs.publish }}
       publish_css: ${{ steps.ermitteln.outputs.publish_css }}
       publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
       dry: ${{ steps.ermitteln.outputs.dry }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Volle History + Tags: semantic-release muss den letzten vX.Y.Z-Tag finden und
+          # alle Commits seit dort auswerten können.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com
           scope: '@conciso'
-      - name: Lockstep-Versionen prüfen
-        id: lockstep
-        run: |
-          ROOT_VERSION=$(node -p "require('./package.json').version")
-          LIB_VERSION=$(node -p "require('./angular-lib/projects/design-system-angular/package.json').version")
-          if [ "$ROOT_VERSION" != "$LIB_VERSION" ]; then
-            echo "::error::Lockstep-Versionen weichen ab: @conciso/design-system@$ROOT_VERSION vs. @conciso/design-system-angular@$LIB_VERSION"
-            exit 1
-          fi
-          echo "version=$ROOT_VERSION" >> "$GITHUB_OUTPUT"
-          echo "Lockstep-Version: $ROOT_VERSION"
-      # Fängt den Fall „Version angehoben, CHANGELOG vergessen“. Der Abschnitt ist
-      # der Release-Text, aus dem weiter unten das GitHub-Release entsteht.
-      - name: CHANGELOG-Abschnitt vorhanden?
-        run: |
-          VERSION="${{ steps.lockstep.outputs.version }}"
-          if ! grep -q "^## \[${VERSION}\]" CHANGELOG.md; then
-            echo "::error::CHANGELOG.md hat keinen Abschnitt '## [${VERSION}]'. Version angehoben, aber der Unreleased-Block nicht geschlossen?"
-            exit 1
-          fi
-          echo "CHANGELOG-Abschnitt für ${VERSION} gefunden."
+      - name: Dependencies installieren
+        run: npm ci
+      # Berechnet Version + Notizen aus den Commits seit dem letzten Tag (siehe
+      # release.config.mjs, scripts/release/semantic-release-plugin.mjs). Läuft IMMER als
+      # Dry-Run: kein Plugin hier veröffentlicht, taggt oder erstellt ein GitHub-Release,
+      # das übernimmt der `publish`-Job weiter unten. Schreibt die Version bei Bedarf nach
+      # $GITHUB_OUTPUT (scripts/release/write-release-outputs.mjs) und die Notizen als Datei
+      # (release-notes-generated.md), die per Artefakt an den `publish`-Job weitergereicht wird.
+      - name: 'Engine: Version und Notizen aus den Commits ermitteln'
+        id: engine
+        run: npx semantic-release --dry-run --no-ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Nur beim manuellen Start der Branch, von dem aus gestartet wurde (siehe
+          # release.config.mjs); ein Push-Lauf rechnet immer auf main.
+          RELEASE_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
+      # Die eigentliche Entscheidung trifft scripts/release/decide.mjs (mit Tests); dieser
+      # Schritt sammelt nur die Fakten dafür und bereitet danach Quellstand und Notes vor.
+      # Grundsatz: ERST einen unfertigen früheren Release abschließen, DANN Neues — siehe
+      # Kopfkommentar in decide.mjs.
       - name: Entscheiden, ob veröffentlicht wird
         id: ermitteln
         run: |
-          VERSION="${{ steps.lockstep.outputs.version }}"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          REGISTRY=https://npm.pkg.github.com
 
-          # Dry-Run nur beim manuellen Start, und dort als Default.
+          # Dry-Run nur beim manuellen Start, und dort als Default. Außerhalb von main IMMER
+          # Dry-Run, auch mit dry_run=false: ein Probelauf vor dem Merge (manuell auf dem
+          # Feature-Branch gestartet) darf nie veröffentlichen, taggen oder ein Release anlegen.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" != "false" ]; then
+            DRY=true
+          elif [ "${{ github.ref }}" != "refs/heads/main" ]; then
+            echo "::notice::Lauf außerhalb von main (${{ github.ref_name }}) — erzwungener Dry-Run."
             DRY=true
           else
             DRY=false
           fi
           echo "dry=$DRY" >> "$GITHUB_OUTPUT"
 
-          # Existenz PRO PAKET prüfen, nicht "irgendeines von beiden". Sonst wäre ein
-          # halb geglückter Lauf (erstes Paket veröffentlicht, zweites gescheitert)
-          # nicht mehr zu heilen: der nächste Push würde still übergehen und das Paar
-          # dauerhaft auf verschiedenen Versionen stehen lassen.
-          # `npm view` scheitert auch dann, wenn das Paket noch gar nicht existiert —
-          # der erwartete Fall vor dem ersten Release, deshalb Fehler geschluckt.
-          vorhanden() {
-            npm view "$1@${VERSION}" version --registry=https://npm.pkg.github.com >/dev/null 2>&1
-          }
-          CSS_EXISTS=false; LIB_EXISTS=false
-          vorhanden "@conciso/design-system"         && CSS_EXISTS=true
-          vorhanden "@conciso/design-system-angular" && LIB_EXISTS=true
-          echo "Registry-Stand für ${VERSION}: CSS-Schicht=${CSS_EXISTS}, Angular-Lib=${LIB_EXISTS}"
-
-          # Tag und Release entstehen NACH den Publishes und sind damit der Teil, der
-          # eigenständig scheitern kann, während beide Pakete schon liegen. Ohne diese
-          # Prüfung wäre genau das nicht mehr zu heilen: der nächste Lauf sähe beide
-          # Pakete und überspränge den Job, der die Finalisierung nachholt.
-          # Tag über das Remote prüfen, nicht lokal — actions/checkout holt keine Tags.
-          TAG_EXISTS=false; RELEASE_EXISTS=false
-          git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1 && TAG_EXISTS=true
-          gh release view "v${VERSION}" >/dev/null 2>&1 && RELEASE_EXISTS=true
-          echo "Finalisierung für ${VERSION}: Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}"
-
-          if [ "$DRY" = "true" ]; then
-            # Ein Dry-Run soll BEIDE Pakete durchspielen, unabhängig vom Registry-Stand.
-            echo "publish=true"     >> "$GITHUB_OUTPUT"
-            echo "publish_css=true" >> "$GITHUB_OUTPUT"
-            echo "publish_lib=true" >> "$GITHUB_OUTPUT"
-          elif [ "$CSS_EXISTS" = "true" ] && [ "$LIB_EXISTS" = "true" ]; then
-            if [ "$TAG_EXISTS" = "false" ] || [ "$RELEASE_EXISTS" = "false" ]; then
-              # Beide Pakete liegen, aber die Finalisierung fehlt → ein vorheriger Lauf
-              # brach nach den Publishes ab. Job anlaufen lassen, beide Publishes aber
-              # überspringen; der Tag-/Release-Schritt ist idempotent und zieht nach.
-              echo "::warning::Version ${VERSION} ist veröffentlicht, aber die Finalisierung fehlt (Tag=${TAG_EXISTS}, Release=${RELEASE_EXISTS}) — wird nachgeholt."
-              echo "publish=true"      >> "$GITHUB_OUTPUT"
-              echo "publish_css=false" >> "$GITHUB_OUTPUT"
-              echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            # Beide liegen, Tag und Release sind da → nichts zu tun.
-            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-              # Manuell und ausdrücklich ohne Dry-Run angefordert → laut scheitern.
-              echo "::error::Version ${VERSION} ist für beide Pakete bereits veröffentlicht. Version in beiden package.json erhöhen."
+          # ── Fakten sammeln ──
+          # Letzter Release-Tag (lokal vorhanden dank fetch-depth: 0) und ob er fertig ist.
+          LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+          TAG_HAS_RELEASE=false; TAG_IS_ANNOTATED=false
+          # Beide Abfragen unten scheitern „geschlossen“: Nur ein ausdrückliches „gibt es
+          # nicht“ zählt als leer. Ein Ausfall, ein Rate-Limit oder ein Auth-Fehler bricht den
+          # Lauf ab — als „leer“ gelesen, würde er einen unfertigen Release übersehen und
+          # darüber hinweg eine neue Version veröffentlichen.
+          if [ -n "$LATEST_TAG" ]; then
+            if FEHLER=$(gh release view "$LATEST_TAG" 2>&1 >/dev/null); then
+              TAG_HAS_RELEASE=true
+            elif ! echo "$FEHLER" | grep -qi "release not found"; then
+              echo "::error::GitHub-Release zu ${LATEST_TAG} nicht abfragbar: ${FEHLER}"
               exit 1
             fi
-            # Push-getrieben → still übergehen: die package.json wurde ohne
-            # Versionswechsel angefasst, das ist der Normalfall.
-            echo "::notice::Version ${VERSION} ist bereits veröffentlicht — nichts zu tun."
-            echo "publish=false"     >> "$GITHUB_OUTPUT"
-            echo "publish_css=false" >> "$GITHUB_OUTPUT"
-            echo "publish_lib=false" >> "$GITHUB_OUTPUT"
-          else
-            # Mindestens eines fehlt → veröffentlichen, aber nur das Fehlende. Liegt
-            # genau eines schon, war ein vorheriger Lauf auf halber Strecke stehen
-            # geblieben: laut sagen und den Rest nachziehen (der Lauf heilt sich
-            # selbst, statt den Lockstep dauerhaft zu brechen).
-            if [ "$CSS_EXISTS" = "true" ] || [ "$LIB_EXISTS" = "true" ]; then
-              echo "::warning::Unvollständiger Release ${VERSION} gefunden (CSS=${CSS_EXISTS}, Lib=${LIB_EXISTS}) — ein vorheriger Lauf brach zwischen den Publishes ab. Es wird nur das fehlende Paket nachgezogen."
-            fi
-            echo "publish=true" >> "$GITHUB_OUTPUT"
-            [ "$CSS_EXISTS" = "true" ] && echo "publish_css=false" >> "$GITHUB_OUTPUT" || echo "publish_css=true" >> "$GITHUB_OUTPUT"
-            [ "$LIB_EXISTS" = "true" ] && echo "publish_lib=false" >> "$GITHUB_OUTPUT" || echo "publish_lib=true" >> "$GITHUB_OUTPUT"
+            [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ] && TAG_IS_ANNOTATED=true
           fi
+          # Alle veröffentlichten Versionen pro Paket; E404 = Paket existiert noch nicht.
+          versionen() {
+            local AUSGABE
+            if AUSGABE=$(npm view "$1" versions --json --registry="$REGISTRY" 2>&1); then
+              echo "$AUSGABE"
+            elif echo "$AUSGABE" | grep -q "E404"; then
+              echo '[]'
+            else
+              echo "::error::Registry-Abfrage für $1 fehlgeschlagen: ${AUSGABE}" >&2
+              return 1
+            fi
+          }
+          # Getrennt zuweisen: `export X=$(…)` würde den Exit-Code der Abfrage verschlucken.
+          CSS_VERSIONS=$(versionen @conciso/design-system) || exit 1
+          LIB_VERSIONS=$(versionen @conciso/design-system-angular) || exit 1
+          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY CSS_VERSIONS LIB_VERSIONS
+          export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
+          echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
+
+          # ── Entscheiden ──
+          ENTSCHEIDUNG=$(node scripts/release/decide.mjs)
+          echo "$ENTSCHEIDUNG"
+          wert() { echo "$ENTSCHEIDUNG" | sed -n "s/^$1=//p"; }
+          MODE=$(wert mode); VERSION=$(wert version)
+          HINWEIS=$(wert hinweis)
+          [ -n "$HINWEIS" ] && echo "::warning::${HINWEIS}"
+          if [ "$MODE" = "nichts" ]; then
+            echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
+            { echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false"; } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # ── Quellstand: aus welchem Commit gebaut und getaggt wird ──
+          case "$(wert source)" in
+            head) SOURCE_SHA="${{ github.sha }}" ;;
+            tag)  SOURCE_SHA=$(git rev-list -n 1 "$LATEST_TAG") ;;
+            registry)
+              # Das Nachzuziehende muss aus DEMSELBEN Quellstand kommen wie das schon
+              # Veröffentlichte, sonst tragen die Lockstep-Pakete dieselbe Version, aber
+              # verschiedene Inhalte (und der Tag landet auf einem späteren Commit). npm
+              # vermerkt beim Publish den Commit als `gitHead`.
+              # Nur ein echter Commit zählt: `npm view` kann für ein fehlendes Feld auch
+              # „undefined“ o. Ä. liefern, und das darf den gitHead des zweiten Pakets nicht
+              # verdecken. Geprüft wird Form (40 Hex-Zeichen) und Existenz im Checkout.
+              SOURCE_SHA=""
+              for PAKET in @conciso/design-system @conciso/design-system-angular; do
+                KANDIDAT=$(npm view "${PAKET}@${VERSION}" gitHead --registry="$REGISTRY" 2>/dev/null || true)
+                if [[ "$KANDIDAT" =~ ^[0-9a-f]{40}$ ]] && git cat-file -e "${KANDIDAT}^{commit}" 2>/dev/null; then
+                  SOURCE_SHA="$KANDIDAT"
+                  break
+                fi
+              done
+              if [ -z "$SOURCE_SHA" ]; then
+                # Ohne bekannten Quellstand lieber laut scheitern als ein Paar mit
+                # auseinanderlaufendem Inhalt veröffentlichen.
+                echo "::error::Version ${VERSION} liegt ohne gitHead in der Registry — der Quellstand ist unbekannt. Manuell nachziehen."
+                exit 1
+              fi ;;
+          esac
+          echo "source_sha=$SOURCE_SHA" >> "$GITHUB_OUTPUT"
+
+          # ── Notes: immer dieselben pfadgefilterten, nur je nach Fall anders beschafft ──
+          # Die Engine hat ihre Notes oben schon geschrieben (Bereich letzter Tag..HEAD);
+          # außer im Modus `neu` passen die nicht und werden ersetzt oder verworfen.
+          case "$(wert notes_source)" in
+            engine) ;;
+            range)  node scripts/release/notes-for-range.mjs "$LATEST_TAG" "$SOURCE_SHA" "$VERSION" ;;
+            # --cleanup=verbatim beim Taggen (siehe unten) hält die #-Überschriften darin.
+            tag)    git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md ;;
+            github) rm -f release-notes-generated.md ;;
+            # Das GitHub-Release existiert schon, es braucht keine Notes.
+            keine)  rm -f release-notes-generated.md ;;
+          esac
+          if [ -s release-notes-generated.md ]; then echo "notes=true" >> "$GITHUB_OUTPUT"; else echo "notes=false" >> "$GITHUB_OUTPUT"; fi
+
+          # ── Ergebnis weiterreichen ──
+          {
+            echo "version=$VERSION"
+            echo "mode=$MODE"
+            echo "publish=true"
+            echo "publish_css=$(wert publish_css)"
+            echo "publish_lib=$(wert publish_lib)"
+          } >> "$GITHUB_OUTPUT"
+          case "$MODE" in
+            nachziehen)   echo "::warning::Unfertiger Release ${VERSION} gefunden (ein vorheriger Lauf brach ab) — wird aus ${SOURCE_SHA} abgeschlossen. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
+            finalisieren) echo "::warning::Tag v${VERSION} hat kein GitHub-Release (ein vorheriger Lauf brach ab) — wird nachgeholt. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
+            neu)          echo "Neue Version: ${VERSION}" ;;
+          esac
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Nach `ermitteln`, nicht direkt nach der Engine: beim Nachholen einer abgebrochenen
+      # Finalisierung stammen die Notes aus dem annotierten Tag, nicht aus der Engine.
+      - name: Notizen als Artefakt weiterreichen
+        if: steps.ermitteln.outputs.publish == 'true' && steps.ermitteln.outputs.notes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release-notes-generated.md
+          retention-days: 1
 
   # ── Harte Vorbedingung: konsumierbares Artefakt? ────────────────────────────
   # Als reusable Workflow eingebunden (siehe Kommentar in consumer-smoke-test.yml),
-  # weil `needs:` nur innerhalb derselben Datei wirkt.
+  # weil `needs:` nur innerhalb derselben Datei wirkt. Bekommt die ermittelte Version, damit
+  # der Smoke-Test das STAMPED Artefakt prüft, nicht den Platzhalter (Spec Regel 8).
   consumer-smoke-test:
     name: Consumer-Smoke-Test (Vorbedingung)
     needs: pruefen
-    if: needs.pruefen.outputs.publish == 'true'
+    # Nur wenn wirklich ein Paket gebaut wird — beim reinen Finalisieren (Tag/Release
+    # nachholen) nicht: dort kann der Quellstand ein Alt-Tag ohne Release-Skripte sein.
+    if: needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true'
     uses: ./.github/workflows/consumer-smoke-test.yml
+    with:
+      version: ${{ needs.pruefen.outputs.version }}
+      # Denselben Quellstand prüfen, der gleich gebaut wird (siehe `source_sha` in `ermitteln`).
+      ref: ${{ needs.pruefen.outputs.source_sha }}
 
   publish:
     name: Beide Pakete bauen und veröffentlichen
     needs: [pruefen, consumer-smoke-test]
-    if: needs.pruefen.outputs.publish == 'true'
+    # always(), weil ein übersprungener Smoke-Test (reines Finalisieren, s. o.) den Job sonst
+    # mitüberspringen würde. Gescheitert oder abgebrochen darf er aber nicht sein — und
+    # `pruefen` muss durchgelaufen sein: always() liefe sonst auch nach einem späten Fehler
+    # dort (etwa beim Hochladen der Notes) los, obwohl publish=true schon gesetzt war.
+    if: >-
+      always() && needs.pruefen.result == 'success' && needs.pruefen.outputs.publish == 'true' &&
+      (needs.consumer-smoke-test.result == 'success' || needs.consumer-smoke-test.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:
       # contents: write für Tag und Release, die dieser Job selbst anlegt.
       contents: write
       packages: write
+      # actions: write für den erneuten Anstoß nach einer Heilung (letzter Schritt).
+      actions: write
     env:
       VERSION: ${{ needs.pruefen.outputs.version }}
       DRY: ${{ needs.pruefen.outputs.dry }}
+      # Ob überhaupt ein Paket gebaut wird. Sonst (reines Finalisieren) nur Tag/Release.
+      BAUEN: ${{ needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' }}
     steps:
+      # Nicht zwingend der ausgelöste Commit: beim Nachziehen eines halben Releases der
+      # Quellstand des schon veröffentlichten Pakets (siehe `ermitteln`), damit beide
+      # Lockstep-Pakete denselben Inhalt tragen und der Tag auf diesem Stand landet.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.pruefen.outputs.source_sha }}
       - uses: actions/setup-node@v4
+        if: env.BAUEN == 'true'
         with:
           node-version: 22
           cache: npm
@@ -200,10 +291,18 @@ jobs:
           scope: '@conciso'
       # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
       - name: Dependencies installieren
+        if: env.BAUEN == 'true'
         run: npm ci
+      # Schreibt die ermittelte Version in beide package.json + die Peer-Pin der Lib
+      # (Spec Regel 7). NIE committet — nur der Checkout dieses Runs trägt sie.
+      - name: Version in die Artefakte stempeln
+        if: env.BAUEN == 'true'
+        run: node scripts/release/stamp-version.mjs "$VERSION"
       - name: CSS-Schicht bauen (@conciso/design-system)
+        if: env.BAUEN == 'true'
         run: npm run build
       - name: Angular-Lib bauen (@conciso/design-system-angular)
+        if: env.BAUEN == 'true'
         run: npm run build --workspace=angular-lib
       - name: Dry-Run-Flag bestimmen
         id: mode
@@ -224,6 +323,11 @@ jobs:
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release-Notizen herunterladen
+        if: env.DRY == 'false' && needs.pruefen.outputs.notes == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: release-notes
       # Der Tag macht die Konvention aus dem CHANGELOG wahr („Releases werden als
       # Git-Tags vX.Y.Z markiert“) — ohne ihn zeigt nichts im Repo auf die
       # veröffentlichte Version. Läuft erst NACH den Publishes: ein Tag auf einem
@@ -234,25 +338,47 @@ jobs:
           if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
             echo "::notice::Tag v${VERSION} existiert bereits — wird nicht neu gesetzt."
           else
-            git tag "v${VERSION}"
+            # Annotierter Tag mit den Release-Notes als Nachricht: Scheitert gleich danach
+            # `gh release create`, holt der nächste Lauf das Release mit genau diesen
+            # (pfadgefilterten) Notes nach, statt sie neu erzeugen zu müssen (siehe
+            # `ermitteln`). Ein annotierter Tag braucht eine Identität. `--cleanup=verbatim`
+            # ist Pflicht: der Standard „strip“ löscht jede Zeile, die mit # beginnt — also
+            # sämtliche Markdown-Überschriften der Notes.
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            if [ -s release-notes-generated.md ]; then
+              git tag -a "v${VERSION}" --cleanup=verbatim -F release-notes-generated.md
+            else
+              git tag -a "v${VERSION}" -m "v${VERSION}"
+            fi
             git push origin "v${VERSION}"
           fi
-          # Release-Text ist der CHANGELOG-Abschnitt dieser Version (bis zur
-          # nächsten Überschrift), damit Release-Notes und CHANGELOG nicht
-          # auseinanderlaufen.
-          awk -v v="## [${VERSION}]" '
-            index($0, v) == 1 { inside = 1; next }
-            inside && /^## \[/ { exit }
-            inside { print }
-          ' CHANGELOG.md > /tmp/release-notes.md
           # Beim Nachziehen eines unvollständigen Releases kann das Release schon
           # existieren — dann nicht scheitern.
           if gh release view "v${VERSION}" >/dev/null 2>&1; then
             echo "::notice::Release v${VERSION} existiert bereits — wird nicht neu erstellt."
-          else
+          elif [ -f release-notes-generated.md ]; then
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \
-              --notes-file /tmp/release-notes.md
+              --notes-file release-notes-generated.md
+          else
+            # Letzter Rückfall, nur beim Nachholen für einen Tag ohne gespeicherte Notes
+            # (leichtgewichtiger Tag aus der Zeit vor ADR-0010): GitHub erzeugt die Notes
+            # aus den Commits seit dem vorherigen Tag — ungefiltert, aber besser als keine.
+            gh release create "v${VERSION}" \
+              --title "v${VERSION}" \
+              --generate-notes
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Nach `nachziehen`/`finalisieren` hat dieser Lauf nur Altes abgeschlossen und die
+      # inzwischen gelandeten Commits bewusst liegen lassen (siehe decide.mjs). Ein neuer
+      # Lauf ab dem jetzt fertigen Tag holt sie ab, statt bis zum nächsten Push zu warten.
+      # workflow_dispatch ist das einzige Ereignis, das der GITHUB_TOKEN auslösen darf. Keine
+      # Schleife: jeder Anstoß folgt auf einen abgeschlossenen Release, der danach nicht mehr
+      # als unfertig gilt; scheitert die Heilung, endet der Lauf vor diesem Schritt.
+      - name: Nach der Heilung erneut anstoßen
+        if: env.DRY == 'false' && needs.pruefen.outputs.mode != 'neu'
+        run: gh workflow run publish.yml --ref main -f dry_run=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -99,6 +99,26 @@ gehört zu CSS vX. Die peerDependency der Angular-Lib auf die CSS-Schicht wird
 entsprechend eng gepinnt (z.B. `0.1.x`). Siehe
 [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md).
 
+### Release
+
+Die Veröffentlichung einer neuen [Lockstep-Version](#lockstep-versionierung) beider
+Pakete. Entsteht **ohne Handschritt** aus den Commits, die auf `main` landen: Es
+zählen nur Commits, die einen [veröffentlichungsrelevanten Pfad](#veröffentlichungsrelevanter-pfad)
+berühren; deren Conventional-Commit-Typ entscheidet, ob es ein Release gibt und
+welche SemVer-Stufe. Die Version steht nicht im Repo, sondern im Tag `vX.Y.Z`; das
+zugehörige GitHub-Release trägt die Release-Notes.
+_Vermeiden_: „Version anheben“ (es gibt keinen solchen Schritt mehr).
+
+### Veröffentlichungsrelevanter Pfad
+
+Ein Pfad im Repo, dessen Änderung den Inhalt eines veröffentlichten Pakets verändern
+kann: der ausgelieferte Inhalt beider Pakete **und** alles, woraus er gebaut wird.
+Nur Commits, die mindestens einen solchen Pfad berühren, zählen für ein
+[Release](#release) — und nur sie müssen der Commit-Konvention genügen. Alle anderen
+Commits (Storybook, Beispielseiten, CI, nicht ausgelieferte Doku wie ADRs) sind für
+die Versionierung unsichtbar. Ausgelieferte Doku (etwa die README eines Pakets) ist
+dagegen ein solcher Pfad.
+
 ### Pilot-Scheibe
 
 Die erste Extraktions-Runde: eine dünne vertikale Scheibe (Button + Topnav, wobei

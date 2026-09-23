@@ -7,11 +7,13 @@ name: Consumer-Smoke-Test
 # auflösbare peer-Deps, AOT-Template-Typfehler, fehlende Icon-Registrierung.
 # Siehe CONTEXT.md#consumer-smoke-test, docs/adr/0003 + 0004.
 #
-# `workflow_call` macht den Job als reusable Workflow aufrufbar: Der künftige
-# Publish-Workflow (Ticket 04) kann ihn per `uses: ./.github/workflows/consumer-smoke-test.yml`
-# als eigenen Job einbinden und den Publish-Job per `needs:` darauf verdrahten —
-# `needs:` funktioniert nur innerhalb derselben Workflow-Datei, reusable Workflows
-# sind der Weg, das trotzdem über Workflow-Grenzen hinweg abzubilden.
+# `workflow_call` macht den Job als reusable Workflow aufrufbar: publish.yml bindet ihn per
+# `uses: ./.github/workflows/consumer-smoke-test.yml` als eigenen Job ein und verdrahtet den
+# Publish-Job per `needs:` darauf — `needs:` funktioniert nur innerhalb derselben
+# Workflow-Datei, reusable Workflows sind der Weg, das trotzdem über Workflow-Grenzen hinweg
+# abzubilden. Der optionale `version`-Input (docs/adr/0010-release-ausloesung-und-versionsquelle.md
+# Regel 8) lässt publish.yml das GESTEMPELTE Artefakt prüfen statt des Platzhalters 0.0.0:
+# leer bei PR/Push (dort gibt es noch keine Version), gesetzt beim Aufruf aus publish.yml.
 on:
   push:
     branches: [main]
@@ -19,6 +21,7 @@ on:
       - 'angular-lib/**'
       - 'examples/consumer-fixture/**'
       - 'scripts/consumer-smoke-test.sh'
+      - 'scripts/release/stamp-version.mjs'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -32,6 +35,7 @@ on:
       - 'angular-lib/**'
       - 'examples/consumer-fixture/**'
       - 'scripts/consumer-smoke-test.sh'
+      - 'scripts/release/stamp-version.mjs'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -40,10 +44,25 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/consumer-smoke-test.yml'
-  workflow_call: {}
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version zum Stempeln vor dem Build (leer = Platzhalter 0.0.0 bleibt stehen)'
+        required: false
+        type: string
+        default: ''
+      ref:
+        description: 'Commit, aus dem gebaut wird (leer = der auslösende Commit)'
+        required: false
+        type: string
+        default: ''
 
 concurrency:
-  group: consumer-smoke-test-${{ github.ref }}
+  # github.workflow ist bei einem Aufruf aus publish.yml der Name des AUFRUFERS. So bekommt
+  # der Smoke-Test als Publish-Vorbedingung eine eigene Gruppe und kann nicht von einem
+  # eigenständigen Lauf für einen späteren Push abgebrochen werden — sonst fiele der
+  # wartende Publish-Job still aus.
+  group: consumer-smoke-test-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -52,6 +71,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Beim Aufruf aus publish.yml ggf. ein älterer Quellstand (Nachziehen eines halben
+          # Releases); bei push/pull_request ist inputs.ref leer → auslösender Commit.
+          ref: ${{ inputs.ref }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -63,4 +86,4 @@ jobs:
       - name: Consumer-Smoke-Test
         # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
         # daran, dass das Execute-Bit jeden Checkout übersteht.
-        run: bash scripts/consumer-smoke-test.sh
+        run: bash scripts/consumer-smoke-test.sh "${{ inputs.version }}"

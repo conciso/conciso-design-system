@@ -141,7 +141,7 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
-6. **CHANGELOG.md** ergänzen.
+6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
 
@@ -237,6 +237,18 @@ git add storybook-angular/visual-snapshots && git commit
 
 ---
 
+## 14. Commit-Konvention und Releases
+
+Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf `main` (siehe [ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)). Das CHANGELOG wird dafür **nicht mehr** von Hand ergänzt — an seine Stelle tritt der Commit selbst.
+
+- **Nur [veröffentlichungsrelevante Commits](CONTEXT.md#veröffentlichungsrelevanter-pfad) zählen.** Ein Commit zählt, wenn er mindestens einen Pfad aus `scripts/release/relevant-paths.mjs` berührt (ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben). Ein Commit, der nur Storybook, Beispielseiten, CI oder nicht ausgelieferte Doku (etwa ADRs) ändert, ist für Release und Commit-Konvention unsichtbar. Ausgelieferte Doku zählt dagegen: `README.md`, `CHANGELOG.md` und die README der Angular-Lib landen im Paket, ein Commit daran folgt der Konvention (`docs:` löst kein Release aus, `fix:` ein Patch).
+- **Der Conventional-Commit-Typ entscheidet die Stufe** (nur für relevante Commits): `feat` → Minor, `fix`/`perf` → Patch, ein `!` am Typ oder ein `BREAKING CHANGE:`-Footer → Major, jeder andere Typ → kein Release. Scopes sind sonst frei — mit einer Ausnahme: bei `build` entscheidet der Scope `deps` (`build(deps)` → Patch, jeder andere `build`-Scope → kein Release). Die Regeln stehen an einer Stelle (`scripts/release/compute-bump.mjs`, `BUMP_RULES`).
+- **commitlint prüft das im PR hart, aber nur für relevante Commits** (`.github/workflows/commitlint.yml`, Konfiguration in `commitlint.config.mjs`, Basis `@commitlint/config-conventional` mit ausgeschaltetem `subject-case`, da deutsche Betreffe mit einem Nomen beginnen). Ein PR mit einem ungültigen, aber nicht relevanten Commit ist trotzdem grün. Die Job-Summary des PRs nennt Version und Stufe des ausgelösten Releases, oder „Kein Release“.
+- **Merge-Commits zählen nie** — sie berühren selbst keine Datei. Es wird nicht gesquasht: jeder Commit eines PRs erscheint einzeln in den generierten Release-Notes.
+- **Ein Angular-Update mit neuer Peer-Major-Range braucht `build(deps)!`** (Major), eine reine Versionsanhebung ohne API-Bruch `build(deps)` (Patch).
+
+---
+
 ## PR-Checkliste
 
 - [ ] Nur Tokens verwendet (keine rohen Hex-/px-Werte ohne Begründung)
@@ -246,6 +258,7 @@ git add storybook-angular/visual-snapshots && git commit
 - [ ] Stufe A und AA erfüllt (Text 4,5:1 / UI 3:1), interaktive Elemente tastaturbedienbar; AAA optional und, wenn bewusst verfehlt, notiert
 - [ ] `npm run check:contrast` und `npm run check:dark-states` grün; nach Layout-Änderungen den geänderten Bereich in **beiden Modi und zwei Breiten** ansehen (Kanten, Umbrüche, nicht nur Farbwerte)
 - [ ] Deutsche Anführungszeichen, keine Gedankenstriche in Copy
-- [ ] Doku in `index.html` ergänzt, `CHANGELOG.md` aktualisiert
+- [ ] Doku in `index.html` ergänzt
 - [ ] Nav-Eintrag gesetzt, kein Link ohne Ziel, keine Überschrift ohne Eintrag (§11)
 - [ ] Geänderte Visual-Baselines stammen aus einem `visual-baselines`-Artefakt der CI, nicht aus einem lokalen `--update` (§13)
+- [ ] Veröffentlichungsrelevante Commits folgen der Commit-Konvention (§14); nicht relevante sind frei
