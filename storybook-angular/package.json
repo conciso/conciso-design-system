@@ -9,6 +9,7 @@
     "build-storybook": "ng run conciso-ds-angular:build-storybook",
     "playwright:install": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
     "test:vitest": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
+    "typecheck": "ng build",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix"
   },

@@ -80,7 +80,10 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
-      # build-storybook nutzt den Angular-Compiler → deckt zugleich den Typecheck ab.
+      # build-storybook baut über Vite und prüft keine Typen. Den Typecheck übernimmt das
+      # App-Target `build` (browserTarget der Storybook-Targets, tsconfig.json inkl. Stories).
+      - name: Typecheck
+        run: npm run typecheck
       - name: Storybook bauen
         run: npm run build-storybook
       # Das Manifest ist die Schnittstelle für Agenten/MCP-Clients (addon-mcp,
