@@ -87,6 +87,11 @@ auf `main`.
   Release-Entscheidung — auch Zwischenstände wie „fix: Review-Anmerkungen“. Wer das
   nicht will, wählt einen nicht-releasenden Typ oder formt die Commits vor dem Merge
   um.
+- **Squash-Merge ist in den Repo-Einstellungen abgeschaltet.** Der Squash-Commit trägt den
+  PR-Titel als Nachricht, und den prüft commitlint nicht — ein nicht konventioneller Titel
+  hätte ein Release still verschluckt.
+- **Ein Git-Revert löst kein Release aus**, auch wenn er ausgelieferten Inhalt ändert. Wer
+  eine Rücknahme sofort veröffentlichen will, committet sie als `fix:`.
 - Ein Angular-Update mit neuer Peer-Major-Range braucht `build(deps)!`.
 - Dependabot/Renovate müssen auf `build(deps)` konfiguriert sein, sonst releasen
   Abhängigkeits-Updates nicht.
