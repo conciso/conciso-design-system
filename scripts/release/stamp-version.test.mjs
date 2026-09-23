@@ -74,6 +74,10 @@ test('bricht ab, wenn die Peer-Pin auf @conciso/design-system in der Lib fehlt',
       JSON.stringify({ name: 'lib', version: '0.0.0', peerDependencies: { '@angular/core': '^21.2.0' } }),
     );
     assert.throws(() => stampVersion('2.0.0', root), /peerDependency/);
+    // Kein halb gestempelter Checkout: der Abbruch darf auch die Root-package.json nicht
+    // angefasst haben, sonst wäre ein erneuter Versuch nicht mehr sauber.
+    assert.equal(JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version, '0.0.0');
+    assert.equal(JSON.parse(readFileSync(join(libDir, 'package.json'), 'utf8')).version, '0.0.0');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

@@ -161,10 +161,16 @@ jobs:
               # Veröffentlichte, sonst tragen die Lockstep-Pakete dieselbe Version, aber
               # verschiedene Inhalte (und der Tag landet auf einem späteren Commit). npm
               # vermerkt beim Publish den Commit als `gitHead`.
+              # Nur ein echter Commit zählt: `npm view` kann für ein fehlendes Feld auch
+              # „undefined“ o. Ä. liefern, und das darf den gitHead des zweiten Pakets nicht
+              # verdecken. Geprüft wird Form (40 Hex-Zeichen) und Existenz im Checkout.
               SOURCE_SHA=""
               for PAKET in @conciso/design-system @conciso/design-system-angular; do
-                [ -n "$SOURCE_SHA" ] && break
-                SOURCE_SHA=$(npm view "${PAKET}@${VERSION}" gitHead --registry="$REGISTRY" 2>/dev/null || true)
+                KANDIDAT=$(npm view "${PAKET}@${VERSION}" gitHead --registry="$REGISTRY" 2>/dev/null || true)
+                if [[ "$KANDIDAT" =~ ^[0-9a-f]{40}$ ]] && git cat-file -e "${KANDIDAT}^{commit}" 2>/dev/null; then
+                  SOURCE_SHA="$KANDIDAT"
+                  break
+                fi
               done
               if [ -z "$SOURCE_SHA" ]; then
                 # Ohne bekannten Quellstand lieber laut scheitern als ein Paar mit

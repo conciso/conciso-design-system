@@ -30,14 +30,12 @@ export function stampVersion(version, root = ROOT) {
   const [major, minor] = version.split('.');
   const peerRange = `${major}.${minor}.x`;
 
+  // Erst beide Manifeste lesen und prüfen, dann beide schreiben: scheitert die Prüfung,
+  // bleibt der Checkout unangetastet statt halb gestempelt.
   const rootPkgPath = join(root, 'package.json');
   const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf8'));
-  rootPkg.version = version;
-  writeJson(rootPkgPath, rootPkg);
-
   const libPkgPath = join(root, LIB_PKG_PATH);
   const libPkg = JSON.parse(readFileSync(libPkgPath, 'utf8'));
-  libPkg.version = version;
   if (!libPkg.peerDependencies?.['@conciso/design-system']) {
     // Kein stilles Weiterlaufen: fehlt die Peer-Pin, würde die Lib mit einer offenen
     // (oder falschen) Range gegen die CSS-Schicht veröffentlicht — der Lockstep-Vertrag aus
@@ -46,7 +44,10 @@ export function stampVersion(version, root = ROOT) {
       `${LIB_PKG_PATH} hat keine peerDependency „@conciso/design-system“ — Lockstep-Pin kann nicht gesetzt werden.`,
     );
   }
+  rootPkg.version = version;
+  libPkg.version = version;
   libPkg.peerDependencies['@conciso/design-system'] = peerRange;
+  writeJson(rootPkgPath, rootPkg);
   writeJson(libPkgPath, libPkg);
 
   return { version, peerRange };
