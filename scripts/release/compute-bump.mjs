@@ -12,17 +12,37 @@ const BREAKING_FOOTER = /^BREAKING[ -]CHANGE:/m;
 
 const RANK = { patch: 1, minor: 2, major: 3 };
 
+// EINE Tabelle für die Bump-Regeln aus ADR-0008 Regel 4 — exportiert, damit
+// semantic-release-plugin.mjs sie 1:1 als `releaseRules` für
+// @semantic-release/commit-analyzer übernimmt, statt sie ein zweites Mal von Hand
+// nachzubilden (sonst könnten beide Stellen bei einer künftigen Regeländerung
+// auseinanderlaufen). `breaking: true` matcht unabhängig vom Typ (siehe matchesRule unten);
+// alles ohne passende Regel löst kein Release aus.
+export const BUMP_RULES = [
+  { breaking: true, release: 'major' },
+  { type: 'feat', release: 'minor' },
+  { type: 'fix', release: 'patch' },
+  { type: 'perf', release: 'patch' },
+  { type: 'build', scope: 'deps', release: 'patch' },
+];
+
+function matchesRule(rule, { type, scope, breaking }) {
+  if (rule.breaking) return breaking;
+  if (rule.type !== type) return false;
+  if (rule.scope !== undefined && rule.scope !== scope) return false;
+  return true;
+}
+
 function bumpForCommit(commit) {
   const match = HEADER.exec((commit.subject ?? '').trim());
   if (!match) return null;
 
   const [, type, scope, bang] = match;
   const breaking = Boolean(bang) || BREAKING_FOOTER.test(commit.body ?? '');
-  if (breaking) return 'major';
 
-  if (type === 'feat') return 'minor';
-  if (type === 'fix' || type === 'perf') return 'patch';
-  if (type === 'build' && scope === 'deps') return 'patch';
+  for (const rule of BUMP_RULES) {
+    if (matchesRule(rule, { type, scope, breaking })) return rule.release;
+  }
   return null;
 }
 

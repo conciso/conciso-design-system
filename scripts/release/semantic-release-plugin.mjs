@@ -18,20 +18,10 @@ import { analyzeCommits as baseAnalyzeCommits } from '@semantic-release/commit-a
 import { generateNotes as baseGenerateNotes } from '@semantic-release/release-notes-generator';
 import { filterRelevantCommits } from './filter-commits.mjs';
 import { enrichCommit } from './git-commit-files.mjs';
+import { BUMP_RULES } from './compute-bump.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const NOTES_OUTPUT_PATH = join(ROOT, 'release-notes-generated.md');
-
-// Bump-Regeln 1:1 aus ADR-0008 / compute-bump.mjs, hier als `releaseRules` für
-// @semantic-release/commit-analyzer notiert (dessen eigenes Format, keine zweite
-// Bump-Tabelle mit eigener Bedeutung).
-const RELEASE_RULES = [
-  { breaking: true, release: 'major' },
-  { type: 'feat', release: 'minor' },
-  { type: 'fix', release: 'patch' },
-  { type: 'perf', release: 'patch' },
-  { type: 'build', scope: 'deps', release: 'patch' },
-];
 
 // semantic-release liefert pro Commit nur hash/message/gitTags/committerDate — welche
 // Dateien er berührt und ob es ein Merge-Commit ist, liefert es NICHT mit (siehe
@@ -45,7 +35,10 @@ function filterCommits(commits, cwd) {
 export async function analyzeCommits(pluginConfig, context) {
   const relevant = filterCommits(context.commits, context.cwd);
   return baseAnalyzeCommits(
-    { ...pluginConfig, releaseRules: RELEASE_RULES },
+    // BUMP_RULES ist dasselbe Format, das @semantic-release/commit-analyzer als
+    // `releaseRules` erwartet — direkt aus compute-bump.mjs übernommen, keine zweite
+    // Bump-Tabelle mit eigener Bedeutung.
+    { ...pluginConfig, releaseRules: BUMP_RULES },
     { ...context, commits: relevant },
   );
 }
