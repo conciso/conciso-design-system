@@ -14,7 +14,7 @@ name: Visual Tests
 # In allen Fällen: erzeugtes Artefakt runterladen, nach
 # storybook-angular/visual-snapshots/ committen → danach ist der PR-Vergleich scharf.
 # Derselbe Ablauf steht für Menschen in CONTRIBUTING § 13; dass er eingehalten wird,
-# sichert `storybook-angular/visual-baseline-guard.ts` beim Schreiben ab.
+# sichert `storybook-angular/visual-baseline-guard.mts` beim Schreiben ab.
 on:
   workflow_dispatch:
   push:
@@ -89,7 +89,7 @@ jobs:
           (github.event_name == 'pull_request' && steps.bl.outputs.exist == 'true')
         env:
           VISUAL: '1'
-          # Weist diesen Lauf gegenüber `visual-baseline-guard.ts` als den gepinnten
+          # Weist diesen Lauf gegenüber `visual-baseline-guard.mts` als den gepinnten
           # Container aus. Ohne diese Variable verweigert `--update` den Dienst — das
           # Gate gegen lokal erzeugte Baselines, die lokal grün und hier rot sind.
           VISUAL_BASELINES: pinned-ci

@@ -16,8 +16,12 @@ Zwei Rollen in einer App:
    Fehlerklassen ab, die kein anderer Test sieht: unvollständige APF-Metadaten,
    fehlende Re-Exports in `public-api.ts`, nicht auflösbare peer-Deps,
    AOT-Template-Typfehler, fehlende Icon-Registrierung.
-2. **Lebendes Konsum-Beispiel** — zeigt, wie ein echtes Angular-Projekt Button + Topnav
-   importiert und die CSS-Schicht + Fonts einbindet. Der `angular.json`-Schnipsel ist im
+2. **Lebendes Konsum-Beispiel** — zeigt, wie ein echtes Angular-Projekt Komponenten der Lib
+   importiert und die CSS-Schicht + Fonts einbindet. Welche Komponenten das sind, ist nicht
+   beliebig: pro Fremd-Paket der Lib mindestens ein Vertreter (Button + Topnav für
+   `@angular/core`/`common` und `@ng-icons`, TextField + Checkbox für `@angular/forms`, Card für
+   `@angular/platform-browser`), damit der Smoke-Test jede dieser Abhängigkeiten auflöst. Die
+   Regel steht im Kommentar von [`src/app/app.ts`](src/app/app.ts). Der `angular.json`-Schnipsel ist im
    [README der Lib](../../angular-lib/projects/design-system-angular/README.md#css--fonts-einbinden)
    dokumentiert.
 

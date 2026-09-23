@@ -48,7 +48,7 @@ const config: StorybookConfig = {
     // Test-Runner, aktuell nicht-blockierend).
     '@storybook/addon-a11y',
     // Führt die Stories als Vitest-Tests aus (Browser-Mode via Playwright);
-    // Konfiguration in ../vitest.config.ts, Setup in ./vitest.setup.ts.
+    // Konfiguration in ../vitest.config.mts, Setup in ./vitest.setup.ts.
     '@storybook/addon-vitest',
     // Schreibt beim Build manifests/{docs,components}.json und stellt im
     // Dev-Server einen MCP-Endpunkt unter /mcp bereit (Tools u. a.

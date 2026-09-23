@@ -7,8 +7,8 @@
   "scripts": {
     "storybook": "ng run conciso-ds-angular:storybook",
     "build-storybook": "ng run conciso-ds-angular:build-storybook",
-    "playwright:install": "PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
-    "test:vitest": "PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
+    "playwright:install": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
+    "test:vitest": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix"
   },
@@ -38,6 +38,7 @@
     "@storybook/angular-vite": "^10.6.0",
     "@vitest/browser-playwright": "^4.1.0",
     "angular-eslint": "^22.5.0",
+    "cross-env": "^10.1.0",
     "eslint": "^10.6.0",
     "playwright": "^1.61.0",
     "remark-gfm": "^4.0.1",

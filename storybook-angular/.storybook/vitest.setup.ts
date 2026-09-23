@@ -6,7 +6,10 @@ import { setProjectAnnotations } from '@storybook/angular-vite';
 // dessen prepareMain()-Schritt bleibt bei Component-only-Stories (ohne
 // eigenes render/template) das Template undefined und Decorators wie
 // componentWrapperDecorator rendern wörtlich "undefined". Deshalb wird der
-// Preview-Entry des Frameworks hier explizit mitgegeben.
+// Preview-Entry des Frameworks hier explizit mitgegeben. Die Info-Box von
+// @storybook/addon-vitest („Found a setup file with setProjectAnnotations …
+// You can safely remove …“) ist deshalb erwartet: Der Aufruf bleibt, bis der
+// Framework-Bug behoben ist.
 import * as frameworkAnnotations from '@storybook/angular-vite/client/config';
 import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
 import * as projectAnnotations from './preview';
@@ -29,7 +32,7 @@ beforeAll(project.beforeAll);
  * (siehe Ticket 08, `docs/adr/0005-testebene-der-angular-lib.md`). Läuft nur
  * mit VISUAL=1 (dieselbe Bedingung wie zuvor im Test-Runner), damit der
  * reguläre `test:vitest`-Lauf unberührt bleibt; Pfad und Toleranz stehen in
- * `vitest.config.ts` (`browser.expect.toMatchScreenshot`).
+ * `vitest.config.mts` (`browser.expect.toMatchScreenshot`).
  *
  * `context.story` und `context.task.meta.storyId` setzt @storybook/addon-vitest
  * selbst für jeden generierten Story-Test (vitest-plugin/test-utils.ts,
