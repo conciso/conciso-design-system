@@ -1,4 +1,4 @@
-// commitlint-Konfiguration (ADR-0008 Regel 5): Standard-Conventional-Commits, aber
+// commitlint-Konfiguration (ADR-0009 Regel 5): Standard-Conventional-Commits, aber
 // `subject-case` aus — deutsche Betreffe beginnen üblicherweise mit einem großgeschriebenen
 // Nomen („Fokusring nachziehen“), das ist keine Regelverletzung. Der Typ „refine“ aus der
 // bisherigen History ist bewusst NICHT im Standard-`type-enum` enthalten (siehe

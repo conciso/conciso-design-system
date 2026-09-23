@@ -16,7 +16,7 @@ test('behält Commits, die einen veröffentlichungsrelevanten Pfad berühren', (
 });
 
 test('schließt Merge-Commits aus, auch wenn sie relevante Dateien auflisten', () => {
-  // Merge-Commits berühren laut ADR-0008 nichts selbst (git diff-tree ohne -m); ein
+  // Merge-Commits berühren laut ADR-0009 nichts selbst (git diff-tree ohne -m); ein
   // Analyzer könnte ihnen trotzdem Dateien zuordnen, deshalb prüft der Filter isMerge
   // zusätzlich zu den files.
   const commits = [{ hash: 'm', isMerge: true, files: ['css/components.css'] }];

@@ -1,4 +1,4 @@
-// Bump-Berechnung (ADR-0008 Regel 4): aus den bereits gefilterten, veröffentlichungsrelevanten
+// Bump-Berechnung (ADR-0009 Regel 4): aus den bereits gefilterten, veröffentlichungsrelevanten
 // Commits die SemVer-Stufe ermitteln. feat → minor; fix, perf, build(deps) → patch; „!“ am Typ
 // oder ein Footer „BREAKING CHANGE:“ / „BREAKING-CHANGE:“ → major (unabhängig vom Typ); alles
 // andere → kein Release. Scopes außer `deps` bei `build` wirken sich nicht aus.
@@ -11,7 +11,7 @@
 // als die Engine dann erzeugte.
 import { analyzeCommits } from '@semantic-release/commit-analyzer';
 
-// EINE Tabelle für die Bump-Regeln aus ADR-0008 Regel 4 — exportiert, damit
+// EINE Tabelle für die Bump-Regeln aus ADR-0009 Regel 4 — exportiert, damit
 // semantic-release-plugin.mjs sie 1:1 als `releaseRules` für
 // @semantic-release/commit-analyzer übernimmt, statt sie ein zweites Mal von Hand
 // nachzubilden (sonst könnten beide Stellen bei einer künftigen Regeländerung

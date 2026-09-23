@@ -1,4 +1,4 @@
-// semantic-release-Konfiguration (ADR-0008, .scratch/automatische-releases/spec.md Regel 6).
+// semantic-release-Konfiguration (ADR-0009, .scratch/automatische-releases/spec.md Regel 6).
 // Läuft NUR als `--dry-run` (siehe publish.yml, Job „pruefen“): kein Plugin hier
 // veröffentlicht, taggt oder erzeugt ein GitHub-Release — das bleibt Aufgabe des
 // bestehenden `publish`-Jobs, der die von hier gelieferte Version und die Notes übernimmt.
@@ -6,7 +6,7 @@
 // Das eigene Plugin (scripts/release/semantic-release-plugin.mjs) ersetzt
 // @semantic-release/commit-analyzer + @semantic-release/release-notes-generator NICHT,
 // sondern filtert deren Eingabe-Commits vorab über den gemeinsamen Pfadfilter
-// (relevant-paths.mjs) und wendet die Bump-Regeln aus ADR-0008 an.
+// (relevant-paths.mjs) und wendet die Bump-Regeln aus ADR-0009 an.
 //
 // @semantic-release/exec übernimmt nur `verifyReleaseCmd`: sobald semantic-release ein
 // Release als feststehend markiert, schreibt es die Version nach $GITHUB_OUTPUT. Die

@@ -1,4 +1,4 @@
-// Veröffentlichungsrelevante Pfade (ADR-0008, CONTEXT.md#veröffentlichungsrelevanter-pfad):
+// Veröffentlichungsrelevante Pfade (ADR-0009, CONTEXT.md#veröffentlichungsrelevanter-pfad):
 // ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben. Genau EINE Stelle, von
 // zwei Seiten gemeinsam genutzt: dem semantic-release-Plugin (scripts/release/semantic-release-plugin.mjs,
 // entscheidet über Version/Notes) und dem commitlint-Filter (scripts/release/check-relevant-commits.mjs,
@@ -44,7 +44,7 @@ export const RELEVANT_PATH_PREFIXES = [
   // drei npm-Workspaces (Root, angular-lib UND storybook-angular). Würde es pauschal als
   // relevant gelten, würde jede Dependency-Änderung releasen, auch eine reine
   // Storybook-Dev-Abhängigkeit — genau das Über-Trigger-Problem, das der Pfadfilter laut
-  // ADR-0008 anstelle eines Scope-Vokabulars lösen soll. Ein `build(deps)`-Commit, der
+  // ADR-0009 anstelle eines Scope-Vokabulars lösen soll. Ein `build(deps)`-Commit, der
   // eine ECHTE Build-Eingabe hebt, ändert dabei ohnehin auch `package.json` oder
   // `angular-lib/package.json` im selben Commit — das reicht als Signal.
 ];

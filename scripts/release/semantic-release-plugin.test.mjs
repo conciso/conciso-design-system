@@ -2,7 +2,7 @@
 // Standard-Preset „angular“ von @semantic-release/commit-analyzer /
 // -release-notes-generator kennt kein „!“ im Header — nur ein BREAKING-CHANGE:-Footer galt
 // dort als breaking. Ein Commit wie „feat(lib)!: …“ OHNE Footer hätte damit unbemerkt GAR
-// KEIN Release ausgelöst statt major (ADR-0008 Regel 4), obwohl compute-bump.mjs (für die
+// KEIN Release ausgelöst statt major (ADR-0009 Regel 4), obwohl compute-bump.mjs (für die
 // PR-Job-Summary) „!“ korrekt erkennt — zwei Stellen, die auseinanderlaufen konnten.
 // Getestet wird hier bewusst DIREKT gegen @semantic-release/commit-analyzer mit den
 // exportierten Optionen aus semantic-release-plugin.mjs (statt über dessen `analyzeCommits`,

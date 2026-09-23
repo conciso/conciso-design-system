@@ -6,7 +6,7 @@ name: Pakete veröffentlichen
 #
 # AUSLÖSER: jeder Push auf main. Ob und welche Version veröffentlicht wird, ermittelt der
 # Job „pruefen“ über die COMMITS, nicht über einen Versionswechsel in package.json — das
-# Repo ist versionsfrei (docs/adr/0008-release-ausloesung-und-versionsquelle.md): beide
+# Repo ist versionsfrei (docs/adr/0009-release-ausloesung-und-versionsquelle.md): beide
 # package.json tragen dauerhaft den Platzhalter 0.0.0. `semantic-release --dry-run` wertet
 # die Commits seit dem letzten Tag aus (nur veröffentlichungsrelevante zählen, siehe
 # scripts/release/relevant-paths.mjs) und liefert Version und Notizen. Gibt es kein
@@ -355,7 +355,7 @@ jobs:
               --notes-file release-notes-generated.md
           else
             # Letzter Rückfall, nur beim Nachholen für einen Tag ohne gespeicherte Notes
-            # (leichtgewichtiger Tag aus der Zeit vor ADR-0008): GitHub erzeugt die Notes
+            # (leichtgewichtiger Tag aus der Zeit vor ADR-0009): GitHub erzeugt die Notes
             # aus den Commits seit dem vorherigen Tag — ungefiltert, aber besser als keine.
             gh release create "v${VERSION}" \
               --title "v${VERSION}" \

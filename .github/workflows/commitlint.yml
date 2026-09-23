@@ -1,7 +1,7 @@
 name: Commitlint
 
 # Prüft jeden Commit eines PRs mit commitlint (siehe
-# docs/adr/0008-release-ausloesung-und-versionsquelle.md) — hart aber NUR für
+# docs/adr/0009-release-ausloesung-und-versionsquelle.md) — hart aber NUR für
 # veröffentlichungsrelevante Commits (scripts/release/relevant-paths.mjs). Commits ohne
 # veröffentlichungsrelevanten Pfad (Storybook, Beispielseiten, Doku, CI) sind frei, auch
 # wenn sie keine Conventional Commits sind. Schreibt zusätzlich die Job-Summary: ob und

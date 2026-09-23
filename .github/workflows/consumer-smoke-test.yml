@@ -11,7 +11,7 @@ name: Consumer-Smoke-Test
 # `uses: ./.github/workflows/consumer-smoke-test.yml` als eigenen Job ein und verdrahtet den
 # Publish-Job per `needs:` darauf — `needs:` funktioniert nur innerhalb derselben
 # Workflow-Datei, reusable Workflows sind der Weg, das trotzdem über Workflow-Grenzen hinweg
-# abzubilden. Der optionale `version`-Input (docs/adr/0008-release-ausloesung-und-versionsquelle.md
+# abzubilden. Der optionale `version`-Input (docs/adr/0009-release-ausloesung-und-versionsquelle.md
 # Regel 8) lässt publish.yml das GESTEMPELTE Artefakt prüfen statt des Platzhalters 0.0.0:
 # leer bei PR/Push (dort gibt es noch keine Version), gesetzt beim Aufruf aus publish.yml.
 on:

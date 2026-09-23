@@ -1,4 +1,4 @@
-// Release-Entscheidung des Publish-Workflows (ADR-0008): was dieser Lauf tun soll.
+// Release-Entscheidung des Publish-Workflows (ADR-0009): was dieser Lauf tun soll.
 //
 // Grundsatz: ERST einen unfertigen früheren Release abschließen, DANN Neues veröffentlichen.
 // Ein Lauf kann an drei Stellen abbrechen — zwischen den beiden Publishes, zwischen den
@@ -67,7 +67,7 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
   // 1. Getaggt, aber ein Paket fehlt in der Tag-Version (etwa eine gelöschte Paketversion):
   //    aus dem Tag-Commit nachziehen. Nur für annotierte Tags — die stammen aus diesem
   //    Workflow, ihr Checkout enthält die Release-Skripte. Aus einem leichtgewichtigen
-  //    Alt-Tag (vor ADR-0008) lässt sich so nicht bauen; ein Versuch würde jeden weiteren
+  //    Alt-Tag (vor ADR-0009) lässt sich so nicht bauen; ein Versuch würde jeden weiteren
   //    Release blockieren. Dort nur ein Hinweis, die Entscheidung läuft weiter.
   let hinweis;
   const fehltCss = getaggt && !cssVersions.includes(getaggt);

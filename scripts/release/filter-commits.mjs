@@ -1,4 +1,4 @@
-// Commit-Filter (ADR-0008 Regel 1): aus Commits mit ihren berührten Dateien die
+// Commit-Filter (ADR-0009 Regel 1): aus Commits mit ihren berührten Dateien die
 // veröffentlichungsrelevante Teilmenge bilden. Merge-Commits zählen nie — sie berühren laut
 // `git diff-tree` (ohne `-m`) nichts selbst, deshalb steht `isMerge` als eigenes Flag zusätzlich
 // zu den `files`, statt sich allein darauf zu verlassen, dass ein Aufrufer ihnen leere files

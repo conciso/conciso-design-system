@@ -115,7 +115,7 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0008](docs/adr/0008-release-ausloesung-und-versionsquelle.md)) und werden nach GitHub Packages veröffentlicht. Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
+[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0009](docs/adr/0009-release-ausloesung-und-versionsquelle.md)) und werden nach GitHub Packages veröffentlicht. Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 
 ## Lizenz & Kontakt
 
