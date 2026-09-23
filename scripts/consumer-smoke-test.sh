@@ -22,9 +22,17 @@
 # Voraussetzung: `npm install` im Repo-Root (installiert die Workspaces
 # storybook-angular + angular-lib). Führt selbst KEIN Root-Install aus.
 #
-# Aufruf: scripts/consumer-smoke-test.sh
+# Testet standardmäßig den versionsfreien Platzhalter 0.0.0 (siehe
+# docs/adr/0008-release-ausloesung-und-versionsquelle.md). Mit einem Versions-Argument
+# stempelt der Test zuerst über scripts/release/stamp-version.mjs — genau das Artefakt,
+# das der Publish-Workflow tatsächlich veröffentlicht (Spec Regel 8 „Smoke-Test testet das
+# gestempelte Artefakt“). Die Stempelung bleibt lokal im Checkout dieses Laufs, sie wird
+# nie committet.
+#
+# Aufruf: scripts/consumer-smoke-test.sh [version]
 set -euo pipefail
 
+VERSION="${1:-}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 FIXTURE_SRC="$ROOT/examples/consumer-fixture"
 WORK="$(mktemp -d)"
@@ -33,6 +41,11 @@ trap 'rm -rf "$WORK"' EXIT
 PACK_DIR="$WORK/pack"
 FIXTURE="$WORK/consumer-fixture"
 mkdir -p "$PACK_DIR"
+
+if [ -n "$VERSION" ]; then
+  echo "→ Version $VERSION vor dem Build stempeln (package.json + Peer-Pin der Lib)"
+  (cd "$ROOT" && node scripts/release/stamp-version.mjs "$VERSION")
+fi
 
 echo "→ CSS-Schicht bauen (@conciso/design-system)"
 (cd "$ROOT" && npm run build)

@@ -7,11 +7,13 @@ name: Consumer-Smoke-Test
 # auflösbare peer-Deps, AOT-Template-Typfehler, fehlende Icon-Registrierung.
 # Siehe CONTEXT.md#consumer-smoke-test, docs/adr/0003 + 0004.
 #
-# `workflow_call` macht den Job als reusable Workflow aufrufbar: Der künftige
-# Publish-Workflow (Ticket 04) kann ihn per `uses: ./.github/workflows/consumer-smoke-test.yml`
-# als eigenen Job einbinden und den Publish-Job per `needs:` darauf verdrahten —
-# `needs:` funktioniert nur innerhalb derselben Workflow-Datei, reusable Workflows
-# sind der Weg, das trotzdem über Workflow-Grenzen hinweg abzubilden.
+# `workflow_call` macht den Job als reusable Workflow aufrufbar: publish.yml bindet ihn per
+# `uses: ./.github/workflows/consumer-smoke-test.yml` als eigenen Job ein und verdrahtet den
+# Publish-Job per `needs:` darauf — `needs:` funktioniert nur innerhalb derselben
+# Workflow-Datei, reusable Workflows sind der Weg, das trotzdem über Workflow-Grenzen hinweg
+# abzubilden. Der optionale `version`-Input (docs/adr/0008-release-ausloesung-und-versionsquelle.md
+# Regel 8) lässt publish.yml das GESTEMPELTE Artefakt prüfen statt des Platzhalters 0.0.0:
+# leer bei PR/Push (dort gibt es noch keine Version), gesetzt beim Aufruf aus publish.yml.
 on:
   push:
     branches: [main]
@@ -19,6 +21,7 @@ on:
       - 'angular-lib/**'
       - 'examples/consumer-fixture/**'
       - 'scripts/consumer-smoke-test.sh'
+      - 'scripts/release/stamp-version.mjs'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -32,6 +35,7 @@ on:
       - 'angular-lib/**'
       - 'examples/consumer-fixture/**'
       - 'scripts/consumer-smoke-test.sh'
+      - 'scripts/release/stamp-version.mjs'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -40,7 +44,13 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/consumer-smoke-test.yml'
-  workflow_call: {}
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version zum Stempeln vor dem Build (leer = Platzhalter 0.0.0 bleibt stehen)'
+        required: false
+        type: string
+        default: ''
 
 concurrency:
   group: consumer-smoke-test-${{ github.ref }}
@@ -64,4 +74,4 @@ jobs:
         # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
         # daran, dass das Execute-Bit jeden Checkout übersteht. Gleiche Konvention
         # wie in pr-preview.yml.
-        run: bash scripts/consumer-smoke-test.sh
+        run: bash scripts/consumer-smoke-test.sh "${{ inputs.version }}"

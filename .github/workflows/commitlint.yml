@@ -1,0 +1,32 @@
+name: Commitlint
+
+# Prüft jeden Commit eines PRs mit commitlint (siehe
+# docs/adr/0008-release-ausloesung-und-versionsquelle.md) — hart aber NUR für
+# veröffentlichungsrelevante Commits (scripts/release/relevant-paths.mjs). Commits ohne
+# veröffentlichungsrelevanten Pfad (Storybook, Beispielseiten, Doku, CI) sind frei, auch
+# wenn sie keine Conventional Commits sind. Schreibt zusätzlich die Job-Summary: ob und
+# welches Release dieser PR auslösen würde, plus die Liste der relevanten Commits.
+on:
+  pull_request:
+
+concurrency:
+  group: commitlint-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  commitlint:
+    name: Commit-Konvention prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Volle History + Tags: der Job braucht sowohl alle Commits der Basis..HEAD-Range
+          # als auch den letzten vX.Y.Z-Tag, um die Zielversion in der Summary zu nennen.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Veröffentlichungsrelevante Commits prüfen
+        run: node scripts/release/check-relevant-commits.mjs "origin/${{ github.event.pull_request.base.ref }}..HEAD"
