@@ -15,7 +15,10 @@ frameworkspezifischen Aufsätzen darauf:
   und Tokens.
 - **Angular-Lib** (`@conciso/design-system-angular`) — dünne Wrapper-Komponenten
   über der CSS-Schicht.
-- **Storybook** (`storybook-angular/`) — dokumentiert und testet die Angular-Lib.
+- **Storybook** (`storybook-angular/`) — dokumentiert und testet die Angular-Lib; die
+  öffentlich veröffentlichte Doku des Design Systems.
+- **Doku-Site** (`docs/index.html`) — eigenständige statische Doku der CSS-Schicht,
+  nicht veröffentlicht.
 
 ## Glossar
 
@@ -33,6 +36,19 @@ Das Paket `@conciso/design-system-angular`: die extrahierte Angular-Komponenten-
 Bibliothek. Enthält die ~40 [Wrapper-Komponenten](#wrapper-komponente) und ihre
 öffentlichen Typen. Gebaut mit ng-packagr im Angular Package Format, ein einziger
 Einstiegspunkt (`public-api.ts`).
+
+### Storybook
+
+Die Doku des Design Systems, die nach außen zeigt: Stories, MDX-Seiten und
+Komponenten-API der [Angular-Lib](#angular-lib) auf Basis der [CSS-Schicht](#css-schicht).
+Öffentlich erreichbar, aber nicht für Suchmaschinen bestimmt. Die Pakete selbst
+bleiben intern. Siehe [ADR-0008](docs/adr/0008-storybook-oeffentlich-auf-github-pages.md).
+
+### Doku-Site
+
+Die eigenständige, statische Doku-Seite der [CSS-Schicht](#css-schicht)
+(`docs/index.html`). Existiert neben dem [Storybook](#storybook), wird aber
+**nicht** veröffentlicht. Nicht synonym mit „Storybook“ verwenden.
 
 ### Wrapper-Komponente
 
