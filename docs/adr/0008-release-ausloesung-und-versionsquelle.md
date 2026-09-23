@@ -1,4 +1,4 @@
-# ADR-0008: Automatische Releases aus Conventional Commits, pfadgefiltert
+# ADR-0008: Release-Auslösung und Versionsquelle
 
 - Status: akzeptiert
 - Datum: 2026-09-23

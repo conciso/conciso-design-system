@@ -87,7 +87,7 @@ zusammenpassen.
 
 ## Nachtrag: Auslöser des Publish-Workflows
 
-> **Abgelöst durch [ADR-0008](0008-automatische-releases-aus-conventional-commits.md).**
+> **Abgelöst durch [ADR-0008](0008-release-ausloesung-und-versionsquelle.md).**
 > Ein Release entsteht inzwischen ohne Versionsanhebung aus den Commits auf `main`;
 > die Robustheitsregeln unten (Prüfung pro Paket, Finalisierung nach den Publishes)
 > gelten weiter.
