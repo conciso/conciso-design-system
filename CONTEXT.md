@@ -92,7 +92,9 @@ Ein Pfad im Repo, dessen Änderung den Inhalt eines veröffentlichten Pakets ver
 kann: der ausgelieferte Inhalt beider Pakete **und** alles, woraus er gebaut wird.
 Nur Commits, die mindestens einen solchen Pfad berühren, zählen für ein
 [Release](#release) — und nur sie müssen der Commit-Konvention genügen. Alle anderen
-Commits (Storybook, Beispielseiten, Doku, CI) sind für die Versionierung unsichtbar.
+Commits (Storybook, Beispielseiten, CI, nicht ausgelieferte Doku wie ADRs) sind für
+die Versionierung unsichtbar. Ausgelieferte Doku (etwa die README eines Pakets) ist
+dagegen ein solcher Pfad.
 
 ### Pilot-Scheibe
 
