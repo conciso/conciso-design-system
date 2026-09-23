@@ -3,10 +3,12 @@ import { within, userEvent, expect } from 'storybook/test';
 import { TopnavComponent } from '@conciso/design-system-angular';
 
 // Echtes Conciso-Logo laut Doku (logo-conciso.svg / -light.svg), via staticDir
-// (.storybook/main.ts → /conciso/brand) serviert. Theme-Swap (hell/dunkel) über
+// (.storybook/main.ts → /conciso/brand) serviert. Relativer Pfad (./conciso/...),
+// da iframe.html auf GitHub Pages unter einem Unterpfad liegt und ein
+// wurzelabsoluter Pfad dort ins Leere zeigen würde. Theme-Swap (hell/dunkel) über
 // die portablen Klassen .logo-themed-default/-light.
-const LOGO_DEFAULT = '/conciso/brand/logo-conciso.svg';
-const LOGO_DARK = '/conciso/brand/logo-conciso-light.svg';
+const LOGO_DEFAULT = './conciso/brand/logo-conciso.svg';
+const LOGO_DARK = './conciso/brand/logo-conciso-light.svg';
 
 const meta: Meta<TopnavComponent> = {
   title: 'Komponenten/Navigation/Topnav',

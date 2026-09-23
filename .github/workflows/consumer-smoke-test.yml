@@ -62,6 +62,5 @@ jobs:
         run: npm ci
       - name: Consumer-Smoke-Test
         # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
-        # daran, dass das Execute-Bit jeden Checkout übersteht. Gleiche Konvention
-        # wie in pr-preview.yml.
+        # daran, dass das Execute-Bit jeden Checkout übersteht.
         run: bash scripts/consumer-smoke-test.sh

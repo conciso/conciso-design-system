@@ -7,6 +7,16 @@
 -->
 <link rel="stylesheet" href="./conciso/css/fonts.css" />
 
+<!--
+  noindex: Storybook läuft auf GitHub Pages unter einem Unterpfad
+  (https://conciso.github.io/conciso-design-system/), also der Domain
+  conciso.github.io, die uns nicht gehört — eine robots.txt griffe nur am
+  Domain-Root und ließe sich hier nicht platzieren. Der Meta-Tag ist der
+  einzige Hebel, um Suchmaschinen von der Indizierung dieser Vorschau
+  abzuhalten.
+-->
+<meta name="robots" content="noindex, nofollow" />
+
 <style>
   /*
     Keine Icons in der Seitenleiste: Hierarchie soll allein über Einrückung,
