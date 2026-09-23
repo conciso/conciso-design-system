@@ -8,9 +8,11 @@ Drei Hero-Varianten für den Seitenkopf: Hero-Image mit Caption-Overlay (21:9,
 Standard auf allen Customer-Pages), Slider-Hero mit Crossfade-Rotation (optional)
 sowie eine reduzierte Sub-Sektion direkt unter dem Hero für CTAs (auf jeder
 Customer-Page Pflicht). Dazu der Störer, der ausschließlich auf der Startseite über
-dem Hero-Bild liegt. Für den Hero gibt es kein eigenes Angular-Bauteil; die Klassen
-kommen direkt aus der CSS-Schicht. Der Slider-Hero teilt seine Track-Mechanik mit
-`Komponenten/Slider & Carousel/Carousel`.
+dem Hero-Bild liegt. Hero-Image und Störer haben eigene Angular-Bauteile:
+`Komponenten/Hero/Hero-Bild` (`cds-hero-image`) und `Komponenten/Hero/Störer`
+(`cds-stoerer` in `cds-stoerer-set`). Slider-Hero und Sub-Sektion haben keins, ihre
+Klassen kommen direkt aus der CSS-Schicht. Der Slider-Hero teilt seine Track-Mechanik
+mit `Komponenten/Slider & Carousel/Carousel`.
 
 Quelle: `docs/index.html#sec-hero` (Zeilen 2550 bis 2995).
 
@@ -538,6 +540,8 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
 
 ## Verwandte Seiten
 
+- `Komponenten/Hero/Hero-Bild` (`cds-hero-image`)
+- `Komponenten/Hero/Störer` (`cds-stoerer`, `cds-stoerer-set`)
 - `Komponenten/Slider & Carousel/Carousel` (Track-Mechanik des Slider-Hero)
 - `Komponenten/Cards & Teaser/Card` (16:9-Referenz gegenüber dem 21:9-Hero)
 - `Seitenmuster/Veranstaltung`, `Seitenmuster/Wissensbeitrag` (Ziele der Störer-Kacheln)

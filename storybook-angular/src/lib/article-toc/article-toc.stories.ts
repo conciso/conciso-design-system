@@ -128,8 +128,8 @@ export const BereitsOffen: Story = {
   },
 };
 
-// Akzeptanzkriterium der Spec (Ticket 12): ".article-body bekommt keine Komponente; die Story
-// zeigt den rohen Kontext." Der Konsument schreibt <div class="article-body"> selbst, alle vier
+// Akzeptanzkriterium der Spec (Ticket 12): „.article-body bekommt keine Komponente; die Story
+// zeigt den rohen Kontext.“ Der Konsument schreibt <div class="article-body"> selbst, alle vier
 // Artikel-Körper-Bausteine sitzen darin als gewöhnliche Geschwister neben rohen <p>/<h2> —
 // dieselbe Lesereihenfolge wie in der Beispielseite Wissensbeitrag · KI
 // (docs/index.html:15046–15118): TOC, Pull-Quote, Callout, Figure.

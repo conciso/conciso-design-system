@@ -72,7 +72,7 @@ export const Interaktiv: Story = {
       </div>
     `,
   }),
-  // Tag <div> statt <a>: kein Link-Verhalten, keine Rolle "link" im Canvas.
+  // Tag <div> statt <a>: kein Link-Verhalten, keine Rolle `link` im Canvas.
   // data-area sitzt auf allen drei dafür vorgesehenen Elementen (Karte, Icon-Kachel,
   // Eyebrow) — NICHT auf der CTA-Zeile, deren Farbe über den Nachfahren-Selektor
   // .ep-card[data-area] .ep-card-cta kommt (siehe Klassendoku). Zusätzlich der
@@ -155,7 +155,7 @@ export const AnkerOhneHref: Story = {
     `,
   }),
   // Regressionsschutz für Auftrag 1 der Grundsatzentscheidung: .ep-card-link hängt
-  // an "ist <a> UND hat href", nicht am Tag allein. Ein <a cdsIconCard> ohne href
+  // an „ist <a> UND hat href“, nicht am Tag allein. Ein <a cdsIconCard> ohne href
   // ist weder fokussierbar noch hat es eine Link-Rolle — es darf deshalb auch nicht
   // aussehen wie ein Link (kein Schatten, kein Hover). Ohne diese Prüfung würde die
   // Karte durch das bloße Tag <a> das .ep-card-link-Aussehen bekommen, obwohl sie
@@ -205,7 +205,7 @@ export const ImRaster: Story = {
   // Kein cdsIconCards-Raster (siehe Entscheidung 3 in icon-card.component.ts): das
   // Raster ist ein reines <div class="ep-cards"> aus der CSS-Schicht, keine eigene
   // Komponente. Absichtlich UNTERSCHIEDLICH lange Texte (wie link-card.stories.ts,
-  // Story "Im Raster") statt der kurzen, ähnlich langen Mockup-Texte: das ist jetzt
+  // Story „Im Raster“) statt der kurzen, ähnlich langen Mockup-Texte: das ist jetzt
   // der Regressionsschutz für die Grundsatzentscheidung "Attributselektor, damit
   // .ep-card selbst das Grid-Kind ist". Mit der früheren Element-Selektor-Fassung
   // (<cds-icon-card> als eigenes Host-Element um ein inneres .ep-card) ergab exakt

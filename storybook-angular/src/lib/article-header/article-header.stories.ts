@@ -174,8 +174,8 @@ export const MehrereAutorinnen: Story = {
       </cds-article-header>
     `,
   }),
-  // Wortlaut 1:1 aus dem Mockup (docs/index.html:8407–8410): 3 Avatare + "+2" im Stapel, Text
-  // nennt die ersten zwei Namen ("Namens-Konvention" in wissensbeitrag.mdx erlaubt 2 ODER 3).
+  // Wortlaut 1:1 aus dem Mockup (docs/index.html:8407–8410): 3 Avatare + `+2` im Stapel, Text
+  // nennt die ersten zwei Namen („Namens-Konvention“ in wissensbeitrag.mdx erlaubt 2 ODER 3).
   args: {
     title: 'Was wir aus 200 Migrationen gelernt haben',
     lead: 'Eine kollektive Retrospektive aus fünf Conciso-Engineering-Teams.',
@@ -189,7 +189,7 @@ export const MehrereAutorinnen: Story = {
   },
   parameters: { controls: { disable: true } },
   // Detaillierte Überlappungs-Messung des Stapels steht in avatar.stories.ts („Avatar-Stapel“);
-  // hier nur die Einbettung im Meta-Strip: Stapel + "+N" projiziert, Autorentext vollständig als
+  // hier nur die Einbettung im Meta-Strip: Stapel + `+N` projiziert, Autorentext vollständig als
   // Text vorhanden (Barrierefreiheit: der Stapel ist aria-hidden, die Namen stehen im Fließtext).
   play: async ({ canvasElement }) => {
     const stack = canvasElement.querySelector('cds-avatar-stack') as HTMLElement;

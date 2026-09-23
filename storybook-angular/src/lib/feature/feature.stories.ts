@@ -176,8 +176,8 @@ export const MitCta: Story = {
   // (Angulars @if/@else fügt kein Wrapper-Element ein). Echter <a>, kein <span> —
   // der Host ist ein <div>, kein umschließender Link wie bei cds-link-card.
   // ctaAriaLabel im exakten Wortlaut des Mockups (docs/index.html:11587): der
-  // sichtbare Text "Zur Landingpage" wiederholt sich zehnmal auf den
-  // Beispielseiten, der aria-label disambiguiert im Format "<Text>: <Ziel>"
+  // sichtbare Text „Zur Landingpage“ wiederholt sich zehnmal auf den
+  // Beispielseiten, der aria-label disambiguiert im Format `<Text>: <Ziel>`
   // (siehe Klassendoku, ausgezählt: 11 von 12 .card-cta-link-<a>s im Mockup
   // tragen einen solchen aria-label — die Regel, nicht die Ausnahme).
   play: async ({ canvasElement }) => {
@@ -219,7 +219,7 @@ export const OhneHref: Story = {
   // Regressionsschutz für die in feature.component.ts dokumentierte Entscheidung:
   // gesetztes ctaLabel OHNE ctaHref rendert einen <span class="card-cta-link">
   // (identische Optik, gleicher Pfeil), NIE ein <a> ohne href — genau das Muster
-  // aus docs/index.html:13216 ("Landingpage folgt"), das einzige card-cta-link
+  // aus docs/index.html:13216 („Landingpage folgt“), das einzige card-cta-link
   // im Mockup ohne href, und dort ebenfalls ein <span>, kein <a>.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);

@@ -6,12 +6,12 @@ import { HeroImageComponent } from '@conciso/design-system-angular';
 // carousel.component.ts / team-voice.component.ts: storybook-angular mountet nur
 // assets/brand als Static-Dir (siehe .storybook/main.ts), der Demo-Bilderordner
 // assets/images ist dort bewusst nicht eingebunden. Ein Pfad wie
-// "assets/images/team-gruppenbild.jpg" würde deshalb in keiner Story auflösen.
+// `assets/images/team-gruppenbild.jpg` würde deshalb in keiner Story auflösen.
 const heroPlaceholder =
   "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1600'%20height='686'%3E%3Crect%20width='1600'%20height='686'%20fill='%23E8EDED'/%3E%3Ctext%20x='800'%20y='343'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EHero-Bild%2021%3A9%3C/text%3E%3C/svg%3E";
 
 // Zweiter Platzhalter eigens für die Bildausschnitt-Story: hochformatig (2:3) statt
-// 21:9, mit drei farbigen Banden ("Kopf"/"Mitte"/"Fuß"). Ein Bild im Hero-Seitenverhältnis
+// 21:9, mit drei farbigen Banden („Kopf“/„Mitte“/„Fuß“). Ein Bild im Hero-Seitenverhältnis
 // selbst zeigt bei object-fit:cover praktisch keinen Beschnitt (siehe heroPlaceholder oben),
 // objectPosition hätte dort nichts sichtbar zu verschieben. Das Hochformat zwingt object-fit:cover
 // zu einem deutlichen vertikalen Crop, an dem der Unterschied zwischen den beiden

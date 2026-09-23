@@ -125,7 +125,7 @@ export const ZweiKachelnUeberDemHero: Story = {
   // gemeinsam innerhalb desselben .stoerer-hero-Rahmens, den der Konsument stellt.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    // Nachfahren-Selektoren, nicht ">": cds-hero-image/cds-stoerer-set bleiben als
+    // Nachfahren-Selektoren, nicht `>`: cds-hero-image/cds-stoerer-set bleiben als
     // eigene Host-Elemente im DOM stehen (anders als das projizierte cds-stoerer,
     // siehe Entscheidung in stoerer-set.component.ts).
     await expect(canvasElement.querySelector('.stoerer-hero .hero-image')).not.toBeNull();

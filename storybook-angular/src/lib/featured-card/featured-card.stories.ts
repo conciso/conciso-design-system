@@ -124,8 +124,8 @@ export const PilleAlsLesezeit: Story = {
   name: 'Pille als Lesezeit',
   parameters: { controls: { disable: true } },
   // Die Pille benennt nicht immer einen Bereich (docs/index.html:7913: sichtbar
-  // "12 min Lesezeit", aria-label "Lesezeit 12 Minuten") — ohne pillAriaLabel
-  // entstünde daraus fälschlich "Bereich 12 min Lesezeit". pillAriaLabel
+  // „12 min Lesezeit“, aria-label „Lesezeit 12 Minuten“) — ohne pillAriaLabel
+  // entstünde daraus fälschlich „Bereich 12 min Lesezeit“. pillAriaLabel
   // überschreibt den Default gezielt, dieselbe Regel wie bei PillComponent.
   args: { pill: '12 min Lesezeit', pillAriaLabel: 'Lesezeit 12 Minuten' },
   play: async ({ canvasElement }) => {

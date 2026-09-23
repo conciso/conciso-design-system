@@ -5,7 +5,7 @@ import { ArticleFigureComponent } from '@conciso/design-system-angular';
 // Neutraler Inline-SVG-Platzhalter im 16:9-Format (css/components.css:1574:
 // aspect-ratio:16/9), analog zum Muster in hero-image.stories.ts: storybook-angular
 // mountet nur assets/brand als Static-Dir (.storybook/main.ts), assets/images ist
-// dort bewusst nicht eingebunden — ein Pfad wie "assets/images/wissensbeitrag-ki.jpg"
+// dort bewusst nicht eingebunden — ein Pfad wie `assets/images/wissensbeitrag-ki.jpg`
 // würde deshalb in keiner Story auflösen.
 const figurePlaceholder =
   "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1280'%20height='720'%3E%3Crect%20width='1280'%20height='720'%20fill='%23E8EDED'/%3E%3Ctext%20x='640'%20y='360'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EArticle-Figure%2016%3A9%3C/text%3E%3C/svg%3E";

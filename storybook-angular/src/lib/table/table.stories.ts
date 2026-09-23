@@ -41,7 +41,7 @@ export default meta;
 type Story = StoryObj<TableComponent>;
 
 // Wortlaut aus dem Mockup (docs/index.html:5062–5109, Doku-Sektion sec-table, Gruppe
-// "Standard") — reale Beispieldaten statt erfundener, unterschiedlich lange Zelltexte
+// „Standard“) — reale Beispieldaten statt erfundener, unterschiedlich lange Zelltexte
 // wie im Original.
 export const Interaktiv: Story = {
   args: {
@@ -116,7 +116,7 @@ export const Interaktiv: Story = {
   },
 };
 
-// Wortlaut aus dem Mockup (docs/index.html:5117–5177, Gruppe "Gestreift"). Ohne
+// Wortlaut aus dem Mockup (docs/index.html:5117–5177, Gruppe „Gestreift“). Ohne
 // scrollLabel: prüft den Fallback auf caption als aria-label (siehe Klassendoku).
 export const Gestreift: Story = {
   args: {
