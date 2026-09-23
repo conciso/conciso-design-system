@@ -27,7 +27,7 @@ auf `main`.
   berühren — ausgelieferter Inhalt beider Pakete **plus** dessen Build-Eingaben —
   werden ausgewertet. Die Liste steht an genau einer Stelle; ein CI-Check stellt
   sicher, dass sie jeden Eintrag der `files`-Felder abdeckt.
-- **Welche Stufe, entscheidet der Typ** (Conventional Commits): `feat` → minor;
+- **Welche Stufe gilt, entscheidet der Typ** (Conventional Commits): `feat` → minor;
   `fix`, `perf`, `build(deps)` → patch; `!` oder `BREAKING CHANGE:` → major; alle
   anderen Typen → kein Release. Scopes sind frei und wirken nicht aufs Release.
 - **Merge-Commits bleiben**, kein Squash: Jeder Commit eines PRs zählt einzeln und

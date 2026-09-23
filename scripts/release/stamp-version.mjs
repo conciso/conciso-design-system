@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Stempelt die vom Engine (semantic-release --dry-run, siehe semantic-release-plugin.mjs)
+// Stempelt die von der Engine (semantic-release --dry-run, siehe semantic-release-plugin.mjs)
 // berechnete Version in beide package.json UND die Peer-Pin der Angular-Lib — Spec Regel 7
 // „Versionsfreies Repo“: im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
 // Version wird erst im Publish-Job VOR dem Build in die Artefakte geschrieben und NIE
