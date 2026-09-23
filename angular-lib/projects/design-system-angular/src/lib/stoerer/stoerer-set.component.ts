@@ -60,5 +60,5 @@ export class StoererSetComponent {
    *
    * @internal
    */
-  readonly tiles = contentChildren(StoererComponent);
+  protected readonly tiles = contentChildren(StoererComponent);
 }
