@@ -133,12 +133,19 @@ export interface CdsArticleBreadcrumbItem {
  * Element-Selektor ist, kein `[cdsAvatar]`-Attribut trägt und sonst nicht in den
  * Meta-Strip projiziert werden könnte — nötig für die vom Ticket geforderte Story
  * „Mehrere Autor:innen“.
+ *
+ * **Host als Block.** `.article-header` sitzt am Host und setzt nur
+ * `max-width:880px;margin:0 auto`. An einem unbekannten, also `display:inline`
+ * gerenderten Element greift beides nicht, die Block-Kinder liefen über die
+ * 880 px hinaus. `:host{display:block}` wie bei `cds-hero-image` und
+ * `cds-footer-main`; Story „Breite begrenzt“ pinnt das.
  */
 @Component({
   selector: 'cds-article-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PillComponent],
   host: { class: 'article-header' },
+  styles: [':host{display:block}'],
   template: `
     @if (breadcrumb().length) {
       <nav class="article-breadcrumb" aria-label="Breadcrumb">

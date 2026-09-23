@@ -231,3 +231,29 @@ export const PilleOhneBereich: Story = {
     );
   },
 };
+
+export const BreiteBegrenzt: Story = {
+  name: 'Breite begrenzt',
+  // Kein eigener Screenshot: geprüft wird nur die Geometrie des Hosts.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <div style="width:1200px">
+        <cds-article-header
+          title="Warum 60 % der KI-Piloten nie in Produktion gehen"
+          lead="Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben."
+        ></cds-article-header>
+      </div>
+    `,
+  }),
+  // Der Host ist ein Block, damit max-width:880px und margin:0 auto aus
+  // .article-header greifen. Als Inline-Element liefen Titel und Lead über die
+  // volle Breite des 1200 px breiten Containers.
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector<HTMLElement>('cds-article-header')!;
+    const lead = host.querySelector<HTMLElement>('.article-lead')!;
+    await expect(getComputedStyle(host).display).toBe('block');
+    await expect(host.getBoundingClientRect().width).toBe(880);
+    await expect(lead.getBoundingClientRect().width).toBeLessThanOrEqual(880);
+  },
+};
