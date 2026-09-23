@@ -61,10 +61,39 @@ test('ist idempotent: zweimaliges Stempeln derselben Version liefert dasselbe Er
   }
 });
 
+test('bricht ab, wenn die Peer-Pin auf @conciso/design-system in der Lib fehlt', () => {
+  // Sonst würde die Lib mit einer falschen/offenen Range gegen die CSS-Schicht
+  // veröffentlicht, ohne dass irgendwas den gebrochenen Lockstep meldet (ADR-0004).
+  const root = mkdtempSync(join(tmpdir(), 'stamp-version-'));
+  try {
+    writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'root', version: '0.0.0' }));
+    const libDir = join(root, 'angular-lib/projects/design-system-angular');
+    mkdirSync(libDir, { recursive: true });
+    writeFileSync(
+      join(libDir, 'package.json'),
+      JSON.stringify({ name: 'lib', version: '0.0.0', peerDependencies: { '@angular/core': '^21.2.0' } }),
+    );
+    assert.throws(() => stampVersion('2.0.0', root), /peerDependency/);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('lehnt eine ungültige Version ab', () => {
   const root = makeFixtureRoot();
   try {
     assert.throws(() => stampVersion('nicht-semver', root));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('lehnt führende Nullen in einer SemVer-Komponente ab', () => {
+  const root = makeFixtureRoot();
+  try {
+    assert.throws(() => stampVersion('01.2.3', root));
+    assert.throws(() => stampVersion('1.02.3', root));
+    assert.throws(() => stampVersion('1.2.03', root));
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

@@ -28,12 +28,25 @@ export const RELEVANT_PATH_PREFIXES = [
   'angular-lib/projects/design-system-angular/',
   // Build-Konfiguration, die den Lib-Build steuert
   'angular-lib/angular.json',
+  // Workspace-package.json des Angular-Build-Containers: legt Angular-/ng-packagr-Version
+  // und die @conciso/design-system-Quelle für den Build fest (devDependencies) — eine
+  // Änderung hier kann das gebaute Artefakt verändern, auch ohne die Lib selbst anzufassen.
+  'angular-lib/package.json',
+  // Basis-tsconfig, von tsconfig.lib.json der Lib per `extends` eingebunden.
+  'angular-lib/tsconfig.json',
   // root package.json selbst (Version, exports, files-Feld)
   'package.json',
   // Build-Skripte, die die ausgelieferten Artefakte erzeugen (siehe „build“-Script oben)
   'scripts/build-tokens.mjs',
   'scripts/build-icons.mjs',
   'scripts/bundle-css.mjs',
+  // ABSICHTLICH NICHT dabei: package-lock.json. Es ist EIN gemeinsames Lockfile für alle
+  // drei npm-Workspaces (Root, angular-lib UND storybook-angular). Würde es pauschal als
+  // relevant gelten, würde jede Dependency-Änderung releasen, auch eine reine
+  // Storybook-Dev-Abhängigkeit — genau das Über-Trigger-Problem, das der Pfadfilter laut
+  // ADR-0008 anstelle eines Scope-Vokabulars lösen soll. Ein `build(deps)`-Commit, der
+  // eine ECHTE Build-Eingabe hebt, ändert dabei ohnehin auch `package.json` oder
+  // `angular-lib/package.json` im selben Commit — das reicht als Signal.
 ];
 
 function isPathRelevant(filePath) {
@@ -71,8 +84,17 @@ export function checkCoverage(root = ROOT) {
     if (!isEntryCovered(entry)) missing.push(entry);
   }
 
-  const libPrefix = 'angular-lib/projects/design-system-angular/';
-  if (!RELEVANT_PATH_PREFIXES.includes(libPrefix)) missing.push(libPrefix);
+  // Fest verdrahtete Build-Eingaben außerhalb des `files`-Felds, die trotzdem abgedeckt
+  // sein müssen (Spec Regel 3 „... UND der ausgelieferte Inhalt der Lib“, erweitert um
+  // deren Build-Eingaben aus demselben Grund).
+  const requiredPrefixes = [
+    'angular-lib/projects/design-system-angular/',
+    'angular-lib/package.json',
+    'angular-lib/tsconfig.json',
+  ];
+  for (const entry of requiredPrefixes) {
+    if (!RELEVANT_PATH_PREFIXES.includes(entry)) missing.push(entry);
+  }
 
   return missing;
 }

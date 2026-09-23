@@ -38,6 +38,29 @@ test('BREAKING CHANGE: im Footer ergibt major', () => {
   );
 });
 
+test('BREAKING-CHANGE: (Bindestrich-Schreibweise) im Footer ergibt ebenfalls major', () => {
+  assert.equal(
+    computeBump([
+      { subject: 'fix(lib): Verhalten korrigieren', body: 'BREAKING-CHANGE: altes Signal entfernt' },
+    ]),
+    'major',
+  );
+});
+
+test('BREAKING CHANGE mitten im Fließtext (kein eigenes Footer-Token) löst NICHT major aus', () => {
+  // Conventional-Commits-Footer sind eigene Zeilen; eine bloße Erwähnung im Fließtext ist
+  // kein Footer-Token und darf die Bump-Stufe nicht auf major heben.
+  assert.equal(
+    computeBump([
+      {
+        subject: 'fix(lib): Verhalten korrigieren',
+        body: 'Dieser Fix behebt keine BREAKING CHANGE: es ist nur eine Erwähnung im Text.',
+      },
+    ]),
+    'patch',
+  );
+});
+
 test('docs ergibt kein Release', () => {
   assert.equal(computeBump([{ subject: 'docs(readme): Tippfehler beheben' }]), null);
 });

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { isRelevant, checkCoverage } from './relevant-paths.mjs';
+import { isRelevant, checkCoverage, RELEVANT_PATH_PREFIXES } from './relevant-paths.mjs';
 
 test('css/-Änderung ist veröffentlichungsrelevant', () => {
   assert.equal(isRelevant(['css/components.css']), true);
@@ -19,6 +19,20 @@ test('Änderung an der Angular-Lib (public-api.ts) ist relevant', () => {
     isRelevant(['angular-lib/projects/design-system-angular/src/public-api.ts']),
     true,
   );
+});
+
+test('Build-Eingaben des Angular-Workspace sind relevant (package.json, tsconfig.json)', () => {
+  // angular-lib/package.json legt Angular-/ng-packagr-Version für den Build fest,
+  // angular-lib/tsconfig.json wird von tsconfig.lib.json der Lib per extends eingebunden —
+  // beide können das gebaute Artefakt verändern, ohne die Lib selbst anzufassen.
+  assert.equal(isRelevant(['angular-lib/package.json']), true);
+  assert.equal(isRelevant(['angular-lib/tsconfig.json']), true);
+});
+
+test('package-lock.json ist bewusst NICHT relevant (gemeinsames Lockfile aller Workspaces)', () => {
+  // Sonst würde jede Dependency-Änderung releasen, auch eine reine
+  // Storybook-Dev-Abhängigkeit (siehe Kommentar in relevant-paths.mjs).
+  assert.equal(isRelevant(['package-lock.json']), false);
 });
 
 test('README.md an der Wurzel ist relevant, ein anderes README.md nicht', () => {
@@ -36,6 +50,11 @@ test('keine Pfade ist nicht relevant', () => {
 
 test('Deckungs-Check: jeder Eintrag im root files-Feld ist abgedeckt', () => {
   assert.deepEqual(checkCoverage(), []);
+});
+
+test('Deckungs-Check verlangt auch die fest verdrahteten Angular-Build-Eingaben', () => {
+  assert.ok(RELEVANT_PATH_PREFIXES.includes('angular-lib/package.json'));
+  assert.ok(RELEVANT_PATH_PREFIXES.includes('angular-lib/tsconfig.json'));
 });
 
 test('Deckungs-Check schlägt fehl, wenn ein neuer files-Eintrag nicht abgedeckt ist', () => {

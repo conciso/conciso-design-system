@@ -1,0 +1,27 @@
+# Deckungs-Check der veröffentlichungsrelevanten Pfade (ADR-0008, scripts/release/relevant-paths.mjs):
+# jeder Eintrag im root `files`-Feld und die Build-Eingaben der Angular-Lib müssen in der
+# EINEN gepflegten Pfadliste stehen, sonst könnte ein neu ausgeliefertes Verzeichnis
+# unbemerkt niemals ein Release auslösen. Dependency-frei (nur node:fs/url/path) und läuft
+# deshalb ohne `npm ci`, ähnlich quotes.yml.
+name: Release-Pfade
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: release-pfade-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deckung:
+    name: Deckung der veröffentlichungsrelevanten Pfade prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Deckung prüfen
+        run: npm run check:relevant-paths

@@ -5,7 +5,10 @@
 
 // Conventional-Commit-Kopfzeile: `typ(scope)!: betreff` oder `typ: betreff`.
 const HEADER = /^(\w+)(?:\(([^)]+)\))?(!)?:\s*.+$/;
-const BREAKING_FOOTER = /BREAKING CHANGE:/;
+// Footer-Token nach Conventional-Commits-Konvention: eigene Zeile, „BREAKING CHANGE:“ ODER
+// „BREAKING-CHANGE:“ (beide Schreibweisen sind laut Spec gültig), nicht irgendwo im
+// Fließtext des Bodys erwähnt.
+const BREAKING_FOOTER = /^BREAKING[ -]CHANGE:/m;
 
 const RANK = { patch: 1, minor: 2, major: 3 };
 

@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
-const SEMVER = /^\d+\.\d+\.\d+$/;
+// Strikt nach SemVer: keine führenden Nullen je Komponente (0|[1-9]\d*), sonst nähme z. B.
+// „01.2.3“ das Skript ohne Beanstandung an.
+const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 const LIB_PKG_PATH = 'angular-lib/projects/design-system-angular/package.json';
 
 function writeJson(path, value) {
@@ -36,9 +38,15 @@ export function stampVersion(version, root = ROOT) {
   const libPkgPath = join(root, LIB_PKG_PATH);
   const libPkg = JSON.parse(readFileSync(libPkgPath, 'utf8'));
   libPkg.version = version;
-  if (libPkg.peerDependencies?.['@conciso/design-system']) {
-    libPkg.peerDependencies['@conciso/design-system'] = peerRange;
+  if (!libPkg.peerDependencies?.['@conciso/design-system']) {
+    // Kein stilles Weiterlaufen: fehlt die Peer-Pin, würde die Lib mit einer offenen
+    // (oder falschen) Range gegen die CSS-Schicht veröffentlicht — der Lockstep-Vertrag aus
+    // ADR-0004 wäre gebrochen, ohne dass irgendwas das meldet.
+    throw new Error(
+      `${LIB_PKG_PATH} hat keine peerDependency „@conciso/design-system“ — Lockstep-Pin kann nicht gesetzt werden.`,
+    );
   }
+  libPkg.peerDependencies['@conciso/design-system'] = peerRange;
   writeJson(libPkgPath, libPkg);
 
   return { version, peerRange };
