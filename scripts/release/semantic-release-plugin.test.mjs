@@ -119,3 +119,23 @@ test('Notes: ohne den Transform fehlen genau diese Commits (Beleg für den Bug)'
   const text = await notes(nichtVomPresetBenannt);
   assert.doesNotMatch(text, /ng-icons auf 36 heben/);
 });
+
+test('Notes: ein Commit und sein Revert im selben Release fehlen beide (heben sich auf)', async () => {
+  // Gewollt (ADR-0009): die Änderung wurde nie ausgeliefert. Der Notes-Generator streicht das
+  // Paar selbst, noch vor dem Writer — derselbe Filter, mit dem die Engine es auch aus der
+  // Bump-Berechnung nimmt. Der auslösende fix bleibt stehen.
+  const feat = 'e'.repeat(40);
+  const text = await notes(
+    [
+      {
+        hash: 'f'.repeat(40),
+        message: `Revert "feat(lib): kurzlebige Variante"\n\nThis reverts commit ${feat}.`,
+      },
+      { hash: feat, message: 'feat(lib): kurzlebige Variante' },
+      { hash: '1'.repeat(40), message: 'fix(css): Fokusring nachziehen' },
+    ],
+    { transform: transformAlleBehalten },
+  );
+  assert.match(text, /Fokusring nachziehen/);
+  assert.doesNotMatch(text, /kurzlebige Variante/);
+});

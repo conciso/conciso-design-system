@@ -32,7 +32,9 @@ auf `main`.
   anderen Typen → kein Release. Scopes sind frei und wirken nicht aufs Release.
 - **Merge-Commits bleiben**, kein Squash: Jeder Commit eines PRs zählt einzeln und
   erscheint in den Release-Notes. Die vollständige History wiegt schwerer als
-  rauschfreie Notes.
+  rauschfreie Notes. Einzige Ausnahme: Ein Commit und sein Git-Revert im selben
+  Release heben sich auf — sie lösen nichts aus und fehlen beide in den Notes, weil
+  die Änderung nie ausgeliefert wurde.
 - **commitlint prüft hart, aber nur relevante Commits.** Commits, die keinen
   veröffentlichungsrelevanten Pfad berühren, sind frei — auch nicht-konventionelle.
   `subject-case` ist aus (deutsche Betreffe beginnen mit Nomen).
