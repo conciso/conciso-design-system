@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "baseUrl": ".",
     "paths": {
       "@conciso/design-system-angular": [
         "../angular-lib/projects/design-system-angular/src/public-api.ts"

@@ -191,5 +191,5 @@ tragen das Conciso-Farbschema statt des Storybook-Defaults:
 
 ## Versionen
 
-Angular 21 · Storybook 10.6 (`@storybook/angular-vite`, Vite-Builder,
+Angular 22 · TypeScript 6.0 · Storybook 10.6 (`@storybook/angular-vite`, Vite-Builder,
 In-Process-Docgen ohne Compodoc).
