@@ -33,7 +33,7 @@ export interface CdsSocialLink {
       >{{ copyright() }}@if (version()) {<span aria-hidden="true">&nbsp;·&nbsp;</span>{{ version() }}}</span
     >
     <nav aria-label="Rechtliche Hinweise" style="display:flex;gap:var(--s4);flex-wrap:wrap">
-      @for (link of legalLinks(); track link.label) {
+      @for (link of legalLinks(); track $index) {
         <a class="footer-btm-link" [href]="link.href">{{ link.label }}</a>
       }
     </nav>

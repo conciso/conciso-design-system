@@ -3,14 +3,29 @@
   Die Dateien werden via staticDirs (siehe main.ts) aus dem Repo-Root serviert.
   Reihenfolge wie in README/GETTING-STARTED vorgeschrieben:
   fonts → tokens → dark-mode → base → components.
-  fonts.css referenziert die woff2 relativ als ../fonts/* — unter /conciso/css/
-  serviert löst das korrekt auf /conciso/fonts/* auf (self-hosted, kein CDN).
+  fonts.css referenziert die woff2 relativ als ../fonts/* — unter ./conciso/css/
+  serviert löst das korrekt auf ./conciso/fonts/* auf (self-hosted, kein CDN).
+  Relativ statt absolut (./conciso/... statt /conciso/...): diese Seite ist
+  iframe.html, die auf GitHub Pages unter einem Unterpfad liegt
+  (https://conciso.github.io/conciso-design-system/); ein wurzelabsoluter Pfad
+  würde dort ins Leere zeigen. Relativ funktioniert lokal wie unter dem
+  Unterpfad gleichermaßen.
 -->
-<link rel="stylesheet" href="/conciso/css/fonts.css" />
-<link rel="stylesheet" href="/conciso/css/tokens.css" />
-<link rel="stylesheet" href="/conciso/css/dark-mode.css" />
-<link rel="stylesheet" href="/conciso/css/base.css" />
-<link rel="stylesheet" href="/conciso/css/components.css" />
+<link rel="stylesheet" href="./conciso/css/fonts.css" />
+<link rel="stylesheet" href="./conciso/css/tokens.css" />
+<link rel="stylesheet" href="./conciso/css/dark-mode.css" />
+<link rel="stylesheet" href="./conciso/css/base.css" />
+<link rel="stylesheet" href="./conciso/css/components.css" />
+
+<!--
+  noindex: Storybook läuft auf GitHub Pages unter einem Unterpfad
+  (https://conciso.github.io/conciso-design-system/), also der Domain
+  conciso.github.io, die uns nicht gehört — eine robots.txt griffe nur am
+  Domain-Root und ließe sich hier nicht platzieren. Der Meta-Tag ist der
+  einzige Hebel, um Suchmaschinen von der Indizierung dieser Vorschau
+  abzuhalten.
+-->
+<meta name="robots" content="noindex, nofollow" />
 
 <!--
   Die Preview-Fläche ist nicht der <body>, sondern Storybooks Wrapper .sb-show-main

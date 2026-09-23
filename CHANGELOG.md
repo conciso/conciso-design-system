@@ -744,6 +744,15 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Team-Koordination), daher bewusst als separater Schritt.
 - Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
 
+### Fixed
+- **Listen in `CarouselComponent`, `FaqComponent`, `FooterBottomComponent` und
+  `TopnavComponent` brechen bei doppelten Beschriftungen nicht mehr ab.** Die `@for`-Schleifen
+  trackten per Titel, Frage bzw. Label, obwohl die Inputs keine Eindeutigkeit verlangen. Zwei
+  gleich beschriftete Einträge lösten Angulars NG0955 aus und stoppten das Rendern. Carousel,
+  Footer und Topnav tracken jetzt per `$index` (ihr Zustand hängt ohnehin am Index), das FAQ
+  per Eintragsobjekt, damit der native `open`-Zustand eines `<details>` beim Umsortieren an
+  seiner Frage bleibt. Je Komponente pinnt eine Story mit doppelten Beschriftungen das ab.
+
 ## [1.0.0] - 2026-08-21
 
 ### Fixed

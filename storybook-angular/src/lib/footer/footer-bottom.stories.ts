@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { within, expect } from 'storybook/test';
 import { FooterBottomComponent } from '@conciso/design-system-angular';
 
 // GitHub-Octocat (simple-icons, viewBox 0 0 24) — Beispiel für ein eigenes Social-Icon
@@ -67,5 +68,21 @@ export const EigeneSocialLinks: Story = {
       { platform: 'linkedin', href: 'https://www.linkedin.com/company/conciso' },
       { label: 'GitHub', href: 'https://github.com/conciso', iconPath: GITHUB_ICON },
     ],
+  },
+};
+
+export const DoppelteLabels: Story = {
+  name: 'Doppelte Labels',
+  // Regressionstest: gleich beschriftete Links sind zulässig und dürfen das Rendern
+  // nicht abbrechen (NG0955 bei Tracking per Label).
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    legalLinks: [
+      { label: 'Datenschutz', href: '#datenschutz-website' },
+      { label: 'Datenschutz', href: '#datenschutz-bewerbung' },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getAllByRole('link', { name: 'Datenschutz' })).toHaveLength(2);
   },
 };

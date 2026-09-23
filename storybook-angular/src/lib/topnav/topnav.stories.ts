@@ -3,10 +3,12 @@ import { within, userEvent, expect } from 'storybook/test';
 import { TopnavComponent } from '@conciso/design-system-angular';
 
 // Echtes Conciso-Logo laut Doku (logo-conciso.svg / -light.svg), via staticDir
-// (.storybook/main.ts → /conciso/brand) serviert. Theme-Swap (hell/dunkel) über
+// (.storybook/main.ts → /conciso/brand) serviert. Relativer Pfad (./conciso/...),
+// da iframe.html auf GitHub Pages unter einem Unterpfad liegt und ein
+// wurzelabsoluter Pfad dort ins Leere zeigen würde. Theme-Swap (hell/dunkel) über
 // die portablen Klassen .logo-themed-default/-light.
-const LOGO_DEFAULT = '/conciso/brand/logo-conciso.svg';
-const LOGO_DARK = '/conciso/brand/logo-conciso-light.svg';
+const LOGO_DEFAULT = './conciso/brand/logo-conciso.svg';
+const LOGO_DARK = './conciso/brand/logo-conciso-light.svg';
 
 const meta: Meta<TopnavComponent> = {
   title: 'Komponenten/Navigation/Topnav',
@@ -99,5 +101,23 @@ export const Minimal: Story = {
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.ep-nav-search')).toBeNull();
     await expect(canvasElement.querySelector('a.btn')).toBeNull();
+  },
+};
+
+export const DoppelteLabels: Story = {
+  name: 'Doppelte Labels',
+  // Regressionstest: gleich beschriftete Haupt- und Untermenüpunkte sind zulässig
+  // und dürfen das Rendern nicht abbrechen (NG0955 bei Tracking per Label).
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    links: [
+      { label: 'Leistungen', sub: [{ label: 'Übersicht', href: '#l' }, { label: 'Beratung', href: '#b' }] },
+      { label: 'Wissen', sub: [{ label: 'Übersicht', href: '#w' }, { label: 'Übersicht', href: '#w2' }] },
+      { label: 'Wissen', href: '#wissen' },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('nav.ep-nav-links > *')).toHaveLength(3);
+    await expect(canvasElement.querySelectorAll('.ep-nav-sub a')).toHaveLength(4);
   },
 };

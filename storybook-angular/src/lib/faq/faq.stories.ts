@@ -50,3 +50,46 @@ export const Interaktiv: Story = {
     await expect(details).toHaveAttribute('open');
   },
 };
+
+export const DoppelteFragen: Story = {
+  name: 'Doppelte Fragen',
+  // Regressionstest: gleich lautende Fragen sind zulässig und dürfen das Rendern
+  // nicht abbrechen (NG0955 bei Tracking per Fragetext).
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    items: [
+      { q: 'Wie läuft die Bewerbung ab?', a: 'Über das Formular bei der jeweiligen Stelle.' },
+      { q: 'Wie läuft die Bewerbung ab?', a: 'Initiativ per E-Mail.' },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('details')).toHaveLength(2);
+  },
+};
+
+export const ZustandFolgtEintrag: Story = {
+  name: 'Zustand folgt dem Eintrag',
+  // Das native <details> hält seinen open-Zustand selbst. Beim Voranstellen eines
+  // Eintrags muss die geöffnete Frage offen bleiben und die neue zugeklappt
+  // erscheinen, statt dass der Zustand an der Position hängen bleibt.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: (args) => ({
+    props: {
+      items: args.items,
+      prepend(this: { items: typeof args.items }) {
+        this.items = [{ q: 'Gibt es Probetage?', a: 'Ja, nach Absprache.' }, ...this.items];
+      },
+    },
+    template: `
+      <button type="button" (click)="prepend()">Frage voranstellen</button>
+      <cds-faq [items]="items"></cds-faq>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.click(c.getByText('Wie läuft die Bewerbung ab?'));
+    await userEvent.click(c.getByRole('button', { name: 'Frage voranstellen' }));
+    await expect(c.getByText('Gibt es Probetage?').closest('details')).not.toHaveAttribute('open');
+    await expect(c.getByText('Wie läuft die Bewerbung ab?').closest('details')).toHaveAttribute('open');
+  },
+};
