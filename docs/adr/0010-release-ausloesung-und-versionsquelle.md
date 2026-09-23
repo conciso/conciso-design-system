@@ -89,7 +89,9 @@ auf `main`.
   um.
 - **Squash-Merge ist in den Repo-Einstellungen abgeschaltet.** Der Squash-Commit trägt den
   PR-Titel als Nachricht, und den prüft commitlint nicht — ein nicht konventioneller Titel
-  hätte ein Release still verschluckt.
+  hätte ein Release still verschluckt. Rebase-Merge bleibt bewusst erlaubt; in Kauf
+  genommen ist ein Randfall: Enthält ein PR einen Commit samt seinem Git-Revert, verweist
+  der Revert nach dem Rebase auf den alten Hash, und das Paar hebt sich nicht mehr auf.
 - **Ein Git-Revert löst kein Release aus**, auch wenn er ausgelieferten Inhalt ändert. Wer
   eine Rücknahme sofort veröffentlichen will, committet sie als `fix:`.
 - Ein Angular-Update mit neuer Peer-Major-Range braucht `build(deps)!`.
