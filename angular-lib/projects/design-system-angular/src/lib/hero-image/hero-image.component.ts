@@ -43,10 +43,15 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * 9406) als Sprungziel des Skip-Links. Das Sprungziel ist eine Entscheidung der
  * Seite (welches Element „Hauptinhalt“ ist, hängt vom Seitenaufbau ab, nicht vom
  * Hero selbst), deshalb setzt der Konsument beides am `<cds-hero-image>`-Host.
+ * Damit dieses Sprungziel eine eigene Box hat, ist der Host per
+ * `:host{display:block}` selbst ein Block (Muster wie `cds-footer-main`): Als
+ * unbekanntes Element wäre er `display:inline` mit herausgebrochenem Block-Kind
+ * und hätte keine brauchbare Box für Fokus und Scroll-Position (ADR-0008, Fall 2).
  */
 @Component({
   selector: 'cds-hero-image',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [':host{display:block}'],
   template: `
     <figure class="hero-image">
       <div class="hero-image-media">

@@ -172,3 +172,36 @@ export const Bildausschnitt: Story = {
     await expect(images[1].style.objectPosition).toBe('center 10%');
   },
 };
+
+export const AlsSprungziel: Story = {
+  name: 'Als Sprungziel',
+  // Kein eigener Screenshot: Die Story sieht aus wie „Ohne Caption“, geprüft wird
+  // hier nur die Box des Hosts.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <a href="#hauptinhalt">Zum Inhalt springen</a>
+      <cds-hero-image
+        id="hauptinhalt"
+        tabindex="-1"
+        src="${heroPlaceholder}"
+        alt="Conciso-Team geht gemeinsam über ein sonniges Industriegelände"
+      ></cds-hero-image>
+    `,
+  }),
+  // Entscheidung 4 gepinnt: id und tabindex sitzen am Host, und der Host ist ein
+  // Block mit derselben Box wie das gerenderte <figure>. Als Inline-Element hätte
+  // er keine eigene Box, Fokus und Scroll-Position des Skip-Links liefen ins Leere.
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector<HTMLElement>('#hauptinhalt')!;
+    const figure = host.querySelector('figure')!;
+    await expect(getComputedStyle(host).display).toBe('block');
+    host.focus();
+    await expect(document.activeElement).toBe(host);
+    const hostBox = host.getBoundingClientRect();
+    const figureBox = figure.getBoundingClientRect();
+    await expect(hostBox.height).toBeGreaterThan(0);
+    await expect(hostBox.top).toBe(figureBox.top);
+    await expect(hostBox.height).toBe(figureBox.height);
+  },
+};
