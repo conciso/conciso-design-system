@@ -4,12 +4,12 @@ import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { storybookAngularVitest } from '@storybook/angular-vite/vitest';
-import { assertBaselinesMayBeWritten } from './visual-baseline-guard';
+import { assertBaselinesMayBeWritten } from './visual-baseline-guard.mts';
 
 const configDir = fileURLToPath(new URL('.storybook', import.meta.url));
 
 // Vor allem anderen: Baselines nur dort überschreiben, wo sie hingehören. Siehe
-// `visual-baseline-guard.ts` — der Guard greift ausschließlich bei VISUAL=1 zusammen
+// `visual-baseline-guard.mts` — der Guard greift ausschließlich bei VISUAL=1 zusammen
 // mit --update und lässt jeden anderen Lauf unberührt.
 assertBaselinesMayBeWritten({ argv: process.argv, env: process.env });
 
