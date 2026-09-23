@@ -3,7 +3,7 @@
 // und GitHub-Release — jeweils auch dann, wenn inzwischen neue Commits gelandet sind.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { decide } from './decide.mjs';
+import { decide, versionsliste } from './decide.mjs';
 
 const sauber = {
   latestTag: 'v2.0.0',
@@ -153,4 +153,16 @@ test('Versionen werden numerisch verglichen, nicht als Text (2.0.10 > 2.0.9)', (
 
 test('ungültige Einträge in der Versionsliste werden ignoriert', () => {
   assert.equal(decide({ ...sauber, cssVersions: [...sauber.cssVersions, 'kaputt'] }).mode, 'nichts');
+});
+
+test('versionsliste: Array, einzelner String und leere Eingabe', () => {
+  assert.deepEqual(versionsliste('["1.0.0","2.0.0"]'), ['1.0.0', '2.0.0']);
+  assert.deepEqual(versionsliste('"1.0.0"'), ['1.0.0']);
+  assert.deepEqual(versionsliste(''), []);
+  assert.deepEqual(versionsliste('[]'), []);
+});
+
+test('versionsliste: kaputte Registry-Antwort wirft statt als leer durchzugehen', () => {
+  assert.throws(() => versionsliste('["1.0.0","2.0'));
+  assert.throws(() => versionsliste('{"error":{"code":"E500"}}'));
 });

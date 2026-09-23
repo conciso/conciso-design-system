@@ -241,9 +241,11 @@ jobs:
     name: Beide Pakete bauen und veröffentlichen
     needs: [pruefen, consumer-smoke-test]
     # always(), weil ein übersprungener Smoke-Test (reines Finalisieren, s. o.) den Job sonst
-    # mitüberspringen würde. Gescheitert oder abgebrochen darf er aber nicht sein.
+    # mitüberspringen würde. Gescheitert oder abgebrochen darf er aber nicht sein — und
+    # `pruefen` muss durchgelaufen sein: always() liefe sonst auch nach einem späten Fehler
+    # dort (etwa beim Hochladen der Notes) los, obwohl publish=true schon gesetzt war.
     if: >-
-      always() && needs.pruefen.outputs.publish == 'true' &&
+      always() && needs.pruefen.result == 'success' && needs.pruefen.outputs.publish == 'true' &&
       (needs.consumer-smoke-test.result == 'success' || needs.consumer-smoke-test.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:

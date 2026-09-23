@@ -16,9 +16,13 @@ function git(args, cwd) {
  * @returns {{ isMerge: boolean, files: string[] }}
  */
 export function enrichCommit(hash, cwd = process.cwd()) {
-  const parents = git(['rev-parse', `${hash}^@`], cwd)
-    .split('\n')
-    .filter(Boolean);
+  // `rev-list --parents -n 1` liefert „<hash> <parent>…“ und ist auch für den Root-Commit
+  // (keine Eltern) eindeutig definiert — unabhängig davon, wie eine Git-Version `<root>^@`
+  // behandelt.
+  const parents = git(['rev-list', '--parents', '-n', '1', hash], cwd)
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(1);
   const isMerge = parents.length > 1;
   const files = isMerge
     ? []

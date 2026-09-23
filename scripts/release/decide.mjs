@@ -118,13 +118,18 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
 }
 
 // `npm view … versions --json` liefert ein Array, bei genau einer Version aber einen String.
-function versionsliste(json) {
-  try {
-    const wert = JSON.parse(json || '[]');
-    return Array.isArray(wert) ? wert : [wert];
-  } catch {
-    return [];
+// Nur eine leere Eingabe zählt als „keine Versionen“ (der Workflow übergibt bei E404 `[]`).
+// Eine kaputte oder abgeschnittene Registry-Antwort wirft dagegen, statt als leer
+// durchzugehen: sonst übersähe decide() ein unfertiges Paket und veröffentlichte darüber
+// hinweg — genau das, was die geschlossen scheiternden Abfragen im Workflow verhindern.
+export function versionsliste(json) {
+  if (!json || !json.trim()) return [];
+  const wert = JSON.parse(json);
+  const liste = Array.isArray(wert) ? wert : [wert];
+  if (!liste.every((v) => typeof v === 'string')) {
+    throw new Error(`Unerwartete Versionsliste aus der Registry: ${json.slice(0, 200)}`);
   }
+  return liste;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
