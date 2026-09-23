@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { CdsArea, CdsButtonVariant } from '@conciso/design-system-angular';
 import {
   ButtonComponent,
@@ -33,6 +33,7 @@ import {
   selector: 'app-root',
   imports: [ButtonComponent, TopnavComponent, TextFieldComponent, CheckboxComponent, CardComponent],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css',
 })
 export class App {
