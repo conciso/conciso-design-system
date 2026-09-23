@@ -38,7 +38,7 @@ module.exports = defineConfig([
           // ein direktes Grid-/Flex-Kind sein MUSS (z. B. .ep-card unter .ep-cards),
           // bekommt einen Attributselektor, damit der Host selbst das echte Element
           // ist, ohne einen umschließenden Custom-Element-Tag dazwischenzuschieben.
-          // Siehe ADR (in Arbeit) und icon-card.component.ts.
+          // Siehe docs/adr/0008-selektortyp-der-wrapper-komponenten.md.
           {
             type: "attribute",
             prefix: "cds",

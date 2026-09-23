@@ -121,6 +121,7 @@ const preview: Preview = {
             'Slider & Carousel',
             ['Verwendung', 'Carousel', 'LogoCarousel'],
             'Sektion',
+            ['Übersicht', 'Sektion'],
             'Navigation',
             ['Verwendung', 'Topnav'],
             'Hero',

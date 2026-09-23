@@ -110,13 +110,13 @@ export interface CdsCompareRow {
           <thead>
             <tr>
               <th scope="col">{{ rowsLabel() }}</th>
-              @for (column of columns(); track column.label) {
+              @for (column of columns(); track $index) {
                 <th scope="col" [class.ep-compare-pro]="column.pro">{{ column.label }}</th>
               }
             </tr>
           </thead>
           <tbody>
-            @for (row of rows(); track row.label) {
+            @for (row of rows(); track $index) {
               <tr>
                 <th scope="row">{{ row.label }}</th>
                 @for (cell of row.cells; track $index) {

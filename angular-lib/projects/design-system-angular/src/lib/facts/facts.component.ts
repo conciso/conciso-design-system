@@ -66,7 +66,7 @@ export interface CdsFactsItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dl class="ep-facts" [class.is-grid]="grid()">
-      @for (item of items(); track item.term) {
+      @for (item of items(); track $index) {
         <div>
           <dt [class]="area() ? 't-' + area() : null">{{ item.term }}</dt>
           <dd>{{ item.value }}</dd>
