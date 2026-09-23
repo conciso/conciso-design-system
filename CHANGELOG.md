@@ -602,6 +602,11 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Doku-Seite bleibt erstes Kind.
 
 ### Changed
+- **Storybook-Workspace führt `@angular/animations` und `@angular/platform-browser-dynamic`
+  nicht mehr als eigene Abhängigkeiten.** Beide sind seit Angular 22 als veraltet markiert, und
+  weder die Stories noch das Framework importieren sie. `@angular/animations` bleibt im Baum,
+  weil `@storybook/angular-vite` es als Pflicht-Peer verlangt; npm installiert es darüber mit.
+  Betrifft nur das interne Storybook, nicht die ausgelieferten Pakete.
 - **Visual-Regression von Storybook-Test-Runner (Jest) nach Vitest verschoben, eine Testschiene
   statt zwei.** `npm run test:vitest` deckte bereits Smoke-Rendering, `play`-Funktionen und die
   a11y-Prüfung ab; der zweite Lauf über `@storybook/test-runner` (`test-storybook:ci`) fuhr
