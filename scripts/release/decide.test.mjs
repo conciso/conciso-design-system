@@ -97,6 +97,23 @@ test('fehlendes Paket UND fehlendes Release → nachziehen, Notes aus dem Tag', 
   assert.equal(d.notes, 'tag');
 });
 
+test('unfertiger letzter Tag hat Vorrang vor einem halben Stand darüber (ältere Lücke zuerst)', () => {
+  // Sonst würde erst 2.0.1 nachgezogen und getaggt — danach wäre v2.0.0 nicht mehr der
+  // letzte Tag und bliebe dauerhaft unfertig.
+  const ohneRelease = decide({
+    ...sauber,
+    tagHasRelease: false,
+    cssVersions: [...sauber.cssVersions, '2.0.1'],
+  });
+  assert.equal(ohneRelease.mode, 'finalisieren');
+  assert.equal(ohneRelease.version, '2.0.0');
+
+  const ohnePaket = decide({ ...sauber, libVersions: ['1.0.0'], cssVersions: [...sauber.cssVersions, '2.0.1'] });
+  assert.equal(ohnePaket.mode, 'nachziehen');
+  assert.equal(ohnePaket.version, '2.0.0');
+  assert.equal(ohnePaket.source, 'tag');
+});
+
 test('Alt-Tag (leichtgewichtig, vor ADR-0008) mit fehlendem Paket → nur Hinweis, kein Blockieren', () => {
   // Aus solchen Checkouts lässt sich nicht bauen (kein stamp-version.mjs); ein Nachzieh-
   // Versuch würde jeden weiteren Release blockieren. Deshalb: sagen, aber weitermachen.

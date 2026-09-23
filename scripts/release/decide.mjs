@@ -8,10 +8,11 @@
 // deshalb bewusst NICHT an der Version, die die Engine gerade ausrechnet, sondern am Stand
 // von Registry und Tags:
 //
+// - Fehlt hinter dem letzten Tag ein Paket → `nachziehen` aus dem Tag-Commit.
+// - Hat der letzte Tag kein GitHub-Release → `finalisieren`.
 // - Liegt in der Registry eine Version über dem letzten Tag, ist dieser Release unfertig
 //   (der Tag entsteht erst nach beiden Publishes) → `nachziehen`: fehlendes Paket
 //   veröffentlichen, Tag und Release setzen — aus dem Quellstand der Registry.
-// - Hat der letzte Tag kein GitHub-Release → `finalisieren`.
 // - Sonst, wenn die Engine eine Version liefert → `neu`.
 //
 // Nach `nachziehen`/`finalisieren` stößt der Workflow sich selbst erneut an, damit die
@@ -58,20 +59,16 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
   const beide = (publishCss, publishLib) =>
     dry ? { publishCss: true, publishLib: true } : { publishCss, publishLib };
 
-  if (veroeffentlicht && (!getaggt || groesser(veroeffentlicht, getaggt))) {
-    return {
-      mode: 'nachziehen',
-      version: veroeffentlicht,
-      ...beide(!cssVersions.includes(veroeffentlicht), !libVersions.includes(veroeffentlicht)),
-      source: 'registry',
-      notes: 'range',
-    };
-  }
-  // Getaggt, aber ein Paket fehlt in der Tag-Version (etwa eine gelöschte Paketversion):
-  // aus dem Tag-Commit nachziehen. Nur für annotierte Tags — die stammen aus diesem
-  // Workflow, ihr Checkout enthält die Release-Skripte. Aus einem leichtgewichtigen Alt-Tag
-  // (vor ADR-0008) lässt sich so nicht bauen; ein Versuch würde jeden weiteren Release
-  // blockieren. Dort nur ein Hinweis, die Entscheidung läuft weiter.
+  // Reihenfolge: älteste Lücke zuerst. Erst den letzten Tag vervollständigen, dann eine
+  // Version darüber nachziehen, dann Neues. Umgekehrt würde ein höherer halber Stand
+  // getaggt und der unfertige alte Tag wäre danach nicht mehr der letzte — und bliebe
+  // dauerhaft liegen.
+
+  // 1. Getaggt, aber ein Paket fehlt in der Tag-Version (etwa eine gelöschte Paketversion):
+  //    aus dem Tag-Commit nachziehen. Nur für annotierte Tags — die stammen aus diesem
+  //    Workflow, ihr Checkout enthält die Release-Skripte. Aus einem leichtgewichtigen
+  //    Alt-Tag (vor ADR-0008) lässt sich so nicht bauen; ein Versuch würde jeden weiteren
+  //    Release blockieren. Dort nur ein Hinweis, die Entscheidung läuft weiter.
   let hinweis;
   const fehltCss = getaggt && !cssVersions.includes(getaggt);
   const fehltLib = getaggt && !libVersions.includes(getaggt);
@@ -89,6 +86,7 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
   }
   const mitHinweis = (ergebnis) => (hinweis ? { ...ergebnis, hinweis } : ergebnis);
 
+  // 2. Getaggt, aber ohne GitHub-Release → nachholen.
   if (getaggt && !tagHasRelease) {
     return mitHinweis({
       mode: 'finalisieren',
@@ -99,6 +97,20 @@ export function decide({ latestTag, tagHasRelease, tagIsAnnotated, cssVersions, 
       notes: tagIsAnnotated ? 'tag' : 'github',
     });
   }
+
+  // 3. Eine veröffentlichte Version über dem letzten Tag ist unfertig (der Tag entsteht
+  //    erst nach beiden Publishes) → fehlendes Paket, Tag und Release nachziehen.
+  if (veroeffentlicht && (!getaggt || groesser(veroeffentlicht, getaggt))) {
+    return mitHinweis({
+      mode: 'nachziehen',
+      version: veroeffentlicht,
+      ...beide(!cssVersions.includes(veroeffentlicht), !libVersions.includes(veroeffentlicht)),
+      source: 'registry',
+      notes: 'range',
+    });
+  }
+
+  // 4. Alles Frühere ist fertig → neue Version aus der Engine.
   if (engineVersion) {
     return mitHinweis({ mode: 'neu', version: engineVersion, ...beide(true, true), source: 'head', notes: 'engine' });
   }
