@@ -28,7 +28,8 @@ zusammenpassen.
 - **Build:** Angular-CLI-Workspace + ng-packagr (Angular Package Format), **ein**
   Einstiegspunkt (`public-api.ts`), der Komponenten **und** öffentliche Typen
   (`CdsArea`, `CdsButtonVariant`, `CdsThemeMode`, …) exportiert.
-- **peer-Range Angular:** `^21.2.0` (aktuelle Major, gegen die gebaut wird).
+- **peer-Range Angular:** die aktuelle Major, gegen die gebaut wird — heute `^22.0.0`
+  (bis 1.x: `^21.2.0`).
 - **Icons:** `@ng-icons/*` als normale `dependency` (vollständig gekapselt via
   `provideIcons`/`viewProviders`; kein globales Singleton).
 - **Consumer-Smoke-Test als CI-Gate:** Eine committete Minimal-Consumer-Fixture im

@@ -29,6 +29,19 @@ Diese App ist **nicht** in den `workspaces` der Root-`package.json` gelistet und
 genau das gebaute APF-Artefakt, das ein echter Konsument bekommt, bliebe ungetestet
 (siehe [ADR-0003](../../docs/adr/0003-pilot-scheibe-und-validierung.md)).
 
+## Wichtig: `@angular/forms` absichtlich NICHT in der `package.json`
+
+Die Fixture importiert Feldkomponenten (`TextFieldComponent`, `CheckboxComponent`), die zur
+Laufzeit `@angular/forms` brauchen, deklariert das Paket aber **nicht** selbst. Es kommt allein
+über die peerDependency von `@conciso/design-system-angular` herein, die npm (ab 7) automatisch
+installiert. Genau so fällt eine **fehlende** peer-Deklaration der Lib auf: Fehlt sie, bricht der
+Build mit `Could not resolve "@angular/forms"` (Rot-Grün belegt in Commit `6115f94`). Stünde
+`@angular/forms` hier, würde die Fixture die Lücke zudecken und der Test bliebe grün.
+
+Das setzt einen Paketmanager voraus, der peerDependencies installiert. Das ist gegeben, weil der
+Smoke-Test die Fixture immer mit npm installiert. Ein echter Konsument führt `@angular/forms`
+dagegen selbst in seiner `package.json`.
+
 ## Lokal bauen
 
 Ein blankes `npm install` hier schlägt fehl — `@conciso/design-system` und

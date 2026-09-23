@@ -21,6 +21,14 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 ## [2.0.0] - 2026-09-23
 
 ### Breaking
+- **`@conciso/design-system-angular` verlangt jetzt Angular 22.** Die peerDependencies
+  `@angular/common`, `@angular/core`, `@angular/forms` und `@angular/platform-browser`
+  stehen auf `^22.0.0` statt `^21.2.0`; die Lib wird mit dem Angular-22-Compiler gebaut.
+  Konsumenten auf Angular 21 bleiben auf 1.x, bis sie selbst auf 22 gehen. Mit Angular 22
+  kommt TypeScript 6.0 als Pflicht für den Build des Konsumenten (`>=6.0 <6.1`). Die
+  mitgelieferten Icons (`@ng-icons/core`, `@ng-icons/heroicons`) springen von 33 auf 36;
+  der Konsument fasst sie nicht direkt an (siehe ADR-0004), bekommt sie aber als
+  `dependency` mit. Die Consumer-Fixture baut gegen Angular 22.
 - **Inhalts-Inputs von 16 Komponenten sind jetzt `input.required()`.** Betroffen:
   `BlockquoteComponent` (`quote`, `name`), `TestimonialComponent` (`quote`, `name`),
   `TeamVoiceComponent` (`quote`, `name`), `StatCardComponent` (`value`, `label`),
