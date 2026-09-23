@@ -23,6 +23,28 @@ import { BUMP_RULES } from './compute-bump.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const NOTES_OUTPUT_PATH = join(ROOT, 'release-notes-generated.md');
 
+// WICHTIG: Der Standard-Preset "angular" von @semantic-release/commit-analyzer /
+// -release-notes-generator kennt in seinem headerPattern KEIN „!“ (nur ein
+// BREAKING-CHANGE-Footer gilt dort als breaking, siehe conventional-changelog-angular/src/parser.js).
+// Ein Commit wie „feat(lib)!: …“ OHNE zusätzlichen Footer würde damit unbemerkt GAR KEIN
+// Release auslösen statt major — ein eigenständiger Bruch von ADR-0008 Regel 4 („! ODER
+// BREAKING CHANGE:“), unabhängig davon, dass compute-bump.mjs „!“ für die PR-Job-Summary
+// korrekt erkennt. Verifiziert: ohne diesen Override liefert analyzeCommits für
+// „feat(lib)!: …“ ohne Footer `null` statt `major`.
+//
+// Der naheliegende Fix (preset: 'conventionalcommits', das „!“ nativ kennt) bricht: dessen
+// installierte Version verlangt einen neueren conventional-changelog-writer, als
+// @semantic-release/release-notes-generator@14 mitbringt („Missing helper“-Fehler beim
+// Rendern). Stattdessen bleibt der Preset „angular“ (kompatibel, unverändert), und nur der
+// Parser bekommt zusätzlich `breakingHeaderPattern` — ein offizieller Mechanismus von
+// conventional-commits-parser (siehe CommitParser.js#parseBreakingHeader): matcht das Muster
+// auf den Header, ohne dass bereits ein Footer-Note existiert, wird eine synthetische
+// „BREAKING CHANGE“-Note aus der dritten Gruppe (dem Subject) erzeugt — genau das, was
+// commit-analyzer für `{ breaking: true }`-Regeln prüft (`commit.notes.length > 0`).
+export const BREAKING_HEADER_PARSER_OPTS = {
+  parserOpts: { breakingHeaderPattern: /^(\w*)(?:\((.*)\))?!: (.*)$/ },
+};
+
 // semantic-release liefert pro Commit nur hash/message/gitTags/committerDate — welche
 // Dateien er berührt und ob es ein Merge-Commit ist, liefert es NICHT mit (siehe
 // semantic-release/lib/git.js#getCommits). Das holen wir hier pro Commit über
@@ -37,8 +59,8 @@ export async function analyzeCommits(pluginConfig, context) {
   return baseAnalyzeCommits(
     // BUMP_RULES ist dasselbe Format, das @semantic-release/commit-analyzer als
     // `releaseRules` erwartet — direkt aus compute-bump.mjs übernommen, keine zweite
-    // Bump-Tabelle mit eigener Bedeutung.
-    { ...pluginConfig, releaseRules: BUMP_RULES },
+    // Bump-Tabelle mit eigener Bedeutung. breakingHeaderPattern s.o.
+    { ...pluginConfig, ...BREAKING_HEADER_PARSER_OPTS, releaseRules: BUMP_RULES },
     { ...context, commits: relevant },
   );
 }
@@ -50,7 +72,10 @@ const FROZEN_CHANGELOG_LINK =
 
 export async function generateNotes(pluginConfig, context) {
   const relevant = filterCommits(context.commits, context.cwd);
-  const generated = await baseGenerateNotes(pluginConfig, { ...context, commits: relevant });
+  const generated = await baseGenerateNotes(
+    { ...pluginConfig, ...BREAKING_HEADER_PARSER_OPTS },
+    { ...context, commits: relevant },
+  );
   const notes = `${FROZEN_CHANGELOG_LINK}\n\n${generated}`;
   writeFileSync(NOTES_OUTPUT_PATH, `${notes}\n`);
   return notes;
