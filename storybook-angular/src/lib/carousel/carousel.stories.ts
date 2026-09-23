@@ -101,3 +101,20 @@ export const TastaturDots: Story = {
     await expect(dots[dots.length - 1]).toHaveFocus();
   },
 };
+
+export const DoppelteTitel: Story = {
+  name: 'Doppelte Titel',
+  // Regressionstest: gleich betitelte Slides sind zulässig und dürfen das Rendern
+  // nicht abbrechen (NG0955 bei Tracking per Titel), weder bei Slides noch Dots.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    slides: [
+      { title: 'Workshop', text: 'Erster Termin.' },
+      { title: 'Workshop', text: 'Zweiter Termin.' },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('.img-slide')).toHaveLength(2);
+    await expect(canvasElement.querySelectorAll('.img-dot')).toHaveLength(2);
+  },
+};

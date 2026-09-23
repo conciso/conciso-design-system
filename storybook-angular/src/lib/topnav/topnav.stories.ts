@@ -101,3 +101,21 @@ export const Minimal: Story = {
     await expect(canvasElement.querySelector('a.btn')).toBeNull();
   },
 };
+
+export const DoppelteLabels: Story = {
+  name: 'Doppelte Labels',
+  // Regressionstest: gleich beschriftete Haupt- und Untermenüpunkte sind zulässig
+  // und dürfen das Rendern nicht abbrechen (NG0955 bei Tracking per Label).
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    links: [
+      { label: 'Leistungen', sub: [{ label: 'Übersicht', href: '#l' }, { label: 'Beratung', href: '#b' }] },
+      { label: 'Wissen', sub: [{ label: 'Übersicht', href: '#w' }, { label: 'Übersicht', href: '#w2' }] },
+      { label: 'Wissen', href: '#wissen' },
+    ],
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('nav.ep-nav-links > *')).toHaveLength(3);
+    await expect(canvasElement.querySelectorAll('.ep-nav-sub a')).toHaveLength(4);
+  },
+};

@@ -199,14 +199,18 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Team-Koordination), daher bewusst als separater Schritt.
 - Optionales schlankes `behaviors.js` (Theme/Nav/Back-to-Top) fürs Paket.
 
-## [1.0.0] - 2026-08-21
-
 ### Fixed
 - **Listen in `CarouselComponent`, `FaqComponent`, `FooterBottomComponent` und
   `TopnavComponent` brechen bei doppelten Beschriftungen nicht mehr ab.** Die `@for`-Schleifen
   trackten per Titel, Frage bzw. Label, obwohl die Inputs keine Eindeutigkeit verlangen. Zwei
-  gleich beschriftete Einträge lösten Angulars NG0955 aus und stoppten das Rendern. Jetzt per
-  `$index`; die Einträge tragen keinen eigenen Zustand.
+  gleich beschriftete Einträge lösten Angulars NG0955 aus und stoppten das Rendern. Carousel,
+  Footer und Topnav tracken jetzt per `$index` (ihr Zustand hängt ohnehin am Index), das FAQ
+  per Eintragsobjekt, damit der native `open`-Zustand eines `<details>` beim Umsortieren an
+  seiner Frage bleibt. Je Komponente pinnt eine Story mit doppelten Beschriftungen das ab.
+
+## [1.0.0] - 2026-08-21
+
+### Fixed
 - **Das Card-Layout stand im `style`-Attribut, nicht in der Klasse.** `.card-body` dokumentiert
   `.card-cta-link--pinned`, und dessen `margin-top:auto` funktioniert ausschließlich im
   Flex-Container. Die Klasse war aber nur `padding:var(--s5)`. Ergebnis: in den Doku-Mockups stand
