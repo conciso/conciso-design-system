@@ -4,7 +4,7 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
 
 # Verwendung
 
-Generische Karten (statisch, Link-Karte) und Inhaltskarten (Stat), alle Brand Areas, barrierefrei. Der Abschnitt deckt mehr ab, als es eigene Bauteile gibt: die editoriale Kennzahl-Zeile und die offene Feature-Liste sind reine CSS-Rezepte ohne eigene Komponente, die klickbare Karte ist ein Modus des Karten-Bauteils.
+Generische Karten (statisch, Link-Karte) und Inhaltskarten (Stat), alle Brand Areas, barrierefrei. Der Abschnitt deckt mehr ab, als es eigene Bauteile gibt: die editoriale Kennzahl-Zeile ist ein reines CSS-Rezept ohne eigene Komponente. Klickbare Karte, Featured-Karte, Icon-Karte, offene Feature-Liste und Tier-Trenner haben jeweils ein eigenes Angular-Bauteil (siehe „Verwandte Seiten“).
 
 ## Anatomie
 
@@ -82,6 +82,8 @@ Die folgende Anatomie zeigt die fünf Bausteine einer generischen Karte: Media-B
 | `a.card.card-elevated` | `<a class="card card-elevated">` | Textreiche Listing-Cards mit Card-Media, Card-Body (Pill, Titel, Text, Meta-Zeile) und implizitem „Beitrag lesen →“-Anker am Ende |
 | `a.card.card-elevated.card-featured` | `<a class="card card-elevated card-featured">` | Horizontale Großkarte für genau einen hervorgehobenen Beitrag oder Termin, Bild links im 16:9, Content rechts |
 
+In Angular deckt jedes der drei Patterns ein eigenes Bauteil ab: `<a cdsIconCard>` (Icon-Karte), `cds-link-card` (Klickbare Karte) und `cds-featured-card` (Featured-Karte).
+
 **Weitere CSS-Rezepte ohne eigenes Bauteil**, sinnvoll dort, wo ein weiteres Karten-Grid die Seite überladen würde:
 
 | Muster | Rolle | Wann statt Karte |
@@ -89,7 +91,7 @@ Die folgende Anatomie zeigt die fünf Bausteine einer generischen Karte: Media-B
 | Stat-Karte (`.card-stat`) | Eigenständige KPI-Kachel mit Rahmen | Kennzahlen auf Landingpages, Jahresberichten, Dashboards |
 | Bandstreifen (`.card-stat-strip` / `.card-stat-flat`) | Flache Variante ohne Rahmen und Schatten | Kompakte KPI-Bänder, Footer-Stats, Hero-Anschluss-Sektionen |
 | Editoriale Kennzahl-Zeile | Redaktioneller Fließinhalt, nur durch Haarlinien getrennt, kein Karten-Chrome | Case-, Projekt- und Leistungslisten, wenn auf der Seite bereits Karten-Grids stehen |
-| Offene Feature-Liste (`.ep-feature`) | Icon-geführte Aufzählung ohne Rahmen, Schatten oder Media-Fläche | Vollständiger Funktionsumfang, wenn ein weiteres Karten-Grid überladen würde |
+| Offene Feature-Liste (`.ep-feature`, in Angular `<div cdsFeature>`) | Icon-geführte Aufzählung ohne Rahmen, Schatten oder Media-Fläche | Vollständiger Funktionsumfang, wenn ein weiteres Karten-Grid überladen würde |
 
 Karten sind für Angebots-Menüs und Teaser da: Lösungs- und Leistungskacheln, Artikel-Vorschauen, Elemente, die zu einem Ziel führen und als abgeschlossene, klickbare Einheit funktionieren. Für Stimmen, Funktions- und Case-Listen ist meist eine offene, redaktionelle Darstellung die bessere Wahl: direkt auf der Fläche, durch Haarlinien getrennt. Das hält inhaltsdichte Abschnitte luftig und vermeidet den Eindruck einer Kachelwand, wenn mehrere Karten-Grids aufeinanderfolgen.
 
@@ -205,6 +207,11 @@ Karten sind für Angebots-Menüs und Teaser da: Lösungs- und Leistungskacheln, 
 ## Verwandte Seiten
 
 - Card (`Komponenten/Cards & Teaser/Card`)
+- Klickbare Karte (`Komponenten/Cards & Teaser/Klickbare Karte`), `cds-link-card`
+- Featured-Karte (`Komponenten/Cards & Teaser/Featured-Karte`), `cds-featured-card`
+- Icon-Karte (`Komponenten/Cards & Teaser/Icon-Karte`), `[cdsIconCard]`
+- Feature-Liste (`Komponenten/Cards & Teaser/Feature-Liste`), `[cdsFeature]`
+- Tier-Trenner (`Komponenten/Cards & Teaser/Tier-Trenner`), `cds-tier`
 - StatCard (`Komponenten/Cards & Teaser/StatCard`)
 - StatStrip (`Komponenten/Cards & Teaser/StatStrip`)
 - Testimonial (`Komponenten/Zitate & Testimonials/Testimonial`), Zitat-Karte mit Quellenangabe, hier nur verlinkt

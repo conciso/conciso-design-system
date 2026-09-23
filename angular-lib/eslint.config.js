@@ -28,11 +28,23 @@ module.exports = defineConfig([
       ],
       "@angular-eslint/component-selector": [
         "error",
-        {
-          type: "element",
-          prefix: "cds",
-          style: "kebab-case",
-        },
+        [
+          {
+            type: "element",
+            prefix: "cds",
+            style: "kebab-case",
+          },
+          // Ausnahme vom Element-Standard: eine Wrapper-Komponente, deren CSS-Klasse
+          // ein direktes Grid-/Flex-Kind sein MUSS (z. B. .ep-card unter .ep-cards),
+          // bekommt einen Attributselektor, damit der Host selbst das echte Element
+          // ist, ohne einen umschließenden Custom-Element-Tag dazwischenzuschieben.
+          // Siehe docs/adr/0008-selektortyp-der-wrapper-komponenten.md.
+          {
+            type: "attribute",
+            prefix: "cds",
+            style: "camelCase",
+          },
+        ],
       ],
     },
   },
