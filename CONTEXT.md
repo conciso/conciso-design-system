@@ -42,7 +42,7 @@ Einstiegspunkt (`public-api.ts`).
 Die Doku des Design Systems, die nach außen zeigt: Stories, MDX-Seiten und
 Komponenten-API der [Angular-Lib](#angular-lib) auf Basis der [CSS-Schicht](#css-schicht).
 Öffentlich erreichbar, aber nicht für Suchmaschinen bestimmt. Die Pakete selbst
-bleiben intern. Siehe [ADR-0008](docs/adr/0008-storybook-oeffentlich-auf-github-pages.md).
+bleiben intern. Siehe [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 
 ### Doku-Site
 

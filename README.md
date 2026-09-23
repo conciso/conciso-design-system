@@ -76,7 +76,7 @@ Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Def
 > Komponenten-Referenz der Angular-Lib) ist dagegen öffentlich einsehbar unter
 > <https://conciso.github.io/conciso-design-system/> — ohne Auth, aber `noindex` (nicht für
 > Suchmaschinen bestimmt). Details und Abwägung in
-> [ADR-0008](docs/adr/0008-storybook-oeffentlich-auf-github-pages.md).
+> [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 
 **Angular:** Für Angular gibt es Komponenten statt nur CSS-Klassen —
 `@conciso/design-system-angular` aus derselben Registry, im Lockstep auf derselben Version.

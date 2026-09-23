@@ -1,4 +1,4 @@
-# ADR-0008: Storybook öffentlich auf GitHub Pages
+# ADR-0009: Storybook öffentlich auf GitHub Pages
 
 - Status: akzeptiert
 - Datum: 2026-09-23

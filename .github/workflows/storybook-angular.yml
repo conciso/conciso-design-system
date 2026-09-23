@@ -130,7 +130,7 @@ jobs:
       # Nur hochladen, wenn danach auch tatsächlich deployt wird — dieselbe
       # Bedingung wie im deploy-Job. Sonst läge bei jedem PR ein ungenutztes
       # Pages-Artefakt herum. Auch der manuelle Trigger zählt nur auf main:
-      # workflow_dispatch nimmt jeden Branch an, und Pages zeigt laut ADR-0008
+      # workflow_dispatch nimmt jeden Branch an, und Pages zeigt laut ADR-0009
       # immer den Stand von main, nie einen ungemergten Branch.
       - name: Storybook-Build als Pages-Artefakt hochladen
         if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
