@@ -82,7 +82,7 @@ export interface CdsArticleTocItem {
         </svg>
       </summary>
       <ol class="article-toc-list">
-        @for (item of items(); track item.href) {
+        @for (item of items(); track $index) {
           <li><a [href]="item.href">{{ item.label }}</a></li>
         }
       </ol>

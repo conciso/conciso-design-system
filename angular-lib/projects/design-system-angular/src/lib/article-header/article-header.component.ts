@@ -149,7 +149,7 @@ export interface CdsArticleBreadcrumbItem {
   template: `
     @if (breadcrumb().length) {
       <nav class="article-breadcrumb" aria-label="Breadcrumb">
-        @for (item of breadcrumb(); track item.label; let last = $last) {
+        @for (item of breadcrumb(); track $index; let last = $last) {
           @if (last) {
             <span aria-current="page">{{ item.label }}</span>
           } @else {
