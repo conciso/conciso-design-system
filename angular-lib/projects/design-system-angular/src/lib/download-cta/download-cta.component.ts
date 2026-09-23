@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import type { CdsArea } from '../area';
 
 /**
@@ -37,9 +37,19 @@ import type { CdsArea } from '../area';
              nicht mit. Die einzige Eingabe, die es zum Füllen der Spalte brächte, full,
              zentriert über .btn-full (css/components.css:53) zugleich das Label und
              würde den bisher linksbündigen Look ändern. -->
-        <button [class]="'btn btn-filled btn-' + area()" type="button" (click)="primaryClick.emit($event)">{{ primaryLabel() }}</button>
+        <button
+          [class]="'btn btn-filled btn-' + area()"
+          type="button"
+          [attr.aria-label]="primaryAriaLabel()"
+          (click)="primaryClick.emit($event)"
+        >{{ primaryLabel() }}</button>
         @if (secondaryLabel()) {
-          <button [class]="'btn btn-text btn-' + area()" type="button" (click)="secondaryClick.emit($event)">{{ secondaryLabel() }}</button>
+          <button
+            [class]="'btn btn-text btn-' + area()"
+            type="button"
+            [attr.aria-label]="secondaryAriaLabel()"
+            (click)="secondaryClick.emit($event)"
+          >{{ secondaryLabel() }}</button>
         }
       </div>
     </div>
@@ -65,4 +75,27 @@ export class DownloadCtaComponent {
   readonly primaryClick = output<MouseEvent>();
   /** Klick auf die sekundäre Aktion (nur wenn `secondaryLabel` gesetzt ist). */
   readonly secondaryClick = output<MouseEvent>();
+
+  /**
+   * Accessible Name der primären Aktion (cta-verwendung.mdx „Barrierefreiheit“: Button-Label
+   * muss Ressource und Format nennen). Der sichtbare Button-Text bleibt `primaryLabel`
+   * (meist knapp, z. B. „Herunterladen“) — er selbst nennt kein Ziel, der Titel steht nur
+   * visuell daneben (`<h3 class="cta-dl-title">`) und erreicht den Accessible Name nicht.
+   * Wer per Button-Liste navigiert, hört sonst nur die generische Aktion ohne Bezug.
+   * Muster wie bei `PillComponent.computedAriaLabel`/Combobox-Remove-Buttons: „Aktion: Ziel“,
+   * Format/Größe aus `meta` in Klammern angehängt, sofern gesetzt.
+   *
+   * @internal
+   */
+  protected readonly primaryAriaLabel = computed(
+    () => `${this.primaryLabel()}: ${this.title()}${this.meta() ? ` (${this.meta()})` : ''}`,
+  );
+
+  /** Analog zu `primaryAriaLabel`, für die sekundäre Aktion.
+   *
+   * @internal
+   */
+  protected readonly secondaryAriaLabel = computed(
+    () => `${this.secondaryLabel()}: ${this.title()}${this.meta() ? ` (${this.meta()})` : ''}`,
+  );
 }

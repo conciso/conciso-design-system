@@ -15,10 +15,12 @@ let uid = 0;
  * Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider“.
  *
  * Crossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt
- * `.active` (opacity). Prev/Next-Buttons (.img-slider-btn) und Dots (.img-dot)
- * steuern den Index. Optionale Hero-Variante (.img-slider-hero). Ohne Bild-URL
- * wird ein neutraler Platzhalter gezeigt. Der aktive Index ist über `[(active)]`
- * (model) beobacht-/steuerbar.
+ * `.active` (opacity). Inaktive Slides bekommen zusätzlich `[aria-hidden]`, sonst
+ * läse ein Screenreader Titel und Text jeder Folie vor, obwohl visuell nur eine
+ * sichtbar ist (identisches Muster wie beim LogoCarousel). Prev/Next-Buttons
+ * (.img-slider-btn) und Dots (.img-dot) steuern den Index. Optionale Hero-Variante
+ * (.img-slider-hero). Ohne Bild-URL wird ein neutraler Platzhalter gezeigt. Der
+ * aktive Index ist über `[(active)]` (model) beobacht-/steuerbar.
  */
 @Component({
   selector: 'cds-carousel',
@@ -38,6 +40,7 @@ let uid = 0;
             aria-roledescription="Folie"
             [id]="slideId(i)"
             [attr.aria-label]="'Folie ' + (i + 1) + ' von ' + slides().length"
+            [attr.aria-hidden]="i !== active()"
             [class.active]="i === active()"
           >
             <div class="img-slide-media">

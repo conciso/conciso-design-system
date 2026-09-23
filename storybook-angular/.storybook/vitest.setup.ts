@@ -68,6 +68,31 @@ function transliterateGerman(id: string): string {
     .replace(/ß/g, 'ss');
 }
 
+/**
+ * Storybooks `layout`-Parameter für den Screenshot nachziehen.
+ *
+ * Im Storybook-UI setzt das Preview-Chrome je nach Parameter `sb-main-centered`,
+ * `-padded` oder `-fullscreen` auf `<body>` und erzeugt damit Zentrierung und Rand
+ * um die Story. `@storybook/addon-vitest` rendert die Story ohne dieses Chrome:
+ * `<body>` bleibt ungestylt, die Story sitzt bündig in der linken oberen Ecke, und
+ * was über das Element hinausragt — Fokusring, Schatten, Outline — liegt außerhalb
+ * des Screenshots.
+ *
+ * Gemessen an `chip--interaktiv`: im Storybook-UI sitzt der Chip bei (600,339), im
+ * Vitest-Lauf bei (0,0), der Fokusring war oben und links abgeschnitten. Die
+ * Baselines hielten damit angeschnittene Zustände fest, und gerade die Ränder, auf
+ * die es den Interaktions-Stories ankommt, waren im Bildvergleich unsichtbar.
+ *
+ * Werte wie im Storybook-Preview: 1rem Rand, `min-height:100vh`, damit jede
+ * Aufnahme dieselbe Fläche zeigt und nicht nur den Inhalt umschließt.
+ */
+const LAYOUT_CSS: Record<string, string> = {
+  centered:
+    'margin:0;padding:1rem;box-sizing:border-box;min-height:100vh;display:flex;align-items:center;justify-content:center;',
+  padded: 'margin:0;padding:1rem;box-sizing:border-box;min-height:100vh;',
+  fullscreen: 'margin:0;padding:0;box-sizing:border-box;min-height:100vh;',
+};
+
 afterEach(async (context) => {
   if (!VISUAL) return;
 
@@ -78,9 +103,15 @@ afterEach(async (context) => {
   const snapshotParams = story?.parameters?.['snapshot'] as { skip?: boolean } | undefined;
   if (snapshotParams?.skip) return; // Opt-out, z. B. Autoplay-getriebene Stories
 
+  // Default `centered` wie in `preview.ts`; ein unbekannter Wert fällt darauf zurück.
+  const layout = (story?.parameters?.['layout'] as string | undefined) ?? 'centered';
+  const frame = document.createElement('style');
+  frame.textContent = `body{${LAYOUT_CSS[layout] ?? LAYOUT_CSS['centered']}}`;
+  document.head.appendChild(frame);
+
   // Layout & Fonts abwarten (zwei rAF-Ticks lassen einen Layout-/Paint-Zyklus
-  // durchlaufen), dann Animationen/Transitions einfrieren → deterministischer
-  // Screenshot.
+  // durchlaufen — hier zugleich der Umbruch durch das eben gesetzte Body-Layout),
+  // dann Animationen/Transitions einfrieren → deterministischer Screenshot.
   await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
   await document.fonts?.ready;
 
@@ -100,5 +131,6 @@ afterEach(async (context) => {
     await expect(document.body).toMatchScreenshot(transliterateGerman(storyId));
   } finally {
     freeze.remove();
+    frame.remove();
   }
 });

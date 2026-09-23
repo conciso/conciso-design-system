@@ -40,6 +40,16 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (`./field-shell.component`), nur der Re-Export aus `public-api.ts` entfällt. Wer eigene Feldtypen
   baut, setzt die Klassen der CSS-Schicht (`.field`, `.helper`, `.error-msg`, …) direkt zusammen,
   statt sich an eine interne Hilfskomponente zu binden.
+- **97 interne Member sind von `public` auf `protected` gewechselt, darunter 35 Methoden.**
+  Betroffen sind Template-Handler und internes Zustandsgerüst, etwa `ChipComponent.toggle`,
+  `SelectComponent.open`/`close`/`select`, `CarouselComponent.next`/`goTo` und die
+  `handleInput`/`handleBlur` der Feld-Basis. Sie waren nie als API gedacht, standen aber in der
+  generierten TypeScript-Oberfläche und seit dem Docgen-Server aus
+  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md) auch in Props-Tabelle
+  und Manifest. Wer eine dieser Methoden von außen aufgerufen hat, kompiliert nicht mehr; der
+  vorgesehene Weg führt über Inputs und Outputs. Die Regel dahinter steht in
+  [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md): Interfaces wie
+  `ControlValueAccessor` bleiben notwendigerweise `public` und tragen nur `@internal`.
 
 ### Added
 - **`SectionComponent` (`[cdsSection]`), erste Angular-Wrapper-Komponente für die
