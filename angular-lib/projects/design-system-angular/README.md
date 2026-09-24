@@ -11,6 +11,50 @@ nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 > und importiert ausschließlich von hier
 > ([ADR-0002](../../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
 
+## Komponenten (Auswahl)
+
+Jede Komponente ist ein schmaler Wrapper, der nur die passende Klassen­kombination
+der CSS-Schicht erzeugt. Auswahl der meistgenutzten Bauteile, geprüft gegen
+`src/public-api.ts` — alle 37 Exporte (inklusive Seitenbausteine, Formularfelder und
+Kompositions-Kinder wie `cds-footer-main`) stehen dort bzw. in der Storybook-Sidebar.
+
+Die meisten Komponenten haben einen Element-Selektor (`cds-*`). Zwei Ausnahmen tragen
+stattdessen einen Attributselektor, weil das Host-Element sonst Layout oder Tag der
+CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
+[ADR-0008](../../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).
+
+| Angular-Selector | CSS-Basis (in `../../../css/components.css`) |
+| --- | --- |
+| `<cds-button>` | `.btn` + Varianten/Bereiche |
+| `<cds-status-badge>` | `.badge` + `.badge-{ok\|warn\|err\|neu}` (Status-Ton) |
+| `<cds-area-badge>` | `.badge` + `[data-area]` (Bereichs-Zuordnung) |
+| `<cds-chip>` | `.chip` (aria-pressed Toggle **oder** statischer `t-*`-Tag) |
+| `<cds-card>` | `.card` / `.card-elevated` (Bereichs-Glyphe aus `../../../icons`) |
+| `<cds-stat-card>` | `.card-stat` |
+| `<cds-stat-strip>` | `.card-stat-strip` + `.card-stat-flat` |
+| `<cds-testimonial>` | `.testimonial` |
+| `<cds-team-voice>` | `.team-voice` (editoriale Zitat-Reihe mit Foto) |
+| `<cds-text-field>` / `<cds-textarea-field>` / `<cds-select-field>` | `.field` (input/select/textarea, A11y-verdrahtet) |
+| `<cds-blockquote>` | `.bq` (bereichsgefärbtes Zitat) |
+| `<cds-area-tabs>` | `.area-tabs` / `.atab` (interaktive Tab-Leiste) |
+| `<cds-faq>` | `.ep-faq` (natives `details`/`summary`) |
+| `<cds-snackbar>` | `.snack` (Statusmeldung, Töne def/ok/err) |
+| `<cds-slider>` | `.field-slider` / `.slider` (Range mit Live-Ausgabe) |
+| `<cds-download-cta>` | `.cta-dl` (Download-Block) |
+| `<cds-code-block>` | `.cb-wrap` (Code/Terminal, Kopier-Button) |
+| `<cds-footer>` | `.footer` (Zwei-Band-Footer) |
+| `<cds-carousel>` | `.img-slider` (Bild-Crossfade, Prev/Next/Dots, Hero) |
+| `<cds-logo-carousel>` | `.logo-carousel` (Autoplay-Crossfade, pausierbar) |
+| `<cds-topnav>` | `.ep-topnav` (Nav + Submenüs + Suche + Theme-Toggle) |
+| `a[cdsIconCard]` / `div[cdsIconCard]` | `.ep-card` (Attributselektor, ADR-0008 Fall 1: Grid-Kind) |
+| `section[cdsSection]` / `div[cdsSection]` | `.ep-section` (Attributselektor, ADR-0008 Fall 2: Fläche am Host) |
+
+Frühere Zeilen `<cds-badge>` (gab es so nie — die Badge ist auf zwei Komponenten
+aufgeteilt) und `<cds-field>` (drei getrennte Selektoren statt einem) sind mit dieser
+Tabelle korrigiert. `<cds-brand-wheel>` ist entfallen: `.bw-wrap`/`.bw-svg` wird nur in
+[`markenrad.mdx`](../../../storybook-angular/src/docs/marke/markenrad.mdx) direkt als
+CSS-Klasse verwendet, ohne eigenen Angular-Wrapper.
+
 ## Installation von npmjs.org
 
 Der empfohlene Weg: Beide Pakete (`@conciso/design-system-angular` **und**
