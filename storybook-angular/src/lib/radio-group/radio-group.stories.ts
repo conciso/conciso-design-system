@@ -50,6 +50,20 @@ export const Deaktiviert: Story = {
   },
 };
 
+export const Pflichtfeld: Story = {
+  name: 'Pflichtfeld',
+  // Deckt den &nbsp;-getrennten Pflicht-Asterisk in der <legend> ab (prettier-ignore
+  // im Template, weil das &nbsp; direkt an der @if-Interpolation hängt).
+  args: { required: true },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    for (const radio of c.getAllByRole('radio')) {
+      await expect(radio).toHaveAttribute('aria-required', 'true');
+    }
+  },
+};
+
 export const Tastatur: Story = {
   name: 'Tastatur',
   parameters: { snapshot: { skip: true }, controls: { disable: true } },
