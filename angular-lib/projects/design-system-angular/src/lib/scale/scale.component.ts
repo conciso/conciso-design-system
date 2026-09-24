@@ -59,14 +59,21 @@ let uid = 0;
         (blur)="markTouched()"
       />
       @if (labels().length) {
-        <!-- Alle Skalen-Labels exakt auf ihre Position ausgerichtet (Thumb 22px, siehe
-             css/components.css), zentriert. KEINE Reduktion — jedes Label ist wählbar.
-             Self-contained positioniert (der --tick-p-Kernmechanismus liegt noch auf
-             dem main-PR; nach Merge kann das vereinfacht werden). -->
+        <!-- Alle Skalen-Labels als CSS-Grid-Spalten (Breiten: tickColumns()), bei
+             ausreichend Platz exakt auf ihre Thumb-Position ausgerichtet (Thumb 22px,
+             siehe css/components.css); bei schmalen Breiten gibt das Grid lieber den
+             Umbruch frei, statt Labels zu überlagern oder abzuschneiden (siehe dort).
+             KEINE Reduktion — jedes Label ist wählbar, PFLICHT-Inhalt (kein Dropping
+             wie bei cds-slider). Statt Absolut-Positionierung Normalfluss: mehrzeilige
+             Labels (lange Kategorien bei schmaler Breite) wachsen den Container in der
+             Höhe und schieben nachfolgenden Inhalt nach unten, statt ihn zu
+             überlagern. Self-contained positioniert (der --tick-p-Kernmechanismus liegt
+             noch auf dem main-PR; nach Merge kann das vereinfacht werden). -->
         <div
           class="field-slider-ticks"
           aria-hidden="true"
-          style="position:relative;display:block;padding:0;height:16px"
+          style="position:relative;display:grid;padding:0;height:auto;align-items:start"
+          [style.grid-template-columns]="tickColumns()"
         >
           @for (t of tickItems(); track $index) {
             <span [style]="t.style">{{ t.label }}</span>
@@ -142,34 +149,104 @@ export class ScaleComponent extends CvaBase<number> {
   protected readonly outputClasses = computed(() => `field-slider-output slider-${this.area()}`);
 
   /**
-   * Alle Labels + Positions-Style. Mitte-Labels sind auf ihrer Thumb-Position
-   * zentriert; das ERSTE/LETZTE Label wird an der jeweiligen Kante verankert
-   * (linksbündig bei 11px bzw. rechtsbündig bei Breite−11px), damit lange
-   * Kategorie-Labels an den Enden nicht über den Rand hinaus abgeschnitten werden.
-   * (11px = halbe Thumb-Breite, siehe css/components.css.)
+   * Spaltenbreiten für das Tick-Grid, mit `minmax()` statt fixer Breiten: Bei
+   * ausreichend Platz treffen die Spaltenmitten exakt die Thumb-Positionen (wie
+   * bisher); wird es zu schmal, um alle Labels einzeilig zu zeigen, gibt das Grid
+   * Lesbarkeit den Vorrang vor exakter Ausrichtung (Entscheidung: Umbruch statt
+   * Überlappung ODER Abschneiden).
+   *
+   * - Rand-Spalten: `minmax(halber Schritt + 11px, max-content)`. Der Mindestwert ist
+   *   wie zuvor die halbe „Schritt“-Distanz `(100% − 22px) / (n − 1)` zwischen zwei
+   *   benachbarten Thumb-Positionen plus 11px (halbe Thumb-Breite, siehe
+   *   css/components.css) — das kantenbündige Rand-Label beansprucht nur EINE
+   *   Richtung, die Gegenseite (vor der ersten/nach der letzten Thumb-Position) fließt
+   *   seiner Spalte zu. Bei breiten Containern übersteigt dieser Mindestwert die
+   *   natürliche (einzeilige) Breite des Labels — dann klemmt `minmax()` laut Spezifikation
+   *   auf den Mindestwert, die Spalte verhält sich also identisch zu vorher. Erst wenn
+   *   der Container schmaler wird als diese Mindestbreite, wächst die Spalte auf bis
+   *   zu `max-content`, das Label bleibt einzeilig, solange noch Platz da ist.
+   * - Mitte-Spalten: `minmax(min-content, 1fr)` — nie schmäler als das breiteste
+   *   unteilbare Wort, sonst gleichberechtigt (1fr) um den verbleibenden Platz. Bei
+   *   schmalen Breiten kann die Spalte dadurch von ihrem rechnerischen Schritt
+   *   abweichen; die Spaltenmitte (und damit das zentrierte Label) liegt dann
+   *   geringfügig neben der Thumb-Position — akzeptierter Trade-off.
+   *
+   * Bei nur einem Label eine volle Spalte.
+   *
+   * @internal
+   */
+  protected readonly tickColumns = computed<string>(() => {
+    const n = this.labels().length;
+    if (n <= 1) return '1fr';
+    const gaps = n - 1;
+    const edge = `minmax(calc(11px + (100% - 22px) / ${gaps} / 2), max-content)`;
+    if (n === 2) return `${edge} ${edge}`;
+    const mid = `repeat(${n - 2}, minmax(min-content, 1fr))`;
+    return `${edge} ${mid} ${edge}`;
+  });
+
+  /**
+   * Alle Labels + Ausrichtung innerhalb ihrer Grid-Spalte (`tickColumns()`). Mitte-
+   * Labels sind in ihrer Spalte zentriert — bei ausreichend Platz liegt die
+   * Spaltenmitte exakt auf der Thumb-Position; bei sehr schmalen Breiten, wenn
+   * `minmax(min-content, 1fr)` eine Spalte über ihren rechnerischen Schritt hinaus
+   * wachsen lässt, kann die Mitte geringfügig davon abweichen (siehe
+   * `tickColumns()`). Das ERSTE/LETZTE Label wird an der jeweiligen Kante verankert
+   * (linksbündig bzw. rechtsbündig, 11px Innenabstand = halbe Thumb-Breite), damit
+   * lange Kategorie-Labels an den Enden nicht über den Rand hinaus abgeschnitten
+   * werden.
+   *
+   * Zusätzlich 4px `padding-inline` an der jeweils INNEREN Seite (Mitte-Labels:
+   * beidseitig — bei zentriertem Text bleibt die Mitte dadurch unverschoben):
+   * Mindestabstand zwischen benachbarten Labels. Ohne das können bei mittleren
+   * Breiten (Spalte klemmt schon auf `minmax()`-Mindestwert, aber Label füllt sie
+   * fast aus) die Text-Ink-Boxes zweier Nachbarn exakt aneinanderstoßen (0px Lücke,
+   * liest sich als ein zusammengeschriebenes Wort), obwohl sie sich nicht
+   * überlappen. `box-sizing:border-box` (s. u.) sorgt dafür, dass `min-content` in
+   * `tickColumns()` das Padding mit einrechnet, statt die Spalte zusätzlich zu
+   * stauchen.
+   *
+   * `hyphens:auto` trennt einzelne Wörter, die trotz der `max-content`/
+   * `min-content`-Untergrenze in `tickColumns()` noch breiter als ihre Spalte sind —
+   * wirkt nur, wenn die einbettende Seite `lang="de"` setzt (Storybooks Vitest-Iframe
+   * tut das nicht; bei Konsumenten ist es nicht garantiert, daher rein additiv).
+   * Bewusst OHNE `overflow-wrap:break-word`: das bricht mitten im Wort ohne
+   * Trennzeichen (z. B. „zufriede“/„n“) und ist schlechter lesbar als ein Wort, das
+   * im Ausnahmefall über seine Spalte hinausragt — Lesbarkeit vor exakter
+   * Breiteneinhaltung. Ohne `white-space:nowrap` umbrechen Labels normal (zeilenweise),
+   * statt sich zu überlagern.
    *
    * @internal
    */
   protected readonly tickItems = computed<{ label: string; style: Record<string, string> }[]>(() => {
     const labels = this.labels();
     const n = labels.length;
-    const base: Record<string, string> = { position: 'absolute', 'white-space': 'nowrap' };
-    // transform/left aus .field-slider-ticks>* (components.css) an den Kanten
-    // explizit neutralisieren — sonst spannt left+right das letzte Label über die
-    // volle Breite und translateX(-50%) schiebt es in die Mitte.
+    // position/transform/white-space aus .field-slider-ticks>* (components.css)
+    // explizit neutralisieren — sonst bleiben die Labels absolut positioniert und
+    // ignorieren die Grid-Spalten, auf denen dieser Ansatz aufbaut.
+    const base: Record<string, string> = {
+      position: 'static',
+      transform: 'none',
+      'white-space': 'normal',
+      'box-sizing': 'border-box',
+      hyphens: 'auto',
+    };
     return labels.map((label, i) => {
-      if (n <= 1 || i === 0)
-        return { label, style: { ...base, left: '11px', 'text-align': 'left', transform: 'none' } };
+      if (n <= 1)
+        return { label, style: { ...base, 'text-align': 'left', 'padding-left': '11px' } };
+      if (i === 0)
+        // Innere Seite (rechts, Richtung nächstes Label) zusätzlich 4px — Mindestlücke,
+        // s. Kommentar oben.
+        return {
+          label,
+          style: { ...base, 'text-align': 'left', 'padding-left': '11px', 'padding-right': '4px' },
+        };
       if (i === n - 1)
         return {
           label,
-          style: { ...base, left: 'auto', right: '11px', 'text-align': 'right', transform: 'none' },
+          style: { ...base, 'text-align': 'right', 'padding-left': '4px', 'padding-right': '11px' },
         };
-      const p = i / (n - 1);
-      return {
-        label,
-        style: { ...base, left: `calc(11px + ${p} * (100% - 22px))`, transform: 'translateX(-50%)' },
-      };
+      return { label, style: { ...base, 'text-align': 'center', 'padding-inline': '4px' } };
     });
   });
 
