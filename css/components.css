@@ -151,6 +151,17 @@
    Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
    Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
    dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+/* Ohne data-area erbt eine <article>/<div>-Karte die Seiten-Textfarbe automatisch, weil Eyebrow
+   und Media-Icon keine eigene Farbe setzen. Ein <a> bringt aber die UA-Linkfarbe UND -Unterstreichung
+   mit: ohne dieses Reset läuft die Unterstreichung durch alle Block-Kinder (Eyebrow, Titel, Text,
+   Meta), weil text-decoration nicht vererbt, sondern über in-flow-Nachfahren PROPAGIERT wird — ein
+   text-decoration:none auf dem Kind allein stoppt das nicht, nur der Reset am <a> selbst.
+   color:inherit + text-decoration:none gleichen beides an: Link-Card ohne Bereich = Card ohne
+   Bereich, Bereichs-Regeln (oben) bleiben unberührt, weil sie spezifischer sind (Befund 01).
+   .card-cta-link bleibt unberührt: als <span> im Card-Footer hatte es nie UA-Unterstreichung, als
+   eigenständiges a.card-cta-link (css/components.css ~1377) sitzt es nie verschachtelt in a.card
+   (ungültiges HTML, siehe LinkCardComponent-Klassendoku) und behält seinen eigenen Hover-Unterstrich. */
+a.card{color:inherit;text-decoration:none}
 a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
