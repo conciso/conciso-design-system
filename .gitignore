@@ -44,3 +44,21 @@ mcp-server/LICENSE
 # nie committet.
 /release-version.txt
 /release-notes-generated.md
+
+# Aus dem ehemaligen angular-lib/.gitignore übernommen (angular-lib/dist/ mit Präfix,
+# weil das Wurzel-dist/ oben bewusst eingecheckt ist — ein bloßes „dist/“ würde das
+# mittreffen). /tmp, out-tsc/ und coverage/ sind Angular-CLI-/Test-Build-Artefakte, die
+# in jedem Workspace entstehen können.
+angular-lib/dist/
+/tmp
+out-tsc/
+coverage/
+
+# Visual Studio Code: nur die eingecheckten Dateien ausnehmen (Muster wie im ehemaligen
+# angular-lib/.gitignore).
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
