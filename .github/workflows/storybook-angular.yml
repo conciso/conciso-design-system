@@ -80,7 +80,12 @@ jobs:
       - name: Dependencies installieren
         working-directory: .
         run: npm ci
+      # Root statt Default-working-directory: das Root-Script `lint` lintet BEIDE
+      # Workspaces (angular-lib + storybook-angular) — mit dem Default liefe hier
+      # nur der storybook-angular-eigene `lint`-Script und ein Lint-Fehler in
+      # angular-lib bliebe unbemerkt.
       - name: Lint
+        working-directory: .
         run: npm run lint
       # build-storybook baut über Vite und prüft keine Typen. Den Typecheck übernimmt das
       # App-Target `build` (browserTarget der Storybook-Targets, tsconfig.json inkl. Stories).
