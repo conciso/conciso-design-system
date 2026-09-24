@@ -605,8 +605,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* ── Snackbar ── */
 .snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
 .snack-def{background:var(--n-700);color:var(--n-0)}
-.snack-ok{background:#0d5e39;color:#d6f5e8}
-.snack-err{background:#7a1515;color:#fde8e8}
+/* Tokens statt Hardcodes (Befund 04): Werte und Kontraste stehen bei --c-success-strong/
+   --c-error-strong in tokens.css. Die Fläche flippt im Dark über den Token, kein eigenes
+   Dark-Overwrite hier nötig. */
+.snack-ok{background:var(--c-success-strong);color:var(--c-success-on-strong)}
+.snack-err{background:var(--c-error-strong);color:var(--c-error-on-strong)}
 .snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
 
 /* ── Footer ──

@@ -78,6 +78,17 @@
   --c-warning:#785008; --c-warning-bg:#F5D08C;  /* Text auf #fff 7,12:1, auf dem eigenen Tint 4,84:1 (vorher #8A5E0A: 5,70 bzw. nur 3,87:1) */
   --c-error:#9B2020;   --c-error-bg:#F5BFBF;    /* Text auf #fff 8,01:1, auf dem eigenen Tint 4,99:1 (vorher #B22020: 6,73 bzw. nur 4,19:1) */
 
+  /* --c-*-strong sind die satte Snackbar-Fläche (.snack-ok/.snack-err) plus Text-/Icon-Farbe darauf
+     (Befund 04): eigene Tokens statt --c-success/-error, weil das dort der Tint-Text ist, hier aber
+     eine volle Fläche. Werte = bisheriger hartkodierter Render, keine optische Änderung. Dark-Werte
+     in dark-mode.css (Fläche flippt auf --c-success-bg/--c-error-bg, Icon/Text meist unverändert).
+     Kontrast Text/Fläche und Icon/Fläche gemessen (Formel wie scripts/check-contrast.mjs):
+     Light: ok Text 6,76:1, ok Icon 5,72:1 · err Text 9,19:1, err Icon 5,75:1
+     Dark:  ok Text 6,53:1, ok Icon 6,16:1 · err Text 7,57:1, err Icon 4,74:1
+     (Soll ≥ 4,5:1 Text, ≥ 3:1 Icon — alle acht Paare ✓) */
+  --c-success-strong:#0d5e39; --c-success-on-strong:#d6f5e8; --c-success-strong-icon:#88f0c4;
+  --c-error-strong:#7a1515; --c-error-on-strong:#fde8e8; --c-error-strong-icon:#f9a8a8;
+
   /* ── Component color tokens (theme-overridable) ── */
   --badge-ok-text:var(--c-success); --badge-warn-text:var(--c-warning); --badge-err-text:var(--c-error); /* dieselben Töne wie die semantischen Textfarben: sie stehen auf denselben Tints, zwei Werte dafür wären zwei Quellen der Wahrheit */
   --badge-neu-bg:var(--n-200); --badge-neu-text:var(--n-600); /* n-200 statt n-100: als Füllung trug n-100 nur 1,18:1 gegen Weiß und 1,10:1 gegen n-50, n-200 gibt 1,53 / 1,42:1. Text darauf 6,69:1 */

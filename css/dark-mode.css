@@ -78,6 +78,12 @@
   --c-error:#FFA5A5;    /* auf bg-page: 9.32:1 ✓ AAA · auf bg-surface: 6.93:1 ✓ AAA. Angehoben von
                            #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
                            erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
+  /* Dark-only: Snackbar-Fläche (Befund 04) flippt auf die bereits vorhandenen --c-*-bg-Tints, der
+     helle Text auf --c-success-on-strong wird angehoben (--c-error-on-strong und beide -icon-Tokens
+     bleiben in Light UND Dark gleich, deshalb hier bewusst kein Override). Kontraste siehe
+     tokens.css. (Light: #0d5e39 / #d6f5e8.) */
+  --c-success-strong:var(--c-success-bg); --c-success-on-strong:#b0f0d0;
+  --c-error-strong:var(--c-error-bg);
   /* Brand tints (Dark), getrennt nach den zwei Jobs, die --XX-50 im Light in einem Wert erledigt.
      Der Grund: Ein Band muss DUNKLER bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung
      muss HELLER sein als ihr Grund, sonst liest sie nicht als Fläche. Bei einer Basis von 17,51:1
@@ -249,18 +255,17 @@
 [data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
-/* Dark-only: Die Flächen standen hier als hartkodierte Kopien von --c-success-bg und --c-error-bg
-   (#052415 / #220808). Als die Status-Tints angehoben wurden, blieben die Kopien zurück und trugen
-   nur noch ❌ 1,06:1 bzw. 1,08:1 gegen die Seite, die Snackbar war als Fläche praktisch weg.
-   Jetzt über die Token ✓ 1,78:1 und 1,79:1; Text darauf 7,60:1 und 8,34:1. */
-[data-theme="dark"] .snack-ok { background:var(--c-success-bg); color:#b0f0d0 }
-[data-theme="dark"] .snack-err { background:var(--c-error-bg); color:#fde8e8 }
-/* Dieselbe Familie wie die Snackbar darüber: die Kreisflächen standen als hartkodierte Kopien von
-   --c-success-bg und --c-error-bg (#052415 / #220808) und blieben beim Anheben der Status-Tints
-   zurück. Gegen die neue Seite trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche
-   mehr, nur noch ein farbiger Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und
-   1,33:1 zur Card. Der Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur
-   ❌ 3,78:1, --c-error (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
+/* Snackbar-Fläche/-Text (.snack-ok/.snack-err) brauchten hier früher ein eigenes Dark-Overwrite,
+   weil die Farben in components.css als Hex standen und im Dark nicht mitliefen. Seit Befund 04
+   stehen sie über --c-success-strong/--c-error-strong (tokens.css, Dark-Werte oben im Token-Block),
+   die Fläche flippt jetzt über den Token selbst — kein Overwrite mehr nötig, siehe .snack-ok/
+   .snack-err in components.css. */
+/* Die Kreisflächen hier standen als hartkodierte Kopien von --c-success-bg und --c-error-bg
+   (#052415 / #220808) und blieben beim Anheben der Status-Tints zurück. Gegen die neue Seite
+   trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche mehr, nur noch ein farbiger
+   Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und 1,33:1 zur Card. Der
+   Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur ❌ 3,78:1, --c-error
+   (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
    (Light: helle Tints #E6F9F1 / #FDEAEA mit dunklem Glyph, kein Fix nötig.) */
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:var(--c-success-bg); color:var(--c-success) }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:var(--c-error-bg); color:var(--c-error) }

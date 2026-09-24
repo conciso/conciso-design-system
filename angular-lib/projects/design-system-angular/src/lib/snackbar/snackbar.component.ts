@@ -25,7 +25,7 @@ export type CdsSnackTone = 'def' | 'ok' | 'err';
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        [attr.stroke]="iconStroke()"
+        [style.stroke]="iconStroke()"
         stroke-width="1.25"
         aria-hidden="true"
         focusable="false"
@@ -57,12 +57,14 @@ export class SnackbarComponent {
   protected readonly isError = computed(() => this.tone() === 'err');
 
   /**
-   * Tonfarbe des Icons (wie im Doku-Markup).
+   * Tonfarbe des Icons (wie im Doku-Markup). CSS-Variablen statt Hex (Befund 04) — als
+   * [style.stroke] gesetzt, nicht als Präsentationsattribut, weil Präsentationsattribute var()
+   * nicht auflösen.
    *
    * @internal
    */
   protected readonly iconStroke = computed(
-    () => ({ def: '#80DEDE', ok: '#88f0c4', err: '#f9a8a8' })[this.tone()],
+    () => ({ def: 'var(--co-200)', ok: 'var(--c-success-strong-icon)', err: 'var(--c-error-strong-icon)' })[this.tone()],
   );
 
   /**
