@@ -1,4 +1,10 @@
-# Changelog
+# Changelog (Legacy)
+
+> **Archiviert.** Diese Datei ist der eingefrorene, handgeschriebene Stand bis Version
+> 2.0.0 und liegt seit dem Aufräumen des Repo-Roots hier unter `docs/` statt im
+> Wurzelverzeichnis. Sie wird nicht mehr gepflegt und ist nicht mehr Teil des
+> npm-Pakets (`package.json#files`). **Neue Releases stehen ausschließlich als
+> [GitHub-Release](https://github.com/conciso/conciso-design-system/releases).**
 
 Alle nennenswerten Änderungen am Conciso Design System. Format nach
 [Keep a Changelog](https://keepachangelog.com/de/1.1.0/), Versionierung nach
@@ -14,7 +20,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 
 > **Eingefroren ab Version 2.0.0.** Ab hier entsteht ein Release automatisch aus
 > Conventional Commits (siehe
-> [ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)); die Notizen dazu
+> [ADR-0010](adr/0010-release-ausloesung-und-versionsquelle.md)); die Notizen dazu
 > stehen im jeweiligen GitHub-Release, nicht mehr in dieser Datei. Die
 > Abschnitte unterhalb dieser Zeile sind der letzte handgeschriebene Stand.
 
@@ -59,10 +65,10 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `SelectComponent.open`/`close`/`select`, `CarouselComponent.next`/`goTo` und die
   `handleInput`/`handleBlur` der Feld-Basis. Sie waren nie als API gedacht, standen aber in der
   generierten TypeScript-Oberfläche und seit dem Docgen-Server aus
-  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md) auch in Props-Tabelle
+  [ADR-0006](adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md) auch in Props-Tabelle
   und Manifest. Wer eine dieser Methoden von außen aufgerufen hat, kompiliert nicht mehr; der
   vorgesehene Weg führt über Inputs und Outputs. Die Regel dahinter steht in
-  [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md): Interfaces wie
+  [ADR-0007](adr/0007-api-konventionen-der-angular-komponenten.md): Interfaces wie
   `ControlValueAccessor` bleiben notwendigerweise `public` und tragen nur `@internal`.
 
 ### Added
@@ -214,7 +220,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (vorher unauffällig gleich lang). `@angular-eslint/component-selector` erlaubt dafür
   jetzt zusätzlich zum Element-Standard (`kebab-case`, weiterhin für alle anderen
   Komponenten) einen `cds`-Attributselektor (`camelCase`) als benannte Ausnahme
-  ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)).
+  ([ADR-0008](adr/0008-selektortyp-der-wrapper-komponenten.md)).
   Das Icon kommt als projizierter Inhalt (`<ng-content select="[cdsIcon]">`), anders
   als bei `cds-stoerer` aber OHNE dass das SVG eine eigene Größenklasse tragen muss:
   `.ep-card-icon` ist ein echter Container und reicht Maße/Stroke über den
@@ -236,7 +242,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Spaltenklasse konsequent am selben Element wie `.ep-feature`
   (`class="ep-feature col-4"`), das Bauteil ist damit selbst Grid-Kind UND Ziel
   einer Layout-Klasse des Konsumenten — exakt das Kriterium aus
-  [ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md), hier vorab
+  [ADR-0008](adr/0008-selektortyp-der-wrapper-komponenten.md), hier vorab
   angewandt statt nachträglich gemessen. Gemessen wurde trotzdem: die Story
   „Dreispalter“ setzt drei `.ep-feature` mit stark unterschiedlich langem Text als
   `col-4`-Geschwister in ein `.layout-grid` — alle drei 128px hoch, alle drei
@@ -278,7 +284,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   (css/components.css:1456; 22 Vorkommen auf den Beispielseiten, ausnahmslos genau
   eine Aktion). Vier Entscheidungen, alle gemessen statt hergeleitet: **(1)**
   Attributselektor (`div[cdsCtaBand]`), derselbe „Fläche am Host“-Fall wie
-  `cds-section` ([ADR-0008](docs/adr/0008-selektortyp-der-wrapper-komponenten.md)) —
+  `cds-section` ([ADR-0008](adr/0008-selektortyp-der-wrapper-komponenten.md)) —
   `.ep-cta-band` trägt kein `[data-area]` (per Grep geprüft), die Bandfläche kommt in
   allen 22 Vorkommen als Inline-Style direkt am Element; ein Element-Selektor hätte
   denselben ungemalten Hintergrund reproduziert, den ADR-0008 „Fall 2“ für
@@ -378,7 +384,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
 - **Interaktions- und Tastaturtests für die bisher ungeprüften Komponenten.** Der Button, die drei
   Theme-Umschalter, die Footer-Aktion der Card, der Aktionsknopf der Snackbar und der Kopier-Button
   des CodeBlocks hatten keinen einzigen Interaktionstest, obwohl Stories laut
-  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
+  [ADR-0005](adr/0005-testebene-der-angular-lib.md) die einzige Testebene der Lib sind.
   Ebenso ungeprüft waren die Tastaturpfade von AreaTabs, Carousel und Select sowie der
   deaktivierte Zustand aller sieben Formularkomponenten. 110 Tests statt 89.
 - **`--font-mono` als dritte Schriftrolle des Systems.** Das System hatte Tokens für Grotesk
@@ -641,7 +647,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   `.github/workflows/visual.yml` (kein `http-server`/`wait-on` mehr, Vitest startet seinen Server
   selbst) und `.github/workflows/storybook-angular.yml` (Schritt „Storybook-Tests“ läuft jetzt über
   `test:vitest`) sind entsprechend angepasst. Details und die Arbeitsteilung, die damit endet, in
-  [ADR-0005](docs/adr/0005-testebene-der-angular-lib.md).
+  [ADR-0005](adr/0005-testebene-der-angular-lib.md).
 - **Storybook auf 10.6.0, Docgen-Server statt Compodoc.** Alle Storybook-Familienpakete
   in `storybook-angular/` sind auf `^10.6.0`, `@storybook/test-runner` auf `^0.24.5`.
   Der seit 10.6 in `@storybook/angular-vite` default gesetzte In-Process-Docgen-Server
@@ -650,7 +656,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Punkt). Die nie produktiv genutzte Compodoc-Pipeline ist entfernt (`compodoc`/
   `compodocArgs` raus aus `main.ts` und den `angular.json`-Builder-Optionen). Details
   und verworfene Alternativen in
-  [ADR-0006](docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
+  [ADR-0006](adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
 - **`@storybook/addon-mcp` aktiv: Komponenten-Manifest und CI-Gate dafür.**
   `npm run build-storybook` schreibt jetzt `storybook-static/manifests/components.json`
   (`meta.docgen: "angular-component-meta"`), der Dev-Server beantwortet unter `/mcp`
@@ -674,7 +680,7 @@ Releases werden als Git-Tags `vX.Y.Z` markiert.
   Werte steckten bisher in Gettern, die bei jedem Change-Detection-Lauf neu rechneten; das
   explizite `standalone: true` war seit Angular 19 Rauschen. Template-Handler und interne
   Zustandssignale sind jetzt `protected`, Legacy-Decorators sind den heutigen APIs gewichen. Die
-  Regeln dahinter stehen in [ADR-0007](docs/adr/0007-api-konventionen-der-angular-komponenten.md).
+  Regeln dahinter stehen in [ADR-0007](adr/0007-api-konventionen-der-angular-komponenten.md).
   Für Konsumenten ändert sich am Verhalten nichts.
 - **Barrierefreiheits- und Verhaltenskorrekturen.** Die Dots des LogoCarousel waren als Tab-Leiste
   ausgezeichnet, ohne auf Pfeiltasten zu reagieren. Die Topnav gab beim Schließen per Escape den

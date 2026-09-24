@@ -24,7 +24,10 @@ export const RELEVANT_PATH_PREFIXES = [
   'README.md',
   'LICENSE',
   'NOTICE',
-  'CHANGELOG.md',
+  // CHANGELOG.md war hier gelistet, solange es unter package.json#files stand. Beim
+  // Repo-Aufräumen nach docs/CHANGELOG-legacy.md verschoben und aus `files` entfernt
+  // (eingefroren, nicht mehr gepflegt) — kein ausgelieferter Inhalt mehr, daher kein
+  // relevanter Pfad mehr.
   // Angular-Lib: ausgelieferter Inhalt (src, package.json, ng-package.json, tsconfig.lib*.json, README)
   'angular-lib/projects/design-system-angular/',
   // Build-Konfiguration, die den Lib-Build steuert
