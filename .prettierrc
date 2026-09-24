@@ -1,7 +1,7 @@
 {
   "overrides": [
     {
-      "files": ["*.ts", "*.html"],
+      "files": ["*.ts", "*.mts", "*.cts", "*.html"],
       "options": {
         "printWidth": 100,
         "singleQuote": true

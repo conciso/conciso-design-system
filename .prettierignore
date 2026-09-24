@@ -13,3 +13,26 @@ assets/
 scripts/
 *.md
 package-lock.json
+
+# Build-/Fremdausgaben und Agenten-Arbeitsverzeichnisse: Prettier 3 liest nur die
+# Root-.gitignore, nicht die verschachtelten (u. a. storybook-angular/.gitignore) — ohne
+# diese Einträge würde `prettier --check` generierte oder fremde Dateien mitprüfen, die
+# nie committet werden. `dist/` oben deckt bereits jedes so benannte Verzeichnis auf jeder
+# Ebene ab (gitignore-Musterregel: ohne „/“ in der Mitte matcht ein Muster überall), `**/dist/`
+# steht trotzdem explizit dabei, damit das für Leser nicht implizit bleibt.
+storybook-angular/storybook-static/
+**/dist/
+.angular/
+**/.angular/
+.claude/
+.agents/
+.design-sync/
+.scratch/
+node_modules/
+storybook-angular/.vitest-attachments/
+storybook-angular/visual-snapshots/
+
+# Legacy-Doku: eigene, historisch gewachsene Formatierung; docs/index.html lässt sich mit
+# dem Angular-HTML-Parser zudem gar nicht parsen (rohes „{“ im Inline-Script).
+docs/index.html
+docs/main.js
