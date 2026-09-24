@@ -14,13 +14,13 @@ nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 ## Komponenten (Auswahl)
 
 Jede Komponente ist ein schmaler Wrapper, der nur die passende Klassen­kombination
-der CSS-Schicht erzeugt. Auswahl der meistgenutzten Bauteile, geprüft gegen
-`src/public-api.ts` — alle 37 Exporte (inklusive Seitenbausteine, Formularfelder und
-Kompositions-Kinder wie `cds-footer-main`) stehen dort bzw. in der Storybook-Sidebar.
+der CSS-Schicht erzeugt. Die Tabelle zeigt eine Auswahl; vollständig sind die Exporte
+in `src/public-api.ts` bzw. in der Storybook-Sidebar.
 
-Die meisten Komponenten haben einen Element-Selektor (`cds-*`). Zwei Ausnahmen tragen
-stattdessen einen Attributselektor, weil das Host-Element sonst Layout oder Tag der
-CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
+Die meisten Komponenten haben einen Element-Selektor (`cds-*`). Einige tragen
+stattdessen einen Attributselektor (z. B. `cdsIconCard`, `cdsSection`, `cdsFeature`,
+`cdsCtaBand`, `cdsAvatar`, `cdsAuthorCard`), weil das Host-Element sonst Layout oder
+Tag der CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
 [ADR-0008](../../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).
 
 | Angular-Selector | CSS-Basis (in `../../../css/components.css`) |
@@ -48,12 +48,6 @@ CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
 | `<cds-topnav>` | `.ep-topnav` (Nav + Submenüs + Suche + Theme-Toggle) |
 | `a[cdsIconCard]` / `div[cdsIconCard]` | `.ep-card` (Attributselektor, ADR-0008 Fall 1: Grid-Kind) |
 | `section[cdsSection]` / `div[cdsSection]` | `.ep-section` (Attributselektor, ADR-0008 Fall 2: Fläche am Host) |
-
-Frühere Zeilen `<cds-badge>` (gab es so nie — die Badge ist auf zwei Komponenten
-aufgeteilt) und `<cds-field>` (drei getrennte Selektoren statt einem) sind mit dieser
-Tabelle korrigiert. `<cds-brand-wheel>` ist entfallen: `.bw-wrap`/`.bw-svg` wird nur in
-[`markenrad.mdx`](../../../storybook-angular/src/docs/marke/markenrad.mdx) direkt als
-CSS-Klasse verwendet, ohne eigenen Angular-Wrapper.
 
 ## Installation von npmjs.org
 
