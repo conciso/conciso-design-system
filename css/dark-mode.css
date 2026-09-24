@@ -482,7 +482,13 @@
 /* In-Article-Callout-Eyebrow: 700er-/800er-Ton → dunkel-auf-dunkel auf der getönten -50-Fläche
    (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-Utilities und Badges. Body-Text ist
    tx-primary und flippt ohnehin. */
-[data-theme="dark"] .article-callout-eyebrow { color: var(--co-200) }
+/* .article-callout > vorangestellt (Befund 02, Spezifitäts-Fix in components.css): ohne den
+   Eltern-Qualifier lag diese Regel bei 0,2,0, exakt gleichauf mit der neuen Light-Basisregel
+   .article-callout > .article-callout-eyebrow — bei Gleichstand gewinnt components.css, weil es
+   nach dark-mode.css gebündelt wird (bundle-css.mjs), der Ton fiel im Dark auf co-700 zurück
+   (1,77:1 statt 4,5:1, von check:contrast gefangen). 0,3,0 hält den Vorsprung, wie bei den
+   Bereichs-Varianten darunter. */
+[data-theme="dark"] .article-callout > .article-callout-eyebrow { color: var(--co-200) }
 [data-theme="dark"] .article-callout[data-area="ki"] .article-callout-eyebrow { color: var(--ki-200) }
 [data-theme="dark"] .article-callout[data-area="es"] .article-callout-eyebrow { color: var(--es-100) }
 [data-theme="dark"] .article-callout[data-area="wo"] .article-callout-eyebrow { color: var(--wo-200) }

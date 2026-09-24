@@ -1614,7 +1614,10 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-callout[data-area="ki"]{background:var(--ki-50);border-left-color:var(--ki-500)}
 .article-callout[data-area="es"]{background:var(--es-50);border-left-color:var(--es-500)}
 .article-callout[data-area="wo"]{background:var(--wo-50);border-left-color:var(--wo-500)}
-.article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
+/* Direktkind-Selektor statt reiner Klasse: die Eyebrow ist selbst ein <p>, also schlägt
+   .article-callout > p (0,1,1) unten sonst diese Regel (0,1,0). Mit
+   .article-callout > .article-callout-eyebrow (0,2,0) gewinnt die Eyebrow (Befund 02). */
+.article-callout > .article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
 .article-callout[data-area="ki"] .article-callout-eyebrow{color:var(--ki-800)}
 .article-callout[data-area="es"] .article-callout-eyebrow{color:var(--es-700)}
 .article-callout[data-area="wo"] .article-callout-eyebrow{color:var(--wo-700)}

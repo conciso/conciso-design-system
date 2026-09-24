@@ -18,11 +18,11 @@ const meta: Meta<ArticleCalloutComponent> = {
           'direkte Kinder von `.article-callout` (`<ng-content>` fügt kein eigenes Element ein), ' +
           'Voraussetzung für den Kindselektor `.article-callout > p` (css/components.css:1600). ' +
           '`area` hat den verteidigbaren Default `\'co\'`: die Basisregel ohne `[data-area]` ' +
-          'rendert bereits identisch zu `[data-area="co"]`. **Bekannter CSS-Befund** (siehe ' +
+          'rendert bereits identisch zu `[data-area="co"]`. Ehemaliger CSS-Befund behoben (siehe ' +
           '`.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`): ' +
-          '`.article-callout-eyebrow` verliert gegen `.article-callout > p` bei Schriftgröße, ' +
-          '-gewicht und Randabstand (Spezifität 0,1,0 gegen 0,1,1), reproduziert hier exakt wie im ' +
-          'rohen Mockup, nicht im Wrapper geflickt (ADR-0001). `aside` trägt `aria-labelledby` ' +
+          '`.article-callout-eyebrow` steht jetzt als `.article-callout > .article-callout-eyebrow` ' +
+          '(Spezifität 0,2,0) und gewinnt gegen `.article-callout > p` (0,1,1); reproduziert hier ' +
+          'unverändert das gepatchte Mockup, nicht im Wrapper geflickt (ADR-0001). `aside` trägt `aria-labelledby` ' +
           'auf die Eyebrow, sobald eine gesetzt ist — Zusatz zum Mockup (ARIA, kein CSS), weil ' +
           'mehrere `.article-callout` auf derselben Seite sonst gleichnamige, ununterscheidbare ' +
           '`complementary`-Landmarks wären (axe `landmark-unique`, siehe ' +
