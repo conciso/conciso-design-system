@@ -81,7 +81,11 @@ const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.arg
 if (isMain) {
   try {
     const dir = buildSnapshot();
-    console.log(`Snapshot gebaut: ${dir}`);
+    // console.error statt console.log: dieselbe Begründung wie in prepack.mjs, das
+    // `buildSnapshot()` importiert und im selben `npm pack`-Lifecycle läuft — Diagnose gehört
+    // auf stderr, damit stdout niemals unbeabsichtigt in eine Shell-Capture (`$(…)`) einer
+    // aufrufenden Pipeline (CI oder lokal) hineinrutscht.
+    console.error(`Snapshot gebaut: ${dir}`);
   } catch (err) {
     console.error(err.message);
     process.exit(1);

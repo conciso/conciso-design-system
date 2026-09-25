@@ -189,8 +189,19 @@ jobs:
       - name: Tarball packen und Smoke-Test über stdio fahren
         run: |
           mkdir -p /tmp/mcp-pack
-          TARBALL="$(npm pack -w mcp-server --silent --pack-destination /tmp/mcp-pack)"
-          node mcp-server/scripts/smoke-test.mjs "/tmp/mcp-pack/$TARBALL"
+          npm pack -w mcp-server --silent --pack-destination /tmp/mcp-pack
+          # Absichtlich NICHT `TARBALL="$(npm pack …)"`: der `prepack`-Lifecycle-Hook (siehe
+          # mcp-server/scripts/prepack.mjs) und `npm pack` selbst schreiben beide auf denselben
+          # stdout, eine Capture bekäme zwei Zeilen statt einer und der Smoke-Test fände den
+          # Tarball nicht (reproduziert und gefixt am 2026-09-25). Stattdessen die eine erzeugte
+          # .tgz-Datei im Zielverzeichnis suchen — unabhängig davon, was ein Lifecycle-Hook je
+          # auf stdout schreibt.
+          TARBALL="$(find /tmp/mcp-pack -maxdepth 1 -name '*.tgz')"
+          if [ -z "$TARBALL" ] || [ "$(printf '%s\n' "$TARBALL" | wc -l)" -ne 1 ]; then
+            echo "Erwartete genau eine .tgz-Datei in /tmp/mcp-pack, gefunden: $TARBALL" >&2
+            exit 1
+          fi
+          node mcp-server/scripts/smoke-test.mjs "$TARBALL"
 
   deploy:
     name: Auf GitHub Pages veröffentlichen

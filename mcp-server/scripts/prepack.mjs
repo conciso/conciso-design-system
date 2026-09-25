@@ -26,7 +26,13 @@ function copyLicense() {
 try {
   copyLicense();
   buildSnapshot();
-  console.log('prepack ok: LICENSE kopiert, Snapshot vorhanden.');
+  // console.error, nicht console.log: `npm pack`/`npm publish` läuft dieses Skript als
+  // Lifecycle-Hook VOR dem eigentlichen Packen, und beides schreibt auf denselben stdout wie
+  // der Tarball-Name, den `npm pack` danach ausgibt. Ein `TARBALL="$(npm pack …)"` in einer CI-
+  // Pipeline (siehe .github/workflows/storybook-angular.yml) captured sonst zwei Zeilen statt
+  // einer und bricht — genau das ist einmal passiert. Diagnose gehört auf stderr, stdout bleibt
+  // maschinenlesbar dem eigentlichen Zweck des jeweiligen Befehls vorbehalten.
+  console.error('prepack ok: LICENSE kopiert, Snapshot vorhanden.');
 } catch (err) {
   console.error(`prepack fehlgeschlagen: ${err.message}`);
   process.exit(1);
