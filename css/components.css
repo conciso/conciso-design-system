@@ -43,6 +43,12 @@
 .btn-ki   {--c500:var(--ki-800);--c50:var(--ki-50)}
 .btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
 .btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
+/* Ton-Modifier: destruktive Aktion, die sich nicht rückgängig machen lässt (Löschen, Verwerfen).
+   Setzt dieselben zwei Tokens wie die Bereichsklassen und steht deshalb hinter ihnen: Trägt ein
+   Button beide Klassen, gewinnt der Ton. Kombinierbar mit jeder Stil-Variante, gedacht für Filled,
+   Outlined und Text. Light: Weiß auf --c-error 8,01:1, --c-error auf bg-page 8,01:1, Tonal-Text auf
+   --c-error-bg 4,99:1. Dark-Werte in dark-mode.css. */
+.btn-err  {--c500:var(--c-error);--c50:var(--c-error-bg)}
 /* Modifier: invertiert auf dunklem Bereichs-Band (z. B. .ep-cta-band) — kombiniert mit .btn-co/.btn-ki/.btn-es/.btn-wo. Background wird weiß, Text trägt die Bereichsfarbe. */
 .btn-on-band{--c500:#fff;--c50:rgba(255,255,255,.1)}
 .btn-co.btn-on-band{color:var(--co-700)}

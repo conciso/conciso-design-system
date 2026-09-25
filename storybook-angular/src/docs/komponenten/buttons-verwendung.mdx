@@ -4,7 +4,7 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
 
 # Verwendung
 
-Buttons sind die primäre Aktions-Komponente des Systems: fünf Stilvarianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Standard · Small · Large) und der Inversions-Modifier `.btn-on-band` für Buttons auf farbigen Bereichs-Bändern. Jede Variante steht in allen vier Brand Areas zur Verfügung (Bereichsreihenfolge co · ki · es · wo), das Mindestmaß für ein Touch-Target ist 44 Pixel.
+Buttons sind die primäre Aktions-Komponente des Systems: fünf Stilvarianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Standard · Small · Large), der Ton-Modifier `.btn-err` für destruktive Aktionen und der Inversions-Modifier `.btn-on-band` für Buttons auf farbigen Bereichs-Bändern. Jede Variante steht in allen vier Brand Areas zur Verfügung (Bereichsreihenfolge co · ki · es · wo), das Mindestmaß für ein Touch-Target ist 44 Pixel.
 
 ## Wann welche Variante
 
@@ -97,6 +97,27 @@ So löst sich die Hierarchie in typischen Kontexten auf: ein Dialog mit Text- ne
 | Text | 3. Nebenaktion | Niedrigste Priorität, link-ähnliche Funktion | Abbrechen, Mehr erfahren |
 | Elevated | Außerhalb der Hierarchie | Freistehende Aktion, visuell vom Hintergrund getrennt | Schwebende Elemente, FAB |
 
+## Destruktive Aktionen
+
+`.btn-err` (Angular: `tone="err"`) markiert eine Aktion, die sich nicht rückgängig machen lässt: Löschen, Verwerfen, Entfernen. Der Modifier **ersetzt** die Bereichsfarbe, er wird statt `.btn-co` gesetzt, nicht zusätzlich. Gedacht für Filled, Outlined und Text.
+
+<Unstyled>
+  <div style={{ display: 'flex', gap: 'var(--s4)', flexWrap: 'wrap', alignItems: 'center', marginBottom: 'var(--s5)' }}>
+    <button className="btn btn-filled btn-err">Löschen</button>
+    <button className="btn btn-outlined btn-err">Verwerfen</button>
+    <button className="btn btn-text btn-err">Entfernen</button>
+  </div>
+</Unstyled>
+
+Welcher Button gefüllt ist, entscheidet der Kontext:
+
+| Kontext | Beispiel | Hauptaktion (Filled) | Nebenaktion |
+|---|---|---|---|
+| Selbst ausgelöst | Klick auf „Löschen“, danach eine Rückfrage | „Löschen“ mit `.btn-err` | „Abbrechen“ als Text |
+| Unterbrechung | Ungespeicherte Änderungen beim Verlassen | „Weiter bearbeiten“ in der Bereichsfarbe | „Verwerfen“ als Outlined mit `.btn-err` |
+
+Bei einer Unterbrechung wollte die Person etwas anderes, das Verwerfen ist Nebenwirkung. Deshalb bekommt dort der sichere Weg das Gewicht. Die Farbe ist nie der einzige Hinweis, das Label nennt immer die Folge.
+
 ## Barrierefreiheit
 
 | Aspekt | Regel |
@@ -124,6 +145,7 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 - Hierarchie konsequent einhalten: Filled vor Tonal oder Outlined vor Text.
 - Bereichsklasse passend zum Seitenkontext: `.btn-co`, `.btn-ki`, `.btn-es`, `.btn-wo`.
 - Touch-Target mindestens 44 Pixel einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung.
+- `.btn-err` nur für Aktionen, die sich nicht rückgängig machen lassen, höchstens einer pro Ansicht, mit einem Label, das die Folge nennt: „Löschen“, „Verwerfen“.
 
 **Nicht tun**
 
@@ -132,6 +154,7 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 - Disabled-State ohne sichtbare Begründung, Helper-Text oder Tooltip nutzen, um zu erklären warum.
 - Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer `.btn-co`, nie `.btn-ki`.
 - Filled-Button mit `--area-500` auf hellem Bereichs-Hintergrund (`--area-50`), stattdessen die dunklere Bereichs-Variante nutzen (siehe Barrierefreiheits-Tabelle oben).
+- `.btn-err` als Blickfang oder für umkehrbare Aktionen („Abmelden“, „Filter zurücksetzen“), und nie neben einer Bereichsklasse am selben Button.
 
 ## Verwandte Seiten
 
