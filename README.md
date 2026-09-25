@@ -57,8 +57,11 @@ npm install @conciso/design-system
 import '@conciso/design-system/dist/conciso-ds.css';
 // Tokens (optional, für JS/Framework):
 import { tokens } from '@conciso/design-system/tokens';
-// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor):
-import { icons } from '@conciso/design-system/icons';
+// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor): benannter Import
+// pro Icon, tree-shakable — nur importierte Glyphen landen im Bundle:
+import { uiShieldCheck } from '@conciso/design-system/icons';
+// Das aggregierte `icons`-Objekt (oder icons.json) zieht immer alle Icons ins Bundle — nur
+// für Kataloge/Doku, nicht für Apps. Details: icons/README.md.
 // Brand-Logo (Wortmarke, drei Varianten):
 import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 ```

@@ -44,7 +44,10 @@
     "./tokens": "./tokens/tokens.js",
     "./tokens.json": "./tokens/tokens.json",
     "./tokens.scss": "./tokens/tokens.scss",
-    "./icons": "./icons/icons.js",
+    "./icons": {
+      "types": "./icons/icons.d.ts",
+      "default": "./icons/icons.js"
+    },
     "./icons.json": "./icons/icons.json",
     "./assets/brand/*": "./assets/brand/*"
   },
