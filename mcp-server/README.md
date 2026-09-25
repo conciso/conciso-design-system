@@ -18,8 +18,12 @@ npm i -D @conciso/design-system-mcp
 ```
 
 ```bash
-npx -y @conciso/design-system-mcp@2.1.0
+npx -y @conciso/design-system-mcp@<Version>
 ```
+
+`<Version>` ist die Version der CSS-Schicht, die dein Projekt kopiert hat. Diesen
+MCP-Server gibt es erst ab der ersten Version nach 2.1.1; ist dein Stand älter, nimm die
+älteste verfügbare Version und aktualisiere die Kopie bei Gelegenheit.
 
 ## Einbinden in Claude Code
 
@@ -43,7 +47,7 @@ Ohne installiertes Paket dieselbe Datei, nur mit fester Version statt `cds-mcp`:
   "mcpServers": {
     "conciso-ds": {
       "command": "npx",
-      "args": ["-y", "@conciso/design-system-mcp@2.1.0"]
+      "args": ["-y", "@conciso/design-system-mcp@<Version>"]
     }
   }
 }

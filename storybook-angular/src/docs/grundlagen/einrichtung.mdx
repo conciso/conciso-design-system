@@ -196,15 +196,27 @@ import '@conciso/design-system/css/components.css';
 Kopierte Dateien statt des npm-Pakets bindest du in Astro genauso über `<link>`-Tags im
 Layout ein, wie oben unter „Dateien direkt kopieren“ beschrieben.
 
+### Erstes Element verwenden
+
+Kein Framework nötig, die Komponenten sind CSS-Klassen auf normalem HTML:
+
+```html
+<button type="button" class="btn btn-filled btn-co">Kontakt</button>
+```
+
+Welche Klassen zu welcher Variante gehören, zeigt die Storybook-Seite der jeweiligen
+Komponente (z. B. `Komponenten/Buttons/Button` in diesem Storybook), oder per KI-Assistent
+das Werkzeug `docs-show` (siehe unten).
+
 ## KI-Assistenten anbinden
 
 Das Design System bringt einen eigenen MCP-Server mit: `@conciso/design-system-mcp`
 (`bin`: `cds-mcp`), Transport stdio, kein Port, nichts im Netz erreichbar. Er liefert
-dieselben Werkzeuge, mit denen auch diese Seite entstanden ist (`docs-list`, `docs-show`,
-`docs-show-story`), als mitgelieferten Snapshot passend zur installierten Version, ohne
-Live-Abruf von einer Website. Zwei Wege, ihn einzubinden: mit installiertem Paket, oder
-per `npx` ganz ohne Installation, etwa wenn dein Projekt die CSS-Schicht nur kopiert statt
-installiert hat (siehe oben, „Dateien direkt kopieren“).
+dieselben Werkzeuge, mit denen sich auch diese Seite abfragen lässt (`docs-list`,
+`docs-show`, `docs-show-story`), als mitgelieferten Snapshot passend zur installierten
+Version, ohne Live-Abruf von einer Website. Zwei Wege, ihn einzubinden: mit installiertem
+Paket, oder per `npx` ganz ohne Installation, etwa wenn dein Projekt die CSS-Schicht nur
+kopiert statt installiert hat (siehe oben, „Dateien direkt kopieren“).
 
 ### Mit installiertem Paket
 
@@ -217,7 +229,10 @@ der installierten Version der Angular-Lib und **warnt** bei Abweichung (in seine
 `instructions` und auf stderr), bricht aber nicht ab. Am einfachsten: alle drei Pakete
 gemeinsam auf derselben Version installieren oder aktualisieren, zum Beispiel
 `npm i @conciso/design-system@X @conciso/design-system-angular@X
-@conciso/design-system-mcp@X`.
+@conciso/design-system-mcp@X`. Ohne Angular-Projekt bleibt dieser automatische Abgleich
+aus, auch mit installiertem `@conciso/design-system-mcp`: Die Prüfung vergleicht bislang
+nur gegen die Angular-Lib, eine Erweiterung auf `@conciso/design-system` ist als
+Folge-Ticket vorgesehen.
 
 **Claude Code.** Empfohlen als committete Projektdatei `.mcp.json` im Repo-Root:
 
@@ -274,7 +289,7 @@ Server trotzdem über `npx` — mit fester Versionsnummer statt `cds-mcp`, und m
   "mcpServers": {
     "conciso-ds": {
       "command": "npx",
-      "args": ["-y", "@conciso/design-system-mcp@2.1.0"]
+      "args": ["-y", "@conciso/design-system-mcp@<Version>"]
     }
   }
 }
@@ -288,7 +303,7 @@ Server trotzdem über `npx` — mit fester Versionsnummer statt `cds-mcp`, und m
     "conciso-ds": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@conciso/design-system-mcp@2.1.0"]
+      "args": ["-y", "@conciso/design-system-mcp@<Version>"]
     }
   }
 }
@@ -301,17 +316,19 @@ Server trotzdem über `npx` — mit fester Versionsnummer statt `cds-mcp`, und m
   "mcpServers": {
     "conciso-ds": {
       "command": "npx",
-      "args": ["-y", "@conciso/design-system-mcp@2.1.0"]
+      "args": ["-y", "@conciso/design-system-mcp@<Version>"]
     }
   }
 }
 ```
 
-**Version an den kopierten Stand binden.** Die Version hinter `@` ist keine beliebige
-Wahl: Sie muss zur Version der CSS-Dateien passen, die du kopiert hast, sonst dokumentiert
-der Server Komponenten, die dein kopierter Stand gar nicht kennt. Aktualisierst du die
-Kopie, ziehst du diese Versionsnummer mit. Die eingebaute Versionsprüfung greift hier
-nicht automatisch: Sie vergleicht sich beim Start mit der **installierten** Version von
+**Version an den kopierten Stand binden.** `<Version>` ist die Version der CSS-Schicht,
+die dein Projekt kopiert hat: Aktualisierst du die Kopie, ziehst du diese Versionsnummer
+mit, sonst dokumentiert der Server Komponenten, die dein kopierter Stand gar nicht kennt.
+Den MCP-Server gibt es erst ab der ersten Version nach 2.1.1; ist dein Stand älter,
+nimmst du die älteste verfügbare Version. Die eingebaute Versionsprüfung greift hier
+ohnehin nicht automatisch: Sie vergleicht sich beim Start mit der **installierten**
+Version von
 `@conciso/design-system-angular` in `node_modules`. Ist nichts installiert, findet sie
 nichts zum Vergleichen und nennt stattdessen in ihren `instructions` nur, für welche
 Version ihr eigener Snapshot gebaut wurde, den Rest prüfst du selbst gegen deinen
