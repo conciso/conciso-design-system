@@ -30,16 +30,35 @@
 // Tag vor ADR-0011), keine Ableitung aus `latestTag` — der wandert mit jedem Release weiter,
 // NPM_BASELINE nicht.
 //
-// MCP-Server (ADR-0012): Das dritte Paket existiert erst seit diesem Ticket — es gab für
-// keinen Tag bis einschließlich MCP_BASELINE (der letzte Tag VOR ADR-0012) ein
-// mcp-server/-Verzeichnis, auf KEINER Registry. Ohne eine Sperre analog zu NPM_BASELINE
-// würde Schritt 1 unten („getaggt, aber ein Paket fehlt“) versuchen, den MCP-Server für
-// diesen alten Tag aus dessen Commit nachzuziehen — der hat kein mcp-server/, der Build
-// bräche ab und JEDER weitere Release bliebe blockiert (derselbe Blockademechanismus, den
-// NPM_BASELINE für npmjs verhindert). Deshalb: MCP_BASELINE, dieselbe Konstruktion wie
-// NPM_BASELINE, aber für BEIDE Registries — anders als NPM_BASELINE (nur npmjs war
-// nachträglich betroffen) gab es das MCP-Paket bis MCP_BASELINE auf GitHub Packages UND
-// npmjs gleichermaßen nicht.
+// MCP-Server (ADR-0012): Das dritte Paket existiert erst seit diesem Ticket — für Schritt 1
+// unten („getaggt, aber ein Paket fehlt“) muss deshalb bekannt sein, ob der GETAGGTE COMMIT
+// überhaupt ein mcp-server/-Verzeichnis hat, sonst würde versucht, den MCP-Server aus einem
+// Tag-Commit nachzuziehen, der ihn nicht kennt — der Build bräche ab und JEDER weitere
+// Release bliebe blockiert.
+//
+// Bewusst KEINE feste Versions-Konstante (anders als NPM_BASELINE): Ob ein Tag mcp-server/
+// enthält, ist eine Eigenschaft des BAUMS dieses Commits, keine Eigenschaft seiner
+// Versionsnummer — NPM_BASELINE funktioniert, weil „npmjs existiert seit einem fixen
+// Zeitpunkt“ zeitlich linear ist, aber welche VERSIONSNUMMER der letzte Tag VOR diesem
+// Ticket trägt, hängt vom Zufall ab, wann `main` zuletzt released hat, bevor dieser PR
+// merged. main kann zwischen dem Schreiben dieses Codes und dem Merge weiterziehen (ein
+// `feat`-PR released z. B. v2.2.0, BEVOR dieses Ticket merged) — eine hartkodierte Version
+// wie „2.1.1“ wäre dann zu niedrig und Schritt 1 versuchte fälschlich, MCP aus v2.2.0
+// nachzuziehen, dessen Baum ihn ebenfalls nicht hat. Der Publish-Workflow ermittelt den Fakt
+// deshalb direkt aus dem Tag-Commit (`git cat-file -e "$TAG^{commit}:mcp-server/package.json"`)
+// und übergibt ihn als `tagHasMcp` — ein Fakt über den Baum, keine Vermutung über die Zukunft.
+// `tagHasMcp` fehlt/ist `false` per Default: ohne den Fakt (z. B. ein Aufrufer, der ihn
+// vergisst) wird nie versucht, MCP aus einem Tag zu heilen — sicherer Rückfall.
+//
+// Schritt 3 (eine Registry-Version über dem Tag) und Schritt 4 (neu aus HEAD) brauchen
+// `tagHasMcp` NICHT: ihr Quellstand ist entweder HEAD selbst (Schritt 4, hat seit diesem
+// Ticket immer mcp-server/) oder der `gitHead` einer bereits veröffentlichten Version
+// (Schritt 3) — die kann nur von EINEM Lauf DIESES (MCP-fähigen) `decide.mjs` stammen, denn
+// nur der setzt jemals `publishMcp`/`publishMcpNpm`. Ein Lauf mit dem alten, MCP-unfähigen
+// Code kennt diese Felder nicht und schließt einen unfertigen Release wie bisher (nur
+// CSS/Lib) noch VOR dem Merge dieses Tickets ab, inklusive Tag und Release — ein
+// „veroeffentlicht über dem Tag ohne mcp-server/“-Zwischenstand kann diesen Merge deshalb
+// nicht überleben.
 //
 // Aufruf im Workflow: `node scripts/release/decide.mjs` mit den Fakten als Umgebungs-
 // variablen (siehe unten); gibt das Ergebnis als `schlüssel=wert`-Zeilen auf stdout aus.
@@ -55,14 +74,6 @@ const VERSION = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
 // Registry- oder Tag-Daten abgeleitet, sondern als historische Konstante hinterlegt: sie
 // bleibt stehen, auch wenn `latestTag` längst weitergezogen ist.
 export const NPM_BASELINE = '2.0.0';
-
-// Letzter Tag, für den es das MCP-Paket noch auf KEINER Registry gab (siehe ADR-0012) — der
-// letzte Tag vor diesem Ticket. Anders als NPM_BASELINE gilt dieser Wert für BEIDE Registries
-// gleichermaßen (GitHub Packages UND npmjs), weil das Paket komplett neu ist und nicht nur
-// nachträglich auf einer zweiten Registry hinzukam. Ebenfalls eine feste Konstante, aus
-// demselben Grund wie NPM_BASELINE: `latestTag` wandert mit jedem Release weiter,
-// MCP_BASELINE nicht.
-export const MCP_BASELINE = '2.1.1';
 
 function teile(version) {
   return VERSION.exec(version).slice(1).map(Number);
@@ -92,28 +103,24 @@ function npmFehlt(versionenNpm, version) {
   return npmRelevant(version) && !versionenNpm.includes(version);
 }
 
-// Zählt eine Version für den MCP-Vollständigkeits-Check (ADR-0012)? Nur echt über
-// MCP_BASELINE — alles bis einschließlich MCP_BASELINE gab es auf KEINER Registry, siehe
-// Kopfkommentar. Dieselbe Funktion gilt für GitHub Packages UND npmjs (anders als
-// npmRelevant, das nur den npmjs-Sonderfall beschreibt).
-function mcpRelevant(version) {
-  return groesser(version, MCP_BASELINE);
-}
-
-// Fehlt `version` in der MCP-Versionsliste EINER Registry UND ist sie MCP-relevant? Wird
-// für cssVersions-artige (GitHub Packages) UND cssVersionsNpm-artige (npmjs) Listen
-// gleichermaßen aufgerufen — MCP_BASELINE gilt für beide Registries identisch.
-function mcpFehlt(versionenMcp, version) {
-  return mcpRelevant(version) && !versionenMcp.includes(version);
+// Fehlt `version` in der MCP-Versionsliste EINER Registry, obwohl der GETAGGTE COMMIT
+// mcp-server/ enthält? `tagHasMcp` ist der Fakt aus dem Workflow (siehe Kopfkommentar) — ohne
+// ihn (false) gilt eine fehlende MCP-Version nie als „fehlt“, egal was `versionenMcp` enthält.
+// Wird für GitHub Packages UND npmjs gleichermaßen aufgerufen (beide Registries kennen
+// dasselbe `tagHasMcp`, es ist eine Eigenschaft des Commits, keine der Registry).
+function mcpFehlt(tagHasMcp, versionenMcp, version) {
+  return tagHasMcp && !versionenMcp.includes(version);
 }
 
 /**
  * @param {{
- *   latestTag: string, tagHasRelease: boolean, tagIsAnnotated: boolean,
+ *   latestTag: string, tagHasRelease: boolean, tagIsAnnotated: boolean, tagHasMcp?: boolean,
  *   cssVersions: string[], libVersions: string[], mcpVersions: string[],
  *   cssVersionsNpm: string[], libVersionsNpm: string[], mcpVersionsNpm: string[],
  *   engineVersion: string, dry: boolean,
- * }} fakten
+ * }} fakten `tagHasMcp` (Default `false`): enthält der Baum des getaggten Commits
+ *   `mcp-server/package.json`? Fakt aus dem Workflow, keine abgeleitete Version — siehe
+ *   Kopfkommentar.
  * @returns {{ mode: 'nichts' } | {
  *   mode: 'neu'|'nachziehen'|'finalisieren', version: string,
  *   publishCss: boolean, publishLib: boolean, publishCssNpm: boolean, publishLibNpm: boolean,
@@ -125,6 +132,7 @@ export function decide({
   latestTag,
   tagHasRelease,
   tagIsAnnotated,
+  tagHasMcp = false,
   cssVersions,
   libVersions,
   mcpVersions = [],
@@ -136,30 +144,36 @@ export function decide({
 }) {
   // Bootstrap-Versionen (z. B. „0.0.0-bootstrap.0“, siehe CONTRIBUTING § 15/ADR-0011)
   // tragen ein Prerelease-Suffix und matchen VERSION deshalb nie — rausfiltern, BEVOR sie
-  // irgendwo ankommen: npmRelevant()/mcpRelevant()/groesser() erwarten ausschließlich
-  // schlichtes X.Y.Z (wie stamp-version.mjs es für GitHub Packages erzwingt) und würden an
-  // einem Prerelease-String sonst hart abstürzen (VERSION.exec liefert null). Ein
-  // Nebeneffekt, der genau die geforderte Regel erfüllt: eine Bootstrap-Version zählt
-  // dadurch nirgendwo als „auf npmjs veröffentlicht“ — sie ist nie höchste Version, nie ein
-  // Treffer in `includes()`. `mcpVersions` (GitHub Packages) wird bewusst NICHT gefiltert,
-  // aus demselben Grund wie cssVersions/libVersions: GitHub Packages braucht kein OIDC-
-  // Bootstrap, dort kann keine Prerelease-Version auftauchen.
+  // irgendwo ankommen: npmRelevant()/groesser() erwarten ausschließlich schlichtes X.Y.Z
+  // (wie stamp-version.mjs es für GitHub Packages erzwingt) und würden an einem
+  // Prerelease-String sonst hart abstürzen (VERSION.exec liefert null). Ein Nebeneffekt, der
+  // genau die geforderte Regel erfüllt: eine Bootstrap-Version zählt dadurch nirgendwo als
+  // „auf npmjs veröffentlicht“ — sie ist nie höchste Version, nie ein Treffer in `includes()`.
+  // `mcpVersionsNpm` braucht den Filter nicht mehr zur Absturzvermeidung (mcpFehlt() ruft nur
+  // noch `.includes()` auf, das crasht an keinem String) — er bleibt trotzdem stehen, damit
+  // alle drei `*VersionsNpm`-Listen gleich behandelt werden und ein Bootstrap-Platzhalter nie
+  // in irgendeiner künftigen Verwendung dieser Liste auftaucht. `mcpVersions` (GitHub
+  // Packages) wird bewusst NICHT gefiltert, aus demselben Grund wie cssVersions/libVersions:
+  // GitHub Packages braucht kein OIDC-Bootstrap, dort kann keine Prerelease-Version auftauchen.
   cssVersionsNpm = cssVersionsNpm.filter((v) => VERSION.test(v));
   libVersionsNpm = libVersionsNpm.filter((v) => VERSION.test(v));
   mcpVersionsNpm = mcpVersionsNpm.filter((v) => VERSION.test(v));
 
   const getaggt = latestTag ? latestTag.replace(/^v/, '') : null;
-  // npm-Anteil nur mit npmjs-relevanten Versionen gefüttert (siehe npmRelevant), MCP-Anteil
-  // nur mit MCP-relevanten (siehe mcpRelevant): eine irrelevante Alt-Version (z. B. durch
-  // einen kaputten Registry-Rückgabewert) darf den „höchste veröffentlichte Version“-
-  // Vergleich in Schritt 3 nicht verfälschen.
+  // npm-Anteil nur mit npmjs-relevanten Versionen gefüttert (siehe npmRelevant): eine
+  // npmjs-irrelevante Alt-Version (z. B. durch einen kaputten Registry-Rückgabewert) darf den
+  // „höchste veröffentlichte Version“-Vergleich in Schritt 3 nicht verfälschen. `mcpVersions`/
+  // `mcpVersionsNpm` brauchen kein analoges Gate: Der MCP-Server hat keine irrelevante
+  // Altversion, die es zu ignorieren gälte (er existierte davor auf KEINER Registry) —
+  // `hoechste()` filtert intern ohnehin auf gültiges X.Y.Z (schützt vor der
+  // Bootstrap-Prerelease, falls der Filter oben je entfällt).
   const veroeffentlicht = hoechste([
     ...cssVersions,
     ...libVersions,
-    ...mcpVersions.filter(mcpRelevant),
+    ...mcpVersions,
     ...cssVersionsNpm.filter(npmRelevant),
     ...libVersionsNpm.filter(npmRelevant),
-    ...mcpVersionsNpm.filter(mcpRelevant),
+    ...mcpVersionsNpm,
   ]);
   const alle = (publishCss, publishLib, publishCssNpm, publishLibNpm, publishMcp, publishMcpNpm) =>
     dry
@@ -189,12 +203,12 @@ export function decide({
   const fehltLib = getaggt && !libVersions.includes(getaggt);
   const fehltCssNpm = getaggt && npmFehlt(cssVersionsNpm, getaggt);
   const fehltLibNpm = getaggt && npmFehlt(libVersionsNpm, getaggt);
-  // MCP_BASELINE (siehe Kopfkommentar): für den letzten Tag vor ADR-0012 (und alles davor)
-  // liefert mcpFehlt() strukturell IMMER false, egal was mcpVersions/mcpVersionsNpm
+  // `tagHasMcp` (siehe Kopfkommentar): ist der Fakt false (Tag-Baum ohne mcp-server/, oder
+  // gar nicht ermittelt), liefert mcpFehlt() IMMER false, egal was mcpVersions/mcpVersionsNpm
   // enthalten — ohne diese Sperre würde hier versucht, den MCP-Server aus einem Tag-Commit
   // nachzuziehen, der kein mcp-server/ hat, und jeder weitere Release bliebe blockiert.
-  const fehltMcp = getaggt && mcpFehlt(mcpVersions, getaggt);
-  const fehltMcpNpm = getaggt && mcpFehlt(mcpVersionsNpm, getaggt);
+  const fehltMcp = getaggt && mcpFehlt(tagHasMcp, mcpVersions, getaggt);
+  const fehltMcpNpm = getaggt && mcpFehlt(tagHasMcp, mcpVersionsNpm, getaggt);
   if (fehltCss || fehltLib || fehltCssNpm || fehltLibNpm || fehltMcp || fehltMcpNpm) {
     if (tagIsAnnotated) {
       return {
@@ -227,7 +241,15 @@ export function decide({
   }
 
   // 3. Eine veröffentlichte Version über dem letzten Tag ist unfertig (der Tag entsteht
-  //    erst nach allen Publishes) → fehlendes Paket, Tag und Release nachziehen.
+  //    erst nach allen Publishes) → fehlendes Paket, Tag und Release nachziehen. MCP braucht
+  //    HIER kein `tagHasMcp`-Gate (anders als Schritt 1): eine Version, die bereits über dem
+  //    Tag in einer Registry liegt, kann nur aus einem Lauf DIESES MCP-fähigen `decide.mjs`
+  //    stammen (nur der setzt `publishMcp`/`publishMcpNpm` und veröffentlicht dadurch
+  //    überhaupt in dieser dritten Dimension) — ihr Quellstand (per `gitHead` aufgelöst) hat
+  //    also immer mcp-server/. MCP wird deshalb genau wie CSS/Lib behandelt: fehlt die Version
+  //    in der Liste, fehlt sie, ohne Bedingung. Siehe Kopfkommentar für die ausführliche
+  //    Begründung, warum ein „veroeffentlicht ohne mcp-server/“-Zwischenstand diesen Merge
+  //    nicht überleben kann.
   if (veroeffentlicht && (!getaggt || groesser(veroeffentlicht, getaggt))) {
     return mitHinweis({
       mode: 'nachziehen',
@@ -237,8 +259,8 @@ export function decide({
         !libVersions.includes(veroeffentlicht),
         npmFehlt(cssVersionsNpm, veroeffentlicht),
         npmFehlt(libVersionsNpm, veroeffentlicht),
-        mcpFehlt(mcpVersions, veroeffentlicht),
-        mcpFehlt(mcpVersionsNpm, veroeffentlicht),
+        !mcpVersions.includes(veroeffentlicht),
+        !mcpVersionsNpm.includes(veroeffentlicht),
       ),
       source: 'registry',
       notes: 'range',
@@ -246,11 +268,11 @@ export function decide({
   }
 
   // 4. Alles Frühere ist fertig → neue Version aus der Engine. Sie liegt per Konstruktion
-  //    immer über dem letzten Tag (>= NPM_BASELINE, >= MCP_BASELINE), npmjs und der
-  //    MCP-Server sind hier also immer relevant — kein zusätzliches npmRelevant()-/
-  //    mcpRelevant()-Gate nötig. Die Quelle ist außerdem IMMER der aktuelle Commit (HEAD),
-  //    der seit diesem Ticket mcp-server/ enthält — anders als in Schritt 1 (Tag-Commit)
-  //    gibt es hier kein „alter Commit ohne MCP-Verzeichnis“-Risiko.
+  //    immer über dem letzten Tag (>= NPM_BASELINE), npmjs ist hier also immer relevant —
+  //    kein zusätzliches npmRelevant()-Gate nötig. Die Quelle ist außerdem IMMER der aktuelle
+  //    Commit (HEAD), der seit diesem Ticket mcp-server/ enthält — anders als in Schritt 1
+  //    (Tag-Commit) gibt es hier kein „alter Commit ohne MCP-Verzeichnis“-Risiko, deshalb auch
+  //    kein `tagHasMcp`-Gate nötig.
   if (engineVersion) {
     return mitHinweis({
       mode: 'neu',
@@ -284,6 +306,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     latestTag: env.LATEST_TAG ?? '',
     tagHasRelease: env.TAG_HAS_RELEASE === 'true',
     tagIsAnnotated: env.TAG_IS_ANNOTATED === 'true',
+    tagHasMcp: env.TAG_HAS_MCP === 'true',
     cssVersions: versionsliste(env.CSS_VERSIONS),
     libVersions: versionsliste(env.LIB_VERSIONS),
     mcpVersions: versionsliste(env.MCP_VERSIONS),
