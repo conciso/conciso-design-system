@@ -25,17 +25,23 @@ test('neue Version aus der Engine → beide Pakete aus dem ausgelösten Commit',
     version: '2.1.0',
     publishCss: true,
     publishLib: true,
+    publishCssNpm: true,
+    publishLibNpm: true,
     source: 'head',
     notes: 'engine',
   });
 });
 
 test('nur ein Paket veröffentlicht → das fehlende nachziehen, aus dem Quellstand des vorhandenen', () => {
+  // GitHub Packages ist bei 2.0.1 bereits halb fertig (nur CSS fehlt); npmjs hat für 2.0.1
+  // (> NPM_BASELINE) noch gar nichts, zieht also für BEIDE Pakete nach.
   assert.deepEqual(decide({ ...sauber, cssVersions: [...sauber.cssVersions, '2.0.1'] }), {
     mode: 'nachziehen',
     version: '2.0.1',
     publishCss: false,
     publishLib: true,
+    publishCssNpm: true,
+    publishLibNpm: true,
     source: 'registry',
     notes: 'range',
   });
@@ -50,6 +56,8 @@ test('halbes Release hat Vorrang vor einer höheren Engine-Version (neuer feat d
 });
 
 test('beide veröffentlicht, Tag fehlt → nur finalisieren, Quellstand aus der Registry', () => {
+  // GitHub Packages ist für 2.0.1 vollständig (beide Pakete), npmjs hat davon noch nichts —
+  // 2.0.1 liegt über NPM_BASELINE, zählt also für den npmjs-Nachzieh-Check mit.
   assert.deepEqual(
     decide({
       ...sauber,
@@ -62,6 +70,8 @@ test('beide veröffentlicht, Tag fehlt → nur finalisieren, Quellstand aus der 
       version: '2.0.1',
       publishCss: false,
       publishLib: false,
+      publishCssNpm: true,
+      publishLibNpm: true,
       source: 'registry',
       notes: 'range',
     },
@@ -74,6 +84,8 @@ test('Tag da, GitHub-Release fehlt → nachholen, auch wenn die Engine schon Neu
     version: '2.0.0',
     publishCss: false,
     publishLib: false,
+    publishCssNpm: false,
+    publishLibNpm: false,
     source: 'tag',
     notes: 'tag',
   });
@@ -85,6 +97,8 @@ test('Tag und Release da, aber ein Paket fehlt in der Tag-Version → nachziehen
     version: '2.0.0',
     publishCss: false,
     publishLib: true,
+    publishCssNpm: false,
+    publishLibNpm: false,
     source: 'tag',
     notes: 'keine',
   });
@@ -128,10 +142,69 @@ test('leichtgewichtiger Alt-Tag ohne Release → Notes von GitHub als Rückfall'
   assert.equal(d.notes, 'github');
 });
 
-test('Dry-Run spielt beide Pakete durch', () => {
+test('Dry-Run spielt alle vier Publishes durch (GitHub Packages + npmjs)', () => {
   const d = decide({ ...sauber, engineVersion: '2.1.0', dry: true });
   assert.equal(d.publishCss, true);
   assert.equal(d.publishLib, true);
+  assert.equal(d.publishCssNpm, true);
+  assert.equal(d.publishLibNpm, true);
+});
+
+// ── npmjs (ADR-0011): Nachziehen und Idempotenz ─────────────────────────────────────
+// Ab hier ein getaggter Stand OBERHALB von NPM_BASELINE (2.0.0) — erst ab dort ist npmjs
+// für den Vollständigkeits-Check überhaupt relevant (siehe Kopfkommentar in decide.mjs).
+const npmAera = { ...sauber, latestTag: 'v2.1.0', cssVersions: [...sauber.cssVersions, '2.1.0'], libVersions: [...sauber.libVersions, '2.1.0'] };
+
+test('npm fehlt nach GitHub-Erfolg → nur npm nachziehen', () => {
+  // GitHub Packages hat 2.1.0 für beide Pakete, npmjs für keines — nur die beiden
+  // npmjs-Publishes werden nachgezogen, GitHub Packages bleibt unangetastet (kein 409 durch
+  // einen doppelten Publish).
+  const d = decide({ ...npmAera, cssVersionsNpm: [], libVersionsNpm: [] });
+  assert.deepEqual(d, {
+    mode: 'nachziehen',
+    version: '2.1.0',
+    publishCss: false,
+    publishLib: false,
+    publishCssNpm: true,
+    publishLibNpm: true,
+    source: 'tag',
+    notes: 'keine',
+  });
+});
+
+test('beide Registries vollständig → nichts tun', () => {
+  // 2.1.0 liegt in GitHub Packages UND auf npmjs, kein neuer Commit seit dem Tag: kein Release.
+  const d = decide({ ...npmAera, cssVersionsNpm: ['2.1.0'], libVersionsNpm: ['2.1.0'] });
+  assert.equal(d.mode, 'nichts');
+});
+
+test('alte Tags ohne npm → kein Nachziehen (npmjs beginnt erst nach NPM_BASELINE)', () => {
+  // Der reale Bestand: @conciso/design-system(-angular) 1.0.0 und 2.0.0 liegen NUR in GitHub
+  // Packages, nie auf npmjs — und sollen dort auch nie nachgeholt werden. `sauber` bildet
+  // genau diesen Zustand ab (getaggt bei NPM_BASELINE = 2.0.0, cssVersionsNpm/libVersionsNpm
+  // implizit leer). Ohne die NPM_BASELINE-Sperre würde das hier fälschlich 'nachziehen' für
+  // npm zurückgeben, obwohl beide Pakete auf GitHub Packages längst vollständig sind.
+  const d = decide(sauber);
+  assert.equal(d.mode, 'nichts');
+});
+
+test('Bootstrap-Version auf npmjs, GitHub bei 2.0.0 → nichts tun', () => {
+  // Der Erst-Publish (CONTRIBUTING § 15, ADR-0011) veröffentlicht "0.0.0-bootstrap.0" auf
+  // npmjs, damit sich dort ein Trusted Publisher einrichten lässt. Diese Prerelease-Version
+  // matcht VERSION nie (kein schlichtes X.Y.Z) und wird deshalb in decide() ganz vorn
+  // rausgefiltert — sie zählt nirgendwo als „auf npmjs veröffentlicht“, insbesondere nicht
+  // als npmjs-Vollständigkeit für den (weiterhin npmjs-irrelevanten) Tag 2.0.0. Ohne den
+  // Filter würde npmRelevant() an ihr sogar hart abstürzen (kein X.Y.Z-Match).
+  const d = decide({ ...sauber, cssVersionsNpm: ['0.0.0-bootstrap.0'], libVersionsNpm: ['0.0.0-bootstrap.0'] });
+  assert.equal(d.mode, 'nichts');
+});
+
+test('halbe npm-Lücke hat Vorrang vor einer neuen Engine-Version', () => {
+  const d = decide({ ...npmAera, cssVersionsNpm: [], libVersionsNpm: ['2.1.0'], engineVersion: '2.2.0' });
+  assert.equal(d.mode, 'nachziehen');
+  assert.equal(d.version, '2.1.0');
+  assert.equal(d.publishCssNpm, true);
+  assert.equal(d.publishLibNpm, false);
 });
 
 test('vor dem allerersten Tag zählt jede veröffentlichte Version als unfertig', () => {
@@ -146,6 +219,11 @@ test('Versionen werden numerisch verglichen, nicht als Text (2.0.10 > 2.0.9)', (
     latestTag: 'v2.0.9',
     cssVersions: ['2.0.9', '2.0.10'],
     libVersions: ['2.0.9', '2.0.10'],
+    // npm ist mit dem getaggten Stand (2.0.9) bereits vollständig — sonst würde Schritt 1
+    // (ältere Lücke zuerst) zuerst 2.0.9 auf npm nachziehen, statt bis zu Schritt 3 (dem
+    // eigentlichen Test-Ziel: numerischer statt textueller Versionsvergleich) zu kommen.
+    cssVersionsNpm: ['2.0.9'],
+    libVersionsNpm: ['2.0.9'],
   });
   assert.equal(d.mode, 'nachziehen');
   assert.equal(d.version, '2.0.10');
