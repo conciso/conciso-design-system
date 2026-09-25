@@ -32,16 +32,7 @@ tokens.css  →  dark-mode.css  →  base.css  →  components.css
 <link rel="stylesheet" href="css/components.css">
 ```
 
-**Variante B — als npm-Paket aus GitHub Packages** (der empfohlene Weg):
-
-Das Paket liegt privat und org-scoped in GitHub Packages, nicht in der öffentlichen
-npm-Registry. Dafür braucht das Konsumenten-Projekt eine `.npmrc`, die den
-`@conciso`-Scope umleitet:
-
-```ini
-@conciso:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
+**Variante B — als npm-Paket von npmjs.org** (der empfohlene Weg):
 
 ```bash
 npm install @conciso/design-system
@@ -51,6 +42,18 @@ npm install @conciso/design-system
 import '@conciso/design-system/dist/conciso-ds.css';
 ```
 
+Keine `.npmrc` nötig — das Paket liegt auf der öffentlichen npm-Registry
+([ADR-0011](adr/0011-veroeffentlichung-auf-npmjs.md)). Gilt ab dem ersten echten
+Release nach dem Merge dieser Änderung; bis dahin liegt auf npmjs nur eine
+Bootstrap-Platzhalterversion (siehe ADR-0011).
+
+> **Alternative — GitHub Packages** (weiterhin verfügbar, unverändert, z. B. für
+> Consumer innerhalb der GitHub-Organisation `conciso`): eine `.npmrc`, die den
+> `@conciso`-Scope umleitet:
+> ```ini
+> @conciso:registry=https://npm.pkg.github.com
+> //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+> ```
 > GitHub Packages verlangt Auth auch für **lesenden** Zugriff: lokal ein Personal
 > Access Token mit Scope `read:packages` als `GITHUB_TOKEN` exportieren, in GitHub
 > Actions genügt `secrets.GITHUB_TOKEN` mit `permissions: packages: read`. Committe

@@ -102,3 +102,19 @@ test('lehnt führende Nullen in einer SemVer-Komponente ab', () => {
     rmSync(root, { recursive: true, force: true });
   }
 });
+
+test('akzeptiert eine Prerelease-Bootstrap-Version (npmjs-Erst-Publish, CONTRIBUTING § 15)', () => {
+  const root = makeFixtureRoot();
+  try {
+    const { peerRange } = stampVersion('0.0.0-bootstrap.0', root);
+    assert.equal(peerRange, '0.0.x');
+
+    const rootPkg = readPkg(root, 'package.json');
+    assert.equal(rootPkg.version, '0.0.0-bootstrap.0');
+    const libPkg = readPkg(root, 'angular-lib/projects/design-system-angular/package.json');
+    assert.equal(libPkg.version, '0.0.0-bootstrap.0');
+    assert.equal(libPkg.peerDependencies['@conciso/design-system'], '0.0.x');
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});

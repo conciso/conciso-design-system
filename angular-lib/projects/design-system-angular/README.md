@@ -11,13 +11,28 @@ nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 > und importiert ausschließlich von hier
 > ([ADR-0002](../../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
 
-## Installation aus GitHub Packages
+## Installation von npmjs.org
 
-Beide Pakete (`@conciso/design-system-angular` **und** `@conciso/design-system`,
-[Lockstep](../../../CONTEXT.md#lockstep-versionierung)) liegen privat, org-scoped
-in [GitHub Packages](https://npm.pkg.github.com) (siehe
-[ADR-0004](../../../docs/adr/0004-verteilung-und-versionierung.md)) — nicht in der
-öffentlichen npm-Registry. Ein einziger `.npmrc`-Mechanismus deckt beide ab, weil
+Der empfohlene Weg: Beide Pakete (`@conciso/design-system-angular` **und**
+`@conciso/design-system`, [Lockstep](../../../CONTEXT.md#lockstep-versionierung))
+liegen auf der öffentlichen npm-Registry (seit
+[ADR-0011](../../../docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Keine `.npmrc`,
+kein Token nötig:
+
+```bash
+npm install @conciso/design-system-angular @conciso/design-system
+```
+
+Gilt ab dem ersten echten Release nach dem Merge dieser Änderung; bis dahin liegt auf
+npmjs nur eine Bootstrap-Platzhalterversion (siehe ADR-0011).
+
+## Installation aus GitHub Packages (Alternative)
+
+Beide Pakete liegen **zusätzlich** weiterhin privat, org-scoped in
+[GitHub Packages](https://npm.pkg.github.com) (siehe
+[ADR-0004](../../../docs/adr/0004-verteilung-und-versionierung.md)) — z. B. für
+Consumer innerhalb der GitHub-Organisation `conciso`, die ohnehin schon so
+eingerichtet sind. Ein einziger `.npmrc`-Mechanismus deckt beide ab, weil
 beide unter dem `@conciso`-Scope veröffentlicht werden.
 
 **1. `.npmrc`** im Konsumenten-Projekt (oder `~/.npmrc` für den eigenen Rechner)
@@ -163,5 +178,6 @@ Das Artefakt (Angular Package Format, via ng-packagr) landet unter
 
 MIT, siehe [LICENSE](../../../LICENSE) im Repository-Root (im gebauten Paket unter
 `dist/design-system-angular/LICENSE`). Ausnahmen (Brand-Assets, Schriften, Icons)
-siehe [NOTICE](../../../NOTICE). Das betrifft nur die Lizenz — der Bezug über GitHub
-Packages statt der öffentlichen npm-Registry bleibt unverändert (siehe oben).
+siehe [NOTICE](../../../NOTICE). Das betrifft nur die Lizenz — an den beiden
+Bezugswegen (npmjs.org als Standard, GitHub Packages als Alternative, siehe oben)
+ändert sich dadurch nichts.

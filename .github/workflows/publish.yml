@@ -1,8 +1,18 @@
 name: Pakete veröffentlichen
 
 # Veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht) und
-# @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages, im Lockstep
-# mit derselben Versionsnummer (siehe CONTEXT.md, docs/adr/0004).
+# @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages UND (seit ADR-0011)
+# zusätzlich nach npmjs.org, im Lockstep mit derselben Versionsnummer (siehe CONTEXT.md,
+# docs/adr/0004, docs/adr/0011). GitHub Packages bleibt Quelle der Wahrheit für den
+# Existenz-/Vollständigkeits-Check (Job „pruefen“ liest dort weiterhin `LATEST_TAG` und die
+# GitHub-Release-Existenz); npmjs wird zusätzlich, gleichrangig geprüft (siehe
+# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`).
+#
+# npmjs-Publish ohne NPM_TOKEN: npm Trusted Publishing (OIDC), siehe docs/adr/0011 und
+# https://docs.npmjs.com/trusted-publishers/. Der Publish-Job bekommt dafür
+# `permissions: id-token: write` (nur dieser Job — pruefen/consumer-smoke-test brauchen ihn
+# nicht). Vorbedingung auf npmjs.com: pro Paket ein Trusted Publisher ist einmalig eingerichtet
+# (Checkliste in CONTRIBUTING.md § 15).
 #
 # AUSLÖSER: jeder Push auf main. Ob und welche Version veröffentlicht wird, ermittelt der
 # Job „pruefen“ über die COMMITS, nicht über einen Versionswechsel in package.json — das
@@ -68,6 +78,10 @@ jobs:
       publish: ${{ steps.ermitteln.outputs.publish }}
       publish_css: ${{ steps.ermitteln.outputs.publish_css }}
       publish_lib: ${{ steps.ermitteln.outputs.publish_lib }}
+      # npmjs (ADR-0011), getrennt von publish_css/publish_lib (GitHub Packages): ein Release
+      # kann auf der einen Registry stehen und auf der anderen noch fehlen.
+      publish_css_npm: ${{ steps.ermitteln.outputs.publish_css_npm }}
+      publish_lib_npm: ${{ steps.ermitteln.outputs.publish_lib_npm }}
       dry: ${{ steps.ermitteln.outputs.dry }}
     steps:
       - uses: actions/checkout@v4
@@ -104,6 +118,7 @@ jobs:
         id: ermitteln
         run: |
           REGISTRY=https://npm.pkg.github.com
+          NPM_REGISTRY=https://registry.npmjs.org
 
           # Dry-Run nur beim manuellen Start, und dort als Default. Außerhalb von main IMMER
           # Dry-Run, auch mit dry_run=false: ein Probelauf vor dem Merge (manuell auf dem
@@ -147,10 +162,31 @@ jobs:
               return 1
             fi
           }
+          # npmjs-Variante (ADR-0011): Ein reines `--registry=$NPM_REGISTRY` würde NICHT
+          # greifen — der setup-node-Schritt oben hat mit `scope: '@conciso'` bereits
+          # `@conciso:registry=https://npm.pkg.github.com` in die .npmrc geschrieben, und npm
+          # prüft für gescopte Pakete die Scope-Registry VOR der generischen `registry`-Option
+          # (auch vor dem `--registry`-Flag). Nur die scope-eigene Option
+          # `--@conciso:registry=…` überschreibt das zuverlässig — per `npm publish --dry-run`
+          # verifiziert (siehe docs/adr/0011-veroeffentlichung-auf-npmjs.md).
+          versionen_npm() {
+            local AUSGABE
+            if AUSGABE=$(npm view "$1" versions --json "--@conciso:registry=${NPM_REGISTRY}" 2>&1); then
+              echo "$AUSGABE"
+            elif echo "$AUSGABE" | grep -q "E404"; then
+              echo '[]'
+            else
+              echo "::error::npmjs-Abfrage für $1 fehlgeschlagen: ${AUSGABE}" >&2
+              return 1
+            fi
+          }
           # Getrennt zuweisen: `export X=$(…)` würde den Exit-Code der Abfrage verschlucken.
           CSS_VERSIONS=$(versionen @conciso/design-system) || exit 1
           LIB_VERSIONS=$(versionen @conciso/design-system-angular) || exit 1
+          CSS_VERSIONS_NPM=$(versionen_npm @conciso/design-system) || exit 1
+          LIB_VERSIONS_NPM=$(versionen_npm @conciso/design-system-angular) || exit 1
           export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY CSS_VERSIONS LIB_VERSIONS
+          export CSS_VERSIONS_NPM LIB_VERSIONS_NPM
           export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
           echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
 
@@ -163,7 +199,10 @@ jobs:
           [ -n "$HINWEIS" ] && echo "::warning::${HINWEIS}"
           if [ "$MODE" = "nichts" ]; then
             echo "::notice::Kein veröffentlichungsrelevanter Commit seit dem letzten Tag — kein Release."
-            { echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false"; } >> "$GITHUB_OUTPUT"
+            {
+              echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false";
+              echo "publish_css_npm=false"; echo "publish_lib_npm=false";
+            } >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -217,6 +256,8 @@ jobs:
             echo "publish=true"
             echo "publish_css=$(wert publish_css)"
             echo "publish_lib=$(wert publish_lib)"
+            echo "publish_css_npm=$(wert publish_css_npm)"
+            echo "publish_lib_npm=$(wert publish_lib_npm)"
           } >> "$GITHUB_OUTPUT"
           case "$MODE" in
             nachziehen)   echo "::warning::Unfertiger Release ${VERSION} gefunden (ein vorheriger Lauf brach ab) — wird aus ${SOURCE_SHA} abgeschlossen. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
@@ -244,8 +285,12 @@ jobs:
     name: Consumer-Smoke-Test (Vorbedingung)
     needs: pruefen
     # Nur wenn wirklich ein Paket gebaut wird — beim reinen Finalisieren (Tag/Release
-    # nachholen) nicht: dort kann der Quellstand ein Alt-Tag ohne Release-Skripte sein.
-    if: needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true'
+    # nachholen) nicht: dort kann der Quellstand ein Alt-Tag ohne Release-Skripte sein. Auch
+    # ein reines npmjs-Nachziehen (GitHub Packages schon fertig) baut neu, siehe BAUEN im
+    # `publish`-Job weiter unten — dieselbe Bedingung, an derselben Stelle gepflegt.
+    if: >-
+      needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' ||
+      needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true'
     uses: ./.github/workflows/consumer-smoke-test.yml
     with:
       version: ${{ needs.pruefen.outputs.version }}
@@ -269,11 +314,22 @@ jobs:
       packages: write
       # actions: write für den erneuten Anstoß nach einer Heilung (letzter Schritt).
       actions: write
+      # id-token: write für npm Trusted Publishing (OIDC, ADR-0011) — NUR dieser Job. GitHub
+      # Actions stellt damit die ACTIONS_ID_TOKEN_REQUEST_*-Umgebungsvariablen bereit, die
+      # `npm publish` (>= 11.5.1) automatisch für den OIDC-Tausch mit npmjs.org nutzt. Kein
+      # NPM_TOKEN nötig und keins im Repo hinterlegt.
+      id-token: write
     env:
       VERSION: ${{ needs.pruefen.outputs.version }}
       DRY: ${{ needs.pruefen.outputs.dry }}
-      # Ob überhaupt ein Paket gebaut wird. Sonst (reines Finalisieren) nur Tag/Release.
-      BAUEN: ${{ needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' }}
+      # Ob überhaupt ein Paket gebaut wird. Sonst (reines Finalisieren) nur Tag/Release. Auch
+      # ein reines npmjs-Nachziehen (GitHub Packages bereits vollständig) muss bauen — dieselbe
+      # Bedingung steht deshalb auch am `consumer-smoke-test`-Job oben.
+      BAUEN: >-
+        ${{
+          needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' ||
+          needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true'
+        }}
     steps:
       # Nicht zwingend der ausgelöste Commit: beim Nachziehen eines halben Releases der
       # Quellstand des schon veröffentlichten Pakets (siehe `ermitteln`), damit beide
@@ -311,18 +367,52 @@ jobs:
           else echo "flag=" >> "$GITHUB_OUTPUT"; fi
       # Einzeln konditioniert: beim Nachziehen eines unvollständigen Releases wird
       # nur das fehlende Paket veröffentlicht — ein zweites `npm publish` derselben
-      # Version würde sonst mit 409 abbrechen.
-      - name: CSS-Schicht veröffentlichen
+      # Version würde sonst mit 409 abbrechen. Gilt jetzt pro REGISTRY (siehe die beiden
+      # npmjs-Schritte unten): GitHub Packages und npmjs werden unabhängig voneinander
+      # nachgezogen (scripts/release/decide.mjs, `publish_css`/`publish_lib` vs.
+      # `publish_css_npm`/`publish_lib_npm`).
+      - name: CSS-Schicht auf GitHub Packages veröffentlichen
         if: needs.pruefen.outputs.publish_css == 'true'
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Angular-Lib veröffentlichen
+      - name: Angular-Lib auf GitHub Packages veröffentlichen
         if: needs.pruefen.outputs.publish_lib == 'true'
         working-directory: angular-lib/dist/design-system-angular
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # ── npmjs (ADR-0011) ─────────────────────────────────────────────────────────
+      # npm-CLI aktualisieren: Trusted Publishing (OIDC) verlangt npm >= 11.5.1 (Node >=
+      # 22.14.0 hat der Runner über setup-node ohnehin). Node 22 bringt derzeit eine ältere
+      # npm-Version mit, deshalb hier explizit heben — ERST NACH den beiden
+      # GitHub-Packages-Publishes oben, damit die (erprobte) Standard-npm-Version dafür
+      # unangetastet bleibt.
+      - name: npm-CLI für npmjs Trusted Publishing aktualisieren
+        if: needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true'
+        run: npm install -g npm@^11.5.1
+      # Kein NODE_AUTH_TOKEN/NPM_TOKEN: npm tauscht den von `id-token: write` (Job-Permission
+      # oben) bereitgestellten OIDC-Token automatisch gegen ein kurzlebiges npmjs-Token, sofern
+      # auf npmjs.com ein Trusted Publisher für dieses Paket + diesen Workflow eingerichtet ist
+      # (einmalige, manuelle Einrichtung — Checkliste in CONTRIBUTING.md § 15). Provenance wird
+      # dabei automatisch erzeugt, `--provenance` ist nicht nötig (siehe ADR-0011, Quelle
+      # docs.npmjs.com/trusted-publishers/).
+      #
+      # `--@conciso:registry=…` statt nur `--registry`: Der setup-node-Schritt oben hat mit
+      # `scope: '@conciso'` bereits `@conciso:registry=https://npm.pkg.github.com` gesetzt, und
+      # npm prüft für gescopte Pakete diese Scope-Registry VOR der generischen `--registry`-
+      # Option — ein reines `--registry` würde deshalb weiter gegen GitHub Packages laufen.
+      # Nur die scope-eigene CLI-Option überschreibt das zuverlässig (per
+      # `npm publish --dry-run` verifiziert, siehe docs/adr/0011-veroeffentlichung-auf-npmjs.md).
+      # `--access public`: Ein gescoptes Paket ist auf npmjs ohne diese Angabe standardmäßig
+      # privat (kostenpflichtig) — hier immer mitgegeben, nicht nur beim allerersten Publish.
+      - name: CSS-Schicht auf npmjs veröffentlichen
+        if: needs.pruefen.outputs.publish_css_npm == 'true'
+        run: npm publish ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
+      - name: Angular-Lib auf npmjs veröffentlichen
+        if: needs.pruefen.outputs.publish_lib_npm == 'true'
+        working-directory: angular-lib/dist/design-system-angular
+        run: npm publish ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
       - name: Release-Notizen herunterladen
         if: env.DRY == 'false' && needs.pruefen.outputs.notes == 'true'
         uses: actions/download-artifact@v4

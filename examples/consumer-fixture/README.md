@@ -48,10 +48,14 @@ dagegen selbst in seiner `package.json`.
 
 ## Lokal bauen
 
-Ein blankes `npm install` hier schlägt fehl — `@conciso/design-system` und
-`@conciso/design-system-angular` sind nicht auf der Registry (privat, noch nicht
-publiziert). Über das Skript aus dem Repo-Root laufen lassen, das die Tarballs
-baut und installiert:
+Ein blankes `npm install` hier ist bewusst nicht der Weg. Vor dem ersten Release
+liegen `@conciso/design-system` und `@conciso/design-system-angular` auf keiner
+Registry, `npm install` schlägt fehl. Seit [ADR-0011](../../docs/adr/0011-veroeffentlichung-auf-npmjs.md)
+liegen beide ab dem ersten echten Release zwar öffentlich auf npmjs.org — ein
+`npm install` würde dann aber nur die zuletzt veröffentlichte Version ziehen, nicht
+den lokalen Arbeitsstand, und genau den soll dieser Smoke-Test prüfen. Über das
+Skript aus dem Repo-Root laufen lassen, das immer die aus dem lokalen Stand
+gebauten Tarballs installiert:
 
 ```bash
 scripts/consumer-smoke-test.sh
