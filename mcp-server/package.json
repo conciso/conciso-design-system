@@ -1,0 +1,39 @@
+{
+  "name": "@conciso/design-system-mcp",
+  "version": "0.0.0",
+  "description": "MCP-Server für Consumer des Conciso Design System — beantwortet docs-list, docs-show und docs-show-story über stdio aus einem mitgelieferten Storybook-Snapshot, ohne Netzzugriff.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "bin": {
+    "cds-mcp": "bin/cds-mcp.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin",
+    "src",
+    "snapshot",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:snapshot": "node scripts/build-snapshot.mjs",
+    "prepack": "node scripts/prepack.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@storybook/mcp": "10.6.0",
+    "@tmcp/adapter-valibot": "^0.1.6",
+    "@tmcp/transport-stdio": "^0.5.0",
+    "tmcp": "^1.20.0",
+    "valibot": "^1.5.0"
+  }
+}
