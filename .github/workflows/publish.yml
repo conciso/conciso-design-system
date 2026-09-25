@@ -7,9 +7,11 @@ name: Pakete veröffentlichen
 # docs/adr/0012). GitHub Packages bleibt Quelle der Wahrheit für den
 # Existenz-/Vollständigkeits-Check (Job „pruefen“ liest dort weiterhin `LATEST_TAG` und die
 # GitHub-Release-Existenz); npmjs wird zusätzlich, gleichrangig geprüft (siehe
-# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`/`publish_mcp_npm`). Der
-# MCP-Server existierte vor MCP_BASELINE (decide.mjs) auf KEINER Registry — anders als
-# NPM_BASELINE gilt das dort für GitHub Packages UND npmjs gleichermaßen.
+# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`/`publish_mcp_npm`). Ob der
+# MCP-Server für den letzten Tag überhaupt existierte, ist ein FAKT über dessen Commit-Baum
+# (`tagHasMcp`, siehe „Fakten sammeln“ unten und der Kopfkommentar in decide.mjs) — keine
+# Versions-Konstante wie NPM_BASELINE, weil main zwischen dem Schreiben dieses Codes und dem
+# Merge weiterziehen kann.
 #
 # npmjs-Publish ohne NPM_TOKEN: npm Trusted Publishing (OIDC), siehe docs/adr/0011 und
 # https://docs.npmjs.com/trusted-publishers/. Der Publish-Job bekommt dafür
@@ -87,7 +89,7 @@ jobs:
       publish_css_npm: ${{ steps.ermitteln.outputs.publish_css_npm }}
       publish_lib_npm: ${{ steps.ermitteln.outputs.publish_lib_npm }}
       # Drittes Paket (ADR-0012), unabhängig von CSS/Lib nachgezogen (siehe decide.mjs,
-      # MCP_BASELINE) — ebenfalls je Registry.
+      # `tagHasMcp`) — ebenfalls je Registry.
       publish_mcp: ${{ steps.ermitteln.outputs.publish_mcp }}
       publish_mcp_npm: ${{ steps.ermitteln.outputs.publish_mcp_npm }}
       dry: ${{ steps.ermitteln.outputs.dry }}
@@ -144,7 +146,7 @@ jobs:
           # ── Fakten sammeln ──
           # Letzter Release-Tag (lokal vorhanden dank fetch-depth: 0) und ob er fertig ist.
           LATEST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
-          TAG_HAS_RELEASE=false; TAG_IS_ANNOTATED=false
+          TAG_HAS_RELEASE=false; TAG_IS_ANNOTATED=false; TAG_HAS_MCP=false
           # Beide Abfragen unten scheitern „geschlossen“: Nur ein ausdrückliches „gibt es
           # nicht“ zählt als leer. Ein Ausfall, ein Rate-Limit oder ein Auth-Fehler bricht den
           # Lauf ab — als „leer“ gelesen, würde er einen unfertigen Release übersehen und
@@ -157,6 +159,18 @@ jobs:
               exit 1
             fi
             [ "$(git cat-file -t "$LATEST_TAG")" = "tag" ] && TAG_IS_ANNOTATED=true
+            # MCP-Server (ADR-0012): FAKT statt Versions-Konstante — ob dieser Tag den
+            # MCP-Server kennt, hängt vom BAUM seines Commits ab, nicht von seiner
+            # Versionsnummer (siehe Kopfkommentar in decide.mjs für die ausführliche
+            # Begründung, warum eine hartkodierte Baseline hier eine Race-Condition mit einem
+            # Release ist, der VOR dem Merge dieses Tickets auf main landet). `^{commit}`
+            # peelt einen annotierten Tag auf seinen Commit, bevor der Pfad aufgelöst wird —
+            # funktioniert unverändert für einen leichtgewichtigen Alt-Tag (zeigt schon direkt
+            # auf einen Commit). Exit-Code prüfen, nicht die Ausgabe: `-e` gibt bei Erfolg
+            # nichts aus.
+            if git cat-file -e "${LATEST_TAG}^{commit}:mcp-server/package.json" 2>/dev/null; then
+              TAG_HAS_MCP=true
+            fi
           fi
           # Alle veröffentlichten Versionen pro Paket; E404 = Paket existiert noch nicht.
           versionen() {
@@ -195,14 +209,16 @@ jobs:
           LIB_VERSIONS_NPM=$(versionen_npm @conciso/design-system-angular) || exit 1
           # Drittes Paket (ADR-0012): dieselben zwei Abfragen (GitHub Packages + npmjs, beide
           # geschlossen scheiternd) wie oben, nur für @conciso/design-system-mcp. E404 = Paket
-          # existiert für diese Registry noch nicht (vor dem Bootstrap bzw. vor MCP_BASELINE
-          # der Normalfall) — dieselbe `versionen()`/`versionen_npm()`-Funktion behandelt das.
+          # existiert für diese Registry noch nicht (vor dem Bootstrap, oder solange der
+          # aktuelle Tag noch kein mcp-server/ kennt — siehe TAG_HAS_MCP oben — der
+          # Normalfall) — dieselbe `versionen()`/`versionen_npm()`-Funktion behandelt das.
           MCP_VERSIONS=$(versionen @conciso/design-system-mcp) || exit 1
           MCP_VERSIONS_NPM=$(versionen_npm @conciso/design-system-mcp) || exit 1
-          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY CSS_VERSIONS LIB_VERSIONS
-          export CSS_VERSIONS_NPM LIB_VERSIONS_NPM MCP_VERSIONS MCP_VERSIONS_NPM
+          export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED TAG_HAS_MCP DRY
+          export CSS_VERSIONS LIB_VERSIONS CSS_VERSIONS_NPM LIB_VERSIONS_NPM
+          export MCP_VERSIONS MCP_VERSIONS_NPM
           export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
-          echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
+          echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}, MCP=${TAG_HAS_MCP}), Engine: ${ENGINE_VERSION:-–}"
 
           # ── Entscheiden ──
           ENTSCHEIDUNG=$(node scripts/release/decide.mjs)
