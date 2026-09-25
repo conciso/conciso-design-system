@@ -203,18 +203,22 @@ Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline
 
 Die DS-Icons liegen als maschinenlesbare Bibliothek vor (mit dem npm-Paket): `icons/icons.json` und `icons/icons.js` enthalten pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color` des Containers (z. B. Bereichsfarbe `var(--ki-800)`, im Dark `--ki-200`).
 
+**Empfohlen: benannter Import.** `icons/icons.js` exportiert jedes Icon zusätzlich einzeln in camelCase (`ki-bot` → `kiBot`). Nur benannte Imports sind tree-shakable — ein Bundler lässt jedes nicht importierte Icon aus dem Bundle, das aggregierte `icons`-Objekt (oder `icons.json`) zieht dagegen immer alle Icons mit rein.
+
 ```js
-import { icons } from '@conciso/design-system/icons';
-const { svg } = icons['ki-bot'];   // komplettes <svg>…</svg>
+import { kiBot } from '@conciso/design-system/icons';
+const { svg } = kiBot;   // komplettes <svg>…</svg>
 ```
 
 ```html
 <!-- direkt einhängen und einfärben -->
 <span style="color:var(--ki-800);display:inline-flex" data-icon></span>
-<script>document.querySelector('[data-icon]').innerHTML = icons['ki-bot'].svg;</script>
+<script>document.querySelector('[data-icon]').innerHTML = svg;</script>
 ```
 
-Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind `solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Vollständiges Key-Mapping inkl. Verwendungskontext: [`icons/README.md`](../icons/README.md). Neue Icons werden in `icons/source/*.svg` ergänzt und mit `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
+Für Kataloge, Doku-Seiten oder einen dynamischen Lookup per String-Key bleibt das Aggregat praktisch: `import { icons } from '@conciso/design-system/icons'; icons['ki-bot'].svg`.
+
+Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind `solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Vollständiges Key-Mapping inkl. Export-Namen und Verwendungskontext: [`icons/README.md`](../icons/README.md). Neue Icons werden in `icons/source/*.svg` ergänzt und mit `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
 
 ## 9. Frameworks
 

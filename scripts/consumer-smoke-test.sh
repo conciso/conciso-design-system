@@ -8,7 +8,10 @@
 # committeten Consumer-Fixture (examples/consumer-fixture). Danach ein produktiver
 # AOT-`ng build` dort. Testet exakt das gebaute Artefakt, das ein Konsument
 # tatsächlich bekommt: APF-Metadaten, Vollständigkeit der Re-Exports in
-# public-api.ts, peer-Dep-Auflösung, AOT-Template-Typfehler, Icon-Registrierung.
+# public-api.ts, peer-Dep-Auflösung, AOT-Template-Typfehler, Icon-Registrierung
+# UND Tree-Shaking der DS-Icons (icons/cds-icons.ts importiert nur benannte Exporte,
+# nie das aggregierte `icons`-Objekt — ein Fund von „co-building“, einem Bereichs-
+# Glyph, den die Fixture nirgends nutzt, im gebauten main.js beweist eine Regression).
 #
 # WARUM AUSSERHALB DES REPOS GEBAUT WIRD: Node löst Module über die
 # Elternverzeichnisse auf. Solange die Fixture unter examples/ im Repo gebaut wird,
@@ -85,4 +88,17 @@ echo "→ Produktiven AOT-Build der Fixture fahren"
 
 OUT="$FIXTURE/dist/consumer-fixture/browser/index.html"
 test -f "$OUT"
+
+echo "→ Tree-Shaking der DS-Icons prüfen (main.js darf „co-building“ nicht enthalten)"
+MAIN_JS="$(find "$FIXTURE/dist/consumer-fixture/browser" -maxdepth 1 -name 'main-*.js' | head -n1)"
+if [ -z "$MAIN_JS" ]; then
+  echo "DS-Icons nicht tree-shakable: main-*.js im Build-Output nicht gefunden, Prüfung kann nicht laufen." >&2
+  exit 1
+fi
+if grep -q 'co-building' "$MAIN_JS"; then
+  echo "DS-Icons nicht tree-shakable: das Bereichs-Glyph co-building (von der Fixture nirgends genutzt) steckt in $MAIN_JS. angular-lib/.../icons/cds-icons.ts importiert vermutlich wieder das aggregierte icons-Objekt statt der benannten Exporte (siehe icons/README.md, Abschnitt Verwendung)." >&2
+  exit 1
+fi
+echo "  main.js: $(basename "$MAIN_JS"), $(wc -c < "$MAIN_JS" | tr -d ' ') Bytes (raw)"
+
 echo "→ Consumer-Smoke-Test grün: $OUT"
