@@ -12,6 +12,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 
+import { EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SERVER_BIN = join(PKG_ROOT, 'bin', 'cds-mcp.mjs');
 const SNAPSHOT_MANIFESTS = join(PKG_ROOT, 'snapshot', 'manifests');
@@ -116,6 +118,9 @@ test('cds-mcp: initialize, genau drei Werkzeuge, docs-show liefert Button-Inputs
     });
     assert.equal(init.error, undefined, `initialize-Fehler: ${JSON.stringify(init.error)}`);
     assert.ok(init.result, 'initialize liefert kein result');
+    // Issue 02: instructions müssen die Einrichtung-Seite referenzieren, damit die KI sie per
+    // docs-show findet, statt beim Einrichten zu raten.
+    assert.match(init.result.instructions ?? '', new RegExp(EINRICHTUNG_DOC_ID));
 
     client.notify('notifications/initialized', {});
 

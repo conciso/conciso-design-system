@@ -17,6 +17,9 @@ import {
 } from '@storybook/mcp';
 import { McpServer } from 'tmcp';
 
+import { buildInstructions } from './instructions.mjs';
+import { checkVersion, resolveInstalledVersion } from './version-check.mjs';
+
 const require = createRequire(import.meta.url);
 // createRequire statt `import … with { type: 'json' }`: Import-Attribute für JSON brauchen
 // neuere Node-Minor-Versionen als unser deklariertes `engines.node: >=20` garantiert; require()
@@ -48,8 +51,19 @@ export async function manifestProvider(_request, manifestPath) {
   return readFile(absolute, 'utf8');
 }
 
-/** Baut den tmcp-Server mit den drei registrierten Werkzeugen, aber startet noch keinen Transport. */
-export async function createServer() {
+/**
+ * Baut den tmcp-Server mit den drei registrierten Werkzeugen, aber startet noch keinen Transport.
+ * @param {{ cwd?: string }} [options] `cwd`: Arbeitsverzeichnis, ab dem die Versionsprüfung die
+ *   installierte Angular-Lib auflöst (Default `process.cwd()`) — parametrisiert für Tests, damit
+ *   sie kein reales Consumer-`node_modules` brauchen.
+ */
+export async function createServer({ cwd = process.cwd() } = {}) {
+  const installedVersion = resolveInstalledVersion(cwd);
+  const { instructionsNote, stderrNote } = checkVersion(pkg.version, installedVersion);
+  if (stderrNote) {
+    console.error(stderrNote);
+  }
+
   const server = new McpServer(
     {
       name: pkg.name,
@@ -61,6 +75,7 @@ export async function createServer() {
     {
       adapter: new ValibotJsonSchemaAdapter(),
       capabilities: { tools: { listChanged: true } },
+      instructions: buildInstructions(instructionsNote),
     },
   ).withContext();
 

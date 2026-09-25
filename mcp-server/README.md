@@ -4,7 +4,8 @@ MCP-Server für Consumer des Conciso Design System. Er beantwortet `docs-list`, 
 und `docs-show-story` über stdio — mit den echten, dokumentierten Inputs und Outputs der
 [Angular-Lib](https://www.npmjs.com/package/@conciso/design-system-angular), nicht erfundenen.
 Die Daten stammen aus einem mitgelieferten Snapshot des Storybook-Builds derselben Version;
-der Server greift dafür nie auf ein Netzwerk zu.
+der Server greift dafür nie auf ein Netzwerk zu. Beim Start vergleicht er seine Version mit der
+installierten Angular-Lib und warnt bei Abweichung, bricht aber nie ab.
 
 ## Installation
 
