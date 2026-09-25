@@ -91,14 +91,22 @@ KI überhaupt ein Werkzeug aufruft.
 - Der Publish-Workflow, die Existenzprüfung in `decide.mjs` (je Registry), die
   Pfadliste (`relevant-paths.mjs`) und der Check, der sie gegen die `files`-Felder
   abgleicht, müssen das dritte Paket kennen.
-- **`MCP_BASELINE` statt `NPM_BASELINE`:** `NPM_BASELINE` aus ADR-0011 ist für den
-  MCP-Server bedeutungslos — es markiert den letzten Tag, den es NUR auf GitHub Packages
-  gab, aber den MCP-Server gab es dort bis zu diesem Ticket überhaupt nicht, auf KEINER
-  Registry. `decide.mjs` führt deshalb eine eigene, höhere Konstante `MCP_BASELINE` (der
-  letzte Tag vor diesem Ticket, `v2.1.1`) und wendet sie — anders als `NPM_BASELINE` — auf
-  BEIDE Registries gleichermaßen an. Ohne sie würde die Existenzprüfung versuchen, den
-  MCP-Server rückwirkend aus einem alten Tag-Commit ohne `mcp-server/`-Verzeichnis
-  nachzuziehen, und jeder weitere Release bliebe blockiert.
+- **`tagHasMcp`-Fakt statt `NPM_BASELINE`-artiger Konstante:** `NPM_BASELINE` aus ADR-0011
+  ist für den MCP-Server bedeutungslos — es markiert den letzten Tag, den es NUR auf GitHub
+  Packages gab, aber den MCP-Server gab es dort bis zu diesem Ticket überhaupt nicht, auf
+  KEINER Registry. Eine analoge feste Versions-Konstante wäre hier aber, anders als bei
+  `NPM_BASELINE`, eine Wette auf die Zukunft: ob ein Tag `mcp-server/` kennt, ist eine
+  Eigenschaft des BAUMS seines Commits, keine Eigenschaft seiner Versionsnummer, und `main`
+  kann zwischen dem Schreiben dieses Codes und dem Merge dieses Tickets weiterziehen (ein
+  `feat`-PR released z. B. v2.2.0, bevor dieses Ticket merged) — eine hartkodierte Version
+  wäre dann zu niedrig, und die Existenzprüfung versuchte, den MCP-Server rückwirkend aus
+  einem Tag-Commit ohne `mcp-server/`-Verzeichnis nachzuziehen, jeder weitere Release bliebe
+  blockiert. `decide.mjs` bekommt den Fakt deshalb direkt vom Workflow: `tagHasMcp` prüft, ob
+  der Baum des getaggten Commits `mcp-server/package.json` enthält
+  (`git cat-file -e "$TAG^{commit}:mcp-server/package.json"`) — für BEIDE Registries
+  gleichermaßen (anders als `NPM_BASELINE` betraf das MCP-Fehlen nie nur eine Registry). Der
+  Fakt fehlt sicher: ohne ihn (Default `false`) wird nie versucht, MCP aus einem Tag zu
+  heilen.
 - Der Smoke-Test schließt nebenbei die in ADR-0006 genannte Lücke „kein Gate für
   `@internal`“ — zumindest für das ausgelieferte Manifest.
 - **Per Spike verifiziert (2026-09-25):** Die `add*Tool`-Funktionen von `@storybook/mcp`
