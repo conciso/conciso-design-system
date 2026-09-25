@@ -1,0 +1,184 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Grundlagen/Einrichtung" name="Übersicht" />
+
+# Einrichtung
+
+So bindest du das Conciso Design System in ein Angular-Projekt ein, von der Installation
+bis zur ersten Komponente, und schließt optional eine KI daran an.
+
+## Beide Pakete installieren
+
+Angular-Lib und CSS-Schicht tragen immer dieselbe Versionsnummer und liegen öffentlich auf
+npmjs.org, du brauchst keinen Account und kein Token:
+
+```bash
+npm i @conciso/design-system @conciso/design-system-angular
+```
+
+**Alternative: GitHub Packages.** Für Consumer innerhalb der GitHub-Organisation
+`conciso` liegen beide Pakete zusätzlich privat, org-scoped in GitHub Packages. Dafür
+eine `.npmrc` im Projekt anlegen, die den `@conciso`-Scope umleitet, plus ein Token mit
+Scope `read:packages` auch fürs Lesen (in GitHub Actions genügt `secrets.GITHUB_TOKEN`):
+
+```ini
+@conciso:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+```
+
+Ausführliche Anleitung (Token-Beschaffung, CI vs. lokaler Rechner): README von
+`@conciso/design-system-angular` auf
+[npmjs.com](https://www.npmjs.com/package/@conciso/design-system-angular).
+
+## CSS und Fonts global einbinden
+
+Die Angular-Lib liefert **kein eigenes CSS**: Die Wrapper-Komponenten setzen nur die
+vorhandenen Klassen der CSS-Schicht zusammen, das Styling kommt aus einem globalen
+Cascade, der sich nicht pro Komponente kapseln lässt. Fehlt dieser Schritt, erscheinen die
+Komponenten ungestylt.
+
+**`angular.json`** → `architect.build.options`, Eintrag `assets` ergänzen (`css` und
+`fonts` werden unverändert kopiert, kein CSS-Bundling durch den Angular-Build, deshalb
+`assets` statt `styles`):
+
+```jsonc
+{
+  "assets": [
+    // … bestehende Einträge (z. B. "public") …
+    {
+      "glob": "**/*",
+      "input": "node_modules/@conciso/design-system/css",
+      "output": "conciso/css"
+    },
+    {
+      "glob": "**/*",
+      "input": "node_modules/@conciso/design-system/fonts",
+      "output": "conciso/fonts"
+    }
+  ]
+}
+```
+
+**`src/index.html`**, CSS in genau dieser Reihenfolge laden (fonts → tokens → dark-mode →
+base → components; `fonts.css` referenziert die Font-Dateien relativ als `../fonts/*`,
+`conciso/css` und `conciso/fonts` müssen also Geschwisterordner bleiben):
+
+```html
+<link rel="stylesheet" href="conciso/css/fonts.css" />
+<link rel="stylesheet" href="conciso/css/tokens.css" />
+<link rel="stylesheet" href="conciso/css/dark-mode.css" />
+<link rel="stylesheet" href="conciso/css/base.css" />
+<link rel="stylesheet" href="conciso/css/components.css" />
+```
+
+**Kritisches CSS deaktivieren.** Der Angular-Production-Build versucht standardmäßig,
+referenziertes CSS als kritisches CSS zu inlinen. Das über `assets` eingebundene CSS liegt
+zu diesem Zeitpunkt aber noch nicht im Ausgabeverzeichnis, das führt zu harmlosen, aber
+vermeidbaren Build-Warnungen. In `architect.build.configurations.production` ergänzen:
+
+```jsonc
+{
+  "optimization": {
+    "scripts": true,
+    "fonts": true,
+    "styles": { "minify": true, "inlineCritical": false }
+  }
+}
+```
+
+Weitere Details: README von `@conciso/design-system-angular` auf
+[npmjs.com](https://www.npmjs.com/package/@conciso/design-system-angular).
+
+## Erste Komponente verwenden
+
+```ts
+import { ButtonComponent } from '@conciso/design-system-angular';
+```
+
+```html
+<cds-button area="co" variant="filled" label="Kontakt" />
+```
+
+`area` (Default `co`), `variant` (Default `filled`) und `label` (Default `Button`) sind die
+dokumentierten Inputs von `ButtonComponent`. Vollständige Liste mit allen Varianten:
+`Komponenten/Buttons/Button` in diesem Storybook, oder per KI-Assistent das Werkzeug
+`docs-show` (siehe unten).
+
+## KI-Assistenten anbinden
+
+Das Design System bringt einen eigenen MCP-Server mit: `@conciso/design-system-mcp`
+(`bin`: `cds-mcp`), Transport stdio, kein Port, nichts im Netz erreichbar. Er liefert
+dieselben Werkzeuge, mit denen auch diese Seite entstanden ist (`docs-list`, `docs-show`,
+`docs-show-story`), als mitgelieferten Snapshot passend zur installierten Version, ohne
+Live-Abruf von einer Website.
+
+```bash
+npm i -D @conciso/design-system-mcp
+```
+
+**Versionen synchron halten.** Der Server vergleicht beim Start seine eigene Version mit
+der installierten Version der Angular-Lib und **warnt** bei Abweichung (in seinen
+`instructions` und auf stderr), bricht aber nicht ab. Am einfachsten: alle drei Pakete
+gemeinsam auf derselben Version installieren oder aktualisieren, zum Beispiel
+`npm i @conciso/design-system@X @conciso/design-system-angular@X
+@conciso/design-system-mcp@X`.
+
+### Claude Code
+
+Empfohlen als committete Projektdatei `.mcp.json` im Repo-Root:
+
+```json
+{
+  "mcpServers": {
+    "conciso-ds": {
+      "command": "npx",
+      "args": ["cds-mcp"]
+    }
+  }
+}
+```
+
+### VS Code / GitHub Copilot
+
+`.vscode/mcp.json`, Schlüssel `servers`, mit explizitem `"type": "stdio"` (laut aktueller
+VS-Code-Doku ein Pflichtfeld für stdio-Server):
+
+```json
+{
+  "servers": {
+    "conciso-ds": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["cds-mcp"]
+    }
+  }
+}
+```
+
+### Cursor
+
+`.cursor/mcp.json`, Schlüssel `mcpServers`:
+
+```json
+{
+  "mcpServers": {
+    "conciso-ds": {
+      "command": "npx",
+      "args": ["cds-mcp"]
+    }
+  }
+}
+```
+
+Alle drei Varianten starten denselben Prozess über stdio, ohne laufenden Dienst und ohne
+Port.
+
+## Siehe auch
+
+- `Komponenten/Buttons/Button` in diesem Storybook
+- README von `@conciso/design-system` auf
+  [npmjs.com](https://www.npmjs.com/package/@conciso/design-system)
+- README von `@conciso/design-system-angular` auf
+  [npmjs.com](https://www.npmjs.com/package/@conciso/design-system-angular)
+- README von `@conciso/design-system-mcp` auf
+  [npmjs.com](https://www.npmjs.com/package/@conciso/design-system-mcp)
