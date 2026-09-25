@@ -4,6 +4,10 @@ Die Conciso-Wortmarke in drei Varianten. Verbindlich für Größen, Schutzraum u
 Verwendung ist die Doku-Sektion **Marke → Logo** (`docs/index.html`, `#sec-logo`);
 dieses Dokument beschreibt nur die Dateien und den Einbau.
 
+**Lizenz:** Anders als der Rest des Repositories (MIT, siehe [`LICENSE`](../../LICENSE))
+stehen diese Dateien nicht unter MIT. Sie bleiben Eigentum der Conciso GmbH,
+siehe [`LICENSE`](LICENSE) in diesem Verzeichnis.
+
 | Datei | Einsatz |
 |---|---|
 | `logo-conciso.svg` | Default. Wortmarke in `--tx-brand`, Punkt in `--co-500`. Helle Hintergründe |

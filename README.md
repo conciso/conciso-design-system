@@ -65,15 +65,17 @@ import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 
 Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
 
-> Das Paket ist **intern/proprietär** (`UNLICENSED`) und liegt nicht in der öffentlichen
-> npm-Registry — GitHub Packages verlangt daher Auth auch fürs Lesen (lokal ein Token mit
-> Scope `read:packages` als `GITHUB_TOKEN`, in GitHub Actions genügt `secrets.GITHUB_TOKEN`).
-> Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden), Begründung in
-> [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt Variante A
-> (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
+> Das Paket steht unter der [MIT-Lizenz](LICENSE) (Ausnahmen — Brand-Assets, Schriften,
+> Icons — siehe [NOTICE](NOTICE)), liegt aber weiterhin in GitHub Packages statt der
+> öffentlichen npm-Registry — GitHub Packages verlangt daher Auth auch fürs Lesen (lokal
+> ein Token mit Scope `read:packages` als `GITHUB_TOKEN`, in GitHub Actions genügt
+> `secrets.GITHUB_TOKEN`). Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden),
+> Begründung in [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt
+> Variante A (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
 >
-> Intern/proprietär ist damit nur das **Paket** selbst. Die **Doku** (Storybook, die
-> Komponenten-Referenz der Angular-Lib) ist dagegen öffentlich einsehbar unter
+> Der Lese-Auth-Zwang gilt damit nur wegen der **Registry**, nicht wegen der Lizenz, und
+> betrifft nur das **Paket** selbst. Die **Doku** (Storybook, die Komponenten-Referenz der
+> Angular-Lib) ist dagegen öffentlich einsehbar unter
 > <https://conciso.github.io/conciso-design-system/> — ohne Auth, aber `noindex` (nicht für
 > Suchmaschinen bestimmt). Details und Abwägung in
 > [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
@@ -125,4 +127,4 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Lizenz & Kontakt
 
-Siehe [LICENSE](LICENSE) (intern/proprietär — Conciso). Fragen und Beiträge über GitHub Issues im Repo. Maintainer: _Design-System-Team (bitte eintragen)_.
+MIT, siehe [LICENSE](LICENSE). Ausnahmen (Brand-Assets unter `assets/brand/`, Schriften, Icons) siehe [NOTICE](NOTICE). Fragen und Beiträge über GitHub Issues im Repo. Maintainer: _Design-System-Team (bitte eintragen)_.

@@ -23,6 +23,13 @@ ds-bundle/
 # Angular-Build-Cache (wird bei jedem Build neu erzeugt)
 .angular/
 
+# Lokale Kopien der Root-LICENSE/NOTICE fuer die Angular-Lib: ng-packagr laesst in
+# ng-package.json#assets keine Pfade ausserhalb des Projekt-Roots
+# (angular-lib/projects/design-system-angular/) zu, deshalb kopiert das build-Script in
+# angular-lib/package.json sie dorthin, statt sie einzuchecken (siehe dort).
+angular-lib/projects/design-system-angular/LICENSE
+angular-lib/projects/design-system-angular/NOTICE
+
 # Worktrees der Claude-Code-Agenten (kurzlebig, nie Teil des Repos)
 .claude/worktrees/
 

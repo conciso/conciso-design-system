@@ -4,7 +4,7 @@
   "description": "Angular-CLI-Workspace, der die publizierbare Lib @conciso/design-system-angular per ng-packagr baut. Nicht selbst publiziert.",
   "scripts": {
     "ng": "ng",
-    "build": "ng build design-system-angular",
+    "build": "node -e \"const fs=require('fs');for(const f of ['LICENSE','NOTICE'])fs.copyFileSync('../'+f,'projects/design-system-angular/'+f)\" && ng build design-system-angular",
     "watch": "ng build design-system-angular --watch --configuration development",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix"

@@ -23,6 +23,7 @@ export const RELEVANT_PATH_PREFIXES = [
   'assets/',
   'README.md',
   'LICENSE',
+  'NOTICE',
   'CHANGELOG.md',
   // Angular-Lib: ausgelieferter Inhalt (src, package.json, ng-package.json, tsconfig.lib*.json, README)
   'angular-lib/projects/design-system-angular/',
