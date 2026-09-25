@@ -1,25 +1,29 @@
 name: Pakete veröffentlichen
 
-# Veröffentlicht beide Pakete — @conciso/design-system (CSS-Schicht) und
-# @conciso/design-system-angular (Angular-Lib) — nach GitHub Packages UND (seit ADR-0011)
-# zusätzlich nach npmjs.org, im Lockstep mit derselben Versionsnummer (siehe CONTEXT.md,
-# docs/adr/0004, docs/adr/0011). GitHub Packages bleibt Quelle der Wahrheit für den
+# Veröffentlicht alle drei Pakete — @conciso/design-system (CSS-Schicht),
+# @conciso/design-system-angular (Angular-Lib) und (seit ADR-0012) @conciso/design-system-mcp
+# (MCP-Server) — nach GitHub Packages UND (seit ADR-0011) zusätzlich nach npmjs.org, im
+# Lockstep mit derselben Versionsnummer (siehe CONTEXT.md, docs/adr/0004, docs/adr/0011,
+# docs/adr/0012). GitHub Packages bleibt Quelle der Wahrheit für den
 # Existenz-/Vollständigkeits-Check (Job „pruefen“ liest dort weiterhin `LATEST_TAG` und die
 # GitHub-Release-Existenz); npmjs wird zusätzlich, gleichrangig geprüft (siehe
-# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`).
+# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`/`publish_mcp_npm`). Der
+# MCP-Server existierte vor MCP_BASELINE (decide.mjs) auf KEINER Registry — anders als
+# NPM_BASELINE gilt das dort für GitHub Packages UND npmjs gleichermaßen.
 #
 # npmjs-Publish ohne NPM_TOKEN: npm Trusted Publishing (OIDC), siehe docs/adr/0011 und
 # https://docs.npmjs.com/trusted-publishers/. Der Publish-Job bekommt dafür
 # `permissions: id-token: write` (nur dieser Job — pruefen/consumer-smoke-test brauchen ihn
-# nicht). Vorbedingung auf npmjs.com: pro Paket ein Trusted Publisher ist einmalig eingerichtet
-# (Checkliste in CONTRIBUTING.md § 15).
+# nicht). Vorbedingung auf npmjs.com: pro Paket (auch für den MCP-Server) ein Trusted
+# Publisher ist einmalig eingerichtet (Checkliste in CONTRIBUTING.md § 15).
 #
 # AUSLÖSER: jeder Push auf main. Ob und welche Version veröffentlicht wird, ermittelt der
 # Job „pruefen“ über die COMMITS, nicht über einen Versionswechsel in package.json — das
-# Repo ist versionsfrei (docs/adr/0010-release-ausloesung-und-versionsquelle.md): beide
+# Repo ist versionsfrei (docs/adr/0010-release-ausloesung-und-versionsquelle.md): alle drei
 # package.json tragen dauerhaft den Platzhalter 0.0.0. `semantic-release --dry-run` wertet
 # die Commits seit dem letzten Tag aus (nur veröffentlichungsrelevante zählen, siehe
-# scripts/release/relevant-paths.mjs) und liefert Version und Notizen. Gibt es kein
+# scripts/release/relevant-paths.mjs — seit ADR-0012 auch mcp-server/ und
+# storybook-angular/src/**) und liefert Version und Notizen. Gibt es kein
 # veröffentlichungsrelevantes `feat`/`fix`/`perf`/`build(deps)`/Breaking-Change seit dem
 # letzten Tag, bleibt die Version leer — der Lauf endet still.
 #
@@ -82,6 +86,10 @@ jobs:
       # kann auf der einen Registry stehen und auf der anderen noch fehlen.
       publish_css_npm: ${{ steps.ermitteln.outputs.publish_css_npm }}
       publish_lib_npm: ${{ steps.ermitteln.outputs.publish_lib_npm }}
+      # Drittes Paket (ADR-0012), unabhängig von CSS/Lib nachgezogen (siehe decide.mjs,
+      # MCP_BASELINE) — ebenfalls je Registry.
+      publish_mcp: ${{ steps.ermitteln.outputs.publish_mcp }}
+      publish_mcp_npm: ${{ steps.ermitteln.outputs.publish_mcp_npm }}
       dry: ${{ steps.ermitteln.outputs.dry }}
     steps:
       - uses: actions/checkout@v4
@@ -185,8 +193,14 @@ jobs:
           LIB_VERSIONS=$(versionen @conciso/design-system-angular) || exit 1
           CSS_VERSIONS_NPM=$(versionen_npm @conciso/design-system) || exit 1
           LIB_VERSIONS_NPM=$(versionen_npm @conciso/design-system-angular) || exit 1
+          # Drittes Paket (ADR-0012): dieselben zwei Abfragen (GitHub Packages + npmjs, beide
+          # geschlossen scheiternd) wie oben, nur für @conciso/design-system-mcp. E404 = Paket
+          # existiert für diese Registry noch nicht (vor dem Bootstrap bzw. vor MCP_BASELINE
+          # der Normalfall) — dieselbe `versionen()`/`versionen_npm()`-Funktion behandelt das.
+          MCP_VERSIONS=$(versionen @conciso/design-system-mcp) || exit 1
+          MCP_VERSIONS_NPM=$(versionen_npm @conciso/design-system-mcp) || exit 1
           export LATEST_TAG TAG_HAS_RELEASE TAG_IS_ANNOTATED DRY CSS_VERSIONS LIB_VERSIONS
-          export CSS_VERSIONS_NPM LIB_VERSIONS_NPM
+          export CSS_VERSIONS_NPM LIB_VERSIONS_NPM MCP_VERSIONS MCP_VERSIONS_NPM
           export ENGINE_VERSION="${{ steps.engine.outputs.version }}"
           echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}), Engine: ${ENGINE_VERSION:-–}"
 
@@ -202,6 +216,7 @@ jobs:
             {
               echo "publish=false"; echo "publish_css=false"; echo "publish_lib=false";
               echo "publish_css_npm=false"; echo "publish_lib_npm=false";
+              echo "publish_mcp=false"; echo "publish_mcp_npm=false";
             } >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -219,7 +234,11 @@ jobs:
               # „undefined“ o. Ä. liefern, und das darf den gitHead des zweiten Pakets nicht
               # verdecken. Geprüft wird Form (40 Hex-Zeichen) und Existenz im Checkout.
               SOURCE_SHA=""
-              for PAKET in @conciso/design-system @conciso/design-system-angular; do
+              # Auch das MCP-Paket probieren (ADR-0012): in der Praxis liegt es nie VOR den
+              # beiden anderen auf einer höheren Version (derselbe Job veröffentlicht alle drei
+              # aus demselben Checkout, MCP zuletzt), aber ein zusätzlicher, robuster Kandidat
+              # kostet hier nichts.
+              for PAKET in @conciso/design-system @conciso/design-system-angular @conciso/design-system-mcp; do
                 KANDIDAT=$(npm view "${PAKET}@${VERSION}" gitHead --registry="$REGISTRY" 2>/dev/null || true)
                 if [[ "$KANDIDAT" =~ ^[0-9a-f]{40}$ ]] && git cat-file -e "${KANDIDAT}^{commit}" 2>/dev/null; then
                   SOURCE_SHA="$KANDIDAT"
@@ -258,6 +277,8 @@ jobs:
             echo "publish_lib=$(wert publish_lib)"
             echo "publish_css_npm=$(wert publish_css_npm)"
             echo "publish_lib_npm=$(wert publish_lib_npm)"
+            echo "publish_mcp=$(wert publish_mcp)"
+            echo "publish_mcp_npm=$(wert publish_mcp_npm)"
           } >> "$GITHUB_OUTPUT"
           case "$MODE" in
             nachziehen)   echo "::warning::Unfertiger Release ${VERSION} gefunden (ein vorheriger Lauf brach ab) — wird aus ${SOURCE_SHA} abgeschlossen. Neue Commits folgen im direkt danach angestoßenen Lauf." ;;
@@ -298,7 +319,7 @@ jobs:
       ref: ${{ needs.pruefen.outputs.source_sha }}
 
   publish:
-    name: Beide Pakete bauen und veröffentlichen
+    name: Alle drei Pakete bauen und veröffentlichen
     needs: [pruefen, consumer-smoke-test]
     # always(), weil ein übersprungener Smoke-Test (reines Finalisieren, s. o.) den Job sonst
     # mitüberspringen würde. Gescheitert oder abgebrochen darf er aber nicht sein — und
@@ -324,11 +345,24 @@ jobs:
       DRY: ${{ needs.pruefen.outputs.dry }}
       # Ob überhaupt ein Paket gebaut wird. Sonst (reines Finalisieren) nur Tag/Release. Auch
       # ein reines npmjs-Nachziehen (GitHub Packages bereits vollständig) muss bauen — dieselbe
-      # Bedingung steht deshalb auch am `consumer-smoke-test`-Job oben.
+      # Bedingung steht deshalb auch am `consumer-smoke-test`-Job oben. Enthält seit ADR-0012
+      # auch die MCP-Flags: ein reines MCP-Nachziehen (CSS/Lib auf beiden Registries schon
+      # vollständig) braucht ebenfalls `npm ci`/den Versions-Stempel, auch wenn CSS/Lib selbst
+      # nicht neu veröffentlicht werden (siehe consumer-smoke-test-Job: dessen eigene Bedingung
+      # bleibt bewusst UNVERÄNDERT auf CSS/Lib beschränkt — ein reiner MCP-Release braucht
+      # keinen Angular-AOT-Konsumtest, der Tarball-Smoke-Test unten deckt MCP eigenständig ab).
       BAUEN: >-
         ${{
           needs.pruefen.outputs.publish_css == 'true' || needs.pruefen.outputs.publish_lib == 'true' ||
-          needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true'
+          needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true' ||
+          needs.pruefen.outputs.publish_mcp == 'true' || needs.pruefen.outputs.publish_mcp_npm == 'true'
+        }}
+      # Eigenes, engeres Flag für den MCP-Teil (Storybook bauen, Snapshot, Tarball, Smoke-Test):
+      # teurer als der reine Versions-Stempel, deshalb nur auslösen, wenn der MCP-Server
+      # tatsächlich auf mindestens einer Registry fehlt.
+      BAUEN_MCP: >-
+        ${{
+          needs.pruefen.outputs.publish_mcp == 'true' || needs.pruefen.outputs.publish_mcp_npm == 'true'
         }}
     steps:
       # Nicht zwingend der ausgelöste Commit: beim Nachziehen eines halben Releases der
@@ -360,6 +394,44 @@ jobs:
       - name: Angular-Lib bauen (@conciso/design-system-angular)
         if: env.BAUEN == 'true'
         run: npm run build --workspace=angular-lib
+      # ── MCP-Server (ADR-0012) ────────────────────────────────────────────────────
+      # Der Snapshot MUSS aus DEMSELBEN Commit stammen wie die beiden anderen Pakete —
+      # deshalb hier neu gebaut, nicht aus einem fremden Storybook-Artefakt übernommen:
+      # `mcp-server/scripts/prepack.mjs` würde sonst kommentarlos packen, was zufällig unter
+      # storybook-angular/storybook-static liegt (ein alter lokaler Build, oder gar nichts).
+      - name: Storybook bauen (Quelle des MCP-Snapshots)
+        if: env.BAUEN_MCP == 'true'
+        run: npm run build:storybook
+      - name: MCP-Snapshot bauen
+        if: env.BAUEN_MCP == 'true'
+        run: npm run build:snapshot -w mcp-server
+      # Einmal packen, denselben Tarball danach testen UND veröffentlichen — nicht pro Schritt
+      # neu packen: sonst könnte der veröffentlichte Tarball von dem abweichen, der den
+      # Smoke-Test bestanden hat (siehe Kommentar in storybook-angular.yml zum selben Muster).
+      - name: MCP-Server tarballen
+        id: mcp_pack
+        if: env.BAUEN_MCP == 'true'
+        run: |
+          mkdir -p /tmp/mcp-pack
+          npm pack -w mcp-server --silent --pack-destination /tmp/mcp-pack
+          # Absichtlich NICHT `TARBALL="$(npm pack …)"`: der `prepack`-Lifecycle-Hook und
+          # `npm pack` selbst schreiben beide auf denselben stdout (siehe
+          # mcp-server/scripts/prepack.mjs, reproduziert und gefixt am 2026-09-25).
+          # Stattdessen die eine erzeugte .tgz-Datei im Zielverzeichnis suchen.
+          TARBALL="$(find /tmp/mcp-pack -maxdepth 1 -name '*.tgz')"
+          if [ -z "$TARBALL" ] || [ "$(printf '%s\n' "$TARBALL" | wc -l)" -ne 1 ]; then
+            echo "Erwartete genau eine .tgz-Datei in /tmp/mcp-pack, gefunden: $TARBALL" >&2
+            exit 1
+          fi
+          echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
+      # Gate vor JEDEM MCP-Publish (ADR-0012, Issue 04): startet den TATSÄCHLICH zu
+      # veröffentlichenden Tarball über stdio und prüft initialize, die drei Werkzeuge, die
+      # Inputs einer bekannten Komponente, das Fehlen von `@internal`-Membern und die Seite
+      # „Einrichtung“ — dieselbe Prüfung wie in storybook-angular.yml, hier aber auf dem
+      # gestempelten Artefakt mit der echten Version statt dem Platzhalter 0.0.0.
+      - name: MCP-Tarball-Smoke-Test (Gate vor dem Publish)
+        if: env.BAUEN_MCP == 'true'
+        run: node mcp-server/scripts/smoke-test.mjs "${{ steps.mcp_pack.outputs.tarball }}"
       - name: Dry-Run-Flag bestimmen
         id: mode
         run: |
@@ -382,14 +454,24 @@ jobs:
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # MCP-Server (ADR-0012): derselbe, bereits getestete Tarball aus dem Smoke-Test-Schritt
+      # oben (`steps.mcp_pack.outputs.tarball`) — kein erneutes `npm pack`, kein erneuter
+      # `prepack`-Lauf. `npm publish <tarball>` löst die Ziel-Registry über den Paketnamen im
+      # Tarball auf (Scope „@conciso“), genau wie ein Verzeichnis-Publish.
+      - name: MCP-Server auf GitHub Packages veröffentlichen
+        if: needs.pruefen.outputs.publish_mcp == 'true'
+        run: npm publish "${{ steps.mcp_pack.outputs.tarball }}" ${{ steps.mode.outputs.flag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # ── npmjs (ADR-0011) ─────────────────────────────────────────────────────────
       # npm-CLI aktualisieren: Trusted Publishing (OIDC) verlangt npm >= 11.5.1 (Node >=
       # 22.14.0 hat der Runner über setup-node ohnehin). Node 22 bringt derzeit eine ältere
-      # npm-Version mit, deshalb hier explizit heben — ERST NACH den beiden
-      # GitHub-Packages-Publishes oben, damit die (erprobte) Standard-npm-Version dafür
-      # unangetastet bleibt.
+      # npm-Version mit, deshalb hier explizit heben — ERST NACH den GitHub-Packages-Publishes
+      # oben (jetzt drei), damit die (erprobte) Standard-npm-Version dafür unangetastet bleibt.
       - name: npm-CLI für npmjs Trusted Publishing aktualisieren
-        if: needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true'
+        if: >-
+          needs.pruefen.outputs.publish_css_npm == 'true' || needs.pruefen.outputs.publish_lib_npm == 'true' ||
+          needs.pruefen.outputs.publish_mcp_npm == 'true'
         run: npm install -g npm@^11.5.1
       # Kein NODE_AUTH_TOKEN/NPM_TOKEN: npm tauscht den von `id-token: write` (Job-Permission
       # oben) bereitgestellten OIDC-Token automatisch gegen ein kurzlebiges npmjs-Token, sofern
@@ -413,6 +495,11 @@ jobs:
         if: needs.pruefen.outputs.publish_lib_npm == 'true'
         working-directory: angular-lib/dist/design-system-angular
         run: npm publish ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
+      # MCP-Server auf npmjs (ADR-0012): derselbe getestete Tarball, dieselbe
+      # Scope-Registry-Umgehung und `--access public` wie bei den beiden anderen Paketen oben.
+      - name: MCP-Server auf npmjs veröffentlichen
+        if: needs.pruefen.outputs.publish_mcp_npm == 'true'
+        run: npm publish "${{ steps.mcp_pack.outputs.tarball }}" ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
       - name: Release-Notizen herunterladen
         if: env.DRY == 'false' && needs.pruefen.outputs.notes == 'true'
         uses: actions/download-artifact@v4
