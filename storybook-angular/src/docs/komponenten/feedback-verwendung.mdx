@@ -4,9 +4,9 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Verwendung
 
-Drei Snackbar-Varianten (Default, OK, Fehler) für Kontaktformular, Newsletter-Anmeldung und Validierungsfehler auf Landingpages.
+Snackbars melden, was passiert ist: drei Varianten (Default, OK, Fehler) für Kontaktformular, Newsletter-Anmeldung und Validierungsfehler auf Landingpages. Der Bestätigungsdialog fragt, bevor etwas passiert, das sich nicht rückgängig machen lässt.
 
-## Wann welche Variante
+## Snackbar · Wann welche Variante
 
 | Variante | Wann einsetzen | ARIA |
 |---|---|---|
@@ -23,7 +23,7 @@ Drei Snackbar-Varianten (Default, OK, Fehler) für Kontaktformular, Newsletter-A
 
 Feldfehler gehören immer inline unter das betroffene Feld, nicht als Snackbar: die Snackbar transportiert nur den globalen Submit-Fehler, sonst verliert die Nutzerin den Bezug zum Feld.
 
-## Barrierefreiheit
+## Snackbar · Barrierefreiheit
 
 | Aspekt | Regel |
 |---|---|
@@ -32,7 +32,7 @@ Feldfehler gehören immer inline unter das betroffene Feld, nicht als Snackbar: 
 | Dark Mode | Die Snackbar schwebt über beliebigem Inhalt und kommt im Light ohne Rahmen aus. Im Dark liegt sie sehr nah am Grund, deshalb bekommt sie dort zusätzlich `--bd-strong-c` als Rand, dieselbe Regel wie bei Menüs und Popover |
 | Status-Flächen | Farbe aus `--c-success-bg` und `--c-error-bg`, nicht aus eigenen Hexwerten, sonst bleiben sie bei einer Token-Änderung zurück |
 
-## Dos & Don'ts
+## Snackbar · Dos & Don'ts
 
 **Tun**
 
@@ -50,6 +50,72 @@ Feldfehler gehören immer inline unter das betroffene Feld, nicht als Snackbar: 
 - Mehrere Snackbars gleichzeitig anzeigen, eine neue Meldung verdrängt immer die vorherige.
 - Fehler-Snackbar als einzige Validierung verwenden, Pflichtfelder müssen schon vor dem Submit markiert sein.
 
+## Bestätigungsdialog · Aufruf
+
+Der Dialog wird nicht ins Template gesetzt, sondern über den Service `CdsConfirmDialog` geöffnet. `open(options)` liefert ein `Promise<boolean>`: `true` nur, wenn die Aktion bestätigt wurde, sonst `false` (Abbrechen, Escape, Klick auf den Hintergrund). Ein Route-Guard kann das Promise direkt zurückgeben:
+
+```ts
+export const unsavedChangesGuard: CanDeactivateFn<EditPage> = (page) =>
+  !page.dirty() ||
+  inject(CdsConfirmDialog).open({
+    title: 'Änderungen verwerfen?',
+    message: 'Deine Änderungen am Profil gehen verloren.',
+    confirmLabel: 'Verwerfen',
+    cancelLabel: 'Weiter bearbeiten',
+    destructive: true,
+    emphasis: 'cancel',
+  });
+```
+
+Es gibt höchstens einen offenen Dialog. Ein zweiter Aufruf, solange er offen ist, erhält dasselbe Promise. Der Guard greift nur bei Navigation innerhalb der App: beim Schließen des Tabs oder beim Neuladen bleibt nur der nicht gestaltbare Browser-Dialog über `beforeunload`.
+
+## Bestätigungsdialog · Gewichtung nach Kontext
+
+| Kontext | Optionen | Hauptaktion (Filled) | Nebenaktion | Fokus |
+|---|---|---|---|---|
+| Unterbrechung: ungespeicherte Änderungen beim Verlassen | `destructive: true`, `emphasis: 'cancel'` | „Weiter bearbeiten“ in der Bereichsfarbe | „Verwerfen“, Outlined mit `.btn-err` | Hauptaktion |
+| Selbst ausgelöst: Klick auf „Löschen“, danach die Rückfrage | `destructive: true` | „Profil löschen“ mit `.btn-err` | „Abbrechen“ als Text | Nebenaktion |
+| Nicht destruktiv | (Vorgaben) | „Anfrage absenden“ in der Bereichsfarbe | „Abbrechen“ als Text | Hauptaktion |
+
+Bei einer Unterbrechung wollte die Person etwas anderes, das Verwerfen ist nur eine Nebenwirkung. Deshalb bekommt dort der sichere Weg das Gewicht. Bei destruktiven Dialogen liegt der Fokus immer auf der sicheren Aktion.
+
+## Bestätigungsdialog · Texte
+
+| Teil | Aufgabe |
+|---|---|
+| `title` | Die Entscheidung als Frage: „Änderungen verwerfen?“ |
+| `message` | Die Folge, keine Wiederholung: „Deine Änderungen am Profil gehen verloren.“ |
+| `confirmLabel`, `cancelLabel` | Verben, die den Titel aufgreifen: „Verwerfen“, „Weiter bearbeiten“. Nie „OK“, „Ja“ oder „Nein“ |
+
+Alle vier Texte sind Pflicht, es gibt keine Vorgaben.
+
+## Bestätigungsdialog · Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Rolle | `role="alertdialog"` auf dem nativen `<dialog>`, Titel als `h2` über `aria-labelledby`, Text über `aria-describedby` |
+| Fokus | Fokus-Falle vom Browser, Anfangsfokus nach der Gewichtung oben, beim Schließen zurück auf das auslösende Element |
+| Schließen | Abbrechen, Escape und Klick auf den Hintergrund liefern `false`. Eine Textauswahl, die außerhalb endet, schließt nicht. Kein Schließen-X |
+| Reihenfolge | DOM-Reihenfolge gleich sichtbarer Reihenfolge. Unter 400 px Innenbreite stehen die Buttons untereinander, die Hauptaktion unten |
+| Zoom | Der Text behält zwei Zeilen und scrollt zuerst, bei 400 % Zoom scrollt der ganze Inhalt |
+
+## Bestätigungsdialog · Dos & Don'ts
+
+**Tun**
+
+- Nur vor Aktionen fragen, die sich nicht rückgängig machen lassen: Verwerfen, dauerhaft Löschen.
+- Im Titel die Entscheidung als Frage, im Text die Folge, auf den Buttons die Verben aus dem Titel.
+- Bei einer Unterbrechung `emphasis: 'cancel'`, bei einer selbst ausgelösten Löschung die Vorgabe.
+
+**Nicht tun**
+
+- Rückfragen vor umkehrbaren Aktionen, dafür gibt es „Rückgängig“ in der Snackbar.
+- „Möchtest du wirklich …?“ im Text, das wiederholt nur den Titel.
+- „OK“ und „Abbrechen“ als Labels, niemand erkennt daran, was „OK“ auslöst.
+- Dialoge auf Marketing- und Kontaktflächen, dort unterbricht ein Modal den ruhigen Markenton.
+
 ## Verwandte Seiten
 
 - Snackbar (`Komponenten/Feedback/Snackbar`)
+- Bestätigungsdialog (`Komponenten/Feedback/Bestätigungsdialog`)
+- Buttons, Ton `err` (`Komponenten/Buttons/Button`, Story „Destruktiv“)

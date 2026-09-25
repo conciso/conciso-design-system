@@ -22,4 +22,10 @@
   <section style="max-width: 32rem; margin-top: 2rem">
     <cds-card title="Kartentitel" text="Ein kurzer Anreißer-Text, der die Karte beschreibt." area="co" />
   </section>
+
+  <!-- Bestätigungsdialog: Service statt Komponente, rendert selbst unter <body>. -->
+  <section style="margin-top: 2rem">
+    <cds-button variant="outlined" label="Ansicht verlassen" (clicked)="confirmDiscard()" />
+    <output>{{ confirmResult() }}</output>
+  </section>
 </main>
