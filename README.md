@@ -41,15 +41,8 @@ Ausführlich in [docs/GETTING-STARTED.md](docs/GETTING-STARTED.md). Kurzfassung:
 
 Die Schriften (Montserrat + Libre Baskerville) liegen self-hosted unter `fonts/` und werden über `css/fonts.css` eingebunden — keine externe CDN-Anfrage. Das gebündelte `dist/conciso-ds.css` enthält die `@font-face`-Regeln bereits.
 
-**Variante B — als npm-Paket aus GitHub Packages** (der empfohlene Weg):
+**Variante B — als npm-Paket von npmjs.org** (der empfohlene Weg):
 
-Das Paket liegt privat und org-scoped in GitHub Packages. Das Konsumenten-Projekt
-braucht dafür eine `.npmrc`, die den `@conciso`-Scope umleitet:
-
-```ini
-@conciso:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
 ```bash
 npm install @conciso/design-system
 ```
@@ -63,26 +56,37 @@ import { icons } from '@conciso/design-system/icons';
 import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 ```
 
+Keine `.npmrc` nötig — das Paket liegt auf der öffentlichen npm-Registry, `npm install`
+funktioniert ohne weitere Einrichtung. Siehe [ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md).
+Gilt ab dem ersten echten Release nach dem Merge dieser Änderung; bis dahin liegt auf
+npmjs nur eine Bootstrap-Platzhalterversion (siehe ADR-0011).
+
 Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
 
 > Das Paket steht unter der [MIT-Lizenz](LICENSE) (Ausnahmen — Brand-Assets, Schriften,
-> Icons — siehe [NOTICE](NOTICE)), liegt aber weiterhin in GitHub Packages statt der
-> öffentlichen npm-Registry — GitHub Packages verlangt daher Auth auch fürs Lesen (lokal
-> ein Token mit Scope `read:packages` als `GITHUB_TOKEN`, in GitHub Actions genügt
-> `secrets.GITHUB_TOKEN`). Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden),
-> Begründung in [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt
-> Variante A (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
+> Icons — siehe [NOTICE](NOTICE)).
 >
-> Der Lese-Auth-Zwang gilt damit nur wegen der **Registry**, nicht wegen der Lizenz, und
-> betrifft nur das **Paket** selbst. Die **Doku** (Storybook, die Komponenten-Referenz der
-> Angular-Lib) ist dagegen öffentlich einsehbar unter
-> <https://conciso.github.io/conciso-design-system/> — ohne Auth, aber `noindex` (nicht für
-> Suchmaschinen bestimmt). Details und Abwägung in
+> **Alternative — GitHub Packages** (weiterhin verfügbar, unverändert, z. B. für
+> Consumer innerhalb der GitHub-Organisation `conciso`): eine `.npmrc`, die den
+> `@conciso`-Scope umleitet, plus ein Token mit Scope `read:packages` auch fürs Lesen
+> (in GitHub Actions genügt `secrets.GITHUB_TOKEN`):
+> ```ini
+> @conciso:registry=https://npm.pkg.github.com
+> //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+> ```
+> GitHub Packages verlangt diese Auth wegen der **Registry**, nicht wegen der Lizenz.
+> Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden), Begründung in
+> [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt Variante A
+> (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
+>
+> Die **Doku** (Storybook, die Komponenten-Referenz der Angular-Lib) ist öffentlich
+> einsehbar unter <https://conciso.github.io/conciso-design-system/> — ohne Auth, aber
+> `noindex` (nicht für Suchmaschinen bestimmt). Details und Abwägung in
 > [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 
 **Angular:** Für Angular gibt es Komponenten statt nur CSS-Klassen —
-`@conciso/design-system-angular` aus derselben Registry, im Lockstep auf derselben Version.
-Siehe [README der Lib](angular-lib/projects/design-system-angular/README.md).
+`@conciso/design-system-angular` aus denselben beiden Registries, im Lockstep auf
+derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-angular/README.md).
 
 **Dark Mode:** `data-theme="dark"` am `<html>` setzen. Siehe [Getting Started](docs/GETTING-STARTED.md#3-dark-mode) für das Anti-Flash-Snippet.
 
@@ -123,7 +127,7 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)) und werden nach GitHub Packages veröffentlicht. Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
+[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)) und werden nach npmjs.org **und** GitHub Packages veröffentlicht ([ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 
 ## Lizenz & Kontakt
 
