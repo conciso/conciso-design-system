@@ -10,8 +10,12 @@ import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 // Strikt nach SemVer: keine führenden Nullen je Komponente (0|[1-9]\d*), sonst nähme z. B.
-// „01.2.3“ das Skript ohne Beanstandung an.
-const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+// „01.2.3“ das Skript ohne Beanstandung an. Der optionale Prerelease-Anhang ist NICHT für den
+// automatisierten Publish-Job gedacht (dessen Version kommt immer von decide.mjs, dessen
+// eigenes VERSION-Muster keinen Anhang zulässt) — er existiert einzig für den manuellen
+// Bootstrap-Publish auf npmjs (CONTRIBUTING § 15, ADR-0011), der eine Platzhalterversion wie
+// „0.0.0-bootstrap.0“ stempelt, um npmjs.com einen Trusted Publisher einrichten zu lassen.
+const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$/;
 const LIB_PKG_PATH = 'angular-lib/projects/design-system-angular/package.json';
 
 function writeJson(path, value) {
@@ -19,7 +23,8 @@ function writeJson(path, value) {
 }
 
 /**
- * @param {string} version z. B. "2.0.0" (kein Prä-Release-Suffix, siehe Spec Regel 7)
+ * @param {string} version z. B. "2.0.0", oder (nur für den manuellen npmjs-Bootstrap, siehe
+ *   CONTRIBUTING § 15) mit Prerelease-Suffix wie "0.0.0-bootstrap.0"
  * @param {string} root Repo-Wurzel (Default: das echte Repo), parametrisiert für Tests
  * @returns {{ version: string, peerRange: string }}
  */
