@@ -1,9 +1,19 @@
 // Tests der Release-Entscheidung (decide.mjs). Die Fälle sind genau die Abbruchstellen
 // eines Laufs: zwischen den beiden Publishes, zwischen Publishes und Tag, zwischen Tag
 // und GitHub-Release — jeweils auch dann, wenn inzwischen neue Commits gelandet sind.
+//
+// MCP_BASELINE (ADR-0012) ist auf 2.1.1 fest verdrahtet — höher als jede Versionsnummer, die
+// die BESTEHENDEN Tests unten verwenden (sie bilden eine eigene, in sich konsistente
+// Zeitlinie ab, die nicht an das MCP-Ticket angelehnt ist). Für sie ist der MCP-Server damit
+// nie relevant: In Schritt 1/3 (Tag-/Registry-Nachziehen aus einem ALTEN Commit) liefert
+// mcpFehlt() deshalb überall `false` — ergänzt als `publishMcp: false, publishMcpNpm: false`.
+// In Schritt 4 (`neu`, IMMER aus dem aktuellen HEAD gebaut) und im Dry-Run gilt dagegen
+// unconditional `true` (siehe Kommentar in decide.mjs) — ergänzt als
+// `publishMcp: true, publishMcpNpm: true`. Die MCP-spezifischen Tests weiter unten
+// verwenden eine eigene, realistische Zeitlinie (`mcpAera`, ab Tag v2.1.1 = MCP_BASELINE).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { decide, versionsliste } from './decide.mjs';
+import { decide, versionsliste, MCP_BASELINE } from './decide.mjs';
 
 const sauber = {
   latestTag: 'v2.0.0',
@@ -27,6 +37,10 @@ test('neue Version aus der Engine → beide Pakete aus dem ausgelösten Commit',
     publishLib: true,
     publishCssNpm: true,
     publishLibNpm: true,
+    // Schritt 4 baut immer aus HEAD (enthält seit diesem Ticket mcp-server/) — unconditional
+    // true, unabhängig von MCP_BASELINE (siehe Kopfkommentar dieser Datei).
+    publishMcp: true,
+    publishMcpNpm: true,
     source: 'head',
     notes: 'engine',
   });
@@ -34,7 +48,8 @@ test('neue Version aus der Engine → beide Pakete aus dem ausgelösten Commit',
 
 test('nur ein Paket veröffentlicht → das fehlende nachziehen, aus dem Quellstand des vorhandenen', () => {
   // GitHub Packages ist bei 2.0.1 bereits halb fertig (nur CSS fehlt); npmjs hat für 2.0.1
-  // (> NPM_BASELINE) noch gar nichts, zieht also für BEIDE Pakete nach.
+  // (> NPM_BASELINE) noch gar nichts, zieht also für BEIDE Pakete nach. 2.0.1 liegt unter
+  // MCP_BASELINE (2.1.1) — der MCP-Server ist für diese Version nicht relevant.
   assert.deepEqual(decide({ ...sauber, cssVersions: [...sauber.cssVersions, '2.0.1'] }), {
     mode: 'nachziehen',
     version: '2.0.1',
@@ -42,6 +57,8 @@ test('nur ein Paket veröffentlicht → das fehlende nachziehen, aus dem Quellst
     publishLib: true,
     publishCssNpm: true,
     publishLibNpm: true,
+    publishMcp: false,
+    publishMcpNpm: false,
     source: 'registry',
     notes: 'range',
   });
@@ -57,7 +74,8 @@ test('halbes Release hat Vorrang vor einer höheren Engine-Version (neuer feat d
 
 test('beide veröffentlicht, Tag fehlt → nur finalisieren, Quellstand aus der Registry', () => {
   // GitHub Packages ist für 2.0.1 vollständig (beide Pakete), npmjs hat davon noch nichts —
-  // 2.0.1 liegt über NPM_BASELINE, zählt also für den npmjs-Nachzieh-Check mit.
+  // 2.0.1 liegt über NPM_BASELINE, zählt also für den npmjs-Nachzieh-Check mit. 2.0.1 liegt
+  // unter MCP_BASELINE (2.1.1) — der MCP-Server ist hier nicht relevant.
   assert.deepEqual(
     decide({
       ...sauber,
@@ -72,6 +90,8 @@ test('beide veröffentlicht, Tag fehlt → nur finalisieren, Quellstand aus der 
       publishLib: false,
       publishCssNpm: true,
       publishLibNpm: true,
+      publishMcp: false,
+      publishMcpNpm: false,
       source: 'registry',
       notes: 'range',
     },
@@ -86,6 +106,8 @@ test('Tag da, GitHub-Release fehlt → nachholen, auch wenn die Engine schon Neu
     publishLib: false,
     publishCssNpm: false,
     publishLibNpm: false,
+    publishMcp: false,
+    publishMcpNpm: false,
     source: 'tag',
     notes: 'tag',
   });
@@ -99,6 +121,8 @@ test('Tag und Release da, aber ein Paket fehlt in der Tag-Version → nachziehen
     publishLib: true,
     publishCssNpm: false,
     publishLibNpm: false,
+    publishMcp: false,
+    publishMcpNpm: false,
     source: 'tag',
     notes: 'keine',
   });
@@ -142,12 +166,14 @@ test('leichtgewichtiger Alt-Tag ohne Release → Notes von GitHub als Rückfall'
   assert.equal(d.notes, 'github');
 });
 
-test('Dry-Run spielt alle vier Publishes durch (GitHub Packages + npmjs)', () => {
+test('Dry-Run spielt alle sechs Publishes durch (GitHub Packages + npmjs, inkl. MCP-Server)', () => {
   const d = decide({ ...sauber, engineVersion: '2.1.0', dry: true });
   assert.equal(d.publishCss, true);
   assert.equal(d.publishLib, true);
   assert.equal(d.publishCssNpm, true);
   assert.equal(d.publishLibNpm, true);
+  assert.equal(d.publishMcp, true);
+  assert.equal(d.publishMcpNpm, true);
 });
 
 // ── npmjs (ADR-0011): Nachziehen und Idempotenz ─────────────────────────────────────
@@ -158,7 +184,8 @@ const npmAera = { ...sauber, latestTag: 'v2.1.0', cssVersions: [...sauber.cssVer
 test('npm fehlt nach GitHub-Erfolg → nur npm nachziehen', () => {
   // GitHub Packages hat 2.1.0 für beide Pakete, npmjs für keines — nur die beiden
   // npmjs-Publishes werden nachgezogen, GitHub Packages bleibt unangetastet (kein 409 durch
-  // einen doppelten Publish).
+  // einen doppelten Publish). 2.1.0 liegt unter MCP_BASELINE (2.1.1) — der MCP-Server ist
+  // hier nicht relevant.
   const d = decide({ ...npmAera, cssVersionsNpm: [], libVersionsNpm: [] });
   assert.deepEqual(d, {
     mode: 'nachziehen',
@@ -167,6 +194,8 @@ test('npm fehlt nach GitHub-Erfolg → nur npm nachziehen', () => {
     publishLib: false,
     publishCssNpm: true,
     publishLibNpm: true,
+    publishMcp: false,
+    publishMcpNpm: false,
     source: 'tag',
     notes: 'keine',
   });
@@ -205,6 +234,92 @@ test('halbe npm-Lücke hat Vorrang vor einer neuen Engine-Version', () => {
   assert.equal(d.version, '2.1.0');
   assert.equal(d.publishCssNpm, true);
   assert.equal(d.publishLibNpm, false);
+});
+
+// ── MCP-Server (ADR-0012): MCP_BASELINE, drittes Paket, zwei Registries ────────────────
+// Eigene, realistische Zeitlinie (anders als `sauber`/`npmAera` oben): der letzte Tag ist
+// MCP_BASELINE (2.1.1) selbst — der reale Bestand, für den es das MCP-Paket auf KEINER
+// Registry gibt. CSS und Lib sind auf beiden Registries vollständig, damit die Tests
+// ausschließlich den MCP-Anteil der Entscheidung prüfen.
+const mcpAera = {
+  ...sauber,
+  latestTag: `v${MCP_BASELINE}`,
+  cssVersions: [...sauber.cssVersions, '2.1.0', MCP_BASELINE],
+  libVersions: [...sauber.libVersions, '2.1.0', MCP_BASELINE],
+  cssVersionsNpm: ['2.1.0', MCP_BASELINE],
+  libVersionsNpm: ['2.1.0', MCP_BASELINE],
+};
+
+test('alter Tag (= MCP_BASELINE) ohne MCP-Paket → kein Nachziehen, blockiert keinen Release', () => {
+  // Der reale Bestand: v2.1.1 ist der letzte Tag vor ADR-0012, das MCP-Paket existiert für
+  // ihn auf KEINER Registry (mcpVersions/mcpVersionsNpm bleiben implizit leer). Ohne die
+  // MCP_BASELINE-Sperre würde decide() versuchen, den MCP-Server aus dem ALTEN Tag-Commit
+  // nachzuziehen — der hat kein mcp-server/-Verzeichnis, jeder weitere Release bliebe
+  // blockiert (dieselbe Fehlerklasse, die NPM_BASELINE für npmjs verhindert).
+  assert.equal(decide(mcpAera).mode, 'nichts');
+});
+
+test('neuer Release nach MCP_BASELINE → alle sechs Publishes (CSS, Lib, MCP × 2 Registries)', () => {
+  const d = decide({ ...mcpAera, engineVersion: '2.1.2' });
+  assert.deepEqual(d, {
+    mode: 'neu',
+    version: '2.1.2',
+    publishCss: true,
+    publishLib: true,
+    publishCssNpm: true,
+    publishLibNpm: true,
+    publishMcp: true,
+    publishMcpNpm: true,
+    source: 'head',
+    notes: 'engine',
+  });
+});
+
+test('MCP fehlt nur auf npmjs für eine Version über MCP_BASELINE → nur npmjs nachziehen', () => {
+  // GitHub Packages hat den MCP-Server für 2.1.2 bereits (Tag-Commit ist annotiert und
+  // vollständig bis auf npmjs) — nur der npmjs-Publish wird nachgezogen.
+  const d = decide({
+    ...mcpAera,
+    latestTag: 'v2.1.2',
+    cssVersions: [...mcpAera.cssVersions, '2.1.2'],
+    libVersions: [...mcpAera.libVersions, '2.1.2'],
+    cssVersionsNpm: [...mcpAera.cssVersionsNpm, '2.1.2'],
+    libVersionsNpm: [...mcpAera.libVersionsNpm, '2.1.2'],
+    mcpVersions: ['2.1.2'],
+    mcpVersionsNpm: [],
+  });
+  assert.deepEqual(d, {
+    mode: 'nachziehen',
+    version: '2.1.2',
+    publishCss: false,
+    publishLib: false,
+    publishCssNpm: false,
+    publishLibNpm: false,
+    publishMcp: false,
+    publishMcpNpm: true,
+    source: 'tag',
+    notes: 'keine',
+  });
+});
+
+test('MCP-Bootstrap-Prerelease auf npmjs wird ignoriert (zählt nicht als vorhanden)', () => {
+  // Analog zum npmjs-Bootstrap von CSS/Lib (CONTRIBUTING § 15): "0.0.0-bootstrap.0" matcht
+  // VERSION nie und wird ganz vorn rausgefiltert — ohne den Filter würde mcpRelevant() an
+  // ihr sogar hart abstürzen (kein X.Y.Z-Match), UND die Bootstrap-Version dürfte nicht als
+  // „MCP auf npmjs vorhanden“ durchgehen.
+  const d = decide({
+    ...mcpAera,
+    latestTag: 'v2.1.2',
+    cssVersions: [...mcpAera.cssVersions, '2.1.2'],
+    libVersions: [...mcpAera.libVersions, '2.1.2'],
+    cssVersionsNpm: [...mcpAera.cssVersionsNpm, '2.1.2'],
+    libVersionsNpm: [...mcpAera.libVersionsNpm, '2.1.2'],
+    mcpVersions: ['2.1.2'],
+    mcpVersionsNpm: ['0.0.0-bootstrap.0'],
+  });
+  assert.equal(d.mode, 'nachziehen');
+  assert.equal(d.publishMcp, false);
+  assert.equal(d.publishMcpNpm, true);
 });
 
 test('vor dem allerersten Tag zählt jede veröffentlichte Version als unfertig', () => {
