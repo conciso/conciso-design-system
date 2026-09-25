@@ -17,6 +17,16 @@
 //   - tools/list enthält genau docs-list, docs-show, docs-show-story
 //   - docs-show(komponenten-buttons-button) enthält Input „variant“ und Output „clicked“
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
+//   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
+//     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
+//     den @storybook/mcp-Encoding-Bug vom 2026-09-25: @storybook/mcp löst Manifest-`$ref`s
+//     URL-artig auf und ruft den manifestProvider mit prozentkodierten Pfaden auf
+//     (grundlagen-einrichtung--%C3%BCbersicht.json statt …--übersicht.json auf der Platte); ENOENT
+//     traf jede id mit Nicht-ASCII-Zeichen, nicht nur die Einrichtung-Seite. Der einzelne
+//     Button-Check oben (rein ASCII) hätte das nicht gefangen.
+//   - docs-show(grundlagen-einrichtung--übersicht) enthält explizit die Überschriften
+//     „Einrichtung“ und „KI-Assistenten anbinden“ — genau die Seite, auf die die Server-
+//     instructions verweisen
 //   - @internal-Gate: KEINE Komponente im ausgelieferten Snapshot hat argTypes der Kategorie
 //     „properties“/„methods“ (ADR-0006 — vergessenes @internal), geprüft direkt in den
 //     services/core/docgen/*.json-Dateien des installierten Pakets
@@ -33,6 +43,7 @@ import { join, resolve } from 'node:path';
 const REQUEST_TIMEOUT_MS = 10_000;
 const HARD_KILL_GRACE_MS = 2_000;
 const EXPECTED_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'];
+const EINRICHTUNG_DOC_ID = 'grundlagen-einrichtung--übersicht';
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
 // im JSDoc der Lib nimmt sie aus dem Docgen-Modus `propsTable: 'api'` heraus; taucht eine
@@ -252,10 +263,114 @@ async function runProtocolChecks(client, errors) {
     errors.push(`docs-list fehlgeschlagen: ${JSON.stringify(docsList.error)}`);
   } else {
     const text = docsList.result?.content?.[0]?.text ?? '';
-    if (!text.includes('grundlagen-einrichtung--übersicht')) {
-      errors.push('docs-list enthält nicht die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht).');
+    if (!text.includes(EINRICHTUNG_DOC_ID)) {
+      errors.push(`docs-list enthält nicht die Seite „Einrichtung“ (${EINRICHTUNG_DOC_ID}).`);
     }
   }
+
+  const einrichtung = await client.request('tools/call', {
+    name: 'docs-show',
+    arguments: { id: EINRICHTUNG_DOC_ID },
+  });
+  if (einrichtung.error) {
+    errors.push(`docs-show(${EINRICHTUNG_DOC_ID}) fehlgeschlagen: ${JSON.stringify(einrichtung.error)}`);
+  } else {
+    const text = einrichtung.result?.content?.[0]?.text ?? '';
+    if (!/#\s*Einrichtung\b/.test(text)) {
+      errors.push(`docs-show(${EINRICHTUNG_DOC_ID}) enthält nicht die Überschrift „Einrichtung“.`);
+    }
+    if (!text.includes('KI-Assistenten anbinden')) {
+      errors.push(`docs-show(${EINRICHTUNG_DOC_ID}) enthält nicht die Überschrift „KI-Assistenten anbinden“.`);
+    }
+  }
+}
+
+/** Liest alle Komponenten- und Doku-ids direkt aus den Manifesten des INSTALLIERTEN Pakets (nicht
+ * aus dem docs-list-Text geparst — robuster, und dieselbe Form, die der manifestProvider
+ * tatsächlich ausliefert). Deckt beide Kategorien ab: components.json (z. B.
+ * „komponenten-buttons-button“) und docs.json (die „…--übersicht“-MDX-Seiten, überwiegend mit
+ * Nicht-ASCII-Zeichen in der id — genau die Klasse, die der @storybook/mcp-Encoding-Bug traf). */
+function readAllDocsShowIds(tmpDir, errors) {
+  const manifestsDir = join(
+    tmpDir,
+    'node_modules',
+    '@conciso',
+    'design-system-mcp',
+    'snapshot',
+    'manifests',
+  );
+  const componentsPath = join(manifestsDir, 'components.json');
+  const docsPath = join(manifestsDir, 'docs.json');
+  for (const path of [componentsPath, docsPath]) {
+    if (!existsSync(path)) {
+      errors.push(`Manifest fehlt im installierten Paket: „${path}“.`);
+      return [];
+    }
+  }
+
+  let components;
+  let docs;
+  try {
+    components = JSON.parse(readFileSync(componentsPath, 'utf8'));
+  } catch (err) {
+    errors.push(`„${componentsPath}“ ist kein valides JSON: ${err.message}`);
+    return [];
+  }
+  try {
+    docs = JSON.parse(readFileSync(docsPath, 'utf8'));
+  } catch (err) {
+    errors.push(`„${docsPath}“ ist kein valides JSON: ${err.message}`);
+    return [];
+  }
+
+  return [...Object.keys(components.components ?? {}), ...Object.keys(docs.docs ?? {})];
+}
+
+/** Ruft docs-show für JEDE id aus readAllDocsShowIds auf (Komponenten + Doku-Seiten) und schlägt
+ * fehl, sobald irgendein Ergebnis ein Fehler ist — JSON-RPC-error, `isError`, oder leerer Text.
+ * Regressionsschutz für den @storybook/mcp-Encoding-Bug vom 2026-09-25 (ENOENT traf jede id mit
+ * Nicht-ASCII-Zeichen): der Button-Check oben allein hätte das nicht gefangen, weil
+ * „komponenten-buttons-button“ rein ASCII ist. ~90 ids bei aktuellem Snapshot-Umfang, mit
+ * Einzel-Timeout pro Anfrage (REQUEST_TIMEOUT_MS) — unproblematisch für einen CI-Smoke-Test.
+ * @returns {Promise<number>} Anzahl erfolgreich aufgelöster ids.
+ */
+async function checkEveryDocsShowId(client, tmpDir, errors) {
+  const ids = readAllDocsShowIds(tmpDir, errors);
+  if (ids.length === 0) {
+    if (errors.length === 0) {
+      errors.push('Keine ids aus components.json/docs.json des installierten Pakets gefunden.');
+    }
+    return 0;
+  }
+
+  let okCount = 0;
+  const failed = [];
+  for (const id of ids) {
+    const response = await client.request('tools/call', { name: 'docs-show', arguments: { id } });
+    if (response.error) {
+      failed.push(`${id}: JSON-RPC-Fehler ${JSON.stringify(response.error)}`);
+      continue;
+    }
+    if (response.result?.isError) {
+      const text = response.result?.content?.[0]?.text ?? '(kein Text)';
+      failed.push(`${id}: isError=true, „${text.slice(0, 200)}“`);
+      continue;
+    }
+    const text = response.result?.content?.[0]?.text ?? '';
+    if (!text.trim()) {
+      failed.push(`${id}: leerer Text im Ergebnis`);
+      continue;
+    }
+    okCount++;
+  }
+
+  if (failed.length > 0) {
+    errors.push(`docs-show fehlgeschlagen für ${failed.length} von ${ids.length} ids:`);
+    for (const line of failed) errors.push(`  - ${line}`);
+  } else {
+    log(`→ docs-show ok für alle ${okCount} ids (Komponenten + Doku-Seiten, inkl. Nicht-ASCII).`);
+  }
+  return okCount;
 }
 
 /** @internal-Gate über ALLE Komponenten (Issue 04, schließt die in ADR-0006 offen gelassene
@@ -349,6 +464,8 @@ async function main() {
     const client = createJsonRpcClient(child, errors);
 
     await runProtocolChecks(client, errors);
+    const resolvedCount = await checkEveryDocsShowId(client, tmpDir, errors);
+    log(`→ docs-show über stdio aufgelöst: ${resolvedCount} ids.`);
     checkInternalLeak(tmpDir, errors);
   } catch (err) {
     errors.push(err.stack ?? err.message ?? String(err));
