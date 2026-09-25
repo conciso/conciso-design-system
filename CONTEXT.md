@@ -75,6 +75,14 @@ Der Komponenten-Code lebt **in der Angular-Lib**, nicht im Storybook. `storybook
 enthält nach der Extraktion nur noch die `*.stories.ts` und importiert die Komponenten
 aus der Lib. Siehe [ADR-0002](docs/adr/0002-topologie-und-quelle-der-wahrheit.md).
 
+### Bestätigungsdialog
+
+Die modale Rückfrage vor einer Aktion, die sich nicht rückgängig machen lässt (CSS-Klasse
+`.dialog`, Angular-Service `CdsConfirmDialog`). Liefert genau eine Antwort: bestätigt oder
+abgebrochen. Nicht synonym mit „Modal“ oder „Popup“ verwenden; ein Dialog, der nur informiert
+oder ein Formular trägt, ist kein Bestätigungsdialog. Siehe
+[ADR-0012](docs/adr/0012-service-api-fuer-overlays.md).
+
 ### Consumer / Konsument
 
 Ein anderes Angular-Projekt, das `@conciso/design-system-angular` einbindet. Ein

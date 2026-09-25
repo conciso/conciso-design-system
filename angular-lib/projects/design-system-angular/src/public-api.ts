@@ -93,3 +93,6 @@ export * from './lib/article-pullquote/article-pullquote.component';
 // Angular-Seitenbausteine (Ticket 13): Autoren-Karte und -Gruppe
 export * from './lib/author-card/author-card.component';
 export * from './lib/author-card/author-card-group.component';
+// Bestätigungsdialog (#45): nur der Service und seine Typen, die Komponente rendert er selbst
+export * from './lib/dialog/confirm-dialog.service';
+export type { CdsConfirmDialogEmphasis } from './lib/dialog/confirm-dialog.component';
