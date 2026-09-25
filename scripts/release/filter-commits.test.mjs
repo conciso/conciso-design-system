@@ -7,7 +7,10 @@ import { filterRelevantCommits } from './filter-commits.mjs';
 test('behält Commits, die einen veröffentlichungsrelevanten Pfad berühren', () => {
   const commits = [
     { hash: 'a', isMerge: false, files: ['css/components.css'] },
-    { hash: 'b', isMerge: false, files: ['storybook-angular/src/lib/button.stories.ts'] },
+    // Storybook-KONFIGURATION (außerhalb src/) bleibt unsichtbar (siehe Kommentar in
+    // relevant-paths.mjs) — anders als storybook-angular/src/** selbst, das seit ADR-0012
+    // relevant ist (Stories/MDX gehen in den MCP-Snapshot ein).
+    { hash: 'b', isMerge: false, files: ['storybook-angular/.storybook/main.ts'] },
   ];
   assert.deepEqual(
     filterRelevantCommits(commits).map((c) => c.hash),
