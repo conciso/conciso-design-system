@@ -90,8 +90,15 @@ KI überhaupt ein Werkzeug aufruft.
   nimmt aber die Prüfarbeit nicht ab.
 - Der Publish-Workflow, die Existenzprüfung in `decide.mjs` (je Registry), die
   Pfadliste (`relevant-paths.mjs`) und der Check, der sie gegen die `files`-Felder
-  abgleicht, müssen das dritte Paket kennen. Auf npmjs gibt es für dieses Paket keine
-  Altversionen; `NPM_BASELINE` aus ADR-0011 schadet nicht, ist aber für es bedeutungslos.
+  abgleicht, müssen das dritte Paket kennen.
+- **`MCP_BASELINE` statt `NPM_BASELINE`:** `NPM_BASELINE` aus ADR-0011 ist für den
+  MCP-Server bedeutungslos — es markiert den letzten Tag, den es NUR auf GitHub Packages
+  gab, aber den MCP-Server gab es dort bis zu diesem Ticket überhaupt nicht, auf KEINER
+  Registry. `decide.mjs` führt deshalb eine eigene, höhere Konstante `MCP_BASELINE` (der
+  letzte Tag vor diesem Ticket, `v2.1.1`) und wendet sie — anders als `NPM_BASELINE` — auf
+  BEIDE Registries gleichermaßen an. Ohne sie würde die Existenzprüfung versuchen, den
+  MCP-Server rückwirkend aus einem alten Tag-Commit ohne `mcp-server/`-Verzeichnis
+  nachzuziehen, und jeder weitere Release bliebe blockiert.
 - Der Smoke-Test schließt nebenbei die in ADR-0006 genannte Lücke „kein Gate für
   `@internal`“ — zumindest für das ausgelieferte Manifest.
 - **Per Spike verifiziert (2026-09-25):** Die `add*Tool`-Funktionen von `@storybook/mcp`
