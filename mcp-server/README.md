@@ -9,13 +9,21 @@ installierten Angular-Lib und warnt bei Abweichung, bricht aber nie ab.
 
 ## Installation
 
+Zwei Wege: mit installiertem Paket, oder per `npx` ganz ohne Installation (etwa wenn dein
+Projekt die CSS-Schicht nur kopiert statt installiert hat — dann mit fester Version statt
+`latest`, passend zum kopierten Stand):
+
 ```bash
 npm i -D @conciso/design-system-mcp
 ```
 
+```bash
+npx -y @conciso/design-system-mcp@2.1.0
+```
+
 ## Einbinden in Claude Code
 
-Als `.mcp.json` im Projekt committen:
+Mit installiertem Paket, als `.mcp.json` im Projekt committen:
 
 ```json
 {
@@ -28,5 +36,19 @@ Als `.mcp.json` im Projekt committen:
 }
 ```
 
-Die vollständige Einrichtung — inklusive weiterer KI-Assistenten — steht auf der
-Storybook-Seite [„Einrichtung“](https://conciso.github.io/conciso-design-system/?path=/docs/grundlagen-einrichtung--%C3%BCbersicht).
+Ohne installiertes Paket dieselbe Datei, nur mit fester Version statt `cds-mcp`:
+
+```json
+{
+  "mcpServers": {
+    "conciso-ds": {
+      "command": "npx",
+      "args": ["-y", "@conciso/design-system-mcp@2.1.0"]
+    }
+  }
+}
+```
+
+Die vollständige Einrichtung — inklusive weiterer KI-Assistenten (VS Code, Cursor) und dem
+Weg ohne Angular — steht auf der Storybook-Seite
+[„Einrichtung“](https://conciso.github.io/conciso-design-system/?path=/docs/grundlagen-einrichtung--%C3%BCbersicht).
