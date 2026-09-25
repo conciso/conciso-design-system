@@ -28,7 +28,9 @@
     "build:snapshot": "node scripts/build-snapshot.mjs",
     "prepack": "node scripts/prepack.mjs",
     "test": "node --test test/*.test.mjs",
-    "test:smoke": "node scripts/smoke-test.mjs"
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "test:eval-checker": "node --test eval/checker.test.mjs",
+    "eval": "node eval/run-eval.mjs"
   },
   "dependencies": {
     "@storybook/mcp": "10.6.0",
