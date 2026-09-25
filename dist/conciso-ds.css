@@ -102,6 +102,17 @@
   --c-warning:#785008; --c-warning-bg:#F5D08C;  /* Text auf #fff 7,12:1, auf dem eigenen Tint 4,84:1 (vorher #8A5E0A: 5,70 bzw. nur 3,87:1) */
   --c-error:#9B2020;   --c-error-bg:#F5BFBF;    /* Text auf #fff 8,01:1, auf dem eigenen Tint 4,99:1 (vorher #B22020: 6,73 bzw. nur 4,19:1) */
 
+  /* --c-*-strong sind die satte Snackbar-Fläche (.snack-ok/.snack-err) plus Text-/Icon-Farbe darauf
+     (Befund 04): eigene Tokens statt --c-success/-error, weil das dort der Tint-Text ist, hier aber
+     eine volle Fläche. Werte = bisheriger hartkodierter Render, keine optische Änderung. Dark-Werte
+     in dark-mode.css (Fläche flippt auf --c-success-bg/--c-error-bg, Icon/Text meist unverändert).
+     Kontrast Text/Fläche und Icon/Fläche gemessen (Formel wie scripts/check-contrast.mjs):
+     Light: ok Text 6,76:1, ok Icon 5,72:1 · err Text 9,19:1, err Icon 5,75:1
+     Dark:  ok Text 6,53:1, ok Icon 6,16:1 · err Text 7,57:1, err Icon 4,74:1
+     (Soll ≥ 4,5:1 Text, ≥ 3:1 Icon — alle acht Paare ✓) */
+  --c-success-strong:#0d5e39; --c-success-on-strong:#d6f5e8; --c-success-strong-icon:#88f0c4;
+  --c-error-strong:#7a1515; --c-error-on-strong:#fde8e8; --c-error-strong-icon:#f9a8a8;
+
   /* ── Component color tokens (theme-overridable) ── */
   --badge-ok-text:var(--c-success); --badge-warn-text:var(--c-warning); --badge-err-text:var(--c-error); /* dieselben Töne wie die semantischen Textfarben: sie stehen auf denselben Tints, zwei Werte dafür wären zwei Quellen der Wahrheit */
   --badge-neu-bg:var(--n-200); --badge-neu-text:var(--n-600); /* n-200 statt n-100: als Füllung trug n-100 nur 1,18:1 gegen Weiß und 1,10:1 gegen n-50, n-200 gibt 1,53 / 1,42:1. Text darauf 6,69:1 */
@@ -313,6 +324,12 @@
   --c-error:#FFA5A5;    /* auf bg-page: 9.32:1 ✓ AAA · auf bg-surface: 6.93:1 ✓ AAA. Angehoben von
                            #FF8E8E, das nur gegen bg-page geprüft war und auf bg-surface 4.0:1
                            erreichte. Inline-Fehlertext sitzt aber fast immer auf bg-surface. */
+  /* Dark-only: Snackbar-Fläche (Befund 04) flippt auf die bereits vorhandenen --c-*-bg-Tints, der
+     helle Text auf --c-success-on-strong wird angehoben (--c-error-on-strong und beide -icon-Tokens
+     bleiben in Light UND Dark gleich, deshalb hier bewusst kein Override). Kontraste siehe
+     tokens.css. (Light: #0d5e39 / #d6f5e8.) */
+  --c-success-strong:var(--c-success-bg); --c-success-on-strong:#b0f0d0;
+  --c-error-strong:var(--c-error-bg);
   /* Brand tints (Dark), getrennt nach den zwei Jobs, die --XX-50 im Light in einem Wert erledigt.
      Der Grund: Ein Band muss DUNKLER bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung
      muss HELLER sein als ihr Grund, sonst liest sie nicht als Fläche. Bei einer Basis von 17,51:1
@@ -484,18 +501,17 @@
 [data-theme="dark"] .logo-carousel-pause:hover { color: var(--n-200) }
 [data-theme="dark"] .ai-warning { color:var(--ki-300) }
 [data-theme="dark"] .pal-note { background:var(--c-warning-bg);color:#f0d080;border-color:#806000 }
-/* Dark-only: Die Flächen standen hier als hartkodierte Kopien von --c-success-bg und --c-error-bg
-   (#052415 / #220808). Als die Status-Tints angehoben wurden, blieben die Kopien zurück und trugen
-   nur noch ❌ 1,06:1 bzw. 1,08:1 gegen die Seite, die Snackbar war als Fläche praktisch weg.
-   Jetzt über die Token ✓ 1,78:1 und 1,79:1; Text darauf 7,60:1 und 8,34:1. */
-[data-theme="dark"] .snack-ok { background:var(--c-success-bg); color:#b0f0d0 }
-[data-theme="dark"] .snack-err { background:var(--c-error-bg); color:#fde8e8 }
-/* Dieselbe Familie wie die Snackbar darüber: die Kreisflächen standen als hartkodierte Kopien von
-   --c-success-bg und --c-error-bg (#052415 / #220808) und blieben beim Anheben der Status-Tints
-   zurück. Gegen die neue Seite trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche
-   mehr, nur noch ein farbiger Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und
-   1,33:1 zur Card. Der Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur
-   ❌ 3,78:1, --c-error (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
+/* Snackbar-Fläche/-Text (.snack-ok/.snack-err) brauchten hier früher ein eigenes Dark-Overwrite,
+   weil die Farben in components.css als Hex standen und im Dark nicht mitliefen. Seit Befund 04
+   stehen sie über --c-success-strong/--c-error-strong (tokens.css, Dark-Werte oben im Token-Block),
+   die Fläche flippt jetzt über den Token selbst — kein Overwrite mehr nötig, siehe .snack-ok/
+   .snack-err in components.css. */
+/* Die Kreisflächen hier standen als hartkodierte Kopien von --c-success-bg und --c-error-bg
+   (#052415 / #220808) und blieben beim Anheben der Status-Tints zurück. Gegen die neue Seite
+   trugen sie nur ❌ 1,06:1 bzw. 1,08:1, der Kreis war keine Fläche mehr, nur noch ein farbiger
+   Glyph. Jetzt über die Token ✓ 1,78:1 und 1,79:1 zur Seite, 1,32 und 1,33:1 zur Card. Der
+   Fehler-Glyph geht mit: #F08080 trägt auf der aufgehellten Füllung nur ❌ 3,78:1, --c-error
+   (#FFA5A5) ✓ 5,21:1. Analog --c-success (#5CE8A0) auf Grün 6,33:1.
    (Light: helle Tints #E6F9F1 / #FDEAEA mit dunklem Glyph, kein Fix nötig.) */
 [data-theme="dark"] .a11y-ok .a11y-rule-icon { background:var(--c-success-bg); color:var(--c-success) }
 [data-theme="dark"] .a11y-fail .a11y-rule-icon { background:var(--c-error-bg); color:var(--c-error) }
@@ -717,7 +733,13 @@
 /* In-Article-Callout-Eyebrow: 700er-/800er-Ton → dunkel-auf-dunkel auf der getönten -50-Fläche
    (1,6–2,5:1). Auf die hellen Bereichs-Tints heben (8–10:1), wie bei .t-Utilities und Badges. Body-Text ist
    tx-primary und flippt ohnehin. */
-[data-theme="dark"] .article-callout-eyebrow { color: var(--co-200) }
+/* .article-callout > vorangestellt (Befund 02, Spezifitäts-Fix in components.css): ohne den
+   Eltern-Qualifier lag diese Regel bei 0,2,0, exakt gleichauf mit der neuen Light-Basisregel
+   .article-callout > .article-callout-eyebrow — bei Gleichstand gewinnt components.css, weil es
+   nach dark-mode.css gebündelt wird (bundle-css.mjs), der Ton fiel im Dark auf co-700 zurück
+   (1,77:1 statt 4,5:1, von check:contrast gefangen). 0,3,0 hält den Vorsprung, wie bei den
+   Bereichs-Varianten darunter. */
+[data-theme="dark"] .article-callout > .article-callout-eyebrow { color: var(--co-200) }
 [data-theme="dark"] .article-callout[data-area="ki"] .article-callout-eyebrow { color: var(--ki-200) }
 [data-theme="dark"] .article-callout[data-area="es"] .article-callout-eyebrow { color: var(--es-100) }
 [data-theme="dark"] .article-callout[data-area="wo"] .article-callout-eyebrow { color: var(--wo-200) }
@@ -1409,6 +1431,17 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
    Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
    Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
    dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+/* Ohne data-area erbt eine <article>/<div>-Karte die Seiten-Textfarbe automatisch, weil Eyebrow
+   und Media-Icon keine eigene Farbe setzen. Ein <a> bringt aber die UA-Linkfarbe UND -Unterstreichung
+   mit: ohne dieses Reset läuft die Unterstreichung durch alle Block-Kinder (Eyebrow, Titel, Text,
+   Meta), weil text-decoration nicht vererbt, sondern über in-flow-Nachfahren PROPAGIERT wird — ein
+   text-decoration:none auf dem Kind allein stoppt das nicht, nur der Reset am <a> selbst.
+   color:inherit + text-decoration:none gleichen beides an: Link-Card ohne Bereich = Card ohne
+   Bereich, Bereichs-Regeln (oben) bleiben unberührt, weil sie spezifischer sind (Befund 01).
+   .card-cta-link bleibt unberührt: als <span> im Card-Footer hatte es nie UA-Unterstreichung, als
+   eigenständiges a.card-cta-link (css/components.css ~1377) sitzt es nie verschachtelt in a.card
+   (ungültiges HTML, siehe LinkCardComponent-Klassendoku) und behält seinen eigenen Hover-Unterstrich. */
+a.card{color:inherit;text-decoration:none}
 a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
 a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 
@@ -1852,8 +1885,11 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 /* ── Snackbar ── */
 .snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
 .snack-def{background:var(--n-700);color:var(--n-0)}
-.snack-ok{background:#0d5e39;color:#d6f5e8}
-.snack-err{background:#7a1515;color:#fde8e8}
+/* Tokens statt Hardcodes (Befund 04): Werte und Kontraste stehen bei --c-success-strong/
+   --c-error-strong in tokens.css. Die Fläche flippt im Dark über den Token, kein eigenes
+   Dark-Overwrite hier nötig. */
+.snack-ok{background:var(--c-success-strong);color:var(--c-success-on-strong)}
+.snack-err{background:var(--c-error-strong);color:var(--c-error-on-strong)}
 .snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
 
 /* ── Footer ──
@@ -2861,7 +2897,10 @@ thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
 .article-callout[data-area="ki"]{background:var(--ki-50);border-left-color:var(--ki-500)}
 .article-callout[data-area="es"]{background:var(--es-50);border-left-color:var(--es-500)}
 .article-callout[data-area="wo"]{background:var(--wo-50);border-left-color:var(--wo-500)}
-.article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
+/* Direktkind-Selektor statt reiner Klasse: die Eyebrow ist selbst ein <p>, also schlägt
+   .article-callout > p (0,1,1) unten sonst diese Regel (0,1,0). Mit
+   .article-callout > .article-callout-eyebrow (0,2,0) gewinnt die Eyebrow (Befund 02). */
+.article-callout > .article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
 .article-callout[data-area="ki"] .article-callout-eyebrow{color:var(--ki-800)}
 .article-callout[data-area="es"] .article-callout-eyebrow{color:var(--es-700)}
 .article-callout[data-area="wo"] .article-callout-eyebrow{color:var(--wo-700)}
