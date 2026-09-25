@@ -63,6 +63,11 @@ import '@conciso/design-system/dist/conciso-ds.css';
 > Für reine CSS-Nutzung ohne npm ist das Vendoren von `dist/conciso-ds.css` + `fonts/`
 > (Variante A) weiterhin der schlankeste Weg.
 
+> **Lizenz:** MIT, siehe [LICENSE](../LICENSE). Ausnahmen (Brand-Assets unter
+> `assets/brand/`, Schriften, Icons) siehe [NOTICE](../NOTICE). Das gilt unabhängig von
+> der Registry-Wahl oben — GitHub Packages verlangt trotzdem Auth zum Lesen (Begründung
+> in [ADR-0004](adr/0004-verteilung-und-versionierung.md)).
+
 > Die Ladereihenfolge ist die häufigste Fehlerquelle. Wird `components.css` vor `tokens.css` geladen, fehlen die Variablen und nichts wird korrekt gestylt.
 
 ## 2. Fonts

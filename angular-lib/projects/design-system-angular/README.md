@@ -158,3 +158,10 @@ ng build design-system-angular
 
 Das Artefakt (Angular Package Format, via ng-packagr) landet unter
 `dist/design-system-angular/`. Einziger Einstiegspunkt ist `src/public-api.ts`.
+
+## Lizenz
+
+MIT, siehe [LICENSE](../../../LICENSE) im Repository-Root (im gebauten Paket unter
+`dist/design-system-angular/LICENSE`). Ausnahmen (Brand-Assets, Schriften, Icons)
+siehe [NOTICE](../../../NOTICE). Das betrifft nur die Lizenz — der Bezug über GitHub
+Packages statt der öffentlichen npm-Registry bleibt unverändert (siehe oben).
