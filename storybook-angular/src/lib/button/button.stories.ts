@@ -12,8 +12,9 @@ const meta: Meta<ButtonComponent> = {
         component:
           'Die zentrale Aktions-Schaltfläche des Design Systems. Fünf Stil-Varianten ' +
           '(Filled, Tonal, Elevated, Outlined, Text) und drei Größen (Default, Small, ' +
-          'Large) decken unterschiedliche Betonung und Kontext ab; ein Inversions-Modus ' +
-          'passt Buttons auf farbige Bereichs-Bänder an. Mindest-Touch-Target 44 px.',
+          'Large) decken unterschiedliche Betonung und Kontext ab; der Ton `err` markiert ' +
+          'destruktive Aktionen, ein Inversions-Modus passt Buttons auf farbige Bereichs-Bänder ' +
+          'an. Mindest-Touch-Target 44 px.',
       },
     },
   },
@@ -28,7 +29,13 @@ const meta: Meta<ButtonComponent> = {
     area: {
       control: 'inline-radio',
       options: ['co', 'ki', 'es', 'wo'],
-      description: 'Brand Area, die die Button-Farbe bestimmt',
+      description: 'Brand Area, die die Button-Farbe bestimmt (wirkungslos bei Ton `err`)',
+    },
+    tone: {
+      control: { type: 'inline-radio', labels: { def: 'Standard', err: 'Destruktiv' } },
+      options: ['def', 'err'],
+      description:
+        'Ton: `err` markiert eine Aktion, die sich nicht rückgängig machen lässt, und ersetzt die Bereichsfarbe',
     },
     size: {
       control: 'inline-radio',
@@ -42,6 +49,7 @@ const meta: Meta<ButtonComponent> = {
     label: 'Kontakt aufnehmen',
     variant: 'filled',
     area: 'co',
+    tone: 'def',
     size: 'md',
     full: false,
     disabled: false,
@@ -64,10 +72,10 @@ export const Interaktiv: Story = {
     template: `
       @if (variant === 'filled-on-band') {
         <div [style.background]="'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'" style="padding:24px;border-radius:var(--r-md)">
-          <cds-button [label]="label" [variant]="variant" [area]="area" [size]="size" [full]="full" [disabled]="disabled" />
+          <cds-button [label]="label" [variant]="variant" [area]="area" [tone]="tone" [size]="size" [full]="full" [disabled]="disabled" />
         </div>
       } @else {
-        <cds-button [label]="label" [variant]="variant" [area]="area" [size]="size" [full]="full" [disabled]="disabled" />
+        <cds-button [label]="label" [variant]="variant" [area]="area" [tone]="tone" [size]="size" [full]="full" [disabled]="disabled" />
       }
     `,
   }),
@@ -104,6 +112,28 @@ export const Bereichsfarben: Story = {
       </div>
     `,
   }),
+};
+
+export const Destruktiv: Story = {
+  name: 'Destruktiv',
+  parameters: { controls: { disable: true } },
+  // tone="err" ersetzt die Bereichsklasse durch .btn-err, gedacht für Filled, Outlined, Text.
+  render: () => ({
+    moduleMetadata: { imports: [ButtonComponent] },
+    template: `
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+        <cds-button tone="err" label="Löschen"></cds-button>
+        <cds-button tone="err" variant="outlined" label="Verwerfen"></cds-button>
+        <cds-button tone="err" variant="text" label="Entfernen"></cds-button>
+      </div>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const loeschen = c.getByRole('button', { name: 'Löschen' });
+    await expect(loeschen).toHaveClass('btn-err');
+    await expect(loeschen).not.toHaveClass('btn-co');
+  },
 };
 
 export const Groessen: Story = {

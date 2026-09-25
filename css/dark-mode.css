@@ -280,6 +280,12 @@
 [data-theme="dark"] .btn-ki.btn-filled:not(.btn-on-band) { background: var(--ki-300) }
 [data-theme="dark"] .btn-es.btn-filled:not(.btn-on-band) { background: var(--es-300) }
 [data-theme="dark"] .btn-wo.btn-filled:not(.btn-on-band) { background: var(--wo-300) }
+/* Dark-only: Allein trägt .btn-err.btn-filled schon die Inversion (Fläche --c500 = --c-error #FFA5A5,
+   Text n-900 aus der Regel oben ✓ 10,3:1, Fläche auf bg-page 9,3:1). Sitzt zusätzlich eine
+   Bereichsklasse am Button, setzt deren Regel die Fläche auf -300 und der Button verliert den Ton
+   ❌ → hier zurück auf --c-error ✓. Steht hinter den Bereichsregeln, damit bei gleicher Spezifität
+   der Ton gewinnt. (Light: dunkle Fläche #9B2020 + Weiß 8,01:1, dort regelt das components.css.) */
+[data-theme="dark"] .btn-err.btn-filled:not(.btn-on-band) { background: var(--c-error) }
 /* --c-ink = Bereichs-Light-Tint für Text/Rahmen der nicht-gefüllten Buttons im Dark. Dieselben Töne
    wie t-Utilities, Badges, Icons, Eyebrows (auf der offiziellen Skala) statt eines off-scale color-mix → alle
    Bereichstöne der Seite ziehen aus EINER Skala. */
@@ -287,6 +293,10 @@
 [data-theme="dark"] .btn-ki { --c-ink: var(--ki-200) }
 [data-theme="dark"] .btn-es { --c-ink: var(--es-100) }
 [data-theme="dark"] .btn-wo { --c-ink: var(--wo-200) }
+/* Dark-only: Ohne eigenen --c-ink erbte .btn-err den Bereichston der Umgebung oder gar keinen
+   (Outlined/Text ohne Bereichsklasse ❌ kein Wert) → --c-error ✓ 6,93:1 auf bg-surface, 9,32:1 auf
+   bg-page, 6,4:1 auf der Tonal-Fläche. (Light: --c500 = #9B2020 direkt, 8,01:1.) */
+[data-theme="dark"] .btn-err { --c-ink: var(--c-error) }
 /* Tonal im Dark: dezent brand-getönte Fläche (c500 18% in bg-page) + neutraler Rahmen über
    --bd-strong-c (vorher als #9DA8B6 hartkodiert, dem alten --bd-strong-Wert; die Gleichung stimmte
    nach der Flächen-Umstellung nicht mehr). Auf den vier Tonal-Füllungen 3,64:1 (ki) bis 4,87:1 (es),

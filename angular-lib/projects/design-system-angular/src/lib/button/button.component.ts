@@ -9,6 +9,11 @@ import type { CdsArea } from '../area';
  */
 export type CdsButtonVariant = 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' | 'filled-on-band';
 export type CdsButtonSize = 'sm' | 'md' | 'lg';
+/**
+ * Ton des Buttons. `err` markiert eine destruktive Aktion, die sich nicht rückgängig machen
+ * lässt (Löschen, Verwerfen), und ersetzt dann die Bereichsfarbe. Kürzel wie bei `CdsSnackTone`.
+ */
+export type CdsButtonTone = 'def' | 'err';
 
 /**
  * Button — dünner Angular-Wrapper um die bestehende `.btn`-CSS-Familie.
@@ -38,8 +43,10 @@ export class ButtonComponent {
   /** Visuelle Variante → .btn-filled / .btn-tonal / .btn-elevated / .btn-outlined /
    *  .btn-text; `filled-on-band` → .btn-filled + .btn-on-band (invertiert). */
   readonly variant = input<CdsButtonVariant>('filled');
-  /** Markenbereich → .btn-co / .btn-ki / .btn-es / .btn-wo */
+  /** Markenbereich → .btn-co / .btn-ki / .btn-es / .btn-wo. Wirkungslos bei `tone="err"`. */
   readonly area = input<CdsArea>('co');
+  /** Ton → `err` setzt .btn-err (destruktive Aktion) statt der Bereichsklasse. */
+  readonly tone = input<CdsButtonTone>('def');
   /** Größe → .btn-sm / (md = Default) / .btn-lg */
   readonly size = input<CdsButtonSize>('md');
   /** Volle Breite → .btn-full (Host wird block, damit 100% greifen). */
@@ -54,7 +61,10 @@ export class ButtonComponent {
   protected readonly classes = computed(() => {
     // filled-on-band = invertierter Filled-Button; rendert .btn-filled + .btn-on-band.
     const onBand = this.variant() === 'filled-on-band';
-    const cls = ['btn', `btn-${onBand ? 'filled' : this.variant()}`, `btn-${this.area()}`];
+    // Ton ersetzt den Bereich, statt ihn zu überlagern: so hängt das Ergebnis nicht an der
+    // Reihenfolge der Regeln in components.css und dark-mode.css.
+    const color = this.tone() === 'err' ? 'err' : this.area();
+    const cls = ['btn', `btn-${onBand ? 'filled' : this.variant()}`, `btn-${color}`];
     if (this.size() === 'sm') cls.push('btn-sm');
     if (this.size() === 'lg') cls.push('btn-lg');
     if (this.full()) cls.push('btn-full');

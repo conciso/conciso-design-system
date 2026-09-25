@@ -191,6 +191,7 @@
           <a class="nav-sub-item" href="#gt-btns-ki">Angewandte KI</a>
           <a class="nav-sub-item" href="#gt-btns-es">Effektive Software</a>
           <a class="nav-sub-item" href="#gt-btns-wo">Wirksame Organisationen</a>
+          <a class="nav-sub-item" href="#gt-btns-err">Destruktiv</a>
           <a class="nav-sub-item" href="#gt-btns-on-band">On-Band-Modifier</a>
           <a class="nav-sub-item" href="#gt-btns-tokens">Token-Override-Pattern</a>
           <a class="nav-sub-item" href="#gt-btns-verwendung">Verwendung</a>
@@ -3070,7 +3071,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
     <!-- ═══ BUTTONS ═══ -->
     <section class="ds-section" id="sec-buttons">
       <h1 class="sec-title">Buttons</h1>
-      <p class="sec-sub">Fünf Stil-Varianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Default · Small · Large) und ein Inversions-Modifier (<code class="token">.btn-on-band</code>) für Buttons auf farbigen Bereichs-Bändern. Min. Touch-Target 44&nbsp;px.</p>
+      <p class="sec-sub">Fünf Stil-Varianten (Filled · Tonal · Elevated · Outlined · Text), drei Größen (Default · Small · Large), ein Ton-Modifier (<code class="token">.btn-err</code>) für destruktive Aktionen und ein Inversions-Modifier (<code class="token">.btn-on-band</code>) für Buttons auf farbigen Bereichs-Bändern. Min. Touch-Target 44&nbsp;px.</p>
 
       <h2 id="gt-btns-co" class="group-title">Corporate</h2>
       <div class="row" style="align-items:center;flex-wrap:wrap">
@@ -3120,6 +3121,17 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <button class="btn btn-filled btn-wo" disabled>Disabled</button>
       </div>
 
+      <h2 id="gt-btns-err" class="group-title">Destruktiv</h2>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5);max-width:820px"><code class="token">.btn-err</code> markiert eine Aktion, die sich nicht rückgängig machen lässt: Löschen, Verwerfen, Entfernen. Der Modifier setzt dieselben Tokens wie die Bereichsklassen (<code class="token">--c500</code>, <code class="token">--c50</code>) und <strong>ersetzt</strong> die Bereichsfarbe, er wird also statt <code class="token">.btn-co</code> gesetzt, nicht zusätzlich. Gedacht für Filled, Outlined und Text. Im Dark kehrt Filled wie die Bereiche auf helle Fläche mit dunklem Text um.</p>
+      <div class="row" style="align-items:center;flex-wrap:wrap">
+        <button class="btn btn-filled btn-err">Löschen</button>
+        <button class="btn btn-outlined btn-err">Verwerfen</button>
+        <button class="btn btn-text btn-err">Entfernen</button>
+        <button class="btn btn-sm btn-filled btn-err">Small</button>
+        <button class="btn btn-filled btn-err" disabled>Disabled</button>
+      </div>
+      <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin:var(--s5) 0 var(--s8);max-width:820px"><strong>Welcher Button gefüllt ist, entscheidet der Kontext.</strong> Hat die Person die Aktion selbst ausgelöst (Klick auf „Löschen“, danach eine Rückfrage), ist die destruktive Aktion die Hauptaktion: Filled mit <code class="token">.btn-err</code>, daneben Abbrechen als Text-Button. Unterbricht die Rückfrage einen anderen Weg (ungespeicherte Änderungen beim Verlassen), ist der sichere Weg die Hauptaktion: „Weiter bearbeiten“ als Filled in der Bereichsfarbe, „Verwerfen“ als Outlined mit <code class="token">.btn-err</code>. Die Farbe ist nie der einzige Hinweis, das Label nennt die Folge.</p>
+
       <h2 id="gt-btns-on-band" class="group-title">On-Band-Modifier · invertiert auf Bereichs-Bändern</h2>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s5)"><code class="token">.btn-on-band</code> wird mit der jeweiligen Bereichs-Klasse kombiniert und kehrt die Farben um: weißer Button-Hintergrund, Text in der Bereichsfarbe, Hover semitransparent. Anwendung: <a class="body-link" href="#gt-cta-band">Page-End-CTA-Band</a> am Ende jeder Customer-Page.</p>
       <div style="display:flex;flex-direction:column;gap:var(--s3);margin-bottom:var(--s8)">
@@ -3148,7 +3160,8 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
         <pre class="cb-body"><span class="v">.btn-co</span>   { --c500: var(--co-700); --c50: var(--co-50);  }  <span class="c">/* Corporate */</span>
 <span class="v">.btn-ki</span>   { --c500: var(--ki-800); --c50: var(--ki-50);  }  <span class="c">/* Angewandte KI */</span>
 <span class="v">.btn-es</span>   { --c500: var(--es-700); --c50: var(--es-50);  }  <span class="c">/* Effektive Software */</span>
-<span class="v">.btn-wo</span>   { --c500: var(--wo-700); --c50: var(--wo-50);  }  <span class="c">/* Wirksame Organisationen */</span></pre>
+<span class="v">.btn-wo</span>   { --c500: var(--wo-700); --c50: var(--wo-50);  }  <span class="c">/* Wirksame Organisationen */</span>
+<span class="v">.btn-err</span>  { --c500: var(--c-error); --c50: var(--c-error-bg); }  <span class="c">/* Destruktiv, ersetzt den Bereich */</span></pre>
       </div>
       <p style="font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s4)"><strong>Regel:</strong> Für Standard-Bereichsfarben immer die Modifier-Klasse verwenden. Erst wenn die benötigte Farbkombination außerhalb der vier Bereiche liegt und kein anderer Modifier sie deckt, die Tokens inline setzen.</p>
       <p style="font:var(--ty-body-md);color:var(--tx-primary);border-left:3px solid var(--c-warning);padding-left:var(--s4);margin-bottom:var(--s4);max-width:820px"><strong>Warum das im Dark Mode zählt.</strong> Die Dark-Regeln für <code class="token">.btn-filled</code> sind auf zwei Selektoren verteilt: die <strong>Fläche</strong> setzt <code class="token">[data-theme="dark"] .btn-co.btn-filled</code>, die <strong>Textfarbe</strong> setzt <code class="token">[data-theme="dark"] .btn-filled</code>. Ein Inline-Override ohne Bereichsklasse bekommt also nur die zweite Hälfte: die Fläche bleibt auf dem dunklen <code class="token">-700</code>-Ton stehen und trägt plötzlich dunklen Text (gemessen 3,51:1). Im Light fällt das nicht auf, und <code class="token">npm run check:dark-states</code> findet es nicht, weil der Bruch nicht in einer Regel steht, sondern im Markup entsteht. Wer inline überschreibt, wählt deshalb entweder einen hellen Fläche-Ton, der in beiden Modi trägt, <strong>oder</strong> setzt <code class="token">color</code> gleich mit, wie im Beispiel unten.</p>
@@ -3269,6 +3282,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Hierarchie konsequent einhalten: Filled → Tonal oder Outlined → Text</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsklasse passend zum Seitenkontext: <code class="token">.btn-co</code> <code class="token">.btn-ki</code> <code class="token">.btn-es</code> <code class="token">.btn-wo</code></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Touch Target min. 44px einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">.btn-err</code> nur für Aktionen, die sich nicht rückgängig machen lassen, höchstens einer pro Ansicht, mit einem Label, das die Folge nennt: <em>Löschen, Verwerfen</em></span></li>
           </ul>
         </div>
         <div class="col-6">
@@ -3280,6 +3294,7 @@ btn.addEventListener(<span class="s">'click'</span>, function() {
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer <code class="token">.btn-co</code>, nie <code class="token">.btn-ki</code></span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Button-Farben aus verschiedenen Bereichen mischen, bricht die Markenkohärenz der Seite</span></li>
             <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Filled-Button mit <code class="token">--area-500</code> auf hellem Bereichs-Hintergrund (<code class="token">--area-50</code>): Button-Fläche hebt sich nur 1.4 bis 3.0:1 ab und verfehlt WCAG 1.4.11. Stattdessen die dunklere Bereichs-Variante nutzen (siehe Barrierefreiheit-Tabelle oben)</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)"><code class="token">.btn-err</code> als Blickfang oder für umkehrbare Aktionen (<em>Abmelden, Filter zurücksetzen</em>), und nie neben einer Bereichsklasse am selben Button</span></li>
           </ul>
         </div>
       </div>
