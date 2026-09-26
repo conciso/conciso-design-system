@@ -1,5 +1,5 @@
 // Tests für scripts/release/filter-commits.mjs (Seam: Commits mit berührten Dateien → relevante
-// Teilmenge, Merge-Commits ausgeschlossen — .scratch/automatische-releases/spec.md).
+// Teilmenge, Merge-Commits ausgeschlossen — ADR-0010 Regel 1).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { filterRelevantCommits } from './filter-commits.mjs';

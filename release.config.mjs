@@ -1,4 +1,4 @@
-// semantic-release-Konfiguration (ADR-0010, .scratch/automatische-releases/spec.md Regel 6).
+// semantic-release-Konfiguration (ADR-0010 Regel 6).
 // Läuft NUR als `--dry-run` (siehe publish.yml, Job „pruefen“): kein Plugin hier
 // veröffentlicht, taggt oder erzeugt ein GitHub-Release — das bleibt Aufgabe des
 // bestehenden `publish`-Jobs, der die von hier gelieferte Version und die Notes übernimmt.

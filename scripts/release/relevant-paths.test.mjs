@@ -1,4 +1,4 @@
-// Tests für scripts/release/relevant-paths.mjs (Seam aus .scratch/automatische-releases/spec.md).
+// Tests für scripts/release/relevant-paths.mjs (Seam aus ADR-0010 Regel 2/3).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';

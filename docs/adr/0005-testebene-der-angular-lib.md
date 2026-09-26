@@ -7,11 +7,12 @@
 ## Kontext
 
 Die Angular-Lib (`angular-lib/projects/design-system-angular/`) enthält keine
-`.spec.ts`-Unit-Tests. Das war während der Extraktion (Tickets 01–08) noch keine
-scharfe Entscheidung, weil `storybook-angular` bis Ticket 09 Re-Export-Shims auf die
-Lib hielt und beide Testebenen ([ADR-0003](0003-pilot-scheibe-und-validierung.md))
-nebeneinander existierten. Mit Ticket 09 sind diese Shims entfernt: Storybook
-konsumiert die Lib jetzt ausschließlich über das tsconfig-Pfad-Mapping auf
+`.spec.ts`-Unit-Tests. Das war während der schrittweisen Extraktion der Komponenten
+aus `storybook-angular` in die Lib noch keine scharfe Entscheidung, weil
+`storybook-angular` zeitweise Re-Export-Shims auf die Lib hielt und beide Testebenen
+([ADR-0003](0003-pilot-scheibe-und-validierung.md)) nebeneinander existierten. Nach
+Abschluss der Extraktion sind diese Shims entfernt: Storybook konsumiert die Lib
+jetzt ausschließlich über das tsconfig-Pfad-Mapping auf
 `public-api.ts` ([ADR-0002](0002-topologie-und-quelle-der-wahrheit.md)) — direkt auf
 die Lib-Quelle, nicht auf ein Zwischen-Artefakt. Damit ist der Storybook-Test-Runner
 faktisch zur einzigen Testebene der Bibliothek geworden, ohne dass das je explizit

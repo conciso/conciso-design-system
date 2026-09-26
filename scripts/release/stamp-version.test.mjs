@@ -1,5 +1,5 @@
 // Tests für scripts/release/stamp-version.mjs (Seam: Version + Peer-Pin korrekt und idempotent
-// geschrieben — .scratch/automatische-releases/spec.md Regel 7).
+// geschrieben — ADR-0010, „versionsfreies Repo“).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, readFileSync, mkdirSync, rmSync } from 'node:fs';
