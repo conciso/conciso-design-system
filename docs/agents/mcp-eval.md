@@ -27,11 +27,12 @@ kein CI-Gate ist:
 ## Was es kostet
 
 Ein Lauf startet **zwei `claude -p`-Aufrufe pro Frage** in `mcp-server/eval/fragen.json`
-(mit Server, ohne Server) — bei 6 Fragen also 12 Aufrufe des in der Umgebung konfigurierten
-Standardmodells, mit maximal 240 s Timeout pro Aufruf. Der Bericht selbst nennt den
-**API-Gegenwert** (Zeile „Gesamt-API-Gegenwert (total_cost_usd)“ oben, „API-Gegenwert
-(total_cost_usd)“ je Lauf im Detail-Abschnitt — aus `total_cost_usd` der `claude`-Ausgabe,
-keine Schätzung).
+(mit Server, ohne Server), jeweils mit dem in der Umgebung konfigurierten Standardmodell und
+maximal 240 s Timeout pro Aufruf. Die tatsächliche Fragen-/Aufrufzahl wächst mit dem Eval-Set
+mit — sie steht verlässlich am Kopf jedes Berichts (`Fragen: N`), nicht hier. Der Bericht selbst
+nennt auch den **API-Gegenwert** (Zeile „Gesamt-API-Gegenwert (total_cost_usd)“ oben,
+„API-Gegenwert (total_cost_usd)“ je Lauf im Detail-Abschnitt — aus `total_cost_usd` der
+`claude`-Ausgabe, keine Schätzung).
 
 **`total_cost_usd` ist ein API-Preis-Gegenwert, keine tatsächliche Abbuchung.** Läuft `claude`
 in der aktuellen Shell über ein **claude.ai-Abo** (Pro/Max/Team), wird dafür nichts abgerechnet
@@ -42,10 +43,12 @@ Ausführen also nicht nur `claude --version` prüfen, sondern auch, über welche
 authentifiziert ist, wenn der Unterschied (Kontingent vs. echtes Geld) für die Entscheidung
 relevant ist.
 
-Als grobe Erwartung vorab (API-Gegenwert bzw. Kontingent-Verbrauch): mit einem denkfähigen
+Als Richtwert (API-Gegenwert bzw. Kontingent-Verbrauch, kein Zielwert): ein Baseline-Lauf mit
+11 Fragen (22 Aufrufe) lag bei rund **$5,82 API-Gegenwert** insgesamt. Mit einem denkfähigen
 Modell und mehreren Werkzeugaufrufen pro Frage („mit Server“ ruft typischerweise 3–7 Werkzeuge
-auf, inklusive der internen `ToolSearch`-Suche nach den MCP-Werkzeugen) lag ein Lauf mit
-6 Fragen im niedrigen einstelligen Euro-Gegenwert-Bereich.
+auf, inklusive der internen `ToolSearch`-Suche nach den MCP-Werkzeugen) bewegt sich ein Lauf im
+niedrigen einstelligen Euro-Gegenwert-Bereich und wächst mit der Fragenzahl mit — die für den
+jeweils aktuellen Lauf tatsächliche Summe steht in der Kopfzeile des eigenen Berichts.
 
 ## Ausführen
 
