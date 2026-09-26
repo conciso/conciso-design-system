@@ -6,7 +6,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { checkAnswer, extractCodeBlocks, extractElements, mentionsGlobalCssInclusion } from './checker.mjs';
+import {
+  checkAnswer,
+  checkCoreClaim,
+  extractCodeBlocks,
+  extractElements,
+  mentionsGlobalCssInclusion,
+} from './checker.mjs';
 
 function makeTruthMap() {
   const button = {
@@ -116,4 +122,80 @@ test('mentionsGlobalCssInclusion wertet die Angular-Lib „@conciso/design-syste
     mentionsGlobalCssInclusion('Importiere die Komponente aus @conciso/design-system-angular.'),
     false,
   );
+});
+
+// ─── checkCoreClaim (Intentionsfragen-Check-Typ) ──────────────────────────────────────────────
+
+test('checkCoreClaim: Treffer in jeder Gruppe erfüllt die Kernaussage', () => {
+  const groups = [
+    ['montserrat'],
+    ['headline', 'display'],
+  ];
+  const answer = 'Für Fließtext nimm Montserrat, Libre Baskerville bleibt der Headline vorbehalten.';
+  const { matched, missingGroups } = checkCoreClaim(answer, groups);
+  assert.equal(matched, true);
+  assert.deepEqual(missingGroups, []);
+});
+
+test('checkCoreClaim: eine unerfüllte Gruppe lässt die Kernaussage insgesamt scheitern', () => {
+  const groups = [
+    ['montserrat'],
+    ['headline', 'display'],
+  ];
+  const answer = 'Für Fließtext nimm Montserrat.';
+  const { matched, missingGroups, matchedGroups } = checkCoreClaim(answer, groups);
+  assert.equal(matched, false);
+  assert.deepEqual(missingGroups, [['headline', 'display']]);
+  assert.deepEqual(matchedGroups, [['montserrat']]);
+});
+
+test('checkCoreClaim: ein Treffer aus mehreren Synonymen einer Gruppe genügt (ODER innerhalb der Gruppe)', () => {
+  const groups = [['höchstens ein', 'maximal ein', 'nur ein']];
+  const answer = 'Pro Ansicht ist maximal ein destruktiver Button vorgesehen.';
+  assert.equal(checkCoreClaim(answer, groups).matched, true);
+});
+
+test('checkCoreClaim: Groß-/Kleinschreibung spielt keine Rolle', () => {
+  const groups = [['montserrat']];
+  assert.equal(checkCoreClaim('MONTSERRAT ist die richtige Wahl.', groups).matched, true);
+  assert.equal(checkCoreClaim('montserrat ist die richtige Wahl.', groups).matched, true);
+});
+
+test('checkCoreClaim: Umlaute/scharfes S werden unabhängig von der Schreibweise erkannt', () => {
+  // Groß-/Kleinschreibung UND unterschiedliche Unicode-Normalform (vorkomponiertes „ü“ vs.
+  // zerlegtes „u“+Combining-Diaeresis) dürfen den Treffer nicht verhindern.
+  const groups = [['ermüdet'], ['groß']];
+  assert.equal(checkCoreClaim('Serifenschrift ERMÜDET beim Lesen.', groups.slice(0, 1)).matched, true);
+  assert.equal(
+    checkCoreClaim(`Serifenschrift ermüdet beim Lesen.`, groups.slice(0, 1)).matched,
+    true,
+  );
+  assert.equal(checkCoreClaim('Das ist ein GROSSER Unterschied.', groups.slice(1)).matched, true);
+});
+
+test('checkCoreClaim: ASCII-Umschreibung „ue“ zählt wie der Umlaut „ü“ — Stichwort mit Umlaut, Antwort in ASCII', () => {
+  // Regressionstest: eine frühere Fassung reduzierte Umlaute auf den bloßen Basisvokal (ü→u)
+  // statt auf die kanonische zweistellige Umschreibung (ü→ue). „ermuedet“ (ASCII) normalisierte
+  // sich dadurch zu „ermuedet“, das Stichwort „ermüdet“ aber zu „ermudet“ — kein Treffer.
+  const groups = [['ermüdet']];
+  assert.equal(checkCoreClaim('Serifenschrift ermuedet beim Lesen.', groups).matched, true);
+});
+
+test('checkCoreClaim: ASCII-Umschreibung zählt auch umgekehrt — Stichwort in ASCII, Antwort mit Umlaut', () => {
+  const groups = [['ermuedet']];
+  assert.equal(checkCoreClaim('Serifenschrift ermüdet beim Lesen.', groups).matched, true);
+});
+
+test('checkCoreClaim: alle drei Umlaute (ä/ö/ü) und die zerlegte Unicode-Form normalisieren gleich', () => {
+  assert.equal(checkCoreClaim('Größe und Maßstab passen zusammen.', [['groesse']]).matched, true);
+  assert.equal(checkCoreClaim('Das wirkt schoen und ruhig.', [['schön']]).matched, true);
+  // Zerlegte Unicode-Form (u + Combining Diaeresis statt vorkomponiertem ü) trifft ebenfalls auf
+  // die ASCII-Umschreibung.
+  assert.equal(checkCoreClaim(`Das ist f${'ü'}r alle gedacht.`, [['fuer']]).matched, true);
+});
+
+test('checkCoreClaim: Stichwort als Wortstamm matcht mehrere Flexionsformen', () => {
+  const groups = [['ermüd']];
+  assert.equal(checkCoreClaim('Lange Serifentexte ermüden die Augen.', groups).matched, true);
+  assert.equal(checkCoreClaim('Das Auge ist schnell ermüdet.', groups).matched, true);
 });

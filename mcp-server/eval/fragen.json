@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "_kommentar": "Fangfragen aus dem Consumer-Alltag für das Eval-Set (ADR-0012). Erweiterbar ohne Codeänderung: run-eval.mjs liest ausschließlich diese Datei. `components` ist informativ (steht im Bericht, wird nicht zur Prüfung selbst gebraucht — die Wahrheit holt sich run-eval.mjs immer live aus dem installierten Snapshot). `checks` steuert, welche Zusatzprüfungen neben der immer laufenden Prüfung erfundener Attribute/Bindungen greifen: aktuell nur „setup-mentions-global-css“.",
+  "_kommentar": "Fangfragen aus dem Consumer-Alltag für das Eval-Set (ADR-0012). Erweiterbar ohne Codeänderung: run-eval.mjs liest ausschließlich diese Datei. `components` ist informativ (steht im Bericht, wird nicht zur Prüfung selbst gebraucht — die Wahrheit holt sich run-eval.mjs immer live aus dem installierten Snapshot). `checks` steuert, welche Zusatzprüfungen neben der immer laufenden Prüfung erfundener Attribute/Bindungen greifen: „setup-mentions-global-css“ bei Einrichtungsfragen, „core-claim-keywords“ bei Intentionsfragen — dafür trägt die Frage zusätzlich `claimKeywords`: eine Liste von Gruppen mit Synonymen je Teilaspekt der erwarteten Kernaussage, ALLE Gruppen müssen mindestens einen Treffer haben (siehe checker.mjs#checkCoreClaim). Die Quellenzitate zu den Intentionsfragen unten stehen im jeweils einführenden Issue, nicht hier.",
   "questions": [
     {
       "id": "button-icon-links",
@@ -41,6 +41,66 @@
       "prompt": "Ich brauche eine Checkbox für die AGB-Zustimmung in einem Formular: Pflichtfeld, mit Label-Text und einem anklickbaren Link mitten im Label zu den AGB. Wie baue ich das mit cds-checkbox aus @conciso/design-system-angular?",
       "components": ["komponenten-inputs-forms-checkbox"],
       "checks": ["no-invented-attributes"]
+    },
+    {
+      "id": "btn-destruktiv-neben-normal",
+      "prompt": "Ich baue in meiner Angular-App einen Bestätigungsdialog mit zwei Buttons aus @conciso/design-system-angular: der eine löst eine irreversible Löschaktion aus, der andere ist ein normaler Abbrechen-Button daneben. Wie setze ich cds-button für die beiden ein, und gibt es dabei etwas Besonderes zu beachten?",
+      "components": ["komponenten-buttons-button"],
+      "checks": ["no-invented-attributes", "core-claim-keywords"],
+      "claimKeywords": [
+        ["btn-err", "tone=\"err\"", "tone='err'", "err-modifier", "err modifier"],
+        [
+          "ersetzt die bereichsfarbe",
+          "ersetzt die bereichsklasse",
+          "statt der bereichsfarbe",
+          "nicht zusätzlich zur bereichsfarbe",
+          "nie neben einer bereichsklasse",
+          "ersetzt .btn-co"
+        ],
+        ["höchstens ein", "höchstens einer", "maximal ein", "nur einer pro"]
+      ]
+    },
+    {
+      "id": "typo-serife-fliesstext",
+      "prompt": "Ich will für den Fließtext meiner neuen Landingpage die Schriftart Libre Baskerville verwenden, weil sie mir optisch gefällt. Passt das zu den Typografie-Regeln des Conciso Design Systems?",
+      "components": ["grundlagen-typografie"],
+      "checks": ["no-invented-attributes", "core-claim-keywords"],
+      "claimKeywords": [
+        ["montserrat"],
+        ["headline", "display", "überschrift", "titel", "hero"],
+        ["ermüd", "serifenschrift", "serifenschriften"]
+      ]
+    },
+    {
+      "id": "farbe-text-bereichsfarbe-weiss",
+      "prompt": "Ich möchte auf einer weißen Kartenfläche einen Preis in unserer Bereichsfarbe für „Angewandte KI“ (ki) farbig hervorheben. Welches Farb-Token beziehungsweise welche Stufe soll ich für den Text verwenden?",
+      "components": ["grundlagen-farben"],
+      "checks": ["no-invented-attributes", "core-claim-keywords"],
+      "claimKeywords": [
+        ["ki-ink", "--ki-ink", "ki-800", "--ki-800"],
+        ["4,5:1", "4.5:1", "unterschreitet", "unterschreiten"]
+      ]
+    },
+    {
+      "id": "sektion-getoente-haeufung",
+      "prompt": "Ich plane eine Landingpage mit direkt aufeinanderfolgenden Sektionen: zuerst ein Hero, danach eine CTA-Sektion, beide in unserer Bereichsfarbe für „Wirksame Organisationen“ (wo) getönt. Ist das eine gute Idee für den Sektions-Rhythmus der Seite?",
+      "components": ["komponenten-sektion"],
+      "checks": ["no-invented-attributes", "core-claim-keywords"],
+      "claimKeywords": [
+        ["bunt", "unruhig", "ruhig", "abwechseln", "im wechsel"],
+        ["akzent", "sparsam"]
+      ]
+    },
+    {
+      "id": "card-akzentlinie-position",
+      "prompt": "Ich entwerfe eine eigene Karten-Variante ohne Media-Bereich, mit einer farbigen Linie zur Kennzeichnung der Brand Area. Soll diese Linie am oberen oder am linken Rand der Karte sitzen, und was ist die Begründung dafür?",
+      "components": ["komponenten-cards-teaser-card"],
+      "checks": ["no-invented-attributes", "core-claim-keywords"],
+      "claimKeywords": [
+        ["linie oben", "oberen rand", "top-border", "border-top"],
+        ["leserichtung", "scannen", "erster fixpunkt", "scanning"],
+        ["blockquote", "redaktionell", "fließinhalt", "zitat"]
+      ]
     }
   ]
 }

@@ -302,3 +302,58 @@ const GLOBAL_CSS_MENTION_RE =
 export function mentionsGlobalCssInclusion(answerText) {
   return GLOBAL_CSS_MENTION_RE.test(answerText);
 }
+
+// ─── Kernaussagen-Check für Intentionsfragen (ADR-0012) ────────────────────────────────────────
+//
+// Prüft, ob eine Antwort die Kernaussage einer Verwendungsguidance trifft — bewusst ein reiner
+// Stichwort-Abgleich, kein LLM-Richter (dasselbe Prinzip wie checkAnswer). „Robust, aber einfach“
+// heißt hier: Groß-/Kleinschreibung und unterschiedliche Unicode-Normalformen von
+// Umlauten/scharfem S spielen keine Rolle, und pro Teilaspekt der Kernaussage sind mehrere
+// Synonyme erlaubt (ODER innerhalb einer Gruppe) — keine Grammatik- oder Bedeutungsprüfung.
+
+/** Groß-/Kleinschreibung und Umlaut-Schreibweisen vereinheitlichen, damit „ERMÜDET“, „ermüdet“
+ * und die ASCII-Umschreibung „ermuedet“ als dasselbe Wort zählen, unabhängig davon, ob das
+ * Stichwort oder die Antwort den echten Umlaut oder die Umschreibung verwendet. `ä`/`ö`/`ü`
+ * werden dafür kanonisch auf `ae`/`oe`/`ue` abgebildet, nicht auf den bloßen Basisvokal.
+ * `.normalize('NFC')` geht voran, damit eine zerlegte Unicode-Form (`u` + Combining Diaeresis
+ * statt `ü`) zuerst zum vorkomponierten Zeichen zusammengesetzt wird und dieselbe Ersetzung
+ * greift. `ß` wird wie bisher auf `ss` abgebildet, damit „groß“/„GROSS“ gleich zählen.
+ * @param {string} text @returns {string} */
+function normalizeForClaimMatch(text) {
+  return text
+    .normalize('NFC')
+    .toLowerCase()
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/ß/g, 'ss');
+}
+
+/**
+ * @typedef {string[]} ClaimKeywordGroup Synonyme/Varianten für EINEN Teilaspekt der Kernaussage
+ *   (ODER-verknüpft: ein Treffer aus der Gruppe genügt).
+ */
+
+/**
+ * Prüft eine Antwort gegen die Kernaussage einer Intentionsfrage. `claimKeywords` ist eine Liste
+ * von Gruppen (siehe `ClaimKeywordGroup`); ALLE Gruppen müssen mindestens einen Treffer haben,
+ * damit die Kernaussage insgesamt als getroffen gilt (UND zwischen den Gruppen) — das bildet ab,
+ * dass eine Kernaussage meist aus mehreren Teilaspekten besteht (z. B. „welches Token“ UND
+ * „warum“), von denen keiner fehlen darf, während jeder Teilaspekt in unterschiedlichen Worten
+ * formuliert sein darf. Ein Stichwort darf ein Wortstamm sein (z. B. „ermüd“ für
+ * „ermüden“/„ermüdet“) — das ist gewollt, hält den Check aber bewusst grammatikblind.
+ *
+ * @param {string} answerText
+ * @param {ClaimKeywordGroup[]} claimKeywords
+ * @returns {{ matched: boolean, matchedGroups: ClaimKeywordGroup[], missingGroups: ClaimKeywordGroup[] }}
+ */
+export function checkCoreClaim(answerText, claimKeywords) {
+  const normalizedAnswer = normalizeForClaimMatch(answerText ?? '');
+  const matchedGroups = [];
+  const missingGroups = [];
+  for (const group of claimKeywords) {
+    const hit = group.some((keyword) => normalizedAnswer.includes(normalizeForClaimMatch(keyword)));
+    (hit ? matchedGroups : missingGroups).push(group);
+  }
+  return { matched: missingGroups.length === 0, matchedGroups, missingGroups };
+}

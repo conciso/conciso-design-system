@@ -13,7 +13,8 @@ ohne — genau das prüft dieses Eval-Set, per echtem `claude -p`-Aufruf. Zwei G
 kein CI-Gate ist:
 
 - **Kein deterministisches Ergebnis.** Modellantworten variieren zwischen Läufen.
-- **Jeder Lauf kostet API-Guthaben.** Ein CI-Gate liefe bei jedem Push.
+- **Jeder Lauf verbraucht Nutzungskontingent bzw. echtes API-Guthaben** (siehe „Was es kostet“
+  unten für die Unterscheidung). Ein CI-Gate liefe bei jedem Push.
 
 ## Wann ausführen
 
@@ -26,15 +27,28 @@ kein CI-Gate ist:
 ## Was es kostet
 
 Ein Lauf startet **zwei `claude -p`-Aufrufe pro Frage** in `mcp-server/eval/fragen.json`
-(mit Server, ohne Server) — bei 6 Fragen also 12 Aufrufe des in der Umgebung konfigurierten
-Standardmodells, mit maximal 240 s Timeout pro Aufruf. Der Bericht selbst nennt die
-tatsächlichen Kosten (Zeile „Gesamtkosten laut Claude-API“ oben, „Kosten laut Claude-API“ je
-Lauf im Detail-Abschnitt — aus `total_cost_usd` der `claude`-Ausgabe, keine Schätzung). Als
-grobe Erwartung vorab: mit einem denkfähigen Modell und mehreren Werkzeugaufrufen pro Frage
-(„mit Server“ ruft typischerweise 3–7 Werkzeuge auf, inklusive der internen `ToolSearch`-Suche
-nach den MCP-Werkzeugen) lag ein Lauf mit 6 Fragen im niedrigen einstelligen Euro-Bereich.
-Vor dem Ausführen kurz prüfen, ob `claude` in der aktuellen Shell authentifiziert ist
-(`claude --version`).
+(mit Server, ohne Server), jeweils mit dem in der Umgebung konfigurierten Standardmodell und
+maximal 240 s Timeout pro Aufruf. Die tatsächliche Fragen-/Aufrufzahl wächst mit dem Eval-Set
+mit — sie steht verlässlich am Kopf jedes Berichts (`Fragen: N`), nicht hier. Der Bericht selbst
+nennt auch den **API-Gegenwert** (Zeile „Gesamt-API-Gegenwert (total_cost_usd)“ oben,
+„API-Gegenwert (total_cost_usd)“ je Lauf im Detail-Abschnitt — aus `total_cost_usd` der
+`claude`-Ausgabe, keine Schätzung).
+
+**`total_cost_usd` ist ein API-Preis-Gegenwert, keine tatsächliche Abbuchung.** Läuft `claude`
+in der aktuellen Shell über ein **claude.ai-Abo** (Pro/Max/Team), wird dafür nichts abgerechnet
+— der Lauf zählt gegen das Nutzungskontingent des Abos, `total_cost_usd` ist dann nur der
+rechnerische Gegenwert in US-Dollar, keine reale Zahlung. **Echte, abgerechnete Kosten** in
+dieser Höhe entstehen nur bei Authentifizierung per `ANTHROPIC_API_KEY` (Pay-per-Token). Vor dem
+Ausführen also nicht nur `claude --version` prüfen, sondern auch, über welchen Weg diese Shell
+authentifiziert ist, wenn der Unterschied (Kontingent vs. echtes Geld) für die Entscheidung
+relevant ist.
+
+Als Richtwert (API-Gegenwert bzw. Kontingent-Verbrauch, kein Zielwert): ein Baseline-Lauf mit
+11 Fragen (22 Aufrufe) lag bei rund **$5,82 API-Gegenwert** insgesamt. Mit einem denkfähigen
+Modell und mehreren Werkzeugaufrufen pro Frage („mit Server“ ruft typischerweise 3–7 Werkzeuge
+auf, inklusive der internen `ToolSearch`-Suche nach den MCP-Werkzeugen) bewegt sich ein Lauf im
+niedrigen einstelligen Euro-Gegenwert-Bereich und wächst mit der Fragenzahl mit — die für den
+jeweils aktuellen Lauf tatsächliche Summe steht in der Kopfzeile des eigenen Berichts.
 
 ## Ausführen
 
@@ -68,6 +82,12 @@ und in eine Datei unter dem System-Temp-Verzeichnis (Pfad steht am Ende der Ausg
   werden dabei ignoriert — die vollständige Liste steht am Kopf von `checker.mjs`.
 - **CSS-Hinweis** — nur bei Fragen mit `"checks": ["setup-mentions-global-css", …]`: erwähnt
   die Antwort, dass die CSS-Schicht global eingebunden werden muss (ADR-0001).
+- **Kernaussage** — nur bei Fragen mit `"checks": ["core-claim-keywords", …]` (Intentionsfragen,
+  siehe unten): trifft die Antwort die erwartete Kernaussage der Verwendungsguidance? Ebenfalls
+  kein LLM-Richter, reiner Stichwort-Abgleich gegen `claimKeywords` in der Frage
+  (`mcp-server/eval/checker.mjs`, Funktion `checkCoreClaim`). Die Zelle nennt bei einem Fehlschlag,
+  wie viele der Teilaspekte (Gruppen) keinen Treffer hatten; der Detail-Abschnitt listet sie
+  einzeln mit ihren Synonymen auf.
 - **Werkzeugaufrufe** — reine Zählung, keine Wertung; interessant im Vergleich „mit“ vs.
   „ohne“ (ruft die KI mit Server tatsächlich `docs-show` auf, bevor sie antwortet?). Zählt auch
   die interne `ToolSearch`-Suche mit, über die Claude Code MCP-Werkzeuge erst auflöst — die
@@ -99,6 +119,52 @@ Eintrag:
 `setup-mentions-global-css` zusätzlich bei Einrichtungsfragen. `components` ist rein
 informativ für den Bericht; die Wahrheit für die Attribut-Prüfung holt sich das Skript bei
 jedem Lauf frisch aus dem installierten Snapshot, nie aus dieser Datei.
+
+### Intentionsfragen und der Check-Typ „core-claim-keywords“
+
+Eine **Intentionsfrage** prüft nicht nur, ob die API stimmt, sondern ob die KI die richtige
+Komponente/Variante wählt oder eine Gestaltungsregel kennt — realistische Consumer-Prompts, die
+**keine Lösung verraten** (die Frage nennt das Problem, nicht den Fachbegriff der erwarteten
+Antwort). Mit `"checks": ["core-claim-keywords"]` kommt ein weiteres Feld dazu:
+
+```json
+{
+  "id": "typo-serife-fliesstext",
+  "prompt": "Ich will für den Fließtext meiner neuen Landingpage die Schriftart Libre Baskerville verwenden, weil sie mir optisch gefällt. Passt das zu den Typografie-Regeln des Conciso Design Systems?",
+  "components": ["grundlagen-typografie"],
+  "checks": ["no-invented-attributes", "core-claim-keywords"],
+  "claimKeywords": [
+    ["montserrat"],
+    ["headline", "display", "überschrift", "titel", "hero"],
+    ["ermüd", "serifenschrift", "serifenschriften"]
+  ]
+}
+```
+
+`claimKeywords` ist eine Liste von **Gruppen**. Jede Gruppe steht für einen Teilaspekt der
+erwarteten Kernaussage (z. B. „welches Token/welche Schrift“, „warum“, „stattdessen was“) und
+enthält Synonyme/Formulierungsvarianten dafür — innerhalb einer Gruppe genügt **ein** Treffer
+(ODER), aber **alle** Gruppen müssen mindestens einen Treffer haben (UND), damit die Kernaussage
+insgesamt als getroffen gilt (`checkCoreClaim` in `checker.mjs`). Der Abgleich ist bewusst
+einfach gehalten, aber robust gegenüber:
+
+- **Groß-/Kleinschreibung** (`MONTSERRAT` == `montserrat`),
+- **Umlaut-/ß-Schreibvarianten und Unicode-Normalform** (vorkomponiertes „ü“ und zerlegtes „u“ +
+  Combining-Diaeresis zählen gleich; `groß` == `GROSS`),
+- **Wortstämmen als Stichwort** (`"ermüd"` matcht `ermüden`, `ermüdet`, `ermüdend`), sofern man
+  bewusst einen Stamm statt eines flektierten Vollworts einträgt.
+
+Kein LLM-Richter, keine Grammatik- oder Bedeutungsprüfung — ein Fund im Bericht („Kernaussage:
+fehlt“) heißt „diese Stichwörter kamen nicht vor“, nicht zwingend „die Antwort ist inhaltlich
+falsch“ (Formulierungen außerhalb der eingetragenen Synonyme rutschen durch), und umgekehrt kann
+ein zufälliger Treffer eines generischen Stichworts (z. B. „oben“) eine korrekte Antwort
+vortäuschen, die den Punkt in Wahrheit nicht trifft — wie bei `no-invented-attributes` ist der
+Bericht ein Signal für die manuelle Einordnung, kein hartes Urteil.
+
+**Quellenpflicht:** Die erwartete Kernaussage jeder Intentionsfrage muss aus der tatsächlichen
+Guidance belegbar sein (Doku-Site `docs/index.html` oder Storybook-MDX unter
+`storybook-angular/src/docs/**`) — das Zitat mit Fundstelle gehört nicht in diese Datei, sondern
+ins Issue, das die Frage eingeführt hat (siehe `docs/agents/issue-tracker.md`).
 
 ## Grenzen der automatischen Prüfung (bewusst nicht behoben)
 
