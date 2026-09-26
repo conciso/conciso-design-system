@@ -22,6 +22,13 @@
 //   - docs-show(komponenten-buttons-button) enthält zusätzlich die Verwendungsguidance
 //     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
 //     <Meta of={ButtonStories}> (ADR-0012)
+//   - docs-show(grundlagen-farben) enthält die Verwendungsguidance der Farben-Seite
+//     (Überschrift „Farbstufen, wofür?“ plus die Kontrastregel „AA ab 4,5:1 für
+//     Fließtext…“), angehängt per <Meta of={FarbenStories}> (ADR-0012, Ticket 05)
+//   - docs-show(grundlagen-typografie) enthält die Verwendungsguidance der
+//     Typografie-Seite (Überschrift „Wann welche Schrift“ plus die Kernaussage zur
+//     Schriftwahl, Montserrat für Fließtext), angehängt per
+//     <Meta of={TypografieStories}> (ADR-0012, Ticket 06)
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
 //     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
@@ -149,6 +156,50 @@ async function runProtocolChecks(client, errors, tmpDir) {
       errors.push(
         'docs-show(komponenten-buttons-button) enthält nicht den Kernsatz der Verwendungsseite ' +
           '(„Pro Kontext maximal ein Filled Button…“ aus den Dos & Don\'ts).',
+      );
+    }
+  }
+
+  const docsShowFarben = await client.request('tools/call', {
+    name: 'docs-show',
+    arguments: { id: 'grundlagen-farben' },
+  });
+  if (docsShowFarben.error) {
+    errors.push(`docs-show(grundlagen-farben) fehlgeschlagen: ${JSON.stringify(docsShowFarben.error)}`);
+  } else {
+    const text = docsShowFarben.result?.content?.[0]?.text ?? '';
+    // Verwendungsguidance (Ticket 05, ADR-0012): die Seite hängt per
+    // <Meta of={FarbenStories}> an der Foundation-Story „Grundlagen/Farben“,
+    // docs-show liefert sie mit derselben id wie Paletten/Semantisch mit.
+    if (!text.includes('## Farbstufen, wofür?')) {
+      errors.push('docs-show(grundlagen-farben) enthält nicht die Überschrift „Farbstufen, wofür?“.');
+    }
+    if (!text.includes('AA ab 4,5:1 für Fließtext')) {
+      errors.push(
+        'docs-show(grundlagen-farben) enthält nicht die Kontrastregel „AA ab 4,5:1 für Fließtext…“.',
+      );
+    }
+  }
+
+  const docsShowTypografie = await client.request('tools/call', {
+    name: 'docs-show',
+    arguments: { id: 'grundlagen-typografie' },
+  });
+  if (docsShowTypografie.error) {
+    errors.push(
+      `docs-show(grundlagen-typografie) fehlgeschlagen: ${JSON.stringify(docsShowTypografie.error)}`,
+    );
+  } else {
+    const text = docsShowTypografie.result?.content?.[0]?.text ?? '';
+    // Verwendungsguidance (Ticket 06, ADR-0012): die Seite hängt per
+    // <Meta of={TypografieStories}> an der Foundation-Story „Grundlagen/Typografie“.
+    if (!text.includes('## Wann welche Schrift')) {
+      errors.push('docs-show(grundlagen-typografie) enthält nicht die Überschrift „Wann welche Schrift“.');
+    }
+    if (!text.includes('Montserrat (Grotesk, Title, Body und Label) trägt UI-Text, Fließtext')) {
+      errors.push(
+        'docs-show(grundlagen-typografie) enthält nicht die Kernaussage zur Schriftwahl ' +
+          '(Montserrat für Fließtext).',
       );
     }
   }
