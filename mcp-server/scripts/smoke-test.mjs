@@ -24,15 +24,15 @@
 //     <Meta of={ButtonStories}> (ADR-0012)
 //   - docs-show(grundlagen-farben) enthält die Verwendungsguidance der Farben-Seite
 //     (Überschrift „Farbstufen, wofür?“ plus die Kontrastregel „AA ab 4,5:1 für
-//     Fließtext…“), angehängt per <Meta of={FarbenStories}> (ADR-0012, Ticket 05)
+//     Fließtext…“), angehängt per <Meta of={FarbenStories}> (ADR-0012)
 //   - docs-show(grundlagen-typografie) enthält die Verwendungsguidance der
 //     Typografie-Seite (Überschrift „Wann welche Schrift“ plus die Kernaussage zur
 //     Schriftwahl, Montserrat für Fließtext), angehängt per
-//     <Meta of={TypografieStories}> (ADR-0012, Ticket 06)
-//   - Stichprobe je Komponentengruppe (Ticket 04): docs-show der tragenden Komponente
+//     <Meta of={TypografieStories}> (ADR-0012)
+//   - Stichprobe je Komponentengruppe: docs-show der tragenden Komponente
 //     enthält eine Kernaussage der jeweiligen Verwendungsseite (GROUP_USAGE_CHECKS unten)
 //   - docs-list enthält NICHT mehr die alten, eigenständigen IDs der jetzt angehängten
-//     Verwendungsseiten (Button plus die 16 Gruppen aus Ticket 04, OLD_STANDALONE_VERWENDUNG_DOC_IDS
+//     Verwendungsseiten (Button plus die 16 Gruppen, OLD_STANDALONE_VERWENDUNG_DOC_IDS
 //     unten) — jede Seite kommt nur noch angehängt zurück, nicht doppelt
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
@@ -70,7 +70,7 @@ const BUTTON_SELECTOR = 'cds-button';
 // Vor dem Anhängen per <Meta of={...}> (ADR-0012) hatten diese Verwendungsseiten eine
 // eigenständige ID im Docs-Manifest; keine davon darf nach dem Anhängen in docs-list
 // wieder auftauchen (sonst käme die jeweilige Seite doppelt zurück). Erster Eintrag ist
-// Button (Spike), die übrigen 16 sind der Rollout aus Ticket 04 über alle Gruppen.
+// Button (Spike), die übrigen 16 sind der Rollout über alle Gruppen.
 const OLD_STANDALONE_VERWENDUNG_DOC_IDS = [
   'komponenten-buttons--verwendung',
   'komponenten-chips-badges-pills--verwendung',
@@ -90,7 +90,7 @@ const OLD_STANDALONE_VERWENDUNG_DOC_IDS = [
   'komponenten-theme-umschalter--verwendung',
   'marke-logo--verwendung',
 ];
-// Stichprobe je Komponentengruppe (Ticket 04, ADR-0012-Nachtrag): docs-show der tragenden
+// Stichprobe je Komponentengruppe (ADR-0012-Nachtrag): docs-show der tragenden
 // Komponente jeder Gruppe enthält einen Kernsatz aus deren angehängter Verwendungsseite. Button
 // selbst ist bereits oben geprüft (eigene Assertion mit Docgen-Abgleich), hier nicht doppelt.
 const GROUP_USAGE_CHECKS = [
@@ -266,7 +266,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
     errors.push(`docs-show(grundlagen-farben) fehlgeschlagen: ${JSON.stringify(docsShowFarben.error)}`);
   } else {
     const text = docsShowFarben.result?.content?.[0]?.text ?? '';
-    // Verwendungsguidance (Ticket 05, ADR-0012): die Seite hängt per
+    // Verwendungsguidance (ADR-0012): die Seite hängt per
     // <Meta of={FarbenStories}> an der Foundation-Story „Grundlagen/Farben“,
     // docs-show liefert sie mit derselben id wie Paletten/Semantisch mit.
     if (!text.includes('## Farbstufen, wofür?')) {
@@ -289,7 +289,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
     );
   } else {
     const text = docsShowTypografie.result?.content?.[0]?.text ?? '';
-    // Verwendungsguidance (Ticket 06, ADR-0012): die Seite hängt per
+    // Verwendungsguidance (ADR-0012): die Seite hängt per
     // <Meta of={TypografieStories}> an der Foundation-Story „Grundlagen/Typografie“.
     if (!text.includes('## Wann welche Schrift')) {
       errors.push('docs-show(grundlagen-typografie) enthält nicht die Überschrift „Wann welche Schrift“.');
@@ -341,7 +341,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
   }
 }
 
-/** Stichprobe je Komponentengruppe (Ticket 04): docs-show der tragenden Komponente enthält
+/** Stichprobe je Komponentengruppe: docs-show der tragenden Komponente enthält
  * einen Kernsatz ihrer angehängten Verwendungsseite (<Meta of={...}>, ADR-0012). Ein Fehlschlag
  * hier bedeutet entweder ein verlorenes Attachment (Umbau/Refactoring) oder einen geänderten
  * Kernsatz in der MDX-Datei — beides soll den Smoke-Test rot machen, nicht erst ein Eval. */
