@@ -9,8 +9,7 @@ let uid = 0;
  * ArticleCallout (`cds-article-callout`) — Wrapper um `.article-callout*` aus
  * css/components.css (css/components.css:1591–1600): der bereichsgetönte
  * Aside-Block für Praxis-Beispiele und „In der Realität“-Einschübe im Lauftext
- * eines Wissensbeitrags. Zwölftes Ticket der Seitenbausteine-Serie
- * („Artikel-Körper“). Ausgezählt: 5 reale Vorkommen, je eines pro Bereich in der
+ * eines Wissensbeitrags. Ausgezählt: 5 reale Vorkommen, je eines pro Bereich in der
  * Doku-Sektion (`docs/index.html:8086–8115`, co/ki/es/wo) plus eines in der realen
  * Beispielseite Wissensbeitrag · KI (`docs/index.html:15110–15114`).
  *
@@ -27,8 +26,8 @@ let uid = 0;
  * `.article-body` und dem `<aside>` bricht deshalb keine Selektorkette.
  *
  * **Projizierte Absätze bleiben direkte Kinder von `.article-callout`, kein
- * `<div>` um `<ng-content>`** (Ticket-Vorgabe: `.article-callout > p` ist ein
- * Kindselektor, css/components.css:1600). `<ng-content>` selbst fügt kein
+ * `<div>` um `<ng-content>`:** `.article-callout > p` ist ein
+ * Kindselektor, css/components.css:1600. `<ng-content>` selbst fügt kein
  * DOM-Element ein — es verschiebt nur die vom Konsumenten geschriebenen
  * `<p>`-Elemente an ihre Stelle direkt im `<aside>`, eine Ebene unter dem
  * `<cds-article-callout>`-Host, aber ohne zusätzlichen Knoten dazwischen. Geprüft

@@ -25,7 +25,7 @@ const meta: Meta<ArticleFigureComponent> = {
           '2 der 3 realen Mockup-Vorkommen dieses Attribut (die beiden Bilder MIT Caption, mittig ' +
           'im Lauftext), das dritte (ein captionsloses Lead-Bild direkt unter dem Article Header, ' +
           '`docs/index.html:15040–15042`) trägt stattdessen `loading="eager" fetchpriority="high"` ' +
-          'und liegt außerhalb dieses Bauteils — die Ticket-API sieht dafür kein Input vor. `alt` ' +
+          'und liegt außerhalb dieses Bauteils — die API sieht dafür kein Input vor. `alt` ' +
           "ist Pflicht, `caption` Beiwerk mit Default `''` (kein `<figcaption>` ohne Text).",
       },
     },

@@ -30,8 +30,8 @@ import { StoererComponent } from './stoerer.component';
  * hat ausschließlich `<li>` als direkte Kinder (`ul.stoerer-list > *` → `["LI","LI"]`),
  * `<cds-stoerer>` selbst taucht im gerenderten DOM nirgends auf — Angular hängt
  * unprojizierten Content ohne passendes `<ng-content>`-Ziel gar nicht erst ein, exakt
- * wie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die im
- * Ticket vermerkte Alternative) hätte denselben DOM-Baum ergeben, aber den
+ * wie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die
+ * erwogene Alternative) hätte denselben DOM-Baum ergeben, aber den
  * Konsumenten gezwungen, das projizierte Icon jeder Kachel in ein Datenobjekt
  * umzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API
  * erhalten.

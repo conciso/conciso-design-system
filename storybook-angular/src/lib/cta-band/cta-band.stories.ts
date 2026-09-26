@@ -52,7 +52,7 @@ export default meta;
 type Story = StoryObj<CtaBandComponent>;
 
 export const Interaktiv: Story = {
-  // Bekannter CSS-Kern-Befund, kein Wrapper-Artefakt (Randbedingung 1, spec.md):
+  // Bekannter CSS-Kern-Befund, kein Wrapper-Artefakt:
   // `.ep-cta-sub` (opacity:.85, css/components.css:1458) unterschreitet auf --co-700
   // den AA-Kontrast (gerechnet mit der WCAG-Formel gegen die Token-Werte: 4,46:1 statt
   // 4,5:1 — Weiß bei 85% Deckkraft ergibt #d9eaea auf #007575). Auf ki-800/es-700/
@@ -101,8 +101,8 @@ export const Interaktiv: Story = {
 export const ProBereich: Story = {
   name: 'Pro Bereich',
   parameters: { controls: { disable: true } },
-  // Absichtlich unterschiedlich lange Unterzeilen (Regressionsschutz-Konvention aus
-  // spec.md): mit gleich langen Texten bliebe ein gebrochener Zeilenumbruch unsichtbar.
+  // Absichtlich unterschiedlich lange Unterzeilen (Regressionsschutz-Konvention): mit
+  // gleich langen Texten bliebe ein gebrochener Zeilenumbruch unsichtbar.
   render: () => ({
     moduleMetadata: { imports: [CtaBandComponent] },
     template: `

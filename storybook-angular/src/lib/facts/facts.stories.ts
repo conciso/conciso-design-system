@@ -20,9 +20,9 @@ const meta: Meta<FactsComponent> = {
           'Semantik einer Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element kann es ' +
           'nicht annehmen. Jedes Paar rendert als `<div><dt>…</dt><dd>…</dd></div>`, weil ' +
           '`.ep-facts > div + div` den Trenner ab dem zweiten Paar über den direkten `<div>`-' +
-          'Nachfahren setzt. `area` färbt `.t-{area}` auf jedes `<dt>` — über die Ticket-Skizze ' +
+          'Nachfahren setzt. `area` färbt `.t-{area}` auf jedes `<dt>` — über die ursprüngliche Skizze ' +
           'hinaus ergänzt, weil alle 3 realen `.ep-facts`-Vorkommen im Mockup diese Tönung ' +
-          'einheitlich einsetzen (siehe Klassendoku und Ticket-Bericht).',
+          'einheitlich einsetzen (siehe Klassendoku).',
       },
     },
   },

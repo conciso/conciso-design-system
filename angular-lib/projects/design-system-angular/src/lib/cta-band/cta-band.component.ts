@@ -41,7 +41,7 @@ import type { CdsArea } from '../area';
  * bereits). Trotzdem baut diese Komponente die `.btn`-Klassen direkt zusammen
  * (Präzedenzfall `download-cta.component.ts`), aus einem härteren Grund als dort:
  * `cds-button` rendert IMMER ein `<button>` — sein Input-Vertrag
- * (`ButtonComponentInputs`) kennt kein `href` — und kann die vom Ticket geforderte
+ * (`ButtonComponentInputs`) kennt kein `href` — und kann die hier nötige
  * Verzweigung „`primaryHref` gesetzt → `<a>`“ strukturell gar nicht erfüllen. Ein
  * projiziertes `<cds-button>` brächte hier also kein Custom-Element-Layoutproblem
  * (kein Kindselektor an `.ep-cta-band` hängt von der DOM-Tiefe ab), sondern schlicht

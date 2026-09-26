@@ -5,12 +5,11 @@ import type { CdsArea } from '../area';
  * ArticlePullquote (`cds-article-pullquote`) — Wrapper um `.article-pullquote` aus
  * css/components.css (css/components.css:1608–1612): die typografische
  * Hervorhebung eines Satzes aus dem eigenen Lauftext eines Wissensbeitrags.
- * Zwölftes Ticket der Seitenbausteine-Serie („Artikel-Körper“). Ausgezählt: 2
- * reale Vorkommen, wortgleich, beide `data-area="ki"` — Doku-Demo
+ * Ausgezählt: 2 reale Vorkommen, wortgleich, beide `data-area="ki"` — Doku-Demo
  * (`docs/index.html:8136`) und reale Beispielseite Wissensbeitrag · KI
  * (`docs/index.html:15075`).
  *
- * **Nicht `cds-blockquote` (`BlockquoteComponent`, `.bq`) — Ticket-Vorgabe, im
+ * **Nicht `cds-blockquote` (`BlockquoteComponent`, `.bq`) — im
  * JSDoc beider Bauteile wechselseitig abgegrenzt.** Pull-Quote und Blockquote
  * teilen die typografische Familie (Serif, bereichsgefärbter Linksakzent in
  * `{area}-500`), aber nicht den Zweck, dokumentiert in `wissensbeitrag.mdx`,

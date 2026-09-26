@@ -47,7 +47,7 @@ export default meta;
 type Story = StoryObj<FeaturedCardComponent>;
 
 export const Interaktiv: Story = {
-  // Die gefährliche Stelle des Tickets: .card-featured arbeitet mit direkten
+  // Die fragile Stelle: .card-featured arbeitet mit direkten
   // Kindselektoren (.card-featured>.card-media, .card-featured-body>.pill/-.card-text/
   // -.card-title-hero). Diese Play-Funktion prüft die gerenderte Kette im echten DOM,
   // nicht nur, dass die Klassen irgendwo vorkommen — zusätzlich verifiziert im

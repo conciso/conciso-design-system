@@ -50,8 +50,8 @@ const meta: Meta<ArticleTocComponent> = {
           'css/components.css:1577–1589). Natives `<details>`/`<summary>`, kein nachgebautes ' +
           'Disclosure: Tastaturbedienung und Toggle-Zustand kommen vom Browser, das CSS hängt an ' +
           '`[open]`. Zweites Vorkommen des `<details>`-mit-Caret-Musters neben `cds-compare` — ' +
-          'bewusst NICHT zusammengezogen (ADR-0007 §5), unter anderem weil dieses Bauteil laut ' +
-          'Ticket-API keinen `toggled`-Output hat. `aria-label` am `<summary>` ' +
+          'bewusst NICHT zusammengezogen (ADR-0007 §5), unter anderem weil dieses Bauteil ' +
+          'keinen `toggled`-Output hat. `aria-label` am `<summary>` ' +
           '(„Inhaltsverzeichnis ein- und ausklappen“) ist fest verdrahtet, 1:1 aus beiden realen ' +
           'Mockup-Vorkommen übernommen, kein erfundener zugänglicher Name. Element-Selektor ' +
           '(ADR-0008-Standardfall): `.article-toc` ist in beiden Vorkommen ein gewöhnlicher ' +
