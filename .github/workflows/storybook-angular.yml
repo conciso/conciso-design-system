@@ -184,9 +184,12 @@ jobs:
         with:
           name: storybook-static
           path: storybook-angular/storybook-static
-      # Unit-Tests des Pakets (test/*.test.mjs) und der Eval-Checker-Logik (eval/checker.test.mjs,
-      # bewusst getrennt gehalten von `npm test`, siehe Kommentar in eval/checker.test.mjs).
-      # Beide brauchen den Snapshot aus dem Schritt oben, keinen Tarball.
+      - name: MCP-Snapshot bauen
+        run: npm run build:snapshot -w mcp-server
+      # Unit-Tests des Pakets (test/*.test.mjs, braucht den Snapshot direkt eben gebaut) und der
+      # Eval-Checker-Logik (eval/checker.test.mjs, bewusst getrennt gehalten von `npm test`,
+      # siehe Kommentar in eval/checker.test.mjs — braucht den Snapshot NICHT, arbeitet mit
+      # handgepflegten Fixtures).
       - name: Unit-Tests (mcp-server)
         run: npm test -w mcp-server
       - name: Eval-Checker-Tests (mcp-server)
