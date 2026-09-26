@@ -101,6 +101,7 @@ $bg-page: #FFFFFF;
 $bg-surface: #FFFFFF;
 $bg-overlay: rgba(0,94,94,.06);
 $bg-code: #0D1F1F;
+$bg-scrim: rgba(6,15,15,.48);
 $bg-surface-hover: #FFFFFF;
 $bg-plate: #FFFFFF;
 $tx-brand: #333E48;
@@ -176,6 +177,7 @@ $conciso-dark: (
   "bg-page": #151A1F,
   "bg-surface": #28323D,
   "bg-overlay": rgba(0,190,190,.10),
+  "bg-scrim": rgba(0,0,0,.64),
   "bg-code": #07090C,
   "bg-surface-hover": #2E3B46,
   "bg-plate": #E8EDED,

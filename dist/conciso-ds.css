@@ -122,6 +122,11 @@
 
   /* ── Surfaces & Text ── */
   --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  /* --bg-scrim: Abdunklung hinter modalen Ebenen (.dialog::backdrop). Keine Flächen-Stufe, sondern
+     eine Schicht über der Seite: sie nimmt dem Inhalt dahinter das Gewicht, damit die modale Fläche
+     (--bg-surface + --bd-strong) allein trägt. n-900 zu 48 %: Weiß darunter wird zu #878C8C, die
+     Dialogfläche hebt sich mit 3,4:1 ab. */
+  --bg-scrim:rgba(6,15,15,.48);
   /* --bg-surface-hover: gehobene Fläche interaktiver Elemente im Hover. Light bewusst gleich
      --bg-surface: auf weißem Grund trägt die Tiefe der Schatten (--e3), eine Aufhellung gäbe es
      nicht. Im Dark trägt der Schatten weniger, dort hebt der Zustand zusätzlich die Fläche.
@@ -272,6 +277,10 @@
      Dark-only: Stufe bg-page zu bg-surface ❌ 1,223:1 → ✓ 1,346:1. Trotz tieferer Basis wächst die
      Tiefe, weil mehr Kopfraum nach unten mehr Spielraum nach oben schafft. */
   --bg-page:#151A1F; --bg-surface:#28323D; --bg-overlay:rgba(0,190,190,.10);
+  /* Dark-only: Der Light-Scrim (n-900 zu 48 %) dunkelt #151A1F nur auf #0E1316 ab, der Dialog
+     gewinnt ❌ kaum Abstand zum Grund → Schwarz zu 64 % ✓ Grund #08090B, Dialog #28323D mit
+     --bd-strong-Rand darauf klar abgesetzt. (Light: rgba(6,15,15,.48).) */
+  --bg-scrim:rgba(0,0,0,.64);
   /* Dark-only: bg-code #060D0D ❌ 1,12:1 gegen die neue Seite, der Well verschwand → #07090C ✓
      1,14:1, zusammen mit dem --bd-Rahmen ablesbar. (Light: n-800 als dunkler Well auf Weiß.) */
   --bg-code:#07090C;
@@ -1907,6 +1916,44 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .snack-ok{background:var(--c-success-strong);color:var(--c-success-on-strong)}
 .snack-err{background:var(--c-error-strong);color:var(--c-error-on-strong)}
 .snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
+
+/* ── Dialog ──
+   Modale Rückfrage auf dem nativen <dialog> (showModal): Fokus-Falle, Escape und die inerte Seite
+   kommen vom Browser. Aufbau: <dialog class="dialog" role="alertdialog"> > .dialog-inner >
+   h2.dialog-title + p.dialog-body + .dialog-actions. Fläche wie schwebende Panels (Menüs,
+   Snackbar): --bg-surface, --bd-strong in beiden Modi, --e3.
+   .dialog selbst hat keinen Innenabstand. So ist ein Klick, dessen Ziel das <dialog> selbst ist,
+   eindeutig ein Klick auf den Hintergrund; der Abstand sitzt in .dialog-inner.
+   Keine Einblend-Animation: nichts, was prefers-reduced-motion abfangen müsste, und stabile
+   Visual-Snapshots. */
+.dialog{padding:0;margin:auto;border:var(--bd-strong);border-radius:var(--r-md);background:var(--bg-surface);color:var(--tx-primary);box-shadow:var(--e3);width:min(480px,calc(100% - 2 * var(--s4)));max-width:none;max-height:calc(100% - 2 * var(--s4));overflow:hidden}
+.dialog[open]{display:flex;flex-direction:column}
+.dialog::backdrop{background:var(--bg-scrim)}
+.dialog-inner{display:flex;flex-direction:column;min-height:0;padding:var(--s6);overflow-y:auto;container-type:inline-size}
+.dialog-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
+/* Wird es eng, scrollt zuerst der Text, Titel und Aktionen bleiben stehen. Er behält aber immer
+   zwei Zeilen: auf null geschrumpft wäre die Folge der Aktion unsichtbar. Reicht auch das nicht
+   (400 % Zoom, 320 × 256 px), scrollt .dialog-inner als Ganzes, der autofocus holt die sichere
+   Aktion dabei ins Bild (WCAG 1.4.10). */
+.dialog-body{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6);overflow-y:auto;min-height:2lh}
+/* DOM-Reihenfolge = sichtbare Reihenfolge (Abbrechen, dann Bestätigen), nie *-reverse, sonst
+   springt der Tab-Fokus scheinbar rückwärts (WCAG 2.4.3). wrap fängt ungewöhnlich lange Labels ab. */
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--s3);flex-shrink:0}
+/* Unter 400 px Innenbreite untereinander, Bestätigen unten am Daumen. Gemessen: die längsten
+   üblichen Paare („Weiter bearbeiten“ + „Verwerfen“, „Abbrechen“ + „Anfrage absenden“) brauchen
+   378 bis 380 px, der Dialog bietet bei 480 px Breite 430 px, auf einem 360-px-Gerät 278 px. */
+@container (max-width: 400px){
+  .dialog-actions{flex-direction:column;align-items:stretch}
+  .dialog-actions .btn{justify-content:center}
+}
+/* Wenig Höhe (Querformat, starker Zoom): Innenabstand eine Stufe kleiner, mehr Platz für Inhalt. */
+@media (max-height: 480px){
+  .dialog-inner{padding:var(--s4)}
+  .dialog-body{margin-bottom:var(--s4)}
+}
+/* Seite hinter einem offenen Dialog scrollt nicht mit; stable hält die Scrollbar-Spur frei,
+   damit der Inhalt beim Öffnen nicht springt. */
+html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
 
 /* ── Footer ──
    Zwei-Band-Layout: heller Main-Bereich (.footer-main) + dunkler Bottom-Streifen (.footer-btm).
