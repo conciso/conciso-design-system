@@ -20,6 +20,13 @@ function makeFixtureRoot() {
       peerDependencies: { '@angular/core': '^21.2.0', '@conciso/design-system': '0.0.x' },
     }),
   );
+  // Drittes Lockstep-Paket (ADR-0012): keine Peer-Pin, nur eine Version.
+  const mcpDir = join(root, 'mcp-server');
+  mkdirSync(mcpDir, { recursive: true });
+  writeFileSync(
+    join(mcpDir, 'package.json'),
+    JSON.stringify({ name: '@conciso/design-system-mcp', version: '0.0.0' }),
+  );
   return root;
 }
 
@@ -27,7 +34,7 @@ function readPkg(...segments) {
   return JSON.parse(readFileSync(join(...segments), 'utf8'));
 }
 
-test('schreibt die Version in beide package.json und die Peer-Pin der Lib', () => {
+test('schreibt die Version in alle drei package.json und die Peer-Pin der Lib', () => {
   const root = makeFixtureRoot();
   try {
     stampVersion('2.0.0', root);
@@ -40,6 +47,12 @@ test('schreibt die Version in beide package.json und die Peer-Pin der Lib', () =
     assert.equal(libPkg.peerDependencies['@conciso/design-system'], '2.0.x');
     // andere Peers bleiben unangetastet
     assert.equal(libPkg.peerDependencies['@angular/core'], '^21.2.0');
+
+    // Drittes Lockstep-Paket (ADR-0012): reiner Versionsstempel, keine Peer-Pin — der
+    // MCP-Server prüft die installierte Angular-Lib zur Laufzeit statt sie zu pinnen
+    // (siehe mcp-server/src/version-check.mjs).
+    const mcpPkg = readPkg(root, 'mcp-server/package.json');
+    assert.equal(mcpPkg.version, '2.0.0');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -53,9 +66,11 @@ test('ist idempotent: zweimaliges Stempeln derselben Version liefert dasselbe Er
 
     const rootPkg = readPkg(root, 'package.json');
     const libPkg = readPkg(root, 'angular-lib/projects/design-system-angular/package.json');
+    const mcpPkg = readPkg(root, 'mcp-server/package.json');
     assert.equal(rootPkg.version, '2.0.0');
     assert.equal(libPkg.version, '2.0.0');
     assert.equal(libPkg.peerDependencies['@conciso/design-system'], '2.0.x');
+    assert.equal(mcpPkg.version, '2.0.0');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
@@ -64,6 +79,8 @@ test('ist idempotent: zweimaliges Stempeln derselben Version liefert dasselbe Er
 test('bricht ab, wenn die Peer-Pin auf @conciso/design-system in der Lib fehlt', () => {
   // Sonst würde die Lib mit einer falschen/offenen Range gegen die CSS-Schicht
   // veröffentlicht, ohne dass irgendwas den gebrochenen Lockstep meldet (ADR-0004).
+  // Bewusst OHNE mcp-server/-Fixture: die Peer-Pin-Prüfung wirft, bevor mcp-server/package.json
+  // überhaupt gelesen wird — belegt zugleich, dass kein drittes Manifest angefasst wird.
   const root = mkdtempSync(join(tmpdir(), 'stamp-version-'));
   try {
     writeFileSync(join(root, 'package.json'), JSON.stringify({ name: 'root', version: '0.0.0' }));
@@ -114,6 +131,10 @@ test('akzeptiert eine Prerelease-Bootstrap-Version (npmjs-Erst-Publish, CONTRIBU
     const libPkg = readPkg(root, 'angular-lib/projects/design-system-angular/package.json');
     assert.equal(libPkg.version, '0.0.0-bootstrap.0');
     assert.equal(libPkg.peerDependencies['@conciso/design-system'], '0.0.x');
+    // Auch der MCP-Server bekommt den Bootstrap-Platzhalter gestempelt — derselbe
+    // Erst-Publish-Schritt gilt seit ADR-0012 für alle drei Pakete (CONTRIBUTING § 15).
+    const mcpPkg = readPkg(root, 'mcp-server/package.json');
+    assert.equal(mcpPkg.version, '0.0.0-bootstrap.0');
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

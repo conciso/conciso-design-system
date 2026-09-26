@@ -12,6 +12,7 @@ on:
     paths:
       - 'storybook-angular/**'
       - 'angular-lib/**'
+      - 'mcp-server/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -26,6 +27,7 @@ on:
     paths:
       - 'storybook-angular/**'
       - 'angular-lib/**'
+      - 'mcp-server/**'
       - 'css/**'
       - 'dist/**'
       - 'icons/**'
@@ -130,6 +132,19 @@ jobs:
         # PLAYWRIGHT_BROWSERS_PATH=0 wie beim Install oben: der Browser liegt dann im
         # playwright-core-Paket selbst, das Skript findet ihn von der Wurzel aus.
         run: PLAYWRIGHT_BROWSERS_PATH=0 npm run check:contrast
+      # Unbedingt (nicht nur auf main) hochladen: der mcp-smoke-test-Job unten braucht denselben
+      # Storybook-Build bei jedem PR und Push, um manifests/ + services/ in den MCP-Snapshot zu
+      # kopieren (ADR-0012). Der Pages-Artefakt zwei Steps weiter unten eignet sich dafür nicht:
+      # er entsteht nur bedingt (nur auf main, nur bei push/workflow_dispatch), liegt in einem
+      # für actions/deploy-pages reservierten Format und würde den Smoke-Test bei jedem PR ohne
+      # Grundlage dastehen lassen. Kurze Aufbewahrung, weil es ein reines Zwischenartefakt für
+      # denselben Workflow-Lauf ist.
+      - name: Storybook-Build für MCP-Snapshot hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-angular/storybook-static
+          retention-days: 1
       # Nur hochladen, wenn danach auch tatsächlich deployt wird — dieselbe
       # Bedingung wie im deploy-Job. Sonst läge bei jedem PR ein ungenutztes
       # Pages-Artefakt herum. Auch der manuelle Trigger zählt nur auf main:
@@ -140,6 +155,53 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: storybook-angular/storybook-static
+
+  # MCP-Server-Tarball-Smoke-Test (Issue 04, ADR-0012): baut aus demselben Storybook-Build wie
+  # oben (kein zweiter build-storybook-Lauf) den Snapshot des @conciso/design-system-mcp-Pakets,
+  # tarballt es per `npm pack` und installiert genau dieses Tarball in ein frisches Verzeichnis —
+  # wie ein Consumer es täte —, um dort über stdio rohes JSON-RPC gegen `cds-mcp` zu sprechen
+  # (mcp-server/scripts/smoke-test.mjs). Läuft bei jedem PR und Push (kein `if:`, folgt also
+  # `verify`s eigenen Trigger-Bedingungen), unabhängig vom Pages-Deploy — deploy bleibt bewusst
+  # nur von `verify` abhängig, nicht zusätzlich hiervon.
+  mcp-smoke-test:
+    name: MCP-Server — Tarball-Smoke-Test über stdio
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      # npm-Workspace wie im verify-Job → vom Repo-Root installieren.
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Storybook-Build aus dem verify-Job herunterladen
+        uses: actions/download-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-angular/storybook-static
+      - name: MCP-Snapshot bauen
+        run: npm run build:snapshot -w mcp-server
+      - name: Tarball packen und Smoke-Test über stdio fahren
+        run: |
+          mkdir -p /tmp/mcp-pack
+          npm pack -w mcp-server --silent --pack-destination /tmp/mcp-pack
+          # Absichtlich NICHT `TARBALL="$(npm pack …)"`: der `prepack`-Lifecycle-Hook (siehe
+          # mcp-server/scripts/prepack.mjs) und `npm pack` selbst schreiben beide auf denselben
+          # stdout, eine Capture bekäme zwei Zeilen statt einer und der Smoke-Test fände den
+          # Tarball nicht (reproduziert und gefixt am 2026-09-25). Stattdessen die eine erzeugte
+          # .tgz-Datei im Zielverzeichnis suchen — unabhängig davon, was ein Lifecycle-Hook je
+          # auf stdout schreibt.
+          TARBALL="$(find /tmp/mcp-pack -maxdepth 1 -name '*.tgz')"
+          if [ -z "$TARBALL" ] || [ "$(printf '%s\n' "$TARBALL" | wc -l)" -ne 1 ]; then
+            echo "Erwartete genau eine .tgz-Datei in /tmp/mcp-pack, gefunden: $TARBALL" >&2
+            exit 1
+          fi
+          node mcp-server/scripts/smoke-test.mjs "$TARBALL"
 
   deploy:
     name: Auf GitHub Pages veröffentlichen

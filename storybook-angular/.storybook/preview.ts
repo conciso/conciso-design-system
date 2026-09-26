@@ -76,6 +76,7 @@ const preview: Preview = {
           ],
           'Grundlagen',
           [
+            'Einrichtung',
             'Farben',
             'Typografie',
             'Spacing & Grid',

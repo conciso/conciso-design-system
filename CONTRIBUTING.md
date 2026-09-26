@@ -251,25 +251,31 @@ Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf 
 
 ## 15. npm Trusted Publishing einrichten (einmalig, per Bootstrap VOR dem Merge)
 
-Seit [ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md) veröffentlicht
-`.github/workflows/publish.yml` beide Pakete zusätzlich auf npmjs.org, per **npm
+Seit [ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md) (CSS-Schicht, Angular-Lib)
+und [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md) (MCP-Server) veröffentlicht
+`.github/workflows/publish.yml` alle drei Pakete zusätzlich auf npmjs.org, per **npm
 Trusted Publishing (OIDC)** — kein `NPM_TOKEN`. npmjs.com erlaubt das Einrichten
 eines Trusted Publisher aber nur für ein **bereits existierendes** Paket
 (Bootstrap-Problem, siehe ADR-0011) — die folgende Checkliste löst das **vor** dem
 Merge dieses Features, damit der erste echte Release über die Pipeline von Anfang
 an grün durchläuft, statt beim npmjs-Schritt absichtlich rot zu laufen. Pro Paket
-einmalig nötig, in dieser Reihenfolge:
+(auch für den MCP-Server) einmalig nötig, in dieser Reihenfolge:
 
 1. **Bootstrap-Publish von Hand, aus einem sauber gebauten Stand dieses Branches**
    (nicht von main — main hat den Publish-Workflow für npmjs noch nicht):
    - Mit einem Account, der Publish-Recht in der npm-Org `conciso` hat, lokal
      `npm login` (oder ein bestehendes, kurzlebiges Access-Token verwenden).
    - `npm ci`, dann eine **Platzhalterversion** stempeln — bewusst nicht die
-     nächste echte Version, damit sie als das erkennbar bleibt, was sie ist:
+     nächste echte Version, damit sie als das erkennbar bleibt, was sie ist.
+     `stamp-version.mjs` schreibt sie in alle drei `package.json` auf einmal
+     (Lockstep, siehe ADR-0012); danach den MCP-Snapshot aus einem frischen
+     Storybook-Build bauen, sonst bricht dessen `prepack`-Schritt gleich ab:
      ```bash
      node scripts/release/stamp-version.mjs 0.0.0-bootstrap.0
      npm run build                         # CSS-Schicht
      npm run build --workspace=angular-lib # Angular-Lib
+     npm run build:storybook               # Quelle des MCP-Snapshots
+     npm run build:snapshot -w mcp-server  # MCP-Snapshot (aus dem Storybook-Build oben)
      ```
    - Veröffentlichen — **mit** `--access public` (gescopte Pakete sind sonst
      privat), unter dem Tag `bootstrap` statt `latest`, und **ohne** `--dry-run`:
@@ -277,6 +283,9 @@ einmalig nötig, in dieser Reihenfolge:
      npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
      # Angular-Lib aus angular-lib/dist/design-system-angular heraus:
      cd angular-lib/dist/design-system-angular && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
+     # MCP-Server aus mcp-server/ heraus (dessen eigener prepack-Schritt kopiert die
+     # LICENSE und baut den Snapshot ohnehin erneut, aus dem oben schon gebauten Storybook):
+     cd mcp-server && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
      ```
    - **`latest`-Tag prüfen.** Ob ein allererster Publish mit `--tag bootstrap`
      zusätzlich `latest` setzt, ist in der npm-Doku nicht eindeutig geklärt
@@ -284,18 +293,20 @@ einmalig nötig, in dieser Reihenfolge:
      ```bash
      npm view @conciso/design-system dist-tags --@conciso:registry=https://registry.npmjs.org
      npm view @conciso/design-system-angular dist-tags --@conciso:registry=https://registry.npmjs.org
+     npm view @conciso/design-system-mcp dist-tags --@conciso:registry=https://registry.npmjs.org
      ```
      Zeigt `latest` auf `0.0.0-bootstrap.0`, den Tag entfernen:
      ```bash
      npm dist-tag rm @conciso/design-system latest --@conciso:registry=https://registry.npmjs.org
      npm dist-tag rm @conciso/design-system-angular latest --@conciso:registry=https://registry.npmjs.org
+     npm dist-tag rm @conciso/design-system-mcp latest --@conciso:registry=https://registry.npmjs.org
      ```
      Falls das nicht greift: kein Beinbruch, nur ein kurzes Zeitfenster mit
      falschem `latest` bis zum ersten echten Release (der setzt `latest`
      unabhängig davon neu, siehe ADR-0011) — aber je früher nach dem Bootstrap
      dieser erste echte Release folgt, desto kürzer das Fenster.
    - Die gestempelten `package.json`-Änderungen danach verwerfen
-     (`git checkout -- package.json angular-lib/projects/design-system-angular/package.json`)
+     (`git checkout -- package.json angular-lib/projects/design-system-angular/package.json mcp-server/package.json`)
      — sie dürfen nie committet werden (versionsfreies Repo, ADR-0010).
 2. **Trusted Publisher pro Paket einrichten**, auf der jeweiligen Paketseite unter
    *Settings → Trusted publishing*:
@@ -322,9 +333,10 @@ einmalig nötig, in dieser Reihenfolge:
    ```bash
    npm deprecate @conciso/design-system@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
    npm deprecate @conciso/design-system-angular@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
+   npm deprecate @conciso/design-system-mcp@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
    ```
 
-**Ergebnis:** Ist der Bootstrap für beide Pakete erledigt, läuft der erste echte
+**Ergebnis:** Ist der Bootstrap für alle drei Pakete erledigt, läuft der erste echte
 Release nach dem Merge (ausgelöst durch den nächsten veröffentlichungsrelevanten
 `feat`/`fix`/`perf`/`build(deps)`-Commit auf `main`) **grün durch** — auch der
 npmjs-Teil. Bis dahin liegt auf npmjs nur die Bootstrap-Platzhalterversion; die

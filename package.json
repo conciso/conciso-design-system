@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "storybook-angular",
-    "angular-lib"
+    "angular-lib",
+    "mcp-server"
   ],
   "overrides": {
     "vite": "^8.2.0"

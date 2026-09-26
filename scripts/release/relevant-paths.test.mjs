@@ -1,7 +1,7 @@
 // Tests für scripts/release/relevant-paths.mjs (Seam aus .scratch/automatische-releases/spec.md).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { isRelevant, checkCoverage, RELEVANT_PATH_PREFIXES } from './relevant-paths.mjs';
@@ -10,8 +10,23 @@ test('css/-Änderung ist veröffentlichungsrelevant', () => {
   assert.equal(isRelevant(['css/components.css']), true);
 });
 
-test('storybook-angular/-Änderung ist nicht veröffentlichungsrelevant', () => {
-  assert.equal(isRelevant(['storybook-angular/src/lib/button/button.stories.ts']), false);
+test('storybook-angular/src/-Änderung ist seit ADR-0012 veröffentlichungsrelevant (MCP-Snapshot)', () => {
+  assert.equal(isRelevant(['storybook-angular/src/lib/button/button.stories.ts']), true);
+});
+
+test('Storybook-Konfiguration außerhalb von src/ bleibt unsichtbar (main.ts, preview.ts)', () => {
+  // Bewusste Entscheidung (siehe Kommentar in relevant-paths.mjs): main.ts KANN den
+  // Manifest-Inhalt beeinflussen (Addons/Docgen-Optionen), zählt aber trotzdem nicht —
+  // sonst löste jede Storybook-Tooling-Änderung ein Release aus. Der Tarball-Smoke-Test
+  // (ADR-0012) fängt eine dadurch tatsächlich kaputte Snapshot-Struktur ab.
+  assert.equal(isRelevant(['storybook-angular/.storybook/main.ts']), false);
+  assert.equal(isRelevant(['storybook-angular/.storybook/preview.ts']), false);
+});
+
+test('mcp-server/-Änderung ist seit ADR-0012 veröffentlichungsrelevant (drittes Lockstep-Paket)', () => {
+  assert.equal(isRelevant(['mcp-server/src/server.mjs']), true);
+  assert.equal(isRelevant(['mcp-server/package.json']), true);
+  assert.equal(isRelevant(['mcp-server/scripts/build-snapshot.mjs']), true);
 });
 
 test('Änderung an der Angular-Lib (public-api.ts) ist relevant', () => {
@@ -88,6 +103,36 @@ test('Deckungs-Check schlägt fehl, wenn ein neuer files-Eintrag nicht abgedeckt
       JSON.stringify({ files: ['css', 'neu-erfundener-output'] }),
     );
     assert.deepEqual(checkCoverage(dir), ['neu-erfundener-output']);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('Deckungs-Check prüft auch mcp-server/package.json#files (drittes Paket, ADR-0012)', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'relevant-paths-coverage-'));
+  try {
+    writeFileSync(join(dir, 'package.json'), JSON.stringify({ files: ['css'] }));
+    mkdirSync(join(dir, 'mcp-server'), { recursive: true });
+    writeFileSync(
+      join(dir, 'mcp-server', 'package.json'),
+      JSON.stringify({ files: ['bin', 'src', 'snapshot', 'README.md', 'LICENSE', 'ein-neuer-ordner'] }),
+    );
+    // bin/src/snapshot/README.md/LICENSE liegen alle unter dem Präfix „mcp-server/“ und
+    // sind damit abgedeckt; nur der fiktive neue Eintrag wird gemeldet — namensgleich zum
+    // root-Verhalten, aber mit dem „mcp-server/“-Präfix versehen.
+    assert.deepEqual(checkCoverage(dir), ['mcp-server/ein-neuer-ordner']);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('Deckungs-Check: fehlendes mcp-server/package.json wird übersprungen statt zu werfen', () => {
+  // Test-Fixtures ohne drittes Paket (wie die meisten in dieser Datei) bilden absichtlich
+  // kein mcp-server/ ab — der Check darf dafür nicht mit ENOENT abbrechen.
+  const dir = mkdtempSync(join(tmpdir(), 'relevant-paths-coverage-'));
+  try {
+    writeFileSync(join(dir, 'package.json'), JSON.stringify({ files: ['css'] }));
+    assert.deepEqual(checkCoverage(dir), []);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

@@ -33,6 +33,12 @@ angular-lib/projects/design-system-angular/NOTICE
 # Worktrees der Claude-Code-Agenten (kurzlebig, nie Teil des Repos)
 .claude/worktrees/
 
+# MCP-Server (ADR-0012): Snapshot aus dem Storybook-Build (npm run build:snapshot) und die
+# LICENSE-Kopie aus der Root (npm run prepack, dasselbe Muster wie bei der Angular-Lib) sind
+# abgeleitet und werden nie committet.
+mcp-server/snapshot/
+mcp-server/LICENSE
+
 # Ausgabe des semantic-release-Dry-Runs (siehe release.config.mjs, ADR-0010) — Version und
 # Notes werden im Publish-Workflow nach $GITHUB_OUTPUT bzw. per Artefakt weitergereicht,
 # nie committet.
