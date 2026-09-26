@@ -1,0 +1,79 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as FarbenStories from '../../foundations/colors.stories';
+
+<Meta of={FarbenStories} name="Verwendung" />
+
+# Verwendung
+
+Vier Bereichspaletten (Corporate, Angewandte KI, Effektive Software, Wirksame Organisationen) plus Rosé und die Neutrals tragen je eine Tonal-Skala von 50 bis 900 (Live-Swatches in der Story „Paletten“). Diese Seite hält fest, welche Stufe wofür steht, wie Kontrast in beiden Modi funktioniert, und wo Tönung Akzent bleibt statt Standard-Grund zu werden. Kontrast-Schwellen (auf Weiß): AA ab 4,5:1 für Fließtext, AA Large ab 3,0:1 für großen Text (ab 24 px) und UI-Komponenten, AAA ab 7,0:1.
+
+## Farbstufen, wofür?
+
+| Stufe | Verwendungszweck |
+|---|---|
+| `-50` | Tonal Overlay, Chip-Hintergrund, Badge-Hintergrund, Sub-Strip-Background, sehr helle Fläche |
+| `-100` bis `-300` | Dezente UI-Akzente, Media-Hintergründe in Cards, Hero-Gradient, Borders |
+| `-500` | Brand-Akzent: Hero-Gradient, dekorative Flächen, aktive Marker, Icon. **Kein** Button-Background, **kein** Text auf Weiß (Co, KI und WO unterschreiten den Kontrast) |
+| `-700` | Standard für farbigen Text auf Weiß (Co, ES) und Filled-Button-Background (`.btn-co`, `.btn-es`, `.btn-wo`). Erfüllt WCAG AA (≥ 4,5:1). **Ausnahme KI:** KI-700 erreicht nur 4,4:1, für Text und Filled-Button `-800` nehmen (`.btn-ki` nutzt das bereits) |
+| `-800` bis `-900` | Dunkle Kontexte, Text auf Bereichsfarbe (`-500`), Hover-Zustände, Page-End-CTA-Band-Background, KI-Text/-Button (siehe Zeile oben) |
+
+## Semantische Farben
+
+| Token | Wann einsetzen |
+|---|---|
+| `--c-success` | Erfolgreiche Aktionen, OK-Snackbar, Bestätigungs-Badge |
+| `--c-warning` | Hinweise, Beta-Zustände, nicht kritische Warnungen |
+| `--c-error` | Fehler-Snackbar, Validierungsfehler im Formular, Deprecated-Badge |
+| `--tx-primary` | Fließtext, Headlines, UI-Labels. `#333E48`, deutlich über AAA gegen Weiß |
+| `--tx-secondary` | Sekundärer Text: Lead, Sub-Titel, Captions. `var(--n-500)`, AA gegen Weiß |
+| `--tx-muted` | Inhaltlich leise Texte: Eyebrow, Meta, Counter. `#5A7171`, AA gegen Weiß, gegen `n-50` und gegen getönte Hellflächen |
+| `--co-ink` · `--ki-ink` · `--es-ink` · `--wo-ink` | Farbiger Text und farbige Icons, die in **beiden** Modi lesbar bleiben müssen: Light `-700` (KI `-800`, weil KI-700 nur 4,05:1 trägt), Dark `-200` (ES `-100`). Ein fest gesetztes `-700` trägt im Dark nur 3,17:1, ein fest gesetztes `-200` im Light umgekehrt zu wenig, darum **immer das Ink-Token**, nicht die Stufe selbst |
+| `--co-fill` · `--ki-fill` · `--es-fill` · `--wo-fill` | Füllung von Pill und Bereichs-Badge. Im Light identisch mit `--XX-50` (der ruhige Tint mit kräftiger dunkler Schrift). Im Dark eigene, gehobene Werte, weil dort helle Schrift auf dunklem Tint liegt und der Tint sich sonst nicht von der Karte löst |
+| `--co-band` · `--ki-band` · `--es-band` · `--wo-band` | Große Sektionsfläche (Hero, CTA-Band). Im Light identisch mit `--XX-50`. Im Dark ein eigener, dunklerer Wert, damit das Band unter den Karten bleibt statt die Ebenen-Ordnung umzukehren |
+
+## Vier Rollen, ein Bereichston
+
+WCAG verlangt für eine dekorative Fläche nichts, für ein textführendes Bauteil verlangt die Hausregel (CONTRIBUTING § 3) mindestens 1,3:1 gegen den Grund und 10 L\* Helligkeitsabstand. Deshalb hat jeder Bereichston vier Rollen mit vier Namen: `--XX-50` ruhiger dekorativer Tint (Icon-Kachel, Timeline-Marker, Chip-Hover, Inline-Code), `--XX-fill` textführende Bauteil-Füllung, `--XX-band` große Sektionsfläche, `--XX-ink` farbiger Text.
+
+Im Light sind `--XX-50`, `--XX-fill` und `--XX-band` identisch, dort gibt es zwischen kleiner Füllung und großem Band keinen Konflikt. Im Dark trennen sie sich: eine kleine Füllung (Badge, Pill, Icon-Kachel) muss *heller* sein als ihr Grund, sonst liest sie nicht mehr als Fläche. Ein großes Band (Hero, CTA-Sektion) muss dagegen *dunkler* bleiben als die Karten darauf, sonst kehrt sich die Ebenen-Ordnung um. Bei einer Basisfläche von 17,5:1 gegen Weiß und reinem Schwarz bei 21:1 reicht der verbleibende Spielraum nicht, damit ein einzelner Wert beide Aufgaben trägt.
+
+## Text-Tokens vs. dekorative Neutrals
+
+`--tx-muted` ist für inhaltlich leise, aber AA-konforme Texte gedacht (Eyebrow, Counter, Meta-Angaben). Rein dekorative Elemente (Trenner, Ornament, Disabled-Hintergrund) nutzen direkt das Neutral-Token `var(--n-300)` oder heller, diese sind absichtlich unter AA, weil sie keinen Textinhalt tragen.
+
+**Faustregel:** Soll ein Screenreader den Text vorlesen, mindestens `--tx-muted` verwenden. Ist das Element rein visuell und für Screenreader ausgeblendet (`aria-hidden`, dekorative Border), darf es heller sein.
+
+Farbiger Text oder ein farbiges Icon auf einer hellen `-100`-Kachel (Chip, Häkchen-Kreis, Label-Pille) wird fest auf `--XX-800` gesetzt, **nicht** über `.t-*` beziehungsweise `--XX-ink`. Diese `-100`-Kacheln flippen im Dark nicht mit, sie bleiben hell, damit sie auf dem dunklen Grund sichtbar bleiben. `.t-*`/`--XX-ink` würde dagegen auf den hellen `-200`-Ton kippen, hell auf hell, unsichtbar. `--XX-800` ist in beiden Modi stabil. Entscheidend ist immer, ob der Hintergrund mit dem Theme mitflippt.
+
+## Hintergrundflächen & Rhythmus
+
+- Aufeinanderfolgende Sektionen wechseln im Standard zwischen Weiß (`--bg-surface`) und ruhigem Grau (`--n-50`). Kein hartes `#fff`, das schaltet im Dark Mode nicht mit.
+- **Faustregel: Tönung ist Akzent, nicht Standard-Grund.** Eine Bereichsfläche (`-50`) wirkt als Akzent, etwa als Aktions-Brücke direkt unter dem Hero, die dunkle `-800` als CTA-Band am Seitenende bildet die Gegen-Klammer. Mehrere große getönte Bänder hintereinander lassen die Seite bunt wirken und schwächen die Bereichsfarbe dort, wo sie Bedeutung trägt.
+- **Dark: nur zwei Flächen-Stufen.** Statt Weiß/Grau gibt es im Dark nur `--bg-page` (Basis) und das hellere `--bg-surface`, dazu `--bg-surface-hover` als Hover-Zustand, keine dritte statische Stufe. `n-50`-Sektionen werden im Dark ausnahmslos auf `--bg-surface` gehoben, damit die Tonfolge dieselbe bleibt wie im Light.
+- Kartentragende Sektionen sind dabei kein Sonderfall: Eine gehobene Sektion trifft zwar den Ton ihrer eigenen `bg-surface`-Karten, das passiert im Light auf weißen Sektionen mit weißen Karten genauso. Die Karte liest dort über ihren Rand (`--bd-strong-c`), im Dark deutlich kräftiger als die Haarlinie im Light.
+- Naheliegend wäre, kartentragende Sektionen auf `bg-page` zu lassen, damit die Karten die hellere Stufe bilden. Gemessen über die Beispielseiten kostet das aber den Rhythmus: deutlich mehr verschmolzene Übergänge zwischen benachbarten Sektionen als mit der gehobenen Fläche.
+- Ein heller `-100`-Rahmen auf einer getönten Fläche ist im Light ein zarter gleichfarbiger Whisper, `-100` flippt aber nicht mit dem Theme. Im Dark wird daraus eine grelle helle Linie auf dunkler Tönung. Trennlinien und Rahmen getönter Flächen im Dark deshalb auf den neutralen `var(--bd)` heben, nie eine `-100`-Stufe direkt verwenden.
+- Umgekehrt bei neutralem `--n-100`: Im Light passt `1px solid var(--n-100)` zu dem, was `--bd` auflöst. Im Dark wird `--n-100` selbst zu einer dunklen Fläche, der Rahmen verschwindet praktisch. Für Rahmen und Trennlinien deshalb ausnahmslos `var(--bd)` beziehungsweise `var(--bd-strong)` verwenden, nie eine `-100`-Stufe direkt.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Bereichsfarbe `-700` für farbigen Text auf Weiß (Co, ES und WO erfüllen damit WCAG AA). **Ausnahme KI:** `-700` erreicht nur 4,4:1, für Text und Filled-Button auf Weiß `-800` verwenden
+- Stufe `-50` für Hintergründe und Tonal Overlays, sie wirkt, ohne zu dominieren
+- Semantische Tokens `--c-success`, `--c-warning`, `--c-error` konsequent für Status einsetzen
+- Jede Seite gehört zu genau einer Brand Area, deren Farbpalette durchgängig verwenden
+- Neutrals (`--tx-primary`, `--tx-secondary`) für Fließtext, Bereichsfarben nur für Akzente
+
+**Nicht tun**
+
+- Stufe `-500` als Textfarbe auf Weiß: Co-500 und KI-500 unterschreiten AA komplett, WO-500 erreicht nur AA Large. Nur ES-500 und Rosé-500 erfüllen AA
+- Paletten verschiedener Bereiche auf derselben Seite mischen, bricht die Markenzugehörigkeit
+- Bereichsfarbe für Fließtext, lange Texte in Farbe ermüden und verringern die Lesbarkeit
+- Semantische Farben zweckfremden, `--c-success` nicht für dekorative grüne Elemente
+- Hardcodierte Hex-Werte statt Tokens, verhindert Dark-Mode-Unterstützung und Theme-Wechsel
+
+## Siehe auch
+
+- CONTRIBUTING.md § 3 Farbe & Kontrast
+- `Grundlagen/Design Tokens` für das Präfix-Schema aller Tokens

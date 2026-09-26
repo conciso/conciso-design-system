@@ -79,7 +79,11 @@ const preview: Preview = {
           'Grundlagen',
           [
             'Einrichtung',
+            // „Verwendung“ hängt per <Meta of={FarbenStories}> an der
+            // Foundation-Story „Grundlagen/Farben“ (ADR-0012), ist also Kind
+            // von „Farben“, nicht mehr dessen Geschwister.
             'Farben',
+            ['Verwendung', 'Paletten', 'Semantisch'],
             'Typografie',
             'Spacing & Grid',
             'Responsive',
