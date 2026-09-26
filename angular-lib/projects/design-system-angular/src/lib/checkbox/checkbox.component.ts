@@ -33,6 +33,7 @@ import { CvaBase } from '../shared/cva-base.directive';
         (change)="onCheckboxChange($event)"
         (blur)="markTouched()"
       />
+      <!-- prettier-ignore -->
       <span style="font:var(--ty-body-md);color:var(--tx-secondary)"
         >{{ label() }}@if (linkLabel()) {&nbsp;<a class="body-link" [href]="linkHref()">{{ linkLabel() }}</a>}@if (required()) {&nbsp;<span class="req" aria-hidden="true">*</span>}</span
       >

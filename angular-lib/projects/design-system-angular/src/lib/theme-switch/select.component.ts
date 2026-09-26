@@ -14,7 +14,12 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SelectComponent],
   template: `
-    <cds-select label="Farbthema" [options]="options()" [value]="svc.mode()" (valueChange)="onChange($event)" />
+    <cds-select
+      label="Farbthema"
+      [options]="options()"
+      [value]="svc.mode()"
+      (valueChange)="onChange($event)"
+    />
   `,
 })
 export class ThemeSelectComponent {

@@ -117,5 +117,7 @@ export class CtaBandComponent {
   readonly primaryClick = output<MouseEvent>();
 
   /** @internal */
-  protected readonly actionClasses = computed(() => `btn btn-filled btn-${this.area()} btn-on-band`);
+  protected readonly actionClasses = computed(
+    () => `btn btn-filled btn-${this.area()} btn-on-band`,
+  );
 }

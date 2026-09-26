@@ -42,7 +42,9 @@ let uid = 0;
     <div class="field-slider">
       <div class="field-slider-header">
         <label class="field-slider-label" [attr.for]="scaleId()">{{ label() }}</label>
-        <output [class]="outputClasses()" [attr.for]="scaleId()" [id]="scaleId() + '-out'">{{ currentLabel() }}</output>
+        <output [class]="outputClasses()" [attr.for]="scaleId()" [id]="scaleId() + '-out'">{{
+          currentLabel()
+        }}</output>
       </div>
       <input
         [class]="sliderClasses()"
@@ -218,37 +220,49 @@ export class ScaleComponent extends CvaBase<number> {
    *
    * @internal
    */
-  protected readonly tickItems = computed<{ label: string; style: Record<string, string> }[]>(() => {
-    const labels = this.labels();
-    const n = labels.length;
-    // position/transform/white-space aus .field-slider-ticks>* (components.css)
-    // explizit neutralisieren — sonst bleiben die Labels absolut positioniert und
-    // ignorieren die Grid-Spalten, auf denen dieser Ansatz aufbaut.
-    const base: Record<string, string> = {
-      position: 'static',
-      transform: 'none',
-      'white-space': 'normal',
-      'box-sizing': 'border-box',
-      hyphens: 'auto',
-    };
-    return labels.map((label, i) => {
-      if (n <= 1)
-        return { label, style: { ...base, 'text-align': 'left', 'padding-left': '11px' } };
-      if (i === 0)
-        // Innere Seite (rechts, Richtung nächstes Label) zusätzlich 4px — Mindestlücke,
-        // s. Kommentar oben.
-        return {
-          label,
-          style: { ...base, 'text-align': 'left', 'padding-left': '11px', 'padding-right': '4px' },
-        };
-      if (i === n - 1)
-        return {
-          label,
-          style: { ...base, 'text-align': 'right', 'padding-left': '4px', 'padding-right': '11px' },
-        };
-      return { label, style: { ...base, 'text-align': 'center', 'padding-inline': '4px' } };
-    });
-  });
+  protected readonly tickItems = computed<{ label: string; style: Record<string, string> }[]>(
+    () => {
+      const labels = this.labels();
+      const n = labels.length;
+      // position/transform/white-space aus .field-slider-ticks>* (components.css)
+      // explizit neutralisieren — sonst bleiben die Labels absolut positioniert und
+      // ignorieren die Grid-Spalten, auf denen dieser Ansatz aufbaut.
+      const base: Record<string, string> = {
+        position: 'static',
+        transform: 'none',
+        'white-space': 'normal',
+        'box-sizing': 'border-box',
+        hyphens: 'auto',
+      };
+      return labels.map((label, i) => {
+        if (n <= 1)
+          return { label, style: { ...base, 'text-align': 'left', 'padding-left': '11px' } };
+        if (i === 0)
+          // Innere Seite (rechts, Richtung nächstes Label) zusätzlich 4px — Mindestlücke,
+          // s. Kommentar oben.
+          return {
+            label,
+            style: {
+              ...base,
+              'text-align': 'left',
+              'padding-left': '11px',
+              'padding-right': '4px',
+            },
+          };
+        if (i === n - 1)
+          return {
+            label,
+            style: {
+              ...base,
+              'text-align': 'right',
+              'padding-left': '4px',
+              'padding-right': '11px',
+            },
+          };
+        return { label, style: { ...base, 'text-align': 'center', 'padding-inline': '4px' } };
+      });
+    },
+  );
 
   /** @internal */
   protected onInput(event: Event): void {

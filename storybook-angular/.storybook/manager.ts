@@ -147,7 +147,13 @@ addons.setConfig({
           // sich sonst auf jeden Text, den wir hier zurückgeben, und
           // schiebt ihn sichtbar nach links aus dem abgeschnittenen
           // Container heraus. Deshalb hier explizit zurückgesetzt.
-          style: { display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0, textIndent: 0 },
+          style: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            minWidth: 0,
+            textIndent: 0,
+          },
         },
         icon,
         createElement(

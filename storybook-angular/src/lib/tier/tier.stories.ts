@@ -15,7 +15,7 @@ const meta: Meta<TierComponent> = {
           'eine Offene Feature-Liste in Pakete gliedert, z. B. „In jedem Paket enthalten“ vor ' +
           '„Zusätzlich mit Pro“. Element-Selektor `cds-tier` (ADR-0008-Standardfall, siehe ' +
           'Klassendoku): keines der 4 Mockup-Vorkommen sitzt in einem Grid/Flex, das seine Kinder ' +
-          'streckt, keines trägt eine `col-*`-Klasse, das Tag variiert nicht. `area` ist auf `\'ki\'` ' +
+          "streckt, keines trägt eine `col-*`-Klasse, das Tag variiert nicht. `area` ist auf `'ki'` " +
           'typisiert, nicht auf die vollen vier Markenbereiche: `css/components.css` kennt ' +
           'ausschließlich `.ep-tier-label[data-area="ki"]`, für `co`/`es`/`wo` existiert keine ' +
           'Regel — ausgezählt in `docs/index.html`: 3 von 4 Vorkommen setzen `ki`, eines gar kein ' +

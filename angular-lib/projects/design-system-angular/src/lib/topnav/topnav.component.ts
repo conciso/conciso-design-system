@@ -1,5 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
@@ -37,7 +44,13 @@ export interface CdsNavItem {
   // ng-icon rendert sein <svg> inline (vertical-align:baseline) → im 24px-Toggle säße der
   // 10px-Caret zu tief. Host auf Flex stellen zentriert das SVG unabhängig von der Baseline.
   // Wirkt nur hier (emulated); die portable .ep-nav-item-caret aus components.css bleibt unberührt.
-  styles: `.ep-nav-item-caret { display: inline-flex; align-items: center; justify-content: center; }`,
+  styles: `
+    .ep-nav-item-caret {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  `,
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
@@ -48,7 +61,11 @@ export interface CdsNavItem {
         @if (logoSrc()) {
           <!-- Größe (24px) + Theme-Swap kommen aus der portablen css/components.css
                (.ep-logo img, .logo-themed-default/-light via [data-theme]). -->
-          <img [class.logo-themed-default]="!!logoDarkSrc()" [src]="logoSrc()" [alt]="logoAlt() || logo()" />
+          <img
+            [class.logo-themed-default]="!!logoDarkSrc()"
+            [src]="logoSrc()"
+            [alt]="logoAlt() || logo()"
+          />
           @if (logoDarkSrc()) {
             <img class="logo-themed-light" [src]="logoDarkSrc()" [alt]="logoAlt() || logo()" />
           }
@@ -80,18 +97,32 @@ export interface CdsNavItem {
                 [attr.aria-controls]="subId(i)"
                 (click)="toggleSub(i)"
               >
-                <ng-icon class="ep-nav-item-caret" name="uiCaretDown" size="10px" aria-hidden="true" />
+                <ng-icon
+                  class="ep-nav-item-caret"
+                  name="uiCaretDown"
+                  size="10px"
+                  aria-hidden="true"
+                />
               </button>
               <div class="ep-nav-sub" [id]="subId(i)">
                 @for (s of item.sub; track $index) {
-                  <a class="ep-nav-sub-btn" [href]="s.href" [attr.aria-current]="s.href === activeHref() ? 'page' : null" (click)="closeAll()">
+                  <a
+                    class="ep-nav-sub-btn"
+                    [href]="s.href"
+                    [attr.aria-current]="s.href === activeHref() ? 'page' : null"
+                    (click)="closeAll()"
+                  >
                     {{ s.label }}
                   </a>
                 }
               </div>
             </div>
           } @else {
-            <a class="ep-nav-btn" [href]="item.href || '#'" [attr.aria-current]="item.href && item.href === activeHref() ? 'page' : null">
+            <a
+              class="ep-nav-btn"
+              [href]="item.href || '#'"
+              [attr.aria-current]="item.href && item.href === activeHref() ? 'page' : null"
+            >
               {{ item.label }}
             </a>
           }
@@ -100,30 +131,30 @@ export interface CdsNavItem {
 
       <div class="ep-nav-actions">
         @if (showSearch()) {
-        <div class="ep-nav-search" [class.is-open]="searchOpen()">
-          <button
-            class="ep-nav-icon-btn ep-nav-search-toggle"
-            type="button"
-            aria-label="Suche"
-            [attr.aria-expanded]="searchOpen()"
-            (click)="toggleSearch()"
-          >
-            <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
-          </button>
-          <div class="ep-nav-search-pop">
-            <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
-              <label class="sr-only" [attr.for]="searchId">Suchbegriff</label>
-              <input
-                class="ep-nav-search-input"
-                [id]="searchId"
-                type="search"
-                placeholder="Wonach suchst Du?"
-                autocomplete="off"
-              />
-              <button class="btn btn-filled btn-sm btn-co" type="submit">Suchen</button>
-            </form>
+          <div class="ep-nav-search" [class.is-open]="searchOpen()">
+            <button
+              class="ep-nav-icon-btn ep-nav-search-toggle"
+              type="button"
+              aria-label="Suche"
+              [attr.aria-expanded]="searchOpen()"
+              (click)="toggleSearch()"
+            >
+              <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
+            </button>
+            <div class="ep-nav-search-pop">
+              <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
+                <label class="sr-only" [attr.for]="searchId">Suchbegriff</label>
+                <input
+                  class="ep-nav-search-input"
+                  [id]="searchId"
+                  type="search"
+                  placeholder="Wonach suchst Du?"
+                  autocomplete="off"
+                />
+                <button class="btn btn-filled btn-sm btn-co" type="submit">Suchen</button>
+              </form>
+            </div>
           </div>
-        </div>
         }
 
         <cds-theme-cycle [showSystem]="showSystemTheme()" />
@@ -144,7 +175,9 @@ export interface CdsNavItem {
       </button>
 
       @if (showCta()) {
-        <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{ ctaLabel() }}</a>
+        <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{
+          ctaLabel()
+        }}</a>
       }
     </header>
   `,

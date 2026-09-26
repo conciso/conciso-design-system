@@ -59,7 +59,9 @@ import { CDS_AREA_ICONS } from '../icons';
         @if (eyebrow()) {
           <p class="card-eyebrow">{{ eyebrow() }}</p>
         }
-        <h3 class="card-title"><span>{{ title() }}</span></h3>
+        <h3 class="card-title">
+          <span>{{ title() }}</span>
+        </h3>
         <p class="card-text">{{ text() }}</p>
         @if (ctaLabel()) {
           <span class="card-cta-link" [class.card-cta-link--pinned]="ctaPinned()">

@@ -19,7 +19,7 @@ const meta: Meta<ArticlePullquoteComponent> = {
           'oder Namen — volle Abgrenzung in beiden Klassendocs. `quote` enthält die deutschen ' +
           'Anführungszeichen bereits als Teil des Texts (`quotes:none`, keine ' +
           'CSS-generierten Marken); die Komponente ergänzt keine eigenen. `area` hat den ' +
-          'verteidigbaren Default `\'co\'` (Basisregel ohne `[data-area]` entspricht bereits ' +
+          "verteidigbaren Default `'co'` (Basisregel ohne `[data-area]` entspricht bereits " +
           '`[data-area="co"]`).',
       },
     },
@@ -37,7 +37,8 @@ export const Interaktiv: Story = {
     template: `<cds-article-pullquote [quote]="quote" [area]="area"></cds-article-pullquote>`,
   }),
   args: {
-    quote: '„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“',
+    quote:
+      '„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“',
     area: 'ki',
   },
   // Akzeptanzkriterien: <blockquote class="article-pullquote"> trägt den Text unverändert
@@ -69,7 +70,9 @@ export const ProBereich: Story = {
   }),
   // Vier gemessene Akzentfarben (border-left-color), nicht angenommen.
   play: async ({ canvasElement }) => {
-    const quotes = Array.from(canvasElement.querySelectorAll('blockquote.article-pullquote')) as HTMLElement[];
+    const quotes = Array.from(
+      canvasElement.querySelectorAll('blockquote.article-pullquote'),
+    ) as HTMLElement[];
     await expect(quotes).toHaveLength(4);
     const borders = new Set(quotes.map((q) => getComputedStyle(q).borderLeftColor));
     await expect(borders.size).toBe(4);

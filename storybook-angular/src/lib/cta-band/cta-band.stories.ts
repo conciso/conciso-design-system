@@ -87,7 +87,9 @@ export const Interaktiv: Story = {
     const band = canvasElement.querySelector('.ep-cta-band') as HTMLElement;
     await expect(band).not.toBeNull();
     await expect(band.tagName).toBe('DIV');
-    await expect(canvasElement.querySelector('.ep-cta-h2')).toHaveTextContent('Erstgespräch, 30 Minuten, kostenfrei.');
+    await expect(canvasElement.querySelector('.ep-cta-h2')).toHaveTextContent(
+      'Erstgespräch, 30 Minuten, kostenfrei.',
+    );
 
     const btn = c.getByRole('button', { name: 'Termin buchen' });
     await userEvent.click(btn);

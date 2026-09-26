@@ -64,13 +64,18 @@ export const Interaktiv: Story = {
     await expect(canvasElement.querySelector('.card-featured > .card-media')).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured > .card-media > img')).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured-body > .pill')).not.toBeNull();
-    await expect(canvasElement.querySelector('.card-featured-body > .card-title-hero')).not.toBeNull();
+    await expect(
+      canvasElement.querySelector('.card-featured-body > .card-title-hero'),
+    ).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured-body > .card-text')).not.toBeNull();
     // Gegenprobe: kein <cds-pill>-Tag im gerenderten DOM (die Pille ist direkt
     // komponiertes Markup, siehe Klassendoku Entscheidung 2).
     await expect(canvasElement.querySelector('cds-pill')).toBeNull();
     // Ohne pillAriaLabel greift derselbe Default wie bei PillComponent: „Bereich <pill>“.
-    await expect(canvasElement.querySelector('.pill')).toHaveAttribute('aria-label', 'Bereich Effektive Software');
+    await expect(canvasElement.querySelector('.pill')).toHaveAttribute(
+      'aria-label',
+      'Bereich Effektive Software',
+    );
 
     const links = c.getAllByRole('link');
     await expect(links).toHaveLength(1);
@@ -143,7 +148,9 @@ export const OhnePill: Story = {
   // .card-featured-body hat dann eben ein Kind weniger.
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.pill')).toBeNull();
-    await expect(canvasElement.querySelector('.card-featured-body > .card-title-hero')).not.toBeNull();
+    await expect(
+      canvasElement.querySelector('.card-featured-body > .card-title-hero'),
+    ).not.toBeNull();
   },
 };
 

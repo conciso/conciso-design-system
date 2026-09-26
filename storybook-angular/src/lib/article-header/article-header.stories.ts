@@ -8,12 +8,17 @@ import {
   type CdsArticleBreadcrumbItem,
 } from '@conciso/design-system-angular';
 
-const breadcrumb: CdsArticleBreadcrumbItem[] = [{ label: 'Wissen', href: '#' }, { label: 'Angewandte KI' }];
+const breadcrumb: CdsArticleBreadcrumbItem[] = [
+  { label: 'Wissen', href: '#' },
+  { label: 'Angewandte KI' },
+];
 
 const meta: Meta<ArticleHeaderComponent> = {
   title: 'Seitenmuster/Wissensbeitrag/Article-Header',
   component: ArticleHeaderComponent,
-  decorators: [moduleMetadata({ imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',

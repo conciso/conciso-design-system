@@ -58,7 +58,9 @@ import type { CdsArea } from '../area';
 @Component({
   selector: 'cds-article-pullquote',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<blockquote class="article-pullquote" [attr.data-area]="area() || null">{{ quote() }}</blockquote>`,
+  template: `<blockquote class="article-pullquote" [attr.data-area]="area() || null">
+    {{ quote() }}
+  </blockquote>`,
 })
 export class ArticlePullquoteComponent {
   /** Hervorgehobener Satz, inklusive deutscher Anführungszeichen, siehe Klassendoku. */

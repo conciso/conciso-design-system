@@ -10,7 +10,9 @@ import { concisoLight } from './theme';
 // aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und
 // alle Komponenten synchron. Die Gegenrichtung (Toolbar → Store) macht der
 // Theme-Decorator unten. getChannel() erst beim Emit holen (dann ist er bereit).
-themeStore.subscribe((mode) => addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }));
+themeStore.subscribe((mode) =>
+  addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }),
+);
 
 // Toolbar → Store, auch OHNE Story-Render: Der Decorator unten läuft nur, wenn
 // eine Story rendert — reine MDX-Doku-Seiten (Icons, Hero, alle „Verwendung“-
@@ -93,7 +95,16 @@ const preview: Preview = {
             'Chips, Badges & Pills',
             ['Verwendung', 'Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Inputs & Forms',
-            ['Verwendung', 'Textfeld', 'Textbereich', 'Auswahlfeld', 'Radio', 'Checkbox', 'Slider', 'Skala'],
+            [
+              'Verwendung',
+              'Textfeld',
+              'Textbereich',
+              'Auswahlfeld',
+              'Radio',
+              'Checkbox',
+              'Slider',
+              'Skala',
+            ],
             'Dropdowns',
             ['Verwendung', 'Custom Select', 'Combobox'],
             'Buchungsformular',
@@ -180,7 +191,8 @@ const preview: Preview = {
   },
   globalTypes: {
     theme: {
-      description: 'Conciso Light/Dark/System (data-theme am <html>) — synchron mit den Theme-Switcher-Komponenten',
+      description:
+        'Conciso Light/Dark/System (data-theme am <html>) — synchron mit den Theme-Switcher-Komponenten',
       toolbar: {
         title: 'Theme',
         icon: 'contrast',
@@ -193,7 +205,8 @@ const preview: Preview = {
       },
     },
     areaContext: {
-      description: 'Bereichs-Kontext der Seite (.ep-page[data-accent]) — tönt z. B. .body-link auf die Bereichsfarbe',
+      description:
+        'Bereichs-Kontext der Seite (.ep-page[data-accent]) — tönt z. B. .body-link auf die Bereichsfarbe',
       toolbar: {
         title: 'Bereich',
         icon: 'paintbrush',

@@ -118,5 +118,7 @@ export class HeroImageComponent {
    *
    * @internal
    */
-  protected readonly hasCaption = computed(() => !!(this.eyebrow() || this.heading() || this.text()));
+  protected readonly hasCaption = computed(
+    () => !!(this.eyebrow() || this.heading() || this.text()),
+  );
 }

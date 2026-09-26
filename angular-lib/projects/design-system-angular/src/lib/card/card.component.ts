@@ -34,7 +34,9 @@ import { CDS_AREA_ICONS } from '../icons';
           <p class="card-eyebrow">{{ eyebrow() }}</p>
         }
         @if (title()) {
-          <h3 class="card-title"><span>{{ title() }}</span></h3>
+          <h3 class="card-title">
+            <span>{{ title() }}</span>
+          </h3>
         }
         @if (text()) {
           <p class="card-text">{{ text() }}</p>
@@ -43,7 +45,9 @@ import { CDS_AREA_ICONS } from '../icons';
       </div>
       @if (actionLabel()) {
         <div class="card-footer">
-          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
+          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">
+            {{ actionLabel() }}
+          </button>
         </div>
       }
     </article>

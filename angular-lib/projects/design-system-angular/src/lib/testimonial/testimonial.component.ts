@@ -16,7 +16,13 @@ import { CDS_QUOTE_ICON } from '../icons';
   template: `
     <figure class="testimonial" [attr.data-area]="area() || null">
       <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
+      <svg
+        class="testimonial-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+        [innerHTML]="quoteIcon()"
+      ></svg>
       <blockquote>{{ quote() }}</blockquote>
       <figcaption class="testimonial-footer">
         <div>

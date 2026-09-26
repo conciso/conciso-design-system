@@ -83,9 +83,12 @@ import type { CdsArea } from '../area';
       </div>
       <div class="card-featured-body">
         @if (pill()) {
-          <span class="pill" [attr.data-area]="area() || null" [attr.aria-label]="computedPillAriaLabel()">{{
-            pill()
-          }}</span>
+          <span
+            class="pill"
+            [attr.data-area]="area() || null"
+            [attr.aria-label]="computedPillAriaLabel()"
+            >{{ pill() }}</span
+          >
         }
         <h3 class="card-title-hero">{{ title() }}</h3>
         <p class="card-text">{{ text() }}</p>
@@ -117,5 +120,7 @@ export class FeaturedCardComponent {
   readonly area = input<CdsArea>();
 
   /** @internal */
-  protected readonly computedPillAriaLabel = computed(() => this.pillAriaLabel() ?? `Bereich ${this.pill()}`);
+  protected readonly computedPillAriaLabel = computed(
+    () => this.pillAriaLabel() ?? `Bereich ${this.pill()}`,
+  );
 }

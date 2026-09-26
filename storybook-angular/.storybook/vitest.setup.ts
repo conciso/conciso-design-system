@@ -115,7 +115,9 @@ afterEach(async (context) => {
   // Layout & Fonts abwarten (zwei rAF-Ticks lassen einen Layout-/Paint-Zyklus
   // durchlaufen — hier zugleich der Umbruch durch das eben gesetzte Body-Layout),
   // dann Animationen/Transitions einfrieren → deterministischer Screenshot.
-  await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+  await new Promise<void>((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+  );
   await document.fonts?.ready;
 
   const freeze = document.createElement('style');

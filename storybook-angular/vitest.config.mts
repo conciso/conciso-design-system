@@ -59,7 +59,8 @@ export default defineConfig({
             // (`visual-snapshots/<story-id>.png`, ohne Browser-/Platform-Suffix).
             expect: {
               toMatchScreenshot: {
-                resolveScreenshotPath: ({ root, arg, ext }) => join(root, 'visual-snapshots', `${arg}${ext}`),
+                resolveScreenshotPath: ({ root, arg, ext }) =>
+                  join(root, 'visual-snapshots', `${arg}${ext}`),
                 resolveDiffPath: ({ root, arg, ext }) =>
                   join(root, 'visual-snapshots', '__diff_output__', `${arg}${ext}`),
                 comparatorOptions: {

@@ -61,7 +61,8 @@ export abstract class FieldBase extends CvaBase<string> {
    * @internal
    */
   protected handleInput(event: Event): void {
-    const value = (event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement).value;
+    const value = (event.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement)
+      .value;
     this.value.set(value);
     this.onChange(value);
   }

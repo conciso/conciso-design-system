@@ -52,10 +52,25 @@ let cdsLogoCarouselUid = 0;
         [attr.aria-label]="paused() ? 'Abspielen' : 'Pausieren'"
         (click)="togglePause()"
       >
-        <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
-          <rect x="3" y="2" width="3" height="10" rx="1" /><rect x="8" y="2" width="3" height="10" rx="1" />
+        <svg
+          class="icon-pause"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <rect x="3" y="2" width="3" height="10" rx="1" />
+          <rect x="8" y="2" width="3" height="10" rx="1" />
         </svg>
-        <svg class="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+        <svg
+          class="icon-play"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="currentColor"
+          aria-hidden="true"
+        >
           <path d="M4 2.5v9l7-4.5z" />
         </svg>
       </button>
@@ -136,8 +151,7 @@ export class LogoCarouselComponent {
     // räumt den alten via onCleanup auf. Der aktive Index wird nur IM Callback gelesen
     // und ist daher keine Effect-Abhängigkeit (kein Neustart bei jedem Wechsel).
     effect((onCleanup) => {
-      const play =
-        !this.reducedMotion() && !this.paused() && !this.hovered() && !this.focused();
+      const play = !this.reducedMotion() && !this.paused() && !this.hovered() && !this.focused();
       const ms = this.interval();
       if (!play || typeof window === 'undefined') return;
       const timer = setInterval(() => {

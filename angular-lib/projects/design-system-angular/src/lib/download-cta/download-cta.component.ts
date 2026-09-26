@@ -42,14 +42,18 @@ import type { CdsArea } from '../area';
           type="button"
           [attr.aria-label]="primaryAriaLabel()"
           (click)="primaryClick.emit($event)"
-        >{{ primaryLabel() }}</button>
+        >
+          {{ primaryLabel() }}
+        </button>
         @if (secondaryLabel()) {
           <button
             [class]="'btn btn-text btn-' + area()"
             type="button"
             [attr.aria-label]="secondaryAriaLabel()"
             (click)="secondaryClick.emit($event)"
-          >{{ secondaryLabel() }}</button>
+          >
+            {{ secondaryLabel() }}
+          </button>
         }
       </div>
     </div>
