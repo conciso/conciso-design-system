@@ -173,6 +173,27 @@ test('checkCoreClaim: Umlaute/scharfes S werden unabhängig von der Schreibweise
   assert.equal(checkCoreClaim('Das ist ein GROSSER Unterschied.', groups.slice(1)).matched, true);
 });
 
+test('checkCoreClaim: ASCII-Umschreibung „ue“ zählt wie der Umlaut „ü“ — Stichwort mit Umlaut, Antwort in ASCII', () => {
+  // Regressionstest: eine frühere Fassung reduzierte Umlaute auf den bloßen Basisvokal (ü→u)
+  // statt auf die kanonische zweistellige Umschreibung (ü→ue). „ermuedet“ (ASCII) normalisierte
+  // sich dadurch zu „ermuedet“, das Stichwort „ermüdet“ aber zu „ermudet“ — kein Treffer.
+  const groups = [['ermüdet']];
+  assert.equal(checkCoreClaim('Serifenschrift ermuedet beim Lesen.', groups).matched, true);
+});
+
+test('checkCoreClaim: ASCII-Umschreibung zählt auch umgekehrt — Stichwort in ASCII, Antwort mit Umlaut', () => {
+  const groups = [['ermuedet']];
+  assert.equal(checkCoreClaim('Serifenschrift ermüdet beim Lesen.', groups).matched, true);
+});
+
+test('checkCoreClaim: alle drei Umlaute (ä/ö/ü) und die zerlegte Unicode-Form normalisieren gleich', () => {
+  assert.equal(checkCoreClaim('Größe und Maßstab passen zusammen.', [['groesse']]).matched, true);
+  assert.equal(checkCoreClaim('Das wirkt schoen und ruhig.', [['schön']]).matched, true);
+  // Zerlegte Unicode-Form (u + Combining Diaeresis statt vorkomponiertem ü) trifft ebenfalls auf
+  // die ASCII-Umschreibung.
+  assert.equal(checkCoreClaim(`Das ist f${'ü'}r alle gedacht.`, [['fuer']]).matched, true);
+});
+
 test('checkCoreClaim: Stichwort als Wortstamm matcht mehrere Flexionsformen', () => {
   const groups = [['ermüd']];
   assert.equal(checkCoreClaim('Lange Serifentexte ermüden die Augen.', groups).matched, true);

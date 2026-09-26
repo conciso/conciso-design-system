@@ -311,16 +311,22 @@ export function mentionsGlobalCssInclusion(answerText) {
 // Umlauten/scharfem S spielen keine Rolle, und pro Teilaspekt der Kernaussage sind mehrere
 // Synonyme erlaubt (ODER innerhalb einer Gruppe) — keine Grammatik- oder Bedeutungsprüfung.
 
-/** Groß-/Kleinschreibung und Umlaut-Schreibweisen vereinheitlichen, damit „ERMÜDET“,
- * „ermüdet“ und eine zerlegte Unicode-Normalform (u + Combining Diaeresis statt „ü“)
- * als dasselbe Wort zählen. `ß` wird auf `ss` abgebildet, damit „groß“/„GROSS“ gleich zählen.
+/** Groß-/Kleinschreibung und Umlaut-Schreibweisen vereinheitlichen, damit „ERMÜDET“, „ermüdet“
+ * und die ASCII-Umschreibung „ermuedet“ als dasselbe Wort zählen, unabhängig davon, ob das
+ * Stichwort oder die Antwort den echten Umlaut oder die Umschreibung verwendet. `ä`/`ö`/`ü`
+ * werden dafür kanonisch auf `ae`/`oe`/`ue` abgebildet, nicht auf den bloßen Basisvokal.
+ * `.normalize('NFC')` geht voran, damit eine zerlegte Unicode-Form (`u` + Combining Diaeresis
+ * statt `ü`) zuerst zum vorkomponierten Zeichen zusammengesetzt wird und dieselbe Ersetzung
+ * greift. `ß` wird wie bisher auf `ss` abgebildet, damit „groß“/„GROSS“ gleich zählen.
  * @param {string} text @returns {string} */
 function normalizeForClaimMatch(text) {
   return text
+    .normalize('NFC')
     .toLowerCase()
-    .replace(/ß/g, 'ss')
-    .normalize('NFD')
-    .replace(new RegExp('[\\u0300-\\u036f]', 'g'), ''); // Combining Diacritical Marks (zerlegte Umlaute nach NFD)
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/ß/g, 'ss');
 }
 
 /**
