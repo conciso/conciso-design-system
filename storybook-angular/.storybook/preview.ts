@@ -90,8 +90,10 @@ const preview: Preview = {
           ],
           'Komponenten',
           [
+            // „Verwendung“ hängt per <Meta of={ButtonStories}> an der Button-Story
+            // (ADR-0012), ist also Kind von „Button“, nicht mehr dessen Geschwister.
             'Buttons',
-            ['Verwendung', 'Button'],
+            ['Button', ['Verwendung']],
             'Chips, Badges & Pills',
             ['Verwendung', 'Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Inputs & Forms',
