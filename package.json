@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "storybook-angular",
-    "angular-lib"
+    "angular-lib",
+    "mcp-server"
   ],
   "overrides": {
     "vite": "^8.2.0"
@@ -60,11 +61,13 @@
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:quotes": "node scripts/check-quotes.mjs",
     "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
+    "check:storybook-mcp-pin": "node scripts/release/check-storybook-mcp-pin.mjs",
     "test:release": "node --test scripts/release/*.test.mjs",
     "build:angular-lib": "npm run --workspace angular-lib build",
-    "lint": "npm run lint:angular-lib && npm run lint:storybook",
+    "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
     "lint:angular-lib": "npm run --workspace angular-lib lint",
     "lint:storybook": "npm run --workspace storybook-angular lint",
+    "lint:mcp-server": "npm run --workspace mcp-server lint",
     "storybook": "npm run --workspace storybook-angular storybook",
     "build:storybook": "npm run --workspace storybook-angular build-storybook",
     "test": "npm run test:vitest",

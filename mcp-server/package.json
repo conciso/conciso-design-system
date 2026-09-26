@@ -1,0 +1,62 @@
+{
+  "name": "@conciso/design-system-mcp",
+  "version": "0.0.0",
+  "description": "MCP-Server für Consumer des Conciso Design System, beantwortet docs-list, docs-show und docs-show-story über stdio aus einem mitgelieferten Storybook-Snapshot, ohne Netzzugriff.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "bin": {
+    "cds-mcp": "bin/cds-mcp.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "bin",
+    "src",
+    "snapshot",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:snapshot": "node scripts/build-snapshot.mjs",
+    "prepack": "node scripts/prepack.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:smoke": "node scripts/smoke-test.mjs",
+    "test:eval-checker": "node --test eval/checker.test.mjs",
+    "eval": "node eval/run-eval.mjs",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@storybook/mcp": "10.6.0",
+    "@tmcp/adapter-valibot": "^0.1.6",
+    "@tmcp/transport-stdio": "^0.5.0",
+    "tmcp": "^1.20.0",
+    "valibot": "^1.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "globals": "^17.12.0"
+  },
+  "homepage": "https://conciso.github.io/conciso-design-system/",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "design-system",
+    "conciso",
+    "angular",
+    "storybook",
+    "claude",
+    "copilot",
+    "cursor",
+    "ai"
+  ]
+}

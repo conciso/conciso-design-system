@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "_kommentar": "Fangfragen aus dem Consumer-Alltag für das Eval-Set (ADR-0012). Erweiterbar ohne Codeänderung: run-eval.mjs liest ausschließlich diese Datei. `components` ist informativ (steht im Bericht, wird nicht zur Prüfung selbst gebraucht — die Wahrheit holt sich run-eval.mjs immer live aus dem installierten Snapshot). `checks` steuert, welche Zusatzprüfungen neben der immer laufenden Prüfung erfundener Attribute/Bindungen greifen: aktuell nur „setup-mentions-global-css“.",
+  "questions": [
+    {
+      "id": "button-icon-links",
+      "prompt": "Ich nutze cds-button aus @conciso/design-system-angular und will links vom Label ein Icon anzeigen. Zeig mir ein Angular-Template-Beispiel mit allen dafür nötigen Attributen von cds-button.",
+      "components": ["komponenten-buttons-button"],
+      "checks": ["no-invented-attributes"]
+    },
+    {
+      "id": "button-ungestylt",
+      "prompt": "Ich habe @conciso/design-system-angular installiert und benutze <cds-button label=\"Speichern\"></cds-button> in meinem Template. Im Browser sieht der Button aber komplett ungestylt aus, ohne Farbe und ohne Form. Woran liegt das, und wie behebe ich es?",
+      "components": ["komponenten-buttons-button"],
+      "checks": ["no-invented-attributes", "setup-mentions-global-css"]
+    },
+    {
+      "id": "textfeld-validierung",
+      "prompt": "Ich brauche in meinem Formular ein Pflichtfeld mit Fehlermeldung. Wie baue ich mit cds-text-field aus @conciso/design-system-angular ein Textfeld, das als Pflichtfeld markiert ist und bei einem Validierungsfehler eine Fehlermeldung anzeigt? Zeig mir das Template.",
+      "components": ["komponenten-inputs-forms-textfeld"],
+      "checks": ["no-invented-attributes"]
+    },
+    {
+      "id": "card-bereichsfarbe",
+      "prompt": "Ich möchte eine cds-card aus @conciso/design-system-angular in der Bereichsfarbe für den Markenbereich „Wissen“ (KI) anzeigen, mit Titel, Text und einer Aktion. Wie sieht das Template aus?",
+      "components": ["komponenten-cards-teaser-card"],
+      "checks": ["no-invented-attributes"]
+    },
+    {
+      "id": "theme-umschalter",
+      "prompt": "Wie baue ich in meiner Angular-App einen Theme-Umschalter ein, mit dem Besucher zwischen hellem und dunklem Modus wechseln können? Welche Komponente aus @conciso/design-system-angular nutze ich dafür, und wie sieht das Template aus?",
+      "components": [
+        "komponenten-theme-umschalter-cycle-button",
+        "komponenten-theme-umschalter-dropdown",
+        "komponenten-theme-umschalter-segment"
+      ],
+      "checks": ["no-invented-attributes"]
+    },
+    {
+      "id": "checkbox-pflicht-mit-link",
+      "prompt": "Ich brauche eine Checkbox für die AGB-Zustimmung in einem Formular: Pflichtfeld, mit Label-Text und einem anklickbaren Link mitten im Label zu den AGB. Wie baue ich das mit cds-checkbox aus @conciso/design-system-angular?",
+      "components": ["komponenten-inputs-forms-checkbox"],
+      "checks": ["no-invented-attributes"]
+    }
+  ]
+}

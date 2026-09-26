@@ -40,6 +40,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'marke-brand-areas': 'ui-squares-2x2',
   'marke-logo': 'ui-flag',
   'marke-bildsprache--übersicht': 'ui-photo',
+  'grundlagen-einrichtung--übersicht': 'ui-wrench-screwdriver',
   'grundlagen-farben': 'ui-swatch',
   'grundlagen-typografie': 'ui-language',
   'grundlagen-spacing-grid--übersicht': 'ui-squares-plus',

@@ -17,6 +17,8 @@ frameworkspezifischen Aufsätzen darauf:
   über der CSS-Schicht.
 - **Storybook** (`storybook-angular/`) — dokumentiert und testet die Angular-Lib; die
   öffentlich veröffentlichte Doku des Design Systems.
+- **MCP-Server** (`@conciso/design-system-mcp`) — liefert der KI eines Consumers das
+  Wissen aus dem Storybook, passend zur installierten Version.
 - **Doku-Site** (`docs/index.html`) — eigenständige statische Doku der CSS-Schicht,
   nicht veröffentlicht.
 
@@ -53,6 +55,17 @@ Siehe [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 Die eigenständige, statische Doku-Seite der [CSS-Schicht](#css-schicht)
 (`docs/index.html`). Existiert neben dem [Storybook](#storybook), wird aber
 **nicht** veröffentlicht. Nicht synonym mit „Storybook“ verwenden.
+
+### MCP-Server
+
+Das Paket `@conciso/design-system-mcp` (Workspace `mcp-server/`, `bin` `cds-mcp`): ein
+lokal per stdio gestarteter MCP-Server für [Consumer](#consumer--konsument). Er liefert
+einen **Snapshot** der Storybook-Manifeste aus dem Build derselben
+[Lockstep-Version](#lockstep-versionierung) über die Werkzeuge von `@storybook/mcp`
+(`docs-list`, `docs-show`, `docs-show-story`) und eigene `instructions` mit den Regeln
+des Design Systems. Nicht verwechseln mit dem **MCP-Endpunkt** des Dev-Servers
+(`/mcp`, `@storybook/addon-mcp`), der nur Maintainern dieses Repos dient.
+Siehe [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md).
 
 ### Wrapper-Komponente
 
@@ -98,14 +111,14 @@ fehlende Icon-Registrierungen). Siehe [ADR-0004](docs/adr/0004-verteilung-und-ve
 
 ### Lockstep-Versionierung
 
-Angular-Lib und CSS-Schicht tragen **immer dieselbe Versionsnummer**; Angular-Lib vX
-gehört zu CSS vX. Die peerDependency der Angular-Lib auf die CSS-Schicht wird
+Angular-Lib, CSS-Schicht und [MCP-Server](#mcp-server) tragen **immer dieselbe
+Versionsnummer**; Angular-Lib vX gehört zu CSS vX und zum MCP-Server vX. Die peerDependency der Angular-Lib auf die CSS-Schicht wird
 entsprechend eng gepinnt (z.B. `0.1.x`). Siehe
 [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md).
 
 ### Release
 
-Die Veröffentlichung einer neuen [Lockstep-Version](#lockstep-versionierung) beider
+Die Veröffentlichung einer neuen [Lockstep-Version](#lockstep-versionierung) aller
 Pakete. Entsteht **ohne Handschritt** aus den Commits, die auf `main` landen: Es
 zählen nur Commits, die einen [veröffentlichungsrelevanten Pfad](#veröffentlichungsrelevanter-pfad)
 berühren; deren Conventional-Commit-Typ entscheidet, ob es ein Release gibt und
@@ -116,11 +129,13 @@ _Vermeiden_: „Version anheben“ (es gibt keinen solchen Schritt mehr).
 ### Veröffentlichungsrelevanter Pfad
 
 Ein Pfad im Repo, dessen Änderung den Inhalt eines veröffentlichten Pakets verändern
-kann: der ausgelieferte Inhalt beider Pakete **und** alles, woraus er gebaut wird.
+kann: der ausgelieferte Inhalt aller Pakete **und** alles, woraus er gebaut wird.
 Nur Commits, die mindestens einen solchen Pfad berühren, zählen für ein
-[Release](#release) — und nur sie müssen der Commit-Konvention genügen. Alle anderen
-Commits (Storybook, Beispielseiten, CI, nicht ausgelieferte Doku wie ADRs) sind für
-die Versionierung unsichtbar. Ausgelieferte Doku (etwa die README eines Pakets) ist
+[Release](#release) — und nur sie müssen der Commit-Konvention genügen. Dazu gehören
+seit [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md) auch Stories und MDX-Seiten
+(`storybook-angular/src/**`), weil sie in den Snapshot des [MCP-Servers](#mcp-server)
+eingehen. Alle anderen Commits (Storybook-Konfiguration, Beispielseiten, CI, nicht
+ausgelieferte Doku wie ADRs) sind für die Versionierung unsichtbar. Ausgelieferte Doku (etwa die README eines Pakets) ist
 dagegen ein solcher Pfad.
 
 ### Pilot-Scheibe
