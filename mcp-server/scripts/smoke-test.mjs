@@ -48,17 +48,22 @@
 //   - @internal-Gate: KEINE Komponente im ausgelieferten Snapshot hat argTypes der Kategorie
 //     „properties“/„methods“ (ADR-0006 — vergessenes @internal), geprüft direkt in den
 //     services/core/docgen/*.json-Dateien des installierten Pakets
+//   - `docs-list` liefert weiterhin mehrere Einträge mit identischem Anzeigenamen (Doku-Manifest
+//     Schema v1 kennt kein `title`-Feld, ein umbenannter `name` würde zugleich das Sidebar-Blatt
+//     umbenennen, siehe ADR-0012). Statt dessen müssen die ausgelieferten `instructions` die
+//     Erklärung zum ID-Schema enthalten (DOCS_LIST_ID_SCHEME_HINT aus src/instructions.mjs)
 //   - jede Zeile auf stdout ist gültiges JSON-RPC 2.0
 //
-// Bewusst NICHT geprüft: der Inhalt von `instructions` und der Versionsabgleich mit der
-// Angular-Lib (server.mjs/test/*.test.mjs), an denen dieses Skript nichts ändert.
+// Bewusst NICHT geprüft: der volle Inhalt von `instructions` (nur der eine Satz zum
+// ID-Schema oben) und der Versionsabgleich mit der Angular-Lib (server.mjs/test/*.test.mjs),
+// an denen dieses Skript nichts ändert.
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+import { DOCS_LIST_ID_SCHEME_HINT, EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
 import { buildTruthMap } from '../eval/checker.mjs';
 import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
@@ -206,6 +211,15 @@ async function runProtocolChecks(client, errors, tmpDir) {
   if (!init.result) {
     errors.push('initialize lieferte kein result.');
     return;
+  }
+  // docs-list unterscheidet gleichnamige Einträge nur über ihre id (ADR-0012), kein
+  // Manifest-Feld liefert einen sprechenden Namen. Die Erklärung dafür muss stattdessen in
+  // den instructions ankommen.
+  if (!(init.result.instructions ?? '').includes(DOCS_LIST_ID_SCHEME_HINT)) {
+    errors.push(
+      'initialize.instructions enthält nicht die Erklärung zum ID-Schema von docs-list ' +
+        `(„${DOCS_LIST_ID_SCHEME_HINT}“).`,
+    );
   }
   client.notify('notifications/initialized', {});
 
