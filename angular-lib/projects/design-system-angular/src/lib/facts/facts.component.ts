@@ -54,12 +54,12 @@ export interface CdsFactsItem {
  * :638–642`). Ungesetzt (Default) bleibt `<dt>` ohne zusätzliche Klasse, erbt also
  * die umgebende Textfarbe — das deckt Kontexte ohne Bereichsbindung ab.
  *
- * **Über die Ticket-API hinaus:** `area` stand nicht in der ursprünglichen
- * API-Skizze von Ticket 08. Ergänzt, weil ohne ihn KEINES der 3 realen
+ * **Über die ursprüngliche API hinaus:** `area` stand nicht in der ursprünglichen
+ * API-Skizze. Ergänzt, weil ohne ihn KEINES der 3 realen
  * `.ep-facts`-Vorkommen originalgetreu nachgebaut werden könnte — anders als bei
  * `cds-tier`s `area` (dort deckt die Einschränkung eine tatsächliche CSS-Lücke
  * ab) fehlt hier keine CSS-Regel, nur ein API-Hook auf eine bereits vollständige
- * Klasse. Siehe Ticket-Bericht für die Abwägung.
+ * Klasse.
  */
 @Component({
   selector: 'cds-facts',

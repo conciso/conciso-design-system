@@ -52,8 +52,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * ausschließlich vom `area`-Input, den der Konsument direkt an das projizierte
  * `[cdsAvatar]` bindet (siehe unten). Ein `area`-Input, der hier nur `data-area` ohne
  * jede CSS-Wirkung setzt, wäre eine erfundene Konfiguration ohne Gegenwert — Befund
- * gemeldet, nicht im Wrapper geflickt (ADR-0001):
- * `.scratch/angular-seitenbausteine/issues/24-css-luecke-author-card-data-area.md`.
+ * gemeldet, nicht im Wrapper geflickt (ADR-0001).
  *
  * **Avatar projiziert über `[cdsAvatar]`, wie bei `cds-article-header`.** Der
  * Konsument setzt Größe (`size="lg"`, css/components.css:1527) und Bereich

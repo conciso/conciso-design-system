@@ -55,8 +55,7 @@ let uid = 0;
  * verloren, wenn kein bereichsspezifischer Override existiert (`co` und „kein
  * `data-area`“ zeigen `--tx-primary` statt `--co-700`). Diese Komponente
  * reproduziert exakt die Klassen und die Struktur des Mockups und zeigt deshalb
- * denselben, vorbestehenden Fehler wie rohes HTML — siehe
- * `.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`.
+ * denselben, vorbestehenden Fehler wie rohes HTML.
  *
  * **`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum
  * Mockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle
@@ -64,8 +63,7 @@ let uid = 0;
  * mehrere gleichnamige Landmarks ohne zugänglichen Namen. Gemessen mit
  * axe-core an rohem Markup ohne Angular (zwei `<aside class="article-callout">`
  * ohne Auszeichnung): `landmark-unique` schlägt fehl, unabhängig von dieser
- * Komponente — das Mockup selbst kennt diese Auszeichnung nicht (siehe
- * `.scratch/angular-seitenbausteine/issues/23-doku-luecke-callout-landmark-label.md`).
+ * Komponente — das Mockup selbst kennt diese Auszeichnung nicht.
  * Die Eyebrow ist bereits ein prägnanter, vom Redakteur gepflegter Kurztext
  * genau für diesen Zweck (z. B. „In der Praxis“) — sie bekommt deshalb eine
  * generierte `id`, auf die `aria-labelledby` zeigt, sobald sie existiert. Ohne

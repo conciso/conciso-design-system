@@ -60,9 +60,7 @@ import type { CdsArea } from '../area';
  * Farbe wie das Band darunter — unsichtbar. Eine zweite Aktion hätte deshalb
  * zwangsläufig dieselbe Optik wie die erste getragen, keine Hierarchie, nur zwei
  * gleich gewichtete Buttons. Das ist eine CSS-Lücke (kein kontrastsicherer
- * sekundärer On-Band-Stil), festgehalten in
- * `.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`
- * — gemeldet, nicht in diesem Wrapper improvisiert. Solange sie besteht, trägt
+ * sekundärer On-Band-Stil) — gemeldet, nicht in diesem Wrapper improvisiert. Solange sie besteht, trägt
  * `cds-cta-band` nur eine Aktion; ein Konsument mit echtem Bedarf für eine zweite
  * schreibt sie außerhalb der Komponente ins Band hinein (`<ng-content>` gibt es
  * hier bewusst nicht, um genau das nicht als unterstützten Pfad zu suggerieren).

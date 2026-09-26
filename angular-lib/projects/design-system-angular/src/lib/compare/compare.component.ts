@@ -25,7 +25,7 @@ export interface CdsCompareRow {
  * (css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den zeilenweisen
  * Direktvergleich mehrerer Pakete/Tarife (Doku-Site `sec-table`, Nav-Eintrag
  * „Vergleichstabelle (aufklappbar)“, `docs/index.html:5182–5204`). Zehntes Ticket der
- * Seitenbausteine-Serie, nach `cds-table` (Ticket 09).
+ * Seitenbausteine-Serie, nach `cds-table`.
  *
  * **Mit Daten-Input, anders als `cds-table`.** `cds-table` projiziert `<thead>`/`<tbody>`
  * unverändert per `<ng-content>`, weil seine Zellen Badges, Links und `data-num` tragen können

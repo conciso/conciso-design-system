@@ -37,7 +37,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * den Wrapper). Die Ticket-API sieht dafür kein `loading`/`fetchpriority`-Input
  * vor; dieses Bauteil deckt deshalb den (häufigeren, dokumentierten) In-Body-Fall
  * ab. Für den Lead-Bild-Sonderfall bleibt `<figure class="article-figure">` roh
- * schreibbar oder — sofern die Semantik passt — `cds-hero-image` (Ticket 02) zu
+ * schreibbar oder — sofern die Semantik passt — `cds-hero-image` zu
  * prüfen.
  *
  * **`alt` und `caption` sind bewusst getrennte Pflicht-/Beiwerk-Inputs, keine

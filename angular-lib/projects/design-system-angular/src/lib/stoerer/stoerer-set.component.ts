@@ -8,8 +8,7 @@ import { StoererComponent } from './stoerer.component';
  * `<cds-stoerer>`-Kacheln, das auf der Startseite oben rechts über dem Hero-Bild
  * liegt. Der Positionsrahmen `.stoerer-hero` (umschließt Hero-Bild UND Set,
  * `container-type:inline-size` für die Container-Query-Schwelle) ist bewusst NICHT
- * Teil dieser Komponente, sondern bleibt beim Konsumenten (siehe
- * `.scratch/angular-seitenbausteine/issues/03-stoerer.md`): er umschließt Hero UND
+ * Teil dieser Komponente, sondern bleibt beim Konsumenten: er umschließt Hero UND
  * Set gemeinsam, das könnte diese Komponente als internes Detail nicht leisten, ohne
  * das Hero-Bild selbst zu kennen.
  *

@@ -36,8 +36,7 @@ export interface CdsArticleBreadcrumbItem {
  * `wissensbeitrag.mdx`. Das Ticket benennt genau diese Doku (nicht die
  * Beispielseiten) als Hauptvorlage. Diese Komponente folgt der Ticket-Vorgabe
  * (Breadcrumb als Input, im Header) und dokumentiert den Widerspruch als eigenen
- * Befund
- * (`.scratch/angular-seitenbausteine/issues/20-breadcrumb-in-oder-vor-article-header.md`).
+ * Befund.
  * Konsumenten, die der allgemeinen Regel folgen wollen (wie die beiden echten
  * Beispielseiten), lassen `breadcrumb` leer und setzen die Leiste selbst davor
  * (siehe Story „Ohne Breadcrumb“).

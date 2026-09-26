@@ -79,8 +79,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * **`.tbl-sort` bleibt außen vor.** Die Klasse existiert
  * (css/components.css:1477–1482), die Sortierlogik nicht — kein zugehöriges
  * JS in `docs/main.js` für die Beispielseiten. Ein Wrapper, der nur den
- * Button-Look lieferte, täuschte Funktion vor, die es nicht gibt. Siehe
- * `.scratch/angular-seitenbausteine/issues/19-fehlende-sortierlogik-tbl-sort.md`.
+ * Button-Look lieferte, täuschte Funktion vor, die es nicht gibt.
  */
 @Component({
   selector: 'cds-table',
