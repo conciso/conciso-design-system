@@ -163,7 +163,7 @@ jobs:
             # MCP-Server kennt, hängt vom BAUM seines Commits ab, nicht von seiner
             # Versionsnummer (siehe Kopfkommentar in decide.mjs für die ausführliche
             # Begründung, warum eine hartkodierte Baseline hier eine Race-Condition mit einem
-            # Release ist, der VOR dem Merge dieses Tickets auf main landet). `^{commit}`
+            # Release ist, der VOR dem Merge des MCP-Servers auf main landet). `^{commit}`
             # peelt einen annotierten Tag auf seinen Commit, bevor der Pfad aufgelöst wird —
             # funktioniert unverändert für einen leichtgewichtigen Alt-Tag (zeigt schon direkt
             # auf einen Commit). Exit-Code prüfen, nicht die Ausgabe: `-e` gibt bei Erfolg
@@ -423,28 +423,20 @@ jobs:
         run: npm run build:snapshot -w mcp-server
       # Einmal packen, denselben Tarball danach testen UND veröffentlichen — nicht pro Schritt
       # neu packen: sonst könnte der veröffentlichte Tarball von dem abweichen, der den
-      # Smoke-Test bestanden hat (siehe Kommentar in storybook-angular.yml zum selben Muster).
+      # Smoke-Test bestanden hat. Die Pack-Logik selbst (npm pack, die eine erzeugte .tgz-Datei
+      # finden statt `TARBALL="$(npm pack …)"` zu capturen, siehe Kommentar in
+      # mcp-server/test-support/tarball.mjs) lebt nur noch in EINEM Skript, das storybook-
+      # angular.yml (dort selbstpackend über smoke-test.mjs) und dieser Job hier (der den Pfad
+      # als Output für den späteren `npm publish` braucht) beide aufrufen.
       - name: MCP-Server tarballen
         id: mcp_pack
         if: env.BAUEN_MCP == 'true'
-        run: |
-          mkdir -p /tmp/mcp-pack
-          npm pack -w mcp-server --silent --pack-destination /tmp/mcp-pack
-          # Absichtlich NICHT `TARBALL="$(npm pack …)"`: der `prepack`-Lifecycle-Hook und
-          # `npm pack` selbst schreiben beide auf denselben stdout (siehe
-          # mcp-server/scripts/prepack.mjs, reproduziert und gefixt am 2026-09-25).
-          # Stattdessen die eine erzeugte .tgz-Datei im Zielverzeichnis suchen.
-          TARBALL="$(find /tmp/mcp-pack -maxdepth 1 -name '*.tgz')"
-          if [ -z "$TARBALL" ] || [ "$(printf '%s\n' "$TARBALL" | wc -l)" -ne 1 ]; then
-            echo "Erwartete genau eine .tgz-Datei in /tmp/mcp-pack, gefunden: $TARBALL" >&2
-            exit 1
-          fi
-          echo "tarball=$TARBALL" >> "$GITHUB_OUTPUT"
-      # Gate vor JEDEM MCP-Publish (ADR-0012, Issue 04): startet den TATSÄCHLICH zu
-      # veröffentlichenden Tarball über stdio und prüft initialize, die drei Werkzeuge, die
-      # Inputs einer bekannten Komponente, das Fehlen von `@internal`-Membern und die Seite
-      # „Einrichtung“ — dieselbe Prüfung wie in storybook-angular.yml, hier aber auf dem
-      # gestempelten Artefakt mit der echten Version statt dem Platzhalter 0.0.0.
+        run: echo "tarball=$(node mcp-server/scripts/pack-tarball.mjs)" >> "$GITHUB_OUTPUT"
+      # Gate vor JEDEM MCP-Publish (ADR-0012): startet den TATSÄCHLICH zu veröffentlichenden
+      # Tarball über stdio und prüft initialize, die drei Werkzeuge, die Inputs einer bekannten
+      # Komponente, das Fehlen von `@internal`-Membern und die Seite „Einrichtung“ — dieselbe
+      # Prüfung wie in storybook-angular.yml, hier aber auf dem gestempelten Artefakt mit der
+      # echten Version statt dem Platzhalter 0.0.0.
       - name: MCP-Tarball-Smoke-Test (Gate vor dem Publish)
         if: env.BAUEN_MCP == 'true'
         run: node mcp-server/scripts/smoke-test.mjs "${{ steps.mcp_pack.outputs.tarball }}"
