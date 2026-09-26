@@ -29,7 +29,7 @@ Tag der CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
 | `<cds-status-badge>` | `.badge` + `.badge-{ok\|warn\|err\|neu}` (Status-Ton) |
 | `<cds-area-badge>` | `.badge` + `[data-area]` (Bereichs-Zuordnung) |
 | `<cds-chip>` | `.chip` (aria-pressed Toggle **oder** statischer `t-*`-Tag) |
-| `<cds-card>` | `.card` / `.card-elevated` (Bereichs-Glyphe aus `../../../icons`) |
+| `<cds-card>` | `.card` (Bereichs-Glyphe aus `../../../icons`) |
 | `<cds-stat-card>` | `.card-stat` |
 | `<cds-stat-strip>` | `.card-stat-strip` + `.card-stat-flat` |
 | `<cds-testimonial>` | `.testimonial` |
