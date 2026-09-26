@@ -5,6 +5,11 @@
 # dependency-frei und in Sekunden durch.
 # Das Fehlermuster steht hier als U+-Notation, nicht als Glyphenpaar — der Check prüft
 # diese Datei mit.
+#
+# Zweiter Check im selben Job: scripts/check-ticket-refs.mjs (CONTRIBUTING § 17) — findet
+# neue Verweise auf lokale Ticket-Dateien außerhalb ihres eigenen, gitignoreten
+# Verzeichnisses. Beide Checks sind dependency-freie Textsuchen über denselben
+# Dateibestand, ein zweiter Job würde nur denselben Checkout ein zweites Mal bezahlen.
 name: Anführungszeichen
 
 on:
@@ -18,7 +23,7 @@ concurrency:
 
 jobs:
   check:
-    name: Kaputte Anführungszeichen-Paare finden
+    name: Kaputte Anführungszeichen-Paare und Ticket-Referenzen finden
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,3 +32,5 @@ jobs:
           node-version: 22
       - name: Anführungszeichen prüfen
         run: npm run check:quotes
+      - name: Ticket-Referenzen prüfen
+        run: npm run check:ticket-refs

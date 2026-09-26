@@ -59,6 +59,7 @@
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:quotes": "node scripts/check-quotes.mjs",
+    "check:ticket-refs": "node scripts/check-ticket-refs.mjs",
     "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
     "check:storybook-mcp-pin": "node scripts/release/check-storybook-mcp-pin.mjs",
     "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",

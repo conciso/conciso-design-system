@@ -360,6 +360,16 @@ absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–
 
 ---
 
+## 17. Keine Ticket-Referenzen in Kommentaren und Doku
+
+Issues und Specs leben als lokale, gitignorete Markdown-Dateien außerhalb der Versionierung (siehe `AGENTS.md`, `docs/agents/issue-tracker.md`) — sie leben nicht mit dem Branch weiter. Ein Verweis auf eine solche Datei oder eine bloße Ticketnummer im Kommentar ist nach dem Merge für niemanden mehr auflösbar außer für den damaligen Bearbeiter, auch nicht für ein KI-Werkzeug, das später denselben Kommentar liest.
+
+- **Trägt der Verweis eine Begründung, gehört die Begründung selbst in den Kommentar** (oder eine ADR), nicht ein Zeiger auf die Ticket-Datei: der Sachverhalt bleibt lesbar, auch wenn seine Quelle verschwindet.
+- **Ausnahmen:** echte GitHub-Referenzen (`#53`), sowie die beiden oben verlinkten Dokumente, die die Tracker-Konvention selbst beschreiben.
+- **Gate:** `npm run check:ticket-refs` (`scripts/check-ticket-refs.mjs`, Stil wie `scripts/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`).
+
+---
+
 ## PR-Checkliste
 
 - [ ] Nur Tokens verwendet (keine rohen Hex-/px-Werte ohne Begründung)
