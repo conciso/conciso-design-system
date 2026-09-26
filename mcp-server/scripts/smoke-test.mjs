@@ -19,6 +19,9 @@
 //   - tools/list enthält genau docs-list, docs-show, docs-show-story
 //   - docs-show(komponenten-buttons-button) enthält jeden dokumentierten Input und Output von
 //     Button, aus dem Docgen des installierten Snapshots gelesen (siehe eval/checker.mjs)
+//   - docs-show(komponenten-buttons-button) enthält zusätzlich die Verwendungsguidance
+//     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
+//     <Meta of={ButtonStories}> (ADR-0012)
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
 //     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
@@ -135,6 +138,18 @@ async function runProtocolChecks(client, errors, tmpDir) {
             `${missing.join(', ')}.`,
         );
       }
+    }
+    // Verwendungsguidance (ADR-0012): die Seite hängt per <Meta of={ButtonStories}> an
+    // Button, docs-show liefert sie mit. Prüft Überschrift plus Kernsatz, wie die
+    // Einrichtung-Assertion weiter unten.
+    if (!/#\s*Dos & Don'ts\b/.test(text)) {
+      errors.push('docs-show(komponenten-buttons-button) enthält nicht die Überschrift „Dos & Don\'ts“.');
+    }
+    if (!text.includes('Pro Kontext maximal ein Filled Button')) {
+      errors.push(
+        'docs-show(komponenten-buttons-button) enthält nicht den Kernsatz der Verwendungsseite ' +
+          '(„Pro Kontext maximal ein Filled Button…“ aus den Dos & Don\'ts).',
+      );
     }
   }
 
