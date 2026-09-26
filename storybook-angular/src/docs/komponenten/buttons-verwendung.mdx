@@ -137,6 +137,8 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 
 `--c50` erbt korrekt von `.btn-wo`, ein `color`-Override entfällt, weil der Default aus `.btn-filled` (Weiß) bereits greift.
 
+**Anti-Pattern:** Inline-Style verwenden, der nur die Token-Werte einer Modifier-Klasse dupliziert (etwa `style="--c500:var(--co-700);--c50:var(--co-50)"` statt `.btn-co`). Macht das Markup laut, das Refactoring teuer und verlangsamt das Lesen. Wenn eine Wiederholung auftaucht, lieber einen neuen Modifier definieren (wie `.btn-on-band`) statt das Pattern an mehreren Stellen inline zu kopieren.
+
 ## Dos & Don'ts
 
 **Tun**

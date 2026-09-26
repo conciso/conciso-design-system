@@ -46,3 +46,17 @@ hängt von ihren Nachbarn ab, und nur die Seite kennt diese Nachbarn. Deshalb se
 `.ep-section` selbst keinen Hintergrund, und `[cdsSection]` hat keinen
 `background`-Input: Die Fläche kommt per Klasse oder Inline-Style direkt an das
 Element, das `cdsSection` trägt (`<section cdsSection style="background:…">`).
+
+## Dos & Don'ts
+
+**Tun**
+
+- Die Hintergrundfläche als Klasse oder Style auf dem Element setzen, das `cdsSection` trägt, im Wechsel mit den Nachbar-Sektionen.
+- Kicker, Überschrift und Lead weglassen, wenn eine Sektion keinen eigenen Kopf braucht.
+- Ohne eigene Überschrift `labelledBy` auf eine vorhandene Überschrift setzen, damit die Sektion einen zugänglichen Namen behält.
+
+**Nicht tun**
+
+- Eine Hintergrundfarbe fest in die Komponente einbauen, sie kennt ihre Nachbar-Sektionen nicht.
+- Mehrere getönte Sektionen direkt hintereinander setzen, das wirkt schnell bunt statt ruhig.
+- Im Angular-Wrapper `<section cdsSection>` ohne Überschrift und ohne `labelledBy` schreiben, wenn `<div cdsSection>` genügt: die Sektion bliebe für Screenreader ohnehin namenlos, das Tag verspricht aber eine Landmark, die nie entsteht.
