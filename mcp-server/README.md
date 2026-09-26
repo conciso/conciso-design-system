@@ -1,7 +1,7 @@
 # @conciso/design-system-mcp
 
 MCP-Server für Consumer des Conciso Design System. Er beantwortet `docs-list`, `docs-show`
-und `docs-show-story` über stdio — mit den echten, dokumentierten Inputs und Outputs der
+und `docs-show-story` über stdio, mit den echten, dokumentierten Inputs und Outputs der
 [Angular-Lib](https://www.npmjs.com/package/@conciso/design-system-angular), nicht erfundenen.
 Die Daten stammen aus einem mitgelieferten Snapshot des Storybook-Builds derselben Version;
 der Server greift dafür nie auf ein Netzwerk zu. Beim Start vergleicht er seine Version mit der
@@ -10,7 +10,7 @@ installierten Angular-Lib und warnt bei Abweichung, bricht aber nie ab.
 ## Installation
 
 Zwei Wege: mit installiertem Paket, oder per `npx` ganz ohne Installation (etwa wenn dein
-Projekt die CSS-Schicht nur kopiert statt installiert hat — dann mit fester Version statt
+Projekt die CSS-Schicht nur kopiert statt installiert hat, dann mit fester Version statt
 `latest`, passend zum kopierten Stand):
 
 ```bash
@@ -22,8 +22,9 @@ npx -y @conciso/design-system-mcp@<Version>
 ```
 
 `<Version>` ist die Version der CSS-Schicht, die dein Projekt kopiert hat. Diesen
-MCP-Server gibt es erst ab der ersten Version nach 2.1.1; ist dein Stand älter, nimm die
-älteste verfügbare Version und aktualisiere die Kopie bei Gelegenheit.
+MCP-Server gibt es erst ab einer späteren Version als die CSS-Schicht; welche Versionen
+existieren, zeigt `npm view @conciso/design-system-mcp versions`. Ist dein Stand älter, nimm
+die älteste verfügbare Version und aktualisiere die Kopie bei Gelegenheit.
 
 ## Einbinden in Claude Code
 
@@ -53,6 +54,6 @@ Ohne installiertes Paket dieselbe Datei, nur mit fester Version statt `cds-mcp`:
 }
 ```
 
-Die vollständige Einrichtung — inklusive weiterer KI-Assistenten (VS Code, Cursor) und dem
-Weg ohne Angular — steht auf der Storybook-Seite
+Die vollständige Einrichtung, inklusive weiterer KI-Assistenten (VS Code, Cursor) und dem
+Weg ohne Angular, steht auf der Storybook-Seite
 [„Einrichtung“](https://conciso.github.io/conciso-design-system/?path=/docs/grundlagen-einrichtung--%C3%BCbersicht).

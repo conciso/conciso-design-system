@@ -86,7 +86,7 @@ export async function createServer({ cwd = process.cwd() } = {}) {
       version: pkg.version,
       description:
         'Dokumentierte Inputs/Outputs der Angular-Lib des Conciso Design System, aus einem ' +
-        'Storybook-Snapshot — kein Netzzugriff.',
+        'Storybook-Snapshot, kein Netzzugriff.',
     },
     {
       adapter: new ValibotJsonSchemaAdapter(),
