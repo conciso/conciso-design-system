@@ -1,8 +1,7 @@
-// Minimaler Lint für mcp-server (Review-Fix Ticket 15, CONTRIBUTING § „Lint“): reines
-// ESM/Node, kein Angular, kein TypeScript — anders als angular-lib/storybook-angular
-// (angular-eslint + typescript-eslint über `ng lint`) reicht hier @eslint/js „recommended“
-// plus die Node-Globals aus dem `globals`-Paket. Root-`npm run lint` ruft dieses Workspace-
-// Skript über `lint:mcp-server` mit auf (siehe package.json).
+// Minimaler Lint für mcp-server: reines ESM/Node, kein Angular, kein TypeScript — anders als
+// angular-lib/storybook-angular (angular-eslint + typescript-eslint über `ng lint`) reicht hier
+// @eslint/js „recommended“ plus die Node-Globals aus dem `globals`-Paket. Root-`npm run lint`
+// ruft dieses Workspace-Skript über `lint:mcp-server` mit auf (siehe package.json).
 import js from '@eslint/js';
 import globals from 'globals';
 
