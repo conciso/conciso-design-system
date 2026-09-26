@@ -84,7 +84,11 @@ const preview: Preview = {
             // von „Farben“, nicht mehr dessen Geschwister.
             'Farben',
             ['Verwendung', 'Paletten', 'Semantisch'],
+            // „Verwendung“ hängt per <Meta of={TypografieStories}> an der
+            // Foundation-Story „Grundlagen/Typografie“ (ADR-0012), ist also
+            // Kind von „Typografie“, nicht mehr dessen Geschwister.
             'Typografie',
+            ['Verwendung', 'Skala', 'Ligaturen', 'Seitenhierarchie'],
             'Spacing & Grid',
             'Responsive',
             'Elevation',
