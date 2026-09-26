@@ -28,6 +28,10 @@ const meta: Meta<CheckboxComponent> = {
     checked: { control: 'boolean' },
     disabled: { control: 'boolean' },
   },
+  // linkLabel + required zusammen im Default: die einzige Kombination, in der BEIDE
+  // &nbsp;-Trenner des Templates greifen (prettier-ignore, weil sie direkt an den
+  // @if-Interpolationen hängen). Die „Interaktiv“-Story unten trägt damit bereits den
+  // visuellen Snapshot für „Label mit Link und Pflichtfeld“ — keine eigene Story nötig.
   args: {
     label:
       'Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird.',

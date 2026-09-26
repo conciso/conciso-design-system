@@ -85,10 +85,10 @@ export async function analyzeCommits(pluginConfig, context) {
 // CHANGELOG endet mit 2.0.0, alles danach steht nur noch in den generierten Notes.
 // Absolute URL statt relativem Pfad: Die Notes werden auf der Release-Seite
 // (…/releases/tag/vX.Y.Z) gerendert, dort löst ein relativer Link unterhalb von
-// /releases/ auf und zeigt ins Leere. Fest auf `main`, weil der eingefrorene Stand
-// dort dauerhaft liegt.
+// /releases/ auf und zeigt ins Leere. Fest auf den Tag `v2.0.0`, nicht auf `main`:
+// Unter dem Tag liegt die Datei unveränderlich, ein main-Link bricht bei jedem Umzug.
 const FROZEN_CHANGELOG_LINK =
-  'Änderungen bis Version 2.0.0 stehen im eingefrorenen [CHANGELOG](https://github.com/conciso/conciso-design-system/blob/main/CHANGELOG.md#200---2026-09-23). Ab hier liefert jedes GitHub-Release seine eigenen Notes.';
+  'Änderungen bis Version 2.0.0 stehen im eingefrorenen [CHANGELOG](https://github.com/conciso/conciso-design-system/blob/v2.0.0/CHANGELOG.md#200---2026-09-23). Ab hier liefert jedes GitHub-Release seine eigenen Notes.';
 
 export async function generateNotes(pluginConfig, context) {
   const relevant = filterCommits(context.commits, context.cwd);
