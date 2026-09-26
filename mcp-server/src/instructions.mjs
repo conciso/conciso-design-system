@@ -24,6 +24,13 @@ Feste Regeln für die Angular-Lib „@conciso/design-system-angular“:
 5. Für Auswahl- und Gestaltungsfragen (welche Komponente, welche Variante, wo platzieren) zusätzlich die Verwendungsguidance heranziehen: Sie steht, wenn vorhanden, in der docs-show-Antwort der Komponente im Abschnitt „Docs“. Fehlt dieser Abschnitt, über docs-list nach einer Seite „Verwendung“ der Komponentengruppe suchen und sie mit docs-show laden.`;
 
 /**
+ * Anzahl der oben nummerierten Regeln in OWN_INSTRUCTIONS. Exportiert, damit ein Test sie gegen
+ * die Regel-Liste in der Paket-README (mcp-server/README.md, Abschnitt „Was er kann“) absichern
+ * kann, ohne die Regeln selbst dafür zu duplizieren.
+ */
+export const OWN_RULE_COUNT = (OWN_INSTRUCTIONS.match(/^\d+\.\s/gm) ?? []).length;
+
+/**
  * Baut den vollständigen `instructions`-Text: eigene Regeln, optional die Versions-Notiz aus
  * `checkVersion`, danach die Storybook-eigenen Anweisungen.
  * @param {string | null} [versionNote] `instructionsNote` aus `checkVersion` (src/version-check.mjs).
