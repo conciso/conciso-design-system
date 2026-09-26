@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
-import { HeroImageComponent, StoererComponent, StoererSetComponent } from '@conciso/design-system-angular';
+import {
+  HeroImageComponent,
+  StoererComponent,
+  StoererSetComponent,
+} from '@conciso/design-system-angular';
 
 // Neutraler Inline-SVG-Platzhalter im 21:9-Format für die Kombinations-Story mit
 // cds-hero-image — dasselbe Muster wie in hero-image.stories.ts (storybook-angular
@@ -21,7 +25,9 @@ const iconDocumentText =
 const meta: Meta<StoererSetComponent> = {
   title: 'Komponenten/Hero/Störer',
   component: StoererSetComponent,
-  decorators: [moduleMetadata({ imports: [StoererSetComponent, StoererComponent, HeroImageComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [StoererSetComponent, StoererComponent, HeroImageComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',

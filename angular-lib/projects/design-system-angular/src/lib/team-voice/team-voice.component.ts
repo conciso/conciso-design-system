@@ -22,7 +22,13 @@ import { CDS_QUOTE_ICON } from '../icons';
       </div>
       <figcaption class="team-voice-body">
         <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
+        <svg
+          class="team-voice-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+          [innerHTML]="quoteIcon()"
+        ></svg>
         <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name() }}</p>

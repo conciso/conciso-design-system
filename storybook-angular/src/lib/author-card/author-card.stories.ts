@@ -1,12 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
-import { AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';
+import {
+  AuthorCardComponent,
+  AuthorCardGroupComponent,
+  AvatarComponent,
+} from '@conciso/design-system-angular';
 
 const meta: Meta<AuthorCardComponent> = {
   title: 'Seitenmuster/Wissensbeitrag/Author-Card',
   component: AuthorCardComponent,
-  decorators: [moduleMetadata({ imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',

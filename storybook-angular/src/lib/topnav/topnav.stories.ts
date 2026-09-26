@@ -111,8 +111,20 @@ export const DoppelteLabels: Story = {
   parameters: { controls: { disable: true }, snapshot: { skip: true } },
   args: {
     links: [
-      { label: 'Leistungen', sub: [{ label: 'Übersicht', href: '#l' }, { label: 'Beratung', href: '#b' }] },
-      { label: 'Wissen', sub: [{ label: 'Übersicht', href: '#w' }, { label: 'Übersicht', href: '#w2' }] },
+      {
+        label: 'Leistungen',
+        sub: [
+          { label: 'Übersicht', href: '#l' },
+          { label: 'Beratung', href: '#b' },
+        ],
+      },
+      {
+        label: 'Wissen',
+        sub: [
+          { label: 'Übersicht', href: '#w' },
+          { label: 'Übersicht', href: '#w2' },
+        ],
+      },
       { label: 'Wissen', href: '#wissen' },
     ],
   },

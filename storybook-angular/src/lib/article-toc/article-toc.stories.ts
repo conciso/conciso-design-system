@@ -32,7 +32,12 @@ const meta: Meta<ArticleTocComponent> = {
   component: ArticleTocComponent,
   decorators: [
     moduleMetadata({
-      imports: [ArticleTocComponent, ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent],
+      imports: [
+        ArticleTocComponent,
+        ArticleCalloutComponent,
+        ArticleFigureComponent,
+        ArticlePullquoteComponent,
+      ],
     }),
   ],
   tags: ['autodocs', 'angular'],
@@ -171,7 +176,15 @@ export const ImArtikelBody: Story = {
     await expect(body.tagName).toBe('DIV');
 
     const directChildTags = Array.from(body.children).map((el) => el.tagName);
-    await expect(directChildTags).toEqual(['P', 'CDS-ARTICLE-TOC', 'H2', 'P', 'CDS-ARTICLE-PULLQUOTE', 'CDS-ARTICLE-CALLOUT', 'CDS-ARTICLE-FIGURE']);
+    await expect(directChildTags).toEqual([
+      'P',
+      'CDS-ARTICLE-TOC',
+      'H2',
+      'P',
+      'CDS-ARTICLE-PULLQUOTE',
+      'CDS-ARTICLE-CALLOUT',
+      'CDS-ARTICLE-FIGURE',
+    ]);
 
     await expect(body.querySelector('details.article-toc')).not.toBeNull();
     await expect(body.querySelector('blockquote.article-pullquote')).not.toBeNull();

@@ -50,7 +50,12 @@ let uid = 0;
     '(document:pointerdown)': 'onDocPointerDown($event)',
   },
   template: `
-    <div class="ep-select" [class.is-open]="open()" [class.is-disabled]="disabled()" [attr.data-area]="area() || null">
+    <div
+      class="ep-select"
+      [class.is-open]="open()"
+      [class.is-disabled]="disabled()"
+      [attr.data-area]="area() || null"
+    >
       <span class="ep-select-label" [id]="ids.label">{{ label() }}</span>
       <button
         #trigger
@@ -77,7 +82,9 @@ let uid = 0;
         [id]="ids.menu"
         [attr.aria-labelledby]="ids.label"
         tabindex="-1"
-        [attr.aria-activedescendant]="open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null"
+        [attr.aria-activedescendant]="
+          open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null
+        "
         (keydown)="onMenuKeydown($event)"
       >
         @for (opt of options(); track opt.value; let i = $index) {
@@ -288,14 +295,18 @@ export class SelectComponent implements ControlValueAccessor {
     this.activeIndex.set(i);
     // Aktiven Eintrag in Sicht scrollen (lange Listen).
     this.scrollTimer.schedule(() => {
-      this.host.nativeElement.querySelector(`#${CSS.escape(this.ids.option(i))}`)?.scrollIntoView({ block: 'nearest' });
+      this.host.nativeElement
+        .querySelector(`#${CSS.escape(this.ids.option(i))}`)
+        ?.scrollIntoView({ block: 'nearest' });
     });
   }
 
   private typeahead(char: string): void {
     this.typeBuffer += char.toLowerCase();
     this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), 500);
-    const match = this.options().findIndex((o) => o.label.toLowerCase().startsWith(this.typeBuffer));
+    const match = this.options().findIndex((o) =>
+      o.label.toLowerCase().startsWith(this.typeBuffer),
+    );
     if (match >= 0) this.setActive(match);
   }
 

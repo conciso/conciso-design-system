@@ -77,7 +77,11 @@ let uid = 0;
   selector: 'cds-article-callout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <aside class="article-callout" [attr.data-area]="area() || null" [attr.aria-labelledby]="eyebrowId()">
+    <aside
+      class="article-callout"
+      [attr.data-area]="area() || null"
+      [attr.aria-labelledby]="eyebrowId()"
+    >
       @if (eyebrow(); as eyebrowText) {
         <p class="article-callout-eyebrow" [id]="eyebrowId()">{{ eyebrowText }}</p>
       }
@@ -99,5 +103,7 @@ export class ArticleCalloutComponent {
    *
    * @internal
    */
-  protected readonly eyebrowId = computed(() => (this.eyebrow() ? `${this.instanceId}-eyebrow` : null));
+  protected readonly eyebrowId = computed(() =>
+    this.eyebrow() ? `${this.instanceId}-eyebrow` : null,
+  );
 }

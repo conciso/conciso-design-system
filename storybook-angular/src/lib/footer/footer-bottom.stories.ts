@@ -83,6 +83,8 @@ export const DoppelteLabels: Story = {
     ],
   },
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getAllByRole('link', { name: 'Datenschutz' })).toHaveLength(2);
+    await expect(within(canvasElement).getAllByRole('link', { name: 'Datenschutz' })).toHaveLength(
+      2,
+    );
   },
 };

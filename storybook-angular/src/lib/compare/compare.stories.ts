@@ -23,7 +23,7 @@ const meta: Meta<CompareComponent> = {
           'Text-Zellen (`string`) rendern die Angabe unverändert. Die empfohlene Spalte wird über ' +
           '`columns[].pro` als `.ep-compare-pro` hervorgehoben (in `thead` UND `tbody`). ' +
           '`caption` ist Pflicht (`.sr-only`, wie in `tabelle.mdx` dokumentiert), `rowsLabel` ' +
-          '(erste Kopfzelle) ist Beiwerk mit Default `\'\'` — beide Abweichungen von der ' +
+          "(erste Kopfzelle) ist Beiwerk mit Default `''` — beide Abweichungen von der " +
           'Ticket-Skizze sind in der Klassendoku begründet.',
       },
     },

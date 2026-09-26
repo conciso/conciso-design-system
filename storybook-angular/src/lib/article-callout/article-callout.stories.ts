@@ -17,7 +17,7 @@ const meta: Meta<ArticleCalloutComponent> = {
           '(`.article-callout*`, css/components.css:1591–1600). Projizierte Absätze bleiben ' +
           'direkte Kinder von `.article-callout` (`<ng-content>` fügt kein eigenes Element ein), ' +
           'Voraussetzung für den Kindselektor `.article-callout > p` (css/components.css:1600). ' +
-          '`area` hat den verteidigbaren Default `\'co\'`: die Basisregel ohne `[data-area]` ' +
+          "`area` hat den verteidigbaren Default `'co'`: die Basisregel ohne `[data-area]` " +
           'rendert bereits identisch zu `[data-area="co"]`. Ehemaliger CSS-Befund behoben (siehe ' +
           '`.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`): ' +
           '`.article-callout-eyebrow` steht jetzt als `.article-callout > .article-callout-eyebrow` ' +
@@ -100,7 +100,9 @@ export const ProBereich: Story = {
   // selbst (Hintergrund, Border-Links) ist von der Eyebrow-Spezifitätslücke NICHT betroffen, nur
   // die Eyebrow-Schrift/-Abstand (siehe Klassendoku und Issue 22).
   play: async ({ canvasElement }) => {
-    const asides = Array.from(canvasElement.querySelectorAll('aside.article-callout')) as HTMLElement[];
+    const asides = Array.from(
+      canvasElement.querySelectorAll('aside.article-callout'),
+    ) as HTMLElement[];
     await expect(asides).toHaveLength(4);
     const areas = asides.map((a) => a.getAttribute('data-area'));
     await expect(areas).toEqual(['co', 'ki', 'es', 'wo']);

@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  computed,
+  input,
+  viewChild,
+} from '@angular/core';
 
 /**
  * Stoerer (cds-stoerer) — eine Kachel für `<cds-stoerer-set>`, Wrapper um `.stoerer`
@@ -39,7 +46,9 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewC
           <ng-content select="[cdsIcon]"></ng-content>
           {{ topic() }}
         </span>
-        <span class="stoerer-title"><span>{{ title() }}</span></span>
+        <span class="stoerer-title"
+          ><span>{{ title() }}</span></span
+        >
         @if (hasMeta()) {
           <span class="stoerer-meta">
             @if (date()) {
@@ -92,8 +101,10 @@ export class StoererComponent {
     if (!iso) return '';
     const [year, month, day] = iso.split('-').map(Number);
     if (!year || !month || !day) return iso;
-    return new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }).format(
-      new Date(year, month - 1, day),
-    );
+    return new Intl.DateTimeFormat('de-DE', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(year, month - 1, day));
   });
 }

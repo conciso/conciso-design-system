@@ -62,6 +62,8 @@
     "check:quotes": "node scripts/check-quotes.mjs",
     "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
     "check:storybook-mcp-pin": "node scripts/release/check-storybook-mcp-pin.mjs",
+    "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
+    "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
     "test:release": "node --test scripts/release/*.test.mjs",
     "build:angular-lib": "npm run --workspace angular-lib build",
     "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
@@ -88,6 +90,7 @@
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/release-notes-generator": "^14.1.1",
+    "prettier": "^3.8.1",
     "semantic-release": "^25.0.9"
   }
 }

@@ -65,7 +65,10 @@ export const LesbarerZustand: Story = {
       props: {
         filters,
         aktiveLabels: () =>
-          filters.filter((f) => f.pressed).map((f) => f.label).join(', ') || '—',
+          filters
+            .filter((f) => f.pressed)
+            .map((f) => f.label)
+            .join(', ') || '—',
       },
       template: `
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">

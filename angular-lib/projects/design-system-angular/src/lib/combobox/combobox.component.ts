@@ -58,7 +58,11 @@ let uid = 0;
       <!-- Klick auf die Feldfläche fokussiert das Input (cursor:text); das Input selbst
            ist direkt tastaturfokussierbar — daher a11y-Regeln hier gezielt aus. -->
       <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-      <div class="ep-combobox-control" [class.has-clear]="query().length > 0" (click)="focusInput()">
+      <div
+        class="ep-combobox-control"
+        [class.has-clear]="query().length > 0"
+        (click)="focusInput()"
+      >
         @if (multi()) {
           @for (opt of selectedOptions(); track opt.value) {
             <span class="ep-combobox-token">
@@ -84,7 +88,9 @@ let uid = 0;
           [attr.aria-expanded]="open()"
           [attr.aria-controls]="ids.menu"
           aria-autocomplete="list"
-          [attr.aria-activedescendant]="open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null"
+          [attr.aria-activedescendant]="
+            open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null
+          "
           [placeholder]="placeholder()"
           [disabled]="disabled()"
           [value]="query()"
@@ -94,13 +100,23 @@ let uid = 0;
           (blur)="markTouched()"
         />
         @if (query().length > 0) {
-          <button type="button" class="ep-combobox-clear" aria-label="Eingabe löschen" (click)="clear($event)">
+          <button
+            type="button"
+            class="ep-combobox-clear"
+            aria-label="Eingabe löschen"
+            (click)="clear($event)"
+          >
             <ng-icon name="heroXMark" size="16px" aria-hidden="true" />
           </button>
         }
         <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
       </div>
-      <ul class="ep-combobox-menu" role="listbox" [id]="ids.menu" [attr.aria-labelledby]="ids.label">
+      <ul
+        class="ep-combobox-menu"
+        role="listbox"
+        [id]="ids.menu"
+        [attr.aria-labelledby]="ids.label"
+      >
         @for (opt of filtered(); track opt.value; let i = $index) {
           <!-- Listbox-Muster: Optionen bewusst nicht einzeln fokussierbar; Tastatur
                läuft über das Input (aria-activedescendant). -->
@@ -119,7 +135,9 @@ let uid = 0;
           </li>
         }
         @if (!filtered().length) {
-          <li class="ep-combobox-empty" role="option" aria-disabled="true" aria-selected="false">{{ emptyText() }}</li>
+          <li class="ep-combobox-empty" role="option" aria-disabled="true" aria-selected="false">
+            {{ emptyText() }}
+          </li>
         }
       </ul>
     </div>
@@ -177,19 +195,18 @@ export class ComboboxComponent implements ControlValueAccessor {
    *
    * @internal
    */
-  protected readonly query = linkedSignal<
-    { open: boolean; multi: boolean; label: string },
-    string
-  >({
-    source: () => ({ open: this.open(), multi: this.multi(), label: this.selectedLabel() }),
-    computation: (src, previous) => {
-      // Offenes Menü: laufende Eingabe nicht überschreiben (entspricht dem alten
-      // `if (!this.open())`-Gate). Geschlossen: Multi zeigt nie ein Label (leeren),
-      // Einzelauswahl übernimmt das Label der aktuellen Auswahl.
-      if (src.open) return previous?.value ?? '';
-      return src.multi ? '' : src.label;
+  protected readonly query = linkedSignal<{ open: boolean; multi: boolean; label: string }, string>(
+    {
+      source: () => ({ open: this.open(), multi: this.multi(), label: this.selectedLabel() }),
+      computation: (src, previous) => {
+        // Offenes Menü: laufende Eingabe nicht überschreiben (entspricht dem alten
+        // `if (!this.open())`-Gate). Geschlossen: Multi zeigt nie ein Label (leeren),
+        // Einzelauswahl übernimmt das Label der aktuellen Auswahl.
+        if (src.open) return previous?.value ?? '';
+        return src.multi ? '' : src.label;
+      },
     },
-  });
+  );
 
   private onChange: (value: string | string[]) => void = () => {
     /* von Angular-Forms via registerOnChange gesetzt */

@@ -15,7 +15,11 @@ import { FieldShellComponent } from './field-shell.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FieldShellComponent],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextareaFieldComponent), multi: true },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TextareaFieldComponent),
+      multi: true,
+    },
   ],
   template: `
     <cds-field-shell

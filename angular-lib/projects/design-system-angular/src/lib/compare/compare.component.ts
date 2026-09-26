@@ -106,7 +106,11 @@ export interface CdsCompareRow {
       </summary>
       <div class="ep-compare-table-wrap">
         <table class="ep-compare-table">
-          <caption class="sr-only">{{ caption() }}</caption>
+          <caption class="sr-only">
+            {{
+              caption()
+            }}
+          </caption>
           <thead>
             <tr>
               <th scope="col">{{ rowsLabel() }}</th>
@@ -122,13 +126,11 @@ export interface CdsCompareRow {
                 @for (cell of row.cells; track $index) {
                   <td [class.ep-compare-pro]="columns()[$index].pro">
                     @if (cell === true) {
-                      <span class="ep-compare-yes" aria-hidden="true">✓</span><span class="sr-only"
-                        >Enthalten</span
-                      >
+                      <span class="ep-compare-yes" aria-hidden="true">✓</span
+                      ><span class="sr-only">Enthalten</span>
                     } @else if (cell === false) {
-                      <span class="ep-compare-no" aria-hidden="true">−</span><span class="sr-only"
-                        >Nicht enthalten</span
-                      >
+                      <span class="ep-compare-no" aria-hidden="true">−</span
+                      ><span class="sr-only">Nicht enthalten</span>
                     } @else {
                       {{ cell }}
                     }

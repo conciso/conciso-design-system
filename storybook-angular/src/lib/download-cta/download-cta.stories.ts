@@ -48,12 +48,16 @@ export const Interaktiv: Story = {
   play: async ({ canvasElement, args }) => {
     const c = within(canvasElement);
     const primary = c.getByRole('button', { name: /^Herunterladen:/ });
-    await expect(primary).toHaveAccessibleName(`${args.primaryLabel}: ${args.title} (${args.meta})`);
+    await expect(primary).toHaveAccessibleName(
+      `${args.primaryLabel}: ${args.title} (${args.meta})`,
+    );
     await userEvent.click(primary);
     await expect(args.primaryClick).toHaveBeenCalledTimes(1);
 
     const secondary = c.getByRole('button', { name: /^Vorschau ansehen:/ });
-    await expect(secondary).toHaveAccessibleName(`${args.secondaryLabel}: ${args.title} (${args.meta})`);
+    await expect(secondary).toHaveAccessibleName(
+      `${args.secondaryLabel}: ${args.title} (${args.meta})`,
+    );
     await userEvent.click(secondary);
     await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
   },

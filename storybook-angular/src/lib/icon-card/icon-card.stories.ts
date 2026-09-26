@@ -247,7 +247,9 @@ export const ImRaster: Story = {
     await expect(heights[1]).toBe(heights[0]);
     await expect(heights[2]).toBe(heights[0]);
 
-    const ctaBottoms = cards.map((el) => el.querySelector('.ep-card-cta')?.getBoundingClientRect().bottom);
+    const ctaBottoms = cards.map(
+      (el) => el.querySelector('.ep-card-cta')?.getBoundingClientRect().bottom,
+    );
     await expect(ctaBottoms[1]).toBe(ctaBottoms[0]);
     await expect(ctaBottoms[2]).toBe(ctaBottoms[0]);
   },
@@ -268,6 +270,8 @@ export const OhneCta: Story = {
   // rendern — dieselbe Konvention wie bei cds-link-card/cds-hero-image/cds-section.
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.ep-card-cta')).toBeNull();
-    await expect(canvasElement.querySelector('.ep-card-title')).toHaveTextContent('Schlanke Systeme');
+    await expect(canvasElement.querySelector('.ep-card-title')).toHaveTextContent(
+      'Schlanke Systeme',
+    );
   },
 };

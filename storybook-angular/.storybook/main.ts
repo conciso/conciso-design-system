@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
  * expliziter `resolve.alias` gesetzt.
  */
 const angularLibEntry = fileURLToPath(
-  new URL('../../angular-lib/projects/design-system-angular/src/public-api.ts', import.meta.url)
+  new URL('../../angular-lib/projects/design-system-angular/src/public-api.ts', import.meta.url),
 );
 
 /**

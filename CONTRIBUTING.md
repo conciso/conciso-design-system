@@ -351,6 +351,15 @@ absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–
 
 ---
 
+## 16. Formatierung
+
+- **Gilt nur für TypeScript und HTML** (`**/*.{ts,mts,cts,html}`, Konfiguration in `.prettierrc`, Ausschlüsse in `.prettierignore`). CSS, Tokens, Markdown & Co. haben ihren eigenen, etablierten Stil und werden bewusst **nicht** von Prettier angefasst (siehe Kommentar in `.prettierignore`).
+- **Lokal formatieren:** `npm run format` schreibt die Dateien um. Vor dem Commit ausführen, wenn TS/HTML angefasst wurde.
+- **Die CI prüft nur, sie formatiert nicht.** `.github/workflows/format.yml` läuft `npm run format:check` (`prettier --check`) bei PR und Push auf `main` und schlägt fehl, statt selbst zu schreiben oder zu committen.
+- **`git blame` ohne die einmalige Formatierungs-Commit:** `git config blame.ignoreRevsFile .git-blame-ignore-revs` lokal einmal setzen; GitHub liest die Datei im Root automatisch, ohne weitere Einrichtung.
+
+---
+
 ## PR-Checkliste
 
 - [ ] Nur Tokens verwendet (keine rohen Hex-/px-Werte ohne Begründung)

@@ -101,7 +101,7 @@ export const Ligaturen: Story = {
     docs: {
       description: {
         story:
-          'Live-Kopie aus docs/index.html (Abschnitt Ligaturen, Zeilen 1535–1572). Libre Baskerville aktiviert die OpenType-Standard-Ligatur `liga`: Der linke Block zeigt „Stoff“ mit `font-feature-settings: \'liga\' 1`, der rechte zum Vergleich mit deaktivierter Ligatur (`\'liga\' 0`). Darunter das Muster-Gitter der Ligaturen ff, fi, fl, ffi, ffl.',
+          "Live-Kopie aus docs/index.html (Abschnitt Ligaturen, Zeilen 1535–1572). Libre Baskerville aktiviert die OpenType-Standard-Ligatur `liga`: Der linke Block zeigt „Stoff“ mit `font-feature-settings: 'liga' 1`, der rechte zum Vergleich mit deaktivierter Ligatur (`'liga' 0`). Darunter das Muster-Gitter der Ligaturen ff, fi, fl, ffi, ffl.",
       },
     },
   },

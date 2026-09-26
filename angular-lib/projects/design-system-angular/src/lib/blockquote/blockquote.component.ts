@@ -23,7 +23,13 @@ import { CDS_QUOTE_ICON } from '../icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <figure class="bq" [attr.data-area]="area() || null">
-      <svg class="bq-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
+      <svg
+        class="bq-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+        [innerHTML]="quoteIcon()"
+      ></svg>
       <blockquote>{{ quote() }}</blockquote>
       @if (name() || roleLabel()) {
         <figcaption class="bq-caption">

@@ -86,9 +86,13 @@ export const Interaktiv: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     await expect(
-      c.getByRole('img', { name: 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände' }),
+      c.getByRole('img', {
+        name: 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände',
+      }),
     ).toBeInTheDocument();
-    await expect(c.getByRole('heading', { level: 1, name: 'Klare Köpfe. Ruhige Energie.' })).toBeInTheDocument();
+    await expect(
+      c.getByRole('heading', { level: 1, name: 'Klare Köpfe. Ruhige Energie.' }),
+    ).toBeInTheDocument();
   },
 };
 
@@ -106,7 +110,9 @@ export const OhneCaption: Story = {
     const c = within(canvasElement);
     await expect(canvasElement.querySelector('figcaption')).toBeNull();
     await expect(
-      c.getByRole('img', { name: 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände' }),
+      c.getByRole('img', {
+        name: 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände',
+      }),
     ).toBeInTheDocument();
   },
 };
@@ -135,7 +141,9 @@ export const BeitragsHero: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     await expect(c.getByRole('heading', { level: 1 })).toBeInTheDocument();
-    await expect(c.getByRole('heading', { level: 2, name: 'Readiness statt Begeisterung' })).toBeInTheDocument();
+    await expect(
+      c.getByRole('heading', { level: 2, name: 'Readiness statt Begeisterung' }),
+    ).toBeInTheDocument();
   },
 };
 

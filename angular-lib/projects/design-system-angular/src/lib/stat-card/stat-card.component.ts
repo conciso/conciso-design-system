@@ -16,7 +16,11 @@ import type { CdsArea } from '../area';
       <p class="card-stat-value">{{ value() }}</p>
       <p class="card-stat-label">{{ label() }}</p>
       @if (trend()) {
-        <span class="card-stat-trend" [class.up]="trend() === 'up'" [class.down]="trend() === 'down'">
+        <span
+          class="card-stat-trend"
+          [class.up]="trend() === 'up'"
+          [class.down]="trend() === 'down'"
+        >
           <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path [attr.d]="trend() === 'up' ? 'M7 14l5-5 5 5z' : 'M7 10l5 5 5-5z'" />
           </svg>

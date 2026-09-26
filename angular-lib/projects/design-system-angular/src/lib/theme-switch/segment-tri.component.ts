@@ -156,7 +156,12 @@ export class ThemeSegmentComponent {
     const bx = parseFloat(cs.borderLeftWidth) || 0;
     const by = parseFloat(cs.borderTopWidth) || 0;
 
-    return { width: r.width, height: r.height, x: r.left - barRect.left - bx, y: r.top - barRect.top - by };
+    return {
+      width: r.width,
+      height: r.height,
+      x: r.left - barRect.left - bx,
+      y: r.top - barRect.top - by,
+    };
   }
 
   /** Gemessene Geometrie auf den Thumb schreiben (reines Schreiben, kein Lesen). */

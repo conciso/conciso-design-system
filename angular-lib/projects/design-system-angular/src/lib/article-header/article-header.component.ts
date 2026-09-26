@@ -189,7 +189,9 @@ export interface CdsArticleBreadcrumbItem {
           <span class="article-meta-sep" aria-hidden="true"></span>
         }
         @if (hasDate()) {
-          <time class="article-meta-date" [attr.datetime]="date()">{{ dateLabel() || date() }}</time>
+          <time class="article-meta-date" [attr.datetime]="date()">{{
+            dateLabel() || date()
+          }}</time>
         }
       </div>
     }

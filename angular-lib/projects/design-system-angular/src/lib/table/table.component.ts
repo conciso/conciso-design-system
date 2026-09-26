@@ -88,7 +88,11 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   template: `
     <div class="tbl-wrap" tabindex="0" role="region" [attr.aria-label]="accessibleName()">
       <table class="tbl" [class.tbl--striped]="striped()">
-        <caption>{{ caption() }}</caption>
+        <caption>
+          {{
+            caption()
+          }}
+        </caption>
         <ng-content></ng-content>
       </table>
     </div>
