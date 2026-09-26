@@ -22,6 +22,8 @@
 //   - docs-show(komponenten-buttons-button) enthält zusätzlich die Verwendungsguidance
 //     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
 //     <Meta of={ButtonStories}> (ADR-0012)
+//   - docs-list enthält NICHT mehr die alte, eigenständige ID
+//     „komponenten-buttons--verwendung“ (Seite kommt nur noch angehängt, nicht doppelt)
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
 //     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
@@ -55,6 +57,9 @@ const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_ROOT = join(PKG_ROOT, '..');
 const EXPECTED_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'];
 const BUTTON_SELECTOR = 'cds-button';
+// Vor dem Anhängen per <Meta of={ButtonStories}> (ADR-0012) hatte die Buttons-Verwendungsseite
+// diese eigenständige ID im Docs-Manifest; darf nach dem Anhängen nicht mehr auftauchen.
+const OLD_BUTTONS_VERWENDUNG_DOC_ID = 'komponenten-buttons--verwendung';
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
 // im JSDoc der Lib nimmt sie aus dem Docgen-Modus `propsTable: 'api'` heraus; taucht eine
@@ -160,6 +165,15 @@ async function runProtocolChecks(client, errors, tmpDir) {
     const text = docsList.result?.content?.[0]?.text ?? '';
     if (!text.includes(EINRICHTUNG_DOC_ID)) {
       errors.push(`docs-list enthält nicht die Seite „Einrichtung“ (${EINRICHTUNG_DOC_ID}).`);
+    }
+    // Regressionsschutz für ADR-0012: die alte, eigenständige Buttons-Verwendungsseite
+    // ist per <Meta of={ButtonStories}> an Button gehängt, ihre alte ID darf also nicht
+    // mehr separat in docs-list auftauchen (sonst käme die Seite doppelt zurück).
+    if (text.includes(OLD_BUTTONS_VERWENDUNG_DOC_ID)) {
+      errors.push(
+        `docs-list enthält noch die alte, eigenständige Doku-ID „${OLD_BUTTONS_VERWENDUNG_DOC_ID}“ ` +
+          'neben der angehängten Seite.',
+      );
     }
   }
 
