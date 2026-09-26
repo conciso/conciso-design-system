@@ -13,10 +13,10 @@ const DEFAULT_STORYBOOK_STATIC = join(PKG_ROOT, '..', 'storybook-angular', 'stor
 const DEFAULT_SNAPSHOT_DIR = join(PKG_ROOT, 'snapshot');
 
 // Beide Top-Level-Verzeichnisse werden gebraucht — `manifests/` selbst plus alle per `$ref`
-// referenzierten Service-Dateien, die komplett unter `services/` liegen (verifiziert per Spike
-// vom 2026-09-25: services/core/docgen, services/core/story-docs, services/addon-docs/mdx). Nur
-// ihre Existenz wird hier vorab geprüft; WIE jedes kopiert wird, entscheiden die beiden cpSync-
-// Aufrufe weiter unten (unterschiedlich, siehe isJsonOrDir).
+// referenzierten Service-Dateien, die komplett unter `services/` liegen (services/core/docgen,
+// services/core/story-docs, services/addon-docs/mdx). Nur ihre Existenz wird hier vorab geprüft;
+// WIE jedes kopiert wird, entscheiden die beiden cpSync-Aufrufe weiter unten (unterschiedlich,
+// siehe isJsonOrDir).
 const SNAPSHOT_SOURCES = ['manifests', 'services'];
 
 // `manifests/` enthält neben den beiden vom manifestProvider gelesenen JSON-Dateien auch

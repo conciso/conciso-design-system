@@ -1,4 +1,4 @@
-// Pinnt das Verhalten aus Issue 02 (ADR-0012): vier Fälle der Versionsprüfung, alle ohne
+// Pinnt das Verhalten der Versionsprüfung aus ADR-0012: vier Fälle, alle ohne
 // Dateisystem-Fixtures, weil `checkVersion` eine reine Funktion ist. Der Resolver
 // (`resolveInstalledVersion`) braucht dagegen echte Modulauflösung und wird separat gegen ein
 // `cwd` ohne installierte Angular-Lib geprüft (negativer Fall reicht: ein positiver Fall würde

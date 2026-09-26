@@ -2,8 +2,7 @@
 
 Misst, ob der [MCP-Server](../../CONTEXT.md#mcp-server) der KI eines Consumers tatsächlich
 hilft — nicht nur, ob das Protokoll antwortet. Siehe
-[ADR-0012](../adr/0012-mcp-server-fuer-consumer.md) und
-`.scratch/mcp-server/issues/06-eval-set-mit-und-ohne-server.md` (Issue 06).
+[ADR-0012](../adr/0012-mcp-server-fuer-consumer.md).
 
 ## Warum das ein eigenes Skript ist, kein CI-Gate
 
@@ -60,7 +59,7 @@ und in eine Datei unter dem System-Temp-Verzeichnis (Pfad steht am Ende der Ausg
 überschreibbar über `CDS_MCP_EVAL_REPORT_DIR`). Jede Zelle nennt:
 
 - **Werkzeugfehler** — ein `tool_result` mit `isError` macht den Lauf **immer** rot,
-  unabhängig vom Antworttext (Akzeptanzkriterium aus Issue 06).
+  unabhängig vom Antworttext.
 - **Erfundene API** — Attribute/Bindungen auf `cds-*`-Elementen in Code-Blöcken der Antwort,
   die für die jeweilige Komponente **nicht** in den `argTypes` des installierten Snapshots
   stehen (`table.category` `inputs`/`outputs`). Kein LLM-Richter: reine Textanalyse gegen die

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "_kommentar": "Fangfragen aus dem Consumer-Alltag für das Eval-Set (Issue 06, ADR-0012). Erweiterbar ohne Codeänderung: run-eval.mjs liest ausschließlich diese Datei. `components` ist informativ (steht im Bericht, wird nicht zur Prüfung selbst gebraucht — die Wahrheit holt sich run-eval.mjs immer live aus dem installierten Snapshot). `checks` steuert, welche Zusatzprüfungen neben der immer laufenden Prüfung erfundener Attribute/Bindungen greifen: aktuell nur „setup-mentions-global-css“.",
+  "_kommentar": "Fangfragen aus dem Consumer-Alltag für das Eval-Set (ADR-0012). Erweiterbar ohne Codeänderung: run-eval.mjs liest ausschließlich diese Datei. `components` ist informativ (steht im Bericht, wird nicht zur Prüfung selbst gebraucht — die Wahrheit holt sich run-eval.mjs immer live aus dem installierten Snapshot). `checks` steuert, welche Zusatzprüfungen neben der immer laufenden Prüfung erfundener Attribute/Bindungen greifen: aktuell nur „setup-mentions-global-css“.",
   "questions": [
     {
       "id": "button-icon-links",

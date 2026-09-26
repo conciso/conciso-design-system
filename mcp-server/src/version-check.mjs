@@ -12,7 +12,7 @@ import { createRequire } from 'node:module';
 import { join } from 'node:path';
 
 /**
- * Version, die das Repo laut Spec-Regel 7 („versionsfreies Repo“, siehe
+ * Version, die das Repo laut ADR-0010 („versionsfreies Repo“, siehe
  * scripts/release/stamp-version.mjs) dauerhaft trägt, bis der Publish-Job die echte Version
  * einstempelt. Vor dem ersten Release — und bei jedem lokalen `npm test` aus einem Checkout, der
  * nie gestempelt wurde — steht sie in JEDEM Paket, auch in einer frisch installierten

@@ -1,8 +1,8 @@
 // MCP-Server für Consumer (ADR-0012): baut die drei Storybook-Doku-Werkzeuge von
 // @storybook/mcp auf einem tmcp-Server mit stdio-Transport auf. Liest ausschließlich aus dem
 // mitgelieferten Snapshot (`snapshot/manifests`, `snapshot/services`) — kein Netzzugriff, kein
-// Port. Stolperstein aus dem Spike vom 2026-09-25: stdout gehört exklusiv dem JSON-RPC-Protokoll,
-// jede Diagnose geht auf stderr.
+// Port. Wichtige Invariante: stdout gehört exklusiv dem JSON-RPC-Protokoll, jede Diagnose geht
+// auf stderr.
 import { readFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join, sep } from 'node:path';
@@ -31,11 +31,10 @@ export const SNAPSHOT_ROOT = join(PACKAGE_ROOT, 'snapshot');
 
 /**
  * @storybook/mcp ruft den manifestProvider mit Pfaden relativ zur Storybook-Wurzel auf, z. B.
- * „./manifests/components.json“ oder „./services/core/docgen/<id>.json“ (per Spike vom
- * 2026-09-25 verifiziert). `request` bleibt in stdio immer `undefined` — es gibt kein
- * HTTP-Request-Objekt; wir ignorieren es bewusst.
+ * „./manifests/components.json“ oder „./services/core/docgen/<id>.json“. `request` bleibt in
+ * stdio immer `undefined` — es gibt kein HTTP-Request-Objekt; wir ignorieren es bewusst.
  *
- * ROOT CAUSE (reproduziert am 2026-09-25): @storybook/mcp löst `$ref`-Pfade aus dem Manifest
+ * ROOT CAUSE: @storybook/mcp löst `$ref`-Pfade aus dem Manifest
  * URL-artig auf (`new URL(filePath, base).pathname`, siehe `parseManifestRef` in
  * @storybook/mcp/dist/index.js) und übergibt dem manifestProvider deshalb einen
  * PROZENTKODIERTEN Pfad, z. B. „./services/addon-docs/mdx/grundlagen-einrichtung--%C3%BCbersicht.json“
