@@ -45,6 +45,8 @@ import { CDS_AREA_ICONS } from '../icons';
  * samt `--pinned`-Fuß höher als ihre Nachbarn. `:host{display:flex}` mit
  * `flex:1` an der Karte gibt die gestreckte Höhe an `a.card` weiter; Story
  * „Im Raster“ pinnt das.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-link-card',

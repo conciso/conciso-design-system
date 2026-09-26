@@ -32,6 +32,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Wert eingeschränkt, den das CSS tatsächlich kennt; der Compiler verhindert damit
  * strukturell, dass jemand `co`/`es`/`wo` setzt und ein wirkungsloses Attribut
  * bekommt, statt es nur im JSDoc zu behaupten.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-tier',

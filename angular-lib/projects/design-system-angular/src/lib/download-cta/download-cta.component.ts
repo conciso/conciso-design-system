@@ -7,6 +7,8 @@ import type { CdsArea } from '../area';
  * Aufmerksamkeitsstarker Download-Block mit bereichsgefärbtem Top-Akzent + Icon
  * (data-area), Eyebrow/Titel/Beschreibung/Meta und zwei Aktionen (primär/sekundär,
  * über die bestehenden `.btn`-Klassen). Konsumiert nur vorhandene Styles.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe CTA-Band (`komponenten-call-to-action-cta-band--verwendung`).
  */
 @Component({
   selector: 'cds-download-cta',

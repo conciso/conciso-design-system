@@ -13,6 +13,8 @@ export interface CdsFlatStat {
  * css/components.css → „Stat-Strip“. Flacher Bandstreifen (auto-fit-Grid auf
  * --n-50-Grund) mit zentrierten Kennzahlen ohne Rahmen/Schatten; Wert je
  * Bereich getönt via [data-area]. Genau wie docs/index.html.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-stat-strip',

@@ -9,6 +9,8 @@ import { FieldShellComponent } from './field-shell.component';
  *
  * Als `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare
  * anbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).
  */
 @Component({
   selector: 'cds-select-field',

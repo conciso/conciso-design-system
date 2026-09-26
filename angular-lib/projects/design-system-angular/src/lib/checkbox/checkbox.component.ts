@@ -13,6 +13,8 @@ import { CvaBase } from '../shared/cva-base.directive';
  *
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); ohne Formular geht `[(checked)]` (checkedChange via model()).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).
  */
 @Component({
   selector: 'cds-checkbox',

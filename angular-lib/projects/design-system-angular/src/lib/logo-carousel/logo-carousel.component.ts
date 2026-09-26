@@ -32,6 +32,8 @@ let cdsLogoCarouselUid = 0;
  * Jede Kachel ist ein `cds-logo`: bevorzugt ein Bild (`src`), sonst der Text als
  * Platzhalter/Fallback. Standardmäßig sind reine Text-Platzhalter gesetzt – reale
  * Anwendungen übergeben ihre Kundenlogos als Bilder.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Carousel (`komponenten-slider-carousel-carousel--verwendung`).
  */
 @Component({
   selector: 'cds-logo-carousel',

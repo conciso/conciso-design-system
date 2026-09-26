@@ -62,6 +62,8 @@ import type { CdsArea } from '../area';
  * `pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne Inputs zu
  * erfinden, die das Ticket nicht vorsieht — ein Meta-Strip oder ein CTA-Fuß wären
  * eine spätere, eigene Erweiterung.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-featured-card',

@@ -23,6 +23,8 @@ export interface CdsSocialLink {
  * und Social-Profilen. Die Host-Klasse `footer-btm` trägt Hintergrund/Flex-Layout aus
  * css/components.css. Social-Glyphen sind schlanke Inline-SVGs in Weiß; verifizierte
  * Built-in-Icons (linkedin, youtube) via `platform`, beliebige weitere via `iconPath`.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).
  */
 @Component({
   selector: 'cds-footer-bottom',

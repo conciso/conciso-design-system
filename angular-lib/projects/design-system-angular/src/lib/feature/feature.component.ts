@@ -96,6 +96,8 @@ import type { CdsArea } from '../area';
  * pro Instanz auf `<ctaLabel>: <Ziel>`. Wirkt nur am `<a>`-Zweig: `aria-label` an
  * einem `<span>` ohne Rolle hat keinen verlässlichen Effekt im
  * Accessibility-Baum, und der `<span>`-Zweig ist ohnehin nicht interaktiv.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'div[cdsFeature]',
