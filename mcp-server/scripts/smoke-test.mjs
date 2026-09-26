@@ -153,7 +153,7 @@ const GROUP_USAGE_CHECKS = [
   },
   {
     id: 'komponenten-theme-umschalter-cycle-button',
-    sentence: 'Icon-Button, ein Klick zyklt durch die Modi, vorgesehen für den Header',
+    sentence: 'Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header',
   },
   {
     id: 'marke-logo-logo',
