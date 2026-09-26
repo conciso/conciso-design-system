@@ -1,8 +1,8 @@
 // Unit-Tests für die reine Prüf-Logik aus checker.mjs — handgepflegte Beispielantworten,
 // keine echten claude-/MCP-Aufrufe (die macht run-eval.mjs). Bewusst NICHT unter
 // mcp-server/test/, damit `npm test -w mcp-server` (`node --test test/*.test.mjs`) den
-// Eval-Teil nicht einschließt (Issue 06, Akzeptanzkriterium „npm test bleibt grün, Eval ist
-// nicht Teil davon“). Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
+// Eval-Teil nicht einschließt: `npm test` bleibt grün, der Eval ist kein Teil davon.
+// Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -106,4 +106,14 @@ test('mentionsGlobalCssInclusion erkennt deutsche Einrichtungs-Formulierungen', 
   assert.equal(mentionsGlobalCssInclusion('Du musst die CSS-Schicht global in der angular.json einbinden.'), true);
   assert.equal(mentionsGlobalCssInclusion('@conciso/design-system muss als Style in angular.json stehen.'), true);
   assert.equal(mentionsGlobalCssInclusion('Setze einfach [variant]="\'filled\'" am Button.'), false);
+});
+
+test('mentionsGlobalCssInclusion wertet die Angular-Lib „@conciso/design-system-angular“ nicht als CSS-Hinweis', () => {
+  // Regressionstest: `@conciso\/design-system\b` matchte bisher auch „@conciso/design-system-angular“,
+  // weil `\b` schon an der Grenze „m“→„-“ zuschlägt (Wortzeichen → Nicht-Wortzeichen). Das bloße
+  // Importieren der Angular-Lib sagt nichts darüber, ob die CSS-Schicht global eingebunden wurde.
+  assert.equal(
+    mentionsGlobalCssInclusion('Importiere die Komponente aus @conciso/design-system-angular.'),
+    false,
+  );
 });

@@ -1,12 +1,11 @@
-// Reine Prüf-Logik für das Eval-Set „KI mit und ohne MCP-Server“ (Issue 06, ADR-0012).
+// Reine Prüf-Logik für das Eval-Set „KI mit und ohne MCP-Server“ (ADR-0012).
 // Bewusst KEIN LLM-Richter: eine Antwort gilt nur dann als „erfundene API“, wenn ein
 // `cds-*`-Element (per Element-Selektor wie `cds-button` oder per Attribut-Selektor wie
 // `[cdsIconCard]`, siehe ADR-0008) ein Attribut oder eine Bindung trägt, die für GENAU
 // diese Komponente nicht in ihren `argTypes` steht (`table.category === 'inputs'|'outputs'`).
 //
 // Die Wahrheit kommt ausschließlich aus dem installierten Snapshot
-// (services/core/docgen/*.json) — nie aus einer handgepflegten Liste (Akzeptanzkriterium
-// aus .scratch/mcp-server/issues/06-eval-set-mit-und-ohne-server.md). `buildTruthMap` liest
+// (services/core/docgen/*.json), nie aus einer handgepflegten Liste. `buildTruthMap` liest
 // dieselbe Form, die scripts/smoke-test.mjs bereits für sein @internal-Gate liest
 // (argTypes[*].table.category), ergänzt um `angularComponentMeta.selector` für die
 // Selektor→Komponente-Zuordnung (per Spike in ADR-0012 verifiziert).
@@ -291,10 +290,13 @@ export function checkAnswer(answerText, truthMap) {
 }
 
 // Erkennt, ob eine Antwort auf Einrichtungsfragen die globale Einbindung der CSS-Schicht
-// erwähnt (Akzeptanzkriterium 2 aus Issue 06) — bewusst großzügig (mehrere Formulierungen),
-// weil es hier nur um „wurde der Grundgedanke erwähnt“ geht, nicht um exakten Wortlaut.
+// erwähnt. Bewusst großzügig (mehrere Formulierungen), weil es hier nur um „wurde der
+// Grundgedanke erwähnt“ geht, nicht um exakten Wortlaut. `(?!-)` nach „design-system“: ohne die
+// Sperre matcht `\b` auch an der Wortzeichen→Bindestrich-Grenze und liest deshalb
+// „@conciso/design-system-angular“ (die Angular-Lib, keine Aussage über die CSS-Schicht) als
+// denselben CSS-Hinweis.
 const GLOBAL_CSS_MENTION_RE =
-  /(css[- ]schicht|@conciso\/design-system\b|angular\.json|"styles"\s*:|styles\.(scss|css)|global[^.\n]{0,40}(einbind|eingebunden|import))/i;
+  /(css[- ]schicht|@conciso\/design-system(?!-)\b|angular\.json|"styles"\s*:|styles\.(scss|css)|global[^.\n]{0,40}(einbind|eingebunden|import))/i;
 
 /** @param {string} answerText @returns {boolean} */
 export function mentionsGlobalCssInclusion(answerText) {
