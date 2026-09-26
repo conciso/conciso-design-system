@@ -38,8 +38,8 @@ test('neue Version aus der Engine → beide Pakete aus dem ausgelösten Commit',
     publishLib: true,
     publishCssNpm: true,
     publishLibNpm: true,
-    // Schritt 4 baut immer aus HEAD (enthält seit diesem Ticket mcp-server/) — unconditional
-    // true, unabhängig von `tagHasMcp` (siehe Kopfkommentar dieser Datei).
+    // Schritt 4 baut immer aus HEAD (enthält seit der MCP-Einführung mcp-server/) —
+    // unconditional true, unabhängig von `tagHasMcp` (siehe Kopfkommentar in decide.mjs).
     publishMcp: true,
     publishMcpNpm: true,
     source: 'head',
@@ -241,8 +241,8 @@ test('halbe npm-Lücke hat Vorrang vor einer neuen Engine-Version', () => {
 
 // ── MCP-Server (ADR-0012): `tagHasMcp`-Fakt statt Versions-Baseline ────────────────────
 // Eigene Zeitlinie ab Tag v2.2.0: der reale Fall, der den Konstanten-Ansatz zu Fall brachte
-// (siehe Kopfkommentar in decide.mjs) — `main` war bei v2.1.1, PR #47 (`feat`) löste VOR dem
-// Merge dieses Tickets einen Release auf v2.2.0 aus. CSS und Lib sind auf beiden Registries
+// (siehe Kopfkommentar in decide.mjs) — `main` war bei v2.1.1, ein `feat`-PR löste VOR dem
+// Merge des MCP-Servers einen Release auf v2.2.0 aus. CSS und Lib sind auf beiden Registries
 // vollständig, damit die Tests ausschließlich den MCP-Anteil der Entscheidung prüfen.
 const ohneMcpAera = {
   ...sauber,
@@ -255,8 +255,8 @@ const ohneMcpAera = {
 
 test('Tag v2.2.0 ohne mcp-server/ (tagHasMcp: false) → kein Nachziehen am Tag, blockiert keinen Release', () => {
   // Der Bug, den die alte MCP_BASELINE-Konstante nicht sehen konnte: 2.2.0 > jede plausible
-  // Baseline, aber der TAG-BAUM hat trotzdem kein mcp-server/, weil er vor dem Merge dieses
-  // Tickets entstand. `tagHasMcp: false` ist der Fakt, den der Workflow für GENAU diesen Tag
+  // Baseline, aber der TAG-BAUM hat trotzdem kein mcp-server/, weil er vor dem Merge des
+  // MCP-Servers entstand. `tagHasMcp: false` ist der Fakt, den der Workflow für GENAU diesen Tag
   // ermittelt (per `git cat-file -e "$TAG^{commit}:mcp-server/package.json"`) — ohne ihn (oder
   // mit einer falschen Versions-Konstante) versuchte Schritt 1, MCP aus diesem Tag
   // nachzuziehen, dessen Baum ihn nicht hat, und jeder weitere Release bliebe blockiert.
@@ -264,7 +264,7 @@ test('Tag v2.2.0 ohne mcp-server/ (tagHasMcp: false) → kein Nachziehen am Tag,
 });
 
 test('Tag v2.2.0 ohne mcp-server/, aber mit anstehendem Release → neuer Release läuft durch (alle sechs)', () => {
-  // Fortsetzung des 2.2.0-Falls: Nach dem Merge dieses Tickets sammelt die Engine die seither
+  // Fortsetzung des 2.2.0-Falls: Nach dem Merge des MCP-Servers sammelt die Engine die seither
   // (auch vor dem Merge bereits gelandeten, jetzt erst relevant gewordenen) Commits ein und
   // schlägt eine neue Version vor — Schritt 4 baut immer aus HEAD, das mcp-server/ enthält,
   // und braucht deshalb kein `tagHasMcp`-Gate.

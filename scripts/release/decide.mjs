@@ -30,20 +30,20 @@
 // Tag vor ADR-0011), keine Ableitung aus `latestTag` — der wandert mit jedem Release weiter,
 // NPM_BASELINE nicht.
 //
-// MCP-Server (ADR-0012): Das dritte Paket existiert erst seit diesem Ticket — für Schritt 1
-// unten („getaggt, aber ein Paket fehlt“) muss deshalb bekannt sein, ob der GETAGGTE COMMIT
-// überhaupt ein mcp-server/-Verzeichnis hat, sonst würde versucht, den MCP-Server aus einem
-// Tag-Commit nachzuziehen, der ihn nicht kennt — der Build bräche ab und JEDER weitere
+// MCP-Server (ADR-0012): Das dritte Paket existiert erst seit dieser Entscheidung — für
+// Schritt 1 unten („getaggt, aber ein Paket fehlt“) muss deshalb bekannt sein, ob der GETAGGTE
+// COMMIT überhaupt ein mcp-server/-Verzeichnis hat, sonst würde versucht, den MCP-Server aus
+// einem Tag-Commit nachzuziehen, der ihn nicht kennt — der Build bräche ab und JEDER weitere
 // Release bliebe blockiert.
 //
 // Bewusst KEINE feste Versions-Konstante (anders als NPM_BASELINE): Ob ein Tag mcp-server/
 // enthält, ist eine Eigenschaft des BAUMS dieses Commits, keine Eigenschaft seiner
 // Versionsnummer — NPM_BASELINE funktioniert, weil „npmjs existiert seit einem fixen
-// Zeitpunkt“ zeitlich linear ist, aber welche VERSIONSNUMMER der letzte Tag VOR diesem
-// Ticket trägt, hängt vom Zufall ab, wann `main` zuletzt released hat, bevor dieser PR
-// merged. main kann zwischen dem Schreiben dieses Codes und dem Merge weiterziehen (ein
-// `feat`-PR released z. B. v2.2.0, BEVOR dieses Ticket merged) — eine hartkodierte Version
-// wie „2.1.1“ wäre dann zu niedrig und Schritt 1 versuchte fälschlich, MCP aus v2.2.0
+// Zeitpunkt“ zeitlich linear ist, aber welche VERSIONSNUMMER der letzte Tag VOR der
+// MCP-Einführung trägt, hängt vom Zufall ab, wann `main` zuletzt released hat: main kann
+// zwischen dem Schreiben dieses Codes und dem Merge des MCP-Servers weiterziehen (ein
+// `feat`-PR released z. B. v2.2.0, BEVOR der MCP-Server merged wird) — eine hartkodierte
+// Version wie „2.1.1“ wäre dann zu niedrig und Schritt 1 versuchte fälschlich, MCP aus v2.2.0
 // nachzuziehen, dessen Baum ihn ebenfalls nicht hat. Der Publish-Workflow ermittelt den Fakt
 // deshalb direkt aus dem Tag-Commit (`git cat-file -e "$TAG^{commit}:mcp-server/package.json"`)
 // und übergibt ihn als `tagHasMcp` — ein Fakt über den Baum, keine Vermutung über die Zukunft.
@@ -51,14 +51,13 @@
 // vergisst) wird nie versucht, MCP aus einem Tag zu heilen — sicherer Rückfall.
 //
 // Schritt 3 (eine Registry-Version über dem Tag) und Schritt 4 (neu aus HEAD) brauchen
-// `tagHasMcp` NICHT: ihr Quellstand ist entweder HEAD selbst (Schritt 4, hat seit diesem
-// Ticket immer mcp-server/) oder der `gitHead` einer bereits veröffentlichten Version
+// `tagHasMcp` NICHT: ihr Quellstand ist entweder HEAD selbst (Schritt 4, hat seit der
+// MCP-Einführung immer mcp-server/) oder der `gitHead` einer bereits veröffentlichten Version
 // (Schritt 3) — die kann nur von EINEM Lauf DIESES (MCP-fähigen) `decide.mjs` stammen, denn
 // nur der setzt jemals `publishMcp`/`publishMcpNpm`. Ein Lauf mit dem alten, MCP-unfähigen
 // Code kennt diese Felder nicht und schließt einen unfertigen Release wie bisher (nur
-// CSS/Lib) noch VOR dem Merge dieses Tickets ab, inklusive Tag und Release — ein
-// „veroeffentlicht über dem Tag ohne mcp-server/“-Zwischenstand kann diesen Merge deshalb
-// nicht überleben.
+// CSS/Lib) noch VOR der MCP-Einführung ab, inklusive Tag und Release — ein „veroeffentlicht
+// über dem Tag ohne mcp-server/“-Zwischenstand kann diesen Übergang deshalb nicht überleben.
 //
 // Aufruf im Workflow: `node scripts/release/decide.mjs` mit den Fakten als Umgebungs-
 // variablen (siehe unten); gibt das Ergebnis als `schlüssel=wert`-Zeilen auf stdout aus.
@@ -270,7 +269,7 @@ export function decide({
   // 4. Alles Frühere ist fertig → neue Version aus der Engine. Sie liegt per Konstruktion
   //    immer über dem letzten Tag (>= NPM_BASELINE), npmjs ist hier also immer relevant —
   //    kein zusätzliches npmRelevant()-Gate nötig. Die Quelle ist außerdem IMMER der aktuelle
-  //    Commit (HEAD), der seit diesem Ticket mcp-server/ enthält — anders als in Schritt 1
+  //    Commit (HEAD), der seit der MCP-Einführung mcp-server/ enthält — anders als in Schritt 1
   //    (Tag-Commit) gibt es hier kein „alter Commit ohne MCP-Verzeichnis“-Risiko, deshalb auch
   //    kein `tagHasMcp`-Gate nötig.
   if (engineVersion) {

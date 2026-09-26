@@ -66,8 +66,8 @@ export const RELEVANT_PATH_PREFIXES = [
   // des MCP-Servers ein (mcp-server/scripts/build-snapshot.mjs kopiert manifests/+services/
   // 1:1 aus dem Storybook-Build). NUR src/ — die Storybook-KONFIGURATION außerhalb davon
   // (`.storybook/main.ts`, `.storybook/preview.ts`: Addons, Docgen-Optionen, storySort)
-  // bleibt bewusst unsichtbar. Das ist keine neue Entscheidung dieses Tickets, sondern
-  // deckt sich mit dem seit jeher dokumentierten Beispiel „Storybook-Konfiguration“ in
+  // bleibt bewusst unsichtbar. Das ist keine neue Entscheidung, sondern deckt sich mit dem
+  // seit jeher dokumentierten Beispiel „Storybook-Konfiguration“ in
   // CONTEXT.md#veröffentlichungsrelevanter-pfad. Zwar KANN `.storybook/main.ts` den
   // Manifest-Inhalt beeinflussen (es konfiguriert Addons/Docgen, aus denen der
   // Storybook-Build components.json/docs.json erzeugt) — würde das Verzeichnis trotzdem

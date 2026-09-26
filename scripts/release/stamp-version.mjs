@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Stempelt die von der Engine (semantic-release --dry-run, siehe semantic-release-plugin.mjs)
-// berechnete Version in alle drei package.json UND die Peer-Pin der Angular-Lib — Spec Regel 7
-// „Versionsfreies Repo“: im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
+// berechnete Version in alle drei package.json UND die Peer-Pin der Angular-Lib (ADR-0010,
+// „versionsfreies Repo“): im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
 // Version wird erst im Publish-Job VOR dem Build in die Artefakte geschrieben und NIE
 // committet. Idempotent: erneutes Stempeln derselben Version schreibt dasselbe Ergebnis.
 // Drittes Paket seit ADR-0012: der MCP-Server (mcp-server/package.json) bekommt dieselbe
