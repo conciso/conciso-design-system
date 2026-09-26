@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as CycleButtonStories from '../../lib/theme-switch/cycle-button.stories';
 
-<Meta title="Komponenten/Theme-Umschalter" name="Verwendung" tags={['angular']} />
+<Meta of={CycleButtonStories} name="Verwendung" />
 
 # Theme-Umschalter · Verwendung
 
@@ -26,7 +27,7 @@ drei Umschalter zyklen beziehungsweise Optionen anbieten, ist fest:
 | `system` | System | `heroComputerDesktop` |
 
 Alle drei Umschalter teilen denselben `showSystem`-Parameter: `true` zeigt alle drei
-Modi (tri), `false` blendet „System“ aus und zyklt nur zwischen Hell und Dunkel
+Modi (tri), `false` blendet „System“ aus und wechselt nur zwischen Hell und Dunkel
 (binär). Die Auswahl trifft `cdsThemeModes(showSystem)` in `theme-mode.ts`.
 
 ## `themeStore` als einziger Schreiber von `data-theme`
@@ -122,6 +123,6 @@ für den Modus, unabhängig davon, über welchen Umschalter er gesetzt wurde.
 
 ## Verwandte Seiten
 
-- `Komponenten/Theme-Umschalter/Cycle-Button` (Icon-Button, ein Klick zyklt durch die Modi, vorgesehen für den Header)
+- `Komponenten/Theme-Umschalter/Cycle-Button` (Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header)
 - `Komponenten/Theme-Umschalter/Segment` (Segment-Leiste zum Hovern, immer responsiv und animiert)
 - `Komponenten/Theme-Umschalter/Dropdown` (Custom Select, vorgesehen nur in den Einstellungen, nicht als persistentes Element)

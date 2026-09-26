@@ -36,6 +36,8 @@ import { StoererComponent } from './stoerer.component';
  * Konsumenten gezwungen, das projizierte Icon jeder Kachel in ein Datenobjekt
  * umzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API
  * erhalten.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Hero-Bild (`komponenten-hero-hero-bild--verwendung`).
  */
 @Component({
   selector: 'cds-stoerer-set',

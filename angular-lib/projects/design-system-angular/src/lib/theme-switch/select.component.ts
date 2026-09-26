@@ -8,6 +8,8 @@ import { CDS_THEME_LABEL, cdsThemeModes, type CdsThemeMode, ThemeModeService } f
  * den Einstellungen (Settings), NICHT als persistentes Element auf allen Seiten.
  *
  * `showSystem` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).
  */
 @Component({
   selector: 'cds-theme-select',

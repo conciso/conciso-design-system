@@ -13,6 +13,8 @@ import type { CdsArea } from '../area';
  * a11y: Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine
  * Überschrift — daher trägt die Pill ein explizites `aria-label` (Default
  * „Bereich <label>“, überschreibbar), genau wie in der Doku vorgegeben.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).
  */
 @Component({
   selector: 'cds-pill',

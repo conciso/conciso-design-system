@@ -84,6 +84,8 @@ export interface CdsCompareRow {
  * nativer Toggle wird deshalb nicht rückgängig gemacht — geprüft in der Story „Interaktiv“
  * (Play-Funktion: Klick öffnet, `toggled` feuert `true`, ein zweiter, vom Toggle unabhängiger
  * Interaktionsschritt lässt die Tabelle weiterhin offen).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Tabelle (`komponenten-tabelle-tabelle--verwendung`).
  */
 @Component({
   selector: 'cds-compare',

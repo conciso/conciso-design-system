@@ -11,6 +11,8 @@ import { CDS_QUOTE_ICON } from '../icons';
  * Akzent (data-area), Quote-Icon (ui-quote), Zitat und Name/Rolle. Mehrere
  * Komponenten in einen `<div class="team-voices">` legen, damit das alternierende
  * Layout greift (siehe Story).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).
  */
 @Component({
   selector: 'cds-team-voice',

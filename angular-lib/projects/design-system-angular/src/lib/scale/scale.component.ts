@@ -31,6 +31,8 @@ let uid = 0;
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); der Formularwert ist der Stufen-INDEX. Ohne Formular geht
  * `[(value)]` (valueChange via model()).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).
  */
 @Component({
   selector: 'cds-scale',

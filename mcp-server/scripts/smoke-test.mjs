@@ -29,6 +29,11 @@
 //     Typografie-Seite (Überschrift „Wann welche Schrift“ plus die Kernaussage zur
 //     Schriftwahl, Montserrat für Fließtext), angehängt per
 //     <Meta of={TypografieStories}> (ADR-0012, Ticket 06)
+//   - Stichprobe je Komponentengruppe (Ticket 04): docs-show der tragenden Komponente
+//     enthält eine Kernaussage der jeweiligen Verwendungsseite (GROUP_USAGE_CHECKS unten)
+//   - docs-list enthält NICHT mehr die alten, eigenständigen IDs der jetzt angehängten
+//     Verwendungsseiten (Button plus die 16 Gruppen aus Ticket 04, OLD_STANDALONE_VERWENDUNG_DOC_IDS
+//     unten) — jede Seite kommt nur noch angehängt zurück, nicht doppelt
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
 //     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
@@ -62,6 +67,99 @@ const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_ROOT = join(PKG_ROOT, '..');
 const EXPECTED_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'];
 const BUTTON_SELECTOR = 'cds-button';
+// Vor dem Anhängen per <Meta of={...}> (ADR-0012) hatten diese Verwendungsseiten eine
+// eigenständige ID im Docs-Manifest; keine davon darf nach dem Anhängen in docs-list
+// wieder auftauchen (sonst käme die jeweilige Seite doppelt zurück). Erster Eintrag ist
+// Button (Spike), die übrigen 16 sind der Rollout aus Ticket 04 über alle Gruppen.
+const OLD_STANDALONE_VERWENDUNG_DOC_IDS = [
+  'komponenten-buttons--verwendung',
+  'komponenten-chips-badges-pills--verwendung',
+  'komponenten-inputs-forms--verwendung',
+  'komponenten-dropdowns--verwendung',
+  'komponenten-feedback--verwendung',
+  'komponenten-cards-teaser--verwendung',
+  'komponenten-call-to-action--verwendung',
+  'komponenten-tabelle--übersicht',
+  'komponenten-zitate-testimonials--verwendung',
+  'komponenten-code-block--verwendung',
+  'komponenten-slider-carousel--verwendung',
+  'komponenten-sektion--übersicht',
+  'komponenten-navigation--verwendung',
+  'komponenten-hero--übersicht',
+  'komponenten-footer--verwendung',
+  'komponenten-theme-umschalter--verwendung',
+  'marke-logo--verwendung',
+];
+// Stichprobe je Komponentengruppe (Ticket 04, ADR-0012-Nachtrag): docs-show der tragenden
+// Komponente jeder Gruppe enthält einen Kernsatz aus deren angehängter Verwendungsseite. Button
+// selbst ist bereits oben geprüft (eigene Assertion mit Docgen-Abgleich), hier nicht doppelt.
+const GROUP_USAGE_CHECKS = [
+  {
+    id: 'komponenten-chips-badges-pills-chip',
+    sentence: 'Chips für aktive Filterauswahl, die Nutzerin steuert selbst, was sichtbar ist.',
+  },
+  {
+    id: 'komponenten-inputs-forms-textfeld',
+    sentence: 'Jedes Feld mit sichtbarem Label versehen, Placeholder allein ist keine barrierefreie Beschriftung.',
+  },
+  {
+    id: 'komponenten-dropdowns-custom-select',
+    sentence: 'Custom Select für eine Ja/Nein- oder Zwei-Optionen-Wahl, dafür sind Radios oder ein nativer Select besser.',
+  },
+  {
+    id: 'komponenten-feedback-snackbar',
+    sentence: 'Feldfehler inline direkt unter dem Eingabefeld zeigen, Snackbar nur für globale Submit-Fehler.',
+  },
+  {
+    id: 'komponenten-cards-teaser-card',
+    sentence: 'Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext.',
+  },
+  {
+    id: 'komponenten-call-to-action-cta-band',
+    sentence: 'Bewusst nur EINE Aktion, kein',
+  },
+  {
+    id: 'komponenten-tabelle-tabelle',
+    sentence: 'Scroll-Container verwenden statt die Tabelle zu verkleinern, Lesbarkeit hat Vorrang',
+  },
+  {
+    id: 'komponenten-zitate-testimonials-blockquote',
+    sentence: 'Echte Kundenstimmen verwenden, keine KI-generierten Platzhalter in der Produktion',
+  },
+  {
+    id: 'komponenten-code-block-code-block',
+    sentence:
+      'Terminal-Variante für alle Shell-Befehle und Ausgaben, der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt',
+  },
+  {
+    id: 'komponenten-slider-carousel-carousel',
+    sentence: 'Kein Auto-Play ohne Pause-Button, WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung',
+  },
+  {
+    id: 'komponenten-sektion-sektion',
+    sentence: 'Die Fläche gehört der Seite, nicht dem Bauteil.',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen',
+  },
+  {
+    id: 'komponenten-hero-hero-bild',
+    sentence: 'Standard auf allen Customer-Pages',
+  },
+  {
+    id: 'komponenten-footer-komplett',
+    sentence: 'Footer als primäre Navigation verwenden, er ist eine Ergänzung, kein Ersatz für die Topnav',
+  },
+  {
+    id: 'komponenten-theme-umschalter-cycle-button',
+    sentence: 'Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header',
+  },
+  {
+    id: 'marke-logo-logo',
+    sentence: 'Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.',
+  },
+];
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
 // im JSDoc der Lib nimmt sie aus dem Docgen-Modus `propsTable: 'api'` heraus; taucht eine
@@ -204,6 +302,8 @@ async function runProtocolChecks(client, errors, tmpDir) {
     }
   }
 
+  await checkGroupUsageGuidance(client, errors);
+
   const docsList = await client.request('tools/call', { name: 'docs-list', arguments: {} });
   if (docsList.error) {
     errors.push(`docs-list fehlgeschlagen: ${JSON.stringify(docsList.error)}`);
@@ -211,6 +311,16 @@ async function runProtocolChecks(client, errors, tmpDir) {
     const text = docsList.result?.content?.[0]?.text ?? '';
     if (!text.includes(EINRICHTUNG_DOC_ID)) {
       errors.push(`docs-list enthält nicht die Seite „Einrichtung“ (${EINRICHTUNG_DOC_ID}).`);
+    }
+    // Regressionsschutz für ADR-0012: jede dieser Verwendungsseiten ist per <Meta of={...}>
+    // an ihre tragende Komponente gehängt, ihre alte, eigenständige ID darf also nicht mehr
+    // separat in docs-list auftauchen (sonst käme die jeweilige Seite doppelt zurück).
+    const stillStandalone = OLD_STANDALONE_VERWENDUNG_DOC_IDS.filter((id) => text.includes(id));
+    if (stillStandalone.length > 0) {
+      errors.push(
+        `docs-list enthält noch ${stillStandalone.length} alte, eigenständige Doku-id(s) neben der ` +
+          `angehängten Seite: ${stillStandalone.join(', ')}.`,
+      );
     }
   }
 
@@ -227,6 +337,26 @@ async function runProtocolChecks(client, errors, tmpDir) {
     }
     if (!text.includes('KI-Assistenten anbinden')) {
       errors.push(`docs-show(${EINRICHTUNG_DOC_ID}) enthält nicht die Überschrift „KI-Assistenten anbinden“.`);
+    }
+  }
+}
+
+/** Stichprobe je Komponentengruppe (Ticket 04): docs-show der tragenden Komponente enthält
+ * einen Kernsatz ihrer angehängten Verwendungsseite (<Meta of={...}>, ADR-0012). Ein Fehlschlag
+ * hier bedeutet entweder ein verlorenes Attachment (Umbau/Refactoring) oder einen geänderten
+ * Kernsatz in der MDX-Datei — beides soll den Smoke-Test rot machen, nicht erst ein Eval. */
+async function checkGroupUsageGuidance(client, errors) {
+  for (const { id, sentence } of GROUP_USAGE_CHECKS) {
+    const response = await client.request('tools/call', { name: 'docs-show', arguments: { id } });
+    if (response.error) {
+      errors.push(`docs-show(${id}) fehlgeschlagen: ${JSON.stringify(response.error)}`);
+      continue;
+    }
+    const text = response.result?.content?.[0]?.text ?? '';
+    if (!text.includes(sentence)) {
+      errors.push(
+        `docs-show(${id}) enthält nicht den Kernsatz der Verwendungsseite dieser Gruppe („${sentence}“).`,
+      );
     }
   }
 }

@@ -8,6 +8,8 @@ import type { CdsArea } from '../area';
  * Ordnet ein Element einer der vier Brand Areas zu (50er-Grund, 800er-Text).
  * Nicht interaktiv. Für Zustände die Status-Badge, für einen redaktionellen
  * Anker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).
  */
 @Component({
   selector: 'cds-area-badge',

@@ -34,6 +34,8 @@ let uid = 0;
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); der Formularwert ist im Multi-Modus `string[]`, sonst `string`.
  * Ohne Formular gehen `[(value)]` / `[(values)]` (valueChange/valuesChange via model()).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Custom Select (`komponenten-dropdowns-custom-select--verwendung`).
  */
 @Component({
   selector: 'cds-combobox',

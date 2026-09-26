@@ -27,6 +27,8 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  * `aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per
  * getBoundingClientRect an die aktive Zelle gesetzt (ResizeObserver misst bei
  * Breakpoint-/Font-Änderungen nach).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).
  */
 @Component({
   selector: 'cds-theme-segment',
