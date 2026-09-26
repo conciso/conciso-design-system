@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-// Eval-Set „KI mit und ohne MCP-Server“ (Issue 06, ADR-0012). Beantwortet jede Frage aus
-// eval/fragen.json zweimal per `claude -p` headless gegen einen frisch installierten Tarball
-// von @conciso/design-system-mcp — genau wie scripts/smoke-test.mjs es für seine
-// Protokoll-Checks tut, siehe dort für die Begründung, warum das Consumer-Verzeichnis
-// außerhalb des Repos liegt: einmal mit dem MCP-Server (nur dessen drei Werkzeuge erlaubt),
-// einmal ganz ohne MCP. Prüft deterministisch, ohne LLM-Richter (siehe eval/checker.mjs),
-// und schreibt einen Markdown-Bericht.
+// Eval-Set „KI mit und ohne MCP-Server“ (ADR-0012). Beantwortet jede Frage aus eval/fragen.json
+// zweimal per `claude -p` headless gegen einen frisch installierten Tarball von
+// @conciso/design-system-mcp — genau wie scripts/smoke-test.mjs es für seine Protokoll-Checks
+// tut, siehe dort für die Begründung, warum das Consumer-Verzeichnis außerhalb des Repos liegt:
+// einmal mit dem MCP-Server (nur dessen drei Werkzeuge erlaubt), einmal ganz ohne MCP. Prüft
+// deterministisch, ohne LLM-Richter (siehe eval/checker.mjs), und schreibt einen Markdown-Bericht.
 //
 // Bewusst KEIN CI-Gate: jeder Lauf kostet API-Guthaben, das Ergebnis ist nicht deterministisch
 // genug für ein hartes Gate (Modellantworten variieren). Exit-Code ≠ 0 nur bei
@@ -19,13 +18,14 @@
 // siehe scripts/build-snapshot.mjs/prepack.mjs). Ohne Tarball-Argument packt sich das Paket
 // selbst, mit derselben Vorgehensweise wie der mcp-smoke-test-Job in
 // .github/workflows/storybook-angular.yml.
-import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { spawn, spawnSync } from 'node:child_process';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { buildTruthMap, checkAnswer, mentionsGlobalCssInclusion } from './checker.mjs';
+import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_ROOT = join(PKG_ROOT, '..');
@@ -36,10 +36,9 @@ const MCP_SERVER_NAME = 'conciso-ds';
 const MCP_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'].map(
   (tool) => `mcp__${MCP_SERVER_NAME}__${tool}`,
 );
-// Datei-/Web-Werkzeuge in BEIDEN Varianten gesperrt (Vorgabe des Tickets): die KI soll aus
-// ihrem Wissen bzw. ausschließlich über die erlaubten MCP-Werkzeuge antworten, nicht den
-// Consumer-Ordner oder das Web nach der echten API absuchen — sonst prüft der Lauf nicht
-// mehr das, was er soll (siehe .scratch/mcp-server/issues/06-eval-set-mit-und-ohne-server.md).
+// Datei-/Web-Werkzeuge in BEIDEN Varianten gesperrt: die KI soll aus ihrem Wissen bzw.
+// ausschließlich über die erlaubten MCP-Werkzeuge antworten, nicht den Consumer-Ordner oder das
+// Web nach der echten API absuchen — sonst prüft der Lauf nicht mehr das, was er soll.
 const DISALLOWED_TOOLS = ['Bash', 'Read', 'Edit', 'Write', 'Glob', 'Grep', 'WebFetch', 'WebSearch', 'NotebookEdit', 'Task'];
 
 function log(msg) {
@@ -50,53 +49,9 @@ function claudeBin() {
   return process.env.CDS_MCP_EVAL_CLAUDE_BIN || 'claude';
 }
 
-function npmBin() {
-  return process.platform === 'win32' ? 'npm.cmd' : 'npm';
-}
-
-function runNpm(args, cwd) {
-  const result = spawnSync(npmBin(), args, { cwd, encoding: 'utf8' });
-  if (result.error) {
-    throw new Error(`npm ${args.join(' ')} ließ sich nicht starten: ${result.error.message}`);
-  }
-  if (result.status !== 0) {
-    throw new Error(
-      `npm ${args.join(' ')} fehlgeschlagen (Exit-Code ${result.status}) in „${cwd}“.\n` +
-        `--- stdout ---\n${result.stdout}\n--- stderr ---\n${result.stderr}`,
-    );
-  }
-  return result;
-}
-
-/** Packt das Paket selbst — dieselbe Vorgehensweise wie der mcp-smoke-test-Job in
- * .github/workflows/storybook-angular.yml: `npm pack -w mcp-server` in ein eigenes
- * Zielverzeichnis, Tarball-Name über die tatsächlich erzeugte Datei ermitteln statt über
- * stdout-Capture (der prepack-Hook aus scripts/prepack.mjs schreibt auf denselben stdout wie
- * `npm pack` selbst — siehe dessen Kommentar und den Fix in Commit 5d361b6). */
-function packTarball() {
-  const packDir = mkdtempSync(join(tmpdir(), 'cds-mcp-eval-pack-'));
-  log(`→ npm pack -w mcp-server --pack-destination ${packDir}`);
-  runNpm(['pack', '-w', 'mcp-server', '--silent', '--pack-destination', packDir], REPO_ROOT);
-  const tarballs = readdirSync(packDir).filter((name) => name.endsWith('.tgz'));
-  if (tarballs.length !== 1) {
-    throw new Error(
-      `Erwartete genau eine .tgz-Datei in „${packDir}“, gefunden: ${tarballs.join(', ') || '(keine)'}.`,
-    );
-  }
-  return join(packDir, tarballs[0]);
-}
-
-function installTarball(tmpDir, tarballPath) {
-  log('→ npm init -y (frisches Consumer-Verzeichnis)');
-  runNpm(['init', '-y'], tmpDir);
-  log(`→ npm i ${tarballPath}`);
-  runNpm(['i', tarballPath, '--no-audit', '--no-fund', '--loglevel=error'], tmpDir);
-}
-
-/** Schreibt die zwei `.mcp.json`-Varianten aus dem verifizierten Handlauf vom 2026-09-25
- * (siehe Issue 06): einmal mit dem echten Server über `npx cds-mcp` (der lokal installierte
- * Tarball-`bin`, kein Registry-Zugriff nötig, da bereits per `npm i` installiert), einmal mit
- * einer leeren `mcpServers`-Liste für die „ohne Server“-Variante. */
+/** Schreibt die zwei `.mcp.json`-Varianten: einmal mit dem echten Server über `npx cds-mcp` (der
+ * lokal installierte Tarball-`bin`, kein Registry-Zugriff nötig, da bereits per `npm i`
+ * installiert), einmal mit einer leeren `mcpServers`-Liste für die „ohne Server“-Variante. */
 function writeMcpConfigs(tmpDir) {
   const withServerPath = join(tmpDir, '.mcp.json');
   writeFileSync(
@@ -110,8 +65,8 @@ function writeMcpConfigs(tmpDir) {
 
 /**
  * Startet `claude -p` headless mit Stream-JSON-Ausgabe, sammelt stdout/stderr und tötet den
- * Prozess hart bei Zeitüberschreitung (Vorgabe des Tickets: „immer mit Timeout wrappen … und
- * bei Timeout killen“).
+ * Prozess hart bei Zeitüberschreitung, damit ein hängender `claude`-Prozess den Lauf nicht
+ * unbegrenzt blockiert.
  * @returns {Promise<{ ok: true, lines: object[], stderr: string } | { ok: false, error: string, lines: [], stderr: string }>}
  */
 function runClaudeHeadless({ cwd, prompt, mcpConfigPath, allowedTools }) {
@@ -192,8 +147,8 @@ function runClaudeHeadless({ cwd, prompt, mcpConfigPath, allowedTools }) {
 
 /** Liest die stream-json-Zeilen einer claude-Session aus: Werkzeugaufrufe (assistant/
  * tool_use), Werkzeugfehler (user/tool_result mit is_error), Server-Status aus system/init,
- * und den finalen Antworttext aus der result-Zeile. Format siehe Handlauf vom 2026-09-25
- * (Issue 06). */
+ * und den finalen Antworttext aus der result-Zeile (Format von `claude -p --output-format
+ * stream-json`). */
 function analyzeRun(lines) {
   const toolCalls = [];
   const toolErrors = [];
@@ -382,7 +337,7 @@ function renderReport(results, { tarballPath }) {
 
 async function main() {
   const tarballArg = process.argv[2];
-  const tarballPath = tarballArg ? resolve(tarballArg) : packTarball();
+  const tarballPath = tarballArg ? resolve(tarballArg) : packTarball(REPO_ROOT, { log });
   if (!existsSync(tarballPath)) {
     throw new Error(`Tarball nicht gefunden: „${tarballPath}“.`);
   }
@@ -399,7 +354,7 @@ async function main() {
   let infrastructureError = null;
 
   try {
-    installTarball(tmpDir, tarballPath);
+    installTarball(tmpDir, tarballPath, { log });
     const { withServerPath, withoutServerPath } = writeMcpConfigs(tmpDir);
     const snapshotDir = join(tmpDir, 'node_modules', '@conciso', 'design-system-mcp', 'snapshot');
     if (!existsSync(snapshotDir)) {

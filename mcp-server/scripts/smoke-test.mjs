@@ -1,29 +1,32 @@
 #!/usr/bin/env node
-// Tarball-Smoke-Test über stdio (Issue 04, ADR-0012). Installiert den per `npm pack` gebauten
-// Tarball von @conciso/design-system-mcp in ein frisches, leeres Verzeichnis — genau wie ein
-// Consumer es täte — und spricht dort rohes JSON-RPC mit dem `cds-mcp`-Kindprozess. Fängt die
-// Fehlerklasse ab, die Unit-Tests aus dem Repo (test/server.test.mjs) nicht sehen können, weil
-// sie gegen den Quellbaum laufen: Paketierungsfehler wie ein fehlendes `bin`, ein `files`-Feld,
-// das den Snapshot nicht mitnimmt, oder stdout-Verschmutzung durch eine Dependency.
+// Tarball-Smoke-Test über stdio (ADR-0012). Installiert den per `npm pack` gebauten Tarball von
+// @conciso/design-system-mcp in ein frisches, leeres Verzeichnis — genau wie ein Consumer es
+// täte — und spricht dort rohes JSON-RPC mit dem `cds-mcp`-Kindprozess. Fängt die Fehlerklasse
+// ab, die Unit-Tests aus dem Repo (test/server.test.mjs) nicht sehen können, weil sie gegen den
+// Quellbaum laufen: Paketierungsfehler wie ein fehlendes `bin`, ein `files`-Feld, das den
+// Snapshot nicht mitnimmt, oder stdout-Verschmutzung durch eine Dependency.
 //
-// WARUM AUSSERHALB DES REPOS INSTALLIERT WIRD: dieselbe Begründung wie in
-// scripts/consumer-smoke-test.sh — im Repo-Root liegt bereits ein node_modules mit
-// @conciso/design-system-mcp als Workspace-Symlink. Ein Install DORT würde nie ein Paketierungs-
-// problem sehen, weil Node ohnehin den Quellbaum aufläst. Deshalb: os.tmpdir(), kein Ordner
-// unterhalb des Repos.
+// WARUM AUSSERHALB DES REPOS INSTALLIERT WIRD: im Repo-Root liegt bereits ein node_modules mit
+// @conciso/design-system-mcp als Workspace-Symlink. Ein Install DORT würde nie ein
+// Paketierungsproblem sehen, weil Node ohnehin den Quellbaum auflöst. Deshalb: os.tmpdir(),
+// kein Ordner unterhalb des Repos.
 //
-// Prüft (siehe .scratch/mcp-server/issues/04-tarball-smoke-test-ueber-stdio.md):
+// Aufruf: `node mcp-server/scripts/smoke-test.mjs [pfad-zum-tarball]`. Ohne Pfad packt sich das
+// Paket selbst (dieselbe packTarball()-Funktion wie eval/run-eval.mjs).
+//
+// Prüft:
 //   - initialize erfolgreich
 //   - tools/list enthält genau docs-list, docs-show, docs-show-story
-//   - docs-show(komponenten-buttons-button) enthält Input „variant“ und Output „clicked“
+//   - docs-show(komponenten-buttons-button) enthält jeden dokumentierten Input und Output von
+//     Button, aus dem Docgen des installierten Snapshots gelesen (siehe eval/checker.mjs)
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
 //     Fehlerergebnis (weder JSON-RPC-error noch isError noch leerer Text) — Regressionsschutz für
-//     den @storybook/mcp-Encoding-Bug vom 2026-09-25: @storybook/mcp löst Manifest-`$ref`s
-//     URL-artig auf und ruft den manifestProvider mit prozentkodierten Pfaden auf
-//     (grundlagen-einrichtung--%C3%BCbersicht.json statt …--übersicht.json auf der Platte); ENOENT
-//     traf jede id mit Nicht-ASCII-Zeichen, nicht nur die Einrichtung-Seite. Der einzelne
-//     Button-Check oben (rein ASCII) hätte das nicht gefangen.
+//     den @storybook/mcp-Encoding-Bug: @storybook/mcp löst Manifest-`$ref`s URL-artig auf und ruft
+//     den manifestProvider mit prozentkodierten Pfaden auf (grundlagen-einrichtung--%C3%BCbersicht.json
+//     statt …--übersicht.json auf der Platte); ENOENT traf jede id mit Nicht-ASCII-Zeichen, nicht
+//     nur die Einrichtung-Seite. Der einzelne Button-Check oben (rein ASCII) hätte das nicht
+//     gefangen.
 //   - docs-show(grundlagen-einrichtung--übersicht) enthält explizit die Überschriften
 //     „Einrichtung“ und „KI-Assistenten anbinden“ — genau die Seite, auf die die Server-
 //     instructions verweisen
@@ -33,17 +36,22 @@
 //   - jede Zeile auf stdout ist gültiges JSON-RPC 2.0
 //
 // Bewusst NICHT geprüft: der Inhalt von `instructions` und der Versionsabgleich mit der
-// Angular-Lib — das ist Issue 02 (server.mjs/test/*.test.mjs), an denen dieses Skript nichts
-// ändert.
+// Angular-Lib (server.mjs/test/*.test.mjs), an denen dieses Skript nichts ändert.
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
-import { spawn, spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const REQUEST_TIMEOUT_MS = 10_000;
-const HARD_KILL_GRACE_MS = 2_000;
+import { EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+import { buildTruthMap } from '../eval/checker.mjs';
+import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
+import { installTarball, packTarball } from '../test-support/tarball.mjs';
+
+const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const REPO_ROOT = join(PKG_ROOT, '..');
 const EXPECTED_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'];
-const EINRICHTUNG_DOC_ID = 'grundlagen-einrichtung--übersicht';
+const BUTTON_SELECTOR = 'cds-button';
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
 // im JSDoc der Lib nimmt sie aus dem Docgen-Modus `propsTable: 'api'` heraus; taucht eine
@@ -57,31 +65,6 @@ function log(msg) {
 function fail(msg) {
   console.error(msg);
   process.exit(1);
-}
-
-function npmBin() {
-  return process.platform === 'win32' ? 'npm.cmd' : 'npm';
-}
-
-function runNpm(args, cwd) {
-  const result = spawnSync(npmBin(), args, { cwd, encoding: 'utf8' });
-  if (result.error) {
-    throw new Error(`npm ${args.join(' ')} ließ sich nicht starten: ${result.error.message}`);
-  }
-  if (result.status !== 0) {
-    throw new Error(
-      `npm ${args.join(' ')} fehlgeschlagen (Exit-Code ${result.status}) in „${cwd}“.\n` +
-        `--- stdout ---\n${result.stdout}\n--- stderr ---\n${result.stderr}`,
-    );
-  }
-  return result;
-}
-
-function installTarball(tmpDir, tarballPath) {
-  log('→ npm init -y (frisches Consumer-Verzeichnis)');
-  runNpm(['init', '-y'], tmpDir);
-  log(`→ npm i ${tarballPath}`);
-  runNpm(['i', tarballPath, '--no-audit', '--no-fund', '--loglevel=error'], tmpDir);
 }
 
 function resolveServerBin(tmpDir) {
@@ -102,119 +85,7 @@ function spawnServer(binPath, cwd) {
   return spawn(process.execPath, [binPath], { cwd, stdio: ['pipe', 'pipe', 'pipe'] });
 }
 
-/** Roher JSON-RPC-über-stdio-Client. Jede stdout-Zeile, die kein valides JSON-RPC-2.0-Objekt
- * ist, landet sofort (nicht erst am Ende) in `errors` — Akzeptanzkriterium „jede Zeile auf
- * stdout ist gültiges JSON-RPC“. */
-function createJsonRpcClient(child, errors) {
-  let buffer = '';
-  const pending = new Map();
-  let nextId = 1;
-  const stderrChunks = [];
-
-  child.stdout.setEncoding('utf8');
-  child.stdout.on('data', (chunk) => {
-    buffer += chunk;
-    const lines = buffer.split('\n');
-    buffer = lines.pop() ?? '';
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      let msg;
-      try {
-        msg = JSON.parse(line);
-      } catch {
-        errors.push(`stdout-Zeile ist kein valides JSON: „${line.slice(0, 200)}“`);
-        continue;
-      }
-      if (!msg || typeof msg !== 'object' || msg.jsonrpc !== '2.0') {
-        errors.push(`stdout-Zeile ist kein JSON-RPC-2.0-Objekt: „${line.slice(0, 200)}“`);
-        continue;
-      }
-      const waiter = pending.get(msg.id);
-      if (waiter) {
-        pending.delete(msg.id);
-        waiter(msg);
-      }
-    }
-  });
-
-  child.stderr.setEncoding('utf8');
-  child.stderr.on('data', (chunk) => stderrChunks.push(chunk));
-
-  // Stirbt der Kindprozess, bevor eine Antwort ankam (Absturz, falscher bin-Pfad, fehlende
-  // Dependency), sonst hängen offene requests() bis zum vollen Timeout statt sofort einen
-  // klaren Grund zu melden.
-  child.once('exit', (code, signal) => {
-    if (pending.size === 0) return;
-    const reason = `Serverprozess vorzeitig beendet (Exit-Code ${code}, Signal ${signal}) vor einer Antwort.`;
-    for (const waiter of pending.values()) waiter({ error: { message: reason } });
-    pending.clear();
-  });
-
-  // Ohne diesen Handler wirft Node ein unbehandeltes 'error'-Event als Exception und der
-  // Smoke-Test stirbt mit einem rohen Stacktrace statt einer klaren deutschen Meldung — in der
-  // Praxis kaum erreichbar (process.execPath existiert immer), aber billig genug, es sauber
-  // abzufangen statt sich darauf zu verlassen.
-  child.on('error', (err) => {
-    errors.push(`Kindprozess-Fehler: ${err.message}`);
-    if (pending.size === 0) return;
-    for (const waiter of pending.values()) waiter({ error: { message: `Kindprozess-Fehler: ${err.message}` } });
-    pending.clear();
-  });
-
-  function send(msg) {
-    child.stdin.write(`${JSON.stringify(msg)}\n`);
-  }
-
-  function request(method, params, { timeoutMs = REQUEST_TIMEOUT_MS } = {}) {
-    const id = nextId++;
-    return new Promise((resolvePromise) => {
-      const timer = setTimeout(() => {
-        pending.delete(id);
-        resolvePromise({ error: { message: `Zeitüberschreitung bei „${method}“ (id=${id}, ${timeoutMs} ms).` } });
-      }, timeoutMs);
-      pending.set(id, (msg) => {
-        clearTimeout(timer);
-        resolvePromise(msg);
-      });
-      send({ jsonrpc: '2.0', id, method, params });
-    });
-  }
-
-  function notify(method, params) {
-    send({ jsonrpc: '2.0', method, params });
-  }
-
-  return { request, notify, stderrText: () => stderrChunks.join('') };
-}
-
-async function closeClient(child) {
-  try {
-    child.stdin.end();
-  } catch {
-    // Kindprozess ist ggf. schon beendet — egal, es folgt ohnehin ein harter Kill.
-  }
-  try {
-    child.kill('SIGTERM');
-  } catch {
-    // s.o.
-  }
-  await new Promise((resolvePromise) => {
-    const hardTimer = setTimeout(() => {
-      try {
-        child.kill('SIGKILL');
-      } catch {
-        // Prozess ist zwischen SIGTERM und hier schon weg.
-      }
-      resolvePromise();
-    }, HARD_KILL_GRACE_MS);
-    child.once('exit', () => {
-      clearTimeout(hardTimer);
-      resolvePromise();
-    });
-  });
-}
-
-async function runProtocolChecks(client, errors) {
+async function runProtocolChecks(client, errors, tmpDir) {
   const init = await client.request('initialize', {
     protocolVersion: '2025-06-18',
     capabilities: {},
@@ -250,11 +121,20 @@ async function runProtocolChecks(client, errors) {
     errors.push(`docs-show fehlgeschlagen: ${JSON.stringify(docsShow.error)}`);
   } else {
     const text = docsShow.result?.content?.[0]?.text ?? '';
-    if (!/variant/.test(text)) {
-      errors.push('docs-show(komponenten-buttons-button) enthält nicht den dokumentierten Input „variant“.');
-    }
-    if (!/clicked/.test(text)) {
-      errors.push('docs-show(komponenten-buttons-button) enthält nicht den dokumentierten Output „clicked“.');
+    // Gegen JEDES dokumentierte Input/Output aus dem installierten Snapshot prüfen (nicht nur
+    // die zwei Stichproben „variant“/„clicked“): dieselbe Wahrheit, die eval/checker.mjs für die
+    // Erfundene-API-Prüfung liest (buildTruthMap), hier gegen den ausgelieferten docs-show-Text.
+    const truth = buildTruthMap(snapshotDir(tmpDir)).elementSelectors.get(BUTTON_SELECTOR);
+    if (!truth) {
+      errors.push(`Kein Docgen-Eintrag für Selektor „${BUTTON_SELECTOR}“ im installierten Snapshot gefunden.`);
+    } else {
+      const missing = [...truth.inputs, ...truth.outputs].filter((name) => !text.includes(name));
+      if (missing.length > 0) {
+        errors.push(
+          `docs-show(komponenten-buttons-button) fehlt ${missing.length} dokumentiertes Input/Output: ` +
+            `${missing.join(', ')}.`,
+        );
+      }
     }
   }
 
@@ -285,20 +165,18 @@ async function runProtocolChecks(client, errors) {
   }
 }
 
+/** Pfad zum `snapshot`-Verzeichnis des in `tmpDir` installierten Pakets. */
+function snapshotDir(tmpDir) {
+  return join(tmpDir, 'node_modules', '@conciso', 'design-system-mcp', 'snapshot');
+}
+
 /** Liest alle Komponenten- und Doku-ids direkt aus den Manifesten des INSTALLIERTEN Pakets (nicht
  * aus dem docs-list-Text geparst — robuster, und dieselbe Form, die der manifestProvider
  * tatsächlich ausliefert). Deckt beide Kategorien ab: components.json (z. B.
  * „komponenten-buttons-button“) und docs.json (die „…--übersicht“-MDX-Seiten, überwiegend mit
  * Nicht-ASCII-Zeichen in der id — genau die Klasse, die der @storybook/mcp-Encoding-Bug traf). */
 function readAllDocsShowIds(tmpDir, errors) {
-  const manifestsDir = join(
-    tmpDir,
-    'node_modules',
-    '@conciso',
-    'design-system-mcp',
-    'snapshot',
-    'manifests',
-  );
+  const manifestsDir = join(snapshotDir(tmpDir), 'manifests');
   const componentsPath = join(manifestsDir, 'components.json');
   const docsPath = join(manifestsDir, 'docs.json');
   for (const path of [componentsPath, docsPath]) {
@@ -328,10 +206,11 @@ function readAllDocsShowIds(tmpDir, errors) {
 
 /** Ruft docs-show für JEDE id aus readAllDocsShowIds auf (Komponenten + Doku-Seiten) und schlägt
  * fehl, sobald irgendein Ergebnis ein Fehler ist — JSON-RPC-error, `isError`, oder leerer Text.
- * Regressionsschutz für den @storybook/mcp-Encoding-Bug vom 2026-09-25 (ENOENT traf jede id mit
+ * Regressionsschutz für den @storybook/mcp-Encoding-Bug (ENOENT traf jede id mit
  * Nicht-ASCII-Zeichen): der Button-Check oben allein hätte das nicht gefangen, weil
  * „komponenten-buttons-button“ rein ASCII ist. ~90 ids bei aktuellem Snapshot-Umfang, mit
- * Einzel-Timeout pro Anfrage (REQUEST_TIMEOUT_MS) — unproblematisch für einen CI-Smoke-Test.
+ * Einzel-Timeout pro Anfrage (siehe test-support/jsonrpc-client.mjs) — unproblematisch für
+ * einen CI-Smoke-Test.
  * @returns {Promise<number>} Anzahl erfolgreich aufgelöster ids.
  */
 async function checkEveryDocsShowId(client, tmpDir, errors) {
@@ -373,22 +252,13 @@ async function checkEveryDocsShowId(client, tmpDir, errors) {
   return okCount;
 }
 
-/** @internal-Gate über ALLE Komponenten (Issue 04, schließt die in ADR-0006 offen gelassene
- * Lücke). Liest die Docgen-Dateien direkt vom Dateisystem statt über docs-show pro Komponente
- * zu gehen: ein JSON-RPC-Aufruf pro Komponente wäre bei ~50+ Komponenten unnötig langsam, und
- * die Form von `argTypes[*].table.category` ist dieselbe, die der manifestProvider ausliefert
- * (per Stichprobe an komponenten-buttons-button.json verifiziert). */
+/** @internal-Gate über ALLE Komponenten (schließt die in ADR-0006 offen gelassene Lücke). Liest
+ * die Docgen-Dateien direkt vom Dateisystem statt über docs-show pro Komponente zu gehen: ein
+ * JSON-RPC-Aufruf pro Komponente wäre bei ~50+ Komponenten unnötig langsam, und die Form von
+ * `argTypes[*].table.category` ist dieselbe, die der manifestProvider ausliefert (per Stichprobe
+ * an komponenten-buttons-button.json verifiziert). */
 function checkInternalLeak(tmpDir, errors) {
-  const docgenDir = join(
-    tmpDir,
-    'node_modules',
-    '@conciso',
-    'design-system-mcp',
-    'snapshot',
-    'services',
-    'core',
-    'docgen',
-  );
+  const docgenDir = join(snapshotDir(tmpDir), 'services', 'core', 'docgen');
   if (!existsSync(docgenDir)) {
     errors.push(
       `Docgen-Verzeichnis fehlt im installierten Paket: „${docgenDir}“. Snapshot unvollständig ` +
@@ -442,12 +312,14 @@ function checkInternalLeak(tmpDir, errors) {
 
 async function main() {
   const tarballArg = process.argv[2];
-  if (!tarballArg) {
-    fail('Aufruf: node mcp-server/scripts/smoke-test.mjs <pfad-zum-tarball>');
-  }
-  const tarballPath = resolve(tarballArg);
-  if (!existsSync(tarballPath)) {
-    fail(`Tarball nicht gefunden: „${tarballPath}“.`);
+  let tarballPath;
+  if (tarballArg) {
+    tarballPath = resolve(tarballArg);
+    if (!existsSync(tarballPath)) {
+      fail(`Tarball nicht gefunden: „${tarballPath}“.`);
+    }
+  } else {
+    tarballPath = packTarball(REPO_ROOT, { log });
   }
 
   const tmpDir = mkdtempSync(join(tmpdir(), 'cds-mcp-smoke-'));
@@ -455,23 +327,25 @@ async function main() {
 
   const errors = [];
   let child;
+  let client;
   try {
-    installTarball(tmpDir, tarballPath);
+    installTarball(tmpDir, tarballPath, { log });
     const binPath = resolveServerBin(tmpDir);
 
     log('→ cds-mcp starten und JSON-RPC über stdio sprechen');
     child = spawnServer(binPath, tmpDir);
-    const client = createJsonRpcClient(child, errors);
+    client = createJsonRpcClient(child);
 
-    await runProtocolChecks(client, errors);
+    await runProtocolChecks(client, errors, tmpDir);
     const resolvedCount = await checkEveryDocsShowId(client, tmpDir, errors);
     log(`→ docs-show über stdio aufgelöst: ${resolvedCount} ids.`);
     checkInternalLeak(tmpDir, errors);
   } catch (err) {
     errors.push(err.stack ?? err.message ?? String(err));
   } finally {
-    if (child) {
-      await closeClient(child);
+    if (client) {
+      errors.push(...client.protocolErrors());
+      await client.close();
     }
     rmSync(tmpDir, { recursive: true, force: true });
   }
