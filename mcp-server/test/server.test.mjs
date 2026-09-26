@@ -45,6 +45,11 @@ test('cds-mcp: initialize, genau drei Werkzeuge, docs-show liefert Button-Inputs
     // instructions müssen die Einrichtung-Seite referenzieren, damit die KI sie per docs-show
     // findet, statt beim Einrichten zu raten.
     assert.match(init.result.instructions ?? '', new RegExp(EINRICHTUNG_DOC_ID));
+    // instructions müssen auf die Verwendungsguidance hinweisen und beide Fundorte nennen: den
+    // „Docs“-Abschnitt der Komponentenantwort und, als Rückfall, docs-list.
+    assert.match(init.result.instructions ?? '', /Verwendungsguidance/);
+    assert.match(init.result.instructions ?? '', /Docs/);
+    assert.match(init.result.instructions ?? '', /docs-list/);
 
     client.notify('notifications/initialized', {});
 

@@ -33,6 +33,7 @@ Beim Verbinden gibt der Server dem Assistenten außerdem feste Regeln mit:
 2. Kein eigenes CSS für Design-System-Komponenten, keine erfundenen CSS-Klassen.
 3. Nur Inputs und Outputs verwenden, die `docs-show` liefert. Vorher nachsehen, nie raten.
 4. Bei Fragen zur Einrichtung die Storybook-Seite „Einrichtung“ lesen.
+5. Für Auswahl- und Gestaltungsfragen zusätzlich die Verwendungsguidance der Komponente heranziehen, sonst über `docs-list` die passende „Verwendung“-Seite suchen.
 
 Weitere Eigenschaften:
 
