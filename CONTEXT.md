@@ -67,6 +67,24 @@ des Design Systems. Nicht verwechseln mit dem **MCP-Endpunkt** des Dev-Servers
 (`/mcp`, `@storybook/addon-mcp`), der nur Maintainern dieses Repos dient.
 Siehe [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md).
 
+### Verwendungsseite
+
+Eine MDX-Seite mit den Verwendungsregeln einer Komponentengruppe (Dos & Don'ts,
+Begründungen, Wann/Wann nicht), migriert aus der [Doku-Site](#doku-site). Hängt per
+`<Meta of={ComponentStories}>` an der [tragenden Komponente](#tragende-komponente) ihrer
+Gruppe, statt als eigenständige Seite daneben zu stehen — nur so liefert `docs-show` des
+[MCP-Servers](#mcp-server) die Guidance im selben Aufruf wie Props und Stories. Ausnahme:
+eine Gruppe ohne eigenes Angular-Bauteil (z. B. Buchungsformular) bleibt eine
+eigenständige Seite. Siehe [ADR-0012-Nachtrag](docs/adr/0012-mcp-server-fuer-consumer.md#nachtrag-2026-09-26-verwendungsseiten-an-komponenten).
+
+### Tragende Komponente
+
+Bei einer Komponentengruppe mit mehreren gleichrangigen Bauteilen (z. B. Chips, Badges &
+Pills) die eine Komponente, an die die [Verwendungsseite](#verwendungsseite) der Gruppe
+gehängt wird — `<Meta of>` erlaubt nur ein Bauteil pro Seite. Die übrigen Komponenten der
+Gruppe verweisen in ihrer JSDoc-Beschreibung mit Name und Doku-ID auf die
+Verwendungsseite, damit ein Agent sie auch von dort aus findet.
+
 ### Wrapper-Komponente
 
 Eine Angular-Komponente, die **kein eigenes CSS erfindet**, sondern ausschließlich
