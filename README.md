@@ -2,7 +2,7 @@
 
 Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mode**, framework-agnostisch und auf **WCAG 2.1 Stufe AA** ausgelegt (also alle Kriterien der Stufen A und AA; AAA wo ohne Nachteil erreichbar, aber nicht als Bedingung). Keine Build-Pflicht für die Nutzung — die Komponenten sind CSS-Klassen, die auf semantisches HTML angewendet werden, plus optionales Vanilla-JS für interaktive Muster (Theme-Toggle, Topnav-Dropdowns).
 
-> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe die GitHub-Releases dieses Repos und den eingefrorenen Stand im [CHANGELOG](docs/CHANGELOG-legacy.md).
+> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe die GitHub-Releases dieses Repos und den eingefrorenen Stand im [CHANGELOG](https://github.com/conciso/conciso-design-system/blob/v2.0.0/CHANGELOG.md#200---2026-09-23).
 
 ## Für wen?
 
