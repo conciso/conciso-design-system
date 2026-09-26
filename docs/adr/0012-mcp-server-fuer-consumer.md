@@ -89,6 +89,10 @@ Maintainer über addon-mcp nutzen; Consumer- und Maintainer-KI sehen dieselbe
 Oberfläche, gepflegt von Storybook. Die Regeln in den `instructions` wirken, bevor die
 KI überhaupt ein Werkzeug aufruft.
 
+**Scope-Erweiterung (siehe Nachtrag unten):** Ebenso oft wie die erfundene Prop ist die
+falsch gewählte Komponente oder Variante, dagegen hilft kein Docgen, sondern nur
+Verwendungsguidance, die denselben Aufruf erreicht.
+
 ## Konsequenzen
 
 - Für Commits unter `storybook-angular/src/**` gilt ab jetzt commitlint. Wer eine
@@ -125,3 +129,34 @@ KI überhaupt ein Werkzeug aufruft.
   `./services/core/docgen/<id>.json`); `manifests/` und `services/` lassen sich also 1:1
   ins Paket kopieren. `docs-show` für Button liefert genau Inputs und Outputs, keine
   `@internal`-Member. Die Brücke auf den HTTP-Handler wird nicht gebraucht.
+
+## Nachtrag (2026-09-26): Verwendungsseiten an Komponenten
+
+**Kontext.** Migrierte Verwendungsseiten (Dos & Don'ts, Begründungen) liegen als
+eigenständige MDX-Seiten mit eigener Doku-ID neben ihrer Komponente.
+`@storybook/mcp` führt Komponenten- und Doku-Manifest nur zusammen, wenn eine
+MDX-Seite per `<Meta of={Component}>` an eine Story hängt
+(`componentManifest.docs`). Ohne dieses Attachment liefert `docs-show` einer
+Komponente nie die Verwendungsguidance, ein Consumer-Agent müsste die zweite,
+andersartige Doku-ID selbst finden.
+
+**Entscheidung.** Verwendungsseiten hängen künftig per
+`<Meta of={ComponentStories}>` an einer tragenden Komponente ihrer Gruppe, statt
+als eigenständige Seite daneben zu stehen. Bei Gruppen mit mehreren Komponenten
+wird die tragende Komponente je Gruppe explizit festgelegt.
+
+Per Spike an Button verifiziert: `components.json[komponenten-buttons-button]`
+trägt danach ein `docs`-Feld, `docs-show(komponenten-buttons-button)` liefert
+den Verwendungstext unter einer neuen `## Docs`-Überschrift.
+
+**Konsequenzen.**
+
+- Die Doku-ID einer angehängten Seite wechselt auf `<komponenten-id>--verwendung`,
+  bisherige eigenständige IDs entfallen. Referenzen auf eine alte ID vorher prüfen.
+- Der Eintrag verschwindet aus `docs-list`, er kommt nur noch automatisch mit
+  `docs-show` der Komponente.
+- In der Sidebar wird die Verwendungsseite Kind der tragenden Komponente statt
+  deren Geschwister, `storySort` in `preview.ts` braucht dafür je Gruppe einen
+  Nachzug.
+- Die MDX-Kopfzeile (Import, `<Meta>`) erscheint unverändert als Text in
+  `docs-show`. Kosmetisch, keine Assertion ist davon betroffen.
