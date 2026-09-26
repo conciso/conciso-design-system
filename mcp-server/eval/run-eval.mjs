@@ -6,7 +6,8 @@
 // einmal mit dem MCP-Server (nur dessen drei Werkzeuge erlaubt), einmal ganz ohne MCP. Prüft
 // deterministisch, ohne LLM-Richter (siehe eval/checker.mjs), und schreibt einen Markdown-Bericht.
 //
-// Bewusst KEIN CI-Gate: jeder Lauf kostet API-Guthaben, das Ergebnis ist nicht deterministisch
+// Bewusst KEIN CI-Gate: jeder Lauf verbraucht Nutzungskontingent bzw. echtes API-Guthaben (siehe
+// „Was es kostet“ in docs/agents/mcp-eval.md), das Ergebnis ist außerdem nicht deterministisch
 // genug für ein hartes Gate (Modellantworten variieren). Exit-Code ≠ 0 nur bei
 // Werkzeugfehlern (`isError` in einem tool_result) oder Infrastruktur-Fehlern
 // (Pack/Install/Start/Timeout des claude-Prozesses) — nie bei schlechter Antwortqualität,
@@ -24,7 +25,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { buildTruthMap, checkAnswer, mentionsGlobalCssInclusion } from './checker.mjs';
+import { buildTruthMap, checkAnswer, checkCoreClaim, mentionsGlobalCssInclusion } from './checker.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -196,6 +197,7 @@ function evaluateRun(run, frage, truthMap) {
       findings: [],
       checkedElementCount: 0,
       setupOk: null,
+      coreClaim: null,
       resultText: null,
       costUsd: null,
     };
@@ -206,6 +208,10 @@ function evaluateRun(run, frage, truthMap) {
   const setupOk = frage.checks?.includes('setup-mentions-global-css')
     ? mentionsGlobalCssInclusion(answerText)
     : null;
+  const coreClaim =
+    frage.checks?.includes('core-claim-keywords') && frage.claimKeywords
+      ? checkCoreClaim(answerText, frage.claimKeywords)
+      : null;
   return {
     infra: false,
     toolCalls,
@@ -216,6 +222,7 @@ function evaluateRun(run, frage, truthMap) {
     checkedElementCount,
     unknownSelectors,
     setupOk,
+    coreClaim,
     resultText: answerText,
     mcpServerStatuses,
     costUsd,
@@ -247,6 +254,15 @@ function verdictCell(evalResult) {
   if (evalResult.setupOk !== null) {
     parts.push(evalResult.setupOk ? 'CSS-Hinweis: ja' : 'CSS-Hinweis: **fehlt**');
   }
+  if (evalResult.coreClaim !== null) {
+    parts.push(
+      evalResult.coreClaim.matched
+        ? 'Kernaussage: **getroffen**'
+        : `Kernaussage: **fehlt** (${evalResult.coreClaim.missingGroups.length}/${
+            evalResult.coreClaim.matchedGroups.length + evalResult.coreClaim.missingGroups.length
+          } Teilaspekte offen)`,
+    );
+  }
   parts.push(`Werkzeugaufrufe: ${evalResult.toolCalls.length}`);
   return parts.join('<br>');
 }
@@ -266,7 +282,7 @@ function renderDetail(frage, label, evalResult) {
     lines.push('- Werkzeugaufrufe: keine');
   }
   if (typeof evalResult.costUsd === 'number') {
-    lines.push(`- Kosten laut Claude-API: $${evalResult.costUsd.toFixed(4)}`);
+    lines.push(`- API-Gegenwert (total_cost_usd): $${evalResult.costUsd.toFixed(4)}`);
   }
   if (evalResult.toolErrorCount > 0) {
     lines.push(`- **Werkzeugfehler (${evalResult.toolErrorCount}):**`);
@@ -282,6 +298,16 @@ function renderDetail(frage, label, evalResult) {
   }
   if (evalResult.setupOk !== null) {
     lines.push(`- CSS-Schicht-Hinweis erwähnt: ${evalResult.setupOk ? 'ja' : 'nein'}`);
+  }
+  if (evalResult.coreClaim !== null) {
+    lines.push(`- Kernaussage getroffen: ${evalResult.coreClaim.matched ? 'ja' : 'nein'}`);
+    if (evalResult.coreClaim.missingGroups.length > 0) {
+      lines.push(
+        `  - Fehlende Teilaspekte (eines der Stichwörter je Gruppe hätte genügt): ${evalResult.coreClaim.missingGroups
+          .map((group) => `[${group.join(' | ')}]`)
+          .join(', ')}`,
+      );
+    }
   }
   lines.push('- Antwort (gekürzt):', '', '  > ' + truncate(evalResult.resultText).replace(/\n/g, '\n  > '), '');
   return lines;
@@ -315,12 +341,16 @@ function renderReport(results, { tarballPath }) {
     `Datum: ${new Date().toISOString()}`,
     `Tarball: \`${tarballPath}\``,
     `Fragen: ${results.length}`,
-    `Gesamtkosten laut Claude-API (${cost.counted}/${cost.of} Läufe gemeldet): $${cost.total.toFixed(4)}`,
+    `Gesamt-API-Gegenwert (total_cost_usd, ${cost.counted}/${cost.of} Läufe gemeldet): $${cost.total.toFixed(4)}` +
+      ' — Preis-Gegenwert, keine tatsächliche Abbuchung bei Abo-Auth (siehe „Was es kostet“, docs/agents/mcp-eval.md).',
     '',
     'Kein LLM-Richter: „Erfundene API“ zählt Attribute/Bindungen auf `cds-*`-Elementen in ' +
       'Code-Blöcken der Antwort, die kein dokumentierter Input/Output der jeweiligen ' +
       'Komponente im installierten Snapshot sind. „Werkzeugfehler“ zählt `tool_result`s mit ' +
-      '`isError`; sobald einer auftritt, ist der Lauf unabhängig vom Antworttext rot.',
+      '`isError`; sobald einer auftritt, ist der Lauf unabhängig vom Antworttext rot. ' +
+      '„Kernaussage“ (nur bei Intentionsfragen mit `claimKeywords`) ist ebenfalls kein ' +
+      'LLM-Richter, sondern ein Stichwort-Abgleich gegen die Guidance-Kernaussage — siehe ' +
+      'checker.mjs#checkCoreClaim und docs/agents/mcp-eval.md.',
     '',
     '| Frage | mit Server | ohne Server |',
     '|---|---|---|',
