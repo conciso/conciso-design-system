@@ -1,11 +1,14 @@
-# Absicherung der Release-Skripte (ADR-0010) in zwei Jobs:
+# Absicherung der Release-Skripte (ADR-0010, ADR-0012) in zwei Jobs:
 #
 # 1. Deckungs-Check der veröffentlichungsrelevanten Pfade (scripts/release/relevant-paths.mjs):
-#    jeder Eintrag im root `files`-Feld und die Build-Eingaben der Angular-Lib müssen in der
-#    EINEN gepflegten Pfadliste stehen, sonst könnte ein neu ausgeliefertes Verzeichnis
-#    unbemerkt niemals ein Release auslösen. Dependency-frei (nur node:fs/url/path) und läuft
-#    deshalb ohne `npm ci`, ähnlich quotes.yml.
-# 2. Unit-Tests der Release-Skripte (`npm run test:release`), mit `npm ci`.
+#    jeder Eintrag im root `files`-Feld, in mcp-server/package.json#files (drittes Paket, siehe
+#    ADR-0012) und die Build-Eingaben der Angular-Lib müssen in der EINEN gepflegten Pfadliste
+#    stehen, sonst könnte ein neu ausgeliefertes Verzeichnis unbemerkt niemals ein Release
+#    auslösen. Dependency-frei (nur node:fs/url/path) und läuft deshalb ohne `npm ci`, ähnlich
+#    quotes.yml.
+# 2. Unit-Tests der Release-Skripte (`npm run test:release`) und der Storybook/@storybook-mcp-
+#    Versionsgleichheits-Check (scripts/release/check-storybook-mcp-pin.mjs, ADR-0012), mit
+#    `npm ci`.
 name: Release-Pfade
 
 on:
@@ -46,3 +49,7 @@ jobs:
         run: npm ci
       - name: Tests ausführen
         run: npm run test:release
+      # Gate gegen den ECHTEN Checkout (node_modules/storybook nach npm ci oben), nicht nur
+      # gegen die Fixtures in check-storybook-mcp-pin.test.mjs.
+      - name: Storybook/@storybook-mcp-Versionsgleichheit prüfen
+        run: npm run check:storybook-mcp-pin
