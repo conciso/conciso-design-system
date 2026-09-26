@@ -54,9 +54,17 @@ Manifeste über einen frei wählbaren `manifestProvider` liest.
   Die Bump-Regeln aus ADR-0010 bleiben unverändert: `docs`-Commits lösen kein Release
   aus, ihr Stand fährt mit dem nächsten Release mit.
 - **CI-Gate:** Ein Smoke-Test startet den per `npm pack` gebauten Tarball über stdio
-  und prüft `initialize`, die drei Werkzeuge, die Inputs einer bekannten Komponente,
-  das Fehlen von `@internal`-Membern und die Seite „Einrichtung“. Er ist Vorbedingung
-  (`needs:`) des Publish-Jobs.
+  und prüft `initialize`, die drei Werkzeuge, die dokumentierten Inputs/Outputs einer
+  bekannten Komponente, das Fehlen von `@internal`-Membern und die Seite „Einrichtung“
+  (`mcp-server/scripts/smoke-test.mjs`). Läuft zweimal: bei jedem PR/Push als eigener Job in
+  `storybook-angular.yml` (Platzhalter-Version `0.0.0`, prüft die Paketstruktur), und im
+  Publish-Workflow als **Schritt innerhalb** des Publish-Jobs, NICHT als vorgeschaltete
+  `needs:`-Abhängigkeit. Grund: Die echte Version steht erst nach `stamp-version.mjs` im
+  gestempelten Tarball, und dieses Stempeln passiert bereits im Publish-Job, vor dem Bauen von
+  CSS-Schicht, Angular-Lib und MCP-Snapshot; ein separater `needs:`-Job müsste Stempel-, Build-
+  und Pack-Schritt duplizieren oder gegen den unbrauchbaren Platzhalter 0.0.0 prüfen. Der
+  Smoke-Test läuft deshalb auf demselben Tarball, der direkt danach veröffentlicht wird —
+  schlägt er fehl, bricht der Publish-Job ab, bevor `npm publish` läuft.
 
 ### Bewusst nicht gewählt
 
@@ -93,13 +101,13 @@ KI überhaupt ein Werkzeug aufruft.
   abgleicht, müssen das dritte Paket kennen.
 - **`tagHasMcp`-Fakt statt `NPM_BASELINE`-artiger Konstante:** `NPM_BASELINE` aus ADR-0011
   ist für den MCP-Server bedeutungslos — es markiert den letzten Tag, den es NUR auf GitHub
-  Packages gab, aber den MCP-Server gab es dort bis zu diesem Ticket überhaupt nicht, auf
-  KEINER Registry. Eine analoge feste Versions-Konstante wäre hier aber, anders als bei
-  `NPM_BASELINE`, eine Wette auf die Zukunft: ob ein Tag `mcp-server/` kennt, ist eine
-  Eigenschaft des BAUMS seines Commits, keine Eigenschaft seiner Versionsnummer, und `main`
-  kann zwischen dem Schreiben dieses Codes und dem Merge dieses Tickets weiterziehen (ein
-  `feat`-PR released z. B. v2.2.0, bevor dieses Ticket merged) — eine hartkodierte Version
-  wäre dann zu niedrig, und die Existenzprüfung versuchte, den MCP-Server rückwirkend aus
+  Packages gab, aber den MCP-Server gab es dort vor der hier beschriebenen Einführung
+  überhaupt nicht, auf KEINER Registry. Eine analoge feste Versions-Konstante wäre hier aber,
+  anders als bei `NPM_BASELINE`, eine Wette auf die Zukunft: ob ein Tag `mcp-server/` kennt,
+  ist eine Eigenschaft des BAUMS seines Commits, keine Eigenschaft seiner Versionsnummer, und
+  `main` kann zwischen dem Schreiben dieses Codes und dem Merge des MCP-Servers weiterziehen
+  (ein `feat`-PR released z. B. v2.2.0, bevor der MCP-Server merged wird) — eine hartkodierte
+  Version wäre dann zu niedrig, und die Existenzprüfung versuchte, den MCP-Server rückwirkend aus
   einem Tag-Commit ohne `mcp-server/`-Verzeichnis nachzuziehen, jeder weitere Release bliebe
   blockiert. `decide.mjs` bekommt den Fakt deshalb direkt vom Workflow: `tagHasMcp` prüft, ob
   der Baum des getaggten Commits `mcp-server/package.json` enthält
