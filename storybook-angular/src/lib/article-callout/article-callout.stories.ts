@@ -18,15 +18,13 @@ const meta: Meta<ArticleCalloutComponent> = {
           'direkte Kinder von `.article-callout` (`<ng-content>` fügt kein eigenes Element ein), ' +
           'Voraussetzung für den Kindselektor `.article-callout > p` (css/components.css:1600). ' +
           "`area` hat den verteidigbaren Default `'co'`: die Basisregel ohne `[data-area]` " +
-          'rendert bereits identisch zu `[data-area="co"]`. Ehemaliger CSS-Befund behoben (siehe ' +
-          '`.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`): ' +
+          'rendert bereits identisch zu `[data-area="co"]`. Ehemaliger CSS-Befund behoben: ' +
           '`.article-callout-eyebrow` steht jetzt als `.article-callout > .article-callout-eyebrow` ' +
           '(Spezifität 0,2,0) und gewinnt gegen `.article-callout > p` (0,1,1); reproduziert hier ' +
           'unverändert das gepatchte Mockup, nicht im Wrapper geflickt (ADR-0001). `aside` trägt `aria-labelledby` ' +
           'auf die Eyebrow, sobald eine gesetzt ist — Zusatz zum Mockup (ARIA, kein CSS), weil ' +
           'mehrere `.article-callout` auf derselben Seite sonst gleichnamige, ununterscheidbare ' +
-          '`complementary`-Landmarks wären (axe `landmark-unique`, siehe ' +
-          '`.scratch/angular-seitenbausteine/issues/23-doku-luecke-callout-landmark-label.md`).',
+          '`complementary`-Landmarks wären (axe `landmark-unique`).',
       },
     },
   },
@@ -67,7 +65,7 @@ export const Interaktiv: Story = {
     // kein <div> oder Ähnliches drumherum.
     await expect(aside.children).toHaveLength(2);
 
-    // aria-labelledby zeigt auf die Eyebrow-id (siehe Klassendoku, Issue 23).
+    // aria-labelledby zeigt auf die Eyebrow-id (siehe Klassendoku).
     const labelledBy = aside.getAttribute('aria-labelledby');
     await expect(labelledBy).toBeTruthy();
     await expect(document.getElementById(labelledBy!)).toBe(directChildren[0]);
@@ -98,7 +96,7 @@ export const ProBereich: Story = {
   }),
   // Vier Bereiche, vier gemessene Hintergrund-/Akzentfarben (nicht angenommen): .article-callout
   // selbst (Hintergrund, Border-Links) ist von der Eyebrow-Spezifitätslücke NICHT betroffen, nur
-  // die Eyebrow-Schrift/-Abstand (siehe Klassendoku und Issue 22).
+  // die Eyebrow-Schrift/-Abstand (siehe Klassendoku).
   play: async ({ canvasElement }) => {
     const asides = Array.from(
       canvasElement.querySelectorAll('aside.article-callout'),

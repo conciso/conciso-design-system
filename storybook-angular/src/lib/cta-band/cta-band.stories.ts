@@ -27,8 +27,7 @@ const meta: Meta<CtaBandComponent> = {
           'ein `<button>` mit `primaryClick` — nie ein `<a>` ohne Ziel. Bewusst nur EINE Aktion: ' +
           'keines der 22 Mockup-Vorkommen zeigt eine zweite, und `.btn-on-band` lässt sich mit ' +
           'den vorhandenen CSS-Klassen ohnehin nicht in einer zurückhaltenderen Variante bauen ' +
-          '(siehe Klassendoku, Entscheidung 4, sowie ' +
-          '`.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`). ' +
+          '(siehe Klassendoku, Entscheidung 4). ' +
           'Die Aktion komponiert `.btn-filled` + `.btn-on-band` direkt (nicht über `cds-button`, ' +
           'das keinen `href` kennt) und zentriert sich über das ererbte ' +
           '`.ep-cta-band{text-align:center}` — kein zusätzliches Layout im Wrapper.',
@@ -53,8 +52,7 @@ export default meta;
 type Story = StoryObj<CtaBandComponent>;
 
 export const Interaktiv: Story = {
-  // Bekannter CSS-Kern-Befund, kein Wrapper-Artefakt (Randbedingung 1, spec.md;
-  // Ticket 15, .scratch/angular-seitenbausteine/issues/15-css-kern-ep-cta-sub-kontrast.md):
+  // Bekannter CSS-Kern-Befund, kein Wrapper-Artefakt (Randbedingung 1, spec.md):
   // `.ep-cta-sub` (opacity:.85, css/components.css:1458) unterschreitet auf --co-700
   // den AA-Kontrast (gerechnet mit der WCAG-Formel gegen die Token-Werte: 4,46:1 statt
   // 4,5:1 — Weiß bei 85% Deckkraft ergibt #d9eaea auf #007575). Auf ki-800/es-700/
@@ -126,8 +124,7 @@ export const AlsLinks: Story = {
     primaryLabel: 'Gespräch anfragen',
     primaryHref: '#sec-examples',
   },
-  // Derselbe bekannte CSS-Kern-Befund wie in „Interaktiv“ (co-700 + .ep-cta-sub,
-  // Ticket 15).
+  // Derselbe bekannte CSS-Kern-Befund wie in „Interaktiv“ (co-700 + .ep-cta-sub).
   parameters: { a11y: { test: 'todo' } },
   render: (args) => ({
     props: args,
