@@ -155,7 +155,7 @@ nutzt alles):
 <link rel="stylesheet" href="css/components.css" />
 ```
 
-`fonts.css` referenziert die Font-Dateien relativ als `../fonts/*` — der `fonts`-Ordner
+`fonts.css` referenziert die Font-Dateien relativ als `../fonts/*`, der `fonts`-Ordner
 muss also als Geschwisterordner neben `css` liegen, sonst brechen die `@font-face`-Regeln.
 
 **Alternative: ein einziges Bundle.** Statt der fünf Dateien reicht auch ein einzelner
@@ -231,8 +231,7 @@ gemeinsam auf derselben Version installieren oder aktualisieren, zum Beispiel
 `npm i @conciso/design-system@X @conciso/design-system-angular@X
 @conciso/design-system-mcp@X`. Ohne Angular-Projekt bleibt dieser automatische Abgleich
 aus, auch mit installiertem `@conciso/design-system-mcp`: Die Prüfung vergleicht bislang
-nur gegen die Angular-Lib, eine Erweiterung auf `@conciso/design-system` ist als
-Folge-Ticket vorgesehen.
+nur gegen die Angular-Lib, nicht gegen die CSS-Schicht selbst.
 
 **Claude Code.** Empfohlen als committete Projektdatei `.mcp.json` im Repo-Root:
 
@@ -281,7 +280,7 @@ Port.
 ### Ohne installiertes Paket
 
 Ist `@conciso/design-system-mcp` im Projekt nicht installiert, startest du denselben
-Server trotzdem über `npx` — mit fester Versionsnummer statt `cds-mcp`, und mit `-y`, damit
+Server trotzdem über `npx`, mit fester Versionsnummer statt `cds-mcp` und mit `-y`, damit
 `npx` das Paket ohne Rückfrage lädt:
 
 ```json
@@ -325,7 +324,8 @@ Server trotzdem über `npx` — mit fester Versionsnummer statt `cds-mcp`, und m
 **Version an den kopierten Stand binden.** `<Version>` ist die Version der CSS-Schicht,
 die dein Projekt kopiert hat: Aktualisierst du die Kopie, ziehst du diese Versionsnummer
 mit, sonst dokumentiert der Server Komponenten, die dein kopierter Stand gar nicht kennt.
-Den MCP-Server gibt es erst ab der ersten Version nach 2.1.1; ist dein Stand älter,
+Den MCP-Server gibt es erst ab einer späteren Version als die CSS-Schicht; welche Versionen
+existieren, zeigt `npm view @conciso/design-system-mcp versions`. Ist dein Stand älter,
 nimmst du die älteste verfügbare Version. Die eingebaute Versionsprüfung greift hier
 ohnehin nicht automatisch: Sie vergleicht sich beim Start mit der **installierten**
 Version von
