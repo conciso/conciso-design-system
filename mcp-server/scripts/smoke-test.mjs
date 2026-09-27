@@ -48,17 +48,23 @@
 //   - @internal-Gate: KEINE Komponente im ausgelieferten Snapshot hat argTypes der Kategorie
 //     „properties“/„methods“ (ADR-0006 — vergessenes @internal), geprüft direkt in den
 //     services/core/docgen/*.json-Dateien des installierten Pakets
+//   - `docs-list` liefert weiterhin mehrere Einträge mit identischem Anzeigenamen (Doku-Manifest
+//     Schema v1 kennt kein `title`-Feld, ein umbenannter `name` würde zugleich das Sidebar-Blatt
+//     umbenennen, siehe ADR-0012): mindestens zwei ids teilen sich einen Anzeigenamen, und jede
+//     dieser ids folgt dem Schema „<pfad>--<name>“. Zusätzlich müssen die ausgelieferten
+//     `instructions` die Erklärung dazu enthalten (DOCS_LIST_ID_SCHEME_HINT aus src/instructions.mjs)
 //   - jede Zeile auf stdout ist gültiges JSON-RPC 2.0
 //
-// Bewusst NICHT geprüft: der Inhalt von `instructions` und der Versionsabgleich mit der
-// Angular-Lib (server.mjs/test/*.test.mjs), an denen dieses Skript nichts ändert.
+// Bewusst NICHT geprüft: der volle Inhalt von `instructions` (nur der eine Satz zum
+// ID-Schema oben) und der Versionsabgleich mit der Angular-Lib (server.mjs/test/*.test.mjs),
+// an denen dieses Skript nichts ändert.
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+import { DOCS_LIST_ID_SCHEME_HINT, EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
 import { buildTruthMap } from '../eval/checker.mjs';
 import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
@@ -207,6 +213,15 @@ async function runProtocolChecks(client, errors, tmpDir) {
     errors.push('initialize lieferte kein result.');
     return;
   }
+  // docs-list unterscheidet gleichnamige Einträge nur über ihre id (ADR-0012), kein
+  // Manifest-Feld liefert einen sprechenden Namen. Die Erklärung dafür muss stattdessen in
+  // den instructions ankommen.
+  if (!(init.result.instructions ?? '').includes(DOCS_LIST_ID_SCHEME_HINT)) {
+    errors.push(
+      'initialize.instructions enthält nicht die Erklärung zum ID-Schema von docs-list ' +
+        `(„${DOCS_LIST_ID_SCHEME_HINT}“).`,
+    );
+  }
   client.notify('notifications/initialized', {});
 
   const list = await client.request('tools/list', {});
@@ -322,6 +337,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
           `angehängten Seite: ${stillStandalone.join(', ')}.`,
       );
     }
+    checkDocsListDuplicateNames(text, errors);
   }
 
   const einrichtung = await client.request('tools/call', {
@@ -358,6 +374,63 @@ async function checkGroupUsageGuidance(client, errors) {
         `docs-show(${id}) enthält nicht den Kernsatz der Verwendungsseite dieser Gruppe („${sentence}“).`,
       );
     }
+  }
+}
+
+/** Bildet den Namensanteil einer docs-list-id nach: Kleinschreibung, Leerzeichen und
+ * ASCII-Interpunktion werden zu „-“, mehrfache und äußere „-“ entfallen — derselbe Sanitizer, mit
+ * dem Storybook aus einem Anzeigenamen den Teil hinter dem letzten „--“ einer id ableitet. Für den
+ * Vergleich unten reicht die Nachbildung, der Pfadanteil einer id wird nicht gebraucht. */
+function sanitizeDocName(name) {
+  return name
+    .toLowerCase()
+    .replace(/[ ’–—―′¿'`~!@#$%^&*()_|+\-=?;:'",.<>{}[\]\\/]/gi, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
+/** Liest die Zeilen im „# Docs“-Abschnitt von docs-list (Format „- <name> (<id>)[: <summary>]“,
+ * eine Zeile pro Eintrag) und gruppiert die ids nach ihrem Anzeigenamen. */
+function groupDocsListEntriesByName(docsListText) {
+  const sectionStart = docsListText.indexOf('# Docs');
+  const section = sectionStart === -1 ? '' : docsListText.slice(sectionStart);
+  const idsByName = new Map();
+  for (const [, name, id] of section.matchAll(/^- (.+?) \(([^()]+)\)/gm)) {
+    if (!idsByName.has(name)) idsByName.set(name, new Set());
+    idsByName.get(name).add(id);
+  }
+  return idsByName;
+}
+
+/** Prüft die in ADR-0012 getroffene Entscheidung gegen das echte Tarball-Artefakt statt nur gegen
+ * die instructions-Prosa: docs-list muss weiterhin mindestens zwei Doku-Einträge mit demselben
+ * Anzeigenamen, aber verschiedenen ids liefern (sonst wäre Regel 6 der instructions und der Check
+ * auf DOCS_LIST_ID_SCHEME_HINT oben gegenstandslos). Zusätzlich muss JEDE Doku-id dem dort
+ * erklärten Schema „<pfad>--<name>“ folgen, nicht nur die einer einzelnen Namensgruppe — sonst
+ * bliebe ein Schemabruch außerhalb der zufällig zuerst gefundenen Gruppe unbemerkt. */
+function checkDocsListDuplicateNames(docsListText, errors) {
+  const idsByName = groupDocsListEntriesByName(docsListText);
+  const hasDuplicateName = [...idsByName.values()].some((ids) => ids.size >= 2);
+  if (!hasDuplicateName) {
+    errors.push(
+      'docs-list enthält keine zwei Doku-Einträge mit identischem Anzeigenamen mehr: die ' +
+        'ID-Schema-Regel in den instructions (DOCS_LIST_ID_SCHEME_HINT) wäre dann überholt, siehe ADR-0012.',
+    );
+    return;
+  }
+
+  const malformed = [];
+  for (const [name, ids] of idsByName) {
+    const expectedSuffix = `--${sanitizeDocName(name)}`;
+    for (const id of ids) {
+      if (!id.endsWith(expectedSuffix) || id.length <= expectedSuffix.length) {
+        malformed.push(`${id} (Anzeigename „${name}“, erwartetes Suffix „${expectedSuffix}“)`);
+      }
+    }
+  }
+  if (malformed.length > 0) {
+    errors.push(`Doku-ids folgen nicht dem Schema „<pfad>--<name>“: ${malformed.join(', ')}.`);
   }
 }
 

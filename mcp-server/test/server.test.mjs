@@ -12,7 +12,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 
-import { EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+import { DOCS_LIST_ID_SCHEME_HINT, EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
 import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -50,6 +50,10 @@ test('cds-mcp: initialize, genau drei Werkzeuge, docs-show liefert Button-Inputs
     assert.match(init.result.instructions ?? '', /Verwendungsguidance/);
     assert.match(init.result.instructions ?? '', /Docs/);
     assert.match(init.result.instructions ?? '', /docs-list/);
+    // instructions müssen erklären, dass docs-list gleichnamige Einträge nur über ihre id
+    // unterscheidet (ADR-0012): kein Manifest-Feld liefert einen sprechenden Namen, ein
+    // umbenannter `name` würde zugleich das Sidebar-Blatt umbenennen.
+    assert.ok((init.result.instructions ?? '').includes(DOCS_LIST_ID_SCHEME_HINT));
 
     client.notify('notifications/initialized', {});
 

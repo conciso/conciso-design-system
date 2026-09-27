@@ -160,3 +160,24 @@ den Verwendungstext unter einer neuen `## Docs`-Überschrift.
   Nachzug.
 - Die MDX-Kopfzeile (Import, `<Meta>`) erscheint unverändert als Text in
   `docs-show`. Kosmetisch, keine Assertion ist davon betroffen.
+
+## Nachtrag (2026-09-26): Unterscheidbare Namen in docs-list
+
+**Kontext.** Nach dem Anhängen der Verwendungsseiten (Nachtrag oben) heißen alle 19
+verbleibenden `docs-list`-Einträge gleich („Übersicht“). Grund: `@storybook/addon-docs`
+schreibt für Doku-Einträge zwei Manifest-Schemata, v0 mit einem `title`-Feld und v1 ohne.
+Wegen ADR-0006 läuft dieses Repo im v1-Zweig, `formatDocLine` in `@storybook/mcp` fällt
+deshalb auf `doc.name` zurück. Spike-Ergebnis: `name` ist zugleich der Sidebar-Blattname
+und Bestandteil der id, ein sprechenderer Name würde also das Sidebar-Blatt mit umbenennen.
+
+**Entscheidung.** Kein Eingriff ins Manifest oder die Sidebar. Eine neue Regel in den
+Server-`instructions` erklärt statt dessen das ID-Schema `<pfad>--<name>`, ein
+Consumer-Agent unterscheidet gleichnamige Einträge damit über die id. Ein Patch am
+v1-Schema selbst (`title` ergänzen) wäre die strukturelle Lösung, liegt aber außerhalb
+dieses Repos und ist für ein reines Discoverability-Problem unverhältnismäßig.
+
+**Konsequenzen.**
+
+- `docs-list` bleibt bei 19 gleichnamigen Einträgen, unterscheidbar nur über die id.
+- Der Tarball-Smoke-Test prüft, dass die instructions die Erklärung enthalten.
+- Ein künftiges `title`-Feld in v1 machte die Regel überflüssig, aber nicht falsch.

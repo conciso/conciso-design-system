@@ -34,6 +34,7 @@ Beim Verbinden gibt der Server dem Assistenten außerdem feste Regeln mit:
 3. Nur Inputs und Outputs verwenden, die `docs-show` liefert. Vorher nachsehen, nie raten.
 4. Bei Fragen zur Einrichtung die Storybook-Seite „Einrichtung“ lesen.
 5. Für Auswahl- und Gestaltungsfragen zusätzlich die Verwendungsguidance der Komponente heranziehen, sonst über `docs-list` die passende „Verwendung“-Seite suchen.
+6. Mehrere Doku-Seiten in `docs-list` heißen gleich (meist „Übersicht“ oder „Verwendung“), unterscheidbar nur über ihre ID (Schema „`<pfad>--<name>`“).
 
 Weitere Eigenschaften:
 
