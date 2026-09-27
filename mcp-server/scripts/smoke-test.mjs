@@ -414,7 +414,7 @@ function checkDocsListDuplicateNames(docsListText, errors) {
   const hasDuplicateName = [...idsByName.values()].some((ids) => ids.size >= 2);
   if (!hasDuplicateName) {
     errors.push(
-      'docs-list enthält keine zwei Doku-Einträge mit identischem Anzeigenamen mehr — die ' +
+      'docs-list enthält keine zwei Doku-Einträge mit identischem Anzeigenamen mehr: die ' +
         'ID-Schema-Regel in den instructions (DOCS_LIST_ID_SCHEME_HINT) wäre dann überholt, siehe ADR-0012.',
     );
     return;
