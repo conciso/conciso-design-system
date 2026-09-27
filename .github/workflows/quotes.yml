@@ -8,8 +8,11 @@
 #
 # Zweiter Check im selben Job: scripts/check-ticket-refs.mjs (CONTRIBUTING § 17) — findet
 # neue Verweise auf lokale Ticket-Dateien außerhalb ihres eigenen, gitignoreten
-# Verzeichnisses. Beide Checks sind dependency-freie Textsuchen über denselben
-# Dateibestand, ein zweiter Job würde nur denselben Checkout ein zweites Mal bezahlen.
+# Verzeichnisses. Davor laufen dessen eigene Unit-Tests (scripts/check-ticket-refs.test.mjs,
+# Stil wie scripts/release/*.test.mjs, node:test) gegen das Muster und die Allowlist selbst.
+# Alle drei Schritte sind dependency-freie Textsuchen/-tests über denselben Dateibestand
+# (node:test ist Teil der Node-Runtime, kein npm ci nötig), ein zweiter Job würde nur denselben
+# Checkout ein zweites Mal bezahlen.
 name: Anführungszeichen
 
 on:
@@ -32,5 +35,7 @@ jobs:
           node-version: 22
       - name: Anführungszeichen prüfen
         run: npm run check:quotes
+      - name: Ticket-Referenzen-Muster testen
+        run: npm run test:ticket-refs
       - name: Ticket-Referenzen prüfen
         run: npm run check:ticket-refs
