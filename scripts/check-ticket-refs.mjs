@@ -26,14 +26,11 @@
 // Ziffer als Anker zu automatisieren — die entfernt man von Hand.
 //
 // spec.md OHNE .scratch/-PFAD
-// Ein Ticket-Bericht dieses Checks hat einen realen Fall dokumentiert, den die ersten vier
-// Muster übersehen haben: „Randbedingung 1, spec.md“ in einem Kommentar — kein `.scratch/`-Pfad
-// davor, keine Ticket-Ziffer, trotzdem derselbe tote Verweis (die `.scratch/…/spec.md`-Datei
-// existiert nach dem Merge nicht mehr). Repo-weite Nachsuche (außerhalb dieser Datei und der
-// Allowlist unten) ergab keine einzige legitime Verwendung des literalen Dateiworts „spec.md“ —
-// jedes Vorkommen ist entweder bereits allowlisted (beschreibt die Tracker-Konvention selbst)
-// oder genau dieser tote Verweis. Deshalb zusätzliches Muster, ohne das Fehlalarm-Risiko von
-// „das Ticket“: „spec.md“ ist ein Dateiname, kein Wort mit Alltagsbedeutung.
+// Ein Kommentar wie „Randbedingung 1, spec.md“ verweist ebenso auf eine gitignorete Datei,
+// ohne `.scratch/`-Pfad und ohne Ticketziffer — die anderen vier Muster übersehen das. Repo-weite
+// Nachsuche zeigt keine legitime Verwendung des literalen Dateiworts „spec.md“ außerhalb der
+// Allowlist unten. Anders als bei „das Ticket“ ist das Fehlalarmrisiko hier gering: „spec.md“
+// ist ein Dateiname, kein Wort mit Alltagsbedeutung.
 //
 // AUSNAHMEN (ALLOWLIST)
 // `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (nicht mehr gepflegt, siehe
@@ -79,10 +76,9 @@ export function isAllowlisted(file) {
   return ALLOWLIST_EXACT.includes(file) || ALLOWLIST_PREFIXES.some((prefix) => file.startsWith(prefix));
 }
 
-// Dieselben fünf Muster wie die einmalige Aufräum-Suche (`git grep -nE`) plus „spec.md“
-// (siehe „spec.md OHNE .scratch/-PFAD“ oben): „Ticket“ (optional Mehrzahl-„s“) + optionales
-// Leerzeichen + Ziffer · ein `.scratch/`-Pfad · „Bulk-Batch“ · „Issue“ + genau zwei Ziffern ·
-// das literale Dateiwort „spec.md“.
+// Fünf Muster: „Ticket“ (optional Mehrzahl-„s“) + optionales Leerzeichen + Ziffer ·
+// ein `.scratch/`-Pfad · „Bulk-Batch“ · „Issue“ + genau zwei Ziffern · das literale
+// Dateiwort „spec.md“ (siehe „spec.md OHNE .scratch/-PFAD“ oben).
 export const PATTERN = /Tickets? ?\d|\.scratch\/|Bulk-Batch|Issue \d{2}\b|spec\.md/g;
 
 const BINARY = /\.(woff2?|ttf|otf|eot|png|jpe?g|webp|gif|ico|pdf|zip)$/i;
