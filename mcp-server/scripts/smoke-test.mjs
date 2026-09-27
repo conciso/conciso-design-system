@@ -294,6 +294,30 @@ async function runProtocolChecks(client, errors, tmpDir) {
     }
   }
 
+  const docsShowBarrierefreiheit = await client.request('tools/call', {
+    name: 'docs-show',
+    arguments: { id: 'grundlagen-barrierefreiheit--übersicht' },
+  });
+  if (docsShowBarrierefreiheit.error) {
+    errors.push(
+      `docs-show(grundlagen-barrierefreiheit--übersicht) fehlgeschlagen: ${JSON.stringify(docsShowBarrierefreiheit.error)}`,
+    );
+  } else {
+    const text = docsShowBarrierefreiheit.result?.content?.[0]?.text ?? '';
+    // Auffindbarkeit der Farben-Seite: docs-list liefert für „grundlagen-farben“
+    // keine Beschreibung (die Komponente hat keinen Angular-Docgen-Eintrag, siehe ADR-0006 —
+    // der Docgen-Server liest nur aus der TS-Quelle der Angular-Lib), ein Consumer-Agent
+    // landet für Kontrastfragen deshalb zuverlässig zuerst auf dieser Barrierefreiheits-Seite.
+    // Sie muss von dort aus auf „Grundlagen/Farben“ verweisen (Token-Rollen, Dos & Don'ts),
+    // sonst bleibt die Farben-Seite für diese Fragen unauffindbar.
+    if (!text.includes('Grundlagen/Farben')) {
+      errors.push(
+        'docs-show(grundlagen-barrierefreiheit--übersicht) enthält nicht den Verweis auf ' +
+          '„Grundlagen/Farben“.',
+      );
+    }
+  }
+
   const docsShowTypografie = await client.request('tools/call', {
     name: 'docs-show',
     arguments: { id: 'grundlagen-typografie' },

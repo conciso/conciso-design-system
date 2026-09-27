@@ -29,7 +29,7 @@
     "prepack": "node scripts/prepack.mjs",
     "test": "node --test test/*.test.mjs",
     "test:smoke": "node scripts/smoke-test.mjs",
-    "test:eval-checker": "node --test eval/checker.test.mjs",
+    "test:eval-checker": "node --test eval/checker.test.mjs eval/run-eval.test.mjs",
     "eval": "node eval/run-eval.mjs",
     "lint": "eslint ."
   },
