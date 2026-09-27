@@ -22,12 +22,11 @@ import {
  * umgebendes `<cds-stoerer-set>` bleibt eine Kachel deshalb unsichtbar: Angular hängt
  * projizierten Inhalt ohne passendes `<ng-content>`-Ziel nicht ins DOM.
  *
- * **Entscheidung — Icon als projizierter Inhalt.** Wie in Ticket 05 (`cds-icon-card`,
- * `.scratch/angular-seitenbausteine/issues/05-icon-karte.md`, Abschnitt „Entscheidung:
- * Icon als projizierter Inhalt“) sind die Störer-Icons im Mockup wechselnde
+ * **Entscheidung — Icon als projizierter Inhalt.** Wie bei `cds-icon-card` sind die
+ * Störer-Icons im Mockup wechselnde
  * Heroicons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
  * Projektion über `<ng-content select="[cdsIcon]">` statt eines `icon`-Inputs.
- * Abweichend von Ticket 05 trägt das projizierte `<svg>` die Klasse `stoerer-icon`
+ * Abweichend von `cds-icon-card` trägt das projizierte `<svg>` die Klasse `stoerer-icon`
  * selbst (zusätzlich zu `cdsIcon`, `viewBox`, `aria-hidden="true"`,
  * `focusable="false"`): `.ep-card-icon` ist dort ein Container, der die Größe per
  * Nachfahren-Selektor (`.ep-card-icon svg`) an ein unverändertes Kind durchreicht.

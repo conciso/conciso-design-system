@@ -43,7 +43,7 @@ const meta: Meta<IconCardComponent> = {
           'Nachfahren-Selektor durch, das projizierte `<svg>` braucht deshalb KEINE ' +
           'eigene Größenklasse. **Kein `cdsIconCards`-Raster:** `.ep-cards` ist ein reines ' +
           '`display:grid` ohne Struktur oder Verhalten (dieselbe Begründung wie beim ' +
-          'Verzicht auf einen `layout-grid`-Wrapper, siehe `spec.md`), Konsumenten ' +
+          'Verzicht auf einen `layout-grid`-Wrapper), Konsumenten ' +
           'schreiben deshalb `<div class="ep-cards">` von Hand, siehe „Im Raster“.',
       },
     },

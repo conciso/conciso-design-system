@@ -11,7 +11,7 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 1 — `href` entscheidet zwischen `<a>` und `<article>`.** Die
  * Doku-Beispiele zeigen die Featured-Card ausschließlich als Link
- * (`a.card.card-elevated.card-featured`), das Ticket verlangt aber ausdrücklich eine
+ * (`a.card.card-elevated.card-featured`), diese Komponente unterstützt aber ausdrücklich eine
  * Variante ohne `<a>`. `.card-elevated` ist nach `CONTRIBUTING.md` §4 („Elevation =
  * Interaktivität“) im CSS auf `a.card-elevated` gescoped — eine `<article>` bekäme
  * den Schatten mit gesetzter Klasse ohnehin nicht. Die Komponente führt die Klasse
@@ -58,9 +58,9 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 4 — kein CTA- und kein Meta-Input.** Die Doku-Vorlage zeigt
  * zusätzlich einen Meta-Strip (Datum/Ort/Format) und einen `.card-cta-link`-Fuß;
- * das Ticket benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/
- * `pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne Inputs zu
- * erfinden, die das Ticket nicht vorsieht — ein Meta-Strip oder ein CTA-Fuß wären
+ * diese Komponente benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/
+ * `pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne zusätzliche Inputs zu
+ * erfinden — ein Meta-Strip oder ein CTA-Fuß wären
  * eine spätere, eigene Erweiterung.
  *
  * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).

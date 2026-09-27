@@ -89,7 +89,7 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 3 — kein `cdsIconCards`-Raster.** `.ep-cards` ist ein reines
  * `display:grid` ohne Struktur oder Verhalten (dieselbe Begründung wie beim Verzicht
- * auf einen `layout-grid`-Wrapper, siehe `spec.md`). Konsumenten schreiben
+ * auf einen `layout-grid`-Wrapper). Konsumenten schreiben
  * `<div class="ep-cards">` von Hand (siehe Story „Im Raster“).
  *
  * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).

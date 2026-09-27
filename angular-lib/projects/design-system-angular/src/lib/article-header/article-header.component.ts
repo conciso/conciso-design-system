@@ -13,14 +13,14 @@ export interface CdsArticleBreadcrumbItem {
 /**
  * ArticleHeader (`cds-article-header`) — Wrapper um `.article-header` aus
  * css/components.css (css/components.css:1486–1490, 1508–1519): der zentrierte Kopf
- * eines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip). Elftes
- * Ticket der Seitenbausteine-Serie. Hauptvorlage ist
+ * eines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip).
+ * Hauptvorlage ist
  * `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article
- * Header“ — dort steht das für dieses Ticket verbindliche Markup samt Begründung,
+ * Header“ — dort steht das verbindliche Markup samt Begründung,
  * nicht nur das Mockup in `docs/index.html`.
  *
  * **Breadcrumb sitzt im Header — abweichend von der allgemeinen Navigationsregel,
- * bewusst der Ticket-Vorlage folgend.** `docs/index.html:2423` dokumentiert für
+ * bewusst der Hauptvorlage folgend.** `docs/index.html:2423` dokumentiert für
  * Unterseiten allgemein, wörtlich: „Den Breadcrumb nicht in einen zentrierten
  * `.article-header` einbetten, sonst wird er mittig ausgerichtet und bekommt einen
  * abweichenden Abstand zur Nav“ (Tabellenzeile „Nicht“ der Breadcrumb-Doku) — und
@@ -33,30 +33,27 @@ export interface CdsArticleBreadcrumbItem {
  * den Breadcrumb INNERHALB von `.article-header` zeigen: 5 kleine Referenz-Boxen in
  * der Doku-Sektion selbst (`docs/index.html:7850`, `8304`, `8331`, `8361`, `8392` —
  * ohne Topnav/Hero/Footer, reine Bauteil-Illustrationen) plus das Code-Beispiel in
- * `wissensbeitrag.mdx`. Das Ticket benennt genau diese Doku (nicht die
- * Beispielseiten) als Hauptvorlage. Diese Komponente folgt der Ticket-Vorgabe
- * (Breadcrumb als Input, im Header) und dokumentiert den Widerspruch als eigenen
- * Befund
- * (`.scratch/angular-seitenbausteine/issues/20-breadcrumb-in-oder-vor-article-header.md`).
+ * `wissensbeitrag.mdx`. Diese Komponente folgt bewusst dieser Doku, nicht den
+ * Beispielseiten (Breadcrumb als Input, im Header), und dokumentiert den
+ * Widerspruch als eigenen Befund.
  * Konsumenten, die der allgemeinen Regel folgen wollen (wie die beiden echten
  * Beispielseiten), lassen `breadcrumb` leer und setzen die Leiste selbst davor
  * (siehe Story „Ohne Breadcrumb“).
  *
- * **Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current="page"`** — so vom
- * Ticket als Akzeptanzkriterium gefordert. Die beiden Wissensbeitrag-Inline-Beispiele
+ * **Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current="page"`.** Die
+ * beiden Wissensbeitrag-Inline-Beispiele
  * (`docs/index.html:7850–7856`, `wissensbeitrag.mdx`) zeigen dafür nur 2 Einträge,
  * BEIDE als `<a>`, ohne `aria-current` — eine zur Kürze vereinfachte Doku-Skizze,
  * kein vollständiges Barrierefreiheits-Beispiel. Das volle, korrekte Muster (Trenner
  * dekorativ, letzter Eintrag `<span aria-current="page">` ohne Link) steht an
  * anderer Stelle exakt so vor (`docs/index.html:2406–2412` allgemeine
- * Breadcrumb-Doku, `docs/index.html:11023–11030` Stellenanzeige) und ist zusätzlich
- * eine explizite Akzeptanzbedingung des Tickets — die Komponente folgt deshalb
- * diesem Muster für den letzten Array-Eintrag, unabhängig von einem dort eventuell
- * gesetzten `href`.
+ * Breadcrumb-Doku, `docs/index.html:11023–11030` Stellenanzeige) — die Komponente
+ * folgt deshalb diesem Muster für den letzten Array-Eintrag, unabhängig von einem
+ * dort eventuell gesetzten `href`.
  *
  * **Keine bereichsgefärbte Breadcrumb-Verlinkung (`.t-{area}`).** Die
  * Inline-Beispiele färben ihren zweiten (dort letzten) Eintrag mit `.t-ki`/`.t-es`/
- * `.t-wo`; das Ticket sieht dafür aber kein API-Feld vor (`{label, href?}`, kein
+ * `.t-wo`; die API sieht dafür aber kein Feld vor (`{label, href?}`, kein
  * `area` pro Eintrag), und eine Zuordnung „Bereichsfarbe auf den vorletzten
  * Eintrag“ wäre geraten, nicht aus der Doku ableitbar — zumal der gefärbte Eintrag
  * dort ein Link ist, kein `aria-current`-Element, also nicht deckungsgleich mit dem
@@ -74,7 +71,7 @@ export interface CdsArticleBreadcrumbItem {
  * **Pille rendert nur, wenn `area` UND `pill` gesetzt sind — kein erfundener
  * Default.** `PillComponent.area` ist als `CdsArea` mit einem eigenen Default
  * (`'ki'`) typisiert; diese Komponente führt `area` dagegen als `CdsArea | undefined`
- * (keine Konfigurations-Vorgabe laut Ticket-API). Ein erster Entwurf reichte
+ * (kein eigener Default vorgegeben). Ein erster Entwurf reichte
  * `area()` per `as CdsArea`-Cast durch, damit ein `undefined`-Binding
  * `cds-pill`s eigenen Default überschreiben kann — eine Typ-Lüge, um einen Fall
  * abzudecken, der beim Nachzählen gar nicht vorkommt: **alle 9** `.pill`-Vorkommen
@@ -103,8 +100,8 @@ export interface CdsArticleBreadcrumbItem {
  * (`stoerer.component.ts:formattedDate`, inkl. manuellem Aufbau der
  * `Date`-Komponenten gegen den UTC-Mitternacht-Fallstrick von `new Date(iso)`).
  * Diese Komponente tut das NICHT: `date` liefert nur den maschinenlesbaren
- * `datetime`-Wert, `dateLabel` die sichtbare Schreibweise — vom Ticket ausdrücklich
- * als zwei getrennte Inputs vorgegeben. Begründung der Abweichung: Erstens deckt
+ * `datetime`-Wert, `dateLabel` die sichtbare Schreibweise — bewusst als zwei
+ * getrennte Inputs. Begründung der Abweichung: Erstens deckt
  * sich das mit jeder realen Instanz (6 von 6 `.article-meta-date`-Vorkommen tragen
  * einen redaktionell gesetzten Text wie „13. Mai 2026“, keinen von
  * `Intl.DateTimeFormat` erzeugten) — anders als der Störer, dessen Kacheln NUR ein
@@ -116,22 +113,22 @@ export interface CdsArticleBreadcrumbItem {
  * ISO-Form, nicht geraten formatiert) — in der Story „Interaktiv“ als Warnfall extra
  * benannt, damit niemand das versehentlich auf eine Produktionsseite bringt.
  *
- * **Meta-Strip nur, wenn es etwas zu zeigen gibt.** `authorName`/`date` sind laut
- * Ticket-API Beiwerk (Default `''`); ausgezählt haben alle 6 realen
+ * **Meta-Strip nur, wenn es etwas zu zeigen gibt.** `authorName`/`date` sind bewusst
+ * Beiwerk (Default `''`); ausgezählt haben alle 6 realen
  * `.article-meta`-Vorkommen sowohl Autor als auch Datum, eine Stellenanzeige
  * (`docs/index.html:11035`) nutzt `.article-header` dagegen KOMPLETT OHNE
  * `.article-meta` (dort ein `<dl>` aus Job-Fakten statt Autor/Datum) — dieser
- * abweichenden Verwendung folgt diese Komponente nicht (sie hat in der Ticket-API
- * keinen Platz), sie belegt aber, dass ein leerer Meta-Strip ein realer Fall ist.
+ * abweichenden Verwendung folgt diese Komponente nicht (dafür ist in der API kein
+ * Feld vorgesehen), sie belegt aber, dass ein leerer Meta-Strip ein realer Fall ist.
  * `.article-meta` (und darin `.article-meta-author`/`.article-meta-sep`) rendern
  * deshalb nur, wenn `authorName()` bzw. `date()` tatsächlich etwas liefern; der
  * Trenner nur, wenn beide Seiten vorhanden sind.
  *
- * **Avatar projiziert über `[cdsAvatar]`, PLUS `cds-avatar-stack`.** Die
- * Ticket-Skizze nennt nur `<ng-content select="[cdsAvatar]">`; ergänzt um den
+ * **Avatar projiziert über `[cdsAvatar]`, PLUS `cds-avatar-stack`.** Der
+ * ursprüngliche Entwurf nennt nur `<ng-content select="[cdsAvatar]">`; ergänzt um den
  * Tag-Selektor `cds-avatar-stack`, weil `AvatarStackComponent` (siehe dort) ein
  * Element-Selektor ist, kein `[cdsAvatar]`-Attribut trägt und sonst nicht in den
- * Meta-Strip projiziert werden könnte — nötig für die vom Ticket geforderte Story
+ * Meta-Strip projiziert werden könnte — nötig für die Story
  * „Mehrere Autor:innen“.
  *
  * **Host als Block.** `.article-header` sitzt am Host und setzt nur

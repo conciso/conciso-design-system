@@ -11,7 +11,7 @@ import { dirname, join } from 'node:path';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Präfixe enden auf „/“ für Verzeichnisse (jeder Pfad darunter zählt) oder sind exakte
-// Dateipfade. Quelle: .scratch/automatische-releases/spec.md Regel 2, verifiziert gegen
+// Dateipfade. Quelle: ADR-0010 Regel 2, verifiziert gegen
 // die tatsächlichen „build“-Skripte in package.json.
 export const RELEVANT_PATH_PREFIXES = [
   // CSS-Schicht: root `files`-Feld (package.json)
@@ -130,7 +130,7 @@ function isEntryCovered(entry) {
 }
 
 /**
- * Deckungs-Check (Spec Regel 3): jeder Eintrag im root `files`-Feld, in
+ * Deckungs-Check (ADR-0010 Regel 3): jeder Eintrag im root `files`-Feld, in
  * mcp-server/package.json#files (ADR-0012, drittes Paket) UND der ausgelieferte Inhalt der
  * Lib muss durch RELEVANT_PATH_PREFIXES abgedeckt sein. Gibt die fehlenden Einträge zurück
  * (leeres Array = ok), statt selbst zu werfen, damit Aufrufer (CLI wie Test) frei
@@ -159,7 +159,7 @@ export function checkCoverage(root = ROOT) {
   }
 
   // Fest verdrahtete Build-Eingaben außerhalb des `files`-Felds, die trotzdem abgedeckt
-  // sein müssen (Spec Regel 3 „... UND der ausgelieferte Inhalt der Lib“, erweitert um
+  // sein müssen (ADR-0010 Regel 3 „... UND der ausgelieferte Inhalt der Lib“, erweitert um
   // deren Build-Eingaben aus demselben Grund).
   const requiredPrefixes = [
     'angular-lib/projects/design-system-angular/',
@@ -176,7 +176,7 @@ export function checkCoverage(root = ROOT) {
 }
 
 // Als Skript aufrufbar: `node scripts/release/relevant-paths.mjs` prüft die Deckung und
-// bricht mit Fehlermeldung ab, wenn ein files-Eintrag nicht abgedeckt ist (Spec Regel 3,
+// bricht mit Fehlermeldung ab, wenn ein files-Eintrag nicht abgedeckt ist (ADR-0010 Regel 3,
 // Akzeptanzkriterium „Coverage-Check fällt, wenn ein neuer Eintrag … fehlt“).
 const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 if (isMain) {

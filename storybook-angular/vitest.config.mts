@@ -51,7 +51,7 @@ export default defineConfig({
             provider: playwright(),
             instances: [{ browser: 'chromium' }],
             // Visual-Regression (Nachfolger von `.storybook/test-runner.ts`, siehe
-            // Ticket 08). `resolveScreenshotPath`/`resolveDiffPath` müssen hier (im
+            // docs/adr/0005-testebene-der-angular-lib.md). `resolveScreenshotPath`/`resolveDiffPath` müssen hier (im
             // Node-Prozess) stehen, nicht im browserseitig laufenden
             // `vitest.setup.ts`: das Browser-Fenster ruft `toMatchScreenshot()` nur
             // per RPC auf, und Funktionswerte überstehen diese Serialisierung nicht.
@@ -70,7 +70,7 @@ export default defineConfig({
                   // aber zu locker: Der Screenshot ist `document.body`, und bei `layout: 'centered'`
                   // (die meisten Stories) ist die Canvas größtenteils leerer Hintergrund — 1 % davon
                   // ist eine größere Fläche als eine ganze Komponente einnimmt. Ein kompletter
-                  // Bildtausch käme unter dieser Ratio durch (empirisch geprüft, s. Ticket 08).
+                  // Bildtausch käme unter dieser Ratio durch (empirisch geprüft).
                   // Deshalb zusätzlich eine absolute Pixelzahl setzen: Laut Typdefinition
                   // (`@vitest/browser/context.d.ts`, `StandardScreenshotComparators`) gilt bei
                   // gesetzten `allowedMismatchedPixels` UND `allowedMismatchedPixelRatio` jeweils der

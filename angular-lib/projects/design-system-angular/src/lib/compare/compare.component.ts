@@ -24,8 +24,7 @@ export interface CdsCompareRow {
  * Compare (`cds-compare`) — Wrapper um `.ep-compare*` aus css/components.css
  * (css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den zeilenweisen
  * Direktvergleich mehrerer Pakete/Tarife (Doku-Site `sec-table`, Nav-Eintrag
- * „Vergleichstabelle (aufklappbar)“, `docs/index.html:5182–5204`). Zehntes Ticket der
- * Seitenbausteine-Serie, nach `cds-table` (Ticket 09).
+ * „Vergleichstabelle (aufklappbar)“, `docs/index.html:5182–5204`), nach `cds-table`.
  *
  * **Mit Daten-Input, anders als `cds-table`.** `cds-table` projiziert `<thead>`/`<tbody>`
  * unverändert per `<ng-content>`, weil seine Zellen Badges, Links und `data-num` tragen können
@@ -48,7 +47,7 @@ export interface CdsCompareRow {
  * (WCAG 1.4.1), der `.sr-only`-Text ist deshalb kein optionaler Zusatz, sondern fest verdrahtet,
  * nicht per Input überschreibbar.
  *
- * **`caption` ist Pflicht (`input.required<string>()`), abweichend von der Ticket-Skizze (dort
+ * **`caption` ist Pflicht (`input.required<string>()`), abweichend von der ursprünglichen Skizze (dort
  * kein Input dafür vorgesehen) — dieselbe Begründung wie bei `cds-table`.** Die eigene Doku
  * (`storybook-angular/src/docs/komponenten/tabelle.mdx:91`) nennt `<caption class="sr-only">`
  * ausdrücklich als Teil des Bauteils, und das einzige reale Vorkommen hat eine. Anders als bei
@@ -57,7 +56,7 @@ export interface CdsCompareRow {
  * direkt in die Tabelle springen, ohne den Summary-Text erneut vorgelesen zu bekommen.
  *
  * **`rowsLabel` (erste Kopfzelle, `<th scope="col">Funktion</th>` im Mockup) ist dagegen Beiwerk,
- * optional mit Default `''`.** Auch dafür sieht die Ticket-Skizze keinen Input vor. Den Text fest
+ * optional mit Default `''`.** Auch dafür sieht die ursprüngliche Skizze keinen Input vor. Den Text fest
  * im Template zu verdrahten hieße, AI.Box-Copy in einen wiederverwendbaren Wrapper zu backen
  * (ADR-0007 §2); ihn ganz wegzulassen wich ohne CSS-Befund vom einzigen Beleg ab, ohne dass die
  * Doku das verlangt. Anders als `caption` ist die Kopfzelle nicht barrierefreiheitsrelevant
@@ -65,8 +64,8 @@ export interface CdsCompareRow {
  * Ecke ohne eigenen Namen. Deshalb Beiwerk, kein Inhalt — das Beispielwort „Funktion“ steht in
  * der Story, nicht in der Klasse.
  *
- * **Natives `<details>`/`<summary>` bleibt erhalten, kein nachgebautes Disclosure** (Ticket-
- * Vorgabe, analog `cds-faq`): Tastaturbedienung und Toggle-Verhalten kommen vom Browser, das CSS
+ * **Natives `<details>`/`<summary>` bleibt erhalten, kein nachgebautes Disclosure**
+ * (analog `cds-faq`): Tastaturbedienung und Toggle-Verhalten kommen vom Browser, das CSS
  * hängt direkt an `[open]` (`.ep-compare[open] .ep-compare-caret`). `<details class="ep-compare">`
  * sitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund wie bei `cds-table`s
  * `.tbl-wrap`/`.tbl`: ein `<cds-compare>`-Host ist ein unbekanntes Custom Element, kein echtes

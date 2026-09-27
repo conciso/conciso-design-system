@@ -6,8 +6,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * Nav-Einträge „Standard“ und „Gestreift“). Ausgezählt: außerhalb von `sec-table`
  * selbst kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten
  * (`docs/index.html:8622`, `15080`) — keine der 24 Beispielseiten außerhalb von
- * Wissensbeiträgen setzt aktuell eine Tabelle ein. Neuntes Ticket der
- * Seitenbausteine-Serie.
+ * Wissensbeiträgen setzt aktuell eine Tabelle ein.
  *
  * **Kein Daten-Input.** Eine `columns`/`rows`-API würde Zellinhalte auf Strings
  * festlegen; die Beispielseiten setzen darin Badges, Links und `data-num`
@@ -16,7 +15,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * Hülle: `.tbl-wrap`, `.tbl`, `<caption>` und die Striped-Klasse.
  *
  * **`caption` ist Pflicht (`input.required<string>()`), abweichend von der
- * Ticket-Skizze (dort `caption? = ''`).** Die eigene Doku dieser Komponente
+ * ursprünglichen Skizze (dort `caption? = ''`).** Die eigene Doku dieser Komponente
  * (`storybook-angular/src/docs/komponenten/tabelle.mdx:137`) nennt `<caption>`
  * ausdrücklich „Pflicht, Screenreader lesen den Titel vor, bevor die Zellen
  * vorgelesen werden“ und wiederholt das in den Dos (`tabelle.mdx:147`:
@@ -50,7 +49,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * fix (kein Tag-Wechsel wie bei `cdsIconCard`), aber `.tbl-wrap` bräuchte dann
  * ein ZWEITES Element, das der Konsument von Hand um die Tabelle schreiben
  * müsste (`<div class="tbl-wrap" tabindex="0" role="region" aria-label="…">
- * <table cdsTable>…`) — genau die beiden Aufgaben, die laut Ticket am ehesten
+ * <table cdsTable>…`) — genau die beiden Aufgaben, die am ehesten
  * vergessen werden (fokussierbarer, benannter Scroll-Container), blieben dann
  * beim Konsumenten statt bei der Komponente. Der Element-Selektor hält Wrap und
  * Tabelle zusammen in einem Template.
@@ -79,8 +78,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * **`.tbl-sort` bleibt außen vor.** Die Klasse existiert
  * (css/components.css:1477–1482), die Sortierlogik nicht — kein zugehöriges
  * JS in `docs/main.js` für die Beispielseiten. Ein Wrapper, der nur den
- * Button-Look lieferte, täuschte Funktion vor, die es nicht gibt. Siehe
- * `.scratch/angular-seitenbausteine/issues/19-fehlende-sortierlogik-tbl-sort.md`.
+ * Button-Look lieferte, täuschte Funktion vor, die es nicht gibt.
  */
 @Component({
   selector: 'cds-table',
