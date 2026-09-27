@@ -39,6 +39,15 @@ test('spec.md ohne vorangestelltes .scratch/ trifft', () => {
   assert.equal(matches('Randbedingung 1, spec.md').length, 1);
 });
 
+test('spec.mdx (MDX-Datei, kein Tracker-Verweis) trifft nicht', () => {
+  assert.equal(matches('siehe spec.mdx für die Story-Doku').length, 0);
+});
+
+test('spec.md vor einem Satzzeichen trifft weiterhin', () => {
+  assert.equal(matches('siehe spec.md.').length, 1);
+  assert.equal(matches('(spec.md)').length, 1);
+});
+
 test('legitime Texte ohne Ziffer treffen nicht', () => {
   assert.equal(
     matches('Ticket-Referenzen, Issue-Tracker, die Spec, ein Bulk-Import — alles ohne Ziffer').length,

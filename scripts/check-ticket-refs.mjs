@@ -30,7 +30,11 @@
 // ohne `.scratch/`-Pfad und ohne Ticketziffer — die anderen vier Muster übersehen das. Repo-weite
 // Nachsuche zeigt keine legitime Verwendung des literalen Dateiworts „spec.md“ außerhalb der
 // Allowlist unten. Anders als bei „das Ticket“ ist das Fehlalarmrisiko hier gering: „spec.md“
-// ist ein Dateiname, kein Wort mit Alltagsbedeutung.
+// ist ein Dateiname, kein Wort mit Alltagsbedeutung. Das `\b` danach ist Pflicht, nicht
+// Zierde: ohne Wortgrenze träfe das Muster auch `spec.mdx` oder `spec.mdown`, weil „md“ dort
+// nur ein Präfix ist. Zwischen `d` und einem folgenden Buchstaben gibt es keine Wortgrenze,
+// `\b` verhindert diesen Teiltreffer; vor Leerzeichen, Satzzeichen oder am Zeilenende bleibt
+// „spec.md“ weiterhin ein Treffer.
 //
 // AUSNAHMEN (ALLOWLIST)
 // `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (nicht mehr gepflegt, siehe
@@ -79,7 +83,7 @@ export function isAllowlisted(file) {
 // Fünf Muster: „Ticket“ (optional Mehrzahl-„s“) + optionales Leerzeichen + Ziffer ·
 // ein `.scratch/`-Pfad · „Bulk-Batch“ · „Issue“ + genau zwei Ziffern · das literale
 // Dateiwort „spec.md“ (siehe „spec.md OHNE .scratch/-PFAD“ oben).
-export const PATTERN = /Tickets? ?\d|\.scratch\/|Bulk-Batch|Issue \d{2}\b|spec\.md/g;
+export const PATTERN = /Tickets? ?\d|\.scratch\/|Bulk-Batch|Issue \d{2}\b|spec\.md\b/g;
 
 const BINARY = /\.(woff2?|ttf|otf|eot|png|jpe?g|webp|gif|ico|pdf|zip)$/i;
 
