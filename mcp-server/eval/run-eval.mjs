@@ -50,6 +50,43 @@ function claudeBin() {
   return process.env.CDS_MCP_EVAL_CLAUDE_BIN || 'claude';
 }
 
+const VALID_VARIANTS = new Set(['mit-server', 'ohne-server']);
+
+/** Filter für einen gezielten Eval-Lauf (docs/agents/mcp-eval.md „Eine einzelne
+ * Frage gezielt prüfen“): `CDS_MCP_EVAL_ONLY_ID` beschränkt auf eine Frage-`id` aus
+ * fragen.json, `CDS_MCP_EVAL_ONLY_VARIANT` auf `mit-server` oder `ohne-server`. Beide
+ * optional und unabhängig voneinander; ohne sie läuft weiterhin das komplette Set in
+ * beiden Varianten wie bisher. */
+function readEvalFilter() {
+  const onlyId = process.env.CDS_MCP_EVAL_ONLY_ID || null;
+  const onlyVariantRaw = process.env.CDS_MCP_EVAL_ONLY_VARIANT || null;
+  if (onlyVariantRaw !== null && !VALID_VARIANTS.has(onlyVariantRaw)) {
+    throw new Error(
+      `CDS_MCP_EVAL_ONLY_VARIANT muss „mit-server“ oder „ohne-server“ sein, war „${onlyVariantRaw}“.`,
+    );
+  }
+  return { onlyId, onlyVariant: onlyVariantRaw };
+}
+
+/** Sentinel für eine bewusst übersprungene Variante (CDS_MCP_EVAL_ONLY_VARIANT) — hält
+ * dieselbe Form wie ein echtes evaluateRun()-Ergebnis, damit Bericht/Kostensumme sie ohne
+ * Sonderfall verarbeiten, macht aber keinen `claude`-Aufruf und kostet daher nichts. */
+function skippedResult() {
+  return {
+    infra: false,
+    skipped: true,
+    toolCalls: [],
+    toolErrorCount: 0,
+    toolErrors: [],
+    findings: [],
+    checkedElementCount: 0,
+    setupOk: null,
+    coreClaim: null,
+    resultText: null,
+    costUsd: null,
+  };
+}
+
 /** Schreibt die zwei `.mcp.json`-Varianten: einmal mit dem echten Server über `npx cds-mcp` (der
  * lokal installierte Tarball-`bin`, kein Registry-Zugriff nötig, da bereits per `npm i`
  * installiert), einmal mit einer leeren `mcpServers`-Liste für die „ohne Server“-Variante. */
@@ -235,6 +272,9 @@ function truncate(text, max = 600) {
 }
 
 function verdictCell(evalResult) {
+  if (evalResult.skipped) {
+    return 'übersprungen (CDS_MCP_EVAL_ONLY_VARIANT)';
+  }
   if (evalResult.infra) {
     return `**INFRASTRUKTUR-FEHLER**<br>${evalResult.error}`;
   }
@@ -269,6 +309,10 @@ function verdictCell(evalResult) {
 
 function renderDetail(frage, label, evalResult) {
   const lines = [`### ${frage.id} — ${label}`, ''];
+  if (evalResult.skipped) {
+    lines.push('Übersprungen: nur die jeweils andere Variante war angefordert (CDS_MCP_EVAL_ONLY_VARIANT).', '');
+    return lines;
+  }
   if (evalResult.infra) {
     lines.push(`Infrastruktur-Fehler: ${evalResult.error}`, '');
     return lines;
@@ -330,7 +374,7 @@ function sumCostUsd(results) {
   return { total, counted, of: results.length * 2 };
 }
 
-function renderReport(results, { tarballPath }) {
+function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
   const rows = results.map(
     (r) => `| ${r.frage.id} | ${verdictCell(r.withServer)} | ${verdictCell(r.withoutServer)} |`,
   );
@@ -341,6 +385,13 @@ function renderReport(results, { tarballPath }) {
     `Datum: ${new Date().toISOString()}`,
     `Tarball: \`${tarballPath}\``,
     `Fragen: ${results.length}`,
+    ...(onlyId
+      ? [
+          `Gezielter Lauf (CDS_MCP_EVAL_ONLY_ID=${onlyId}` +
+            (onlyVariant ? `, CDS_MCP_EVAL_ONLY_VARIANT=${onlyVariant}` : '') +
+            '): kein vollständiger Eval-Lauf, siehe docs/agents/mcp-eval.md.',
+        ]
+      : []),
     `Gesamt-API-Gegenwert (total_cost_usd, ${cost.counted}/${cost.of} Läufe gemeldet): $${cost.total.toFixed(4)}` +
       ' — Preis-Gegenwert, keine tatsächliche Abbuchung bei Abo-Auth (siehe „Was es kostet“, docs/agents/mcp-eval.md).',
     '',
@@ -372,9 +423,18 @@ async function main() {
     throw new Error(`Tarball nicht gefunden: „${tarballPath}“.`);
   }
 
-  const fragen = JSON.parse(readFileSync(FRAGEN_PATH, 'utf8')).questions;
-  if (!Array.isArray(fragen) || fragen.length === 0) {
+  const alleFragen = JSON.parse(readFileSync(FRAGEN_PATH, 'utf8')).questions;
+  if (!Array.isArray(alleFragen) || alleFragen.length === 0) {
     throw new Error(`Keine Fragen in „${FRAGEN_PATH}“ gefunden.`);
+  }
+
+  const { onlyId, onlyVariant } = readEvalFilter();
+  const fragen = onlyId ? alleFragen.filter((f) => f.id === onlyId) : alleFragen;
+  if (onlyId && fragen.length === 0) {
+    throw new Error(`CDS_MCP_EVAL_ONLY_ID „${onlyId}“ passt auf keine Frage in „${FRAGEN_PATH}“.`);
+  }
+  if (onlyId) {
+    log(`→ Gezielter Lauf: nur Frage „${onlyId}“` + (onlyVariant ? `, nur Variante „${onlyVariant}“.` : '.'));
   }
 
   const tmpDir = mkdtempSync(join(tmpdir(), 'cds-mcp-eval-'));
@@ -398,26 +458,35 @@ async function main() {
 
     for (const frage of fragen) {
       log(`\n=== ${frage.id} ===`);
-      log('  → mit Server …');
-      const withServerRun = await runClaudeHeadless({
-        cwd: tmpDir,
-        prompt: frage.prompt,
-        mcpConfigPath: withServerPath,
-        allowedTools: MCP_TOOL_NAMES,
-      });
-      log('  → ohne Server …');
-      const withoutServerRun = await runClaudeHeadless({
-        cwd: tmpDir,
-        prompt: frage.prompt,
-        mcpConfigPath: withoutServerPath,
-        allowedTools: [],
-      });
+      let withServerResult;
+      if (!onlyVariant || onlyVariant === 'mit-server') {
+        log('  → mit Server …');
+        const withServerRun = await runClaudeHeadless({
+          cwd: tmpDir,
+          prompt: frage.prompt,
+          mcpConfigPath: withServerPath,
+          allowedTools: MCP_TOOL_NAMES,
+        });
+        withServerResult = evaluateRun(withServerRun, frage, truthMap);
+      } else {
+        withServerResult = skippedResult();
+      }
 
-      results.push({
-        frage,
-        withServer: evaluateRun(withServerRun, frage, truthMap),
-        withoutServer: evaluateRun(withoutServerRun, frage, truthMap),
-      });
+      let withoutServerResult;
+      if (!onlyVariant || onlyVariant === 'ohne-server') {
+        log('  → ohne Server …');
+        const withoutServerRun = await runClaudeHeadless({
+          cwd: tmpDir,
+          prompt: frage.prompt,
+          mcpConfigPath: withoutServerPath,
+          allowedTools: [],
+        });
+        withoutServerResult = evaluateRun(withoutServerRun, frage, truthMap);
+      } else {
+        withoutServerResult = skippedResult();
+      }
+
+      results.push({ frage, withServer: withServerResult, withoutServer: withoutServerResult });
     }
   } catch (err) {
     infrastructureError = err;
@@ -430,7 +499,7 @@ async function main() {
     process.exit(1);
   }
 
-  const report = renderReport(results, { tarballPath });
+  const report = renderReport(results, { tarballPath, onlyId, onlyVariant });
   const reportDir = process.env.CDS_MCP_EVAL_REPORT_DIR ?? tmpdir();
   const reportPath = join(reportDir, `cds-mcp-eval-report-${Date.now()}.md`);
   writeFileSync(reportPath, report, 'utf8');

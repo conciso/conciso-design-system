@@ -66,6 +66,31 @@ Vorgehensweise wie der `mcp-smoke-test`-Job in `.github/workflows/storybook-angu
 dessen `prepack`-Hook baut den Snapshot aus dem vorhandenen Storybook-Build neu
 (`scripts/build-snapshot.mjs`), baut das Storybook selbst aber nicht.
 
+## Eine einzelne Frage gezielt prüfen
+
+Um die Wirkung einer einzelnen Doku-Änderung zu prüfen, ohne das ganze Set zu bezahlen (siehe
+„Was es kostet“ oben), lässt sich der Lauf auf eine Frage-`id` aus `fragen.json` und optional
+eine Variante beschränken, über zwei Umgebungsvariablen:
+
+```bash
+CDS_MCP_EVAL_ONLY_ID=farbe-text-bereichsfarbe-weiss \
+CDS_MCP_EVAL_ONLY_VARIANT=mit-server \
+npm run eval -w mcp-server -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
+```
+
+- `CDS_MCP_EVAL_ONLY_ID` filtert `fragen.json` auf genau diese `id`; passt keine Frage, bricht
+  der Lauf sofort mit einer klaren Fehlermeldung ab, statt das ganze Set zu starten.
+- `CDS_MCP_EVAL_ONLY_VARIANT` ist `mit-server` oder `ohne-server` und lässt die jeweils andere
+  Variante aus (kein `claude`-Aufruf, keine Kosten dafür) — die übersprungene Spalte steht im
+  Bericht als „übersprungen (CDS_MCP_EVAL_ONLY_VARIANT)“.
+- Beide Variablen sind unabhängig voneinander und optional; ohne sie läuft weiterhin das
+  komplette Set in beiden Varianten wie bisher. Der Bericht markiert einen gefilterten Lauf in
+  der Kopfzeile als „kein vollständiger Eval-Lauf“, damit er nicht mit einem regulären
+  Vorher/Nachher-Vergleich verwechselt wird.
+- Ein einzelner gefilterter Lauf unterliegt derselben Modellstreuung wie jede andere Zelle
+  (siehe „Grenzen der automatischen Prüfung“ unten) — für eine belastbare Aussage mehrere Läufe
+  wiederholen, nicht auf einem einzigen Ergebnis eine Ursache festmachen.
+
 ## Wie der Bericht zu lesen ist
 
 Das Skript schreibt eine Markdown-Tabelle (Frage × „mit Server“ × „ohne Server“) auf stdout
