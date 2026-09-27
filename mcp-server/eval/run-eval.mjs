@@ -57,7 +57,7 @@ const VALID_VARIANTS = new Set(['mit-server', 'ohne-server']);
  * fragen.json, `CDS_MCP_EVAL_ONLY_VARIANT` auf `mit-server` oder `ohne-server`. Beide
  * optional und unabhängig voneinander; ohne sie läuft weiterhin das komplette Set in
  * beiden Varianten wie bisher. */
-function readEvalFilter() {
+export function readEvalFilter() {
   const onlyId = process.env.CDS_MCP_EVAL_ONLY_ID || null;
   const onlyVariantRaw = process.env.CDS_MCP_EVAL_ONLY_VARIANT || null;
   if (onlyVariantRaw !== null && !VALID_VARIANTS.has(onlyVariantRaw)) {
@@ -374,7 +374,7 @@ function sumCostUsd(results) {
   return { total, counted, of: results.length * 2 };
 }
 
-function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
+export function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
   const rows = results.map(
     (r) => `| ${r.frage.id} | ${verdictCell(r.withServer)} | ${verdictCell(r.withoutServer)} |`,
   );
@@ -385,11 +385,14 @@ function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
     `Datum: ${new Date().toISOString()}`,
     `Tarball: \`${tarballPath}\``,
     `Fragen: ${results.length}`,
-    ...(onlyId
+    ...(onlyId || onlyVariant
       ? [
-          `Gezielter Lauf (CDS_MCP_EVAL_ONLY_ID=${onlyId}` +
-            (onlyVariant ? `, CDS_MCP_EVAL_ONLY_VARIANT=${onlyVariant}` : '') +
-            '): kein vollständiger Eval-Lauf, siehe docs/agents/mcp-eval.md.',
+          `Gezielter Lauf (${[
+            onlyId ? `CDS_MCP_EVAL_ONLY_ID=${onlyId}` : null,
+            onlyVariant ? `CDS_MCP_EVAL_ONLY_VARIANT=${onlyVariant}` : null,
+          ]
+            .filter(Boolean)
+            .join(', ')}): kein vollständiger Eval-Lauf, siehe docs/agents/mcp-eval.md.`,
         ]
       : []),
     `Gesamt-API-Gegenwert (total_cost_usd, ${cost.counted}/${cost.of} Läufe gemeldet): $${cost.total.toFixed(4)}` +
@@ -514,7 +517,14 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('Unerwarteter Fehler im Eval-Lauf:', err);
-  process.exit(1);
-});
+// Nur beim direkten CLI-Aufruf laufen lassen, nicht beim Import (z. B. aus run-eval.test.mjs,
+// das renderReport/readEvalFilter ohne einen echten `claude`-Lauf prüft). Ohne diese Guard
+// würde jeder Import sofort einen vollen Eval-Lauf samt Tarball-Pack und `claude -p`-Aufrufen
+// auslösen.
+const isMainModule = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+if (isMainModule) {
+  main().catch((err) => {
+    console.error('Unerwarteter Fehler im Eval-Lauf:', err);
+    process.exit(1);
+  });
+}
