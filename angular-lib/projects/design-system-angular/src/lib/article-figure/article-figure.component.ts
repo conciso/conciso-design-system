@@ -32,8 +32,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * identisches Bild wie Vorschaubild für Wiedererkennung“), sitzt außerhalb von
  * `.article-body` und bekommt seine 720-px-Breite über ein
  * Inline-`style="max-width:720px;margin:0 auto"` am Konsumenten, nicht über die
- * Komponente (Randbedingung 6 der Spec: Mockup-Inline-Styles wandern nicht in
- * den Wrapper). Die API sieht dafür kein `loading`/`fetchpriority`-Input
+ * Komponente (Mockup-Inline-Styles wandern bewusst nicht in den Wrapper). Die
+ * API sieht dafür kein `loading`/`fetchpriority`-Input
  * vor; dieses Bauteil deckt deshalb den (häufigeren, dokumentierten) In-Body-Fall
  * ab. Für den Lead-Bild-Sonderfall bleibt `<figure class="article-figure">` roh
  * schreibbar oder — sofern die Semantik passt — `cds-hero-image` zu
