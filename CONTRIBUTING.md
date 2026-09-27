@@ -365,8 +365,15 @@ absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–
 Issues und Specs leben als lokale, gitignorete Markdown-Dateien außerhalb der Versionierung (siehe `AGENTS.md`, `docs/agents/issue-tracker.md`) — sie leben nicht mit dem Branch weiter. Ein Verweis auf eine solche Datei oder eine bloße Ticketnummer im Kommentar ist nach dem Merge für niemanden mehr auflösbar außer für den damaligen Bearbeiter, auch nicht für ein KI-Werkzeug, das später denselben Kommentar liest.
 
 - **Trägt der Verweis eine Begründung, gehört die Begründung selbst in den Kommentar** (oder eine ADR), nicht ein Zeiger auf die Ticket-Datei: der Sachverhalt bleibt lesbar, auch wenn seine Quelle verschwindet.
-- **Ausnahmen:** echte GitHub-Referenzen (`#53`), sowie die beiden oben verlinkten Dokumente, die die Tracker-Konvention selbst beschreiben.
-- **Gate:** `npm run check:ticket-refs` (`scripts/check-ticket-refs.mjs`, Stil wie `scripts/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`).
+- **Ausnahmen (Allowlist des Gates, `ALLOWLIST_EXACT`/`ALLOWLIST_PREFIXES` in `scripts/check-ticket-refs.mjs`):**
+  - Echte GitHub-Referenzen (`#53`) — matchen ohnehin keins der Gate-Muster.
+  - `AGENTS.md` und `docs/agents/issue-tracker.md` beschreiben die Tracker-Konvention selbst (Pfadschema, Name der Spec-Datei), nicht einen toten Verweis auf ein konkretes Ticket.
+  - `.agents/` (vendored Skill-Pack) beschreibt dieselbe Konvention generisch, nicht projektspezifisch.
+  - `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (§ 14) — seine Ticket- und Spec-Datei-Zitate bleiben unangetastet.
+  - `.gitignore` und `.prettierignore` brauchen den literalen Tracker-Pfadpräfix als Ignore-Muster, das ist keine Narration.
+  - `scripts/check-ticket-refs.mjs` und `scripts/check-ticket-refs.test.mjs` schließen sich selbst aus: ihr Muster bzw. ihre Testfälle enthalten die gesuchten Zeichenketten zwangsläufig wörtlich.
+- **Ziffernlose Formen** wie „das Ticket“ oder „der Ticket-Vorgabe“ werden von Hand umformuliert, wenn sie auffallen, aber bewusst **nicht** vom Gate geprüft — ohne Ziffer als Anker ist das Fehlalarmrisiko auf echtem Fließtext zu groß.
+- **Gate:** `npm run check:ticket-refs` (`scripts/check-ticket-refs.mjs`, Stil wie `scripts/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`), zusammen mit dessen eigenen Unit-Tests (`npm run test:ticket-refs`, `scripts/check-ticket-refs.test.mjs`, Stil wie `scripts/release/*.test.mjs`).
 
 ---
 
