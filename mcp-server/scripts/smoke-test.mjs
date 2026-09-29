@@ -23,8 +23,8 @@
 //     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
 //     <Meta of={ButtonStories}> (ADR-0012)
 //   - docs-show(grundlagen-farben) enthält die Verwendungsguidance der Farben-Seite
-//     (Überschrift „Farbstufen, wofür?“ plus die Kontrastregel „AA ab 4,5:1 für
-//     Fließtext…“), angehängt per <Meta of={FarbenStories}> (ADR-0012)
+//     (Überschrift „Farbstufen, wofür?“ plus die getrennten Kontrastregeln für
+//     Normaltext und Bedienelemente), angehängt per <Meta of={FarbenStories}> (ADR-0012)
 //   - docs-show(grundlagen-typografie) enthält die Verwendungsguidance der
 //     Typografie-Seite (Überschrift „Wann welche Schrift“ plus die Kernaussage zur
 //     Schriftwahl, Montserrat für Fließtext), angehängt per
@@ -288,9 +288,14 @@ async function runProtocolChecks(client, errors, tmpDir) {
     if (!text.includes('## Farbstufen, wofür?')) {
       errors.push('docs-show(grundlagen-farben) enthält nicht die Überschrift „Farbstufen, wofür?“.');
     }
-    if (!text.includes('AA ab 4,5:1 für Fließtext')) {
+    if (
+      !text.includes('Normaltext braucht mindestens 4,5:1') ||
+      !text.includes(
+        'Für Grenzen von Bedienelementen und bedeutungstragende Grafiken gilt separat mindestens 3,0:1 nach WCAG 1.4.11',
+      )
+    ) {
       errors.push(
-        'docs-show(grundlagen-farben) enthält nicht die Kontrastregel „AA ab 4,5:1 für Fließtext…“.',
+        'docs-show(grundlagen-farben) enthält nicht die getrennten Kontrastregeln für Normaltext und Bedienelemente.',
       );
     }
   }

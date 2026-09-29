@@ -39,6 +39,20 @@ test('Pin und installierte Version weichen ab → klare deutsche Fehlermeldung',
   }
 });
 
+test('verschachtelte Storybook-Version des Workspaces hat Vorrang vor der Root-Version', () => {
+  const root = makeFixture({ pinned: '10.6.0', installed: '10.6.0' });
+  mkdirSync(join(root, 'storybook-angular', 'node_modules', 'storybook'), { recursive: true });
+  writeFileSync(
+    join(root, 'storybook-angular', 'node_modules', 'storybook', 'package.json'),
+    JSON.stringify({ version: '10.7.0' }),
+  );
+  try {
+    assert.throws(() => checkStorybookMcpPin(root), /Versions-Drift.*10\.6\.0.*10\.7\.0/s);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('kein installiertes „storybook“ gefunden → Fehler statt stiller Erfolg', () => {
   const root = mkdtempSync(join(tmpdir(), 'storybook-mcp-pin-'));
   mkdirSync(join(root, 'mcp-server'), { recursive: true });
