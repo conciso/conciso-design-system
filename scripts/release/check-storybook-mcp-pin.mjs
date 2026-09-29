@@ -5,8 +5,7 @@
 // deklariert `storybook` dagegen nur als SemVer-Range (`^10.6.0`) — ein Storybook-Minor-Update
 // dort würde den Pin sonst unbemerkt hinter sich lassen, bis @storybook/mcp gegen eine andere
 // Storybook-Version bricht. Verglichen wird deshalb NICHT Range gegen Range, sondern der Pin
-// gegen die TATSÄCHLICH INSTALLIERTE Storybook-Version (nach `npm ci`, aus
-// node_modules/storybook/package.json).
+// gegen die TATSÄCHLICH VOM STORYBOOK-WORKSPACE VERWENDETE Version (nach `npm ci`).
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -22,8 +21,8 @@ function readJson(path) {
 // belassen (hier: storybook-angular). Beide Orte prüfen, statt nur den Normalfall anzunehmen.
 function findInstalledStorybookVersion(root) {
   const candidates = [
-    join(root, 'node_modules', 'storybook', 'package.json'),
     join(root, 'storybook-angular', 'node_modules', 'storybook', 'package.json'),
+    join(root, 'node_modules', 'storybook', 'package.json'),
   ];
   const path = candidates.find((p) => existsSync(p));
   if (!path) {
@@ -48,7 +47,7 @@ export function checkStorybookMcpPin(root = ROOT) {
   if (pinnedVersion !== installedVersion) {
     throw new Error(
       `Versions-Drift: „@storybook/mcp“ in mcp-server/package.json ist auf ${pinnedVersion} gepinnt, ` +
-        `installiert ist aber Storybook ${installedVersion} (node_modules/storybook). Snapshot und ` +
+        `der Storybook-Workspace verwendet aber Storybook ${installedVersion}. Snapshot und ` +
         `@storybook/mcp müssen zur selben Storybook-Version passen (ADR-0012) — den Pin in ` +
         `mcp-server/package.json auf ${installedVersion} nachziehen.`,
     );
