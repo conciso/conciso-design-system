@@ -25,7 +25,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { buildTruthMap, checkAnswer, checkCoreClaim, mentionsGlobalCssInclusion } from './checker.mjs';
+import { buildTruthMap } from './checker.mjs';
+import { createSavedRun, evaluateAnswer } from './saved-run.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -240,30 +241,17 @@ function evaluateRun(run, frage, truthMap) {
     };
   }
   const { toolCalls, toolErrors, resultText, mcpServerStatuses, costUsd } = analyzeRun(run.lines);
-  const answerText = resultText ?? '';
-  const { findings, checkedComponents, checkedElementCount, unknownSelectors } = checkAnswer(answerText, truthMap);
-  const setupOk = frage.checks?.includes('setup-mentions-global-css')
-    ? mentionsGlobalCssInclusion(answerText)
-    : null;
-  const coreClaim =
-    frage.checks?.includes('core-claim-keywords') && frage.claimKeywords
-      ? checkCoreClaim(answerText, frage.claimKeywords)
-      : null;
-  return {
-    infra: false,
-    toolCalls,
-    toolErrorCount: toolErrors.length,
-    toolErrors,
-    findings,
-    checkedComponents,
-    checkedElementCount,
-    unknownSelectors,
-    setupOk,
-    coreClaim,
-    resultText: answerText,
-    mcpServerStatuses,
-    costUsd,
-  };
+  return evaluateAnswer(
+    {
+      responseText: resultText ?? '',
+      toolCalls,
+      toolErrors,
+      mcpServerStatuses,
+      costUsd,
+    },
+    frage,
+    truthMap,
+  );
 }
 
 function truncate(text, max = 600) {
@@ -374,7 +362,10 @@ function sumCostUsd(results) {
   return { total, counted, of: results.length * 2 };
 }
 
-export function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
+export function renderReport(
+  results,
+  { tarballPath, onlyId, onlyVariant, sourceRunPath = null, answersPath = null },
+) {
   const rows = results.map(
     (r) => `| ${r.frage.id} | ${verdictCell(r.withServer)} | ${verdictCell(r.withoutServer)} |`,
   );
@@ -384,6 +375,8 @@ export function renderReport(results, { tarballPath, onlyId, onlyVariant }) {
     '',
     `Datum: ${new Date().toISOString()}`,
     `Tarball: \`${tarballPath}\``,
+    ...(sourceRunPath ? [`Neu bewertet aus: \`${sourceRunPath}\``] : []),
+    ...(answersPath ? [`Vollständige Antworten: \`${answersPath}\``] : []),
     `Fragen: ${results.length}`,
     ...(onlyId || onlyVariant
       ? [
@@ -445,6 +438,7 @@ async function main() {
 
   const results = [];
   let infrastructureError = null;
+  let truthMap = null;
 
   try {
     installTarball(tmpDir, tarballPath, { log });
@@ -453,7 +447,7 @@ async function main() {
     if (!existsSync(snapshotDir)) {
       throw new Error(`Snapshot fehlt im installierten Paket: „${snapshotDir}“.`);
     }
-    const truthMap = buildTruthMap(snapshotDir);
+    truthMap = buildTruthMap(snapshotDir);
     log(
       `→ Wahrheit aus dem installierten Snapshot geladen: ${truthMap.elementSelectors.size} Element-Selektoren, ` +
         `${truthMap.attributeSelectors.size} Attribut-Selektoren.`,
@@ -502,11 +496,22 @@ async function main() {
     process.exit(1);
   }
 
-  const report = renderReport(results, { tarballPath, onlyId, onlyVariant });
   const reportDir = process.env.CDS_MCP_EVAL_REPORT_DIR ?? tmpdir();
-  const reportPath = join(reportDir, `cds-mcp-eval-report-${Date.now()}.md`);
+  const timestamp = Date.now();
+  const reportPath = join(reportDir, `cds-mcp-eval-report-${timestamp}.md`);
+  const answersPath = join(reportDir, `cds-mcp-eval-answers-${timestamp}.json`);
+  const createdAt = new Date().toISOString();
+  const savedRun = createSavedRun(results, truthMap, {
+    createdAt,
+    tarballPath,
+    onlyId,
+    onlyVariant,
+  });
+  writeFileSync(answersPath, JSON.stringify(savedRun, null, 2) + '\n', 'utf8');
+  const report = renderReport(results, { tarballPath, onlyId, onlyVariant, answersPath });
   writeFileSync(reportPath, report, 'utf8');
   console.log(report);
+  log(`\n→ Vollständige Antworten geschrieben: ${answersPath}`);
   log(`\n→ Bericht geschrieben: ${reportPath}`);
 
   const anyToolError = results.some((r) => r.withServer.toolErrorCount > 0 || r.withoutServer.toolErrorCount > 0);

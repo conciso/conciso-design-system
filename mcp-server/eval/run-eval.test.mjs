@@ -5,8 +5,16 @@
 // Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 import { readEvalFilter, renderReport } from './run-eval.mjs';
+import { createSavedRun, reevaluateSavedRun } from './saved-run.mjs';
+
+const EVAL_DIR = dirname(fileURLToPath(import.meta.url));
 
 /** Minimaler Fragen-/Ergebnis-Fixture, genug für renderReport (keine echten Läufe nötig). */
 function makeResults() {
@@ -84,6 +92,48 @@ test('renderReport: kein Filter gesetzt bleibt ohne Markierung', () => {
   assert.doesNotMatch(report, /Gezielter Lauf/, 'ein vollständiger Lauf braucht keine Kennzeichnung');
 });
 
+test('renderReport nennt den Pfad zu den vollständigen Antworten', () => {
+  const report = renderReport(makeResults(), {
+    tarballPath: '/pfad/tarball.tgz',
+    onlyId: null,
+    onlyVariant: null,
+    answersPath: '/tmp/cds-mcp-eval-answers-123.json',
+  });
+  assert.match(report, /Vollständige Antworten: `\/tmp\/cds-mcp-eval-answers-123\.json`/);
+});
+
+test('createSavedRun speichert den ungekürzten Antworttext in einem Lauf je Variante', () => {
+  const longAnswer = 'vollständig-'.repeat(100);
+  const results = makeResults();
+  results[0].withServer = { ...results[0].withServer, resultText: longAnswer };
+  const savedRun = createSavedRun(
+    results,
+    { elementSelectors: new Map(), attributeSelectors: new Map() },
+    {
+      createdAt: '2026-09-29T08:00:00.000Z',
+      tarballPath: '/tmp/paket.tgz',
+      onlyId: null,
+      onlyVariant: null,
+    },
+  );
+
+  assert.equal(savedRun.questions[0].variants['mit-server'].runs[0].responseText, longAnswer);
+});
+
+test('reevaluateSavedRun verwendet die aktuelle Check-Definition einer weiterhin vorhandenen Frage', () => {
+  const savedRun = JSON.parse(readFileSync(join(EVAL_DIR, 'fixtures', 'saved-run.json'), 'utf8'));
+  const currentQuestions = [
+    {
+      ...savedRun.questions[0].question,
+      checks: ['core-claim-keywords'],
+      claimKeywords: [['kommt-in-der-antwort-nicht-vor']],
+    },
+  ];
+
+  const [result] = reevaluateSavedRun(savedRun, currentQuestions);
+  assert.equal(result.withServer.coreClaim.matched, false);
+});
+
 test('readEvalFilter: ungültige Variante wirft einen Fehler', () => {
   withEnv({ CDS_MCP_EVAL_ONLY_ID: undefined, CDS_MCP_EVAL_ONLY_VARIANT: 'mit-und-ohne' }, () => {
     assert.throws(() => readEvalFilter(), /CDS_MCP_EVAL_ONLY_VARIANT/);
@@ -94,4 +144,36 @@ test('readEvalFilter: gültige Variante ohne id liefert onlyId null', () => {
   withEnv({ CDS_MCP_EVAL_ONLY_ID: undefined, CDS_MCP_EVAL_ONLY_VARIANT: 'ohne-server' }, () => {
     assert.deepEqual(readEvalFilter(), { onlyId: null, onlyVariant: 'ohne-server' });
   });
+});
+
+test('gespeicherter Fixture-Lauf lässt sich über die CLI mit aktuellen Checks neu bewerten', () => {
+  const reportDir = mkdtempSync(join(tmpdir(), 'cds-mcp-eval-recheck-test-'));
+  try {
+    const result = spawnSync(
+      'npm',
+      ['run', 'eval:recheck', '--', join(EVAL_DIR, 'fixtures', 'saved-run.json')],
+      {
+        cwd: join(EVAL_DIR, '..'),
+        encoding: 'utf8',
+        env: {
+          ...process.env,
+          CDS_MCP_EVAL_REPORT_DIR: reportDir,
+          CDS_MCP_EVAL_CLAUDE_BIN: 'darf-bei-neubewertung-nicht-gestartet-werden',
+        },
+      },
+    );
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /Erfundene API: \*\*1\*\* \(\[icon\]\)/);
+    assert.match(result.stdout, /CSS-Hinweis: ja/);
+    assert.match(result.stdout, /Kernaussage: \*\*getroffen\*\*/);
+
+    const reportPath = result.stderr.match(/Bericht geschrieben: (.+\.md)/)?.[1];
+    assert.ok(reportPath, `Berichtspfad fehlt in stderr:\n${result.stderr}`);
+    const report = readFileSync(reportPath, 'utf8');
+    assert.match(report, /Neu bewertet aus: .*saved-run\.json/);
+    assert.match(report, /Antwort \(gekürzt\)/);
+  } finally {
+    rmSync(reportDir, { recursive: true, force: true });
+  }
 });
