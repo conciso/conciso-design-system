@@ -66,6 +66,36 @@ Vorgehensweise wie der `mcp-smoke-test`-Job in `.github/workflows/storybook-angu
 dessen `prepack`-Hook baut den Snapshot aus dem vorhandenen Storybook-Build neu
 (`scripts/build-snapshot.mjs`), baut das Storybook selbst aber nicht.
 
+Jeder Lauf schreibt zwei Dateien mit demselben Zeitstempel in das System-Temp-Verzeichnis:
+
+- `cds-mcp-eval-report-<zeitstempel>.md` enthält den lesbaren Bericht mit den gekürzten
+  Antworten.
+- `cds-mcp-eval-answers-<zeitstempel>.json` enthält die vollständigen Antworten und alle
+  Daten für eine spätere Neubewertung. Der Bericht nennt den absoluten Pfad zu dieser Datei.
+
+`CDS_MCP_EVAL_REPORT_DIR` legt für beide Dateien gemeinsam ein anderes Zielverzeichnis fest.
+Die JSON-Datei enthält neben Fragen und Laufmetadaten auch die Komponentenwahrheit aus dem
+installierten Snapshot. Deshalb bleibt sie unabhängig vom temporären Consumer-Verzeichnis und
+vom verwendeten Tarball auswertbar.
+
+## Gespeicherten Lauf neu bewerten
+
+Ein gespeicherter Lauf lässt sich mit der aktuellen Fassung der deterministischen Checks neu
+bewerten:
+
+```bash
+npm run eval:recheck -w mcp-server -- /pfad/zu/cds-mcp-eval-answers-<zeitstempel>.json
+```
+
+Das Kommando ruft weder `claude -p` noch den MCP-Server auf und benötigt keinen Tarball. Es
+liest die vollständigen Antworten, Fragen und Komponentenwahrheit aus der JSON-Datei und
+schreibt einen neuen Markdown-Bericht. Dessen Ziel ist wieder das System-Temp-Verzeichnis oder
+`CDS_MCP_EVAL_REPORT_DIR`. Der neue Bericht nennt die JSON-Datei, aus der er erzeugt wurde.
+
+Das gespeicherte Format trägt eine `schemaVersion`. Unter jeder Frage liegen die Varianten
+`mit-server` und `ohne-server`, jeweils mit einem `runs`-Array. Ein heutiger Eval-Lauf schreibt
+genau einen Eintrag je Variante. Der Antworttext steht ungekürzt in `responseText`.
+
 ## Eine einzelne Frage gezielt prüfen
 
 Um die Wirkung einer einzelnen Doku-Änderung zu prüfen, ohne das ganze Set zu bezahlen (siehe
@@ -203,10 +233,6 @@ ins Issue, das die Frage eingeführt hat (siehe `docs/agents/issue-tracker.md`).
 - Ein `[icon]`-Binding, das zufällig denselben Namen wie ein *dokumentiertes* Input einer
   *anderen* Komponente trägt, wird korrekt erkannt (die Prüfung ist pro Element, nicht global)
   — nur zur Klarheit, weil das auf den ersten Blick nicht offensichtlich ist.
-- Der Bericht zeigt die Antwort nur gekürzt (600 Zeichen); die vollständige Antwort wird nicht
-  separat weggeschrieben, das Consumer-Verzeichnis wird nach jedem Lauf gelöscht. Bei einem
-  überraschenden Fund („erfundene API“, aber die Kürzung zeigt keinen Code) bleibt nur ein
-  erneuter, gezielter Lauf mit genau dieser Frage, um die volle Antwort zu sehen.
 - „Erfundene API: keine“ heißt nicht automatisch „geprüft und sauber“ — bei 0 geprüften
   `cds-*`-Elementen (steht in der Zelle dabei) gab es schlicht keinen Code-Block mit einem
   `cds-*`-Element zu prüfen, etwa weil die KI auf die Fangfrage bewusst kein Beispiel gegeben hat.
