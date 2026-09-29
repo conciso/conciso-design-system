@@ -28,7 +28,9 @@ import {
   template: `
     <div style="display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap">
       <cds-button variant="outlined" [area]="area()" [label]="triggerLabel()" (clicked)="open()" />
-      <output aria-live="polite" style="font:var(--ty-body-md);color:var(--tx-secondary)">{{ resultText() }}</output>
+      <output aria-live="polite" style="font:var(--ty-body-md);color:var(--tx-secondary)">{{
+        resultText()
+      }}</output>
     </div>
   `,
 })
@@ -155,7 +157,9 @@ async function openDialog(canvasElement: HTMLElement, trigger: string): Promise<
 
 /** Beschriftungen der Buttons in DOM-Reihenfolge. Die gefüllte Hauptaktion steht immer zuletzt. */
 function buttonOrder(dialog: HTMLElement): string[] {
-  return within(dialog).getAllByRole('button').map((b) => b.textContent?.trim() ?? '');
+  return within(dialog)
+    .getAllByRole('button')
+    .map((b) => b.textContent?.trim() ?? '');
 }
 
 /** Das close-Event feuert asynchron, deshalb auf die Ergebnisanzeige warten. */
@@ -187,7 +191,9 @@ export const Unterbrechung: Story = {
 
     await userEvent.click(verwerfen);
     await expectResult(canvasElement, 'Ergebnis: bestätigt');
-    await expect(within(canvasElement).getByRole('button', { name: 'Profil verlassen' })).toHaveFocus();
+    await expect(
+      within(canvasElement).getByRole('button', { name: 'Profil verlassen' }),
+    ).toHaveFocus();
   },
 };
 
@@ -217,7 +223,10 @@ export const SelbstAusgeloest: Story = {
     const abbrechen = d.getByRole('button', { name: 'Abbrechen' });
     await expect(abbrechen).toHaveFocus();
     await expect(abbrechen).toHaveClass('btn-text');
-    await expect(d.getByRole('button', { name: 'Profil löschen' })).toHaveClass('btn-filled', 'btn-err');
+    await expect(d.getByRole('button', { name: 'Profil löschen' })).toHaveClass(
+      'btn-filled',
+      'btn-err',
+    );
     await expect(buttonOrder(dialog)).toEqual(['Abbrechen', 'Profil löschen']);
 
     dialog.close();
