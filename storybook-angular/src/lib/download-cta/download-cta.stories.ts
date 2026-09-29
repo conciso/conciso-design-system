@@ -37,22 +37,6 @@ export default meta;
 type Story = StoryObj<DownloadCtaComponent>;
 
 export const Interaktiv: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <cds-download-cta
-        [area]="area"
-        [eyebrow]="eyebrow"
-        title="Figma-Bibliothek herunterladen"
-        [desc]="desc"
-        [meta]="meta"
-        [primaryLabel]="primaryLabel"
-        [secondaryLabel]="secondaryLabel"
-        (primaryClick)="primaryClick($event)"
-        (secondaryClick)="secondaryClick($event)"
-      ></cds-download-cta>
-    `,
-  }),
   // Beide Aktionen sind rohe <button>-Elemente mit (click)-gebundenem Output
   // (primaryClick/secondaryClick) — vorher ohne jede Bindung, ein Klick verpuffte.
   //
@@ -63,8 +47,6 @@ export const Interaktiv: Story = {
   // Label-Präfix statt auf den vollen, von den Args abhängigen String.
   play: async ({ canvasElement, args }) => {
     const c = within(canvasElement);
-    const host = canvasElement.querySelector('cds-download-cta');
-    await expect(host).not.toHaveAttribute('title');
     const primary = c.getByRole('button', { name: /^Herunterladen:/ });
     await expect(primary).toHaveAccessibleName(
       `${args.primaryLabel}: ${args.title} (${args.meta})`,
@@ -78,5 +60,22 @@ export const Interaktiv: Story = {
     );
     await userEvent.click(secondary);
     await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
+  },
+};
+
+export const HostAttribut: Story = {
+  name: 'Host-Attribut',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <cds-download-cta
+        title="Figma-Bibliothek herunterladen"
+        primaryLabel="Herunterladen"
+      ></cds-download-cta>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector('cds-download-cta');
+    await expect(host).not.toHaveAttribute('title');
   },
 };
