@@ -1,7 +1,7 @@
 {
   "name": "@conciso/design-system-storybook-angular",
   "version": "0.1.0",
-  "description": "Angular-Komponenten + Storybook für das Conciso Design System. Dokumentiert die portable CSS-Schicht (../css, ../dist) und stellt Komponenten bereit",
+  "description": "Storybook für das Conciso Design System. Dokumentiert die portable CSS-Schicht (../css, ../dist) und die Angular-Lib (../angular-lib) per Stories/MDX, stellt selbst keine Komponenten bereit",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^22.1.0",
     "@ng-icons/core": "^36.0.0",
     "@ng-icons/heroicons": "^36.0.0",
-    "rxjs": "^7.8.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.6.0",
     "zone.js": "^0.16.0"
   },

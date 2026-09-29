@@ -4,8 +4,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * AuthorCardGroup (`cds-author-card-group`) — Wrapper um `.author-card-group` aus
  * css/components.css (css/components.css:1547–1563): bündelt mehrere `[cdsAuthorCard]`
  * am Ende eines Wissensbeitrags, gestapelt (Default) oder als zweispaltiges Raster
- * (`is-grid`, css/components.css:1555). Dreizehntes und letztes Ticket der
- * Seitenbausteine-Serie. Ausgezählt: 5 reale Gruppen — 2 gestapelt in der
+ * (`is-grid`, css/components.css:1555). Ausgezählt: 5 reale Gruppen — 2 gestapelt in der
  * Artikel-Demo (`docs/index.html:8440,8465`, je 2 bzw. 3 Karten), 2 `is-grid`
  * (Doku-Demo `9112`, reale Beispielseite Scrum-Training `13811`, je 4 Karten) und 0
  * `is-grid`-Vorkommen im Wissensbeitrag selbst — `wissensbeitrag.mdx` verweist für

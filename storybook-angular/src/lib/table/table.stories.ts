@@ -25,8 +25,7 @@ const meta: Meta<TableComponent> = {
           'erreichbar UND immer benannt (`tabindex="0"`, eigener `:focus-visible`-Ring, ' +
           '`role="region"` + `aria-label`): `scrollLabel` hat Vorrang, sonst `caption`, nie leer. ' +
           '`.tbl-sort` (sortierbare Spaltenköpfe) bleibt bewusst außen vor: die Klasse liefert nur ' +
-          'den Button-Look, es gibt keine Sortierlogik dazu (siehe ' +
-          '`.scratch/angular-seitenbausteine/issues/19-fehlende-sortierlogik-tbl-sort.md`).',
+          'den Button-Look, es gibt keine Sortierlogik dazu.',
       },
     },
   },

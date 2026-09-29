@@ -2,7 +2,7 @@
 
 Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mode**, framework-agnostisch und auf **WCAG 2.1 Stufe AA** ausgelegt (also alle Kriterien der Stufen A und AA; AAA wo ohne Nachteil erreichbar, aber nicht als Bedingung). Keine Build-Pflicht für die Nutzung — die Komponenten sind CSS-Klassen, die auf semantisches HTML angewendet werden, plus optionales Vanilla-JS für interaktive Muster (Theme-Toggle, Topnav-Dropdowns).
 
-> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe die GitHub-Releases dieses Repos und den eingefrorenen Stand im [CHANGELOG](CHANGELOG.md).
+> **Status:** Inhaltlich stabil. Distribution (npm-Paket), Token-Export und Repo-Hygiene werden gerade ergänzt — siehe die GitHub-Releases dieses Repos und den eingefrorenen Stand im [CHANGELOG](https://github.com/conciso/conciso-design-system/blob/v2.0.0/CHANGELOG.md#200---2026-09-23).
 
 ## Für wen?
 
@@ -50,8 +50,11 @@ npm install @conciso/design-system
 import '@conciso/design-system/dist/conciso-ds.css';
 // Tokens (optional, für JS/Framework):
 import { tokens } from '@conciso/design-system/tokens';
-// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor):
-import { icons } from '@conciso/design-system/icons';
+// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor): benannter Import
+// pro Icon, tree-shakable — nur importierte Glyphen landen im Bundle:
+import { uiShieldCheck } from '@conciso/design-system/icons';
+// Das aggregierte `icons`-Objekt (oder icons.json) zieht immer alle Icons ins Bundle — nur
+// für Kataloge/Doku, nicht für Apps. Details: icons/README.md.
 // Brand-Logo (Wortmarke, drei Varianten):
 import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 ```
@@ -127,7 +130,7 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Versionierung
 
-[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)) und werden nach npmjs.org **und** GitHub Packages veröffentlicht ([ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Der handgeschriebene [CHANGELOG](CHANGELOG.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
+[SemVer](https://semver.org/lang/de/). Die Version steht **nicht** im Repo, sondern im jeweiligen Git-Tag `vX.Y.Z`; Änderungen dazu stehen im zugehörigen GitHub-Release. Releases entstehen automatisch aus Conventional Commits auf `main` ([ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)) und werden nach npmjs.org **und** GitHub Packages veröffentlicht ([ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Der handgeschriebene [CHANGELOG](docs/CHANGELOG-legacy.md) ist mit Version 2.0.0 eingefroren. `@conciso/design-system` und `@conciso/design-system-angular` tragen dabei im **Lockstep** immer dieselbe Version, damit die peerDependency der Angular-Lib auf die CSS-Schicht eng gepinnt auflöst ([ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 
 ## Lizenz & Kontakt
 

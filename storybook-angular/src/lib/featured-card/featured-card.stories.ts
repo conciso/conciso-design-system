@@ -47,7 +47,7 @@ export default meta;
 type Story = StoryObj<FeaturedCardComponent>;
 
 export const Interaktiv: Story = {
-  // Die gefährliche Stelle des Tickets: .card-featured arbeitet mit direkten
+  // Die fragile Stelle: .card-featured arbeitet mit direkten
   // Kindselektoren (.card-featured>.card-media, .card-featured-body>.pill/-.card-text/
   // -.card-title-hero). Diese Play-Funktion prüft die gerenderte Kette im echten DOM,
   // nicht nur, dass die Klassen irgendwo vorkommen — zusätzlich verifiziert im
@@ -64,13 +64,18 @@ export const Interaktiv: Story = {
     await expect(canvasElement.querySelector('.card-featured > .card-media')).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured > .card-media > img')).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured-body > .pill')).not.toBeNull();
-    await expect(canvasElement.querySelector('.card-featured-body > .card-title-hero')).not.toBeNull();
+    await expect(
+      canvasElement.querySelector('.card-featured-body > .card-title-hero'),
+    ).not.toBeNull();
     await expect(canvasElement.querySelector('.card-featured-body > .card-text')).not.toBeNull();
     // Gegenprobe: kein <cds-pill>-Tag im gerenderten DOM (die Pille ist direkt
     // komponiertes Markup, siehe Klassendoku Entscheidung 2).
     await expect(canvasElement.querySelector('cds-pill')).toBeNull();
     // Ohne pillAriaLabel greift derselbe Default wie bei PillComponent: „Bereich <pill>“.
-    await expect(canvasElement.querySelector('.pill')).toHaveAttribute('aria-label', 'Bereich Effektive Software');
+    await expect(canvasElement.querySelector('.pill')).toHaveAttribute(
+      'aria-label',
+      'Bereich Effektive Software',
+    );
 
     const links = c.getAllByRole('link');
     await expect(links).toHaveLength(1);
@@ -118,6 +123,11 @@ export const ProBereich: Story = {
       </div>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    const hosts = canvasElement.querySelectorAll('cds-featured-card');
+    await expect(hosts).toHaveLength(4);
+    for (const host of hosts) await expect(host).not.toHaveAttribute('title');
+  },
 };
 
 export const PilleAlsLesezeit: Story = {
@@ -143,7 +153,9 @@ export const OhnePill: Story = {
   // .card-featured-body hat dann eben ein Kind weniger.
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('.pill')).toBeNull();
-    await expect(canvasElement.querySelector('.card-featured-body > .card-title-hero')).not.toBeNull();
+    await expect(
+      canvasElement.querySelector('.card-featured-body > .card-title-hero'),
+    ).not.toBeNull();
   },
 };
 

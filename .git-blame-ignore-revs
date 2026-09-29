@@ -1,0 +1,7 @@
+# Von `git blame` zu ignorierende Commits (siehe CONTRIBUTING.md § 16). Lokal aktivieren mit
+# `git config blame.ignoreRevsFile .git-blame-ignore-revs`; GitHub liest diese Datei
+# automatisch, ohne weitere Einrichtung.
+
+# style: Bestand einmalig mit Prettier formatieren (rein mechanisch, keine inhaltliche
+# Aenderung) — siehe Commit-Body fuer die Ausnahme bei drei Angular-Inline-Templates.
+dea3377f3adbca00bd960ee198bbca0239e21457

@@ -75,7 +75,7 @@ Live-Region: Sie wiederholt nur, was im Formular schon steht, und würde sonst j
 **Nur Sternchen, kein „(optional)“.** Die Required-Marker trennen Pflicht- und
 Kannfelder bereits, eine zweite Auszeichnung macht das Formular unnötig laut
 (dieselbe Konvention wie bei der Newsletter-Anmeldung in
-`Komponenten/Inputs & Forms/Verwendung`). Das freiwillige Contentletter-Häkchen ist
+`Komponenten/Inputs & Forms/Textfeld/Verwendung`). Das freiwillige Contentletter-Häkchen ist
 am Schluss durch eine Haarlinie von den beiden Pflicht-Bestätigungen getrennt:
 gleiche Optik direkt darunter liest sich wie ein Dark Pattern, auch wenn keines
 gemeint ist.
@@ -230,7 +230,7 @@ deshalb kann dabei auch nichts verloren gehen.
 ## Validierung & Barrierefreiheit
 
 Das Formular nutzt dasselbe Muster wie die Kontaktformulare in
-`Komponenten/Inputs & Forms/Verwendung`: `novalidate` unterdrückt die nativen
+`Komponenten/Inputs & Forms/Textfeld/Verwendung`: `novalidate` unterdrückt die nativen
 Bubbles, geprüft wird beim Submit, Fehler erscheinen als `.field.has-error` plus
 `.error-msg` mit `role="alert"` unter dem Feld, der Fokus springt auf das erste
 ungültige Feld. Die Helfer `setError()` und `clearError()` in `main.js` sind für

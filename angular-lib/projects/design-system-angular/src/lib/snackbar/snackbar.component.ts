@@ -64,7 +64,12 @@ export class SnackbarComponent {
    * @internal
    */
   protected readonly iconStroke = computed(
-    () => ({ def: 'var(--co-200)', ok: 'var(--c-success-strong-icon)', err: 'var(--c-error-strong-icon)' })[this.tone()],
+    () =>
+      ({
+        def: 'var(--co-200)',
+        ok: 'var(--c-success-strong-icon)',
+        err: 'var(--c-error-strong-icon)',
+      })[this.tone()],
   );
 
   /**

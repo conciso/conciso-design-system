@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as TypografieStories from '../../foundations/typography.stories';
+
+<Meta of={TypografieStories} name="Verwendung" />
+
+# Verwendung
+
+Zwei Schriften tragen zwei unterschiedliche Aufgaben. Libre Baskerville (Serifenschrift, Display und Headline) trägt Hero-Überschriften, Seitentitel, Pull Quotes und emotionale Akzente. Montserrat (Grotesk, Title, Body und Label) trägt UI-Text, Fließtext, Buttons, Navigation und Captions. Minimum-Font-Size systemweit ist 12 px, kleinere Größen werden bewusst vermieden.
+
+## Wann welche Schrift
+
+| Schrift | Tokens | Einsatz |
+|---|---|---|
+| Libre Baskerville, Serifenschrift | Display, Headline | Hero-Überschriften, Seitentitel, Pull Quotes, emotionale Akzente |
+| Montserrat, Grotesk | Title, Body, Label | UI-Text, Fließtext, Buttons, Navigation, Captions |
+
+## Token-Übersicht
+
+| Kategorie | Einsatz | Größen |
+|---|---|---|
+| Display | Hero-Texte, ep-Seiten, große Kampagnentitel | responsive (fluid), clamp 28 bis 46 px, 30 bis 40 px, 28 bis 36 px |
+| Headline | Sektions-Überschriften, Abschnittstitel | responsive (fluid), clamp 23 bis 28 px, 21 bis 24 px, 20 bis 22 px |
+| Title | Title Small für Karten-Titel und Komponenten-Header | 20 px |
+| Body | Fließtext, Card-Beschreibungen, Meta-Daten, Captions | 16, 14, 12 px |
+| Label | Buttons, Badges, UI-Beschriftungen, Eyebrows (UC-Variante) | 14, 12, 12 px UC |
+
+Die Token-Hierarchie ist verbindlich und wird nicht übersprungen: *Display → Headline → Title → Body → Label*.
+
+## Barrierefreiheit
+
+| Aspekt | Regel |
+|---|---|
+| Hierarchie | Überschriften-Ebenen nie überspringen (h1 → h2 → h3), Screenreader navigieren anhand der Heading-Struktur |
+| rem statt px | Alle Typo-Tokens sind rem-basiert (1rem = 16px), damit sie die Browser-Schriftgröße respektieren, px ignoriert sie (WCAG 1.4.4) |
+| Zeilenhöhe | Body-Text mindestens `line-height: 1.5` (WCAG 1.4.8), erleichtert das Lesen bei Dyslexie und Sehschwäche |
+| Nicht nur Stil | Bedeutung nie ausschließlich durch Schriftschnitt (fett, kursiv) vermitteln, der Kontext muss auch ohne Formatierung erkennbar sein |
+
+## Dos & Don'ts
+
+**Tun**
+
+- Libre Baskerville für Überschriften und emotionale Akzente, der markentypische Kontrast zur UI
+- Display-Tokens ausschließlich auf Landing Pages und Kampagnenseiten einsetzen
+- Body Medium (16 px) als Standard für Fließtext, optimale Lesbarkeit auf allen Screens
+- Token-Hierarchie einhalten: Display → Headline → Title → Body → Label
+- Label-Tokens für alle UI-Beschriftungen: Buttons, Chips, Badges, Eyebrows
+
+**Nicht tun**
+
+- Libre Baskerville als Fließtext, Serifenschriften ermüden bei langen Texten auf Screens
+- Libre Baskerville für Navigation, Buttons oder kleine UI-Labels, falsche semantische Ebene
+- Freihand-Fontgrößen (zum Beispiel 13 px, 17 px) statt Token-Werte, bricht den visuellen Rhythmus
+- Title-Tokens für Hero-Überschriften, zu klein, nimmt der Marke den Ausdruck
+- Body-Text fett formatieren statt ein Title-Token zu wählen, falsche Hierarchiesignale
+
+## Siehe auch
+
+- CONTRIBUTING.md § 6 Typografie
+- `Grundlagen/Design Tokens` für das Präfix-Schema aller Tokens

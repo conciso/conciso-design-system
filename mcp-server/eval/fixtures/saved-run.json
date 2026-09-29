@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-29T08:00:00.000Z",
+  "source": {
+    "tarballPath": "/tmp/conciso-design-system-mcp-fixture.tgz",
+    "onlyId": null,
+    "onlyVariant": null
+  },
+  "truth": {
+    "elementSelectors": {
+      "cds-button": {
+        "componentId": "komponenten-buttons-button",
+        "inputs": ["area", "label", "variant"],
+        "outputs": ["clicked"]
+      }
+    },
+    "attributeSelectors": {}
+  },
+  "questions": [
+    {
+      "question": {
+        "id": "button-einrichten",
+        "prompt": "Wie richte ich einen Button ein?",
+        "components": ["komponenten-buttons-button"],
+        "checks": ["no-invented-attributes", "setup-mentions-global-css", "core-claim-keywords"],
+        "claimKeywords": [["filled"], ["corporate", "co"]]
+      },
+      "variants": {
+        "mit-server": {
+          "runs": [
+            {
+              "responseText": "Binde @conciso/design-system global ein. Nutze den Corporate Button als filled Variante.\n```html\n<cds-button label=\"Los\" variant=\"filled\" area=\"co\"></cds-button>\n```",
+              "toolCalls": [{ "name": "mcp__conciso-ds__docs-show", "input": { "id": "buttons" } }],
+              "toolErrors": [],
+              "mcpServerStatuses": [],
+              "costUsd": 0.01
+            }
+          ]
+        },
+        "ohne-server": {
+          "runs": [
+            {
+              "responseText": "Nimm den Button mit einem erfundenen Icon.\n```html\n<cds-button label=\"Los\" [icon]=\"'save'\"></cds-button>\n```",
+              "toolCalls": [],
+              "toolErrors": [],
+              "mcpServerStatuses": [],
+              "costUsd": 0.02
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

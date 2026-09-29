@@ -1,11 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
-import { FooterBottomComponent, FooterComponent, FooterMainComponent } from '@conciso/design-system-angular';
+import {
+  FooterBottomComponent,
+  FooterComponent,
+  FooterMainComponent,
+} from '@conciso/design-system-angular';
 
 const meta: Meta<FooterComponent> = {
   title: 'Komponenten/Footer/Komplett',
   component: FooterComponent,
-  decorators: [moduleMetadata({ imports: [FooterComponent, FooterMainComponent, FooterBottomComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [FooterComponent, FooterMainComponent, FooterBottomComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',

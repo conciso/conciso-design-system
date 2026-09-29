@@ -1,16 +1,15 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as CycleButtonStories from '../../lib/theme-switch/cycle-button.stories';
 
-<Meta title="Komponenten/Theme-Umschalter" name="Verwendung" tags={['angular']} />
+<Meta of={CycleButtonStories} name="Verwendung" />
 
 # Theme-Umschalter · Verwendung
 
-Diese Seite ist die Ausnahme in diesem Spiegel: Die drei Bauteile Cycle-Button,
-Segment und Dropdown haben in `docs/index.html` keine Sektion (0 Treffer bei der
-Suche nach „Theme“ beziehungsweise „Umschalter“). Die Doku-Site kennt diesen
-Umschalter nicht, das Spiegel-Prinzip dieser Docs-Struktur (Docs-Sektion wird
-Storybook-Ordner) hat für ihn also keine Quelle. Diese Seite behauptet deshalb
-keine Vollständigkeit gegenüber der Doku-Site, sondern beschreibt das Bauteil aus
-dem Repo selbst: der Angular-Lib
+`docs/index.html` hat für den Theme-Umschalter eine eigene Sektion (`sec-theme`,
+Überschrift „Theme-Umschalter“) mit einem `gt-theme-verwendung`-Block. Deren
+Platzierungsregeln (welches der drei Bauteile wo eingesetzt wird) folgen hier
+noch. Diese Seite beschreibt deshalb vor allem das Bauteil aus dem Repo selbst:
+der Angular-Lib
 (`angular-lib/projects/design-system-angular/src/lib/theme-switch/`) und der
 Storybook-Konfiguration (`.storybook/preview.ts`).
 
@@ -28,7 +27,7 @@ drei Umschalter zyklen beziehungsweise Optionen anbieten, ist fest:
 | `system` | System | `heroComputerDesktop` |
 
 Alle drei Umschalter teilen denselben `showSystem`-Parameter: `true` zeigt alle drei
-Modi (tri), `false` blendet „System“ aus und zyklt nur zwischen Hell und Dunkel
+Modi (tri), `false` blendet „System“ aus und wechselt nur zwischen Hell und Dunkel
 (binär). Die Auswahl trifft `cdsThemeModes(showSystem)` in `theme-mode.ts`.
 
 ## `themeStore` als einziger Schreiber von `data-theme`
@@ -124,6 +123,6 @@ für den Modus, unabhängig davon, über welchen Umschalter er gesetzt wurde.
 
 ## Verwandte Seiten
 
-- `Komponenten/Theme-Umschalter/Cycle-Button` (Icon-Button, ein Klick zyklt durch die Modi, vorgesehen für den Header)
+- `Komponenten/Theme-Umschalter/Cycle-Button` (Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header)
 - `Komponenten/Theme-Umschalter/Segment` (Segment-Leiste zum Hovern, immer responsiv und animiert)
 - `Komponenten/Theme-Umschalter/Dropdown` (Custom Select, vorgesehen nur in den Einstellungen, nicht als persistentes Element)

@@ -59,7 +59,11 @@ function apply(): void {
   _mql = null;
   // `matchMedia` existiert nur im Browser; ohne diesen Guard bricht SSR/Prerender
   // mit "window is not defined", sobald der Modus dort gesetzt wird.
-  if (_mode() === 'system' && typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+  if (
+    _mode() === 'system' &&
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function'
+  ) {
     _mql = window.matchMedia('(prefers-color-scheme: dark)');
     _mql.addEventListener('change', onSystemChange);
     reflect(_mql.matches);

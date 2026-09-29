@@ -27,6 +27,8 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
  * `aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per
  * getBoundingClientRect an die aktive Zelle gesetzt (ResizeObserver misst bei
  * Breakpoint-/Font-Änderungen nach).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).
  */
 @Component({
   selector: 'cds-theme-segment',
@@ -156,7 +158,12 @@ export class ThemeSegmentComponent {
     const bx = parseFloat(cs.borderLeftWidth) || 0;
     const by = parseFloat(cs.borderTopWidth) || 0;
 
-    return { width: r.width, height: r.height, x: r.left - barRect.left - bx, y: r.top - barRect.top - by };
+    return {
+      width: r.width,
+      height: r.height,
+      x: r.left - barRect.left - bx,
+      y: r.top - barRect.top - by,
+    };
   }
 
   /** Gemessene Geometrie auf den Thumb schreiben (reines Schreiben, kein Lesen). */

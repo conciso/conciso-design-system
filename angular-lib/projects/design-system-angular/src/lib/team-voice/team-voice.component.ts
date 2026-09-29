@@ -11,6 +11,8 @@ import { CDS_QUOTE_ICON } from '../icons';
  * Akzent (data-area), Quote-Icon (ui-quote), Zitat und Name/Rolle. Mehrere
  * Komponenten in einen `<div class="team-voices">` legen, damit das alternierende
  * Layout greift (siehe Story).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).
  */
 @Component({
   selector: 'cds-team-voice',
@@ -22,7 +24,13 @@ import { CDS_QUOTE_ICON } from '../icons';
       </div>
       <figcaption class="team-voice-body">
         <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-        <svg class="team-voice-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
+        <svg
+          class="team-voice-icon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+          [innerHTML]="quoteIcon()"
+        ></svg>
         <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name() }}</p>

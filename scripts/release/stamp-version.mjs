@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 // Stempelt die von der Engine (semantic-release --dry-run, siehe semantic-release-plugin.mjs)
-// berechnete Version in beide package.json UND die Peer-Pin der Angular-Lib — Spec Regel 7
-// „Versionsfreies Repo“: im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
+// berechnete Version in alle drei package.json UND die Peer-Pin der Angular-Lib (ADR-0010,
+// „versionsfreies Repo“): im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
 // Version wird erst im Publish-Job VOR dem Build in die Artefakte geschrieben und NIE
 // committet. Idempotent: erneutes Stempeln derselben Version schreibt dasselbe Ergebnis.
+// Drittes Paket seit ADR-0012: der MCP-Server (mcp-server/package.json) bekommt dieselbe
+// Version, aber KEINE Peer-Pin — er hat keine peerDependency auf die Angular-Lib, sondern
+// vergleicht die installierte Version zur Laufzeit (siehe mcp-server/src/version-check.mjs).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -17,6 +20,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 // „0.0.0-bootstrap.0“ stempelt, um npmjs.com einen Trusted Publisher einrichten zu lassen.
 const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$/;
 const LIB_PKG_PATH = 'angular-lib/projects/design-system-angular/package.json';
+const MCP_PKG_PATH = 'mcp-server/package.json';
 
 function writeJson(path, value) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
@@ -35,7 +39,7 @@ export function stampVersion(version, root = ROOT) {
   const [major, minor] = version.split('.');
   const peerRange = `${major}.${minor}.x`;
 
-  // Erst beide Manifeste lesen und prüfen, dann beide schreiben: scheitert die Prüfung,
+  // Erst alle drei Manifeste lesen und prüfen, dann erst schreiben: scheitert die Prüfung,
   // bleibt der Checkout unangetastet statt halb gestempelt.
   const rootPkgPath = join(root, 'package.json');
   const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf8'));
@@ -49,11 +53,16 @@ export function stampVersion(version, root = ROOT) {
       `${LIB_PKG_PATH} hat keine peerDependency „@conciso/design-system“ — Lockstep-Pin kann nicht gesetzt werden.`,
     );
   }
+  const mcpPkgPath = join(root, MCP_PKG_PATH);
+  const mcpPkg = JSON.parse(readFileSync(mcpPkgPath, 'utf8'));
+
   rootPkg.version = version;
   libPkg.version = version;
   libPkg.peerDependencies['@conciso/design-system'] = peerRange;
+  mcpPkg.version = version;
   writeJson(rootPkgPath, rootPkg);
   writeJson(libPkgPath, libPkg);
+  writeJson(mcpPkgPath, mcpPkg);
 
   return { version, peerRange };
 }
@@ -66,5 +75,7 @@ if (isMain) {
     process.exit(1);
   }
   const { peerRange } = stampVersion(version);
-  console.log(`Version ${version} gestempelt (Peer-Pin @conciso/design-system: ${peerRange}).`);
+  console.log(
+    `Version ${version} gestempelt (root, Angular-Lib, MCP-Server; Peer-Pin @conciso/design-system: ${peerRange}).`,
+  );
 }

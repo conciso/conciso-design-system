@@ -13,9 +13,6 @@ const meta: Meta<FooterBottomComponent> = {
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'fullscreen',
-    // Neue Story ohne eingecheckte Baseline (visual.yml noch nicht auf main) → skip;
-    // nach dem Merge Baseline erzeugen + entfernen.
-    snapshot: { skip: true },
     docs: {
       description: {
         component:
@@ -52,6 +49,8 @@ export const Interaktiv: Story = {};
 export const MitVersionSupport: Story = {
   name: 'Mit Version & Support',
   // Für App-Footer: Versionsangabe hinter dem Copyright + Support-Link, ohne Social.
+  // Deckt zugleich den &nbsp;·&nbsp;-Trenner vor der Version ab (prettier-ignore im
+  // Template, weil beide &nbsp; direkt an der @if-Interpolation hängen).
   args: {
     copyright: '© 2026 Conciso GmbH',
     version: 'Version 1.4.2',
@@ -83,6 +82,8 @@ export const DoppelteLabels: Story = {
     ],
   },
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getAllByRole('link', { name: 'Datenschutz' })).toHaveLength(2);
+    await expect(within(canvasElement).getAllByRole('link', { name: 'Datenschutz' })).toHaveLength(
+      2,
+    );
   },
 };

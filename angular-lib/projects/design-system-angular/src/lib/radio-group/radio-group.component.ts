@@ -17,6 +17,8 @@ let uid = 0;
  *
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).
  */
 @Component({
   selector: 'cds-radio-group',
@@ -26,6 +28,7 @@ let uid = 0;
   ],
   template: `
     <fieldset style="border:0;padding:0;margin:0;min-inline-size:0">
+      <!-- prettier-ignore -->
       <legend
         style="font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2);padding:0"
         >{{ legend() }}@if (required()) {&nbsp;<span class="req" aria-hidden="true">*</span>}</legend

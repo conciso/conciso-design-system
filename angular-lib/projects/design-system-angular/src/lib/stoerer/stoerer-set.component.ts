@@ -8,8 +8,7 @@ import { StoererComponent } from './stoerer.component';
  * `<cds-stoerer>`-Kacheln, das auf der Startseite oben rechts über dem Hero-Bild
  * liegt. Der Positionsrahmen `.stoerer-hero` (umschließt Hero-Bild UND Set,
  * `container-type:inline-size` für die Container-Query-Schwelle) ist bewusst NICHT
- * Teil dieser Komponente, sondern bleibt beim Konsumenten (siehe
- * `.scratch/angular-seitenbausteine/issues/03-stoerer.md`): er umschließt Hero UND
+ * Teil dieser Komponente, sondern bleibt beim Konsumenten: er umschließt Hero UND
  * Set gemeinsam, das könnte diese Komponente als internes Detail nicht leisten, ohne
  * das Hero-Bild selbst zu kennen.
  *
@@ -31,11 +30,13 @@ import { StoererComponent } from './stoerer.component';
  * hat ausschließlich `<li>` als direkte Kinder (`ul.stoerer-list > *` → `["LI","LI"]`),
  * `<cds-stoerer>` selbst taucht im gerenderten DOM nirgends auf — Angular hängt
  * unprojizierten Content ohne passendes `<ng-content>`-Ziel gar nicht erst ein, exakt
- * wie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die im
- * Ticket vermerkte Alternative) hätte denselben DOM-Baum ergeben, aber den
+ * wie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die
+ * erwogene Alternative) hätte denselben DOM-Baum ergeben, aber den
  * Konsumenten gezwungen, das projizierte Icon jeder Kachel in ein Datenobjekt
  * umzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API
  * erhalten.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Hero-Bild (`komponenten-hero-hero-bild--verwendung`).
  */
 @Component({
   selector: 'cds-stoerer-set',

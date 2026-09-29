@@ -40,6 +40,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'marke-brand-areas': 'ui-squares-2x2',
   'marke-logo': 'ui-flag',
   'marke-bildsprache--übersicht': 'ui-photo',
+  'grundlagen-einrichtung--übersicht': 'ui-wrench-screwdriver',
   'grundlagen-farben': 'ui-swatch',
   'grundlagen-typografie': 'ui-language',
   'grundlagen-spacing-grid--übersicht': 'ui-squares-plus',
@@ -146,7 +147,13 @@ addons.setConfig({
           // sich sonst auf jeden Text, den wir hier zurückgeben, und
           // schiebt ihn sichtbar nach links aus dem abgeschnittenen
           // Container heraus. Deshalb hier explizit zurückgesetzt.
-          style: { display: 'inline-flex', alignItems: 'center', gap: 6, minWidth: 0, textIndent: 0 },
+          style: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            minWidth: 0,
+            textIndent: 0,
+          },
         },
         icon,
         createElement(

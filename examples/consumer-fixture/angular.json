@@ -21,10 +21,6 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              },
-              {
-                "glob": "**/*",
                 "input": "node_modules/@conciso/design-system/css",
                 "output": "conciso/css"
               },

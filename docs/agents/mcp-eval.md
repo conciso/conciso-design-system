@@ -1,0 +1,241 @@
+# MCP-Server-Eval: mit und ohne Server
+
+Misst, ob der [MCP-Server](../../CONTEXT.md#mcp-server) der KI eines Consumers tatsächlich
+hilft — nicht nur, ob das Protokoll antwortet. Siehe
+[ADR-0012](../adr/0012-mcp-server-fuer-consumer.md).
+
+## Warum das ein eigenes Skript ist, kein CI-Gate
+
+Der [Tarball-Smoke-Test](../adr/0012-mcp-server-fuer-consumer.md) (`npm run test:smoke -w
+mcp-server`) prüft das Protokoll: antwortet `docs-show`, fehlt kein `@internal`-Member. Er
+sagt nichts darüber, ob eine KI mit diesem Server tatsächlich bessere Antworten gibt als
+ohne — genau das prüft dieses Eval-Set, per echtem `claude -p`-Aufruf. Zwei Gründe, warum das
+kein CI-Gate ist:
+
+- **Kein deterministisches Ergebnis.** Modellantworten variieren zwischen Läufen.
+- **Jeder Lauf verbraucht Nutzungskontingent bzw. echtes API-Guthaben** (siehe „Was es kostet“
+  unten für die Unterscheidung). Ein CI-Gate liefe bei jedem Push.
+
+## Wann ausführen
+
+- **Vor einem Release** des MCP-Servers oder der Angular-Lib (API-Änderungen an Komponenten).
+- **Nach einem Storybook-Update**, das `@storybook/mcp` oder die Docgen-Ausgabe betrifft (siehe
+  ADR-0012, Konsequenzen: „Jedes Storybook-Update ist zugleich ein Update von
+  `@storybook/mcp`“).
+- Nicht bei jeder Doku- oder Story-Änderung — dafür reicht der Tarball-Smoke-Test.
+
+## Was es kostet
+
+Ein Lauf startet **zwei `claude -p`-Aufrufe pro Frage** in `mcp-server/eval/fragen.json`
+(mit Server, ohne Server), jeweils mit dem in der Umgebung konfigurierten Standardmodell und
+maximal 240 s Timeout pro Aufruf. Die tatsächliche Fragen-/Aufrufzahl wächst mit dem Eval-Set
+mit — sie steht verlässlich am Kopf jedes Berichts (`Fragen: N`), nicht hier. Der Bericht selbst
+nennt auch den **API-Gegenwert** (Zeile „Gesamt-API-Gegenwert (total_cost_usd)“ oben,
+„API-Gegenwert (total_cost_usd)“ je Lauf im Detail-Abschnitt — aus `total_cost_usd` der
+`claude`-Ausgabe, keine Schätzung).
+
+**`total_cost_usd` ist ein API-Preis-Gegenwert, keine tatsächliche Abbuchung.** Läuft `claude`
+in der aktuellen Shell über ein **claude.ai-Abo** (Pro/Max/Team), wird dafür nichts abgerechnet
+— der Lauf zählt gegen das Nutzungskontingent des Abos, `total_cost_usd` ist dann nur der
+rechnerische Gegenwert in US-Dollar, keine reale Zahlung. **Echte, abgerechnete Kosten** in
+dieser Höhe entstehen nur bei Authentifizierung per `ANTHROPIC_API_KEY` (Pay-per-Token). Vor dem
+Ausführen also nicht nur `claude --version` prüfen, sondern auch, über welchen Weg diese Shell
+authentifiziert ist, wenn der Unterschied (Kontingent vs. echtes Geld) für die Entscheidung
+relevant ist.
+
+Als Richtwert (API-Gegenwert bzw. Kontingent-Verbrauch, kein Zielwert): ein Baseline-Lauf mit
+11 Fragen (22 Aufrufe) lag bei rund **$5,82 API-Gegenwert** insgesamt. Mit einem denkfähigen
+Modell und mehreren Werkzeugaufrufen pro Frage („mit Server“ ruft typischerweise 3–7 Werkzeuge
+auf, inklusive der internen `ToolSearch`-Suche nach den MCP-Werkzeugen) bewegt sich ein Lauf im
+niedrigen einstelligen Euro-Gegenwert-Bereich und wächst mit der Fragenzahl mit — die für den
+jeweils aktuellen Lauf tatsächliche Summe steht in der Kopfzeile des eigenen Berichts.
+
+## Ausführen
+
+```bash
+npm run build:storybook              # falls storybook-static fehlt oder veraltet ist
+npm run build:snapshot -w mcp-server # optional — npm pack baut den Snapshot im prepack-Hook ohnehin neu
+npm run eval -w mcp-server           # packt sich selbst und läuft gegen den Tarball
+# oder gegen einen bereits gebauten Tarball:
+npm run eval -w mcp-server -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
+```
+
+Voraussetzung ist in jedem Fall ein aktueller `storybook-angular/storybook-static`-Build —
+ohne Tarball-Argument packt sich das Paket selbst (`npm pack -w mcp-server`, dieselbe
+Vorgehensweise wie der `mcp-smoke-test`-Job in `.github/workflows/storybook-angular.yml`);
+dessen `prepack`-Hook baut den Snapshot aus dem vorhandenen Storybook-Build neu
+(`scripts/build-snapshot.mjs`), baut das Storybook selbst aber nicht.
+
+Jeder Lauf schreibt zwei Dateien mit demselben Zeitstempel in das System-Temp-Verzeichnis:
+
+- `cds-mcp-eval-report-<zeitstempel>.md` enthält den lesbaren Bericht mit den gekürzten
+  Antworten.
+- `cds-mcp-eval-answers-<zeitstempel>.json` enthält die vollständigen Antworten und alle
+  Daten für eine spätere Neubewertung. Der Bericht nennt den absoluten Pfad zu dieser Datei.
+
+`CDS_MCP_EVAL_REPORT_DIR` legt für beide Dateien gemeinsam ein anderes Zielverzeichnis fest.
+Die JSON-Datei enthält neben Fragen und Laufmetadaten auch die Komponentenwahrheit aus dem
+installierten Snapshot. Deshalb bleibt sie unabhängig vom temporären Consumer-Verzeichnis und
+vom verwendeten Tarball auswertbar.
+
+## Gespeicherten Lauf neu bewerten
+
+Ein gespeicherter Lauf lässt sich mit der aktuellen Fassung der deterministischen Checks neu
+bewerten:
+
+```bash
+npm run eval:recheck -w mcp-server -- /pfad/zu/cds-mcp-eval-answers-<zeitstempel>.json
+```
+
+Das Kommando ruft weder `claude -p` noch den MCP-Server auf und benötigt keinen Tarball. Es
+liest die vollständigen Antworten, Fragen und Komponentenwahrheit aus der JSON-Datei und
+wertet weiterhin vorhandene Fragen mit deren aktuellen `checks` und `claimKeywords` aus
+`fragen.json` aus. Für inzwischen entfernte Fragen bleibt die gespeicherte Definition
+maßgeblich. Das Kommando schreibt einen neuen Markdown-Bericht. Dessen Ziel ist wieder das
+System-Temp-Verzeichnis oder `CDS_MCP_EVAL_REPORT_DIR`. Der neue Bericht nennt die JSON-Datei,
+aus der er erzeugt wurde.
+
+Das gespeicherte Format trägt eine `schemaVersion`. Unter jeder Frage liegen die Varianten
+`mit-server` und `ohne-server`, jeweils mit einem `runs`-Array. Ein heutiger Eval-Lauf schreibt
+genau einen Eintrag je Variante. Der Antworttext steht ungekürzt in `responseText`.
+
+## Eine einzelne Frage gezielt prüfen
+
+Um die Wirkung einer einzelnen Doku-Änderung zu prüfen, ohne das ganze Set zu bezahlen (siehe
+„Was es kostet“ oben), lässt sich der Lauf auf eine Frage-`id` aus `fragen.json` und optional
+eine Variante beschränken, über zwei Umgebungsvariablen:
+
+```bash
+CDS_MCP_EVAL_ONLY_ID=farbe-text-bereichsfarbe-weiss \
+CDS_MCP_EVAL_ONLY_VARIANT=mit-server \
+npm run eval -w mcp-server -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
+```
+
+- `CDS_MCP_EVAL_ONLY_ID` filtert `fragen.json` auf genau diese `id`; passt keine Frage, bricht
+  der Lauf sofort mit einer klaren Fehlermeldung ab, statt das ganze Set zu starten.
+- `CDS_MCP_EVAL_ONLY_VARIANT` ist `mit-server` oder `ohne-server` und lässt die jeweils andere
+  Variante aus (kein `claude`-Aufruf, keine Kosten dafür) — die übersprungene Spalte steht im
+  Bericht als „übersprungen (CDS_MCP_EVAL_ONLY_VARIANT)“.
+- Beide Variablen sind unabhängig voneinander und optional; ohne sie läuft weiterhin das
+  komplette Set in beiden Varianten wie bisher. Der Bericht markiert einen gefilterten Lauf in
+  der Kopfzeile als „kein vollständiger Eval-Lauf“, damit er nicht mit einem regulären
+  Vorher/Nachher-Vergleich verwechselt wird.
+- Ein einzelner gefilterter Lauf unterliegt derselben Modellstreuung wie jede andere Zelle
+  (siehe „Grenzen der automatischen Prüfung“ unten) — für eine belastbare Aussage mehrere Läufe
+  wiederholen, nicht auf einem einzigen Ergebnis eine Ursache festmachen.
+
+## Wie der Bericht zu lesen ist
+
+Das Skript schreibt eine Markdown-Tabelle (Frage × „mit Server“ × „ohne Server“) auf stdout
+und in eine Datei unter dem System-Temp-Verzeichnis (Pfad steht am Ende der Ausgabe;
+überschreibbar über `CDS_MCP_EVAL_REPORT_DIR`). Jede Zelle nennt:
+
+- **Werkzeugfehler** — ein `tool_result` mit `isError` macht den Lauf **immer** rot,
+  unabhängig vom Antworttext.
+- **Erfundene API** — Attribute/Bindungen auf `cds-*`-Elementen in Code-Blöcken der Antwort,
+  die für die jeweilige Komponente **nicht** in den `argTypes` des installierten Snapshots
+  stehen (`table.category` `inputs`/`outputs`). Kein LLM-Richter: reine Textanalyse gegen die
+  echten Docgen-Daten, siehe `mcp-server/eval/checker.mjs`. Standard-HTML-/Angular-Attribute
+  (`class`, `id`, `style`, `aria-*`, `data-*`, `*ngIf`, `#ref`, `ngModel`, `(click)` u. Ä.)
+  werden dabei ignoriert — die vollständige Liste steht am Kopf von `checker.mjs`.
+- **CSS-Hinweis** — nur bei Fragen mit `"checks": ["setup-mentions-global-css", …]`: erwähnt
+  die Antwort, dass die CSS-Schicht global eingebunden werden muss (ADR-0001).
+- **Kernaussage** — nur bei Fragen mit `"checks": ["core-claim-keywords", …]` (Intentionsfragen,
+  siehe unten): trifft die Antwort die erwartete Kernaussage der Verwendungsguidance? Ebenfalls
+  kein LLM-Richter, reiner Stichwort-Abgleich gegen `claimKeywords` in der Frage
+  (`mcp-server/eval/checker.mjs`, Funktion `checkCoreClaim`). Die Zelle nennt bei einem Fehlschlag,
+  wie viele der Teilaspekte (Gruppen) keinen Treffer hatten; der Detail-Abschnitt listet sie
+  einzeln mit ihren Synonymen auf.
+- **Werkzeugaufrufe** — reine Zählung, keine Wertung; interessant im Vergleich „mit“ vs.
+  „ohne“ (ruft die KI mit Server tatsächlich `docs-show` auf, bevor sie antwortet?). Zählt auch
+  die interne `ToolSearch`-Suche mit, über die Claude Code MCP-Werkzeuge erst auflöst — die
+  Zahl ist also kein reines Maß für „wie viele Design-System-Werkzeuge wurden benutzt“, der
+  Detail-Abschnitt zeigt die einzelnen Aufrufe im Klartext.
+
+Der Abschnitt „Details“ darunter zeigt pro Frage/Variante die konkreten Werkzeugaufrufe, jeden
+gemeldeten Fund im Klartext und die gekürzte Antwort.
+
+Exit-Code ist **0**, solange kein Werkzeugfehler und kein Infrastruktur-Fehler auftrat — auch
+wenn die Tabelle erfundene Attribute oder fehlende CSS-Hinweise zeigt. Schlechte Antwortqualität
+ist ein Befund für den Bericht, kein Skriptfehler.
+
+## Fragen erweitern
+
+`mcp-server/eval/fragen.json` ist eine reine Datendatei, ohne Codeänderung erweiterbar. Jeder
+Eintrag:
+
+```json
+{
+  "id": "kurzer-slug",
+  "prompt": "Die Frage, wie ein Consumer sie stellen würde.",
+  "components": ["komponenten-id-zur-einordnung-im-bericht"],
+  "checks": ["no-invented-attributes"]
+}
+```
+
+`checks` steuert nur Zusatzprüfungen — `no-invented-attributes` läuft ohnehin immer;
+`setup-mentions-global-css` zusätzlich bei Einrichtungsfragen. `components` ist rein
+informativ für den Bericht; die Wahrheit für die Attribut-Prüfung holt sich das Skript bei
+jedem Lauf frisch aus dem installierten Snapshot, nie aus dieser Datei.
+
+### Intentionsfragen und der Check-Typ „core-claim-keywords“
+
+Eine **Intentionsfrage** prüft nicht nur, ob die API stimmt, sondern ob die KI die richtige
+Komponente/Variante wählt oder eine Gestaltungsregel kennt — realistische Consumer-Prompts, die
+**keine Lösung verraten** (die Frage nennt das Problem, nicht den Fachbegriff der erwarteten
+Antwort). Mit `"checks": ["core-claim-keywords"]` kommt ein weiteres Feld dazu:
+
+```json
+{
+  "id": "typo-serife-fliesstext",
+  "prompt": "Ich will für den Fließtext meiner neuen Landingpage die Schriftart Libre Baskerville verwenden, weil sie mir optisch gefällt. Passt das zu den Typografie-Regeln des Conciso Design Systems?",
+  "components": ["grundlagen-typografie"],
+  "checks": ["no-invented-attributes", "core-claim-keywords"],
+  "claimKeywords": [
+    ["montserrat"],
+    ["headline", "display", "überschrift", "titel", "hero"],
+    ["ermüd", "serifenschrift", "serifenschriften"]
+  ]
+}
+```
+
+`claimKeywords` ist eine Liste von **Gruppen**. Jede Gruppe steht für einen Teilaspekt der
+erwarteten Kernaussage (z. B. „welches Token/welche Schrift“, „warum“, „stattdessen was“) und
+enthält Synonyme/Formulierungsvarianten dafür — innerhalb einer Gruppe genügt **ein** Treffer
+(ODER), aber **alle** Gruppen müssen mindestens einen Treffer haben (UND), damit die Kernaussage
+insgesamt als getroffen gilt (`checkCoreClaim` in `checker.mjs`). Der Abgleich ist bewusst
+einfach gehalten, aber robust gegenüber:
+
+- **Groß-/Kleinschreibung** (`MONTSERRAT` == `montserrat`),
+- **Umlaut-/ß-Schreibvarianten und Unicode-Normalform** (vorkomponiertes „ü“ und zerlegtes „u“ +
+  Combining-Diaeresis zählen gleich; `groß` == `GROSS`),
+- **Wortstämmen als Stichwort** (`"ermüd"` matcht `ermüden`, `ermüdet`, `ermüdend`), sofern man
+  bewusst einen Stamm statt eines flektierten Vollworts einträgt.
+
+Kein LLM-Richter, keine Grammatik- oder Bedeutungsprüfung — ein Fund im Bericht („Kernaussage:
+fehlt“) heißt „diese Stichwörter kamen nicht vor“, nicht zwingend „die Antwort ist inhaltlich
+falsch“ (Formulierungen außerhalb der eingetragenen Synonyme rutschen durch), und umgekehrt kann
+ein zufälliger Treffer eines generischen Stichworts (z. B. „oben“) eine korrekte Antwort
+vortäuschen, die den Punkt in Wahrheit nicht trifft — wie bei `no-invented-attributes` ist der
+Bericht ein Signal für die manuelle Einordnung, kein hartes Urteil.
+
+**Quellenpflicht:** Die erwartete Kernaussage jeder Intentionsfrage muss aus der tatsächlichen
+Guidance belegbar sein (Doku-Site `docs/index.html` oder Storybook-MDX unter
+`storybook-angular/src/docs/**`) — das Zitat mit Fundstelle gehört nicht in diese Datei, sondern
+ins Issue, das die Frage eingeführt hat (siehe `docs/agents/issue-tracker.md`).
+
+## Grenzen der automatischen Prüfung (bewusst nicht behoben)
+
+- Die Attribut-Extraktion ist ein Regex-Parser, kein vollständiger HTML-Parser: ein `>`
+  innerhalb eines Attributwerts (z. B. `title="a > b"`) bricht die Erkennung für dieses Tag.
+  In der Praxis selten, aber ein Fund im Bericht ist an dieser Stelle mit Vorsicht zu lesen.
+- Komponenten mit Attribut-Selektor (`div[cdsIconCard]`, siehe
+  [ADR-0008](../adr/0008-selektortyp-der-wrapper-komponenten.md)) werden nur erkannt, wenn das
+  Marker-Attribut im selben Tag steht wie die geprüften Bindungen — bei mehrzeilig
+  aufgebrochenen Tags mit sehr ungewöhnlicher Formatierung kann das fehlschlagen.
+- Ein `[icon]`-Binding, das zufällig denselben Namen wie ein *dokumentiertes* Input einer
+  *anderen* Komponente trägt, wird korrekt erkannt (die Prüfung ist pro Element, nicht global)
+  — nur zur Klarheit, weil das auf den ersten Blick nicht offensichtlich ist.
+- „Erfundene API: keine“ heißt nicht automatisch „geprüft und sauber“ — bei 0 geprüften
+  `cds-*`-Elementen (steht in der Zelle dabei) gab es schlicht keinen Code-Block mit einem
+  `cds-*`-Element zu prüfen, etwa weil die KI auf die Fangfrage bewusst kein Beispiel gegeben hat.

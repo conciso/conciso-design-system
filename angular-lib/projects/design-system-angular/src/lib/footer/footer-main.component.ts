@@ -16,6 +16,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Die Host-Klasse `footer-main` trägt Hintergrund/Padding aus css/components.css;
  * `:host{display:block}` macht das Band auch standalone zum Block. Spaltenanzahl/-breiten
  * über `columns` (grid-template-columns); ohne Angabe gilt das 3-Spalten-Default.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).
  */
 @Component({
   selector: 'cds-footer-main',

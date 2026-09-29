@@ -241,7 +241,7 @@ git add storybook-angular/visual-snapshots && git commit
 
 Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf `main` (siehe [ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)). Das CHANGELOG wird dafür **nicht mehr** von Hand ergänzt — an seine Stelle tritt der Commit selbst.
 
-- **Nur [veröffentlichungsrelevante Commits](CONTEXT.md#veröffentlichungsrelevanter-pfad) zählen.** Ein Commit zählt, wenn er mindestens einen Pfad aus `scripts/release/relevant-paths.mjs` berührt (ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben). Ein Commit, der nur Storybook, Beispielseiten, CI oder nicht ausgelieferte Doku (etwa ADRs) ändert, ist für Release und Commit-Konvention unsichtbar. Ausgelieferte Doku zählt dagegen: `README.md`, `CHANGELOG.md` und die README der Angular-Lib landen im Paket, ein Commit daran folgt der Konvention (`docs:` löst kein Release aus, `fix:` ein Patch).
+- **Nur [veröffentlichungsrelevante Commits](CONTEXT.md#veröffentlichungsrelevanter-pfad) zählen.** Ein Commit zählt, wenn er mindestens einen Pfad aus `scripts/release/relevant-paths.mjs` berührt (ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben). Ein Commit, der nur Storybook, Beispielseiten, CI oder nicht ausgelieferte Doku (etwa ADRs) ändert, ist für Release und Commit-Konvention unsichtbar. Ausgelieferte Doku zählt dagegen: `README.md` und die README der Angular-Lib landen im Paket, ein Commit daran folgt der Konvention (`docs:` löst kein Release aus, `fix:` ein Patch).
 - **Der Conventional-Commit-Typ entscheidet die Stufe** (nur für relevante Commits): `feat` → Minor, `fix`/`perf` → Patch, ein `!` am Typ oder ein `BREAKING CHANGE:`-Footer → Major, jeder andere Typ → kein Release. Scopes sind sonst frei — mit einer Ausnahme: bei `build` entscheidet der Scope `deps` (`build(deps)` → Patch, jeder andere `build`-Scope → kein Release). Die Regeln stehen an einer Stelle (`scripts/release/compute-bump.mjs`, `BUMP_RULES`).
 - **commitlint prüft das im PR hart, aber nur für relevante Commits** (`.github/workflows/commitlint.yml`, Konfiguration in `commitlint.config.mjs`, Basis `@commitlint/config-conventional` mit ausgeschaltetem `subject-case`, da deutsche Betreffe mit einem Nomen beginnen). Ein PR mit einem ungültigen, aber nicht relevanten Commit ist trotzdem grün. Die Job-Summary des PRs nennt Version und Stufe des ausgelösten Releases, oder „Kein Release“.
 - **Merge-Commits zählen nie** — sie berühren selbst keine Datei. Es wird nicht gesquasht: jeder Commit eines PRs erscheint einzeln in den generierten Release-Notes.
@@ -251,25 +251,31 @@ Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf 
 
 ## 15. npm Trusted Publishing einrichten (einmalig, per Bootstrap VOR dem Merge)
 
-Seit [ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md) veröffentlicht
-`.github/workflows/publish.yml` beide Pakete zusätzlich auf npmjs.org, per **npm
+Seit [ADR-0011](docs/adr/0011-veroeffentlichung-auf-npmjs.md) (CSS-Schicht, Angular-Lib)
+und [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md) (MCP-Server) veröffentlicht
+`.github/workflows/publish.yml` alle drei Pakete zusätzlich auf npmjs.org, per **npm
 Trusted Publishing (OIDC)** — kein `NPM_TOKEN`. npmjs.com erlaubt das Einrichten
 eines Trusted Publisher aber nur für ein **bereits existierendes** Paket
 (Bootstrap-Problem, siehe ADR-0011) — die folgende Checkliste löst das **vor** dem
 Merge dieses Features, damit der erste echte Release über die Pipeline von Anfang
 an grün durchläuft, statt beim npmjs-Schritt absichtlich rot zu laufen. Pro Paket
-einmalig nötig, in dieser Reihenfolge:
+(auch für den MCP-Server) einmalig nötig, in dieser Reihenfolge:
 
 1. **Bootstrap-Publish von Hand, aus einem sauber gebauten Stand dieses Branches**
    (nicht von main — main hat den Publish-Workflow für npmjs noch nicht):
    - Mit einem Account, der Publish-Recht in der npm-Org `conciso` hat, lokal
      `npm login` (oder ein bestehendes, kurzlebiges Access-Token verwenden).
    - `npm ci`, dann eine **Platzhalterversion** stempeln — bewusst nicht die
-     nächste echte Version, damit sie als das erkennbar bleibt, was sie ist:
+     nächste echte Version, damit sie als das erkennbar bleibt, was sie ist.
+     `stamp-version.mjs` schreibt sie in alle drei `package.json` auf einmal
+     (Lockstep, siehe ADR-0012); danach den MCP-Snapshot aus einem frischen
+     Storybook-Build bauen, sonst bricht dessen `prepack`-Schritt gleich ab:
      ```bash
      node scripts/release/stamp-version.mjs 0.0.0-bootstrap.0
      npm run build                         # CSS-Schicht
      npm run build --workspace=angular-lib # Angular-Lib
+     npm run build:storybook               # Quelle des MCP-Snapshots
+     npm run build:snapshot -w mcp-server  # MCP-Snapshot (aus dem Storybook-Build oben)
      ```
    - Veröffentlichen — **mit** `--access public` (gescopte Pakete sind sonst
      privat), unter dem Tag `bootstrap` statt `latest`, und **ohne** `--dry-run`:
@@ -277,6 +283,9 @@ einmalig nötig, in dieser Reihenfolge:
      npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
      # Angular-Lib aus angular-lib/dist/design-system-angular heraus:
      cd angular-lib/dist/design-system-angular && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
+     # MCP-Server aus mcp-server/ heraus (dessen eigener prepack-Schritt kopiert die
+     # LICENSE und baut den Snapshot ohnehin erneut, aus dem oben schon gebauten Storybook):
+     cd mcp-server && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
      ```
    - **`latest`-Tag prüfen.** Ob ein allererster Publish mit `--tag bootstrap`
      zusätzlich `latest` setzt, ist in der npm-Doku nicht eindeutig geklärt
@@ -284,18 +293,20 @@ einmalig nötig, in dieser Reihenfolge:
      ```bash
      npm view @conciso/design-system dist-tags --@conciso:registry=https://registry.npmjs.org
      npm view @conciso/design-system-angular dist-tags --@conciso:registry=https://registry.npmjs.org
+     npm view @conciso/design-system-mcp dist-tags --@conciso:registry=https://registry.npmjs.org
      ```
      Zeigt `latest` auf `0.0.0-bootstrap.0`, den Tag entfernen:
      ```bash
      npm dist-tag rm @conciso/design-system latest --@conciso:registry=https://registry.npmjs.org
      npm dist-tag rm @conciso/design-system-angular latest --@conciso:registry=https://registry.npmjs.org
+     npm dist-tag rm @conciso/design-system-mcp latest --@conciso:registry=https://registry.npmjs.org
      ```
      Falls das nicht greift: kein Beinbruch, nur ein kurzes Zeitfenster mit
      falschem `latest` bis zum ersten echten Release (der setzt `latest`
      unabhängig davon neu, siehe ADR-0011) — aber je früher nach dem Bootstrap
      dieser erste echte Release folgt, desto kürzer das Fenster.
    - Die gestempelten `package.json`-Änderungen danach verwerfen
-     (`git checkout -- package.json angular-lib/projects/design-system-angular/package.json`)
+     (`git checkout -- package.json angular-lib/projects/design-system-angular/package.json mcp-server/package.json`)
      — sie dürfen nie committet werden (versionsfreies Repo, ADR-0010).
 2. **Trusted Publisher pro Paket einrichten**, auf der jeweiligen Paketseite unter
    *Settings → Trusted publishing*:
@@ -322,9 +333,10 @@ einmalig nötig, in dieser Reihenfolge:
    ```bash
    npm deprecate @conciso/design-system@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
    npm deprecate @conciso/design-system-angular@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
+   npm deprecate @conciso/design-system-mcp@0.0.0-bootstrap.0 "Bootstrap-Platzhalter zur Einrichtung von npm Trusted Publishing — kein echtes Release, nicht installieren." --@conciso:registry=https://registry.npmjs.org
    ```
 
-**Ergebnis:** Ist der Bootstrap für beide Pakete erledigt, läuft der erste echte
+**Ergebnis:** Ist der Bootstrap für alle drei Pakete erledigt, läuft der erste echte
 Release nach dem Merge (ausgelöst durch den nächsten veröffentlichungsrelevanten
 `feat`/`fix`/`perf`/`build(deps)`-Commit auf `main`) **grün durch** — auch der
 npmjs-Teil. Bis dahin liegt auf npmjs nur die Bootstrap-Platzhalterversion; die
@@ -336,6 +348,32 @@ nicht eingerichtet), veröffentlicht GitHub Packages trotzdem erfolgreich — Ta
 GitHub-Release werden zurückgehalten, bis auch npmjs nachgezogen ist (siehe
 `scripts/release/decide.mjs`, Modus `nachziehen`). Funktional korrekt, aber ein
 absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–5 vorab.
+
+---
+
+## 16. Formatierung
+
+- **Gilt nur für TypeScript und HTML** (`**/*.{ts,mts,cts,html}`, Konfiguration in `.prettierrc`, Ausschlüsse in `.prettierignore`). CSS, Tokens, Markdown & Co. haben ihren eigenen, etablierten Stil und werden bewusst **nicht** von Prettier angefasst (siehe Kommentar in `.prettierignore`).
+- **Lokal formatieren:** `npm run format` schreibt die Dateien um. Vor dem Commit ausführen, wenn TS/HTML angefasst wurde.
+- **Die CI prüft nur, sie formatiert nicht.** `.github/workflows/format.yml` läuft `npm run format:check` (`prettier --check`) bei PR und Push auf `main` und schlägt fehl, statt selbst zu schreiben oder zu committen.
+- **`git blame` ohne die einmalige Formatierungs-Commit:** `git config blame.ignoreRevsFile .git-blame-ignore-revs` lokal einmal setzen; GitHub liest die Datei im Root automatisch, ohne weitere Einrichtung.
+
+---
+
+## 17. Keine Ticket-Referenzen in Kommentaren und Doku
+
+Issues und Specs leben als lokale, gitignorete Markdown-Dateien außerhalb der Versionierung (siehe `AGENTS.md`, `docs/agents/issue-tracker.md`) — sie leben nicht mit dem Branch weiter. Ein Verweis auf eine solche Datei oder eine bloße Ticketnummer im Kommentar ist nach dem Merge für niemanden mehr auflösbar außer für den damaligen Bearbeiter, auch nicht für ein KI-Werkzeug, das später denselben Kommentar liest.
+
+- **Trägt der Verweis eine Begründung, gehört die Begründung selbst in den Kommentar** (oder eine ADR), nicht ein Zeiger auf die Ticket-Datei: der Sachverhalt bleibt lesbar, auch wenn seine Quelle verschwindet.
+- **Ausnahmen (Allowlist des Gates, `ALLOWLIST_EXACT`/`ALLOWLIST_PREFIXES` in `scripts/check-ticket-refs.mjs`):**
+  - Echte GitHub-Referenzen (`#53`) — matchen ohnehin keins der Gate-Muster.
+  - `AGENTS.md` und `docs/agents/issue-tracker.md` beschreiben die Tracker-Konvention selbst (Pfadschema, Name der Spec-Datei), nicht einen toten Verweis auf ein konkretes Ticket.
+  - `.agents/` (vendored Skill-Pack) beschreibt dieselbe Konvention generisch, nicht projektspezifisch.
+  - `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (§ 14) — seine Ticket- und Spec-Datei-Zitate bleiben unangetastet.
+  - `.gitignore` und `.prettierignore` brauchen den literalen Tracker-Pfadpräfix als Ignore-Muster, das ist keine Narration.
+  - `scripts/check-ticket-refs.mjs` und `scripts/check-ticket-refs.test.mjs` schließen sich selbst aus: ihr Muster bzw. ihre Testfälle enthalten die gesuchten Zeichenketten zwangsläufig wörtlich.
+- **Ziffernlose Formen** wie „das Ticket“ oder „der Ticket-Vorgabe“ werden von Hand umformuliert, wenn sie auffallen, aber bewusst **nicht** vom Gate geprüft — ohne Ziffer als Anker ist das Fehlalarmrisiko auf echtem Fließtext zu groß.
+- **Gate:** `npm run check:ticket-refs` (`scripts/check-ticket-refs.mjs`, Stil wie `scripts/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`), zusammen mit dessen eigenen Unit-Tests (`npm run test:ticket-refs`, `scripts/check-ticket-refs.test.mjs`, Stil wie `scripts/release/*.test.mjs`).
 
 ---
 

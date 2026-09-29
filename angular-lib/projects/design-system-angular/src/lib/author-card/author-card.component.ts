@@ -3,8 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 /**
  * AuthorCard (`div[cdsAuthorCard]`) — Wrapper um `.author-card` aus css/components.css
  * (css/components.css:1602–1606): der Avatar-plus-Bio-Strip am Ende eines
- * Wissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Dreizehntes und
- * letztes Ticket der Seitenbausteine-Serie. Ausgezählt: 17 reale Vorkommen in
+ * Wissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Ausgezählt: 17 reale Vorkommen in
  * `docs/index.html` — 4 einzelstehend (2 Doku-Demos `docs/index.html:8193,8207`, 1
  * Artikel-Demo `8424`, 1 reale Beispielseite `15179`) und 13 in fünf Gruppen (siehe
  * `AuthorCardGroupComponent`).
@@ -52,8 +51,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * ausschließlich vom `area`-Input, den der Konsument direkt an das projizierte
  * `[cdsAvatar]` bindet (siehe unten). Ein `area`-Input, der hier nur `data-area` ohne
  * jede CSS-Wirkung setzt, wäre eine erfundene Konfiguration ohne Gegenwert — Befund
- * gemeldet, nicht im Wrapper geflickt (ADR-0001):
- * `.scratch/angular-seitenbausteine/issues/24-css-luecke-author-card-data-area.md`.
+ * gemeldet, nicht im Wrapper geflickt (ADR-0001).
  *
  * **Avatar projiziert über `[cdsAvatar]`, wie bei `cds-article-header`.** Der
  * Konsument setzt Größe (`size="lg"`, css/components.css:1527) und Bereich
@@ -63,15 +61,15 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  *
  * **Eyebrow als `<h3>`, nur wenn gesetzt** (Beiwerk, Default `''`) — deckungsgleich
  * mit allen 4 einzelstehenden realen Vorkommen: 2 tragen `<h3 class="author-card-eyebrow">`
- * (`docs/index.html:8196,8427`, „Über den Autor“/„Über die Autorin“, Ticket-Vorgabe:
+ * (`docs/index.html:8196,8427`, „Über den Autor“/„Über die Autorin“:
  * eine Ebene unter dem `<h2>` des Article-Body), die anderen 2 (Doku-Demos ohne
  * umgebende Artikelstruktur) haben gar keinen. Innerhalb einer Gruppe trägt laut
  * `wissensbeitrag.mdx` („Eyebrow-Konvention“) keine einzelne Karte mehr einen eigenen
  * Eyebrow — die Gruppen-Überschrift ersetzt sie (siehe `AuthorCardGroupComponent`);
  * Konsumenten lassen `eyebrow` dafür einfach leer.
  *
- * **`roleLabel`, NICHT `role` wie im Ticket-Text — gemessene Abweichung, kein
- * Freihand-Entscheid.** Ein erster Entwurf folgte der Ticket-API wörtlich
+ * **`roleLabel`, NICHT `role` wie in einem ersten Entwurf — gemessene Abweichung, kein
+ * Freihand-Entscheid.** Der erste Entwurf setzte `role` wörtlich um
  * (`role`-Input, mit `role="…"` als schlichtem Attribut in den Stories gesetzt, wie
  * `name`/`bio`/`eyebrow`). Storybooks eingebauter a11y-Check (`aria-roles`) schlug
  * darauf für JEDE Story mit echtem Rollentext fehl: `role` ist ein globales
@@ -85,7 +83,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * (`grep -rn "readonly role" angular-lib/projects/design-system-angular/src/lib/`
  * zeigt nur diese drei). Diese Komponente folgt demselben, bereits etablierten
  * Muster statt die Kollision ein viertes Mal zu wiederholen — CSS-Klasse bleibt
- * unverändert `.author-card-role`, nur der Input-Name weicht vom Ticket-Text ab.
+ * unverändert `.author-card-role`, nur der Input-Name weicht vom ursprünglichen Entwurf ab.
  */
 @Component({
   selector: 'div[cdsAuthorCard]',

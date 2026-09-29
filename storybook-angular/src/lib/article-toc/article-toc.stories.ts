@@ -32,7 +32,12 @@ const meta: Meta<ArticleTocComponent> = {
   component: ArticleTocComponent,
   decorators: [
     moduleMetadata({
-      imports: [ArticleTocComponent, ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent],
+      imports: [
+        ArticleTocComponent,
+        ArticleCalloutComponent,
+        ArticleFigureComponent,
+        ArticlePullquoteComponent,
+      ],
     }),
   ],
   tags: ['autodocs', 'angular'],
@@ -45,8 +50,8 @@ const meta: Meta<ArticleTocComponent> = {
           'css/components.css:1577–1589). Natives `<details>`/`<summary>`, kein nachgebautes ' +
           'Disclosure: Tastaturbedienung und Toggle-Zustand kommen vom Browser, das CSS hängt an ' +
           '`[open]`. Zweites Vorkommen des `<details>`-mit-Caret-Musters neben `cds-compare` — ' +
-          'bewusst NICHT zusammengezogen (ADR-0007 §5), unter anderem weil dieses Bauteil laut ' +
-          'Ticket-API keinen `toggled`-Output hat. `aria-label` am `<summary>` ' +
+          'bewusst NICHT zusammengezogen (ADR-0007 §5), unter anderem weil dieses Bauteil ' +
+          'keinen `toggled`-Output hat. `aria-label` am `<summary>` ' +
           '(„Inhaltsverzeichnis ein- und ausklappen“) ist fest verdrahtet, 1:1 aus beiden realen ' +
           'Mockup-Vorkommen übernommen, kein erfundener zugänglicher Name. Element-Selektor ' +
           '(ADR-0008-Standardfall): `.article-toc` ist in beiden Vorkommen ein gewöhnlicher ' +
@@ -128,7 +133,7 @@ export const BereitsOffen: Story = {
   },
 };
 
-// Akzeptanzkriterium der Spec (Ticket 12): „.article-body bekommt keine Komponente; die Story
+// Akzeptanzkriterium: „.article-body bekommt keine Komponente; die Story
 // zeigt den rohen Kontext.“ Der Konsument schreibt <div class="article-body"> selbst, alle vier
 // Artikel-Körper-Bausteine sitzen darin als gewöhnliche Geschwister neben rohen <p>/<h2> —
 // dieselbe Lesereihenfolge wie in der Beispielseite Wissensbeitrag · KI
@@ -171,7 +176,15 @@ export const ImArtikelBody: Story = {
     await expect(body.tagName).toBe('DIV');
 
     const directChildTags = Array.from(body.children).map((el) => el.tagName);
-    await expect(directChildTags).toEqual(['P', 'CDS-ARTICLE-TOC', 'H2', 'P', 'CDS-ARTICLE-PULLQUOTE', 'CDS-ARTICLE-CALLOUT', 'CDS-ARTICLE-FIGURE']);
+    await expect(directChildTags).toEqual([
+      'P',
+      'CDS-ARTICLE-TOC',
+      'H2',
+      'P',
+      'CDS-ARTICLE-PULLQUOTE',
+      'CDS-ARTICLE-CALLOUT',
+      'CDS-ARTICLE-FIGURE',
+    ]);
 
     await expect(body.querySelector('details.article-toc')).not.toBeNull();
     await expect(body.querySelector('blockquote.article-pullquote')).not.toBeNull();

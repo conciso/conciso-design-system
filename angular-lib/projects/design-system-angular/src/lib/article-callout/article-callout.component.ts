@@ -9,8 +9,7 @@ let uid = 0;
  * ArticleCallout (`cds-article-callout`) — Wrapper um `.article-callout*` aus
  * css/components.css (css/components.css:1591–1600): der bereichsgetönte
  * Aside-Block für Praxis-Beispiele und „In der Realität“-Einschübe im Lauftext
- * eines Wissensbeitrags. Zwölftes Ticket der Seitenbausteine-Serie
- * („Artikel-Körper“). Ausgezählt: 5 reale Vorkommen, je eines pro Bereich in der
+ * eines Wissensbeitrags. Ausgezählt: 5 reale Vorkommen, je eines pro Bereich in der
  * Doku-Sektion (`docs/index.html:8086–8115`, co/ki/es/wo) plus eines in der realen
  * Beispielseite Wissensbeitrag · KI (`docs/index.html:15110–15114`).
  *
@@ -27,8 +26,8 @@ let uid = 0;
  * `.article-body` und dem `<aside>` bricht deshalb keine Selektorkette.
  *
  * **Projizierte Absätze bleiben direkte Kinder von `.article-callout`, kein
- * `<div>` um `<ng-content>`** (Ticket-Vorgabe: `.article-callout > p` ist ein
- * Kindselektor, css/components.css:1600). `<ng-content>` selbst fügt kein
+ * `<div>` um `<ng-content>`:** `.article-callout > p` ist ein
+ * Kindselektor, css/components.css:1600. `<ng-content>` selbst fügt kein
  * DOM-Element ein — es verschiebt nur die vom Konsumenten geschriebenen
  * `<p>`-Elemente an ihre Stelle direkt im `<aside>`, eine Ebene unter dem
  * `<cds-article-callout>`-Host, aber ohne zusätzlichen Knoten dazwischen. Geprüft
@@ -55,8 +54,7 @@ let uid = 0;
  * verloren, wenn kein bereichsspezifischer Override existiert (`co` und „kein
  * `data-area`“ zeigen `--tx-primary` statt `--co-700`). Diese Komponente
  * reproduziert exakt die Klassen und die Struktur des Mockups und zeigt deshalb
- * denselben, vorbestehenden Fehler wie rohes HTML — siehe
- * `.scratch/angular-seitenbausteine/issues/22-css-luecke-callout-eyebrow-spezifitaet.md`.
+ * denselben, vorbestehenden Fehler wie rohes HTML.
  *
  * **`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum
  * Mockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle
@@ -64,8 +62,7 @@ let uid = 0;
  * mehrere gleichnamige Landmarks ohne zugänglichen Namen. Gemessen mit
  * axe-core an rohem Markup ohne Angular (zwei `<aside class="article-callout">`
  * ohne Auszeichnung): `landmark-unique` schlägt fehl, unabhängig von dieser
- * Komponente — das Mockup selbst kennt diese Auszeichnung nicht (siehe
- * `.scratch/angular-seitenbausteine/issues/23-doku-luecke-callout-landmark-label.md`).
+ * Komponente — das Mockup selbst kennt diese Auszeichnung nicht.
  * Die Eyebrow ist bereits ein prägnanter, vom Redakteur gepflegter Kurztext
  * genau für diesen Zweck (z. B. „In der Praxis“) — sie bekommt deshalb eine
  * generierte `id`, auf die `aria-labelledby` zeigt, sobald sie existiert. Ohne
@@ -77,7 +74,11 @@ let uid = 0;
   selector: 'cds-article-callout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <aside class="article-callout" [attr.data-area]="area() || null" [attr.aria-labelledby]="eyebrowId()">
+    <aside
+      class="article-callout"
+      [attr.data-area]="area() || null"
+      [attr.aria-labelledby]="eyebrowId()"
+    >
       @if (eyebrow(); as eyebrowText) {
         <p class="article-callout-eyebrow" [id]="eyebrowId()">{{ eyebrowText }}</p>
       }
@@ -99,5 +100,7 @@ export class ArticleCalloutComponent {
    *
    * @internal
    */
-  protected readonly eyebrowId = computed(() => (this.eyebrow() ? `${this.instanceId}-eyebrow` : null));
+  protected readonly eyebrowId = computed(() =>
+    this.eyebrow() ? `${this.instanceId}-eyebrow` : null,
+  );
 }

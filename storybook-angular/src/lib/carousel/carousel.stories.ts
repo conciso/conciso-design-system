@@ -27,7 +27,10 @@ const meta: Meta<CarouselComponent> = {
     hero: false,
     slides: [
       { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
-      { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.' },
+      {
+        title: 'Team-Enablement',
+        text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',
+      },
       { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
     ],
   },

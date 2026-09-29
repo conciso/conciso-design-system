@@ -9,13 +9,19 @@ import { FieldShellComponent } from './field-shell.component';
  *
  * Als `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare
  * anbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).
  */
 @Component({
   selector: 'cds-textarea-field',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FieldShellComponent],
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextareaFieldComponent), multi: true },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TextareaFieldComponent),
+      multi: true,
+    },
   ],
   template: `
     <cds-field-shell

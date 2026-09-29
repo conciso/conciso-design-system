@@ -104,7 +104,7 @@ export const Interaktiv: Story = {
 export const Dreispalter: Story = {
   parameters: { controls: { disable: true } },
   // Kein cdsFeature-Raster: .layout-grid ist reine CSS-Utility ohne eigene
-  // Komponente (siehe spec.md, Abgrenzung). Konsumenten schreiben
+  // Komponente. Konsumenten schreiben
   // <div class="layout-grid"> von Hand, die Spaltenklasse col-4 sitzt direkt am
   // cdsFeature-Host (docs/index.html: 40× `class="ep-feature col-4"`).
   // Absichtlich UNTERSCHIEDLICH lange Texte: der Regressionsschutz für die
@@ -141,6 +141,7 @@ export const Dreispalter: Story = {
     const grid = canvasElement.querySelector('.layout-grid');
     const features = Array.from(grid?.children ?? []) as HTMLElement[];
     await expect(features).toHaveLength(3);
+    for (const feature of features) await expect(feature).not.toHaveAttribute('title');
     await expect(features.every((el) => el.classList.contains('ep-feature'))).toBe(true);
     await expect(features.every((el) => el.tagName === 'DIV')).toBe(true);
 

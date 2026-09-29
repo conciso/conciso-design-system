@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "storybook-angular",
-    "angular-lib"
+    "angular-lib",
+    "mcp-server"
   ],
   "overrides": {
     "vite": "^8.2.0"
@@ -30,8 +31,7 @@
     "assets",
     "README.md",
     "LICENSE",
-    "NOTICE",
-    "CHANGELOG.md"
+    "NOTICE"
   ],
   "exports": {
     ".": "./dist/conciso-ds.css",
@@ -44,7 +44,10 @@
     "./tokens": "./tokens/tokens.js",
     "./tokens.json": "./tokens/tokens.json",
     "./tokens.scss": "./tokens/tokens.scss",
-    "./icons": "./icons/icons.js",
+    "./icons": {
+      "types": "./icons/icons.d.ts",
+      "default": "./icons/icons.js"
+    },
     "./icons.json": "./icons/icons.json",
     "./assets/brand/*": "./assets/brand/*"
   },
@@ -56,12 +59,18 @@
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:quotes": "node scripts/check-quotes.mjs",
+    "check:ticket-refs": "node scripts/check-ticket-refs.mjs",
+    "test:ticket-refs": "node --test scripts/check-ticket-refs.test.mjs",
     "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
+    "check:storybook-mcp-pin": "node scripts/release/check-storybook-mcp-pin.mjs",
+    "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
+    "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
     "test:release": "node --test scripts/release/*.test.mjs",
     "build:angular-lib": "npm run --workspace angular-lib build",
-    "lint": "npm run lint:angular-lib && npm run lint:storybook",
+    "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
     "lint:angular-lib": "npm run --workspace angular-lib lint",
     "lint:storybook": "npm run --workspace storybook-angular lint",
+    "lint:mcp-server": "npm run --workspace mcp-server lint",
     "storybook": "npm run --workspace storybook-angular storybook",
     "build:storybook": "npm run --workspace storybook-angular build-storybook",
     "test": "npm run test:vitest",
@@ -82,6 +91,7 @@
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/release-notes-generator": "^14.1.1",
+    "prettier": "^3.8.1",
     "semantic-release": "^25.0.9"
   }
 }

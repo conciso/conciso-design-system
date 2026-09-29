@@ -4,8 +4,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * ArticleFigure (`cds-article-figure`) — Wrapper um `.article-figure`/
  * `.article-figcaption` aus css/components.css (css/components.css:1573–1575):
  * das redaktionelle Inline-Bild mit optionaler Bildunterschrift im Lauftext eines
- * Wissensbeitrags. Zwölftes Ticket der Seitenbausteine-Serie („Artikel-Körper“).
- * Ausgezählt: 3 reale Vorkommen — Doku-Demo mit Caption
+ * Wissensbeitrags. Ausgezählt: 3 reale Vorkommen — Doku-Demo mit Caption
  * (`docs/index.html:8028–8031`), reales Body-Bild mit Caption in der Beispielseite
  * Wissensbeitrag · KI (`docs/index.html:15115–15118`, identischer Bild- und
  * Caption-Text wie die Doku-Demo) und ein dritter, captionsloser Sonderfall direkt
@@ -33,11 +32,11 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * identisches Bild wie Vorschaubild für Wiedererkennung“), sitzt außerhalb von
  * `.article-body` und bekommt seine 720-px-Breite über ein
  * Inline-`style="max-width:720px;margin:0 auto"` am Konsumenten, nicht über die
- * Komponente (Randbedingung 6 der Spec: Mockup-Inline-Styles wandern nicht in
- * den Wrapper). Die Ticket-API sieht dafür kein `loading`/`fetchpriority`-Input
+ * Komponente (Mockup-Inline-Styles wandern bewusst nicht in den Wrapper). Die
+ * API sieht dafür kein `loading`/`fetchpriority`-Input
  * vor; dieses Bauteil deckt deshalb den (häufigeren, dokumentierten) In-Body-Fall
  * ab. Für den Lead-Bild-Sonderfall bleibt `<figure class="article-figure">` roh
- * schreibbar oder — sofern die Semantik passt — `cds-hero-image` (Ticket 02) zu
+ * schreibbar oder — sofern die Semantik passt — `cds-hero-image` zu
  * prüfen.
  *
  * **`alt` und `caption` sind bewusst getrennte Pflicht-/Beiwerk-Inputs, keine

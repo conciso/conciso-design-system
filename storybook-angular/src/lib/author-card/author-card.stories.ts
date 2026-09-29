@@ -1,12 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
-import { AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';
+import {
+  AuthorCardComponent,
+  AuthorCardGroupComponent,
+  AvatarComponent,
+} from '@conciso/design-system-angular';
 
 const meta: Meta<AuthorCardComponent> = {
   title: 'Seitenmuster/Wissensbeitrag/Author-Card',
   component: AuthorCardComponent,
-  decorators: [moduleMetadata({ imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
@@ -26,8 +32,7 @@ const meta: Meta<AuthorCardComponent> = {
           '(css/components.css:1563). Avatar kommt als projizierter Inhalt ' +
           '(`<ng-content select="[cdsAvatar]">`), `area`/`size` setzt der Konsument direkt am ' +
           'Avatar. **`area` ist bewusst kein Input dieser Komponente:** `.author-card[data-area]` ' +
-          'hat trotz gegenteiliger Doku-Aussage keine einzige CSS-Regel (siehe ' +
-          '`.scratch/angular-seitenbausteine/issues/24-css-luecke-author-card-data-area.md`).',
+          'hat trotz gegenteiliger Doku-Aussage keine einzige CSS-Regel.',
       },
     },
   },
@@ -100,7 +105,7 @@ export const ZweiAutorinnen: Story = {
       </div>
     `,
   }),
-  // Akzeptanzkriterium (Ticket 13): Karten sind direkte Kinder von .author-card-group, auch ohne
+  // Akzeptanzkriterium: Karten sind direkte Kinder von .author-card-group, auch ohne
   // is-grid. Die Gruppen-Eyebrow rendert als <h3>-Geschwister VOR .author-card-group (nicht als
   // Kind darin), keine der beiden Karten trägt einen eigenen .author-card-eyebrow.
   play: async ({ canvasElement }) => {

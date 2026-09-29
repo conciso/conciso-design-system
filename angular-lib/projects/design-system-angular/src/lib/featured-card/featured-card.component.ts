@@ -11,7 +11,7 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 1 — `href` entscheidet zwischen `<a>` und `<article>`.** Die
  * Doku-Beispiele zeigen die Featured-Card ausschließlich als Link
- * (`a.card.card-elevated.card-featured`), das Ticket verlangt aber ausdrücklich eine
+ * (`a.card.card-elevated.card-featured`), diese Komponente unterstützt aber ausdrücklich eine
  * Variante ohne `<a>`. `.card-elevated` ist nach `CONTRIBUTING.md` §4 („Elevation =
  * Interaktivität“) im CSS auf `a.card-elevated` gescoped — eine `<article>` bekäme
  * den Schatten mit gesetzter Klasse ohnehin nicht. Die Komponente führt die Klasse
@@ -58,15 +58,18 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 4 — kein CTA- und kein Meta-Input.** Die Doku-Vorlage zeigt
  * zusätzlich einen Meta-Strip (Datum/Ort/Format) und einen `.card-cta-link`-Fuß;
- * das Ticket benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/
- * `pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne Inputs zu
- * erfinden, die das Ticket nicht vorsieht — ein Meta-Strip oder ein CTA-Fuß wären
+ * diese Komponente benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/
+ * `pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne zusätzliche Inputs zu
+ * erfinden — ein Meta-Strip oder ein CTA-Fuß wären
  * eine spätere, eigene Erweiterung.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-featured-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
+  host: { '[attr.title]': 'null' },
   template: `
     @if (href()) {
       <a class="card card-elevated card-featured" [href]="href()" [attr.data-area]="area() || null">
@@ -83,9 +86,12 @@ import type { CdsArea } from '../area';
       </div>
       <div class="card-featured-body">
         @if (pill()) {
-          <span class="pill" [attr.data-area]="area() || null" [attr.aria-label]="computedPillAriaLabel()">{{
-            pill()
-          }}</span>
+          <span
+            class="pill"
+            [attr.data-area]="area() || null"
+            [attr.aria-label]="computedPillAriaLabel()"
+            >{{ pill() }}</span
+          >
         }
         <h3 class="card-title-hero">{{ title() }}</h3>
         <p class="card-text">{{ text() }}</p>
@@ -94,7 +100,7 @@ import type { CdsArea } from '../area';
   `,
 })
 export class FeaturedCardComponent {
-  /** Titel (`.card-title-hero`). */
+  /** Titel (`.card-title-hero`). Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext (`.card-text`). */
   readonly text = input.required<string>();
@@ -117,5 +123,7 @@ export class FeaturedCardComponent {
   readonly area = input<CdsArea>();
 
   /** @internal */
-  protected readonly computedPillAriaLabel = computed(() => this.pillAriaLabel() ?? `Bereich ${this.pill()}`);
+  protected readonly computedPillAriaLabel = computed(
+    () => this.pillAriaLabel() ?? `Bereich ${this.pill()}`,
+  );
 }

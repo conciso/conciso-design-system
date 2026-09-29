@@ -45,10 +45,13 @@ import { CDS_AREA_ICONS } from '../icons';
  * samt `--pinned`-Fuß höher als ihre Nachbarn. `:host{display:flex}` mit
  * `flex:1` an der Karte gibt die gestreckte Höhe an `a.card` weiter; Story
  * „Im Raster“ pinnt das.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
 @Component({
   selector: 'cds-link-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   styles: [':host{display:flex}', ':host>.card{flex:1;min-width:0}'],
   template: `
     <a class="card card-elevated" [href]="href()" [attr.data-area]="area() || null">
@@ -59,7 +62,9 @@ import { CDS_AREA_ICONS } from '../icons';
         @if (eyebrow()) {
           <p class="card-eyebrow">{{ eyebrow() }}</p>
         }
-        <h3 class="card-title"><span>{{ title() }}</span></h3>
+        <h3 class="card-title">
+          <span>{{ title() }}</span>
+        </h3>
         <p class="card-text">{{ text() }}</p>
         @if (ctaLabel()) {
           <span class="card-cta-link" [class.card-cta-link--pinned]="ctaPinned()">
@@ -73,7 +78,7 @@ import { CDS_AREA_ICONS } from '../icons';
 export class LinkCardComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
-  /** Kartentitel. */
+  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext der Karte. */
   readonly text = input.required<string>();
