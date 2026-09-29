@@ -133,23 +133,25 @@ export function createSavedRun(results, truthMap, { createdAt, tarballPath, only
   };
 }
 
-export function reevaluateSavedRun(savedRun) {
+export function reevaluateSavedRun(savedRun, currentQuestions = []) {
   if (savedRun.schemaVersion !== SAVED_RUN_SCHEMA_VERSION) {
     throw new Error(
       `Nicht unterstützte schemaVersion „${savedRun.schemaVersion}“. Erwartet: ${SAVED_RUN_SCHEMA_VERSION}.`,
     );
   }
   const truthMap = deserializeTruthMap(savedRun.truth);
+  const currentQuestionsById = new Map(currentQuestions.map((question) => [question.id, question]));
   return savedRun.questions.map(({ question, variants }) => {
+    const checkDefinition = currentQuestionsById.get(question.id) ?? question;
     const withServerRuns = variants?.['mit-server']?.runs;
     const withoutServerRuns = variants?.['ohne-server']?.runs;
     if (withServerRuns?.length !== 1 || withoutServerRuns?.length !== 1) {
       throw new Error(`Frage „${question?.id ?? '(ohne id)'}“ muss je Variante genau einen Lauf enthalten.`);
     }
     return {
-      frage: question,
-      withServer: evaluateAnswer(withServerRuns[0], question, truthMap),
-      withoutServer: evaluateAnswer(withoutServerRuns[0], question, truthMap),
+      frage: checkDefinition,
+      withServer: evaluateAnswer(withServerRuns[0], checkDefinition, truthMap),
+      withoutServer: evaluateAnswer(withoutServerRuns[0], checkDefinition, truthMap),
     };
   });
 }

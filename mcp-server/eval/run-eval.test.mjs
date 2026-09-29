@@ -12,7 +12,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 import { readEvalFilter, renderReport } from './run-eval.mjs';
-import { createSavedRun } from './saved-run.mjs';
+import { createSavedRun, reevaluateSavedRun } from './saved-run.mjs';
 
 const EVAL_DIR = dirname(fileURLToPath(import.meta.url));
 
@@ -118,6 +118,20 @@ test('createSavedRun speichert den ungekürzten Antworttext in einem Lauf je Var
   );
 
   assert.equal(savedRun.questions[0].variants['mit-server'].runs[0].responseText, longAnswer);
+});
+
+test('reevaluateSavedRun verwendet die aktuelle Check-Definition einer weiterhin vorhandenen Frage', () => {
+  const savedRun = JSON.parse(readFileSync(join(EVAL_DIR, 'fixtures', 'saved-run.json'), 'utf8'));
+  const currentQuestions = [
+    {
+      ...savedRun.questions[0].question,
+      checks: ['core-claim-keywords'],
+      claimKeywords: [['kommt-in-der-antwort-nicht-vor']],
+    },
+  ];
+
+  const [result] = reevaluateSavedRun(savedRun, currentQuestions);
+  assert.equal(result.withServer.coreClaim.matched, false);
 });
 
 test('readEvalFilter: ungültige Variante wirft einen Fehler', () => {

@@ -17,7 +17,10 @@ function main() {
   }
 
   const savedRun = JSON.parse(readFileSync(savedRunPath, 'utf8'));
-  const results = reevaluateSavedRun(savedRun);
+  const currentQuestions = JSON.parse(
+    readFileSync(new URL('./fragen.json', import.meta.url), 'utf8'),
+  ).questions;
+  const results = reevaluateSavedRun(savedRun, currentQuestions);
   const report = renderReport(results, {
     tarballPath: savedRun.source?.tarballPath ?? '(unbekannt)',
     onlyId: savedRun.source?.onlyId ?? null,

@@ -89,8 +89,11 @@ npm run eval:recheck -w mcp-server -- /pfad/zu/cds-mcp-eval-answers-<zeitstempel
 
 Das Kommando ruft weder `claude -p` noch den MCP-Server auf und benötigt keinen Tarball. Es
 liest die vollständigen Antworten, Fragen und Komponentenwahrheit aus der JSON-Datei und
-schreibt einen neuen Markdown-Bericht. Dessen Ziel ist wieder das System-Temp-Verzeichnis oder
-`CDS_MCP_EVAL_REPORT_DIR`. Der neue Bericht nennt die JSON-Datei, aus der er erzeugt wurde.
+wertet weiterhin vorhandene Fragen mit deren aktuellen `checks` und `claimKeywords` aus
+`fragen.json` aus. Für inzwischen entfernte Fragen bleibt die gespeicherte Definition
+maßgeblich. Das Kommando schreibt einen neuen Markdown-Bericht. Dessen Ziel ist wieder das
+System-Temp-Verzeichnis oder `CDS_MCP_EVAL_REPORT_DIR`. Der neue Bericht nennt die JSON-Datei,
+aus der er erzeugt wurde.
 
 Das gespeicherte Format trägt eine `schemaVersion`. Unter jeder Frage liegen die Varianten
 `mit-server` und `ohne-server`, jeweils mit einem `runs`-Array. Ein heutiger Eval-Lauf schreibt
