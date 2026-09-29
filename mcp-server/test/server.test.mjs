@@ -60,6 +60,14 @@ test('docs-list-Prüfung: meldet ein unbekanntes Zeilenformat als Parser-Bruch',
   assert.throws(() => checkDocsListDuplicateNames(docsListText), /Zeilenformat von docs-list/);
 });
 
+test('docs-list-Prüfung: meldet angehängte Formate als Parser-Bruch', () => {
+  const docsListText = `# Docs
+- Verwendung (komponenten-buttons--verwendung) [neues Format]
+- Verwendung (komponenten-cards--verwendung) [neues Format]`;
+
+  assert.throws(() => checkDocsListDuplicateNames(docsListText), /Zeilenformat von docs-list/);
+});
+
 test('cds-mcp: initialize, drei Werkzeuge, docs-list-IDs und Button-Doku stimmen', { timeout: 20_000 }, async () => {
   assert.ok(
     existsSync(SNAPSHOT_MANIFESTS),
