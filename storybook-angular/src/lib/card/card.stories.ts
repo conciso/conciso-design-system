@@ -67,6 +67,11 @@ export const ProBereich: Story = {
       </div>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    const hosts = canvasElement.querySelectorAll('cds-card');
+    await expect(hosts).toHaveLength(4);
+    for (const host of hosts) await expect(host).not.toHaveAttribute('title');
+  },
 };
 
 export const OhneMedien: Story = {

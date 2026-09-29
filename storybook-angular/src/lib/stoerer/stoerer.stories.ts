@@ -94,6 +94,22 @@ export const Interaktiv: Story = {
   },
 };
 
+export const HostAttribut: Story = {
+  name: 'Host-Attribut',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <cds-stoerer topic="Nächste Veranstaltung" title="Effizienz durch n8n" href="#veranstaltung">
+        ${iconCalendarDays}
+      </cds-stoerer>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector('cds-stoerer');
+    await expect(host).not.toHaveAttribute('title');
+  },
+};
+
 export const ZweiKachelnUeberDemHero: Story = {
   name: 'Zwei Kacheln über dem Hero',
   parameters: {

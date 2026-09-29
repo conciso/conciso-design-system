@@ -141,6 +141,7 @@ export const Dreispalter: Story = {
     const grid = canvasElement.querySelector('.layout-grid');
     const features = Array.from(grid?.children ?? []) as HTMLElement[];
     await expect(features).toHaveLength(3);
+    for (const feature of features) await expect(feature).not.toHaveAttribute('title');
     await expect(features.every((el) => el.classList.contains('ep-feature'))).toBe(true);
     await expect(features.every((el) => el.tagName === 'DIV')).toBe(true);
 
