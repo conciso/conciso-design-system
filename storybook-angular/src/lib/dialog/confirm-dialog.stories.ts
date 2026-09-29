@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EnvironmentInjector,
+  createEnvironmentInjector,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
 import {
@@ -58,6 +66,38 @@ class ConfirmDialogDemoComponent {
     const result = await first;
     const same = first === second ? '' : ' (zweites Promise abweichend)';
     this.resultText.set((result ? 'Ergebnis: bestätigt' : 'Ergebnis: abgebrochen') + same);
+  }
+}
+
+@Component({
+  selector: 'cds-confirm-dialog-destroy-demo',
+  imports: [ButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <cds-button label="Dialog öffnen und Injector zerstören" (clicked)="openAndDestroy()" />
+    <output aria-live="polite">{{ resultText() }}</output>
+  `,
+})
+class ConfirmDialogDestroyDemoComponent {
+  /** @internal */
+  protected readonly resultText = signal('');
+  /** @internal */
+  private readonly parentInjector = inject(EnvironmentInjector);
+
+  /** @internal */
+  protected async openAndDestroy(): Promise<void> {
+    const injector = createEnvironmentInjector([CdsConfirmDialog], this.parentInjector);
+    const result = injector.get(CdsConfirmDialog).open({
+      title: 'Änderungen verwerfen?',
+      message: 'Deine Änderungen am Profil gehen verloren.',
+      confirmLabel: 'Verwerfen',
+      cancelLabel: 'Weiter bearbeiten',
+      destructive: true,
+      emphasis: 'cancel',
+    });
+
+    injector.destroy();
+    this.resultText.set((await result) ? 'Ergebnis: bestätigt' : 'Ergebnis: abgebrochen');
   }
 }
 
@@ -243,6 +283,24 @@ export const DoppeltGeoeffnet: Story = {
     await userEvent.click(screen.getByRole('button', { name: 'Weiter bearbeiten' }));
     await expectResult(canvasElement, 'Ergebnis: abgebrochen');
     await expect(within(canvasElement).getByRole('status')).not.toHaveTextContent('abweichend');
+  },
+};
+
+export const AufraeumenBeimZerstoeren: Story = {
+  name: 'Aufräumen beim Zerstören',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  render: () => ({
+    moduleMetadata: { imports: [ConfirmDialogDestroyDemoComponent] },
+    template: '<cds-confirm-dialog-destroy-demo />',
+  }),
+  play: async ({ canvasElement }) => {
+    await userEvent.click(
+      within(canvasElement).getByRole('button', { name: 'Dialog öffnen und Injector zerstören' }),
+    );
+    await waitFor(() =>
+      expect(within(canvasElement).getByRole('status')).toHaveTextContent('Ergebnis: abgebrochen'),
+    );
+    await expect(document.querySelector('cds-confirm-dialog')).toBeNull();
   },
 };
 
