@@ -23,8 +23,8 @@
 //     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
 //     <Meta of={ButtonStories}> (ADR-0012)
 //   - docs-show(grundlagen-farben) enthält die Verwendungsguidance der Farben-Seite
-//     (Überschrift „Farbstufen, wofür?“ plus die Kontrastregel „AA ab 4,5:1 für
-//     Fließtext…“), angehängt per <Meta of={FarbenStories}> (ADR-0012)
+//     (Überschrift „Farbstufen, wofür?“ plus die getrennten Kontrastregeln für
+//     Normaltext und Bedienelemente), angehängt per <Meta of={FarbenStories}> (ADR-0012)
 //   - docs-show(grundlagen-typografie) enthält die Verwendungsguidance der
 //     Typografie-Seite (Überschrift „Wann welche Schrift“ plus die Kernaussage zur
 //     Schriftwahl, Montserrat für Fließtext), angehängt per
@@ -66,6 +66,7 @@ import { fileURLToPath } from 'node:url';
 
 import { DOCS_LIST_ID_SCHEME_HINT, EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
 import { buildTruthMap } from '../eval/checker.mjs';
+import { checkDocsListDuplicateNames } from '../test-support/docs-list.mjs';
 import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
@@ -288,9 +289,14 @@ async function runProtocolChecks(client, errors, tmpDir) {
     if (!text.includes('## Farbstufen, wofür?')) {
       errors.push('docs-show(grundlagen-farben) enthält nicht die Überschrift „Farbstufen, wofür?“.');
     }
-    if (!text.includes('AA ab 4,5:1 für Fließtext')) {
+    if (
+      !text.includes('Normaltext braucht mindestens 4,5:1') ||
+      !text.includes(
+        'Für Grenzen von Bedienelementen und bedeutungstragende Grafiken gilt separat mindestens 3,0:1 nach WCAG 1.4.11',
+      )
+    ) {
       errors.push(
-        'docs-show(grundlagen-farben) enthält nicht die Kontrastregel „AA ab 4,5:1 für Fließtext…“.',
+        'docs-show(grundlagen-farben) enthält nicht die getrennten Kontrastregeln für Normaltext und Bedienelemente.',
       );
     }
   }
@@ -362,7 +368,11 @@ async function runProtocolChecks(client, errors, tmpDir) {
           `angehängten Seite: ${stillStandalone.join(', ')}.`,
       );
     }
-    checkDocsListDuplicateNames(text, errors);
+    try {
+      checkDocsListDuplicateNames(text);
+    } catch (err) {
+      errors.push(err.message);
+    }
   }
 
   const einrichtung = await client.request('tools/call', {
@@ -404,63 +414,6 @@ async function checkGroupUsageGuidance(client, errors) {
         `docs-show(${id}) enthält nicht den zusätzlichen Kernsatz der Verwendungsseite dieser Gruppe („${additionalSentence}“).`,
       );
     }
-  }
-}
-
-/** Bildet den Namensanteil einer docs-list-id nach: Kleinschreibung, Leerzeichen und
- * ASCII-Interpunktion werden zu „-“, mehrfache und äußere „-“ entfallen — derselbe Sanitizer, mit
- * dem Storybook aus einem Anzeigenamen den Teil hinter dem letzten „--“ einer id ableitet. Für den
- * Vergleich unten reicht die Nachbildung, der Pfadanteil einer id wird nicht gebraucht. */
-function sanitizeDocName(name) {
-  return name
-    .toLowerCase()
-    .replace(/[ ’–—―′¿'`~!@#$%^&*()_|+\-=?;:'",.<>{}[\]\\/]/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
-}
-
-/** Liest die Zeilen im „# Docs“-Abschnitt von docs-list (Format „- <name> (<id>)[: <summary>]“,
- * eine Zeile pro Eintrag) und gruppiert die ids nach ihrem Anzeigenamen. */
-function groupDocsListEntriesByName(docsListText) {
-  const sectionStart = docsListText.indexOf('# Docs');
-  const section = sectionStart === -1 ? '' : docsListText.slice(sectionStart);
-  const idsByName = new Map();
-  for (const [, name, id] of section.matchAll(/^- (.+?) \(([^()]+)\)/gm)) {
-    if (!idsByName.has(name)) idsByName.set(name, new Set());
-    idsByName.get(name).add(id);
-  }
-  return idsByName;
-}
-
-/** Prüft die in ADR-0012 getroffene Entscheidung gegen das echte Tarball-Artefakt statt nur gegen
- * die instructions-Prosa: docs-list muss weiterhin mindestens zwei Doku-Einträge mit demselben
- * Anzeigenamen, aber verschiedenen ids liefern (sonst wäre Regel 6 der instructions und der Check
- * auf DOCS_LIST_ID_SCHEME_HINT oben gegenstandslos). Zusätzlich muss JEDE Doku-id dem dort
- * erklärten Schema „<pfad>--<name>“ folgen, nicht nur die einer einzelnen Namensgruppe — sonst
- * bliebe ein Schemabruch außerhalb der zufällig zuerst gefundenen Gruppe unbemerkt. */
-function checkDocsListDuplicateNames(docsListText, errors) {
-  const idsByName = groupDocsListEntriesByName(docsListText);
-  const hasDuplicateName = [...idsByName.values()].some((ids) => ids.size >= 2);
-  if (!hasDuplicateName) {
-    errors.push(
-      'docs-list enthält keine zwei Doku-Einträge mit identischem Anzeigenamen mehr: die ' +
-        'ID-Schema-Regel in den instructions (DOCS_LIST_ID_SCHEME_HINT) wäre dann überholt, siehe ADR-0012.',
-    );
-    return;
-  }
-
-  const malformed = [];
-  for (const [name, ids] of idsByName) {
-    const expectedSuffix = `--${sanitizeDocName(name)}`;
-    for (const id of ids) {
-      if (!id.endsWith(expectedSuffix) || id.length <= expectedSuffix.length) {
-        malformed.push(`${id} (Anzeigename „${name}“, erwartetes Suffix „${expectedSuffix}“)`);
-      }
-    }
-  }
-  if (malformed.length > 0) {
-    errors.push(`Doku-ids folgen nicht dem Schema „<pfad>--<name>“: ${malformed.join(', ')}.`);
   }
 }
 

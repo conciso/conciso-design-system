@@ -32,7 +32,7 @@ Die Token-Hierarchie ist verbindlich und wird nicht übersprungen: *Display → 
 |---|---|
 | Hierarchie | Überschriften-Ebenen nie überspringen (h1 → h2 → h3), Screenreader navigieren anhand der Heading-Struktur |
 | rem statt px | Alle Typo-Tokens sind rem-basiert (1rem = 16px), damit sie die Browser-Schriftgröße respektieren, px ignoriert sie (WCAG 1.4.4) |
-| Zeilenhöhe | Body-Text mindestens `line-height: 1.5` (WCAG 1.4.8), erleichtert das Lesen bei Dyslexie und Sehschwäche |
+| Zeilenhöhe | Fließtext und längere Texte mit `--ty-body-md` und 1,5-facher Zeilenhöhe (WCAG 1.4.8), erleichtert das Lesen bei Dyslexie und Sehschwäche. `--ty-body-sm` und `--ty-body-xs` sowie die Label-Tokens sind kompakte Ausnahmen für kurze Texte wie Labels, Metadaten und Captions. |
 | Nicht nur Stil | Bedeutung nie ausschließlich durch Schriftschnitt (fett, kursiv) vermitteln, der Kontext muss auch ohne Formatierung erkennbar sein |
 
 ## Dos & Don'ts
