@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { test } from 'node:test';
 
 import { DOCS_LIST_ID_SCHEME_HINT, EINRICHTUNG_DOC_ID } from '../src/instructions.mjs';
+import { checkDocsListDuplicateNames } from '../test-support/docs-list.mjs';
 import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -26,7 +27,40 @@ function startClient() {
   return createJsonRpcClient(child, { defaultTimeoutMs: 5000 });
 }
 
-test('cds-mcp: initialize, genau drei Werkzeuge, docs-show liefert Button-Inputs/-Outputs', { timeout: 20_000 }, async () => {
+test('docs-list-Prüfung: scheitert ohne doppelten Anzeigenamen', () => {
+  const docsListText = `# Components
+- Button (komponenten-buttons-button)
+
+# Docs
+- Einrichtung (grundlagen-einrichtung--einrichtung)
+- Verwendung (komponenten-buttons--verwendung)`;
+
+  assert.throws(
+    () => checkDocsListDuplicateNames(docsListText),
+    /keine zwei Doku-Einträge mit identischem Anzeigenamen/,
+  );
+});
+
+test('docs-list-Prüfung: scheitert bei einer schemawidrigen Doku-ID', () => {
+  const docsListText = `# Docs
+- Verwendung (komponenten-buttons--verwendung)
+- Verwendung (schemawidrige-id)`;
+
+  assert.throws(
+    () => checkDocsListDuplicateNames(docsListText),
+    /Doku-IDs folgen nicht dem Schema „<pfad>--<name>“/,
+  );
+});
+
+test('docs-list-Prüfung: meldet ein unbekanntes Zeilenformat als Parser-Bruch', () => {
+  const docsListText = `# Docs
+* Verwendung [komponenten-buttons--verwendung]
+* Verwendung [komponenten-cards--verwendung]`;
+
+  assert.throws(() => checkDocsListDuplicateNames(docsListText), /Zeilenformat von docs-list/);
+});
+
+test('cds-mcp: initialize, drei Werkzeuge, docs-list-IDs und Button-Doku stimmen', { timeout: 20_000 }, async () => {
   assert.ok(
     existsSync(SNAPSHOT_MANIFESTS),
     `Snapshot fehlt (${SNAPSHOT_MANIFESTS}) — vorher „npm run build:storybook“ im Repo-Root und ` +
@@ -61,6 +95,10 @@ test('cds-mcp: initialize, genau drei Werkzeuge, docs-show liefert Button-Inputs
     assert.equal(list.error, undefined, `tools/list-Fehler: ${JSON.stringify(list.error)}`);
     const names = list.result.tools.map((tool) => tool.name).sort();
     assert.deepEqual(names, ['docs-list', 'docs-show', 'docs-show-story']);
+
+    const docsList = await client.request('tools/call', { name: 'docs-list', arguments: {} });
+    assert.equal(docsList.error, undefined, `docs-list-Fehler: ${JSON.stringify(docsList.error)}`);
+    assert.doesNotThrow(() => checkDocsListDuplicateNames(docsList.result.content[0].text));
 
     const docsShow = await client.request('tools/call', {
       name: 'docs-show',
