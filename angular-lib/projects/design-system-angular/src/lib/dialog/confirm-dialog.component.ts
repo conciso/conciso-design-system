@@ -24,7 +24,7 @@ export type CdsConfirmDialogEmphasis = 'confirm' | 'cancel';
  * (siehe confirm-dialog.service.ts), der ihn erzeugt, öffnet und wieder abräumt.
  *
  * Fokus-Falle, Escape und die inerte Seite liefert das native <dialog> über showModal().
- * Ergänzt wird, was der Browser nicht übernimmt, wie im Referenzverhalten in docs/main.js:
+ * Ergänzt wird, was der Browser nicht übernimmt:
  * - Anfangsfokus auf der sicheren Aktion (bei destruktiven Dialogen) bzw. der Hauptaktion.
  *   Programmatisch statt per autofocus-Attribut, das die Template-Lint-Regel no-autofocus
  *   ablehnt; die Wirkung ist dieselbe.
@@ -61,7 +61,12 @@ export type CdsConfirmDialogEmphasis = 'confirm' | 'cancel';
              DOM-Reihenfolge folgt deshalb der Gewichtung, nicht der Rolle. -->
         <div class="dialog-actions">
           @if (emphasis() === 'cancel') {
-            <button #confirmBtn type="button" [class]="confirmClasses()" (click)="finish('confirm')">
+            <button
+              #confirmBtn
+              type="button"
+              [class]="confirmClasses()"
+              (click)="finish('confirm')"
+            >
               {{ confirmLabel() }}
             </button>
             <button #cancelBtn type="button" [class]="cancelClasses()" (click)="finish('cancel')">
@@ -71,7 +76,12 @@ export type CdsConfirmDialogEmphasis = 'confirm' | 'cancel';
             <button #cancelBtn type="button" [class]="cancelClasses()" (click)="finish('cancel')">
               {{ cancelLabel() }}
             </button>
-            <button #confirmBtn type="button" [class]="confirmClasses()" (click)="finish('confirm')">
+            <button
+              #confirmBtn
+              type="button"
+              [class]="confirmClasses()"
+              (click)="finish('confirm')"
+            >
               {{ confirmLabel() }}
             </button>
           }
@@ -135,7 +145,9 @@ export class ConfirmDialogComponent implements AfterViewInit {
    *
    * @internal
    */
-  protected readonly focusCancel = computed(() => this.destructive() || this.emphasis() === 'cancel');
+  protected readonly focusCancel = computed(
+    () => this.destructive() || this.emphasis() === 'cancel',
+  );
 
   /** @internal */
   ngAfterViewInit(): void {

@@ -70,6 +70,29 @@ export const unsavedChangesGuard: CanDeactivateFn<EditPage> = (page) =>
 
 Es gibt höchstens einen offenen Dialog. Ein zweiter Aufruf, solange er offen ist, erhält dasselbe Promise. Der Guard greift nur bei Navigation innerhalb der App: beim Schließen des Tabs oder beim Neuladen bleibt nur der nicht gestaltbare Browser-Dialog über `beforeunload`.
 
+## Bestätigungsdialog · Aufbau
+
+Der Bestätigungsdialog baut auf einem nativen `<dialog>` auf und wird mit `showModal()` geöffnet. Fokus-Falle, Escape und die gesperrte Seite dahinter liefert der Browser. Die Fläche folgt den schwebenden Panels mit `--bg-surface`, `--bd-strong` und `--e3`, dahinter dunkelt `--bg-scrim` die Seite ab.
+
+## Bestätigungsdialog · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die DOM-Reihenfolge ist zugleich die sichtbare Reihenfolge, die Hauptaktion steht zuletzt. `autofocus` gehört auf die Aktion, die den Anfangsfokus erhalten soll.
+
+```html
+<dialog class="dialog" role="alertdialog" aria-labelledby="confirm-title" aria-describedby="confirm-body">
+  <div class="dialog-inner">
+    <h2 class="dialog-title" id="confirm-title">Änderungen verwerfen?</h2>
+    <p class="dialog-body" id="confirm-body">Deine Änderungen am Profil gehen verloren.</p>
+    <div class="dialog-actions">
+      <button class="btn btn-outlined btn-err" value="confirm">Verwerfen</button>
+      <button class="btn btn-filled btn-co" value="cancel" autofocus>Weiter bearbeiten</button>
+    </div>
+  </div>
+</dialog>
+```
+
+Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt: Ein Klick auf den Hintergrund schließt nur, wenn `pointerdown` und `click` beide auf dem `<dialog>` selbst liegen. Der Fokus kehrt beim Schließen zum Auslöser zurück. Bestätigt ist nur der Klick auf die Bestätigen-Aktion, alles andere gilt als abgebrochen.
+
 ## Bestätigungsdialog · Gewichtung nach Kontext
 
 | Kontext | Optionen | Hauptaktion (Filled) | Nebenaktion | Fokus |
@@ -94,17 +117,24 @@ Alle vier Texte sind Pflicht, es gibt keine Vorgaben.
 
 | Aspekt | Regel |
 |---|---|
-| Rolle | `role="alertdialog"` auf dem nativen `<dialog>`, Titel als `h2` über `aria-labelledby`, Text über `aria-describedby` |
+| Rolle | `role="alertdialog"` auf dem nativen `<dialog>`, weil der Dialog eine Antwort verlangt. Screenreader lesen Titel und Text beim Öffnen vor. Der Titel ist ein `h2` über `aria-labelledby`, der Text ist über `aria-describedby` verknüpft |
 | Fokus | Fokus-Falle vom Browser, Anfangsfokus nach der Gewichtung oben, beim Schließen zurück auf das auslösende Element |
-| Schließen | Abbrechen, Escape und Klick auf den Hintergrund liefern `false`. Eine Textauswahl, die außerhalb endet, schließt nicht. Kein Schließen-X |
+| Schließen | Abbrechen, Escape und Klick auf den Hintergrund liefern `false`. Eine Textauswahl, die außerhalb endet, schließt nicht. Kein Schließen-X, es wäre eine dritte, unklare Antwort |
 | Reihenfolge | DOM-Reihenfolge gleich sichtbarer Reihenfolge. Unter 400 px Innenbreite stehen die Buttons untereinander, die Hauptaktion unten |
 | Zoom | Der Text behält zwei Zeilen und scrollt zuerst, bei 400 % Zoom scrollt der ganze Inhalt |
+| Scroll-Sperre | `html:has(dialog.dialog:modal)` sperrt das Scrollen der Seite, `scrollbar-gutter: stable` verhindert, dass sie beim Öffnen springt |
+| Bewegung | Keine Einblend-Animation, deshalb ist für `prefers-reduced-motion` nichts abzufangen |
+
+## Bestätigungsdialog · Wann kein Dialog
+
+Eine Rückfrage unterbricht. Wer ständig gefragt wird, klickt irgendwann blind. Lässt sich eine Aktion rückgängig machen, ist eine Snackbar mit „Rückgängig“ danach besser als eine Rückfrage davor. Auf Marketing- und Kontaktflächen gibt es kein Modal. Dort führt das Page-End-CTA-Band (`Komponenten/Call to Action/CTA-Band`) zur nächsten Handlung. Der Dialog ist für Anwendungen.
 
 ## Bestätigungsdialog · Dos & Don'ts
 
 **Tun**
 
 - Nur vor Aktionen fragen, die sich nicht rückgängig machen lassen: Verwerfen, dauerhaft Löschen.
+- Genau ein gefüllter Button pro Dialog.
 - Im Titel die Entscheidung als Frage, im Text die Folge, auf den Buttons die Verben aus dem Titel.
 - Bei einer Unterbrechung `emphasis: 'cancel'`, bei einer selbst ausgelösten Löschung die Vorgabe.
 
@@ -113,6 +143,7 @@ Alle vier Texte sind Pflicht, es gibt keine Vorgaben.
 - Rückfragen vor umkehrbaren Aktionen, dafür gibt es „Rückgängig“ in der Snackbar.
 - „Möchtest du wirklich …?“ im Text, das wiederholt nur den Titel.
 - „OK“ und „Abbrechen“ als Labels, niemand erkennt daran, was „OK“ auslöst.
+- Zwei Dialoge übereinander.
 - Dialoge auf Marketing- und Kontaktflächen, dort unterbricht ein Modal den ruhigen Markenton.
 
 ## Verwandte Seiten

@@ -115,6 +115,7 @@ const GROUP_USAGE_CHECKS = [
   {
     id: 'komponenten-feedback-snackbar',
     sentence: 'Feldfehler inline direkt unter dem Eingabefeld zeigen, Snackbar nur für globale Submit-Fehler.',
+    additionalSentence: 'Scroll-Sperre',
   },
   {
     id: 'komponenten-cards-teaser-card',
@@ -386,7 +387,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
  * hier bedeutet entweder ein verlorenes Attachment (Umbau/Refactoring) oder einen geänderten
  * Kernsatz in der MDX-Datei — beides soll den Smoke-Test rot machen, nicht erst ein Eval. */
 async function checkGroupUsageGuidance(client, errors) {
-  for (const { id, sentence } of GROUP_USAGE_CHECKS) {
+  for (const { id, sentence, additionalSentence } of GROUP_USAGE_CHECKS) {
     const response = await client.request('tools/call', { name: 'docs-show', arguments: { id } });
     if (response.error) {
       errors.push(`docs-show(${id}) fehlgeschlagen: ${JSON.stringify(response.error)}`);
@@ -396,6 +397,11 @@ async function checkGroupUsageGuidance(client, errors) {
     if (!text.includes(sentence)) {
       errors.push(
         `docs-show(${id}) enthält nicht den Kernsatz der Verwendungsseite dieser Gruppe („${sentence}“).`,
+      );
+    }
+    if (additionalSentence && !text.includes(additionalSentence)) {
+      errors.push(
+        `docs-show(${id}) enthält nicht den zusätzlichen Kernsatz der Verwendungsseite dieser Gruppe („${additionalSentence}“).`,
       );
     }
   }
