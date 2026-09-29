@@ -69,6 +69,7 @@ import type { CdsArea } from '../area';
   selector: 'cds-featured-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
+  host: { '[attr.title]': 'null' },
   template: `
     @if (href()) {
       <a class="card card-elevated card-featured" [href]="href()" [attr.data-area]="area() || null">
@@ -99,7 +100,7 @@ import type { CdsArea } from '../area';
   `,
 })
 export class FeaturedCardComponent {
-  /** Titel (`.card-title-hero`). */
+  /** Titel (`.card-title-hero`). Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext (`.card-text`). */
   readonly text = input.required<string>();

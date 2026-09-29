@@ -257,6 +257,7 @@ export const BreiteBegrenzt: Story = {
   play: async ({ canvasElement }) => {
     const host = canvasElement.querySelector<HTMLElement>('cds-article-header')!;
     const lead = host.querySelector<HTMLElement>('.article-lead')!;
+    await expect(host).not.toHaveAttribute('title');
     await expect(getComputedStyle(host).display).toBe('block');
     await expect(host.getBoundingClientRect().width).toBe(880);
     await expect(lead.getBoundingClientRect().width).toBeLessThanOrEqual(880);

@@ -62,3 +62,20 @@ export const Interaktiv: Story = {
     await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
   },
 };
+
+export const HostAttribut: Story = {
+  name: 'Host-Attribut',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <cds-download-cta
+        title="Figma-Bibliothek herunterladen"
+        primaryLabel="Herunterladen"
+      ></cds-download-cta>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector('cds-download-cta');
+    await expect(host).not.toHaveAttribute('title');
+  },
+};

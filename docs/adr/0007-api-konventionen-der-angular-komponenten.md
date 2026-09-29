@@ -90,3 +90,17 @@ Sollte SSR ein Thema werden, ist dieser Punkt erneut zu prüfen.
   Möglichkeit vermerkt.
 - Punkt 2 macht die Stories zur Heimat der Beispieldaten. Wer eine Komponente neu anlegt, schreibt
   die Demo-Werte dort hin, nicht in die Klasse.
+
+## Nachtrag (2026-09-29)
+
+Trägt ein Input den Namen eines globalen HTML-Attributs, entfernt ein Host-Binding dieses Attribut
+vom Komponenten-Host, zum Beispiel mit `host: { '[attr.title]': 'null' }`. Der Input bleibt dabei
+unverändert Teil der Angular-API.
+
+Das gilt insbesondere für `title`. Ein natives `title`-Attribut erzeugt Browser-Tooltips und kann
+den Titel für Screenreader zusätzlich zum sichtbaren Inhalt ausgeben. Das führt zu einer
+doppelten Ausgabe und macht aus einem Inhalts-Input unbeabsichtigt ein Verhalten des Hosts.
+
+Der Tradeoff ist bewusst akzeptiert: Consumer können auf diesen Hosts keinen nativen Tooltip
+setzen. Native Tooltips sind jedoch nur eingeschränkt barrierefrei und deshalb keine geeignete
+Schnittstelle für notwendige Informationen.

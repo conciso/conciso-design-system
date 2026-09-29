@@ -141,7 +141,7 @@ export interface CdsArticleBreadcrumbItem {
   selector: 'cds-article-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PillComponent],
-  host: { class: 'article-header' },
+  host: { class: 'article-header', '[attr.title]': 'null' },
   styles: [':host{display:block}'],
   template: `
     @if (breadcrumb().length) {
@@ -195,7 +195,7 @@ export interface CdsArticleBreadcrumbItem {
   `,
 })
 export class ArticleHeaderComponent {
-  /** Titel (`.article-title`, `<h1>`). */
+  /** Titel (`.article-title`, `<h1>`). Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer unter dem Titel (`.article-lead`), leer = kein Lead. */
   readonly lead = input('');

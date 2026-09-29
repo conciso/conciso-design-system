@@ -24,6 +24,7 @@ import { CDS_AREA_ICONS } from '../icons';
 @Component({
   selector: 'cds-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <article class="card" [attr.data-area]="area() || null">
       @if (showMedia()) {
@@ -58,7 +59,7 @@ export class CardComponent {
 
   /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  /** Kartentitel. */
+  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext der Karte. */
   readonly text = input.required<string>();

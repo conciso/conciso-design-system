@@ -13,6 +13,7 @@ import type { CdsArea } from '../area';
 @Component({
   selector: 'cds-download-cta',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <div class="cta-dl" [attr.data-area]="area() || null">
       <div class="cta-dl-icon">
@@ -66,7 +67,7 @@ export class DownloadCtaComponent {
   readonly area = input<CdsArea>('co');
   /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  /** Titel des Download-Angebots. */
+  /** Titel des Download-Angebots. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Beschreibungstext unterhalb des Titels (leer = keine Beschreibung). */
   readonly desc = input('');

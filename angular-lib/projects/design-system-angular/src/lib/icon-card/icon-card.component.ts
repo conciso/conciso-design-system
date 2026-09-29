@@ -101,6 +101,7 @@ import type { CdsArea } from '../area';
     class: 'ep-card',
     '[class.ep-card-link]': 'isLink()',
     '[attr.data-area]': 'area() || null',
+    '[attr.title]': 'null',
   },
   template: `
     <div class="ep-card-icon" [attr.data-area]="area() || null">
@@ -119,7 +120,7 @@ import type { CdsArea } from '../area';
 export class IconCardComponent {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  /** Kartentitel (`.ep-card-title`). */
+  /** Kartentitel (`.ep-card-title`). Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext (`.ep-card-text`). */
   readonly text = input.required<string>();
