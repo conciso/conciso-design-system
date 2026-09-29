@@ -1,4 +1,4 @@
-# ADR-0012: Service-API für Overlays
+# ADR-0013: Service-API für Overlays
 
 - Status: akzeptiert
 - Datum: 2026-09-25

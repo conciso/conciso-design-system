@@ -51,7 +51,7 @@ export interface CdsConfirmDialogOptions {
  *   });
  * ```
  *
- * Der einzige Service der Lib, der selbst rendert (siehe docs/adr/0012). Er erzeugt den
+ * Der einzige Service der Lib, der selbst rendert (siehe docs/adr/0013). Er erzeugt den
  * Dialog per createComponent direkt unter <body>, statt ihn in ein Template des Konsumenten
  * zu setzen: ein Guard hat kein Template. Die Styles kommen wie bei allen Komponenten aus der
  * global eingebundenen CSS-Schicht.

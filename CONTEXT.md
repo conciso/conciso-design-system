@@ -112,7 +112,7 @@ Die modale Rückfrage vor einer Aktion, die sich nicht rückgängig machen läss
 `.dialog`, Angular-Service `CdsConfirmDialog`). Liefert genau eine Antwort: bestätigt oder
 abgebrochen. Nicht synonym mit „Modal“ oder „Popup“ verwenden; ein Dialog, der nur informiert
 oder ein Formular trägt, ist kein Bestätigungsdialog. Siehe
-[ADR-0012](docs/adr/0012-service-api-fuer-overlays.md).
+[ADR-0013](docs/adr/0013-service-api-fuer-overlays.md).
 
 ### Consumer / Konsument
 
