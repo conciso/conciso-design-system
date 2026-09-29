@@ -31,6 +31,7 @@
     "test:smoke": "node scripts/smoke-test.mjs",
     "test:eval-checker": "node --test eval/checker.test.mjs eval/run-eval.test.mjs",
     "eval": "node eval/run-eval.mjs",
+    "eval:recheck": "node eval/recheck-eval.mjs",
     "lint": "eslint ."
   },
   "dependencies": {

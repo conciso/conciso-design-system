@@ -12,6 +12,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 import { readEvalFilter, renderReport } from './run-eval.mjs';
+import { createSavedRun } from './saved-run.mjs';
 
 const EVAL_DIR = dirname(fileURLToPath(import.meta.url));
 
@@ -91,6 +92,34 @@ test('renderReport: kein Filter gesetzt bleibt ohne Markierung', () => {
   assert.doesNotMatch(report, /Gezielter Lauf/, 'ein vollständiger Lauf braucht keine Kennzeichnung');
 });
 
+test('renderReport nennt den Pfad zu den vollständigen Antworten', () => {
+  const report = renderReport(makeResults(), {
+    tarballPath: '/pfad/tarball.tgz',
+    onlyId: null,
+    onlyVariant: null,
+    answersPath: '/tmp/cds-mcp-eval-answers-123.json',
+  });
+  assert.match(report, /Vollständige Antworten: `\/tmp\/cds-mcp-eval-answers-123\.json`/);
+});
+
+test('createSavedRun speichert den ungekürzten Antworttext in einem Lauf je Variante', () => {
+  const longAnswer = 'vollständig-'.repeat(100);
+  const results = makeResults();
+  results[0].withServer = { ...results[0].withServer, resultText: longAnswer };
+  const savedRun = createSavedRun(
+    results,
+    { elementSelectors: new Map(), attributeSelectors: new Map() },
+    {
+      createdAt: '2026-09-29T08:00:00.000Z',
+      tarballPath: '/tmp/paket.tgz',
+      onlyId: null,
+      onlyVariant: null,
+    },
+  );
+
+  assert.equal(savedRun.questions[0].variants['mit-server'].runs[0].responseText, longAnswer);
+});
+
 test('readEvalFilter: ungültige Variante wirft einen Fehler', () => {
   withEnv({ CDS_MCP_EVAL_ONLY_ID: undefined, CDS_MCP_EVAL_ONLY_VARIANT: 'mit-und-ohne' }, () => {
     assert.throws(() => readEvalFilter(), /CDS_MCP_EVAL_ONLY_VARIANT/);
@@ -107,9 +136,10 @@ test('gespeicherter Fixture-Lauf lässt sich über die CLI mit aktuellen Checks 
   const reportDir = mkdtempSync(join(tmpdir(), 'cds-mcp-eval-recheck-test-'));
   try {
     const result = spawnSync(
-      process.execPath,
-      [join(EVAL_DIR, 'recheck-eval.mjs'), join(EVAL_DIR, 'fixtures', 'saved-run.json')],
+      'npm',
+      ['run', 'eval:recheck', '--', join(EVAL_DIR, 'fixtures', 'saved-run.json')],
       {
+        cwd: join(EVAL_DIR, '..'),
         encoding: 'utf8',
         env: {
           ...process.env,
