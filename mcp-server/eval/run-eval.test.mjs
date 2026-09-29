@@ -5,8 +5,15 @@
 // Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
 import { readEvalFilter, renderReport } from './run-eval.mjs';
+
+const EVAL_DIR = dirname(fileURLToPath(import.meta.url));
 
 /** Minimaler Fragen-/Ergebnis-Fixture, genug für renderReport (keine echten Läufe nötig). */
 function makeResults() {
@@ -94,4 +101,35 @@ test('readEvalFilter: gültige Variante ohne id liefert onlyId null', () => {
   withEnv({ CDS_MCP_EVAL_ONLY_ID: undefined, CDS_MCP_EVAL_ONLY_VARIANT: 'ohne-server' }, () => {
     assert.deepEqual(readEvalFilter(), { onlyId: null, onlyVariant: 'ohne-server' });
   });
+});
+
+test('gespeicherter Fixture-Lauf lässt sich über die CLI mit aktuellen Checks neu bewerten', () => {
+  const reportDir = mkdtempSync(join(tmpdir(), 'cds-mcp-eval-recheck-test-'));
+  try {
+    const result = spawnSync(
+      process.execPath,
+      [join(EVAL_DIR, 'recheck-eval.mjs'), join(EVAL_DIR, 'fixtures', 'saved-run.json')],
+      {
+        encoding: 'utf8',
+        env: {
+          ...process.env,
+          CDS_MCP_EVAL_REPORT_DIR: reportDir,
+          CDS_MCP_EVAL_CLAUDE_BIN: 'darf-bei-neubewertung-nicht-gestartet-werden',
+        },
+      },
+    );
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /Erfundene API: \*\*1\*\* \(\[icon\]\)/);
+    assert.match(result.stdout, /CSS-Hinweis: ja/);
+    assert.match(result.stdout, /Kernaussage: \*\*getroffen\*\*/);
+
+    const reportPath = result.stderr.match(/Bericht geschrieben: (.+\.md)/)?.[1];
+    assert.ok(reportPath, `Berichtspfad fehlt in stderr:\n${result.stderr}`);
+    const report = readFileSync(reportPath, 'utf8');
+    assert.match(report, /Neu bewertet aus: .*saved-run\.json/);
+    assert.match(report, /Antwort \(gekürzt\)/);
+  } finally {
+    rmSync(reportDir, { recursive: true, force: true });
+  }
 });
