@@ -38,6 +38,7 @@ import {
 @Component({
   selector: 'cds-stoerer',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <ng-template>
       <a class="stoerer" [href]="href()">
@@ -66,7 +67,10 @@ import {
 export class StoererComponent {
   /** Thema/Inhaltstyp neben dem Icon (`.stoerer-topic`, z. B. „Nächste Veranstaltung“). */
   readonly topic = input.required<string>();
-  /** Titel des verlinkten Inhalts — redaktionell auf zwei Zeilen gekürzt. */
+  /**
+   * Titel des verlinkten Inhalts, redaktionell auf zwei Zeilen gekürzt.
+   * Am Host verbleibt kein natives `title`-Attribut.
+   */
   readonly title = input.required<string>();
   /** Linkziel; die Kachel ist vollständig klickbar. */
   readonly href = input.required<string>();

@@ -51,6 +51,7 @@ import { CDS_AREA_ICONS } from '../icons';
 @Component({
   selector: 'cds-link-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   styles: [':host{display:flex}', ':host>.card{flex:1;min-width:0}'],
   template: `
     <a class="card card-elevated" [href]="href()" [attr.data-area]="area() || null">
@@ -77,7 +78,7 @@ import { CDS_AREA_ICONS } from '../icons';
 export class LinkCardComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
-  /** Kartentitel. */
+  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext der Karte. */
   readonly text = input.required<string>();

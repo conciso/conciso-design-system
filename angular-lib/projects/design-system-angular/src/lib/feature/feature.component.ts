@@ -104,6 +104,7 @@ import type { CdsArea } from '../area';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'ep-feature',
+    '[attr.title]': 'null',
   },
   template: `
     <span class="ep-feature-icon" [attr.data-area]="area() || null" aria-hidden="true">
@@ -132,7 +133,7 @@ import type { CdsArea } from '../area';
   `,
 })
 export class FeatureComponent {
-  /** Titel (`.ep-feature-title`). */
+  /** Titel (`.ep-feature-title`). Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Beschreibungstext (`.ep-feature-text`). */
   readonly text = input.required<string>();
