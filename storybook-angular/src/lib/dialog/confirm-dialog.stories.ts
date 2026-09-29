@@ -36,9 +36,12 @@ class ConfirmDialogDemoComponent {
   /** Ruft open() zweimal hintereinander auf, um den doppelt ausgelösten Guard nachzustellen. */
   readonly openTwice = input(false);
 
+  /** @internal */
   protected readonly resultText = signal('');
+  /** @internal */
   private readonly dialog = inject(CdsConfirmDialog);
 
+  /** @internal */
   protected async open(): Promise<void> {
     this.resultText.set('');
     const options = {
