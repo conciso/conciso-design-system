@@ -18,7 +18,7 @@ const meta: Meta<FeaturedCardComponent> = {
       description: {
         component:
           'Horizontale Großkarte für genau einen hervorgehobenen Beitrag oder Termin ' +
-          '(`.card-featured`, siehe `docs/index.html` „Featured · horizontale Großkarte“): ' +
+          '(`.card-featured`): ' +
           'Bild links 60 %, Textspalte rechts 40 % als absolut positioniertes Overlay, mit ' +
           '`.card-title-hero` (Serif-Editorial-Titel) und optionaler `.pill`. Mit gesetztem ' +
           '`href` ein `<a class="card card-elevated card-featured">`, sonst ein `<article ' +
@@ -133,8 +133,8 @@ export const ProBereich: Story = {
 export const PilleAlsLesezeit: Story = {
   name: 'Pille als Lesezeit',
   parameters: { controls: { disable: true } },
-  // Die Pille benennt nicht immer einen Bereich (docs/index.html:7913: sichtbar
-  // „12 min Lesezeit“, aria-label „Lesezeit 12 Minuten“) — ohne pillAriaLabel
+  // Die Pille benennt nicht immer einen Bereich: sichtbar „12 min Lesezeit“,
+  // aria-label „Lesezeit 12 Minuten“. Ohne pillAriaLabel
   // entstünde daraus fälschlich „Bereich 12 min Lesezeit“. pillAriaLabel
   // überschreibt den Default gezielt, dieselbe Regel wie bei PillComponent.
   args: { pill: '12 min Lesezeit', pillAriaLabel: 'Lesezeit 12 Minuten' },

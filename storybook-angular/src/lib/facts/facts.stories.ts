@@ -30,7 +30,7 @@ const meta: Meta<FactsComponent> = {
     area: { control: 'inline-radio', options: [undefined, 'co', 'ki', 'es', 'wo'] },
   },
   args: {
-    // Wortlaut aus dem Mockup (docs/index.html:9077–9081, Doku-Sektion gt-seminar-fakten).
+    // Wortlaut der Beispielseite.
     items: [
       { term: 'Dauer', value: '2 Tage, 9–17 Uhr' },
       { term: 'Format', value: 'Präsenz & Online' },
@@ -82,8 +82,8 @@ export const AlsRaster: Story = {
   name: 'Als Raster',
   args: { grid: true },
   parameters: { controls: { disable: true } },
-  // Wie im Mockup zieht die Liste in einen vorhandenen Kasten ein (docs/index.html:
-  // 16289–16300); die max-width sitzt deshalb am umschließenden <div>, nicht am
+  // Die Liste zieht in einen vorhandenen Kasten ein; die max-width sitzt deshalb am
+  // umschließenden <div>, nicht am
   // cds-facts-Host — ein Custom-Element ohne eigenes display ist per UA-Stylesheet
   // inline, `max-width` griffe dort nicht (derselbe Grund wie ADR-0008 Fall 2).
   render: (args) => ({

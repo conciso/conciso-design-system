@@ -47,9 +47,7 @@ export const Skala: Story = {
 };
 
 /**
- * 1:1 aus docs/index.html übernommen (Zeilen 1535–1572, Abschnitt
- * „Ligaturen: warum „ff“ verbunden aussieht“): erst der Vergleich mit/ohne
- * OpenType-Ligatur über `font-feature-settings: 'liga' 0|1`, dann das
+ * Vergleich der OpenType-Ligatur über `font-feature-settings: 'liga' 0|1`, dann das
  * Muster-Gitter der Standard-Ligaturen in Libre Baskerville.
  */
 export const Ligaturen: Story = {
@@ -101,16 +99,14 @@ export const Ligaturen: Story = {
     docs: {
       description: {
         story:
-          "Live-Kopie aus docs/index.html (Abschnitt Ligaturen, Zeilen 1535–1572). Libre Baskerville aktiviert die OpenType-Standard-Ligatur `liga`: Der linke Block zeigt „Stoff“ mit `font-feature-settings: 'liga' 1`, der rechte zum Vergleich mit deaktivierter Ligatur (`'liga' 0`). Darunter das Muster-Gitter der Ligaturen ff, fi, fl, ffi, ffl.",
+          "Libre Baskerville aktiviert die OpenType-Standard-Ligatur `liga`: Der linke Block zeigt „Stoff“ mit `font-feature-settings: 'liga' 1`, der rechte zum Vergleich mit deaktivierter Ligatur (`'liga' 0`). Darunter das Muster-Gitter der Ligaturen ff, fi, fl, ffi, ffl.",
       },
     },
   },
 };
 
 /**
- * 1:1 aus docs/index.html übernommen (col-7-Box aus dem layout-grid in
- * Zeilen 1605–1632, Abschnitt „Verwendung“, Block „Schematisches Beispiel,
- * Seitenhierarchie“): verschachtelte Font-Tokens von Eyebrow über Display
+ * Verschachtelte Font-Tokens von Eyebrow über Display
  * und Body bis zur Karte mit Title, Body und Label-Button.
  */
 export const Seitenhierarchie: Story = {
@@ -143,7 +139,7 @@ export const Seitenhierarchie: Story = {
     docs: {
       description: {
         story:
-          'Live-Kopie aus docs/index.html (Abschnitt „Verwendung“, Block „Schematisches Beispiel, Seitenhierarchie“, Zeilen 1605–1632). Zeigt die Font-Tokens verschachtelt in echter Seitenhierarchie: Eyebrow (`--ty-label-xs`), Display Small (`--ty-display-sm`) und Body Medium (`--ty-body-md`), darunter durch eine Trennlinie abgesetzt Headline Small (`--ty-headline-sm`) mit Body Medium, und zuunterst in einer Karte Title Small (`--ty-title-sm`), Body X-Small (`--ty-body-xs`) und ein Label-Large-Button (`--ty-label-md`). Die Token-Übersicht (col-5) aus dem Quellblock ist nicht Teil dieser Story, da nur das benannte Schema-Beispiel als visueller Block übertragen wurde.',
+          'Zeigt die Font-Tokens verschachtelt in echter Seitenhierarchie: Eyebrow (`--ty-label-xs`), Display Small (`--ty-display-sm`) und Body Medium (`--ty-body-md`), darunter durch eine Trennlinie abgesetzt Headline Small (`--ty-headline-sm`) mit Body Medium, und zuunterst in einer Karte Title Small (`--ty-title-sm`), Body X-Small (`--ty-body-xs`) und ein Label-Large-Button (`--ty-label-md`). Die Token-Übersicht ist nicht Teil dieser Story, da nur das Schema-Beispiel als visueller Block übertragen wurde.',
       },
     },
   },

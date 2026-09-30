@@ -11,8 +11,8 @@ const meta: Meta<LinkCardComponent> = {
     docs: {
       description: {
         component:
-          'Variante B der klickbaren Karte (`a.card.card-elevated`, siehe `docs/index.html` ' +
-          '„Klickbare Karte“): die ganze Fläche ist ein `<a>` und trägt deshalb nach der ' +
+          'Variante B der klickbaren Karte (`a.card.card-elevated`): die ganze Fläche ist ein ' +
+          '`<a>` und trägt deshalb nach der ' +
           'Konvention „Elevation = Interaktivität“ (`CONTRIBUTING.md` §4) den Schatten, den ' +
           '`cds-card` bewusst nicht trägt. Struktur wie `cds-card` (Media/Eyebrow/Titel/Text), ' +
           'zusätzlich ein optionaler Fuß `.card-cta-link`, wahlweise unten an die ' +

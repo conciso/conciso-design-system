@@ -37,7 +37,7 @@ Detail- und Stellenseiten gehören oft zu einem Bereich, nutzen aber Komponenten
 
 Die Toolbar (`areaContext` in `.storybook/preview.ts`) setzt genau diesen Selektor, nicht eine Simulation davon: bei aktiver Auswahl hüllt ein `componentWrapperDecorator` die Story in `<div [class.ep-page]="cdsAreaCtx" [attr.data-accent]="cdsAreaCtx || null" style="display:contents">`. Der `display:contents`-Wrapper trägt kein eigenes Layout, also keine Nebenwirkungen wie zusätzliches `.ep-page`-Padding, nur die echte Tönung durch den CSS-Kern.
 
-Default ist `none`: Komponenten rendern ohne Bereichs-Kontext, isoliert. Die Toolbar-Werte sind, in dieser Reihenfolge, `co` (Corporate), `ki` (Toolbar-Beschriftung „AI.Applied“), `es` (Effektive Software) und `wo` (Wirksame Organisationen). Das Toolbar-Label für `ki` weicht damit vom Bereichsnamen auf dieser Seite und in der Doku-Site ab, die durchgängig „Angewandte KI“ schreiben.
+Default ist `none`: Komponenten rendern ohne Bereichs-Kontext, isoliert. Die Toolbar-Werte sind, in dieser Reihenfolge, `co` (Corporate), `ki` (Toolbar-Beschriftung „AI.Applied“), `es` (Effektive Software) und `wo` (Wirksame Organisationen). Das Toolbar-Label für `ki` weicht damit vom Bereichsnamen auf dieser Seite ab, die durchgängig „Angewandte KI“ schreibt.
 
 Der Bereichs-Kontext der Seite ist ein eigener, bewusst wählbarer Zustand, getrennt vom `area`-Input einzelner Komponenten.
 

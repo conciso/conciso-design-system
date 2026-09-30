@@ -23,8 +23,8 @@ const meta: Meta<ArticleFigureComponent> = {
           'Wissensbeitrags (`.article-figure`/`.article-figcaption`, ' +
           'css/components.css:1573–1575). `loading="lazy"` ist fest verdrahtet: ausgezählt tragen ' +
           '2 der 3 realen Mockup-Vorkommen dieses Attribut (die beiden Bilder MIT Caption, mittig ' +
-          'im Lauftext), das dritte (ein captionsloses Lead-Bild direkt unter dem Article Header, ' +
-          '`docs/index.html:15040–15042`) trägt stattdessen `loading="eager" fetchpriority="high"` ' +
+          'im Lauftext), das dritte ist ein captionsloses Lead-Bild direkt unter dem Article Header, ' +
+          'trägt stattdessen `loading="eager" fetchpriority="high"` ' +
           'und liegt außerhalb dieses Bauteils — die API sieht dafür kein Input vor. `alt` ' +
           "ist Pflicht, `caption` Beiwerk mit Default `''` (kein `<figcaption>` ohne Text).",
       },
@@ -44,8 +44,7 @@ export default meta;
 
 type Story = StoryObj<ArticleFigureComponent>;
 
-// Wortlaut 1:1 aus dem Mockup (docs/index.html:15115–15118 bzw. 8028–8031, identisch an
-// beiden Stellen).
+// Wortlaut der beiden identischen Beispielstellen.
 export const Interaktiv: Story = {
   render: (args) => ({
     props: args,
@@ -73,8 +72,8 @@ export const Interaktiv: Story = {
   },
 };
 
-// Wortlaut (alt) 1:1 aus dem captionslosen Lead-Bild der Beispielseite
-// (docs/index.html:15040–15042) — belegt den realen, captionslosen Fall.
+// Wortlaut des captionslosen Lead-Bilds der Beispielseite, belegt den realen,
+// captionslosen Fall.
 export const OhneCaption: Story = {
   name: 'Ohne Caption',
   args: {

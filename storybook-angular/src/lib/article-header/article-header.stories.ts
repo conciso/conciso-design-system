@@ -144,8 +144,7 @@ export const OhneBreadcrumb: Story = {
   },
   parameters: { controls: { disable: true } },
   // Kein breadcrumb-Input (Default []) → keine <nav> im DOM. Konsumenten, die der
-  // allgemeinen Navigationsregel folgen (docs/index.html:2423: "Den Breadcrumb nicht in
-  // einen zentrierten .article-header einbetten…"), lassen den Input leer und setzen die
+  // allgemeinen Navigationsregel folgen, lassen den Input leer und setzen die
   // Leiste selbst davor.
   play: async ({ canvasElement }) => {
     await expect(canvasElement.querySelector('nav.article-breadcrumb')).toBeNull();
@@ -179,7 +178,7 @@ export const MehrereAutorinnen: Story = {
       </cds-article-header>
     `,
   }),
-  // Wortlaut 1:1 aus dem Mockup (docs/index.html:8407–8410): 3 Avatare + `+2` im Stapel, Text
+  // Wortlaut der Beispielseite: 3 Avatare + `+2` im Stapel, Text
   // nennt die ersten zwei Namen („Namens-Konvention“ in wissensbeitrag.mdx erlaubt 2 ODER 3).
   args: {
     title: 'Was wir aus 200 Migrationen gelernt haben',
@@ -224,8 +223,8 @@ export const PilleOhneBereich: Story = {
   },
   parameters: { controls: { disable: true } },
   // Pinnt die Entscheidung aus der Klassendoku: `pill` ist gesetzt, `area` NICHT — ausgezählt
-  // trägt jede reale Pille im Article-Header-Kontext (docs/index.html:7856, 7912–7914, 8310,
-  // 8337, 8367, 8398, 15021) ein data-area, ein Fall ohne Bereich kommt im Mockup nicht vor.
+  // trägt jede reale Pille im Article-Header-Kontext ein data-area, ein Fall ohne Bereich
+  // kommt nicht vor.
   // Statt einen Default zu erfinden (frühere Fassung: `as CdsArea`-Cast, der einem
   // undefined-Binding erlaubte, cds-pills eigenen Default zu überschreiben), rendert die
   // Komponente ohne `area` schlicht KEINE Pille.

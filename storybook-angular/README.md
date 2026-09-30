@@ -111,8 +111,8 @@ sie wieder scharf schalten:
 | CodeBlock | `.cb-copy` | 3,31:1 mit `--n-400` | `--n-500`, gegen den tatsächlichen Grund gemessen 5,32:1 im Light (auf `--n-100`) und 8,01:1 im Dark |
 | Slider | `.field-slider-output.slider-{co,ki,wo}` | ~2 bis 3:1, weil Thumb-Farbe und Textfarbe dasselbe Token waren | eigenes `--sl-text` für die Wert-Anzeige (co-700 5,5:1 · ki-800 8,0:1 · es-700 9,6:1 · wo-700 7,8:1); `--sl-color` färbt nur noch den Thumb, der als grafisches Element 3:1 braucht |
 
-Maßgeblich für den Kern ist `npm run check:contrast` im Repo-Root: es rendert die
-Doku-Site in beiden Modi und meldet aktuell 0 Verstöße. Der Anspruch dahinter
+Maßgeblich für den Kern ist `npm run check:contrast` im Repo-Root: es prüft beide
+Modi und meldet aktuell 0 Verstöße. Der Anspruch dahinter
 steht in `CONTRIBUTING.md` §1.
 
 Rein in den Angular-Wrappern behobene a11y-Punkte (kein CSS-Kern nötig): `role`-

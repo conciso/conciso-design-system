@@ -42,7 +42,7 @@ export const Interaktiv: Story = {
       </cds-article-callout>
     `,
   }),
-  // Wortlaut 1:1 aus dem Mockup (docs/index.html:15110–15114, Beispielseite Wissensbeitrag · KI).
+  // Wortlaut der Beispielseite Wissensbeitrag · KI.
   args: {
     eyebrow: 'In der Praxis',
     area: 'ki',
@@ -75,7 +75,7 @@ export const Interaktiv: Story = {
 export const ProBereich: Story = {
   name: 'Pro Bereich',
   parameters: { controls: { disable: true } },
-  // Wortlaut 1:1 aus der Doku-Sektion (docs/index.html:8086–8115), ein Callout je Bereich.
+  // Ein Callout je Bereich.
   render: () => ({
     template: `
       <div style="display:flex;flex-direction:column;gap:24px">

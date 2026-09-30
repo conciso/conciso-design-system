@@ -53,10 +53,9 @@ const preview: Preview = {
     backgrounds: { disable: true },
     viewport: { options: MINIMAL_VIEWPORTS },
     options: {
-      // Die Sortierung spiegelt die Gliederung der Doku-Site (`docs/index.html`,
-      // Regeln in `CONTRIBUTING.md` § 11): Gruppen, Sektionen und Bauteile stehen
-      // hier in derselben Reihenfolge wie dort, damit dieselbe Sache im Repo
-      // überall gleich heißt.
+      // Die Sortierung folgt den Regeln in `CONTRIBUTING.md` § 11: Gruppen,
+      // Sektionen und Bauteile stehen in einer festen Reihenfolge, damit
+      // dieselbe Sache im Repo überall gleich heißt.
       storySort: {
         // Storybooks Sidebar stellt an jedem Knoten Blätter immer vor Ordner —
         // das kann storySort.order nicht verschränken. Deshalb ist jede Gruppe

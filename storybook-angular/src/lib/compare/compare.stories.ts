@@ -15,8 +15,8 @@ const meta: Meta<CompareComponent> = {
           'Pakete/Tarife (`.ep-compare*`, css/components.css:1275–1294). Natives ' +
           '`<details>`/`<summary>` (standardmäßig zu), Tastaturbedienung und Toggle kommen vom ' +
           'Browser. **Mit Daten-Input, anders als `Komponenten/Tabelle/Tabelle` (`cds-table`)**: ' +
-          'ausgezählt sind alle 22 Datenzellen des einzigen realen Vorkommens ' +
-          '(`docs/index.html:11970–12038`, 11 Zeilen × 2 Spalten) entweder ein Ja/Nein-Marker ' +
+          'ausgezählt sind alle 22 Datenzellen des einzigen realen Vorkommens (11 Zeilen × 2 ' +
+          'Spalten) entweder ein Ja/Nein-Marker ' +
           '(18×) oder eine kurze Angabe (4×), nie ein Badge oder Link, deshalb `columns`/`rows` ' +
           'statt `<ng-content>`. Ja/Nein-Zellen ' +
           '(`boolean`) tragen fest verdrahteten `.sr-only`-Text („Enthalten“/„Nicht enthalten“), ' +
@@ -33,8 +33,8 @@ export default meta;
 
 type Story = StoryObj<CompareComponent>;
 
-// Wortlaut und Datensatz 1:1 aus dem Mockup (docs/index.html:11970–12038, Beispielseite
-// Angewandte KI · AI.Box, Abschnitt „Leistungspakete“) — 11 Zeilen, ausgezählt: 7 beidseitig
+// Wortlaut und Datensatz der Beispielseite Angewandte KI · AI.Box, Abschnitt
+// „Leistungspakete“: 11 Zeilen, ausgezählt: 7 beidseitig
 // „Ja“, 4 nur in der Pro-Spalte, 2 mit Text-Zellen statt Ja/Nein.
 const columns = [{ label: 'Core' }, { label: 'Pro', pro: true }];
 const rows = [

@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, expect } from 'storybook/test';
 import { FeatureComponent } from '@conciso/design-system-angular';
 
-// Heroicons aus dem Mockup (docs/index.html:4883, 10405, 10409, 10550), wechselnde
-// Content-Icons statt DS-Bereichsglyphen — deshalb als rohes SVG projiziert statt
+// Wechselnde Heroicons dienen als Content-Icons statt DS-Bereichsglyphen und werden deshalb
+// als rohes SVG projiziert statt
 // aus der Registry importiert (siehe Icon-Kontrakt in feature.component.ts).
 // BEWUSST mit `stroke="currentColor"` statt eines hart codierten Bereichstons: anders
 // als bei cds-icon-card setzt `.ep-feature-icon` selbst `color` (css/components.css:
 // 1367–1372), der Bereichston kommt also allein aus dem Container — das Icon muss
-// seinen Bereich nicht kennen. Genau wie im Mockup (docs/index.html:10406 u. a.).
+// seinen Bereich nicht kennen.
 const iconSparkles =
   '<svg cdsIcon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" /></svg>';
 const iconLock =
@@ -106,7 +106,7 @@ export const Dreispalter: Story = {
   // Kein cdsFeature-Raster: .layout-grid ist reine CSS-Utility ohne eigene
   // Komponente. Konsumenten schreiben
   // <div class="layout-grid"> von Hand, die Spaltenklasse col-4 sitzt direkt am
-  // cdsFeature-Host (docs/index.html: 40× `class="ep-feature col-4"`).
+  // cdsFeature-Host.
   // Absichtlich UNTERSCHIEDLICH lange Texte: der Regressionsschutz für die
   // Grundsatzentscheidung "Attributselektor, damit .ep-feature selbst das
   // Grid-Kind ist" (ADR-0008). Mit gleich langen Texten wäre die Baseline auch
@@ -176,7 +176,7 @@ export const MitCta: Story = {
   // Akzeptanzkriterium 2: .card-cta-link ist direktes Kind von .ep-feature-body
   // (Angulars @if/@else fügt kein Wrapper-Element ein). Echter <a>, kein <span> —
   // der Host ist ein <div>, kein umschließender Link wie bei cds-link-card.
-  // ctaAriaLabel im exakten Wortlaut des Mockups (docs/index.html:11587): der
+  // ctaAriaLabel im exakten Wortlaut: Der
   // sichtbare Text „Zur Landingpage“ wiederholt sich zehnmal auf den
   // Beispielseiten, der aria-label disambiguiert im Format `<Text>: <Ziel>`
   // (siehe Klassendoku, ausgezählt: 11 von 12 .card-cta-link-<a>s im Mockup
@@ -220,8 +220,8 @@ export const OhneHref: Story = {
   // Regressionsschutz für die in feature.component.ts dokumentierte Entscheidung:
   // gesetztes ctaLabel OHNE ctaHref rendert einen <span class="card-cta-link">
   // (identische Optik, gleicher Pfeil), NIE ein <a> ohne href — genau das Muster
-  // aus docs/index.html:13216 („Landingpage folgt“), das einzige card-cta-link
-  // im Mockup ohne href, und dort ebenfalls ein <span>, kein <a>.
+  // „Landingpage folgt“, das einzige card-cta-link ohne href, und ebenfalls ein
+  // <span>, kein <a>.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const body = canvasElement.querySelector('.ep-feature-body') as HTMLElement;

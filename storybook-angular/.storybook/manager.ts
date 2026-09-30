@@ -10,14 +10,13 @@ import rawIcons from '../../icons/icons.json';
 // denn das Storybook-Chrome selbst ist kein Teil des Design Systems.
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 
-// Sektions-Icons spiegeln die Navigation der Doku-Site (docs/index.html):
-// dort steht vor jedem Nav-Eintrag ein Icon aus der gemeinsamen Registry
-// (icons/icons.json), hier bekommt derselbe fachliche Abschnitt dasselbe
-// Icon vor seinem Storybook-Sidebar-Knoten. Das ersetzt den früheren Grund,
+// Sektions-Icons machen die Navigation unterscheidbar: Vor jedem Nav-Eintrag
+// steht ein Icon aus der gemeinsamen Registry (icons/icons.json), und jeder
+// fachliche Abschnitt bekommt dasselbe Icon vor seinem Storybook-Sidebar-Knoten.
+// Das ersetzt den früheren Grund,
 // renderLabel wegzulassen (ein Angular-Tag auf 158 von 181 Zeilen
 // unterschied nichts) — der neue Zweck ist gezielt: er trifft genau die 35
-// Sektions-Zeilen, die es auch in der Doku-Site-Navigation gibt, und dient
-// der Wiedererkennung zwischen beiden Oberflächen.
+// Sektions-Zeilen und dient der Wiedererkennung innerhalb der Sidebar.
 //
 // Die Schlüssel sind Storybooks eigene Knoten-IDs. Sie folgen zwar dem
 // Muster sanitize("Wurzel/Sektion") (z. B. "Komponenten/Buttons" →
@@ -27,14 +26,12 @@ const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches 
 // Story-Namen an, z. B. "grundlagen-elevation--übersicht" statt
 // "grundlagen-elevation". Deshalb keine Ableitung aus einer Formel, sondern
 // jede ID einzeln aus dem gerenderten Sidebar-DOM (`[data-item-id]`) des
-// laufenden Story-Index abgelesen. Jede der 35 Doku-Site-Sektionen trifft
+// laufenden Story-Index abgelesen. Jede der 35 Sektionen trifft
 // genau einen dieser Knoten.
 //
-// Sonderfall Komponenten/Theme-Umschalter: Diese Sektion kannte lange nur
-// Storybook; die Doku-Site hat sie inzwischen ebenfalls (data-section=
-// "theme"), mit einem Sonnen-Icon vor dem Nav-Eintrag. Das Icon liegt jetzt
-// als `ui-sun` in icons/icons.json, deshalb bekommt der Knoten unten
-// denselben Eintrag wie jede andere Sektion.
+// Sonderfall Komponenten/Theme-Umschalter: Das Icon liegt als `ui-sun` in
+// icons/icons.json, deshalb bekommt der Knoten unten denselben Eintrag wie
+// jede andere Sektion.
 const SECTION_ICON_KEYS: Record<string, string> = {
   'marke-markenrad--übersicht': 'ui-sparkles-4',
   'marke-brand-areas': 'ui-squares-2x2',
