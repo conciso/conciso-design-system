@@ -8,14 +8,14 @@ export type CdsAvatarSize = 'sm' | 'lg' | 'xl';
  * Avatar (`div[cdsAvatar]`) — Wrapper um `.article-avatar` aus css/components.css
  * (css/components.css:1520–1536): der Initialen-/Foto-Kreis im Meta-Strip eines
  * Wissensbeitrags (`.article-meta-author`), in der Author-Card (`-lg`) und im
- * Team-Tile-Grid (`-xl`). Elftes Ticket der Seitenbausteine-Serie.
+ * Team-Tile-Grid (`-xl`).
  *
  * **Attributselektor (ADR-0008), gemessen an der Geschwister-Kette.** Ausgezählt in
  * `docs/index.html`: 8 der 11 Instanzen der Grundgröße sitzen als direkte, adjazente
  * Geschwister in einer von 3 `.article-avatar-stack`-Kacheln (2 Avatare in Zeilen
  * 8343–8344, je 3 in Zeilen 8373–8375 und 8404–8406) — genau dort greift
  * `.article-avatar-stack .article-avatar + .article-avatar`
- * (css/components.css:1540–1541), eine Geschwister-Kette (Kriterium `spec.md` 2b).
+ * (css/components.css:1540–1541), eine Geschwister-Kette.
  * Ein Element-Selektor `cds-avatar`, der `.article-avatar` auf einem INNEREN Element
  * rendert (wie `cds-facts` es mit `<dl>` tut, weil `<dl>` ein Custom Element nicht
  * annehmen kann), würde diese Kette brechen: die beiden `.article-avatar`-Knoten
@@ -43,7 +43,7 @@ export type CdsAvatarSize = 'sm' | 'lg' | 'xl';
  * eigens erfundene Marker-Klasse; der Attributselektor liefert die Zielscheibe für
  * beide Zwecke aus einer Hand, ohne dass der Konsument zwei Attribute schreiben muss.
  *
- * **Initialen werden aus `name` abgeleitet, kein eigener Input** (Ticket-Vorgabe):
+ * **Initialen werden aus `name` abgeleitet, kein eigener Input:**
  * erstes Zeichen des ersten und des letzten durch Whitespace getrennten Worts, groß
  * — ein einzelnes Wort liefert dessen erste zwei Zeichen. Zwei Inputs für dieselbe
  * Information (Name UND Initialen) könnten auseinanderlaufen, sobald nur eines

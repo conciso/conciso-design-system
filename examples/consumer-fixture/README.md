@@ -1,8 +1,7 @@
 # Consumer-Fixture
 
 Committete Minimal-Angular-App — der [Consumer-Fixture](../../CONTEXT.md#consumer-fixture)
-aus [Ticket 03](../../.scratch/angular-components-lib/issues/03-consumer-smoke-test.md) der
-Angular-Lib-Extraktion (siehe [Spec](../../.scratch/angular-components-lib/spec.md),
+aus der Angular-Lib-Extraktion (siehe
 [ADR-0003](../../docs/adr/0003-pilot-scheibe-und-validierung.md),
 [ADR-0004](../../docs/adr/0004-verteilung-und-versionierung.md)).
 

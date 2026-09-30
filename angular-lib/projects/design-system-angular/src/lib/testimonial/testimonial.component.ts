@@ -9,6 +9,8 @@ import { CDS_QUOTE_ICON } from '../icons';
  * Statische Zitat-Karte mit bereichsgefärbtem Top-Akzent (data-area), Quote-Icon
  * (.testimonial-icon, fill:currentColor), Zitat (blockquote) und Footer mit Name/Rolle.
  * Nur bestehende Klassen — kein eigenes CSS.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).
  */
 @Component({
   selector: 'cds-testimonial',
@@ -16,7 +18,13 @@ import { CDS_QUOTE_ICON } from '../icons';
   template: `
     <figure class="testimonial" [attr.data-area]="area() || null">
       <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
-      <svg class="testimonial-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" [innerHTML]="quoteIcon()"></svg>
+      <svg
+        class="testimonial-icon"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        focusable="false"
+        [innerHTML]="quoteIcon()"
+      ></svg>
       <blockquote>{{ quote() }}</blockquote>
       <figcaption class="testimonial-footer">
         <div>

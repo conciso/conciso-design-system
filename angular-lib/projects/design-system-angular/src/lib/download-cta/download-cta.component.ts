@@ -7,10 +7,13 @@ import type { CdsArea } from '../area';
  * Aufmerksamkeitsstarker Download-Block mit bereichsgefärbtem Top-Akzent + Icon
  * (data-area), Eyebrow/Titel/Beschreibung/Meta und zwei Aktionen (primär/sekundär,
  * über die bestehenden `.btn`-Klassen). Konsumiert nur vorhandene Styles.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe CTA-Band (`komponenten-call-to-action-cta-band--verwendung`).
  */
 @Component({
   selector: 'cds-download-cta',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <div class="cta-dl" [attr.data-area]="area() || null">
       <div class="cta-dl-icon">
@@ -42,14 +45,18 @@ import type { CdsArea } from '../area';
           type="button"
           [attr.aria-label]="primaryAriaLabel()"
           (click)="primaryClick.emit($event)"
-        >{{ primaryLabel() }}</button>
+        >
+          {{ primaryLabel() }}
+        </button>
         @if (secondaryLabel()) {
           <button
             [class]="'btn btn-text btn-' + area()"
             type="button"
             [attr.aria-label]="secondaryAriaLabel()"
             (click)="secondaryClick.emit($event)"
-          >{{ secondaryLabel() }}</button>
+          >
+            {{ secondaryLabel() }}
+          </button>
         }
       </div>
     </div>
@@ -60,7 +67,7 @@ export class DownloadCtaComponent {
   readonly area = input<CdsArea>('co');
   /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  /** Titel des Download-Angebots. */
+  /** Titel des Download-Angebots. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Beschreibungstext unterhalb des Titels (leer = keine Beschreibung). */
   readonly desc = input('');

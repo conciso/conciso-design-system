@@ -1,0 +1,34 @@
+# Formatierungs-Gate: prüft TS- und HTML-Dateien mit Prettier (Konfiguration in .prettierrc,
+# Ausschlüsse in .prettierignore), siehe CONTRIBUTING.md „Formatierung“. Reiner Check, kein
+# Auto-Fix und kein Commit aus der CI — Formatieren bleibt lokal (`npm run format`).
+# Bewusst OHNE Pfadfilter, wie quotes.yml und commitlint.yml: TS-/HTML-Dateien liegen über
+# mehrere Workspaces verteilt (angular-lib/, storybook-angular/, examples/consumer-fixture/),
+# ein Pfadfilter müsste alle drei pflegen und liefe bei einem neuen Workspace leer. Anders als
+# quotes.yml braucht der Check `npm ci`, weil Prettier eine devDependency ist, nicht
+# dependency-frei wie das Anführungszeichen-Skript.
+name: Formatierung
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Prettier-Formatierung prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Dependencies installieren
+        run: npm ci
+      - name: Formatierung prüfen
+        run: npm run format:check

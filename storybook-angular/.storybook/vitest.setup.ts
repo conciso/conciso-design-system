@@ -29,7 +29,7 @@ beforeAll(project.beforeAll);
 
 /**
  * Visual-Regression je Story — Nachfolger von `.storybook/test-runner.ts`
- * (siehe Ticket 08, `docs/adr/0005-testebene-der-angular-lib.md`). Läuft nur
+ * (siehe `docs/adr/0005-testebene-der-angular-lib.md`). Läuft nur
  * mit VISUAL=1 (dieselbe Bedingung wie zuvor im Test-Runner), damit der
  * reguläre `test:vitest`-Lauf unberührt bleibt; Pfad und Toleranz stehen in
  * `vitest.config.mts` (`browser.expect.toMatchScreenshot`).
@@ -115,7 +115,9 @@ afterEach(async (context) => {
   // Layout & Fonts abwarten (zwei rAF-Ticks lassen einen Layout-/Paint-Zyklus
   // durchlaufen — hier zugleich der Umbruch durch das eben gesetzte Body-Layout),
   // dann Animationen/Transitions einfrieren → deterministischer Screenshot.
-  await new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+  await new Promise<void>((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+  );
   await document.fonts?.ready;
 
   const freeze = document.createElement('style');

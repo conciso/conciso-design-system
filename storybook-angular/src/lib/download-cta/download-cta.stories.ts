@@ -48,13 +48,34 @@ export const Interaktiv: Story = {
   play: async ({ canvasElement, args }) => {
     const c = within(canvasElement);
     const primary = c.getByRole('button', { name: /^Herunterladen:/ });
-    await expect(primary).toHaveAccessibleName(`${args.primaryLabel}: ${args.title} (${args.meta})`);
+    await expect(primary).toHaveAccessibleName(
+      `${args.primaryLabel}: ${args.title} (${args.meta})`,
+    );
     await userEvent.click(primary);
     await expect(args.primaryClick).toHaveBeenCalledTimes(1);
 
     const secondary = c.getByRole('button', { name: /^Vorschau ansehen:/ });
-    await expect(secondary).toHaveAccessibleName(`${args.secondaryLabel}: ${args.title} (${args.meta})`);
+    await expect(secondary).toHaveAccessibleName(
+      `${args.secondaryLabel}: ${args.title} (${args.meta})`,
+    );
     await userEvent.click(secondary);
     await expect(args.secondaryClick).toHaveBeenCalledTimes(1);
+  },
+};
+
+export const HostAttribut: Story = {
+  name: 'Host-Attribut',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: () => ({
+    template: `
+      <cds-download-cta
+        title="Figma-Bibliothek herunterladen"
+        primaryLabel="Herunterladen"
+      ></cds-download-cta>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const host = canvasElement.querySelector('cds-download-cta');
+    await expect(host).not.toHaveAttribute('title');
   },
 };

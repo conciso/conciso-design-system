@@ -1,5 +1,5 @@
 // Tests für scripts/release/compute-bump.mjs (Seam: Bump-Stufe aus gefilterten Commits —
-// .scratch/automatische-releases/spec.md Regel 4).
+// ADR-0010 Regel 4).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { computeBump, nextVersion } from './compute-bump.mjs';

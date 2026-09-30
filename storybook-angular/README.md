@@ -1,16 +1,22 @@
 # Conciso Design System — Angular & Storybook
 
-Der **Angular-Teil** des Conciso Design Systems, bewusst getrennt vom portablen
-CSS-Kern. Dieser Ordner enthält dünne Angular-Komponenten-Wrapper und ihre
-Storybook-Stories. Sie **konsumieren und dokumentieren** ausschließlich die
-bestehenden CSS-Klassen und Tokens — es werden keine eigenen Styles definiert.
+Der **Storybook-Teil** des Conciso Design Systems. Dieser Ordner enthält nur noch
+Stories und MDX-Doku — die Angular-Komponenten-Wrapper selbst leben seit
+[ADR-0002](../docs/adr/0002-topologie-und-quelle-der-wahrheit.md) in
+[`angular-lib/projects/design-system-angular`](../angular-lib/projects/design-system-angular)
+und werden hier über TS-Pfad-Mapping (`tsconfig.json`) sowie einen Vite-Alias
+(`.storybook/main.ts`) direkt auf deren `public-api.ts` eingebunden — nicht über
+das gebaute npm-Artefakt. Storybook **konsumiert und dokumentiert** ausschließlich
+die bestehenden CSS-Klassen/Tokens und die Lib-Komponenten; es werden weder eigene
+Styles noch eigene Komponenten definiert.
 
 ## Schichtentrennung
 
 | Schicht | Ort | Eigenschaft |
 | --- | --- | --- |
 | **CSS & Tokens** (Quelle der Wahrheit) | Repo-Root: `../css`, `../tokens`, `../dist`, `../fonts`, `../icons` | Framework-unabhängig, ohne Build nutzbar. Wächst unabhängig von diesem Ordner. |
-| **Angular & Storybook** | dieser Ordner `storybook-angular/` | Eigenes `package.json`/`node_modules`. Hängt nur lesend an der CSS-Schicht. |
+| **Angular-Lib** (Komponenten-Quelle) | [`../angular-lib/projects/design-system-angular`](../angular-lib/projects/design-system-angular) | Eigenes Angular-Package (ADR-0002/0004). Storybook importiert nur lesend von dort. |
+| **Storybook** | dieser Ordner `storybook-angular/` | Eigenes `package.json`, aber **kein** eigenes `node_modules` — Installation läuft als npm-Workspace vom Repo-Root aus (`npm ci`/`npm install` im Root, ein gemeinsames `package-lock.json` für alle Workspaces). |
 
 Die CSS-Dateien werden **unverändert** über Storybooks `staticDirs` aus dem
 Repo-Root serviert (`/conciso/css/…`) und per `<link>` in
@@ -20,32 +26,10 @@ weiterhin ohne Angular nutzbar.
 
 ## Komponenten
 
-Jede Komponente ist ein schmaler Wrapper, der nur die passende Klassen­kombination
-der CSS-Schicht erzeugt:
-
-| Angular-Selector | CSS-Basis (in `../css/components.css`) |
-| --- | --- |
-| `<cds-button>` | `.btn` + Varianten/Bereiche |
-| `<cds-badge>` | `.badge` (Status-Ton oder `[data-area]`) |
-| `<cds-chip>` | `.chip` (aria-pressed Toggle **oder** statischer `t-*`-Tag) |
-| `<cds-card>` | `.card` / `.card-elevated` (Bereichs-Glyphe aus `../icons`) |
-| `<cds-stat-card>` | `.card-stat` |
-| `<cds-stat-strip>` | `.card-stat-strip` + `.card-stat-flat` |
-| `<cds-testimonial>` | `.testimonial` |
-| `<cds-team-voice>` | `.team-voice` (editoriale Zitat-Reihe mit Foto) |
-| `<cds-field>` | `.field` (input/select/textarea, A11y-verdrahtet) |
-| `<cds-blockquote>` | `.bq` (bereichsgefärbtes Zitat) |
-| `<cds-area-tabs>` | `.area-tabs` / `.atab` (interaktive Tab-Leiste) |
-| `<cds-faq>` | `.ep-faq` (natives `details`/`summary`) |
-| `<cds-snackbar>` | `.snack` (Statusmeldung, Töne def/ok/err) |
-| `<cds-slider>` | `.field-slider` / `.slider` (Range mit Live-Ausgabe) |
-| `<cds-download-cta>` | `.cta-dl` (Download-Block) |
-| `<cds-code-block>` | `.cb-wrap` (Code/Terminal, Kopier-Button) |
-| `<cds-footer>` | `.footer` (Zwei-Band-Footer) |
-| `<cds-carousel>` | `.img-slider` (Bild-Crossfade, Prev/Next/Dots, Hero) |
-| `<cds-logo-carousel>` | `.logo-carousel` (Autoplay-Crossfade, pausierbar) |
-| `<cds-topnav>` | `.ep-topnav` (Nav + Submenüs + Suche + Theme-Toggle) |
-| `<cds-brand-wheel>` | `.bw-wrap` / `.bw-svg` (Marken-Illustration) |
+Die Wrapper-Komponenten selbst — Angular-Selector und die CSS-Klasse, die sie
+erzeugen — sind hier dokumentiert:
+[angular-lib/projects/design-system-angular/README.md § Komponenten (Auswahl)](../angular-lib/projects/design-system-angular/README.md#komponenten-auswahl).
+Dieser Ordner rendert sie nur als Stories, definiert sie aber nicht.
 
 Die **Foundations**-Stories rendern Farben und Typografie live aus den
 `--*`-Tokens (`../css/tokens.css`). Der **Theme**-Schalter in der Toolbar setzt

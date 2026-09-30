@@ -11,8 +11,7 @@ export interface CdsArticleTocItem {
 /**
  * ArticleToc (`cds-article-toc`) — Wrapper um `.article-toc*` aus css/components.css
  * (css/components.css:1577–1589): das aufklappbare Inhaltsverzeichnis am Anfang eines
- * Wissensbeitrags. Zwölftes Ticket der Seitenbausteine-Serie („Artikel-Körper“).
- * Ausgezählt: genau 2 reale Vorkommen, beide mit 5 Einträgen und identischem
+ * Wissensbeitrags. Ausgezählt: genau 2 reale Vorkommen, beide mit 5 Einträgen und identischem
  * sichtbarem Text „Inhalt“ plus identischem `aria-label`
  * (`docs/index.html:7948–7960`, Doku-Sektion mit Platzhalter-Hrefs `#gt-article-toc`;
  * `docs/index.html:15049–15061`, reale Beispielseite Wissensbeitrag · KI mit echten
@@ -29,8 +28,8 @@ export interface CdsArticleTocItem {
  * zielt auf `p`, nicht auf `details` — ein `<cds-article-toc>`-Host zwischen
  * `.article-body` und dem `<details>` bricht deshalb keine Selektorkette.
  *
- * **Natives `<details>`/`<summary>`, kein nachgebautes Disclosure** (Ticket-Vorgabe,
- * Akzeptanzkriterium): Tastaturbedienung (Enter/Space auf `<summary>`) und
+ * **Natives `<details>`/`<summary>`, kein nachgebautes Disclosure:** Tastaturbedienung
+ * (Enter/Space auf `<summary>`) und
  * Toggle-Zustand kommen vollständig vom Browser, das CSS hängt direkt an `[open]`
  * (`.article-toc[open] .article-toc-caret`, css/components.css:1583). `<details
  * class="article-toc">` sitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund
@@ -43,8 +42,8 @@ export interface CdsArticleTocItem {
  * Form (natives `<details>`, SVG-Caret, `[open]`-Rotation über
  * `transition:transform`), aber nicht die Aufgabe: `cds-compare` trägt eine
  * Vergleichstabelle mit `columns`/`rows`/`toggled`-Output, dieses Bauteil trägt
- * eine reine Link-Liste ohne Output (siehe API-Vorgabe des Tickets, die für dieses
- * Bauteil bewusst keinen `toggled` vorsieht). Zwei gleiche Stellen sind ein
+ * eine reine Link-Liste ohne Output (die API sieht für dieses
+ * Bauteil bewusst keinen `toggled` vor). Zwei gleiche Stellen sind ein
  * Zufall, kein Muster — eine gemeinsame Basisklasse für zwei Vorkommen hätte nur
  * das `<details>`+Caret-Skelett gebündelt und dabei entweder Verhalten
  * vereinheitlicht (ein erzwungener `toggled`-Output ohne Zweck hier) oder so viel
@@ -83,7 +82,9 @@ export interface CdsArticleTocItem {
       </summary>
       <ol class="article-toc-list">
         @for (item of items(); track $index) {
-          <li><a [href]="item.href">{{ item.label }}</a></li>
+          <li>
+            <a [href]="item.href">{{ item.label }}</a>
+          </li>
         }
       </ol>
     </details>

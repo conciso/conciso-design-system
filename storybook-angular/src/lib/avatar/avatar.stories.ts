@@ -95,7 +95,7 @@ export const AvatarMitBild: Story = {
     template: `<div cdsAvatar name="Daniel Herzog" area="wo" [src]="src"></div>`,
     props: { src: avatarPlaceholder },
   }),
-  // src gesetzt → <img> ersetzt die Initialen, alt kommt aus name (Ticket-Vorgabe).
+  // src gesetzt → <img> ersetzt die Initialen, alt kommt aus name.
   play: async ({ canvasElement }) => {
     const avatar = canvasElement.querySelector('[cdsAvatar]') as HTMLElement;
     const img = avatar.querySelector('img') as HTMLImageElement;

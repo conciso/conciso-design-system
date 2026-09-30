@@ -90,6 +90,8 @@ export const ZustandFolgtEintrag: Story = {
     await userEvent.click(c.getByText('Wie läuft die Bewerbung ab?'));
     await userEvent.click(c.getByRole('button', { name: 'Frage voranstellen' }));
     await expect(c.getByText('Gibt es Probetage?').closest('details')).not.toHaveAttribute('open');
-    await expect(c.getByText('Wie läuft die Bewerbung ab?').closest('details')).toHaveAttribute('open');
+    await expect(c.getByText('Wie läuft die Bewerbung ab?').closest('details')).toHaveAttribute(
+      'open',
+    );
   },
 };

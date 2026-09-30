@@ -42,7 +42,10 @@ const meta: Meta<ButtonComponent> = {
       options: ['sm', 'md', 'lg'],
       description: 'Größe: Small, Medium (Default) oder Large',
     },
-    full: { control: 'boolean', description: 'Streckt den Button auf die volle Breite des Containers' },
+    full: {
+      control: 'boolean',
+      description: 'Streckt den Button auf die volle Breite des Containers',
+    },
     disabled: { control: 'boolean' },
   },
   args: {
@@ -187,7 +190,9 @@ export const Deaktiviert: Story = {
   // erwartete Nicht-Reaktion zu zeigen).
   play: async ({ canvasElement, args }) => {
     const c = within(canvasElement);
-    await userEvent.click(c.getByRole('button', { name: 'Nicht verfügbar' }), { pointerEventsCheck: 0 });
+    await userEvent.click(c.getByRole('button', { name: 'Nicht verfügbar' }), {
+      pointerEventsCheck: 0,
+    });
     await expect(args.clicked).not.toHaveBeenCalled();
   },
 };

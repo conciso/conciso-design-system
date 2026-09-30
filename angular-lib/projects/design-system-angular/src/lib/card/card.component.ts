@@ -24,6 +24,7 @@ import { CDS_AREA_ICONS } from '../icons';
 @Component({
   selector: 'cds-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <article class="card" [attr.data-area]="area() || null">
       @if (showMedia()) {
@@ -34,7 +35,9 @@ import { CDS_AREA_ICONS } from '../icons';
           <p class="card-eyebrow">{{ eyebrow() }}</p>
         }
         @if (title()) {
-          <h3 class="card-title"><span>{{ title() }}</span></h3>
+          <h3 class="card-title">
+            <span>{{ title() }}</span>
+          </h3>
         }
         @if (text()) {
           <p class="card-text">{{ text() }}</p>
@@ -43,7 +46,9 @@ import { CDS_AREA_ICONS } from '../icons';
       </div>
       @if (actionLabel()) {
         <div class="card-footer">
-          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">{{ actionLabel() }}</button>
+          <button [class]="actionClasses()" type="button" (click)="actionClick.emit()">
+            {{ actionLabel() }}
+          </button>
         </div>
       }
     </article>
@@ -54,7 +59,7 @@ export class CardComponent {
 
   /** Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile). */
   readonly eyebrow = input('');
-  /** Kartentitel. */
+  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */
   readonly title = input.required<string>();
   /** Anreißer-/Beschreibungstext der Karte. */
   readonly text = input.required<string>();

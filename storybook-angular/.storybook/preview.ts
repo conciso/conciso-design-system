@@ -10,7 +10,9 @@ import { concisoLight } from './theme';
 // aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und
 // alle Komponenten synchron. Die Gegenrichtung (Toolbar → Store) macht der
 // Theme-Decorator unten. getChannel() erst beim Emit holen (dann ist er bereit).
-themeStore.subscribe((mode) => addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }));
+themeStore.subscribe((mode) =>
+  addons.getChannel().emit(UPDATE_GLOBALS, { globals: { theme: mode } }),
+);
 
 // Toolbar → Store, auch OHNE Story-Render: Der Decorator unten läuft nur, wenn
 // eine Story rendert — reine MDX-Doku-Seiten (Icons, Hero, alle „Verwendung“-
@@ -71,13 +73,22 @@ const preview: Preview = {
             'Brand Areas',
             ['Übersicht', 'AreaTabs'],
             'Logo',
-            ['Verwendung', 'Logo'],
+            ['Logo', ['Verwendung']],
             'Bildsprache',
           ],
           'Grundlagen',
           [
+            'Einrichtung',
+            // „Verwendung“ hängt per <Meta of={FarbenStories}> an der
+            // Foundation-Story „Grundlagen/Farben“ (ADR-0012), ist also Kind
+            // von „Farben“, nicht mehr dessen Geschwister.
             'Farben',
+            ['Verwendung', 'Paletten', 'Semantisch'],
+            // „Verwendung“ hängt per <Meta of={TypografieStories}> an der
+            // Foundation-Story „Grundlagen/Typografie“ (ADR-0012), ist also
+            // Kind von „Typografie“, nicht mehr dessen Geschwister.
             'Typografie',
+            ['Verwendung', 'Skala', 'Ligaturen', 'Seitenhierarchie'],
             'Spacing & Grid',
             'Responsive',
             'Elevation',
@@ -87,21 +98,33 @@ const preview: Preview = {
           ],
           'Komponenten',
           [
+            // „Verwendung“ hängt je Gruppe per <Meta of={...}> an einer tragenden
+            // Komponente (ADR-0012), ist also deren Kind, nicht mehr ihr Geschwister.
+            // Ausnahme: Buchungsformular hat keine eigene Komponente, bleibt ein Blatt.
             'Buttons',
-            ['Verwendung', 'Button'],
+            ['Button', ['Verwendung']],
             'Chips, Badges & Pills',
-            ['Verwendung', 'Chip', 'Status-Badge', 'Bereichs-Badge', 'Pill'],
+            ['Chip', ['Verwendung'], 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Inputs & Forms',
-            ['Verwendung', 'Textfeld', 'Textbereich', 'Auswahlfeld', 'Radio', 'Checkbox', 'Slider', 'Skala'],
+            [
+              'Textfeld',
+              ['Verwendung'],
+              'Textbereich',
+              'Auswahlfeld',
+              'Radio',
+              'Checkbox',
+              'Slider',
+              'Skala',
+            ],
             'Dropdowns',
-            ['Verwendung', 'Custom Select', 'Combobox'],
+            ['Custom Select', ['Verwendung'], 'Combobox'],
             'Buchungsformular',
             'Feedback',
-            ['Verwendung', 'Snackbar'],
+            ['Snackbar', ['Verwendung']],
             'Cards & Teaser',
             [
-              'Verwendung',
               'Card',
+              ['Verwendung'],
               'Klickbare Karte',
               'Featured-Karte',
               'Icon-Karte',
@@ -111,25 +134,25 @@ const preview: Preview = {
               'StatStrip',
             ],
             'Call to Action',
-            ['Verwendung', 'CTA-Band', 'DownloadCta'],
+            ['CTA-Band', ['Verwendung'], 'DownloadCta'],
             'Tabelle',
-            ['Übersicht', 'Tabelle', 'Vergleichstabelle'],
+            ['Tabelle', ['Verwendung'], 'Vergleichstabelle'],
             'Zitate & Testimonials',
-            ['Verwendung', 'Blockquote', 'Testimonial', 'TeamVoice'],
+            ['Blockquote', ['Verwendung'], 'Testimonial', 'TeamVoice'],
             'Code-Block',
-            ['Verwendung', 'Code-Block'],
+            ['Code-Block', ['Verwendung']],
             'Slider & Carousel',
-            ['Verwendung', 'Carousel', 'LogoCarousel'],
+            ['Carousel', ['Verwendung'], 'LogoCarousel'],
             'Sektion',
-            ['Übersicht', 'Sektion'],
+            ['Sektion', ['Verwendung']],
             'Navigation',
-            ['Verwendung', 'Topnav'],
+            ['Topnav', ['Verwendung']],
             'Hero',
-            ['Übersicht', 'Hero-Bild', 'Störer'],
+            ['Hero-Bild', ['Verwendung'], 'Störer'],
             'Footer',
-            ['Verwendung', 'Komplett', 'Oberer Teil', 'Unterer Teil'],
+            ['Komplett', ['Verwendung'], 'Oberer Teil', 'Unterer Teil'],
             'Theme-Umschalter',
-            ['Verwendung', 'Cycle-Button', 'Segment', 'Dropdown'],
+            ['Cycle-Button', ['Verwendung'], 'Segment', 'Dropdown'],
           ],
           'Seitenmuster',
           [
@@ -179,7 +202,8 @@ const preview: Preview = {
   },
   globalTypes: {
     theme: {
-      description: 'Conciso Light/Dark/System (data-theme am <html>) — synchron mit den Theme-Switcher-Komponenten',
+      description:
+        'Conciso Light/Dark/System (data-theme am <html>) — synchron mit den Theme-Switcher-Komponenten',
       toolbar: {
         title: 'Theme',
         icon: 'contrast',
@@ -192,7 +216,8 @@ const preview: Preview = {
       },
     },
     areaContext: {
-      description: 'Bereichs-Kontext der Seite (.ep-page[data-accent]) — tönt z. B. .body-link auf die Bereichsfarbe',
+      description:
+        'Bereichs-Kontext der Seite (.ep-page[data-accent]) — tönt z. B. .body-link auf die Bereichsfarbe',
       toolbar: {
         title: 'Bereich',
         icon: 'paintbrush',

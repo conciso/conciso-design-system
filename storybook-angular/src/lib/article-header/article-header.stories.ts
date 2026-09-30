@@ -8,12 +8,17 @@ import {
   type CdsArticleBreadcrumbItem,
 } from '@conciso/design-system-angular';
 
-const breadcrumb: CdsArticleBreadcrumbItem[] = [{ label: 'Wissen', href: '#' }, { label: 'Angewandte KI' }];
+const breadcrumb: CdsArticleBreadcrumbItem[] = [
+  { label: 'Wissen', href: '#' },
+  { label: 'Angewandte KI' },
+];
 
 const meta: Meta<ArticleHeaderComponent> = {
   title: 'Seitenmuster/Wissensbeitrag/Article-Header',
   component: ArticleHeaderComponent,
-  decorators: [moduleMetadata({ imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent] })],
+  decorators: [
+    moduleMetadata({ imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent] }),
+  ],
   tags: ['autodocs', 'angular'],
   parameters: {
     layout: 'padded',
@@ -252,6 +257,7 @@ export const BreiteBegrenzt: Story = {
   play: async ({ canvasElement }) => {
     const host = canvasElement.querySelector<HTMLElement>('cds-article-header')!;
     const lead = host.querySelector<HTMLElement>('.article-lead')!;
+    await expect(host).not.toHaveAttribute('title');
     await expect(getComputedStyle(host).display).toBe('block');
     await expect(host.getBoundingClientRect().width).toBe(880);
     await expect(lead.getBoundingClientRect().width).toBeLessThanOrEqual(880);

@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import type { CdsArea, CdsButtonVariant } from '@conciso/design-system-angular';
 import {
   ButtonComponent,
   CardComponent,
+  CdsConfirmDialog,
   CheckboxComponent,
   TextFieldComponent,
   TopnavComponent,
@@ -26,6 +27,10 @@ import {
  * - TextField, Checkbox → `@angular/forms` (NG_VALUE_ACCESSOR, Laufzeit-Token)
  * - Card → `@angular/platform-browser` (DomSanitizer)
  *
+ * Dazu der einzige Service der Lib, der selbst rendert (CdsConfirmDialog, docs/adr/0012):
+ * Er bringt kein neues Fremd-Paket mit, steht aber für die zweite Form öffentlicher API
+ * (Methode statt Inputs/Outputs) und wird deshalb einmal echt aufgerufen.
+ *
  * Kommt eine Komponente mit einem NEUEN Fremd-Import in die Lib, gehört hier ein
  * Vertreter dazu — sonst prüft das Gate diese Abhängigkeit nicht.
  */
@@ -39,4 +44,18 @@ import {
 export class App {
   protected readonly areas: CdsArea[] = ['co', 'ki', 'es', 'wo'];
   protected readonly variants: CdsButtonVariant[] = ['filled', 'tonal', 'outlined'];
+  protected readonly confirmResult = signal('');
+  private readonly confirmDialog = inject(CdsConfirmDialog);
+
+  protected async confirmDiscard(): Promise<void> {
+    const discarded = await this.confirmDialog.open({
+      title: 'Änderungen verwerfen?',
+      message: 'Deine Änderungen gehen verloren.',
+      confirmLabel: 'Verwerfen',
+      cancelLabel: 'Weiter bearbeiten',
+      destructive: true,
+      emphasis: 'cancel',
+    });
+    this.confirmResult.set(discarded ? 'verworfen' : 'weiter bearbeitet');
+  }
 }

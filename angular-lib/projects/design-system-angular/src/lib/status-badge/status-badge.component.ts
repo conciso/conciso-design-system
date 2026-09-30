@@ -11,6 +11,8 @@ export type CdsBadgeTone = 'ok' | 'warn' | 'err' | 'neu';
  * z. B. „Live“, „Beta“, „Deprecated“, „Draft“. Nicht interaktiv. Für die
  * Zuordnung zu einer Brand Area die Bereichs-Badge, für einen redaktionellen
  * Anker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.
+ *
+ * Verwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).
  */
 @Component({
   selector: 'cds-status-badge',

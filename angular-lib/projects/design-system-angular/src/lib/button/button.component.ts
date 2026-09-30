@@ -7,7 +7,8 @@ import type { CdsArea } from '../area';
  * eigener Variant-Wert geführt statt als abhängiges Flag, da das Invertieren nur
  * in Kombination mit `filled` je sinnvoll ist.
  */
-export type CdsButtonVariant = 'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' | 'filled-on-band';
+export type CdsButtonVariant =
+  'filled' | 'tonal' | 'elevated' | 'outlined' | 'text' | 'filled-on-band';
 export type CdsButtonSize = 'sm' | 'md' | 'lg';
 /**
  * Ton des Buttons. `err` markiert eine destruktive Aktion, die sich nicht rückgängig machen
@@ -32,7 +33,12 @@ export type CdsButtonTone = 'def' | 'err';
   // Inhaltsbreite). Bei full=true daher den Host auf block stellen.
   host: { '[style.display]': "full() ? 'block' : null" },
   template: `
-    <button [class]="classes()" [disabled]="disabled()" [attr.type]="type()" (click)="clicked.emit($event)">
+    <button
+      [class]="classes()"
+      [disabled]="disabled()"
+      [attr.type]="type()"
+      (click)="clicked.emit($event)"
+    >
       {{ label() }}
     </button>
   `,

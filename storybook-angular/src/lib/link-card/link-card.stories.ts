@@ -96,6 +96,11 @@ export const ProBereich: Story = {
       </div>
     `,
   }),
+  play: async ({ canvasElement }) => {
+    const hosts = canvasElement.querySelectorAll('cds-link-card');
+    await expect(hosts).toHaveLength(4);
+    for (const host of hosts) await expect(host).not.toHaveAttribute('title');
+  },
 };
 
 export const ImRaster: Story = {
@@ -132,7 +137,9 @@ export const ImRaster: Story = {
   play: async ({ canvasElement }) => {
     const pinned = canvasElement.querySelectorAll('.card-cta-link--pinned');
     await expect(pinned).toHaveLength(3);
-    const heights = Array.from(canvasElement.querySelectorAll('a.card')).map((card) => card.getBoundingClientRect().height);
+    const heights = Array.from(canvasElement.querySelectorAll('a.card')).map(
+      (card) => card.getBoundingClientRect().height,
+    );
     await expect(new Set(heights).size).toBe(1);
     const ctaBottoms = Array.from(pinned).map((cta) => cta.getBoundingClientRect().bottom);
     await expect(new Set(ctaBottoms).size).toBe(1);

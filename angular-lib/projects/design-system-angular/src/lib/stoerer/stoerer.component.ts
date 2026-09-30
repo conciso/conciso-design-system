@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  TemplateRef,
+  computed,
+  input,
+  viewChild,
+} from '@angular/core';
 
 /**
  * Stoerer (cds-stoerer) — eine Kachel für `<cds-stoerer-set>`, Wrapper um `.stoerer`
@@ -15,12 +22,11 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewC
  * umgebendes `<cds-stoerer-set>` bleibt eine Kachel deshalb unsichtbar: Angular hängt
  * projizierten Inhalt ohne passendes `<ng-content>`-Ziel nicht ins DOM.
  *
- * **Entscheidung — Icon als projizierter Inhalt.** Wie in Ticket 05 (`cds-icon-card`,
- * `.scratch/angular-seitenbausteine/issues/05-icon-karte.md`, Abschnitt „Entscheidung:
- * Icon als projizierter Inhalt“) sind die Störer-Icons im Mockup wechselnde
+ * **Entscheidung — Icon als projizierter Inhalt.** Wie bei `cds-icon-card` sind die
+ * Störer-Icons im Mockup wechselnde
  * Heroicons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
  * Projektion über `<ng-content select="[cdsIcon]">` statt eines `icon`-Inputs.
- * Abweichend von Ticket 05 trägt das projizierte `<svg>` die Klasse `stoerer-icon`
+ * Abweichend von `cds-icon-card` trägt das projizierte `<svg>` die Klasse `stoerer-icon`
  * selbst (zusätzlich zu `cdsIcon`, `viewBox`, `aria-hidden="true"`,
  * `focusable="false"`): `.ep-card-icon` ist dort ein Container, der die Größe per
  * Nachfahren-Selektor (`.ep-card-icon svg`) an ein unverändertes Kind durchreicht.
@@ -32,6 +38,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewC
 @Component({
   selector: 'cds-stoerer',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { '[attr.title]': 'null' },
   template: `
     <ng-template>
       <a class="stoerer" [href]="href()">
@@ -39,7 +46,9 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewC
           <ng-content select="[cdsIcon]"></ng-content>
           {{ topic() }}
         </span>
-        <span class="stoerer-title"><span>{{ title() }}</span></span>
+        <span class="stoerer-title"
+          ><span>{{ title() }}</span></span
+        >
         @if (hasMeta()) {
           <span class="stoerer-meta">
             @if (date()) {
@@ -58,7 +67,10 @@ import { ChangeDetectionStrategy, Component, TemplateRef, computed, input, viewC
 export class StoererComponent {
   /** Thema/Inhaltstyp neben dem Icon (`.stoerer-topic`, z. B. „Nächste Veranstaltung“). */
   readonly topic = input.required<string>();
-  /** Titel des verlinkten Inhalts — redaktionell auf zwei Zeilen gekürzt. */
+  /**
+   * Titel des verlinkten Inhalts, redaktionell auf zwei Zeilen gekürzt.
+   * Am Host verbleibt kein natives `title`-Attribut.
+   */
   readonly title = input.required<string>();
   /** Linkziel; die Kachel ist vollständig klickbar. */
   readonly href = input.required<string>();
@@ -92,8 +104,10 @@ export class StoererComponent {
     if (!iso) return '';
     const [year, month, day] = iso.split('-').map(Number);
     if (!year || !month || !day) return iso;
-    return new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }).format(
-      new Date(year, month - 1, day),
-    );
+    return new Intl.DateTimeFormat('de-DE', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(year, month - 1, day));
   });
 }

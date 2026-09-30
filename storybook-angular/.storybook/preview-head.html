@@ -141,7 +141,8 @@
     (margin-top: --s10) und 24px Polster danach (padding-top: --s6), bevor der Text
     beginnt. margin-bottom: --s4 bleibt der Abstand zum nachfolgenden Absatz.
   */
-  .sbdocs-content h2:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *):not([id='stories']) {
+  .sbdocs-content
+    h2:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *):not([id='stories']) {
     font: 400 1.5rem/2rem var(--font-display);
     margin: var(--s10) 0 var(--s4);
     padding-top: var(--s6);
@@ -198,7 +199,7 @@
   }
   .sbdocs-content th:not(.docs-story *):not(.sbdocs-preview *):not(.sb-unstyled *) {
     font: 500 0.75rem/1rem var(--font);
-    letter-spacing: .06em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--tx-secondary);
     text-align: left;

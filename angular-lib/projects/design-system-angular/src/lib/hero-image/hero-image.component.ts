@@ -26,8 +26,9 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * `1`) macht die Ebene explizit, `.hero-image-caption-title` ist reine CSS-Klasse
  * und trägt keine Heading-Semantik, das Styling bleibt in beiden Fällen identisch.
  *
- * **Entscheidung 3 — `objectPosition` als Style-Binding, die eine Ausnahme von
- * Spec-Randbedingung 6.** Der Bildausschnitt ist eine Eigenschaft des konkreten
+ * **Entscheidung 3 — `objectPosition` als Style-Binding, bewusste Ausnahme von
+ * der Regel, dass Mockup-Inline-Styles nicht in den Wrapper wandern.** Der
+ * Bildausschnitt ist eine Eigenschaft des konkreten
  * Bildes (Motiv, Kopfposition), nicht der Seite — anders als z. B. eine
  * Sektionsfläche, die vom Seitenkontext abhängt. `docs/index.html` setzt ihn
  * deshalb an jedem Hero individuell direkt am `<img>` (z. B. `object-position:center
@@ -118,5 +119,7 @@ export class HeroImageComponent {
    *
    * @internal
    */
-  protected readonly hasCaption = computed(() => !!(this.eyebrow() || this.heading() || this.text()));
+  protected readonly hasCaption = computed(
+    () => !!(this.eyebrow() || this.heading() || this.text()),
+  );
 }

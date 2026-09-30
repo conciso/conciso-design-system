@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, model } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  model,
+} from '@angular/core';
 import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export interface CdsSlide {
@@ -54,13 +62,39 @@ let uid = 0;
         }
       </div>
 
-      <button class="img-slider-btn img-slider-prev" type="button" aria-label="Vorherige Slide" (click)="prev()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <button
+        class="img-slider-btn img-slider-prev"
+        type="button"
+        aria-label="Vorherige Slide"
+        (click)="prev()"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
           <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 19.5-7.5-7.5 7.5-7.5" />
         </svg>
       </button>
-      <button class="img-slider-btn img-slider-next" type="button" aria-label="Nächste Slide" (click)="next()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <button
+        class="img-slider-btn img-slider-next"
+        type="button"
+        aria-label="Nächste Slide"
+        (click)="next()"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
       </button>

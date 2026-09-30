@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import * as CtaBandStories from '../../lib/cta-band/cta-band.stories';
 
-<Meta title="Komponenten/Call to Action" name="Verwendung" tags={['angular']} />
+<Meta of={CtaBandStories} name="Verwendung" />
 
 # Verwendung
 
@@ -8,7 +9,7 @@ Call to Action deckt zwei Pattern-Familien ab: das Page-End-CTA-Band als letzte,
 Einladung am Ende jeder Customer-Page, und vier Download-CTA-Varianten für
 Ressourcen-Downloads. Ergänzend dokumentiert diese Seite den Editorial Split als
 sekundäre Konversionsfläche neben dem primären Page-End-CTA. Das Page-End-CTA-Band hat
-seit Ticket 07 der Seitenbausteine-Serie ein eigenes Bauteil (`CtaBand`, Attributselektor
+ein eigenes Bauteil (`CtaBand`, Attributselektor
 `[cdsCtaBand]`), ebenso die vier Download-Varianten (`DownloadCta`); der Editorial Split
 bleibt ein CSS-Rezept ohne Angular-Komponente.
 
@@ -40,9 +41,7 @@ Regel auf die adaptive Kontaktseite (`data-ep="kontakt"`), nie auf ein Overlay o
 Modal. Bewusst nur EINE Aktion, kein `secondaryLabel`: keines der 22
 Mockup-Vorkommen zeigt eine zweite, und `.btn-on-band` lässt sich mit den
 vorhandenen CSS-Klassen ohnehin nicht in einer zurückhaltenderen zweiten Variante
-bauen (jede Nicht-`filled`-Variante würde Text in Bandfarbe auf Bandfarbe zeigen —
-festgehalten in
-`.scratch/angular-seitenbausteine/issues/16-css-luecke-zweite-aktion-auf-band.md`).
+bauen (jede Nicht-`filled`-Variante würde Text in Bandfarbe auf Bandfarbe zeigen).
 
 ```html
 <div cdsCtaBand

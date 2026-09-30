@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 
 /**
  * CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block“.
@@ -71,7 +79,9 @@ export class CodeBlockComponent {
   }
 
   /** @internal */
-  protected readonly wrapClasses = computed(() => (this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap'));
+  protected readonly wrapClasses = computed(() =>
+    this.terminal() ? 'cb-wrap cb-terminal' : 'cb-wrap',
+  );
 
   /**
    * Text der Live-Region (`role="status"`) neben dem Button. Leer im Ruhezustand, damit
