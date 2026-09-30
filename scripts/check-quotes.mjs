@@ -7,7 +7,7 @@
 // Copy und Fließtext. In der Praxis entsteht beim Schreiben aber immer wieder die
 // Mischform: das öffnende Zeichen wird typografisch gesetzt oder aus einer Vorlage
 // kopiert, das schließende kommt von der Tastatur als gerades ASCII-Zeichen. Das fiel erst
-// auf, als sich rund 560 solcher Paare über Doku-Site, CHANGELOG, CSS-Kommentare und
+// auf, als sich rund 560 solcher Paare über Dokumentation, CHANGELOG, CSS-Kommentare und
 // Story-Copy verteilt hatten — genau die Sorte Drift, die kein Review zuverlässig sieht
 // und ein Skript schon. Der dokumentierte Standard allein hat sie nachweislich nicht
 // verhindert.

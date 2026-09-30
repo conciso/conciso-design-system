@@ -169,7 +169,7 @@ body{font-family:var(--font);font-size:1rem;line-height:1.7;color:var(--tx-prima
 /* Eingeblendeter Hex-Code (nur Tonal-Paletten): kräftiger als das Stufen-Label, damit als Referenz ablesbar */
 .swatch .swatch-hex{text-transform:uppercase;letter-spacing:.01em;padding:0 6px 5px}
 /* Unter 1024 px wird eine Spalte zu schmal für den Hexwert. Er entfällt dann; der Wert steht
-   weiterhin im title-Attribut und wird per Klick kopiert (docs/main.js). Die Stufe bleibt. */
+   weiterhin im title-Attribut und wird per Klick kopiert. Die Stufe bleibt. */
 @media (max-width:1024px){ .swatch .swatch-hex{display:none} }
 /* Klick-zum-Kopieren: Cursor + Fokus. Fokus-Ring als inset box-shadow (zwei Töne → auf hellen
    UND dunklen Swatches sichtbar), da .pal-row overflow:hidden einen äußeren Ring abschneiden würde. */

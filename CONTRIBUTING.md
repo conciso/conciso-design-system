@@ -122,7 +122,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 ## 8. Komponenten-Verhalten
 
-- **Topnav-Dropdowns sind ein Disclosure-Pattern** (in `docs/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
+- **Topnav-Dropdowns sind ein Disclosure-Pattern** (`aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
 - **Verlinkte Rechtstexte in Einwilligungen sind echte `<a class="body-link">`**, nie ein `<span>` mit `cursor:pointer`. Ein Span ist nicht per Tab erreichbar und für Screenreader kein Link, obwohl genau dieser Text die Grundlage der Einwilligung ist. Im `<label for>` ist der Anker unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt kein Häkchen.
 - Icon-only Buttons brauchen `aria-label`. Tab-/Panel-Muster mit korrektem ARIA (`role`, `aria-selected`, `aria-controls`).
 
@@ -147,9 +147,9 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 ---
 
-## 11. Doku-Struktur (`docs/index.html`)
+## 11. Dokumentationsstruktur
 
-Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einziger Index dient. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
+Die Dokumentation umfasst 35 Sektionen und eine Sidebar als einzigen Index. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
 
 **Die sechs Gruppen.** Reihenfolge und Inhalt:
 
@@ -181,24 +181,27 @@ Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einzige
 **So prüfst du es** (vor dem Commit, ersetzt kein Gate):
 
 ```bash
+# Im Verzeichnis docs/ ausführen
+cd docs
+
 # Nav-Links ohne Ziel
-rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/nav
-rg -o '\sid="([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/ids
+rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' index.html | sort -u > /tmp/nav
+rg -o '\sid="([^"]+)"' -r '$1' index.html | sort -u > /tmp/ids
 comm -23 /tmp/nav /tmp/ids
 
 # gt-Überschriften ohne Nav-Eintrag
-rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/nav
+rg -o '\sid="(gt-[^"]+)"' -r '$1' index.html | sort -u | comm -23 - /tmp/nav
 ```
 
 ---
 
 ## 12. Storybook-Sidebar (`storybook-angular/src`)
 
-Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer eigenen Taxonomie.
+Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und folgt einer eigenen Taxonomie.
 
-**Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Doku-Site. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
+**Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Dokumentationsstruktur. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
 
-**Die Doku-Seite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Doku-Seite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
+**Die Dokumentationsseite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Dokumentationsseite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
 
 **Vier Eigenheiten der Seitenleiste**, die jede Umstellung trifft (alle in Storybook 10.6 im Browser gemessen, nicht aus der Doku übernommen):
 
@@ -207,7 +210,7 @@ Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer
 - Ein Schrägstrich im Sektionsnamen ist ein Pfadtrenner. Für ein näher bestimmendes Trennzeichen den Mittelpunkt `·` nehmen, wie in §11.
 - Ein Titel aus nur einem Segment wird zur Wurzel und rutscht über alle benannten Gruppen, unabhängig von `storySort.order`. Deshalb behalten auch Gruppen mit nur einer Seite (Beispielseiten, Referenzen) ihren zweistufigen Pfad.
 
-**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Doku-Site, gerendert über `sidebar.renderLabel` im Manager aus `icons/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
+**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Dokumentationsstruktur, gerendert über `sidebar.renderLabel` im Manager aus `icons/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
 
 ---
 
