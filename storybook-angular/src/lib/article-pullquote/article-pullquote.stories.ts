@@ -29,8 +29,7 @@ export default meta;
 
 type Story = StoryObj<ArticlePullquoteComponent>;
 
-// Wortlaut 1:1 aus dem Mockup (docs/index.html:15075, identisch mit der isolierten Doku-Demo
-// docs/index.html:8136) — einziges reales Vorkommen, data-area="ki".
+// Wortlaut des einzigen realen Vorkommens, data-area="ki".
 export const Interaktiv: Story = {
   render: (args) => ({
     props: args,

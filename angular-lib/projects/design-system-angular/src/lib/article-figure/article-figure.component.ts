@@ -4,12 +4,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * ArticleFigure (`cds-article-figure`) — Wrapper um `.article-figure`/
  * `.article-figcaption` aus css/components.css (css/components.css:1573–1575):
  * das redaktionelle Inline-Bild mit optionaler Bildunterschrift im Lauftext eines
- * Wissensbeitrags. Ausgezählt: 3 reale Vorkommen — Doku-Demo mit Caption
- * (`docs/index.html:8028–8031`), reales Body-Bild mit Caption in der Beispielseite
- * Wissensbeitrag · KI (`docs/index.html:15115–15118`, identischer Bild- und
- * Caption-Text wie die Doku-Demo) und ein dritter, captionsloser Sonderfall direkt
- * unter dem Article Header derselben Beispielseite (`docs/index.html:15040–15042`,
- * dazu unten mehr).
+ * Wissensbeitrags. Es gibt zwei In-Article-Fälle mit Caption sowie einen
+ * captionslosen Sonderfall direkt unter dem Article Header.
  *
  * **Element-Selektor, ADR-0008-Standardfall.** In allen 3 Vorkommen sitzt
  * `.article-figure` als gewöhnlicher Block-Nachfahre (zwei in `.article-body`,
@@ -25,8 +21,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * In-Article-Fall, nicht der dritte Mockup-Beleg.** Ausgezählt tragen 2 der 3
  * Vorkommen `loading="lazy"` (die beiden Bilder MIT Caption, mittig im
  * Lauftext, „below the fold“ — genau der in `wissensbeitrag.mdx`, Abschnitt
- * „In-Article Figure“, dokumentierte Dos-Punkt). Das dritte Vorkommen
- * (`docs/index.html:15040–15042`) trägt stattdessen `loading="eager"
+ * „In-Article Figure“, dokumentierte Dos-Punkt). Der dritte Fall
+ * trägt stattdessen `loading="eager"
  * fetchpriority="high"` UND hat keine Caption — es ist das erste Bild direkt
  * unter dem Article Header (Kommentar im Mockup: „Hero-Bild auf Body-Breite …
  * identisches Bild wie Vorschaubild für Wiedererkennung“), sitzt außerhalb von

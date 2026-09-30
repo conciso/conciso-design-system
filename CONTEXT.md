@@ -19,7 +19,7 @@ frameworkspezifischen Aufsätzen darauf:
   öffentlich veröffentlichte Doku des Design Systems.
 - **MCP-Server** (`@conciso/design-system-mcp`) — liefert der KI eines Consumers das
   Wissen aus dem Storybook, passend zur installierten Version.
-- **Doku-Site** (`docs/index.html`) — eigenständige statische Doku der CSS-Schicht,
+- **Doku-Site** — eigenständige statische Doku der CSS-Schicht,
   nicht veröffentlicht.
 
 ## Glossar
@@ -52,8 +52,8 @@ Siehe [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 
 ### Doku-Site
 
-Die eigenständige, statische Doku-Seite der [CSS-Schicht](#css-schicht)
-(`docs/index.html`). Existiert neben dem [Storybook](#storybook), wird aber
+Die eigenständige, statische Doku der [CSS-Schicht](#css-schicht). Existiert neben
+dem [Storybook](#storybook), wird aber
 **nicht** veröffentlicht. Nicht synonym mit „Storybook“ verwenden.
 
 ### MCP-Server
@@ -70,7 +70,7 @@ Siehe [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md).
 ### Verwendungsseite
 
 Eine MDX-Seite mit den Verwendungsregeln einer Komponentengruppe (Dos & Don'ts,
-Begründungen, Wann/Wann nicht), migriert aus der [Doku-Site](#doku-site). Hängt per
+Begründungen, Wann/Wann nicht). Hängt per
 `<Meta of={ComponentStories}>` an der [tragenden Komponente](#tragende-komponente) ihrer
 Gruppe, statt als eigenständige Seite daneben zu stehen — nur so liefert `docs-show` des
 [MCP-Servers](#mcp-server) die Guidance im selben Aufruf wie Props und Stories. Ausnahme:

@@ -7,8 +7,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * randloses `<figure>` im 21:9-Format, der Standard-Hero auf allen Customer-Pages
  * (17 Vorkommen in den Beispielseiten). Semantisch ein figure/figcaption-Pattern:
  * `alt` trägt die faktische Bildbeschreibung, die Caption die redaktionelle
- * Einordnung (Eyebrow, Titel, Text) — beide sollen sich nach `docs/index.html`
- * (Abschnitt „In-Article Figure“, dasselbe Prinzip) nicht inhaltlich decken.
+ * Einordnung (Eyebrow, Titel, Text) — beide sollen sich nicht inhaltlich decken.
  *
  * **Entscheidung 1 — kein `<figcaption>` ohne Textinhalt.** Bleiben `eyebrow`,
  * `heading` und `text` alle leer, entfällt das `<figcaption>`-Element vollständig
@@ -17,8 +16,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * Zeile 3: Beitrags-Heros zeigen das visuelle Versprechen ohne Marketing-Overlay).
  * Ein leeres `<figcaption>` wäre totes Markup ohne Zugänglichkeitsnutzen.
  *
- * **Entscheidung 2 — `headingLevel` statt fest verdrahtetem `<h1>`.** Das Mockup
- * (`docs/index.html:9412` u. a.) rendert `.hero-image-caption-title` durchgehend als
+ * **Entscheidung 2 — `headingLevel` statt fest verdrahtetem `<h1>`.** Der Hero
+ * rendert `.hero-image-caption-title` häufig als
  * `<h1>`, weil der Hero dort das erste Überschriften-Element der Seite ist. Sitzt
  * der Hero dagegen unter einem eigenen `<h1>` — der Wissensbeitrag hat seinen
  * Titel bereits im Article-Header (`.article-title`, ebenfalls `<h1>`) —, entstünde
@@ -30,9 +29,9 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * der Regel, dass Mockup-Inline-Styles nicht in den Wrapper wandern.** Der
  * Bildausschnitt ist eine Eigenschaft des konkreten
  * Bildes (Motiv, Kopfposition), nicht der Seite — anders als z. B. eine
- * Sektionsfläche, die vom Seitenkontext abhängt. `docs/index.html` setzt ihn
- * deshalb an jedem Hero individuell direkt am `<img>` (z. B. `object-position:center
- * 70%`, Zeile 2640). Ohne diesen Input wäre die Komponente für Porträt-lastige
+ * Sektionsfläche, die vom Seitenkontext abhängt. Er wird deshalb an jedem Hero
+ * individuell direkt am `<img>` gesetzt (z. B. `object-position:center 70%`).
+ * Ohne diesen Input wäre die Komponente für Porträt-lastige
  * Motive unbrauchbar: `object-fit:cover` beschneidet das Bild sobald der
  * `max-height`-Cap greift (siehe `.hero-image-media`), und ohne Steuerung landet
  * der Ausschnitt zufällig in der Bildmitte. Als Style-Binding am `<img>`, nicht als

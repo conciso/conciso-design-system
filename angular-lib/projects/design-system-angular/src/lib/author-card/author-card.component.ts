@@ -3,10 +3,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 /**
  * AuthorCard (`div[cdsAuthorCard]`) — Wrapper um `.author-card` aus css/components.css
  * (css/components.css:1602–1606): der Avatar-plus-Bio-Strip am Ende eines
- * Wissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Ausgezählt: 17 reale Vorkommen in
- * `docs/index.html` — 4 einzelstehend (2 Doku-Demos `docs/index.html:8193,8207`, 1
- * Artikel-Demo `8424`, 1 reale Beispielseite `15179`) und 13 in fünf Gruppen (siehe
- * `AuthorCardGroupComponent`).
+ * Wissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Es gibt vier
+ * einzelstehende und 13 Karten in fünf Gruppen (siehe `AuthorCardGroupComponent`).
  *
  * **Attributselektor (ADR-0008), gemessen im `is-grid`-Fall statt nur hergeleitet.**
  * `.author-card-group.is-grid` (css/components.css:1555) ist `display:grid` ohne
@@ -40,9 +38,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * obwohl der Effekt heute unsichtbar ist.
  *
  * **`area` ist bewusst NICHT Teil der API — CSS-Befund, nicht erfundene Konfiguration.**
- * Alle 17 realen `.author-card`-Vorkommen tragen `data-area`, und sowohl
- * `docs/index.html:8185` als auch `wissensbeitrag.mdx:199` behaupten wörtlich, das
- * färbe „nur den Avatar“. Ausgezählt gibt es aber in `css/components.css` (Light UND
+ * Alle realen `.author-card`-Vorkommen tragen `data-area`; die Dokumentation
+ * beschreibt das als Färbung „nur [des] Avatars“. Ausgezählt gibt es aber in
+ * `css/components.css` (Light UND
  * Dark) KEINE einzige `.author-card[data-area="…"]`-Regel — weder direkt noch über
  * einen Nachfahren-Selektor auf `.article-avatar`, dessen eigene
  * `[data-area]`-Färbung (css/components.css:1523–1526) ein Element-Selektor auf dem
@@ -60,10 +58,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * (siehe dessen Klassendoku, Abschnitt „Avatar projiziert über `[cdsAvatar]`“).
  *
  * **Eyebrow als `<h3>`, nur wenn gesetzt** (Beiwerk, Default `''`) — deckungsgleich
- * mit allen 4 einzelstehenden realen Vorkommen: 2 tragen `<h3 class="author-card-eyebrow">`
- * (`docs/index.html:8196,8427`, „Über den Autor“/„Über die Autorin“:
- * eine Ebene unter dem `<h2>` des Article-Body), die anderen 2 (Doku-Demos ohne
- * umgebende Artikelstruktur) haben gar keinen. Innerhalb einer Gruppe trägt laut
+ * mit allen vier einzelstehenden realen Vorkommen: Zwei tragen
+ * `<h3 class="author-card-eyebrow">` („Über den Autor“/„Über die Autorin“), eine
+ * Ebene unter dem `<h2>` des Article-Body; die anderen zwei haben ohne
+ * umgebende Artikelstruktur gar keinen. Innerhalb einer Gruppe trägt laut
  * `wissensbeitrag.mdx` („Eyebrow-Konvention“) keine einzelne Karte mehr einen eigenen
  * Eyebrow — die Gruppen-Überschrift ersetzt sie (siehe `AuthorCardGroupComponent`);
  * Konsumenten lassen `eyebrow` dafür einfach leer.

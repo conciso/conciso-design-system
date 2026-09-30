@@ -4,15 +4,14 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Beispielseiten
 
-Die Doku-Site zeigt unter „Beispielseiten“ sechs fertige Seiten als Tab-Leiste (Allgemein,
+Unter „Beispielseiten“ stehen sechs fertige Seiten als Tab-Leiste (Allgemein,
 Leistungen, Wissen, Unternehmen, Veranstaltungen, Kontakt), jede zusammengesetzt aus den
 Komponenten und Seitenmustern, die im Storybook einzeln dokumentiert sind. Sie zeigen die
 Bauteile im Zusammenspiel einer echten Seite statt isoliert in einer Story.
 
 Diese Seite baut die sechs Beispielseiten **nicht nach**. Sie sind Kompositionen der
 CSS-Schicht ohne Angular-Entsprechung, sie im Storybook zu duplizieren hieße, die Quelle der
-Wahrheit zu verdoppeln. Für die fertigen Seiten selbst gilt `docs/index.html`, Gruppe
-Beispielseiten, als Quelle.
+Wahrheit zu verdoppeln.
 
 | Tab | Zweck | Bausteine |
 |---|---|---|
@@ -24,5 +23,4 @@ Beispielseiten, als Quelle.
 | Kontakt | Adaptive Anfrageseite, die Bereich und Anliegen aus verlinkten CTAs vorbelegt (`data-k-bereich`/`data-k-anliegen`, siehe Termine-Modul und Angebots-Box) | `Komponenten/Inputs & Forms/Textfeld` und verwandte Felder, `Komponenten/Buttons/Button` |
 
 Für den Aufbau, die Regeln und die Barrierefreiheits-Anforderungen der einzelnen
-Seitentypen gelten die jeweiligen `Seitenmuster/*`-Seiten, für das fertige Ergebnis
-`docs/index.html`.
+Seitentypen gelten die jeweiligen `Seitenmuster/*`-Seiten.

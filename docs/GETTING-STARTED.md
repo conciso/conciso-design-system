@@ -137,7 +137,7 @@ Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktio
 - **Topnav-Dropdowns** (Disclosure-Menü: Öffnen per Klick/Tap, Tastatur oder Hover; `aria-expanded`, Escape, Pfeiltasten, Außenklick)
 - **Back-to-Top-Button**
 
-Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
+Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
 
 > Topnav-Dropdowns öffnen per Klick/Tap, Tastatur und (auf `pointer:fine`) per Hover. Der Reveal hängt immer an `.is-open` (nie an reinem CSS-`:hover`), `aria-expanded` läuft mit, und es ist nie mehr als ein Menü gleichzeitig offen. Der Label-Klick navigiert weiterhin direkt zur Übersicht.
 
@@ -158,8 +158,6 @@ Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs
   Angewandte KI
 </div>
 ```
-
-Vollständige Komponenten mit Code-Snippets und Do/Don'ts: die **Doku-Site** (`index.html`) im Browser öffnen.
 
 ## 6. Tokens nutzen
 

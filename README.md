@@ -11,16 +11,7 @@ Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mo
 
 ## Dokumentation ansehen
 
-Die vollständige, navigierbare Doku-Site liegt im Repo:
-
-```bash
-# Repo klonen, dann die Doku-Site im Browser öffnen
-open docs/index.html        # macOS
-# oder einen kleinen Static-Server im Repo-Root starten und /docs/ öffnen:
-npx serve .
-```
-
-Sie enthält 35 Sektionen in sechs Gruppen: **Marke** (Markenrad, Brand Areas, Logo, Bildsprache), **Grundlagen** (Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit), **Komponenten** mit Code-Snippets und Do/Don'ts, **Seitenmuster** (Wissensbeitrag, Veranstaltung, Seminar und die zugehörigen Übersichten), **Beispielseiten** als komplette Seiten und **Referenzen**.
+Die Doku ist das Storybook: <https://conciso.github.io/conciso-design-system/>. Es enthält Marke, Grundlagen, alle Komponenten mit Verwendungsregeln und die Seitenmuster, und ist über den [MCP-Server](mcp-server/README.md) auch für KI-Assistenten abfragbar.
 
 ## Nutzung im eigenen Projekt
 
@@ -112,7 +103,7 @@ derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-ang
 | `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) · `check-dark-states.mjs` · `check-contrast.mjs` |
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 
-> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`, `icons/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder). Icon-Details und Mapping: [`icons/README.md`](icons/README.md).
+> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`, `icons/`) liegt im Root. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder). Icon-Details und Mapping: [`icons/README.md`](icons/README.md).
 
 ## Mitwirken / Erweitern
 

@@ -4,7 +4,7 @@ import type { CdsArea } from '../area';
 import { CvaBase } from '../shared/cva-base.directive';
 
 /**
- * Checkbox — Einwilligungs-/Consent-Feld nach docs/index.html („Forms“).
+ * Checkbox — Einwilligungs-/Consent-Feld.
  *
  * Bewusst KEIN nachgebautes Kästchen: ein natives `<input type="checkbox">` mit
  * `accent-color` in der Bereichsfarbe (genau wie die Doku), umschlossen von einem

@@ -5,7 +5,7 @@ import { CtaBandComponent } from '@conciso/design-system-angular';
 // Bereichs-Hintergrund wie in button.stories.ts („Auf Bereichs-Band“): --XX-700, ki
 // als einziger Ausreißer auf -800. Die Fläche ist bewusst KEIN Input der Komponente
 // (siehe cta-band.component.ts, Entscheidung 2) — der Konsument setzt sie am
-// Host, genau wie im Mockup (docs/index.html:6304 u. a.).
+// Host.
 const bandBackground = "'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'";
 
 const meta: Meta<CtaBandComponent> = {
@@ -38,7 +38,7 @@ const meta: Meta<CtaBandComponent> = {
     area: { control: 'inline-radio', options: ['co', 'ki', 'es', 'wo'] },
   },
   args: {
-    // Wortlaut aus dem Mockup (docs/index.html:6305–6307, Beispielseite 9598 ff.).
+    // Wortlaut der Beispielseiten.
     heading: 'Erstgespräch, 30 Minuten, kostenfrei.',
     sub: 'Du schilderst Dein Vorhaben, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.',
     area: 'co',
@@ -58,8 +58,8 @@ export const Interaktiv: Story = {
   // 4,5:1 — Weiß bei 85% Deckkraft ergibt #d9eaea auf #007575). Auf ki-800/es-700/
   // wo-700 liegt derselbe Text bei 6,1–7,4:1: co ist hier der systematische Ausreißer,
   // genau wie beim bekannten Befund zu `.cta-dl-eyebrow` in download-cta.stories.ts.
-  // Identisches rohes HTML (docs/index.html:6304 ff.) hat denselben Fehler, also kein
-  // Wrapper-Problem — Fix gehört in den CSS-Kern, nicht in diese Komponente.
+  // Der Fehler liegt nicht am Wrapper. Der Fix gehört in den CSS-Kern, nicht in diese
+  // Komponente.
   parameters: { a11y: { test: 'todo' } },
   render: (args) => ({
     props: args,

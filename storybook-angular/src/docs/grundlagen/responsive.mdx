@@ -5,7 +5,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 # Responsive
 
 Verbindliche Breakpoints, fluide Typografie und das dokumentierte Verhalten pro
-Komponente. Quelle: `docs/index.html#sec-responsive`.
+Komponente.
 
 ## Breakpoints
 
@@ -38,7 +38,7 @@ liegen.
 | Hero-CTAs stapeln erst bei ≤ 520 px, nicht schon bei 768 px | Auf Phablet und kleinem Tablet (521 bis 768 px) liefen full-width-Buttons breiter als der gekappte Intro-Text und wirkten überdehnt. Dort behalten sie natürliche Breite und dürfen umbrechen. Erst am echten Phone werden sie full-width gestapelt. |
 | `auto-fit`-Grids ohne Tablet-Regel, fix-spaltige Grids mit | `auto-fit` verteilt Spalten anhand einer `minmax()`-Mindestbreite selbst, eine feste Tablet-Regel wäre redundant und würde kollidieren. Fix-spaltige Raster (col-N) haben diese Automatik nicht und brauchen die Zwischenstufe. |
 | Hamburger ab ≤ 760 px, nicht 768 px | Bewusst 8 px unter dem Grid-Bruch, damit der Navigations-Umbau nicht exakt auf derselben Breite wie das Grid-Reflow passiert. Trennt die beiden Umbrüche optisch und vermeidet ein gleichzeitiges Springen von Nav und Inhalt. |
-| Doku-Sidebar aus ab ≤ 1024 px | Reine Mockup-Krücke der Doku-Site, für die echte Site irrelevant. |
+| Zusätzliche Sidebar aus ab ≤ 1024 px | Reine Mockup-Krücke, für die echte Site irrelevant. |
 
 ## Fluide Typografie
 
@@ -93,5 +93,4 @@ funktionierende Fall sein.
 
 ## Siehe auch
 
-- `docs/index.html#gt-responsive-umsetzung`
 - CONTRIBUTING.md § 7 Spacing & Layout

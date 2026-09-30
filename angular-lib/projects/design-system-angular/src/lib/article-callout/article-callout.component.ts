@@ -9,15 +9,13 @@ let uid = 0;
  * ArticleCallout (`cds-article-callout`) — Wrapper um `.article-callout*` aus
  * css/components.css (css/components.css:1591–1600): der bereichsgetönte
  * Aside-Block für Praxis-Beispiele und „In der Realität“-Einschübe im Lauftext
- * eines Wissensbeitrags. Ausgezählt: 5 reale Vorkommen, je eines pro Bereich in der
- * Doku-Sektion (`docs/index.html:8086–8115`, co/ki/es/wo) plus eines in der realen
- * Beispielseite Wissensbeitrag · KI (`docs/index.html:15110–15114`).
+ * eines Wissensbeitrags. Es kommt in allen vier Bereichen sowie in einem
+ * Wissensbeitrag vor.
  *
  * **Element-Selektor, ADR-0008-Standardfall.** `.article-callout` sitzt in allen 5
- * Vorkommen als gewöhnlicher Block-Nachfahre — die 4 Doku-Boxen je in einem
- * schlichten `<div>` innerhalb eines `display:flex;flex-direction:column`-Stapels
- * (kein Stretch-Bedarf in Spaltenrichtung), die reale Instanz direkt in
- * `.article-body`. Keines ist ein Grid-/Flex-Kind mit Streckungsbedarf, keines
+ * Vorkommen als gewöhnlicher Block-Nachfahre — in einem schlichten
+ * `display:flex;flex-direction:column`-Stapel oder direkt in `.article-body`.
+ * Keines ist ein Grid-/Flex-Kind mit Streckungsbedarf, keines
  * trägt eine `col-*`-Klasse, `.article-callout` kommt in keiner CSS-Regel mit
  * einem Geschwister-Kombinator (`+`/`~`) vor, das Tag variiert nicht (immer
  * `<aside>`). Keines der drei ADR-0008-Kriterien greift. Die einzige direkte

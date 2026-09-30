@@ -1,7 +1,7 @@
 // Bereichs-Glyphen + Zitat-Icon — VERBATIM übernommen aus icons/icons.js (Quelle der
 // Wahrheit, generiert aus icons/source/*.svg). Wird NICHT manuell editiert: bei Icon-Änderungen
-// neu aus icons/icons.js übernehmen. So konsumieren die Angular-Komponenten dieselben Glyphen
-// wie docs/index.html, statt eigene zu erfinden.
+// neu aus icons/icons.js übernehmen. So konsumieren die Angular-Komponenten zentrale Glyphen,
+// statt eigene zu erfinden.
 import type { CdsArea } from './area';
 
 export interface CdsIcon {

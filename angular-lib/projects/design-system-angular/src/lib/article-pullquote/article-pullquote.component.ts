@@ -5,9 +5,7 @@ import type { CdsArea } from '../area';
  * ArticlePullquote (`cds-article-pullquote`) — Wrapper um `.article-pullquote` aus
  * css/components.css (css/components.css:1608–1612): die typografische
  * Hervorhebung eines Satzes aus dem eigenen Lauftext eines Wissensbeitrags.
- * Ausgezählt: 2 reale Vorkommen, wortgleich, beide `data-area="ki"` — Doku-Demo
- * (`docs/index.html:8136`) und reale Beispielseite Wissensbeitrag · KI
- * (`docs/index.html:15075`).
+ * Beide Vorkommen sind wortgleich und tragen `data-area="ki"`.
  *
  * **Nicht `cds-blockquote` (`BlockquoteComponent`, `.bq`) — im
  * JSDoc beider Bauteile wechselseitig abgegrenzt.** Pull-Quote und Blockquote

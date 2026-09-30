@@ -79,8 +79,8 @@ export interface CdsNavItem {
           @if (item.sub?.length) {
             <div class="ep-nav-item ep-nav-has-sub" [class.is-open]="openIndex() === i">
               <!-- Label = eigener Link (führt z. B. auf eine Übersichtsseite), NICHT der Toggle.
-                   Der Caret ist ein separater Button daneben — so wie in der portablen Vorlage
-                   (docs/index.html). Ohne href bleibt es ein Platzhalter-Link (#, kein Sprung). -->
+                   Der Caret ist ein separater Button daneben. Ohne href bleibt es ein
+                   Platzhalter-Link (#, kein Sprung). -->
               <a
                 class="ep-nav-btn"
                 [href]="item.href || '#'"

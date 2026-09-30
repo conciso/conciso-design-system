@@ -11,15 +11,13 @@ export interface CdsArticleTocItem {
 /**
  * ArticleToc (`cds-article-toc`) — Wrapper um `.article-toc*` aus css/components.css
  * (css/components.css:1577–1589): das aufklappbare Inhaltsverzeichnis am Anfang eines
- * Wissensbeitrags. Ausgezählt: genau 2 reale Vorkommen, beide mit 5 Einträgen und identischem
- * sichtbarem Text „Inhalt“ plus identischem `aria-label`
- * (`docs/index.html:7948–7960`, Doku-Sektion mit Platzhalter-Hrefs `#gt-article-toc`;
- * `docs/index.html:15049–15061`, reale Beispielseite Wissensbeitrag · KI mit echten
- * Abschnittsankern wie `#wb-ki-demo`).
+ * Wissensbeitrags. Beide Vorkommen haben fünf Einträge, den sichtbaren Text
+ * „Inhalt“ und dasselbe `aria-label`; eines nutzt Platzhalter-Hrefs, das andere
+ * echte Abschnittsanker.
  *
  * **Element-Selektor, ADR-0008-Standardfall.** `.article-toc` sitzt in beiden
- * Vorkommen als gewöhnlicher Block-Nachfahre direkt in `.article-body`
- * (`docs/index.html:7950`, `15051` je eine Ebene über dem `<details>`) — kein
+ * Vorkommen als gewöhnlicher Block-Nachfahre direkt in `.article-body`, eine Ebene
+ * über dem `<details>` — kein
  * Grid-/Flex-Kind, keine Layout-Klasse (`col-*`) vom Konsumenten, kein
  * Geschwister-Kombinator (`.article-toc` kommt in keiner CSS-Regel mit `+`/`~`
  * vor), kein Tag-Wechsel (immer `<details>`). Keines der drei ADR-0008-Kriterien

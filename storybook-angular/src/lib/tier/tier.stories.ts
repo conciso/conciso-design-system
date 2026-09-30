@@ -18,8 +18,8 @@ const meta: Meta<TierComponent> = {
           "streckt, keines trägt eine `col-*`-Klasse, das Tag variiert nicht. `area` ist auf `'ki'` " +
           'typisiert, nicht auf die vollen vier Markenbereiche: `css/components.css` kennt ' +
           'ausschließlich `.ep-tier-label[data-area="ki"]`, für `co`/`es`/`wo` existiert keine ' +
-          'Regel — ausgezählt in `docs/index.html`: 3 von 4 Vorkommen setzen `ki`, eines gar kein ' +
-          '`data-area`, keines einen anderen Bereich. `.ep-tier-rule` ist rein dekorativ und trägt ' +
+          'Regel: 3 von 4 Vorkommen setzen `ki`, eines gar kein `data-area`, keines einen anderen ' +
+          'Bereich. `.ep-tier-rule` ist rein dekorativ und trägt ' +
           '`aria-hidden="true"`.',
       },
     },
@@ -55,8 +55,7 @@ export const Interaktiv: Story = {
 export const ProBereich: Story = {
   name: 'Pro Bereich',
   parameters: { controls: { disable: true } },
-  // Reproduziert das reale Mockup-Muster (docs/index.html:11855–11885): ein
-  // neutraler Trenner vor den Kern-Funktionen, ein ki-getönter vor den
+  // Ein neutraler Trenner vor den Kern-Funktionen, ein ki-getönter vor den
   // Pro-Funktionen. Regressionsschutz für die area-Einschränkung auf 'ki' aus der
   // Klassendoku: der getönte Trenner unterscheidet sich sichtbar vom neutralen; ein
   // dritter/vierter Bereichston existiert nicht zu testen, weil das CSS keinen kennt.

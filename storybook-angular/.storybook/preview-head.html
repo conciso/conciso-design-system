@@ -69,11 +69,10 @@
   /*
     Doku-Typografie ans Design System ziehen: MDX- und Autodocs-Seiten bringen ihre
     eigene Emotion-Typografie mit (Montserrat, 32/24/20px feste Überschriften, 14px
-    Fließtext), die mit der Doku-Site nichts zu tun hat. Betroffen sind h1 bis h3,
+    Fließtext). Betroffen sind h1 bis h3,
     p, li, td, th und das Tabellen-Gerüst (table, thead-Trennlinie).
 
-    Maßstab ist die gebaute Doku-Site (docs/index.html): sie zieht ihr Aussehen aus
-    genau denselben css/base.css und css/components.css wie diese Storybook-Preview,
+    Maßstab sind dieselben css/base.css und css/components.css wie diese Storybook-Preview,
     nicht mehr die fluiden --ty-display-* und --ty-headline-*-Tokens aus einem früheren
     Zwischenschritt. h1 und h2 übernehmen deshalb die Werte ihrer Prosa-Klassen 1:1:
     .sec-title (2rem/2.5rem) für h1, .group-title (1.5rem/2rem) für h2 — bewusst fest
@@ -81,8 +80,8 @@
     Marketing-Seiten, deren Breite mit dem Viewport wächst; die Doku-Spalte hier ist
     ohnehin breitenbegrenzt, ein fluider Wert hätte dort nichts zu regeln. h3 wechselt
     dagegen bewusst auf --ty-title-sm (Montserrat 500, Sans) statt --ty-headline-sm
-    (Serife): die Site trägt nur die beiden obersten Ebenen serifig, ab h3 übernimmt
-    die Grotesk (34× so in docs/index.html) — ein Lesbarkeits-Entscheid der Site,
+    (Serife): Nur die beiden obersten Ebenen sind serifig, ab h3 übernimmt die Grotesk
+    (34×) — ein Lesbarkeits-Entscheid,
     keine Nachlässigkeit dieser Regel hier.
 
     Scope bewusst auf .sbdocs-content beschränkt, plus :not(.docs-story *) und
@@ -176,7 +175,7 @@
     kommt jetzt ebenfalls aus .doc-table dazu, denn die Ausrichtung gehört zum
     Schriftbild des Tabellenkopfs — bislang zentrierte die Markdown-Tabelle ihre th
     per Storybook-Voreinstellung über bereits linksbündigen td, das war der letzte
-    sichtbare Unterschied zur Doku-Site. padding bleibt dagegen bewusst bei
+    sichtbare Unterschied. padding bleibt dagegen bewusst bei
     Storybooks eigener Vorgabe (Markdown-Tabelle: 6px/13px; Props-Tabelle:
     10px/15px/10px/20px): die Polsterung ist Layout der jeweils erzeugenden
     Tabelle, keine Typografie, und ihre Vereinheitlichung wäre hier die

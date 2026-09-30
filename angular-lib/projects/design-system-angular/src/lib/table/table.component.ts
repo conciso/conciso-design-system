@@ -2,15 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 
 /**
  * Table (`cds-table`) — Wrapper um `.tbl`/`.tbl-wrap` aus css/components.css
- * (css/components.css:1462–1480): die Datentabelle der Doku-Site (`sec-table`,
- * Nav-Einträge „Standard“ und „Gestreift“). Ausgezählt: außerhalb von `sec-table`
- * selbst kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten
- * (`docs/index.html:8622`, `15080`) — keine der 24 Beispielseiten außerhalb von
+ * (css/components.css:1462–1480): die Datentabelle. Ausgezählt: Außerhalb von
+ * `sec-table` kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten — keine
+ * der 24 Beispielseiten außerhalb von
  * Wissensbeiträgen setzt aktuell eine Tabelle ein.
  *
  * **Kein Daten-Input.** Eine `columns`/`rows`-API würde Zellinhalte auf Strings
- * festlegen; die Beispielseiten setzen darin Badges, Links und `data-num`
- * (`docs/index.html:5076–5177`). Der Konsument projiziert `<thead>`/`<tbody>`/
+ * festlegen; die Beispielseiten setzen darin Badges, Links und `data-num`.
+ * Der Konsument projiziert `<thead>`/`<tbody>`/
  * `<tfoot>` unverändert per `<ng-content>`, die Komponente liefert nur die
  * Hülle: `.tbl-wrap`, `.tbl`, `<caption>` und die Striped-Klasse.
  *
@@ -20,8 +19,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * ausdrücklich „Pflicht, Screenreader lesen den Titel vor, bevor die Zellen
  * vorgelesen werden“ und wiederholt das in den Dos (`tabelle.mdx:147`:
  * „`<caption>` und `scope`-Attribute immer setzen, auch bei einfachen
- * Tabellen“). Ausgezählt: alle 5 realen `.tbl`-Vorkommen in `docs/index.html`
- * haben eine `<caption>`, ausnahmslos. Ein optionaler Input mit Default `''`
+ * Tabellen“). Ausgezählt: Alle fünf realen `.tbl`-Vorkommen haben eine
+ * `<caption>`, ausnahmslos. Ein optionaler Input mit Default `''`
  * hätte genau den Fall erlaubt, den die eigene Doku verbietet — nach
  * ADR-0007 §2 ist `caption` damit Inhalt, nicht Beiwerk: ohne sie ist eine
  * `cds-table` eine Tabelle, die die eigenen Barrierefreiheitsregeln bricht,
@@ -30,9 +29,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  *
  * **Element-Selektor, `.tbl-wrap`/`.tbl` sitzen im eigenen Template, nicht am
  * Host (ADR-0008-Standardfall, analog zu `cds-facts`/`cds-faq`).** Ausgezählt:
- * alle 5 `.tbl-wrap`-Vorkommen in `docs/index.html` (Zeilen 5061, 5116, 5236,
- * 8622, 15080). Keines ist selbst ein direktes Grid-/Flex-Kind — das einzige
- * Vorkommen in einem `.layout-grid` (Zeile 5236) sitzt eine Ebene tiefer in
+ * Alle fünf `.tbl-wrap`-Vorkommen sind keine direkten Grid-/Flex-Kinder. Das einzige
+ * Vorkommen in einem `.layout-grid` sitzt eine Ebene tiefer in
  * einem `.col-8`, das seinerseits der Grid-Child ist; `.tbl-wrap` ist dort ein
  * gewöhnlicher Block-Nachfahre, dessen Breite vom umschließenden `.col-8`
  * kommt, nicht von `align-items:stretch` auf einer bestimmten DOM-Tiefe (kein
@@ -76,8 +74,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * Scroll-Container zu lang oder zu unspezifisch wäre.
  *
  * **`.tbl-sort` bleibt außen vor.** Die Klasse existiert
- * (css/components.css:1477–1482), die Sortierlogik nicht — kein zugehöriges
- * JS in `docs/main.js` für die Beispielseiten. Ein Wrapper, der nur den
+ * (css/components.css:1477–1482), die Sortierlogik aber nicht. Ein Wrapper, der nur den
  * Button-Look lieferte, täuschte Funktion vor, die es nicht gibt.
  */
 @Component({

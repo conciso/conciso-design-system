@@ -75,7 +75,7 @@ export class CardComponent {
 
   /** @internal */
   protected readonly actionClasses = computed(
-    // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
+    // Card-Footer nutzen kompakte Buttons.
     () => `btn btn-text btn-sm btn-${this.area() ?? 'co'}`,
   );
 
