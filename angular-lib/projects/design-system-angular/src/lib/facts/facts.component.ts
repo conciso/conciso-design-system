@@ -15,12 +15,10 @@ export interface CdsFactsItem {
  * eines Angebots (Termin, Dauer, Ort, Preis), einspaltig mit Haarlinie zwischen
  * den Paaren oder als `.is-grid` zweispaltig für Kästen, die neben Inhalt stehen.
  * Bewusst ohne eigenen Rahmen und ohne Fläche, sie zieht in einen vorhandenen
- * Container ein (Angebots-Box, Sticky-Sidebar) — Doku-Sektion
- * `docs/index.html:9069` (`gt-seminar-fakten`), Beispielseiten `docs/index.html:
- * 9076–9082`, `13718–13726`, `16293–16300`.
+ * Container ein (Angebots-Box, Sticky-Sidebar).
  *
- * **Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Ausgezählt: keines
- * der 3 `.ep-facts`-Vorkommen in `docs/index.html` sitzt in einem `.layout-grid`
+ * **Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Ausgezählt: Keines
+ * der drei `.ep-facts`-Vorkommen sitzt in einem `.layout-grid`
  * mit `col-*`, keines wird von einem Grid-/Flex-Elternteil in der Höhe gedehnt
  * (der Flex-Fall in Zeile 16290 ist `flex-direction:column`, dort füllen Block-
  * Elemente die Breite ihres Containers unabhängig von einer zusätzlichen
@@ -45,8 +43,8 @@ export interface CdsFactsItem {
  * `cds-feature`/`cds-icon-card` kennt `.ep-facts` selbst kein `[data-area]`; der
  * CSS-Kommentar zu dieser Klasse (`css/components.css:1259`) benennt
  * stattdessen ausdrücklich „Bereichston der Labels über `.t-XX` im Markup
- * (dark-safe), nie als Inline-Farbe“ als sanktionierten Weg. Ausgezählt: alle 3
- * `.ep-facts`-Vorkommen in `docs/index.html` setzen `.t-wo` auf JEDEM `<dt>`
+ * (dark-safe), nie als Inline-Farbe“ als sanktionierten Weg. Ausgezählt: Alle drei
+ * `.ep-facts`-Vorkommen setzen `.t-wo` auf JEDEM `<dt>`
  * derselben Liste (nie gemischt, nie eine andere Bereichsfarbe) — ein optionaler
  * `area`-Input, der `.t-{area}` einheitlich auf alle `<dt>` der Instanz anwendet,
  * bildet dieses Muster nach, ohne einen Farbwert zu erfinden (`.t-XX` ist eine

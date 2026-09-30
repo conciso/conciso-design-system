@@ -10,8 +10,8 @@ export type CdsAvatarSize = 'sm' | 'lg' | 'xl';
  * Wissensbeitrags (`.article-meta-author`), in der Author-Card (`-lg`) und im
  * Team-Tile-Grid (`-xl`).
  *
- * **Attributselektor (ADR-0008), gemessen an der Geschwister-Kette.** Ausgezählt in
- * `docs/index.html`: 8 der 11 Instanzen der Grundgröße sitzen als direkte, adjazente
+ * **Attributselektor (ADR-0008), gemessen an der Geschwister-Kette.** Acht der elf
+ * Instanzen der Grundgröße sitzen als direkte, adjazente
  * Geschwister in einer von 3 `.article-avatar-stack`-Kacheln (2 Avatare in Zeilen
  * 8343–8344, je 3 in Zeilen 8373–8375 und 8404–8406) — genau dort greift
  * `.article-avatar-stack .article-avatar + .article-avatar`

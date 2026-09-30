@@ -7,7 +7,7 @@ import { CDS_QUOTE_ICON } from '../icons';
  * Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.
  *
  * Bereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),
- * Quote-Icon (ui-quote, dieselbe Glyphe wie docs/index.html), Zitat und
+ * Quote-Icon (ui-quote), Zitat und
  * Caption (Name/Rolle). Nur bestehende Klassen.
  *
  * **Nicht `cds-article-pullquote` (`.article-pullquote`).** Dieses Bauteil ist

@@ -23,14 +23,13 @@ export interface CdsCompareRow {
 /**
  * Compare (`cds-compare`) — Wrapper um `.ep-compare*` aus css/components.css
  * (css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den zeilenweisen
- * Direktvergleich mehrerer Pakete/Tarife (Doku-Site `sec-table`, Nav-Eintrag
- * „Vergleichstabelle (aufklappbar)“, `docs/index.html:5182–5204`), nach `cds-table`.
+ * Direktvergleich mehrerer Pakete/Tarife, nach `cds-table`.
  *
  * **Mit Daten-Input, anders als `cds-table`.** `cds-table` projiziert `<thead>`/`<tbody>`
  * unverändert per `<ng-content>`, weil seine Zellen Badges, Links und `data-num` tragen können
  * (siehe dessen Klassendoku). Hier ist der Zellinhalt strukturell auf Ja/Nein oder eine kurze
  * Angabe begrenzt — ausgezählt: alle 22 Datenzellen des einzigen realen Vorkommens
- * (`docs/index.html:11970–12038`, 11 Zeilen × 2 Spalten, ohne die Zeilenüberschriften) sind
+ * (11 Zeilen × 2 Spalten, ohne die Zeilenüberschriften) sind
  * entweder ein `.ep-compare-yes`/`-no`-Marker (18×, davon 14× „Ja“, 4× „Nein“) oder ein kurzer
  * Text wie „bis 70 Mrd. Param.“ bzw. „30 Min.“ (4×) — nie ein Badge, Link oder anderes Markup.
  * Weil Spaltenzahl, `pro`-Spalte und Zellinhalt damit vollständig aus zwei Arrays (`columns`,
@@ -72,7 +71,7 @@ export interface CdsCompareRow {
  * `<details>`, und kann dessen native Disclosure-Semantik nicht annehmen.
  *
  * **Element-Selektor (ADR-0008-Standardfall).** `.ep-compare` sitzt im einzigen realen Vorkommen
- * als gewöhnlicher Block-Nachfahre in `.ep-section` (`docs/index.html:11969`) — kein Grid-/
+ * als gewöhnlicher Block-Nachfahre in `.ep-section` — kein Grid-/
  * Flex-Kind, keine `col-*`-Klasse vom Konsumenten, kein Tag-Wechsel (immer `<details>`). Keines
  * der drei ADR-0008-Kriterien greift, ein Attributselektor brächte hier nichts.
  *

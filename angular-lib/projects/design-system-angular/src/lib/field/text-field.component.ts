@@ -6,7 +6,7 @@ import { FieldShellComponent } from './field-shell.component';
 /**
  * Textfeld — einzeiliges `<input>` im `.field`-Gerüst (E-Mail, Text, Tel, … über
  * `type`). Pflichtfelder tragen aria-required; im Fehlerzustand wird die Meldung
- * über aria-describedby/aria-invalid verknüpft — wie docs/index.html.
+ * über aria-describedby/aria-invalid verknüpft.
  *
  * Als `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare
  * anbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.

@@ -4,11 +4,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Tier (`cds-tier`) — Wrapper um `.ep-tier` aus css/components.css
  * (css/components.css:1381–1384): der Stufen-Trenner (Label + Haarlinie), der eine
  * Offene Feature-Liste in Pakete gliedert (z. B. „In jedem Paket enthalten“ /
- * „Zusätzlich mit Pro“, Doku-Sektion `docs/index.html:4880`, Beispielseiten
- * `docs/index.html:11855–11857`, `11883–11885`, `12576–12578`).
+ * „Zusätzlich mit Pro“).
  *
- * **Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Ausgezählt: alle 4
- * `.ep-tier`-Vorkommen in `docs/index.html` stehen als eigenständiger `<div>` VOR
+ * **Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Alle vier
+ * `.ep-tier`-Vorkommen stehen als eigenständiger `<div>` VOR
  * einem `.layout-grid` oder einer Karten-Reihe, nie als deren Kind — keines trägt
  * eine `col-*`-Spaltenklasse, keines liegt in einem Grid/Flex, das seine Kinder
  * dehnt. Das Tag variiert ebenfalls nicht (immer `<div>`). Keines der drei
@@ -23,8 +22,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * kennt nur die eine Regel `.ep-tier-label[data-area="ki"]` (Dark-Override
  * `css/dark-mode.css:476`) — für `co`/`es`/`wo` existiert keine einzige
  * `[data-area]`-Regel auf `.ep-tier-label`, per Grep über `css/*.css` geprüft.
- * Ausgezählt in `docs/index.html`: von 4 `.ep-tier-label`-Vorkommen tragen 3
- * `data-area="ki"` (4880, 11884, 12577), eines trägt gar kein `data-area` (11856),
+ * Von vier `.ep-tier-label`-Vorkommen tragen drei `data-area="ki"`, eines trägt
+ * gar kein `data-area`,
  * keines der Werte `co`/`es`/`wo` kommt vor. Ein `area`-Input vom Typ `CdsArea`
  * würde für drei von vier gültigen Werten ein `data-area`-Attribut schreiben, das
  * im CSS folgenlos bleibt — die Falle, die genau dann entsteht, wenn eine Eingabe

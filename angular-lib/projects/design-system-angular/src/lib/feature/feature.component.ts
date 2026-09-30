@@ -5,8 +5,7 @@ import type { CdsArea } from '../area';
  * Feature (`[cdsFeature]`) — Wrapper um `.ep-feature` aus css/components.css
  * (css/components.css:1363–1379): die flache Feature-Zeile ohne Box und ohne
  * Schatten (Icon-Kachel links, Titel/Text rechts) — die „Offene Feature-Liste“ der
- * Beispielseiten (Doku-Sektion `docs/index.html:4882` ff., Beispielseiten u. a.
- * `docs/index.html:10405–10415`, `11582–11588`; 40 Vorkommen als
+ * Beispielseiten mit 40 Vorkommen als
  * `class="ep-feature col-4"` im `.layout-grid`).
  *
  * **Attributselektor, kein eigenes Element (ADR-0008).** Das Mockup setzt die
@@ -42,14 +41,14 @@ import type { CdsArea } from '../area';
  * Anders als `.ep-card-icon` (nur `background`, kein `color`) setzt
  * `.ep-feature-icon` UND ihre vier `[data-area]`-Varianten (css/components.css:
  * 1367–1372) zusätzlich `color` auf dem Container selbst. Das Mockup nutzt das
- * aktiv aus: die projizierten SVGs dort (`docs/index.html:10406` u. a.) tragen
+ * aktiv aus: Die projizierten SVGs tragen
  * `stroke="currentColor"` statt eines hart codierten Bereichstons — die Farbe
  * kommt allein aus dem Container, ein Icon-Autor muss den Bereich der Kachel gar
  * nicht kennen. Bei `cds-icon-card` ist das nicht möglich (kein `color` am
  * Container), dort trägt jedes Icon seinen Bereichston selbst im `stroke`-Attribut.
  * Story „Interaktiv“ demonstriert das mit `stroke="currentColor"` und prüft die
- * geerbte Farbe per `getComputedStyle()`. Die Icon-Kachel selbst ist im Mockup
- * (`docs/index.html:4883` u. a.) ein `<span aria-hidden="true">`, kein `<div>` —
+ * geerbte Farbe per `getComputedStyle()`. Die Icon-Kachel selbst ist ein
+ * `<span aria-hidden="true">`, kein `<div>` —
  * rein dekorativ, das SVG trägt bereits sein eigenes `aria-hidden`; die Komponente
  * übernimmt beides unverändert.
  *
@@ -57,9 +56,9 @@ import type { CdsArea } from '../area';
  * css/components.css:1376 zielt mit `.ep-feature-body>.card-cta-link` auf den
  * direkten Nachfahren; Angulars `@if`/`@else` fügt dafür kein Wrapper-Element ein
  * (kompiliert zu Kommentar-Ankern, kein Element), der Kindselektor bleibt also in
- * beiden Zweigen erhalten. Ausgezählt in `docs/index.html`: alle 13 Vorkommen von
+ * beiden Zweigen erhalten. Ausgezählt: Alle 13 Vorkommen von
  * `.card-cta-link` innerhalb von `.ep-feature-body` sind entweder ein `<a
- * href="…">` (12×) oder ein `<span>` (1×, `docs/index.html:13216`,
+ * href="…">` (12×) oder ein `<span>` (1×,
  * „Landingpage folgt“ — Platzhalter für ein Ziel, das noch fehlt). Ein `<a>` OHNE
  * `href` kommt kein einziges Mal vor — dieselbe Falle, die `cds-icon-card` über
  * `isLink()` schließt (ein Link-Tag ohne `href` ist weder fokussierbar noch hat
@@ -82,10 +81,10 @@ import type { CdsArea } from '../area';
  * (falschen) Annahme, das Mockup verzichte meist auf einen zusätzlichen
  * `aria-label`. Ausgezählt: von den 12 `<a class="card-cta-link">` in
  * `.ep-feature-body` tragen 11 einen `aria-label`, nur einer nicht
- * („Contentletter abonnieren“, `docs/index.html:15203` — der sichtbare Text ist
+ * („Contentletter abonnieren“ — der sichtbare Text ist
  * dort bereits eindeutig). Grund: nur 3 verschiedene sichtbare Texte verteilen
- * sich auf diese 12 Links, „Zur Landingpage“ allein zehnmal
- * (`docs/index.html:11587` u. a.) — eine Screenreader-Linkliste hörte sonst
+ * sich auf diese 12 Links, „Zur Landingpage“ allein zehnmal — eine
+ * Screenreader-Linkliste hörte sonst
  * zehnmal denselben Namen ohne Unterscheidung. Das Mockup disambiguiert
  * durchgängig mit der Form `<sichtbarer Text>: <Ziel>`
  * (`aria-label="Zur Landingpage: KI Kickstart Workshops"`). `ctaAriaLabel` ist

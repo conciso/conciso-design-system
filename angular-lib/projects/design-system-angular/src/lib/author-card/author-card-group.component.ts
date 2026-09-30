@@ -4,10 +4,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * AuthorCardGroup (`cds-author-card-group`) — Wrapper um `.author-card-group` aus
  * css/components.css (css/components.css:1547–1563): bündelt mehrere `[cdsAuthorCard]`
  * am Ende eines Wissensbeitrags, gestapelt (Default) oder als zweispaltiges Raster
- * (`is-grid`, css/components.css:1555). Ausgezählt: 5 reale Gruppen — 2 gestapelt in der
- * Artikel-Demo (`docs/index.html:8440,8465`, je 2 bzw. 3 Karten), 2 `is-grid`
- * (Doku-Demo `9112`, reale Beispielseite Scrum-Training `13811`, je 4 Karten) und 0
- * `is-grid`-Vorkommen im Wissensbeitrag selbst — `wissensbeitrag.mdx` verweist für
+ * (`is-grid`, css/components.css:1555). Es gibt zwei gestapelte und zwei
+ * `is-grid`-Gruppen mit je zwei bis vier Karten; im Wissensbeitrag kommt `is-grid`
+ * nicht vor. `wissensbeitrag.mdx` verweist für
  * `is-grid` ausdrücklich auf `Seitenmuster/Seminar · Training`, „weil sie dort und
  * nicht in Wissensbeiträgen vorkommt“.
  *
@@ -51,10 +50,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Nachfahren-Selektor `.author-card-group .author-card` (css/components.css:1548).
  *
  * **`eyebrow` als `<h3>`, deckungsgleich mit den beiden realen, VOLLSTÄNDIGEN
- * Seiten-Vorkommen der gestapelten Variante** (`docs/index.html:8439,8464`, „Über die
- * Autor:innen“) — nicht mit der isolierten Doku-Illustration (`9111`, `<p>`,
- * dokumentiert ohne umgebende `<h2>`-Hierarchie). Die einzige reale `is-grid`-Seite
- * (Scrum-Training, `13811`) verzichtet auf die Gruppen-Eyebrow komplett, weil die
+ * Seiten-Vorkommen der gestapelten Variante** („Über die Autor:innen“) — nicht mit
+ * einer isolierten Illustration ohne umgebende `<h2>`-Hierarchie. Die einzige reale
+ * `is-grid`-Seite verzichtet auf die Gruppen-Eyebrow komplett, weil die
  * Sektion bereits `.ep-section-label` plus `<h2>` trägt — exakt der in
  * `wissensbeitrag.mdx` („Trägt die Sektion bereits ein `.ep-section-label` plus H2,
  * entfällt sie“) dokumentierte Fall. Konsumenten mit eigener Sektionsüberschrift
@@ -65,8 +63,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * `<cds-author-card-group>`-Tag landet auf dem unbekannten, standardmäßig
  * `display:inline` gerenderten Custom Element, NICHT auf der tatsächlichen
  * Layout-Box (dem inneren `<div>` mit `max-width`/Grid). Wer Layout-Eigenschaften
- * setzen will (z. B. `margin-top` wie im Trainer-Beispiel,
- * `docs/index.html:13811`), setzt sie am umgebenden Konsumenten-Markup, nicht am
+ * setzen will (z. B. `margin-top`), setzt sie am umgebenden Konsumenten-Markup, nicht am
  * Host — dieselbe Einschränkung, die ADR-0008 für Attributselektor-Komponenten
  * beschreibt, hier aber aus einem Geschwister- statt einem Eltern-Kind-Grund.
  */
