@@ -7,6 +7,9 @@ import { FieldShellComponent } from './field-shell.component';
  * Textbereich — mehrzeiliges `<textarea>` im `.field`-Gerüst. Gleiche a11y-
  * Verdrahtung wie das Textfeld (aria-required/-invalid/-describedby).
  *
+ * Nur vertikal vergrößerbar (`resize: vertical` plus `max-width: 100%`), damit der
+ * Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.
+ *
  * Als `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare
  * anbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.
  *

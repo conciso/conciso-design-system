@@ -175,7 +175,7 @@ export interface CdsNavItem {
       </button>
 
       @if (showCta()) {
-        <a class="btn btn-filled btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{
+        <a class="btn btn-outlined btn-sm btn-co" href="#" (click)="$event.preventDefault()">{{
           ctaLabel()
         }}</a>
       }

@@ -32,12 +32,108 @@ Das Popup schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten
 | Attribut / Verhalten | Zweck |
 |---|---|
 | `role="listbox"` / `option` | Popup und Einträge als Auswahlliste ausgewiesen, vom Skript gesetzt beziehungsweise ergänzt |
+| `aria-haspopup="listbox"` | Trigger des Custom Select kündigt das Popup an, `aria-controls` verweist auf das Menü |
+| `aria-multiselectable="true"` | Am Menü der Combobox im Multi-Modus (`.is-multi`), vom Skript gesetzt. Kündigt Screenreadern die Mehrfachauswahl an |
+| `aria-selected` | An jeder Option `true` (gewählt) oder `false` |
+| `role="combobox"` | Eingabefeld der Combobox, mit `aria-controls` auf das Menü und `aria-autocomplete="list"` |
 | `aria-expanded` | Offen-Zustand am Trigger beziehungsweise am Combobox-Input |
 | `aria-activedescendant` | Tastaturcursor ohne Fokusverlust, der hervorgehobene Eintrag wird vorgelesen |
 | Tastatur | Pfeiltasten, Pos1/Ende, Type-ahead (Select), Enter wählt, Esc/Tab schließt |
 | Fokusring | Neutral-Teal `--focus-ring` in beiden Modi, mindestens 3 zu 1 Rahmenkontrast |
 
 Beim Schließen ohne Auswahl bleibt kein loser Filtertext stehen: die Einzelauswahl fällt auf das Label der gewählten Option zurück (beziehungsweise leert), getippter Text bleibt nie im Feld hängen.
+
+## Custom Select · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die IDs, `aria-controls` und `aria-selected` stehen schon im Markup, damit der Zustand ohne Skript lesbar ist. Verstecktes Feld und Bereichs-Akzent kommen über `data-name` und `data-area` am Wurzelelement.
+
+<HtmlBeispiel titel="Custom Select als reines Markup" interaktiv>
+
+```html
+<div class="ep-select" data-area="ki" data-name="usecase">
+  <span class="ep-select-label" id="sel-label">Anwendungsfall</span>
+  <button type="button" class="ep-select-trigger is-placeholder"
+          aria-haspopup="listbox" aria-expanded="false" aria-controls="sel-menu"
+          aria-labelledby="sel-label sel-value">
+    <span class="ep-select-value" id="sel-value" data-placeholder="Bitte wählen…">Bitte wählen…</span>
+    <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+    </svg>
+  </button>
+  <ul class="ep-select-menu" id="sel-menu" role="listbox" aria-labelledby="sel-label" tabindex="-1">
+    <li class="ep-select-option" id="sel-opt-0" role="option" data-value="auto" aria-selected="false">
+      <svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/>
+      </svg>Prozessautomatisierung</li>
+    <li class="ep-select-option" id="sel-opt-1" role="option" data-value="daten" aria-selected="false">
+      <svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/>
+      </svg>Datenanalyse &amp; Reporting</li>
+    <li class="ep-select-option" id="sel-opt-2" role="option" data-value="beratung" aria-selected="false">
+      <svg class="ep-select-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5"/>
+      </svg>KI-gestützte Beratung</li>
+  </ul>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
+
+| Aspekt | Regel |
+|---|---|
+| Öffnen | Klick sowie Pfeil runter, Pfeil hoch, Enter und Leertaste am Trigger öffnen das Menü (`is-open` am Wurzelelement, `aria-expanded="true"`). Der Fokus wandert ins Menü (`tabindex="-1"`). Aktiv ist die gewählte Option, sonst die erste |
+| Aktive Option | `is-active` an der Option und `aria-activedescendant` am Menü, der Fokus bleibt im Menü. Mausbewegung über eine Option setzt sie aktiv, die aktive Option wird in den sichtbaren Bereich gescrollt |
+| Tasten im Menü | Pfeil runter und hoch wandern durch die Optionen und stoppen an den Enden, es gibt keinen Umlauf. Pos1 und Ende springen an die Enden. Enter und Leertaste wählen die aktive Option |
+| Type-ahead | Ein getippter Buchstabe springt zur ersten Option, deren Label mit dem bisher getippten Text beginnt (ohne Beachtung der Groß- und Kleinschreibung). Der Puffer verfällt 600 ms nach der letzten Taste |
+| Wählen | `aria-selected="true"` nur an der gewählten Option, alle anderen `"false"`. Der Trigger zeigt das Label der Option (oder `data-label`), das versteckte Feld von `data-name` bekommt deren `data-value`. Danach schließt das Menü und der Fokus kehrt zum Trigger zurück |
+| Schließen | Escape schließt und gibt den Fokus an den Trigger zurück. Tab schließt ohne Fokusrückgabe, der Fokus wandert weiter. Ein Klick außerhalb schließt ebenfalls ohne Fokusrückgabe |
+| Nie zwei offen | Vor jedem Öffnen werden alle anderen offenen Dropdowns geschlossen |
+| Platzhalter | Solange nichts gewählt ist, steht der Platzhalter im Trigger (`is-placeholder`) und das versteckte Feld ist leer |
+| Deaktiviert | `is-disabled` am Wurzelelement, der Trigger trägt `disabled`. Ein deaktivierter Select öffnet nicht |
+
+## Combobox · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Für Mehrfachauswahl trägt das Wurzelelement zusätzlich `is-multi`, die gewählten Werte erscheinen dann als Chips vor dem Eingabefeld.
+
+<HtmlBeispiel titel="Combobox als reines Markup" interaktiv>
+
+```html
+<div class="ep-combobox" data-area="es" data-empty-text="Kein Thema gefunden">
+  <span class="ep-select-label" id="cb-label">Thema</span>
+  <div class="ep-combobox-control">
+    <input class="ep-combobox-input" type="text" role="combobox"
+           aria-controls="cb-menu" aria-expanded="false" aria-autocomplete="list"
+           aria-labelledby="cb-label" placeholder="Thema suchen…" autocomplete="off">
+    <svg class="ep-select-caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+    </svg>
+  </div>
+  <ul class="ep-combobox-menu" id="cb-menu" role="listbox" aria-labelledby="cb-label">
+    <li class="ep-select-option" id="cb-opt-0" role="option" data-value="ki" aria-selected="false">Angewandte KI</li>
+    <li class="ep-select-option" id="cb-opt-1" role="option" data-value="es" aria-selected="false">Effektive Software</li>
+    <li class="ep-select-option" id="cb-opt-2" role="option" data-value="wo" aria-selected="false">Wirksame Organisationen</li>
+    <li class="ep-select-option" id="cb-opt-3" role="option" data-value="cloud" aria-selected="false">Cloud-Migration</li>
+  </ul>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
+
+| Aspekt | Regel |
+|---|---|
+| Öffnen | Das Menü öffnet bei Fokus im Feld, bei Eingabe und bei einem Klick auf das Control, nicht aber bei einem Klick auf das Entfernen eines Chips. Pfeil runter öffnet ein geschlossenes Menü. Beim Öffnen sind `is-open` und `aria-expanded="true"` gesetzt |
+| Filter | Teilstring im Label, ohne Beachtung der Groß- und Kleinschreibung. Im Multi-Modus sind bereits gewählte Optionen ausgeblendet. Passt keine Option, erscheint ein Leerzustand-Eintrag mit dem Text aus `data-empty-text` |
+| Aktive Option | Die erste sichtbare Option ist aktiv, ebenso wenn die bisher aktive weggefiltert wird. `aria-activedescendant` am Eingabefeld nennt sie, der Fokus bleibt im Feld |
+| Tasten | Pfeil runter und hoch wandern durch die sichtbaren Optionen und stoppen an den Enden. Pos1, Ende und Enter wirken nur bei geöffnetem Menü, sonst bleibt die normale Cursor-Bearbeitung im Text. Enter wählt nur, wenn eine Option aktiv ist. Escape schließt. Rücktaste im leeren Feld entfernt im Multi-Modus den letzten Chip |
+| Lösch-Button | `.ep-combobox-clear` mit `type="button"` und `aria-label="Eingabe löschen"`, vor dem Chevron. Er ist nur sichtbar, solange Text im Feld steht (`hidden` sonst, `has-clear` am Control reserviert den Platz). Ein Klick leert den Text, setzt den Fokus ins Feld und öffnet das Menü. Im Multi-Modus bleiben die Chips |
+| Chips | Im Multi-Modus ein `.ep-combobox-token` je gewählter Option mit Label und einem Entfernen-Button (`type="button"`), dessen `aria-label` die Option nennt |
+| Wählen | Multi: Der Wert wird ergänzt, der Filtertext geleert, das Menü bleibt offen und der Fokus im Feld. Einzelauswahl: Das Feld zeigt das Label der Option und das Menü schließt |
+| Schließen | Einzelauswahl: Das Feld fällt auf das Label der gewählten Option zurück (ohne Auswahl leer), getippter Text bleibt nie stehen. Multi: Der Filtertext wird geleert. Ein Klick außerhalb schließt |
+| Nie zwei offen | Vor jedem Öffnen werden alle anderen offenen Dropdowns geschlossen |
 
 ## Dos & Don'ts
 
