@@ -44,7 +44,9 @@ schlimmer als fehlende, sie lesen sich wie zwei Quellen, die sich widersprechen 
 
 **Kein eigener Streifen unter dem Hero.** Die Angaben standen früher als eigener
 Key-Facts-Streifen zwischen Hero und erster Inhaltssektion. Sie sitzen jetzt dort, wo auch
-über das Angebot entschieden wird, das hält sie an einer Stelle statt an zweien.
+über das Angebot entschieden wird, das hält sie an einer Stelle statt an zweien. Wer die Rahmendaten früher sichtbar braucht,
+löst das nicht über einen neuen Streifen, sondern indem Preis und primäre Aktion nach oben
+wandern.
 
 <HtmlBeispiel titel="Fakten-Liste ohne Rahmen">
 
@@ -86,7 +88,7 @@ ist die Bio das Argument, sie beantwortet, warum diese Person das Training hält
 ist 960 statt 720 px, weil zwei Karten nebeneinander sonst je rund 340 px hätten und der
 Avatar den Text auf etwa 260 px drückt. Mobil kollabiert das Raster bei 768 px einspaltig.
 
-<HtmlBeispiel titel="Fakten-Liste mit gemeinsamer Überschrift">
+<HtmlBeispiel titel="Trainer:innen-Gruppe mit gemeinsamer Überschrift">
 
 ```html
 <!-- Gemeinsame Überschrift ist optional: Trägt die Sektion bereits ein
@@ -116,12 +118,13 @@ Anmeldebutton führt auf die adaptive Kontaktseite mit vorbelegtem Bereich und A
 **Anfrage statt Direktbuchung:** Das ist bewusst so, weil Seminartermine bei Conciso oft im
 Gespräch entstehen. Steht bei einem Angebot der Preis pro Platz fest und ist das Kontingent
 bekannt, gehört stattdessen das Buchungsformular (siehe `Komponenten/Buchungsformular`) auf
-die Seite.
+die Seite. Die Abwägung zwischen beiden Wegen steht dort im Abschnitt „Anfrage oder
+Direktbuchung“.
 
 | Element | Umsetzung |
 |---|---|
 | Datum / Ort | Datum `--ty-title-sm`, Ort oder „Online“ `--ty-body-sm` · `--tx-secondary` |
-| Termingarantie / Status | `.badge-ok` „Durchführung garantiert“ wenn gesichert, sonst neutraler Status-Text („Noch Plätze frei“) |
+| Termingarantie / Status | `.badge-ok` „Durchführung garantiert“ wenn gesichert, sonst neutraler Status-Text („Noch Plätze frei“). Ohne Garantie entfällt die Markierung. |
 | Anmeldung | `.btn-sm` in Bereichsfarbe „Platz anfragen“ → Kontaktseite (`data-k-bereich`/`data-k-anliegen`) |
 | Leerzustand | Ohne offene Termine entfällt die Liste, stattdessen Hinweis „nur auf Anfrage“ plus Outlined-CTA „Termin anfragen“ |
 

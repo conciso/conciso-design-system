@@ -13,12 +13,13 @@ Detail-Seite ist separat als `Seitenmuster/Veranstaltung` dokumentiert.
 Die Übersichts-Seite folgt im Wesentlichen dem Aufbau der Beitragsübersicht: zentrierter
 Header, Such-Feld, Filter-Chips pro Bereich, Featured pro Bereich, Card-Grid darunter,
 „Mehr laden“-Block, CTA-Band, Footer. Such-Logik und Filter-aware-Featured sind 1:1
-übernommen und über eine gemeinsame Funktion `setupListPage()` konfiguriert.
+übernommen (siehe `Seitenmuster/Beitragsübersicht`, Abschnitt Listing-Filter und Suche ·
+Nur CSS-Schicht), es ändern sich nur das Nomen („Veranstaltungen“) und das Default-Featured.
 
 **Anpassungen gegenüber der Beitragsübersicht:**
 
-- **Pill-Inhalt:** „Bereich · Format“ statt „Bereich · Lesezeit“, das Format-Vokabular ist
-  auf fünf Begriffe begrenzt (siehe `Seitenmuster/Veranstaltung`, Abschnitt Formate).
+- **Pill-Inhalt:** weiterhin nur der Bereichsname. Das Format steht statt der Lesezeit in der
+  Meta-Zeile, das Format-Vokabular ist auf fünf Begriffe begrenzt (siehe `Seitenmuster/Veranstaltung`, Abschnitt Formate).
 - **Card-Meta:** Datum (mit Wochentag) und Ort sitzen oberhalb des Titels, nicht am
   Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment.
 - **Default-Featured:** „Effektive Software“ statt „Angewandte KI“.
@@ -33,7 +34,7 @@ Der Reading-Flow ist auf die Entscheidung für eine Veranstaltung optimiert. Fü
 Veranstaltungen ist das Datum ein harter Filter („Kann ich überhaupt?“) und gehört vor das
 Titel-Investment.
 
-**Reihenfolge:** Bild (Atmosphäre, optional), Pill „Bereich · Format“ (Filter-Check), Datum
+**Reihenfolge:** Bild (Atmosphäre, optional), Pill mit dem Bereichsnamen (Filter-Check), Datum
 mit Wochentag (Kalender-Check), Ort („Dortmund“ für vor Ort, „Online“ für Webinar), Titel
 (Interesse-Hook), Body (worum geht's), CTA „Zur Veranstaltung →“.
 
@@ -53,8 +54,12 @@ als Anker, links das Bild im 16:9-Verhältnis, rechts der Content-Block: Pill, M
 (Datum, Ort, Format), Titel, Lead, CTA. Die Bildspalte trägt `.card-media` mit demselben
 Verhältnis wie die Listing-Cards, Redaktion pflegt ein Bild in einem Zuschnitt für Featured
 und Grid. Die Spaltenteilung (60 Prozent Bild, 40 Prozent Content) liegt in der Klasse, nicht
-im `style`-Attribut. Auf Tablet-Breite verschiebt sie sich auf 65/35, unter 900 px
-Kartenbreite wird gestapelt.
+im `style`-Attribut. Die Stufen richten sich nach der Kartenbreite (`@container`), nicht
+nach dem Viewport, denn die Kartenbreite hängt am Platz im Layout. Über 1000 px steht das
+Bild bei 60 Prozent. Über 900 bis 1000 px (Tablet-Landscape) verdichtet sich die Karte auf
+65/35 mit zweizeiligem Lead: Ein 16:9-Bild wird mit der Breite auch höher, und diese Höhe
+braucht der Content-Block. Bis 900 px wird gestapelt, weil die Textspalte sonst unter
+250 px fällt.
 
 **Editorial-Variant:** Featured-Cards nutzen `.card-title-hero` (24 px Serif, Headline-sm)
 statt der 20 px Sans des Standard-`.card-title`. Ein Termin bekommt die alleinige Bühne,
@@ -65,7 +70,8 @@ Standard-Card-Title (20 px Sans).
 Nächstes?“ wichtiger als „Welche Veranstaltungen laufen aktuell?“. Ein einziges,
 atmosphärisch bebildertes Highlight kommuniziert klarer als drei kleinere Cards. Die
 Übersichts-Seite erfüllt die Breitenrolle, der Featured-Block auf der Landing die
-Tiefenrolle.
+Tiefenrolle. Ein Link unter der Karte („Alle Veranstaltungen ansehen →“) führt ins
+Listing.
 
 <HtmlBeispiel titel="Featured-Karte einer Veranstaltung">
 
@@ -91,30 +97,32 @@ Tiefenrolle.
 | Aspekt | Featured (Landing) | Standard-Card (Listing) |
 |---|---|---|
 | Anlass | Genau ein hervorgehobener Termin | Mehrere parallel sichtbare Termine |
-| Layout | Horizontal, 16:9 Bild plus Content, drei Stufen nach Kartenbreite | Vertikal, 16:9 Bild über Content |
-| Headline | `.card-title-hero` (24 px Serif) | `.card-title` (20 px Sans), `line-clamp:2` |
-| Lead | `.card-text`, `min-height:0`, `line-clamp` bleibt als Riegel gegen zu lange Leads | `.card-text` mit `line-clamp:3` |
+| Layout | Horizontal, 16:9 Bild plus Content, drei Stufen nach Kartenbreite (`@container`, nicht Viewport): über 1000 px Bild 60 %, über 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), bis 900 px gestapelt | Vertikal, 16:9 Bild über Content |
+| Bild-Geometrie | `.card-media` mit `aspect-ratio:16/9`, Bildausschnitt über `object-position` am `<img>`, nicht als `background-position` am Container. Dasselbe Verhältnis wie im Listing: ein Bild, ein Zuschnitt | `.card-media` mit `aspect-ratio:16/9` |
+| Headline | `.card-title-hero` (24 px Serif), `text-wrap:balance` steckt in der Klasse | `.card-title` (20 px Sans), `line-clamp:2`, `min-height:2lh` für die Gleichhöhe im Grid |
+| Lead | `.card-text`, `min-height:0`, `line-clamp` bleibt als Riegel gegen zu lange Leads | `.card-text` mit `line-clamp:3`, `min-height:3lh` |
 | Meta-Strip | Datum, Ort, Format vertikal gestapelt, `--ty-body-sm`, `--tx-muted` | Pill „Bereich“ über Datum plus Ort gestapelt |
-| Kürzen bei zu viel Text | Das Bild bestimmt die Höhe, der Lead gibt zuerst nach (`line-clamp`) | Titel `line-clamp:2`, Text `line-clamp:3`, Gleichhöhe über `min-height` |
+| Kürzen bei zu viel Text | Das Bild bestimmt die Höhe, nicht der Text. Wird der Content-Block zu hoch, gibt der Lead zuerst nach (`.card-text` mit `line-clamp`, als schrumpfendes Flex-Item), damit Pill, Meta-Strip, Titel und CTA stehen bleiben. `.card-title-hero` kappt innerhalb der Featured-Card auf 3 Zeilen, sonst schiebt ein langer Titel Pill und CTA aus der Karte. Kurz: Der Text weicht, das Bildverhältnis nicht | Titel `line-clamp:2`, Text `line-clamp:3`, Gleichhöhe über `min-height` |
+| CTA | „Zur Veranstaltung →“ | „Zur Veranstaltung →“ |
 
 ## Verwendung
 
 | Aspekt | Regel |
 |---|---|
-| Pill-Vokabular | Nur die fünf Formate, keine eigenen Wörter wie „Workshop“ oder „Bootcamp“ |
-| Pill-Margin | Kein `margin-bottom` im Markup, `.card-body` und `.card-featured-body` nehmen die Eigenmarge der Pill selbst zurück |
+| Format-Vokabular | Nur die fünf Formate in der Meta-Zeile, keine eigenen Wörter wie „Workshop“ oder „Bootcamp“. Die Pill trägt allein den Bereichsnamen |
+| Pill-Margin | Kein `margin-bottom` im Markup, `.card-body` und `.card-featured-body` nehmen die Eigenmarge der Pill selbst zurück: In einer Flex-Spalte addiert sie sich zum `gap`, statt zu kollabieren. Der Abstand kommt allein aus dem `gap` und hält Pill und Datum als Meta-Header zusammen |
 | Pill-Breite | Kein `width:fit-content` und kein `align-self` im Markup, die Pill bringt das selbst mit |
 | Datums-Reihenfolge | Cards chronologisch, kommende Veranstaltungen zuerst, Vergangenes über „Frühere Veranstaltungen ansehen“ oder Archiv-Filter |
 | Datums-Format | Wochentag plus ausgeschriebener Monat |
-| Card-Ort | Stadt-Name, nicht der Venue, für Webinar „Online“ |
+| Card-Ort | Stadt-Name, nicht der Venue, für Webinar „Online“. Auf der Detail-Seite zeigt der Meta-Strip dann den vollen Venue-Namen |
 | Filter-Logik | Drei Bereichs-Chips (ki, es, wo), kein Corporate-Chip |
-| Such-Scope | Titel plus Lead plus Pill über `setupListPage()`, Datum und Ort sind nicht Teil des Such-Index |
-| CTA-Text | Einheitlich „Zur Veranstaltung →“ |
+| Such-Scope | Titel plus Lead plus Pill (Bereichsname), dieselbe Such-Logik wie in der Beitragsübersicht. Datum und Ort sind nicht Teil des Such-Index, eine Datums-Suche wäre ein Kalender-Filter, kein Volltext |
+| CTA-Text | Einheitlich „Zur Veranstaltung →“. Ein differenzierter CTA („Platz sichern“ oder „Anmelden“) gehört erst auf die Detail-Seite, wenn der Preis-Kontext sichtbar ist |
 
 **Dos**
 - Datum vor Titel platzieren, „Kann ich da?“ ist der wichtigste Filter.
 - Wochentag mitgeben, macht bei Meet-Ups nach 18:00 den Unterschied.
-- Pill auf das Format-Vokabular beschränken, Charakter-Begriffe gehören in den Titel.
+- Die Pill auf den Bereichsnamen beschränken, das Format steht in der Meta-Zeile auf dem Vokabular der fünf Formate, Charakter-Begriffe gehören in den Titel.
 - Monatsnamen ausschreiben, passt zur Marken-Tonalität.
 
 **Don'ts**
