@@ -123,6 +123,14 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext.',
   },
   {
+    id: 'komponenten-cards-teaser-card',
+    sentence: 'Relative Zahlen (Prozentsätze, Faktoren wie „3×“) brauchen im `card-stat-label` einen Hinweis auf die Bezugsgröße.',
+  },
+  {
+    id: 'komponenten-cards-teaser-card',
+    sentence: 'Ein generisches „Mehr erfahren →“ mehrfach nebeneinander wirkt repetitiv',
+  },
+  {
     id: 'komponenten-call-to-action-cta-band',
     sentence: 'Bewusst nur EINE Aktion, kein',
   },
