@@ -38,7 +38,7 @@
 //
 // AUSNAHMEN (ALLOWLIST)
 // `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (nicht mehr gepflegt, siehe
-// Kommentar in scripts/release/relevant-paths.mjs) — auch seine „spec.md“-/Ticket-Zitate bleiben
+// Kommentar in tools/release/relevant-paths.mjs) — auch seine „spec.md“-/Ticket-Zitate bleiben
 // unangetastet. `.gitignore` und `.prettierignore` brauchen die literale Zeichenkette
 // „.scratch/“ als Ignore-Muster, das ist keine Narration. `AGENTS.md` und
 // `docs/agents/issue-tracker.md` beschreiben die `.scratch/`-Tracker-KONVENTION selbst
@@ -60,9 +60,9 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SELF = 'scripts/check-ticket-refs.mjs';
-const SELF_TEST = 'scripts/check-ticket-refs.test.mjs';
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const SELF = 'tools/checks/check-ticket-refs.mjs';
+const SELF_TEST = 'tools/checks/check-ticket-refs.test.mjs';
 
 // Siehe „AUSNAHMEN“ und „SELBSTREFERENZ“ oben für die Begründung je Eintrag.
 const ALLOWLIST_EXACT = [

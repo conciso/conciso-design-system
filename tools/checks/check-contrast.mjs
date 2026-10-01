@@ -36,8 +36,8 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const PAGE = 'file://' + join(ROOT, 'docs/index.html');
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const PAGE = 'file://' + join(ROOT, 'docs/legacy-site/index.html');
 
 /**
  * Stand 2026-08-20: alles 0. Ab hier ist jede Abweichung eine Regression, und der Fehlschlag
@@ -78,21 +78,21 @@ const BORDER_SELECTOR = [
 
 function resolveChromium() {
   const require = createRequire(import.meta.url);
-  // playwright-core wird von storybook-angular deklariert, liegt physisch aber je nach
+  // playwright-core wird von apps/storybook deklariert, liegt physisch aber je nach
   // Installations-Layout woanders: seit der npm-Workspaces-Umstellung hoistet npm es ins
-  // Wurzel-node_modules (damit storybook-angular und angular-lib EIN @angular/* teilen),
+  // Wurzel-node_modules (damit apps/storybook und packages/angular EIN @angular/* teilen),
   // bei einer isolierten Installation im Workspace selbst. Deshalb erst Nodes eigene
   // Auflösung fragen und nur als Rückfall den verschachtelten Pfad prüfen — ein fest
   // verdrahteter Pfad bricht bei jeder Änderung am Layout.
   try {
     return require('playwright-core').chromium;
   } catch {
-    const nested = join(ROOT, 'storybook-angular/node_modules/playwright-core');
+    const nested = join(ROOT, 'apps/storybook/node_modules/playwright-core');
     if (existsSync(nested)) return require(join(nested, 'index.js')).chromium;
   }
   console.error('Kontrast-Gate: playwright-core nicht gefunden.');
   console.error('  → npm ci    (im Repo-Wurzelverzeichnis; npm-Workspaces installieren');
-  console.error('    storybook-angular und angular-lib mit)');
+  console.error('    apps/storybook und packages/angular mit)');
   process.exit(1);
 }
 
@@ -283,7 +283,7 @@ await browser.close();
 if (failed) {
   console.error('\nKontrast-Gate: Ist-Stand und Restliste weichen ab.');
   console.error('  Mehr Befunde  → Regression, Ursache beheben.');
-  console.error('  Weniger       → Erfolg, RESTLISTE in scripts/check-contrast.mjs nachziehen.');
+  console.error('  Weniger       → Erfolg, RESTLISTE in tools/checks/check-contrast.mjs nachziehen.');
   process.exit(1);
 }
 console.log('\nKontrast-Gate: Ist-Stand entspricht der Restliste, keine Regression.');

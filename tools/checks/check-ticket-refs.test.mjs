@@ -1,5 +1,5 @@
-// Tests für scripts/check-ticket-refs.mjs (Gate-Muster + Allowlist, CONTRIBUTING § 17).
-// Stil wie scripts/release/*.test.mjs: node:test + node:assert/strict, keine Dependencies.
+// Tests für tools/checks/check-ticket-refs.mjs (Gate-Muster + Allowlist, CONTRIBUTING § 17).
+// Stil wie tools/release/*.test.mjs: node:test + node:assert/strict, keine Dependencies.
 //
 // PATTERN trägt den globalen Flag „g“ und ist damit zustandsbehaftet (lastIndex). Jeder Test
 // arbeitet deshalb über eine frische Kopie der Regex, statt sich auf den einen Modul-weiten
@@ -69,8 +69,8 @@ test('exakte Allowlist-Pfade sind ausgenommen', () => {
   assert.equal(isAllowlisted('.prettierignore'), true);
   assert.equal(isAllowlisted('AGENTS.md'), true);
   assert.equal(isAllowlisted('docs/agents/issue-tracker.md'), true);
-  assert.equal(isAllowlisted('scripts/check-ticket-refs.mjs'), true);
-  assert.equal(isAllowlisted('scripts/check-ticket-refs.test.mjs'), true);
+  assert.equal(isAllowlisted('tools/checks/check-ticket-refs.mjs'), true);
+  assert.equal(isAllowlisted('tools/checks/check-ticket-refs.test.mjs'), true);
 });
 
 test('.agents/-Präfix ist ausgenommen (vendored, generische Tracker-Beschreibung)', () => {
@@ -79,7 +79,7 @@ test('.agents/-Präfix ist ausgenommen (vendored, generische Tracker-Beschreibun
 
 test('normale Dateien sind nicht ausgenommen', () => {
   assert.equal(
-    isAllowlisted('angular-lib/projects/design-system-angular/src/lib/table/table.component.ts'),
+    isAllowlisted('packages/angular/src/lib/table/table.component.ts'),
     false,
   );
 });

@@ -32,7 +32,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 // Versionierte Dateien plus noch nicht committete (--others, .gitignore-treu): sonst ist
 // der Check lokal grün, solange die neue Datei untracked ist, und fällt erst in CI um.

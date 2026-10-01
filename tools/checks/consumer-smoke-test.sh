@@ -5,49 +5,52 @@
 # Baut die Angular-Lib (@conciso/design-system-angular) und die CSS-Schicht
 # (@conciso/design-system), tarballt beide per `npm pack` und installiert die
 # Tarballs — statt Quell-Code oder Workspace-Pfad-Mapping — in eine Kopie der
-# committeten Consumer-Fixture (examples/consumer-fixture). Danach ein produktiver
+# committeten Consumer-Fixture (tools/consumer-fixture). Danach ein produktiver
 # AOT-`ng build` dort. Testet exakt das gebaute Artefakt, das ein Konsument
 # tatsächlich bekommt: APF-Metadaten, Vollständigkeit der Re-Exports in
 # public-api.ts, peer-Dep-Auflösung, AOT-Template-Typfehler, Icon-Registrierung
-# UND Tree-Shaking der DS-Icons (icons/cds-icons.ts importiert nur benannte Exporte,
+# UND Tree-Shaking der DS-Icons (src/lib/icons/cds-icons.ts importiert nur benannte Exporte,
 # nie das aggregierte `icons`-Objekt — ein Fund von „co-building“, einem Bereichs-
 # Glyph, den die Fixture nirgends nutzt, im gebauten main.js beweist eine Regression).
 #
 # WARUM AUSSERHALB DES REPOS GEBAUT WIRD: Node löst Module über die
-# Elternverzeichnisse auf. Solange die Fixture unter examples/ im Repo gebaut wird,
+# Elternverzeichnisse auf. Solange die Fixture unter tools/ im Repo gebaut wird,
 # findet sie JEDES Angular-Paket im Wurzel-node_modules (dort installiert für
-# storybook-angular) — auch eines, das die Lib benutzt, aber nicht deklariert. Der
+# apps/storybook) — auch eines, das die Lib benutzt, aber nicht deklariert. Der
 # Test konnte eine fehlende Abhängigkeit deshalb NIE melden: `@angular/forms` und
 # `@angular/platform-browser` fehlten als peerDependency und fielen erst im Review
 # auf. Die Fixture wird darum nach $TMPDIR gespiegelt und dort gebaut, wo über der
 # Fixture kein node_modules mehr liegt. Fehlt eine Deklaration, bricht der Build.
 #
 # Voraussetzung: `npm install` im Repo-Root (installiert die Workspaces
-# storybook-angular + angular-lib). Führt selbst KEIN Root-Install aus.
+# apps/storybook, packages/*). Führt selbst KEIN Root-Install aus.
 #
 # Testet standardmäßig den versionsfreien Platzhalter 0.0.0 (siehe
 # docs/adr/0010-release-ausloesung-und-versionsquelle.md). Mit einem Versions-Argument
-# stempelt der Test zuerst über scripts/release/stamp-version.mjs — genau das Artefakt,
+# stempelt der Test zuerst über tools/release/stamp-version.mjs — genau das Artefakt,
 # das der Publish-Workflow tatsächlich veröffentlicht (Spec Regel 8 „Smoke-Test testet das
-# gestempelte Artefakt“). Nach dem Lauf werden beide Manifeste wieder auf ihren Stand
+# gestempelte Artefakt“). Nach dem Lauf werden alle drei Manifeste wieder auf ihren Stand
 # davor zurückgesetzt; gestempelt wird also nie etwas, das man committen könnte.
 #
-# Aufruf: scripts/consumer-smoke-test.sh [version]
+# Aufruf: tools/checks/consumer-smoke-test.sh [version]
 set -euo pipefail
 
 VERSION="${1:-}"
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FIXTURE_SRC="$ROOT/examples/consumer-fixture"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+FIXTURE_SRC="$ROOT/tools/consumer-fixture"
 WORK="$(mktemp -d)"
-LIB_PKG="$ROOT/angular-lib/projects/design-system-angular/package.json"
+CSS_PKG="$ROOT/packages/css/package.json"
+LIB_PKG="$ROOT/packages/angular/package.json"
+MCP_PKG="$ROOT/packages/mcp/package.json"
 
-# Das Stempeln schreibt in die committeten Manifeste. Beim Aufräumen werden beide wieder auf
+# Das Stempeln schreibt in die committeten Manifeste. Beim Aufräumen werden alle drei wieder auf
 # den Stand vor dem Lauf gesetzt — sonst bliebe ein lokaler Lauf mit Version gestempelt,
 # und ein späterer Lauf ohne Version prüfte nicht mehr den Platzhalter 0.0.0.
 aufraeumen() {
-  if [ -f "$WORK/root-package.json" ]; then
-    cp "$WORK/root-package.json" "$ROOT/package.json"
+  if [ -f "$WORK/css-package.json" ]; then
+    cp "$WORK/css-package.json" "$CSS_PKG"
     cp "$WORK/lib-package.json" "$LIB_PKG"
+    cp "$WORK/mcp-package.json" "$MCP_PKG"
   fi
   rm -rf "$WORK"
 }
@@ -58,25 +61,26 @@ FIXTURE="$WORK/consumer-fixture"
 mkdir -p "$PACK_DIR"
 
 if [ -n "$VERSION" ]; then
-  cp "$ROOT/package.json" "$WORK/root-package.json"
+  cp "$CSS_PKG" "$WORK/css-package.json"
   cp "$LIB_PKG" "$WORK/lib-package.json"
+  cp "$MCP_PKG" "$WORK/mcp-package.json"
   echo "→ Version $VERSION vor dem Build stempeln (package.json + Peer-Pin der Lib)"
-  (cd "$ROOT" && node scripts/release/stamp-version.mjs "$VERSION")
+  (cd "$ROOT" && node tools/release/stamp-version.mjs "$VERSION")
 fi
 
 echo "→ CSS-Schicht bauen (@conciso/design-system)"
-(cd "$ROOT" && npm run build)
+(cd "$ROOT" && npm run build --workspace=packages/css)
 
 echo "→ Angular-Lib bauen (@conciso/design-system-angular)"
-(cd "$ROOT" && npm run build --workspace=angular-lib)
+(cd "$ROOT" && npm run build --workspace=packages/angular)
 
 # Jedes Paket packt in ein eigenes Verzeichnis, und der Tarball wird dort gesucht statt aus der
 # Ausgabe von `npm pack` gelesen: das Root-Paket baut dabei über seinen `prepare`-Hook neu und
 # schreibt auf denselben stdout, `$(npm pack …)` lieferte also Build-Meldungen statt des Dateinamens.
 echo "→ Beide Pakete tarballen"
 mkdir -p "$PACK_DIR/css" "$PACK_DIR/lib"
-(cd "$ROOT" && npm pack --pack-destination "$PACK_DIR/css" > /dev/null)
-(cd "$ROOT/angular-lib/dist/design-system-angular" && npm pack --pack-destination "$PACK_DIR/lib" > /dev/null)
+(cd "$ROOT/packages/css" && npm pack --pack-destination "$PACK_DIR/css" > /dev/null)
+(cd "$ROOT/packages/angular/dist" && npm pack --pack-destination "$PACK_DIR/lib" > /dev/null)
 CSS_TARBALL="$(ls "$PACK_DIR"/css/*.tgz)"
 LIB_TARBALL="$(ls "$PACK_DIR"/lib/*.tgz)"
 
@@ -130,7 +134,7 @@ if [ -z "$MAIN_JS" ]; then
   exit 1
 fi
 if grep -q 'co-building' "$MAIN_JS"; then
-  echo "DS-Icons nicht tree-shakable: das Bereichs-Glyph co-building (von der Fixture nirgends genutzt) steckt in $MAIN_JS. angular-lib/.../icons/cds-icons.ts importiert vermutlich wieder das aggregierte icons-Objekt statt der benannten Exporte (siehe icons/README.md, Abschnitt Verwendung)." >&2
+  echo "DS-Icons nicht tree-shakable: das Bereichs-Glyph co-building (von der Fixture nirgends genutzt) steckt in $MAIN_JS. packages/angular/src/lib/icons/cds-icons.ts importiert vermutlich wieder das aggregierte icons-Objekt statt der benannten Exporte (siehe packages/css/icons/README.md, Abschnitt Verwendung)." >&2
   exit 1
 fi
 echo "  main.js: $(basename "$MAIN_JS"), $(wc -c < "$MAIN_JS" | tr -d ' ') Bytes (raw)"

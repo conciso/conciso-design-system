@@ -39,7 +39,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const read = (f) => readFileSync(join(ROOT, f), 'utf8');
 
 /** Kommentare entfernen, damit Prosa in /* … *​/ keine Selektoren vortäuscht. */
@@ -100,10 +100,10 @@ const spec = (sel) =>
   ((sel.match(/\.[\w-]+|\[[^\]]+\]|:(?!:)[\w-]+/g) || []).length) * 100 +
   ((sel.match(/(^|[\s>+~])[a-z]+/g) || []).length);
 
-const components = read('css/components.css');
-const dark = read('css/dark-mode.css');
+const components = read('packages/css/css/components.css');
+const dark = read('packages/css/css/dark-mode.css');
 const flips = themeAwareTokens(dark);
-const resolve = resolver(read('css/tokens.css') + '\n' + dark);
+const resolve = resolver(read('packages/css/css/tokens.css') + '\n' + dark);
 
 /** Dunkle Grundflächen, gegen die geprüft wird: bg-page und bg-surface aus dem Dark-Block. */
 const darkBlock = stripComments(dark).match(/\[data-theme="dark"\]\s*\{([\s\S]*?)\}/)?.[1] ?? '';
@@ -211,7 +211,7 @@ for (const [css] of [[dark], [components]])
     }
 
 /** Token-Auflösung je Theme: im Dark gewinnen die im Dark-Block neu belegten Werte. */
-const resolveLight = resolver(read('css/tokens.css'));
+const resolveLight = resolver(read('packages/css/css/tokens.css'));
 const hexIn = (theme, val) => {
   if (!val) return null;
   const v = val.trim();
