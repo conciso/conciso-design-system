@@ -96,7 +96,7 @@ const aggregateJs = `export const icons = {\n${Object.keys(icons)
   .join('\n')}\n};\n`;
 
 const js =
-  `// Generiert von scripts/build-icons.mjs — NICHT manuell editieren.\n` +
+  `// Generiert von packages/css/scripts/build-icons.mjs — NICHT manuell editieren.\n` +
   `// Quelle: icons/source/*.svg (+ icons/manifest.json). Jede Eintrag: { name, area, style, viewBox, strokeWidth?, body, svg, usage? }.\n` +
   `//\n` +
   `// Ein benannter Export pro Icon (camelCase, z. B. "ui-caret-down" -> uiCaretDown) ist\n` +
@@ -117,7 +117,7 @@ const dtsEntries = Object.keys(icons)
   .map((key) => `export const ${exportNameOf(key)}: CdsIconEntry;`)
   .join('\n');
 const dts =
-  `// Generiert von scripts/build-icons.mjs — NICHT manuell editieren.\n` +
+  `// Generiert von packages/css/scripts/build-icons.mjs — NICHT manuell editieren.\n` +
   `// Typdeklaration für dist/icons/icons.js. Siehe dist/icons/README.md „Verwendung“.\n\n` +
   `export interface CdsIconEntry {\n` +
   `  name: string;\n` +
@@ -146,7 +146,7 @@ const section = (area) => `### ${AREA_LABEL[area]}\n\n| Key | Export | Name | St
 const n = Object.keys(icons).length;
 const readme = `# Conciso Design System — Icons
 
-Maschinenlesbare Icon-Bibliothek. **Generiert** von \`scripts/build-icons.mjs\` aus
+Maschinenlesbare Icon-Bibliothek. **Generiert** von \`packages/css/scripts/build-icons.mjs\` aus
 \`icons/source/*.svg\` (kanonische Quelle) + \`icons/manifest.json\`. Nicht manuell editieren —
 neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` ausführen.
 

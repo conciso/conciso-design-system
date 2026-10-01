@@ -3,7 +3,7 @@ import { within, expect } from 'storybook/test';
 import { ArticleFigureComponent } from '@conciso/design-system-angular';
 
 // Neutraler Inline-SVG-Platzhalter im 16:9-Format (css/components.css:1574:
-// aspect-ratio:16/9), analog zum Muster in hero-image.stories.ts: storybook-angular
+// aspect-ratio:16/9), analog zum Muster in hero-image.stories.ts: apps/storybook
 // mountet nur assets/brand als Static-Dir (.storybook/main.ts), assets/images ist
 // dort bewusst nicht eingebunden — ein Pfad wie `assets/images/wissensbeitrag-ki.jpg`
 // würde deshalb in keiner Story auflösen.

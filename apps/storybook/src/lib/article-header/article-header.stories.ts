@@ -27,7 +27,7 @@ const meta: Meta<ArticleHeaderComponent> = {
         component:
           'Zentrierter Kopf eines Wissensbeitrags (`.article-header`, css/components.css:1486–1519): ' +
           'Breadcrumb, optionale Pill, H1, Lead, Meta-Strip. Hauptvorlage ist ' +
-          '`storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article Header“. ' +
+          '`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article Header“. ' +
           'Der Avatar (`div[cdsAvatar]` oder `cds-avatar-stack`) wird über `<ng-content select=' +
           '"[cdsAvatar], cds-avatar-stack">` in den Meta-Strip projiziert. Der letzte ' +
           'Breadcrumb-Eintrag rendert immer ohne Link mit `aria-current="page"`, unabhängig von ' +

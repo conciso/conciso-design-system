@@ -82,7 +82,7 @@
      (Befund 04): eigene Tokens statt --c-success/-error, weil das dort der Tint-Text ist, hier aber
      eine volle Fläche. Werte = bisheriger hartkodierter Render, keine optische Änderung. Dark-Werte
      in dark-mode.css (Fläche flippt auf --c-success-bg/--c-error-bg, Icon/Text meist unverändert).
-     Kontrast Text/Fläche und Icon/Fläche gemessen (Formel wie scripts/check-contrast.mjs):
+     Kontrast Text/Fläche und Icon/Fläche gemessen (Formel wie tools/checks/check-contrast.mjs):
      Light: ok Text 6,76:1, ok Icon 5,72:1 · err Text 9,19:1, err Icon 5,75:1
      Dark:  ok Text 6,53:1, ok Icon 6,16:1 · err Text 7,57:1, err Icon 4,74:1
      (Soll ≥ 4,5:1 Text, ≥ 3:1 Icon — alle acht Paare ✓) */

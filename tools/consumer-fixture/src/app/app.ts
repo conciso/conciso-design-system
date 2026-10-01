@@ -15,7 +15,7 @@ import {
  * `@conciso/design-system-angular` — inkl. der öffentlichen Typen (CdsArea,
  * CdsButtonVariant), analog User Story 3 der Spec. Dient als lebendes
  * Konsum-Beispiel (siehe README-Snippet der Lib) und als Ziel des
- * Consumer-Smoke-Tests (siehe scripts/consumer-smoke-test.sh).
+ * Consumer-Smoke-Tests (siehe tools/checks/consumer-smoke-test.sh).
  *
  * Die Auswahl der Komponenten ist nicht beliebig: sie soll die
  * ABHÄNGIGKEITSFLÄCHE der Lib abdecken, nicht nur ein paar Komponenten. Denn der

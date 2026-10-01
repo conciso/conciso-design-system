@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { FeaturedCardComponent } from '@conciso/design-system-angular';
 
-// Neutraler Inline-SVG-Platzhalter im 16:9-Format — storybook-angular mountet nur
+// Neutraler Inline-SVG-Platzhalter im 16:9-Format — apps/storybook mountet nur
 // assets/brand als Static-Dir (.storybook/main.ts), assets/images ist dort bewusst
 // nicht eingebunden (siehe hero-image.stories.ts).
 const eventPlaceholder =

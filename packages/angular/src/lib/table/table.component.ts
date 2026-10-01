@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  *
  * **`caption` ist Pflicht (`input.required<string>()`), abweichend von der
  * ursprünglichen Skizze (dort `caption? = ''`).** Die eigene Doku dieser Komponente
- * (`storybook-angular/src/docs/komponenten/tabelle.mdx:137`) nennt `<caption>`
+ * (`apps/storybook/src/docs/komponenten/tabelle.mdx:137`) nennt `<caption>`
  * ausdrücklich „Pflicht, Screenreader lesen den Titel vor, bevor die Zellen
  * vorgelesen werden“ und wiederholt das in den Dos (`tabelle.mdx:147`:
  * „`<caption>` und `scope`-Attribute immer setzen, auch bei einfachen

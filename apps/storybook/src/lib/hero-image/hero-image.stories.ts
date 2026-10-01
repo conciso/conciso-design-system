@@ -3,7 +3,7 @@ import { within, expect } from 'storybook/test';
 import { HeroImageComponent } from '@conciso/design-system-angular';
 
 // Neutraler Inline-SVG-Platzhalter im 21:9-Format, analog zum Muster in
-// carousel.component.ts / team-voice.component.ts: storybook-angular mountet nur
+// carousel.component.ts / team-voice.component.ts: apps/storybook mountet nur
 // assets/brand als Static-Dir (siehe .storybook/main.ts), der Demo-Bilderordner
 // assets/images ist dort bewusst nicht eingebunden. Ein Pfad wie
 // `assets/images/team-gruppenbild.jpg` würde deshalb in keiner Story auflösen.

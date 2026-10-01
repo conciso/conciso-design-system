@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
  * **Entscheidung 1 — kein `<figcaption>` ohne Textinhalt.** Bleiben `eyebrow`,
  * `heading` und `text` alle leer, entfällt das `<figcaption>`-Element vollständig
  * statt leer zu rendern (Variante „Hero ohne Caption“, siehe
- * `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx` Abschnitt „Aufbau“,
+ * `apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx` Abschnitt „Aufbau“,
  * Zeile 3: Beitrags-Heros zeigen das visuelle Versprechen ohne Marketing-Overlay).
  * Ein leeres `<figcaption>` wäre totes Markup ohne Zugänglichkeitsnutzen.
  *

@@ -48,7 +48,7 @@ export interface CdsCompareRow {
  *
  * **`caption` ist Pflicht (`input.required<string>()`), abweichend von der ursprünglichen Skizze (dort
  * kein Input dafür vorgesehen) — dieselbe Begründung wie bei `cds-table`.** Die eigene Doku
- * (`storybook-angular/src/docs/komponenten/tabelle.mdx:91`) nennt `<caption class="sr-only">`
+ * (`apps/storybook/src/docs/komponenten/tabelle.mdx:91`) nennt `<caption class="sr-only">`
  * ausdrücklich als Teil des Bauteils, und das einzige reale Vorkommen hat eine. Anders als bei
  * `cds-table` ist sie hier `.sr-only`, nicht sichtbar: der Klartext steht schon im `<summary>`
  * (`summary`-Input), die `<caption>` wiederholt ihn nur für Screenreader, die nach dem Aufklappen

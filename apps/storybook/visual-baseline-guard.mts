@@ -56,7 +56,7 @@ const HOW_TO = `So entstehen Baselines richtig:
   1. Workflow „Visual Tests“ auf dem eigenen Branch starten:
        gh workflow run visual.yml --ref <branch>
   2. Artefakt „visual-baselines“ des Laufs herunterladen:
-       gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapshots
+       gh run download <run-id> -n visual-baselines -D apps/storybook/visual-snapshots
   3. Die Bilder committen — danach ist der PR-Vergleich scharf.
 
 Lokale Abweichungen ansehen, ohne bestehende Baselines zu überschreiben:

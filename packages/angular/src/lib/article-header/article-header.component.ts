@@ -15,7 +15,7 @@ export interface CdsArticleBreadcrumbItem {
  * css/components.css (css/components.css:1486–1490, 1508–1519): der zentrierte Kopf
  * eines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip).
  * Hauptvorlage ist
- * `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article
+ * `apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article
  * Header“ — dort steht das verbindliche Markup samt Begründung.
  *
  * **Breadcrumb sitzt im Header — abweichend von der allgemeinen Navigationsregel,

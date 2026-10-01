@@ -79,7 +79,7 @@ export const AvatarOhneBild: Story = {
   },
 };
 
-// Portrait-Platzhalter als Inline-SVG-Data-URI, kein externes Netzwerkbild: storybook-angular
+// Portrait-Platzhalter als Inline-SVG-Data-URI, kein externes Netzwerkbild: apps/storybook
 // mountet nur assets/brand als Static-Dir (siehe stoerer.stories.ts, dieselbe Begründung), und
 // ein Bild von einem externen Host lädt im sandboxed Testlauf ohnehin nicht zuverlässig — beim
 // ersten Anlauf mit einer externen Test-URL blieb im Screenshot nur die leere data-area-Füllfarbe

@@ -65,7 +65,7 @@ writeFileSync(join(OUT, 'tokens.json'), JSON.stringify({ light, dark }, null, 2)
 // keine Division/Listen-Fehlinterpretation macht. Dark als Map.
 const scssVal = (v) => (/[ /]/.test(v) && !/^#|^rgba?\(/.test(v) ? `"${v}"` : v);
 const scss =
-  `// Generiert von scripts/build-tokens.mjs — NICHT manuell editieren.\n` +
+  `// Generiert von packages/css/scripts/build-tokens.mjs — NICHT manuell editieren.\n` +
   `// Quelle: css/tokens.css (Light) + css/dark-mode.css (Dark-Overrides).\n\n` +
   Object.entries(light).map(([k, v]) => `$${k}: ${scssVal(v)};`).join('\n') +
   `\n\n// Dark-Mode-Overrides (zur Laufzeit via [data-theme="dark"]):\n` +
@@ -76,7 +76,7 @@ writeFileSync(join(OUT, 'tokens.scss'), scss);
 
 // JS (ESM)
 const js =
-  `// Generiert von scripts/build-tokens.mjs — NICHT manuell editieren.\n` +
+  `// Generiert von packages/css/scripts/build-tokens.mjs — NICHT manuell editieren.\n` +
   `export const tokens = ${JSON.stringify(light, null, 2)};\n\n` +
   `export const darkTokens = ${JSON.stringify(dark, null, 2)};\n\n` +
   `export default tokens;\n`;

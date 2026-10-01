@@ -78,7 +78,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * Engineer, …“, weil der Freitext als ARIA-Rolle interpretiert wird. Exakt dieselbe
  * Kollision umgehen `BlockquoteComponent`, `TestimonialComponent` und
  * `TeamVoiceComponent` bereits mit `roleLabel` statt `role`
- * (`grep -rn "readonly role" angular-lib/projects/design-system-angular/src/lib/`
+ * (`grep -rn "readonly role" packages/angular/src/lib/`
  * zeigt nur diese drei). Diese Komponente folgt demselben, bereits etablierten
  * Muster statt die Kollision ein viertes Mal zu wiederholen — CSS-Klasse bleibt
  * unverändert `.author-card-role`, nur der Input-Name weicht vom ursprünglichen Entwurf ab.

@@ -7,7 +7,7 @@
  * (siehe docs/adr/0004-verteilung-und-versionierung.md).
  *
  * Vollständig umgezogen (siehe docs/adr/0002 und 0003): alle
- * Komponenten leben hier in der Lib, storybook-angular enthält nur noch
+ * Komponenten leben hier in der Lib, apps/storybook enthält nur noch
  * Stories und importiert ausschließlich von hier.
  */
 
