@@ -151,6 +151,7 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 - Verb-Labels: konkret und handlungsorientiert, „Starten“, „Speichern“, „Anfragen“, „Absenden“.
 - Hierarchie konsequent einhalten: Filled vor Tonal oder Outlined vor Text.
 - Bereichsklasse passend zum Seitenkontext: `.btn-co`, `.btn-ki`, `.btn-es`, `.btn-wo`.
+- Bei `.btn-wo` auf `--wo-50`-Sub-Streifen `--c500:var(--wo-600)` inline setzen: `--wo-700` verfehlt dort den Kontrast.
 - Touch-Target mindestens 44 Pixel einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung.
 - `.btn-err` nur für Aktionen, die sich nicht rückgängig machen lassen, höchstens einer pro Ansicht, mit einem Label, das die Folge nennt: „Löschen“, „Verwerfen“.
 
@@ -160,6 +161,7 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 - Substantive oder lange Phrasen als Labels, „Antragsformular einreichen“ statt lieber „Absenden“.
 - Disabled-State ohne sichtbare Begründung, Helper-Text oder Tooltip nutzen, um zu erklären warum.
 - Bereichsfarbe willkürlich tauschen, Corporate-Kontext immer `.btn-co`, nie `.btn-ki`.
+- `.btn-wo` mit seiner Default-Farbe `--wo-700` auf einen `--wo-50`-Sub-Streifen setzen, der Kontrast reicht dort nicht.
 - Filled-Button mit `--area-500` auf hellem Bereichs-Hintergrund (`--area-50`), stattdessen die dunklere Bereichs-Variante nutzen (siehe Barrierefreiheits-Tabelle oben).
 - `.btn-err` als Blickfang oder für umkehrbare Aktionen („Abmelden“, „Filter zurücksetzen“), und nie neben einer Bereichsklasse am selben Button.
 
