@@ -27,4 +27,10 @@
       area="co"
     />
   </section>
+
+  <!-- Bestätigungsdialog: Service statt Komponente, rendert selbst unter <body>. -->
+  <section style="margin-top: 2rem">
+    <cds-button variant="outlined" label="Ansicht verlassen" (clicked)="confirmDiscard()" />
+    <output>{{ confirmResult() }}</output>
+  </section>
 </main>

@@ -618,6 +618,44 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .snack-err{background:var(--c-error-strong);color:var(--c-error-on-strong)}
 .snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
 
+/* ── Dialog ──
+   Modale Rückfrage auf dem nativen <dialog> (showModal): Fokus-Falle, Escape und die inerte Seite
+   kommen vom Browser. Aufbau: <dialog class="dialog" role="alertdialog"> > .dialog-inner >
+   h2.dialog-title + p.dialog-body + .dialog-actions. Fläche wie schwebende Panels (Menüs,
+   Snackbar): --bg-surface, --bd-strong in beiden Modi, --e3.
+   .dialog selbst hat keinen Innenabstand. So ist ein Klick, dessen Ziel das <dialog> selbst ist,
+   eindeutig ein Klick auf den Hintergrund; der Abstand sitzt in .dialog-inner.
+   Keine Einblend-Animation: nichts, was prefers-reduced-motion abfangen müsste, und stabile
+   Visual-Snapshots. */
+.dialog{padding:0;margin:auto;border:var(--bd-strong);border-radius:var(--r-md);background:var(--bg-surface);color:var(--tx-primary);box-shadow:var(--e3);width:min(480px,calc(100% - 2 * var(--s4)));max-width:none;max-height:calc(100% - 2 * var(--s4));overflow:hidden}
+.dialog[open]{display:flex;flex-direction:column}
+.dialog::backdrop{background:var(--bg-scrim)}
+.dialog-inner{display:flex;flex-direction:column;min-height:0;padding:var(--s6);overflow-y:auto;container-type:inline-size}
+.dialog-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
+/* Wird es eng, scrollt zuerst der Text, Titel und Aktionen bleiben stehen. Er behält aber immer
+   zwei Zeilen: auf null geschrumpft wäre die Folge der Aktion unsichtbar. Reicht auch das nicht
+   (400 % Zoom, 320 × 256 px), scrollt .dialog-inner als Ganzes, der autofocus holt die sichere
+   Aktion dabei ins Bild (WCAG 1.4.10). */
+.dialog-body{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6);overflow-y:auto;min-height:2lh}
+/* DOM-Reihenfolge = sichtbare Reihenfolge (Abbrechen, dann Bestätigen), nie *-reverse, sonst
+   springt der Tab-Fokus scheinbar rückwärts (WCAG 2.4.3). wrap fängt ungewöhnlich lange Labels ab. */
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--s3);flex-shrink:0}
+/* Unter 400 px Innenbreite untereinander, Bestätigen unten am Daumen. Gemessen: die längsten
+   üblichen Paare („Weiter bearbeiten“ + „Verwerfen“, „Abbrechen“ + „Anfrage absenden“) brauchen
+   378 bis 380 px, der Dialog bietet bei 480 px Breite 430 px, auf einem 360-px-Gerät 278 px. */
+@container (max-width: 400px){
+  .dialog-actions{flex-direction:column;align-items:stretch}
+  .dialog-actions .btn{justify-content:center}
+}
+/* Wenig Höhe (Querformat, starker Zoom): Innenabstand eine Stufe kleiner, mehr Platz für Inhalt. */
+@media (max-height: 480px){
+  .dialog-inner{padding:var(--s4)}
+  .dialog-body{margin-bottom:var(--s4)}
+}
+/* Seite hinter einem offenen Dialog scrollt nicht mit; stable hält die Scrollbar-Spur frei,
+   damit der Inhalt beim Öffnen nicht springt. */
+html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
+
 /* ── Footer ──
    Zwei-Band-Layout: heller Main-Bereich (.footer-main) + dunkler Bottom-Streifen (.footer-btm).
    Beide Bänder voll-breit; Inhalt jeweils auf 1280 px gedeckelt + zentriert

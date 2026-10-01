@@ -1616,4 +1616,39 @@
     document.querySelectorAll('form[data-booking]').forEach(setupBookingForm);
   })();
 
+  /* ── Bestätigungsdialog: Referenzverhalten für .dialog ──
+     Ein Auslöser mit data-dialog-open="<id>" öffnet das <dialog class="dialog"> per showModal().
+     Fokus-Falle, Escape und die inerte Seite kommen vom Browser, den Anfangsfokus setzt das
+     autofocus-Attribut am sicheren Button. Ergänzt wird, was der Browser nicht übernimmt:
+     - Hintergrund-Klick schließt, aber nur, wenn pointerdown UND click auf dem <dialog> selbst
+       landen. Sonst schlösse eine Textauswahl, die außerhalb des Dialogs endet.
+     - Buttons mit data-dialog-result schließen mit diesem Ergebnis.
+     - Der Fokus kehrt ausdrücklich zum Auslöser zurück, statt sich auf den Browser zu verlassen.
+     Ergebnis: returnValue "confirm" = bestätigt, alles andere (Abbrechen, Escape, Hintergrund) =
+     abgebrochen. Dasselbe Verhalten setzt CdsConfirmDialog in der Angular-Lib um. */
+  (function() {
+    document.querySelectorAll('[data-dialog-open]').forEach(function(trigger) {
+      var dialog = document.getElementById(trigger.getAttribute('data-dialog-open'));
+      if (!dialog || typeof dialog.showModal !== 'function') return;
+      var output = document.getElementById(trigger.getAttribute('data-dialog-output'));
+      var downOnBackdrop = false;
+
+      trigger.addEventListener('click', function() {
+        dialog.returnValue = '';
+        dialog.showModal();
+      });
+      dialog.addEventListener('pointerdown', function(e) { downOnBackdrop = e.target === dialog; });
+      dialog.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-dialog-result]');
+        if (btn) dialog.close(btn.getAttribute('data-dialog-result'));
+        else if (e.target === dialog && downOnBackdrop) dialog.close('cancel');
+        downOnBackdrop = false;
+      });
+      dialog.addEventListener('close', function() {
+        if (trigger.isConnected) trigger.focus();
+        if (output) output.textContent = dialog.returnValue === 'confirm' ? 'Ergebnis: bestätigt' : 'Ergebnis: abgebrochen';
+      });
+    });
+  })();
+
 })();

@@ -98,6 +98,11 @@
 
   /* ── Surfaces & Text ── */
   --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  /* --bg-scrim: Abdunklung hinter modalen Ebenen (.dialog::backdrop). Keine Flächen-Stufe, sondern
+     eine Schicht über der Seite: sie nimmt dem Inhalt dahinter das Gewicht, damit die modale Fläche
+     (--bg-surface + --bd-strong) allein trägt. n-900 zu 48 %: Weiß darunter wird zu #878C8C, die
+     Dialogfläche hebt sich mit 3,4:1 ab. */
+  --bg-scrim:rgba(6,15,15,.48);
   /* --bg-surface-hover: gehobene Fläche interaktiver Elemente im Hover. Light bewusst gleich
      --bg-surface: auf weißem Grund trägt die Tiefe der Schatten (--e3), eine Aufhellung gäbe es
      nicht. Im Dark trägt der Schatten weniger, dort hebt der Zustand zusätzlich die Fläche.
