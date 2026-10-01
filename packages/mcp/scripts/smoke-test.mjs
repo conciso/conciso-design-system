@@ -168,7 +168,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Das Anti-Flash-Snippet immer als erstes Skript im `<head>` einbinden, vor dem Stylesheet.',
   },
   {
-    id: 'komponenten-chips-badges-pills-pill',
+    id: 'komponenten-chips-badges-pills-chip',
     sentence: 'Auf Cards die Pill nur mit dem Bereichsnamen füllen',
   },
   {
