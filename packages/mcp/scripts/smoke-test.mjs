@@ -208,6 +208,27 @@ const GROUP_USAGE_CHECKS = [
     id: 'seitenmuster-wissensbeitrag--übersicht',
     sentence: '`--ki-800`, weil `--ki-700` mit rund 4,4:1 auf Weiß unter der AA-Schwelle',
   },
+  {
+    id: 'seitenmuster-beitragsübersicht--übersicht',
+    sentence: 'Die Suche läuft 300 ms nach der letzten Eingabe. Filter-Chips wirken sofort, ohne Verzögerung',
+    additionalSentence: 'Bei aktiver Suche ist der gesamte Featured-Abschnitt ausgeblendet.',
+  },
+  {
+    id: 'seitenmuster-veranstaltungsübersicht--übersicht',
+    sentence: 'über 1000 px Bild 60 %, 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), unter 900 px gestapelt',
+  },
+  {
+    id: 'seitenmuster-veranstaltung--übersicht',
+    sentence: 'Recruiting-Veranstaltung, Conciso präsentiert sich potenziellen Bewerber:innen',
+  },
+  {
+    id: 'seitenmuster-seminar-·-training--übersicht',
+    sentence: 'sondern indem Preis und primäre Aktion nach oben',
+  },
+  {
+    id: 'seitenmuster-angebots-detailseite--übersicht',
+    sentence: 'Gedankenstriche (Em- und En-Dash) in der Copy setzen',
+  },
 ];
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
