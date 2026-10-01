@@ -57,7 +57,7 @@ function istDunkel(): boolean {
 }
 
 /** Baut das Dokument für den Frame; das Beispiel selbst bleibt unverändert. */
-function dokument(html: string, dunkel: boolean): string {
+function dokument(html: string, dunkel: boolean, dialogOffen: boolean): string {
   // Relativ zur Preview-Seite (iframe.html), damit der Unterpfad auf GitHub Pages stimmt.
   const basis = new URL('./conciso/css/', document.baseURI).href;
   const links = CSS_DATEIEN.map(
@@ -65,12 +65,21 @@ function dokument(html: string, dunkel: boolean): string {
   ).join('');
   // Relative Quellen im Beispiel (src="platzhalter.svg") lösen gegen die Doku-Assets auf.
   const assets = new URL('./conciso/beispiel/', document.baseURI).href;
+  // Ein <dialog> ohne `open` bleibt unsichtbar. Die Vorschau öffnet ihn nicht-modal und
+  // legt ihn statisch auf die Scrim-Fläche; der angezeigte Code bleibt das echte Markup.
+  const dialogStil = dialogOffen
+    ? 'body{background:var(--bg-scrim)}dialog.dialog{position:static;margin:0 auto}'
+    : '';
+  // `autofocus` entfällt in der Vorschau: Im Frame würde es Fokus und Scrollposition der Docs-Seite stehlen.
+  const inhalt = dialogOffen
+    ? html.replace(/<dialog\b/g, '<dialog open').replace(/\sautofocus\b/g, '')
+    : html;
   return (
     `<!doctype html><html lang="de"${dunkel ? ' data-theme="dark"' : ''}><head>` +
     `<base href="${assets}">` +
     `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` +
-    `${links}<style>body{margin:0;padding:var(--s6);transition:none}</style>` +
-    `</head><body>${html}</body></html>`
+    `${links}<style>body{margin:0;padding:var(--s6);transition:none}${dialogStil}</style>` +
+    `</head><body>${inhalt}</body></html>`
   );
 }
 
@@ -81,9 +90,16 @@ export interface HtmlBeispielProps {
   titel: string;
   /** Interaktives Muster: ergänzt den Hinweis, dass das Verhalten selbst umzusetzen ist. */
   interaktiv?: boolean;
+  /** Öffnet jedes `<dialog>` des Beispiels in der Vorschau (nicht-modal, auf Scrim-Fläche). */
+  dialogOffen?: boolean;
 }
 
-export function HtmlBeispiel({ children, titel, interaktiv = false }: HtmlBeispielProps) {
+export function HtmlBeispiel({
+  children,
+  titel,
+  interaktiv = false,
+  dialogOffen = false,
+}: HtmlBeispielProps) {
   const html = textAus(children).replace(/\n$/, '');
   const frame = useRef<HTMLIFrameElement>(null);
   const messer = useRef<ResizeObserver | null>(null);
@@ -93,7 +109,10 @@ export function HtmlBeispiel({ children, titel, interaktiv = false }: HtmlBeispi
   // `data-theme` im Frame-Root (Effekt unten); ein geänderter srcDoc würde den
   // Frame neu laden und Zustand wie ein geöffnetes <details> verwerfen.
   const startDunkel = useRef(dunkel);
-  const srcDoc = useMemo(() => dokument(html, startDunkel.current), [html]);
+  const srcDoc = useMemo(
+    () => dokument(html, startDunkel.current, dialogOffen),
+    [html, dialogOffen],
+  );
   const ohneTitel = !titel;
   useEffect(() => {
     if (ohneTitel)
