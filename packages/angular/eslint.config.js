@@ -9,7 +9,7 @@ module.exports = defineConfig([
     ignores: ["dist/**", "out-tsc/**", ".angular/**"],
   },
   {
-    files: ["projects/**/*.ts"],
+    files: ["src/**/*.ts"],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,
@@ -49,7 +49,7 @@ module.exports = defineConfig([
     },
   },
   {
-    files: ["projects/**/*.html"],
+    files: ["src/**/*.html"],
     extends: [
       angular.configs.templateRecommended,
       angular.configs.templateAccessibility,
