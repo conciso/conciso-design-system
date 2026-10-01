@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { expect } from 'storybook/test';
-import { TierComponent } from '@conciso/design-system-angular';
+import { TierComponent, themeStore } from '@conciso/design-system-angular';
 
 const meta: Meta<TierComponent> = {
   title: 'Komponenten/Cards & Teaser/Tier-Trenner',
@@ -112,11 +112,10 @@ export const AlleBereiche: Story = {
     const [neutral, ...tinted] = labels;
     await expect(neutral).not.toHaveAttribute('data-area');
 
-    const root = document.documentElement;
-    const previousTheme = root.getAttribute('data-theme');
+    const previousMode = themeStore.mode();
     try {
-      for (const theme of ['light', 'dark']) {
-        root.setAttribute('data-theme', theme);
+      for (const theme of ['light', 'dark'] as const) {
+        themeStore.set(theme);
         const colors = new Set<string>();
         for (const [i, label] of tinted.entries()) {
           const area = AREAS[i];
@@ -132,8 +131,7 @@ export const AlleBereiche: Story = {
         await expect(colors.size).toBe(4);
       }
     } finally {
-      if (previousTheme === null) root.removeAttribute('data-theme');
-      else root.setAttribute('data-theme', previousTheme);
+      themeStore.set(previousMode);
     }
   },
 };
