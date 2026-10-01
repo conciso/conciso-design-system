@@ -116,7 +116,7 @@ Der Wechsel kommt aus einem Skript, die CSS-Schicht liefert nur die Darstellung.
 Diskrete Sets von je 5 Logos, die alle 6 Sekunden per Crossfade wechseln. Pausiert
 automatisch bei Hover und Tastatur-Fokus, zusätzlich manueller Pause-Button (WCAG
 2.2.2). Pagination-Dots erlauben gezieltes Springen, Tastatur-Navigation über Pfeil-,
-Home- und End-Taste. Die Logos sitzen randlos auf einer hellen Platte (`--bg-plate`),
+Home- und End-Taste; Dot-Klick und Tastaturbedienung pausieren dauerhaft. Die Logos sitzen randlos auf einer hellen Platte (`--bg-plate`),
 die in beiden Themes hell bleibt, weil Kundenlogos meist nur in einer farbigen
 beziehungsweise dunklen Fassung ohne Dark-Variante vorliegen. Kein Hover-Effekt, da die
 Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
@@ -130,7 +130,7 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 | `role="group"` pro Set | Logos als Gruppe gebündelt mit eigenem `aria-label` („Set 1 von 2“) |
 | `role="tablist"` + `role="tab"` | Pagination-Dots als Tab-Pattern, `aria-selected` markiert das aktive Set, Roving-Tabindex |
 | `aria-label` auf Pause-Button | Das Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“ und macht den Zustand hörbar. Der Button trägt bewusst kein `aria-pressed`, damit der Zustand nicht doppelt angesagt wird |
-| Tastatur-Navigation | Pfeil-Tasten wechseln Sets, Home / End springen zum ersten / letzten Set, Pause via Space oder Enter |
+| Tastatur-Navigation | Auf den Dots wechseln ←/↑ zum vorherigen und →/↓ zum nächsten Set, Home / End springen zum ersten / letzten Set; jede dieser Tasten und der Dot-Klick pausieren dauerhaft. Pause-Button via Space oder Enter |
 | `prefers-reduced-motion` | Auto-Rotation und Crossfade deaktiviert, Set 1 bleibt statisch sichtbar, Dots bleiben nutzbar |
 
 ### Dos & Don'ts
