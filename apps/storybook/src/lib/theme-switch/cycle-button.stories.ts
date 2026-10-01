@@ -47,19 +47,13 @@ export const KlickZyklus: Story = {
     const original = themeStore.mode();
     try {
       themeStore.set('light');
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: Dunkel — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Dunkel, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: System — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: System, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
     } finally {
       themeStore.set(original);
     }
@@ -77,14 +71,11 @@ export const KlickZyklusBinaer: Story = {
     const original = themeStore.mode();
     try {
       themeStore.set('light');
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: Dunkel — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Dunkel, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
     } finally {
       themeStore.set(original);
     }
