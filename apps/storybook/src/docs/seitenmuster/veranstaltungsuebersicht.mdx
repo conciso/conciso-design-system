@@ -18,8 +18,8 @@ Nur CSS-Schicht), es ändern sich nur das Nomen („Veranstaltungen“) und das 
 
 **Anpassungen gegenüber der Beitragsübersicht:**
 
-- **Pill-Inhalt:** „Bereich · Format“ statt „Bereich · Lesezeit“, das Format-Vokabular ist
-  auf fünf Begriffe begrenzt (siehe `Seitenmuster/Veranstaltung`, Abschnitt Formate).
+- **Pill-Inhalt:** weiterhin nur der Bereichsname. Das Format steht statt der Lesezeit in der
+  Meta-Zeile, das Format-Vokabular ist auf fünf Begriffe begrenzt (siehe `Seitenmuster/Veranstaltung`, Abschnitt Formate).
 - **Card-Meta:** Datum (mit Wochentag) und Ort sitzen oberhalb des Titels, nicht am
   Card-Fuß. Datum ist der wichtigste Hard-Filter und kommt vor dem Titel-Investment.
 - **Default-Featured:** „Effektive Software“ statt „Angewandte KI“.
@@ -34,7 +34,7 @@ Der Reading-Flow ist auf die Entscheidung für eine Veranstaltung optimiert. Fü
 Veranstaltungen ist das Datum ein harter Filter („Kann ich überhaupt?“) und gehört vor das
 Titel-Investment.
 
-**Reihenfolge:** Bild (Atmosphäre, optional), Pill „Bereich · Format“ (Filter-Check), Datum
+**Reihenfolge:** Bild (Atmosphäre, optional), Pill mit dem Bereichsnamen (Filter-Check), Datum
 mit Wochentag (Kalender-Check), Ort („Dortmund“ für vor Ort, „Online“ für Webinar), Titel
 (Interesse-Hook), Body (worum geht's), CTA „Zur Veranstaltung →“.
 
@@ -116,7 +116,7 @@ Listing.
 | Datums-Format | Wochentag plus ausgeschriebener Monat |
 | Card-Ort | Stadt-Name, nicht der Venue, für Webinar „Online“. Auf der Detail-Seite zeigt der Meta-Strip dann den vollen Venue-Namen |
 | Filter-Logik | Drei Bereichs-Chips (ki, es, wo), kein Corporate-Chip |
-| Such-Scope | Titel plus Lead plus Pill, dieselbe Such-Logik wie in der Beitragsübersicht. Datum und Ort sind nicht Teil des Such-Index, eine Datums-Suche wäre ein Kalender-Filter, kein Volltext |
+| Such-Scope | Titel plus Lead plus Pill (Bereichsname), dieselbe Such-Logik wie in der Beitragsübersicht. Datum und Ort sind nicht Teil des Such-Index, eine Datums-Suche wäre ein Kalender-Filter, kein Volltext |
 | CTA-Text | Einheitlich „Zur Veranstaltung →“. Ein differenzierter CTA („Platz sichern“ oder „Anmelden“) gehört erst auf die Detail-Seite, wenn der Preis-Kontext sichtbar ist |
 
 **Dos**

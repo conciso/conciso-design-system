@@ -7,8 +7,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 Page-Pattern für Listing-Seiten mit Bereichs-Filter: zentrierter Header mit Lead,
 Filter-Chip-Leiste, ein Featured-Beitrag pro Bereich, der mit dem Filter rotiert, darunter
 ein Card-Grid. Dasselbe Pattern trägt auch
-`Seitenmuster/Veranstaltungsübersicht`, dort mit „Format · Preis“ statt „Lesezeit“ in der
-Pill und dem Anmeldungs-Flow statt des Beitrags-Lesers.
+`Seitenmuster/Veranstaltungsübersicht`, dort mit „Format“ statt „Lesezeit“ in der
+Meta-Zeile und dem Anmeldungs-Flow statt des Beitrags-Lesers.
 
 ## Aufbau
 
@@ -25,8 +25,8 @@ Erkundung:
    Featured-Card-Hero, 20 px Standard-Card-Titel.
 3. **Featured-Beitrag:** zweispaltige Hero-Card (Bild links im 16:9, Inhalt rechts),
    bereichsspezifisch, siehe Filter-aware Featured unten.
-4. **Beitrags-Grid:** `.card.card-elevated` in `.col-4` mit Bild oben, Pill „Bereich ·
-   Lesezeit“, Titel, Lead und CTA „Beitrag lesen →“ am Karten-Unterrand.
+4. **Beitrags-Grid:** `.card.card-elevated` in `.col-4` mit Bild oben, Pill mit dem
+   Bereichsnamen, Titel, Lead, Meta-Zeile mit Lesezeit und CTA „Beitrag lesen →“ am Karten-Unterrand.
 5. **„Mehr laden“-Block** (optional, ab vielen Beiträgen): zentrierter Outline-Button mit
    Counter darunter (`aria-live="polite"`), lädt die nächste Beitragsseite nach. Alternative
    zu Pagination oder Infinite-Scroll, der Footer bleibt erreichbar und deterministisch
@@ -50,7 +50,7 @@ Meilisearch, eigener Service). Die folgenden Regeln beschreiben das Verhalten.
 | Aspekt | Verhalten |
 |---|---|
 | Instant-Search | Filtert beim Tippen mit 300 ms Debounce, kein Submit, keine separate Result-Page |
-| Such-Scope | Titel plus Lead plus Pill pro Card (case-insensitive Substring-Match), Body-Text bewusst ausgespart (zu teuer client-seitig, erzeugt False Positives) |
+| Such-Scope | Titel plus Lead plus Pill (Bereichsname) pro Card (case-insensitive Substring-Match), Lesezeit in der Meta-Zeile gehört nicht dazu, Body-Text bewusst ausgespart (zu teuer client-seitig, erzeugt False Positives) |
 | Kombination mit Filter | AND-Logik: aktiver Bereichs-Filter plus Suche ergibt die engere Schnittmenge |
 | Featured-Verhalten | Wird bei aktiver Suche komplett ausgeblendet, Featured ist redaktionell kuratiert, nicht algorithmisch |
 | Live-Count | `.wb-result-count` mit `role="status" aria-live="polite"`, nur während aktiver Suche sichtbar |
@@ -61,10 +61,11 @@ Meilisearch, eigener Service). Die folgenden Regeln beschreiben das Verhalten.
 
 | Eingabe | Aktion |
 |---|---|
-| `/` | Global-Shortcut, fokussiert das Such-Feld, wenn die Übersicht aktiv ist und der Fokus nicht in einem anderen Eingabefeld liegt. Der Placeholder deutet ihn als Hinweis an („Beitrag suchen /“) |
 | `Esc` | Leert das Such-Feld, Fokus bleibt im Feld, Filter werden nicht zurückgesetzt |
 | `role="search"` | Landmark um das gesamte Such-Feld, Screenreader können direkt dorthin springen |
 | `<input type="search">` | Natives Such-Input mit Browser-X-Button zum Leeren, `aria-label` statt sichtbarem Label |
+
+Es gibt bewusst kein Tastenkürzel wie `/` für die Suche: Ein Einzelzeichen-Kürzel löst bei Spracheingabe und Bildschirmtastaturen versehentlich aus und müsste nach WCAG 2.1.4 abschaltbar oder umbelegbar sein. Die Suche erreicht man über den `role="search"`-Landmark.
 
 ## Filter-aware Featured
 
@@ -136,7 +137,7 @@ Die Listing-Seite besteht aus Markup und CSS. Filter, Suche und das Umschalten d
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25" aria-hidden="true" focusable="false" style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
       <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
     </svg>
-    <input type="search" placeholder="Beitrag suchen   /" aria-label="Beiträge nach Stichwort durchsuchen" autocomplete="off" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--field-border);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
+    <input type="search" placeholder="Beitrag suchen" aria-label="Beiträge nach Stichwort durchsuchen" autocomplete="off" style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--field-border);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
   </div>
   <p class="wb-result-count" role="status" aria-live="polite" style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0 auto var(--s6);min-height:1.5em"></p>
   <div role="toolbar" aria-label="Beiträge nach Bereich filtern" style="display:flex;gap:var(--s2);justify-content:center;flex-wrap:wrap">
@@ -154,6 +155,7 @@ Die Listing-Seite besteht aus Markup und CSS. Filter, Suche und das Umschalten d
       <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI">Angewandte KI</span>
       <div class="card-title"><span>RAG vs. Fine-Tuning: Wann was sinnvoll ist</span></div>
       <div class="card-text">Beide Wege führen zum Ziel, aber selten zum gleichen.</div>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit</p>
       <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -163,6 +165,7 @@ Die Listing-Seite besteht aus Markup und CSS. Filter, Suche und das Umschalten d
       <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
       <div class="card-title"><span>Refactoring-Schulden ehrlich rechnen</span></div>
       <div class="card-text">Wann der Umbau billiger ist als der nächste Workaround.</div>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit</p>
       <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -188,7 +191,7 @@ Die Klassen `wb-…` sind nur Haken für das Skript und tragen kein CSS. Die Ver
 | Aspekt | Verhalten |
 |---|---|
 | Entprellen | Die Suche läuft 300 ms nach der letzten Eingabe. Filter-Chips wirken sofort, ohne Verzögerung |
-| Trefferlogik | Der Suchtext (ohne Leerzeichen am Rand) wird gegen Titel, Lead und Pill jeder Grid-Karte geprüft, ohne Groß-/Kleinschreibung, als Teilstring. Das Ergebnis ist mit dem Bereichsfilter UND-verknüpft. Featured-Karten zählen nicht mit |
+| Trefferlogik | Der Suchtext (ohne Leerzeichen am Rand) wird gegen Titel, Lead und Pill (Bereichsname) jeder Grid-Karte geprüft, die Meta-Zeile zählt nicht dazu, ohne Groß-/Kleinschreibung, als Teilstring. Das Ergebnis ist mit dem Bereichsfilter UND-verknüpft. Featured-Karten zählen nicht mit |
 | Bereichsfilter | Genau ein Chip ist aktiv. Beim Klick wandert `aria-pressed="true"` auf den gewählten Chip, alle anderen stehen auf `"false"`. „Alle“ ist der Startzustand |
 | Featured | Folgt dem Filter: je Bereich eine Variante, bei „Alle“ der Default des Bereichs (Beitragsübersicht: Angewandte KI, Veranstaltungsübersicht: Effektive Software). Bei aktiver Suche ist der gesamte Featured-Abschnitt ausgeblendet. Featured und Grid schalten in einem Durchgang um |
 | Ergebniszähler | Nur bei aktiver Suche, im Format `3 Treffer für „RAG“` (Zahl = sichtbare Grid-Karten). Ohne Suche bleibt der Text leer. Der Zähler ist eine Live-Region (`role="status"`, `aria-live="polite"`) |
@@ -196,7 +199,6 @@ Die Klassen `wb-…` sind nur Haken für das Skript und tragen kein CSS. Die Ver
 | „Mehr laden“ | Ausgeblendet bei aktiver Suche und im Leerzustand, sonst sichtbar |
 | Zurücksetzen | Der Button im Leerzustand leert das Suchfeld, setzt den Filter auf „Alle“ und gibt dem Suchfeld den Fokus |
 | `Esc` | Leert das Suchfeld nur, wenn Text drinsteht. Der Fokus bleibt im Feld, der Filter bleibt gesetzt. Ohne Text bleibt die Taste unberührt |
-| `/` | Fokussiert das Suchfeld nur, wenn die Listing-Seite aktiv (sichtbar) ist und der Fokus weder in einem Eingabefeld noch in einer Textarea noch in einem editierbaren Inhalt liegt. Die Taste wird abgefangen, damit kein `/` im Feld landet |
 | Startzustand | Beim Laden einmal anwenden: Filter „Alle“, keine Suche, Zähler leer, Leerzustand verborgen |
 
 Detailtext des Leerzustands, je nach Kombination aus Suche und Filter (im Beispiel für Beiträge, bei Veranstaltungen „Veranstaltungen“):
@@ -216,7 +218,7 @@ Detailtext des Leerzustands, je nach Kombination aus Suche und Filter (im Beispi
 | Featured pro Bereich | Jede Variante als `.card.card-elevated` mit `data-area` im selben Container, nur eine sichtbar |
 | „Alle“-Default | Zeigt den Editorial-Pick, Konvention für Conciso: KI-Variante als Lead-Thema |
 | Grid-Karten | `.card.card-elevated.col-4` mit `data-area` auf Karte und Pill, CTA-Farbe einheitlich `--co-700` |
-| Pill-Form | „Bereich · Lesezeit“ mit `data-area` für den Bereichston, auf Listing-Seiten ohne Breadcrumb zulässig |
+| Pill-Form | Nur der Bereichsname mit `data-area` für den Bereichston, Lesezeit in der Meta-Zeile (`.card-meta`-Inhalt), auf Listing-Seiten ohne Breadcrumb zulässig |
 | Layout-Stabilität | Featured-Section beim Filterwechsel nie ganz verstecken, nur den Inhalt austauschen, sonst springt das Layout. Bei aktiver Suche entfällt sie bewusst |
 
 **Dos**
