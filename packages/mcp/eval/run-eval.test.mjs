@@ -1,8 +1,8 @@
 // Unit-Tests für die reine Bericht-/Filter-Logik aus run-eval.mjs — keine echten claude-/
 // MCP-Aufrufe (import.meta-Guard in run-eval.mjs verhindert, dass main() beim Import hier
-// mitläuft). Bewusst NICHT unter mcp-server/test/, aus demselben Grund wie checker.test.mjs:
-// `npm test -w mcp-server` (`node --test test/*.test.mjs`) soll den Eval-Teil nicht einschließen.
-// Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
+// mitläuft). Bewusst NICHT unter packages/mcp/test/, aus demselben Grund wie checker.test.mjs:
+// `npm test -w packages/mcp` (`node --test test/*.test.mjs`) soll den Eval-Teil nicht einschließen.
+// Laufen lassen mit `npm run test:eval-checker -w packages/mcp`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';

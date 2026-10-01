@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Kopiert `manifests/` und `services/` aus dem Storybook-Build (storybook-angular/storybook-static)
+// Kopiert `manifests/` und `services/` aus dem Storybook-Build (apps/storybook/dist)
 // unverändert — Verzeichnislayout 1:1 — in den Snapshot dieses Pakets (siehe ADR-0012). Baut den
 // Storybook-Build NICHT selbst: Vorbedingung ist `npm run build:storybook` im Repo-Root (siehe
 // README.md). Der Snapshot ist gitignored (abgeleitet, siehe .gitignore) und wird bei jedem Lauf
@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DEFAULT_STORYBOOK_STATIC = join(PKG_ROOT, '..', 'storybook-angular', 'storybook-static');
+const DEFAULT_STORYBOOK_STATIC = join(PKG_ROOT, '..', '..', 'apps', 'storybook', 'dist');
 const DEFAULT_SNAPSHOT_DIR = join(PKG_ROOT, 'snapshot');
 
 // Beide Top-Level-Verzeichnisse werden gebraucht — `manifests/` selbst plus alle per `$ref`

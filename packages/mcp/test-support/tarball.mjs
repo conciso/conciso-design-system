@@ -1,6 +1,6 @@
 // Gemeinsame Helfer für „ein Consumer-Tarball, frisch installiert“: bisher fast wortgleich in
 // scripts/smoke-test.mjs und eval/run-eval.mjs dupliziert (Pack, Install, npm-Aufruf). Bewusst
-// NICHT Teil des ausgelieferten Pakets (siehe mcp-server/package.json#files) — reines
+// NICHT Teil des ausgelieferten Pakets (siehe packages/mcp/package.json#files) — reines
 // Test-/CI-Werkzeug.
 import { mkdtempSync, readdirSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
@@ -38,12 +38,12 @@ export function installTarball(tmpDir, tarballPath, { log = () => {} } = {}) {
  * erzeugte Datei ermittelt, nicht über `TARBALL="$(npm pack …)"`: der `prepack`-Lifecycle-Hook
  * (siehe scripts/prepack.mjs) und `npm pack` selbst schreiben beide auf denselben stdout, eine
  * Capture bekäme zwei Zeilen statt einer.
- * @param {string} repoRoot Repo-Wurzel, von der aus `npm pack -w mcp-server` läuft.
+ * @param {string} repoRoot Repo-Wurzel, von der aus `npm pack -w packages/mcp` läuft.
  */
 export function packTarball(repoRoot, { log = () => {} } = {}) {
   const packDir = mkdtempSync(join(tmpdir(), 'cds-mcp-pack-'));
-  log(`→ npm pack -w mcp-server --pack-destination ${packDir}`);
-  runNpm(['pack', '-w', 'mcp-server', '--silent', '--pack-destination', packDir], repoRoot);
+  log(`→ npm pack -w packages/mcp --pack-destination ${packDir}`);
+  runNpm(['pack', '-w', 'packages/mcp', '--silent', '--pack-destination', packDir], repoRoot);
   const tarballs = readdirSync(packDir).filter((name) => name.endsWith('.tgz'));
   if (tarballs.length !== 1) {
     throw new Error(

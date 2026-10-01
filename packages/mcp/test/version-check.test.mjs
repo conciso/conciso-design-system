@@ -4,6 +4,9 @@
 // `cwd` ohne installierte Angular-Lib geprüft (negativer Fall reicht: ein positiver Fall würde
 // eine installierte `@conciso/design-system-angular` im Testverzeichnis voraussetzen).
 import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
 
 import { checkVersion, resolveInstalledVersion, PLACEHOLDER_VERSION } from '../src/version-check.mjs';
@@ -43,8 +46,13 @@ test('checkVersion: eigene Version ist Platzhalter „0.0.0“, Lib auch nicht i
 });
 
 test('resolveInstalledVersion: Angular-Lib nicht auflösbar vom übergebenen Arbeitsverzeichnis → null', () => {
-  // mcp-server/test hat keine installierte @conciso/design-system-angular in seinem eigenen
-  // Auflösungspfad-Kontext (kein consumer-artiges node_modules daneben).
-  const result = resolveInstalledVersion(import.meta.dirname);
-  assert.equal(result, null);
+  // Ein Verzeichnis unter dem Temp-Ordner hat keine installierte @conciso/design-system-angular
+  // in seinem Auflösungspfad. Das Repo selbst taugt dafür nicht: dort verlinkt npm die
+  // Workspace-Pakete unter ihrem Paketnamen ins Wurzel-node_modules.
+  const dir = mkdtempSync(join(tmpdir(), 'cds-version-check-'));
+  try {
+    assert.equal(resolveInstalledVersion(dir), null);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 });

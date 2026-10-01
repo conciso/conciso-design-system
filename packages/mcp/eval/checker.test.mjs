@@ -1,8 +1,8 @@
 // Unit-Tests für die reine Prüf-Logik aus checker.mjs — handgepflegte Beispielantworten,
 // keine echten claude-/MCP-Aufrufe (die macht run-eval.mjs). Bewusst NICHT unter
-// mcp-server/test/, damit `npm test -w mcp-server` (`node --test test/*.test.mjs`) den
+// packages/mcp/test/, damit `npm test -w packages/mcp` (`node --test test/*.test.mjs`) den
 // Eval-Teil nicht einschließt: `npm test` bleibt grün, der Eval ist kein Teil davon.
-// Laufen lassen mit `npm run test:eval-checker -w mcp-server`.
+// Laufen lassen mit `npm run test:eval-checker -w packages/mcp`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 

@@ -13,7 +13,7 @@ import { join } from 'node:path';
 
 /**
  * Version, die das Repo laut ADR-0010 („versionsfreies Repo“, siehe
- * scripts/release/stamp-version.mjs) dauerhaft trägt, bis der Publish-Job die echte Version
+ * tools/release/stamp-version.mjs) dauerhaft trägt, bis der Publish-Job die echte Version
  * einstempelt. Vor dem ersten Release — und bei jedem lokalen `npm test` aus einem Checkout, der
  * nie gestempelt wurde — steht sie in JEDEM Paket, auch in einer frisch installierten
  * Angular-Lib aus demselben Checkout. Ein Vergleich dagegen würde in der Entwicklung immer
@@ -25,7 +25,7 @@ export const PLACEHOLDER_VERSION = '0.0.0';
 
 /**
  * Reine Versionsprüfung ohne Dateisystemzugriff.
- * @param {string} ownVersion Version aus mcp-server/package.json (`pkg.version`).
+ * @param {string} ownVersion Version aus packages/mcp/package.json (`pkg.version`).
  * @param {string | null} installedVersion Version der installierten Angular-Lib, oder `null`,
  *   wenn sie nicht auflösbar ist (nicht installiert, kein `package.json`, kaputtes JSON).
  * @returns {{ instructionsNote: string | null, stderrNote: string | null }}

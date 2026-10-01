@@ -6,7 +6,7 @@
 import { STORYBOOK_MCP_INSTRUCTIONS } from '@storybook/mcp';
 
 /**
- * Storybook-ID der Einrichtungsseite (`storybook-angular/src/docs/grundlagen/einrichtung.mdx`,
+ * Storybook-ID der Einrichtungsseite (`apps/storybook/src/docs/grundlagen/einrichtung.mdx`,
  * `<Meta title="Grundlagen/Einrichtung" name="Übersicht" />`). Als Konstante exportiert, statt
  * die ID nur im Fließtext unten zu verstecken, damit ein Test sie referenzieren kann, ohne sie
  * ein zweites Mal abzutippen.
@@ -34,7 +34,7 @@ Feste Regeln für die Angular-Lib „@conciso/design-system-angular“:
 
 /**
  * Anzahl der oben nummerierten Regeln in OWN_INSTRUCTIONS. Exportiert, damit ein Test sie gegen
- * die Regel-Liste in der Paket-README (mcp-server/README.md, Abschnitt „Was er kann“) absichern
+ * die Regel-Liste in der Paket-README (packages/mcp/README.md, Abschnitt „Was er kann“) absichern
  * kann, ohne die Regeln selbst dafür zu duplizieren.
  */
 export const OWN_RULE_COUNT = (OWN_INSTRUCTIONS.match(/^\d+\.\s/gm) ?? []).length;

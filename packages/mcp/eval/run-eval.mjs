@@ -13,9 +13,9 @@
 // (Pack/Install/Start/Timeout des claude-Prozesses) — nie bei schlechter Antwortqualität,
 // die steht ausschließlich im Bericht.
 //
-// Aufruf: `npm run eval -w mcp-server [-- <pfad-zu-einem-vorgebauten-tarball>]`
+// Aufruf: `npm run eval -w packages/mcp [-- <pfad-zu-einem-vorgebauten-tarball>]`
 // Voraussetzung: `npm run build:storybook` im Repo-Root muss bereits gelaufen sein (liefert
-// storybook-angular/storybook-static, aus dem `npm pack`s prepack-Hook den Snapshot baut —
+// apps/storybook/dist, aus dem `npm pack`s prepack-Hook den Snapshot baut —
 // siehe scripts/build-snapshot.mjs/prepack.mjs). Ohne Tarball-Argument packt sich das Paket
 // selbst, mit derselben Vorgehensweise wie der mcp-smoke-test-Job in
 // .github/workflows/storybook-angular.yml.
@@ -30,7 +30,7 @@ import { createSavedRun, evaluateAnswer } from './saved-run.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const REPO_ROOT = join(PKG_ROOT, '..');
+const REPO_ROOT = join(PKG_ROOT, '..', '..');
 const FRAGEN_PATH = join(PKG_ROOT, 'eval', 'fragen.json');
 
 const RUN_TIMEOUT_MS = 240_000;

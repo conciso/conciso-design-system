@@ -1,7 +1,7 @@
 // Gemeinsamer JSON-RPC-über-stdio-Client für Tests und CI-Skripte: bisher als `startClient` in
 // test/server.test.mjs und `createJsonRpcClient` in scripts/smoke-test.mjs fast wortgleich
 // dupliziert. Bewusst NICHT Teil des ausgelieferten Pakets (siehe
-// mcp-server/package.json#files) — reines Test-/CI-Werkzeug.
+// packages/mcp/package.json#files) — reines Test-/CI-Werkzeug.
 //
 // Spricht nur mit einem bereits gestarteten Kindprozess, startet ihn nicht selbst: Quellbaum
 // (test/server.test.mjs) und installierter Tarball (scripts/smoke-test.mjs) unterscheiden sich

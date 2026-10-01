@@ -72,7 +72,7 @@ test('cds-mcp: initialize, drei Werkzeuge, docs-list-IDs und Button-Doku stimmen
   assert.ok(
     existsSync(SNAPSHOT_MANIFESTS),
     `Snapshot fehlt (${SNAPSHOT_MANIFESTS}) — vorher „npm run build:storybook“ im Repo-Root und ` +
-      '„npm run build:snapshot“ in mcp-server/ ausführen.',
+      '„npm run build:snapshot“ in packages/mcp/ ausführen.',
   );
 
   const client = startClient();

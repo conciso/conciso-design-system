@@ -11,7 +11,7 @@
 // Paketierungsproblem sehen, weil Node ohnehin den Quellbaum auflöst. Deshalb: os.tmpdir(),
 // kein Ordner unterhalb des Repos.
 //
-// Aufruf: `node mcp-server/scripts/smoke-test.mjs [pfad-zum-tarball]`. Ohne Pfad packt sich das
+// Aufruf: `node packages/mcp/scripts/smoke-test.mjs [pfad-zum-tarball]`. Ohne Pfad packt sich das
 // Paket selbst (dieselbe packTarball()-Funktion wie eval/run-eval.mjs).
 //
 // Prüft:
@@ -71,7 +71,7 @@ import { createJsonRpcClient } from '../test-support/jsonrpc-client.mjs';
 import { installTarball, packTarball } from '../test-support/tarball.mjs';
 
 const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const REPO_ROOT = join(PKG_ROOT, '..');
+const REPO_ROOT = join(PKG_ROOT, '..', '..');
 const EXPECTED_TOOL_NAMES = ['docs-list', 'docs-show', 'docs-show-story'];
 const BUTTON_SELECTOR = 'cds-button';
 // Vor dem Anhängen per <Meta of={...}> (ADR-0012) hatten diese Verwendungsseiten eine
@@ -187,7 +187,7 @@ function resolveServerBin(tmpDir) {
   if (!existsSync(binPath)) {
     throw new Error(
       `bin „cds-mcp“ fehlt nach der Installation: „${binPath}“ existiert nicht. ` +
-        'Paketierungsfehler — passt das „bin“-Feld in mcp-server/package.json?',
+        'Paketierungsfehler — passt das „bin“-Feld in packages/mcp/package.json?',
     );
   }
   return binPath;

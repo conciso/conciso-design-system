@@ -42,7 +42,7 @@ test('manifestProvider: dekodiert einen prozentkodierten Pfad und liefert die re
   assert.ok(
     existsSync(realPath),
     `Snapshot fehlt (${realPath}) — vorher „npm run build:storybook“ im Repo-Root und ` +
-      '„npm run build:snapshot“ in mcp-server/ ausführen.',
+      '„npm run build:snapshot“ in packages/mcp/ ausführen.',
   );
 
   const content = await manifestProvider(undefined, EINRICHTUNG_MDX_ENCODED_REF);
