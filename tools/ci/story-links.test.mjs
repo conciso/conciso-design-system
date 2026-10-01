@@ -241,14 +241,24 @@ test('Token: geänderter oder entfernter Wert ist global', () => {
   }
 });
 
-test('Token: reine Token-Änderung in einer Klassen-Regel ordnet die Klasse nicht zu', () => {
+test('Token: Custom Property in einer Klassen-Regel ist eine Regeländerung, nicht global', () => {
   const result = run({
     changes: `M\tpackages/css/css/dark-mode.css`,
     baseFiles: { 'packages/css/css/dark-mode.css': '[data-theme="dark"] .card{--a:1;color:red}' },
     headFiles: { ...CARD_COMPONENT, 'packages/css/css/dark-mode.css': '[data-theme="dark"] .card{--a:2;color:red}' },
   });
-  assert.deepEqual(result.components, []);
-  assert.equal(result.global.flag, true);
+  assert.deepEqual(ids(result).components.map((c) => c[0]), [CARD]);
+  assert.equal(result.global.flag, false);
+});
+
+test('Token: Selektor mit „|“ (Attribut-Selektor) verwirrt den Token-Vergleich nicht', () => {
+  const result = run({
+    changes: `M\tpackages/css/css/tokens.css`,
+    baseFiles: { 'packages/css/css/tokens.css': '[lang|=de]{--a:1}' },
+    headFiles: { 'packages/css/css/tokens.css': '[lang|=de]{--a:1;--b:2}' },
+  });
+  assert.equal(result.global.flag, false);
+  assert.deepEqual(result.unmapped, ['packages/css/css/tokens.css']);
 });
 
 // --- global, ignoriert, nicht zugeordnet -------------------------------------------------------

@@ -1,7 +1,8 @@
 // Neue und geänderte Stories eines PRs → story-links.json, die Eingabe für den PR-Kommentar
-// der PR-Vorschau (CONTEXT.md#pr-vorschau) und später für dessen Screenshots.
+// der PR-Vorschau (das vollständige Storybook eines offenen PRs neben dem von main) und später
+// für dessen Screenshots.
 //
-// Zwei Quellen, nach docs/research/pr-preview-story-links.md:
+// Zwei Quellen:
 // - „neu“: Diff zweier Story-Indizes (`storybook index`) am Merge-Base und am PR-Head. Exakt,
 //   kennt aber keine inhaltlichen Änderungen.
 // - „geändert“: Zuordnung der geänderten Dateien zu Stories nach den Ordnerkonventionen des Repos
@@ -23,7 +24,7 @@ import { parseArgs } from 'node:util';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-// Ab dieser Zahl Komponenten listet der Kommentar nur noch Titel (Link auf die Übersicht), keine
+// Bei mehr als dieser Zahl Komponenten listet der Kommentar nur noch Titel (Link auf die Übersicht), keine
 // einzelnen Stories mehr. Die JSON-Datei bleibt vollständig, die Kürzung ist Darstellung.
 export const MAX_COMPONENTS = 15;
 
@@ -176,33 +177,41 @@ function multisetDiff(a, b) {
 }
 
 /**
- * Vergleicht zwei Fassungen einer CSS-Datei. Liefert die Klassen der geänderten Regeln (ohne
- * Custom Properties, die zählen getrennt), die neuen Tokens (lokal) und ob ein bestehender Token
- * seinen Wert geändert hat oder entfernt wurde (global).
+ * Vergleicht zwei Fassungen einer CSS-Datei. Regeln mit Klasse (auch ihre Custom Properties wie
+ * `.seg-ki{--seg-fill:…}`) liefern ihre Klassen; Regeln ohne Klasse (`:root`, `[data-theme]`)
+ * tragen die Tokens: neue Tokens sind lokal, ein geänderter Wert oder ein entfernter Token ist
+ * global.
  */
 export function diffCss(baseText, headText) {
   const base = parseCss(baseText);
   const head = parseCss(headText);
-  const signature = (r) =>
-    JSON.stringify([r.context, r.selector, r.declarations.filter(([p]) => !p.startsWith('--'))]);
-  const bySignature = new Map([...base, ...head].map((r) => [signature(r), r]));
+  const isTokenRule = (r) => leadingClasses(r.selector).size === 0;
+
+  const signature = (r) => JSON.stringify([r.context, r.selector, r.declarations]);
+  const classRules = (rules) => rules.filter((r) => !isTokenRule(r));
+  const bySignature = new Map([...classRules(base), ...classRules(head)].map((r) => [signature(r), r]));
   const classes = new Set();
-  for (const sig of multisetDiff(base.map(signature), head.map(signature))) {
+  for (const sig of multisetDiff(classRules(base).map(signature), classRules(head).map(signature))) {
     for (const c of leadingClasses(bySignature.get(sig).selector)) classes.add(c);
   }
 
+  // Schlüssel: Kontext + Selektor + Name, damit Theme-Überschreibungen getrennt zählen.
   const tokens = (rules) => {
     const map = new Map();
-    for (const r of rules) for (const [p, v] of r.declarations) if (p.startsWith('--')) map.set(`${r.context}|${r.selector}|${p}`, v);
+    for (const r of rules.filter(isTokenRule)) {
+      for (const [name, value] of r.declarations) {
+        if (name.startsWith('--')) map.set(JSON.stringify([r.context, r.selector, name]), { name, value });
+      }
+    }
     return map;
   };
   const baseTokens = tokens(base);
   const headTokens = tokens(head);
   const addedTokens = new Set();
   let globalChange = false;
-  for (const [key, value] of headTokens) {
-    if (!baseTokens.has(key)) addedTokens.add(key.split('|').pop());
-    else if (baseTokens.get(key) !== value) globalChange = true;
+  for (const [key, { name, value }] of headTokens) {
+    if (!baseTokens.has(key)) addedTokens.add(name);
+    else if (baseTokens.get(key).value !== value) globalChange = true;
   }
   for (const key of baseTokens.keys()) if (!headTokens.has(key)) globalChange = true;
   return { classes, addedTokens, globalChange };
@@ -228,11 +237,11 @@ export function buildStoryLinks({ base, head, previewRoot, baseIndex, baseIndexS
   const baseTitles = baseIndex ? new Set(Object.values(baseIndex.entries).map((e) => e.title)) : null;
 
   const newIds = new Set(baseIds ? entries.filter((e) => !baseIds.has(e.id)).map((e) => e.id) : []);
-  const because = new Map(); // id → Set(Pfade)
-  const mark = (matched, path) => {
+  const reasonsById = new Map(); // id → Set(geänderte Pfade, die die Entry treffen)
+  const attribute = (matched, path) => {
     for (const e of matched) {
-      if (!because.has(e.id)) because.set(e.id, new Set());
-      because.get(e.id).add(path);
+      if (!reasonsById.has(e.id)) reasonsById.set(e.id, new Set());
+      reasonsById.get(e.id).add(path);
     }
   };
   const byImportPath = (importPath) => entries.filter((e) => e.importPath === importPath);
@@ -307,13 +316,13 @@ export function buildStoryLinks({ base, head, previewRoot, baseIndex, baseIndexS
     }
 
     if (matched.length === 0) unmapped.add(path);
-    else mark(matched, path);
+    else attribute(matched, path);
   }
 
   // Ergebnis: Stories und Autodocs-Seiten nach Komponente (Titel), MDX-Seiten getrennt.
-  const touched = (e) => newIds.has(e.id) || because.has(e.id);
+  const touched = (e) => newIds.has(e.id) || reasonsById.has(e.id);
   const statusOf = (e) => (newIds.has(e.id) ? 'new' : 'changed');
-  const becauseOf = (e) => [...(because.get(e.id) ?? [])].sort();
+  const becauseOf = (e) => [...(reasonsById.get(e.id) ?? [])].sort();
   const isAutodocs = (e) => e.type === 'docs' && e.tags?.includes('autodocs') && !e.importPath.endsWith('.mdx');
 
   const titles = [...new Set(entries.filter((e) => touched(e) && (e.type === 'story' || isAutodocs(e))).map((e) => e.title))];
@@ -362,30 +371,36 @@ const git = (args, opts = {}) =>
 
 /** `storybook index` in <checkout>/apps/storybook, mit dem Storybook aus den node_modules des Heads. */
 function storybookIndex(checkout) {
-  const out = join(mkdtempSync(join(tmpdir(), 'story-index-')), 'index.json');
-  execFileSync(process.execPath, [join(ROOT, 'node_modules/storybook/dist/bin/dispatcher.js'), 'index', '-o', out], {
-    cwd: join(checkout, STORYBOOK_DIR),
-    env: { ...process.env, STORYBOOK_DISABLE_TELEMETRY: '1' },
-    stdio: ['ignore', 'ignore', 'pipe'],
-    timeout: 180_000,
-  });
-  return JSON.parse(readFileSync(out, 'utf8'));
+  const tmp = mkdtempSync(join(tmpdir(), 'story-index-'));
+  const out = join(tmp, 'index.json');
+  try {
+    execFileSync(process.execPath, [join(ROOT, 'node_modules/storybook/dist/bin/dispatcher.js'), 'index', '-o', out], {
+      cwd: join(checkout, STORYBOOK_DIR),
+      env: { ...process.env, STORYBOOK_DISABLE_TELEMETRY: '1' },
+      stdio: ['ignore', 'ignore', 'pipe'],
+      timeout: 180_000,
+    });
+    return JSON.parse(readFileSync(out, 'utf8'));
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
 }
 
 /** Index am Merge-Base: eigener Worktree, node_modules des Heads per Junction/Symlink geteilt. */
 function mergeBaseIndex(mergeBase) {
-  const dir = join(mkdtempSync(join(tmpdir(), 'story-links-base-')), 'checkout');
-  git(['worktree', 'add', '--detach', '--quiet', dir, mergeBase]);
+  const tmp = mkdtempSync(join(tmpdir(), 'story-links-base-'));
+  const dir = join(tmp, 'checkout');
   const link = join(dir, 'node_modules');
   try {
+    git(['worktree', 'add', '--detach', '--quiet', dir, mergeBase]);
     symlinkSync(join(ROOT, 'node_modules'), link, 'junction');
     return storybookIndex(dir);
   } finally {
     // Erst den Link lösen, dann den Worktree entfernen: ein rekursives Löschen dürfte nie in die
     // geteilten node_modules laufen.
     if (existsSync(link)) unlinkSync(link);
-    git(['worktree', 'remove', '--force', dir]);
-    rmSync(dirname(dir), { recursive: true, force: true });
+    if (existsSync(dir)) git(['worktree', 'remove', '--force', dir]);
+    rmSync(tmp, { recursive: true, force: true });
   }
 }
 
@@ -417,13 +432,20 @@ async function main() {
   if (!values.base || !values['preview-root']) {
     console.error(
       'Aufruf: node tools/ci/story-links.mjs --base <ref> --preview-root <url> [--out story-links.json] [--fallback-index-url <url>]\n' +
-        'Läuft im Checkout des PR-Heads (Arbeitsverzeichnis = Head, node_modules installiert).',
+        'Läuft im Checkout des PR-Heads (Arbeitsverzeichnis = Head, node_modules installiert, volle Historie).',
     );
     process.exit(2);
   }
 
   const head = git(['rev-parse', 'HEAD']).trim();
-  const mergeBase = git(['merge-base', values.base, head]).trim();
+  let mergeBase;
+  try {
+    mergeBase = git(['merge-base', values.base, head], { stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  } catch {
+    // Ohne Merge-Base gibt es keinen Diff. Häufigste Ursache: flacher Checkout.
+    console.error(`Kein Merge-Base zwischen ${values.base} und HEAD. Checkout mit voller Historie (fetch-depth: 0)?`);
+    process.exit(1);
+  }
   const changes = parseNameStatus(git(['diff', '--name-status', '--find-renames', mergeBase, head]));
 
   const headFiles = {};
