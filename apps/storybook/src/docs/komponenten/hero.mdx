@@ -104,11 +104,13 @@ darüber: Eyebrow, Headline und Sub-Text liegen als Gradient von unten nach oben
   </div>
 </Unstyled>
 
+<HtmlBeispiel titel="Hero-Bild mit Eyebrow, Titel und Text">
+
 ```html
 <!-- Hero-Image: 21:9, Eyebrow + Titel + Text als Gradient-Overlay -->
 <figure class="hero-image">
   <div class="hero-image-media">
-    <img src="hero.jpg" alt="Kurze Bildbeschreibung" loading="eager">
+    <img src="platzhalter.svg" alt="Kurze Bildbeschreibung" loading="eager">
   </div>
   <figcaption class="hero-image-caption">
     <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -117,6 +119,8 @@ darüber: Eyebrow, Headline und Sub-Text liegen als Gradient von unten nach oben
   </figcaption>
 </figure>
 ```
+
+</HtmlBeispiel>
 
 ### Content-breite Akzentbilder (`.ep-media-band`)
 
@@ -164,6 +168,8 @@ außerhalb des Hero-Kontexts (`.img-slide-media`, genutzt in
 ist breiter und flacher als eine Karte, weil er die volle Seitenbreite trägt statt
 einer begrenzten Spalte.
 
+<HtmlBeispiel titel="Hero-Bildstrecke mit Crossfade" interaktiv>
+
 ```html
 <!-- Modifier .img-slider-hero für Vollbild-Darstellung mit Crossfade -->
 <div class="img-slider img-slider-hero"
@@ -172,7 +178,7 @@ einer begrenzten Spalte.
     <!-- erste Slide trägt .active, damit sie ohne JS sofort sichtbar ist -->
     <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
       <div class="img-slide-media">
-        <img src="hero.jpg" alt="Kurze Bildbeschreibung">
+        <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
       </div>
       <div class="img-slide-caption">
         <p class="img-slide-caption-title">Titel</p>
@@ -189,6 +195,8 @@ einer begrenzten Spalte.
   </div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ## Reduzierte Sub-Sektion mit CTAs
 
@@ -290,17 +298,21 @@ CTAs (Filled primär, Outlined sekundär) auf dem getönten Sub-Strip-Hintergrun
   </div>
 </Unstyled>
 
+<HtmlBeispiel titel="Sub-Strip unter dem Hero">
+
 ```html
 <!-- Sub-Strip: Bereichs-Tint, Eyebrow, Lead, 2 CTAs (Werte hier: Landing/Corporate) -->
-<div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
-  <p class="ep-hero-eyebrow" style="color:var(--co-700)">Ruhig · Klar · Energiegeladen</p>
+<div class="ep-section" style="background:var(--co-band);text-align:center;padding-block:var(--s10);border-bottom:var(--bd)">
+  <p class="ep-hero-eyebrow" style="color:var(--co-ink)">Ruhig · Klar · Energiegeladen</p>
   <p>Schau Dir an, wie wir arbeiten, oder buch direkt ein Erstgespräch.</p>
   <div class="ep-hero-ctas" style="justify-content:center">
-    <button class="btn btn-filled" style="--c500:var(--co-700)">Unsere Leistungen</button>
-    <button class="btn btn-outlined" style="--c500:var(--co-700)">Gespräch anfragen</button>
+    <button class="btn btn-filled btn-co">Unsere Leistungen</button>
+    <button class="btn btn-outlined btn-co">Gespräch anfragen</button>
   </div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ## Störer über dem Hero (Startseite)
 
@@ -464,15 +476,26 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
 | Pressemitteilung | „Pressemitteilung“ | Datum | Presseseite oder einzelne Meldung |
 | Info | Spiegelt das Wort des Ziels, z. B. „Neues Seminar“, „Neues Produkt“ | Kurze Einordnung, z. B. Format und Dauer | Seminar-Landingpage, Produkt- oder Angebotsseite |
 
+<HtmlBeispiel titel="Hero-Bild mit Störer-Set">
+
 ```html
 <div class="stoerer-hero">
-  <figure class="hero-image">…</figure>
+  <figure class="hero-image">
+    <div class="hero-image-media">
+      <img src="platzhalter.svg" alt="Kurze Bildbeschreibung" loading="lazy">
+    </div>
+    <figcaption class="hero-image-caption">
+      <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
+      <p class="hero-image-caption-title">Klare Köpfe. Ruhige Energie.</p>
+      <p class="hero-image-caption-text">KI, Software und Organisationsentwicklung aus Dortmund.</p>
+    </figcaption>
+  </figure>
   <aside class="stoerer-set" aria-label="Aktuelles">
     <ul class="stoerer-list">
       <li>
         <a class="stoerer" href="/veranstaltungen/effizienz-durch-n8n">
           <span class="stoerer-topic">
-            <svg class="stoerer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">…</svg>
+            <svg class="stoerer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
             Nächste Veranstaltung
           </span>
           <span class="stoerer-title"><span>Effizienz durch n8n</span></span>
@@ -485,6 +508,8 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
   </aside>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ### Störer · Barrierefreiheit
 

@@ -131,9 +131,13 @@ Bei einer Unterbrechung wollte die Person etwas anderes, das Verwerfen ist Neben
 
 Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt: `.btn-co` auf `--co-700`, `.btn-ki` auf `--ki-800`, `.btn-es` auf `--es-700`. Die Default-Farbe von `.btn-wo` (`--wo-700`) ist im Allgemeinen passend, verfehlt aber auf `--wo-50`-Sub-Streifen den Kontrast. Dort die Bereichs-Klasse mit einem minimalen Inline-Override kombinieren:
 
+<HtmlBeispiel titel="Button mit Bereichsfarbe">
+
 ```html
-<button class="btn btn-filled btn-wo" style="--c500:var(--wo-600)">
+<button class="btn btn-filled btn-wo" style="--c500:var(--wo-600)">Leistungen ansehen</button>
 ```
+
+</HtmlBeispiel>
 
 `--c50` erbt korrekt von `.btn-wo`, ein `color`-Override entfällt, weil der Default aus `.btn-filled` (Weiß) bereits greift.
 
