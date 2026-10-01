@@ -33,6 +33,7 @@ Das Popup schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten
 |---|---|
 | `role="listbox"` / `option` | Popup und Einträge als Auswahlliste ausgewiesen, vom Skript gesetzt beziehungsweise ergänzt |
 | `aria-haspopup="listbox"` | Trigger des Custom Select kündigt das Popup an, `aria-controls` verweist auf das Menü |
+| `aria-multiselectable="true"` | Am Menü der Combobox im Multi-Modus (`.is-multi`), vom Skript gesetzt. Kündigt Screenreadern die Mehrfachauswahl an |
 | `aria-selected` | An jeder Option `true` (gewählt) oder `false` |
 | `role="combobox"` | Eingabefeld der Combobox, mit `aria-controls` auf das Menü und `aria-autocomplete="list"` |
 | `aria-expanded` | Offen-Zustand am Trigger beziehungsweise am Combobox-Input |
@@ -85,7 +86,7 @@ Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
 | Öffnen | Klick sowie Pfeil runter, Pfeil hoch, Enter und Leertaste am Trigger öffnen das Menü (`is-open` am Wurzelelement, `aria-expanded="true"`). Der Fokus wandert ins Menü (`tabindex="-1"`). Aktiv ist die gewählte Option, sonst die erste |
 | Aktive Option | `is-active` an der Option und `aria-activedescendant` am Menü, der Fokus bleibt im Menü. Mausbewegung über eine Option setzt sie aktiv, die aktive Option wird in den sichtbaren Bereich gescrollt |
 | Tasten im Menü | Pfeil runter und hoch wandern durch die Optionen und stoppen an den Enden, es gibt keinen Umlauf. Pos1 und Ende springen an die Enden. Enter und Leertaste wählen die aktive Option |
-| Type-ahead | Ein getippter Buchstabe springt zur ersten Option, deren Label mit dem bisher getippten Text beginnt (ohne Beachtung der Groß- und Kleinschreibung). Der Puffer verfällt kurz nach der letzten Taste |
+| Type-ahead | Ein getippter Buchstabe springt zur ersten Option, deren Label mit dem bisher getippten Text beginnt (ohne Beachtung der Groß- und Kleinschreibung). Der Puffer verfällt 600 ms nach der letzten Taste |
 | Wählen | `aria-selected="true"` nur an der gewählten Option, alle anderen `"false"`. Der Trigger zeigt das Label der Option (oder `data-label`), das versteckte Feld von `data-name` bekommt deren `data-value`. Danach schließt das Menü und der Fokus kehrt zum Trigger zurück |
 | Schließen | Escape schließt und gibt den Fokus an den Trigger zurück. Tab schließt ohne Fokusrückgabe, der Fokus wandert weiter. Ein Klick außerhalb schließt ebenfalls ohne Fokusrückgabe |
 | Nie zwei offen | Vor jedem Öffnen werden alle anderen offenen Dropdowns geschlossen |
