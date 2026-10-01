@@ -100,7 +100,7 @@ Diese Punkte übernimmt jede Umsetzung unverändert:
 - Die Faustregel: `auto-fit`-Grids ohne Tablet-Regel, fix-spaltige Layouts mit Tablet-Regel.
 - Die Begründungen aus „Warum diese Bruchpunkte“ lesen, bevor ein Wert „korrigiert“ wird.
 
-Frei wählbar ist die technische Umsetzung: Ob ein Bauteil per Viewport-`@media` oder per `@container` reagiert, darf je Einsatz entschieden werden (siehe „Viewport versus Container“). Die Bruchpunkt-Werte bleiben dabei gleich.
+Viewport-`@media` und `@container` sind nicht austauschbar: Welche Query gilt, richtet sich nach der Bezugsbox. Seiten-Rhythmus (Sektionsabstände, Spaltenzahl) hängt am Viewport mit den Bruchpunkten oben. Was in ein Elternelement passen muss, hängt an dessen Container-Breite, und container-responsive Bauteile nutzen eigene, aus dem Bauteil abgeleitete Schwellen (zum Beispiel 1000 px und 900 px), nicht 520, 768 und 1024 px (siehe „Viewport versus Container“).
 
 **Prüfen:** Das Verhalten unter 1024 px im Browser testen (DevTools-Responsive-Modus), nicht an einem statischen Screenshot. Die Bruchpunkte selbst zusätzlich an ihren Kanten prüfen: 520/521 px (Phone zu Mobile), 768/769 px (Mobile zu Tablet) und 1024/1025 px (Tablet zu Desktop).
 
