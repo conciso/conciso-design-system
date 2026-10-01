@@ -5,112 +5,15 @@
 // entscheidet, welche Commits hart geprüft werden). Beide Seiten driften nicht auseinander,
 // weil beide von hier importieren statt eine eigene Liste zu pflegen.
 //
-// Zwei Regelsätze gelten nebeneinander:
-// 1. Neues Layout: relevant ist alles unter packages/<paket>/ außer test/, test-support/, eval/,
-//    Prüfskripten und Lint-/Entwicklungsdateien, dazu apps/storybook/src/ und das Stempel-Skript.
-// 2. Altes Layout (LEGACY_PATH_PREFIXES): Der erste Release nach dem Umzug wertet auch Commits
-//    aus, die noch angular-lib/, mcp-server/, css/ usw. berühren. Ohne diese Präfixe gälten sie
-//    als nicht relevant und das Release würde verschluckt. Die Liste kann entfallen, sobald der
-//    erste Release nach dem Umzug veröffentlicht ist.
+// Regel: relevant ist alles unter packages/<paket>/ außer test/, test-support/, eval/,
+// Prüfskripten und Lint-/Entwicklungsdateien, dazu apps/storybook/src/ und das Stempel-Skript.
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
-// Präfixe des Layouts vor dem Umzug. Enden auf „/“ für Verzeichnisse (jeder Pfad darunter
-// zählt) oder sind exakte Dateipfade. Quelle: ADR-0010 Regel 2, verifiziert gegen die
-// damaligen „build“-Skripte in package.json.
-export const LEGACY_PATH_PREFIXES = [
-  // CSS-Schicht: root `files`-Feld (package.json)
-  'css/',
-  // Gitignored; wird beim Installieren und Packen frisch aus den unten aufgeführten
-  // Quellen und Build-Skripten erzeugt. Der Präfix deckt weiterhin package.json#files ab.
-  'dist/',
-  'icons/',
-  'fonts/',
-  'assets/',
-  'README.md',
-  'LICENSE',
-  'NOTICE',
-  // CHANGELOG.md war hier gelistet, solange es unter package.json#files stand. Beim
-  // Repo-Aufräumen nach docs/CHANGELOG-legacy.md verschoben und aus `files` entfernt
-  // (eingefroren, nicht mehr gepflegt) — kein ausgelieferter Inhalt mehr, daher kein
-  // relevanter Pfad mehr.
-  // Angular-Lib: ausgelieferter Inhalt (src, package.json, ng-package.json, tsconfig.lib*.json, README)
-  'angular-lib/projects/design-system-angular/',
-  // Build-Konfiguration, die den Lib-Build steuert
-  'angular-lib/angular.json',
-  // Workspace-package.json des Angular-Build-Containers: legt Angular-/ng-packagr-Version
-  // und die @conciso/design-system-Quelle für den Build fest (devDependencies) — eine
-  // Änderung hier kann das gebaute Artefakt verändern, auch ohne die Lib selbst anzufassen.
-  'angular-lib/package.json',
-  // Basis-tsconfig, von tsconfig.lib.json der Lib per `extends` eingebunden.
-  'angular-lib/tsconfig.json',
-  // MCP-Server (ADR-0012): ausgelieferter Inhalt aus mcp-server/package.json#files — EIN
-  // Präfix pro Eintrag, genau wie beim root-Paket ganz oben. Bewusst NICHT ein einzelner
-  // Verzeichnis-Präfix „mcp-server/“ für den ganzen Workspace: das würde auch
-  // mcp-server/test/ (Unit-Tests, kein ausgelieferter Inhalt) und
-  // mcp-server/scripts/smoke-test.mjs (CI-Prüfskript, kein Build-Eingang) miterfassen —
-  // und den Coverage-Check unten sinnlos machen, weil dann JEDER denkbare Eintrag trivial
-  // abgedeckt wäre, auch ein versehentlich vergessener.
-  'mcp-server/bin/',
-  'mcp-server/src/',
-  // `snapshot/` ist gitignored und entsteht erst beim Pack aus dem Storybook-Build (siehe
-  // mcp-server/scripts/build-snapshot.mjs) — die eigentliche Quelle ist bereits über
-  // „storybook-angular/src/“ unten relevant. Der Eintrag hier deckt trotzdem
-  // mcp-server/package.json#files ab (Coverage-Check unten).
-  'mcp-server/snapshot/',
-  'mcp-server/README.md',
-  // Ebenfalls gitignored, entsteht erst beim Pack als Kopie der Root-LICENSE (bereits über
-  // den „LICENSE“-Eintrag oben relevant) — hier aus demselben Grund wie „snapshot/“.
-  'mcp-server/LICENSE',
-  // mcp-server/package.json selbst (Version, `files`-Feld) — wie „package.json“ und
-  // „angular-lib/package.json“ oben nicht Teil des eigenen `files`-Felds, aber die
-  // Versions-/Manifest-Quelle des Pakets.
-  'mcp-server/package.json',
-  // Build-Skripte, die den Snapshot bzw. die LICENSE-Kopie erzeugen (Lifecycle-Hooks
-  // „build:snapshot“/„prepack“ in mcp-server/package.json#scripts) — wie
-  // scripts/release/stamp-version.mjs oben: keine `files`-Einträge, aber Build-Eingaben.
-  'mcp-server/scripts/build-snapshot.mjs',
-  'mcp-server/scripts/prepack.mjs',
-  // Storybook-Quellen (ADR-0012): Stories und MDX gehen unverändert in den Manifest-Snapshot
-  // des MCP-Servers ein (mcp-server/scripts/build-snapshot.mjs kopiert manifests/+services/
-  // 1:1 aus dem Storybook-Build). NUR src/ — die Storybook-KONFIGURATION außerhalb davon
-  // (`.storybook/main.ts`, `.storybook/preview.ts`: Addons, Docgen-Optionen, storySort)
-  // bleibt bewusst unsichtbar. Das ist keine neue Entscheidung, sondern deckt sich mit dem
-  // seit jeher dokumentierten Beispiel „Storybook-Konfiguration“ in
-  // CONTEXT.md#veröffentlichungsrelevanter-pfad. Zwar KANN `.storybook/main.ts` den
-  // Manifest-Inhalt beeinflussen (es konfiguriert Addons/Docgen, aus denen der
-  // Storybook-Build components.json/docs.json erzeugt) — würde das Verzeichnis trotzdem
-  // zählen, löste jede Storybook-Tooling-Änderung (Addon-Update, Viewport-Presets,
-  // Sortierung) ein Release aus: genau das Über-Trigger-Problem, das der Pfadfilter laut
-  // ADR-0010 anstelle eines Scope-Vokabulars vermeiden soll. Das Restrisiko (eine
-  // Konfigurationsänderung verändert den Snapshot tatsächlich, ohne dass es ein Release
-  // auslöst) trägt der Tarball-Smoke-Test aus ADR-0012: er läuft vor JEDEM Publish gegen
-  // das TATSÄCHLICH gepackte Artefakt und prüft konkrete IDs/Inhalte des Snapshots — eine
-  // dadurch kaputte Struktur lässt den Publish scheitern, bevor sie veröffentlicht wird.
-  'storybook-angular/src/',
-  // root package.json selbst (Version, exports, files-Feld)
-  'package.json',
-  // Build-Skripte, die die ausgelieferten Artefakte erzeugen (siehe „build“-Script oben)
-  'scripts/build-tokens.mjs',
-  'scripts/build-icons.mjs',
-  'scripts/bundle-css.mjs',
-  // Stempelt im Publish-Job vor beiden Builds Version und Peer-Pin in die Manifeste — ein
-  // Fix daran ändert den ausgelieferten Inhalt.
-  'scripts/release/stamp-version.mjs',
-  // ABSICHTLICH NICHT dabei: package-lock.json. Es ist EIN gemeinsames Lockfile für alle
-  // vier npm-Workspaces (Root, angular-lib, storybook-angular UND seit ADR-0012 mcp-server).
-  // Würde es pauschal als relevant gelten, würde jede Dependency-Änderung releasen, auch eine
-  // reine Storybook-Dev-Abhängigkeit — genau das Über-Trigger-Problem, das der Pfadfilter laut
-  // ADR-0010 anstelle eines Scope-Vokabulars lösen soll. Ein `build(deps)`-Commit, der
-  // eine ECHTE Build-Eingabe hebt, ändert dabei ohnehin auch `package.json`,
-  // `angular-lib/package.json` oder `mcp-server/package.json` im selben Commit — das reicht
-  // als Signal.
-];
-
-// Neues Layout. Ordnernamen, die unter einem Paket nie ausgeliefert werden und keine
+// Ordnernamen, die unter einem Paket nie ausgeliefert werden und keine
 // Build-Eingabe sind (Tests, Evaluierung, Prüfskripte).
 const PACKAGE_EXCLUDED_DIRS = ['test/', 'test-support/', 'eval/'];
 // Einzeldateien unter packages/<paket>/, die weder ausgeliefert werden noch den Build speisen.
@@ -129,12 +32,6 @@ const PACKAGE_EXCLUDED_FILES = [
 // ADR-0010); das Restrisiko trägt der Tarball-Smoke-Test aus ADR-0012 vor jedem Publish.
 const OTHER_RELEVANT_PREFIXES = ['apps/storybook/src/', 'tools/release/stamp-version.mjs'];
 
-function isLegacyRelevant(filePath) {
-  return LEGACY_PATH_PREFIXES.some((prefix) =>
-    prefix.endsWith('/') ? filePath.startsWith(prefix) : filePath === prefix,
-  );
-}
-
 function isPackageRelevant(filePath) {
   const match = /^packages\/[^/]+\/(.+)$/.exec(filePath);
   if (!match) return false;
@@ -150,7 +47,7 @@ function isOtherRelevant(filePath) {
 }
 
 function isPathRelevant(filePath) {
-  return isPackageRelevant(filePath) || isOtherRelevant(filePath) || isLegacyRelevant(filePath);
+  return isPackageRelevant(filePath) || isOtherRelevant(filePath);
 }
 
 /** Ist mindestens einer der übergebenen Pfade veröffentlichungsrelevant? */

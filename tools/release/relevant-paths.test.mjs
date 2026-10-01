@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { isRelevant, checkCoverage, LEGACY_PATH_PREFIXES } from './relevant-paths.mjs';
+import { isRelevant, checkCoverage } from './relevant-paths.mjs';
 
 // Fixture-Wurzel mit den drei Paket-package.json an den neuen Orten.
 function makeRoot(filesByPackage) {
@@ -22,9 +22,9 @@ const GUELTIGE_FILES = {
   mcp: ['bin', 'src', 'snapshot', 'README.md', 'LICENSE'],
 };
 
-// --- neue Pfade ----------------------------------------------------------------------------
+// --- Pfade ---------------------------------------------------------------------------------
 
-test('neu: Inhalt und Build-Eingaben des CSS-Pakets sind relevant', () => {
+test('Inhalt und Build-Eingaben des CSS-Pakets sind relevant', () => {
   assert.equal(isRelevant(['packages/css/css/components.css']), true);
   assert.equal(isRelevant(['packages/css/fonts/inter.woff2']), true);
   assert.equal(isRelevant(['packages/css/icons/source/heroicons/x.svg']), true);
@@ -32,7 +32,7 @@ test('neu: Inhalt und Build-Eingaben des CSS-Pakets sind relevant', () => {
   assert.equal(isRelevant(['packages/css/package.json']), true);
 });
 
-test('neu: Änderung an der Angular-Lib (public-api.ts) und deren Build-Eingaben ist relevant', () => {
+test('Änderung an der Angular-Lib (public-api.ts) und deren Build-Eingaben ist relevant', () => {
   assert.equal(isRelevant(['packages/angular/src/public-api.ts']), true);
   assert.equal(isRelevant(['packages/angular/package.json']), true);
   assert.equal(isRelevant(['packages/angular/angular.json']), true);
@@ -40,7 +40,7 @@ test('neu: Änderung an der Angular-Lib (public-api.ts) und deren Build-Eingaben
   assert.equal(isRelevant(['packages/angular/ng-package.json']), true);
 });
 
-test('neu: ausgelieferter Inhalt und Build-Skripte des MCP-Pakets sind relevant', () => {
+test('ausgelieferter Inhalt und Build-Skripte des MCP-Pakets sind relevant', () => {
   assert.equal(isRelevant(['packages/mcp/src/server.mjs']), true);
   assert.equal(isRelevant(['packages/mcp/bin/cds-mcp.mjs']), true);
   assert.equal(isRelevant(['packages/mcp/package.json']), true);
@@ -48,7 +48,7 @@ test('neu: ausgelieferter Inhalt und Build-Skripte des MCP-Pakets sind relevant'
   assert.equal(isRelevant(['packages/mcp/scripts/prepack.mjs']), true);
 });
 
-test('neu: test/, test-support/, eval/ und Prüfskripte der Pakete sind nicht relevant', () => {
+test('test/, test-support/, eval/ und Prüfskripte der Pakete sind nicht relevant', () => {
   assert.equal(isRelevant(['packages/mcp/test/server.test.mjs']), false);
   assert.equal(isRelevant(['packages/mcp/test-support/tarball.mjs']), false);
   assert.equal(isRelevant(['packages/mcp/eval/run-eval.mjs']), false);
@@ -56,25 +56,25 @@ test('neu: test/, test-support/, eval/ und Prüfskripte der Pakete sind nicht re
   assert.equal(isRelevant(['packages/mcp/scripts/pack-tarball.mjs']), false);
 });
 
-test('neu: Lint-Konfiguration und Entwicklungsnotizen der Pakete sind nicht relevant', () => {
+test('Lint-Konfiguration und Entwicklungsnotizen der Pakete sind nicht relevant', () => {
   assert.equal(isRelevant(['packages/mcp/eslint.config.js']), false);
   assert.equal(isRelevant(['packages/angular/eslint.config.js']), false);
   assert.equal(isRelevant(['packages/angular/ENTWICKLUNG.md']), false);
 });
 
-test('neu: apps/storybook/src/ ist relevant (MCP-Snapshot), die Storybook-Konfiguration nicht', () => {
+test('apps/storybook/src/ ist relevant (MCP-Snapshot), die Storybook-Konfiguration nicht', () => {
   assert.equal(isRelevant(['apps/storybook/src/lib/button/button.stories.ts']), true);
   assert.equal(isRelevant(['apps/storybook/.storybook/main.ts']), false);
   assert.equal(isRelevant(['apps/storybook/.storybook/preview.ts']), false);
   assert.equal(isRelevant(['apps/storybook/vitest.config.mts']), false);
 });
 
-test('neu: das Stempel-Skript unter tools/release ist eine Build-Eingabe', () => {
+test('das Stempel-Skript unter tools/release ist eine Build-Eingabe', () => {
   assert.equal(isRelevant(['tools/release/stamp-version.mjs']), true);
   assert.equal(isRelevant(['tools/release/decide.mjs']), false);
 });
 
-test('neu: Repo-Werkzeug, Doku, Vorlagen und Lockfile bleiben unsichtbar', () => {
+test('Repo-Werkzeug, Doku, Vorlagen und Lockfile bleiben unsichtbar', () => {
   assert.equal(isRelevant(['package-lock.json']), false);
   assert.equal(isRelevant(['tools/checks/check-quotes.mjs']), false);
   assert.equal(isRelevant(['tools/consumer-fixture/package.json']), false);
@@ -83,61 +83,9 @@ test('neu: Repo-Werkzeug, Doku, Vorlagen und Lockfile bleiben unsichtbar', () =>
   assert.equal(isRelevant(['.github/workflows/publish.yml']), false);
 });
 
-test('neu: ein Paket-Unterordner, der nur so heißt wie ein Ausschluss, bleibt relevant', () => {
+test('ein Paket-Unterordner, der nur so heißt wie ein Ausschluss, bleibt relevant', () => {
   // „test“ ist ein Ordnername, kein Präfix: „testimonials/“ ist weiterhin Paketinhalt.
   assert.equal(isRelevant(['packages/css/testimonials/x.css']), true);
-});
-
-// --- alte Pfade (Commits vor dem Umzug im ersten Release danach) ---------------------------
-
-test('alt: css/-Änderung ist veröffentlichungsrelevant', () => {
-  assert.equal(isRelevant(['css/components.css']), true);
-  assert.equal(isRelevant(['icons/icons.json', 'fonts/inter.woff2', 'assets/brand/logo.svg']), true);
-  assert.equal(isRelevant(['package.json']), true);
-});
-
-test('alt: storybook-angular/src/ ist relevant, die Storybook-Konfiguration nicht', () => {
-  assert.equal(isRelevant(['storybook-angular/src/lib/button/button.stories.ts']), true);
-  assert.equal(isRelevant(['storybook-angular/.storybook/main.ts']), false);
-  assert.equal(isRelevant(['storybook-angular/.storybook/preview.ts']), false);
-});
-
-test('alt: mcp-server/ ist relevant, aber nicht test/ und Prüfskripte', () => {
-  assert.equal(isRelevant(['mcp-server/src/server.mjs']), true);
-  assert.equal(isRelevant(['mcp-server/package.json']), true);
-  assert.equal(isRelevant(['mcp-server/scripts/build-snapshot.mjs']), true);
-  assert.equal(isRelevant(['mcp-server/test/server.test.mjs']), false);
-  assert.equal(isRelevant(['mcp-server/scripts/smoke-test.mjs']), false);
-});
-
-test('alt: Angular-Lib und deren Build-Eingaben sind relevant', () => {
-  assert.equal(isRelevant(['angular-lib/projects/design-system-angular/src/public-api.ts']), true);
-  assert.equal(isRelevant(['angular-lib/package.json']), true);
-  assert.equal(isRelevant(['angular-lib/tsconfig.json']), true);
-  assert.equal(isRelevant(['angular-lib/angular.json']), true);
-});
-
-test('alt: Build-Skripte und Stempel-Skript unter scripts/ sind relevant', () => {
-  assert.equal(isRelevant(['scripts/build-tokens.mjs']), true);
-  assert.equal(isRelevant(['scripts/bundle-css.mjs']), true);
-  assert.equal(isRelevant(['scripts/release/stamp-version.mjs']), true);
-  assert.equal(isRelevant(['scripts/release/decide.mjs']), false);
-});
-
-test('alt: gitignorierte Build-Ausgabe bleibt abgedeckt, der entfallene Ordner tokens/ nicht', () => {
-  assert.equal(isRelevant(['dist/tokens/tokens.json']), true);
-  assert.equal(isRelevant(['tokens/tokens.json']), false);
-});
-
-test('alt: README.md an der Wurzel ist relevant, ein anderes README.md nicht', () => {
-  assert.equal(isRelevant(['README.md']), true);
-  assert.equal(isRelevant(['examples/consumer-fixture/README.md']), false);
-});
-
-test('gemischt: ein Commit mit alten und neuen Pfaden ist relevant, sobald einer davon zählt', () => {
-  assert.equal(isRelevant(['mcp-server/test/a.test.mjs', 'packages/mcp/src/server.mjs']), true);
-  assert.equal(isRelevant(['storybook-angular/vite.config.ts', 'dist/tokens/tokens.json']), true);
-  assert.equal(isRelevant(['mcp-server/test/a.test.mjs', 'packages/mcp/test/a.test.mjs']), false);
 });
 
 test('keine Pfade ist nicht relevant', () => {
@@ -222,11 +170,4 @@ test('Deckungs-Check nutzt dieselbe Logik wie isRelevant (Dateien und Unterordne
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
-});
-
-test('Deckungs-Check verlangt, dass die alten Präfixe nicht versehentlich verschwinden', () => {
-  assert.ok(LEGACY_PATH_PREFIXES.includes('angular-lib/projects/design-system-angular/'));
-  assert.ok(LEGACY_PATH_PREFIXES.includes('mcp-server/src/'));
-  assert.ok(LEGACY_PATH_PREFIXES.includes('storybook-angular/src/'));
-  assert.ok(LEGACY_PATH_PREFIXES.includes('scripts/release/stamp-version.mjs'));
 });
