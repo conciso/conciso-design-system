@@ -163,14 +163,12 @@ jobs:
             # MCP-Server kennt, hängt vom BAUM seines Commits ab, nicht von seiner
             # Versionsnummer (siehe Kopfkommentar in decide.mjs für die ausführliche
             # Begründung, warum eine hartkodierte Baseline hier eine Race-Condition mit einem
-            # Release ist, der VOR dem Merge des MCP-Servers auf main landet). `^{commit}`
-            # peelt einen annotierten Tag auf seinen Commit, bevor der Pfad aufgelöst wird —
-            # funktioniert unverändert für einen leichtgewichtigen Alt-Tag (zeigt schon direkt
-            # auf einen Commit). Exit-Code prüfen, nicht die Ausgabe: `-e` gibt bei Erfolg
-            # nichts aus.
-            if git cat-file -e "${LATEST_TAG}^{commit}:mcp-server/package.json" 2>/dev/null; then
-              TAG_HAS_MCP=true
-            fi
+            # Release ist, der VOR dem Merge des MCP-Servers auf main landet). Das Skript prüft
+            # `mcp-server/package.json` (Tags vor dem Umzug ins Paketlayout) ODER
+            # `packages/mcp/package.json` (danach), jeweils per `git cat-file -e` auf dem
+            # gepeelten Commit; es gibt `true` oder `false` aus und scheitert bei einem
+            # unbekannten Tag nicht, sondern gibt `false` aus.
+            TAG_HAS_MCP=$(node tools/release/tag-has-mcp.mjs "$LATEST_TAG")
           fi
           # Alle veröffentlichten Versionen pro Paket; E404 = Paket existiert noch nicht.
           versionen() {

@@ -257,7 +257,7 @@ test('Tag v2.2.0 ohne mcp-server/ (tagHasMcp: false) → kein Nachziehen am Tag,
   // Der Bug, den die alte MCP_BASELINE-Konstante nicht sehen konnte: 2.2.0 > jede plausible
   // Baseline, aber der TAG-BAUM hat trotzdem kein mcp-server/, weil er vor dem Merge des
   // MCP-Servers entstand. `tagHasMcp: false` ist der Fakt, den der Workflow für GENAU diesen Tag
-  // ermittelt (per `git cat-file -e "$TAG^{commit}:mcp-server/package.json"`) — ohne ihn (oder
+  // ermittelt (per tag-has-mcp.mjs, das `mcp-server/package.json` und `packages/mcp/package.json` prüft) — ohne ihn (oder
   // mit einer falschen Versions-Konstante) versuchte Schritt 1, MCP aus diesem Tag
   // nachzuziehen, dessen Baum ihn nicht hat, und jeder weitere Release bliebe blockiert.
   assert.equal(decide({ ...ohneMcpAera, tagHasMcp: false }).mode, 'nichts');

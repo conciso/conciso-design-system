@@ -32,11 +32,11 @@
 //
 // MCP-Server (ADR-0012): Das dritte Paket existiert erst seit dieser Entscheidung — für
 // Schritt 1 unten („getaggt, aber ein Paket fehlt“) muss deshalb bekannt sein, ob der GETAGGTE
-// COMMIT überhaupt ein mcp-server/-Verzeichnis hat, sonst würde versucht, den MCP-Server aus
-// einem Tag-Commit nachzuziehen, der ihn nicht kennt — der Build bräche ab und JEDER weitere
+// COMMIT überhaupt den MCP-Server hat (mcp-server/ vor dem Umzug ins Paketlayout, packages/mcp/
+// danach), sonst würde versucht, den MCP-Server aus einem Tag-Commit nachzuziehen, der ihn nicht kennt — der Build bräche ab und JEDER weitere
 // Release bliebe blockiert.
 //
-// Bewusst KEINE feste Versions-Konstante (anders als NPM_BASELINE): Ob ein Tag mcp-server/
+// Bewusst KEINE feste Versions-Konstante (anders als NPM_BASELINE): Ob ein Tag den MCP-Server
 // enthält, ist eine Eigenschaft des BAUMS dieses Commits, keine Eigenschaft seiner
 // Versionsnummer — NPM_BASELINE funktioniert, weil „npmjs existiert seit einem fixen
 // Zeitpunkt“ zeitlich linear ist, aber welche VERSIONSNUMMER der letzte Tag VOR der
@@ -45,21 +45,24 @@
 // `feat`-PR released z. B. v2.2.0, BEVOR der MCP-Server merged wird) — eine hartkodierte
 // Version wie „2.1.1“ wäre dann zu niedrig und Schritt 1 versuchte fälschlich, MCP aus v2.2.0
 // nachzuziehen, dessen Baum ihn ebenfalls nicht hat. Der Publish-Workflow ermittelt den Fakt
-// deshalb direkt aus dem Tag-Commit (`git cat-file -e "$TAG^{commit}:mcp-server/package.json"`)
+// deshalb direkt aus dem Tag-Commit (tag-has-mcp.mjs: `git cat-file -e` auf
+// `mcp-server/package.json` ODER `packages/mcp/package.json`, je nach Baumform des Tags)
 // und übergibt ihn als `tagHasMcp` — ein Fakt über den Baum, keine Vermutung über die Zukunft.
+// Beide Pfade zählen, weil Tags vor dem Umzug ins Paketlayout den alten Ort tragen, spätere
+// den neuen; mit nur einem von beiden gälte jeder Tag der anderen Seite als „ohne MCP“.
 // `tagHasMcp` fehlt/ist `false` per Default: ohne den Fakt (z. B. ein Aufrufer, der ihn
 // vergisst) wird nie versucht, MCP aus einem Tag zu heilen — sicherer Rückfall.
 //
 // Schritt 3 (eine Registry-Version über dem Tag) und Schritt 4 (neu aus HEAD) brauchen
 // `tagHasMcp` NICHT: ihr Quellstand ist entweder HEAD selbst (Schritt 4, hat seit der
-// MCP-Einführung immer mcp-server/) oder der `gitHead` einer bereits veröffentlichten Version
+// MCP-Einführung immer den MCP-Server) oder der `gitHead` einer bereits veröffentlichten Version
 // (Schritt 3) — die kann nur von EINEM Lauf DIESES (MCP-fähigen) `decide.mjs` stammen, denn
 // nur der setzt jemals `publishMcp`/`publishMcpNpm`. Ein Lauf mit dem alten, MCP-unfähigen
 // Code kennt diese Felder nicht und schließt einen unfertigen Release wie bisher (nur
 // CSS/Lib) noch VOR der MCP-Einführung ab, inklusive Tag und Release — ein „veroeffentlicht
-// über dem Tag ohne mcp-server/“-Zwischenstand kann diesen Übergang deshalb nicht überleben.
+// über dem Tag ohne MCP-Server“-Zwischenstand kann diesen Übergang deshalb nicht überleben.
 //
-// Aufruf im Workflow: `node scripts/release/decide.mjs` mit den Fakten als Umgebungs-
+// Aufruf im Workflow: `node tools/release/decide.mjs` mit den Fakten als Umgebungs-
 // variablen (siehe unten); gibt das Ergebnis als `schlüssel=wert`-Zeilen auf stdout aus.
 // Nach $GITHUB_OUTPUT schreibt erst der Workflow-Schritt, der noch Quellstand und Notes
 // ergänzt — so gibt es jeden Schlüssel dort genau einmal.
@@ -103,7 +106,7 @@ function npmFehlt(versionenNpm, version) {
 }
 
 // Fehlt `version` in der MCP-Versionsliste EINER Registry, obwohl der GETAGGTE COMMIT
-// mcp-server/ enthält? `tagHasMcp` ist der Fakt aus dem Workflow (siehe Kopfkommentar) — ohne
+// den MCP-Server enthält? `tagHasMcp` ist der Fakt aus dem Workflow (siehe Kopfkommentar) — ohne
 // ihn (false) gilt eine fehlende MCP-Version nie als „fehlt“, egal was `versionenMcp` enthält.
 // Wird für GitHub Packages UND npmjs gleichermaßen aufgerufen (beide Registries kennen
 // dasselbe `tagHasMcp`, es ist eine Eigenschaft des Commits, keine der Registry).
@@ -118,7 +121,7 @@ function mcpFehlt(tagHasMcp, versionenMcp, version) {
  *   cssVersionsNpm: string[], libVersionsNpm: string[], mcpVersionsNpm: string[],
  *   engineVersion: string, dry: boolean,
  * }} fakten `tagHasMcp` (Default `false`): enthält der Baum des getaggten Commits
- *   `mcp-server/package.json`? Fakt aus dem Workflow, keine abgeleitete Version — siehe
+ *   `mcp-server/package.json` oder `packages/mcp/package.json`? Fakt aus dem Workflow, keine abgeleitete Version — siehe
  *   Kopfkommentar.
  * @returns {{ mode: 'nichts' } | {
  *   mode: 'neu'|'nachziehen'|'finalisieren', version: string,
@@ -202,10 +205,10 @@ export function decide({
   const fehltLib = getaggt && !libVersions.includes(getaggt);
   const fehltCssNpm = getaggt && npmFehlt(cssVersionsNpm, getaggt);
   const fehltLibNpm = getaggt && npmFehlt(libVersionsNpm, getaggt);
-  // `tagHasMcp` (siehe Kopfkommentar): ist der Fakt false (Tag-Baum ohne mcp-server/, oder
+  // `tagHasMcp` (siehe Kopfkommentar): ist der Fakt false (Tag-Baum ohne MCP-Server, oder
   // gar nicht ermittelt), liefert mcpFehlt() IMMER false, egal was mcpVersions/mcpVersionsNpm
   // enthalten — ohne diese Sperre würde hier versucht, den MCP-Server aus einem Tag-Commit
-  // nachzuziehen, der kein mcp-server/ hat, und jeder weitere Release bliebe blockiert.
+  // nachzuziehen, der den MCP-Server nicht kennt, und jeder weitere Release bliebe blockiert.
   const fehltMcp = getaggt && mcpFehlt(tagHasMcp, mcpVersions, getaggt);
   const fehltMcpNpm = getaggt && mcpFehlt(tagHasMcp, mcpVersionsNpm, getaggt);
   if (fehltCss || fehltLib || fehltCssNpm || fehltLibNpm || fehltMcp || fehltMcpNpm) {
@@ -245,9 +248,9 @@ export function decide({
   //    Tag in einer Registry liegt, kann nur aus einem Lauf DIESES MCP-fähigen `decide.mjs`
   //    stammen (nur der setzt `publishMcp`/`publishMcpNpm` und veröffentlicht dadurch
   //    überhaupt in dieser dritten Dimension) — ihr Quellstand (per `gitHead` aufgelöst) hat
-  //    also immer mcp-server/. MCP wird deshalb genau wie CSS/Lib behandelt: fehlt die Version
+  //    also immer den MCP-Server. MCP wird deshalb genau wie CSS/Lib behandelt: fehlt die Version
   //    in der Liste, fehlt sie, ohne Bedingung. Siehe Kopfkommentar für die ausführliche
-  //    Begründung, warum ein „veroeffentlicht ohne mcp-server/“-Zwischenstand diesen Merge
+  //    Begründung, warum ein „veröffentlicht ohne MCP-Server“-Zwischenstand diesen Merge
   //    nicht überleben kann.
   if (veroeffentlicht && (!getaggt || groesser(veroeffentlicht, getaggt))) {
     return mitHinweis({
@@ -269,7 +272,7 @@ export function decide({
   // 4. Alles Frühere ist fertig → neue Version aus der Engine. Sie liegt per Konstruktion
   //    immer über dem letzten Tag (>= NPM_BASELINE), npmjs ist hier also immer relevant —
   //    kein zusätzliches npmRelevant()-Gate nötig. Die Quelle ist außerdem IMMER der aktuelle
-  //    Commit (HEAD), der seit der MCP-Einführung mcp-server/ enthält — anders als in Schritt 1
+  //    Commit (HEAD), der seit der MCP-Einführung den MCP-Server enthält — anders als in Schritt 1
   //    (Tag-Commit) gibt es hier kein „alter Commit ohne MCP-Verzeichnis“-Risiko, deshalb auch
   //    kein `tagHasMcp`-Gate nötig.
   if (engineVersion) {
