@@ -68,6 +68,7 @@ export interface CdsNavItem {
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
+    '(keydown)': 'onKeydown($event)',
   },
   template: `
     <header class="ep-topnav" [class.nav-open]="navOpen()">
@@ -94,7 +95,7 @@ export interface CdsNavItem {
             <div
               class="ep-nav-item ep-nav-has-sub"
               [class.is-open]="openIndex() === i"
-              (keydown)="onItemKeydown($event, i)"
+              [attr.data-sub-index]="i"
               (mouseenter)="onItemEnter(i)"
               (mouseleave)="onItemLeave(i)"
             >
@@ -343,7 +344,13 @@ export class TopnavComponent {
    *
    * @internal
    */
-  protected onItemKeydown(event: KeyboardEvent, i: number): void {
+  protected onKeydown(event: KeyboardEvent): void {
+    const item = (event.target as HTMLElement | null)?.closest<HTMLElement>('.ep-nav-has-sub');
+    if (!item || !this.host.nativeElement.contains(item)) return;
+    this.onItemKeydown(event, Number(item.dataset['subIndex']));
+  }
+
+  private onItemKeydown(event: KeyboardEvent, i: number): void {
     const isOpen = this.openIndex() === i;
     const key = event.key;
     if (key === 'ArrowDown') {
