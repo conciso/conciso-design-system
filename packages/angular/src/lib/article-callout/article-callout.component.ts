@@ -47,18 +47,6 @@ let uid = 0;
  * Anders als bei `cds-pill` (dessen `.pill` ohne `data-area` gar keine Füllfarbe
  * hat) gibt es hier keinen sinnvollen „kein Bereich“-Zustand.
  *
- * **Bekannter CSS-Befund, nicht im Wrapper geflickt (ADR-0001):**
- * `.article-callout-eyebrow` (Spezifität 0,1,0) verliert gegen
- * `.article-callout > p` (Spezifität 0,1,1, css/components.css:1600), weil die
- * Eyebrow selbst ein `<p>` UND ein direktes Kind von `.article-callout` ist.
- * Gemessen in rohem Markup ohne Angular (Playwright/Chromium,
- * `getComputedStyle`): die Eyebrow rendert in JEDEM Bereich mit `font-size:16px`
- * statt `12px` und `margin-bottom:0` statt `4px`; die Akzentfarbe geht zusätzlich
- * verloren, wenn kein bereichsspezifischer Override existiert (`co` und „kein
- * `data-area`“ zeigen `--tx-primary` statt `--co-700`). Diese Komponente
- * reproduziert exakt die Klassen und die Struktur des Mockups und zeigt deshalb
- * denselben, vorbestehenden Fehler wie rohes HTML.
- *
  * **`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum
  * Mockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle
  * `complementary`; ein Wissensbeitrag mit mehr als einem Callout hat damit
