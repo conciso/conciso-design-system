@@ -47,6 +47,7 @@ export const VollstaendigesFormular: Story = {
     const firma = signal(true);
     const abweichend = signal(false);
     const personen = signal<number[]>([0]);
+    const anzahlFehler = signal('');
     let naechsteId = 1;
 
     const euro = (n: number): string => `${n.toLocaleString('de-DE')} €`;
@@ -56,19 +57,44 @@ export const VollstaendigesFormular: Story = {
         firma,
         abweichend,
         personen,
+        anzahlFehler,
         maxPlaetze: MAX_PLAETZE,
         setFirma: (wert: boolean) => firma.set(wert),
         setAbweichend: (wert: boolean) => abweichend.set(wert),
         hinzufuegen: () => {
           if (personen().length >= MAX_PLAETZE) return;
+          anzahlFehler.set('');
           personen.update((liste) => [...liste, naechsteId++]);
         },
         entfernen: (position: number) => {
           if (personen().length < 2) return;
+          anzahlFehler.set('');
           personen.update((liste) => liste.filter((_, index) => index !== position));
         },
-        setAnzahl: (roh: string) => {
+        // Verringern kürzt nur leere Blöcke am Ende. Enthält einer noch Daten, bleibt die
+        // Anzahl stehen und eine Fehlermeldung nennt den Block (Repeater-Verhalten der Doku).
+        setAnzahl: (roh: string, feld: HTMLInputElement) => {
           const ziel = Math.max(1, Math.min(MAX_PLAETZE, parseInt(roh, 10) || 1));
+          const aktuell = personen().length;
+          if (ziel < aktuell) {
+            const bloecke = Array.from(
+              feld.closest('form')?.querySelectorAll<HTMLElement>('.bk-person') ?? [],
+            );
+            for (let i = aktuell - 1; i >= ziel; i--) {
+              const belegt = Array.from(bloecke[i]?.querySelectorAll('input') ?? []).some(
+                (eingabe) => eingabe.value.trim() !== '',
+              );
+              if (belegt) {
+                feld.value = String(aktuell);
+                anzahlFehler.set(
+                  `Teilnehmende ${i + 1} enthält noch Daten. Entferne den Block direkt über „Entfernen“.`,
+                );
+                return;
+              }
+            }
+          }
+          anzahlFehler.set('');
+          feld.value = String(ziel);
           personen.update((liste) =>
             ziel >= liste.length
               ? [...liste, ...Array.from({ length: ziel - liste.length }, () => naechsteId++)]
@@ -236,9 +262,12 @@ export const VollstaendigesFormular: Story = {
                     <input type="checkbox" id="bk-selbst" checked style="width:18px;height:18px;margin-top:2px;accent-color:var(--ki-ink);flex-shrink:0;cursor:pointer">
                     <label for="bk-selbst">Ich nehme selbst teil</label>
                   </div>
-                  <div class="field bk-count">
+                  <div class="field bk-count" [class.has-error]="anzahlFehler()">
                     <label for="bk-anzahl">Plätze <span class="req" aria-hidden="true">*</span></label>
-                    <input type="number" id="bk-anzahl" name="anzahl" [value]="personen().length" (change)="setAnzahl($any($event.target).value)" min="1" [attr.max]="maxPlaetze" step="1" inputmode="numeric" required aria-required="true" data-err="Bitte gib eine Zahl zwischen 1 und 12 an">
+                    <input type="number" id="bk-anzahl" name="anzahl" [value]="personen().length" (change)="setAnzahl($any($event.target).value, $any($event.target))" min="1" [attr.max]="maxPlaetze" step="1" inputmode="numeric" required aria-required="true" [attr.aria-invalid]="anzahlFehler() ? 'true' : null" [attr.aria-describedby]="anzahlFehler() ? 'bk-anzahl-err' : null" data-err="Bitte gib eine Zahl zwischen 1 und 12 an">
+                    @if (anzahlFehler()) {
+                      <span class="error-msg" id="bk-anzahl-err" role="alert">{{ anzahlFehler() }}</span>
+                    }
                   </div>
                   <div class="bk-summary" role="status">
                     <span>{{ plaetze(personen().length) }}</span>
@@ -353,5 +382,28 @@ export const VollstaendigesFormular: Story = {
     await userEvent.click(c.getByRole('button', { name: 'Teilnehmende 2 entfernen' }));
     await expect(c.queryByRole('group', { name: 'Teilnehmende 2' })).toBeNull();
     await expect(c.getByText('1 Platz')).toBeVisible();
+
+    // Anzahl verringern verwirft keine ausgefüllten Blöcke: Die Anzahl bleibt stehen,
+    // eine Meldung nennt den Block. Erst ein leerer Block fällt weg.
+    const anzahl = c.getByRole('spinbutton', { name: /Plätze/ });
+    await userEvent.click(c.getByRole('button', { name: 'Weitere Person hinzufügen' }));
+    const zweiter = within(c.getByRole('group', { name: 'Teilnehmende 2' }));
+    await userEvent.type(zweiter.getByLabelText(/Vorname/), 'Max');
+    await userEvent.clear(anzahl);
+    await userEvent.type(anzahl, '1');
+    await userEvent.tab();
+    await expect(c.getByRole('group', { name: 'Teilnehmende 2' })).toBeVisible();
+    await expect(anzahl).toHaveValue(2);
+    await expect(anzahl).toHaveAttribute('aria-invalid', 'true');
+    await expect(c.getByRole('alert')).toHaveTextContent('Teilnehmende 2 enthält noch Daten');
+    await expect(c.getByText('2 Plätze')).toBeVisible();
+
+    await userEvent.clear(zweiter.getByLabelText(/Vorname/));
+    await userEvent.clear(anzahl);
+    await userEvent.type(anzahl, '1');
+    await userEvent.tab();
+    await expect(c.queryByRole('group', { name: 'Teilnehmende 2' })).toBeNull();
+    await expect(anzahl).toHaveValue(1);
+    await expect(c.queryByRole('alert')).toBeNull();
   },
 };
