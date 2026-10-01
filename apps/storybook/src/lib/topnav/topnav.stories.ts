@@ -318,6 +318,16 @@ export const HeraustabbenSchliesstSuche: Story = {
 export const MobilmenueLinkKlick: Story = {
   name: 'Mobilmenü: Link-Klick schließt',
   parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  args: {
+    links: [
+      {
+        label: 'Leistungen',
+        href: '#leistungen',
+        sub: [{ label: 'Angewandte KI', href: '#ki' }],
+      },
+      { label: 'Beiträge', href: '#beitraege' },
+    ],
+  },
   // Jeder Link-Klick im geöffneten Mobilmenü schließt es und setzt aria-expanded zurück.
   play: async ({ canvasElement }) => {
     blockNavigation(canvasElement);
@@ -340,5 +350,41 @@ export const MobilmenueLinkKlick: Story = {
       await expect(burger).toHaveAttribute('aria-expanded', 'false');
       await expect(burger).toHaveAttribute('aria-label', 'Menü öffnen');
     }
+  },
+};
+
+export const LabelOhneZielSchliesstNichts: Story = {
+  name: 'Label ohne Ziel schließt nichts',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  // Ein Platzhalter-Label (ohne href) navigiert nicht und lässt das offene Submenü stehen.
+  play: async ({ canvasElement }) => {
+    blockNavigation(canvasElement);
+    const c = within(canvasElement);
+    const toggle = c.getByRole('button', { name: 'Untermenü Leistungen' });
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(c.getByRole('link', { name: 'Leistungen' }));
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  },
+};
+
+export const SucheBrichtHoverTimerAb: Story = {
+  name: 'Suche bricht Hover-Timer ab',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  // Öffnen der Suche löscht einen laufenden Hover-Öffnen-Timer, sonst zöge er danach das
+  // Submenü auf und schlösse die Suche.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const toggle = c.getByRole('button', { name: 'Untermenü Leistungen' });
+    const item = toggle.closest('.ep-nav-item') as HTMLElement;
+    const search = c.getByRole('button', { name: 'Suche öffnen' });
+    await userEvent.hover(item);
+    await userEvent.click(search);
+    await expect(search).toHaveAttribute('aria-expanded', 'true');
+    // Sentinel (150 ms) ist nach einem übrig gebliebenen Öffnen-Timer (100 ms) fällig.
+    await new Promise((r) => setTimeout(r, 150));
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(search).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.unhover(item);
   },
 };

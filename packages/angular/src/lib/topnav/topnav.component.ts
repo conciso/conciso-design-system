@@ -302,6 +302,7 @@ export class TopnavComponent {
 
   /** @internal */
   protected toggleSearch(): void {
+    this.clearHoverTimers();
     const open = !this.searchOpen();
     this.searchOpen.set(open);
     this.openIndex.set(-1);
@@ -315,7 +316,12 @@ export class TopnavComponent {
 
   /** @internal */
   protected onLabelClick(event: MouseEvent, item: CdsNavItem): void {
-    if (!item.href) event.preventDefault();
+    // Ein Platzhalter-Label (ohne href) navigiert nicht und ändert keinen Zustand; ein echter
+    // Link schließt wie jeder Link-Klick das Menü (Mobilmenü, offene Submenüs).
+    if (!item.href) {
+      event.preventDefault();
+      return;
+    }
     this.closeAll();
   }
 
@@ -413,6 +419,7 @@ export class TopnavComponent {
 
   /** @internal */
   protected toggleNav(): void {
+    this.clearHoverTimers();
     this.navOpen.set(!this.navOpen());
     this.openIndex.set(-1);
     this.searchOpen.set(false);
