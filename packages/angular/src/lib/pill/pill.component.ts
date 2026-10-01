@@ -14,6 +14,12 @@ import type { CdsArea } from '../area';
  * Überschrift — daher trägt die Pill ein explizites `aria-label` (Default
  * „Bereich <label>“, überschreibbar), genau wie in der Doku vorgegeben.
  *
+ * Inhalt auf Teaser-Cards: nur der Bereichsname. Meta-Daten wie Lesezeit, Datum oder Format
+ * gehören dort in eine separate `.card-meta`-Zeile. Auf der Featured-Card und im Artikelkopf
+ * darf die Pill die Lesezeit tragen. `.pill` trägt `width:fit-content` selbst, im
+ * Card-Kontext regelt `.card-body` (bzw. `.card-featured-body`) den Abstand — kein
+ * `margin-bottom` und kein `align-self` an der Pill.
+ *
  * Verwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).
  */
 @Component({
