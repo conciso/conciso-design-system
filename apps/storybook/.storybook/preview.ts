@@ -71,7 +71,7 @@ const preview: Preview = {
           [
             'Markenrad',
             'Brand Areas',
-            ['Übersicht', 'AreaTabs'],
+            ['Übersicht', 'AreaTabs', ['Verwendung']],
             'Logo',
             ['Logo', ['Verwendung']],
             'Bildsprache',
@@ -100,7 +100,8 @@ const preview: Preview = {
           [
             // „Verwendung“ hängt je Gruppe per <Meta of={...}> an einer tragenden
             // Komponente (ADR-0012), ist also deren Kind, nicht mehr ihr Geschwister.
-            // Ausnahme: Buchungsformular hat keine eigene Komponente, bleibt ein Blatt.
+            // Ausnahme: Buchungsformular hat keine eigene Komponente. Die Seite „Übersicht“
+            // steht neben der Story „Vollständiges Formular“ (wie Seminar · Training).
             'Buttons',
             ['Button', ['Verwendung']],
             'Chips, Badges & Pills',
@@ -119,6 +120,7 @@ const preview: Preview = {
             'Dropdowns',
             ['Custom Select', ['Verwendung'], 'Combobox'],
             'Buchungsformular',
+            ['Übersicht', 'Vollständiges Formular'],
             'Feedback',
             ['Snackbar', ['Verwendung']],
             'Cards & Teaser',

@@ -27,7 +27,7 @@ So löst sich die Hierarchie in typischen Kontexten auf: ein Dialog mit Text- ne
         Aktion bestätigen
       </div>
       <div style={{ font: '400 14px/20px var(--font)', color: 'var(--tx-secondary)', marginBottom: 'var(--s5)' }}>
-        Möchtest du die Änderungen wirklich speichern?
+        Möchtest Du die Änderungen wirklich speichern?
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--s2)', marginBottom: 'var(--s3)' }}>
         <button className="btn btn-text btn-sm btn-co">Abbrechen</button>
@@ -129,17 +129,17 @@ Bei einer Unterbrechung wollte die Person etwas anderes, das Verwerfen ist Neben
 | Focus-Ring | Nie `outline: none` ohne sichtbaren Ersatz, der Design-System-Focus-Ring (`--focus-aa`) muss für alle Buttons erhalten bleiben |
 | Filled auf Bereichs-Section | Filled-Buttons auf hellen Bereichs-Hintergründen (`--co-50`, `--ki-50`, `--wo-50`, `--es-50`) brauchen eine ausreichend dunkle Variante mit weißer Schrift, sonst fehlt der UI-Komponenten-Kontrast (WCAG 1.4.11, mindestens 3 zu 1) zwischen Button-Fläche und Section |
 
-Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt: `.btn-co` auf `--co-700`, `.btn-ki` auf `--ki-800`, `.btn-es` auf `--es-700`. Die Default-Farbe von `.btn-wo` (`--wo-700`) ist im Allgemeinen passend, verfehlt aber auf `--wo-50`-Sub-Streifen den Kontrast. Dort die Bereichs-Klasse mit einem minimalen Inline-Override kombinieren:
+Alle vier Bereiche sind über die Modifier-Klasse abgedeckt: `.btn-co` auf `--co-700`, `.btn-ki` auf `--ki-800`, `.btn-es` auf `--es-700`, `.btn-wo` auf `--wo-700`. Jede dieser Farben erreicht mit weißer Schrift auf dem zugehörigen `-50`-Streifen den UI-Kontrast von mindestens 3 zu 1, ein Inline-Override ist nicht nötig:
 
 <HtmlBeispiel titel="Button mit Bereichsfarbe">
 
 ```html
-<button class="btn btn-filled btn-wo" style="--c500:var(--wo-600)">Leistungen ansehen</button>
+<button class="btn btn-filled btn-wo">Leistungen ansehen</button>
 ```
 
 </HtmlBeispiel>
 
-`--c50` erbt korrekt von `.btn-wo`, ein `color`-Override entfällt, weil der Default aus `.btn-filled` (Weiß) bereits greift.
+`--c50` kommt von der Modifier-Klasse, ein `color`-Override entfällt, weil der Default aus `.btn-filled` (Weiß) bereits greift.
 
 **Anti-Pattern:** Inline-Style verwenden, der nur die Token-Werte einer Modifier-Klasse dupliziert (etwa `style="--c500:var(--co-700);--c50:var(--co-50)"` statt `.btn-co`). Macht das Markup laut, das Refactoring teuer und verlangsamt das Lesen. Wenn eine Wiederholung auftaucht, lieber einen neuen Modifier definieren (wie `.btn-on-band`) statt das Pattern an mehreren Stellen inline zu kopieren.
 
@@ -151,6 +151,7 @@ Drei der vier Bereiche sind über die Modifier-Klasse bereits korrekt abgedeckt:
 - Verb-Labels: konkret und handlungsorientiert, „Starten“, „Speichern“, „Anfragen“, „Absenden“.
 - Hierarchie konsequent einhalten: Filled vor Tonal oder Outlined vor Text.
 - Bereichsklasse passend zum Seitenkontext: `.btn-co`, `.btn-ki`, `.btn-es`, `.btn-wo`.
+- Die Bereichsklasse ohne Inline-Override verwenden, auch auf dem `-50`-Streifen des Bereichs: Alle vier Klassen erfüllen dort den UI-Kontrast.
 - Touch-Target mindestens 44 Pixel einhalten, auch im Small-Modus ausreichend groß für sichere Bedienung.
 - `.btn-err` nur für Aktionen, die sich nicht rückgängig machen lassen, höchstens einer pro Ansicht, mit einem Label, das die Folge nennt: „Löschen“, „Verwerfen“.
 
