@@ -9,15 +9,15 @@ import remarkGfm from 'remark-gfm';
  * expliziter `resolve.alias` gesetzt.
  */
 const angularLibEntry = fileURLToPath(
-  new URL('../../angular-lib/projects/design-system-angular/src/public-api.ts', import.meta.url),
+  new URL('../../../packages/angular/src/public-api.ts', import.meta.url),
 );
 
 /**
  * Storybook-Konfiguration für den Angular-Teil des Conciso Design Systems.
  *
  * Trennung der Schichten:
- * - Die portable CSS-/Token-Quelle der Wahrheit liegt im Repo-Root (../../css,
- *   ../../dist, ../../fonts) und bleibt framework-unabhängig.
+ * - Die portable CSS-/Token-Quelle der Wahrheit liegt im CSS-Paket (packages/css/css,
+ *   packages/css/dist, packages/css/fonts) und bleibt framework-unabhängig.
  * - Storybook serviert diese Verzeichnisse via `staticDirs` UNVERÄNDERT als
  *   statische Assets und bindet sie per <link> in preview-head.html ein
  *   (siehe ./preview-head.html). Es wird KEIN CSS kopiert, neu kompiliert oder
@@ -89,13 +89,13 @@ const config: StorybookConfig = {
     menuOnboardingChecklist: false,
   },
   staticDirs: [
-    { from: '../../css', to: '/conciso/css' },
-    { from: '../../fonts', to: '/conciso/fonts' },
-    { from: '../../dist', to: '/conciso/dist' },
+    { from: '../../../packages/css/css', to: '/conciso/css' },
+    { from: '../../../packages/css/fonts', to: '/conciso/fonts' },
+    { from: '../../../packages/css/dist', to: '/conciso/dist' },
     // Brand-Logos (SVG) für Beispiele wie das Topnav-Logo, unverändert serviert.
     // Gemountet wird nur assets/brand, nicht der Demo-Bilderordner: Storybook
     // braucht ausschließlich die drei Wortmarken, kein Demo-Foto.
-    { from: '../../assets/brand', to: '/conciso/brand' },
+    { from: '../../../packages/css/assets/brand', to: '/conciso/brand' },
   ],
   /**
    * Dev-Server hört auf 0.0.0.0:6006 (siehe angular.json → architect.storybook.options)

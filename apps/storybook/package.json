@@ -1,11 +1,12 @@
 {
   "name": "@conciso/design-system-storybook-angular",
   "version": "0.1.0",
-  "description": "Storybook für das Conciso Design System. Dokumentiert die portable CSS-Schicht (../css, ../dist) und die Angular-Lib (../angular-lib) per Stories/MDX, stellt selbst keine Komponenten bereit",
+  "description": "Storybook für das Conciso Design System. Dokumentiert die portable CSS-Schicht (packages/css) und die Angular-Lib (packages/angular) per Stories/MDX, stellt selbst keine Komponenten bereit",
   "license": "MIT",
   "private": true,
   "scripts": {
     "storybook": "ng run conciso-ds-angular:storybook",
+    "build": "npm run build-storybook",
     "build-storybook": "ng run conciso-ds-angular:build-storybook",
     "playwright:install": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 playwright install chromium",
     "test:vitest": "cross-env PLAYWRIGHT_BROWSERS_PATH=0 vitest run",
@@ -31,6 +32,7 @@
     "@angular/build": "^22.1.8",
     "@angular/cli": "^22.1.8",
     "@angular/compiler-cli": "^22.1.0",
+    "@conciso/design-system": "*",
     "@eslint/js": "^10.0.1",
     "@storybook/addon-a11y": "^10.6.0",
     "@storybook/addon-docs": "^10.6.0",

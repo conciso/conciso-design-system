@@ -4,7 +4,7 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "@conciso/design-system-angular": [
-        "../angular-lib/projects/design-system-angular/src/public-api.ts"
+        "../../packages/angular/src/public-api.ts"
       ]
     },
     "strict": true,
