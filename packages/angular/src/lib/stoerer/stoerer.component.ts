@@ -14,6 +14,13 @@ import {
  * (`.stoerer-meta`). Die ganze Kachel ist ein `<a>` — Klick auf die Fläche navigiert,
  * kein Div mit Klick-Handler.
  *
+ * Zustände: Hover setzt `--bg-surface-hover` und `--e3`, hebt die Kachel um 2 px und
+ * unterstreicht den Titel; Fokus zeigt `--focus-ring` plus `--e3`. Das Thema-Label
+ * benennt den Inhaltstyp und übernimmt das Wort der zugehörigen Sektion. Icon je Typ:
+ * `ui-calendar-days` (Veranstaltung), `ui-newspaper` (Wissensbeitrag), `ui-megaphone`
+ * (Pressemitteilung), `ui-information-circle` (Info); ein fünfter Typ braucht ein
+ * fünftes Icon aus dieser Familie, keine Doppelbelegung.
+ *
  * **Nur innerhalb von `<cds-stoerer-set>` verwendbar.** Diese Komponente rendert ihr
  * Markup nicht in sich selbst, sondern in ein internes `<ng-template>` und stellt es
  * dem Set als `TemplateRef` bereit (Begründung: Entscheidung 1 in der Klassendoku von
