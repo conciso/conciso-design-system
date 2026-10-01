@@ -28,7 +28,8 @@ frameworkspezifischen Aufsätzen darauf:
 
 Das Paket `@conciso/design-system`: framework-agnostische Design-Tokens und
 CSS-Komponenten (`css/*.css`, gebündelt in `dist/conciso-ds.css`), plus die
-generierten Icon-Glyphen (`icons/icons.js`) und Fonts (`fonts/`). Wird als
+generierten Icon-Glyphen (`dist/icons/icons.js`) und Fonts (`fonts/`). Der gesamte
+Ordner `dist/` entsteht beim Build und wird nicht eingecheckt. Wird als
 **globaler Cascade** geladen — die Styles gelten dokumentweit, nicht pro Komponente
 gekapselt. Dies ist die **Quelle der Wahrheit** für alles Visuelle.
 
@@ -167,6 +168,7 @@ Bulk umzogen. Beides ist abgeschlossen — alle 37 Komponenten liegen in der
 ### DS-Glyphen
 
 Design-System-eigene Icons (`ui*`), die aus `@conciso/design-system/icons`
-(generiertes `icons/icons.js`) stammen — nicht aus `@ng-icons`. Die zentrale
+(generiertes `dist/icons/icons.js`, öffentlicher Importpfad
+`@conciso/design-system/icons`) stammen — nicht aus `@ng-icons`. Die zentrale
 Icon-Registry (`icons/cds-icons.ts`) ist die einzige Import-Fläche für
 Komponenten-Icons; Komponenten importieren nie direkt aus `@ng-icons/heroicons`.

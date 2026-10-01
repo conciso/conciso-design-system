@@ -1,6 +1,6 @@
-// Bereichs-Glyphen + Zitat-Icon — VERBATIM übernommen aus icons/icons.js (Quelle der
+// Bereichs-Glyphen + Zitat-Icon — VERBATIM übernommen aus `@conciso/design-system/icons` (Quelle der
 // Wahrheit, generiert aus icons/source/*.svg). Wird NICHT manuell editiert: bei Icon-Änderungen
-// neu aus icons/icons.js übernehmen. So konsumieren die Angular-Komponenten zentrale Glyphen,
+// neu aus `@conciso/design-system/icons` übernehmen. So konsumieren die Angular-Komponenten zentrale Glyphen,
 // statt eigene zu erfinden.
 import type { CdsArea } from './area';
 
