@@ -291,7 +291,8 @@ export const MenueAttribute: Story = {
     await expect(leer).toBeEmptyDOMElement();
     await userEvent.type(multi.getByRole('combobox'), 'zzz');
     await expect(leer).toHaveTextContent('Keine Treffer');
-    await expect(leer.querySelector('.ep-combobox-empty')).not.toBeNull();
+    const panel = within(canvasElement).getByTestId('multi').querySelector('.ep-combobox-empty');
+    await expect(panel?.closest('.ep-combobox-menu')).toHaveAttribute('aria-hidden', 'true');
     // Die Meldung ist keine Option und steht außerhalb der Listbox; die leere Listbox ist ausgeblendet.
     await expect(leer.closest('[role="listbox"]')).toBeNull();
     await expect(multi.queryByRole('listbox')).toBeNull();

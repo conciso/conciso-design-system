@@ -155,14 +155,18 @@ let uid = 0;
       </ul>
       <!-- Leermeldung außerhalb der Listbox: eine Listbox ohne option-Kind verletzt
            aria-required-children. Die Listbox bleibt bei 0 Treffern ausgeblendet. Die Live-Region
-         steht dauerhaft im DOM, damit der Wechsel zuverlässig angesagt wird. -->
-      <div role="status" [style.display]="'contents'">
+         (sr-only) steht dauerhaft im DOM, damit der Wechsel zuverlässig angesagt wird; das sichtbare
+         Panel ist aria-hidden, damit nichts doppelt gelesen wird. -->
+      <div class="sr-only" role="status">
         @if (!filtered().length) {
-          <div class="ep-combobox-menu">
-            <div class="ep-combobox-empty">{{ emptyText() }}</div>
-          </div>
+          {{ emptyText() }}
         }
       </div>
+      @if (!filtered().length) {
+        <div class="ep-combobox-menu" aria-hidden="true">
+          <div class="ep-combobox-empty">{{ emptyText() }}</div>
+        </div>
+      }
     </div>
   `,
 })
