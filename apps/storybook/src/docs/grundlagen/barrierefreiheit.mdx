@@ -264,10 +264,14 @@ Mindestgröße beschreiben, folgen ihrer eigenen Logik statt dem 8pt-Rhythmus.
 **Formulare & Fehler.** Fehlermeldungen programmatisch mit dem Feld verknüpfen (WCAG
 1.3.1, 3.3.1).
 
+<HtmlBeispiel titel="Eingabefeld mit Fehlermeldung">
+
 ```html
 <input aria-invalid="true" aria-describedby="err-id">
 <span id="err-id" role="alert">Pflichtfeld</span>
 ```
+
+</HtmlBeispiel>
 
 **Dekorative Icons.** SVGs ohne inhaltliche Bedeutung vor Screenreadern verbergen (WCAG
 1.1.1).
@@ -298,6 +302,8 @@ Textalternativ (WCAG 1.1.1).
 
 **Live Regions.** Dynamische Inhalte für Screenreader ankündigen (WCAG 4.1.3).
 
+<HtmlBeispiel titel="Statusmeldung als Live-Region">
+
 ```html
 <!-- Status, höflich, unterbricht nicht -->
 <div role="status" aria-live="polite">Gespeichert.</div>
@@ -305,6 +311,8 @@ Textalternativ (WCAG 1.1.1).
 <!-- Alert, sofort, unterbricht -->
 <div role="alert" aria-live="assertive">Verbindungsfehler.</div>
 ```
+
+</HtmlBeispiel>
 
 **Toggle & Filter-Buttons.** Buttons mit zwei Zuständen (gedrückt, nicht gedrückt)
 brauchen `aria-pressed`, damit Screenreader den Status ansagen (WCAG 4.1.2). Verwendung
@@ -333,11 +341,15 @@ anspringen (WCAG 1.3.1, 2.4.6).
 `aria-current="page"` markiert, ein sichtbarer Active-State allein reicht für
 Screenreader nicht (WCAG 1.3.1).
 
+<HtmlBeispiel titel="Navigationslink der aktuellen Seite">
+
 ```html
 <a class="ep-nav-btn" href="/ueber-uns" aria-current="page">Unternehmen</a>
 
 .ep-nav-btn[aria-current="page"] { color: var(--co-700); }
 ```
+
+</HtmlBeispiel>
 
 **Visuell versteckt (`.sr-only`).** Text nur für Screenreader, visuell entfernt. Trägt die
 Bedeutung hinter rein grafischen Markern (Häkchen, Minus) in Vergleichstabellen, Glyph
