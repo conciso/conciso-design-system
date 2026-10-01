@@ -23,6 +23,8 @@ Feldkomponenten (Text · E-Mail · Select · Textarea · Checkbox · Radio), ber
 
 Der Select-Platzhalter (erste Option „Bitte wählen…“) trägt `value=""` plus `disabled` plus `selected`, damit er als unerlaubter Wert zählt: Browser-Validierung erkennt ein Pflicht-Select korrekt als leer, der Text wird nicht versehentlich beim Submit mitgesendet. Radio und Segmented Control bleiben immer **native** `<input type="radio">`, kein nachgebauter Kreis, die Gruppe sitzt in einem `<fieldset>` mit `<legend>`, alle Optionen teilen denselben `name`. In einem Bereichsformular sind die Modifier `.seg-ki`, `.seg-es` und `.seg-wo` Pflicht, sonst sitzt mitten zwischen den Feldern ein Corporate-Akzent und das Formular trägt zwei Bereiche gleichzeitig.
 
+Die Textarea ist nur vertikal vergrößerbar (`resize: vertical` plus `max-width: 100%`), damit der Anfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht. Die Segmented Control ist ein natives `<input type="radio">`, visuell versteckt und über gestylte `<label>` als verbundene Buttons dargestellt, der gewählte Zustand hängt an `:checked` im Komponenten-CSS (`.seg`). Im Dark Mode kippt die Füllung des gewählten Segments auf den hellen `-300`-Ton mit `-900`-Text, weil die dunkle `-700`-Fläche auf dunklem Grund nicht heraustritt. Der Fokusring bleibt in allen Bereichs-Varianten Corporate.
+
 ### Kontaktformulare je Bereich
 
 Jedes Formular trägt die Akzentfarbe der Brand Area, Header und Submit-Button passen sich an.
@@ -34,11 +36,13 @@ Jedes Formular trägt die Akzentfarbe der Brand Area, Header und Submit-Button p
 | Effektive Software | `--es-700` | `.btn-es` | Blau |
 | Wirksame Organisationen | `--wo-700` | `.btn-wo` | Grün |
 
+**Gleich hohe Karten, bündiger Button.** Stehen die Formular-Karten in gleich hohen Grid-Spalten, trägt der Formularkörper `.ds-inner` zusätzlich den Modifier `.ds-inner-fill`. Er macht den Körper zur Flex-Spalte. Nur das Feld mit der `<textarea>` wächst (`flex: 1 1 auto`, Basis ist die natürliche Höhe, `min-height: 96px` als Boden, kein Schrumpfen darunter) und füllt den Leerraum der kürzeren Karte, sodass der Submit-Button unten bündig zur Nachbarkarte sitzt. Die übrigen Felder bleiben kompakt. Im einspaltigen Layout (Mobile) hat der Modifier keine Wirkung, weil die Karten dort einzeln auf natürlicher Höhe stehen.
+
 ### Adaptive Kontaktseite
 
 Statt eines eigenen Formulars pro Bereich gibt es eine Anfrageseite, die sich am Einstieg orientiert. Default ist die neutrale Corporate-Tönung, kommt die Nutzerin über einen Bereichs-CTA, übernimmt das Formular Farbe, Thema und ein vorbelegtes Anliegen. So bleibt die Seite auch für unentschlossene und bereichsübergreifende Nutzer richtig und vermeidet Near-Duplicate-Seiten.
 
-Der CTA trägt `data-ep="kontakt"` plus optional `data-k-bereich="ki|es|wo"` und `data-k-anliegen="…"`. `applyKontaktContext()` tönt Header, Button und Consent-Häkchen, setzt das Thema-Select und belegt „Dein Anliegen“ vor.
+Der CTA trägt `data-ep="kontakt"` plus optional `data-k-bereich="ki|es|wo"` und `data-k-anliegen="…"`. Daraus tönt die Kontaktseite Header, Button und Consent-Häkchen, setzt das Thema-Select und belegt „Dein Anliegen“ vor.
 
 | Einstieg | Tönung | Thema | Anliegen (vorbelegt) |
 |---|---|---|---|
@@ -47,7 +51,14 @@ Der CTA trägt `data-ep="kontakt"` plus optional `data-k-bereich="ki|es|wo"` und
 | Effektive Software · „Gespräch anfragen“ | es | Effektive Software | (leer) |
 | Wirksame Organisationen · „Transformation starten“ | wo | Wirksame Organisationen | Wirksame Organisationen: Transformation |
 
-Zwei `<input type="hidden">` transportieren den Herkunfts-Kontext stabil, unabhängig vom editierbaren Freitext: `name="bereich"` (Werte `ki`, `es`, `wo`, `co`) ordnet an das richtige Team-Postfach zu, `name="unterthema"` liefert die Basis für eine konkrete Erstantwort. Der Akzent hängt am Formular (`data-accent` am `<form>`), nicht an der ganzen Karte: Telefon, E-Mail und der Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate, unabhängig davon, aus welchem Bereich die Anfrage kommt. In Produktion werden diese Felder serverseitig aus Route oder Query-Parameter gerendert, nicht per Client-Skript.
+Zwei `<input type="hidden">` transportieren den Herkunfts-Kontext stabil, unabhängig vom editierbaren Freitext. So lässt sich intern zuordnen und konkret antworten, ohne der Nutzerin ein zusätzliches Pflichtfeld zuzumuten.
+
+| Feld | Werte | Zweck |
+|---|---|---|
+| `name="bereich"` | `ki`, `es`, `wo`, `co` | Zuordnung an das richtige Team-Postfach |
+| `name="unterthema"` | Freitext-Schlüssel, z. B. „AI.Automation Workshop“ | Basis für eine konkrete, teilautomatisierte Erstantwort |
+
+Der Akzent hängt am Formular (`data-accent` am `<form>`), nicht an der ganzen Karte: Telefon, E-Mail und der Maps-Link daneben sind Unternehmens-Kontaktdaten und bleiben Corporate, unabhängig davon, aus welchem Bereich die Anfrage kommt. Bei `co` wird das Attribut entfernt, Corporate ist der Default und braucht keinen Scope. In Produktion werden die Hidden-Felder serverseitig aus Route oder Query-Parameter (`?bereich=…&anliegen=…`) gerendert und beim Absenden ausgewertet, nicht per Client-Skript. „Allgemeine Anfrage“ (`bereich=co`, leeres `unterthema`) geht ans allgemeine Postfach. Granularere Unterthemen kommen bewusst aus dem CTA, nicht aus einem Pflichtfeld, um Reibung zu vermeiden. Bewerbung, Veranstaltungs-Anmeldung und die verbindliche Terminbuchung (`Komponenten/Buchungsformular`) behalten ihren eigenen Flow.
 
 ### Such-Feld
 
@@ -80,8 +91,10 @@ Alle Varianten sprechen die Nutzerin in Du-Form an, das Name-Feld fragt explizit
 
 | Aspekt | `.field` (Standard-Form) | `.footer-field` (Utility-Form) |
 |---|---|---|
+| Container-Abstand | `margin-bottom: var(--s6)` | `margin-bottom: var(--s4)` |
 | Label-Token | `--ty-label-sm`, uppercase, `--tx-secondary` | Identisch |
 | Input-Border | `2px solid --field-border` | `1px solid --field-border` |
+| Input-Innenabstand | `var(--s3) var(--s4)` | `0 var(--s3)` |
 | Input-Höhe | `min-height:44px` | `height:44px` |
 | Error-State | `.field.has-error` | `.footer-field.has-error` |
 
@@ -127,7 +140,166 @@ Numerische Wertauswahl mit nativer Tastatursteuerung (Pfeiltasten, Pos1, Ende). 
 | Link im Label | Verlinkte Rechtstexte in Einwilligungen (Datenschutz, Teilnahmebedingungen) sind echte `<a class="body-link">`, kein `<span>` mit `cursor:pointer`, sonst nicht per Tab erreichbar und für Screenreader kein Link, obwohl dieser Text die Grundlage der Einwilligung ist. Im `<label for>` unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt also kein Häkchen |
 | `autocomplete` | Passende Werte setzen (`name`, `email`, …), erleichtert Ausfüllen auf Mobile |
 
-Feld-Rahmen nutzen den modusbewussten Token `--field-border` mit mindestens 3 zu 1 gegen den Feld-Hintergrund (WCAG 1.4.11). Der Rahmen ist der einzige Umriss des Feldes, sobald es auf einer Karte sitzt, dort ist die Feldfüllung mit `--bg-surface` identisch mit dem Grund. Platzhalter-Text immer explizit auf `--tx-secondary` setzen, nie dem Browser überlassen, sonst unterschreitet die Browser-Standardfarbe im Dark Mode den AA-Kontrast.
+Feld-Rahmen nutzen den modusbewussten Token `--field-border` mit mindestens 3 zu 1 gegen den Feld-Hintergrund (WCAG 1.4.11). Der Rahmen ist der einzige Umriss des Feldes, sobald es auf einer Karte sitzt, dort ist die Feldfüllung mit `--bg-surface` identisch mit dem Grund. Platzhalter-Text immer explizit auf `--tx-secondary` setzen, nie dem Browser überlassen: Chrome zeichnet ihn sonst mit `rgb(117, 117, 117)`, auf der Feldfüllung sind das im Dark Mode nur 2,8 zu 1 (AA-Verstoß) und im Light Mode 4,6 zu 1 (bestanden, aber ohne Reserve). Mit `--tx-secondary` sind es 7,1 zu 1 im Dark Mode und 6,3 zu 1 im Light Mode. Das gilt für alle Eingabefelder, auch für neue.
+
+## Fehlerzustand · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt den Fehlerzustand mit diesem Markup: der Wrapper `.field.has-error`, darunter die Meldung `.error-msg` mit Warn-Icon und Text.
+
+<HtmlBeispiel titel="Feld im Fehlerzustand" interaktiv>
+
+```html
+<div class="field has-error">
+  <label for="mail">E-Mail <span class="req" aria-hidden="true">*</span></label>
+  <input type="email" id="mail" value="ungültig@" aria-required="true"
+         aria-invalid="true" aria-describedby="mail-err">
+  <span class="error-msg" id="mail-err" role="alert">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.25" aria-hidden="true" style="flex-shrink:0">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>
+    </svg>
+    Bitte eine gültige E-Mail-Adresse eingeben
+  </span>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
+
+| Aspekt | Regel |
+|---|---|
+| Verknüpfung | Die Meldung hat eine eindeutige `id`, das Feld verweist per `aria-describedby` darauf und trägt `aria-invalid="true"` |
+| Auslösen | Geprüft wird beim Absenden (`novalidate` am Formular), nicht beim Tippen. Alte Meldungen werden zuerst geräumt, dann neu gesetzt |
+| Beheben | `has-error`, `aria-invalid`, `aria-describedby` und die Meldung selbst werden entfernt, nicht nur ausgeblendet |
+| Darstellung | Text und Icon, nie nur die Farbe |
+| Ansage | Die Meldung trägt `role="alert"`, wird beim Einfügen vorgelesen und braucht keine Fokusverschiebung. Entstehen bei einem langen Formular über ein Dutzend Meldungen gleichzeitig, ergibt das eine unbrauchbare Ansage. Dort sammelt eine fokussierte Fehlerübersicht die Fehler (siehe `Komponenten/Buchungsformular`) |
+| Fokus | Nach einem gescheiterten Absenden geht der Fokus auf das erste fehlerhafte Feld |
+
+## Kontaktformular-Validierung · Nur CSS-Schicht
+
+Das Anfrageformular nutzt den Fehlerzustand von oben und ergänzt Pflichtfelder, Einwilligung und Erfolgszustand.
+
+<HtmlBeispiel titel="Kontaktformular mit Pflichtfeldern und Erfolgspanel" interaktiv>
+
+```html
+<!-- Erfolgspanel neben dem Formular: erscheint nach dem Absenden und erhält den Fokus. -->
+<div class="bk-success" id="kontakt-success" role="status" tabindex="-1" hidden>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.5" aria-hidden="true" style="flex-shrink:0">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+  </svg>
+  <span><strong>Danke, Deine Anfrage ist raus.</strong><br>
+    Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>
+</div>
+
+<!-- novalidate: keine nativen Bubbles, die Inline-Meldungen sind einheitlich. -->
+<form id="kontakt" novalidate aria-labelledby="kontakt-heading">
+  <p>Mit <span class="req" aria-hidden="true">*</span> markierte Felder sind Pflichtfelder.</p>
+  <div class="field">
+    <label for="kontakt-name">Name <span class="req" aria-hidden="true">*</span></label>
+    <input type="text" id="kontakt-name" required aria-required="true" autocomplete="name">
+  </div>
+  <div class="field">
+    <label for="kontakt-email">E-Mail <span class="req" aria-hidden="true">*</span></label>
+    <input type="email" id="kontakt-email" required aria-required="true" autocomplete="email">
+  </div>
+  <!-- Die Einwilligung sitzt in einem eigenen Wrapper, die Meldung kommt hinein. -->
+  <div id="kontakt-consent-field" style="margin-bottom:var(--s6)">
+    <div style="display:flex;align-items:flex-start;gap:var(--s3)">
+      <input type="checkbox" id="kontakt-consent" required aria-required="true"
+             style="width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:var(--co-700)">
+      <label for="kontakt-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">
+        Ich bin mit der Verarbeitung meiner Angaben gemäß den
+        <a class="body-link" href="/datenschutz">Datenschutzhinweisen</a> einverstanden.
+        <span class="req" aria-hidden="true">*</span>
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-filled btn-co btn-full">Anfrage senden</button>
+</form>
+```
+
+</HtmlBeispiel>
+
+| Aspekt | Regel |
+|---|---|
+| Prüfung | Beim Absenden `preventDefault`, zuerst alle alten Fehler räumen, dann neu prüfen und setzen |
+| Name | Pflicht, nicht leer. Meldung: „Bitte gib Deinen Namen an“ |
+| E-Mail | Pflicht, nicht leer und gültig. Meldung: „Bitte eine gültige E-Mail-Adresse eingeben“ |
+| Einwilligung | Pflicht. Ohne Häkchen setzen `aria-invalid="true"` und `aria-describedby` am Häkchen auf eine `.error-msg` im Wrapper der Einwilligung, mit `role="alert"` und dem Text „Bitte stimme der Verarbeitung zu“ |
+| Fokus | Der Fokus geht auf das erste ungültige Feld in DOM-Reihenfolge, das Absenden bricht ab |
+| Erfolg | Ohne Fehler wird das Formular `hidden`, das Erfolgspanel mit `role="status"` und `tabindex="-1"` erscheint und erhält den Fokus |
+
+## Adaptive Kontaktseite · Nur CSS-Schicht
+
+Das Formular wird für den Einstieg gesetzt: Bereich (`ki`, `es`, `wo`) und optional ein Anliegen. Das Markup zeigt den Zustand nach einem Einstieg aus Angewandte KI.
+
+<HtmlBeispiel titel="Kontaktformular im Zustand Angewandte KI" interaktiv>
+
+```html
+<div class="ds-card">
+  <!-- Header in der Bereichsfarbe, Eyebrow trägt den Bereichsnamen -->
+  <div style="background:var(--ki-800);padding:var(--s4) var(--s6)">
+    <div style="font:500 12px/16px var(--font);letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:2px">Angewandte KI</div>
+    <div id="kontakt-heading" style="font:400 20px/28px var(--font-display);color:#fff">Kontakt aufnehmen</div>
+  </div>
+  <div class="ds-inner">
+    <!-- data-accent nur am Formular und nur für ki, es, wo -->
+    <form data-accent="ki" novalidate aria-labelledby="kontakt-heading">
+      <!-- Verstecktes Routing: serverseitig aus Route oder Query-Parameter gerendert -->
+      <input type="hidden" name="bereich" value="ki">
+      <input type="hidden" name="unterthema" value="AI.Automation Workshop">
+      <div class="field">
+        <label for="adaptiv-thema">Thema</label>
+        <select id="adaptiv-thema">
+          <option>Allgemeine Anfrage</option>
+          <option selected>Angewandte KI</option>
+          <option>Effektive Software</option>
+          <option>Wirksame Organisationen</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="adaptiv-anliegen">Dein Anliegen</label>
+        <textarea id="adaptiv-anliegen" rows="4">AI.Automation Workshop</textarea>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s6)">
+        <input type="checkbox" id="adaptiv-consent" required aria-required="true"
+               style="width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:var(--ki-800)">
+        <label for="adaptiv-consent" style="font:var(--ty-body-sm);color:var(--tx-secondary)">
+          Ich bin mit der Verarbeitung meiner Angaben gemäß den
+          <a class="body-link" href="/datenschutz">Datenschutzhinweisen</a> einverstanden.
+          <span class="req" aria-hidden="true">*</span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-filled btn-ki btn-full">Anfrage senden</button>
+    </form>
+  </div>
+</div>
+```
+
+</HtmlBeispiel>
+
+Je Bereich wechseln diese Teile:
+
+| Bereich | Header | Eyebrow | Submit | Thema | `data-accent` |
+|---|---|---|---|---|---|
+| `co` | `--co-700` | Anfrage | `.btn-co` | Allgemeine Anfrage | entfernt |
+| `ki` | `--ki-800` | Angewandte KI | `.btn-ki` | Angewandte KI | `ki` |
+| `es` | `--es-700` | Effektive Software | `.btn-es` | Effektive Software | `es` |
+| `wo` | `--wo-700` | Wirksame Organisationen | `.btn-wo` | Wirksame Organisationen | `wo` |
+
+Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
+
+| Aspekt | Regel |
+|---|---|
+| Rückfall | Ein unbekannter oder fehlender Bereichswert fällt auf `co` zurück, auch das versteckte Feld `bereich` bekommt dann `co` |
+| Neu setzen | Bei jedem Einstieg wird das Formular vollständig neu gesetzt, nicht nur ergänzt: Header, Eyebrow, Submit-Klasse (die alte Bereichsklasse fällt weg), `data-accent`, `accent-color` des Häkchens, Thema, Anliegen und beide Hidden-Felder. Ohne Kontext bleibt es Corporate und das Anliegen leer |
+| Corporate | Bei `co` kein `data-accent` am Formular, das Attribut wird entfernt statt auf `co` gesetzt |
+| Anliegen | Das vorbelegte Anliegen bleibt editierbar, das Hidden-Feld `unterthema` hält den ursprünglichen Schlüssel stabil |
+| Hidden-Felder | In Produktion serverseitig gerendert, nicht per Client-Skript |
 
 ## Dos & Don'ts
 
