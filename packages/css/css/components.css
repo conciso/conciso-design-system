@@ -1087,6 +1087,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
 .logo-carousel.paused .logo-carousel-pause{opacity:1}
 .logo-carousel-pause:hover{color:var(--n-700);box-shadow:var(--e2)}
 .logo-carousel-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-carousel-pause[hidden]{display:none}
 .logo-carousel-pause .icon-play{display:none}
 .logo-carousel.paused .logo-carousel-pause .icon-pause{display:none}
 .logo-carousel.paused .logo-carousel-pause .icon-play{display:block}
