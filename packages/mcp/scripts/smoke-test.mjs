@@ -114,6 +114,24 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Custom Select für eine Ja/Nein- oder Zwei-Optionen-Wahl, dafür sind Radios oder ein nativer Select besser.',
   },
   {
+    id: 'komponenten-inputs-forms-textfeld',
+    sentence: 'Bei `co` wird das Attribut entfernt, Corporate ist der Default und braucht keinen Scope',
+    additionalSentence: 'Fehlerzustand · Nur CSS-Schicht',
+  },
+  {
+    id: 'komponenten-dropdowns-custom-select',
+    sentence: 'Pfeil runter und hoch wandern durch die Optionen und stoppen an den Enden, es gibt keinen Umlauf',
+    additionalSentence: 'Combobox · Nur CSS-Schicht',
+  },
+  {
+    // Buchungsformular hat keine Komponente und bleibt eine eigenständige Seite. Die
+    // Datenschutzbeauftragten stehen nur als Rolle da, nie mit Namen oder E-Mail-Adresse.
+    id: 'komponenten-buchungsformular--übersicht',
+    sentence: 'In anderer Reihenfolge schreibt man in Felder, die es noch nicht gibt',
+    additionalSentence: 'Buchungsformular · Nur CSS-Schicht',
+    absentSentence: 'datenschutz@conciso.de',
+  },
+  {
     id: 'komponenten-feedback-snackbar',
     sentence: 'Feldfehler inline direkt unter dem Eingabefeld zeigen, Snackbar nur für globale Submit-Fehler.',
     additionalSentence: 'Scroll-Sperre',
@@ -397,7 +415,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
  * hier bedeutet entweder ein verlorenes Attachment (Umbau/Refactoring) oder einen geänderten
  * Kernsatz in der MDX-Datei — beides soll den Smoke-Test rot machen, nicht erst ein Eval. */
 async function checkGroupUsageGuidance(client, errors) {
-  for (const { id, sentence, additionalSentence } of GROUP_USAGE_CHECKS) {
+  for (const { id, sentence, additionalSentence, absentSentence } of GROUP_USAGE_CHECKS) {
     const response = await client.request('tools/call', { name: 'docs-show', arguments: { id } });
     if (response.error) {
       errors.push(`docs-show(${id}) fehlgeschlagen: ${JSON.stringify(response.error)}`);
@@ -408,6 +426,9 @@ async function checkGroupUsageGuidance(client, errors) {
       errors.push(
         `docs-show(${id}) enthält nicht den Kernsatz der Verwendungsseite dieser Gruppe („${sentence}“).`,
       );
+    }
+    if (absentSentence && text.includes(absentSentence)) {
+      errors.push(`docs-show(${id}) enthält „${absentSentence}“, das dort nicht stehen darf.`);
     }
     if (additionalSentence && !text.includes(additionalSentence)) {
       errors.push(
