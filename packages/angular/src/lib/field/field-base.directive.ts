@@ -32,6 +32,14 @@ export abstract class FieldBase extends CvaBase<string> {
   readonly helper = input('');
   /** Gesetzt = Fehlerzustand (.has-error + .error-msg). */
   readonly error = input('');
+  /**
+   * Ruhige Fehlermeldung: lässt `role="alert"` an der Einzelmeldung weg. Gedacht für lange
+   * Formulare, in denen eine fokussierte Fehlerübersicht (`role="alert"`) die Ansage übernimmt;
+   * sonst ergeben viele gleichzeitig eingefügte Alerts eine unbrauchbare Ansage-Salve. Die
+   * Meldung bleibt über `aria-describedby` mit dem Feld verbunden und wird beim Fokussieren
+   * gelesen. Vorgabe `false`: die Meldung sagt sich selbst an (kurze Formulare).
+   */
+  readonly quietError = input(false);
   /** Pflichtfeld → .req-Asterisk + aria-required. */
   readonly required = input(false);
   /** id für die label/for- und aria-describedby-Verknüpfung. Default eindeutig. */

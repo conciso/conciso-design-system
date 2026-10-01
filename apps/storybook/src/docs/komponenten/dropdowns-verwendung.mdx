@@ -21,9 +21,9 @@ Auswahl-Komponenten über das native `<select>` hinaus: Custom Select (gestylte 
 | `.ep-select` | Gestylte Einzelauswahl, `data-area` setzt den Bereichs-Akzent, `data-name` erzeugt ein verstecktes Feld für den Submit |
 | `.ep-combobox` | Tipp-Filter über langen Listen, `data-empty-text` setzt den Leerzustand |
 | `.is-multi` | Modifier am `.ep-combobox` für Mehrfachauswahl mit Chips |
-| `.ep-combobox-clear` | Lösch-Button (per Skript injiziert), erscheint bei Texteingabe und leert das Feld, Multi behält die Chips |
+| `.ep-combobox-clear` | Lösch-Button (per Skript injiziert), erscheint bei Texteingabe und leert das Feld, Multi behält die Chips, Einzelauswahl hebt die Auswahl auf |
 | `data-value` | Maschinenwert je Option, sichtbarer Text ist das Label (oder `data-label`) |
-| `ep:change` | Custom-Ereignis bei Auswahl (`detail.value`, `detail.selected`) zum Anbinden eigener Logik |
+| `ep:change` | Nur in der Referenz-Umsetzung der reinen CSS-Schicht: Custom-Ereignis bei Auswahl (`detail.value`, `detail.selected`) zum Anbinden eigener Logik. In Angular entspricht ihm `[(value)]` beziehungsweise `[(values)]` |
 
 Das Popup schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten verlassen, der Rand übernimmt deshalb im Dark Mode `--bd-strong-c` statt `--bd-c`. Gilt für jedes schwebende Panel, auch das Topnav-Untermenü und das Suchpanel.
 
@@ -34,6 +34,7 @@ Das Popup schwebt über fremdem Inhalt und kann sich dort nicht auf den Schatten
 | `role="listbox"` / `option` | Popup und Einträge als Auswahlliste ausgewiesen, vom Skript gesetzt beziehungsweise ergänzt |
 | `aria-haspopup="listbox"` | Trigger des Custom Select kündigt das Popup an, `aria-controls` verweist auf das Menü |
 | `aria-multiselectable="true"` | Am Menü der Combobox im Multi-Modus (`.is-multi`), vom Skript gesetzt. Kündigt Screenreadern die Mehrfachauswahl an |
+| `role="status"` | Leerzustand der Combobox, außerhalb der Listbox. Die Meldung ist keine Option und wird höflich angesagt |
 | `aria-selected` | An jeder Option `true` (gewählt) oder `false` |
 | `role="combobox"` | Eingabefeld der Combobox, mit `aria-controls` auf das Menü und `aria-autocomplete="list"` |
 | `aria-expanded` | Offen-Zustand am Trigger beziehungsweise am Combobox-Input |
@@ -126,11 +127,12 @@ Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
 | Aspekt | Regel |
 |---|---|
 | Öffnen | Das Menü öffnet bei Fokus im Feld, bei Eingabe und bei einem Klick auf das Control, nicht aber bei einem Klick auf das Entfernen eines Chips. Pfeil runter öffnet ein geschlossenes Menü. Beim Öffnen sind `is-open` und `aria-expanded="true"` gesetzt |
-| Filter | Teilstring im Label, ohne Beachtung der Groß- und Kleinschreibung. Im Multi-Modus sind bereits gewählte Optionen ausgeblendet. Passt keine Option, erscheint ein Leerzustand-Eintrag mit dem Text aus `data-empty-text` |
+| Filter | Teilstring im Label, ohne Beachtung der Groß- und Kleinschreibung. Im Multi-Modus sind bereits gewählte Optionen ausgeblendet. Passt keine Option, erscheint eine Meldung `.ep-combobox-empty` mit `role="status"` und dem Text aus `data-empty-text`, Vorgabe „Keine Treffer“. Sie steht als Geschwister der Listbox im Menü, nicht darin (eine Listbox ohne `option`-Kind verletzt `aria-required-children`); die leere Listbox wird ausgeblendet, das Menü bleibt offen. Die Ansage trägt eine dauerhaft vorhandene, visuell versteckte Region (`class="sr-only"`, `role="status"`), in die der Text erst bei 0 Treffern kommt; das sichtbare Panel ist `aria-hidden="true"`, damit nichts doppelt gelesen wird |
 | Aktive Option | Die erste sichtbare Option ist aktiv, ebenso wenn die bisher aktive weggefiltert wird. `aria-activedescendant` am Eingabefeld nennt sie, der Fokus bleibt im Feld |
 | Tasten | Pfeil runter und hoch wandern durch die sichtbaren Optionen und stoppen an den Enden. Pos1, Ende und Enter wirken nur bei geöffnetem Menü, sonst bleibt die normale Cursor-Bearbeitung im Text. Enter wählt nur, wenn eine Option aktiv ist. Escape schließt. Rücktaste im leeren Feld entfernt im Multi-Modus den letzten Chip |
-| Lösch-Button | `.ep-combobox-clear` mit `type="button"` und `aria-label="Eingabe löschen"`, vor dem Chevron. Er ist nur sichtbar, solange Text im Feld steht (`hidden` sonst, `has-clear` am Control reserviert den Platz). Ein Klick leert den Text, setzt den Fokus ins Feld und öffnet das Menü. Im Multi-Modus bleiben die Chips |
-| Chips | Im Multi-Modus ein `.ep-combobox-token` je gewählter Option mit Label und einem Entfernen-Button (`type="button"`), dessen `aria-label` die Option nennt |
+| Lösch-Button | `.ep-combobox-clear` mit `type="button"` und `aria-label="Eingabe löschen"`, vor dem Chevron. Er ist nur sichtbar, solange Text im Feld steht (`hidden` sonst, `has-clear` am Control reserviert den Platz). Ein Klick leert den Text, setzt den Fokus ins Feld und öffnet das Menü. Im Multi-Modus bleiben die Chips, in der Einzelauswahl wird zugleich die Auswahl aufgehoben (sonst stünde ein leeres Feld neben einer weiterhin gewählten Option) |
+| Chevron | Ein Klick auf den Chevron schaltet das Menü um: Er schließt ein offenes und öffnet ein geschlossenes Menü (Klick nicht an das Control weiterreichen, sonst öffnet dessen Handler es sofort wieder). Ein Klick in den Textbereich lässt das Menü offen |
+| Chips | Im Multi-Modus ein `.ep-combobox-token` je gewählter Option mit Label und einem Entfernen-Button (`type="button"`), dessen `aria-label` die Option nennt („`<Label> entfernen`“). Nach dem Entfernen geht der Fokus zurück ins Eingabefeld, sonst fällt er mit dem verschwundenen Button auf `body` |
 | Wählen | Multi: Der Wert wird ergänzt, der Filtertext geleert, das Menü bleibt offen und der Fokus im Feld. Einzelauswahl: Das Feld zeigt das Label der Option und das Menü schließt |
 | Schließen | Einzelauswahl: Das Feld fällt auf das Label der gewählten Option zurück (ohne Auswahl leer), getippter Text bleibt nie stehen. Multi: Der Filtertext wird geleert. Ein Klick außerhalb schließt |
 | Nie zwei offen | Vor jedem Öffnen werden alle anderen offenen Dropdowns geschlossen |

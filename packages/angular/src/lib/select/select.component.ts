@@ -29,7 +29,7 @@ let uid = 0;
  * Trigger-Button + Listbox-Popup mit Häkchen und Bereichs-Akzent (data-area).
  * Anders als die dünnen Wrapper trägt diese Komponente das Verhalten selbst — das
  * ist ihr Zweck (das native <select> reicht dafür nicht): volle Tastatur (↑↓,
- * Pos1/Ende, Type-ahead, Enter wählt, Esc schließt) und die dokumentierte a11y
+ * Pos1/Ende, Type-ahead (Puffer 600 ms), Enter wählt, Esc schließt) und die dokumentierte a11y
  * (role=listbox/option, aria-haspopup, aria-expanded, aria-activedescendant,
  * aria-selected). Für kurze Listen in Formularen bleibt das native cds-select-field
  * der Standard; dies hier ist für bereichs-akzentuierte Auswahl.
@@ -37,6 +37,9 @@ let uid = 0;
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).
  */
+/** Pause in Millisekunden, nach der der Type-ahead-Puffer verfällt. */
+const TYPEAHEAD_RESET_MS = 600;
+
 @Component({
   selector: 'cds-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -303,7 +306,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   private typeahead(char: string): void {
     this.typeBuffer += char.toLowerCase();
-    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), 500);
+    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), TYPEAHEAD_RESET_MS);
     const match = this.options().findIndex((o) =>
       o.label.toLowerCase().startsWith(this.typeBuffer),
     );
