@@ -107,6 +107,17 @@ export const TastaturDots: Story = {
   },
 };
 
+export const RegionMitName: Story = {
+  name: 'Region mit Namen',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Der Wrapper ist eine benannte Region („Kundenlogos“) mit Typ-Hinweis „Logo-Karussell“.
+  play: async ({ canvasElement }) => {
+    const region = within(canvasElement).getByRole('region', { name: 'Kundenlogos' });
+    await expect(region).toHaveAttribute('aria-roledescription', 'Logo-Karussell');
+    await expect(region).toHaveClass('logo-carousel');
+  },
+};
+
 export const DotKlickPausiert: Story = {
   name: 'Dot-Klick pausiert dauerhaft',
   parameters: { snapshot: { skip: true }, controls: { disable: true } },

@@ -126,7 +126,7 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 
 | Attribut | Zweck |
 |---|---|
-| `role="region"` + `aria-roledescription` | Semantischer Landmark mit Karussell-Hinweis für Screenreader |
+| `role="region"` + `aria-roledescription` + `aria-label` | Semantischer Landmark mit Karussell-Hinweis für Screenreader, benannt „Kundenlogos“. Mehrere Karussells auf einer Seite brauchen unterscheidbare Namen, im Angular-Bauteil über den Input `label` |
 | `aria-hidden` | Inaktive Sets werden Screenreader-seitig ausgeblendet, nur das sichtbare Set wird vorgelesen |
 | `role="group"` pro Set | Logos als Gruppe gebündelt mit eigenem `aria-label` („Set 1 von 2“) |
 | `role="tablist"` + `role="tab"` | Pagination-Dots als Tab-Pattern, `aria-selected` markiert das aktive Set, Roving-Tabindex |

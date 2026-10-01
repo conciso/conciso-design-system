@@ -45,6 +45,9 @@ let cdsLogoCarouselUid = 0;
   template: `
     <div
       class="logo-carousel"
+      role="region"
+      aria-roledescription="Logo-Karussell"
+      [attr.aria-label]="label()"
       [class.paused]="paused()"
       (mouseenter)="hovered.set(true)"
       (mouseleave)="hovered.set(false)"
@@ -121,6 +124,11 @@ export class LogoCarouselComponent {
 
   /** Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set). */
   readonly sets = input.required<CdsLogo[][]>();
+  /**
+   * Zugänglicher Name der Region. Bei mehreren Logo-Karussells auf einer Seite
+   * unterscheidbar benennen (sonst doppelte Landmarks).
+   */
+  readonly label = input('Kundenlogos');
   /** Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s). */
   readonly interval = input(6000);
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
