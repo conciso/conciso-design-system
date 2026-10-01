@@ -24,6 +24,21 @@ Zwei Schriften tragen zwei unterschiedliche Aufgaben. Libre Baskerville (Serifen
 | Body | Fließtext, Card-Beschreibungen, Meta-Daten, Captions | 16, 14, 12 px |
 | Label | Buttons, Badges, UI-Beschriftungen, Eyebrows (UC-Variante) | 14, 12, 12 px UC |
 
+### Body- und Label-Tokens im Einzelnen
+
+Alle Werte sind Montserrat und stehen als Kurzschreibweise (`font: var(--ty-…)`) in `tokens.css`.
+
+| Token | Größe / Zeilenhöhe | Gewicht | Einsatz |
+|---|---|---|---|
+| `--ty-body-md` | 16 px / 24 px | 400 | Standard-Fließtext, Card-Beschreibungen, Section-Subs, Formular-Eingaben |
+| `--ty-body-sm` | 14 px / 20 px | 400 | Meta-Daten, Meta-Zeile der Card, Veranstaltungs-Strip (Datum, Ort, Format), Zähler, Einwilligungstexte |
+| `--ty-body-xs` | 12 px / 16 px | 400 | Captions, Zeitstempel, Fußnoten, Zusatzinfos |
+| `--ty-label-md` | 14 px / 20 px | 500 | Buttons, Navigation, Tab-Beschriftungen |
+| `--ty-name` | 14 px / 20 px | 600 | Namen von Personen (Zitat, Testimonial, Team-Voice), Zwischenüberschriften im Buchungsformular (Legenden, Bestellübersicht) |
+| `--ty-label-sm` | 12 px / 16 px | 500 | Chips, Badges, Overlines |
+| `--ty-label-xs` | 12 px / 16 px | 500 | Eyebrow über Sektionen und Karten: in Großbuchstaben mit `text-transform: uppercase` und gesperrtem Buchstabenabstand (`letter-spacing: .08em`) setzen |
+| `--ty-label-xs-strong` | 12 px / 16 px | 600 | Eyebrow stark für Spec- und Code-Labels (zum Beispiel die Sprachangabe im Code-Block): ebenfalls in Großbuchstaben, aber kräftiger als `--ty-label-xs` |
+
 Die Token-Hierarchie ist verbindlich und wird nicht übersprungen: *Display → Headline → Title → Body → Label*.
 
 ## Barrierefreiheit

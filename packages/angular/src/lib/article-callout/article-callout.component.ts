@@ -12,6 +12,11 @@ let uid = 0;
  * eines Wissensbeitrags. Es kommt in allen vier Bereichen sowie in einem
  * Wissensbeitrag vor.
  *
+ * **Abgrenzung zum Blockquote:** Der Callout ist eine redaktionelle Anmerkung im
+ * eigenen Stil, der Blockquote ein wörtliches Zitat einer benannten Person. Die
+ * Eyebrow trägt in `co`, `es` und `wo` den 700er-Ton, in `ki` den 800er-Ton
+ * (`--ki-800`), weil `--ki-700` mit rund 4,4:1 auf Weiß AA unterschreitet.
+ *
  * **Element-Selektor, ADR-0008-Standardfall.** `.article-callout` sitzt in allen 5
  * Vorkommen als gewöhnlicher Block-Nachfahre — in einem schlichten
  * `display:flex;flex-direction:column`-Stapel oder direkt in `.article-body`.
@@ -41,18 +46,6 @@ let uid = 0;
  * keine erfundene Markenfarbe, sondern der reale CSS-Fallback ohne Attribut.
  * Anders als bei `cds-pill` (dessen `.pill` ohne `data-area` gar keine Füllfarbe
  * hat) gibt es hier keinen sinnvollen „kein Bereich“-Zustand.
- *
- * **Bekannter CSS-Befund, nicht im Wrapper geflickt (ADR-0001):**
- * `.article-callout-eyebrow` (Spezifität 0,1,0) verliert gegen
- * `.article-callout > p` (Spezifität 0,1,1, css/components.css:1600), weil die
- * Eyebrow selbst ein `<p>` UND ein direktes Kind von `.article-callout` ist.
- * Gemessen in rohem Markup ohne Angular (Playwright/Chromium,
- * `getComputedStyle`): die Eyebrow rendert in JEDEM Bereich mit `font-size:16px`
- * statt `12px` und `margin-bottom:0` statt `4px`; die Akzentfarbe geht zusätzlich
- * verloren, wenn kein bereichsspezifischer Override existiert (`co` und „kein
- * `data-area`“ zeigen `--tx-primary` statt `--co-700`). Diese Komponente
- * reproduziert exakt die Klassen und die Struktur des Mockups und zeigt deshalb
- * denselben, vorbestehenden Fehler wie rohes HTML.
  *
  * **`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum
  * Mockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle

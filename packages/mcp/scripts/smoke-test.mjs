@@ -183,6 +183,31 @@ const GROUP_USAGE_CHECKS = [
     id: 'marke-logo-logo',
     sentence: 'Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.',
   },
+  {
+    id: 'grundlagen-typografie',
+    sentence: '`--ty-name` | 14 px / 20 px | 600 |',
+    additionalSentence: '`--ty-label-xs-strong`',
+  },
+  {
+    id: 'grundlagen-responsive--übersicht',
+    sentence: 'Die Begründungen aus „Warum diese Bruchpunkte“ lesen, bevor ein Wert „korrigiert“ wird.',
+  },
+  {
+    id: 'grundlagen-spacing-grid--übersicht',
+    sentence: 'jeder Pixel-Wert ohne Token-Referenz erklärungsbedürftig',
+  },
+  {
+    id: 'grundlagen-barrierefreiheit--übersicht',
+    sentence: '`dark-mode.css` steht komplett in `@media screen`',
+  },
+  {
+    id: 'grundlagen-design-tokens--übersicht',
+    sentence: '--e5: 0 4px 4px rgba(0,0,0,.30), 0 8px 12px 6px rgba(0,0,0,.15);',
+  },
+  {
+    id: 'seitenmuster-wissensbeitrag--übersicht',
+    sentence: '`--ki-800`, weil `--ki-700` mit rund 4,4:1 auf Weiß unter der AA-Schwelle',
+  },
 ];
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
 // Event-Handler, injizierte Services) standardmäßig in diese beiden Kategorien. `@internal`
