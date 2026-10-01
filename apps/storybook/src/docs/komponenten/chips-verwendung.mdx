@@ -13,7 +13,7 @@ Drei Formen, die leicht verwechselt werden: interaktive Filter-Chips (Toggle), p
 |---|---|---|---|
 | Chip | Interaktiv, Toggle über `aria-pressed="true/false"` | Aktive Filter- und Auswahlkomponente | Max. 3 Wörter, prägnante Kategorie- oder Filterbegriffe |
 | Badge | Passiv, kein Klickverhalten | Status- oder Bereichskennzeichnung neben einem Element | 1 bis 2 Wörter, kein Verb |
-| Pill | Passiv, kein Klickverhalten | Redaktioneller Eyebrow vor einem Titel, ordnet einen Inhalt einer Brand Area zu | 1 bis 3 Wörter, ausschließlich der Bereichsname |
+| Pill | Passiv, kein Klickverhalten | Redaktioneller Eyebrow vor einem Titel, ordnet einen Inhalt einer Brand Area zu | 1 bis 3 Wörter, auf Teaser-Cards ausschließlich der Bereichsname (Featured-Card und Artikelkopf dürfen die Lesezeit tragen) |
 
 **Abgrenzung Pill gegen Bereichs-Badge**: beide nutzen den 50er-Hintergrund und den 700er- beziehungsweise 800er-Text der Brand Area, beide haben die abgerundete Form.
 
@@ -28,6 +28,29 @@ Der spürbare Unterschied entsteht durch Großschreibung und Letter-Spacing: Die
 
 **Die Eyebrow-Form ist voll belegt, keine fünfte Bedeutung darauf.** `--ty-label-xs` plus `uppercase`, `letter-spacing:.09em` und `--co-ink` ist pixelgleich in vier Rollen im Einsatz: `.ep-hero-eyebrow` (Haltung, „Verbunden gedacht“), `.ep-section-label` (Sektions-Thema, „Was wir tun“), `.ep-card-eyebrow` (Brand Area, in Bereichsfarbe) und `.stoerer-topic` (Inhaltstyp, „Nächste Veranstaltung“). Aufgelöst wird das nur durch die Position (in einer Kachel, über einer Sektion), nicht durch die Form. Eine neue Komponente, die eine fünfte Bedeutung auf dieselbe Form legt, macht die kleinste Label-Ebene beliebig. Wer eine fünfte Rolle braucht, gibt ihr ein eigenes Unterscheidungsmerkmal (Glyph vor dem Label, neutrale statt farbiger Schrift) oder benutzt eine vorhandene Rolle.
 
+## Pill · Aufbau und Verhalten
+
+Die Pill ist ein `<span class="pill">`. Das Attribut `data-area` schaltet die Bereichsfarbe, ohne Attribut greift der Corporate-Default. Hintergrund ist `--XX-fill`, der Text im Light der 800er-Ton der Bereichsfarbe, im Dark ihr heller 200er-Ton (bei Effektive Software der 100er).
+
+<HtmlBeispiel titel="Pills der vier Brand Areas">
+
+```html
+<span class="pill" data-area="co" aria-label="Bereich Corporate">Corporate</span>
+<span class="pill" data-area="ki" aria-label="Bereich Angewandte KI">Angewandte KI</span>
+<span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
+<span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen">Wirksame Organisationen</span>
+```
+
+</HtmlBeispiel>
+
+**Inhalt auf Teaser-Cards: nur der Bereichsname.** Meta-Daten wie Lesezeit, Datum oder Format gehören in eine separate `.card-meta`-Zeile unterhalb von Titel und Anreißer. Die Pill bleibt so der reine Bereichs-Anker, ein visuelles Sortiersignal. Die Meta-Zeile trägt die Fakten zur Karte, denn Lesezeit und Datum gehören zur Karten-Anatomie, nicht zur Markenzuordnung. Das entlastet zugleich Screenreader, weil kein Trennzeichen mehr gelesen werden muss. Auf der Featured-Card und im Artikelkopf darf die Pill dagegen die Lesezeit tragen (`aria-label` dann zum Beispiel „Lesezeit 12 Minuten“); die Teaser-Card im Listing bleibt beim reinen Bereichsnamen.
+
+**Form und Abstand stecken in der Klasse.** `.pill` trägt `width:fit-content` und bleibt darum auch als Flex- oder Grid-Item eine Pille. Ein `inline-block` würde als Flex-Item zu `block` blockifiziert und von `align-items:stretch` auf die volle Spaltenbreite gezogen, aus der Pille würde ein Balken. Deshalb gehört weder `width:fit-content` noch `align-self` ins Markup.
+
+Die Eigenmarge `margin-bottom:var(--s5)` gilt dem normalen Fluss, wo die Pill über einer Überschrift sitzt (Article-Header, Hero). In einer Flex-Spalte addiert sie sich zum `gap`, statt zu kollabieren, und wird dort zurückgenommen: `.card-body` und `.card-featured-body` erledigen das für ihre direkten Kinder selbst (`>.pill{margin-bottom:0}`). Im Card-Kontext gehört also kein `margin-bottom` an die Pill. Das gilt nur für direkte Kinder, eine tiefer verschachtelte Pill behält ihre Eigenmarge.
+
+**Warum die Fläche im Dark Mode gehoben ist.** Für die Füllung einer Pill verlangt WCAG nichts, sie ist kein Bedienelement, die Aussage steht im Label. Im Light trägt ein zarter Tint (`--XX-50`) mit kräftiger dunkler Schrift die Präsenz. Im Dark kehrt sich das um: Helle Schrift liegt auf dunklem Tint, und wenn der Tint fast die Helligkeit der Karte hat, hält nichts mehr die Fläche zusammen. Deshalb trägt `--XX-fill` im Dark eigene, gehobene Werte: 1,54 bis 1,55:1 gegen die Karte (12,5 bis 12,7 L\* Helligkeitsabstand), der Text darauf erreicht 4,97 bis 6,64:1. Gleiche Rolle, zwei Werte, wie bei `--XX-band`. Wer `--XX-50` im Dark anfasst, zieht diese Werte mit.
+
 ## Barrierefreiheit
 
 | Aspekt | Regel |
@@ -35,7 +58,8 @@ Der spürbare Unterschied entsteht durch Großschreibung und Letter-Spacing: Die
 | Interaktivität | Klickbare Chips als `<button>` oder `<a>` implementieren, nie als `<div>` mit `onClick`, nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar |
 | Auswahl-Zustand | Toggle-Chips mit `aria-pressed="true/false"` versehen, der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar |
 | Kontrast | Chip-, Badge- und Pill-Text auf dem jeweiligen Hintergrund mindestens 4,5 zu 1 prüfen, besonders bei markierten oder aktiven Chips, da sich Hintergrund und Textfarbe ändern |
-| Pill-`aria-label` | Pflicht bei Pills mit Trennzeichen (`·`), Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“. `aria-label` mit ausgeschriebener Form (z. B. „Bereich Effektive Software, Format Meet-Up“) schreibt die Aussprache vor. Bei Pills ohne Trennzeichen kann das `aria-label` entfallen, der sichtbare Text reicht |
+| Pill-`aria-label` | Jede Pill trägt ein `aria-label` mit ausgeschriebener Form (z. B. „Bereich Effektive Software“). Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine Überschrift, das Label macht die Bereichszuordnung explizit. Bei Pills mit Trennzeichen (`·`) ist es zusätzlich nötig, Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“ (z. B. „Bereich Effektive Software, Format Meet-Up“) |
+| Pill mit Meta-Information (Altbestand) | Führt eine Pill kombinierte Meta-Information mit Trennzeichen, etwa `Bereich · Lesezeit`, muss das `aria-label` die ausgeschriebene Form tragen, zum Beispiel `aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"`. Auf neuen Karten die Meta stattdessen separat in `.card-meta` führen, statt sie in die Pill zu falten |
 
 ## Dos & Don'ts
 
@@ -47,7 +71,8 @@ Der spürbare Unterschied entsteht durch Großschreibung und Letter-Spacing: Die
 - Bereichsfarbe konsequent einhalten, aktiver Chip einer Brand Area nutzt nur deren Farbtoken.
 - Chip-Labels auf max. 3 Wörter begrenzen, klare, scanbare Begriffe.
 - Semantische Statusfarben bei Badges einhalten, Grün für positiv, Gelb für Warnung, Rot für Fehler.
-- Pills mit Trennzeichen (`·`) immer mit einem `aria-label` in ausgeschriebener Form versehen.
+- Jede Pill mit einem `aria-label` in ausgeschriebener Form versehen („Bereich …“), bei Trennzeichen (`·`) erst recht.
+- Auf Teaser-Cards die Pill nur mit dem Bereichsnamen füllen, Lesezeit, Datum und Format in einer separaten `.card-meta`-Zeile führen. Featured-Card und Artikelkopf dürfen die Lesezeit in der Pill tragen.
 
 **Nicht tun**
 
@@ -58,6 +83,8 @@ Der spürbare Unterschied entsteht durch Großschreibung und Letter-Spacing: Die
 - Chip-Labels als vollständige Sätze, zu lang, passt nicht zur kompakten Form.
 - Mehr als 7 Chips in einer Gruppe, lieber kategorisieren oder eine Auswahlliste verwenden.
 - Mehrere Pills nebeneinander an demselben Inhalt, eine Pill pro Beitrag reicht.
+- Auf Teaser-Cards Meta-Daten (Lesezeit, Datum, Format) in die Pill falten, dort ist die Pill Bereichs-Anker, kein Datenfeld.
+- Der Pill im Card-Kontext ein `margin-bottom` geben oder `width:fit-content` und `align-self` ins Markup schreiben, `.card-body` und die Klasse regeln beides selbst.
 
 ## Verwandte Seiten
 
