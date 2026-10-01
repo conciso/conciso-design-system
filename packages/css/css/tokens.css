@@ -22,7 +22,7 @@
 
   /* ── Bereichs-Akzenttext ──
      --XX-ink ist farbiger Text und farbige Icons, die in BEIDEN Modi lesbar bleiben müssen:
-     Light der dunkle Ton (-700, ki -800 weil ki-700 nur 4,05:1 trägt), Dark der helle (-200,
+     Light der dunkle Ton (-700, ki -800 weil ki-700 nur 4,36:1 trägt), Dark der helle (-200,
      es -100). Bisher gab es das nur für ki, und genau deshalb ist bei jeder Korrektur die Gefahr,
      eine Light-Farbe zu setzen, die im Dark dunkel-auf-dunkel läuft: co-700 trägt auf Weiß 5,52:1
      und auf der dunklen Seite nur 3,17:1. Wer farbigen Text setzt, nimmt --XX-ink. */
