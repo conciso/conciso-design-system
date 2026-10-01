@@ -111,8 +111,25 @@ Präferenz aus `localStorage`:
 
 Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`.
 Die drei Angular-Umschalter selbst persistieren nicht; das bleibt Aufgabe des
-Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt. Ohne
-diesen Anschluss gilt nach jedem Reload wieder der Default Light.
+Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt.
+
+`subscribe` meldet nur künftige Änderungen und liest den gespeicherten Wert nie. Der
+Store startet immer mit `light`; ohne Hydrierung zeigen die Umschalter nach einem
+Reload Light an, obwohl das Anti-Flash-Snippet `data-theme` schon auf `dark` gesetzt
+hat. Deshalb liest der Consumer beim Start den gespeicherten Wert und setzt ihn mit
+`themeStore.set(...)` in den Store (alternativ `ThemeModeService.set(...)`), bevor die
+Umschalter rendern. Beides ist Teil der öffentlichen API:
+
+```ts
+import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
+
+const saved = localStorage.getItem('ds-theme') as CdsThemeMode | null;
+if (saved) themeStore.set(saved);
+
+themeStore.subscribe((mode) => localStorage.setItem('ds-theme', mode));
+```
+
+Das Anti-Flash-Snippet kennt nur `dark` und `light`. Ein gespeichertes `system` greift erst mit der Hydrierung, weil `themeStore` es dann über `matchMedia` auflöst.
 
 **Warum das für jede Komponente gilt (CONTRIBUTING § 5).** `data-theme` ist der
 einzige Schalter im System: Alle Token flippen darüber, keine Komponente wertet
