@@ -37,8 +37,8 @@
 // „spec.md“ weiterhin ein Treffer.
 //
 // AUSNAHMEN (ALLOWLIST)
-// `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (nicht mehr gepflegt, siehe
-// Kommentar in tools/release/relevant-paths.mjs) — auch seine „spec.md“-/Ticket-Zitate bleiben
+// `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (nicht mehr gepflegt, § 14 in
+// CONTRIBUTING.md) — auch seine „spec.md“-/Ticket-Zitate bleiben
 // unangetastet. `.gitignore` und `.prettierignore` brauchen die literale Zeichenkette
 // „.scratch/“ als Ignore-Muster, das ist keine Narration. `AGENTS.md` und
 // `docs/agents/issue-tracker.md` beschreiben die `.scratch/`-Tracker-KONVENTION selbst
