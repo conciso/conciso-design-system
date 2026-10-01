@@ -23,20 +23,22 @@ on:
       - 'storybook-angular/**'
       - 'angular-lib/**'
       - 'css/**'
-      - 'dist/**'
-      - 'icons/**'
+      - 'icons/source/**'
+      - 'icons/manifest.json'
       - 'fonts/**'
-      - 'tokens/**'
+      - 'scripts/build-*.mjs'
+      - 'scripts/bundle-css.mjs'
       - '.github/workflows/visual.yml'
   pull_request:
     paths:
       - 'storybook-angular/**'
       - 'angular-lib/**'
       - 'css/**'
-      - 'dist/**'
-      - 'icons/**'
+      - 'icons/source/**'
+      - 'icons/manifest.json'
       - 'fonts/**'
-      - 'tokens/**'
+      - 'scripts/build-*.mjs'
+      - 'scripts/bundle-css.mjs'
       - '.github/workflows/visual.yml'
 
 concurrency:
