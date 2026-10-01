@@ -12,6 +12,11 @@ let uid = 0;
  * eines Wissensbeitrags. Es kommt in allen vier Bereichen sowie in einem
  * Wissensbeitrag vor.
  *
+ * **Abgrenzung zum Blockquote:** Der Callout ist eine redaktionelle Anmerkung im
+ * eigenen Stil, der Blockquote ein wörtliches Zitat einer benannten Person. Die
+ * Eyebrow trägt in `co`, `es` und `wo` den 700er-Ton, in `ki` den 800er-Ton
+ * (`--ki-800`), weil `--ki-700` mit rund 4,4:1 auf Weiß AA unterschreitet.
+ *
  * **Element-Selektor, ADR-0008-Standardfall.** `.article-callout` sitzt in allen 5
  * Vorkommen als gewöhnlicher Block-Nachfahre — in einem schlichten
  * `display:flex;flex-direction:column`-Stapel oder direkt in `.article-body`.
