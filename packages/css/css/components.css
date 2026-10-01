@@ -1445,10 +1445,13 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-feature-body>.card-cta-link{margin-top:var(--s2)}
 .ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
 .ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
-/* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
+/* Tier-Trenner: Label + Hairline. Label area-aware: ki = ki-800 (Dark-Override → ki-100), co/es/wo über --XX-ink (flippt im Dark selbst). Linie = --bd-strong-Ton (n-200). */
 .ep-tier{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s6)}
 .ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
+.ep-tier-label[data-area="co"]{color:var(--co-ink)}
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
+.ep-tier-label[data-area="es"]{color:var(--es-ink)}
+.ep-tier-label[data-area="wo"]{color:var(--wo-ink)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
 /* Dekorative Fläche wie .ep-card-icon: ruhiger Tint, das Glyph trägt. */
