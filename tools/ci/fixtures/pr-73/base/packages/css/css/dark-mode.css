@@ -1,0 +1,19 @@
+@media screen {
+[data-theme="dark"] {
+  /* Native Controls (Checkbox, Radio, Scrollbar, Select-Popup) im Dark-Theme rendern lassen,
+     statt hell-thematisiert auf dunklem Grund — sonst wirkt die Checkbox wie ein Fremdkörper. */
+  color-scheme: dark;
+  /* Surfaces: Flächen-Leiter nach der Material-Dark-Theme-Guidance.
+     Dark-only: bg-page #333E48 ❌ 10,92:1 gegen Weiß → #151A1F ✓ 17,51:1. (Light: #FFFFFF.)
+     Gefordert sind mindestens 15,8:1. Die Schwelle ist kein Stilmittel, sondern der Puffer, der
+     Fließtext auch auf der höchsten Elevationsstufe noch 4,5:1 sichert. Der Altwert war wörtlich
+     --tx-brand aus dem Light Mode, also eine gegen Weiß optimierte Textfarbe, keine Fläche.
+     Farbwinkel 209 (Slate) durchgehend, damit der Marken-Ton erhalten bleibt.
+     Dark-only: Stufe bg-page zu bg-surface ❌ 1,223:1 → ✓ 1,346:1. Trotz tieferer Basis wächst die
+     Tiefe, weil mehr Kopfraum nach unten mehr Spielraum nach oben schafft. */
+  --bg-page:#151A1F; --bg-surface:#28323D; --bg-overlay:rgba(0,190,190,.10);
+  /* Dark-only: bg-code #060D0D ❌ 1,12:1 gegen die neue Seite, der Well verschwand → #07090C ✓
+     1,14:1, zusammen mit dem --bd-Rahmen ablesbar. (Light: n-800 als dunkler Well auf Weiß.) */
+  --bg-code:#07090C;
+}
+}

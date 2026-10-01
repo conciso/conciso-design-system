@@ -32,6 +32,8 @@
     "check:relevant-paths": "node tools/release/relevant-paths.mjs",
     "check:storybook-mcp-pin": "node tools/release/check-storybook-mcp-pin.mjs",
     "test:release": "node --test tools/release/*.test.mjs",
+    "story-links": "node tools/ci/story-links.mjs",
+    "test:ci": "node --test tools/ci/*.test.mjs",
     "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
     "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
     "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
