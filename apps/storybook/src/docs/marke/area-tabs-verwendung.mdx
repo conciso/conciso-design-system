@@ -73,7 +73,7 @@ Das Umschalten kommt aus einem Skript. Jede Umsetzung ergänzt:
 - Bei jedem Wechsel trägt genau ein Tab `.active`, `aria-selected="true"` und `tabindex="0"`, alle anderen keine `.active`, `aria-selected="false"` und `tabindex="-1"`.
 - Genau ein Panel trägt `.visible`, das über `aria-controls` verknüpfte. Alle anderen verlieren `.visible` und sind damit ausgeblendet.
 - → und ← wechseln zum nächsten beziehungsweise vorherigen Tab und laufen um. Home springt zum ersten, End zum letzten Tab. Jede dieser Tasten unterdrückt das Standardverhalten, aktiviert den Tab und setzt den Fokus darauf.
-- Enthält ein Panel kein fokussierbares Element, trägt es `tabindex="0"`, damit die Tastatur den Inhalt erreicht.
+- Enthält ein Panel kein fokussierbares Element, trägt es `tabindex="0"`, damit die Tastatur den Inhalt erreicht. Enthält es ein fokussierbares Element (Button, Link, Formularfeld), trägt es kein `tabindex`. Das Angular-Bauteil setzt das selbst.
 
 ## Dos & Don'ts
 

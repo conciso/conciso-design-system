@@ -116,6 +116,40 @@ export const Tastatur: Story = {
   },
 };
 
+export const PanelFokus: Story = {
+  name: 'Panel-Fokus (tabindex)',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // WAI-ARIA-Tabs: `tabindex="0"` nur an Panels ohne fokussierbaren Inhalt, damit die
+  // Tastatur den Text erreicht. Enthält das Panel Button oder Link, entfällt es.
+  render: () => ({
+    template: `
+      <cds-area-tabs>
+        <cds-area-tab area="co" label="Nur Text">
+          <p style="${bodyStyle}">Marke, Haltung und konsistente Kommunikation.</p>
+        </cds-area-tab>
+        <cds-area-tab area="ki" label="Mit Button">
+          <button type="button" class="btn btn-primary">Beratung anfragen</button>
+        </cds-area-tab>
+        <cds-area-tab area="es" label="Mit Link">
+          <p style="${bodyStyle}"><a class="body-link" href="#">Referenzprojekte</a></p>
+        </cds-area-tab>
+        <cds-area-tab area="wo" label="Nur tabindex -1">
+          <button type="button" tabindex="-1" class="btn btn-primary">Nicht per Tab erreichbar</button>
+        </cds-area-tab>
+      </cds-area-tabs>
+    `,
+  }),
+  play: async ({ canvasElement }) => {
+    const panels = canvasElement.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+    await expect(panels).toHaveLength(4);
+    await expect(panels[0]).toHaveAttribute('tabindex', '0');
+    await expect(panels[1]).not.toHaveAttribute('tabindex');
+    await expect(panels[2]).not.toHaveAttribute('tabindex');
+    // Ein Button mit tabindex="-1" ist per Tab nicht erreichbar: das Panel braucht tabindex="0".
+    await expect(panels[3]).toHaveAttribute('tabindex', '0');
+  },
+};
+
 export const ReicherInhalt: Story = {
   name: 'Reicher Inhalt',
   // Neue Story ohne eingecheckte Baseline. visual.yml liegt noch nicht auf main →

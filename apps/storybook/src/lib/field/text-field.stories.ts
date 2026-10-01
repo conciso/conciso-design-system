@@ -101,3 +101,37 @@ export const Formularbindung: Story = {
     await expect(canvasElement).toHaveTextContent('Wert: maria@firma.de');
   },
 };
+
+export const FehlerzustandRuhig: Story = {
+  name: 'Fehlerzustand · ruhig (Fehlerübersicht sagt an)',
+  args: {
+    error: 'Bitte eine gültige E-Mail-Adresse eingeben.',
+    fieldId: 'demo-email-quiet',
+    quietError: true,
+  },
+  parameters: { controls: { disable: true } },
+  // In langen Formularen trägt die fokussierte Fehlerübersicht das role="alert". Die
+  // Einzelmeldung bleibt sichtbar und über aria-describedby am Feld, sagt sich aber nicht selbst an.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/E-Mail/);
+    await expect(c.queryByRole('alert')).toBeNull();
+    const meldung = c.getByText('Bitte eine gültige E-Mail-Adresse eingeben.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', meldung.id);
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
+export const FehlerzustandMitAlert: Story = {
+  name: 'Fehlerzustand · Vorgabe mit Alert',
+  args: {
+    error: 'Bitte eine gültige E-Mail-Adresse eingeben.',
+    fieldId: 'demo-email-alert',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('alert')).toHaveTextContent('Bitte eine gültige E-Mail-Adresse');
+  },
+};

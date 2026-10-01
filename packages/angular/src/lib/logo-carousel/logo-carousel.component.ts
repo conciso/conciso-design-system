@@ -22,8 +22,11 @@ let cdsLogoCarouselUid = 0;
  * Diskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln
  * (`[aria-hidden]` je Slide). Das Autoplay pausiert bei Maus-Hover und Tastatur-Fokus
  * (damit Nutzer in Ruhe lesen/bedienen können), zusätzlich dauerhaft über den
- * Pause-Button (.logo-carousel-pause, sichtbar bei Hover/Fokus bzw. im .paused-Zustand);
- * Dots wählen ein Set direkt. Autoplay respektiert prefers-reduced-motion.
+ * Pause-Button (.logo-carousel-pause, sichtbar bei Hover/Fokus bzw. im .paused-Zustand;
+ * sein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation
+ * fortsetzen“, ohne `aria-pressed`). Dots wählen ein Set direkt; Dot-Klick und jede
+ * Tastenbedienung der Dots (←/↑/→/↓, Home, End) pausieren dauerhaft. Autoplay respektiert prefers-reduced-motion
+ * (dann läuft kein Timer und der Pause-Button ist versteckt).
  *
  * Der Timer wird zentral über ein `effect` gesteuert: er läuft nur, wenn NICHT
  * pausiert, NICHT gehovert, NICHT fokussiert und reduzierte Bewegung nicht gewünscht
@@ -42,6 +45,9 @@ let cdsLogoCarouselUid = 0;
   template: `
     <div
       class="logo-carousel"
+      role="region"
+      aria-roledescription="Logo-Karussell"
+      [attr.aria-label]="label()"
       [class.paused]="paused()"
       (mouseenter)="hovered.set(true)"
       (mouseleave)="hovered.set(false)"
@@ -51,7 +57,8 @@ let cdsLogoCarouselUid = 0;
       <button
         class="logo-carousel-pause"
         type="button"
-        [attr.aria-label]="paused() ? 'Abspielen' : 'Pausieren'"
+        [hidden]="reducedMotion()"
+        [attr.aria-label]="paused() ? 'Logo-Animation fortsetzen' : 'Logo-Animation pausieren'"
         (click)="togglePause()"
       >
         <svg
@@ -104,7 +111,7 @@ let cdsLogoCarouselUid = 0;
             [attr.tabindex]="i === active() ? 0 : -1"
             [attr.aria-controls]="slideId(i)"
             [attr.aria-label]="'Set ' + (i + 1) + ' von ' + sets().length"
-            (click)="goTo(i)"
+            (click)="onDotClick(i)"
             (keydown)="onDotsKeydown($event)"
           ></button>
         }
@@ -117,6 +124,11 @@ export class LogoCarouselComponent {
 
   /** Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set). */
   readonly sets = input.required<CdsLogo[][]>();
+  /**
+   * Zugänglicher Name der Region. Bei mehreren Logo-Karussells auf einer Seite
+   * unterscheidbar benennen (sonst doppelte Landmarks).
+   */
+  readonly label = input('Kundenlogos');
   /** Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s). */
   readonly interval = input(6000);
   /** Aktives Set. Two-Way (`[(active)]`) via model(). */
@@ -140,8 +152,13 @@ export class LogoCarouselComponent {
    * @internal
    */
   protected readonly focused = signal(false);
-  /** Reduzierte Bewegung gewünscht → kein Autoplay. Einmal beim Erzeugen ermittelt. */
-  private readonly reducedMotion = signal(
+  /**
+   * Reduzierte Bewegung gewünscht → kein Autoplay und kein Pause-Button. Einmal beim
+   * Erzeugen ermittelt.
+   *
+   * @internal
+   */
+  protected readonly reducedMotion = signal(
     typeof window !== 'undefined' &&
       !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
   );
@@ -177,24 +194,30 @@ export class LogoCarouselComponent {
     this.paused.set(!this.paused());
   }
 
-  /** @internal */
-  protected goTo(i: number): void {
+  /**
+   * Dot-Klick: Set wählen und dauerhaft pausieren.
+   *
+   * @internal
+   */
+  protected onDotClick(i: number): void {
     this.active.set(i);
+    this.paused.set(true);
   }
 
   /**
    * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
-   * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
-   * 1:1 übernommen von `carousel.component.ts` (Indexberechnung in
-   * `../shared/dots-keyboard.ts`, identisch für beide Komponenten).
+   * ←/↑ und →/↓ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving
+   * Tabindex). Jede dieser Tasten pausiert den Auto-Wechsel dauerhaft (Indexberechnung
+   * in `../shared/dots-keyboard.ts`, geteilt mit dem Carousel).
    *
    * @internal
    */
   protected onDotsKeydown(event: KeyboardEvent): void {
-    const next = nextDotsIndex(this.sets().length, this.active(), event.key);
+    const next = nextDotsIndex(this.sets().length, this.active(), event.key, { vertical: true });
     if (next === null) return;
     event.preventDefault();
-    this.goTo(next);
+    this.active.set(next);
+    this.paused.set(true);
     this.host.nativeElement.querySelectorAll<HTMLElement>('.logo-carousel-dot')[next]?.focus();
   }
 
