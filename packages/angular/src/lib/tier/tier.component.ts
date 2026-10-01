@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import type { CdsArea } from '../area';
 
 /**
  * Tier (`cds-tier`) — Wrapper um `.ep-tier` aus css/components.css
@@ -18,19 +19,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * ist hier nichts von außen auf eine bestimmte DOM-Tiefe angewiesen: kein
  * Nachfahren-Selektor zielt auf `.ep-tier`, keine Fläche hängt am Host.
  *
- * **`area` ist auf `'ki'` typisiert, nicht auf `CdsArea`.** `css/components.css:1383`
- * kennt nur die eine Regel `.ep-tier-label[data-area="ki"]` (Dark-Override
- * `css/dark-mode.css:476`) — für `co`/`es`/`wo` existiert keine einzige
- * `[data-area]`-Regel auf `.ep-tier-label`, per Grep über `css/*.css` geprüft.
- * Von vier `.ep-tier-label`-Vorkommen tragen drei `data-area="ki"`, eines trägt
- * gar kein `data-area`,
- * keines der Werte `co`/`es`/`wo` kommt vor. Ein `area`-Input vom Typ `CdsArea`
- * würde für drei von vier gültigen Werten ein `data-area`-Attribut schreiben, das
- * im CSS folgenlos bleibt — die Falle, die genau dann entsteht, wenn eine Eingabe
- * mehr verspricht, als die Stilschicht einlöst. Der Typ ist deshalb auf den einen
- * Wert eingeschränkt, den das CSS tatsächlich kennt; der Compiler verhindert damit
- * strukturell, dass jemand `co`/`es`/`wo` setzt und ein wirkungsloses Attribut
- * bekommt, statt es nur im JSDoc zu behaupten.
+ * **`area` nimmt alle vier Markenbereiche (`CdsArea`).** `.ep-tier-label[data-area]` tönt das
+ * Label für `co`, `ki`, `es` und `wo` in der Bereichsfarbe, theme-fähig: `co`/`es`/`wo` über
+ * `--XX-ink` (flippt im Dark selbst), `ki` über `--ki-800` mit Dark-Override auf `--ki-100`
+ * (`css/dark-mode.css`). Ohne `area` bleibt das Label neutral (`--tx-secondary`).
  *
  * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */
@@ -49,8 +41,8 @@ export class TierComponent {
   /** Beschriftung des Trenners (`.ep-tier-label`), z. B. „In jedem Paket enthalten“. */
   readonly label = input.required<string>();
   /**
-   * Einzige vom CSS unterstützte Tönung → `data-area="ki"` auf `.ep-tier-label`.
+   * Bereichstönung → `data-area` auf `.ep-tier-label` (`co`, `ki`, `es`, `wo`).
    * Ungesetzt (Default) bleibt das Label neutral (`--tx-secondary`), siehe Klassendoku.
    */
-  readonly area = input<'ki'>();
+  readonly area = input<CdsArea>();
 }
