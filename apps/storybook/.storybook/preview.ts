@@ -71,7 +71,7 @@ const preview: Preview = {
           [
             'Markenrad',
             'Brand Areas',
-            ['Übersicht', 'AreaTabs'],
+            ['Übersicht', 'AreaTabs', ['Verwendung']],
             'Logo',
             ['Logo', ['Verwendung']],
             'Bildsprache',

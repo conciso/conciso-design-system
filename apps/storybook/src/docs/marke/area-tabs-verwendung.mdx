@@ -1,0 +1,95 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as AreaTabsStories from '../../lib/area-tabs/area-tabs.stories';
+
+<Meta of={AreaTabsStories} name="Verwendung" />
+
+# Verwendung
+
+Area Tabs schalten zwischen den vier Unternehmensbereichen um, zum Beispiel im Bereichs-Komponenten-Vergleich: dieselben Bauteile, einmal je Bereich, immer nur ein Bereich sichtbar. Die Leiste folgt dem WAI-ARIA-Tabs-Muster mit Pfeiltasten, Home/End und Roving-Tabindex. Das Angular-Bauteil (`cds-area-tabs` mit `cds-area-tab`) liefert das fertig, wer nur die CSS-Schicht verwendet, ergänzt es selbst (Abschnitt „Nur CSS-Schicht“).
+
+## Wann einsetzen
+
+Tabs passen, wenn die Panels gleichartig aufgebaut sind und die Person sie vergleicht, ohne die Seite zu verlassen. Der aktive Tab trägt Text und 3-px-Unterstrich in `--atab-color`, dem Bereichston `--XX-700`. Beim Bereich Angewandte KI ist es `--ki-800`, weil `--ki-700` die AA-Schwelle für Normaltext reißt. Der Punkt vor dem Label nutzt `--XX-500`. Im Dark Mode setzen Regeln auf `.atab[data-area]` den Ton; `data-area` gehört deshalb in jedes Tab-Markup.
+
+## Barrierefreiheit
+
+| Element | Regel |
+|---|---|
+| Leiste | `role="tablist"` mit `aria-label` (Standard „Bereiche“), WAI-ARIA verlangt einen zugänglichen Namen |
+| Tab | `<button role="tab">` mit `aria-selected`, `aria-controls` auf das Panel und `id` für die Rückverknüpfung |
+| Panel | `role="tabpanel"` mit `aria-labelledby` auf den Tab, nur das aktive Panel ist sichtbar (`display: none` entfernt die übrigen aus dem Lesefluss) |
+| Roving-Tabindex | Nur der aktive Tab ist per Tab erreichbar (`tabindex="0"`), die übrigen tragen `tabindex="-1"` |
+| Zielgröße | `min-height: 40px`, eine bewusste Abweichung von den 44 px (siehe `Grundlagen/Barrierefreiheit`) |
+
+| Taste | Funktion |
+|---|---|
+| → | Nächster Tab, vom letzten zum ersten |
+| ← | Vorheriger Tab, vom ersten zum letzten |
+| Home / End | Erster beziehungsweise letzter Tab |
+| Tab | Verlässt die Leiste und führt in den Inhalt des aktiven Panels |
+
+Auswahl und Fokus fallen zusammen (automatische Aktivierung): Die Panels sind sofort verfügbar, deshalb muss ein Tab nicht zusätzlich bestätigt werden.
+
+## Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Der erste Tab trägt `.active`, `aria-selected="true"` und `tabindex="0"`, das erste Panel `.visible`. `--atab-color` und `data-area` setzt jeder Tab selbst.
+
+<HtmlBeispiel titel="Area Tabs als reines Markup" interaktiv>
+
+```html
+<div class="area-tabs" role="tablist" aria-label="Bereiche">
+  <button class="atab active" type="button" role="tab" id="tab-co" aria-selected="true" aria-controls="panel-co" tabindex="0" data-area="co" style="--atab-color:var(--co-700)">
+    <span class="area-dot" style="background:var(--co-500)"></span>Corporate
+  </button>
+  <button class="atab" type="button" role="tab" id="tab-ki" aria-selected="false" aria-controls="panel-ki" tabindex="-1" data-area="ki" style="--atab-color:var(--ki-800)">
+    <span class="area-dot" style="background:var(--ki-500)"></span>Angewandte KI
+  </button>
+  <button class="atab" type="button" role="tab" id="tab-es" aria-selected="false" aria-controls="panel-es" tabindex="-1" data-area="es" style="--atab-color:var(--es-700)">
+    <span class="area-dot" style="background:var(--es-500)"></span>Effektive Software
+  </button>
+  <button class="atab" type="button" role="tab" id="tab-wo" aria-selected="false" aria-controls="panel-wo" tabindex="-1" data-area="wo" style="--atab-color:var(--wo-700)">
+    <span class="area-dot" style="background:var(--wo-500)"></span>Wirksame Organisationen
+  </button>
+</div>
+
+<div class="atab-content visible" role="tabpanel" id="panel-co" aria-labelledby="tab-co" tabindex="0">
+  <p>Inhalt des Bereichs Corporate.</p>
+</div>
+<div class="atab-content" role="tabpanel" id="panel-ki" aria-labelledby="tab-ki" tabindex="0">
+  <p>Inhalt des Bereichs Angewandte KI.</p>
+</div>
+<div class="atab-content" role="tabpanel" id="panel-es" aria-labelledby="tab-es" tabindex="0">
+  <p>Inhalt des Bereichs Effektive Software.</p>
+</div>
+<div class="atab-content" role="tabpanel" id="panel-wo" aria-labelledby="tab-wo" tabindex="0">
+  <p>Inhalt des Bereichs Wirksame Organisationen.</p>
+</div>
+```
+
+</HtmlBeispiel>
+
+Das Umschalten kommt aus einem Skript. Jede Umsetzung ergänzt:
+
+- Bei jedem Wechsel trägt genau ein Tab `.active`, `aria-selected="true"` und `tabindex="0"`, alle anderen keine `.active`, `aria-selected="false"` und `tabindex="-1"`.
+- Genau ein Panel trägt `.visible`, das über `aria-controls` verknüpfte. Alle anderen verlieren `.visible` und sind damit ausgeblendet.
+- → und ← wechseln zum nächsten beziehungsweise vorherigen Tab und laufen um. Home springt zum ersten, End zum letzten Tab. Jede dieser Tasten unterdrückt das Standardverhalten, aktiviert den Tab und setzt den Fokus darauf.
+- Enthält ein Panel kein fokussierbares Element, trägt es `tabindex="0"`, damit die Tastatur den Inhalt erreicht.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Die Leiste mit `aria-label` benennen und jeden Tab per `aria-controls` mit seinem Panel verknüpfen
+- Für den Bereich Angewandte KI den Ton `--ki-800` setzen
+- Gleichartig aufgebaute Panels verwenden, damit der Vergleich zwischen den Bereichen gelingt
+
+**Nicht tun**
+
+- Tabs ohne Pfeiltasten, Home/End und Roving-Tabindex ausliefern, die Leiste wäre per Tastatur nur über jeden einzelnen Tab-Stop erreichbar
+- `--ki-700` als Aktivton verwenden, er reißt im Light Mode die AA-Schwelle für Normaltext
+- Tabs als Navigation zwischen Seiten einsetzen, dafür gehören Links in die Navigation
+
+## Verwandte Seiten
+
+- `Marke/Brand Areas` (die vier Bereiche und ihre Farbsystem-Werte)
+- `Grundlagen/Barrierefreiheit` (Zielgrößen, ARIA-Muster)

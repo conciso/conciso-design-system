@@ -170,6 +170,16 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Kein Auto-Play ohne Pause-Button, WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung',
   },
   {
+    id: 'komponenten-slider-carousel-carousel',
+    sentence: 'Die Pfeiltasten ← und → wirken auf dem gesamten Slider, nicht nur auf den Dots',
+    additionalSentence: 'Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft',
+  },
+  {
+    id: 'marke-brand-areas-areatabs',
+    sentence: 'Tabs als Navigation zwischen Seiten einsetzen',
+    additionalSentence: 'Roving-Tabindex',
+  },
+  {
     id: 'komponenten-sektion-sektion',
     sentence: 'Die Fläche gehört der Seite, nicht dem Bauteil.',
   },
@@ -204,6 +214,11 @@ const GROUP_USAGE_CHECKS = [
   {
     id: 'komponenten-hero-hero-bild',
     sentence: 'Standard auf allen Customer-Pages',
+  },
+  {
+    id: 'komponenten-hero-hero-bild',
+    sentence: '**Wann B statt A?**',
+    additionalSentence: 'fünftes Icon aus dieser Familie, keine Doppelbelegung',
   },
   {
     id: 'komponenten-footer-komplett',

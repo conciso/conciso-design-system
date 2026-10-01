@@ -36,6 +36,10 @@ import { StoererComponent } from './stoerer.component';
  * umzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API
  * erhalten.
  *
+ * Redaktionell gilt: höchstens drei Kacheln, kein Typ doppelt, und die Reihenfolge
+ * wechselt nicht pro Seitenaufruf (eine springende Reihenfolge liest sich als Fehler,
+ * nicht als Frische).
+ *
  * Verwendungsguidance dieser Gruppe: siehe Hero-Bild (`komponenten-hero-hero-bild--verwendung`).
  */
 @Component({
