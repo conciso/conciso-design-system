@@ -50,7 +50,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'komponenten-chips-badges-pills': 'ui-tag',
   'komponenten-inputs-forms': 'ui-pencil-square',
   'komponenten-dropdowns': 'ui-chevron-up-down',
-  'komponenten-buchungsformular--übersicht': 'ui-calendar-days',
+  'komponenten-buchungsformular': 'ui-calendar-days',
   'komponenten-feedback': 'ui-chat-bubble-oval-left-ellipsis',
   'komponenten-cards-teaser': 'ui-rectangle-stack',
   'komponenten-call-to-action': 'ui-arrow-down-tray-2',
