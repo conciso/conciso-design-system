@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
+  afterEveryRender,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -16,6 +17,12 @@ import { AreaTabComponent } from './area-tab.component';
 // -labelledby-Verknüpfung und falsches Fokus-Ziel bei der Tastatur-Navigation).
 let uid = 0;
 
+// Elemente, die per Tastatur fokussierbar sind (ohne `tabindex="-1"`).
+const FOCUSABLE =
+  'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), ' +
+  'select:not([disabled]), textarea:not([disabled]), summary, audio[controls], video[controls], ' +
+  '[contenteditable]:not([contenteditable="false"]), [tabindex]:not([tabindex="-1"])';
+
 /**
  * AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus
  * css/components.css → „Area Tabs“. Bereichsgefärbte Tab-Leiste: der aktive Tab
@@ -25,6 +32,10 @@ let uid = 0;
  * Tabs werden deklarativ als `<cds-area-tab>`-Kinder projiziert; jeder Tab trägt
  * `area` + `label` und BELIEBIGEN Inhalt (Markup/Komponenten), der ins Panel
  * gerendert wird. Der aktive Index ist über `[(active)]` steuerbar.
+ *
+ * Panels tragen `tabindex="0"`, wenn sie kein fokussierbares Element enthalten (WAI-ARIA-
+ * Tabs-Muster): so erreicht die Tastatur auch reinen Text. Enthält ein Panel Button, Link
+ * oder Formularfeld, entfällt das Attribut.
  */
 @Component({
   selector: 'cds-area-tabs',
@@ -80,6 +91,20 @@ export class AreaTabsComponent {
   readonly active = model(0);
   /** Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby). */
   readonly ariaLabel = input('Bereiche');
+
+  constructor() {
+    // Nach jedem Rendern: Panel ohne fokussierbaren Inhalt bekommt tabindex="0". Direkter
+    // DOM-Zugriff, weil der Inhalt projiziert ist und sich unabhängig von diesem Template
+    // ändern kann (kein Signal dafür verfügbar).
+    afterEveryRender(() => {
+      this.host.nativeElement
+        .querySelectorAll<HTMLElement>('[role="tabpanel"]')
+        .forEach((panel) => {
+          if (panel.querySelector(FOCUSABLE)) panel.removeAttribute('tabindex');
+          else panel.setAttribute('tabindex', '0');
+        });
+    });
+  }
 
   /**
    * Aktiv-Akzent je Bereich: ki braucht -800 (700 reißt AA), sonst -700 (wie .t-*).
