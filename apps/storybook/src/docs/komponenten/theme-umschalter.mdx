@@ -123,13 +123,19 @@ Umschalter rendern. Beides ist Teil der öffentlichen API:
 ```ts
 import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
 
-const saved = localStorage.getItem('ds-theme') as CdsThemeMode | null;
-if (saved) themeStore.set(saved);
+try {
+  const saved = localStorage.getItem('ds-theme') as CdsThemeMode | null;
+  if (saved) themeStore.set(saved);
+} catch {}
 
-themeStore.subscribe((mode) => localStorage.setItem('ds-theme', mode));
+themeStore.subscribe((mode) => {
+  try {
+    localStorage.setItem('ds-theme', mode);
+  } catch {}
+});
 ```
 
-Das Anti-Flash-Snippet kennt nur `dark` und `light`. Ein gespeichertes `system` greift erst mit der Hydrierung, weil `themeStore` es dann über `matchMedia` auflöst.
+Beide Zugriffe auf `localStorage` stehen in `try/catch`, weil der Zugriff im privaten Modus oder bei gesperrtem Storage wirft. Das Anti-Flash-Snippet kennt nur `dark` und `light`. Ein gespeichertes `system` greift erst mit der Hydrierung, weil `themeStore` es dann über `matchMedia` auflöst.
 
 **Warum das für jede Komponente gilt (CONTRIBUTING § 5).** `data-theme` ist der
 einzige Schalter im System: Alle Token flippen darüber, keine Komponente wertet
