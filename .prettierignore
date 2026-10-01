@@ -5,7 +5,6 @@
 # in css/*.css (mehrere je Zeile) und die *.mjs-Skripte — geprüft mit
 # `npx prettier --check`, beide weichen klar vom Prettier-Default ab.
 *.css
-tokens/
 dist/
 icons/
 fonts/

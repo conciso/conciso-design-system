@@ -56,7 +56,12 @@ test('README.md an der Wurzel ist relevant, ein anderes README.md nicht', () => 
 });
 
 test('mehrere Pfade: relevant, sobald einer davon relevant ist', () => {
-  assert.equal(isRelevant(['storybook-angular/vite.config.ts', 'tokens/tokens.json']), true);
+  assert.equal(isRelevant(['storybook-angular/vite.config.ts', 'dist/tokens/tokens.json']), true);
+});
+
+test('gitignorierte Build-Ausgabe bleibt abgedeckt, der entfallene Root-Ordner nicht', () => {
+  assert.equal(isRelevant(['dist/tokens/tokens.json']), true);
+  assert.equal(isRelevant(['tokens/tokens.json']), false);
 });
 
 test('keine Pfade ist nicht relevant', () => {
@@ -146,7 +151,7 @@ test('Deckungs-Check nutzt dieselbe Präfix-Logik wie isRelevant (Dateien und Un
   try {
     writeFileSync(
       join(dir, 'package.json'),
-      JSON.stringify({ files: ['css/components.css', 'tokens/sub', 'icons/', 'README.md', 'cssx'] }),
+      JSON.stringify({ files: ['css/components.css', 'dist/tokens', 'icons/', 'README.md', 'cssx'] }),
     );
     assert.deepEqual(checkCoverage(dir), ['cssx']);
     assert.equal(isRelevant(['css/components.css']), true);

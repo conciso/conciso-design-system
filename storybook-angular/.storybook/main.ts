@@ -92,7 +92,6 @@ const config: StorybookConfig = {
     { from: '../../css', to: '/conciso/css' },
     { from: '../../fonts', to: '/conciso/fonts' },
     { from: '../../dist', to: '/conciso/dist' },
-    { from: '../../icons', to: '/conciso/icons' },
     // Brand-Logos (SVG) für Beispiele wie das Topnav-Logo, unverändert serviert.
     // Gemountet wird nur assets/brand, nicht der Demo-Bilderordner: Storybook
     // braucht ausschließlich die drei Wortmarken, kein Demo-Foto.

@@ -16,8 +16,9 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 export const RELEVANT_PATH_PREFIXES = [
   // CSS-Schicht: root `files`-Feld (package.json)
   'css/',
+  // Gitignored; wird beim Installieren und Packen frisch aus den unten aufgeführten
+  // Quellen und Build-Skripten erzeugt. Der Präfix deckt weiterhin package.json#files ab.
   'dist/',
-  'tokens/',
   'icons/',
   'fonts/',
   'assets/',
@@ -120,7 +121,7 @@ function asDirPrefix(entry) {
 
 // Dieselbe Präfix-Logik wie isPathRelevant: Ein files-Eintrag ist abgedeckt, wenn er selbst
 // als Datei relevant ist (z. B. „css/components.css“ unter „css/“, „README.md“ exakt) oder
-// als Verzeichnis unter einem gepflegten Ordner liegt bzw. ihm entspricht („css“, „tokens/sub“).
+// als Verzeichnis unter einem gepflegten Ordner liegt bzw. ihm entspricht („css“, „dist/tokens“).
 function isEntryCovered(entry) {
   const dirPrefix = asDirPrefix(entry);
   return (

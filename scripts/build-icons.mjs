@@ -1,13 +1,14 @@
 // Icon-Export: liest die kuratierten Quell-SVGs aus icons/source/*.svg (Source of Truth,
-// bereits normalisiert: currentColor, inline stroke-width) und erzeugt icons/icons.json
-// und icons/icons.js. Optionale Labels (name, usage) aus icons/manifest.json.
+// bereits normalisiert: currentColor, inline stroke-width) und erzeugt die Exporte unter
+// dist/icons/. Optionale Labels (name, usage) aus icons/manifest.json.
 // Dependency-frei (nur Node fs). Vorbild: scripts/build-tokens.mjs.
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'icons', 'source');
+const OUT = join(ROOT, 'dist', 'icons');
 
 // Bereich aus dem Key-Präfix: co|ki|es|wo = Brand-Area, ui = bereichsneutral.
 const areaOf = (key) => (/^(co|ki|es|wo)-/.test(key) ? key.slice(0, 2) : 'ui');
@@ -68,7 +69,8 @@ for (const file of files) {
   tally[area]++;
 }
 
-writeFileSync(join(ROOT, 'icons', 'icons.json'), JSON.stringify(icons, null, 2) + '\n');
+mkdirSync(OUT, { recursive: true });
+writeFileSync(join(OUT, 'icons.json'), JSON.stringify(icons, null, 2) + '\n');
 
 // Key → Export-Name (camelCase), mit Kollisions-/Gültigkeits-Prüfung. Ein Abbruch hier
 // verhindert, dass ein kaputtes icons.js (doppelter oder ungültiger const-Name) committet wird.
@@ -102,11 +104,11 @@ const js =
   `// aggregierte „icons“-Objekt darunter referenziert dieselben Consts (wieder kein\n` +
   `// Property-Zugriff, kein Funktionsaufruf) und bleibt dadurch ebenfalls tree-shakable,\n` +
   `// solange NICHTS daraus importiert wird — ein "import { icons } ..." oder der Import von\n` +
-  `// icons.json zieht dagegen alle Icons ins Bundle (siehe icons/README.md „Verwendung“).\n\n` +
+  `// icons.json zieht dagegen alle Icons ins Bundle (siehe dist/icons/README.md „Verwendung“).\n\n` +
   `${namedExportsJs}\n\n` +
   `${aggregateJs}\n` +
   `export default icons;\n`;
-writeFileSync(join(ROOT, 'icons', 'icons.js'), js);
+writeFileSync(join(OUT, 'icons.js'), js);
 
 // Typdeklaration für icons.js (benannte Exporte + Aggregat), damit Consumer mit types-aware
 // Modulauflösung (moduleResolution "bundler"/"node16"+) ohne eigene Ambient-Deklaration
@@ -116,7 +118,7 @@ const dtsEntries = Object.keys(icons)
   .join('\n');
 const dts =
   `// Generiert von scripts/build-icons.mjs — NICHT manuell editieren.\n` +
-  `// Typdeklaration für icons/icons.js. Siehe icons/README.md „Verwendung“.\n\n` +
+  `// Typdeklaration für dist/icons/icons.js. Siehe dist/icons/README.md „Verwendung“.\n\n` +
   `export interface CdsIconEntry {\n` +
   `  name: string;\n` +
   `  area: string;\n` +
@@ -132,7 +134,7 @@ const dts =
   `${dtsEntries}\n\n` +
   `export const icons: Record<string, CdsIconEntry>;\n` +
   `export default icons;\n`;
-writeFileSync(join(ROOT, 'icons', 'icons.d.ts'), dts);
+writeFileSync(join(OUT, 'icons.d.ts'), dts);
 
 // README mit Prosa + generierter Mapping-Tabelle (damit das Mapping nie driftet).
 const AREA_LABEL = { co: 'Corporate', ki: 'Angewandte KI', es: 'Effektive Software', wo: 'Wirksame Organisationen', ui: 'Bereichsneutral (UI)' };
@@ -150,10 +152,10 @@ neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` a
 
 ## Inhalt
 
-- \`icons/icons.json\` — Map \`key → { name, area, style, viewBox, strokeWidth?, body, svg, usage? }\`
-- \`icons/icons.js\` — derselbe Datensatz als ESM: **ein benannter Export pro Icon** (camelCase,
+- \`dist/icons/icons.json\` — Map \`key → { name, area, style, viewBox, strokeWidth?, body, svg, usage? }\`
+- \`dist/icons/icons.js\` — derselbe Datensatz als ESM: **ein benannter Export pro Icon** (camelCase,
   z. B. \`uiShieldCheck\`) **plus** das aggregierte \`icons\`-Objekt (Key → Eintrag)
-- \`icons/icons.d.ts\` — Typdeklaration zu \`icons/icons.js\` (benannte Exporte + \`icons\`, je \`CdsIconEntry\`)
+- \`dist/icons/icons.d.ts\` — Typdeklaration zu \`dist/icons/icons.js\` (benannte Exporte + \`icons\`, je \`CdsIconEntry\`)
 - \`icons/source/*.svg\` — die einzelnen normalisierten Quell-SVGs (Dateiname = Key)
 
 ## Konventionen
@@ -234,6 +236,6 @@ ${section('ki')}
 ${section('es')}
 ${section('wo')}
 ${section('ui')}`;
-writeFileSync(join(ROOT, 'icons', 'README.md'), readme.replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
+writeFileSync(join(OUT, 'README.md'), readme.replace(/\n{3,}/g, '\n\n').trimEnd() + '\n');
 
-console.log(`icons: ${n} (co ${tally.co}, ki ${tally.ki}, es ${tally.es}, wo ${tally.wo}, ui ${tally.ui}) → icons/{icons.json,icons.js,icons.d.ts,README.md}`);
+console.log(`icons: ${n} (co ${tally.co}, ki ${tally.ki}, es ${tally.es}, wo ${tally.wo}, ui ${tally.ui}) → dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`);
