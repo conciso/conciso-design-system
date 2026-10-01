@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Einrichtung
 
-So bindest du das Conciso Design System in ein Projekt ein, von der Installation bis zum
+So bindest Du das Conciso Design System in ein Projekt ein, von der Installation bis zum
 ersten Element, und schließt optional eine KI daran an. Zwei Wege stehen offen: mit
 Angular-Wrapper-Komponenten, oder rein über die CSS-Schicht, etwa in Astro oder einem
 statischen HTML-Projekt.
@@ -14,7 +14,7 @@ statischen HTML-Projekt.
 ### Beide Pakete installieren
 
 Angular-Lib und CSS-Schicht tragen immer dieselbe Versionsnummer und liegen öffentlich auf
-npmjs.org, du brauchst keinen Account und kein Token:
+npmjs.org, Du brauchst keinen Account und kein Token:
 
 ```bash
 npm i @conciso/design-system @conciso/design-system-angular
@@ -128,8 +128,8 @@ import '@conciso/design-system';
 // entspricht: import '@conciso/design-system/dist/conciso-ds.css';
 ```
 
-Brauchst du stattdessen nur einzelne Dateien, etwa nur `tokens.css` ohne die fertigen
-Komponentenklassen, importierst du sie einzeln, in genau dieser Reihenfolge (fonts →
+Brauchst Du stattdessen nur einzelne Dateien, etwa nur `tokens.css` ohne die fertigen
+Komponentenklassen, importierst Du sie einzeln, in genau dieser Reihenfolge (fonts →
 tokens → dark-mode → base → components):
 
 ```js
@@ -142,7 +142,7 @@ import '@conciso/design-system/css/components.css';
 
 ### Dateien direkt kopieren
 
-Hält dein Projekt die CSS-Schicht stattdessen als kopierte Dateien vor, ganz ohne
+Hält Dein Projekt die CSS-Schicht stattdessen als kopierte Dateien vor, ganz ohne
 `npm install` und ohne Build, gilt dieselbe Reihenfolge wie oben, nur als `<link>`-Tags
 (Tokens definieren Variablen, Dark-Mode überschreibt sie, Base setzt Grundlagen, Components
 nutzt alles):
@@ -170,7 +170,7 @@ Bundle lösen relativ zur CSS-Datei auf.
 
 ### Astro
 
-CSS aus einem npm-Paket bindest du in Astro am saubersten global in einem Layout ein: ein
+CSS aus einem npm-Paket bindest Du in Astro am saubersten global in einem Layout ein: ein
 ESM-`import` im Frontmatter der Layout-Komponente, oben bei den übrigen Imports. Am
 einfachsten mit dem gebündelten CSS:
 
@@ -180,7 +180,7 @@ import '@conciso/design-system';
 ---
 ```
 
-Brauchst du stattdessen nur einzelne Dateien, importierst du sie einzeln, in derselben
+Brauchst Du stattdessen nur einzelne Dateien, importierst Du sie einzeln, in derselben
 Reihenfolge wie oben (fonts → tokens → dark-mode → base → components):
 
 ```astro
@@ -193,7 +193,7 @@ import '@conciso/design-system/css/components.css';
 ---
 ```
 
-Kopierte Dateien statt des npm-Pakets bindest du in Astro genauso über `<link>`-Tags im
+Kopierte Dateien statt des npm-Pakets bindest Du in Astro genauso über `<link>`-Tags im
 Layout ein, wie oben unter „Dateien direkt kopieren“ beschrieben.
 
 ### Erstes Element verwenden
@@ -215,7 +215,7 @@ Das Design System bringt einen eigenen MCP-Server mit: `@conciso/design-system-m
 dieselben Werkzeuge, mit denen sich auch diese Seite abfragen lässt (`docs-list`,
 `docs-show`, `docs-show-story`), als mitgelieferten Snapshot passend zur installierten
 Version, ohne Live-Abruf von einer Website. Zwei Wege, ihn einzubinden: mit installiertem
-Paket, oder per `npx` ganz ohne Installation, etwa wenn dein Projekt die CSS-Schicht nur
+Paket, oder per `npx` ganz ohne Installation, etwa wenn Dein Projekt die CSS-Schicht nur
 kopiert statt installiert hat (siehe oben, „Dateien direkt kopieren“).
 
 ### Mit installiertem Paket
@@ -279,7 +279,7 @@ Port.
 
 ### Ohne installiertes Paket
 
-Ist `@conciso/design-system-mcp` im Projekt nicht installiert, startest du denselben
+Ist `@conciso/design-system-mcp` im Projekt nicht installiert, startest Du denselben
 Server trotzdem über `npx`, mit fester Versionsnummer statt `cds-mcp` und mit `-y`, damit
 `npx` das Paket ohne Rückfrage lädt:
 
@@ -322,16 +322,16 @@ Server trotzdem über `npx`, mit fester Versionsnummer statt `cds-mcp` und mit `
 ```
 
 **Version an den kopierten Stand binden.** `<Version>` ist die Version der CSS-Schicht,
-die dein Projekt kopiert hat: Aktualisierst du die Kopie, ziehst du diese Versionsnummer
-mit, sonst dokumentiert der Server Komponenten, die dein kopierter Stand gar nicht kennt.
+die Dein Projekt kopiert hat: Aktualisierst Du die Kopie, ziehst Du diese Versionsnummer
+mit, sonst dokumentiert der Server Komponenten, die Dein kopierter Stand gar nicht kennt.
 Den MCP-Server gibt es erst ab einer späteren Version als die CSS-Schicht; welche Versionen
-existieren, zeigt `npm view @conciso/design-system-mcp versions`. Ist dein Stand älter,
-nimmst du die älteste verfügbare Version. Die eingebaute Versionsprüfung greift hier
+existieren, zeigt `npm view @conciso/design-system-mcp versions`. Ist Dein Stand älter,
+nimmst Du die älteste verfügbare Version. Die eingebaute Versionsprüfung greift hier
 ohnehin nicht automatisch: Sie vergleicht sich beim Start mit der **installierten**
 Version von
 `@conciso/design-system-angular` in `node_modules`. Ist nichts installiert, findet sie
 nichts zum Vergleichen und nennt stattdessen in ihren `instructions` nur, für welche
-Version ihr eigener Snapshot gebaut wurde, den Rest prüfst du selbst gegen deinen
+Version ihr eigener Snapshot gebaut wurde, den Rest prüfst Du selbst gegen Deinen
 kopierten Stand.
 
 ## Siehe auch

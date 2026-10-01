@@ -1,6 +1,6 @@
 # Getting Started
 
-So bindest du das Conciso Design System in ein Projekt ein. Es ist **CSS-first und framework-agnostisch** — keine Build-Pflicht, kein Framework nötig. Komponenten sind CSS-Klassen auf semantischem HTML; JS ist optional.
+So bindest Du das Conciso Design System in ein Projekt ein. Es ist **CSS-first und framework-agnostisch** — keine Build-Pflicht, kein Framework nötig. Komponenten sind CSS-Klassen auf semantischem HTML; JS ist optional.
 
 ## Inhalt
 - [1. Einbinden](#1-einbinden)
