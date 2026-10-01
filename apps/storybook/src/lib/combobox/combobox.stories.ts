@@ -264,9 +264,6 @@ export const MenueAttribute: Story = {
   parameters: {
     snapshot: { skip: true },
     controls: { disable: true },
-    // Entscheidung W15-f: Der Leerzustand ist ein role=presentation-Eintrag. Eine Listbox ohne
-    // option-Kind meldet axe deshalb als aria-required-children, solange nichts passt.
-    a11y: { config: { rules: [{ id: 'aria-required-children', enabled: false }] } },
   },
   render: () => ({
     moduleMetadata: { imports: [ComboboxComponent] },
@@ -277,7 +274,7 @@ export const MenueAttribute: Story = {
     `,
   }),
   // Die Mehrfachauswahl-Listbox trägt aria-multiselectable, die Einzelauswahl nicht.
-  // Der Leerzustand ist ein Eintrag mit role=presentation und dem Vorgabetext „Keine Treffer“.
+  // Der Leerzustand ist eine Statusmeldung (role=status) außerhalb der Listbox mit dem Vorgabetext „Keine Treffer“.
   play: async ({ canvasElement }) => {
     const multi = within(within(canvasElement).getByTestId('multi'));
     const einzel = within(within(canvasElement).getByTestId('einzel'));
@@ -290,9 +287,13 @@ export const MenueAttribute: Story = {
     );
 
     await userEvent.type(multi.getByRole('combobox'), 'zzz');
-    const leer = await multi.findByText('Keine Treffer');
-    await expect(leer).toHaveAttribute('role', 'presentation');
+    const leer = await multi.findByRole('status');
+    await expect(leer).toHaveTextContent('Keine Treffer');
     await expect(leer).toHaveClass('ep-combobox-empty');
+    // Die Meldung ist keine Option und steht außerhalb der Listbox; die leere Listbox ist ausgeblendet.
+    await expect(leer.closest('[role="listbox"]')).toBeNull();
+    await expect(multi.queryByRole('listbox')).toBeNull();
+    await expect(multi.queryAllByRole('option')).toHaveLength(0);
   },
 };
 

@@ -29,7 +29,7 @@ let uid = 0;
  * aria-activedescendant erlaubt), aria-expanded/-controls/-autocomplete; Listbox mit
  * role=listbox/option; ↓ öffnet/navigiert, Enter wählt, Esc schließt, Rücktaste bei
  * leerem Feld entfernt im Multi-Modus den letzten Chip. Die Listbox trägt bei `multi`
- * `aria-multiselectable`, der Leerzustand ist ein `role=presentation`-Eintrag („Keine Treffer“).
+ * `aria-multiselectable`, der Leerzustand ist eine `role=status`-Meldung („Keine Treffer“) außerhalb der Listbox, die dann ausgeblendet ist.
  * Chips heißen „<Label> entfernen“ und geben den Fokus ins Feld zurück; der Lösch-Button hebt
  * in der Einzelauswahl die Auswahl auf; der Chevron schaltet das Menü um. Beim Schließen ohne Auswahl
  * fällt die Einzelauswahl auf das gewählte Label zurück (kein loser Filtertext).
@@ -131,6 +131,7 @@ let uid = 0;
         class="ep-combobox-menu"
         role="listbox"
         [attr.aria-multiselectable]="multi() || null"
+        [style.display]="filtered().length ? null : 'none'"
         [id]="ids.menu"
         [attr.aria-labelledby]="ids.label"
       >
@@ -151,12 +152,12 @@ let uid = 0;
             {{ opt.label }}
           </li>
         }
-        @if (!filtered().length) {
-          <li class="ep-combobox-empty" role="presentation">
-            {{ emptyText() }}
-          </li>
-        }
       </ul>
+      <!-- Leermeldung außerhalb der Listbox: eine Listbox ohne option-Kind verletzt
+           aria-required-children. Die Listbox bleibt bei 0 Treffern ausgeblendet. -->
+      @if (!filtered().length) {
+        <div class="ep-combobox-menu ep-combobox-empty" role="status">{{ emptyText() }}</div>
+      }
     </div>
   `,
 })
