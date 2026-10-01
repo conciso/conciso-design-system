@@ -240,7 +240,7 @@ export const NichtDestruktiv: Story = {
   args: {
     triggerLabel: 'Anfrage senden',
     title: 'Anfrage absenden?',
-    message: 'Wir melden uns innerhalb eines Werktags bei dir.',
+    message: 'Wir melden uns innerhalb eines Werktags bei Dir.',
     confirmLabel: 'Anfrage absenden',
     cancelLabel: 'Abbrechen',
     destructive: false,

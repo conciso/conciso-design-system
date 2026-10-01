@@ -10,7 +10,8 @@ let uid = 0;
 /**
  * Radio-Gruppe (Optionsfelder).
  *
- * Für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select). Bewusst KEIN
+ * Für 2–6 sich gegenseitig ausschließende Optionen (mehr → Select, Mehrfachauswahl →
+ * Checkbox). Bewusst KEIN
  * nachgebauter Kreis: native `<input type="radio">` mit `accent-color` in der
  * Bereichsfarbe, gruppiert in `<fieldset>`/`<legend>` (Gruppen-Label wie ein
  * Feld-Label), alle Optionen teilen denselben `name`.

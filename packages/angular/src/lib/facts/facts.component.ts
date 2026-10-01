@@ -5,7 +5,7 @@ import type { CdsArea } from '../area';
 export interface CdsFactsItem {
   /** Label (`<dt>`), z. B. „Dauer“. */
   term: string;
-  /** Wert (`<dd>`), z. B. „2 Tage, 9–17 Uhr“. */
+  /** Wert (`<dd>`), z. B. „2 Tage, 9 bis 17 Uhr“. */
   value: string;
 }
 

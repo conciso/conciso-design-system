@@ -71,6 +71,10 @@ export const Interaktiv: Story = {
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await userEvent.keyboard('{Escape}');
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    // Der Kontakt-Button ist der einzige Outlined-Button der Navigation.
+    const kontakt = c.getByRole('link', { name: 'Kontakt', current: false });
+    await expect(kontakt).toHaveClass('btn-outlined');
+    await expect(kontakt).not.toHaveClass('btn-filled');
     // Single Source of Truth: höchstens ein Eintrag ist aktiv (aria-current="page").
     await expect(canvasElement.querySelectorAll('[aria-current="page"]')).toHaveLength(1);
 
