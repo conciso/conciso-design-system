@@ -1,4 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { uiCheck } from '@conciso/design-system/icons';
+import tokenExport from '@conciso/design-system/tokens.json';
 import type { CdsArea, CdsButtonVariant } from '@conciso/design-system-angular';
 import {
   ButtonComponent,
@@ -44,6 +46,7 @@ import {
 export class App {
   protected readonly areas: CdsArea[] = ['co', 'ki', 'es', 'wo'];
   protected readonly variants: CdsButtonVariant[] = ['filled', 'tonal', 'outlined'];
+  protected readonly packageExports = `${uiCheck.name} / ${tokenExport.light['font']}`;
   protected readonly confirmResult = signal('');
   private readonly confirmDialog = inject(CdsConfirmDialog);
 

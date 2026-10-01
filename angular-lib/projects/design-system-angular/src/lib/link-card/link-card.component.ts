@@ -22,21 +22,19 @@ import { CDS_AREA_ICONS } from '../icons';
  * **Entscheidung — Fuß ist ein `<span>`, kein zweites `<a>`.** Die ganze Karte ist
  * bereits `a.card-elevated`; ein verschachteltes `<a>` im Fuß wäre ungültiges HTML
  * (der Browser schließt es beim Parsen vorzeitig) und würde zwei Klickziele auf
- * derselben Fläche erzeugen. `docs/index.html:4707–4716` zeigt exakt dieses Muster:
+ * derselben Fläche erzeugen. Der Fuß nutzt deshalb
  * `<span class="card-cta-link card-cta-link--pinned">…</span>` innerhalb von
  * `a.card.card-elevated`. `.card-cta-link` selbst ist nicht auf `a.` gescoped (anders
  * als `.card-elevated`), der Span trägt Farbe und Typografie also unverändert.
  *
  * **Entscheidung — Pfeil-Suffix wird von der Komponente ergänzt, nicht Teil von
- * `ctaLabel`.** Der Pfeil ist reine visuelle Affordanz, kein Inhalt — `docs/index.html`
- * (Abschnitt „Klickbare Karte“) kapselt ihn deshalb selbst in ein
- * `aria-hidden`-Span. Läge das Zeichen im `ctaLabel`-Text, müsste jeder Aufrufer
+ * `ctaLabel`.** Der Pfeil ist reine visuelle Affordanz, kein Inhalt und wird deshalb
+ * in ein `aria-hidden`-Span gekapselt. Läge das Zeichen im `ctaLabel`-Text, müsste jeder Aufrufer
  * selbst an das `aria-hidden` denken; das wird hier stattdessen einmalig in der
  * Komponente erledigt.
  *
- * **Entscheidung — kein `data-area` auf `.card-cta-link`.** Die Doku hält die
- * CTA-Farbe in gemischten Bereichs-Listen bewusst einheitlich Corporate-Petrol
- * (`docs/index.html:8762`: „CTA-Farbe einheitlich `--co-700`“), unabhängig vom
+ * **Entscheidung — kein `data-area` auf `.card-cta-link`.** Die CTA-Farbe bleibt in
+ * gemischten Bereichs-Listen bewusst einheitlich Corporate-Petrol (`--co-700`), unabhängig vom
  * `area` der Karte. Der Fuß bleibt deshalb ohne `data-area`-Bindung.
  *
  * **Entscheidung — Host als Flex-Container.** Im Raster ist der Host das
@@ -96,7 +94,7 @@ export class LinkCardComponent {
   readonly ctaPinned = input(false);
 
   /**
-   * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche —
+   * Echte Bereichs-Glyphe aus `@conciso/design-system/icons`, als ico-48-SVG in die Media-Fläche —
    * identisch zu `CardComponent.mediaSvg`.
    *
    * @internal

@@ -220,8 +220,8 @@ vortäuschen, die den Punkt in Wahrheit nicht trifft — wie bei `no-invented-at
 Bericht ein Signal für die manuelle Einordnung, kein hartes Urteil.
 
 **Quellenpflicht:** Die erwartete Kernaussage jeder Intentionsfrage muss aus der tatsächlichen
-Guidance belegbar sein (Doku-Site `docs/index.html` oder Storybook-MDX unter
-`storybook-angular/src/docs/**`) — das Zitat mit Fundstelle gehört nicht in diese Datei, sondern
+Guidance belegbar sein (Storybook-MDX unter `storybook-angular/src/docs/**`) — das Zitat mit
+Fundstelle gehört nicht in diese Datei, sondern
 ins Issue, das die Frage eingeführt hat (siehe `docs/agents/issue-tracker.md`).
 
 ## Grenzen der automatischen Prüfung (bewusst nicht behoben)

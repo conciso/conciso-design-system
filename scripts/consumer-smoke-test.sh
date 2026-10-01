@@ -70,9 +70,15 @@ echo "→ CSS-Schicht bauen (@conciso/design-system)"
 echo "→ Angular-Lib bauen (@conciso/design-system-angular)"
 (cd "$ROOT" && npm run build --workspace=angular-lib)
 
+# Jedes Paket packt in ein eigenes Verzeichnis, und der Tarball wird dort gesucht statt aus der
+# Ausgabe von `npm pack` gelesen: das Root-Paket baut dabei über seinen `prepare`-Hook neu und
+# schreibt auf denselben stdout, `$(npm pack …)` lieferte also Build-Meldungen statt des Dateinamens.
 echo "→ Beide Pakete tarballen"
-CSS_TARBALL="$(cd "$ROOT" && npm pack --silent --pack-destination "$PACK_DIR")"
-LIB_TARBALL="$(cd "$ROOT/angular-lib/dist/design-system-angular" && npm pack --silent --pack-destination "$PACK_DIR")"
+mkdir -p "$PACK_DIR/css" "$PACK_DIR/lib"
+(cd "$ROOT" && npm pack --pack-destination "$PACK_DIR/css" > /dev/null)
+(cd "$ROOT/angular-lib/dist/design-system-angular" && npm pack --pack-destination "$PACK_DIR/lib" > /dev/null)
+CSS_TARBALL="$(ls "$PACK_DIR"/css/*.tgz)"
+LIB_TARBALL="$(ls "$PACK_DIR"/lib/*.tgz)"
 
 echo "→ Fixture nach $FIXTURE spiegeln (außerhalb des Repos, siehe Kopfkommentar)"
 mkdir -p "$FIXTURE"
@@ -81,7 +87,35 @@ tar -c -C "$FIXTURE_SRC" \
   . | tar -x -C "$FIXTURE"
 
 echo "→ Tarballs in die gespiegelte Fixture installieren"
-(cd "$FIXTURE" && npm install --no-save "$PACK_DIR/$LIB_TARBALL" "$PACK_DIR/$CSS_TARBALL")
+(cd "$FIXTURE" && npm install --no-save "$LIB_TARBALL" "$CSS_TARBALL")
+
+# Löst jeden öffentlichen Importpfad der `exports`-Map gegen den installierten Tarball auf und
+# prüft, dass die Datei dahinter existiert. Der Schlüssel „.“ (das CSS-Bundle) lässt sich nicht
+# aus TypeScript importieren, der AOT-Build unten deckt ihn deshalb nicht ab; die übrigen
+# Schlüssel (`./icons` samt Typen, `./tokens.json`) importiert die Fixture zusätzlich selbst.
+echo "→ Öffentliche Importpfade des CSS-Pakets auflösen"
+(cd "$FIXTURE" && node --input-type=module -e '
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+const specs = [
+  "", "/tokens", "/tokens.json", "/tokens.scss", "/icons", "/icons.json",
+  "/dist/conciso-ds.css", "/css/fonts.css", "/css/tokens.css", "/css/dark-mode.css",
+  "/css/base.css", "/css/components.css", "/assets/brand/logo-conciso.svg",
+];
+let failed = false;
+for (const suffix of specs) {
+  const spec = "@conciso/design-system" + suffix;
+  try {
+    const file = fileURLToPath(import.meta.resolve(spec));
+    if (!existsSync(file)) throw new Error("Datei fehlt: " + file);
+    console.log("  " + spec + " -> " + file.slice(file.indexOf("node_modules")));
+  } catch (error) {
+    failed = true;
+    console.error("  " + spec + ": " + error.message);
+  }
+}
+if (failed) process.exit(1);
+')
 
 echo "→ Produktiven AOT-Build der Fixture fahren"
 (cd "$FIXTURE" && npx ng build)

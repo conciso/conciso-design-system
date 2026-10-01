@@ -5,7 +5,7 @@ import type { CdsArea } from '../area';
  * IconCard (`[cdsIconCard]`) — Wrapper um `.ep-card` aus css/components.css
  * (css/components.css:1298–1340): die Icon-Kachel mit farbiger Icon-Fläche, Eyebrow,
  * Titel, Text und optionaler Pfeil-CTA-Zeile, die auf den Beispielseiten Bereichs-
- * und Angebots-Einstiege trägt (`docs/index.html:9401–9420` u. a., 81 Vorkommen).
+ * und Angebots-Einstiege trägt (81 Vorkommen).
  *
  * **Entscheidung 1 — Attributselektor, kein Element-Selektor.** Erste Fassung dieser
  * Komponente war `cds-icon-card` als eigenes Element mit `href`-Input, das intern
@@ -77,14 +77,13 @@ import type { CdsArea } from '../area';
  * gepinnt (Play-Funktion misst die gerenderte SVG-Breite).
  *
  * **`data-area` sitzt auf drei Elementen** (`.ep-card` (Host), `.ep-card-icon`,
- * `.ep-card-eyebrow`, wie im Mockup, `docs/index.html:4681–4686`): die CTA-Farbe
+ * `.ep-card-eyebrow`): Die CTA-Farbe
  * braucht dagegen KEIN eigenes `data-area`, sie kommt über den Nachfahren-Selektor
  * `.ep-card[data-area="…"] .ep-card-cta` (css/components.css:1336–1339) vom
  * `data-area` der Karte selbst.
  *
  * **Kein erfundener `aria-label`.** Der Pfeil-Suffix der CTA-Zeile ist reine visuelle
- * Affordanz (`docs/index.html:4686`: `<span aria-hidden="true">→</span>`) und steht
- * deshalb `aria-hidden`, unverändert zum Mockup — kein zusätzlicher, selbst
+ * Affordanz und steht deshalb `aria-hidden` — kein zusätzlicher, selbst
  * ausgedachter zugänglicher Name.
  *
  * **Entscheidung 3 — kein `cdsIconCards`-Raster.** `.ep-cards` ist ein reines

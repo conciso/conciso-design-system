@@ -17,7 +17,7 @@ import { CDS_QUOTE_ICON } from '../icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <figure class="testimonial" [attr.data-area]="area() || null">
-      <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
+      <!-- ui-quote aus @conciso/design-system/icons. -->
       <svg
         class="testimonial-icon"
         viewBox="0 0 24 24"

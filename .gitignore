@@ -2,8 +2,8 @@
 node_modules/
 *.log
 
-# Build-Artefakte (dist/, tokens/) werden bewusst eingecheckt, damit das Paket
-# direkt aus dem Repo nutzbar ist; `npm run build` regeneriert sie aus den CSS-Quellen.
+# Alle generierten Artefakte der CSS-Schicht entstehen beim Build in einem Ordner.
+dist/
 
 # design-sync Arbeitsverzeichnisse (nicht committen)
 .ds-sync/
@@ -45,11 +45,8 @@ mcp-server/LICENSE
 /release-version.txt
 /release-notes-generated.md
 
-# Aus dem ehemaligen angular-lib/.gitignore übernommen (angular-lib/dist/ mit Präfix,
-# weil das Wurzel-dist/ oben bewusst eingecheckt ist — ein bloßes „dist/“ würde das
-# mittreffen). /tmp, out-tsc/ und coverage/ sind Angular-CLI-/Test-Build-Artefakte, die
-# in jedem Workspace entstehen können.
-angular-lib/dist/
+# Aus dem ehemaligen angular-lib/.gitignore übernommen. /tmp, out-tsc/ und coverage/
+# sind Angular-CLI-/Test-Build-Artefakte, die in jedem Workspace entstehen können.
 /tmp
 out-tsc/
 coverage/

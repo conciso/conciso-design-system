@@ -4,8 +4,8 @@ import type { CdsArea } from '../area';
 /**
  * CtaBand (`[cdsCtaBand]`) — Wrapper um `.ep-cta-band` aus css/components.css
  * (css/components.css:1456, Kopf-Duo `.ep-cta-h2`/`.ep-cta-sub` ebenda): das
- * bereichsgefärbte Page-End-CTA-Band, das laut Doku-Site (`docs/index.html:6237`,
- * Anker `gt-cta-band`) am Ende jeder Customer-Page direkt vor dem Footer steht — die
+ * bereichsgefärbte Page-End-CTA-Band am Ende jeder Customer-Page direkt vor dem
+ * Footer — die
  * „letzte Einladung“, wenn die Nutzerin die Seite durchgelesen hat. Ausgezählt: 22
  * Vorkommen auf den Beispielseiten, ausnahmslos als `<div class="ep-cta-band"
  * style="background:…">` mit genau einer Aktion.
@@ -14,8 +14,8 @@ import type { CdsArea } from '../area';
  * „Fläche am Host“-Fall wie `cds-section`).** `css/components.css` trägt für
  * `.ep-cta-band` KEIN `[data-area]` (per Grep geprüft, keine einzige Regel dieser
  * Form existiert). Die Bandfläche kommt in allen 22 Vorkommen als Inline-Style
- * DIREKT am `.ep-cta-band`-Element (`style="background:var(--co-700);color:#fff"`,
- * docs/index.html:6304 u. a.), dem Bereich der Page folgend, nie aus einem
+ * DIREKT am `.ep-cta-band`-Element (`style="background:var(--co-700);color:#fff"`),
+ * dem Bereich der Page folgend, nie aus einem
  * `data-area`-Attribut. Ein Element-Selektor würde exakt den in ADR-0008 „Fall 2“
  * gemessenen Fehler wiederholen: der `<cds-cta-band>`-Host ist ein unbekanntes
  * Custom Element (`display:inline`), sein einziges Kind würde als Block
@@ -48,9 +48,9 @@ import type { CdsArea } from '../area';
  * die falsche Fähigkeit.
  *
  * **Entscheidung 4 — bewusst nur EINE Aktion, kein `secondaryLabel`.** Eine frühere
- * Fassung bot `secondaryLabel`/`secondaryHref` an, ungeprüft gegen das Mockup. Beide
- * Belege dagegen: erstens zeigt KEINES der 22 `.ep-cta-band`-Vorkommen in
- * `docs/index.html` eine zweite Aktion — der Zwei-Aktionen-Fall hat keine Vorlage.
+ * Fassung bot `secondaryLabel`/`secondaryHref` an, ungeprüft gegen das Muster. Kein
+ * `.ep-cta-band`-Vorkommen zeigt eine zweite Aktion — der Zwei-Aktionen-Fall hat
+ * keine Vorlage.
  * Zweitens (der schwerere Grund) lässt sich eine zweite, optisch zurückhaltendere
  * Aktion mit den vorhandenen Klassen gar nicht bauen: `.btn-{area}.btn-on-band{color:
  * …}` (css/components.css:47–51) überschreibt die Textfarbe JEDER Variante auf den

@@ -75,12 +75,12 @@ export class CardComponent {
 
   /** @internal */
   protected readonly actionClasses = computed(
-    // .btn-sm wie in docs/index.html (Card-Footer nutzt kompakte Buttons).
+    // Card-Footer nutzen kompakte Buttons.
     () => `btn btn-text btn-sm btn-${this.area() ?? 'co'}`,
   );
 
   /**
-   * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche.
+   * Echte Bereichs-Glyphe aus `@conciso/design-system/icons`, als ico-48-SVG in die Media-Fläche.
    *
    * @internal
    */

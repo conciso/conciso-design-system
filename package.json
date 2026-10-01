@@ -25,10 +25,9 @@
   "files": [
     "css",
     "dist",
-    "tokens",
-    "icons",
     "fonts",
     "assets",
+    "icons",
     "README.md",
     "LICENSE",
     "NOTICE"
@@ -41,14 +40,14 @@
     "./css/base.css": "./css/base.css",
     "./css/components.css": "./css/components.css",
     "./dist/conciso-ds.css": "./dist/conciso-ds.css",
-    "./tokens": "./tokens/tokens.js",
-    "./tokens.json": "./tokens/tokens.json",
-    "./tokens.scss": "./tokens/tokens.scss",
+    "./tokens": "./dist/tokens/tokens.js",
+    "./tokens.json": "./dist/tokens/tokens.json",
+    "./tokens.scss": "./dist/tokens/tokens.scss",
     "./icons": {
-      "types": "./icons/icons.d.ts",
-      "default": "./icons/icons.js"
+      "types": "./dist/icons/icons.d.ts",
+      "default": "./dist/icons/icons.js"
     },
-    "./icons.json": "./icons/icons.json",
+    "./icons.json": "./dist/icons/icons.json",
     "./assets/brand/*": "./assets/brand/*"
   },
   "scripts": {
@@ -57,6 +56,7 @@
     "build:css": "node scripts/bundle-css.mjs",
     "check:dark-states": "node scripts/check-dark-states.mjs",
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
+    "prepare": "npm run build",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:quotes": "node scripts/check-quotes.mjs",
     "check:ticket-refs": "node scripts/check-ticket-refs.mjs",

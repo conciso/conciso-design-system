@@ -16,9 +16,8 @@ import {
 const figurePlaceholder =
   "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1280'%20height='720'%3E%3Crect%20width='1280'%20height='720'%20fill='%23E8EDED'/%3E%3Ctext%20x='640'%20y='360'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EArticle-Figure%2016%3A9%3C/text%3E%3C/svg%3E";
 
-// Wortlaut und Anker 1:1 aus dem Mockup (docs/index.html:15049–15061, Beispielseite
-// Wissensbeitrag · KI) — 5 Einträge, dieselbe Zahl wie in der isolierten Doku-Demo
-// (docs/index.html:7948–7960), dort mit Platzhalter-Hrefs.
+// Wortlaut und Anker der Beispielseite Wissensbeitrag · KI: 5 Einträge,
+// dort mit Platzhalter-Hrefs.
 const items: CdsArticleTocItem[] = [
   { label: 'Demo-Magie schlägt Produktions-Realität', href: '#wb-ki-demo' },
   { label: 'Drei Stolpersteine, die wir immer wieder sehen', href: '#wb-ki-stolpersteine' },
@@ -137,7 +136,7 @@ export const BereitsOffen: Story = {
 // zeigt den rohen Kontext.“ Der Konsument schreibt <div class="article-body"> selbst, alle vier
 // Artikel-Körper-Bausteine sitzen darin als gewöhnliche Geschwister neben rohen <p>/<h2> —
 // dieselbe Lesereihenfolge wie in der Beispielseite Wissensbeitrag · KI
-// (docs/index.html:15046–15118): TOC, Pull-Quote, Callout, Figure.
+// in dieser Reihenfolge: TOC, Pull-Quote, Callout, Figure.
 export const ImArtikelBody: Story = {
   name: 'Im Artikel-Body',
   parameters: { controls: { disable: true } },

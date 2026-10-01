@@ -13,8 +13,8 @@ let uid = 0;
  * Beispielseiten praktisch jeder andere Baustein sitzt (133 Vorkommen, 85 davon mit
  * Kopfzeile).
  *
- * Alle drei Textteile sind Beiwerk (`input('')`): eine Sektion besteht auch ganz ohne
- * Kopf, nur aus ihrem projizierten Inhalt (docs/index.html:9378). Der Inhalt selbst
+ * Alle drei Textteile sind Beiwerk (`input('')`): Eine Sektion besteht auch ganz ohne
+ * Kopf, nur aus ihrem projizierten Inhalt. Der Inhalt selbst
  * kommt per `<ng-content>` und ist deshalb kein Input.
  *
  * **Entscheidung 1 — Attributselektor, der Konsument wählt `<section>` oder `<div>`.**
@@ -42,8 +42,7 @@ let uid = 0;
  * **Entscheidung 2 — kein `background`-Input, die Fläche darf jetzt aber am Host
  * sitzen.** Das Mockup setzt Sektionsflächen inline (`style="background:var(--bg-surface)"`
  * / `--co-50` / …). Das ist der Flächen-Rhythmus zwischen aufeinanderfolgenden
- * Sektionen einer SEITE (Begründung inkl. Messwerten in docs/index.html:1450, „Warum
- * nicht die Sektion senken?“) — eine Entscheidung, die nur die Seite treffen kann, weil
+ * Sektionen einer Seite — eine Entscheidung, die nur die Seite treffen kann, weil
  * nur sie ihre Nachbar-Sektionen kennt. Ein Bauteil kennt seinen Kontext nicht
  * (CONTRIBUTING.md §7) und bekäme mit einem `background`-Input eine Zuständigkeit, die
  * ihm nicht zusteht. Der Konsument setzt die Fläche deshalb weiterhin selbst — jetzt

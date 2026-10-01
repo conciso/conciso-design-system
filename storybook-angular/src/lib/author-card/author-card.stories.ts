@@ -48,7 +48,7 @@ export const Interaktiv: Story = {
     bio: 'Begleitet KI-Projekte von der Strategie bis in die Produktion. Schwerpunkt: RAG-Systeme und LLM-Integration in regulierten Branchen.',
     eyebrow: 'Über den Autor',
   },
-  // Wortlaut 1:1 aus docs/index.html:8424–8430 (Artikel-Demo, ein:e Autor:in mit eigenem Eyebrow).
+  // Wortlaut der Artikel-Demo: ein:e Autor:in mit eigenem Eyebrow.
   render: (args) => ({
     props: args,
     template: `
@@ -86,7 +86,7 @@ export const Interaktiv: Story = {
 export const ZweiAutorinnen: Story = {
   name: 'Zwei Autor:innen',
   parameters: { controls: { disable: true } },
-  // Wortlaut 1:1 aus docs/index.html:8436–8455 (zwei Bios untereinander, eine
+  // Wortlaut der Artikel-Demo: zwei Bios untereinander, eine
   // Gruppen-Überschrift ersetzt die individuellen Eyebrows, siehe wissensbeitrag.mdx
   // „Eyebrow-Konvention“).
   render: () => ({
@@ -129,7 +129,7 @@ export const ZweiAutorinnen: Story = {
 export const AlsRaster: Story = {
   name: 'Als Raster',
   parameters: { controls: { disable: true } },
-  // Namen/Rollen 1:1 aus der realen Beispielseite Scrum-Training (docs/index.html:13812–13823).
+  // Namen und Rollen der Beispielseite Scrum-Training.
   // Tobias Mehnerts Bio ist bewusst auf einen Satz gekürzt (NICHT 1:1 aus dem Mockup), Anja
   // Reuters Bio bleibt wortgleich — der Längenkontrast ist der Regressionsschutz für
   // ADR-0008 (siehe Klassendoku AuthorCardComponent): mit gleich langen Bios wäre die Baseline

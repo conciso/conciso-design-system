@@ -13,15 +13,14 @@ const meta: Meta<TableComponent> = {
         component:
           'Datentabelle mit horizontalem Scroll-Container (`.tbl`/`.tbl-wrap`, ' +
           'css/components.css:1462–1480). Ausgezählt: außerhalb der Doku-Sektion `sec-table` ' +
-          'selbst kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten ' +
-          '(`docs/index.html:8622`, `15080`). Element-Selektor `cds-table` (ADR-0008-Standardfall): ' +
-          'keines der 5 `.tbl-wrap`-Vorkommen in `docs/index.html` ist selbst ein direktes ' +
-          'Grid-/Flex-Kind. ' +
+          'selbst kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten. ' +
+          'Element-Selektor `cds-table` (ADR-0008-Standardfall): Keines der 5 `.tbl-wrap`-' +
+          'Vorkommen ist selbst ein direktes Grid-/Flex-Kind. ' +
           'Kein Daten-Input: der Konsument projiziert `<thead>`/`<tbody>`/`<tfoot>` unverändert per ' +
           '`<ng-content>`, weil die Beispielseiten darin Badges, Links und `data-num` setzen, keine ' +
           'reinen Strings. `caption` ist Pflicht (`input.required<string>()`): die eigene Doku ' +
-          '(`tabelle.mdx`) nennt `<caption>` „Pflicht“, alle 5 realen `.tbl`-Vorkommen in ' +
-          '`docs/index.html` haben eine — ADR-0007 §2. `.tbl-wrap` ist deshalb immer per Tastatur ' +
+          '(`tabelle.mdx`) nennt `<caption>` „Pflicht“, alle 5 realen `.tbl`-Vorkommen haben ' +
+          'eine. ADR-0007 §2: `.tbl-wrap` ist deshalb immer per Tastatur ' +
           'erreichbar UND immer benannt (`tabindex="0"`, eigener `:focus-visible`-Ring, ' +
           '`role="region"` + `aria-label`): `scrollLabel` hat Vorrang, sonst `caption`, nie leer. ' +
           '`.tbl-sort` (sortierbare Spaltenköpfe) bleibt bewusst außen vor: die Klasse liefert nur ' +
@@ -39,8 +38,7 @@ export default meta;
 
 type Story = StoryObj<TableComponent>;
 
-// Wortlaut aus dem Mockup (docs/index.html:5062–5109, Doku-Sektion sec-table, Gruppe
-// „Standard“) — reale Beispieldaten statt erfundener, unterschiedlich lange Zelltexte
+// Reale Beispieldaten statt erfundener, unterschiedlich lange Zelltexte
 // wie im Original.
 export const Interaktiv: Story = {
   args: {
@@ -115,8 +113,8 @@ export const Interaktiv: Story = {
   },
 };
 
-// Wortlaut aus dem Mockup (docs/index.html:5117–5177, Gruppe „Gestreift“). Ohne
-// scrollLabel: prüft den Fallback auf caption als aria-label (siehe Klassendoku).
+// Ohne scrollLabel prüft die Story den Fallback auf caption als aria-label (siehe
+// Klassendoku).
 export const Gestreift: Story = {
   args: {
     caption: 'Veranstaltungen & Workshops 2025',
@@ -213,8 +211,8 @@ export const MitZahlenspalte: Story = {
   },
 };
 
-// css/components.css:1471 stylt tfoot, im Mockup selbst unbelegt (kein <tfoot> in
-// docs/index.html) — hier eine Summenzeile als plausible Nutzung der bestehenden Regel.
+// css/components.css:1471 stylt tfoot. Hier zeigt eine Summenzeile die plausible Nutzung
+// der bestehenden Regel.
 export const MitFusszeile: Story = {
   name: 'Mit Fußzeile',
   args: {

@@ -7,7 +7,7 @@
 // Copy und Fließtext. In der Praxis entsteht beim Schreiben aber immer wieder die
 // Mischform: das öffnende Zeichen wird typografisch gesetzt oder aus einer Vorlage
 // kopiert, das schließende kommt von der Tastatur als gerades ASCII-Zeichen. Das fiel erst
-// auf, als sich rund 560 solcher Paare über Doku-Site, CHANGELOG, CSS-Kommentare und
+// auf, als sich rund 560 solcher Paare über Dokumentation, CHANGELOG, CSS-Kommentare und
 // Story-Copy verteilt hatten — genau die Sorte Drift, die kein Review zuverlässig sieht
 // und ein Skript schon. Der dokumentierte Standard allein hat sie nachweislich nicht
 // verhindert.
@@ -36,9 +36,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 // Versionierte Dateien plus noch nicht committete (--others, .gitignore-treu): sonst ist
 // der Check lokal grün, solange die neue Datei untracked ist, und fällt erst in CI um.
-// Binär-/Font-Formate bleiben außen vor. Abgeleitete Dateien (dist/, icons/icons.*) werden
-// mitgeprüft: sie sind eingecheckt und sollen dieselbe Regel erfüllen; ihre Quelle zu
-// fixen und neu zu bauen behebt beide.
+// Binär-/Font-Formate bleiben außen vor. Das gitignorierte dist/ fällt von selbst heraus;
+// seine Texte stammen aus css/, icons/manifest.json und den Build-Skripten, die geprüft werden.
 const BINARY = /\.(woff2?|ttf|otf|eot|png|jpe?g|webp|gif|ico|pdf|zip)$/i;
 const files = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], {
   cwd: ROOT,

@@ -1,13 +1,13 @@
 import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
-import icons from '../../../../icons/icons.json';
+import icons from '@conciso/design-system/icons.json';
 
 <Meta title="Grundlagen/Icons" name="Übersicht" />
 
 # Icons
 
 Bereichsspezifische Icons, SVG inline, Farbgebung über die jeweilige Brand Area via
-`currentColor`. Quelle der Wahrheit: `icons/icons.json` (generiert aus
-`icons/source/*.svg`), siehe `icons/README.md`.
+`currentColor`. Quelle der Wahrheit sind `icons/source/*.svg`; der Build erzeugt daraus
+`dist/icons/icons.json` und die weiteren Paketexporte.
 
 Zwei Stile koexistieren: Der Großteil der generischen UI-Icons (Pfeile, Hinweise,
 Schließen, Feature-Symbole) ist im Outline-Stil aus [heroicons.com](https://heroicons.com)
@@ -107,7 +107,7 @@ export const IconTile = ({ iconKey, icon, background, color, border }) => {
   );
 };
 
-Alle 99 Icons aus der Registry (`icons/icons.json`), live gerendert. Unter jeder Kachel
+Alle 99 Icons aus der Registry (`@conciso/design-system/icons.json`), live gerendert. Unter jeder Kachel
 steht der Schlüssel, den ein Entwickler tatsächlich importiert; der Name aus der Registry
 liegt als Tooltip (`title`-Attribut) auf der Kachel.
 
@@ -174,17 +174,19 @@ Die 94 bereichsneutralen UI-Icons auf neutraler Fläche, Farbe `--tx-primary`.
 1. Normalisiertes SVG unter `icons/source/{area|ui}-{name}.svg` ablegen. Farben als
    `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (die
    Größe setzt der Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`.
-2. `npm run build:icons` ausführen. Das Skript generiert `icons/icons.json`,
-   `icons/icons.js` und `icons/README.md` aus `icons/source/`.
+2. `npm run build:icons` ausführen. Das Skript generiert `dist/icons/icons.json`,
+   `dist/icons/icons.js`, `dist/icons/icons.d.ts` und `dist/icons/README.md` aus
+   `icons/source/`.
 3. Label und Verwendung optional in `icons/manifest.json` pflegen.
 
-Quelle ist ausschließlich `icons/source/*.svg`, die generierten Dateien
-(`icons/icons.json`, `icons/icons.js`) werden nie von Hand editiert.
+Quelle ist ausschließlich `icons/source/*.svg`, die generierten Dateien unter
+`dist/icons/` werden nie von Hand editiert oder committet.
 
 ## DS-Glyphen
 
 DS-Glyphen sind Design-System-eigene Icons (`ui*`), die aus `@conciso/design-system/icons`
-(generiertes `icons/icons.js`) stammen, nicht aus `@ng-icons`. Die zentrale Icon-Registry
+(generiertes `dist/icons/icons.js`, importiert über `@conciso/design-system/icons`) stammen,
+nicht aus `@ng-icons`. Die zentrale Icon-Registry
 `icons/cds-icons.ts` in der Angular-Lib ist die einzige Import-Fläche für
 Komponenten-Icons: Komponenten importieren nie direkt aus `@ng-icons/heroicons`. Ein
 Heroicon wird nur dort registriert, wo das Design System (noch) kein eigenes Glyph
@@ -210,7 +212,6 @@ umgestellt.
 
 ## Siehe auch
 
-- `docs/index.html#gt-icons-verwendung`
 - CONTRIBUTING.md § 10 Schritt 3
 - CONTEXT.md, Abschnitt DS-Glyphen
-- `icons/README.md`
+- `dist/icons/README.md` im gebauten npm-Paket

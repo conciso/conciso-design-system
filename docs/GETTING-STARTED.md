@@ -63,8 +63,11 @@ Bootstrap-Platzhalterversion (siehe ADR-0011).
 > die Entscheidung dahinter in
 > [ADR-0004](adr/0004-verteilung-und-versionierung.md).
 
-> Für reine CSS-Nutzung ohne npm ist das Vendoren von `dist/conciso-ds.css` + `fonts/`
-> (Variante A) weiterhin der schlankeste Weg.
+> Ohne Installation kann das veröffentlichte Paket heruntergeladen werden:
+> `npm pack @conciso/design-system@<version>` liefert ein Archiv mit
+> `package/dist/conciso-ds.css` und `package/fonts/`. Alternativ lädt ein gepinnter
+> jsDelivr-Link das Bundle direkt:
+> `https://cdn.jsdelivr.net/npm/@conciso/design-system@<version>/dist/conciso-ds.css`.
 
 > **Lizenz:** MIT, siehe [LICENSE](../LICENSE). Ausnahmen (Brand-Assets unter
 > `assets/brand/`, Schriften, Icons) siehe [NOTICE](../NOTICE). Das gilt unabhängig von
@@ -137,7 +140,7 @@ Reine Darstellung (Buttons, Cards, Typo, Farben, Dark Mode per Attribut) funktio
 - **Topnav-Dropdowns** (Disclosure-Menü: Öffnen per Klick/Tap, Tastatur oder Hover; `aria-expanded`, Escape, Pfeiltasten, Außenklick)
 - **Back-to-Top-Button**
 
-Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs, Sidebar, Beispielseiten-Tabs) sind doku-spezifisch und für eigene Projekte nicht nötig. Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
+Ein schlankes, wiederverwendbares `behaviors.js` für das npm-Paket ist als Folgeschritt vorgesehen.
 
 > Topnav-Dropdowns öffnen per Klick/Tap, Tastatur und (auf `pointer:fine`) per Hover. Der Reveal hängt immer an `.is-open` (nie an reinem CSS-`:hover`), `aria-expanded` läuft mit, und es ist nie mehr als ein Menü gleichzeitig offen. Der Label-Klick navigiert weiterhin direkt zur Übersicht.
 
@@ -158,8 +161,6 @@ Diese Verhalten stehen in `docs/main.js`. Die übrigen Teile dort (Sektions-Tabs
   Angewandte KI
 </div>
 ```
-
-Vollständige Komponenten mit Code-Snippets und Do/Don'ts: die **Doku-Site** (`index.html`) im Browser öffnen.
 
 ## 6. Tokens nutzen
 
@@ -201,9 +202,16 @@ Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline
 
 ## 8. Icons nutzen
 
-Die DS-Icons liegen als maschinenlesbare Bibliothek vor (mit dem npm-Paket): `icons/icons.json` und `icons/icons.js` enthalten pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color` des Containers (z. B. Bereichsfarbe `var(--ki-800)`, im Dark `--ki-200`).
+Die DS-Icons liegen im npm-Paket als maschinenlesbare Bibliothek vor. Die öffentlichen
+Importpfade `@conciso/design-system/icons` und `@conciso/design-system/icons.json` liefern
+pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und
+den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color`
+des Containers (z. B. Bereichsfarbe `var(--ki-800)`, im Dark `--ki-200`).
 
-**Empfohlen: benannter Import.** `icons/icons.js` exportiert jedes Icon zusätzlich einzeln in camelCase (`ki-bot` → `kiBot`). Nur benannte Imports sind tree-shakable — ein Bundler lässt jedes nicht importierte Icon aus dem Bundle, das aggregierte `icons`-Objekt (oder `icons.json`) zieht dagegen immer alle Icons mit rein.
+**Empfohlen: benannter Import.** Der Importpfad `@conciso/design-system/icons` exportiert
+jedes Icon einzeln in camelCase (`ki-bot` → `kiBot`). Nur benannte Imports sind tree-shakable
+— ein Bundler lässt jedes nicht importierte Icon aus dem Bundle, das aggregierte `icons`-Objekt
+(oder `icons.json`) zieht dagegen immer alle Icons mit rein.
 
 ```js
 import { kiBot } from '@conciso/design-system/icons';
@@ -218,7 +226,11 @@ const { svg } = kiBot;   // komplettes <svg>…</svg>
 
 Für Kataloge, Doku-Seiten oder einen dynamischen Lookup per String-Key bleibt das Aggregat praktisch: `import { icons } from '@conciso/design-system/icons'; icons['ki-bot'].svg`.
 
-Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind `solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Vollständiges Key-Mapping inkl. Export-Namen und Verwendungskontext: [`icons/README.md`](../icons/README.md). Neue Icons werden in `icons/source/*.svg` ergänzt und mit `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
+Die vier **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`) sind
+`solid`, die generischen UI-Icons `outline` (mit inline `stroke-width`). Das vollständige
+Key-Mapping steht im generierten `dist/icons/README.md` des npm-Pakets und im Storybook
+unter „Grundlagen → Icons“. Neue Icons werden in `icons/source/*.svg` ergänzt und mit
+`npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).
 
 ## 9. Frameworks
 

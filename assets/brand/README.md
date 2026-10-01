@@ -1,8 +1,7 @@
 # Brand-Assets
 
-Die Conciso-Wortmarke in drei Varianten. Verbindlich für Größen, Schutzraum und
-Verwendung ist die Doku-Sektion **Marke → Logo** (`docs/index.html`, `#sec-logo`);
-dieses Dokument beschreibt nur die Dateien und den Einbau.
+Die Conciso-Wortmarke in drei Varianten. Dieses Dokument beschreibt die Dateien und
+den Einbau.
 
 **Lizenz:** Anders als der Rest des Repositories (MIT, siehe [`LICENSE`](../../LICENSE))
 stehen diese Dateien nicht unter MIT. Sie bleiben Eigentum der Conciso GmbH,

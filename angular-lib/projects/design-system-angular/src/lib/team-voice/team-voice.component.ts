@@ -23,7 +23,7 @@ import { CDS_QUOTE_ICON } from '../icons';
         <img [src]="image() || placeholder" [alt]="imageAlt()" loading="lazy" />
       </div>
       <figcaption class="team-voice-body">
-        <!-- ui-quote aus icons/icons.js — dieselbe Glyphe wie docs/index.html. -->
+        <!-- ui-quote aus @conciso/design-system/icons. -->
         <svg
           class="team-voice-icon"
           viewBox="0 0 24 24"

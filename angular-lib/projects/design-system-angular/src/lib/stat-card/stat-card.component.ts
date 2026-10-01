@@ -6,7 +6,7 @@ import type { CdsArea } from '../area';
  *
  * Flache, statische Kennzahlen-Karte mit bereichsgefärbtem Top-Akzent (data-area),
  * großem Wert (.card-stat-value), Label (.card-stat-label) und optionalem
- * Trend-Pill (.card-stat-trend.up/.down) inkl. Richtungs-Pfeil — wie docs/index.html.
+ * Trend-Pill (.card-stat-trend.up/.down) inkl. Richtungs-Pfeil.
  *
  * Verwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).
  */

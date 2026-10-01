@@ -11,7 +11,7 @@
  *    Importiert werden ausschließlich die BENANNTEN Exporte der beiden gebrauchten Glyphen
  *    (`uiCaretDown`, `uiCheck`), nie das aggregierte `icons`-Objekt — ein Property-Zugriff
  *    darauf (`icons['ui-caret-down']`) ist für Bundler nicht tree-shakable und zöge alle
- *    alle DS-Icons in jedes Consumer-Bundle (siehe icons/README.md „Verwendung“).
+ *    alle DS-Icons in jedes Consumer-Bundle (siehe Storybook „Grundlagen → Icons“).
  *
  * 2. **Heroicons**: für Glyphen, die im DS mit dem Heroicon glyph-identisch sind
  *    (chevron-down, magnifying-glass — gleicher Pfad, das DS setzt nur einen dünneren

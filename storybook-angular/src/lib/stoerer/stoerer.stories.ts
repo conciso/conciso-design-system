@@ -13,7 +13,7 @@ import {
 const heroPlaceholder =
   "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1600'%20height='686'%3E%3Crect%20width='1600'%20height='686'%20fill='%23E8EDED'/%3E%3Ctext%20x='800'%20y='343'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EHero-Bild%2021%3A9%3C/text%3E%3C/svg%3E";
 
-// Zwei Heroicons wie im Mockup (docs/index.html:9421–9430): calendar-days für
+// Zwei Heroicons: calendar-days für
 // Veranstaltungen, document-text für Wissensbeiträge. Wechselnde Content-Icons, keine
 // DS-Bereichsglyphen — deshalb als rohes SVG projiziert statt aus einer Registry
 // importiert (siehe Entscheidung in stoerer.component.ts).

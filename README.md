@@ -11,16 +11,7 @@ Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mo
 
 ## Dokumentation ansehen
 
-Die vollständige, navigierbare Doku-Site liegt im Repo:
-
-```bash
-# Repo klonen, dann die Doku-Site im Browser öffnen
-open docs/index.html        # macOS
-# oder einen kleinen Static-Server im Repo-Root starten und /docs/ öffnen:
-npx serve .
-```
-
-Sie enthält 35 Sektionen in sechs Gruppen: **Marke** (Markenrad, Brand Areas, Logo, Bildsprache), **Grundlagen** (Farben, Typografie, Spacing, Responsive, Elevation, Design Tokens, Icons, Barrierefreiheit), **Komponenten** mit Code-Snippets und Do/Don'ts, **Seitenmuster** (Wissensbeitrag, Veranstaltung, Seminar und die zugehörigen Übersichten), **Beispielseiten** als komplette Seiten und **Referenzen**.
+Die Doku ist das Storybook: <https://conciso.github.io/conciso-design-system/>. Es enthält Marke, Grundlagen, alle Komponenten mit Verwendungsregeln und die Seitenmuster, und ist über den [MCP-Server](mcp-server/README.md) auch für KI-Assistenten abfragbar.
 
 ## Nutzung im eigenen Projekt
 
@@ -54,7 +45,7 @@ import { tokens } from '@conciso/design-system/tokens';
 // pro Icon, tree-shakable — nur importierte Glyphen landen im Bundle:
 import { uiShieldCheck } from '@conciso/design-system/icons';
 // Das aggregierte `icons`-Objekt (oder icons.json) zieht immer alle Icons ins Bundle — nur
-// für Kataloge/Doku, nicht für Apps. Details: icons/README.md.
+// für Kataloge/Doku, nicht für Apps. Details stehen im Storybook unter Grundlagen → Icons.
 // Brand-Logo (Wortmarke, drei Varianten):
 import logo from '@conciso/design-system/assets/brand/logo-conciso.svg';
 ```
@@ -79,8 +70,9 @@ Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Def
 > ```
 > GitHub Packages verlangt diese Auth wegen der **Registry**, nicht wegen der Lizenz.
 > Details in [Getting Started](docs/GETTING-STARTED.md#1-einbinden), Begründung in
-> [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne npm bleibt Variante A
-> (Vendoren von `dist/conciso-ds.css` + `fonts/`) der schlankeste Weg.
+> [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md). Ohne Installation kann das
+> gebaute Paket per `npm pack @conciso/design-system@<version>` entpackt oder das CSS
+> versionsgepinnt von jsDelivr geladen werden.
 >
 > Die **Doku** (Storybook, die Komponenten-Referenz der Angular-Lib) ist öffentlich
 > einsehbar unter <https://conciso.github.io/conciso-design-system/> — ohne Auth, aber
@@ -105,14 +97,15 @@ derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-ang
 | Pfad | Inhalt |
 |---|---|
 | `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) — der konsumierbare Kern |
-| `dist/` | `conciso-ds.css` (gebündelt, generiert) |
-| `tokens/` | `tokens.json` · `tokens.scss` · `tokens.js` (Token-Export, generiert) |
-| `icons/` | `icons.json` · `icons.js` · `README.md` (Icon-Export, generiert) + `source/*.svg` (Quelle) |
+| `dist/` | Gesamte Build-Ausgabe: `conciso-ds.css`, `tokens/*`, `icons/*` (generiert und komplett gitignored) |
+| `icons/` | `source/*.svg` und `manifest.json` als Quellen sowie Lizenzhinweise |
 | `fonts/` | Self-Host-Fonts (woff2) + OFL-Lizenztexte; eingebunden über `css/fonts.css` |
 | `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) · `check-dark-states.mjs` · `check-contrast.mjs` |
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 
-> Der konsumierbare Teil (`css/`, `dist/`, `tokens/`, `icons/`) liegt im Root, die Doku-Site in `docs/`. Das npm-Paket enthält nur den Kern (kein `docs/`, keine Bilder). Icon-Details und Mapping: [`icons/README.md`](icons/README.md).
+> Das npm-Paket enthält die Quellen unter `css/`, den frisch gebauten Ordner `dist/`,
+> Fonts, Brand-Assets und die Icon-Quellen (`icons/source/*.svg`, `icons/manifest.json`), aber keine Doku-Site. Icon-Details und Mapping
+> stehen im generierten `dist/icons/README.md` des Pakets.
 
 ## Mitwirken / Erweitern
 
@@ -120,8 +113,10 @@ Konventionen und der Workflow zum Hinzufügen von Tokens/Komponenten stehen in *
 
 ### Prüfungen
 
+`npm ci` baut `dist/` über den `prepare`-Hook des Root-Pakets; dasselbe passiert vor `npm pack` und `npm publish`. Nach Änderungen an `css/`, `icons/source/` oder den Build-Skripten `npm run build` ausführen.
+
 ```bash
-npm run build             # Tokens, Icons, gebündeltes CSS (dist/ ist eingecheckt)
+npm run build             # Tokens, Icons, gebündeltes CSS (alles unter gitignored dist/)
 npm run check:dark-states # Zustands-Regeln, die im Dark dunkel-auf-dunkel laufen
 npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 ```

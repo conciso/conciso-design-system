@@ -122,7 +122,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 
 ## 8. Komponenten-Verhalten
 
-- **Topnav-Dropdowns sind ein Disclosure-Pattern** (in `docs/main.js`: `aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
+- **Topnav-Dropdowns sind ein Disclosure-Pattern** (`aria-expanded`, Escape, Pfeiltasten, Außenklick, `closeAllNavItems`). Öffnen per Klick/Tap, Tastatur oder — nur auf `pointer:fine` — per Hover (JS-gesteuert, Intent-Delay + unsichtbare Brücke, WCAG 1.4.13). Der Label-Link navigiert dabei weiterhin direkt zur Übersicht; nur der Caret-Button klappt auf. Regeln, die bleiben: **kein reines CSS-`:hover`-Öffnen** (der Reveal muss an `.is-open` hängen, damit `aria-expanded` mitläuft) und **nie zwei Menüs gleichzeitig offen** (immer `closeAllNavItems` vor dem Öffnen).
 - **Verlinkte Rechtstexte in Einwilligungen sind echte `<a class="body-link">`**, nie ein `<span>` mit `cursor:pointer`. Ein Span ist nicht per Tab erreichbar und für Screenreader kein Link, obwohl genau dieser Text die Grundlage der Einwilligung ist. Im `<label for>` ist der Anker unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt kein Häkchen.
 - Icon-only Buttons brauchen `aria-label`. Tab-/Panel-Muster mit korrektem ARIA (`role`, `aria-selected`, `aria-controls`).
 
@@ -138,7 +138,7 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
-3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
+3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Label/Verwendung optional in `icons/manifest.json` pflegen. `npm run build:icons` erzeugt daraus `dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`. Der gesamte Ordner `dist/` ist gitignored; Build-Ergebnisse werden weder editiert noch committet.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
@@ -147,9 +147,9 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 ---
 
-## 11. Doku-Struktur (`docs/index.html`)
+## 11. Dokumentationsstruktur
 
-Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einziger Index dient. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
+Die Dokumentation umfasst 35 Sektionen und eine Sidebar als einzigen Index. Wer eine Sektion nicht in die Navigation einträgt, versteckt sie.
 
 **Die sechs Gruppen.** Reihenfolge und Inhalt:
 
@@ -181,24 +181,27 @@ Die Doku-Site ist eine Datei mit 35 Sektionen und einer Sidebar, die als einzige
 **So prüfst du es** (vor dem Commit, ersetzt kein Gate):
 
 ```bash
+# Im Verzeichnis docs/ ausführen
+cd docs
+
 # Nav-Links ohne Ziel
-rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/nav
-rg -o '\sid="([^"]+)"' -r '$1' docs/index.html | sort -u > /tmp/ids
+rg -o 'nav-sub-item"[^>]*href="#([^"]+)"' -r '$1' index.html | sort -u > /tmp/nav
+rg -o '\sid="([^"]+)"' -r '$1' index.html | sort -u > /tmp/ids
 comm -23 /tmp/nav /tmp/ids
 
 # gt-Überschriften ohne Nav-Eintrag
-rg -o '\sid="(gt-[^"]+)"' -r '$1' docs/index.html | sort -u | comm -23 - /tmp/nav
+rg -o '\sid="(gt-[^"]+)"' -r '$1' index.html | sort -u | comm -23 - /tmp/nav
 ```
 
 ---
 
 ## 12. Storybook-Sidebar (`storybook-angular/src`)
 
-Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer eigenen Taxonomie.
+Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und folgt einer eigenen Taxonomie.
 
-**Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Doku-Site. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
+**Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Dokumentationsstruktur. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
 
-**Die Doku-Seite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Doku-Seite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
+**Die Dokumentationsseite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Dokumentationsseite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
 
 **Vier Eigenheiten der Seitenleiste**, die jede Umstellung trifft (alle in Storybook 10.6 im Browser gemessen, nicht aus der Doku übernommen):
 
@@ -207,7 +210,7 @@ Die Sidebar ist ein eigener Index neben `docs/index.html` (§11) und folgt einer
 - Ein Schrägstrich im Sektionsnamen ist ein Pfadtrenner. Für ein näher bestimmendes Trennzeichen den Mittelpunkt `·` nehmen, wie in §11.
 - Ein Titel aus nur einem Segment wird zur Wurzel und rutscht über alle benannten Gruppen, unabhängig von `storySort.order`. Deshalb behalten auch Gruppen mit nur einer Seite (Beispielseiten, Referenzen) ihren zweistufigen Pfad.
 
-**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Doku-Site, gerendert über `sidebar.renderLabel` im Manager aus `icons/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
+**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Dokumentationsstruktur, gerendert über `sidebar.renderLabel` im Manager aus `@conciso/design-system/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
 
 ---
 

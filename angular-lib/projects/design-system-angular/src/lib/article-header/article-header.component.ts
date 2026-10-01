@@ -16,40 +16,22 @@ export interface CdsArticleBreadcrumbItem {
  * eines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip).
  * Hauptvorlage ist
  * `storybook-angular/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article
- * Header“ — dort steht das verbindliche Markup samt Begründung,
- * nicht nur das Mockup in `docs/index.html`.
+ * Header“ — dort steht das verbindliche Markup samt Begründung.
  *
  * **Breadcrumb sitzt im Header — abweichend von der allgemeinen Navigationsregel,
- * bewusst der Hauptvorlage folgend.** `docs/index.html:2423` dokumentiert für
- * Unterseiten allgemein, wörtlich: „Den Breadcrumb nicht in einen zentrierten
- * `.article-header` einbetten, sonst wird er mittig ausgerichtet und bekommt einen
- * abweichenden Abstand zur Nav“ (Tabellenzeile „Nicht“ der Breadcrumb-Doku) — und
- * ausgezählt
- * sind es genau die beiden EINZIGEN vollständigen Beispielseiten mit
- * `.article-header` (Stellenanzeige `docs/index.html:11035`, Wissensbeitrag · KI
- * `docs/index.html:15020`), die dieser Regel folgen: beide setzen den Breadcrumb in
- * eine EIGENE, linksbündige `.ep-section` VOR dem Header (`docs/index.html:
- * 11023–11031` bzw. `15010–15015`). Dem stehen 6 ISOLIERTE Doku-Demos gegenüber, die
- * den Breadcrumb INNERHALB von `.article-header` zeigen: 5 kleine Referenz-Boxen in
- * der Doku-Sektion selbst (`docs/index.html:7850`, `8304`, `8331`, `8361`, `8392` —
- * ohne Topnav/Hero/Footer, reine Bauteil-Illustrationen) plus das Code-Beispiel in
- * `wissensbeitrag.mdx`. Diese Komponente folgt bewusst dieser Doku, nicht den
- * Beispielseiten (Breadcrumb als Input, im Header), und dokumentiert den
- * Widerspruch als eigenen Befund.
- * Konsumenten, die der allgemeinen Regel folgen wollen (wie die beiden echten
- * Beispielseiten), lassen `breadcrumb` leer und setzen die Leiste selbst davor
+ * bewusst der Hauptvorlage folgend.** Unterseiten können den Breadcrumb vor dem
+ * Header in einer eigenen, linksbündigen `.ep-section` setzen, damit er weder
+ * mittig ausgerichtet wird noch einen abweichenden Abstand zur Navigation erhält.
+ * Die Komponente bietet hingegen einen Breadcrumb-Input im Header. Konsumenten,
+ * die der allgemeinen Regel folgen wollen, lassen `breadcrumb` leer und setzen die
+ * Leiste selbst davor
  * (siehe Story „Ohne Breadcrumb“).
  *
- * **Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current="page"`.** Die
- * beiden Wissensbeitrag-Inline-Beispiele
- * (`docs/index.html:7850–7856`, `wissensbeitrag.mdx`) zeigen dafür nur 2 Einträge,
- * BEIDE als `<a>`, ohne `aria-current` — eine zur Kürze vereinfachte Doku-Skizze,
- * kein vollständiges Barrierefreiheits-Beispiel. Das volle, korrekte Muster (Trenner
- * dekorativ, letzter Eintrag `<span aria-current="page">` ohne Link) steht an
- * anderer Stelle exakt so vor (`docs/index.html:2406–2412` allgemeine
- * Breadcrumb-Doku, `docs/index.html:11023–11030` Stellenanzeige) — die Komponente
- * folgt deshalb diesem Muster für den letzten Array-Eintrag, unabhängig von einem
- * dort eventuell gesetzten `href`.
+ * **Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current="page"`.**
+ * Vereinfachte Beispiele mit zwei verlinkten Einträgen sind kein vollständiges
+ * Barrierefreiheits-Beispiel. Die Komponente setzt deshalb Trenner dekorativ und
+ * den letzten Array-Eintrag als `<span aria-current="page">` ohne Link um,
+ * unabhängig von einem dort eventuell gesetzten `href`.
  *
  * **Keine bereichsgefärbte Breadcrumb-Verlinkung (`.t-{area}`).** Die
  * Inline-Beispiele färben ihren zweiten (dort letzten) Eintrag mit `.t-ki`/`.t-es`/
@@ -74,18 +56,16 @@ export interface CdsArticleBreadcrumbItem {
  * (kein eigener Default vorgegeben). Ein erster Entwurf reichte
  * `area()` per `as CdsArea`-Cast durch, damit ein `undefined`-Binding
  * `cds-pill`s eigenen Default überschreiben kann — eine Typ-Lüge, um einen Fall
- * abzudecken, der beim Nachzählen gar nicht vorkommt: **alle 9** `.pill`-Vorkommen
- * im Article-Header-Kontext (`docs/index.html:7856, 7912–7914, 8310, 8337, 8367,
- * 8398, 15021`) tragen ein `data-area`, keines ohne Bereich. Die Pille rendert
+ * abzudecken, der beim Nachzählen gar nicht vorkommt: Alle Pille-Vorkommen im
+ * Article-Header-Kontext tragen ein `data-area`, keines ohne Bereich. Die Pille rendert
  * deshalb nur innerhalb von `@if (area(); as pillArea)` (narrowt `CdsArea |
  * undefined` sauber auf `CdsArea`, ohne Cast) — ist `pill()` gesetzt, `area()`
  * aber nicht, bleibt die Pille schlicht weg, statt eine geratene Bereichsfarbe zu
  * zeigen. Gepinnt in der Story „Pille ohne Bereich“.
  *
  * **`pillAriaLabel`, wie bei `FeaturedCardComponent`.** `PillComponent`s eigener
- * Default („Bereich `<label>`“) passt nur, wenn die Pille einen Bereichsnamen trägt
- * (Stellenanzeige, `docs/index.html:11036`: „Bereich Effektive Software“). Im
- * Wissensbeitrag trägt die Pille dagegen die Lesezeit (`wissensbeitrag.mdx`,
+ * Default („Bereich `<label>`“) passt nur, wenn die Pille einen Bereichsnamen trägt.
+ * Im Wissensbeitrag trägt die Pille dagegen die Lesezeit (`wissensbeitrag.mdx`,
  * Abschnitt „Pill · Lesezeit“: `aria-label="Lesezeit 8 Minuten"`) — ein Text, den
  * die Komponente nicht zuverlässig aus einem freien `pill`-String wie
  * „8 min Lesezeit“ herleiten kann (keine Zahl zu parsen, keine Garantie, dass der
@@ -116,7 +96,7 @@ export interface CdsArticleBreadcrumbItem {
  * **Meta-Strip nur, wenn es etwas zu zeigen gibt.** `authorName`/`date` sind bewusst
  * Beiwerk (Default `''`); ausgezählt haben alle 6 realen
  * `.article-meta`-Vorkommen sowohl Autor als auch Datum, eine Stellenanzeige
- * (`docs/index.html:11035`) nutzt `.article-header` dagegen KOMPLETT OHNE
+ * nutzt `.article-header` dagegen KOMPLETT OHNE
  * `.article-meta` (dort ein `<dl>` aus Job-Fakten statt Autor/Datum) — dieser
  * abweichenden Verwendung folgt diese Komponente nicht (dafür ist in der API kein
  * Feld vorgesehen), sie belegt aber, dass ein leerer Meta-Strip ein realer Fall ist.

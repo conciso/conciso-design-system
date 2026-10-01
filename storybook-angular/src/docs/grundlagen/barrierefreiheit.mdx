@@ -7,8 +7,7 @@ import { Meta, Unstyled } from '@storybook/addon-docs/blocks';
 Kontrastverhältnisse aller Brand-Farben, Tastaturnavigation, ARIA Patterns, Touch
 Targets, Reduced Motion. Pflicht sind die Stufen A und AA, AAA nehmen wir mit, wo es ohne
 Nachteil geht. Vollständige Kriterien-Übersicht:
-[WCAG 2.2 Quickref (W3C)](https://www.w3.org/WAI/WCAG22/quickref/). Quelle:
-`docs/index.html#sec-a11y`.
+[WCAG 2.2 Quickref (W3C)](https://www.w3.org/WAI/WCAG22/quickref/).
 
 ## Anspruch
 
@@ -68,7 +67,7 @@ Frage kommt, beschreibt `Grundlagen/Farben` ausführlich, inklusive Dos & Don'ts
 
 Der folgende Block zeigt zusätzlich zur Tabelle die tatsächliche Farbe jedes Tokens als
 Fläche und macht die Lesbarkeit der weißen „Aa“-Beschriftung direkt sichtbar, statt sie nur
-als Zahl zu benennen. Werte 1:1 aus `docs/index.html#gt-a11y-kontrast` übernommen.
+als Zahl zu benennen.
 
 export const withCode = (text) =>
   text.split('`').map((part, i) =>
@@ -120,7 +119,7 @@ export const contrastTextLight = [
 
 Der Block zeigt, wie kräftig die reine Akzentfläche wirkt und mit welcher (nicht weißen)
 Textfarbe die „Aa“-Beschriftung überhaupt lesbar bleibt, was die Tabelle nur als Fließtext
-nennt. Werte 1:1 aus `docs/index.html#gt-a11y-akzent` übernommen.
+nennt.
 
 export const contrastAccent = [
   { bg: '#00BEBE', fg: '#002B2B', mode: 'Light', name: "Corporate 500 #00BEBE, Akzentfläche", ratio: "2,3:1 auf Weiß, nur als Hintergrundfläche · dunkler Text: #002B2B (6,0:1 ✓)", badgeText: 'Fläche only', badgeClass: 'c-fail-badge' },
@@ -157,10 +156,9 @@ auf der höchsten Elevationsstufe noch 4,5:1 erreicht.
 
 Der Block zeigt dieselben Farben, wie sie im Dark Mode tatsächlich erscheinen, inklusive
 der bei den Status-Farben vom Muster abweichenden Textfarbe für „Aa“, was die Tabelle nicht
-abbildet. Werte 1:1 aus `docs/index.html#gt-a11y-kontrast-dark` übernommen. Die Zeilen
-tragen ihre Dark-Werte als feste Hex-Angaben (kein CSS-Token, kein `data-theme`-Wrapper):
-genau wie in `docs/index.html` selbst sind Fläche und „Aa“-Textfarbe pro Zeile hart codiert,
-deshalb bleibt der Block unabhängig vom aktuell aktiven Storybook-Theme korrekt.
+abbildet. Die Zeilen tragen ihre Dark-Werte als feste Hex-Angaben (kein CSS-Token, kein
+`data-theme`-Wrapper): Fläche und „Aa“-Textfarbe sind pro Zeile hart codiert, deshalb bleibt
+der Block unabhängig vom aktuell aktiven Storybook-Theme korrekt.
 
 export const contrastDark = [
   { bg: '#DDE9E9', fg: '#151A1F', mode: 'Dark', name: "`--tx-primary` #DDE9E9 auf #151A1F", ratio: "14,1:1, Fließtext, Headlines, UI-Labels · auf bg-surface 10,5:1", badgeText: 'AAA ✓', badgeClass: 'c-aaa' },
@@ -441,7 +439,7 @@ Upload hinterlegt werden, das kann das Design System nicht erzwingen.
 
 ## Gates
 
-- `npm run check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und muss
+- `npm run check:contrast` prüft beide Modi in Chromium und muss
   0 Befunde melden (Text gegen 4,5:1 beziehungsweise 3:1 bei Großtext, getönte
   Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1).
 - `npm run check:dark-states` findet Zustände (Hover, Focus, Active), die im Dark Mode
@@ -459,6 +457,5 @@ Upload hinterlegt werden, das kann das Design System nicht erzwingen.
 ## Siehe auch
 
 - `Grundlagen/Farben` für Token-Rollen je Farbstufe (Ink, Fill, Band, Tönung) und Dos & Don'ts
-- `docs/index.html#gt-a11y-touch` (44-px-Ausnahme)
 - CONTRIBUTING.md § 1 Grundprinzipien, § 3 Farbe & Kontrast
 - `storybook-angular/README.md`, Abschnitt „Frühere a11y-Befunde im CSS-Kern (behoben)“

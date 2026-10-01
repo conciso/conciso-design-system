@@ -6,8 +6,7 @@ import type { CdsArea } from '../area';
  * FeaturedCard (cds-featured-card) — Wrapper um `.card-featured` aus
  * css/components.css (css/components.css:230–249): die horizontale Großkarte für
  * **genau einen** hervorgehobenen Beitrag oder Termin (Bild links 60 %, Textspalte
- * rechts 40 % als absolut positioniertes Overlay), siehe `docs/index.html`
- * Abschnitt „Featured · horizontale Großkarte“ (`#gt-events-featured`).
+ * rechts 40 % als absolut positioniertes Overlay).
  *
  * **Entscheidung 1 — `href` entscheidet zwischen `<a>` und `<article>`.** Die
  * Doku-Beispiele zeigen die Featured-Card ausschließlich als Link
@@ -51,9 +50,8 @@ import type { CdsArea } from '../area';
  * Default „Bereich `<pill>`“, überschreibbar über `pillAriaLabel` — nötig, weil die
  * Pille nicht immer einen Bereich benennt (siehe `pillAriaLabel`-Doku unten).
  *
- * **Entscheidung 3 — kein separates `data-area` für die Pille.** Die Doku setzt
- * Karte und Pille immer auf denselben Bereich (`docs/index.html:8979`: Karte
- * `data-area="es"`, Pille `data-area="es"`). Die Komponente bindet deshalb `area`
+ * **Entscheidung 3 — kein separates `data-area` für die Pille.** Karte und Pille
+ * tragen immer denselben Bereich. Die Komponente bindet deshalb `area`
  * auf beide, statt einen zweiten Bereichs-Input zu erfinden.
  *
  * **Entscheidung 4 — kein CTA- und kein Meta-Input.** Die Doku-Vorlage zeigt
