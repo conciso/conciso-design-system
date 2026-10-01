@@ -746,7 +746,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
    sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
 .footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .footer-newsletter-form input[type="text"],
-.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-sm);color:var(--tx-primary)}
 /* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
 .footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
 /* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und

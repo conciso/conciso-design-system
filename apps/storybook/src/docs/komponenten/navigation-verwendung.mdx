@@ -157,7 +157,7 @@ ohne `aria-haspopup`.
 - `aria-expanded` (`true`/`false`) und `aria-controls` sitzen auf dem Caret-Button; die JS-Klasse `.is-open` markiert das geöffnete `.ep-nav-has-sub`.
 - Geöffnet wird per Klick/Tap, Tastatur (`Enter`/`Space` auf dem Caret) oder, nur auf Geräten mit echtem Hover (`pointer:fine`), per Hover (JS-gesteuert mit Intent-Verzögerung und unsichtbarer Brücke über den Gap, WCAG 1.4.13).
 - Pfeiltasten (`↓`/`↑`) sowie `Home`/`End` navigieren die Einträge innerhalb des geöffneten Submenüs.
-- `Escape` schließt das Submenü und gibt den Fokus auf den Caret zurück; ein Klick außerhalb, das Heraustabben oder eine Navigation schließen ebenfalls.
+- `Escape` schließt das Submenü und gibt den Fokus auf den Caret zurück; ein Klick außerhalb oder eine Navigation schließen ebenfalls. Heraustabben schließt das Submenü nicht.
 - **Kein reines CSS-`:hover`-Öffnen:** Der Reveal hängt immer an `.is-open`, damit `aria-expanded` mitläuft.
 - **Nie zwei Menüs gleichzeitig offen:** Vor jedem Öffnen ruft das JS `closeAllNavItems`.
 - Der Label-Link navigiert unverändert direkt zur Übersicht, nur der Caret-Button klappt auf; ein Klick auf das Label öffnet oder schließt kein Menü.
