@@ -56,9 +56,9 @@ Verhältnis wie die Listing-Cards, Redaktion pflegt ein Bild in einem Zuschnitt 
 und Grid. Die Spaltenteilung (60 Prozent Bild, 40 Prozent Content) liegt in der Klasse, nicht
 im `style`-Attribut. Die Stufen richten sich nach der Kartenbreite (`@container`), nicht
 nach dem Viewport, denn die Kartenbreite hängt am Platz im Layout. Über 1000 px steht das
-Bild bei 60 Prozent. Von 900 bis 1000 px (Tablet-Landscape) verdichtet sich die Karte auf
+Bild bei 60 Prozent. Über 900 bis 1000 px (Tablet-Landscape) verdichtet sich die Karte auf
 65/35 mit zweizeiligem Lead: Ein 16:9-Bild wird mit der Breite auch höher, und diese Höhe
-braucht der Content-Block. Unter 900 px wird gestapelt, weil die Textspalte sonst unter
+braucht der Content-Block. Bis 900 px wird gestapelt, weil die Textspalte sonst unter
 250 px fällt.
 
 **Editorial-Variant:** Featured-Cards nutzen `.card-title-hero` (24 px Serif, Headline-sm)
@@ -97,7 +97,7 @@ Listing.
 | Aspekt | Featured (Landing) | Standard-Card (Listing) |
 |---|---|---|
 | Anlass | Genau ein hervorgehobener Termin | Mehrere parallel sichtbare Termine |
-| Layout | Horizontal, 16:9 Bild plus Content, drei Stufen nach Kartenbreite (`@container`, nicht Viewport): über 1000 px Bild 60 %, 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), unter 900 px gestapelt | Vertikal, 16:9 Bild über Content |
+| Layout | Horizontal, 16:9 Bild plus Content, drei Stufen nach Kartenbreite (`@container`, nicht Viewport): über 1000 px Bild 60 %, über 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), bis 900 px gestapelt | Vertikal, 16:9 Bild über Content |
 | Bild-Geometrie | `.card-media` mit `aspect-ratio:16/9`, Bildausschnitt über `object-position` am `<img>`, nicht als `background-position` am Container. Dasselbe Verhältnis wie im Listing: ein Bild, ein Zuschnitt | `.card-media` mit `aspect-ratio:16/9` |
 | Headline | `.card-title-hero` (24 px Serif), `text-wrap:balance` steckt in der Klasse | `.card-title` (20 px Sans), `line-clamp:2`, `min-height:2lh` für die Gleichhöhe im Grid |
 | Lead | `.card-text`, `min-height:0`, `line-clamp` bleibt als Riegel gegen zu lange Leads | `.card-text` mit `line-clamp:3`, `min-height:3lh` |
@@ -109,7 +109,7 @@ Listing.
 
 | Aspekt | Regel |
 |---|---|
-| Pill-Vokabular | Nur die fünf Formate, keine eigenen Wörter wie „Workshop“ oder „Bootcamp“ |
+| Format-Vokabular | Nur die fünf Formate in der Meta-Zeile, keine eigenen Wörter wie „Workshop“ oder „Bootcamp“. Die Pill trägt allein den Bereichsnamen |
 | Pill-Margin | Kein `margin-bottom` im Markup, `.card-body` und `.card-featured-body` nehmen die Eigenmarge der Pill selbst zurück: In einer Flex-Spalte addiert sie sich zum `gap`, statt zu kollabieren. Der Abstand kommt allein aus dem `gap` und hält Pill und Datum als Meta-Header zusammen |
 | Pill-Breite | Kein `width:fit-content` und kein `align-self` im Markup, die Pill bringt das selbst mit |
 | Datums-Reihenfolge | Cards chronologisch, kommende Veranstaltungen zuerst, Vergangenes über „Frühere Veranstaltungen ansehen“ oder Archiv-Filter |
@@ -122,7 +122,7 @@ Listing.
 **Dos**
 - Datum vor Titel platzieren, „Kann ich da?“ ist der wichtigste Filter.
 - Wochentag mitgeben, macht bei Meet-Ups nach 18:00 den Unterschied.
-- Pill auf das Format-Vokabular beschränken, Charakter-Begriffe gehören in den Titel.
+- Die Pill auf den Bereichsnamen beschränken, das Format steht in der Meta-Zeile auf dem Vokabular der fünf Formate, Charakter-Begriffe gehören in den Titel.
 - Monatsnamen ausschreiben, passt zur Marken-Tonalität.
 
 **Don'ts**

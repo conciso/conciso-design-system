@@ -215,7 +215,7 @@ const GROUP_USAGE_CHECKS = [
   },
   {
     id: 'seitenmuster-veranstaltungsübersicht--übersicht',
-    sentence: 'über 1000 px Bild 60 %, 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), unter 900 px gestapelt',
+    sentence: 'über 1000 px Bild 60 %, über 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), bis 900 px gestapelt',
   },
   {
     id: 'seitenmuster-veranstaltung--übersicht',
