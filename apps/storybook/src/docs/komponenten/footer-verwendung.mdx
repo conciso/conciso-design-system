@@ -124,7 +124,8 @@ Gegenüber der Standard-Form (`.field`) gilt:
 | Feld-Label | `--ty-label-sm`, Uppercase, letter-spacing .06em, `--tx-secondary` | identisch |
 | Feld-Hintergrund | `--bg-surface` (Dark-Mode-tauglich) | identisch |
 | Fokusring | `--focus-ring` (Dual-Shadow, AA-kompatibel) | identisch |
-| Fehlerzustand | Border auf `--c-error`, Fehlertext über `.error-msg` direkt unter dem Input | identisch |
+| Fehlerzustand | Border auf `--c-error`, Fehlertext über `.error-msg` direkt unter dem Input | gleiche Border |
+| Fehlertext (`.error-msg`) | `--ty-body-sm`, Abstand zum Input und zwischen Icon und Text `--s2` | `--ty-label-sm`, Abstand `--s1` |
 
 Das Markup der Form, mit sichtbaren Labels, Consent vor dem Submit und dem Rechtstext als echtem Link:
 
@@ -138,7 +139,7 @@ Das Markup der Form, mit sichtbaren Labels, Consent vor dem Submit und dem Recht
   </label>
   <label class="footer-field">
     <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
-    <input type="email" placeholder="name@unternehmen.de" aria-required="true" required>
+    <input type="email" placeholder="name@unternehmen.de" autocomplete="email" aria-required="true" required>
   </label>
   <label class="footer-newsletter-consent">
     <input type="checkbox" required>
