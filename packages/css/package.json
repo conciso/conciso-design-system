@@ -10,14 +10,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "workspaces": [
-    "storybook-angular",
-    "angular-lib",
-    "mcp-server"
-  ],
-  "overrides": {
-    "vite": "^8.2.0"
-  },
   "type": "module",
   "sideEffects": [
     "*.css"
@@ -54,44 +46,14 @@
     "build:tokens": "node scripts/build-tokens.mjs",
     "build:icons": "node scripts/build-icons.mjs",
     "build:css": "node scripts/bundle-css.mjs",
-    "check:dark-states": "node scripts/check-dark-states.mjs",
     "build": "npm run build:tokens && npm run build:icons && npm run build:css",
     "prepare": "npm run build",
-    "check:contrast": "node scripts/check-contrast.mjs",
-    "check:quotes": "node scripts/check-quotes.mjs",
-    "check:ticket-refs": "node scripts/check-ticket-refs.mjs",
-    "test:ticket-refs": "node --test scripts/check-ticket-refs.test.mjs",
-    "check:relevant-paths": "node scripts/release/relevant-paths.mjs",
-    "check:storybook-mcp-pin": "node scripts/release/check-storybook-mcp-pin.mjs",
-    "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
-    "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
-    "test:release": "node --test scripts/release/*.test.mjs",
-    "build:angular-lib": "npm run --workspace angular-lib build",
-    "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
-    "lint:angular-lib": "npm run --workspace angular-lib lint",
-    "lint:storybook": "npm run --workspace storybook-angular lint",
-    "lint:mcp-server": "npm run --workspace mcp-server lint",
-    "storybook": "npm run --workspace storybook-angular storybook",
-    "build:storybook": "npm run --workspace storybook-angular build-storybook",
-    "test": "npm run test:vitest",
-    "test:vitest": "npm run --workspace storybook-angular test:vitest --",
-    "playwright:install": "npm run --workspace storybook-angular playwright:install"
+    "prepack": "node scripts/prepack.mjs"
   },
   "keywords": [
     "design-system",
     "design-tokens",
     "css",
     "conciso"
-  ],
-  "devDependencies": {
-    "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-conventional": "^21.2.3",
-    "@commitlint/lint": "^21.2.3",
-    "@commitlint/load": "^21.2.3",
-    "@semantic-release/commit-analyzer": "^13.0.1",
-    "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/release-notes-generator": "^14.1.1",
-    "prettier": "^3.8.1",
-    "semantic-release": "^25.0.9"
-  }
+  ]
 }

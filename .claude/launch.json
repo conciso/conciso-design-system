@@ -4,7 +4,7 @@
     {
       "name": "storybook",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "storybook-angular", "run", "storybook"],
+      "runtimeArgs": ["--prefix", "apps/storybook", "run", "storybook"],
       "port": 6006
     }
   ]

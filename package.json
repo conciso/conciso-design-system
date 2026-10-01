@@ -1,0 +1,57 @@
+{
+  "name": "conciso-design-system-repo",
+  "version": "0.0.0",
+  "description": "Workspace-Wurzel des Conciso Design Systems. Nicht selbst veröffentlicht; die Pakete liegen unter packages/, die Storybook-App unter apps/.",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "overrides": {
+    "vite": "^8.2.0"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "npm run build --workspace packages/css && npm run build --workspace packages/angular && npm run build --workspace apps/storybook && npm run build --workspace packages/mcp",
+    "build:tokens": "npm run build:tokens --workspace packages/css",
+    "build:icons": "npm run build:icons --workspace packages/css",
+    "build:css": "npm run build:css --workspace packages/css",
+    "build:angular-lib": "npm run build --workspace packages/angular",
+    "build:storybook": "npm run build --workspace apps/storybook",
+    "build:mcp": "npm run build --workspace packages/mcp",
+    "check:dark-states": "node tools/checks/check-dark-states.mjs",
+    "check:contrast": "node tools/checks/check-contrast.mjs",
+    "check:quotes": "node tools/checks/check-quotes.mjs",
+    "check:ticket-refs": "node tools/checks/check-ticket-refs.mjs",
+    "test:ticket-refs": "node --test tools/checks/check-ticket-refs.test.mjs",
+    "check:relevant-paths": "node tools/release/relevant-paths.mjs",
+    "check:storybook-mcp-pin": "node tools/release/check-storybook-mcp-pin.mjs",
+    "test:release": "node --test tools/release/*.test.mjs",
+    "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
+    "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
+    "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",
+    "lint:angular-lib": "npm run lint --workspace packages/angular",
+    "lint:storybook": "npm run lint --workspace apps/storybook",
+    "lint:mcp-server": "npm run lint --workspace packages/mcp",
+    "storybook": "npm run storybook --workspace apps/storybook",
+    "test": "npm run test:vitest",
+    "test:vitest": "npm run test:vitest --workspace apps/storybook --",
+    "playwright:install": "npm run playwright:install --workspace apps/storybook"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@commitlint/lint": "^21.2.3",
+    "@commitlint/load": "^21.2.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "prettier": "^3.8.1",
+    "semantic-release": "^25.0.9"
+  }
+}
