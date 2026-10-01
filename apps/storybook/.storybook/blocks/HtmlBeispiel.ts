@@ -63,8 +63,11 @@ function dokument(html: string, dunkel: boolean): string {
   const links = CSS_DATEIEN.map(
     (name) => `<link rel="stylesheet" href="${basis}${name}.css">`,
   ).join('');
+  // Relative Quellen im Beispiel (src="platzhalter.svg") lösen gegen die Doku-Assets auf.
+  const assets = new URL('./conciso/beispiel/', document.baseURI).href;
   return (
     `<!doctype html><html lang="de"${dunkel ? ' data-theme="dark"' : ''}><head>` +
+    `<base href="${assets}">` +
     `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">` +
     `${links}<style>body{margin:0;padding:var(--s6);transition:none}</style>` +
     `</head><body>${html}</body></html>`

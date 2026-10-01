@@ -96,6 +96,8 @@ const config: StorybookConfig = {
     // Gemountet wird nur assets/brand, nicht der Demo-Bilderordner: Storybook
     // braucht ausschließlich die drei Wortmarken, kein Demo-Foto.
     { from: '../../../packages/css/assets/brand', to: '/conciso/brand' },
+    // Neutrales Platzhalterbild für die HTML-Beispiele der Doku (siehe blocks/HtmlBeispiel.ts).
+    { from: '../assets/beispiel', to: '/conciso/beispiel' },
   ],
   /**
    * Dev-Server hört auf 0.0.0.0:6006 (siehe angular.json → architect.storybook.options)
