@@ -1,5 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import * as TableStories from '../../lib/table/table.stories';
+import { HtmlBeispiel } from '../../../.storybook/blocks/HtmlBeispiel';
 
 <Meta of={TableStories} name="Verwendung" />
 
@@ -19,6 +20,8 @@ Ja/Nein oder eine kurze Angabe begrenzt sind.
 
 Zeilentrenner, Hover-Highlight, numerische Spalten rechtsbündig. Der
 Scroll-Container ist per Tastatur fokussierbar (`tabindex="0"`).
+
+<HtmlBeispiel titel="Standardtabelle">
 
 ```html
 <div class="tbl-wrap" tabindex="0" role="region" aria-label="Leistungsübersicht Tabelle">
@@ -42,6 +45,8 @@ Scroll-Container ist per Tastatur fokussierbar (`tabindex="0"`).
 </div>
 ```
 
+</HtmlBeispiel>
+
 Numerische Spalten bekommen `data-num` an `<th>`/`<td>`, nicht eine eigene Klasse:
 `.tbl td[data-num]`/`.tbl th[data-num]` richten rechtsbündig aus und schalten auf
 tabellarische Ziffern (`font-variant-numeric: tabular-nums`) um.
@@ -50,6 +55,8 @@ tabellarische Ziffern (`font-variant-numeric: tabular-nums`) um.
 
 Modifier `.tbl--striped` für Tabellen mit vielen Zeilen, verbessert die Lesbarkeit
 ohne zusätzliche Rahmen.
+
+<HtmlBeispiel titel="Gestreifte Tabelle">
 
 ```html
 <div class="tbl-wrap" tabindex="0" role="region" aria-label="Veranstaltungskalender Tabelle">
@@ -73,6 +80,8 @@ ohne zusätzliche Rahmen.
 </div>
 ```
 
+</HtmlBeispiel>
+
 Sortierbare Spaltenüberschriften nutzen `.tbl-sort` (ein `<button>` in der `<th>`)
 zusammen mit `aria-sort="ascending"` bzw. `"descending"` auf der `<th>`; `.tbl--striped`
 und `.tbl-sort` lassen sich kombinieren, gestreift und sortierbar für
@@ -93,6 +102,8 @@ Die empfohlene Spalte wird über `.ep-compare-pro` (bereichsgetönt) hervorgehob
 Enthalten/Nicht enthalten als `.ep-compare-yes` (✓) beziehungsweise `.ep-compare-no`
 (−), jeweils mit `.sr-only`-Text, da Farbe und Glyph allein keine Bedeutung tragen
 (WCAG 1.4.1).
+
+<HtmlBeispiel titel="Vergleichstabelle (aufklappbar)">
 
 ```html
 <details class="ep-compare">
@@ -118,6 +129,8 @@ Enthalten/Nicht enthalten als `.ep-compare-yes` (✓) beziehungsweise `.ep-compa
   </div>
 </details>
 ```
+
+</HtmlBeispiel>
 
 ## Verwendung
 
