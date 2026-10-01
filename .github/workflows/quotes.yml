@@ -1,15 +1,15 @@
 # Anführungszeichen-Gate: findet Paare, die typografisch öffnen (U+201E) und mit dem
 # geraden ASCII-Zeichen schließen statt mit U+201C, siehe CONTRIBUTING § 6 und
-# scripts/check-quotes.mjs. Bewusst OHNE Pfadfilter: Copy und Kommentare liegen überall
-# (docs/, css/, storybook-angular/, Markdown auf Root-Ebene), und der Check ist
+# tools/checks/check-quotes.mjs. Bewusst OHNE Pfadfilter: Copy und Kommentare liegen überall
+# (docs/, packages/, apps/, Markdown auf Root-Ebene), und der Check ist
 # dependency-frei und in Sekunden durch.
 # Das Fehlermuster steht hier als U+-Notation, nicht als Glyphenpaar — der Check prüft
 # diese Datei mit.
 #
-# Zweiter Check im selben Job: scripts/check-ticket-refs.mjs (CONTRIBUTING § 17) — findet
+# Zweiter Check im selben Job: tools/checks/check-ticket-refs.mjs (CONTRIBUTING § 17) — findet
 # neue Verweise auf lokale Ticket-Dateien außerhalb ihres eigenen, gitignoreten
-# Verzeichnisses. Davor laufen dessen eigene Unit-Tests (scripts/check-ticket-refs.test.mjs,
-# Stil wie scripts/release/*.test.mjs, node:test) gegen das Muster und die Allowlist selbst.
+# Verzeichnisses. Davor laufen dessen eigene Unit-Tests (tools/checks/check-ticket-refs.test.mjs,
+# Stil wie tools/release/*.test.mjs, node:test) gegen das Muster und die Allowlist selbst.
 # Alle drei Schritte sind dependency-freie Textsuchen/-tests über denselben Dateibestand
 # (node:test ist Teil der Node-Runtime, kein npm ci nötig), ein zweiter Job würde nur denselben
 # Checkout ein zweites Mal bezahlen.

@@ -1,0 +1,59 @@
+{
+  "name": "@conciso/design-system",
+  "version": "0.0.0",
+  "description": "Conciso Design System — Design Tokens, CSS-Komponenten und Light/Dark-Mode, framework-agnostisch und WCAG-AA-konform.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/conciso/conciso-design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "css",
+    "dist",
+    "fonts",
+    "assets",
+    "icons",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": "./dist/conciso-ds.css",
+    "./css/fonts.css": "./css/fonts.css",
+    "./css/tokens.css": "./css/tokens.css",
+    "./css/dark-mode.css": "./css/dark-mode.css",
+    "./css/base.css": "./css/base.css",
+    "./css/components.css": "./css/components.css",
+    "./dist/conciso-ds.css": "./dist/conciso-ds.css",
+    "./tokens": "./dist/tokens/tokens.js",
+    "./tokens.json": "./dist/tokens/tokens.json",
+    "./tokens.scss": "./dist/tokens/tokens.scss",
+    "./icons": {
+      "types": "./dist/icons/icons.d.ts",
+      "default": "./dist/icons/icons.js"
+    },
+    "./icons.json": "./dist/icons/icons.json",
+    "./assets/brand/*": "./assets/brand/*"
+  },
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.mjs",
+    "build:icons": "node scripts/build-icons.mjs",
+    "build:css": "node scripts/bundle-css.mjs",
+    "build": "npm run build:tokens && npm run build:icons && npm run build:css",
+    "prepare": "npm run build",
+    "prepack": "node scripts/prepack.mjs"
+  },
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "css",
+    "conciso"
+  ]
+}

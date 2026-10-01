@@ -1,7 +1,7 @@
 name: Consumer-Smoke-Test
 
 # Baut Angular-Lib + CSS-Schicht, tarballt beide per `npm pack` und installiert
-# sie in die committete Consumer-Fixture (examples/consumer-fixture) — dann ein
+# sie in die committete Consumer-Fixture (tools/consumer-fixture) — dann ein
 # produktiver AOT-`ng build` dort. Fängt Fehler ab, die kein anderer Test sieht:
 # unvollständige APF-Metadaten, fehlende Re-Exports in public-api.ts, nicht
 # auflösbare peer-Deps, AOT-Template-Typfehler, fehlende Icon-Registrierung.
@@ -18,31 +18,21 @@ on:
   push:
     branches: [main]
     paths:
-      - 'angular-lib/**'
-      - 'examples/consumer-fixture/**'
-      - 'scripts/consumer-smoke-test.sh'
-      - 'scripts/release/stamp-version.mjs'
-      - 'scripts/build-*.mjs'
-      - 'scripts/bundle-css.mjs'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
+      - 'packages/css/**'
+      - 'packages/angular/**'
+      - 'tools/consumer-fixture/**'
+      - 'tools/checks/consumer-smoke-test.sh'
+      - 'tools/release/stamp-version.mjs'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/consumer-smoke-test.yml'
   pull_request:
     paths:
-      - 'angular-lib/**'
-      - 'examples/consumer-fixture/**'
-      - 'scripts/consumer-smoke-test.sh'
-      - 'scripts/release/stamp-version.mjs'
-      - 'scripts/build-*.mjs'
-      - 'scripts/bundle-css.mjs'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
+      - 'packages/css/**'
+      - 'packages/angular/**'
+      - 'tools/consumer-fixture/**'
+      - 'tools/checks/consumer-smoke-test.sh'
+      - 'tools/release/stamp-version.mjs'
       - 'package.json'
       - 'package-lock.json'
       - '.github/workflows/consumer-smoke-test.yml'
@@ -82,10 +72,10 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
-      # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
+      # npm-Workspaces (packages/*, apps/*) → vom Repo-Root installieren.
       - name: Dependencies installieren
         run: npm ci
       - name: Consumer-Smoke-Test
         # Explizit über bash, nicht als ausführbare Datei: so hängt der Lauf nicht
         # daran, dass das Execute-Bit jeden Checkout übersteht.
-        run: bash scripts/consumer-smoke-test.sh "${{ inputs.version }}"
+        run: bash tools/checks/consumer-smoke-test.sh "${{ inputs.version }}"

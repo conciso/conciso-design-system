@@ -1,7 +1,7 @@
 # Storybook-Werkzeuge für Agenten
 
 Seit Storybook 10.6 bringt die CLI Werkzeuge mit, die Agenten direkt nutzen können — ohne
-MCP-Server, ohne laufenden Dev-Server. Aufruf aus `storybook-angular/`.
+MCP-Server, ohne laufenden Dev-Server. Aufruf aus `apps/storybook/`.
 
 ## Warum das wichtig ist
 
@@ -45,5 +45,5 @@ npx storybook skills stories        # der vorgegebene Ablauf für UI-Änderungen
 ## Verhältnis zum MCP-Endpunkt
 
 Derselbe Werkzeugkasten steht bei laufendem `npm run storybook` unter `http://localhost:6006/mcp`
-bereit (siehe `storybook-angular/README.md`). Die CLI ist der kürzere Weg, wenn kein Server läuft;
+bereit (siehe `apps/storybook/README.md`). Die CLI ist der kürzere Weg, wenn kein Server läuft;
 MCP lohnt sich, wenn ein Agent dauerhaft angebunden ist.

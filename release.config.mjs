@@ -3,7 +3,7 @@
 // veröffentlicht, taggt oder erzeugt ein GitHub-Release — das bleibt Aufgabe des
 // bestehenden `publish`-Jobs, der die von hier gelieferte Version und die Notes übernimmt.
 //
-// Das eigene Plugin (scripts/release/semantic-release-plugin.mjs) ersetzt
+// Das eigene Plugin (tools/release/semantic-release-plugin.mjs) ersetzt
 // @semantic-release/commit-analyzer + @semantic-release/release-notes-generator NICHT,
 // sondern filtert deren Eingabe-Commits vorab über den gemeinsamen Pfadfilter
 // (relevant-paths.mjs) und wendet die Bump-Regeln aus ADR-0010 an.
@@ -22,11 +22,11 @@ export default {
   branches: [process.env.RELEASE_BRANCH || 'main'],
   tagFormat: 'v${version}',
   plugins: [
-    './scripts/release/semantic-release-plugin.mjs',
+    './tools/release/semantic-release-plugin.mjs',
     [
       '@semantic-release/exec',
       {
-        verifyReleaseCmd: 'node scripts/release/write-release-outputs.mjs "${nextRelease.version}"',
+        verifyReleaseCmd: 'node tools/release/write-release-outputs.mjs "${nextRelease.version}"',
       },
     ],
   ],

@@ -4,7 +4,7 @@
 // bisherigen History ist bewusst NICHT im Standard-`type-enum` enthalten (siehe
 // @commitlint/config-conventional) — neue veröffentlichungsrelevante Commits müssen einen
 // echten Conventional-Commit-Typ tragen, nicht relevante Commits werden ohnehin nicht
-// geprüft (scripts/release/check-relevant-commits.mjs).
+// geprüft (tools/release/check-relevant-commits.mjs).
 //
 // Keine Standard-Ausnahmen (`defaultIgnores: false`): commitlint winkt sonst auch
 // `fixup!`/`squash!`/`amend!`, `Reapply …` und reine Versionsnummern wie „v2.1.0“ ungeprüft

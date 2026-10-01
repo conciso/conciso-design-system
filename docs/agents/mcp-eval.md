@@ -7,7 +7,7 @@ hilft — nicht nur, ob das Protokoll antwortet. Siehe
 ## Warum das ein eigenes Skript ist, kein CI-Gate
 
 Der [Tarball-Smoke-Test](../adr/0012-mcp-server-fuer-consumer.md) (`npm run test:smoke -w
-mcp-server`) prüft das Protokoll: antwortet `docs-show`, fehlt kein `@internal`-Member. Er
+packages/mcp`) prüft das Protokoll: antwortet `docs-show`, fehlt kein `@internal`-Member. Er
 sagt nichts darüber, ob eine KI mit diesem Server tatsächlich bessere Antworten gibt als
 ohne — genau das prüft dieses Eval-Set, per echtem `claude -p`-Aufruf. Zwei Gründe, warum das
 kein CI-Gate ist:
@@ -26,7 +26,7 @@ kein CI-Gate ist:
 
 ## Was es kostet
 
-Ein Lauf startet **zwei `claude -p`-Aufrufe pro Frage** in `mcp-server/eval/fragen.json`
+Ein Lauf startet **zwei `claude -p`-Aufrufe pro Frage** in `packages/mcp/eval/fragen.json`
 (mit Server, ohne Server), jeweils mit dem in der Umgebung konfigurierten Standardmodell und
 maximal 240 s Timeout pro Aufruf. Die tatsächliche Fragen-/Aufrufzahl wächst mit dem Eval-Set
 mit — sie steht verlässlich am Kopf jedes Berichts (`Fragen: N`), nicht hier. Der Bericht selbst
@@ -53,18 +53,18 @@ jeweils aktuellen Lauf tatsächliche Summe steht in der Kopfzeile des eigenen Be
 ## Ausführen
 
 ```bash
-npm run build:storybook              # falls storybook-static fehlt oder veraltet ist
-npm run build:snapshot -w mcp-server # optional — npm pack baut den Snapshot im prepack-Hook ohnehin neu
-npm run eval -w mcp-server           # packt sich selbst und läuft gegen den Tarball
+npm run build:storybook                # falls apps/storybook/dist fehlt oder veraltet ist
+npm run build:snapshot -w packages/mcp # optional — npm pack baut den Snapshot im prepack-Hook ohnehin neu
+npm run eval -w packages/mcp           # packt sich selbst und läuft gegen den Tarball
 # oder gegen einen bereits gebauten Tarball:
-npm run eval -w mcp-server -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
+npm run eval -w packages/mcp -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
 ```
 
-Voraussetzung ist in jedem Fall ein aktueller `storybook-angular/storybook-static`-Build —
-ohne Tarball-Argument packt sich das Paket selbst (`npm pack -w mcp-server`, dieselbe
+Voraussetzung ist in jedem Fall ein aktueller `apps/storybook/dist`-Build —
+ohne Tarball-Argument packt sich das Paket selbst (`npm pack -w packages/mcp`, dieselbe
 Vorgehensweise wie der `mcp-smoke-test`-Job in `.github/workflows/storybook-angular.yml`);
 dessen `prepack`-Hook baut den Snapshot aus dem vorhandenen Storybook-Build neu
-(`scripts/build-snapshot.mjs`), baut das Storybook selbst aber nicht.
+(`packages/mcp/scripts/build-snapshot.mjs`), baut das Storybook selbst aber nicht.
 
 Jeder Lauf schreibt zwei Dateien mit demselben Zeitstempel in das System-Temp-Verzeichnis:
 
@@ -84,7 +84,7 @@ Ein gespeicherter Lauf lässt sich mit der aktuellen Fassung der deterministisch
 bewerten:
 
 ```bash
-npm run eval:recheck -w mcp-server -- /pfad/zu/cds-mcp-eval-answers-<zeitstempel>.json
+npm run eval:recheck -w packages/mcp -- /pfad/zu/cds-mcp-eval-answers-<zeitstempel>.json
 ```
 
 Das Kommando ruft weder `claude -p` noch den MCP-Server auf und benötigt keinen Tarball. Es
@@ -108,7 +108,7 @@ eine Variante beschränken, über zwei Umgebungsvariablen:
 ```bash
 CDS_MCP_EVAL_ONLY_ID=farbe-text-bereichsfarbe-weiss \
 CDS_MCP_EVAL_ONLY_VARIANT=mit-server \
-npm run eval -w mcp-server -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
+npm run eval -w packages/mcp -- /pfad/zu/conciso-design-system-mcp-0.0.0.tgz
 ```
 
 - `CDS_MCP_EVAL_ONLY_ID` filtert `fragen.json` auf genau diese `id`; passt keine Frage, bricht
@@ -135,7 +135,7 @@ und in eine Datei unter dem System-Temp-Verzeichnis (Pfad steht am Ende der Ausg
 - **Erfundene API** — Attribute/Bindungen auf `cds-*`-Elementen in Code-Blöcken der Antwort,
   die für die jeweilige Komponente **nicht** in den `argTypes` des installierten Snapshots
   stehen (`table.category` `inputs`/`outputs`). Kein LLM-Richter: reine Textanalyse gegen die
-  echten Docgen-Daten, siehe `mcp-server/eval/checker.mjs`. Standard-HTML-/Angular-Attribute
+  echten Docgen-Daten, siehe `packages/mcp/eval/checker.mjs`. Standard-HTML-/Angular-Attribute
   (`class`, `id`, `style`, `aria-*`, `data-*`, `*ngIf`, `#ref`, `ngModel`, `(click)` u. Ä.)
   werden dabei ignoriert — die vollständige Liste steht am Kopf von `checker.mjs`.
 - **CSS-Hinweis** — nur bei Fragen mit `"checks": ["setup-mentions-global-css", …]`: erwähnt
@@ -143,7 +143,7 @@ und in eine Datei unter dem System-Temp-Verzeichnis (Pfad steht am Ende der Ausg
 - **Kernaussage** — nur bei Fragen mit `"checks": ["core-claim-keywords", …]` (Intentionsfragen,
   siehe unten): trifft die Antwort die erwartete Kernaussage der Verwendungsguidance? Ebenfalls
   kein LLM-Richter, reiner Stichwort-Abgleich gegen `claimKeywords` in der Frage
-  (`mcp-server/eval/checker.mjs`, Funktion `checkCoreClaim`). Die Zelle nennt bei einem Fehlschlag,
+  (`packages/mcp/eval/checker.mjs`, Funktion `checkCoreClaim`). Die Zelle nennt bei einem Fehlschlag,
   wie viele der Teilaspekte (Gruppen) keinen Treffer hatten; der Detail-Abschnitt listet sie
   einzeln mit ihren Synonymen auf.
 - **Werkzeugaufrufe** — reine Zählung, keine Wertung; interessant im Vergleich „mit“ vs.
@@ -161,7 +161,7 @@ ist ein Befund für den Bericht, kein Skriptfehler.
 
 ## Fragen erweitern
 
-`mcp-server/eval/fragen.json` ist eine reine Datendatei, ohne Codeänderung erweiterbar. Jeder
+`packages/mcp/eval/fragen.json` ist eine reine Datendatei, ohne Codeänderung erweiterbar. Jeder
 Eintrag:
 
 ```json
@@ -220,7 +220,7 @@ vortäuschen, die den Punkt in Wahrheit nicht trifft — wie bei `no-invented-at
 Bericht ein Signal für die manuelle Einordnung, kein hartes Urteil.
 
 **Quellenpflicht:** Die erwartete Kernaussage jeder Intentionsfrage muss aus der tatsächlichen
-Guidance belegbar sein (Storybook-MDX unter `storybook-angular/src/docs/**`) — das Zitat mit
+Guidance belegbar sein (Storybook-MDX unter `apps/storybook/src/docs/**`) — das Zitat mit
 Fundstelle gehört nicht in diese Datei, sondern
 ins Issue, das die Frage eingeführt hat (siehe `docs/agents/issue-tracker.md`).
 

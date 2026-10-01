@@ -11,24 +11,25 @@ Entscheidungen, die diese Begriffe tragen, stehen als ADRs unter [`docs/adr/`](d
 Das Design System besteht aus einer framework-agnostischen Basisschicht und
 frameworkspezifischen Aufsätzen darauf:
 
-- **CSS-Schicht** (`@conciso/design-system`) — die Quelle der Wahrheit für Aussehen
+- **CSS-Schicht** (`@conciso/design-system`, `packages/css/`) — die Quelle der Wahrheit für Aussehen
   und Tokens.
-- **Angular-Lib** (`@conciso/design-system-angular`) — dünne Wrapper-Komponenten
+- **Angular-Lib** (`@conciso/design-system-angular`, `packages/angular/`) — dünne Wrapper-Komponenten
   über der CSS-Schicht.
-- **Storybook** (`storybook-angular/`) — dokumentiert und testet die Angular-Lib; die
+- **Storybook** (`apps/storybook/`) — dokumentiert und testet die Angular-Lib; die
   öffentlich veröffentlichte Doku des Design Systems.
-- **MCP-Server** (`@conciso/design-system-mcp`) — liefert der KI eines Consumers das
+- **MCP-Server** (`@conciso/design-system-mcp`, `packages/mcp/`) — liefert der KI eines Consumers das
   Wissen aus dem Storybook, passend zur installierten Version.
-- **Doku-Site** — eigenständige statische Doku der CSS-Schicht,
-  nicht veröffentlicht.
+- **Doku-Site** (`docs/legacy-site/`) — eigenständige statische Doku der CSS-Schicht,
+  veraltet und nicht veröffentlicht.
 
 ## Glossar
 
 ### CSS-Schicht
 
-Das Paket `@conciso/design-system`: framework-agnostische Design-Tokens und
-CSS-Komponenten (`css/*.css`, gebündelt in `dist/conciso-ds.css`), plus die
-generierten Icon-Glyphen (`dist/icons/icons.js`) und Fonts (`fonts/`). Der gesamte
+Das Paket `@conciso/design-system` (Quelle: `packages/css/`): framework-agnostische
+Design-Tokens und CSS-Komponenten (`css/*.css`, gebündelt in `dist/conciso-ds.css`),
+plus die generierten Icon-Glyphen (`dist/icons/icons.js`) und Fonts (`fonts/`), alle
+Pfade relativ zum Paket. Der gesamte
 Ordner `dist/` entsteht beim Build und wird nicht eingecheckt. Wird als
 **globaler Cascade** geladen — die Styles gelten dokumentweit, nicht pro Komponente
 gekapselt. Dies ist die **Quelle der Wahrheit** für alles Visuelle.
@@ -59,7 +60,7 @@ dem [Storybook](#storybook), wird aber
 
 ### MCP-Server
 
-Das Paket `@conciso/design-system-mcp` (Workspace `mcp-server/`, `bin` `cds-mcp`): ein
+Das Paket `@conciso/design-system-mcp` (Workspace `packages/mcp/`, `bin` `cds-mcp`): ein
 lokal per stdio gestarteter MCP-Server für [Consumer](#consumer--konsument). Er liefert
 einen **Snapshot** der Storybook-Manifeste aus dem Build derselben
 [Lockstep-Version](#lockstep-versionierung) über die Werkzeuge von `@storybook/mcp`
@@ -103,7 +104,7 @@ Komponente einen Attributselektor (`<div cdsIconCard>`). Siehe
 
 ### Quelle der Wahrheit (Komponenten-Code)
 
-Der Komponenten-Code lebt **in der Angular-Lib**, nicht im Storybook. `storybook-angular`
+Der Komponenten-Code lebt **in der Angular-Lib**, nicht im Storybook. `apps/storybook`
 enthält nach der Extraktion nur noch die `*.stories.ts` und importiert die Komponenten
 aus der Lib. Siehe [ADR-0002](docs/adr/0002-topologie-und-quelle-der-wahrheit.md).
 
@@ -123,7 +124,7 @@ Fonts global in seiner `angular.json` (`styles`/`assets`) ein.
 
 ### Consumer-Fixture
 
-Die committete Minimal-Konsumenten-App im Repo, die im CI den gepackten Tarball
+Die committete Minimal-Konsumenten-App im Repo (`tools/consumer-fixture/`), die im CI den gepackten Tarball
 installiert und einen produktiven AOT-Build fährt ([Consumer-Smoke-Test](#consumer-smoke-test)).
 Dient zugleich als lebendes Konsum-Beispiel.
 
@@ -160,7 +161,7 @@ kann: der ausgelieferte Inhalt aller Pakete **und** alles, woraus er gebaut wird
 Nur Commits, die mindestens einen solchen Pfad berühren, zählen für ein
 [Release](#release) — und nur sie müssen der Commit-Konvention genügen. Dazu gehören
 seit [ADR-0012](docs/adr/0012-mcp-server-fuer-consumer.md) auch Stories und MDX-Seiten
-(`storybook-angular/src/**`), weil sie in den Snapshot des [MCP-Servers](#mcp-server)
+(`apps/storybook/src/**`), weil sie in den Snapshot des [MCP-Servers](#mcp-server)
 eingehen. Alle anderen Commits (Storybook-Konfiguration, Beispielseiten, CI, nicht
 ausgelieferte Doku wie ADRs) sind für die Versionierung unsichtbar. Ausgelieferte Doku (etwa die README eines Pakets) ist
 dagegen ein solcher Pfad.
@@ -178,5 +179,5 @@ Bulk umzogen. Beides ist abgeschlossen — alle 37 Komponenten liegen in der
 Design-System-eigene Icons (`ui*`), die aus `@conciso/design-system/icons`
 (generiertes `dist/icons/icons.js`, öffentlicher Importpfad
 `@conciso/design-system/icons`) stammen — nicht aus `@ng-icons`. Die zentrale
-Icon-Registry (`icons/cds-icons.ts`) ist die einzige Import-Fläche für
+Icon-Registry (`packages/angular/src/lib/icons/cds-icons.ts`) ist die einzige Import-Fläche für
 Komponenten-Icons; Komponenten importieren nie direkt aus `@ng-icons/heroicons`.

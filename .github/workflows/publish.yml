@@ -7,7 +7,7 @@ name: Pakete veröffentlichen
 # docs/adr/0012). GitHub Packages bleibt Quelle der Wahrheit für den
 # Existenz-/Vollständigkeits-Check (Job „pruefen“ liest dort weiterhin `LATEST_TAG` und die
 # GitHub-Release-Existenz); npmjs wird zusätzlich, gleichrangig geprüft (siehe
-# scripts/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`/`publish_mcp_npm`). Ob der
+# tools/release/decide.mjs, `publish_css_npm`/`publish_lib_npm`/`publish_mcp_npm`). Ob der
 # MCP-Server für den letzten Tag überhaupt existierte, ist ein FAKT über dessen Commit-Baum
 # (`tagHasMcp`, siehe „Fakten sammeln“ unten und der Kopfkommentar in decide.mjs) — keine
 # Versions-Konstante wie NPM_BASELINE, weil main zwischen dem Schreiben dieses Codes und dem
@@ -24,8 +24,8 @@ name: Pakete veröffentlichen
 # Repo ist versionsfrei (docs/adr/0010-release-ausloesung-und-versionsquelle.md): alle drei
 # package.json tragen dauerhaft den Platzhalter 0.0.0. `semantic-release --dry-run` wertet
 # die Commits seit dem letzten Tag aus (nur veröffentlichungsrelevante zählen, siehe
-# scripts/release/relevant-paths.mjs — seit ADR-0012 auch mcp-server/ und
-# storybook-angular/src/**) und liefert Version und Notizen. Gibt es kein
+# tools/release/relevant-paths.mjs — seit ADR-0012 auch packages/mcp/ und
+# apps/storybook/src/**) und liefert Version und Notizen. Gibt es kein
 # veröffentlichungsrelevantes `feat`/`fix`/`perf`/`build(deps)`/Breaking-Change seit dem
 # letzten Tag, bleibt die Version leer — der Lauf endet still.
 #
@@ -107,10 +107,10 @@ jobs:
       - name: Dependencies installieren
         run: npm ci
       # Berechnet Version + Notizen aus den Commits seit dem letzten Tag (siehe
-      # release.config.mjs, scripts/release/semantic-release-plugin.mjs). Läuft IMMER als
+      # release.config.mjs, tools/release/semantic-release-plugin.mjs). Läuft IMMER als
       # Dry-Run: kein Plugin hier veröffentlicht, taggt oder erstellt ein GitHub-Release,
       # das übernimmt der `publish`-Job weiter unten. Schreibt die Version bei Bedarf nach
-      # $GITHUB_OUTPUT (scripts/release/write-release-outputs.mjs) und die Notizen als Datei
+      # $GITHUB_OUTPUT (tools/release/write-release-outputs.mjs) und die Notizen als Datei
       # (release-notes-generated.md), die per Artefakt an den `publish`-Job weitergereicht wird.
       - name: 'Engine: Version und Notizen aus den Commits ermitteln'
         id: engine
@@ -120,7 +120,7 @@ jobs:
           # Nur beim manuellen Start der Branch, von dem aus gestartet wurde (siehe
           # release.config.mjs); ein Push-Lauf rechnet immer auf main.
           RELEASE_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
-      # Die eigentliche Entscheidung trifft scripts/release/decide.mjs (mit Tests); dieser
+      # Die eigentliche Entscheidung trifft tools/release/decide.mjs (mit Tests); dieser
       # Schritt sammelt nur die Fakten dafür und bereitet danach Quellstand und Notes vor.
       # Grundsatz: ERST einen unfertigen früheren Release abschließen, DANN Neues — siehe
       # Kopfkommentar in decide.mjs.
@@ -163,14 +163,12 @@ jobs:
             # MCP-Server kennt, hängt vom BAUM seines Commits ab, nicht von seiner
             # Versionsnummer (siehe Kopfkommentar in decide.mjs für die ausführliche
             # Begründung, warum eine hartkodierte Baseline hier eine Race-Condition mit einem
-            # Release ist, der VOR dem Merge des MCP-Servers auf main landet). `^{commit}`
-            # peelt einen annotierten Tag auf seinen Commit, bevor der Pfad aufgelöst wird —
-            # funktioniert unverändert für einen leichtgewichtigen Alt-Tag (zeigt schon direkt
-            # auf einen Commit). Exit-Code prüfen, nicht die Ausgabe: `-e` gibt bei Erfolg
-            # nichts aus.
-            if git cat-file -e "${LATEST_TAG}^{commit}:mcp-server/package.json" 2>/dev/null; then
-              TAG_HAS_MCP=true
-            fi
+            # Release ist, der VOR dem Merge des MCP-Servers auf main landet). Das Skript prüft
+            # `mcp-server/package.json` (Tags vor dem Umzug ins Paketlayout) ODER
+            # `packages/mcp/package.json` (danach), jeweils per `git cat-file -e` auf dem
+            # gepeelten Commit; es gibt `true` oder `false` aus und scheitert bei einem
+            # unbekannten Tag nicht, sondern gibt `false` aus.
+            TAG_HAS_MCP=$(node tools/release/tag-has-mcp.mjs "$LATEST_TAG")
           fi
           # Alle veröffentlichten Versionen pro Paket; E404 = Paket existiert noch nicht.
           versionen() {
@@ -210,7 +208,7 @@ jobs:
           # Drittes Paket (ADR-0012): dieselben zwei Abfragen (GitHub Packages + npmjs, beide
           # geschlossen scheiternd) wie oben, nur für @conciso/design-system-mcp. E404 = Paket
           # existiert für diese Registry noch nicht (vor dem Bootstrap, oder solange der
-          # aktuelle Tag noch kein mcp-server/ kennt — siehe TAG_HAS_MCP oben — der
+          # aktuelle Tag den MCP-Server noch nicht kennt — siehe TAG_HAS_MCP oben — der
           # Normalfall) — dieselbe `versionen()`/`versionen_npm()`-Funktion behandelt das.
           MCP_VERSIONS=$(versionen @conciso/design-system-mcp) || exit 1
           MCP_VERSIONS_NPM=$(versionen_npm @conciso/design-system-mcp) || exit 1
@@ -221,7 +219,7 @@ jobs:
           echo "Letzter Tag: ${LATEST_TAG:-–} (Release=${TAG_HAS_RELEASE}, annotiert=${TAG_IS_ANNOTATED}, MCP=${TAG_HAS_MCP}), Engine: ${ENGINE_VERSION:-–}"
 
           # ── Entscheiden ──
-          ENTSCHEIDUNG=$(node scripts/release/decide.mjs)
+          ENTSCHEIDUNG=$(node tools/release/decide.mjs)
           echo "$ENTSCHEIDUNG"
           wert() { echo "$ENTSCHEIDUNG" | sed -n "s/^$1=//p"; }
           MODE=$(wert mode); VERSION=$(wert version)
@@ -268,6 +266,16 @@ jobs:
                 exit 1
               fi ;;
           esac
+          # Der Quellstand muss das Paketlayout (packages/) kennen: Die Build-, Stempel- und
+          # Publish-Schritte unten sowie der Smoke-Test verwenden dessen Pfade. Ein Quellstand
+          # aus der Zeit davor (Nachziehen eines Releases, der VOR dem Umzug halb fertig blieb)
+          # ließe sie mit unklaren Fehlern scheitern, deshalb hier mit klarer Meldung. Bloßes
+          # Finalisieren (Tag/Release nachholen) baut nichts und braucht den Baum nicht.
+          if [ "$(wert publish_css)$(wert publish_lib)$(wert publish_css_npm)$(wert publish_lib_npm)$(wert publish_mcp)$(wert publish_mcp_npm)" != "falsefalsefalsefalsefalsefalse" ] \
+            && ! git cat-file -e "${SOURCE_SHA}^{commit}:packages/css/package.json" 2>/dev/null; then
+            echo "::error::Quellstand ${SOURCE_SHA} stammt aus der Zeit vor dem Paketlayout (packages/); dieser Workflow kann daraus nicht bauen. Fehlende Pakete der Version ${VERSION} manuell aus diesem Stand veröffentlichen."
+            exit 1
+          fi
           echo "source_sha=$SOURCE_SHA" >> "$GITHUB_OUTPUT"
 
           # ── Notes: immer dieselben pfadgefilterten, nur je nach Fall anders beschafft ──
@@ -275,7 +283,7 @@ jobs:
           # außer im Modus `neu` passen die nicht und werden ersetzt oder verworfen.
           case "$(wert notes_source)" in
             engine) ;;
-            range)  node scripts/release/notes-for-range.mjs "$LATEST_TAG" "$SOURCE_SHA" "$VERSION" ;;
+            range)  node tools/release/notes-for-range.mjs "$LATEST_TAG" "$SOURCE_SHA" "$VERSION" ;;
             # --cleanup=verbatim beim Taggen (siehe unten) hält die #-Überschriften darin.
             tag)    git tag -l --format='%(contents)' "$LATEST_TAG" > release-notes-generated.md ;;
             github) rm -f release-notes-generated.md ;;
@@ -395,43 +403,43 @@ jobs:
           cache-dependency-path: package-lock.json
           registry-url: https://npm.pkg.github.com
           scope: '@conciso'
-      # npm-Workspace (storybook-angular + angular-lib) → vom Repo-Root installieren.
+      # npm-Workspaces (packages/*, apps/*) → vom Repo-Root installieren.
       - name: Dependencies installieren
         if: env.BAUEN == 'true'
         run: npm ci
-      # Schreibt die ermittelte Version in beide package.json + die Peer-Pin der Lib
+      # Schreibt die ermittelte Version in die drei Paket-package.json + die Peer-Pin der Lib
       # (Spec Regel 7). NIE committet — nur der Checkout dieses Runs trägt sie.
       - name: Version in die Artefakte stempeln
         if: env.BAUEN == 'true'
-        run: node scripts/release/stamp-version.mjs "$VERSION"
+        run: node tools/release/stamp-version.mjs "$VERSION"
       - name: CSS-Schicht bauen (@conciso/design-system)
         if: env.BAUEN == 'true'
-        run: npm run build
+        run: npm run build --workspace=packages/css
       - name: Angular-Lib bauen (@conciso/design-system-angular)
         if: env.BAUEN == 'true'
-        run: npm run build --workspace=angular-lib
+        run: npm run build --workspace=packages/angular
       # ── MCP-Server (ADR-0012) ────────────────────────────────────────────────────
       # Der Snapshot MUSS aus DEMSELBEN Commit stammen wie die beiden anderen Pakete —
       # deshalb hier neu gebaut, nicht aus einem fremden Storybook-Artefakt übernommen:
-      # `mcp-server/scripts/prepack.mjs` würde sonst kommentarlos packen, was zufällig unter
-      # storybook-angular/storybook-static liegt (ein alter lokaler Build, oder gar nichts).
+      # `packages/mcp/scripts/prepack.mjs` würde sonst kommentarlos packen, was zufällig unter
+      # apps/storybook/dist liegt (ein alter lokaler Build, oder gar nichts).
       - name: Storybook bauen (Quelle des MCP-Snapshots)
         if: env.BAUEN_MCP == 'true'
         run: npm run build:storybook
       - name: MCP-Snapshot bauen
         if: env.BAUEN_MCP == 'true'
-        run: npm run build:snapshot -w mcp-server
+        run: npm run build:snapshot -w packages/mcp
       # Einmal packen, denselben Tarball danach testen UND veröffentlichen — nicht pro Schritt
       # neu packen: sonst könnte der veröffentlichte Tarball von dem abweichen, der den
       # Smoke-Test bestanden hat. Die Pack-Logik selbst (npm pack, die eine erzeugte .tgz-Datei
       # finden statt `TARBALL="$(npm pack …)"` zu capturen, siehe Kommentar in
-      # mcp-server/test-support/tarball.mjs) lebt nur noch in EINEM Skript, das storybook-
+      # packages/mcp/test-support/tarball.mjs) lebt nur noch in EINEM Skript, das storybook-
       # angular.yml (dort selbstpackend über smoke-test.mjs) und dieser Job hier (der den Pfad
       # als Output für den späteren `npm publish` braucht) beide aufrufen.
       - name: MCP-Server tarballen
         id: mcp_pack
         if: env.BAUEN_MCP == 'true'
-        run: echo "tarball=$(node mcp-server/scripts/pack-tarball.mjs)" >> "$GITHUB_OUTPUT"
+        run: echo "tarball=$(node packages/mcp/scripts/pack-tarball.mjs)" >> "$GITHUB_OUTPUT"
       # Gate vor JEDEM MCP-Publish (ADR-0012): startet den TATSÄCHLICH zu veröffentlichenden
       # Tarball über stdio und prüft initialize, die drei Werkzeuge, die Inputs einer bekannten
       # Komponente, das Fehlen von `@internal`-Membern und die Seite „Einrichtung“ — dieselbe
@@ -439,7 +447,7 @@ jobs:
       # echten Version statt dem Platzhalter 0.0.0.
       - name: MCP-Tarball-Smoke-Test (Gate vor dem Publish)
         if: env.BAUEN_MCP == 'true'
-        run: node mcp-server/scripts/smoke-test.mjs "${{ steps.mcp_pack.outputs.tarball }}"
+        run: node packages/mcp/scripts/smoke-test.mjs "${{ steps.mcp_pack.outputs.tarball }}"
       - name: Dry-Run-Flag bestimmen
         id: mode
         run: |
@@ -449,16 +457,17 @@ jobs:
       # nur das fehlende Paket veröffentlicht — ein zweites `npm publish` derselben
       # Version würde sonst mit 409 abbrechen. Gilt jetzt pro REGISTRY (siehe die beiden
       # npmjs-Schritte unten): GitHub Packages und npmjs werden unabhängig voneinander
-      # nachgezogen (scripts/release/decide.mjs, `publish_css`/`publish_lib` vs.
+      # nachgezogen (tools/release/decide.mjs, `publish_css`/`publish_lib` vs.
       # `publish_css_npm`/`publish_lib_npm`).
       - name: CSS-Schicht auf GitHub Packages veröffentlichen
         if: needs.pruefen.outputs.publish_css == 'true'
+        working-directory: packages/css
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Angular-Lib auf GitHub Packages veröffentlichen
         if: needs.pruefen.outputs.publish_lib == 'true'
-        working-directory: angular-lib/dist/design-system-angular
+        working-directory: packages/angular/dist
         run: npm publish ${{ steps.mode.outputs.flag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -498,10 +507,11 @@ jobs:
       # privat (kostenpflichtig) — hier immer mitgegeben, nicht nur beim allerersten Publish.
       - name: CSS-Schicht auf npmjs veröffentlichen
         if: needs.pruefen.outputs.publish_css_npm == 'true'
+        working-directory: packages/css
         run: npm publish ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
       - name: Angular-Lib auf npmjs veröffentlichen
         if: needs.pruefen.outputs.publish_lib_npm == 'true'
-        working-directory: angular-lib/dist/design-system-angular
+        working-directory: packages/angular/dist
         run: npm publish ${{ steps.mode.outputs.flag }} --@conciso:registry=https://registry.npmjs.org --access public
       # MCP-Server auf npmjs (ADR-0012): derselbe getestete Tarball, dieselbe
       # Scope-Registry-Umgehung und `--access public` wie bei den beiden anderen Paketen oben.

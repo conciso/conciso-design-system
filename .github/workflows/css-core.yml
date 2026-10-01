@@ -4,20 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'scripts/**'
+      - 'packages/css/**'
+      - 'tools/checks/check-dark-states.mjs'
       - 'package.json'
       - '.github/workflows/css-core.yml'
   pull_request:
     paths:
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'scripts/**'
+      - 'packages/css/**'
+      - 'tools/checks/check-dark-states.mjs'
       - 'package.json'
       - '.github/workflows/css-core.yml'
 
@@ -34,20 +28,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # Root hat keine Dependencies/Lockfile — die Build-Skripte sind reines Node
-      # (tokens → icons → gebündeltes CSS), daher kein npm install nötig.
+      # Gebaut wird nur das CSS-Paket (nicht der Root-Build, der auch Angular-Lib, Storybook
+      # und MCP-Snapshot baut). Die Build-Skripte sind reines Node (tokens → icons →
+      # gebündeltes CSS), daher kein npm install nötig.
       - name: Build
-        run: npm run build
+        run: npm run build -w packages/css
       - name: Build-Output prüfen
         run: |
-          test -f dist/conciso-ds.css
-          test -f dist/tokens/tokens.json
-          test -f dist/tokens/tokens.scss
-          test -f dist/tokens/tokens.js
-          test -f dist/icons/icons.json
-          test -f dist/icons/icons.js
-          test -f dist/icons/icons.d.ts
-          test -f dist/icons/README.md
+          test -f packages/css/dist/conciso-ds.css
+          test -f packages/css/dist/tokens/tokens.json
+          test -f packages/css/dist/tokens/tokens.scss
+          test -f packages/css/dist/tokens/tokens.js
+          test -f packages/css/dist/icons/icons.json
+          test -f packages/css/dist/icons/icons.js
+          test -f packages/css/dist/icons/icons.d.ts
+          test -f packages/css/dist/icons/README.md
       # Zustands-Regeln (:hover, :focus, :active) in components.css können im Dark Mode
       # dunkel-auf-dunkel laufen, weil dark-mode.css VOR components.css geladen wird und die
       # Light-Regel dadurch bei gleicher Spezifität gewinnt. Der Check rechnet echten Kontrast
