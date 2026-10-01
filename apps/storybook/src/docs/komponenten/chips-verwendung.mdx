@@ -58,8 +58,8 @@ Die Eigenmarge `margin-bottom:var(--s5)` gilt dem normalen Fluss, wo die Pill ü
 | Interaktivität | Klickbare Chips als `<button>` oder `<a>` implementieren, nie als `<div>` mit `onClick`, nur native Elemente sind per Tastatur und Screenreader korrekt bedienbar |
 | Auswahl-Zustand | Toggle-Chips mit `aria-pressed="true/false"` versehen, der visuelle Auswahl-Stil allein ist für Screenreader nicht erkennbar |
 | Kontrast | Chip-, Badge- und Pill-Text auf dem jeweiligen Hintergrund mindestens 4,5 zu 1 prüfen, besonders bei markierten oder aktiven Chips, da sich Hintergrund und Textfarbe ändern |
-| Pill-`aria-label` | Pflicht bei Pills mit Trennzeichen (`·`), Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“. `aria-label` mit ausgeschriebener Form (z. B. „Bereich Effektive Software, Format Meet-Up“) schreibt die Aussprache vor. Bei Pills ohne Trennzeichen kann das `aria-label` entfallen, der sichtbare Text reicht |
-| Pill mit Meta-Information (Altbestand) | Führt eine Pill kombinierte Meta-Information mit Trennzeichen, etwa `Bereich · Lesezeit`, ist das `aria-label` mit ausgeschriebener Form Pflicht, zum Beispiel `aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"`. Auf neuen Karten die Meta stattdessen separat in `.card-meta` führen, statt sie in die Pill zu falten |
+| Pill-`aria-label` | Jede Pill trägt ein `aria-label` mit ausgeschriebener Form (z. B. „Bereich Effektive Software“). Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine Überschrift, das Label macht die Bereichszuordnung explizit. Bei Pills mit Trennzeichen (`·`) ist es zusätzlich nötig, Screenreader verschlucken das Punktzeichen oder lesen es als „Punkt“ (z. B. „Bereich Effektive Software, Format Meet-Up“) |
+| Pill mit Meta-Information (Altbestand) | Führt eine Pill kombinierte Meta-Information mit Trennzeichen, etwa `Bereich · Lesezeit`, muss das `aria-label` die ausgeschriebene Form tragen, zum Beispiel `aria-label="Bereich Angewandte KI, Lesezeit 8 Minuten"`. Auf neuen Karten die Meta stattdessen separat in `.card-meta` führen, statt sie in die Pill zu falten |
 
 ## Dos & Don'ts
 
@@ -71,7 +71,7 @@ Die Eigenmarge `margin-bottom:var(--s5)` gilt dem normalen Fluss, wo die Pill ü
 - Bereichsfarbe konsequent einhalten, aktiver Chip einer Brand Area nutzt nur deren Farbtoken.
 - Chip-Labels auf max. 3 Wörter begrenzen, klare, scanbare Begriffe.
 - Semantische Statusfarben bei Badges einhalten, Grün für positiv, Gelb für Warnung, Rot für Fehler.
-- Pills mit Trennzeichen (`·`) immer mit einem `aria-label` in ausgeschriebener Form versehen.
+- Jede Pill mit einem `aria-label` in ausgeschriebener Form versehen („Bereich …“), bei Trennzeichen (`·`) erst recht.
 - Auf Cards die Pill nur mit dem Bereichsnamen füllen, Lesezeit, Datum und Format in einer separaten `.card-meta`-Zeile führen.
 
 **Nicht tun**
