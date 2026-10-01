@@ -104,11 +104,13 @@ darüber: Eyebrow, Headline und Sub-Text liegen als Gradient von unten nach oben
   </div>
 </Unstyled>
 
+<HtmlBeispiel titel="Hero-Bild mit Eyebrow, Titel und Text">
+
 ```html
 <!-- Hero-Image: 21:9, Eyebrow + Titel + Text als Gradient-Overlay -->
 <figure class="hero-image">
   <div class="hero-image-media">
-    <img src="hero.jpg" alt="Kurze Bildbeschreibung" loading="eager">
+    <img src="platzhalter.svg" alt="Kurze Bildbeschreibung" loading="eager">
   </div>
   <figcaption class="hero-image-caption">
     <p class="hero-image-caption-eyebrow">Seit 2016 · Dortmund</p>
@@ -117,6 +119,8 @@ darüber: Eyebrow, Headline und Sub-Text liegen als Gradient von unten nach oben
   </figcaption>
 </figure>
 ```
+
+</HtmlBeispiel>
 
 ### Content-breite Akzentbilder (`.ep-media-band`)
 
@@ -164,6 +168,8 @@ außerhalb des Hero-Kontexts (`.img-slide-media`, genutzt in
 ist breiter und flacher als eine Karte, weil er die volle Seitenbreite trägt statt
 einer begrenzten Spalte.
 
+<HtmlBeispiel titel="Hero-Bildstrecke mit Crossfade" interaktiv>
+
 ```html
 <!-- Modifier .img-slider-hero für Vollbild-Darstellung mit Crossfade -->
 <div class="img-slider img-slider-hero"
@@ -172,7 +178,7 @@ einer begrenzten Spalte.
     <!-- erste Slide trägt .active, damit sie ohne JS sofort sichtbar ist -->
     <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 4">
       <div class="img-slide-media">
-        <img src="hero.jpg" alt="Kurze Bildbeschreibung">
+        <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
       </div>
       <div class="img-slide-caption">
         <p class="img-slide-caption-title">Titel</p>
@@ -189,6 +195,8 @@ einer begrenzten Spalte.
   </div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ## Reduzierte Sub-Sektion mit CTAs
 
@@ -290,6 +298,8 @@ CTAs (Filled primär, Outlined sekundär) auf dem getönten Sub-Strip-Hintergrun
   </div>
 </Unstyled>
 
+<HtmlBeispiel titel="Sub-Strip unter dem Hero">
+
 ```html
 <!-- Sub-Strip: Bereichs-Tint, Eyebrow, Lead, 2 CTAs (Werte hier: Landing/Corporate) -->
 <div class="ep-section" style="background:var(--co-50);text-align:center;padding-block:var(--s10);border-bottom:1px solid var(--co-100)">
@@ -301,6 +311,8 @@ CTAs (Filled primär, Outlined sekundär) auf dem getönten Sub-Strip-Hintergrun
   </div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ## Störer über dem Hero (Startseite)
 
