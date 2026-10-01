@@ -286,10 +286,12 @@ export const MenueAttribute: Story = {
       'aria-multiselectable',
     );
 
+    // Die Live-Region steht vor dem Filtern leer im DOM, damit der Wechsel angesagt wird.
+    const leer = multi.getByRole('status');
+    await expect(leer).toBeEmptyDOMElement();
     await userEvent.type(multi.getByRole('combobox'), 'zzz');
-    const leer = await multi.findByRole('status');
     await expect(leer).toHaveTextContent('Keine Treffer');
-    await expect(leer).toHaveClass('ep-combobox-empty');
+    await expect(leer.querySelector('.ep-combobox-empty')).not.toBeNull();
     // Die Meldung ist keine Option und steht außerhalb der Listbox; die leere Listbox ist ausgeblendet.
     await expect(leer.closest('[role="listbox"]')).toBeNull();
     await expect(multi.queryByRole('listbox')).toBeNull();

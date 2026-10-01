@@ -37,6 +37,9 @@ let uid = 0;
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
  * `formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).
  */
+/** Pause in Millisekunden, nach der der Type-ahead-Puffer verfällt. */
+const TYPEAHEAD_RESET_MS = 600;
+
 @Component({
   selector: 'cds-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -303,7 +306,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   private typeahead(char: string): void {
     this.typeBuffer += char.toLowerCase();
-    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), 600);
+    this.typeaheadTimer.schedule(() => (this.typeBuffer = ''), TYPEAHEAD_RESET_MS);
     const match = this.options().findIndex((o) =>
       o.label.toLowerCase().startsWith(this.typeBuffer),
     );

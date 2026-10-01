@@ -154,10 +154,15 @@ let uid = 0;
         }
       </ul>
       <!-- Leermeldung außerhalb der Listbox: eine Listbox ohne option-Kind verletzt
-           aria-required-children. Die Listbox bleibt bei 0 Treffern ausgeblendet. -->
-      @if (!filtered().length) {
-        <div class="ep-combobox-menu ep-combobox-empty" role="status">{{ emptyText() }}</div>
-      }
+           aria-required-children. Die Listbox bleibt bei 0 Treffern ausgeblendet. Die Live-Region
+         steht dauerhaft im DOM, damit der Wechsel zuverlässig angesagt wird. -->
+      <div role="status" [style.display]="'contents'">
+        @if (!filtered().length) {
+          <div class="ep-combobox-menu">
+            <div class="ep-combobox-empty">{{ emptyText() }}</div>
+          </div>
+        }
+      </div>
     </div>
   `,
 })
