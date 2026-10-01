@@ -2,7 +2,8 @@
 node_modules/
 *.log
 
-# Alle generierten Artefakte der CSS-Schicht entstehen beim Build in einem Ordner.
+# Alle generierten Artefakte entstehen beim Build je Paket und je App in dist/ (packages/css,
+# packages/angular, apps/storybook); die generische Regel greift in jedem davon.
 dist/
 
 # design-sync Arbeitsverzeichnisse (nicht committen)
@@ -24,11 +25,18 @@ ds-bundle/
 .angular/
 
 # Lokale Kopien der Root-LICENSE/NOTICE fuer die Angular-Lib: ng-packagr laesst in
-# ng-package.json#assets keine Pfade ausserhalb des Projekt-Roots
-# (angular-lib/projects/design-system-angular/) zu, deshalb kopiert das build-Script in
-# angular-lib/package.json sie dorthin, statt sie einzuchecken (siehe dort).
-angular-lib/projects/design-system-angular/LICENSE
-angular-lib/projects/design-system-angular/NOTICE
+# ng-package.json#assets keine Pfade ausserhalb des Projekt-Roots (packages/angular/) zu,
+# deshalb kopiert das build-Script in packages/angular/package.json sie dorthin, statt sie
+# einzuchecken (siehe dort).
+packages/angular/LICENSE
+packages/angular/NOTICE
+
+# Lokale Kopien von LICENSE, NOTICE und README.md aus dem Repo-Root fuer das CSS-Paket: npm
+# kann `files` nicht auf ../../ zeigen lassen, deshalb legt packages/css/scripts/prepack.mjs
+# sie vor jedem Pack dorthin, statt sie einzuchecken.
+packages/css/LICENSE
+packages/css/NOTICE
+packages/css/README.md
 
 # Worktrees der Claude-Code-Agenten (kurzlebig, nie Teil des Repos)
 .claude/worktrees/
@@ -36,8 +44,8 @@ angular-lib/projects/design-system-angular/NOTICE
 # MCP-Server (ADR-0012): Snapshot aus dem Storybook-Build (npm run build:snapshot) und die
 # LICENSE-Kopie aus der Root (npm run prepack, dasselbe Muster wie bei der Angular-Lib) sind
 # abgeleitet und werden nie committet.
-mcp-server/snapshot/
-mcp-server/LICENSE
+packages/mcp/snapshot/
+packages/mcp/LICENSE
 
 # Ausgabe des semantic-release-Dry-Runs (siehe release.config.mjs, ADR-0010) — Version und
 # Notes werden im Publish-Workflow nach $GITHUB_OUTPUT bzw. per Artefakt weitergereicht,
@@ -45,14 +53,14 @@ mcp-server/LICENSE
 /release-version.txt
 /release-notes-generated.md
 
-# Aus dem ehemaligen angular-lib/.gitignore übernommen. /tmp, out-tsc/ und coverage/
+# Aus dem ehemaligen .gitignore der Angular-Lib übernommen. /tmp, out-tsc/ und coverage/
 # sind Angular-CLI-/Test-Build-Artefakte, die in jedem Workspace entstehen können.
 /tmp
 out-tsc/
 coverage/
 
 # Visual Studio Code: nur die eingecheckten Dateien ausnehmen (Muster wie im ehemaligen
-# angular-lib/.gitignore).
+# .gitignore der Angular-Lib).
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

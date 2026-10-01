@@ -2,8 +2,8 @@
 # Ausschlüsse in .prettierignore), siehe CONTRIBUTING.md „Formatierung“. Reiner Check, kein
 # Auto-Fix und kein Commit aus der CI — Formatieren bleibt lokal (`npm run format`).
 # Bewusst OHNE Pfadfilter, wie quotes.yml und commitlint.yml: TS-/HTML-Dateien liegen über
-# mehrere Workspaces verteilt (angular-lib/, storybook-angular/, examples/consumer-fixture/),
-# ein Pfadfilter müsste alle drei pflegen und liefe bei einem neuen Workspace leer. Anders als
+# mehrere Workspaces verteilt (packages/, apps/, tools/consumer-fixture/, templates/),
+# ein Pfadfilter müsste alle diese Orte pflegen und liefe bei einem neuen Workspace leer. Anders als
 # quotes.yml braucht der Check `npm ci`, weil Prettier eine devDependency ist, nicht
 # dependency-frei wie das Anführungszeichen-Skript.
 name: Formatierung

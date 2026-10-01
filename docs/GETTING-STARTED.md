@@ -59,7 +59,7 @@ Bootstrap-Platzhalterversion (siehe ADR-0011).
 > Actions genügt `secrets.GITHUB_TOKEN` mit `permissions: packages: read`. Committe
 > niemals den Token selbst — nur die `${GITHUB_TOKEN}`-Referenz gehört ins Repo. Die
 > ausführliche Anleitung steht im
-> [README der Angular-Lib](../angular-lib/projects/design-system-angular/README.md#installation-aus-github-packages),
+> [README der Angular-Lib](../packages/angular/README.md#installation-aus-github-packages),
 > die Entscheidung dahinter in
 > [ADR-0004](adr/0004-verteilung-und-versionierung.md).
 
@@ -177,7 +177,7 @@ Im CSS direkt über `var(--token)`:
 }
 ```
 
-Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../css/tokens.css) und in der Doku-Sektion „Design Tokens“.
+Wichtigste Gruppen: Farbskalen `--co/ki/es/wo/n-*` · Flächen `--bg-*` · Text `--tx-*` · Typo `--ty-*` · Spacing `--s1…--s16` · Radius `--r-*` · Elevation `--e0…--e5` · Border `--bd`. Die vollständige Liste steht in [`css/tokens.css`](../packages/css/css/tokens.css) und in der Doku-Sektion „Design Tokens“.
 
 Für JS/Framework-Projekte gibt es (mit dem npm-Paket) zusätzlich einen **Token-Export** als `tokens.json`, `tokens.scss` und `tokens.js`.
 
@@ -267,7 +267,7 @@ Die Komponenten sind dünne Hüllen über den CSS-Klassen und liefern **kein eig
 die CSS-Schicht und die Fonts bindet das konsumierende Projekt weiterhin selbst global ein
 (bei Angular über `styles`/`assets` in der `angular.json`). Den copy-paste-fertigen
 Schnipsel dafür, die vollständige Komponentenliste und die Installationsdetails enthält das
-[README der Lib](../angular-lib/projects/design-system-angular/README.md); ein lauffähiges
-Konsum-Beispiel liegt unter [`examples/consumer-fixture`](../examples/consumer-fixture).
+[README der Lib](../packages/angular/README.md); ein lauffähiges
+Konsum-Beispiel liegt unter [`tools/consumer-fixture`](../tools/consumer-fixture).
 
 Für React/Vue existieren bislang keine Wrapper — dort gilt der globale CSS-Weg oben.

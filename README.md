@@ -11,7 +11,7 @@ Das Design System von Conciso: **Design Tokens + CSS-Komponenten + Light/Dark-Mo
 
 ## Dokumentation ansehen
 
-Die Doku ist das Storybook: <https://conciso.github.io/conciso-design-system/>. Es enthält Marke, Grundlagen, alle Komponenten mit Verwendungsregeln und die Seitenmuster, und ist über den [MCP-Server](mcp-server/README.md) auch für KI-Assistenten abfragbar.
+Die Doku ist das Storybook: <https://conciso.github.io/conciso-design-system/>. Es enthält Marke, Grundlagen, alle Komponenten mit Verwendungsregeln und die Seitenmuster, und ist über den [MCP-Server](packages/mcp/README.md) auch für KI-Assistenten abfragbar.
 
 ## Nutzung im eigenen Projekt
 
@@ -55,7 +55,7 @@ funktioniert ohne weitere Einrichtung. Siehe [ADR-0011](docs/adr/0011-veroeffent
 Gilt ab dem ersten echten Release nach dem Merge dieser Änderung; bis dahin liegt auf
 npmjs nur eine Bootstrap-Platzhalterversion (siehe ADR-0011).
 
-Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
+Die Wortmarke liegt als SVG unter [`assets/brand/`](packages/css/assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
 
 > Das Paket steht unter der [MIT-Lizenz](LICENSE) (Ausnahmen — Brand-Assets, Schriften,
 > Icons — siehe [NOTICE](NOTICE)).
@@ -81,7 +81,7 @@ Die Wortmarke liegt als SVG unter [`assets/brand/`](assets/brand/README.md) (Def
 
 **Angular:** Für Angular gibt es Komponenten statt nur CSS-Klassen —
 `@conciso/design-system-angular` aus denselben beiden Registries, im Lockstep auf
-derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-angular/README.md).
+derselben Version. Siehe [README der Lib](packages/angular/README.md).
 
 **Dark Mode:** `data-theme="dark"` am `<html>` setzen. Siehe [Getting Started](docs/GETTING-STARTED.md#3-dark-mode) für das Anti-Flash-Snippet.
 
@@ -96,16 +96,18 @@ derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-ang
 
 | Pfad | Inhalt |
 |---|---|
-| `css/` | `tokens.css` · `dark-mode.css` · `base.css` · `components.css` (Ladereihenfolge!) — der konsumierbare Kern |
-| `dist/` | Gesamte Build-Ausgabe: `conciso-ds.css`, `tokens/*`, `icons/*` (generiert und komplett gitignored) |
-| `icons/` | `source/*.svg` und `manifest.json` als Quellen sowie Lizenzhinweise |
-| `fonts/` | Self-Host-Fonts (woff2) + OFL-Lizenztexte; eingebunden über `css/fonts.css` |
-| `scripts/` | `build-tokens.mjs` · `build-icons.mjs` · `bundle-css.mjs` (`npm run build`) · `check-dark-states.mjs` · `check-contrast.mjs` |
-| `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
+| `packages/css/` | `@conciso/design-system`: `css/` (`tokens.css` · `dark-mode.css` · `base.css` · `components.css`, Ladereihenfolge!), `fonts/` (Self-Host-Fonts, woff2, OFL-Lizenztexte), `assets/brand/`, `icons/` (Quellen `source/*.svg` und `manifest.json`), `scripts/` (Build) und `dist/` (Build-Ausgabe, generiert und gitignored) |
+| `packages/angular/` | `@conciso/design-system-angular`: Wrapper-Komponenten (`src/`), gebaut nach `dist/` |
+| `packages/mcp/` | `@conciso/design-system-mcp`: MCP-Server mit Storybook-Snapshot |
+| `apps/storybook/` | Storybook, die öffentliche Doku (GitHub Pages) |
+| `templates/` | Vorlagen, die Nutzer kopieren |
+| `tools/` | Nur für das Repo: `release/` · `checks/` · `consumer-fixture/` |
+| `docs/` | ADRs · Agenten-Doku · `GETTING-STARTED.md` · `legacy-site/` (veraltete Doku-Site) |
 
-> Das npm-Paket enthält die Quellen unter `css/`, den frisch gebauten Ordner `dist/`,
-> Fonts, Brand-Assets und die Icon-Quellen (`icons/source/*.svg`, `icons/manifest.json`), aber keine Doku-Site. Icon-Details und Mapping
-> stehen im generierten `dist/icons/README.md` des Pakets.
+> Das npm-Paket `@conciso/design-system` (Ordner `packages/css/`) enthält die Quellen
+> unter `css/`, den frisch gebauten Ordner `dist/`, Fonts, Brand-Assets und die
+> Icon-Quellen (`icons/source/*.svg`, `icons/manifest.json`), aber keine Doku-Site.
+> Icon-Details und Mapping stehen im generierten `dist/icons/README.md` des Pakets.
 
 ## Mitwirken / Erweitern
 
@@ -113,15 +115,15 @@ Konventionen und der Workflow zum Hinzufügen von Tokens/Komponenten stehen in *
 
 ### Prüfungen
 
-`npm ci` baut `dist/` über den `prepare`-Hook des Root-Pakets; dasselbe passiert vor `npm pack` und `npm publish`. Nach Änderungen an `css/`, `icons/source/` oder den Build-Skripten `npm run build` ausführen.
+`npm ci` baut `packages/css/dist/` über den `prepare`-Hook des CSS-Pakets; dasselbe passiert vor `npm pack` und `npm publish`. Nach Änderungen an `packages/css/css/`, `packages/css/icons/source/` oder den Build-Skripten `npm run build` ausführen.
 
 ```bash
-npm run build             # Tokens, Icons, gebündeltes CSS (alles unter gitignored dist/)
+npm run build             # CSS-Schicht (Tokens, Icons, Bundle), Angular-Lib, Storybook, MCP-Snapshot; alles Generierte liegt gitignored unter dist/ bzw. snapshot/
 npm run check:dark-states # Zustands-Regeln, die im Dark dunkel-auf-dunkel laufen
 npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 ```
 
-`check:contrast` rendert `docs/index.html` in beiden Modi in Chromium und prüft Text (4,5:1 bzw. 3:1 bei Großtext), getönte Bauteil-Füllungen und Bedienelement-Grenzen (3:1). Es misst die **fertige Kette** und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Der Stand ist **0 Verstöße**; jede Abweichung meldet das Skript mit Pfad, Farbe und Sollwert (`--list` zeigt jeden Fund einzeln). Es braucht einen Browser; die Playwright-Abhängigkeit dafür hängt am `storybook-angular`-Workspace und kommt mit dem `npm install` **im Repo-Wurzelverzeichnis** mit (npm-Workspaces, das Skript findet sie auch hoisted); lokal genügt ein installiertes Chrome. In der Pipeline läuft es in `storybook-angular.yml`.
+`check:contrast` rendert `docs/legacy-site/index.html` in beiden Modi in Chromium und prüft Text (4,5:1 bzw. 3:1 bei Großtext), getönte Bauteil-Füllungen und Bedienelement-Grenzen (3:1). Es misst die **fertige Kette** und findet damit auch inline gesetzte Farben, die kein Token-Check sieht. Der Stand ist **0 Verstöße**; jede Abweichung meldet das Skript mit Pfad, Farbe und Sollwert (`--list` zeigt jeden Fund einzeln). Es braucht einen Browser; die Playwright-Abhängigkeit dafür hängt am Workspace `apps/storybook` und kommt mit dem `npm install` **im Repo-Wurzelverzeichnis** mit (npm-Workspaces, das Skript findet sie auch hoisted); lokal genügt ein installiertes Chrome. In der Pipeline läuft es in `storybook-angular.yml`.
 
 ## Versionierung
 

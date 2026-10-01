@@ -1,6 +1,6 @@
 # ADR-0002: Topologie der Angular-Lib und Quelle der Wahrheit
 
-- Status: akzeptiert
+- Status: teilweise ersetzt durch [ADR-0014](0014-repo-layout-packages-apps-templates-tools.md) (Ordnerstruktur). Gültig bleiben die Quelle der Wahrheit und das Pfad-Mapping.
 - Datum: 2026-07-24
 
 ## Kontext
