@@ -32,7 +32,7 @@ const meta: Meta<FactsComponent> = {
   args: {
     // Wortlaut der Beispielseite.
     items: [
-      { term: 'Dauer', value: '2 Tage, 9–17 Uhr' },
+      { term: 'Dauer', value: '2 Tage, 9 bis 17 Uhr' },
       { term: 'Format', value: 'Präsenz & Online' },
       { term: 'Gruppe', value: 'max. 12 Personen' },
       { term: 'Sprache', value: 'Deutsch' },
@@ -71,7 +71,7 @@ export const Interaktiv: Story = {
     await expect(dts[0]).toHaveTextContent('Dauer');
     await expect(dts[0]).toHaveClass('t-wo');
     const dds = dl.querySelectorAll('dd');
-    await expect(dds[0]).toHaveTextContent('2 Tage, 9–17 Uhr');
+    await expect(dds[0]).toHaveTextContent('2 Tage, 9 bis 17 Uhr');
 
     await expect(getComputedStyle(pairs[0]).borderTopWidth).toBe('0px');
     await expect(getComputedStyle(pairs[1]).borderTopWidth).not.toBe('0px');
