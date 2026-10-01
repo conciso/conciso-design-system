@@ -92,9 +92,11 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
   document.documentElement.setAttribute('data-theme', 'dark');
 ```
 
-**Anti-Flash-Snippet.** Als erstes Skript im `<head>`, vor dem CSS-Paint, damit beim
-Reload nicht kurz Light aufblitzt. Liest die gespeicherte Präferenz aus
-`localStorage`:
+**Anti-Flash-Snippet (Pflicht).** Wer den Modus persistiert, setzt dieses Skript immer als
+erstes Skript im `<head>`, vor dem Stylesheet und damit vor dem ersten Paint. Nie am
+Ende des `<body>` oder in einem Bundle, das erst nach dem Rendern läuft: Dann blitzt beim
+Reload kurz Light auf, bevor `data-theme` gesetzt ist. Das Skript liest die gespeicherte
+Präferenz aus `localStorage`:
 
 ```html
 <script>
@@ -109,7 +111,8 @@ Reload nicht kurz Light aufblitzt. Liest die gespeicherte Präferenz aus
 
 Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`.
 Die drei Angular-Umschalter selbst persistieren nicht; das bleibt Aufgabe des
-Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt.
+Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt. Ohne
+diesen Anschluss gilt nach jedem Reload wieder der Default Light.
 
 **Warum das für jede Komponente gilt (CONTRIBUTING § 5).** `data-theme` ist der
 einzige Schalter im System: Alle Token flippen darüber, keine Komponente wertet
@@ -118,6 +121,23 @@ Weil `themeStore` der einzige Schreiber dieses Attributs ist, bleibt diese Garan
 auch mit drei unterschiedlichen Umschalter-Bauteilen (Cycle-Button, Segment,
 Dropdown) und der Storybook-Toolbar intakt: Es gibt genau eine Quelle der Wahrheit
 für den Modus, unabhängig davon, über welchen Umschalter er gesetzt wurde.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Cycle-Button im Header, Segment als eigenständiges Element, Dropdown ausschließlich in den Einstellungen einsetzen.
+- Alle drei Umschalter über denselben `themeStore` laufen lassen, damit sie und die Storybook-Toolbar synchron bleiben.
+- Das Anti-Flash-Snippet immer als erstes Skript im `<head>` einbinden, vor dem Stylesheet.
+- Die Persistenz im Consumer selbst anschließen (`themeStore.subscribe(...)` schreibt in die eigene Ablage), die Umschalter speichern nichts.
+- Bei einer eigenen Umsetzung ohne diese Komponenten die Betriebssystem-Präferenz genauso oberhalb der CSS-Schicht auflösen und der CSS-Schicht am Ende nur `data-theme="dark"` oder gar kein Attribut übergeben.
+
+**Nicht tun**
+
+- `data-theme` parallel zu diesen Komponenten von einer zweiten Stelle aus setzen: Ein Consumer hat nur eine Quelle der Wahrheit für den Modus, und das ist `themeStore`.
+- Annehmen, dass die Umschalter den Modus über einen Reload hinweg behalten.
+- Einen dritten Flächen-Zustand für `System` in eigenem CSS ergänzen, die ausgelieferte CSS kennt nur Hell und Dunkel.
+- Das Dropdown als dauerhaftes Element auf jeder Seite einsetzen, dafür ist es nicht vorgesehen.
 
 ## Verwandte Seiten
 
