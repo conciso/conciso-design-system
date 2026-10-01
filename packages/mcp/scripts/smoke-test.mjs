@@ -152,6 +152,30 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen',
   },
   {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Ein Klick auf den Caret bricht beide Timer ab, sonst öffnet ein Rest-Timer ein per Klick geschlossenes Menü wieder.',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Unter 760 px zeigt das CSS den Hamburger-Button und klappt `.ep-nav-links` unter dem Logo auf',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht.',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Ein Scroll-Listener schaltet `.visible` ab `scrollY > 400`.',
+  },
+  {
+    id: 'komponenten-theme-umschalter-cycle-button',
+    sentence: 'Nie erst entfernen und dann neu setzen',
+  },
+  {
+    id: 'komponenten-buttons-button',
+    sentence: '`--wo-700` verfehlt dort den Kontrast.',
+  },
+  {
     id: 'komponenten-hero-hero-bild',
     sentence: 'Standard auf allen Customer-Pages',
   },
