@@ -38,7 +38,8 @@ let uid = 0;
       [class]="wrapClasses()"
       role="region"
       aria-roledescription="Bildschirmpräsentation"
-      aria-label="Bildstrecke"
+      [attr.aria-label]="label()"
+      (keydown)="onSliderKeydown($event)"
     >
       <div class="img-slider-track">
         @for (slide of slides(); track $index; let i = $index) {
@@ -65,7 +66,7 @@ let uid = 0;
       <button
         class="img-slider-btn img-slider-prev"
         type="button"
-        aria-label="Vorherige Slide"
+        aria-label="Vorherige Folie"
         (click)="prev()"
       >
         <svg
@@ -83,7 +84,7 @@ let uid = 0;
       <button
         class="img-slider-btn img-slider-next"
         type="button"
-        aria-label="Nächste Slide"
+        aria-label="Nächste Folie"
         (click)="next()"
       >
         <svg
@@ -126,6 +127,11 @@ export class CarouselComponent {
   readonly slides = input.required<CdsSlide[]>();
   /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
+  /**
+   * Zugänglicher Name der Region. Bei mehreren Bildstrecken auf einer Seite
+   * unterscheidbar benennen (sonst doppelte Landmarks).
+   */
+  readonly label = input('Bildstrecke');
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */
   readonly hero = input(false);
 
@@ -149,18 +155,39 @@ export class CarouselComponent {
   }
 
   /**
-   * WAI-ARIA-Tabs-Tastatur auf der Dot-Leiste (horizontal, automatische Aktivierung):
-   * ←/→ mit Umlauf, Home/End an die Enden; der Fokus wird mitgeführt (Roving Tabindex).
-   * Indexberechnung in `../shared/dots-keyboard.ts` (identisch mit LogoCarousel).
+   * ← und → wirken auf dem gesamten Slider (Buttons, Dots, Folien), mit Umlauf; das
+   * Standardverhalten der Taste ist unterdrückt. Liegt der Fokus auf einem Dot, wandert
+   * er zum neu aktiven Dot (Roving Tabindex).
    *
    * @internal
    */
-  protected onDotsKeydown(event: KeyboardEvent): void {
+  protected onSliderKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     const next = nextDotsIndex(this.slides().length, this.active(), event.key);
     if (next === null) return;
     event.preventDefault();
     this.active.set(next);
-    this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[next]?.focus();
+    if ((event.target as HTMLElement).classList.contains('img-dot')) this.focusDot(next);
+  }
+
+  /**
+   * Home/End auf der Dot-Leiste (WAI-ARIA-Tabs): springt zur ersten bzw. letzten Folie,
+   * der Fokus wandert mit. ←/→ erledigt `onSliderKeydown` für den ganzen Slider.
+   * Indexberechnung in `../shared/dots-keyboard.ts` (geteilt mit LogoCarousel).
+   *
+   * @internal
+   */
+  protected onDotsKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'Home' && event.key !== 'End') return;
+    const next = nextDotsIndex(this.slides().length, this.active(), event.key);
+    if (next === null) return;
+    event.preventDefault();
+    this.active.set(next);
+    this.focusDot(next);
+  }
+
+  private focusDot(i: number): void {
+    this.host.nativeElement.querySelectorAll<HTMLElement>('.img-dot')[i]?.focus();
   }
 
   /** @internal */
