@@ -42,7 +42,7 @@ import {
 const CSS_DATEIEN = ['fonts', 'tokens', 'dark-mode', 'base', 'components'];
 
 const HINWEIS_INTERAKTIV =
-  'Statische Vorschau: Das Verhalten setzt eine eigene Umsetzung selbst um, siehe Abschnitt „Nur CSS-Schicht“.';
+  'Statische Vorschau: Das Verhalten (Tastatur, Zustandswechsel) liefert die Angular-Komponente; bei reiner CSS-Nutzung muss eine eigene Umsetzung es ergänzen.';
 
 /** Fließt den Text eines (verschachtelten) React-Baums zusammen, so wie MDX ihn aus dem Codeblock liefert. */
 function textAus(knoten: ReactNode): string {
@@ -90,6 +90,8 @@ export interface HtmlBeispielProps {
   titel: string;
   /** Interaktives Muster: ergänzt den Hinweis, dass das Verhalten selbst umzusetzen ist. */
   interaktiv?: boolean;
+  /** Nur setzen, wenn die Seite den Abschnitt hat: ergänzt „Siehe Abschnitt …“ im Hinweis. */
+  verweis?: string;
   /** Öffnet jedes `<dialog>` des Beispiels in der Vorschau (nicht-modal, auf Scrim-Fläche). */
   dialogOffen?: boolean;
 }
@@ -98,6 +100,7 @@ export function HtmlBeispiel({
   children,
   titel,
   interaktiv = false,
+  verweis,
   dialogOffen = false,
 }: HtmlBeispielProps) {
   const html = textAus(children).replace(/\n$/, '');
@@ -200,7 +203,9 @@ export function HtmlBeispiel({
                       color: 'var(--tx-secondary)',
                     },
                   },
-                  HINWEIS_INTERAKTIV,
+                  verweis
+                    ? `${HINWEIS_INTERAKTIV} Siehe Abschnitt „${verweis}“.`
+                    : HINWEIS_INTERAKTIV,
                 )
               : null,
           )
