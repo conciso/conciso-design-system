@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 // Stempelt die von der Engine (semantic-release --dry-run, siehe semantic-release-plugin.mjs)
-// berechnete Version in alle drei package.json UND die Peer-Pin der Angular-Lib (ADR-0010,
+// berechnete Version in die drei Paket-package.json UND die Peer-Pin der Angular-Lib (ADR-0010,
 // „versionsfreies Repo“): im Repo stehen dauerhaft nur Platzhalter (0.0.0 / 0.0.x), die echte
 // Version wird erst im Publish-Job VOR dem Build in die Artefakte geschrieben und NIE
 // committet. Idempotent: erneutes Stempeln derselben Version schreibt dasselbe Ergebnis.
-// Drittes Paket seit ADR-0012: der MCP-Server (mcp-server/package.json) bekommt dieselbe
+// Die private Workspace-Wurzel wird bewusst nicht gestempelt: sie wird nie veröffentlicht.
+// Drittes Paket seit ADR-0012: der MCP-Server (packages/mcp/package.json) bekommt dieselbe
 // Version, aber KEINE Peer-Pin — er hat keine peerDependency auf die Angular-Lib, sondern
-// vergleicht die installierte Version zur Laufzeit (siehe mcp-server/src/version-check.mjs).
+// vergleicht die installierte Version zur Laufzeit (siehe packages/mcp/src/version-check.mjs).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -19,8 +20,9 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 // Bootstrap-Publish auf npmjs (CONTRIBUTING § 15, ADR-0011), der eine Platzhalterversion wie
 // „0.0.0-bootstrap.0“ stempelt, um npmjs.com einen Trusted Publisher einrichten zu lassen.
 const SEMVER = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*)?$/;
-const LIB_PKG_PATH = 'angular-lib/projects/design-system-angular/package.json';
-const MCP_PKG_PATH = 'mcp-server/package.json';
+const CSS_PKG_PATH = 'packages/css/package.json';
+const LIB_PKG_PATH = 'packages/angular/package.json';
+const MCP_PKG_PATH = 'packages/mcp/package.json';
 
 function writeJson(path, value) {
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
@@ -41,8 +43,8 @@ export function stampVersion(version, root = ROOT) {
 
   // Erst alle drei Manifeste lesen und prüfen, dann erst schreiben: scheitert die Prüfung,
   // bleibt der Checkout unangetastet statt halb gestempelt.
-  const rootPkgPath = join(root, 'package.json');
-  const rootPkg = JSON.parse(readFileSync(rootPkgPath, 'utf8'));
+  const cssPkgPath = join(root, CSS_PKG_PATH);
+  const cssPkg = JSON.parse(readFileSync(cssPkgPath, 'utf8'));
   const libPkgPath = join(root, LIB_PKG_PATH);
   const libPkg = JSON.parse(readFileSync(libPkgPath, 'utf8'));
   if (!libPkg.peerDependencies?.['@conciso/design-system']) {
@@ -56,11 +58,11 @@ export function stampVersion(version, root = ROOT) {
   const mcpPkgPath = join(root, MCP_PKG_PATH);
   const mcpPkg = JSON.parse(readFileSync(mcpPkgPath, 'utf8'));
 
-  rootPkg.version = version;
+  cssPkg.version = version;
   libPkg.version = version;
   libPkg.peerDependencies['@conciso/design-system'] = peerRange;
   mcpPkg.version = version;
-  writeJson(rootPkgPath, rootPkg);
+  writeJson(cssPkgPath, cssPkg);
   writeJson(libPkgPath, libPkg);
   writeJson(mcpPkgPath, mcpPkg);
 
@@ -71,11 +73,11 @@ const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.arg
 if (isMain) {
   const version = process.argv[2];
   if (!version) {
-    console.error('Aufruf: node scripts/release/stamp-version.mjs <version>');
+    console.error('Aufruf: node tools/release/stamp-version.mjs <version>');
     process.exit(1);
   }
   const { peerRange } = stampVersion(version);
   console.log(
-    `Version ${version} gestempelt (root, Angular-Lib, MCP-Server; Peer-Pin @conciso/design-system: ${peerRange}).`,
+    `Version ${version} gestempelt (CSS-Schicht, Angular-Lib, MCP-Server; Peer-Pin @conciso/design-system: ${peerRange}).`,
   );
 }
