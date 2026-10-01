@@ -68,6 +68,29 @@ denselben Modus zeigen. Das Docs-Chrome selbst (Überschriften, Tabellen) bleibt
 davon unabhängig immer im Light-Theme (`concisoLight`), weil Storybook Toolbar- und
 Docs-Theme nicht koppelt.
 
+## Theme-Umschalter · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, baut den Umschalter aus `.theme-bar` und `.tbtn`. Der aktive Modus trägt `aria-pressed="true"` und zusätzlich `.active`, denn das CSS färbt über `.active`. Im Beispiel steht `position:static`, damit die Vorschau Platz belegt; im Produkt bleibt es bei `position:fixed` aus dem CSS oder einer eigenen Platzierung.
+
+<HtmlBeispiel titel="Theme-Umschalter als reines Markup" interaktiv>
+
+```html
+<div class="theme-bar" role="group" aria-label="Farbthema" style="position:static">
+  <button class="tbtn active" type="button" aria-pressed="true">Hell</button>
+  <button class="tbtn" type="button" aria-pressed="false">Dunkel</button>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Zustand:** Genau ein Button der Gruppe trägt `aria-pressed="true"` und `.active`, alle anderen `aria-pressed="false"`. Ein Klick verschiebt beides auf den gewählten Button. Ohne sichtbares Label (Icon-only) braucht jeder Button ein `aria-label` mit dem Namen des Modus.
+- **Anwenden:** Nur das Nötige setzen. Für Dark `data-theme="dark"` am `<html>` setzen, für Light das Attribut entfernen. Nie erst entfernen und dann neu setzen: Das Attribut fehlt dann kurz, die Body-Transition läuft von Dark über Light zurück nach Dark, und die Seite flackert. Setzen auf denselben Wert ist dagegen ein No-Op.
+- **Persistenz:** Der Zugriff auf `localStorage` steht beim Lesen und beim Schreiben in `try/catch`. Ein blockierter Speicher (privater Modus, gesperrte Cookies) darf den Umschalter nicht stilllegen, der Modus gilt dann nur bis zum Neuladen.
+- **Mehrere Umschalter:** Gibt es mehr als einen (Gruppe und Icon-Button im Header), aktualisiert jeder Wechsel alle. Sie lesen den Zustand aus einer gemeinsamen Quelle, damit keiner einen veralteten Modus zeigt.
+- **Beim Laden:** Der gespeicherte Modus setzt `data-theme` vor dem ersten Paint (Anti-Flash-Snippet unten), danach gleicht die Seite den Anzeigezustand der Umschalter an.
+
 ## Dark Mode: der Unterbau aus der CSS-Schicht
 
 Der CSS-Schicht-Vertrag (`docs/GETTING-STARTED.md` § 3) kennt nur ein Attribut:
