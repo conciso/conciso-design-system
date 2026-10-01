@@ -173,7 +173,7 @@ const GROUP_USAGE_CHECKS = [
   },
   {
     id: 'komponenten-buttons-button',
-    sentence: 'Alle vier Bereichs-Klassen erfüllen den UI-Kontrast auf ihrem `-50`-Streifen',
+    sentence: 'Alle vier Bereiche sind über die Modifier-Klasse abgedeckt',
   },
   {
     id: 'komponenten-hero-hero-bild',
