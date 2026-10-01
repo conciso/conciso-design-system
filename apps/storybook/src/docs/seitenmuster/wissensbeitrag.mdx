@@ -45,6 +45,8 @@ damit Name und Rolle nicht zwischen Avatar und Trenner zerrissen wirken. Das Dat
 zentrierte Header bildet einen ruhigen Fokuspunkt vor dem 720-px-Lesefluss.
 Marketing-Sektionen sollen scan-tauglich wirken, dafür ist linksbündig die natürliche Wahl.
 
+<HtmlBeispiel titel="Article-Header mit Breadcrumb">
+
 ```html
 <header class="article-header">
   <nav class="article-breadcrumb" aria-label="Breadcrumb">
@@ -68,6 +70,8 @@ Marketing-Sektionen sollen scan-tauglich wirken, dafür ist linksbündig die nat
   </div>
 </header>
 ```
+
+</HtmlBeispiel>
 
 ## Pill · Lesezeit
 
@@ -133,12 +137,16 @@ Kontrast: Die Caption nutzt `var(--tx-secondary)` (rund 5,8:1 auf Surface, AA-ko
 `var(--tx-muted)` ist für inhaltlich essentielle Texte zu hell (rund 2,1:1), nur für
 Hilfsangaben geeignet.
 
+<HtmlBeispiel titel="Abbildung mit Bildunterschrift">
+
 ```html
 <figure class="article-figure">
-  <img src="bild.jpg" alt="Faktische Bildbeschreibung, was zu sehen ist" loading="lazy">
+  <img src="platzhalter.svg" alt="Faktische Bildbeschreibung, was zu sehen ist" loading="lazy">
   <figcaption class="article-figcaption">Redaktionelle Einordnung, was das Bild zum Beitrag beiträgt.</figcaption>
 </figure>
 ```
+
+</HtmlBeispiel>
 
 **Dos**
 - Alt-Text rein faktisch halten, keine Interpretation, keine Pointe.
@@ -160,12 +168,16 @@ Blockquote), Eyebrow mit 0,08em Letter-Spacing, 700er-Ton bei co, es, wo, 800er-
 Abgrenzung zum Blockquote: Der Callout ist redaktionelle Anmerkung im eigenen Stil, der
 Blockquote ist ein wörtliches Zitat einer benannten Person.
 
+<HtmlBeispiel titel="Callout „In der Praxis“">
+
 ```html
 <aside class="article-callout" data-area="ki">
   <p class="article-callout-eyebrow">In der Praxis</p>
   <p>Bei einem mittelständischen Versicherer haben wir vor dem Pilot-Start sechs Wochen lang nur Daten und Prozesse aufgeräumt.</p>
 </aside>
 ```
+
+</HtmlBeispiel>
 
 ## Pull-Quote gegen Blockquote
 
@@ -181,11 +193,15 @@ Blockquote), Serif kursiv, kein Hintergrund, kein Icon, bewusst offen statt umra
 Zitat einer dritten Person, Kund:in, Forschungsstimme, Branchen-Statement, mit Attribution
 (Name plus Rolle), bereichsgetönte Akzent-Box mit Quote-Icon.
 
+<HtmlBeispiel titel="Pull-Quote">
+
 ```html
 <blockquote class="article-pullquote" data-area="ki">
   „KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“
 </blockquote>
 ```
+
+</HtmlBeispiel>
 
 Faustregel: Stammt der Satz aus dem eigenen Lauftext und soll nur visuell hervorgehoben
 werden, gilt die Pull-Quote ohne Attribution. Zitiert der Beitrag eine externe Person
@@ -212,6 +228,8 @@ wie der Article-Body, damit Avatar und Bio auf der gleichen Achse sitzen.
 ausgezeichnet (eine Ebene unter den H2 des Article-Body), damit die Author-Sektion in der
 Heading-Übersicht von Screenreadern erscheint und per Tastatur direkt anspringbar ist.
 
+<HtmlBeispiel titel="Author-Card">
+
 ```html
 <div class="author-card" data-area="ki">
   <div class="article-avatar article-avatar-lg" data-area="ki" aria-hidden="true">LB</div>
@@ -223,6 +241,8 @@ Heading-Übersicht von Screenreadern erscheint und per Tastatur direkt anspringb
   </div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 ## Team-Tile-Grid, rotierender Ausschnitt
 
@@ -295,6 +315,8 @@ vor dem letzten Namen. Ab vier Personen die ersten zwei oder drei nennen, dann �
 weitere“ und einen `.article-avatar-more`-Kreis mit der Restzahl ergänzen. Die Rolle wird
 bei gleichem Org-Bezug zu einer Sammelbezeichnung („Conciso-Team“), sonst mit „·“ getrennt.
 
+<HtmlBeispiel titel="Avatar-Stapel">
+
 ```html
 <div class="article-avatar-stack" aria-hidden="true">
   <div class="article-avatar" data-area="es">PM</div>
@@ -303,6 +325,8 @@ bei gleichem Org-Bezug zu einer Sammelbezeichnung („Conciso-Team“), sonst mi
   <div class="article-avatar-more">+2</div>
 </div>
 ```
+
+</HtmlBeispiel>
 
 **Barrierefreiheit:** Der Avatar-Stack ist dekorativ (`aria-hidden="true"`), die Namen
 stehen vollständig im Text. Der `.article-avatar-more`-Kreis trägt keine Textinformation,

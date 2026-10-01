@@ -53,13 +53,22 @@ Zwei `<input type="hidden">` transportieren den Herkunfts-Kontext stabil, unabh�
 
 Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten. Kein sichtbares `<label>`: Icon und Placeholder tragen den visuellen Kontext, ein `aria-label` liefert den semantischen Namen für Screenreader. Struktur: Wrapper `<div role="search">` mit eigenem `aria-label` (z. B. „Beiträge durchsuchen“) macht das Such-Feld zur Landmark, die Screenreader-Nutzerinnen direkt anspringen können.
 
+<HtmlBeispiel titel="Such-Feld">
+
 ```html
-<div role="search" aria-label="Beiträge durchsuchen" style="position:relative">
-  <svg aria-hidden="true" focusable="false">…</svg>
+<div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;width:100%;position:relative">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25"
+       aria-hidden="true" focusable="false"
+       style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
+    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+  </svg>
   <input type="search" aria-label="Beiträge nach Stichwort durchsuchen"
-         placeholder="Beitrag suchen" autocomplete="off">
+         placeholder="Beitrag suchen" autocomplete="off"
+         style="width:100%;padding:10px var(--s4) 10px 44px;border:1.5px solid var(--field-border);border-radius:var(--r-full);font:var(--ty-body-md);background:var(--bg-surface);color:var(--tx-primary)">
 </div>
 ```
+
+</HtmlBeispiel>
 
 Stil-Konventionen: Pill-Radius (`--r-full`), Border `1.5px solid var(--field-border)`, Hintergrund `--bg-surface`, Font `--ty-body-md`. `autocomplete="off"` verhindert Browser-Vorschläge in einer Filterung.
 
@@ -82,6 +91,8 @@ Labels sind in beiden Patterns identisch (uppercase, `--ty-label-sm`, `--tx-seco
 
 Numerische Wertauswahl mit nativer Tastatursteuerung (Pfeiltasten, Pos1, Ende). Basiert auf `<input type="range">` mit verknüpftem `<label>` und semantisch korrektem `<output>`, der Browser setzt `role="slider"`, `aria-valuemin/max/now` automatisch.
 
+<HtmlBeispiel titel="Slider mit Wertanzeige" interaktiv>
+
 ```html
 <div class="field-slider">
   <div class="field-slider-header">
@@ -95,6 +106,8 @@ Numerische Wertauswahl mit nativer Tastatursteuerung (Pfeiltasten, Pos1, Ende). 
   <span class="helper" id="my-hint">Schritte: 5.000 €</span>
 </div>
 ```
+
+</HtmlBeispiel>
 
 | Taste | Funktion |
 |---|---|

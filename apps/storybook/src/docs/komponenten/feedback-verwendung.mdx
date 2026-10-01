@@ -78,6 +78,8 @@ Der Bestätigungsdialog baut auf einem nativen `<dialog>` auf und wird mit `show
 
 Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die DOM-Reihenfolge ist zugleich die sichtbare Reihenfolge, die Hauptaktion steht zuletzt. `autofocus` gehört auf die Aktion, die den Anfangsfokus erhalten soll.
 
+<HtmlBeispiel titel="Bestätigungsdialog als reines Markup" dialogOffen>
+
 ```html
 <dialog class="dialog" role="alertdialog" aria-labelledby="confirm-title" aria-describedby="confirm-body">
   <div class="dialog-inner">
@@ -90,6 +92,8 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die DOM-Reihenfolge 
   </div>
 </dialog>
 ```
+
+</HtmlBeispiel>
 
 Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt: Ein Klick auf den Hintergrund schließt nur, wenn `pointerdown` und `click` beide auf dem `<dialog>` selbst liegen. Der Fokus kehrt beim Schließen zum Auslöser zurück. Bestätigt ist nur der Klick auf die Bestätigen-Aktion, alles andere gilt als abgebrochen.
 

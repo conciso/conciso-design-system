@@ -5,6 +5,7 @@ import { addons } from 'storybook/preview-api';
 import { GLOBALS_UPDATED, SET_GLOBALS, UPDATE_GLOBALS } from 'storybook/internal/core-events';
 import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
 import { concisoLight } from './theme';
+import { HtmlBeispiel } from './blocks/HtmlBeispiel';
 
 // Store → Toolbar: klickt man einen Theme-Switcher (Cycle/Segment/Dropdown),
 // aktualisiert das den globalen Theme-Toolbar-Schalter — so bleiben Toolbar und
@@ -190,6 +191,11 @@ const preview: Preview = {
       // `##` (h2), darum hier explizit beide Ebenen einschließen.
       toc: { headingSelector: 'h2, h3', title: 'Auf dieser Seite' },
       theme: concisoLight,
+      // In jeder MDX-Seite ohne Import nutzbar: <HtmlBeispiel titel="…"> um einen
+      // ```html-Block zeigt zusätzlich die gerenderte Vorschau (siehe blocks/HtmlBeispiel.ts).
+      // Global statt je Import, damit `docs-show` keine Import-Zeile mit
+      // internem Pfad an Consumer-Agenten ausliefert.
+      components: { HtmlBeispiel },
     },
   },
   initialGlobals: {
