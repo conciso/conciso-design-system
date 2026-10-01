@@ -135,12 +135,12 @@ Das Basis-`.card`-System mit `.card-elevated` wird direkt als Anker gerendert. `
 ```html
 <div style="max-width: 340px">
   <a class="card card-elevated" data-area="es" href="#">
-    <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true"></div>
+    <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true" style="width: 100%; height: 100%; object-fit: cover"></div>
     <div class="card-body">
       <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
       <div class="card-title"><span>Warum 60 % der Piloten nie in Produktion gehen</span></div>
       <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen gelernt haben.</div>
-      <p class="card-meta">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
+      <p style="font: var(--ty-body-sm); color: var(--tx-muted); margin: 0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
       <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
     </div>
   </a>
@@ -149,7 +149,7 @@ Das Basis-`.card`-System mit `.card-elevated` wird direkt als Anker gerendert. `
 
 </HtmlBeispiel>
 
-**Variante B-Hero · `.card-title-hero`.** Für Featured-Karten (genau ein hervorgehobener Termin oder Beitrag) trägt der Titel nicht `.card-title`, sondern `.card-title-hero`: `--ty-headline-sm` in Libre Baskerville (bis 24 px, auf kleinen Viewports fluid kleiner) statt 20 px Sans 500. Die Featured-Karte ist eine editoriale Mittelstufe zwischen Section-H2 (28 px Serif) und Grid-Karten-Titel (20 px Sans), eine saubere 4-px-Treppe. Das Serif-Treatment macht den Hierarchie-Sprung klar und stützt den „nur einer auf der Bühne“-Charakter. Die Klasse bringt `text-wrap: balance` mit und bewusst **kein** `min-height`, weil eine einzeln stehende Karte keinen Grid-Nachbarn zum Höhenabgleich hat. Im Featured-Body kappt die Karte den Titel bei drei Zeilen. Einsatz: Featured-Veranstaltung auf der Landingpage und filter-bewusste Featured-Karten in Beitrags- und Veranstaltungs-Listings. Die Pill darf hier die Lesezeit tragen, auf Teaser-Karten nicht (siehe `Komponenten/Chips, Badges & Pills`).
+**Variante B-Hero · `.card-title-hero`.** Für Featured-Karten (genau ein hervorgehobener Termin oder Beitrag) trägt der Titel nicht `.card-title`, sondern `.card-title-hero`: `--ty-headline-sm` in Libre Baskerville (bis 24 px, auf kleinen Viewports fluid kleiner) statt 20 px Sans 500. Die Featured-Karte ist eine editoriale Mittelstufe zwischen Section-H2 (28 px Serif) und Grid-Karten-Titel (20 px Sans), eine saubere 4-px-Treppe. Das Serif-Treatment macht den Hierarchie-Sprung klar und stützt den „nur einer auf der Bühne“-Charakter. Die Klasse bringt `text-wrap: balance` mit und bewusst **kein** `min-height`, weil eine einzeln stehende Karte keinen Grid-Nachbarn zum Höhenabgleich hat. Im Featured-Body kappt die Karte den Titel bei drei Zeilen. Einsatz: Featured-Veranstaltung auf der Landingpage und filter-bewusste Featured-Karten in Beitrags- und Veranstaltungs-Listings. Unter etwa 900 px Kartenbreite stapelt die Karte (Bild oben, Text darunter), die Umschaltung hängt an der Kartenbreite, nicht am Viewport. Die Pill darf hier die Lesezeit tragen, auf Teaser-Karten nicht (siehe `Komponenten/Chips, Badges & Pills`).
 
 <HtmlBeispiel titel="Featured-Karte mit Hero-Titel">
 
@@ -325,7 +325,7 @@ Für Case-, Projekt- und Leistungslisten ohne Karten-Chrome: eine Story je Zeile
 
 **Abgrenzung zur Stat-Karte.** Die Stat-Karte ist eine eigenständige, gerasterte KPI-Kachel. Die Zeile ist redaktioneller Fließinhalt mit genau einer Story je Zeile.
 
-**Kennzahl-Variante.** Links die große Kennzahl in `--ty-display-sm` in der Bereichsfarbe (Klasse `.t-<bereich>`, im Dark automatisch heller), darunter eine Erläuterung, rechts Kunde, Thema und kurze Beschreibung. Die Zahl trägt die Energie. Nur einsetzen, wenn die Kennzahl belegbar ist.
+**Kennzahl-Variante.** Links die große Kennzahl in `--ty-display-sm` in der Bereichsfarbe (Klasse `.t-<bereich>`, im Dark automatisch heller). Bei `ki` ist das `ki-800` statt `-700`, eine Ausnahme aus Gründen der Barrierefreiheit: `ki-700` verfehlt AA, darunter eine Erläuterung, rechts Kunde, Thema und kurze Beschreibung. Die Zahl trägt die Energie. Nur einsetzen, wenn die Kennzahl belegbar ist.
 
 <HtmlBeispiel titel="Kennzahl-Variante der Zeile">
 
