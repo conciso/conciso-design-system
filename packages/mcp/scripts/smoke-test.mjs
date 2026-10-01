@@ -169,7 +169,7 @@ const GROUP_USAGE_CHECKS = [
   },
   {
     id: 'komponenten-chips-badges-pills-chip',
-    sentence: 'Auf Cards die Pill nur mit dem Bereichsnamen füllen',
+    sentence: 'Auf Teaser-Cards die Pill nur mit dem Bereichsnamen füllen',
   },
   {
     id: 'komponenten-code-block-code-block',
