@@ -19,7 +19,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
     <button
       class="ep-nav-icon-btn"
       type="button"
-      [attr.aria-label]="'Farbthema: ' + label() + ' — klicken zum Wechseln'"
+      [attr.aria-label]="'Farbthema: ' + label() + ', klicken zum Wechseln'"
       (click)="next()"
     >
       <ng-icon [name]="icon()" size="22px" aria-hidden="true" />
