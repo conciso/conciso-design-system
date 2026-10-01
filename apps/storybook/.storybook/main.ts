@@ -47,6 +47,9 @@ const config: StorybookConfig = {
     // axe-basierte Barrierefreiheits-Prüfung (Panel + passive Mitprüfung im
     // Test-Runner, aktuell nicht-blockierend).
     '@storybook/addon-a11y',
+    // Panel „Design“: bettet den Figma-Frame ein, den `parameters.design` je Meta/Story
+    // nennt (Anleitung: docs/agents/storybook-tools.md).
+    '@storybook/addon-designs',
     // Führt die Stories als Vitest-Tests aus (Browser-Mode via Playwright);
     // Konfiguration in ../vitest.config.mts, Setup in ./vitest.setup.ts.
     '@storybook/addon-vitest',
