@@ -232,13 +232,22 @@ nicht pauschal Corporate.
 
 Wichtig: Wenn Hero und Sub-Strip zusammen verwendet werden, darf der Sub-Strip
 keine eigene H1 und keine wiederholte Was/Wo-Aussage tragen, sonst entstehen
-Doppel-Informationen direkt untereinander.
+Doppel-Informationen direkt untereinander. Die Lead-Zeile ist stattdessen die
+Brücke zu den CTAs („Schau Dir an, wie wir arbeiten, oder buch direkt ein
+Erstgespräch.“) und echoet nicht das Hero-Versprechen.
 
 | Variante | Inhalt | Wann einsetzen |
 |---|---|---|
 | A · mit CTAs | Eyebrow, Lead, zwei Buttons (Filled primär, Outlined sekundär) | Standard, wenn die Sub-Sektion zwei direkte Aktionen anbieten soll |
 | B · Brücke ohne CTAs | Eyebrow, Lead, Drei-Spalter mit Bereichs-Eyebrows | Wenn der Sticky-Topnav-Kontakt-Button bereits die primäre Konversion trägt |
 | C · Manifest-Intro | Eyebrow, Lead (erster Satz in `--ty-serif-md`), Fließtext, zwei CTAs, zweispaltiges Grid | Auf Bereichs-Pages, deren Einstieg eine Haltung oder Definition transportiert |
+
+**Wann B statt A?** Hat die Page eine deutliche Architektur mit mehreren
+thematischen Sektionen darunter (zum Beispiel die Drei Bereiche), kündigt B diese
+Architektur als ruhige Vorschau an. CTAs in der Sub-Sektion würden hier mit dem
+Erstgespräch-CTA-Band am Page-Ende konkurrieren. A bleibt richtig auf
+Bereichs-Pages, wo die Sub-Sektion die einzige direkte Konversions-Stelle vor dem
+Page-Ende ist.
 
 Das folgende Schema zeigt Variante A: Markenrad-Eyebrow, Lead-Zeile und die zwei
 CTAs (Filled primär, Outlined sekundär) auf dem getönten Sub-Strip-Hintergrund.
@@ -354,7 +363,9 @@ kann das absichern. Auf `--bg-surface` steht der Text auf einer bekannten Fläch
 und ist messbar: Light 5,52 bis 10,92:1, Dark 8,32 bis 10,48:1. Dazu trägt die
 Kachel schon im Light einen `--bd-strong`-Rahmen, abweichend von den übrigen
 Karten: auf einer ausgebrannt hellen Bildstelle leistet der schwarze `--e1`-Schatten
-keine Kante mehr.
+keine Kante mehr. Der Rahmen (`--bd-strong-c`) liefert Light 2,25:1 gegen die
+Kachel, Dark 4,21:1. Er ist Kontur, kein Bedienelement-Rand: die Kachel ist über
+ihren Inhalt erkennbar.
 
 **Das Typ-Glyph sitzt im Thema-Label, nicht rechts hinter einem Trenner.** Das
 Glyph ist ein reiner Typ-Marker, also eine Kategorie, und gehört als
@@ -469,12 +480,20 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
   </ul>
 </Unstyled>
 
-| Inhaltstyp | Thema-Label | Meta-Zeile | Ziel des Links |
-|---|---|---|---|
-| Veranstaltung | „Nächste Veranstaltung“ | Datum · Ort | Veranstaltungs-Detailseite |
-| Wissensbeitrag | „Neu im Wissen“ | Datum · Lesezeit | Wissensbeitrag |
-| Pressemitteilung | „Pressemitteilung“ | Datum | Presseseite oder einzelne Meldung |
-| Info | Spiegelt das Wort des Ziels, z. B. „Neues Seminar“, „Neues Produkt“ | Kurze Einordnung, z. B. Format und Dauer | Seminar-Landingpage, Produkt- oder Angebotsseite |
+| Inhaltstyp | Thema-Label | Meta-Zeile | Ziel des Links | Icon (DS-Key) |
+|---|---|---|---|---|
+| Veranstaltung | „Nächste Veranstaltung“ | Datum · Ort | Veranstaltungs-Detailseite | `ui-calendar-days` (Kalender) |
+| Wissensbeitrag | „Neu im Wissen“ | Datum · Lesezeit | Wissensbeitrag | `ui-newspaper` (Artikel) |
+| Pressemitteilung | „Pressemitteilung“ | Datum | Presseseite oder einzelne Meldung | `ui-megaphone` (Megafon) |
+| Info | Spiegelt das Wort des Ziels, z. B. „Neues Seminar“, „Neues Produkt“ | Kurze Einordnung, z. B. Format und Dauer | Seminar-Landingpage, Produkt- oder Angebotsseite | `ui-information-circle` (Info) |
+
+**Icon-Mapping.** `ui-newspaper` ist im Designsystem das Artikel-Glyph und trägt
+deshalb den Wissensbeitrag. Die Pressemitteilung bekommt das Megafon: Sie ist eine
+Verlautbarung, kein Beitrag zum Lesen. Alle vier Icons sind Outline, 16 px mit
+`--icon-stroke-micro`, die Micro-Stufe der Icon-Skala (16 × 16 trägt Stroke 1,
+24 × 24 trüge 1,25), damit sie als Familie lesen. Ein fünfter Typ braucht ein
+fünftes Icon aus dieser Familie, keine Doppelbelegung, sonst unterscheidet das Icon
+nichts mehr.
 
 <HtmlBeispiel titel="Hero-Bild mit Störer-Set">
 
@@ -511,6 +530,13 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
 
 </HtmlBeispiel>
 
+### Störer · Zustände
+
+| Zustand | Darstellung |
+|---|---|
+| `:hover` | `--bg-surface-hover` plus `--e3`, 2 px Lift, Titel unterstrichen |
+| `:focus-visible` | `--focus-ring` plus `--e3` |
+
 ### Störer · Barrierefreiheit
 
 | Aspekt | Regel |
@@ -519,6 +545,7 @@ Platzhalter, im Einsatz zeigt jede Kachel auf die Detailseite ihres Inhalts
 | Kontrast Titel | `--tx-primary`: Light 10,92:1, Dark 10,48:1 |
 | Kontrast Meta | `--tx-secondary`: Light 6,29:1, Dark 7,13:1, nicht `--tx-muted` |
 | Deckende Fläche | Text über Foto lässt sich nicht messen. Die Kachel ist deshalb opak, kein `backdrop-filter`, keine Alpha-Fläche |
+| Rahmen | `--bd-strong-c`: Light 2,25:1 gegen die Kachel, Dark 4,21:1. Kontur gegen das Foto, kein Bedienelement-Rand |
 | Fokus | `--focus-ring` auf der ganzen Kachel plus `--e3`, ein Tab-Stop je Kachel, kein verschachtelter Link |
 | Hover ohne Farbe | Der Titel unterstreicht (WCAG 1.4.1), ein Schatten- oder Flächen-Zuwachs ist über einem Foto je nach Bildstelle kaum sichtbar |
 | Landmark | `<aside aria-label="Aktuelles">` nach der Caption im DOM: Die H1 kommt zuerst, der Störer danach (WCAG 1.3.2) |
