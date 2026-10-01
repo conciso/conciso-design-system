@@ -51,14 +51,14 @@ Basis-Klasse `.img-slider`. Übergang per Crossfade über 600 ms; unter
 
 ## Bild-Carousel · Nur CSS-Schicht
 
-Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trägt `.active` und `aria-hidden="false"`, damit beim Laden ohne Skript etwas sichtbar ist. Der erste Dot trägt `.active`, `aria-selected="true"` und `tabindex="0"`.
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trägt `.active` und `aria-hidden="false"`, damit beim Laden ohne Skript etwas sichtbar ist. Der erste Dot trägt `.active`, `aria-selected="true"` und `tabindex="0"`. Jede Folie bekommt eine eindeutige `id`, auf die der `aria-controls` des zugehörigen Dots zeigt.
 
-<HtmlBeispiel titel="Bild-Carousel als reines Markup" interaktiv>
+<HtmlBeispiel titel="Bild-Carousel als reines Markup">
 
 ```html
 <div class="img-slider" role="region" aria-roledescription="Bildschirmpräsentation" aria-label="Kundenprojekte">
   <div class="img-slider-track">
-    <div class="img-slide active" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 3" aria-hidden="false">
+    <div class="img-slide active" id="img-slide-1" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 3" aria-hidden="false">
       <div class="img-slide-media">
         <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
       </div>
@@ -67,7 +67,7 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trä
         <p class="img-slide-caption-text">Corporate · Rebranding und Kommunikationssystem für einen regionalen Energieversorger.</p>
       </div>
     </div>
-    <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 3" aria-hidden="true">
+    <div class="img-slide" id="img-slide-2" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 3" aria-hidden="true">
       <div class="img-slide-media">
         <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
       </div>
@@ -76,7 +76,7 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trä
         <p class="img-slide-caption-text">Angewandte KI · Automatisierte Auswertung von Produktionsdaten für ein Fertigungsunternehmen.</p>
       </div>
     </div>
-    <div class="img-slide" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 3" aria-hidden="true">
+    <div class="img-slide" id="img-slide-3" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 3" aria-hidden="true">
       <div class="img-slide-media">
         <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
       </div>
@@ -93,9 +93,9 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trä
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
   </button>
   <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
-    <button class="img-dot active" type="button" role="tab" aria-selected="true" aria-label="Folie 1 von 3" tabindex="0"></button>
-    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-label="Folie 2 von 3" tabindex="-1"></button>
-    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-label="Folie 3 von 3" tabindex="-1"></button>
+    <button class="img-dot active" type="button" role="tab" aria-selected="true" aria-controls="img-slide-1" aria-label="Folie 1 von 3" tabindex="0"></button>
+    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-controls="img-slide-2" aria-label="Folie 2 von 3" tabindex="-1"></button>
+    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-controls="img-slide-3" aria-label="Folie 3 von 3" tabindex="-1"></button>
   </div>
 </div>
 ```
@@ -105,6 +105,7 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trä
 Der Wechsel kommt aus einem Skript, die CSS-Schicht liefert nur die Darstellung. Jede Umsetzung ergänzt:
 
 - Bei jedem Wechsel (Prev, Next, Dot-Klick, Pfeiltaste) trägt genau eine Folie `.active` und `aria-hidden="false"`, alle anderen `aria-hidden="true"` ohne `.active`.
+- Jeder Dot trägt `aria-controls` mit der `id` seiner Folie. Die `id`s sind auf der Seite eindeutig.
 - Der Dot der aktiven Folie trägt `.active`, `aria-selected="true"` und `tabindex="0"`, alle anderen `aria-selected="false"` und `tabindex="-1"`.
 - Der Wechsel läuft um: Prev auf der ersten Folie springt zur letzten, Next auf der letzten zur ersten.
 - Die Pfeiltasten ← und → wirken auf dem gesamten Slider, nicht nur auf den Dots, und unterdrücken das Standardverhalten der Taste.
@@ -128,7 +129,7 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 | `aria-hidden` | Inaktive Sets werden Screenreader-seitig ausgeblendet, nur das sichtbare Set wird vorgelesen |
 | `role="group"` pro Set | Logos als Gruppe gebündelt mit eigenem `aria-label` („Set 1 von 2“) |
 | `role="tablist"` + `role="tab"` | Pagination-Dots als Tab-Pattern, `aria-selected` markiert das aktive Set, Roving-Tabindex |
-| `aria-pressed` auf Pause-Button | Toggle-State (pausiert / läuft) für Screenreader hörbar |
+| `aria-label` auf Pause-Button | Das Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“ und macht den Zustand hörbar. Der Button trägt bewusst kein `aria-pressed`, damit der Zustand nicht doppelt angesagt wird |
 | Tastatur-Navigation | Pfeil-Tasten wechseln Sets, Home / End springen zum ersten / letzten Set, Pause via Space oder Enter |
 | `prefers-reduced-motion` | Auto-Rotation und Crossfade deaktiviert, Set 1 bleibt statisch sichtbar, Dots bleiben nutzbar |
 
@@ -151,11 +152,11 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 
 Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Das erste Set trägt `aria-hidden="false"`, der erste Dot `aria-selected="true"` und `tabindex="0"`. Jedes Set bekommt eine eindeutige `id` für die `aria-controls`-Verknüpfung der Dots.
 
-<HtmlBeispiel titel="Kundenlogo-Karussell als reines Markup" interaktiv>
+<HtmlBeispiel titel="Kundenlogo-Karussell als reines Markup">
 
 ```html
 <div class="logo-carousel" role="region" aria-roledescription="Logo-Karussell" aria-label="Kundenlogos">
-  <button class="logo-carousel-pause" type="button" aria-pressed="false" aria-label="Logo-Animation pausieren">
+  <button class="logo-carousel-pause" type="button" aria-label="Logo-Animation pausieren">
     <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="3.5" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3.5" height="10" rx="1" fill="currentColor"/></svg>
     <svg class="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polygon points="3,2 12,7 3,12" fill="currentColor"/></svg>
   </button>
@@ -187,10 +188,10 @@ Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Das erste Set trägt
 Rotation, Pause und Tastatur kommen aus einem Skript, die CSS-Schicht liefert nur Darstellung und Crossfade über `[aria-hidden]`. Jede Umsetzung ergänzt:
 
 - Mit weniger als zwei Sets passiert nichts: kein Timer, keine Dots-Logik.
-- Alle 6 Sekunden zeigt das nächste Set, nach dem letzten wieder das erste. Bei `prefers-reduced-motion: reduce` startet kein Timer, die Einstellung wird beim Start ausgewertet.
+- Alle 6 Sekunden zeigt das nächste Set, nach dem letzten wieder das erste. Bei `prefers-reduced-motion: reduce` startet kein Timer, die Einstellung wird beim Start ausgewertet. Weil dann nichts läuft, das sich pausieren ließe, bleibt der Pause-Button versteckt (`hidden`), statt einen Lauf zu behaupten.
 - Bei jedem Wechsel trägt genau ein Set `aria-hidden="false"` (alle anderen `"true"`) und genau ein Dot `aria-selected="true"` und `tabindex="0"` (alle anderen `"false"` und `"-1"`).
 - Die Rotation hält an, solange die Maus über dem Karussell liegt oder der Fokus darin steht. Nach Hover- oder Fokus-Ende läuft sie nur weiter, wenn nicht manuell pausiert wurde. Fokus-Ende zählt nur, wenn der Fokus das Karussell wirklich verlässt, nicht beim Wechsel zwischen Kind-Elementen.
-- Manuell pausiert ist das Karussell über die Klasse `.paused` am Karussell, sie schaltet auch Pause- und Play-Icon um. Der Pause-Button schaltet um und trägt `aria-pressed="true"` bei Pause. Sein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“. Fortsetzen startet die Rotation wieder.
+- Manuell pausiert ist das Karussell über die Klasse `.paused` am Karussell, sie schaltet auch Pause- und Play-Icon um. Der Pause-Button schaltet um. Sein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“, ein `aria-pressed` setzt er nicht, sonst würde der Zustand doppelt angesagt. Fortsetzen startet die Rotation wieder.
 - Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft, nicht nur bei Tastaturbedienung.
 - Auf den Dots wechseln ← und ↑ zum vorherigen, → und ↓ zum nächsten Set, mit Umlauf (erstes ↔ letztes). Home springt zum ersten, End zum letzten Set. Jede dieser Tasten unterdrückt das Standardverhalten, setzt den Fokus auf den neu aktiven Dot und pausiert dauerhaft.
 
@@ -202,7 +203,7 @@ Die globale Barrierefreiheits-Sektion (Grundlagen/Barrierefreiheit) hält für
 zurück (WCAG 2.3.3 AAA). Für die beiden Karussell-Typen gilt zusätzlich:
 
 - **Bild-Carousel:** die Crossfade-Transition (600 ms) entfällt automatisch, keine gesonderte Handhabung im Markup nötig.
-- **Kundenlogo-Karussell:** bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel; die Pagination-Dots bleiben bedienbar.
+- **Kundenlogo-Karussell:** bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel und ohne Pause-Button; die Pagination-Dots bleiben bedienbar.
 
 Von der Ausnahme unberührt bleibt der 2-Pixel-Hover-Lift auf klickbaren Karten und dem
 Störer: Er läuft auch unter `prefers-reduced-motion: reduce` weiter, weil er reine
