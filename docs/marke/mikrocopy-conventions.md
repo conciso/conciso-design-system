@@ -5,7 +5,8 @@ Verbindliche Sprach-Regeln für alle Texte in der Conciso-Web-Präsenz und in Su
 ## Anrede
 
 - **Du-Form** durchgängig: „Du schilderst Deine Situation.“
-- **Großschreibung** konsequent (Du, Dir, Dein, Deinem), auch im Fließtext, in CTAs und Formularfeldern: „Wie können wir Dir helfen?“, „Dein Anliegen“.
+- **Großschreibung** konsequent in allen Kundentexten (Du, Dir, Dein, Deinem), auch im Fließtext der Website, in CTAs und Formularfeldern: „Wie können wir Dir helfen?“, „Dein Anliegen“. Eine Stilentscheidung, kein Tippfehler.
+- **Entwickler-Doku schreibt „du“ klein** nach amtlicher Rechtschreibung (Storybook-Fließtext, README, Anleitungen: „So bindest du … ein“), weil sie keine persönliche Anrede an Kundinnen und Kunden ist. Beispiel-Copy darin, die so auf der Website stehen würde, folgt der Kundentext-Regel.
 - Kein Mischen von Du- und Sie-Anreden auf einer Seite.
 
 ## Tonfall
