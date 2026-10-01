@@ -57,7 +57,7 @@ export const Interaktiv: Story = {
     await expect(slides[0]).toHaveAttribute('aria-hidden', 'false');
     await expect(slides[1]).toHaveAttribute('aria-hidden', 'true');
 
-    await userEvent.click(c.getByRole('button', { name: 'Nächste Slide' }));
+    await userEvent.click(c.getByRole('button', { name: 'Nächste Folie' }));
     await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[0]).toHaveAttribute('aria-selected', 'false');
     await expect(slides[1]).toHaveAttribute('aria-hidden', 'false');
@@ -102,6 +102,41 @@ export const TastaturDots: Story = {
     await userEvent.keyboard('{End}');
     await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[dots.length - 1]).toHaveFocus();
+  },
+};
+
+export const PfeiltastenAmSlider: Story = {
+  name: 'Pfeiltasten am gesamten Slider',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // ← und → wirken nicht nur auf den Dots, sondern auf dem gesamten Slider (hier mit
+  // Fokus auf den Buttons), mit Umlauf; die Buttons tragen „Folie“ statt „Slide“.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('tab', { name: /^Folie / });
+    const prev = c.getByRole('button', { name: 'Vorherige Folie' });
+    const next = c.getByRole('button', { name: 'Nächste Folie' });
+    await expect(c.queryByRole('button', { name: /Slide/ })).toBeNull();
+
+    next.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(next).toHaveFocus();
+
+    prev.focus();
+    await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
+    await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
+    await expect(prev).toHaveFocus();
+
+    // Auf den Dots wandert der Fokus weiterhin mit.
+    dots[dots.length - 1].focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveFocus();
+
+    // Die Dots verweisen auf eindeutige Folien-IDs.
+    const ids = Array.from(canvasElement.querySelectorAll('.img-slide')).map((s) => s.id);
+    await expect(new Set(ids).size).toBe(ids.length);
+    dots.forEach((d, i) => expect(d).toHaveAttribute('aria-controls', ids[i]));
   },
 };
 
