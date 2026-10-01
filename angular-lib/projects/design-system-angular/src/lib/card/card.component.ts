@@ -80,7 +80,7 @@ export class CardComponent {
   );
 
   /**
-   * Echte Bereichs-Glyphe aus icons/icons.js, als ico-48-SVG in die Media-Fläche.
+   * Echte Bereichs-Glyphe aus `@conciso/design-system/icons`, als ico-48-SVG in die Media-Fläche.
    *
    * @internal
    */

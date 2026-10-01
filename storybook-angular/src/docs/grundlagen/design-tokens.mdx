@@ -115,10 +115,10 @@ Grid`.
 |---|---|
 | `css/tokens.css` | Light-Werte, kanonische Quelle (Source of Truth) |
 | `css/dark-mode.css` | Dark-Abweichungen, komplett in `@media screen` |
-| `tokens/` | Generierter Export (`tokens.json`, `tokens.scss`, `tokens.js`), nicht manuell editieren |
+| `dist/tokens/` | Generierter Export (`tokens.json`, `tokens.scss`, `tokens.js`), gitignored und nicht manuell editieren |
 
 Nach jeder Änderung an `css/tokens.css` oder `css/dark-mode.css`: `npm run build:tokens`
-ausführen, das Skript liest beide Dateien und schreibt den Export nach `tokens/` neu.
+ausführen, das Skript liest beide Dateien und schreibt den Export nach `dist/tokens/` neu.
 
 ## Siehe auch
 

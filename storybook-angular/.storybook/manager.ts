@@ -1,7 +1,7 @@
 import { addons } from 'storybook/manager-api';
 import { createElement } from 'react';
 import { concisoDark, concisoLight } from './theme';
-import rawIcons from '../../icons/icons.json';
+import rawIcons from '@conciso/design-system/icons.json';
 
 // Manager-Theme ist statisch je Ladevorgang; folgt der OS-Einstellung
 // (prefers-color-scheme), nicht Storybooks eigenem Theme-Umschalter. Der
@@ -11,7 +11,7 @@ import rawIcons from '../../icons/icons.json';
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 
 // Sektions-Icons machen die Navigation unterscheidbar: Vor jedem Nav-Eintrag
-// steht ein Icon aus der gemeinsamen Registry (icons/icons.json), und jeder
+// steht ein Icon aus der gemeinsamen Registry (`@conciso/design-system/icons.json`), und jeder
 // fachliche Abschnitt bekommt dasselbe Icon vor seinem Storybook-Sidebar-Knoten.
 // Das ersetzt den früheren Grund,
 // renderLabel wegzulassen (ein Angular-Tag auf 158 von 181 Zeilen
@@ -30,7 +30,7 @@ const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches 
 // genau einen dieser Knoten.
 //
 // Sonderfall Komponenten/Theme-Umschalter: Das Icon liegt als `ui-sun` in
-// icons/icons.json, deshalb bekommt der Knoten unten denselben Eintrag wie
+// `@conciso/design-system/icons.json`, deshalb bekommt der Knoten unten denselben Eintrag wie
 // jede andere Sektion.
 const SECTION_ICON_KEYS: Record<string, string> = {
   'marke-markenrad--übersicht': 'ui-sparkles-4',

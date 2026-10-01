@@ -37,7 +37,7 @@ Style ausschließlich über diese Klassen und über `var(--token)`. Erfinde kein
 
 ## Wo die Wahrheit liegt
 - `styles.css` und das daraus importierte `_ds_bundle.css` enthalten alle Klassen und Token-Definitionen (`--*`). Lies sie, bevor du stylst.
-- `tokens/tokens.json` listet alle Token-Werte (Light + Dark) maschinenlesbar.
+- `dist/tokens/tokens.json` listet alle Token-Werte (Light + Dark) maschinenlesbar.
 
 ## Idiomatisches Beispiel
 ```html

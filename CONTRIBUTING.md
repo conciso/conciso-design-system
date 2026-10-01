@@ -138,7 +138,7 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
-3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Dann `npm run build:icons` → generiert `icons/{icons.json,icons.js,README.md}`. Label/Verwendung optional in `icons/manifest.json` pflegen. Quelle = `icons/source/`, **nicht** die generierten Dateien editieren. Siehe `icons/README.md`.
+3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Label/Verwendung optional in `icons/manifest.json` pflegen. `npm run build:icons` erzeugt daraus `dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`. Der gesamte Ordner `dist/` ist gitignored; Build-Ergebnisse werden weder editiert noch committet.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
@@ -210,7 +210,7 @@ Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und fo
 - Ein Schrägstrich im Sektionsnamen ist ein Pfadtrenner. Für ein näher bestimmendes Trennzeichen den Mittelpunkt `·` nehmen, wie in §11.
 - Ein Titel aus nur einem Segment wird zur Wurzel und rutscht über alle benannten Gruppen, unabhängig von `storySort.order`. Deshalb behalten auch Gruppen mit nur einer Seite (Beispielseiten, Referenzen) ihren zweistufigen Pfad.
 
-**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Dokumentationsstruktur, gerendert über `sidebar.renderLabel` im Manager aus `icons/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
+**Sektions-Icons.** Die Seitenleiste zeigt vor jeder Sektion dasselbe Icon wie die Dokumentationsstruktur, gerendert über `sidebar.renderLabel` im Manager aus `@conciso/design-system/icons.json`. Wer eine Sektion ergänzt, ergänzt dort das Icon mit.
 
 ---
 

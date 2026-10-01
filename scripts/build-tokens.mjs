@@ -1,6 +1,6 @@
 // Token-Export: liest css/tokens.css (:root = Light, Source of Truth) und die
 // Dark-Overrides aus css/dark-mode.css ([data-theme="dark"] {...}) und erzeugt
-// tokens/tokens.json, tokens/tokens.scss, tokens/tokens.js.
+// dist/tokens/tokens.json, dist/tokens/tokens.scss, dist/tokens/tokens.js.
 // Dependency-frei (nur Node fs). tokens.css bleibt die kanonische Quelle.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -55,10 +55,11 @@ const light = Object.fromEntries(Object.entries(lightRaw).map(([k, v]) => [k, re
 const darkMerged = { ...lightRaw, ...darkRaw };
 const dark = Object.fromEntries(Object.entries(darkRaw).map(([k, v]) => [k, resolve(v, darkMerged)]));
 
-mkdirSync(join(ROOT, 'tokens'), { recursive: true });
+const OUT = join(ROOT, 'dist', 'tokens');
+mkdirSync(OUT, { recursive: true });
 
 // JSON
-writeFileSync(join(ROOT, 'tokens/tokens.json'), JSON.stringify({ light, dark }, null, 2) + '\n');
+writeFileSync(join(OUT, 'tokens.json'), JSON.stringify({ light, dark }, null, 2) + '\n');
 
 // SCSS: zusammengesetzte Werte (Leerzeichen oder /) als String quoten, damit Sass
 // keine Division/Listen-Fehlinterpretation macht. Dark als Map.
@@ -71,7 +72,7 @@ const scss =
   `$conciso-dark: (\n` +
   Object.entries(dark).map(([k, v]) => `  "${k}": ${scssVal(v)}`).join(',\n') +
   `\n);\n`;
-writeFileSync(join(ROOT, 'tokens/tokens.scss'), scss);
+writeFileSync(join(OUT, 'tokens.scss'), scss);
 
 // JS (ESM)
 const js =
@@ -79,6 +80,6 @@ const js =
   `export const tokens = ${JSON.stringify(light, null, 2)};\n\n` +
   `export const darkTokens = ${JSON.stringify(dark, null, 2)};\n\n` +
   `export default tokens;\n`;
-writeFileSync(join(ROOT, 'tokens/tokens.js'), js);
+writeFileSync(join(OUT, 'tokens.js'), js);
 
-console.log(`tokens: ${Object.keys(light).length} light, ${Object.keys(dark).length} dark overrides → tokens/{tokens.json,tokens.scss,tokens.js}`);
+console.log(`tokens: ${Object.keys(light).length} light, ${Object.keys(dark).length} dark overrides → dist/tokens/{tokens.json,tokens.scss,tokens.js}`);

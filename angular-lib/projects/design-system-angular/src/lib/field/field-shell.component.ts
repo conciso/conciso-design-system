@@ -28,7 +28,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       @if (error()) {
         <span class="error-msg" [id]="errorId()" role="alert">
           <!-- Exclamation-Circle-Icon. Noch inline: Das Icon liegt nicht im Register
-               (icons/icons.js); die externe Icon-Lib folgt
+               (@conciso/design-system/icons); die externe Icon-Lib folgt
                auf feat/theme-switch, dann hier ersetzen. -->
           <svg
             width="24"
