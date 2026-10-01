@@ -270,6 +270,7 @@ Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
 - **Schalten:** Ein Klick auf den Button schaltet `.nav-open` am `.ep-topnav` um und setzt `aria-expanded` sowie das `aria-label` („Menü öffnen“ oder „Menü schließen“) passend dazu. `aria-controls` verweist auf die `id` der Link-Liste.
 - **Button:** `type="button"`, damit er in einem Formular nichts absendet. Beide Icons sind `aria-hidden` und nicht fokussierbar.
 - **Schließen:** Escape und ein Klick außerhalb schließen das Menü. Lag der Fokus in der Link-Liste, kehrt er bei Escape zum Button zurück.
+- **Link-Klick:** Ein Klick auf einen Link in der Liste schließt das offene Mobilmenü und setzt `.nav-open`, `aria-expanded` und `aria-label` zurück.
 - **Breakpoint:** Den Button blendet das CSS über 760 px aus, dort hat `.nav-open` keine Wirkung. Submenüs öffnen im Mobilmenü inline statt als Overlay, ihr Verhalten steht unter „Topnav-Dropdowns“.
 
 ## Topnav-Suche · Nur CSS-Schicht
@@ -281,7 +282,7 @@ Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht. Wer nur
 ```html
 <div class="ep-nav-actions">
   <div class="ep-nav-search">
-    <button class="ep-nav-icon-btn ep-nav-search-toggle" type="button" aria-label="Suche" aria-expanded="false" aria-controls="nav-search-pop">
+    <button class="ep-nav-icon-btn ep-nav-search-toggle" type="button" aria-label="Suche öffnen" aria-expanded="false" aria-controls="nav-search-pop">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"/></svg>
     </button>
     <div class="ep-nav-search-pop" id="nav-search-pop">
@@ -299,10 +300,10 @@ Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht. Wer nur
 
 Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
 
-- **Zustand:** `.is-open` am `.ep-nav-search` und `aria-expanded` am Toggle wechseln immer gemeinsam. `aria-controls` verweist auf die `id` des Popovers.
+- **Zustand:** `.is-open` am `.ep-nav-search`, `aria-expanded` und `aria-label` am Toggle („Suche öffnen“ oder „Suche schließen“) wechseln immer gemeinsam. `aria-controls` verweist auf die `id` des Popovers.
 - **Ein Popup zugleich:** Das Öffnen der Suche schließt offene Submenüs, das Öffnen eines Submenüs schließt die Suche.
 - **Escape:** Schließt das Popover. Lag der Fokus darin, kehrt er zum Toggle zurück.
-- **Außenklick:** Schließt das Popover, ohne den Fokus umzusetzen. Heraustabben schließt es nicht.
+- **Außenklick:** Schließt das Popover, ohne den Fokus umzusetzen. Heraustabben (der Fokus verlässt das Popover) schließt es ebenfalls.
 - **Formular:** `role="search"`, das Feld mit sichtbar versteckter Beschriftung „Suchbegriff“ (`.sr-only`), `type="search"` und `autocomplete="off"`. Absenden geht an die globale Suche des Produkts, nicht an einen Platzhalter.
 
 ## Back-to-Top · Nur CSS-Schicht
