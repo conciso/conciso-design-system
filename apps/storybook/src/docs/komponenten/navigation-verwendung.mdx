@@ -23,6 +23,7 @@ CSS-Rezepte ohne Angular-Komponente.
 |---|---|
 | Logo | Immer ganz links, immer sichtbar, Verlässlichkeit in der ersten Sekunde |
 | Top-Items | Vier Einträge: Angewandte KI · Leistungen · Wissen · Unternehmen. „Angewandte KI“, „Leistungen“ und „Unternehmen“ sind Links zur jeweiligen Übersicht mit aufklappbarem Submenü über einen separaten Caret-Button, „Wissen“ ist ein einfacher Link ohne Submenü. Aktiver Eintrag über `aria-current="page"` |
+| Aktionen | Rechts vor dem CTA sitzt der Aktions-Cluster `.ep-nav-actions` mit zwei Icon-Buttons (`.ep-nav-icon-btn`): der Suche (Lupe, öffnet ein Disclosure-Popover) und dem Theme-Umschalter (Cycle-Button, siehe `Komponenten/Theme-Umschalter`). Beide bleiben Corporate-Chrome (Petrol), auch auf Bereichsseiten. Die Suche lässt sich über `showSearch` abschalten |
 | CTA-Button | Genau ein Outlined-Button, Label „Kontakt“, Brand-Petrol (`--co-700`), ganz rechts über `margin-left:auto` |
 | Layout und Hintergrund | `.ep-topnav` mit `--bg-surface`, `border-bottom:var(--bd)`, Padding `var(--s4) var(--s8)` (rund 64 px hoch). Ein `gap`-basierter Flow (kein `justify-content`) hält die Nav am Logo, der CTA wird per `margin-left:auto` nach rechts gedrückt, das Layout bleibt stabil, egal wie viele Nav-Items dazukommen |
 
@@ -138,6 +139,13 @@ Fettung. Die Markierung hängt also nie allein an der Farbe (WCAG 1.4.1). Nur Ho
 das bloße Aufklappen markieren ausschließlich über Farbe und Caret-Drehung, den
 Unterstrich gibt es allein im Aktiv-Zustand.
 
+Auf Bereichsseiten trägt das Submenü die aktive Seite: Hat ein Submenü-Eintrag
+`aria-current="page"`, erhält auch der Label-Link seines Top-Items (zum Beispiel
+„Leistungen“) denselben Petrol-Unterstrich wie ein direkt aktiver Top-Level-Link. Das
+löst reines CSS über `:has()` am `.ep-nav-has-sub`, ein Skript ist dafür nicht nötig. So
+zeigt die Navigation auch dann, in welchem Bereich Nutzende gerade sind, wenn das
+Submenü geschlossen ist.
+
 ## Topnav-Dropdowns: Disclosure-Pattern
 
 Jedes Top-Item mit Submenü besteht aus zwei getrennten Bedienelementen: dem Label-Link
@@ -193,7 +201,129 @@ Landing-Pages, Detailseiten und Beispielartikel.
 | Aktiver Eintrag | `aria-current="page"` auf dem aktiven Nav-Link setzen, der visuelle Active-State allein ist für Screenreader nicht erkennbar |
 | Tastatur | Alle Nav-Items per `Tab`; `Enter`/`Space` öffnet das Submenü; `↓`/`↑` und `Home`/`End` navigieren die Einträge; `Esc` schließt (Fokus zurück zum Toggle), vollständig ohne Maus bedienbar |
 | Dropdown-Zustand | Das Label ist ein `<a>`-Link zur Übersicht; ein separater Caret-`<button>` trägt per JS `aria-expanded` und `aria-controls` auf das Submenü (Disclosure aus Links, kein Menü-Widget, daher kein `aria-haspopup`); geöffnet wird per Klick/Tastatur und, additiv nur auf `pointer:fine`, per Hover (JS-gesteuert über `.is-open`, nie rein per CSS-`:hover`) |
+| Suche | Der Such-Toggle ist ein `<button type="button">` mit `aria-label` und `aria-expanded`, `aria-controls` verweist auf das Popover. Das Formular trägt `role="search"`, das Feld ein per `.sr-only` verstecktes Label „Suchbegriff“, `type="search"` und `autocomplete="off"`. `Esc` schließt das Popover und gibt den Fokus an den Toggle zurück, wenn er im Popover lag; ein Klick außerhalb schließt ohne Fokusumzug |
+| Mobile Navigation | Der Hamburger-Button ist ein `<button type="button">` mit `aria-expanded`, `aria-controls` auf die Link-Liste und wechselndem `aria-label` („Menü öffnen“, „Menü schließen“). Beide Icons sind `aria-hidden` |
 | Skip-Link | „Zum Inhalt springen“-Link als erstes fokussierbares Element, ermöglicht Tastaturnutzern das Überspringen langer Navigationen |
+
+## Topnav-Dropdowns · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Label-Link und Caret-Button sind zwei Bedienelemente, das Submenü steht als Geschwister daneben. Im Ausgangszustand ist `aria-expanded` `false` und `.is-open` nicht gesetzt.
+
+<HtmlBeispiel titel="Topnav mit Submenü als reines Markup" interaktiv>
+
+```html
+<header class="ep-topnav">
+  <a class="ep-logo" href="/">conciso.</a>
+  <nav class="ep-nav-links" aria-label="Hauptnavigation">
+    <div class="ep-nav-item ep-nav-has-sub">
+      <a class="ep-nav-btn" href="/leistungen">Leistungen</a>
+      <button class="ep-nav-item-toggle" type="button" aria-label="Untermenü Leistungen" aria-expanded="false" aria-controls="nav-sub-leistungen">
+        <svg class="ep-nav-item-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="ep-nav-sub" id="nav-sub-leistungen">
+        <a class="ep-nav-sub-btn" href="/leistungen/angewandte-ki">Angewandte KI</a>
+        <a class="ep-nav-sub-btn" href="/leistungen/effektive-software">Effektive Software</a>
+        <a class="ep-nav-sub-btn" href="/leistungen/wirksame-organisationen">Wirksame Organisationen</a>
+      </div>
+    </div>
+    <a class="ep-nav-btn" href="/wissen" aria-current="page">Wissen</a>
+  </nav>
+</header>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Zustand:** `.is-open` am `.ep-nav-has-sub` und `aria-expanded` am Caret wechseln immer gemeinsam. Das Submenü erscheint nur über `.is-open`, nie über reines `:hover`. `aria-controls` verweist auf eine eindeutige `id` des Submenüs.
+- **Öffnen und Schließen:** Klick, `Enter` und `Space` auf dem Caret schalten um. Der Label-Link navigiert und schaltet nichts.
+- **Ein Menü zugleich:** Vor jedem Öffnen werden alle anderen Submenüs geschlossen.
+- **Pfeiltasten:** `↓` auf einem geschlossenen Item öffnet das Menü und fokussiert den ersten Eintrag. Im offenen Menü geht `↓` zum nächsten Eintrag, am letzten springt der Fokus zum ersten (Umlauf). `↑` geht rückwärts, am ersten Eintrag oder ohne Fokus im Menü springt der Fokus zum letzten. `↑`, `Home` und `End` wirken nur bei geöffnetem Menü, `Home` fokussiert den ersten, `End` den letzten Eintrag. Das Standardverhalten der Taste wird unterdrückt.
+- **Escape:** Schließt das Submenü. Lag der Fokus im Submenü, kehrt er zum Caret zurück, sonst bleibt er, wo er ist. Escape schließt auch ein Menü, das nur per Hover offen ist, auch wenn der Fokus nicht darin liegt (WCAG 1.4.13, schließbar).
+- **Außenklick und Navigation:** Ein Klick außerhalb und ein Klick auf einen Eintrag schließen die Menüs. Der Außenklick verschiebt den Fokus nicht. Heraustabben schließt das Menü nicht.
+- **Hover (optional):** Nur auf Geräten mit echtem Hover (`pointer:fine`). Öffnen mit 100 ms Verzögerung, Schließen mit 250 ms, damit der Weg über den Abstand ins Menü die Brücke bleibt. Ein Klick auf den Caret bricht beide Timer ab, sonst öffnet ein Rest-Timer ein per Klick geschlossenes Menü wieder.
+
+## Mobile Navigation · Nur CSS-Schicht
+
+Unter 760 px zeigt das CSS den Hamburger-Button und klappt `.ep-nav-links` unter dem Logo auf, sobald `.nav-open` am `.ep-topnav` steht. Wer nur die CSS-Schicht verwendet, setzt den Button selbst ins Markup, ein Skript fügt ihn nicht ein. Er steht vor der Link-Liste im `.ep-topnav` und ist über 760 px ausgeblendet.
+
+<HtmlBeispiel titel="Topnav mit Hamburger-Button als reines Markup" interaktiv>
+
+```html
+<header class="ep-topnav">
+  <a class="ep-logo" href="/">conciso.</a>
+  <button class="ep-nav-burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+    <svg class="icon-menu" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/></svg>
+    <svg class="icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+  </button>
+  <nav class="ep-nav-links" id="nav-links" aria-label="Hauptnavigation">
+    <a class="ep-nav-btn" href="/leistungen">Leistungen</a>
+    <a class="ep-nav-btn" href="/wissen" aria-current="page">Wissen</a>
+  </nav>
+</header>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Schalten:** Ein Klick auf den Button schaltet `.nav-open` am `.ep-topnav` um und setzt `aria-expanded` sowie das `aria-label` („Menü öffnen“ oder „Menü schließen“) passend dazu. `aria-controls` verweist auf die `id` der Link-Liste.
+- **Button:** `type="button"`, damit er in einem Formular nichts absendet. Beide Icons sind `aria-hidden` und nicht fokussierbar.
+- **Schließen:** Escape und ein Klick außerhalb schließen das Menü. Lag der Fokus in der Link-Liste, kehrt er bei Escape zum Button zurück.
+- **Breakpoint:** Den Button blendet das CSS über 760 px aus, dort hat `.nav-open` keine Wirkung. Submenüs öffnen im Mobilmenü inline statt als Overlay, ihr Verhalten steht unter „Topnav-Dropdowns“.
+
+## Topnav-Suche · Nur CSS-Schicht
+
+Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht. Wer nur die CSS-Schicht verwendet, setzt Toggle und Popover selbst ins Markup und lässt sie in `.ep-nav-actions` rechts vor dem CTA stehen.
+
+<HtmlBeispiel titel="Such-Toggle mit Popover als reines Markup" interaktiv>
+
+```html
+<div class="ep-nav-actions">
+  <div class="ep-nav-search">
+    <button class="ep-nav-icon-btn ep-nav-search-toggle" type="button" aria-label="Suche" aria-expanded="false" aria-controls="nav-search-pop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Z"/></svg>
+    </button>
+    <div class="ep-nav-search-pop" id="nav-search-pop">
+      <form class="ep-nav-search-form" role="search" action="/suche">
+        <label class="sr-only" for="nav-search-input">Suchbegriff</label>
+        <input class="ep-nav-search-input" id="nav-search-input" type="search" name="q" placeholder="Wonach suchst Du?" autocomplete="off">
+        <button class="btn btn-filled btn-sm btn-co" type="submit">Suchen</button>
+      </form>
+    </div>
+  </div>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Zustand:** `.is-open` am `.ep-nav-search` und `aria-expanded` am Toggle wechseln immer gemeinsam. `aria-controls` verweist auf die `id` des Popovers.
+- **Ein Popup zugleich:** Das Öffnen der Suche schließt offene Submenüs, das Öffnen eines Submenüs schließt die Suche.
+- **Escape:** Schließt das Popover. Lag der Fokus darin, kehrt er zum Toggle zurück.
+- **Außenklick:** Schließt das Popover, ohne den Fokus umzusetzen. Heraustabben schließt es nicht.
+- **Formular:** `role="search"`, das Feld mit sichtbar versteckter Beschriftung „Suchbegriff“ (`.sr-only`), `type="search"` und `autocomplete="off"`. Absenden geht an die globale Suche des Produkts, nicht an einen Platzhalter.
+
+## Back-to-Top · Nur CSS-Schicht
+
+Das CSS blendet `.back-to-top` standardmäßig aus, `visibility:hidden` nimmt den Button zugleich aus der Tab-Reihenfolge. Erst `.visible` zeigt ihn. Der Button steht direkt vor `</body>`. Im Beispiel steht `position:static` und `visible` fest, damit die Vorschau Platz belegt und den Button zeigt; im Produkt bleibt es bei `position:fixed` aus dem CSS und `.visible` setzt das Skript.
+
+<HtmlBeispiel titel="Back-to-Top-Button als reines Markup" interaktiv>
+
+```html
+<button class="back-to-top visible" type="button" aria-label="Nach oben scrollen" style="position:static">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Einblenden:** Ein Scroll-Listener schaltet `.visible` ab `scrollY > 400`. Der Listener ist `passive`, er blockiert das Scrollen nicht.
+- **Klick:** Der Klick-Handler scrollt mit `window.scrollTo({ top: 0 })` zum Seitenanfang, sanft (`behavior: 'smooth'`).
+- **Reduced Motion:** Bei `prefers-reduced-motion: reduce` springt die Seite ohne Animation (`behavior: 'auto'`).
 
 ## Dos & Don'ts
 
@@ -204,6 +334,11 @@ Landing-Pages, Detailseiten und Beispielartikel.
 - Label-Link und Caret-Button als getrennte Bedienelemente führen: Label navigiert, Caret klappt auf
 - Breadcrumb immer linksbündig setzen, auch wenn Titel und Lead darunter zentriert sind
 - Back-to-Top auf jeder Customer-Page einbinden, inklusive Fallback auf einen Hard-Jump bei `prefers-reduced-motion`
+- Die Headline trägt den Kernwert Gelassenheit: ruhig, selbstsicher, ohne Ausrufezeichen
+- Eyebrow und aktiven Nav-Link den Bereich zeigen lassen, damit Nutzende sofort verstehen, wo sie sind
+- Die Primäraktion im Sub-Strip mit einem Verb benennen, konkret und direkt („Starten“, „Anfragen“, „Entdecken“)
+- Den Hero als vollbreites Bild mit dunklem Caption-Overlay führen, der getönte Sub-Strip darunter trägt `--co-50` als ruhige Brand-Klammer
+- Die Topnav als ruhige Konstante halten und die Brand-Klammer von der Nav über die Hero-Caption bis zum Sub-Strip durchziehen, damit Nutzende Kontext und Bereichszugehörigkeit nie verlieren
 
 **Nicht tun**
 
@@ -212,8 +347,12 @@ Landing-Pages, Detailseiten und Beispielartikel.
 - Breadcrumb in einen zentrierten `.article-header` einbetten, sonst verschiebt sich seine Ausrichtung
 - Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen
 - Back-to-Top ohne `aria-label` oder ohne Fallback bei `prefers-reduced-motion` ausliefern
+- Mehr als zwei CTAs im Sub-Strip setzen oder CTAs in das Hero-Caption-Overlay ziehen: Das widerspricht dem Markenwert Klar und konkurriert mit der Headline
+- Reißerische Headlines mit Ausrufezeichen oder Superlativketten schreiben, das verstößt gegen Gelassenheit
+- Eine vollflächige Bereichsfarbe als Sub-Strip-Hintergrund (statt `--co-50`) oder als Farbe des Caption-Overlays verwenden: zu dominant, das überschreibt das Ruhig-Gefühl
 
 ## Verwandte Seiten
 
 - Komponenten/Navigation/Topnav
 - Komponenten/Hero (Zusammenspiel von Topnav und Hero)
+- Komponenten/Theme-Umschalter (Cycle-Button in der Topnav, Verhalten und Persistenz)
