@@ -136,7 +136,7 @@ Numerische Wertauswahl mit nativer Tastatursteuerung (Pfeiltasten, Pos1, Ende). 
 | `label` | Jedes Feld braucht ein sichtbares Label, kein Placeholder als Ersatz |
 | `aria-required` | Pflichtfelder mit `aria-required="true"` und sichtbarem `*` kennzeichnen |
 | `aria-invalid` | Bei Validierungsfehler `aria-invalid="true"` setzen, Screenreader meldet Fehlerfeld |
-| `role="alert"` | Fehlermeldung erhält `role="alert"`, wird sofort vorgelesen, ohne Fokusverschiebung |
+| `role="alert"` | Fehlermeldung erhält `role="alert"`, wird sofort vorgelesen, ohne Fokusverschiebung. Ausnahme lange Formulare: Entstehen bei einem Submit viele Meldungen gleichzeitig, ergeben mehrere Alerts eine unbrauchbare Ansage-Salve. Dann trägt die fokussierte Fehlerübersicht das `role="alert"`, die Einzelmeldungen lassen es weg und bleiben über `aria-describedby` mit dem Feld verbunden (siehe Buchungsformular). In Angular schaltet das Input `quietError` der Feldkomponenten (`cds-text-field`, `cds-textarea-field`, `cds-select-field`) das `role="alert"` ab |
 | Link im Label | Verlinkte Rechtstexte in Einwilligungen (Datenschutz, Teilnahmebedingungen) sind echte `<a class="body-link">`, kein `<span>` mit `cursor:pointer`, sonst nicht per Tab erreichbar und für Screenreader kein Link, obwohl dieser Text die Grundlage der Einwilligung ist. Im `<label for>` unkritisch: die Label-Aktivierung läuft bei interaktiven Nachfahren nicht, der Klick auf den Link setzt also kein Häkchen |
 | `autocomplete` | Passende Werte setzen (`name`, `email`, …), erleichtert Ausfüllen auf Mobile |
 
@@ -174,7 +174,7 @@ Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
 | Auslösen | Geprüft wird beim Absenden (`novalidate` am Formular), nicht beim Tippen. Alte Meldungen werden zuerst geräumt, dann neu gesetzt |
 | Beheben | `has-error`, `aria-invalid`, `aria-describedby` und die Meldung selbst werden entfernt, nicht nur ausgeblendet |
 | Darstellung | Text und Icon, nie nur die Farbe |
-| Ansage | Die Meldung trägt `role="alert"`, wird beim Einfügen vorgelesen und braucht keine Fokusverschiebung. Entstehen bei einem langen Formular über ein Dutzend Meldungen gleichzeitig, ergibt das eine unbrauchbare Ansage. Dort sammelt eine fokussierte Fehlerübersicht die Fehler (siehe `Komponenten/Buchungsformular`) |
+| Ansage | Die Meldung trägt `role="alert"`, wird beim Einfügen vorgelesen und braucht keine Fokusverschiebung. Entstehen bei einem langen Formular über ein Dutzend Meldungen gleichzeitig, ergibt das eine unbrauchbare Ansage. Dort sammelt eine fokussierte Fehlerübersicht die Fehler (siehe `Komponenten/Buchungsformular`) und trägt das `role="alert"`, die Einzelmeldungen lassen es weg (Verknüpfung per `aria-describedby` bleibt). In Angular tut das `quietError` an den Feldkomponenten |
 | Fokus | Nach einem gescheiterten Absenden geht der Fokus auf das erste fehlerhafte Feld |
 
 ## Kontaktformular-Validierung · Nur CSS-Schicht

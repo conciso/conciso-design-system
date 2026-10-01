@@ -26,7 +26,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
         <span class="helper">{{ helper() }}</span>
       }
       @if (error()) {
-        <span class="error-msg" [id]="errorId()" role="alert">
+        <span class="error-msg" [id]="errorId()" [attr.role]="quietError() ? null : 'alert'">
           <!-- Exclamation-Circle-Icon. Noch inline: Das Icon liegt nicht im Register
                (@conciso/design-system/icons); die externe Icon-Lib folgt
                auf feat/theme-switch, dann hier ersetzen. -->
@@ -61,4 +61,6 @@ export class FieldShellComponent {
   readonly fieldId = input('');
   /** id der Fehlermeldung (für aria-describedby am Steuerelement). */
   readonly errorId = input('');
+  /** Unterdrückt `role="alert"` an der Fehlermeldung (siehe `FieldBase.quietError`). */
+  readonly quietError = input(false);
 }
