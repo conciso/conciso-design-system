@@ -13,7 +13,7 @@ Drei Formen, die leicht verwechselt werden: interaktive Filter-Chips (Toggle), p
 |---|---|---|---|
 | Chip | Interaktiv, Toggle über `aria-pressed="true/false"` | Aktive Filter- und Auswahlkomponente | Max. 3 Wörter, prägnante Kategorie- oder Filterbegriffe |
 | Badge | Passiv, kein Klickverhalten | Status- oder Bereichskennzeichnung neben einem Element | 1 bis 2 Wörter, kein Verb |
-| Pill | Passiv, kein Klickverhalten | Redaktioneller Eyebrow vor einem Titel, ordnet einen Inhalt einer Brand Area zu | 1 bis 3 Wörter, ausschließlich der Bereichsname |
+| Pill | Passiv, kein Klickverhalten | Redaktioneller Eyebrow vor einem Titel, ordnet einen Inhalt einer Brand Area zu | 1 bis 3 Wörter, auf Teaser-Cards ausschließlich der Bereichsname (Featured-Card und Artikelkopf dürfen die Lesezeit tragen) |
 
 **Abgrenzung Pill gegen Bereichs-Badge**: beide nutzen den 50er-Hintergrund und den 700er- beziehungsweise 800er-Text der Brand Area, beide haben die abgerundete Form.
 
@@ -43,7 +43,7 @@ Die Pill ist ein `<span class="pill">`. Das Attribut `data-area` schaltet die Be
 
 </HtmlBeispiel>
 
-**Inhalt auf Cards: nur der Bereichsname.** Meta-Daten wie Lesezeit, Datum oder Format gehören in eine separate `.card-meta`-Zeile unterhalb von Titel und Anreißer. Die Pill bleibt so der reine Bereichs-Anker, ein visuelles Sortiersignal. Die Meta-Zeile trägt die Fakten zur Karte, denn Lesezeit und Datum gehören zur Karten-Anatomie, nicht zur Markenzuordnung. Das entlastet zugleich Screenreader, weil kein Trennzeichen mehr gelesen werden muss.
+**Inhalt auf Teaser-Cards: nur der Bereichsname.** Meta-Daten wie Lesezeit, Datum oder Format gehören in eine separate `.card-meta`-Zeile unterhalb von Titel und Anreißer. Die Pill bleibt so der reine Bereichs-Anker, ein visuelles Sortiersignal. Die Meta-Zeile trägt die Fakten zur Karte, denn Lesezeit und Datum gehören zur Karten-Anatomie, nicht zur Markenzuordnung. Das entlastet zugleich Screenreader, weil kein Trennzeichen mehr gelesen werden muss. Auf der Featured-Card und im Artikelkopf darf die Pill dagegen die Lesezeit tragen (`aria-label` dann zum Beispiel „Lesezeit 12 Minuten“); die Teaser-Card im Listing bleibt beim reinen Bereichsnamen.
 
 **Form und Abstand stecken in der Klasse.** `.pill` trägt `width:fit-content` und bleibt darum auch als Flex- oder Grid-Item eine Pille. Ein `inline-block` würde als Flex-Item zu `block` blockifiziert und von `align-items:stretch` auf die volle Spaltenbreite gezogen, aus der Pille würde ein Balken. Deshalb gehört weder `width:fit-content` noch `align-self` ins Markup.
 
@@ -72,7 +72,7 @@ Die Eigenmarge `margin-bottom:var(--s5)` gilt dem normalen Fluss, wo die Pill ü
 - Chip-Labels auf max. 3 Wörter begrenzen, klare, scanbare Begriffe.
 - Semantische Statusfarben bei Badges einhalten, Grün für positiv, Gelb für Warnung, Rot für Fehler.
 - Jede Pill mit einem `aria-label` in ausgeschriebener Form versehen („Bereich …“), bei Trennzeichen (`·`) erst recht.
-- Auf Cards die Pill nur mit dem Bereichsnamen füllen, Lesezeit, Datum und Format in einer separaten `.card-meta`-Zeile führen.
+- Auf Teaser-Cards die Pill nur mit dem Bereichsnamen füllen, Lesezeit, Datum und Format in einer separaten `.card-meta`-Zeile führen. Featured-Card und Artikelkopf dürfen die Lesezeit in der Pill tragen.
 
 **Nicht tun**
 
@@ -83,7 +83,7 @@ Die Eigenmarge `margin-bottom:var(--s5)` gilt dem normalen Fluss, wo die Pill ü
 - Chip-Labels als vollständige Sätze, zu lang, passt nicht zur kompakten Form.
 - Mehr als 7 Chips in einer Gruppe, lieber kategorisieren oder eine Auswahlliste verwenden.
 - Mehrere Pills nebeneinander an demselben Inhalt, eine Pill pro Beitrag reicht.
-- Meta-Daten (Lesezeit, Datum, Format) in die Pill falten, die Pill ist Bereichs-Anker, kein Datenfeld.
+- Auf Teaser-Cards Meta-Daten (Lesezeit, Datum, Format) in die Pill falten, dort ist die Pill Bereichs-Anker, kein Datenfeld.
 - Der Pill im Card-Kontext ein `margin-bottom` geben oder `width:fit-content` und `align-self` ins Markup schreiben, `.card-body` und die Klasse regeln beides selbst.
 
 ## Verwandte Seiten
