@@ -14,6 +14,11 @@ import type { CdsArea } from '../area';
  * Überschrift — daher trägt die Pill ein explizites `aria-label` (Default
  * „Bereich <label>“, überschreibbar), genau wie in der Doku vorgegeben.
  *
+ * Inhalt auf Cards: nur der Bereichsname. Meta-Daten wie Lesezeit, Datum oder Format
+ * gehören in eine separate `.card-meta`-Zeile. `.pill` trägt `width:fit-content` selbst, im
+ * Card-Kontext regelt `.card-body` (bzw. `.card-featured-body`) den Abstand — kein
+ * `margin-bottom` und kein `align-self` an der Pill.
+ *
  * Verwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).
  */
 @Component({
