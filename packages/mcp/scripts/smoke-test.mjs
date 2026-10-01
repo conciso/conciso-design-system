@@ -164,6 +164,22 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header',
   },
   {
+    id: 'komponenten-theme-umschalter-cycle-button',
+    sentence: 'Das Anti-Flash-Snippet immer als erstes Skript im `<head>` einbinden, vor dem Stylesheet.',
+  },
+  {
+    id: 'komponenten-chips-badges-pills-pill',
+    sentence: 'Auf Cards die Pill nur mit dem Bereichsnamen füllen',
+  },
+  {
+    id: 'komponenten-code-block-code-block',
+    sentence: 'Die Erfolgsmeldung des Copy-Buttons über eine Live-Region melden, die von Anfang an im DOM steht',
+  },
+  {
+    id: 'komponenten-footer-komplett',
+    sentence: 'Den Rechtstext in der Einwilligung als echten Link (`<a class="body-link">`) setzen',
+  },
+  {
     id: 'marke-logo-logo',
     sentence: 'Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.',
   },
