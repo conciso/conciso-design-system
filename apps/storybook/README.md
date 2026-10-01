@@ -2,8 +2,8 @@
 
 Der **Storybook-Teil** des Conciso Design Systems. Dieser Ordner enthält nur noch
 Stories und MDX-Doku — die Angular-Komponenten-Wrapper selbst leben seit
-[ADR-0002](../docs/adr/0002-topologie-und-quelle-der-wahrheit.md) in
-[`angular-lib/projects/design-system-angular`](../angular-lib/projects/design-system-angular)
+[ADR-0002](../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md) in
+[`packages/angular`](../../packages/angular)
 und werden hier über TS-Pfad-Mapping (`tsconfig.json`) sowie einen Vite-Alias
 (`.storybook/main.ts`) direkt auf deren `public-api.ts` eingebunden — nicht über
 das gebaute npm-Artefakt. Storybook **konsumiert und dokumentiert** ausschließlich
@@ -14,12 +14,12 @@ Styles noch eigene Komponenten definiert.
 
 | Schicht | Ort | Eigenschaft |
 | --- | --- | --- |
-| **CSS & Tokens** (Quelle der Wahrheit) | Repo-Root: `../css`, `../tokens`, `../dist`, `../fonts`, `../icons` | Framework-unabhängig, ohne Build nutzbar. Wächst unabhängig von diesem Ordner. |
-| **Angular-Lib** (Komponenten-Quelle) | [`../angular-lib/projects/design-system-angular`](../angular-lib/projects/design-system-angular) | Eigenes Angular-Package (ADR-0002/0004). Storybook importiert nur lesend von dort. |
-| **Storybook** | dieser Ordner `storybook-angular/` | Eigenes `package.json`, aber **kein** eigenes `node_modules` — Installation läuft als npm-Workspace vom Repo-Root aus (`npm ci`/`npm install` im Root, ein gemeinsames `package-lock.json` für alle Workspaces). |
+| **CSS & Tokens** (Quelle der Wahrheit) | CSS-Paket: `../../packages/css` (`css/`, `dist/`, `fonts/`, `icons/`) | Framework-unabhängig, ohne Build nutzbar. Wächst unabhängig von diesem Ordner. |
+| **Angular-Lib** (Komponenten-Quelle) | [`../../packages/angular`](../../packages/angular) | Eigenes Angular-Package (ADR-0002/0004). Storybook importiert nur lesend von dort. |
+| **Storybook** | dieser Ordner `apps/storybook/` | Eigenes `package.json`, aber **kein** eigenes `node_modules` — Installation läuft als npm-Workspace vom Repo-Root aus (`npm ci`/`npm install` im Root, ein gemeinsames `package-lock.json` für alle Workspaces). |
 
 Die CSS-Dateien werden **unverändert** über Storybooks `staticDirs` aus dem
-Repo-Root serviert (`/conciso/css/…`) und per `<link>` in
+CSS-Paket `packages/css` serviert (`/conciso/css/…`) und per `<link>` in
 `.storybook/preview-head.html` in der dokumentierten Reihenfolge eingebunden
 (fonts → tokens → dark-mode → base → components). So bleibt die CSS-Ebene
 weiterhin ohne Angular nutzbar.
@@ -28,12 +28,12 @@ weiterhin ohne Angular nutzbar.
 
 Die Wrapper-Komponenten selbst — Angular-Selector und die CSS-Klasse, die sie
 erzeugen — sind hier dokumentiert:
-[angular-lib/projects/design-system-angular/README.md § Komponenten (Auswahl)](../angular-lib/projects/design-system-angular/README.md#komponenten-auswahl).
+[packages/angular/README.md § Komponenten (Auswahl)](../../packages/angular/README.md#komponenten-auswahl).
 Dieser Ordner rendert sie nur als Stories, definiert sie aber nicht.
 
 Die **Foundations**-Stories rendern Farben und Typografie live aus den
-`--*`-Tokens (`../css/tokens.css`). Der **Theme**-Schalter in der Toolbar setzt
-`data-theme="dark"` am `<html>` und aktiviert damit `../css/dark-mode.css`.
+`--*`-Tokens (`../../packages/css/css/tokens.css`). Der **Theme**-Schalter in der Toolbar setzt
+`data-theme="dark"` am `<html>` und aktiviert damit `../../packages/css/css/dark-mode.css`.
 
 ## Tests
 
@@ -55,7 +55,7 @@ axe-Verstöße lassen den Lauf fehlschlagen (siehe „a11y ist global scharf
 geschaltet“ weiter unten). `npm run test:vitest` ist außerdem die einzige
 Testschiene — ein früherer, redundanter zweiter Lauf über den Storybook
 Test-Runner (Jest) ist entfallen (siehe
-[ADR-0005](../docs/adr/0005-testebene-der-angular-lib.md)).
+[ADR-0005](../../docs/adr/0005-testebene-der-angular-lib.md)).
 
 **Visual-Regression** läuft in derselben Schiene, aber nur mit `VISUAL=1`
 (siehe `.storybook/vitest.setup.ts`): dann macht ein `afterEach`-Hook je Story
@@ -101,7 +101,7 @@ Einzelne Stories mit bekannten, im **CSS-Kern** liegenden Befunden setzen lokal
 
 ### Frühere a11y-Befunde im CSS-Kern (behoben)
 
-Diese drei `color-contrast`-Verstöße lagen in `css/components.css` und sind dort
+Diese drei `color-contrast`-Verstöße lagen in `packages/css/css/components.css` und sind dort
 inzwischen behoben. Wer eine Story noch auf `a11y: { test: 'todo' }` findet, kann
 sie wieder scharf schalten:
 
@@ -135,7 +135,7 @@ Verfügbare Tools: `stories-preview`, `stories-changed`, `stories-find-by-compon
 `get-storybook-story-instructions`.
 
 `npm run build-storybook` schreibt zusätzlich
-`storybook-static/manifests/components.json` — Quelle ist derselbe TS-Docgen
+`dist/manifests/components.json` — Quelle ist derselbe TS-Docgen
 (`meta.docgen: "angular-component-meta"`), der auch Controls und Docs-Seiten
 speist. CI prüft nach dem Build, dass dieses Manifest existiert und die
 erwartete `meta.docgen`-Kennung trägt (Schritt „Komponenten-Manifest vorhanden“
@@ -151,7 +151,7 @@ alles, was nicht Input oder Output ist, bekommt `@internal`. Beschreibungen in
 der Props-Tabelle kommen aus dem JSDoc der Lib; Story-`argTypes` überschreiben
 nur, wo sie bewusst gesetzt sind. Details und die verworfenen Alternativen
 (`propsTable: 'inputs'`, ein globaler `argTypesEnhancer`) stehen in
-[`docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md`](../docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
+[`docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md`](../../docs/adr/0006-storybook-10-6-docgen-server-mcp-und-theming.md).
 
 ## Storybook-Oberfläche im Conciso-Look
 
@@ -159,7 +159,7 @@ Sidebar, Toolbar und Addon-Panels (der „Manager“) sowie die Docs-Seiten-Chro
 tragen das Conciso-Farbschema statt des Storybook-Defaults:
 
 - `.storybook/theme.ts` definiert zwei `create()`-Themes (Light/Dark) mit
-  Werten aus `css/tokens.css` bzw. `css/dark-mode.css` (Token-Name im
+  Werten aus `packages/css/css/tokens.css` bzw. `packages/css/css/dark-mode.css` (Token-Name im
   Kommentar je Zeile).
 - `.storybook/manager.ts` wählt beim Laden nach `prefers-color-scheme`
   zwischen beiden — **nicht** nach dem Toolbar-Theme-Schalter der Preview.

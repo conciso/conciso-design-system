@@ -2,14 +2,14 @@
 
 Angular-Wrapper-Komponenten für das [Conciso Design System](https://github.com/conciso/conciso-design-system).
 Die Komponenten sind **dünne Hüllen** über der framework-agnostischen
-[CSS-Schicht](../../../CONTEXT.md#css-schicht) (`@conciso/design-system`): Sie setzen
+[CSS-Schicht](../../CONTEXT.md#css-schicht) (`@conciso/design-system`): Sie setzen
 nur deren CSS-Klassen zusammen und liefern **kein eigenes CSS**.
 
 > **Vollständig umgezogen.** Alle 37 Komponenten leben in dieser Lib und werden über
 > `public-api.ts` exportiert — samt ihrer öffentlichen Typen (`CdsArea`,
-> `CdsButtonVariant`, `CdsThemeMode`, …). `storybook-angular` enthält nur noch Stories
+> `CdsButtonVariant`, `CdsThemeMode`, …). `apps/storybook` enthält nur noch Stories
 > und importiert ausschließlich von hier
-> ([ADR-0002](../../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
+> ([ADR-0002](../../docs/adr/0002-topologie-und-quelle-der-wahrheit.md)).
 
 ## Komponenten (Auswahl)
 
@@ -21,15 +21,15 @@ Die meisten Komponenten haben einen Element-Selektor (`cds-*`). Einige tragen
 stattdessen einen Attributselektor (z. B. `cdsIconCard`, `cdsSection`, `cdsFeature`,
 `cdsCtaBand`, `cdsAvatar`, `cdsAuthorCard`), weil das Host-Element sonst Layout oder
 Tag der CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
-[ADR-0008](../../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).
+[ADR-0008](../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).
 
-| Angular-Selector | CSS-Basis (in `../../../css/components.css`) |
+| Angular-Selector | CSS-Basis (in `../css/css/components.css`) |
 | --- | --- |
 | `<cds-button>` | `.btn` + Varianten/Bereiche |
 | `<cds-status-badge>` | `.badge` + `.badge-{ok\|warn\|err\|neu}` (Status-Ton) |
 | `<cds-area-badge>` | `.badge` + `[data-area]` (Bereichs-Zuordnung) |
 | `<cds-chip>` | `.chip` (aria-pressed Toggle **oder** statischer `t-*`-Tag) |
-| `<cds-card>` | `.card` (Bereichs-Glyphe aus `../../../icons`) |
+| `<cds-card>` | `.card` (Bereichs-Glyphe aus `../css/icons`) |
 | `<cds-stat-card>` | `.card-stat` |
 | `<cds-stat-strip>` | `.card-stat-strip` + `.card-stat-flat` |
 | `<cds-testimonial>` | `.testimonial` |
@@ -52,9 +52,9 @@ Tag der CSS-Basis bricht — begründet je Komponente per JSDoc, siehe
 ## Installation von npmjs.org
 
 Der empfohlene Weg: Beide Pakete (`@conciso/design-system-angular` **und**
-`@conciso/design-system`, [Lockstep](../../../CONTEXT.md#lockstep-versionierung))
+`@conciso/design-system`, [Lockstep](../../CONTEXT.md#lockstep-versionierung))
 liegen auf der öffentlichen npm-Registry (seit
-[ADR-0011](../../../docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Keine `.npmrc`,
+[ADR-0011](../../docs/adr/0011-veroeffentlichung-auf-npmjs.md)). Keine `.npmrc`,
 kein Token nötig:
 
 ```bash
@@ -68,7 +68,7 @@ npmjs nur eine Bootstrap-Platzhalterversion (siehe ADR-0011).
 
 Beide Pakete liegen **zusätzlich** weiterhin privat, org-scoped in
 [GitHub Packages](https://npm.pkg.github.com) (siehe
-[ADR-0004](../../../docs/adr/0004-verteilung-und-versionierung.md)) — z. B. für
+[ADR-0004](../../docs/adr/0004-verteilung-und-versionierung.md)) — z. B. für
 Consumer innerhalb der GitHub-Organisation `conciso`, die ohnehin schon so
 eingerichtet sind. Ein einziger `.npmrc`-Mechanismus deckt beide ab, weil
 beide unter dem `@conciso`-Scope veröffentlicht werden.
@@ -89,7 +89,7 @@ Laufzeit aus der Umgebungsvariable — dafür, in dieser Reihenfolge:
 - **CI in derselben Organisation → kein Token nötig.** Das von GitHub automatisch
   bereitgestellte `secrets.GITHUB_TOKEN` genügt für den **Lese**-Zugriff, sofern
   das Workflow-`permissions`-Feld `packages: read` erlaubt (Beispiel im
-  Publish-Workflow, [`.github/workflows/publish.yml`](../../../.github/workflows/publish.yml)).
+  Publish-Workflow, [`.github/workflows/publish.yml`](../../.github/workflows/publish.yml)).
   Voraussetzung ist einmalig, dass das Paket dem konsumierenden Repo freigegeben
   ist: auf der Paket-Seite unter *Manage Actions access* → **Add Repository**
   (Personen und Teams bekommen dort ebenso eine Rolle). Das Token ist kurzlebig und
@@ -135,17 +135,17 @@ in der Umgebung.
 
 Die Lib injiziert zur Laufzeit **nichts** ins DOM. Der Konsument installiert **beide**
 Pakete (`@conciso/design-system-angular` **und** `@conciso/design-system` im
-[Lockstep](../../../CONTEXT.md#lockstep-versionierung), gleiche Version) und bindet die
+[Lockstep](../../CONTEXT.md#lockstep-versionierung), gleiche Version) und bindet die
 CSS-Schicht + Fonts selbst global über die `angular.json` (`styles`/`assets`) ein.
 Fehlt dieser Schritt, rendern die Komponenten unstyled — ein lautes, offensichtliches
-Signal. Siehe [ADR-0001](../../../docs/adr/0001-angular-lib-als-css-wrapper.md).
+Signal. Siehe [ADR-0001](../../docs/adr/0001-angular-lib-als-css-wrapper.md).
 
 ## CSS + Fonts einbinden
 
 Copy-paste-fertiger Einbindungs-Schnipsel — lebendes Vorbild ist die committete
-[Consumer-Fixture](../../../CONTEXT.md#consumer-fixture) unter
-[`examples/consumer-fixture`](../../../examples/consumer-fixture), die genau damit
-im [Consumer-Smoke-Test](../../../CONTEXT.md#consumer-smoke-test) baut.
+[Consumer-Fixture](../../CONTEXT.md#consumer-fixture) unter
+[`tools/consumer-fixture`](../../tools/consumer-fixture), die genau damit
+im [Consumer-Smoke-Test](../../CONTEXT.md#consumer-smoke-test) baut.
 
 `css` und `fonts` liegen unverändert (kein CSS-Bundling durch den Angular-Build) unter
 `node_modules/@conciso/design-system/{css,fonts}` — deshalb die `assets`-Einträge statt
@@ -174,7 +174,7 @@ Zielordner `conciso/css` und `conciso/fonts` müssen daher **Geschwister** sein.
 
 **2. `src/index.html` → CSS in exakt dieser Reihenfolge laden** (fonts → tokens →
 dark-mode → base → components; gleiches Muster wie Storybooks
-[`preview-head.html`](../../../storybook-angular/.storybook/preview-head.html)):
+[`preview-head.html`](../../apps/storybook/.storybook/preview-head.html)):
 
 ```html
 <link rel="stylesheet" href="conciso/css/fonts.css" />
@@ -203,19 +203,19 @@ In `architect.build.configurations.production` ergänzen:
 
 ## Bauen
 
-Aus dem Workspace-Root (`angular-lib/`):
+Aus `packages/angular/`:
 
 ```bash
 ng build design-system-angular
 ```
 
 Das Artefakt (Angular Package Format, via ng-packagr) landet unter
-`dist/design-system-angular/`. Einziger Einstiegspunkt ist `src/public-api.ts`.
+`dist/`. Einziger Einstiegspunkt ist `src/public-api.ts`.
 
 ## Lizenz
 
-MIT, siehe [LICENSE](../../../LICENSE) im Repository-Root (im gebauten Paket unter
-`dist/design-system-angular/LICENSE`). Ausnahmen (Brand-Assets, Schriften, Icons)
-siehe [NOTICE](../../../NOTICE). Das betrifft nur die Lizenz — an den beiden
+MIT, siehe [LICENSE](../../LICENSE) im Repository-Root (im gebauten Paket unter
+`dist/LICENSE`). Ausnahmen (Brand-Assets, Schriften, Icons)
+siehe [NOTICE](../../NOTICE). Das betrifft nur die Lizenz — an den beiden
 Bezugswegen (npmjs.org als Standard, GitHub Packages als Alternative, siehe oben)
 ändert sich dadurch nichts.

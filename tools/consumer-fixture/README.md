@@ -8,7 +8,7 @@ aus der Angular-Lib-Extraktion (siehe
 Zwei Rollen in einer App:
 
 1. **Ziel des [Consumer-Smoke-Tests](../../CONTEXT.md#consumer-smoke-test)**
-   ([`scripts/consumer-smoke-test.sh`](../../scripts/consumer-smoke-test.sh)): baut
+   ([`tools/checks/consumer-smoke-test.sh`](../checks/consumer-smoke-test.sh)): baut
    `@conciso/design-system-angular` + `@conciso/design-system`, tarballt beide per
    `npm pack`, installiert die Tarballs hier (nicht die Quelle, kein
    Workspace-Pfad-Mapping) und fährt einen produktiven AOT-`ng build`. Deckt genau die
@@ -21,7 +21,7 @@ Zwei Rollen in einer App:
    `@angular/core`/`common` und `@ng-icons`, TextField + Checkbox für `@angular/forms`, Card für
    `@angular/platform-browser`), damit der Smoke-Test jede dieser Abhängigkeiten auflöst. Die
    Regel steht im Kommentar von [`src/app/app.ts`](src/app/app.ts). Der `angular.json`-Schnipsel ist im
-   [README der Lib](../../angular-lib/projects/design-system-angular/README.md#css--fonts-einbinden)
+   [README der Lib](../../packages/angular/README.md#css--fonts-einbinden)
    dokumentiert.
 
 ## Wichtig: absichtlich KEIN npm-Workspace-Mitglied
@@ -57,7 +57,7 @@ Skript aus dem Repo-Root laufen lassen, das immer die aus dem lokalen Stand
 gebauten Tarballs installiert:
 
 ```bash
-scripts/consumer-smoke-test.sh
+tools/checks/consumer-smoke-test.sh
 ```
 
 Das Ergebnis liegt anschließend unter `dist/consumer-fixture/browser/`.

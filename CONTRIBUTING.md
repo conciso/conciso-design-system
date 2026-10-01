@@ -8,7 +8,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 
 ## 1. Grundprinzipien
 
-- **Tokens statt Hardcodes.** Nie rohe Hex-/px-Werte, wo ein Token existiert. Farben, Abstände, Radien, Typo, Elevation kommen aus `css/tokens.css`.
+- **Tokens statt Hardcodes.** Nie rohe Hex-/px-Werte, wo ein Token existiert. Farben, Abstände, Radien, Typo, Elevation kommen aus `packages/css/css/tokens.css`.
 - **Beide Modi mitdenken.** Jede Änderung in Light **und** Dark prüfen. Leitfrage bei fast jedem Bug dieser Codebasis: *„Flippt der Hintergrund mit dem Theme — und hat das Element eine andere Flächen-Stufe als sein Grund?“*
 - **Konformitätsstufe AA ist Pflicht, AAA ist Zugabe.** Stufe AA schließt Stufe A ein: gefordert sind **alle** Erfolgskriterien beider Stufen, und zwar für jedes Thema, nicht nur für Kontrast (also auch Tastaturbedienung, Fokus, Struktur, Beschriftung, Bewegung, Zielgrößen). Für Kontrast konkret: Normaltext ≥ 4,5:1, Großtext/UI ≥ 3:1; disabled & rein dekorative (`aria-hidden`) Elemente ausgenommen. **AAA** nehmen wir mit, wo es ohne Nachteil für Gestaltung oder Verständlichkeit erreichbar ist (die meisten Textfarben liegen darüber, Touch-Targets bei 44 px statt der geforderten 24 px), aber es ist **kein Abnahmekriterium**: an einem AAA-Kriterium scheitert kein PR. Wer AAA an einer Stelle bewusst nicht erfüllt, schreibt es dazu, statt es offen zu lassen (Beispiel: der 2-px-Hover-Lift auf klickbaren Karten gegen 2.3.3).
 - **Elevation = Interaktivität.** Schatten ist ein Affordanz-Signal, kein Schmuck (siehe §4).
@@ -28,7 +28,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 - Text-/Akzent-Utilities: `.t-co` / `.t-ki` / `.t-es` / `.t-wo`
 - Doku-/Site-Meta: `.ds-*`
 
-**Token-Präfixe** (`css/tokens.css`)
+**Token-Präfixe** (`packages/css/css/tokens.css`)
 - Farbe: `--co-* --ki-* --es-* --wo-* --ro-* --n-*` (Skala `-50 … -900`), semantisch `--c-success/-warning/-error`
 - Flächen/Text: `--bg-* --tx-*`
 - Typo: `--ty-*` · `--font` / `--font-display`
@@ -55,7 +55,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 - **`--XX-ink` ist für farbigen Akzenttext** (Eyebrows, Preise, Häkchen, Labels), **nicht** für Elemente, die neutral schwarz/weiß sein sollen → dort `--tx-primary`.
 - **Farbiger Text/Icon auf heller `-100`-Kachel** (Chip, Häkchen-Kreis): fest auf `--XX-800`, **nicht** `.t-*`/`ink` — die `-100`-Kachel flippt im Dark nicht, `.t-*`/`ink` kippt auf hell `-200` → hell-auf-hell, unsichtbar.
 - **Der Stand ist 0 Verstöße** in beiden Modi, gemessen über 11.585 Textknoten der Doku, alle getönten Bauteil-Füllungen und alle Bedienelement-Rahmen. Das ist kein Zielwert, sondern der Ist-Stand, den das Gate festhält.
-- **`npm run check:contrast` ist das Gate.** Es rendert `docs/index.html` in **beiden** Modi in Chromium, löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente Schichten werden aufeinander komponiert) und prüft drei Dinge: Text gegen 4,5:1 bzw. 3:1 bei Großtext, getönte Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1. Weil es die **fertige Kette** misst und nicht das CSS, findet es auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in `storybook-angular.yml`, weil es einen Browser braucht; lokal reicht ein installiertes Chrome.
+- **`npm run check:contrast` ist das Gate.** Es rendert `docs/legacy-site/index.html` in **beiden** Modi in Chromium, löst für jeden Textknoten den effektiven Grund über die Elternkette auf (halbtransparente Schichten werden aufeinander komponiert) und prüft drei Dinge: Text gegen 4,5:1 bzw. 3:1 bei Großtext, getönte Bauteil-Füllungen gegen den 1,3:1-Faustwert, Bedienelement-Rahmen gegen 3:1. Weil es die **fertige Kette** misst und nicht das CSS, findet es auch inline gesetzte Farben, die kein Token-Check sieht. Läuft in `storybook-angular.yml`, weil es einen Browser braucht; lokal reicht ein installiertes Chrome.
   - **Genau eine Ausnahme:** Swatches in den Kontrast-Tabellen (`.cswatch`, `.cbadge`), die ein Farbpaar als *Inhalt* zeigen und das gemessene Verhältnis daneben ausschreiben. Alles andere zählt, auch Paletten-Beschriftungen, Code-Blöcke und Specimen. Wer eine zweite Ausnahme braucht, hat sehr wahrscheinlich einen Befund vor sich.
   - **Text über Fotos und Verläufen** wird nur gezählt, nicht gewertet: sein Grund steht nicht in der Elternkette, das braucht eine Pixelmessung (Vorgehen siehe Hero-Scrim im CHANGELOG).
   - **Restliste statt Ausnahmeliste:** Das Gate vergleicht gegen eine Zahl pro Kategorie im Skript und schlägt fehl, wenn sie **steigt** (Regression) und ebenso, wenn sie **sinkt**, ohne nachgezogen zu werden. Der Stand bleibt so ehrlich im Repo sichtbar und kann sich nur nach unten bewegen. Ziel ist überall 0.
@@ -136,9 +136,9 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 ## 10. Eine Komponente / ein Token hinzufügen
 
-1. **Token** (falls nötig) in `css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
-2. **Komponente** als CSS-Klasse in `css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
-3. **Icon** (falls nötig): normalisiertes SVG als `icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Label/Verwendung optional in `icons/manifest.json` pflegen. `npm run build:icons` erzeugt daraus `dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`. Der gesamte Ordner `dist/` ist gitignored; Build-Ergebnisse werden weder editiert noch committet.
+1. **Token** (falls nötig) in `packages/css/css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `packages/css/css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
+2. **Komponente** als CSS-Klasse in `packages/css/css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
+3. **Icon** (falls nötig): normalisiertes SVG als `packages/css/icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Label/Verwendung optional in `packages/css/icons/manifest.json` pflegen. `npm run build:icons` erzeugt daraus `dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`. Der gesamte Ordner `dist/` ist gitignored; Build-Ergebnisse werden weder editiert noch committet.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
 5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
@@ -195,7 +195,7 @@ rg -o '\sid="(gt-[^"]+)"' -r '$1' index.html | sort -u | comm -23 - /tmp/nav
 
 ---
 
-## 12. Storybook-Sidebar (`storybook-angular/src`)
+## 12. Storybook-Sidebar (`apps/storybook/src`)
 
 Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und folgt einer eigenen Taxonomie.
 
@@ -214,9 +214,9 @@ Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und fo
 
 ---
 
-## 13. Visual-Regression (`storybook-angular/visual-snapshots`)
+## 13. Visual-Regression (`apps/storybook/visual-snapshots`)
 
-Jede Story wird zusätzlich als Bild gegen eine eingecheckte Baseline geprüft (Gate `VISUAL=1`, Vitests `toMatchScreenshot`, Opt-out je Story über `parameters.snapshot.skip`). Die Bilder liegen unter `storybook-angular/visual-snapshots/<story-id>.png`.
+Jede Story wird zusätzlich als Bild gegen eine eingecheckte Baseline geprüft (Gate `VISUAL=1`, Vitests `toMatchScreenshot`, Opt-out je Story über `parameters.snapshot.skip`). Die Bilder liegen unter `apps/storybook/visual-snapshots/<story-id>.png`.
 
 **Baselines entstehen ausschließlich in der CI.** Sie sind pixelgenau an die Umgebung gebunden, in der sie aufgenommen wurden. Zwischen einer Entwicklermaschine und dem in `.github/workflows/visual.yml` gepinnten Playwright-Image unterscheiden sich Schriftrasterung *und* Glyphenbreiten — Beschriftungen wandern horizontal, die Bauteile mit ihnen. Lokal erzeugte Bilder sind deshalb lokal grün und in der CI rot, und zwar nicht an einzelnen Stories, sondern an fast allen.
 
@@ -224,15 +224,15 @@ Jede Story wird zusätzlich als Bild gegen eine eingecheckte Baseline geprüft (
 
 ```bash
 gh workflow run visual.yml --ref <branch>
-gh run download <run-id> -n visual-baselines -D storybook-angular/visual-snapshots
-git add storybook-angular/visual-snapshots && git commit
+gh run download <run-id> -n visual-baselines -D apps/storybook/visual-snapshots
+git add apps/storybook/visual-snapshots && git commit
 ```
 
 **Lokal prüfen, ohne bestehende Baselines anzufassen:** `VISUAL=1 npm run test:vitest`, ohne `--update`, vergleicht gegen die eingecheckten Bilder und legt jede Abweichung als Ist- und Diff-Bild unter `visual-snapshots/__diff_output__/` ab. Das ist der Weg, um zu sehen, was sich geändert hat.
 
 **Die Ausnahme: eine Story ohne Baseline.** Fehlt das Bild ganz, legt Vitest es auch ohne `--update` an, und zwar auf der lokalen Maschine. Es sieht nach einer regulär entstandenen Baseline aus, ist aber keine. Wer eine Story hinzufügt, holt deren Baseline wie jede andere aus dem CI-Artefakt und nimmt das lokal entstandene Bild vorher wieder aus dem Arbeitsverzeichnis. Der Guard greift hier nicht, der Visual-Job in der CI meldet es.
 
-**`--update` verweigert lokal den Dienst.** `storybook-angular/visual-baseline-guard.mts` bricht ab, sobald `VISUAL=1` und `--update` zusammentreffen, ohne dass der Lauf sich als gepinnt ausweist (`VISUAL_BASELINES=pinned-ci`, gesetzt vom Erzeugungsschritt in `visual.yml`). Wer bewusst lokal erzeugen will, setzt `VISUAL_BASELINES=local-throwaway`; so entstandene Bilder gehören nicht in einen Commit.
+**`--update` verweigert lokal den Dienst.** `apps/storybook/visual-baseline-guard.mts` bricht ab, sobald `VISUAL=1` und `--update` zusammentreffen, ohne dass der Lauf sich als gepinnt ausweist (`VISUAL_BASELINES=pinned-ci`, gesetzt vom Erzeugungsschritt in `visual.yml`). Wer bewusst lokal erzeugen will, setzt `VISUAL_BASELINES=local-throwaway`; so entstandene Bilder gehören nicht in einen Commit.
 
 **Toleranz:** höchstens 1 % der Bildpunkte *und* höchstens 150 Bildpunkte absolut, der strengere Wert gewinnt. Die Ratio allein ist zu locker, weil der Screenshot `document.body` ist und bei zentrierten Stories größtenteils leere Fläche zeigt; Begründung im Kommentar in `vitest.config.mts`.
 
@@ -244,8 +244,8 @@ git add storybook-angular/visual-snapshots && git commit
 
 Ein [Release](CONTEXT.md#release) entsteht ohne Handschritt aus den Commits auf `main` (siehe [ADR-0010](docs/adr/0010-release-ausloesung-und-versionsquelle.md)). Das CHANGELOG wird dafür **nicht mehr** von Hand ergänzt — an seine Stelle tritt der Commit selbst.
 
-- **Nur [veröffentlichungsrelevante Commits](CONTEXT.md#veröffentlichungsrelevanter-pfad) zählen.** Ein Commit zählt, wenn er mindestens einen Pfad aus `scripts/release/relevant-paths.mjs` berührt (ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben). Ein Commit, der nur Storybook, Beispielseiten, CI oder nicht ausgelieferte Doku (etwa ADRs) ändert, ist für Release und Commit-Konvention unsichtbar. Ausgelieferte Doku zählt dagegen: `README.md` und die README der Angular-Lib landen im Paket, ein Commit daran folgt der Konvention (`docs:` löst kein Release aus, `fix:` ein Patch).
-- **Der Conventional-Commit-Typ entscheidet die Stufe** (nur für relevante Commits): `feat` → Minor, `fix`/`perf` → Patch, ein `!` am Typ oder ein `BREAKING CHANGE:`-Footer → Major, jeder andere Typ → kein Release. Scopes sind sonst frei — mit einer Ausnahme: bei `build` entscheidet der Scope `deps` (`build(deps)` → Patch, jeder andere `build`-Scope → kein Release). Die Regeln stehen an einer Stelle (`scripts/release/compute-bump.mjs`, `BUMP_RULES`).
+- **Nur [veröffentlichungsrelevante Commits](CONTEXT.md#veröffentlichungsrelevanter-pfad) zählen.** Ein Commit zählt, wenn er mindestens einen Pfad aus `tools/release/relevant-paths.mjs` berührt (ausgelieferter Inhalt beider Pakete plus dessen Build-Eingaben). Ein Commit, der nur Storybook, Beispielseiten, CI oder nicht ausgelieferte Doku (etwa ADRs) ändert, ist für Release und Commit-Konvention unsichtbar. Ausgelieferte Doku zählt dagegen: `README.md` und die README der Angular-Lib landen im Paket, ein Commit daran folgt der Konvention (`docs:` löst kein Release aus, `fix:` ein Patch).
+- **Der Conventional-Commit-Typ entscheidet die Stufe** (nur für relevante Commits): `feat` → Minor, `fix`/`perf` → Patch, ein `!` am Typ oder ein `BREAKING CHANGE:`-Footer → Major, jeder andere Typ → kein Release. Scopes sind sonst frei — mit einer Ausnahme: bei `build` entscheidet der Scope `deps` (`build(deps)` → Patch, jeder andere `build`-Scope → kein Release). Die Regeln stehen an einer Stelle (`tools/release/compute-bump.mjs`, `BUMP_RULES`).
 - **commitlint prüft das im PR hart, aber nur für relevante Commits** (`.github/workflows/commitlint.yml`, Konfiguration in `commitlint.config.mjs`, Basis `@commitlint/config-conventional` mit ausgeschaltetem `subject-case`, da deutsche Betreffe mit einem Nomen beginnen). Ein PR mit einem ungültigen, aber nicht relevanten Commit ist trotzdem grün. Die Job-Summary des PRs nennt Version und Stufe des ausgelösten Releases, oder „Kein Release“.
 - **Merge-Commits zählen nie** — sie berühren selbst keine Datei. Es wird nicht gesquasht: jeder Commit eines PRs erscheint einzeln in den generierten Release-Notes.
 - **Ein Angular-Update mit neuer Peer-Major-Range braucht `build(deps)!`** (Major), eine reine Versionsanhebung ohne API-Bruch `build(deps)` (Patch).
@@ -274,21 +274,19 @@ an grün durchläuft, statt beim npmjs-Schritt absichtlich rot zu laufen. Pro Pa
      (Lockstep, siehe ADR-0012); danach den MCP-Snapshot aus einem frischen
      Storybook-Build bauen, sonst bricht dessen `prepack`-Schritt gleich ab:
      ```bash
-     node scripts/release/stamp-version.mjs 0.0.0-bootstrap.0
-     npm run build                         # CSS-Schicht
-     npm run build --workspace=angular-lib # Angular-Lib
-     npm run build:storybook               # Quelle des MCP-Snapshots
-     npm run build:snapshot -w mcp-server  # MCP-Snapshot (aus dem Storybook-Build oben)
+     node tools/release/stamp-version.mjs 0.0.0-bootstrap.0
+     npm run build   # baut der Reihe nach CSS-Schicht, Angular-Lib, Storybook und den MCP-Snapshot
      ```
    - Veröffentlichen — **mit** `--access public` (gescopte Pakete sind sonst
      privat), unter dem Tag `bootstrap` statt `latest`, und **ohne** `--dry-run`:
      ```bash
-     npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
-     # Angular-Lib aus angular-lib/dist/design-system-angular heraus:
-     cd angular-lib/dist/design-system-angular && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
-     # MCP-Server aus mcp-server/ heraus (dessen eigener prepack-Schritt kopiert die
+     # CSS-Schicht aus packages/css/ heraus:
+     cd packages/css && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
+     # Angular-Lib aus packages/angular/dist heraus:
+     cd packages/angular/dist && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
+     # MCP-Server aus packages/mcp/ heraus (dessen eigener prepack-Schritt kopiert die
      # LICENSE und baut den Snapshot ohnehin erneut, aus dem oben schon gebauten Storybook):
-     cd mcp-server && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
+     cd packages/mcp && npm publish --access public --tag bootstrap --@conciso:registry=https://registry.npmjs.org
      ```
    - **`latest`-Tag prüfen.** Ob ein allererster Publish mit `--tag bootstrap`
      zusätzlich `latest` setzt, ist in der npm-Doku nicht eindeutig geklärt
@@ -309,7 +307,7 @@ an grün durchläuft, statt beim npmjs-Schritt absichtlich rot zu laufen. Pro Pa
      unabhängig davon neu, siehe ADR-0011) — aber je früher nach dem Bootstrap
      dieser erste echte Release folgt, desto kürzer das Fenster.
    - Die gestempelten `package.json`-Änderungen danach verwerfen
-     (`git checkout -- package.json angular-lib/projects/design-system-angular/package.json mcp-server/package.json`)
+     (`git checkout -- packages/css/package.json packages/angular/package.json packages/mcp/package.json`)
      — sie dürfen nie committet werden (versionsfreies Repo, ADR-0010).
 2. **Trusted Publisher pro Paket einrichten**, auf der jeweiligen Paketseite unter
    *Settings → Trusted publishing*:
@@ -349,7 +347,7 @@ npmjs-Installationsanleitung in README.md/GETTING-STARTED.md gilt erst danach.
 Schlägt beim ersten echten Release nur der npmjs-Teil fehl (Trusted Publisher noch
 nicht eingerichtet), veröffentlicht GitHub Packages trotzdem erfolgreich — Tag und
 GitHub-Release werden zurückgehalten, bis auch npmjs nachgezogen ist (siehe
-`scripts/release/decide.mjs`, Modus `nachziehen`). Funktional korrekt, aber ein
+`tools/release/decide.mjs`, Modus `nachziehen`). Funktional korrekt, aber ein
 absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–5 vorab.
 
 ---
@@ -368,15 +366,15 @@ absichtlich roter erster Lauf ist kein guter Normalfall — deshalb Schritt 1–
 Issues und Specs leben als lokale, gitignorete Markdown-Dateien außerhalb der Versionierung (siehe `AGENTS.md`, `docs/agents/issue-tracker.md`) — sie leben nicht mit dem Branch weiter. Ein Verweis auf eine solche Datei oder eine bloße Ticketnummer im Kommentar ist nach dem Merge für niemanden mehr auflösbar außer für den damaligen Bearbeiter, auch nicht für ein KI-Werkzeug, das später denselben Kommentar liest.
 
 - **Trägt der Verweis eine Begründung, gehört die Begründung selbst in den Kommentar** (oder eine ADR), nicht ein Zeiger auf die Ticket-Datei: der Sachverhalt bleibt lesbar, auch wenn seine Quelle verschwindet.
-- **Ausnahmen (Allowlist des Gates, `ALLOWLIST_EXACT`/`ALLOWLIST_PREFIXES` in `scripts/check-ticket-refs.mjs`):**
+- **Ausnahmen (Allowlist des Gates, `ALLOWLIST_EXACT`/`ALLOWLIST_PREFIXES` in `tools/checks/check-ticket-refs.mjs`):**
   - Echte GitHub-Referenzen (`#53`) — matchen ohnehin keins der Gate-Muster.
   - `AGENTS.md` und `docs/agents/issue-tracker.md` beschreiben die Tracker-Konvention selbst (Pfadschema, Name der Spec-Datei), nicht einen toten Verweis auf ein konkretes Ticket.
   - `.agents/` (vendored Skill-Pack) beschreibt dieselbe Konvention generisch, nicht projektspezifisch.
   - `docs/CHANGELOG-legacy.md` ist eingefroren und historisch (§ 14) — seine Ticket- und Spec-Datei-Zitate bleiben unangetastet.
   - `.gitignore` und `.prettierignore` brauchen den literalen Tracker-Pfadpräfix als Ignore-Muster, das ist keine Narration.
-  - `scripts/check-ticket-refs.mjs` und `scripts/check-ticket-refs.test.mjs` schließen sich selbst aus: ihr Muster bzw. ihre Testfälle enthalten die gesuchten Zeichenketten zwangsläufig wörtlich.
+  - `tools/checks/check-ticket-refs.mjs` und `tools/checks/check-ticket-refs.test.mjs` schließen sich selbst aus: ihr Muster bzw. ihre Testfälle enthalten die gesuchten Zeichenketten zwangsläufig wörtlich.
 - **Ziffernlose Formen** wie „das Ticket“ oder „der Ticket-Vorgabe“ werden von Hand umformuliert, wenn sie auffallen, aber bewusst **nicht** vom Gate geprüft — ohne Ziffer als Anker ist das Fehlalarmrisiko auf echtem Fließtext zu groß.
-- **Gate:** `npm run check:ticket-refs` (`scripts/check-ticket-refs.mjs`, Stil wie `scripts/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`), zusammen mit dessen eigenen Unit-Tests (`npm run test:ticket-refs`, `scripts/check-ticket-refs.test.mjs`, Stil wie `scripts/release/*.test.mjs`).
+- **Gate:** `npm run check:ticket-refs` (`tools/checks/check-ticket-refs.mjs`, Stil wie `tools/checks/check-quotes.mjs`) findet neue Referenzen dieser Art außerhalb der Ausnahmen und bricht mit Exit 1 ab; läuft in CI im selben Job wie `check:quotes` (`.github/workflows/quotes.yml`), zusammen mit dessen eigenen Unit-Tests (`npm run test:ticket-refs`, `tools/checks/check-ticket-refs.test.mjs`, Stil wie `tools/release/*.test.mjs`).
 
 ---
 

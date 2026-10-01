@@ -3,7 +3,7 @@
 Die Conciso-Wortmarke in drei Varianten. Dieses Dokument beschreibt die Dateien und
 den Einbau.
 
-**Lizenz:** Anders als der Rest des Repositories (MIT, siehe [`LICENSE`](../../LICENSE))
+**Lizenz:** Anders als der Rest des Repositories (MIT, siehe [`LICENSE`](../../../../LICENSE))
 stehen diese Dateien nicht unter MIT. Sie bleiben Eigentum der Conciso GmbH,
 siehe [`LICENSE`](LICENSE) in diesem Verzeichnis.
 
