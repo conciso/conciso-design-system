@@ -108,20 +108,14 @@ export const TastaturDots: Story = {
 
 export const PfeiltastenAmSlider: Story = {
   name: 'Pfeiltasten am gesamten Slider',
-  // Zwei Instanzen tragen denselben Landmark-Namen „Bildstrecke“ (die Komponente hat
-  // keinen Input dafür); das ist ein Artefakt dieser Testanordnung, nicht der Einzelnutzung.
-  parameters: {
-    snapshot: { skip: true },
-    controls: { disable: true },
-    a11y: { config: { rules: [{ id: 'landmark-unique', enabled: false }] } },
-  },
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
   decorators: [moduleMetadata({ imports: [CarouselComponent] })],
   // Zwei Instanzen, damit die Eindeutigkeit der Folien-IDs über Instanzen hinweg geprüft wird.
   render: (args) => ({
     props: args,
     template: `
-      <cds-carousel [slides]="slides"></cds-carousel>
-      <cds-carousel [slides]="slides"></cds-carousel>
+      <cds-carousel [slides]="slides" label="Projekte"></cds-carousel>
+      <cds-carousel [slides]="slides" label="Referenzen"></cds-carousel>
     `,
   }),
   // ← und → wirken nicht nur auf den Dots, sondern auf dem gesamten Slider (hier mit
@@ -129,6 +123,9 @@ export const PfeiltastenAmSlider: Story = {
   play: async ({ canvasElement }) => {
     const roots = Array.from(canvasElement.querySelectorAll<HTMLElement>('.img-slider'));
     await expect(roots).toHaveLength(2);
+    // Zwei Bildstrecken auf einer Seite brauchen unterscheidbare Namen (axe: landmark-unique).
+    await expect(roots[0]).toHaveAttribute('aria-label', 'Projekte');
+    await expect(roots[1]).toHaveAttribute('aria-label', 'Referenzen');
     const c = within(roots[0]);
     const dots = c.getAllByRole('tab', { name: /^Folie / });
     const prev = c.getByRole('button', { name: 'Vorherige Folie' });

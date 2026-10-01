@@ -38,7 +38,7 @@ let uid = 0;
       [class]="wrapClasses()"
       role="region"
       aria-roledescription="Bildschirmpräsentation"
-      aria-label="Bildstrecke"
+      [attr.aria-label]="label()"
       (keydown)="onSliderKeydown($event)"
     >
       <div class="img-slider-track">
@@ -127,6 +127,11 @@ export class CarouselComponent {
   readonly slides = input.required<CdsSlide[]>();
   /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */
   readonly active = model(0);
+  /**
+   * Zugänglicher Name der Region. Bei mehreren Bildstrecken auf einer Seite
+   * unterscheidbar benennen (sonst doppelte Landmarks).
+   */
+  readonly label = input('Bildstrecke');
   /** Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero. */
   readonly hero = input(false);
 

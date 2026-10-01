@@ -23,6 +23,7 @@ Basis-Klasse `.img-slider`. Übergang per Crossfade über 600 ms; unter
 |---|---|
 | `role="region"` | Semantischer Landmark für den gesamten Slider |
 | `aria-roledescription` | „Bildschirmpräsentation“, Screenreader liest den Typ vor |
+| `aria-label` auf der Region | Benennt die Bildstrecke („Bildstrecke“ als Standard). Gibt es mehrere Bildstrecken auf einer Seite, trägt jede einen eigenen, unterscheidbaren Namen, sonst sind die Landmarks nicht auseinanderzuhalten. Im Angular-Bauteil setzt das der Input `label` |
 | `role="group"` auf Slide | Fasst Bild und Caption je Folie zusammen |
 | `aria-hidden` | Inaktive Slides tragen `aria-hidden="true"` und werden übersprungen, die aktive Slide trägt `aria-hidden="false"` und `.active` (setzt JS) |
 | `aria-label` auf Button | „Vorherige / Nächste Folie“, kein Icon-only |
