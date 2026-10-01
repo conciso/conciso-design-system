@@ -148,8 +148,7 @@ export const TastaturImSubmenue: Story = {
   name: 'Tastatur im Submenü',
   parameters: { controls: { disable: true }, snapshot: { skip: true } },
   // Pfeil runter öffnet ein geschlossenes Item und fokussiert den ersten Eintrag; Umlauf am Ende;
-  // Pfeil hoch, Home und End nur bei geöffnetem Menü; genau ein Menü zugleich; Heraustabben schließt
-  // nicht.
+  // Pfeil hoch, Home und End nur bei geöffnetem Menü; genau ein Menü zugleich.
   play: async ({ canvasElement }) => {
     blockNavigation(canvasElement);
     const c = within(canvasElement);
@@ -185,10 +184,6 @@ export const TastaturImSubmenue: Story = {
     await userEvent.keyboard('{End}');
     await expect(last).toHaveFocus();
 
-    // Heraustabben schließt das Menü nicht.
-    await userEvent.tab();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-
     // Genau ein Menü zugleich: das zweite Item per Pfeil runter öffnen schließt das erste.
     other.focus();
     await userEvent.keyboard('{ArrowDown}');
@@ -215,11 +210,9 @@ export const HoverOeffnen: Story = {
 
     // Mit Verzögerung: direkt nach dem Hover noch zu, danach offen.
     await userEvent.hover(item);
-    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await waitFor(() => expect(toggle).toHaveAttribute('aria-expanded', 'true'));
     // Verlassen schließt verzögert.
     await userEvent.unhover(item);
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await waitFor(() => expect(toggle).toHaveAttribute('aria-expanded', 'false'), {
       timeout: 1500,
     });
@@ -245,7 +238,9 @@ export const HoverOeffnen: Story = {
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(toggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    await new Promise((r) => setTimeout(r, 300));
+    // Timer feuern in Fälligkeitsreihenfolge: Der Sentinel (150 ms) ist nach einem übrig gebliebenen
+    // Öffnen-Timer (100 ms) fällig, unabhängig von der Geschwindigkeit der CI.
+    await new Promise((r) => setTimeout(r, 150));
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await userEvent.unhover(item);
   },
@@ -255,7 +250,7 @@ export const SucheLabelUndFokus: Story = {
   name: 'Suche: Label und Fokus',
   parameters: { controls: { disable: true }, snapshot: { skip: true } },
   // Das Label des Toggles wechselt mit dem Zustand, beim Öffnen springt der Fokus ins Suchfeld,
-  // Escape schließt und gibt den Fokus zurück, Heraustabben schließt nicht.
+  // Escape schließt und gibt den Fokus zurück.
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const toggle = c.getByRole('button', { name: 'Suche öffnen' });
@@ -275,14 +270,48 @@ export const SucheLabelUndFokus: Story = {
     await expect(toggle).toHaveAccessibleName('Suche schließen');
     await userEvent.click(toggle);
     await expect(toggle).toHaveAccessibleName('Suche öffnen');
+  },
+};
 
-    // Heraustabben schließt nicht.
-    await userEvent.click(toggle);
+export const HeraustabbenSchliesstSubmenue: Story = {
+  name: 'Heraustabben schließt Submenü',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  // Tab aus dem Item heraus schließt das Submenü (kein Fokus-Rücksprung); Tab innerhalb des
+  // Items (Caret zu Eintrag) schließt nicht.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const toggle = c.getByRole('button', { name: 'Untermenü Leistungen' });
+    toggle.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await userEvent.tab();
+    await expect(c.getByRole('link', { name: 'Angewandte KI', hidden: true })).toHaveFocus();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await userEvent.tab();
     await userEvent.tab();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.keyboard('{Escape}');
+    await userEvent.tab();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(toggle).not.toHaveFocus();
+    await expect(canvasElement.contains(document.activeElement)).toBe(true);
+  },
+};
+
+export const HeraustabbenSchliesstSuche: Story = {
+  name: 'Heraustabben schließt Suche',
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  // Tab aus dem Popover heraus schließt die Suche; Tab innerhalb (Feld, Button) nicht.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const toggle = c.getByRole('button', { name: 'Suche öffnen' });
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.tab();
+    await expect(c.getByRole('button', { name: 'Suchen' })).toHaveFocus();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.tab();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(toggle).toHaveAccessibleName('Suche öffnen');
   },
 };
 

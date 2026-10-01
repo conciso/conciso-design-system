@@ -157,7 +157,7 @@ ohne `aria-haspopup`.
 - `aria-expanded` (`true`/`false`) und `aria-controls` sitzen auf dem Caret-Button; die JS-Klasse `.is-open` markiert das geöffnete `.ep-nav-has-sub`.
 - Geöffnet wird per Klick/Tap, Tastatur (`Enter`/`Space` auf dem Caret) oder, nur auf Geräten mit echtem Hover (`pointer:fine`), per Hover (JS-gesteuert mit Intent-Verzögerung und unsichtbarer Brücke über den Gap, WCAG 1.4.13).
 - Pfeiltasten (`↓`/`↑`) sowie `Home`/`End` navigieren die Einträge innerhalb des geöffneten Submenüs.
-- `Escape` schließt das Submenü und gibt den Fokus auf den Caret zurück; ein Klick außerhalb oder eine Navigation schließen ebenfalls. Heraustabben (der Fokus verlässt das Submenü) schließt es bewusst nicht.
+- `Escape` schließt das Submenü und gibt den Fokus auf den Caret zurück; ein Klick außerhalb oder eine Navigation schließen ebenfalls. Heraustabben (der Fokus verlässt das Submenü) schließt es ebenfalls.
 - **Kein reines CSS-`:hover`-Öffnen:** Der Reveal hängt immer an `.is-open`, damit `aria-expanded` mitläuft.
 - **Nie zwei Menüs gleichzeitig offen:** Vor jedem Öffnen ruft das JS `closeAllNavItems`.
 - Der Label-Link navigiert unverändert direkt zur Übersicht, nur der Caret-Button klappt auf; ein Klick auf das Label öffnet oder schließt kein Menü.
@@ -240,7 +240,7 @@ Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
 - **Ein Menü zugleich:** Vor jedem Öffnen werden alle anderen Submenüs geschlossen.
 - **Pfeiltasten:** `↓` auf einem geschlossenen Item öffnet das Menü und fokussiert den ersten Eintrag. Im offenen Menü geht `↓` zum nächsten Eintrag, am letzten springt der Fokus zum ersten (Umlauf). `↑` geht rückwärts, am ersten Eintrag oder ohne Fokus im Menü springt der Fokus zum letzten. `↑`, `Home` und `End` wirken nur bei geöffnetem Menü, `Home` fokussiert den ersten, `End` den letzten Eintrag. Das Standardverhalten der Taste wird unterdrückt.
 - **Escape:** Schließt das Submenü. Lag der Fokus im Submenü, kehrt er zum Caret zurück, sonst bleibt er, wo er ist. Escape schließt auch ein Menü, das nur per Hover offen ist, auch wenn der Fokus nicht darin liegt (WCAG 1.4.13, schließbar).
-- **Außenklick und Navigation:** Ein Klick außerhalb und ein Klick auf einen Eintrag schließen die Menüs. Der Außenklick verschiebt den Fokus nicht. Heraustabben (der Fokus verlässt das Menü) schließt es nicht.
+- **Außenklick und Navigation:** Ein Klick außerhalb und ein Klick auf einen Eintrag schließen die Menüs. Der Außenklick verschiebt den Fokus nicht. Heraustabben (der Fokus verlässt das Menü) schließt es ebenfalls.
 - **Hover (optional):** Nur auf Geräten mit echtem Hover (`pointer:fine`). Öffnen mit 100 ms Verzögerung, Schließen mit 250 ms, damit der Weg über den Abstand ins Menü die Brücke bleibt. Ein Klick auf den Caret bricht beide Timer ab, sonst öffnet ein Rest-Timer ein per Klick geschlossenes Menü wieder.
 
 ## Mobile Navigation · Nur CSS-Schicht
@@ -303,7 +303,7 @@ Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
 - **Zustand:** `.is-open` am `.ep-nav-search`, `aria-expanded` und `aria-label` am Toggle („Suche öffnen“ oder „Suche schließen“) wechseln immer gemeinsam. `aria-controls` verweist auf die `id` des Popovers.
 - **Ein Popup zugleich:** Das Öffnen der Suche schließt offene Submenüs, das Öffnen eines Submenüs schließt die Suche.
 - **Escape:** Schließt das Popover. Lag der Fokus darin, kehrt er zum Toggle zurück.
-- **Außenklick:** Schließt das Popover, ohne den Fokus umzusetzen. Heraustabben (der Fokus verlässt das Popover) schließt es nicht.
+- **Außenklick:** Schließt das Popover, ohne den Fokus umzusetzen. Heraustabben (der Fokus verlässt das Popover) schließt es ebenfalls.
 - **Formular:** `role="search"`, das Feld mit sichtbar versteckter Beschriftung „Suchbegriff“ (`.sr-only`), `type="search"` und `autocomplete="off"`. Absenden geht an die globale Suche des Produkts, nicht an einen Platzhalter.
 
 ## Back-to-Top · Nur CSS-Schicht

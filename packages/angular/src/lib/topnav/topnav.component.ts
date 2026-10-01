@@ -33,8 +33,8 @@ export interface CdsNavItem {
  * Customer-Navigation: Logo, Top-Level-Links mit optionalem Klapp-Submenü
  * (.ep-nav-has-sub / .ep-nav-sub, aria-expanded), rechts gebündelte Aktionen
  * (Such-Popover .ep-nav-search + Theme-Cycle-Button) und ein CTA-Button.
- * Disclosure-Logik in Angular: nur ein Menü offen, Escape und Außenklick schließen
- * (Heraustabben schließt bewusst nicht).
+ * Disclosure-Logik in Angular: nur ein Menü offen; Escape, Außenklick
+ * und Heraustabben (der Fokus verlässt Item oder Such-Popover) schließen.
  *
  * Tastatur im Submenü: Pfeil runter öffnet ein geschlossenes Item und fokussiert den ersten
  * Eintrag, Pfeil runter/hoch laufen mit Umlauf durch die Einträge, Home/End springen an Anfang
@@ -69,6 +69,7 @@ export interface CdsNavItem {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
     '(keydown)': 'onKeydown($event)',
+    '(focusout)': 'onFocusOut($event)',
   },
   template: `
     <header class="ep-topnav" [class.nav-open]="navOpen()">
@@ -344,6 +345,24 @@ export class TopnavComponent {
    *
    * @internal
    */
+  protected onFocusOut(event: FocusEvent): void {
+    // Heraustabben schließt, auch bei relatedTarget === null. Kein Fokus-Rücksprung: der Fokus
+    // wandert ja weiter. Wechsel innerhalb desselben Items/Popovers (Caret, Eintrag) bleibt offen.
+    const target = event.target as HTMLElement | null;
+    const next = event.relatedTarget as Node | null;
+    const item = target?.closest<HTMLElement>('.ep-nav-has-sub');
+    if (item && !item.contains(next)) {
+      const i = Number(item.dataset['subIndex']);
+      if (this.openIndex() === i) {
+        this.clearHoverTimers();
+        this.openIndex.set(-1);
+      }
+    }
+    const search = target?.closest<HTMLElement>('.ep-nav-search');
+    if (search && !search.contains(next) && this.searchOpen()) this.searchOpen.set(false);
+  }
+
+  /** @internal */
   protected onKeydown(event: KeyboardEvent): void {
     const item = (event.target as HTMLElement | null)?.closest<HTMLElement>('.ep-nav-has-sub');
     if (!item || !this.host.nativeElement.contains(item)) return;
