@@ -91,6 +91,19 @@ Bezugselement passt, sagt dessen eigene Breite, nicht die Fensterbreite. Ohne
 `@container`-Support greift die Container-Regel nicht, der Default-Zweig muss deshalb der
 funktionierende Fall sein.
 
+## Umsetzung in einer eigenen Site
+
+Diese Punkte übernimmt jede Umsetzung unverändert:
+
+- Die Bruchpunkt-Werte (520, 768 und 1024 px) und das dokumentierte Verhalten pro Komponente.
+- Die fluiden Typo-Tokens (`clamp`, Ratio ohne Einheit, Minimum ab 20 px) unverändert aus `tokens.css`.
+- Die Faustregel: `auto-fit`-Grids ohne Tablet-Regel, fix-spaltige Layouts mit Tablet-Regel.
+- Die Begründungen aus „Warum diese Bruchpunkte“ lesen, bevor ein Wert „korrigiert“ wird.
+
+Frei wählbar ist die technische Umsetzung: Ob ein Bauteil per Viewport-`@media` oder per `@container` reagiert, darf je Einsatz entschieden werden (siehe „Viewport versus Container“). Die Bruchpunkt-Werte bleiben dabei gleich.
+
+**Prüfen:** Das Verhalten unter 1024 px im Browser testen (DevTools-Responsive-Modus), nicht an einem statischen Screenshot. Die Bruchpunkte selbst zusätzlich an ihren Kanten prüfen, jeweils eine Pixelbreite auf beiden Seiten des Werts.
+
 ## Siehe auch
 
 - CONTRIBUTING.md § 7 Spacing & Layout
