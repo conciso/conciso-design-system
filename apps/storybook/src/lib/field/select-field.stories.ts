@@ -8,6 +8,10 @@ const meta: Meta<SelectFieldComponent> = {
   component: SelectFieldComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2548',
+    },
     layout: 'padded',
     docs: {
       description: {

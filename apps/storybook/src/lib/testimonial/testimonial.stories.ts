@@ -6,6 +6,10 @@ const meta: Meta<TestimonialComponent> = {
   component: TestimonialComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4458',
+    },
     layout: 'padded',
     docs: {
       description: {

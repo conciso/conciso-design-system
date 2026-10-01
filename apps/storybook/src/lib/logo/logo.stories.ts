@@ -6,6 +6,10 @@ const meta: Meta<LogoComponent> = {
   component: LogoComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4032',
+    },
     layout: 'centered',
     docs: {
       description: {

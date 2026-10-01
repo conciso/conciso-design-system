@@ -30,6 +30,10 @@ const meta: Meta<StoererSetComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3997',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -113,6 +117,10 @@ export const HostAttribut: Story = {
 export const ZweiKachelnUeberDemHero: Story = {
   name: 'Zwei Kacheln über dem Hero',
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3999',
+    },
     layout: 'fullscreen',
     controls: { disable: true },
     docs: {

@@ -8,6 +8,10 @@ const meta: Meta<FooterMainComponent> = {
   decorators: [moduleMetadata({ imports: [FooterMainComponent] })],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4312',
+    },
     layout: 'fullscreen',
     // Projizierter Inhalt / neue Struktur ohne passende Baseline (visual.yml noch
     // nicht auf main) → skip; nach dem Merge Baseline erzeugen.

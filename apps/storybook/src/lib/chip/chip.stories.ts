@@ -7,6 +7,10 @@ const meta: Meta<ChipComponent> = {
   component: ChipComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-1781',
+    },
     docs: {
       description: {
         component:

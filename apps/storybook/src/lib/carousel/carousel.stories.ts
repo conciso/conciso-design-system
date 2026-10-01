@@ -8,6 +8,10 @@ const meta: Meta<CarouselComponent> = {
   component: CarouselComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4545',
+    },
     layout: 'padded',
     docs: {
       description: {

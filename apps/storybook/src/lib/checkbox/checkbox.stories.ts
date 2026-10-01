@@ -11,6 +11,10 @@ const meta: Meta<CheckboxComponent> = {
   // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann
   // tönt der CSS-Kern den Link. Bewusst entkoppelt vom `area`-Input der Komponente.
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2245',
+    },
     layout: 'padded',
     docs: {
       description: {

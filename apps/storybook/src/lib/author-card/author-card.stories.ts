@@ -15,6 +15,10 @@ const meta: Meta<AuthorCardComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3766',
+    },
     layout: 'padded',
     docs: {
       description: {

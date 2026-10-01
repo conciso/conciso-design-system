@@ -9,6 +9,10 @@ const meta: Meta<AreaTabsComponent> = {
   decorators: [moduleMetadata({ imports: [AreaTabsComponent, AreaTabComponent] })],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5774',
+    },
     layout: 'padded',
     docs: {
       description: {

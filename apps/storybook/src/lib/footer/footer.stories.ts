@@ -14,6 +14,10 @@ const meta: Meta<FooterComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4331',
+    },
     layout: 'fullscreen',
     // Projektions-Kompositionen ohne passende Baseline (visual.yml noch nicht auf main)
     // → skip; nach dem Merge Baseline erzeugen.

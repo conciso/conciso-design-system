@@ -6,6 +6,10 @@ const meta: Meta<StatusBadgeComponent> = {
   component: StatusBadgeComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2103',
+    },
     docs: {
       description: {
         component:

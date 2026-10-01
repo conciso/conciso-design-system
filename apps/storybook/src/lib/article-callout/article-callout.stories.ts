@@ -9,6 +9,10 @@ const meta: Meta<ArticleCalloutComponent> = {
   decorators: [moduleMetadata({ imports: [ArticleCalloutComponent] })],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4809',
+    },
     layout: 'padded',
     docs: {
       description: {

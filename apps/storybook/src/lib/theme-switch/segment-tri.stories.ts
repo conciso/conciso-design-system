@@ -7,6 +7,10 @@ const meta: Meta<ThemeSegmentComponent> = {
   component: ThemeSegmentComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5266',
+    },
     layout: 'padded',
     docs: {
       description: {

@@ -7,6 +7,10 @@ const meta: Meta<CompareComponent> = {
   component: CompareComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5744',
+    },
     layout: 'padded',
     docs: {
       description: {

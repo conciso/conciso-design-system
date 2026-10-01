@@ -8,6 +8,10 @@ const meta: Meta<TextFieldComponent> = {
   component: TextFieldComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-1900',
+    },
     layout: 'padded',
     docs: {
       description: {

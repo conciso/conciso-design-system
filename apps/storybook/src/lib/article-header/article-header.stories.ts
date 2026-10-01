@@ -21,6 +21,10 @@ const meta: Meta<ArticleHeaderComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4918',
+    },
     layout: 'padded',
     docs: {
       description: {
