@@ -1,4 +1,4 @@
-// Tests für scripts/release/check-storybook-mcp-pin.mjs: beide Fälle gegen ein Fixture-
+// Tests für tools/release/check-storybook-mcp-pin.mjs: beide Fälle gegen ein Fixture-
 // Verzeichnis, nicht gegen den echten Checkout (das prüft der CI-Schritt „npm run
 // check:storybook-mcp-pin“ separat, gegen node_modules nach einem echten „npm ci“).
 import { test } from 'node:test';
@@ -11,9 +11,9 @@ import { checkStorybookMcpPin } from './check-storybook-mcp-pin.mjs';
 
 function makeFixture({ pinned, installed }) {
   const root = mkdtempSync(join(tmpdir(), 'storybook-mcp-pin-'));
-  mkdirSync(join(root, 'mcp-server'), { recursive: true });
+  mkdirSync(join(root, 'packages', 'mcp'), { recursive: true });
   writeFileSync(
-    join(root, 'mcp-server', 'package.json'),
+    join(root, 'packages', 'mcp', 'package.json'),
     JSON.stringify({ dependencies: { '@storybook/mcp': pinned } }),
   );
   mkdirSync(join(root, 'node_modules', 'storybook'), { recursive: true });
@@ -41,9 +41,9 @@ test('Pin und installierte Version weichen ab → klare deutsche Fehlermeldung',
 
 test('verschachtelte Storybook-Version des Workspaces hat Vorrang vor der Root-Version', () => {
   const root = makeFixture({ pinned: '10.6.0', installed: '10.6.0' });
-  mkdirSync(join(root, 'storybook-angular', 'node_modules', 'storybook'), { recursive: true });
+  mkdirSync(join(root, 'apps', 'storybook', 'node_modules', 'storybook'), { recursive: true });
   writeFileSync(
-    join(root, 'storybook-angular', 'node_modules', 'storybook', 'package.json'),
+    join(root, 'apps', 'storybook', 'node_modules', 'storybook', 'package.json'),
     JSON.stringify({ version: '10.7.0' }),
   );
   try {
@@ -55,9 +55,9 @@ test('verschachtelte Storybook-Version des Workspaces hat Vorrang vor der Root-V
 
 test('kein installiertes „storybook“ gefunden → Fehler statt stiller Erfolg', () => {
   const root = mkdtempSync(join(tmpdir(), 'storybook-mcp-pin-'));
-  mkdirSync(join(root, 'mcp-server'), { recursive: true });
+  mkdirSync(join(root, 'packages', 'mcp'), { recursive: true });
   writeFileSync(
-    join(root, 'mcp-server', 'package.json'),
+    join(root, 'packages', 'mcp', 'package.json'),
     JSON.stringify({ dependencies: { '@storybook/mcp': '10.6.0' } }),
   );
   try {

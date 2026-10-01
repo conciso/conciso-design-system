@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-// Versionsgleichheits-Gate (ADR-0012): `mcp-server/package.json` pinnt `@storybook/mcp` exakt
+// Versionsgleichheits-Gate (ADR-0012): `packages/mcp/package.json` pinnt `@storybook/mcp` exakt
 // auf die Storybook-Version, mit der der MCP-Snapshot gebaut wird (siehe
-// mcp-server/scripts/build-snapshot.mjs, docs/adr/0012). `storybook-angular/package.json`
+// packages/mcp/scripts/build-snapshot.mjs, docs/adr/0012). `apps/storybook/package.json`
 // deklariert `storybook` dagegen nur als SemVer-Range (`^10.6.0`) — ein Storybook-Minor-Update
 // dort würde den Pin sonst unbemerkt hinter sich lassen, bis @storybook/mcp gegen eine andere
 // Storybook-Version bricht. Verglichen wird deshalb NICHT Range gegen Range, sondern der Pin
@@ -18,10 +18,10 @@ function readJson(path) {
 
 // npm workspaces hoisten eine gemeinsame Dependency normalerweise ins root node_modules; ein
 // Versionskonflikt kann sie aber auch verschachtelt im node_modules des anfordernden Workspace
-// belassen (hier: storybook-angular). Beide Orte prüfen, statt nur den Normalfall anzunehmen.
+// belassen (hier: apps/storybook). Beide Orte prüfen, statt nur den Normalfall anzunehmen.
 function findInstalledStorybookVersion(root) {
   const candidates = [
-    join(root, 'storybook-angular', 'node_modules', 'storybook', 'package.json'),
+    join(root, 'apps', 'storybook', 'node_modules', 'storybook', 'package.json'),
     join(root, 'node_modules', 'storybook', 'package.json'),
   ];
   const path = candidates.find((p) => existsSync(p));
@@ -38,18 +38,18 @@ function findInstalledStorybookVersion(root) {
  * @returns {{ pinnedVersion: string, installedVersion: string }}
  */
 export function checkStorybookMcpPin(root = ROOT) {
-  const mcpPkg = readJson(join(root, 'mcp-server', 'package.json'));
+  const mcpPkg = readJson(join(root, 'packages', 'mcp', 'package.json'));
   const pinnedVersion = mcpPkg.dependencies?.['@storybook/mcp'];
   if (!pinnedVersion) {
-    throw new Error('mcp-server/package.json hat keine dependency „@storybook/mcp“.');
+    throw new Error('packages/mcp/package.json hat keine dependency „@storybook/mcp“.');
   }
   const installedVersion = findInstalledStorybookVersion(root);
   if (pinnedVersion !== installedVersion) {
     throw new Error(
-      `Versions-Drift: „@storybook/mcp“ in mcp-server/package.json ist auf ${pinnedVersion} gepinnt, ` +
+      `Versions-Drift: „@storybook/mcp“ in packages/mcp/package.json ist auf ${pinnedVersion} gepinnt, ` +
         `der Storybook-Workspace verwendet aber Storybook ${installedVersion}. Snapshot und ` +
         `@storybook/mcp müssen zur selben Storybook-Version passen (ADR-0012) — den Pin in ` +
-        `mcp-server/package.json auf ${installedVersion} nachziehen.`,
+        `packages/mcp/package.json auf ${installedVersion} nachziehen.`,
     );
   }
   return { pinnedVersion, installedVersion };

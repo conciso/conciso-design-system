@@ -70,7 +70,7 @@ function buildSummary({ bump, releaseBump, version, lastTag, relevant }) {
 async function main() {
   const range = process.argv[2];
   if (!range) {
-    console.error('Aufruf: node scripts/release/check-relevant-commits.mjs <basis>..<kopf>');
+    console.error('Aufruf: node tools/release/check-relevant-commits.mjs <basis>..<kopf>');
     process.exit(1);
   }
 

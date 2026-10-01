@@ -1,4 +1,4 @@
-// Tests für scripts/release/compute-bump.mjs (Seam: Bump-Stufe aus gefilterten Commits —
+// Tests für tools/release/compute-bump.mjs (Seam: Bump-Stufe aus gefilterten Commits —
 // ADR-0010 Regel 4).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';

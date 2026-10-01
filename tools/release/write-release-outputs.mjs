@@ -8,7 +8,7 @@ import { appendFileSync, writeFileSync } from 'node:fs';
 
 const [, , version] = process.argv;
 if (!version) {
-  console.error('Aufruf: node scripts/release/write-release-outputs.mjs <version>');
+  console.error('Aufruf: node tools/release/write-release-outputs.mjs <version>');
   process.exit(1);
 }
 

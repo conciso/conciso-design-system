@@ -7,13 +7,13 @@
 // generateNotes geschickt wie im regulären Lauf — gleicher Pfadfilter, gleicher
 // CHANGELOG-Verweis, gleiche Ausgabedatei (release-notes-generated.md).
 //
-// Aufruf: node scripts/release/notes-for-range.mjs <vorheriger-tag|""> <quell-sha> <version>
+// Aufruf: node tools/release/notes-for-range.mjs <vorheriger-tag|""> <quell-sha> <version>
 import { execFileSync } from 'node:child_process';
 import { generateNotes } from './semantic-release-plugin.mjs';
 
 const [, , vonTag, bisSha, version] = process.argv;
 if (!bisSha || !version) {
-  console.error('Aufruf: node scripts/release/notes-for-range.mjs <vorheriger-tag|""> <quell-sha> <version>');
+  console.error('Aufruf: node tools/release/notes-for-range.mjs <vorheriger-tag|""> <quell-sha> <version>');
   process.exit(1);
 }
 
