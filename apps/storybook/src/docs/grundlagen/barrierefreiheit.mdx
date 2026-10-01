@@ -355,7 +355,8 @@ Screenreader nicht (WCAG 1.3.1).
 
 **Visuell versteckt (`.sr-only`).** Text nur für Screenreader, visuell entfernt. Trägt die
 Bedeutung hinter rein grafischen Markern (Häkchen, Minus) in Vergleichstabellen, Glyph
-allein reicht nicht (WCAG 1.1.1, 1.3.1).
+allein reicht nicht (WCAG 1.1.1, 1.3.1). Dieselbe Utility ergänzt auch eine `<caption>`
+der Vergleichstabelle um Text, den nur Screenreader brauchen. Sie steht in `base.css`.
 
 ```html
 <td>
@@ -403,7 +404,17 @@ Umgeschaltet wird ausschließlich über das Attribut `[data-theme="dark"]` am `<
 Einen dritten Modus, der der Betriebssystem-Präferenz folgt, gibt es bewusst nicht,
 `prefers-color-scheme` wird im ausgelieferten CSS nicht ausgewertet, Standard ist Light.
 `color-scheme: dark` ist im Dark-Theme fest gesetzt, damit native Controls (Checkbox,
-Radio, Scrollbar, Select-Popup) dark-thematisiert rendern.
+Radio, Scrollbar, Select-Popup) dark-thematisiert rendern. Ohne diese Deklaration zeigt der
+Browser zum Beispiel eine hell-thematisierte Checkbox auf dunklem Grund, optisch ein
+Fremdkörper.
+
+**Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und
+Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die
+Light-Werte aus `tokens.css` statt der vollen dunklen Fläche, ohne dass diese Werte ein
+zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit in den Block: Viele
+von ihnen setzen eine helle Tint- oder Festfarbe, die auf dem hellen Druckgrund nur 1,2 bis
+1,9:1 trägt. Neue Dark-Regeln gehören deshalb immer innerhalb des Blocks, sonst drucken sie
+dunkel mit.
 
 **Smooth-Scroll für In-Page-Anker.** Klicks auf In-Page-Anker innerhalb derselben Seite
 animieren das Scrollen statt hart zu springen. Bei `prefers-reduced-motion: reduce` wird
