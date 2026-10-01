@@ -104,7 +104,7 @@ derselben Version. Siehe [README der Lib](angular-lib/projects/design-system-ang
 | `docs/` | Doku-/Showcase-Site: `index.html` · `main.js` · `assets/images/` · `GETTING-STARTED.md` |
 
 > Das npm-Paket enthält die Quellen unter `css/`, den frisch gebauten Ordner `dist/`,
-> Fonts und Brand-Assets, aber keine Doku-Site oder Icon-Quellen. Icon-Details und Mapping
+> Fonts, Brand-Assets und die Icon-Quellen (`icons/source/*.svg`, `icons/manifest.json`), aber keine Doku-Site. Icon-Details und Mapping
 > stehen im generierten `dist/icons/README.md` des Pakets.
 
 ## Mitwirken / Erweitern
