@@ -421,11 +421,11 @@ Das flache, icon-geführte Muster für Funktions- und Capability-Listen, ohne Ka
 | `.ep-feature-title` | Titel als `<h3>` (`--ty-title-sm`), die Hierarchie hängt unter der Section-`h2` |
 | `.ep-feature-text` | Beschreibung in `--ty-body-md` |
 | `.card-cta-link` | Optionaler „→“-Aktionslink im Body (etwa „Zur Landingpage“). Standard ist Corporate-Teal, `data-area` färbt ihn in der Bereichsfarbe |
-| `.ep-tier` · `.ep-tier-label` · `.ep-tier-rule` | Optionaler Stufen-Trenner: Label plus Haarlinie (`--n-200`), der die Liste gruppiert. Die Bereichstönung des Labels kennt nur `data-area="ki"`, ohne Attribut bleibt es neutral |
+| `.ep-tier` · `.ep-tier-label` · `.ep-tier-rule` | Optionaler Stufen-Trenner: Label plus Haarlinie (`--n-200`), der die Liste gruppiert. `data-area` (co, ki, es, wo) tönt das Label in der Bereichsfarbe, ohne Attribut bleibt es neutral |
 
 **`.card-cta-link` als `<span>` oder als `<a>`.** In einer klickbaren Karte ist der Link ein `<span>` ohne eigenen Hover: Die ganze Karte ist der Link, ein Fremd-Hover auf dem Label würde ein zweites Klickziel vortäuschen. Als eigenständiger Link in der Feature-Liste ist er ein `<a href>` (`a.card-cta-link`) mit dezentem Hover-Unterstrich und sichtbarem Focus-Ring. Ein `<a>` ohne `href` ist nie richtig: Er ist weder fokussierbar noch ein Link.
 
-**Dark-Mode und Kontrast.** Die neutrale Kachel ist theme-fähig. Der bereichsgetönte Glyph (co, ki, es, wo) wird im Dark auf den hellen Bereichston `-100` gehoben, sonst stünde er dunkel auf dunkel. Das Glyph hat gegen die Kachel AA-Kontrast (neutral 5,3:1, ki 7,5:1; im Dark neutral 6,0:1). `.card-cta-link[data-area]` flippt im Dark auf `-200` (es auf `-100`), das Stufen-Label mit `data-area="ki"` auf `-100`. **Die Farbe nie inline setzen**: Ein inline gesetzter Ton bliebe im Dark dunkel auf dunkel, nur die Klasse und `data-area` bekommen den Dark-Override.
+**Dark-Mode und Kontrast.** Die neutrale Kachel ist theme-fähig. Der bereichsgetönte Glyph (co, ki, es, wo) wird im Dark auf den hellen Bereichston `-100` gehoben, sonst stünde er dunkel auf dunkel. Das Glyph hat gegen die Kachel AA-Kontrast (neutral 5,3:1, ki 7,5:1; im Dark neutral 6,0:1). `.card-cta-link[data-area]` flippt im Dark auf `-200` (es auf `-100`), das Stufen-Label flippt im Dark auf den hellen Bereichston (ki `-100`, co und wo `-200`, es `-100`). **Die Farbe nie inline setzen**: Ein inline gesetzter Ton bliebe im Dark dunkel auf dunkel, nur die Klasse und `data-area` bekommen den Dark-Override.
 
 ## Barrierefreiheit
 
