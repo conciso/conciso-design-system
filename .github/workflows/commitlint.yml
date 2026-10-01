@@ -2,7 +2,7 @@ name: Commitlint
 
 # Prüft jeden Commit eines PRs mit commitlint (siehe
 # docs/adr/0010-release-ausloesung-und-versionsquelle.md) — hart aber NUR für
-# veröffentlichungsrelevante Commits (scripts/release/relevant-paths.mjs). Commits ohne
+# veröffentlichungsrelevante Commits (tools/release/relevant-paths.mjs). Commits ohne
 # veröffentlichungsrelevanten Pfad (Storybook, Beispielseiten, Doku, CI) sind frei, auch
 # wenn sie keine Conventional Commits sind. Schreibt zusätzlich die Job-Summary: ob und
 # welches Release dieser PR auslösen würde, plus die Liste der relevanten Commits.
@@ -29,4 +29,4 @@ jobs:
       - name: Dependencies installieren
         run: npm ci
       - name: Veröffentlichungsrelevante Commits prüfen
-        run: node scripts/release/check-relevant-commits.mjs "origin/${{ github.event.pull_request.base.ref }}..HEAD"
+        run: node tools/release/check-relevant-commits.mjs "origin/${{ github.event.pull_request.base.ref }}..HEAD"

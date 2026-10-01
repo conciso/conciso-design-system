@@ -9,36 +9,26 @@ name: Visual Tests
 #     eingecheckt sind → Artefakt. Selbst-limitierend: sobald Baselines im Repo
 #     liegen, tut push nichts mehr.
 #   - pull_request: gegen die eingecheckten Baselines vergleichen (wenn vorhanden).
-# Die Pfadlisten decken angular-lib mit ab: die Komponenten-Templates liegen seit
+# Die Pfadlisten decken packages/angular mit ab: die Komponenten-Templates liegen seit
 # der Extraktion dort, und genau sie verändern die Snapshots.
 # In allen Fällen: erzeugtes Artefakt runterladen, nach
-# storybook-angular/visual-snapshots/ committen → danach ist der PR-Vergleich scharf.
+# apps/storybook/visual-snapshots/ committen → danach ist der PR-Vergleich scharf.
 # Derselbe Ablauf steht für Menschen in CONTRIBUTING § 13; dass er eingehalten wird,
-# sichert `storybook-angular/visual-baseline-guard.mts` beim Schreiben ab.
+# sichert `apps/storybook/visual-baseline-guard.mts` beim Schreiben ab.
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - 'storybook-angular/**'
-      - 'angular-lib/**'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'scripts/build-*.mjs'
-      - 'scripts/bundle-css.mjs'
+      - 'apps/storybook/**'
+      - 'packages/angular/**'
+      - 'packages/css/**'
       - '.github/workflows/visual.yml'
   pull_request:
     paths:
-      - 'storybook-angular/**'
-      - 'angular-lib/**'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'scripts/build-*.mjs'
-      - 'scripts/bundle-css.mjs'
+      - 'apps/storybook/**'
+      - 'packages/angular/**'
+      - 'packages/css/**'
       - '.github/workflows/visual.yml'
 
 concurrency:
@@ -55,7 +45,7 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.61.1-resolute
     defaults:
       run:
-        working-directory: storybook-angular
+        working-directory: apps/storybook
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -63,7 +53,7 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
-      # npm-Workspace (storybook-angular + angular-lib teilen sich @angular/* etc. in
+      # npm-Workspaces (apps/storybook + packages/angular teilen sich @angular/* etc. in
       # einem Root-node_modules, siehe docs/adr/0002) → vom Repo-Root aus installieren.
       - name: Dependencies installieren
         working-directory: .
@@ -83,7 +73,7 @@ jobs:
       # Erzeugen bei dispatch oder push-Bootstrap (noch keine Baselines);
       # vergleichen bei PR mit vorhandenen Baselines. Kein http-server/wait-on
       # mehr nötig: Vitest startet seinen eigenen (Vite-)Server und rendert die
-      # Stories direkt aus der Quelle, ohne den `storybook-static`-Build.
+      # Stories direkt aus der Quelle, ohne den Storybook-Build (`dist/`).
       - name: Visual-Tests
         if: >
           github.event_name == 'workflow_dispatch' ||
@@ -103,17 +93,17 @@ jobs:
           fi
       - name: Hinweis — noch keine Baselines
         if: github.event_name == 'pull_request' && steps.bl.outputs.exist == 'false'
-        run: echo "::notice::Keine Visual-Baselines eingecheckt — Vergleich übersprungen. Das visual-baselines-Artefakt eines push/dispatch-Laufs nach storybook-angular/visual-snapshots/ committen."
+        run: echo "::notice::Keine Visual-Baselines eingecheckt — Vergleich übersprungen. Das visual-baselines-Artefakt eines push/dispatch-Laufs nach apps/storybook/visual-snapshots/ committen."
       - name: Baselines als Artefakt (bei Erzeugung)
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && steps.bl.outputs.exist == 'false')
         uses: actions/upload-artifact@v4
         with:
           name: visual-baselines
-          path: storybook-angular/visual-snapshots/
+          path: apps/storybook/visual-snapshots/
       - name: Diff-Bilder als Artefakt (bei Fehler)
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: visual-diffs
-          path: storybook-angular/visual-snapshots/__diff_output__/
+          path: apps/storybook/visual-snapshots/__diff_output__/
           if-no-files-found: ignore

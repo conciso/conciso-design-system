@@ -1,39 +1,27 @@
 name: Storybook / Angular
 
-# Läuft bei Änderungen an storybook-angular, an der Lib unter angular-lib (dort
-# liegen seit der Extraktion die Komponenten selbst — ohne diesen Eintrag bliebe
-# ein reiner Lib-PR ungetestet) UND an der CSS-Schicht, die die Stories rendern
-# (die Preview linkt css/* und staticDirs css/dist/icons/fonts/assets/brand) — so
+# Läuft bei Änderungen an der Storybook-App (apps/storybook), an der Lib unter packages/angular
+# (dort liegen die Komponenten selbst — ohne diesen Eintrag bliebe ein reiner Lib-PR
+# ungetestet) UND an der CSS-Schicht, die die Stories rendern (die Preview linkt
+# packages/css/css/* und staticDirs packages/css/dist/icons/fonts/assets/brand) — so
 # fangen die a11y-/Render-Tests auch CSS-Regressionen, und eine geänderte Wortmarke
 # landet auch ohne weiteren Push auf GitHub Pages.
 on:
   push:
     branches: [main]
     paths:
-      - 'storybook-angular/**'
-      - 'angular-lib/**'
-      - 'mcp-server/**'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'assets/**'
-      - 'docs/**'
-      - 'scripts/**'
+      - 'apps/storybook/**'
+      - 'packages/**'
+      - 'docs/legacy-site/**'
+      - 'tools/checks/check-contrast.mjs'
       - 'package.json'
       - '.github/workflows/storybook-angular.yml'
   pull_request:
     paths:
-      - 'storybook-angular/**'
-      - 'angular-lib/**'
-      - 'mcp-server/**'
-      - 'css/**'
-      - 'icons/source/**'
-      - 'icons/manifest.json'
-      - 'fonts/**'
-      - 'assets/**'
-      - 'docs/**'
-      - 'scripts/**'
+      - 'apps/storybook/**'
+      - 'packages/**'
+      - 'docs/legacy-site/**'
+      - 'tools/checks/check-contrast.mjs'
       - 'package.json'
       - '.github/workflows/storybook-angular.yml'
   # Manueller Nachtrigger für einen Pages-Deploy ohne neuen Push auf main
@@ -65,7 +53,7 @@ jobs:
       contents: read
     defaults:
       run:
-        working-directory: storybook-angular
+        working-directory: apps/storybook
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -73,15 +61,15 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
-      # npm-Workspace (storybook-angular + angular-lib teilen sich @angular/* etc. in
+      # npm-Workspaces (apps/storybook + packages/angular teilen sich @angular/* etc. in
       # einem Root-node_modules, siehe docs/adr/0002) → vom Repo-Root aus installieren.
       - name: Dependencies installieren
         working-directory: .
         run: npm ci
       # Root statt Default-working-directory: das Root-Script `lint` lintet BEIDE
-      # Workspaces (angular-lib + storybook-angular) — mit dem Default liefe hier
-      # nur der storybook-angular-eigene `lint`-Script und ein Lint-Fehler in
-      # angular-lib bliebe unbemerkt.
+      # Workspaces (packages/angular, apps/storybook, packages/mcp) — mit dem Default liefe hier
+      # nur der `lint`-Script der Storybook-App und ein Lint-Fehler in
+      # packages/angular bliebe unbemerkt.
       - name: Lint
         working-directory: .
         run: npm run lint
@@ -99,7 +87,7 @@ jobs:
         run: |
           node -e "
             const fs = require('node:fs');
-            const path = 'storybook-static/manifests/components.json';
+            const path = 'dist/manifests/components.json';
             if (!fs.existsSync(path)) {
               console.error('Manifest fehlt: ' + path);
               process.exit(1);
@@ -146,7 +134,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: storybook-static
-          path: storybook-angular/storybook-static
+          path: apps/storybook/dist
           retention-days: 1
       # Nur hochladen, wenn danach auch tatsächlich deployt wird — dieselbe
       # Bedingung wie im deploy-Job. Sonst läge bei jedem PR ein ungenutztes
@@ -157,13 +145,13 @@ jobs:
         if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-pages-artifact@v3
         with:
-          path: storybook-angular/storybook-static
+          path: apps/storybook/dist
 
   # MCP-Server-Tarball-Smoke-Test (ADR-0012): baut aus demselben Storybook-Build wie oben (kein
   # zweiter build-storybook-Lauf) den Snapshot des @conciso/design-system-mcp-Pakets, tarballt es
   # per `npm pack` und installiert genau dieses Tarball in ein frisches Verzeichnis — wie ein
   # Consumer es täte —, um dort über stdio rohes JSON-RPC gegen `cds-mcp` zu sprechen
-  # (mcp-server/scripts/smoke-test.mjs). Läuft bei jedem PR und Push (kein `if:`, folgt also
+  # (packages/mcp/scripts/smoke-test.mjs). Läuft bei jedem PR und Push (kein `if:`, folgt also
   # `verify`s eigenen Trigger-Bedingungen), unabhängig vom Pages-Deploy — deploy bleibt bewusst
   # nur von `verify` abhängig, nicht zusätzlich hiervon.
   mcp-smoke-test:
@@ -186,24 +174,24 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: storybook-static
-          path: storybook-angular/storybook-static
+          path: apps/storybook/dist
       - name: MCP-Snapshot bauen
-        run: npm run build:snapshot -w mcp-server
+        run: npm run build:snapshot -w packages/mcp
       # Unit-Tests des Pakets (test/*.test.mjs, braucht den Snapshot direkt eben gebaut) und der
-      # Eval-Checker-Logik (eval/checker.test.mjs, bewusst getrennt gehalten von `npm test`,
+      # Eval-Checker-Logik (packages/mcp/eval/checker.test.mjs, bewusst getrennt gehalten von `npm test`,
       # siehe Kommentar in eval/checker.test.mjs — braucht den Snapshot NICHT, arbeitet mit
       # handgepflegten Fixtures).
-      - name: Unit-Tests (mcp-server)
-        run: npm test -w mcp-server
-      - name: Eval-Checker-Tests (mcp-server)
-        run: npm run test:eval-checker -w mcp-server
+      - name: Unit-Tests (packages/mcp)
+        run: npm test -w packages/mcp
+      - name: Eval-Checker-Tests (packages/mcp)
+        run: npm run test:eval-checker -w packages/mcp
       # Tarball packen und Smoke-Test über stdio fahren: EIN Skript-Aufruf statt des Shell-Blocks
       # „npm pack … find die eine .tgz … smoke-test.mjs“, der hier und in publish.yml früher
       # doppelt gepflegt wurde (siehe test-support/tarball.mjs). Ohne Pfad-Argument packt
       # smoke-test.mjs sich selbst; anders als publish.yml braucht dieser Job den Tarball-Pfad
       # danach nicht weiter.
       - name: Tarball packen und Smoke-Test über stdio fahren
-        run: node mcp-server/scripts/smoke-test.mjs
+        run: node packages/mcp/scripts/smoke-test.mjs
 
   deploy:
     name: Auf GitHub Pages veröffentlichen
