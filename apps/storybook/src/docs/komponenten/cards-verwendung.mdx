@@ -93,7 +93,7 @@ Die Modifier-Klasse `.ep-card-link` kommt zur Basis `.ep-card`, das umschließen
 
 **Die CTA-Zeile ist die empfohlene Klick-Affordanz.** Die `.ep-card-cta`-Zeile am unteren Rand (Label plus Pfeil-Suffix) macht die Verlinkung sichtbar, obwohl die ganze Fläche klickbar ist. In Kartengruppen mit mehreren klickbaren Karten nebeneinander ist sie Standard: Sie ist das letzte gemeinsame Element der Karten und rendert den Klick-Anker einheitlich. Der Pfeil ist reine Affordanz und steht in `<span aria-hidden="true">`.
 
-**CTA-Label spezifisch wählen.** In Kartengruppen trägt jede Karte ein eigenes Label, etwa „AI.Engineering ansehen →“, „Automation entdecken →“ oder „AI.Box konfigurieren →“. Ein generisches „Mehr erfahren →“ mehrfach nebeneinander wirkt repetitiv und gibt jeder Karte denselben Klick-Anker, auch für Screenreader, die alle Links der Seite als Liste vorlesen. Steht eine Karte allein, ist „Mehr erfahren →“ als knappe Form vertretbar.
+**CTA-Label spezifisch wählen.** In Kartengruppen trägt jede Karte ein eigenes Label, etwa „AI.Engineering ansehen →“, „Automation entdecken →“ oder „AI.Box konfigurieren →“. Ein generisches „Mehr erfahren →“ mehrfach nebeneinander wirkt repetitiv und erschwert das visuelle Überfliegen der Kartengruppe, weil jede Karte denselben Anker trägt. Für Screenreader ist das bei Ganzkarten-Links unkritisch, denn der Linkname enthält den Kartentitel. Steht eine Karte allein, ist „Mehr erfahren →“ als knappe Form vertretbar.
 
 <HtmlBeispiel titel="Teaser-Kacheln mit spezifischen CTA-Labels">
 
@@ -128,7 +128,7 @@ Die Modifier-Klasse `.ep-card-link` kommt zur Basis `.ep-card`, das umschließen
 
 ### Listing-Karte und Hero-Titel · `a.card.card-elevated`
 
-Das Basis-`.card`-System mit `.card-elevated` wird direkt als Anker gerendert. `.card-media` trägt das Bild oder Visual, `.card-body` fünf Elemente in dieser Reihenfolge: Pill (auf Teaser-Cards nur der Bereichsname, ohne Lesezeit), Titel, kurzer Anreißer, Meta-Zeile mit Lesezeit und `<time>`-Datum, am Ende der typografische „Beitrag lesen →“-Anker (`.card-cta-link--pinned`) in Brand-Petrol. `.card-title` und `.card-text` haben global `line-clamp` plus `min-height`, damit Karten im Grid unabhängig von der Textlänge gleich hoch bleiben. Ein eigener Modifier ist nicht nötig, das Hover-Verhalten erbt von `.card-elevated:hover`. Das Layout kommt komplett aus den Klassen: `.card` ist die Flex-Spalte, `.card-body` trägt `gap: var(--s3)` und `flex: 1`. Ins `style`-Attribut gehört davon nichts.
+Das hier beschriebene Rezept ist eine reine CSS-Schicht: Das Basis-`.card`-System mit `.card-elevated` wird direkt als Anker gerendert. Die Komponente `cds-link-card` deckt davon nur einen Teil ab (Bereichs-Media, Eyebrow, Titel, Text, CTA-Fuß). Pill, Bild, Meta-Zeile mit Lesezeit und Datum sowie freie Inhalte erzeugt sie nicht, dafür gilt das HTML-Rezept. `.card-media` trägt das Bild oder Visual, `.card-body` fünf Elemente in dieser Reihenfolge: Pill (auf Teaser-Cards nur der Bereichsname, ohne Lesezeit), Titel, kurzer Anreißer, Meta-Zeile mit Lesezeit und `<time>`-Datum, am Ende der typografische „Beitrag lesen →“-Anker (`.card-cta-link--pinned`) in Brand-Petrol. `.card-title` und `.card-text` haben global `line-clamp` plus `min-height`, damit Karten im Grid unabhängig von der Textlänge gleich hoch bleiben. Ein eigener Modifier ist nicht nötig, das Hover-Verhalten erbt von `.card-elevated:hover`. Das Layout kommt komplett aus den Klassen: `.card` ist die Flex-Spalte, `.card-body` trägt `gap: var(--s3)` und `flex: 1`. Ins `style`-Attribut gehört davon nichts.
 
 <HtmlBeispiel titel="Listing-Karte als Anker">
 
@@ -138,7 +138,7 @@ Das Basis-`.card`-System mit `.card-elevated` wird direkt als Anker gerendert. `
     <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true" style="width: 100%; height: 100%; object-fit: cover"></div>
     <div class="card-body">
       <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
-      <div class="card-title"><span>Warum 60 % der Piloten nie in Produktion gehen</span></div>
+      <h3 class="card-title"><span>Warum 60 % der Piloten nie in Produktion gehen</span></h3>
       <div class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen gelernt haben.</div>
       <p style="font: var(--ty-body-sm); color: var(--tx-muted); margin: 0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
       <span class="card-cta-link card-cta-link--pinned">Beitrag lesen <span aria-hidden="true">→</span></span>
@@ -278,7 +278,7 @@ Für Kennzahlen und KPIs auf Landingpages, in Jahresberichten und Dashboards. Fa
   </div>
   <div class="card-stat col-6" data-area="ki">
     <p class="card-stat-value">3×</p>
-    <p class="card-stat-label">Schnellere Prozesse durch KI</p>
+    <p class="card-stat-label">Schnellere Angebotserstellung gegenüber manuell</p>
     <span class="card-stat-trend up">Gemessen über 12 Monate</span>
   </div>
 </div>
@@ -434,7 +434,7 @@ Das flache, icon-geführte Muster für Funktions- und Capability-Listen, ohne Ka
 | Semantik | `<article>` für eigenständige Cards, Screenreader listen Artikel als navigierbare Landmark, Überschriften-Hierarchie einhalten (Card-Titel als `h3` unter einer Section-`h2`) |
 | Klickbereich | Wenn die ganze Karte zu einem Ziel führt: das umschließende Element auf `<a>` oder `<button>` umstellen, nie `<div>` mit `onclick`. Pfeil-Suffix in `<span aria-hidden="true">` hüllen, Focus-Ring sichtbar lassen. Trägt die Karte nur passive Information, gehören Interaktionselemente ausschließlich in den Card-Footer |
 | Bilder & Icons | Card-Media-Bilder mit beschreibendem `alt`-Text versehen, dekorative SVGs mit `aria-hidden="true"` + `focusable="false"` ausblenden |
-| Link-Labels in Kartengruppen | Jede klickbare Karte trägt ein eigenes, spezifisches CTA-Label („AI.Engineering ansehen →“), nicht mehrfach „Mehr erfahren →“. Screenreader listen alle Links der Seite, gleiche Labels sind dort nicht unterscheidbar |
+| Link-Labels in Kartengruppen | Jede klickbare Karte trägt ein eigenes, spezifisches CTA-Label („AI.Engineering ansehen →“), nicht mehrfach „Mehr erfahren →“. Das dient der visuellen Scanbarkeit. Bei Ganzkarten-Links enthält der Linkname ohnehin den Titel, ein Pflichtkriterium für Screenreader ist es dort nicht. Wo nur die CTA-Zeile selbst der Link ist, muss das Label allein eindeutig sein |
 | Feature-Liste | Icons rein dekorativ (`aria-hidden="true"` + `focusable="false"`), `.ep-feature-title` ist ein `<h3>` und kein `<div>`, damit die Hierarchie unter der Section-`h2` stimmt |
 
 **Bildslots sind 16/9 und kommen aus `.card-media`.** Listing-Grid und Featured-Card teilen sich das Verhältnis, damit Redaktion pro Beitrag ein Bild in einem Zuschnitt pflegt statt einen je Slot. Den Bildausschnitt setzt `object-position` am `<img>`, nicht `background-position` an einem Container, sonst gilt der Zuschnitt nur in einem Slot. Eigene Verhältnisse haben nur Hero und Slider (21/9) sowie Avatare (1/1). Reicht die Höhe nicht, wird Text gekappt, nicht das Verhältnis gedehnt.
