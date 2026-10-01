@@ -79,14 +79,45 @@ Kohärenz und vermeidet zugleich Layout-Sprünge.
 Headline-sm) statt des Standard-`.card-title` (20 px Sans), das Featured ist ein
 editorialer Hero, kein Grid-Card.
 
+<HtmlBeispiel titel="Featured-Bereich mit gefilterter Karte">
+
 ```html
 <section id="wb-featured-section">
   <p class="ep-section-label">Featured</p>
-  <a class="card card-elevated" data-area="ki" href="…">…</a>
-  <a class="card card-elevated is-hidden" data-area="es" href="…">…</a>
-  <a class="card card-elevated is-hidden" data-area="wo" href="…">…</a>
+  <a class="card card-elevated card-featured" data-area="ki" href="#">
+    <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true"></div>
+    <div class="card-featured-body">
+      <span class="pill" data-area="ki" aria-label="Bereich Angewandte KI">Angewandte KI</span>
+      <h2 class="card-title-hero">Warum 60 % der KI-Piloten nie in Produktion gehen</h2>
+      <p class="card-text">Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.</p>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">8 min Lesezeit · <time datetime="2026-05-13">13. Mai 2026</time></p>
+      <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+  <a class="card card-elevated is-hidden card-featured" data-area="es" href="#">
+    <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true"></div>
+    <div class="card-featured-body">
+      <span class="pill" data-area="es" aria-label="Bereich Effektive Software">Effektive Software</span>
+      <h2 class="card-title-hero">Refactoring-Schulden ehrlich rechnen</h2>
+      <p class="card-text">Wann der Umbau billiger ist als der nächste Workaround, mit Beispielrechnung aus einem Migrationsprojekt.</p>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">7 min Lesezeit · <time datetime="2026-04-22">22. April 2026</time></p>
+      <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
+  <a class="card card-elevated is-hidden card-featured" data-area="wo" href="#">
+    <div class="card-media"><img src="platzhalter.svg" alt="" aria-hidden="true"></div>
+    <div class="card-featured-body">
+      <span class="pill" data-area="wo" aria-label="Bereich Wirksame Organisationen">Wirksame Organisationen</span>
+      <h2 class="card-title-hero">Wandel, der wirklich bleibt</h2>
+      <p class="card-text">Transformationen scheitern selten am Plan, fast immer an der Kultur. Woran man frühzeitig erkennt, dass Veränderung kippt.</p>
+      <p style="font:var(--ty-body-sm);color:var(--tx-muted);margin:0">12 min Lesezeit · <time datetime="2026-04-08">8. April 2026</time></p>
+      <span class="card-cta-link">Beitrag lesen <span aria-hidden="true">→</span></span>
+    </div>
+  </a>
 </section>
 ```
+
+</HtmlBeispiel>
 
 ## Verwendung
 
