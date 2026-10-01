@@ -133,15 +133,20 @@ export const PanelFokus: Story = {
         <cds-area-tab area="es" label="Mit Link">
           <p style="${bodyStyle}"><a class="body-link" href="#">Referenzprojekte</a></p>
         </cds-area-tab>
+        <cds-area-tab area="wo" label="Nur tabindex -1">
+          <button type="button" tabindex="-1" class="btn btn-primary">Nicht per Tab erreichbar</button>
+        </cds-area-tab>
       </cds-area-tabs>
     `,
   }),
   play: async ({ canvasElement }) => {
     const panels = canvasElement.querySelectorAll<HTMLElement>('[role="tabpanel"]');
-    await expect(panels).toHaveLength(3);
+    await expect(panels).toHaveLength(4);
     await expect(panels[0]).toHaveAttribute('tabindex', '0');
     await expect(panels[1]).not.toHaveAttribute('tabindex');
     await expect(panels[2]).not.toHaveAttribute('tabindex');
+    // Ein Button mit tabindex="-1" ist per Tab nicht erreichbar: das Panel braucht tabindex="0".
+    await expect(panels[3]).toHaveAttribute('tabindex', '0');
   },
 };
 

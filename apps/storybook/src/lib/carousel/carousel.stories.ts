@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { CarouselComponent } from '@conciso/design-system-angular';
 
@@ -107,11 +108,28 @@ export const TastaturDots: Story = {
 
 export const PfeiltastenAmSlider: Story = {
   name: 'Pfeiltasten am gesamten Slider',
-  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Zwei Instanzen tragen denselben Landmark-Namen „Bildstrecke“ (die Komponente hat
+  // keinen Input dafür); das ist ein Artefakt dieser Testanordnung, nicht der Einzelnutzung.
+  parameters: {
+    snapshot: { skip: true },
+    controls: { disable: true },
+    a11y: { config: { rules: [{ id: 'landmark-unique', enabled: false }] } },
+  },
+  decorators: [moduleMetadata({ imports: [CarouselComponent] })],
+  // Zwei Instanzen, damit die Eindeutigkeit der Folien-IDs über Instanzen hinweg geprüft wird.
+  render: (args) => ({
+    props: args,
+    template: `
+      <cds-carousel [slides]="slides"></cds-carousel>
+      <cds-carousel [slides]="slides"></cds-carousel>
+    `,
+  }),
   // ← und → wirken nicht nur auf den Dots, sondern auf dem gesamten Slider (hier mit
   // Fokus auf den Buttons), mit Umlauf; die Buttons tragen „Folie“ statt „Slide“.
   play: async ({ canvasElement }) => {
-    const c = within(canvasElement);
+    const roots = Array.from(canvasElement.querySelectorAll<HTMLElement>('.img-slider'));
+    await expect(roots).toHaveLength(2);
+    const c = within(roots[0]);
     const dots = c.getAllByRole('tab', { name: /^Folie / });
     const prev = c.getByRole('button', { name: 'Vorherige Folie' });
     const next = c.getByRole('button', { name: 'Nächste Folie' });
@@ -133,10 +151,17 @@ export const PfeiltastenAmSlider: Story = {
     await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[0]).toHaveFocus();
 
-    // Die Dots verweisen auf eindeutige Folien-IDs.
-    const ids = Array.from(canvasElement.querySelectorAll('.img-slide')).map((s) => s.id);
-    await expect(new Set(ids).size).toBe(ids.length);
-    dots.forEach((d, i) => expect(d).toHaveAttribute('aria-controls', ids[i]));
+    // Folien-IDs sind über beide Instanzen eindeutig, jeder Dot verweist auf seine eigene Folie.
+    const allIds = Array.from(canvasElement.querySelectorAll('.img-slide')).map((el) => el.id);
+    await expect(new Set(allIds).size).toBe(allIds.length);
+    for (const root of roots) {
+      const ids = Array.from(root.querySelectorAll('.img-slide')).map((el) => el.id);
+      const rootDots = Array.from(root.querySelectorAll('.img-dot'));
+      await expect(rootDots).toHaveLength(ids.length);
+      for (const [i, dot] of rootDots.entries()) {
+        await expect(dot).toHaveAttribute('aria-controls', ids[i]);
+      }
+    }
   },
 };
 

@@ -18,10 +18,21 @@ import { AreaTabComponent } from './area-tab.component';
 let uid = 0;
 
 // Elemente, die per Tastatur fokussierbar sind (ohne `tabindex="-1"`).
-const FOCUSABLE =
-  'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), ' +
-  'select:not([disabled]), textarea:not([disabled]), summary, audio[controls], video[controls], ' +
-  '[contenteditable]:not([contenteditable="false"]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE = [
+  'a[href]',
+  'area[href]',
+  'button:not([disabled])',
+  'input:not([disabled]):not([type="hidden"])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  'summary',
+  'audio[controls]',
+  'video[controls]',
+  '[contenteditable]:not([contenteditable="false"])',
+  '[tabindex]',
+]
+  .map((sel) => `${sel}:not([tabindex="-1"])`)
+  .join(', ');
 
 /**
  * AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus
