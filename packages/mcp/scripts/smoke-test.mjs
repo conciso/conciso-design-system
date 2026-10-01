@@ -173,7 +173,7 @@ const GROUP_USAGE_CHECKS = [
   },
   {
     id: 'komponenten-buttons-button',
-    sentence: '`--wo-700` verfehlt dort den Kontrast.',
+    sentence: 'Alle vier Bereichs-Klassen erfüllen den UI-Kontrast auf ihrem `-50`-Streifen',
   },
   {
     id: 'komponenten-hero-hero-bild',
