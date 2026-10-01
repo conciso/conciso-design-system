@@ -151,3 +151,31 @@ export const Formularbindung: Story = {
     await waitFor(() => expect(canvasElement).toHaveTextContent('Wert: es'));
   },
 };
+
+export const TypeaheadPuffer: Story = {
+  name: 'Type-ahead · Puffer 600 ms',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Der Puffer verfällt 600 ms nach der letzten Taste: „w“ und nach 550 ms „e“ ergeben
+  // „we“ (kein Treffer, die Markierung bleibt bei „Wirksame Organisationen“). Nach 650 ms
+  // beginnt der Puffer neu, „e“ springt zu „Effektive Software“.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const warte = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const trigger = c.getByRole('button');
+    trigger.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    const listbox = c.getByRole('listbox');
+    await waitFor(() => expect(listbox).toHaveFocus());
+    const options = c.getAllByRole('option');
+
+    await userEvent.keyboard('w');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[3].id);
+    await warte(550);
+    await userEvent.keyboard('e');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[3].id);
+
+    await warte(650);
+    await userEvent.keyboard('e');
+    await expect(listbox).toHaveAttribute('aria-activedescendant', options[2].id);
+  },
+};
