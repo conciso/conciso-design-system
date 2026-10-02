@@ -7,9 +7,9 @@ const meta: Meta<CheckboxComponent> = {
   component: CheckboxComponent,
   tags: ['autodocs', 'angular'],
   // Der Datenschutz-Link (.body-link) ist Corporate — die Bereichs-Tönung ist ein
-  // SEITEN-Zustand, nicht Sache der Checkbox. Über den Toolbar-Umschalter „Bereich“
-  // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann
-  // tönt der CSS-Kern den Link. Bewusst entkoppelt vom `area`-Input der Komponente.
+  // SEITEN-Zustand, nicht Sache der Checkbox. Wie der echte
+  // .ep-page[data-accent]-Kontext den Link tönt, zeigt die Story „Grundlagen/Farben“
+  // (Bereichs-Kontext der Seite). Bewusst entkoppelt vom `area`-Input der Komponente.
   parameters: {
     design: {
       type: 'figma',

@@ -180,3 +180,35 @@ export const FlaechenTextRand: Story = {
     `,
   }),
 };
+
+const bereichsKontextSpalte = (area: string): string => `
+  <div class="ep-page visible" data-accent="${area}" style="background:var(--bg-surface);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3)">
+    <span style="font:var(--ty-label-md);color:var(--tx-secondary)">data-accent="${area}"</span>
+    <p class="t-co" style="margin:0;font:var(--ty-title-sm)">Eyebrow mit .t-co</p>
+    <p style="margin:0;font:var(--ty-body-md);color:var(--tx-primary)">
+      Eine Seite gibt ihren Bereich vor. Dieser Absatz verweist auf die
+      <a class="body-link" href="#">Referenzprojekte im Bereich</a>
+      und tönt den Link über den Seitenkontext.
+    </p>
+  </div>`;
+
+/**
+ * Eine Seite gibt ihren Bereich über `data-accent="ki|es|wo"` am umgebenden Container vor
+ * (`co` ist der Default und braucht kein Attribut). Der CSS-Kern tönt dann die
+ * Default-Akzent-Utilities `.t-co` und `.body-link` auf die Bereichsfarbe, hell und dunkel
+ * (`css/components.css`, `css/dark-mode.css`). Komponenten tönen sich dagegen nicht über den
+ * Seitenkontext, sondern über ihren eigenen `area`-Input. Das Theme oben in der Toolbar
+ * schaltet zwischen den Hell- und Dunkel-Werten um.
+ */
+export const BereichsKontext: Story = {
+  name: 'Bereichs-Kontext der Seite',
+  render: () => ({
+    template: `
+      <div style="padding:var(--s8);background:var(--bg-page)">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)">
+          ${['co', 'ki', 'es', 'wo'].map(bereichsKontextSpalte).join('')}
+        </div>
+      </div>
+    `,
+  }),
+};
