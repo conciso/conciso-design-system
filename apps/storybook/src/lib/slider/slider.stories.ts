@@ -105,9 +105,9 @@ export const ProBereich: Story = {
     template: `
       <div style="display:grid;gap:24px;max-width:420px">
         <cds-slider area="co" sliderId="s-co" label="Corporate"></cds-slider>
-        <cds-slider area="ki" sliderId="s-ki" label="AI.Applied"></cds-slider>
-        <cds-slider area="es" sliderId="s-es" label="Eff. Software"></cds-slider>
-        <cds-slider area="wo" sliderId="s-wo" label="Wirks. Orga"></cds-slider>
+        <cds-slider area="ki" sliderId="s-ki" label="Angewandte KI"></cds-slider>
+        <cds-slider area="es" sliderId="s-es" label="Effektive Software"></cds-slider>
+        <cds-slider area="wo" sliderId="s-wo" label="Wirksame Organisationen"></cds-slider>
       </div>
     `,
   }),

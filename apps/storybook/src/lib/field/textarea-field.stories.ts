@@ -40,12 +40,33 @@ type Story = StoryObj<TextareaFieldComponent>;
 
 export const Interaktiv: Story = {};
 
+export const Fehlerzustand: Story = {
+  args: {
+    error: 'Bitte gib eine Nachricht ein.',
+    fieldId: 'demo-message-error',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/Nachricht/);
+    const meldung = c.getByText('Bitte gib eine Nachricht ein.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', expect.stringContaining(meldung.id));
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
 export const Deaktiviert: Story = {
   args: { fieldId: 'demo-message-disabled', disabled: true },
   parameters: { controls: { disable: true } },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    await expect(c.getByLabelText(/Nachricht/)).toBeDisabled();
+    const control = c.getByLabelText(/Nachricht/);
+    await expect(control).toBeDisabled();
+    // Sichtbar vom aktiven Zustand unterscheidbar: reduzierte Deckkraft, Sperr-Cursor.
+    const stil = getComputedStyle(control);
+    await expect(Number(stil.opacity)).toBeLessThan(1);
+    await expect(stil.cursor).toBe('not-allowed');
   },
 };
 
