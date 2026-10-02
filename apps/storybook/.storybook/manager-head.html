@@ -59,6 +59,22 @@
   }
 
   /*
+    Sektions-Icons (aus manager.ts, aria-hidden, focusable=false): gedämpft
+    statt in voller Textfarbe, Strichstärke in Bildschirm-Pixeln, damit
+    dichte Icons nicht schwerer wirken als lockere. Der aktive Knoten
+    (aria-current) zeigt sein Icon in voller Textfarbe.
+  */
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] {
+    opacity: 0.7;
+  }
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] * {
+    vector-effect: non-scaling-stroke;
+  }
+  #storybook-explorer-tree [aria-current='true'] svg[aria-hidden='true'][focusable='false'] {
+    opacity: 1;
+  }
+
+  /*
     Zeilenhöhe 28→32px: lockert eine Liste von 181 Einträgen in vier Ebenen
     auf, die vorher durchgehend gleichförmig war.
   */

@@ -86,8 +86,18 @@ const icons = rawIcons as Record<string, IconRegistryEntry>;
 // CSS-Custom-Properties aus dem Design System (siehe Kommentar zum Theme
 // oben) — deshalb stehen beide Werte hier fest verdrahtet, nicht als
 // icon.strokeWidth (das ist der Wert für die native Darstellungsgröße).
+// Strichstärke 1.25 statt 1: manager-head.html setzt dazu
+// vector-effect: non-scaling-stroke, die Zahl gilt also in Bildschirm-Pixeln
+// und nicht in viewBox-Einheiten — so wirken dichte und lockere Icons
+// gleich schwer, unabhängig von ihrer viewBox.
 const SECTION_ICON_SIZE = 16;
-const SECTION_ICON_STROKE_WIDTH = 1;
+const SECTION_ICON_STROKE_WIDTH = 1.25;
+
+// Storybook setzt vor Ordner-Knoten (type 'group' | 'component') einen Pfeil,
+// vor Blättern nicht. Blätter mit Icon rücken deshalb um diese Breite nach
+// links, damit Icon und Text auf einer x-Position mit den Ordnern stehen.
+// Gemessen am laufenden Manager: Ordner x=34, Blätter x=40.
+const LEAF_ICON_SHIFT = 6;
 
 function renderSectionIcon(iconKey: string) {
   const icon = icons[iconKey];
@@ -150,6 +160,7 @@ addons.setConfig({
             gap: 6,
             minWidth: 0,
             textIndent: 0,
+            marginLeft: item.type === 'group' || item.type === 'component' ? 0 : -LEAF_ICON_SHIFT,
           },
         },
         icon,
