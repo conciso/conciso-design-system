@@ -13,6 +13,10 @@ const meta: Meta<FeaturedCardComponent> = {
   component: FeaturedCardComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3477',
+    },
     layout: 'padded',
     docs: {
       description: {

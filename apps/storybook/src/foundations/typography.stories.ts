@@ -8,6 +8,10 @@ const meta: Meta = {
   title: 'Grundlagen/Typografie',
   tags: ['autodocs'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-172',
+    },
     layout: 'fullscreen',
     docs: {
       description: {
@@ -21,10 +25,16 @@ export default meta;
 
 type Story = StoryObj;
 
+const stilname = (token: string): string =>
+  token
+    .split('-')
+    .map((teil) => teil.charAt(0).toUpperCase() + teil.slice(1))
+    .join(' ');
+
 const specimen = (token: string, extra = ''): string => `
   <div style="display:grid;grid-template-columns:260px 1fr;gap:var(--s6);align-items:baseline;padding:var(--s3) 0;border-bottom:var(--bd)">
     <code style="font:var(--ty-body-xs);color:var(--tx-secondary)">var(--ty-${token})</code>
-    <span style="font:var(--ty-${token});color:var(--tx-primary);${extra}">Beratung, die wirkt</span>
+    <span style="font:var(--ty-${token});color:var(--tx-primary);${extra}">${stilname(token)} · Beratung, die wirkt</span>
   </div>`;
 
 // label-xs und label-sm teilen die Metriken. label-xs ist die Eyebrow-Variante und

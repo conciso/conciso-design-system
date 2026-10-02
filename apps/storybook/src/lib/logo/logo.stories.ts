@@ -6,6 +6,10 @@ const meta: Meta<LogoComponent> = {
   component: LogoComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4032',
+    },
     layout: 'centered',
     docs: {
       description: {
@@ -17,7 +21,7 @@ const meta: Meta<LogoComponent> = {
     },
   },
   argTypes: {
-    label: { description: 'Firmen-/Markenname – Alt-Fallback und Text-Platzhalter.' },
+    label: { description: 'Firmen-/Markenname, Alt-Fallback und Text-Platzhalter.' },
     src: { description: 'Bildquelle (URL/Data-URI). Gesetzt → Bild statt Text.' },
     alt: { description: 'Alt-Text des Bilds (Fallback: `label`).' },
   },

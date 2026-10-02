@@ -9,12 +9,16 @@ const meta: Meta<ArticleCalloutComponent> = {
   decorators: [moduleMetadata({ imports: [ArticleCalloutComponent] })],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4809',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Bereichsgetönter Aside-Block für Praxis-Beispiele im Lauftext eines Wissensbeitrags ' +
-          '(`.article-callout*`, css/components.css:1591–1600). Projizierte Absätze bleiben ' +
+          '(`.article-callout*`, css/components.css:1591 bis 1600). Projizierte Absätze bleiben ' +
           'direkte Kinder von `.article-callout` (`<ng-content>` fügt kein eigenes Element ein), ' +
           'Voraussetzung für den Kindselektor `.article-callout > p` (css/components.css:1600). ' +
           "`area` hat den verteidigbaren Default `'co'`: die Basisregel ohne `[data-area]` " +
@@ -22,7 +26,7 @@ const meta: Meta<ArticleCalloutComponent> = {
           '`.article-callout-eyebrow` steht jetzt als `.article-callout > .article-callout-eyebrow` ' +
           '(Spezifität 0,2,0) und gewinnt gegen `.article-callout > p` (0,1,1); reproduziert hier ' +
           'unverändert das gepatchte Mockup, nicht im Wrapper geflickt (ADR-0001). `aside` trägt `aria-labelledby` ' +
-          'auf die Eyebrow, sobald eine gesetzt ist — Zusatz zum Mockup (ARIA, kein CSS), weil ' +
+          'auf die Eyebrow, sobald eine gesetzt ist (Zusatz zum Mockup: ARIA, kein CSS), weil ' +
           'mehrere `.article-callout` auf derselben Seite sonst gleichnamige, ununterscheidbare ' +
           '`complementary`-Landmarks wären (axe `landmark-unique`).',
       },

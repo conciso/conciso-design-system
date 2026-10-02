@@ -7,6 +7,10 @@ const meta: Meta<FaqComponent> = {
   component: FaqComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4936',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -30,7 +34,7 @@ const meta: Meta<FaqComponent> = {
       },
       {
         q: 'Welche Technologien nutzt ihr?',
-        a: 'Moderne, langlebige Stacks — die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
+        a: 'Moderne, langlebige Stacks: die Wahl richtet sich nach dem Problem, nicht nach dem Hype.',
       },
     ],
   },

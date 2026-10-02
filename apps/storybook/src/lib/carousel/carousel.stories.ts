@@ -11,6 +11,10 @@ const meta: Meta<CarouselComponent> = {
   component: CarouselComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1851',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -18,7 +22,7 @@ const meta: Meta<CarouselComponent> = {
           'Bild-Carousel zur Integration in Seiteninhalt: mehrere Bilder wechseln per ' +
           'Crossfade, gesteuert über Vor-/Zurück-Buttons und Dots, mit optionaler Bildunterschrift. ' +
           'Neben der eingebetteten Standardvariante gibt es eine großformatige Hero-Variante für ' +
-          'den Seitenkopf. Kein Autoplay – der Wechsel erfolgt nur per Nutzeraktion; der ' +
+          'den Seitenkopf. Kein Autoplay, der Wechsel erfolgt nur per Nutzeraktion; der ' +
           'Überblendübergang wird bei `prefers-reduced-motion` abgeschaltet. Barrierefrei nach WCAG 2.1 AA.',
       },
     },
