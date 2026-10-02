@@ -111,38 +111,77 @@ function findCanvas(): HTMLElement | null {
 }
 
 /**
- * Vergrößert das Padding des Canvas um den Überstand aller Nachfahren (auch
- * absolut/fix positionierter) sowie um Overlay-Container, die Bibliotheken direkt an
- * `<body>` hängen. Gemessen wird nach dem Setzen des Basis-Paddings; der Überstand
- * nach links/oben wird zu Padding, nach rechts/unten ebenfalls.
+ * Vergrößert das Canvas um den Überstand aller Nachfahren (auch absolut/fix
+ * positionierter) sowie aller Body-Geschwister samt deren Nachfahren (Overlays, die
+ * Bibliotheken direkt an `<body>` hängen, z. B. ein `<dialog>`). Unsichtbare Elemente
+ * (`display:none`, `visibility:hidden`, Größe 0) zählen nicht. Der Überstand je Seite
+ * ist auf ein Fenster begrenzt, damit ein absichtlich weit ausgelagertes Element
+ * (z. B. `left:-9999px`) das Bild nicht sprengt; ein überschrittener Wert wird gewarnt.
+ *
+ * Mehr Padding allein vergrößert bei `padded`/`fullscreen` die Box nicht (Blockbreite
+ * folgt dem Elternelement), deshalb wird die Breite um das horizontale Delta explizit
+ * erhöht. Die Höhe wächst mit dem Padding von selbst.
  */
-function extendForOverflow(canvas: HTMLElement): void {
+function extendForOverflow(canvas: HTMLElement, storyId: string): void {
   const box = canvas.getBoundingClientRect();
+  const siblings = Array.from(document.body.children).filter(
+    (el): el is HTMLElement => el instanceof HTMLElement && el !== canvas,
+  );
   const nodes: Element[] = [
     ...Array.from(canvas.querySelectorAll('*')),
-    ...Array.from(document.body.children)
-      .filter((el) => el !== canvas && el instanceof HTMLElement)
-      .flatMap((el) => Array.from(el.querySelectorAll('*'))),
+    ...siblings.flatMap((el) => [el, ...Array.from(el.querySelectorAll('*'))]),
   ];
   let top = 0;
   let right = 0;
   let bottom = 0;
   let left = 0;
   for (const el of nodes) {
+    const style = getComputedStyle(el);
+    if (style.display === 'none' || style.visibility === 'hidden') continue;
     const r = el.getBoundingClientRect();
-    if (r.width === 0 && r.height === 0) continue;
+    if (r.width === 0 || r.height === 0) continue;
     top = Math.max(top, box.top - r.top);
     left = Math.max(left, box.left - r.left);
     right = Math.max(right, r.right - box.right);
     bottom = Math.max(bottom, r.bottom - box.bottom);
   }
-  const style = getComputedStyle(canvas);
-  const pad = (side: string, extra: number) =>
-    extra > 0
-      ? `padding-${side}:${parseFloat(style.getPropertyValue(`padding-${side}`)) + Math.ceil(extra) + CANVAS_PADDING_PX}px;`
-      : '';
-  canvas.style.cssText +=
-    pad('top', top) + pad('right', right) + pad('bottom', bottom) + pad('left', left);
+  const limit = (value: number, side: string, max: number) => {
+    if (value > max) {
+      console.warn(
+        `[visual] ${storyId}: Überstand ${side} ${Math.round(value)}px über Grenze ${max}px, auf Grenze gekürzt.`,
+      );
+    }
+    return Math.min(value, max);
+  };
+  const extra = {
+    top: limit(top, 'oben', window.innerHeight),
+    right: limit(right, 'rechts', window.innerWidth),
+    bottom: limit(bottom, 'unten', window.innerHeight),
+    left: limit(left, 'links', window.innerWidth),
+  };
+  const computed = getComputedStyle(canvas);
+  const grow = (side: keyof typeof extra) =>
+    extra[side] > 0
+      ? parseFloat(computed.getPropertyValue(`padding-${side}`)) +
+        Math.ceil(extra[side]) +
+        CANVAS_PADDING_PX
+      : null;
+  const pads = {
+    top: grow('top'),
+    right: grow('right'),
+    bottom: grow('bottom'),
+    left: grow('left'),
+  };
+  const dx =
+    (pads.left === null ? 0 : pads.left - parseFloat(computed.paddingLeft)) +
+    (pads.right === null ? 0 : pads.right - parseFloat(computed.paddingRight));
+  const width = box.width + dx;
+  let css = '';
+  for (const [side, value] of Object.entries(pads)) {
+    if (value !== null) css += `padding-${side}:${value}px;`;
+  }
+  if (dx > 0) css += `width:${width}px;`;
+  canvas.style.cssText += css;
 }
 
 afterEach(async (context) => {
@@ -174,7 +213,7 @@ afterEach(async (context) => {
   await document.fonts?.ready;
 
   // Überstände erst messen, wenn Layout und Fonts stehen.
-  extendForOverflow(canvas);
+  extendForOverflow(canvas, storyId);
 
   const freeze = document.createElement('style');
   freeze.textContent = `*, *::before, *::after {
