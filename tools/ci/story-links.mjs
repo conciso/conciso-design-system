@@ -21,6 +21,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+import postcss from 'postcss';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
@@ -108,48 +109,18 @@ function storyFolder(path) {
 
 // --- CSS ---------------------------------------------------------------------------------------
 
-/**
- * Minimaler CSS-Parser: Regeln mit ihrem At-Rule-Kontext (@media …) und ihren Deklarationen.
- * Reicht für die Dateien in packages/css/css (keine Verschachtelung außer At-Rules).
- */
+/** Regeln einer CSS-Datei (PostCSS) mit ihrem At-Rule-Kontext (@media …) und ihren Deklarationen. */
 export function parseCss(text) {
-  const src = text.replace(/\/\*[\s\S]*?(\*\/|$)/g, '');
   const rules = [];
-  (function walk(from, to, context) {
-    let i = from;
-    while (i < to) {
-      const open = src.indexOf('{', i);
-      const semi = src.indexOf(';', i);
-      if (open === -1 || open >= to) break;
-      // `@import …;` und Ähnliches ohne Block überspringen.
-      if (semi !== -1 && semi < open && !src.slice(i, semi).includes('}')) {
-        i = semi + 1;
-        continue;
-      }
-      let depth = 1;
-      let j = open + 1;
-      for (; j < to && depth > 0; j++) {
-        if (src[j] === '{') depth++;
-        else if (src[j] === '}') depth--;
-      }
-      const prelude = src.slice(i, open).replace(/}/g, '').trim().replace(/\s+/g, ' ');
-      if (prelude.startsWith('@') && !prelude.startsWith('@font-face')) {
-        walk(open + 1, j - 1, [...context, prelude]);
-      } else {
-        const declarations = src
-          .slice(open + 1, j - 1)
-          .split(';')
-          .map((d) => d.trim())
-          .filter(Boolean)
-          .map((d) => {
-            const colon = d.indexOf(':');
-            return [d.slice(0, colon).trim(), d.slice(colon + 1).trim().replace(/\s+/g, ' ')];
-          });
-        rules.push({ context: context.join(' '), selector: prelude, declarations });
-      }
-      i = j;
+  const squash = (s) => s.trim().replace(/\s+/g, ' ');
+  postcss.parse(text).walkRules((rule) => {
+    const context = [];
+    for (let p = rule.parent; p && p.type !== 'root'; p = p.parent) {
+      if (p.type === 'atrule') context.unshift(squash(`@${p.name} ${p.params}`));
     }
-  })(0, src.length, []);
+    const declarations = rule.nodes.filter((n) => n.type === 'decl').map((d) => [d.prop, squash(d.value)]);
+    rules.push({ context: context.join(' '), selector: squash(rule.selector), declarations });
+  });
   return rules;
 }
 

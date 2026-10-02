@@ -202,6 +202,15 @@ test('CSS: Regeln in @media werden mit ihrem Kontext verglichen', () => {
   assert.deepEqual(ids(result).components.map((c) => c[0]), [CARD]);
 });
 
+test('CSS: Klammern und Semikolons in Strings stören die Regelgrenzen nicht', () => {
+  const result = run({
+    changes: `M\tpackages/css/css/components.css`,
+    baseFiles: { 'packages/css/css/components.css': '.card::before{content:"{;"}\n.btn{a:b}' },
+    headFiles: { ...CARD_COMPONENT, 'packages/css/css/components.css': '.card::before{content:"{;"}\n.btn{a:c}' },
+  });
+  assert.deepEqual(ids(result).components.map((c) => c[0]), [BUTTON]);
+});
+
 test('CSS: Klasse, die kein Story-Ordner verwendet → Datei unter unmapped', () => {
   const result = run({
     changes: `M\tpackages/css/css/components.css`,
