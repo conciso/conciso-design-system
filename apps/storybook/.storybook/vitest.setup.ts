@@ -141,6 +141,25 @@ async function setViewportHeight(height: number) {
   await nextFrames();
 }
 
+/**
+ * Wartet, bis das äußere Fenster das iframe unskaliert (Faktor 1) darstellt. Es passt den
+ * Maßstab nach einer Größenänderung asynchron an; ein Screenshot davor entsteht mit dem
+ * alten Faktor (0,8 statt 1,0) und hat dann 960 statt 1200 px Breite. Gemessen wird das
+ * Verhältnis aus der Breite des iframe-Elements im äußeren Fenster und `innerWidth`.
+ */
+async function waitForUnscaledFrame(storyId: string) {
+  for (let i = 0; i < 60; i++) {
+    if (isFrameUnscaled()) return;
+    await nextFrames();
+  }
+  console.warn(`[visual] ${storyId}: iframe wird skaliert dargestellt, Maßstab nicht 1.`);
+}
+
+function isFrameUnscaled(): boolean {
+  const frame = window.frameElement;
+  return !frame || Math.abs(frame.getBoundingClientRect().width / window.innerWidth - 1) < 0.001;
+}
+
 const LAYOUT_CSS: Record<string, string> = {
   // schrumpft auf den Inhalt, wie die zentrierte Story im Storybook-UI
   centered: `padding:${CANVAS_PADDING_PX}px;width:fit-content;`,
@@ -262,9 +281,22 @@ afterEach(async (context) => {
   // Erst das Viewport auf die Inhaltshöhe bringen (fixe Overlays richten sich nach
   // ihm), dann Überstände messen, dann die Höhe mit dem Überstand nachziehen.
   const defaultHeight = window.innerHeight;
+  // Äußeres Fenster auf die Höhe des Test-Fensters bringen, bevor irgendetwas gemessen wird.
+  // Es startet bei 720 px, das Test-Fenster bei 900 px; Chromium skaliert das iframe dann auf
+  // 720/900 = 0,8 herunter und der Screenshot wird 960 statt 1200 px breit. Erst die erste Story,
+  // die höher als das Standardfenster ist, setzt das äußere Fenster (siehe `setViewportHeight`),
+  // ab dann gilt Faktor 1,0. Ohne diesen Abgleich hing der Maßstab jeder Aufnahme davon ab, ob
+  // vor ihrer Testdatei schon eine hohe Story lief, also von der Dateireihenfolge.
+  // Der Maßstab des iframe wird nur durch `page.viewport()` neu berechnet: Beim ersten Test einer
+  // Datei bleibt er auf 0,8 stehen, auch wenn das äußere Fenster schon passt. Deshalb nicht nur
+  // das äußere Fenster setzen, sondern über `setViewportHeight` beides.
+  if ((window.top && window.top.innerHeight !== defaultHeight) || !isFrameUnscaled()) {
+    await setViewportHeight(defaultHeight);
+  }
   await fitViewportToHeight(canvas, storyId, defaultHeight);
   extendForOverflow(canvas, storyId);
   await fitViewportToHeight(canvas, storyId, defaultHeight);
+  await waitForUnscaledFrame(storyId);
 
   const freeze = document.createElement('style');
   freeze.textContent = `*, *::before, *::after {
