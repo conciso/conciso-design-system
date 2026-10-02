@@ -9,11 +9,8 @@ on:
       - 'package.json'
       - '.github/workflows/css-core.yml'
   pull_request:
-    paths:
-      - 'packages/css/**'
-      - 'tools/checks/check-dark-states.mjs'
-      - 'package.json'
-      - '.github/workflows/css-core.yml'
+  # Kein paths-Filter: „Build (tokens + icons + css)“ ist Pflicht-Check im Ruleset für main —
+  # ein nie gestarteter Workflow würde PRs ohne CSS-Änderung dauerhaft blockieren.
 
 concurrency:
   group: css-core-${{ github.ref }}
