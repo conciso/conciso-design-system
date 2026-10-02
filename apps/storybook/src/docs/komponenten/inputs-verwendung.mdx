@@ -196,7 +196,7 @@ Ein deaktiviertes Feld braucht in der CSS-Schicht nur das native Attribut `disab
 Deaktivierte Felder sparsam einsetzen, sie haben zwei Nebenwirkungen:
 
 - Der Browser sendet sie beim Absenden nicht mit. Soll der Wert im Formular ankommen, ist `readonly` oder ein Hidden-Feld die bessere Wahl.
-- Screenreader überspringen sie, sie sind nicht fokussierbar. Der Grund für die Sperre gehört deshalb sichtbar in den Text, nicht nur in den Zustand.
+- Sie nehmen nicht an der Tab-Reihenfolge teil, es gibt keinen Tastaturfokus. Screenreader erreichen sie im Lesemodus weiterhin und sagen sie als deaktiviert an. Der Grund für die Sperre gehört deshalb sichtbar in den Text, nicht nur in den Zustand.
 
 Deaktivierte Controls sind von den Kontrastanforderungen (WCAG 1.4.3 und 1.4.11) ausgenommen, der Text bleibt bei `.5` trotzdem lesbar.
 
