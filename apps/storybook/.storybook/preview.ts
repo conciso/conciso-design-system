@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/angular-vite';
-import { componentWrapperDecorator } from '@storybook/angular-vite';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import { addons } from 'storybook/preview-api';
 import { GLOBALS_UPDATED, SET_GLOBALS, UPDATE_GLOBALS } from 'storybook/internal/core-events';
@@ -35,15 +34,13 @@ addons.getChannel().on(SET_GLOBALS, applyThemeFromGlobals);
 addons.getChannel().on(GLOBALS_UPDATED, applyThemeFromGlobals);
 
 /**
- * Zwei globale Toolbar-Umschalter (globalTypes), beide über den ECHTEN CSS-Kern:
+ * Globaler Toolbar-Umschalter (globalTypes) über den ECHTEN CSS-Kern:
  *
  * - Theme (data-theme="dark" am <html>) → dark-mode.css greift auf [data-theme].
- * - Bereichs-Kontext (Seite): hüllt den Story bei Bedarf in ein echtes
- *   `.ep-page[data-accent="…"]` (via componentWrapperDecorator, display:contents,
- *   also ohne die Beispielseiten-Chrome). Genau diesen Selektor nutzt der Kern, um
- *   .body-link & bereichsabhängige Utilities zu tönen — es wird NICHTS gespiegelt
- *   oder gefaked. Default „aus“ → Komponenten rendern isoliert; der Kontext ist ein
- *   bewusst wählbarer Seiten-Zustand, klar getrennt vom `area`-Input der Komponente.
+ *
+ * Den Bereichs-Kontext der Seite (`.ep-page[data-accent]`) gibt es bewusst nicht als
+ * Schalter: er wirkt nur auf .body-link und .t-co. Er hat eine eigene Story unter
+ * „Grundlagen/Farben“ (BereichsKontext).
  */
 const preview: Preview = {
   parameters: {
@@ -202,8 +199,6 @@ const preview: Preview = {
   },
   initialGlobals: {
     theme: 'light',
-    // Bereichs-Kontext standardmäßig AUS → isolierte, ehrliche Darstellung.
-    areaContext: 'none',
     // Standard: responsive (keine feste Breite); Größe wählbar über die Toolbar.
     viewport: { value: undefined, isRotated: false },
   },
@@ -222,37 +217,8 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-    areaContext: {
-      description:
-        'Bereichs-Kontext der Seite (.ep-page[data-accent]) — tönt z. B. .body-link auf die Bereichsfarbe',
-      toolbar: {
-        title: 'Bereich',
-        icon: 'paintbrush',
-        items: [
-          { value: 'none', title: 'Kein Bereichs-Kontext' },
-          { value: 'co', title: 'Corporate' },
-          { value: 'ki', title: 'AI.Applied' },
-          { value: 'es', title: 'Effektive Software' },
-          { value: 'wo', title: 'Wirksame Organisationen' },
-        ],
-        dynamicTitle: true,
-      },
-    },
   },
   decorators: [
-    // Bereichs-Kontext: nur bei aktiver Auswahl in ein echtes .ep-page[data-accent]
-    // hüllen (display:contents = ohne Beispielseiten-Rahmen). Die Tönung erledigt
-    // dann der CSS-Kern selbst. Ohne Auswahl bleibt der Wrapper ein reiner
-    // display:contents-Container ohne .ep-page → keine Nebenwirkungen (z. B. kein
-    // .ep-page .card-stat-strip-Padding), also echte Isolation.
-    componentWrapperDecorator(
-      (story) =>
-        `<div [class.ep-page]="cdsAreaCtx" [attr.data-accent]="cdsAreaCtx || null" style="display:contents">${story}</div>`,
-      ({ globals }) => {
-        const ctx = globals['areaContext'];
-        return { cdsAreaCtx: ctx && ctx !== 'none' ? ctx : '' };
-      },
-    ),
     // Toolbar → Store (still, ohne Rück-Emit). Der Store ist der EINZIGE Schreiber
     // von data-theme (inkl. „system“ via prefers-color-scheme) und teilt sich den
     // Zustand mit den Switcher-Komponenten → Toolbar und Komponenten bleiben synchron.
