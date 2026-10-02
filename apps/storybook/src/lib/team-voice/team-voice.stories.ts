@@ -67,3 +67,40 @@ export const AlternierendeReihen: Story = {
     await expect(imageLeftOfText(2)).toBe(true);
   },
 };
+
+export const AlternierendMobil: Story = {
+  name: 'Alternierende Reihen (mobil)',
+  // Reine Verhaltensprüfung ohne Baseline. Die Media-Query hängt am Viewport, nicht an der
+  // Container-Breite, daher läuft die gerenderte Angular-Markup in einem 375 px breiten iframe.
+  parameters: { controls: { disable: true }, snapshot: { skip: true } },
+  render: AlternierendeReihen.render,
+  // Akzeptanzkriterium: Ab max-width 768px ist auch die gerade (zweite) Karte einspaltig, das
+  // Bild steht über dem Text und nicht daneben.
+  play: async ({ canvasElement }) => {
+    const rows = canvasElement.querySelector('.team-voices') as HTMLElement;
+    const frame = document.createElement('iframe');
+    frame.style.cssText = 'width:375px;height:1400px;border:0';
+    const head = Array.from(document.querySelectorAll('link[rel="stylesheet"], style'))
+      .map((n) => n.outerHTML)
+      .join('');
+    frame.srcdoc = `<!doctype html><html><head>${head}</head><body>${rows.outerHTML}</body></html>`;
+    const loaded = new Promise<void>((resolve) => frame.addEventListener('load', () => resolve()));
+    frame.title = 'Mobile Vorschau der Team-Stimmen';
+    rows.style.display = 'none';
+    canvasElement.appendChild(frame);
+    await loaded;
+    // Stylesheets per <link> laden asynchron nach dem load-Event des Dokuments nicht mehr nach.
+    const doc = frame.contentDocument as Document;
+    await expect(frame.contentWindow!.matchMedia('(max-width:768px)').matches).toBe(true);
+    const card = doc.querySelectorAll('.team-voices > cds-team-voice')[1];
+    const media = card.querySelector('.team-voice-media') as HTMLElement;
+    const body = card.querySelector('.team-voice-body') as HTMLElement;
+    const m = media.getBoundingClientRect();
+    const b = body.getBoundingClientRect();
+    await expect(
+      getComputedStyle(card.querySelector('.team-voice') as Element).gridTemplateColumns.split(' '),
+    ).toHaveLength(1);
+    await expect(m.bottom).toBeLessThanOrEqual(b.top + 1);
+    await expect(Math.abs(m.left - b.left)).toBeLessThan(1);
+  },
+};
