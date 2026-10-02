@@ -3,7 +3,7 @@ import { within, userEvent, expect, fn } from 'storybook/test';
 import { CompareComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CompareComponent> = {
-  title: 'Komponenten/Tabelle/Vergleichstabelle',
+  title: 'Komponenten/Vergleichstabelle',
   component: CompareComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
@@ -18,7 +18,7 @@ const meta: Meta<CompareComponent> = {
           'Aufklappbare Vergleichstabelle für den zeilenweisen Direktvergleich mehrerer ' +
           'Pakete/Tarife (`.ep-compare*`, css/components.css:1275 bis 1294). Natives ' +
           '`<details>`/`<summary>` (standardmäßig zu), Tastaturbedienung und Toggle kommen vom ' +
-          'Browser. **Mit Daten-Input, anders als `Komponenten/Tabelle/Tabelle` (`cds-table`)**: ' +
+          'Browser. **Mit Daten-Input, anders als `Komponenten/Tabelle` (`cds-table`)**: ' +
           'ausgezählt sind alle 22 Datenzellen des einzigen realen Vorkommens (11 Zeilen × 2 ' +
           'Spalten) entweder ein Ja/Nein-Marker ' +
           '(18×) oder eine kurze Angabe (4×), nie ein Badge oder Link, deshalb `columns`/`rows` ' +

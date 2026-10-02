@@ -3,7 +3,7 @@ import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { CodeBlockComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<CodeBlockComponent> = {
-  title: 'Komponenten/Code-Block/Code-Block',
+  title: 'Komponenten/Code-Block',
   component: CodeBlockComponent,
   tags: ['autodocs', 'angular'],
   parameters: {

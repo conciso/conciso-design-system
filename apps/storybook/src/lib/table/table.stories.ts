@@ -3,7 +3,7 @@ import { userEvent, expect } from 'storybook/test';
 import { TableComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TableComponent> = {
-  title: 'Komponenten/Tabelle/Tabelle',
+  title: 'Komponenten/Tabelle',
   component: TableComponent,
   tags: ['autodocs', 'angular'],
   parameters: {

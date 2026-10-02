@@ -83,7 +83,7 @@ export interface CdsCompareRow {
  * (Play-Funktion: Klick öffnet, `toggled` feuert `true`, ein zweiter, vom Toggle unabhängiger
  * Interaktionsschritt lässt die Tabelle weiterhin offen).
  *
- * Verwendungsguidance dieser Gruppe: siehe Tabelle (`komponenten-tabelle-tabelle--verwendung`).
+ * Verwendungsguidance dieser Gruppe: siehe Tabelle (`komponenten-tabelle--verwendung`).
  */
 @Component({
   selector: 'cds-compare',

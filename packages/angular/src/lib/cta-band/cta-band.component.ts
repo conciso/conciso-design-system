@@ -37,7 +37,7 @@ import type { CdsArea } from '../area';
  * **Entscheidung 3 — `.btn-on-band` + `.btn-filled` direkt komponiert, nicht über
  * `cds-button` projiziert.** `cds-button` KENNT den Modifier
  * (`variant="filled-on-band"`, geprüft über `npx storybook tools docs show --id
- * komponenten-buttons-button` — die Story „Auf Bereichs-Band“ existiert dort
+ * komponenten-button` — die Story „Auf Bereichs-Band“ existiert dort
  * bereits). Trotzdem baut diese Komponente die `.btn`-Klassen direkt zusammen
  * (Präzedenzfall `download-cta.component.ts`), aus einem härteren Grund als dort:
  * `cds-button` rendert IMMER ein `<button>` — sein Input-Vertrag

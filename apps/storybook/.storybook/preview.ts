@@ -60,12 +60,13 @@ const preview: Preview = {
       storySort: {
         // Storybooks Sidebar stellt an jedem Knoten Blätter immer vor Ordner —
         // das kann storySort.order nicht verschränken. Deshalb ist jede Gruppe
-        // mit eigener Doku ein Ordner: erstes Kind ist die Doku-Seite
-        // („Verwendung“ bzw. die selbstbenannte Seite, z. B. „Wissensbeitrag“
-        // neben „FAQ“), danach folgen die Bauteile — auch wenn nur eines
-        // darunterhängt (Buttons/Button, Logo/Logo). Nicht aufgelöst sind
-        // Gruppen, die noch keine Doku-Seite haben; die bleiben unverändert
-        // alphabetisch.
+        // mit eigener Doku und mehreren Bauteilen ein Ordner: erstes Kind ist die
+        // Doku-Seite (die selbstbenannte Seite, z. B. „Wissensbeitrag“ neben
+        // „FAQ“), danach folgen die Bauteile. Eine Sektion mit genau einem
+        // Bauteil ist selbst das Bauteil (Komponenten/Button, Marke/Logo); die
+        // „Verwendung“ hängt per <Meta of> an dessen Stories. Nicht aufgelöst
+        // sind Gruppen, die noch keine Doku-Seite haben; die bleiben
+        // unverändert alphabetisch.
         order: [
           'Marke',
           [
@@ -73,7 +74,7 @@ const preview: Preview = {
             'Brand Areas',
             ['Übersicht', 'AreaTabs', ['Verwendung']],
             'Logo',
-            ['Logo', ['Verwendung']],
+            ['Verwendung'],
             'Bildsprache',
           ],
           'Grundlagen',
@@ -102,8 +103,8 @@ const preview: Preview = {
             // Komponente (ADR-0012), ist also deren Kind, nicht mehr ihr Geschwister.
             // Ausnahme: Buchungsformular hat keine eigene Komponente. Die Seite „Übersicht“
             // steht neben der Story „Vollständiges Formular“ (wie Seminar · Training).
-            'Buttons',
-            ['Button', ['Verwendung']],
+            'Button',
+            ['Verwendung'],
             'Chips, Badges & Pills',
             ['Chip', ['Verwendung'], 'Status-Badge', 'Bereichs-Badge', 'Pill'],
             'Inputs & Forms',
@@ -138,17 +139,19 @@ const preview: Preview = {
             'Call to Action',
             ['CTA-Band', ['Verwendung'], 'DownloadCta'],
             'Tabelle',
-            ['Tabelle', ['Verwendung'], 'Vergleichstabelle'],
+            ['Verwendung'],
+            'Vergleichstabelle',
+            'Fakten-Liste',
             'Zitate & Testimonials',
             ['Blockquote', ['Verwendung'], 'Testimonial', 'TeamVoice'],
             'Code-Block',
-            ['Code-Block', ['Verwendung']],
+            ['Verwendung'],
             'Slider & Carousel',
             ['Carousel', ['Verwendung'], 'LogoCarousel'],
             'Sektion',
-            ['Sektion', ['Verwendung']],
+            ['Verwendung'],
             'Navigation',
-            ['Topnav', ['Verwendung']],
+            ['Verwendung'],
             'Hero',
             ['Hero-Bild', ['Verwendung'], 'Störer'],
             'Footer',
@@ -174,7 +177,6 @@ const preview: Preview = {
             'Veranstaltung',
             'Veranstaltungsübersicht',
             'Seminar · Training',
-            ['Übersicht', 'Fakten-Liste'],
             'Angebots-Detailseite',
           ],
           'Beispielseiten',

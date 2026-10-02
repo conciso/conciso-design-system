@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { LogoComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<LogoComponent> = {
-  title: 'Marke/Logo/Logo',
+  title: 'Marke/Logo',
   component: LogoComponent,
   tags: ['autodocs', 'angular'],
   parameters: {

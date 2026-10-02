@@ -203,7 +203,9 @@ Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und fo
 
 **Die Regel.** Ebene 1 ist die Gruppe (dieselben sechs wie in §11). Ebene 2 ist die Sektion, benannt wie der Nav-Eintrag der Dokumentationsstruktur. Ebene 3 sind ausschließlich echte Angular-Bauteile, Ebene 4 deren Stories. Abschnitte einer Seite gehören nicht in die Seitenleiste, sie stehen im Inhaltsverzeichnis rechts.
 
-**Die Dokumentationsseite ist immer das erste Kind der Sektion.** Wer Stories direkt an die Sektion hängt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Dokumentationsseite ans Ende; deshalb bekommt auch eine Sektion mit nur einem Bauteil eine Bauteil-Ebene (Beispiele: `Komponenten/Buttons/Button`, `Marke/Logo/Logo`).
+**Eine Sektion mit genau einem Bauteil ist selbst das Bauteil.** Es gibt keine Doppelebene: Der Titel lautet `<Gruppe>/<Bauteil>` (Beispiele: `Komponenten/Button`, `Marke/Logo`, `Komponenten/Navigation`), nicht `Komponenten/Buttons/Button` oder `Marke/Logo/Logo`. Eine Gruppe mit mehreren Bauteilen heißt nie wie eines ihrer Kinder. Ein Bauteil, das fachlich nicht zu einer vorhandenen Sektion gehört, steht als eigener Knoten unter der Gruppe (`Komponenten/Tabelle` und `Komponenten/Vergleichstabelle` sind Geschwister, nicht Eltern und Kind).
+
+**Die Dokumentationsseite ist immer das erste Kind der Sektion, wenn die Sektion mehrere Bauteile hat.** Wer Stories direkt an eine Sektion hängt, die weitere Bauteile als Unterordner trägt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Dokumentationsseite ans Ende; deshalb steht dort die Seite als eigenes Blatt vorn (Beispiele: `Seitenmuster/Wissensbeitrag`, `Marke/Brand Areas`). Bei einer Sektion mit nur einem Bauteil tritt das Problem nicht auf: Die Seite „Verwendung“ hängt per `<Meta of>` an den Stories des Bauteils, alle Kinder sind Blätter, und `storySort.order` legt ihre Reihenfolge fest. Eine zusätzliche Bauteil-Ebene wäre dort reiner Ballast.
 
 **Vier Eigenheiten der Seitenleiste**, die jede Umstellung trifft (alle in Storybook 10.6 im Browser gemessen, nicht aus der Doku übernommen):
 

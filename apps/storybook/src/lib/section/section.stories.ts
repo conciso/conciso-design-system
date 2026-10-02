@@ -3,7 +3,7 @@ import { within, expect } from 'storybook/test';
 import { SectionComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<SectionComponent> = {
-  title: 'Komponenten/Sektion/Sektion',
+  title: 'Komponenten/Sektion',
   component: SectionComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
