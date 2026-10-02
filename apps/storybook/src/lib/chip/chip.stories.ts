@@ -56,9 +56,9 @@ export const LesbarerZustand: Story = {
   render: () => {
     const filters = [
       { label: 'Corporate', area: 'co', pressed: true },
-      { label: 'AI.Applied', area: 'ki', pressed: false },
-      { label: 'Engineering', area: 'es', pressed: false },
-      { label: 'Workplace', area: 'wo', pressed: false },
+      { label: 'Angewandte KI', area: 'ki', pressed: false },
+      { label: 'Effektive Software', area: 'es', pressed: false },
+      { label: 'Wirksame Organisationen', area: 'wo', pressed: false },
     ];
     return {
       moduleMetadata: { imports: [ChipComponent] },
@@ -90,12 +90,12 @@ export const LesbarerZustand: Story = {
       'true',
     );
     await expect(canvasElement).toHaveTextContent('Aktiv: Corporate');
-    // Klick auf „AI.Applied“ → Zustand wird ausgelesen und angezeigt.
-    await userEvent.click(c.getByRole('button', { name: 'AI.Applied' }));
-    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, AI.Applied');
+    // Klick auf „Angewandte KI“ → Zustand wird ausgelesen und angezeigt.
+    await userEvent.click(c.getByRole('button', { name: 'Angewandte KI' }));
+    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, Angewandte KI');
     // Erneuter Klick auf „Corporate“ → wieder abgewählt.
     await userEvent.click(c.getByRole('button', { name: 'Corporate' }));
-    await expect(canvasElement).toHaveTextContent('Aktiv: AI.Applied');
+    await expect(canvasElement).toHaveTextContent('Aktiv: Angewandte KI');
   },
 };
 
@@ -109,7 +109,7 @@ export const Zustaende: Story = {
         <cds-chip label="Inaktiv"></cds-chip>
         <cds-chip label="Aktiv" [pressed]="true"></cds-chip>
         <cds-chip area="co" label="Corporate"></cds-chip>
-        <cds-chip area="ki" label="AI.Applied" [pressed]="true"></cds-chip>
+        <cds-chip area="ki" label="Angewandte KI" [pressed]="true"></cds-chip>
       </div>
     `,
   }),
