@@ -28,6 +28,8 @@ export default defineConfig({
     // Testdateien (iframes) teilen. Parallel skaliert eine Datei die Fenster der anderen,
     // die Bildmaße schwanken zwischen Läufen (960 vs. 1200 px Breite) und die Baselines
     // werden in uneinheitlichem Maßstab erzeugt.
+    // Wirkt nur auf Node-Tests: Die inline definierten `projects` erben dieses Root-Feld nicht,
+    // und im Browser-Modus gilt `browser.fileParallelism` des Projekts (siehe unten).
     fileParallelism: process.env.VISUAL !== '1',
     projects: [
       {
@@ -56,6 +58,10 @@ export default defineConfig({
             headless: true,
             provider: playwright(),
             instances: [{ browser: 'chromium' }],
+            // Hier greift die Serialisierung der Visual-Läufe wirklich (Begründung oben beim
+            // Root-Feld): Ohne diese Zeile liefen die Testdateien parallel, obwohl das Root-Feld
+            // gesetzt war, und die Bildmaße schwankten weiter.
+            fileParallelism: process.env.VISUAL !== '1',
             // Fenster-Höhe des äußeren Playwright-Fensters für hohe Visual-Aufnahmen
             // (siehe `fitViewportToHeight` in `.storybook/vitest.setup.ts`).
             commands: {
