@@ -28,7 +28,10 @@ let uid = 0;
  * Verhalten/a11y selbst getragen: Input mit role=combobox (dort ist
  * aria-activedescendant erlaubt), aria-expanded/-controls/-autocomplete; Listbox mit
  * role=listbox/option; ↓ öffnet/navigiert, Enter wählt, Esc schließt, Rücktaste bei
- * leerem Feld entfernt im Multi-Modus den letzten Chip. Beim Schließen ohne Auswahl
+ * leerem Feld entfernt im Multi-Modus den letzten Chip. Die Listbox trägt bei `multi`
+ * `aria-multiselectable`, der Leerzustand ist eine `role=status`-Meldung („Keine Treffer“) außerhalb der Listbox, die dann ausgeblendet ist.
+ * Chips heißen „<Label> entfernen“ und geben den Fokus ins Feld zurück; der Lösch-Button hebt
+ * in der Einzelauswahl die Auswahl auf; der Chevron schaltet das Menü um. Beim Schließen ohne Auswahl
  * fällt die Einzelauswahl auf das gewählte Label zurück (kein loser Filtertext).
  *
  * Als `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,
@@ -72,7 +75,7 @@ let uid = 0;
               <button
                 type="button"
                 class="ep-combobox-token-remove"
-                [attr.aria-label]="'Entfernen: ' + opt.label"
+                [attr.aria-label]="opt.label + ' entfernen'"
                 (click)="removeValue(opt.value, $event)"
               >
                 <ng-icon name="heroXMark" size="14px" aria-hidden="true" />
@@ -91,7 +94,9 @@ let uid = 0;
           [attr.aria-controls]="ids.menu"
           aria-autocomplete="list"
           [attr.aria-activedescendant]="
-            open() && activeIndex() >= 0 ? ids.option(activeIndex()) : null
+            open() && activeIndex() >= 0 && activeIndex() < filtered().length
+              ? ids.option(activeIndex())
+              : null
           "
           [placeholder]="placeholder()"
           [disabled]="disabled()"
@@ -111,11 +116,22 @@ let uid = 0;
             <ng-icon name="heroXMark" size="16px" aria-hidden="true" />
           </button>
         }
-        <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
+        <!-- Chevron ist kein fokussierbares Element, sondern Maus-Komfort; die Tastatur
+             öffnet und schließt über das Input (↓ / Esc). -->
+        <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+        <ng-icon
+          class="ep-select-caret"
+          name="heroChevronDown"
+          size="24px"
+          aria-hidden="true"
+          (click)="toggleMenu($event)"
+        />
       </div>
       <ul
         class="ep-combobox-menu"
         role="listbox"
+        [attr.aria-multiselectable]="multi() || null"
+        [style.display]="filtered().length ? null : 'none'"
         [id]="ids.menu"
         [attr.aria-labelledby]="ids.label"
       >
@@ -136,12 +152,21 @@ let uid = 0;
             {{ opt.label }}
           </li>
         }
-        @if (!filtered().length) {
-          <li class="ep-combobox-empty" role="option" aria-disabled="true" aria-selected="false">
-            {{ emptyText() }}
-          </li>
-        }
       </ul>
+      <!-- Leermeldung außerhalb der Listbox: eine Listbox ohne option-Kind verletzt
+           aria-required-children. Die Listbox bleibt bei 0 Treffern ausgeblendet. Die Live-Region
+         (sr-only) steht dauerhaft im DOM, damit der Wechsel zuverlässig angesagt wird; das sichtbare
+         Panel ist aria-hidden, damit nichts doppelt gelesen wird. -->
+      <div class="sr-only" role="status">
+        @if (!filtered().length) {
+          {{ emptyText() }}
+        }
+      </div>
+      @if (!filtered().length) {
+        <div class="ep-combobox-menu" aria-hidden="true">
+          <div class="ep-combobox-empty">{{ emptyText() }}</div>
+        </div>
+      }
     </div>
   `,
 })
@@ -158,7 +183,7 @@ export class ComboboxComponent implements ControlValueAccessor {
   readonly multi = input(false);
   readonly area = input<CdsArea>();
   readonly placeholder = input('Suchen…');
-  readonly emptyText = input('Kein Treffer');
+  readonly emptyText = input('Keine Treffer');
   /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */
   readonly disabled = model(false);
 
@@ -342,14 +367,44 @@ export class ComboboxComponent implements ControlValueAccessor {
     this.values.set(next);
     this.onChange(next);
     this.onTouched();
+    // Der entfernte Button verschwindet: Fokus ins Feld, sonst fällt er auf body (WCAG 2.4.3).
+    this.focusInput();
   }
 
-  /** @internal */
+  /**
+   * Lösch-Button: leert den Filtertext. In der Einzelauswahl hebt er zusätzlich die Auswahl
+   * auf (sonst stünde ein leeres Feld neben einer weiterhin gewählten Option); im Multi-Modus
+   * bleiben die Chips. Danach Fokus ins Feld und Menü offen.
+   *
+   * @internal
+   */
   protected clear(event?: Event): void {
     event?.stopPropagation();
+    if (!this.multi() && this.value() !== undefined) {
+      this.value.set(undefined);
+      this.onChange('');
+    }
     this.query.set('');
     this.activeIndex.set(0);
     this.focusInput();
+    this.openMenu();
+  }
+
+  /**
+   * Chevron: schließt ein offenes, öffnet ein geschlossenes Menü. `stopPropagation`, sonst
+   * fokussiert der Klick-Handler der Feldfläche das Input und öffnet das Menü sofort wieder.
+   *
+   * @internal
+   */
+  protected toggleMenu(event: Event): void {
+    event.stopPropagation();
+    if (this.disabled()) return;
+    if (this.open()) {
+      this.close();
+    } else {
+      this.focusInput();
+      this.openMenu();
+    }
   }
 
   /** @internal */

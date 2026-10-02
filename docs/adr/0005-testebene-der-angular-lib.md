@@ -108,6 +108,8 @@ DOM-Zugriff im Browser-Test selbst) ist anders. `@storybook/test-runner`, `jest-
 `http-server`, `wait-on`, `concurrently` sowie `test-storybook`/`test-storybook:ci`/
 `test-storybook:visual` sind entfernt.
 
+*Nachtrag:* Der Screenshot zeigt inzwischen nicht mehr `document.body` (Fenstergröße), sondern das Canvas-Element der Story samt Rand; absolut positionierte Überstände werden einbezogen (siehe `.storybook/vitest.setup.ts` und CONTRIBUTING § 13). Die Aussage zu `expect(document.body)` oben beschreibt den Stand der Portierung.
+
 Das ist kein Rückschritt bei der Trennung von Verhalten und Auslieferungs-Vertrag (siehe
 „Entscheidung“ oben) — nur eine einzige Ausführungsschiene statt zwei für denselben Story-Bestand.
 `npm run test:vitest` deckt jetzt Smoke, Interaktion, a11y und (mit `VISUAL=1`) Visual-Regression

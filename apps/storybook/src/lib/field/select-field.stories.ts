@@ -8,6 +8,10 @@ const meta: Meta<SelectFieldComponent> = {
   component: SelectFieldComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2548',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -23,7 +27,7 @@ const meta: Meta<SelectFieldComponent> = {
   },
   args: {
     label: 'Bereich',
-    options: ['Bitte wählen', 'Corporate', 'AI.Applied', 'Eff. Software'],
+    options: ['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software'],
     helper: 'Worum geht es?',
     error: '',
     required: false,
@@ -36,12 +40,33 @@ type Story = StoryObj<SelectFieldComponent>;
 
 export const Interaktiv: Story = {};
 
+export const Fehlerzustand: Story = {
+  args: {
+    error: 'Bitte wähle eine Option.',
+    fieldId: 'demo-area-error',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/Bereich/);
+    const meldung = c.getByText('Bitte wähle eine Option.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', expect.stringContaining(meldung.id));
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
 export const Deaktiviert: Story = {
   args: { fieldId: 'demo-area-disabled', disabled: true },
   parameters: { controls: { disable: true } },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    await expect(c.getByLabelText(/Bereich/)).toBeDisabled();
+    const control = c.getByLabelText(/Bereich/);
+    await expect(control).toBeDisabled();
+    // Sichtbar vom aktiven Zustand unterscheidbar: reduzierte Deckkraft, Sperr-Cursor.
+    const stil = getComputedStyle(control);
+    await expect(Number(stil.opacity)).toBeLessThan(1);
+    await expect(stil.cursor).toBe('not-allowed');
   },
 };
 
@@ -78,7 +103,10 @@ export const Formularbindung: Story = {
     const ctrl = new FormControl('');
     return {
       moduleMetadata: { imports: [SelectFieldComponent, ReactiveFormsModule] },
-      props: { ctrl, options: ['Bitte wählen', 'Corporate', 'AI.Applied', 'Eff. Software'] },
+      props: {
+        ctrl,
+        options: ['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software'],
+      },
       template: `
         <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
           <cds-select-field
@@ -87,7 +115,7 @@ export const Formularbindung: Story = {
             fieldId="form-area"
             [formControl]="ctrl"
           ></cds-select-field>
-          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '(leer)' }}</strong></p>
         </div>
       `,
     };

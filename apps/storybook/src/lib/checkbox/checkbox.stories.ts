@@ -11,6 +11,10 @@ const meta: Meta<CheckboxComponent> = {
   // (preview.ts) lässt sich der echte .ep-page[data-accent]-Kontext zuschalten; dann
   // tönt der CSS-Kern den Link. Bewusst entkoppelt vom `area`-Input der Komponente.
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2245',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -75,6 +79,21 @@ export const Tastatur: Story = {
   },
 };
 
+export const Fokusring: Story = {
+  name: 'Fokusring',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Tastaturfokus zeigt den Marken-Fokusring (box-shadow) statt des Browser-Standardrings.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.tab();
+    const control = c.getAllByRole('checkbox')[0];
+    await expect(control).toHaveFocus();
+    const stil = getComputedStyle(control);
+    await expect(stil.outlineStyle).toBe('none');
+    await expect(stil.boxShadow).not.toBe('none');
+  },
+};
+
 export const LesbarerZustand: Story = {
   name: 'Lesbarer Zustand',
   parameters: {
@@ -87,7 +106,7 @@ export const LesbarerZustand: Story = {
           'Die `cds-checkbox` sind per `[(checked)]` an ein State-Objekt gebunden; ' +
           'jede Änderung emittiert `checkedChange` und aktualisiert die Anzeige. ' +
           'Der Absenden-Button liest die Pflicht-Einwilligung aus und ist erst ' +
-          'aktiv, wenn sie gesetzt ist — genau so konsumiert man `checked` im echten Code.',
+          'aktiv, wenn sie gesetzt ist, genau so konsumiert man `checked` im echten Code.',
       },
     },
   },

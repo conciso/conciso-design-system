@@ -347,13 +347,15 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .team-voice-footer{display:flex;flex-direction:column;gap:var(--s1)}
 .team-voice-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
 .team-voice-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
-.team-voice:nth-child(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
-.team-voice:nth-child(even) .team-voice-media{grid-column:2;grid-row:1}
-.team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:1}
+/* Alternierung: reines CSS (.team-voice direkt unter .team-voices) und Angular, wo jede
+   .team-voice einziges Kind ihres cds-team-voice-Hosts ist und der Host das Reihenglied stellt. */
+.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:2;grid-row:1}
+.team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:1}
 @media(max-width:768px){
-  .team-voice,.team-voice:nth-child(even){grid-template-columns:1fr}
-  .team-voice:nth-child(even) .team-voice-media{grid-column:1;grid-row:1}
-  .team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:2}
+  .team-voice,.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:1fr}
+  .team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:1;grid-row:1}
+  .team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:2}
   /* Gestapelt verbraucht das Quote-Icon eine eigene Zeile + Gaps und frisst viel Höhe.
      Stattdessen Pull-Quote-Stil: 2-Spalten-Grid mit Icon im schmalen linken Gutter, Zitat
      und Footer rechts daneben/darunter ausgerichtet. Icon kleiner, Body-Padding reduziert. */
@@ -404,6 +406,16 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field input::placeholder,.field textarea::placeholder,
 [role="search"] input::placeholder{color:var(--tx-secondary)}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
+/* Deaktivierte Felder: reduzierte Deckkraft und Sperr-Cursor wie bei Custom Select und Combobox
+   (.ep-select.is-disabled). Ohne diese Regel war ein deaktiviertes Feld vom aktiven nicht zu
+   unterscheiden. Das Label zieht per :has() mit, damit das ganze Feld gedämpft wirkt. Deaktivierte
+   Controls sind von WCAG 1.4.3 und 1.4.11 ausgenommen; bei .5 bleibt der Text lesbar. */
+.field input:disabled,.field textarea:disabled,.field select:disabled{opacity:.5;cursor:not-allowed}
+.field:has(input:disabled,textarea:disabled,select:disabled) label{opacity:.5}
+/* Checkbox und Radio (nativ, Angular cds-checkbox und cds-radio-group): Marken-Fokusring statt
+   Browser-Standard. Die Ringe sind zugleich die Fokusanzeige für Tastatur, nicht für Mausklick. */
+input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+input[type="radio"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
 /* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
    --bg-surface, dort erreicht --tx-muted im Dark Mode nur 4,1:1 und verfehlt AA für Kleintext
    (siehe Kontrast-Tabelle in der Doku). --tx-secondary liegt bei 6,3:1 Light / 4,9:1 Dark. */
@@ -746,7 +758,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
    sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
 .footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
 .footer-newsletter-form input[type="text"],
-.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-md);color:var(--tx-primary)}
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-sm);color:var(--tx-primary)}
 /* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
 .footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
 /* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und
@@ -859,7 +871,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
 .field-slider{display:flex;flex-direction:column;gap:var(--s2);--sl-thumb:22px}
 .field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
 .field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
-.field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
+.field-slider-output{white-space:nowrap;font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
 /* Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb-Mittelpunkt läuft von
    --sl-thumb/2 bis (Breite − --sl-thumb/2). Jeder Tick trägt --tick-p (0..1) als
    Bruchteil des Wertebereichs und wird über seiner Mitte zentriert. (Früher
@@ -1087,6 +1099,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
 .logo-carousel.paused .logo-carousel-pause{opacity:1}
 .logo-carousel-pause:hover{color:var(--n-700);box-shadow:var(--e2)}
 .logo-carousel-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-carousel-pause[hidden]{display:none}
 .logo-carousel-pause .icon-play{display:none}
 .logo-carousel.paused .logo-carousel-pause .icon-pause{display:none}
 .logo-carousel.paused .logo-carousel-pause .icon-play{display:block}
@@ -1445,10 +1458,13 @@ a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-r
 .ep-feature-body>.card-cta-link{margin-top:var(--s2)}
 .ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
 .ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
-/* Tier-Trenner: Label + Hairline. Label area-aware (Pro = ki-800, Dark-Override → ki-100). Linie = --bd-strong-Ton (n-200). */
+/* Tier-Trenner: Label + Hairline. Label area-aware: ki = ki-800 (Dark-Override → ki-100), co/es/wo über --XX-ink (flippt im Dark selbst). Linie = --bd-strong-Ton (n-200). */
 .ep-tier{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s6)}
 .ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
+.ep-tier-label[data-area="co"]{color:var(--co-ink)}
 .ep-tier-label[data-area="ki"]{color:var(--ki-800)}
+.ep-tier-label[data-area="es"]{color:var(--es-ink)}
+.ep-tier-label[data-area="wo"]{color:var(--wo-ink)}
 .ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
 /* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
 /* Dekorative Fläche wie .ep-card-icon: ruhiger Tint, das Glyph trägt. */

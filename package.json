@@ -34,6 +34,7 @@
     "test:release": "node --test tools/release/*.test.mjs",
     "story-links": "node tools/ci/story-links.mjs",
     "test:ci": "node --test tools/ci/*.test.mjs",
+    "test:pages-site": "node --test tools/ci/pages-site.test.mjs",
     "format:check": "prettier --check \"**/*.{ts,mts,cts,html}\"",
     "format": "prettier --write \"**/*.{ts,mts,cts,html}\"",
     "lint": "npm run lint:angular-lib && npm run lint:storybook && npm run lint:mcp-server",

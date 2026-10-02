@@ -28,13 +28,13 @@ bleibt ein CSS-Rezept ohne Angular-Komponente.
 
 Attributselektor `[cdsCtaBand]` statt eigenem Element: die Bandfläche ist im Mockup
 ausnahmslos ein Inline-Style direkt am Element (`.ep-cta-band`, Padding
-`var(--s12) var(--s8)`, zentriert) — ein eigenes Element würde denselben „Fläche am
+`var(--s12) var(--s8)`, zentriert), ein eigenes Element würde denselben „Fläche am
 Host“-Fehler reproduzieren, den `docs/adr/0008` für `cds-section` gemessen hat. Der
 Konsument setzt Hintergrund und Schrift deshalb
 weiterhin selbst, auf demselben `<div cdsCtaBand>`, das die Komponente trägt:
 Bereichsfarbe (`--co-700` / `--ki-800` / `--es-700` / `--wo-700`), Schrift `color:#fff`.
 Auf der dunklen Fläche wird der Filled-Button über die zusammengesetzte Modifier-Klasse
-`.btn-on-band` invertiert (weißer Hintergrund, Text in der Bereichsfarbe) — die
+`.btn-on-band` invertiert (weißer Hintergrund, Text in der Bereichsfarbe), die
 Komponente setzt diese Klassen direkt (`cds-button` kennt zwar den Modifier, kann aber
 keinen `<a>` rendern, siehe `cta-band.component.ts`). Die Aktion führt in der
 Regel auf die adaptive Kontaktseite (`data-ep="kontakt"`), nie auf ein Overlay oder

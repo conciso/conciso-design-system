@@ -18,6 +18,10 @@ const meta: Meta<SliderComponent> = {
   component: SliderComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2513',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -83,10 +87,10 @@ export const AutoTicks: Story = {
     template: `
       <div style="display:grid;gap:32px">
         <div style="max-width:520px">
-          <cds-slider sliderId="s-wide" label="Breit — 7 Ticks" [tickCount]="7"></cds-slider>
+          <cds-slider sliderId="s-wide" label="Breit: 7 Ticks" [tickCount]="7"></cds-slider>
         </div>
         <div style="max-width:200px">
-          <cds-slider sliderId="s-narrow" label="Schmal — reduziert" [tickCount]="7"></cds-slider>
+          <cds-slider sliderId="s-narrow" label="Schmal, reduziert" [tickCount]="7"></cds-slider>
         </div>
       </div>
     `,
@@ -101,9 +105,9 @@ export const ProBereich: Story = {
     template: `
       <div style="display:grid;gap:24px;max-width:420px">
         <cds-slider area="co" sliderId="s-co" label="Corporate"></cds-slider>
-        <cds-slider area="ki" sliderId="s-ki" label="AI.Applied"></cds-slider>
-        <cds-slider area="es" sliderId="s-es" label="Eff. Software"></cds-slider>
-        <cds-slider area="wo" sliderId="s-wo" label="Wirks. Orga"></cds-slider>
+        <cds-slider area="ki" sliderId="s-ki" label="Angewandte KI"></cds-slider>
+        <cds-slider area="es" sliderId="s-es" label="Effektive Software"></cds-slider>
+        <cds-slider area="wo" sliderId="s-wo" label="Wirksame Organisationen"></cds-slider>
       </div>
     `,
   }),

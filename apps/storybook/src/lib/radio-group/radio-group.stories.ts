@@ -8,11 +8,15 @@ const meta: Meta<RadioGroupComponent> = {
   component: RadioGroupComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2305',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Optionsfelder für 2–6 sich gegenseitig ausschließende Optionen (mehr → Auswahlfeld, ' +
+          'Optionsfelder für 2 bis 6 sich gegenseitig ausschließende Optionen (mehr → Auswahlfeld, ' +
           'Mehrfachauswahl → Checkbox). Native Radio-Buttons mit Bereichsfarbe (accent-color), ' +
           'gruppiert in fieldset/legend, sodass Screenreader Frage und Optionen als ' +
           'zusammengehörig ansagen. WCAG AA.',
@@ -93,6 +97,21 @@ export const Tastatur: Story = {
   },
 };
 
+export const Fokusring: Story = {
+  name: 'Fokusring',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Tastaturfokus zeigt den Marken-Fokusring (box-shadow) statt des Browser-Standardrings.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.tab();
+    const radio = c.getAllByRole('radio').find((r) => r === document.activeElement);
+    await expect(radio).toBeDefined();
+    const stil = getComputedStyle(radio as HTMLElement);
+    await expect(stil.outlineStyle).toBe('none');
+    await expect(stil.boxShadow).not.toBe('none');
+  },
+};
+
 export const Formularbindung: Story = {
   name: 'Formularbindung',
   parameters: {
@@ -102,7 +121,7 @@ export const Formularbindung: Story = {
       description: {
         story:
           'Die Radio-Gruppe ist ein `ControlValueAccessor` und bindet direkt an ' +
-          'reactive forms (`formControl`) — der Wert lässt sich so auslesen (hier live ' +
+          'reactive forms (`formControl`), der Wert lässt sich so auslesen (hier live ' +
           'angezeigt) und validieren. Ohne Formular geht alternativ `[(value)]`.',
       },
     },
@@ -115,7 +134,7 @@ export const Formularbindung: Story = {
       template: `
         <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
           <cds-radio-group legend="Bevorzugter Kontaktweg" [options]="options" [formControl]="ctrl"></cds-radio-group>
-          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '(leer)' }}</strong></p>
         </div>
       `,
     };

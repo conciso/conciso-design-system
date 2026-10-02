@@ -21,11 +21,15 @@ const meta: Meta<ArticleHeaderComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1610',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Zentrierter Kopf eines Wissensbeitrags (`.article-header`, css/components.css:1486–1519): ' +
+          'Zentrierter Kopf eines Wissensbeitrags (`.article-header`, css/components.css:1486 bis 1519): ' +
           'Breadcrumb, optionale Pill, H1, Lead, Meta-Strip. Hauptvorlage ist ' +
           '`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article Header“. ' +
           'Der Avatar (`div[cdsAvatar]` oder `cds-avatar-stack`) wird über `<ng-content select=' +
@@ -33,7 +37,7 @@ const meta: Meta<ArticleHeaderComponent> = {
           'Breadcrumb-Eintrag rendert immer ohne Link mit `aria-current="page"`, unabhängig von ' +
           'einem dort eventuell gesetzten `href` (siehe Klassendoku). `date`/`dateLabel` bleiben ' +
           'getrennt: `dateLabel` liefert die sichtbare Schreibweise, `date` allein den ' +
-          '`datetime`-Wert — ohne `dateLabel` zeigt das `<time>` das rohe ISO-Datum sichtbar an ' +
+          '`datetime`-Wert; ohne `dateLabel` zeigt das `<time>` das rohe ISO-Datum sichtbar an ' +
           '(bewusst als Warnfall in „Interaktiv“ demonstriert).',
       },
     },

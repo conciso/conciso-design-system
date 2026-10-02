@@ -1,31 +1,35 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, expect } from 'storybook/test';
 import { ArticleFigureComponent } from '@conciso/design-system-angular';
+import { platzhalterBild } from '../../platzhalter';
 
 // Neutraler Inline-SVG-Platzhalter im 16:9-Format (css/components.css:1574:
 // aspect-ratio:16/9), analog zum Muster in hero-image.stories.ts: apps/storybook
 // mountet nur assets/brand als Static-Dir (.storybook/main.ts), assets/images ist
 // dort bewusst nicht eingebunden — ein Pfad wie `assets/images/wissensbeitrag-ki.jpg`
 // würde deshalb in keiner Story auflösen.
-const figurePlaceholder =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1280'%20height='720'%3E%3Crect%20width='1280'%20height='720'%20fill='%23E8EDED'/%3E%3Ctext%20x='640'%20y='360'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EArticle-Figure%2016%3A9%3C/text%3E%3C/svg%3E";
+const figurePlaceholder = platzhalterBild('Bildfläche · 16:9', 1280, 720);
 
 const meta: Meta<ArticleFigureComponent> = {
   title: 'Seitenmuster/Wissensbeitrag/Figure',
   component: ArticleFigureComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4891',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Redaktionelles Inline-Bild mit optionaler Bildunterschrift im Lauftext eines ' +
           'Wissensbeitrags (`.article-figure`/`.article-figcaption`, ' +
-          'css/components.css:1573–1575). `loading="lazy"` ist fest verdrahtet: ausgezählt tragen ' +
+          'css/components.css:1573 bis 1575). `loading="lazy"` ist fest verdrahtet: ausgezählt tragen ' +
           '2 der 3 realen Mockup-Vorkommen dieses Attribut (die beiden Bilder MIT Caption, mittig ' +
           'im Lauftext), das dritte ist ein captionsloses Lead-Bild direkt unter dem Article Header, ' +
           'trägt stattdessen `loading="eager" fetchpriority="high"` ' +
-          'und liegt außerhalb dieses Bauteils — die API sieht dafür kein Input vor. `alt` ' +
+          'und liegt außerhalb dieses Bauteils, die API sieht dafür kein Input vor. `alt` ' +
           "ist Pflicht, `caption` Beiwerk mit Default `''` (kein `<figcaption>` ohne Text).",
       },
     },

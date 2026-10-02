@@ -110,10 +110,46 @@ identisch mit `.field label` (Uppercase, `--ty-label-sm`, letter-spacing .06em,
 | Klasse | Rolle | Hinweis |
 |---|---|---|
 | `.footer-newsletter-form` | Form-Container | Submit-Button via `align-self:flex-start` auf natürliche Pill-Breite |
-| `.footer-field` | Feld-Wrapper (`<label>`) | Implizite Label-Input-Verknüpfung, keine `for`/`id`-Paare nötig |
+| `.footer-field` | Feld-Wrapper (`<label>`) | Implizite Label-Input-Verknüpfung, keine `for`/`id`-Paare nötig. Der Footer kann mehrfach gleichzeitig im DOM stehen (etwa in mehreren Tabpanels), feste `id`s würden dann doppelt vergeben |
 | `.footer-field-label` | Sichtbarer Label-Text | `--ty-label-sm`, Uppercase, letter-spacing .06em |
 | `.footer-field.has-error` | Inline-Validierungs-State | Border kippt auf `--c-error`, Fehlertext via `.error-msg` |
 | `.footer-newsletter-consent` | DSGVO-Checkbox-Zeile | Sitzt zwingend vor dem Submit |
+
+Gegenüber der Standard-Form (`.field`) gilt:
+
+| Aspekt | Footer-Form | Standard-Form |
+|---|---|---|
+| Feld-Border | 1 px | 2 px |
+| Feldschrift | 14 px (`--ty-body-sm`) | 16 px (`--ty-body-md`) |
+| Feld-Label | `--ty-label-sm`, Uppercase, letter-spacing .06em, `--tx-secondary` | identisch |
+| Feld-Hintergrund | `--bg-surface` (Dark-Mode-tauglich) | identisch |
+| Fokusring | `--focus-ring` (Dual-Shadow, AA-kompatibel) | identisch |
+| Fehlerzustand | Border auf `--c-error`, Fehlertext über `.error-msg` direkt unter dem Input | gleiche Border |
+| Fehlertext (`.error-msg`) | `--ty-body-sm`, Abstand zum Input und zwischen Icon und Text `--s2` | `--ty-label-sm`, Abstand `--s1` |
+
+Das Markup der Form, mit sichtbaren Labels, Consent vor dem Submit und dem Rechtstext als echtem Link:
+
+<HtmlBeispiel titel="Contentletter-Form im Footer">
+
+```html
+<form class="footer-newsletter-form" aria-label="Contentletter-Anmeldung">
+  <label class="footer-field">
+    <span class="footer-field-label">Dein Vorname</span>
+    <input type="text" placeholder="Maria" autocomplete="given-name">
+  </label>
+  <label class="footer-field">
+    <span class="footer-field-label">Deine E-Mail <span class="req" aria-hidden="true">*</span></span>
+    <input type="email" placeholder="name@unternehmen.de" autocomplete="email" aria-required="true" required>
+  </label>
+  <label class="footer-newsletter-consent">
+    <input type="checkbox" required>
+    <span>Einverstanden mit den <a class="body-link" href="#">Datenschutzhinweisen</a></span>
+  </label>
+  <button type="submit" class="btn btn-filled btn-co">Abonnieren</button>
+</form>
+```
+
+</HtmlBeispiel>
 
 Der Rechtstext in der Einwilligung ist ein echtes `<a class="body-link">`, nie ein
 `<span>` mit `cursor:pointer` (CONTRIBUTING § 8): Ein Span ist per Tab nicht erreichbar
@@ -149,6 +185,9 @@ die eine zweite konkurrierende Headline-Ebene innerhalb einer Spalte vermeidet.
 - Datenschutz und Impressum linksbündig in der Bottom-Bar setzen, verhindert Kollision mit dem sticky Back-to-Top-Button rechts unten
 - Consent vor Submit in der Contentletter-Form platzieren, Tab- und Klickpfad führt durch die Einwilligung, bevor abgesendet wird (DSGVO und Trust)
 - Spalten-Headlines (`.footer-brand`, `.footer-htitle`) in Title-sm halten, Mixed Case, Sans 500, 18 px, der Footer ist Wiederfindungs-Zone, keine Headline-Bühne
+- Externe Karten-Links (`target="_blank"`) mit `rel="noopener"` und einem `aria-label` versehen, das Ziel und „neues Tab“ nennt
+- Social-Icons ohne sichtbaren Text mit `aria-label` auf dem `<a>` versehen, das Icon-Bild selbst bekommt `alt=""`
+- Den Rechtstext in der Einwilligung als echten Link (`<a class="body-link">`) setzen
 
 **Nicht tun**
 
@@ -158,6 +197,9 @@ die eine zweite konkurrierende Headline-Ebene innerhalb einer Spalte vermeidet.
 - Mehr als etwa 8 Items in der Wichtige-Inhalte-Liste führen, der Footer würde zur Mini-Sitemap, tiefere Inhalte gehören auf den jeweiligen Bereichs-Hub
 - Datenschutz und Impressum rechts in der Bottom-Bar oder in der Wichtige-Inhalte-Spalte platzieren, sie gehören in den dunklen Bottom-Streifen linksbündig
 - Footer ohne Copyright-Jahr und Firmennamen ausliefern, beide sind rechtlich relevant und müssen aktuell sein
+- Karten-Links mit `target="_blank"` ohne `rel="noopener"` und ohne `aria-label` ausliefern, der Wechsel in ein neues Tab bleibt sonst unangekündigt
+- Social-Icons als Bild-Link ohne `aria-label` setzen oder dem Icon-Bild einen `alt`-Text geben, der Linkname käme doppelt
+- Den Rechtstext der Einwilligung als `<span>` mit `cursor:pointer` bauen, ein Span ist per Tab nicht erreichbar und für Screenreader kein Link
 
 ## Verwandte Seiten
 

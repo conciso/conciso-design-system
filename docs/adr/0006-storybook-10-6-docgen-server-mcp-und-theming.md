@@ -66,7 +66,7 @@ in Docs-Props-Tabelle und Controls-Panel auf; vorher waren sie unsichtbar.
   Theme-Switcher-Komponenten der Lib synchron läuft. `withThemeByDataAttribute` kennt nur
   feste Werte, kein „system“, und wäre ein zweiter Schreiber von `data-theme`. Kein
   Mehrwert, echtes Konfliktrisiko.
-- **`@storybook/addon-designs`.** Kein Figma-Bezug im Repo.
+- **`@storybook/addon-designs`.** Kein Figma-Bezug im Repo. Überholt durch [ADR-0015](0015-figma-links-an-stories.md).
 - **`framework.options.propsTable: 'inputs'`** als Alternative zu Punkt 3: blendet auch
   Outputs aus, die echte API sind.
 - **Globaler `argTypesEnhancer` in `preview.ts`** als Alternative zu Punkt 3 (erster Versuch):

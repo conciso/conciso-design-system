@@ -7,6 +7,10 @@ const meta: Meta<ThemeCycleComponent> = {
   component: ThemeCycleComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5234',
+    },
     docs: {
       description: {
         component:
@@ -47,19 +51,13 @@ export const KlickZyklus: Story = {
     const original = themeStore.mode();
     try {
       themeStore.set('light');
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: Dunkel — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Dunkel, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: System — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: System, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
     } finally {
       themeStore.set(original);
     }
@@ -77,14 +75,11 @@ export const KlickZyklusBinaer: Story = {
     const original = themeStore.mode();
     try {
       themeStore.set('light');
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute(
-        'aria-label',
-        'Farbthema: Dunkel — klicken zum Wechseln',
-      );
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Dunkel, klicken zum Wechseln');
       await userEvent.click(button);
-      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell — klicken zum Wechseln');
+      await expect(button).toHaveAttribute('aria-label', 'Farbthema: Hell, klicken zum Wechseln');
     } finally {
       themeStore.set(original);
     }

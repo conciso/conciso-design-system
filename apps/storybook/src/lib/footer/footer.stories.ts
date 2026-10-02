@@ -14,6 +14,10 @@ const meta: Meta<FooterComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-2244',
+    },
     layout: 'fullscreen',
     // Projektions-Kompositionen ohne passende Baseline (visual.yml noch nicht auf main)
     // → skip; nach dem Merge Baseline erzeugen.
@@ -24,7 +28,7 @@ const meta: Meta<FooterComponent> = {
           '`<footer>`-Landmark, das die zwei Bänder projiziert. „Website-Footer“ zeigt die ' +
           'volle Marketing-Zusammensetzung (Adresse/Nav/Newsletter im generischen ' +
           '`cds-footer-main` + `cds-footer-bottom`); „App-Footer“ den schlanken Fall für ' +
-          '(interne) SPAs — nur der untere Streifen mit Copyright + Rechtslinks.',
+          '(interne) SPAs: nur der untere Streifen mit Copyright + Rechtslinks.',
       },
     },
   },

@@ -25,12 +25,16 @@ const meta: Meta<FeatureComponent> = {
   component: FeatureComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3235',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Offene Feature-Zeile ohne Box und ohne Schatten: Icon-Kachel links, Titel und Text ' +
-          'rechts (`.ep-feature`, css/components.css:1363–1379), die auf den Beispielseiten meist ' +
+          'rechts (`.ep-feature`, css/components.css:1363 bis 1379), die auf den Beispielseiten meist ' +
           'als Drei- oder Vierspalter im `.layout-grid` auftritt. Attributselektor `[cdsFeature]` ' +
           'statt eigenem Element: der Konsument schreibt `<div cdsFeature class="col-4">`, ' +
           '`.ep-feature` sitzt damit selbst auf dem Grid-Kind (siehe „Dreispalter“). Das Icon kommt ' +
@@ -38,8 +42,8 @@ const meta: Meta<FeatureComponent> = {
           'Container und reicht Größe UND Farbe per Nachfahren-Selektor durch, das projizierte ' +
           '`<svg>` braucht deshalb weder eine eigene Größenklasse noch einen eigenen Bereichston ' +
           '(`stroke="currentColor"` genügt, siehe „Interaktiv“). Der optionale CTA ' +
-          '(`.card-cta-link`, direktes Kind von `.ep-feature-body`) ist ein echter `<a>` mit `href` ' +
-          '— OHNE `ctaHref` ein `<span>` mit identischer Optik, nie ein `<a>` ohne `href` (siehe ' +
+          '(`.card-cta-link`, direktes Kind von `.ep-feature-body`) ist ein echter `<a>` mit `href`; ' +
+          'OHNE `ctaHref` ein `<span>` mit identischer Optik, nie ein `<a>` ohne `href` (siehe ' +
           '„Mit CTA“ und „Ohne Href“). `ctaAriaLabel` überschreibt bei Bedarf den zugänglichen Namen, ' +
           'wenn derselbe sichtbare CTA-Text mehrfach auf einer Seite steht (siehe „Mit CTA“).',
       },

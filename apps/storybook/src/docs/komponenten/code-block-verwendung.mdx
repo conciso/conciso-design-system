@@ -25,7 +25,7 @@ die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
 |---|---|
 | Semantik | `<pre><code>` als Grundgerüst, Screenreader kündigen den Inhalt als „Code“ an; `<pre>` allein reicht nicht |
 | Scrollbarkeit | Scrollbare `<pre>`-Blöcke mit `tabindex="0"` versehen, sonst per Tastatur nicht erreichbar |
-| Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren **stabil** — ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`role="status"`, `.sr-only`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an |
+| Copy-Button | `aria-label="Code kopieren"` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren **stabil**: ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`role="status"`, `.sr-only`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an |
 
 ## Dos & Don'ts
 
@@ -35,6 +35,7 @@ die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
 - Zeilennummern nur ab etwa 10 Zeilen beziehungsweise wenn der Begleittext explizit auf Zeilen verweist (zum Beispiel „Zeile 8 setzt den Radius“)
 - Terminal-Variante für alle Shell-Befehle und Ausgaben, der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt
 - Copy-Button immer einbauen mit `aria-label`, Leser kopieren Code häufiger als sie ihn abtippen
+- Die Erfolgsmeldung des Copy-Buttons über eine Live-Region melden, die von Anfang an im DOM steht (`role="status"`, `.sr-only`), und nur deren Text wechseln, das `aria-label` des Buttons bleibt unverändert
 - `<pre><code>` als semantisches Grundgerüst verwenden
 - Code-Block immer mit einer kurzen Einleitung im Fließtext versehen, Kontext vor dem Block, nicht danach
 
@@ -46,7 +47,9 @@ die Klassen `.cb-numbered` und `.cb-prose`), kein eigenes Bauteil je Variante.
 - Terminal und Code-Block mischen, Shell-Befehle und Programm-Code gehören in getrennte Blöcke
 - Eigene Hintergrundfarben außerhalb der Token setzen, bricht Konsistenz und Dark-Mode-Kompatibilität
 - Code ohne Sprachkennzeichnung ausliefern, Syntax-Highlighting und Screenreader-Kontext fehlen dann
-- Zu lange Zeilen ohne Umbruch oder Block-Code direkt im Fließtext ohne visuellen Abstand
+- Zu lange Zeilen ohne Umbruch, lieber aufteilen als horizontal scrollen lassen
+- Block-Code direkt im Fließtext ohne visuellen Abstand setzen, der Block hält `margin: var(--s3) 0` ein (`.cb-wrap` bringt ihn mit, ein eigenes `margin: 0` am Block hebt ihn auf)
+- Das `aria-label` des Copy-Buttons nach dem Kopieren austauschen oder die Live-Region erst beim Klick erzeugen, viele Screenreader kündigen eine nachträglich entstandene Region nicht an
 
 ## Verwandte Seiten
 

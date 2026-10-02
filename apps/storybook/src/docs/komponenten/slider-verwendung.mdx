@@ -6,7 +6,7 @@ import * as CarouselStories from '../../lib/carousel/carousel.stories';
 # Verwendung
 
 Slider & Carousel führt zwei getrennte Formen: das Bild-Carousel zur Seiten-Integration
-(Story `Carousel`) und das Kundenlogo-Karussell (Story `LogoCarousel`) als CSS-Laufband.
+(Story `Carousel`) und das Kundenlogo-Karussell (Story `LogoCarousel`) als pausierbares Crossfade-Karussell.
 Beide sind WCAG 2.1 AA konform und respektieren `prefers-reduced-motion`. Die
 Slider-Hero-Variante für den Seitenkopf ist unter Komponenten/Hero dokumentiert.
 
@@ -23,16 +23,17 @@ Basis-Klasse `.img-slider`. Übergang per Crossfade über 600 ms; unter
 |---|---|
 | `role="region"` | Semantischer Landmark für den gesamten Slider |
 | `aria-roledescription` | „Bildschirmpräsentation“, Screenreader liest den Typ vor |
+| `aria-label` auf der Region | Benennt die Bildstrecke („Bildstrecke“ als Standard). Gibt es mehrere Bildstrecken auf einer Seite, trägt jede einen eigenen, unterscheidbaren Namen, sonst sind die Landmarks nicht auseinanderzuhalten. Im Angular-Bauteil setzt das der Input `label` |
 | `role="group"` auf Slide | Fasst Bild und Caption je Folie zusammen |
-| `aria-hidden="true"` | Inaktive Slides werden übersprungen (setzt JS) |
+| `aria-hidden` | Inaktive Slides tragen `aria-hidden="true"` und werden übersprungen, die aktive Slide trägt `aria-hidden="false"` und `.active` (setzt JS) |
 | `aria-label` auf Button | „Vorherige / Nächste Folie“, kein Icon-only |
-| `role="tablist"` Dots | Dot-Navigation als Tab-Gruppe, bekanntes Tastatur-Pattern |
+| `role="tablist"` Dots | Dot-Navigation als Tab-Gruppe, bekanntes Tastatur-Pattern. Der aktive Dot trägt `aria-selected="true"` und `tabindex="0"`, die übrigen `aria-selected="false"` und `tabindex="-1"` (Roving-Tabindex) |
 
 | Taste | Funktion |
 |---|---|
-| ← | Vorherige Folie |
-| → | Nächste Folie |
-| Tab | Fokus auf Prev/Next-Button oder Dot |
+| ← | Vorherige Folie, wirkt auf dem gesamten Slider und läuft von der ersten zur letzten Folie um |
+| → | Nächste Folie, wirkt auf dem gesamten Slider und läuft von der letzten zur ersten Folie um |
+| Tab | Fokus auf Prev/Next-Button, dann auf den aktiven Dot (Roving-Tabindex) |
 | Enter / Space | Dot oder Button aktivieren |
 
 ### Dos & Don'ts
@@ -49,12 +50,74 @@ Basis-Klasse `.img-slider`. Übergang per Crossfade über 600 ms; unter
 - Mehr als 6 bis 7 Slides, Nutzende verlieren die Orientierung, lieber eine separate Galerie verwenden
 - Kartentypen oder Seitenverhältnisse innerhalb eines Carousels mischen, einheitliche Bildgröße halten
 
+## Bild-Carousel · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Die erste Folie trägt `.active` und `aria-hidden="false"`, damit beim Laden ohne Skript etwas sichtbar ist. Der erste Dot trägt `.active`, `aria-selected="true"` und `tabindex="0"`. Jede Folie bekommt eine eindeutige `id`, auf die der `aria-controls` des zugehörigen Dots zeigt.
+
+<HtmlBeispiel titel="Bild-Carousel als reines Markup">
+
+```html
+<div class="img-slider" role="region" aria-roledescription="Bildschirmpräsentation" aria-label="Kundenprojekte">
+  <div class="img-slider-track">
+    <div class="img-slide active" id="img-slide-1" role="group" aria-roledescription="Folie" aria-label="Folie 1 von 3" aria-hidden="false">
+      <div class="img-slide-media">
+        <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
+      </div>
+      <div class="img-slide-caption">
+        <p class="img-slide-caption-title">Markenstrategie für die Energiewende</p>
+        <p class="img-slide-caption-text">Corporate · Rebranding und Kommunikationssystem für einen regionalen Energieversorger.</p>
+      </div>
+    </div>
+    <div class="img-slide" id="img-slide-2" role="group" aria-roledescription="Folie" aria-label="Folie 2 von 3" aria-hidden="true">
+      <div class="img-slide-media">
+        <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
+      </div>
+      <div class="img-slide-caption">
+        <p class="img-slide-caption-title">KI-gestütztes Berichtswesen</p>
+        <p class="img-slide-caption-text">Angewandte KI · Automatisierte Auswertung von Produktionsdaten für ein Fertigungsunternehmen.</p>
+      </div>
+    </div>
+    <div class="img-slide" id="img-slide-3" role="group" aria-roledescription="Folie" aria-label="Folie 3 von 3" aria-hidden="true">
+      <div class="img-slide-media">
+        <img src="platzhalter.svg" alt="Kurze Bildbeschreibung">
+      </div>
+      <div class="img-slide-caption">
+        <p class="img-slide-caption-title">Cloud-Migration einer Versicherungsplattform</p>
+        <p class="img-slide-caption-text">Effektive Software · Ablösung eines Legacy-Systems durch eine skalierbare Microservice-Architektur.</p>
+      </div>
+    </div>
+  </div>
+  <button class="img-slider-btn img-slider-prev" type="button" aria-label="Vorherige Folie">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="img-slider-btn img-slider-next" type="button" aria-label="Nächste Folie">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
+    <button class="img-dot active" type="button" role="tab" aria-selected="true" aria-controls="img-slide-1" aria-label="Folie 1 von 3" tabindex="0"></button>
+    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-controls="img-slide-2" aria-label="Folie 2 von 3" tabindex="-1"></button>
+    <button class="img-dot" type="button" role="tab" aria-selected="false" aria-controls="img-slide-3" aria-label="Folie 3 von 3" tabindex="-1"></button>
+  </div>
+</div>
+```
+
+</HtmlBeispiel>
+
+Der Wechsel kommt aus einem Skript, die CSS-Schicht liefert nur die Darstellung. Jede Umsetzung ergänzt:
+
+- Bei jedem Wechsel (Prev, Next, Dot-Klick, Pfeiltaste) trägt genau eine Folie `.active` und `aria-hidden="false"`, alle anderen `aria-hidden="true"` ohne `.active`.
+- Jeder Dot trägt `aria-controls` mit der `id` seiner Folie. Die `id`s sind auf der Seite eindeutig.
+- Der Dot der aktiven Folie trägt `.active`, `aria-selected="true"` und `tabindex="0"`, alle anderen `aria-selected="false"` und `tabindex="-1"`.
+- Der Wechsel läuft um: Prev auf der ersten Folie springt zur letzten, Next auf der letzten zur ersten.
+- Die Pfeiltasten ← und → wirken auf dem gesamten Slider, nicht nur auf den Dots, und unterdrücken das Standardverhalten der Taste.
+- Es gibt keinen Auto-Wechsel. Wer einen ergänzt, braucht einen Pause-Button (siehe Kundenlogo-Karussell).
+
 ## Kundenlogo-Karussell · Verwendung
 
 Diskrete Sets von je 5 Logos, die alle 6 Sekunden per Crossfade wechseln. Pausiert
 automatisch bei Hover und Tastatur-Fokus, zusätzlich manueller Pause-Button (WCAG
 2.2.2). Pagination-Dots erlauben gezieltes Springen, Tastatur-Navigation über Pfeil-,
-Home- und End-Taste. Die Logos sitzen randlos auf einer hellen Platte (`--bg-plate`),
+Home- und End-Taste; Dot-Klick und Tastaturbedienung pausieren dauerhaft. Die Logos sitzen randlos auf einer hellen Platte (`--bg-plate`),
 die in beiden Themes hell bleibt, weil Kundenlogos meist nur in einer farbigen
 beziehungsweise dunklen Fassung ohne Dark-Variante vorliegen. Kein Hover-Effekt, da die
 Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
@@ -63,12 +126,12 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 
 | Attribut | Zweck |
 |---|---|
-| `role="region"` + `aria-roledescription` | Semantischer Landmark mit Karussell-Hinweis für Screenreader |
+| `role="region"` + `aria-roledescription` + `aria-label` | Semantischer Landmark mit Karussell-Hinweis für Screenreader, benannt „Kundenlogos“. Mehrere Karussells auf einer Seite brauchen unterscheidbare Namen, im Angular-Bauteil über den Input `label` |
 | `aria-hidden` | Inaktive Sets werden Screenreader-seitig ausgeblendet, nur das sichtbare Set wird vorgelesen |
 | `role="group"` pro Set | Logos als Gruppe gebündelt mit eigenem `aria-label` („Set 1 von 2“) |
 | `role="tablist"` + `role="tab"` | Pagination-Dots als Tab-Pattern, `aria-selected` markiert das aktive Set, Roving-Tabindex |
-| `aria-pressed` auf Pause-Button | Toggle-State (pausiert / läuft) für Screenreader hörbar |
-| Tastatur-Navigation | Pfeil-Tasten wechseln Sets, Home / End springen zum ersten / letzten Set, Pause via Space oder Enter |
+| `aria-label` auf Pause-Button | Das Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“ und macht den Zustand hörbar. Der Button trägt bewusst kein `aria-pressed`, damit der Zustand nicht doppelt angesagt wird |
+| Tastatur-Navigation | Auf den Dots wechseln ←/↑ zum vorherigen und →/↓ zum nächsten Set, Home / End springen zum ersten / letzten Set; jede dieser Tasten und der Dot-Klick pausieren dauerhaft. Pause-Button via Space oder Enter |
 | `prefers-reduced-motion` | Auto-Rotation und Crossfade deaktiviert, Set 1 bleibt statisch sichtbar, Dots bleiben nutzbar |
 
 ### Dos & Don'ts
@@ -86,6 +149,53 @@ Logos nicht verlinkt sind, ein Lift würde fälschlich Klickbarkeit suggerieren.
 - Mehr als 3 Sets vermeiden, ab 4 Sets wird die Pagination unübersichtlich und wirkt zu werblich
 - Intervall unter 5 Sekunden setzen, gibt Lesenden keine Zeit, ein Logo aufzunehmen
 
+## Kundenlogo-Karussell · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, setzt dieses Markup ein. Das erste Set trägt `aria-hidden="false"`, der erste Dot `aria-selected="true"` und `tabindex="0"`. Jedes Set bekommt eine eindeutige `id` für die `aria-controls`-Verknüpfung der Dots.
+
+<HtmlBeispiel titel="Kundenlogo-Karussell als reines Markup">
+
+```html
+<div class="logo-carousel" role="region" aria-roledescription="Logo-Karussell" aria-label="Kundenlogos">
+  <button class="logo-carousel-pause" type="button" aria-label="Logo-Animation pausieren">
+    <svg class="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="2" y="2" width="3.5" height="10" rx="1" fill="currentColor"/><rect x="8.5" y="2" width="3.5" height="10" rx="1" fill="currentColor"/></svg>
+    <svg class="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><polygon points="3,2 12,7 3,12" fill="currentColor"/></svg>
+  </button>
+  <div class="logo-carousel-track">
+    <div class="logo-carousel-slide" id="logo-set-1" role="group" aria-roledescription="Logo-Set" aria-label="Set 1 von 2" aria-hidden="false">
+      <div class="logo-tile"><span class="logo-placeholder">Muster<br>AG</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Digital<br>Hub</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Infra<br>Base SE</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Build<br>GmbH</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Alpha<br>Corp.</span></div>
+    </div>
+    <div class="logo-carousel-slide" id="logo-set-2" role="group" aria-roledescription="Logo-Set" aria-label="Set 2 von 2" aria-hidden="true">
+      <div class="logo-tile"><span class="logo-placeholder">Strateg<br>&amp; Co.</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">KI<br>Ventures</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Dev<br>Works</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Helios<br>GmbH</span></div>
+      <div class="logo-tile"><span class="logo-placeholder">Konzern<br>AG</span></div>
+    </div>
+  </div>
+  <div class="logo-carousel-dots" role="tablist" aria-label="Logo-Set auswählen">
+    <button class="logo-carousel-dot" type="button" role="tab" aria-selected="true" aria-controls="logo-set-1" aria-label="Set 1 von 2" tabindex="0"></button>
+    <button class="logo-carousel-dot" type="button" role="tab" aria-selected="false" aria-controls="logo-set-2" aria-label="Set 2 von 2" tabindex="-1"></button>
+  </div>
+</div>
+```
+
+</HtmlBeispiel>
+
+Rotation, Pause und Tastatur kommen aus einem Skript, die CSS-Schicht liefert nur Darstellung und Crossfade über `[aria-hidden]`. Jede Umsetzung ergänzt:
+
+- Mit weniger als zwei Sets passiert nichts: kein Timer, keine Dots-Logik.
+- Alle 6 Sekunden zeigt das nächste Set, nach dem letzten wieder das erste. Bei `prefers-reduced-motion: reduce` startet kein Timer, die Einstellung wird beim Start ausgewertet. Weil dann nichts läuft, das sich pausieren ließe, bleibt der Pause-Button versteckt (`hidden`), statt einen Lauf zu behaupten.
+- Bei jedem Wechsel trägt genau ein Set `aria-hidden="false"` (alle anderen `"true"`) und genau ein Dot `aria-selected="true"` und `tabindex="0"` (alle anderen `"false"` und `"-1"`).
+- Die Rotation hält an, solange die Maus über dem Karussell liegt oder der Fokus darin steht. Nach Hover- oder Fokus-Ende läuft sie nur weiter, wenn nicht manuell pausiert wurde. Fokus-Ende zählt nur, wenn der Fokus das Karussell wirklich verlässt, nicht beim Wechsel zwischen Kind-Elementen.
+- Manuell pausiert ist das Karussell über die Klasse `.paused` am Karussell, sie schaltet auch Pause- und Play-Icon um. Der Pause-Button schaltet um. Sein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“, ein `aria-pressed` setzt er nicht, sonst würde der Zustand doppelt angesagt. Fortsetzen startet die Rotation wieder.
+- Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft, nicht nur bei Tastaturbedienung.
+- Auf den Dots wechseln ← und ↑ zum vorherigen, → und ↓ zum nächsten Set, mit Umlauf (erstes ↔ letztes). Home springt zum ersten, End zum letzten Set. Jede dieser Tasten unterdrückt das Standardverhalten, setzt den Fokus auf den neu aktiven Dot und pausiert dauerhaft.
+
 ## Bewegungs-Anforderung (prefers-reduced-motion)
 
 Die globale Barrierefreiheits-Sektion (Grundlagen/Barrierefreiheit) hält für
@@ -94,7 +204,7 @@ Die globale Barrierefreiheits-Sektion (Grundlagen/Barrierefreiheit) hält für
 zurück (WCAG 2.3.3 AAA). Für die beiden Karussell-Typen gilt zusätzlich:
 
 - **Bild-Carousel:** die Crossfade-Transition (600 ms) entfällt automatisch, keine gesonderte Handhabung im Markup nötig.
-- **Kundenlogo-Karussell:** bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel; die Pagination-Dots bleiben bedienbar.
+- **Kundenlogo-Karussell:** bei aktiver Reduktion bleibt das erste Set sichtbar, ohne Auto-Wechsel und ohne Pause-Button; die Pagination-Dots bleiben bedienbar.
 
 Von der Ausnahme unberührt bleibt der 2-Pixel-Hover-Lift auf klickbaren Karten und dem
 Störer: Er läuft auch unter `prefers-reduced-motion: reduce` weiter, weil er reine

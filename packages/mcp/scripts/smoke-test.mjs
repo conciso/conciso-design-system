@@ -114,6 +114,24 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Custom Select für eine Ja/Nein- oder Zwei-Optionen-Wahl, dafür sind Radios oder ein nativer Select besser.',
   },
   {
+    id: 'komponenten-inputs-forms-textfeld',
+    sentence: 'Bei `co` wird das Attribut entfernt, Corporate ist der Default und braucht keinen Scope',
+    additionalSentence: 'Fehlerzustand · Nur CSS-Schicht',
+  },
+  {
+    id: 'komponenten-dropdowns-custom-select',
+    sentence: 'Pfeil runter und hoch wandern durch die Optionen und stoppen an den Enden, es gibt keinen Umlauf',
+    additionalSentence: 'Combobox · Nur CSS-Schicht',
+  },
+  {
+    // Buchungsformular hat keine Komponente und bleibt eine eigenständige Seite. Die
+    // Datenschutzbeauftragten stehen nur als Rolle da, nie mit Namen oder E-Mail-Adresse.
+    id: 'komponenten-buchungsformular--übersicht',
+    sentence: 'In anderer Reihenfolge schreibt man in Felder, die es noch nicht gibt',
+    additionalSentence: 'Buchungsformular · Nur CSS-Schicht',
+    absentSentence: 'datenschutz@conciso.de',
+  },
+  {
     id: 'komponenten-feedback-snackbar',
     sentence: 'Feldfehler inline direkt unter dem Eingabefeld zeigen, Snackbar nur für globale Submit-Fehler.',
     additionalSentence: 'Scroll-Sperre',
@@ -121,6 +139,14 @@ const GROUP_USAGE_CHECKS = [
   {
     id: 'komponenten-cards-teaser-card',
     sentence: 'Card-Text auf max. 2 Sätze begrenzen, prägnant und scanbar, kein Fließtext.',
+  },
+  {
+    id: 'komponenten-cards-teaser-card',
+    sentence: 'Relative Zahlen (Prozentsätze, Faktoren wie „3×“) brauchen im `card-stat-label` einen Hinweis auf die Bezugsgröße.',
+  },
+  {
+    id: 'komponenten-cards-teaser-card',
+    sentence: 'Ein generisches „Mehr erfahren →“ mehrfach nebeneinander wirkt repetitiv',
   },
   {
     id: 'komponenten-call-to-action-cta-band',
@@ -144,6 +170,16 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Kein Auto-Play ohne Pause-Button, WCAG 2.1 Kriterium 2.2.2 verbietet unkontrollierte Bewegung',
   },
   {
+    id: 'komponenten-slider-carousel-carousel',
+    sentence: 'Die Pfeiltasten ← und → wirken auf dem gesamten Slider, nicht nur auf den Dots',
+    additionalSentence: 'Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft',
+  },
+  {
+    id: 'marke-brand-areas-areatabs',
+    sentence: 'Tabs als Navigation zwischen Seiten einsetzen',
+    additionalSentence: 'Roving-Tabindex',
+  },
+  {
     id: 'komponenten-sektion-sektion',
     sentence: 'Die Fläche gehört der Seite, nicht dem Bauteil.',
   },
@@ -152,8 +188,37 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen',
   },
   {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Ein Klick auf den Caret bricht beide Timer ab, sonst öffnet ein Rest-Timer ein per Klick geschlossenes Menü wieder.',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Unter 760 px zeigt das CSS den Hamburger-Button und klappt `.ep-nav-links` unter dem Logo auf',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht.',
+  },
+  {
+    id: 'komponenten-navigation-topnav',
+    sentence: 'Ein Scroll-Listener schaltet `.visible` ab `scrollY > 400`.',
+  },
+  {
+    id: 'komponenten-theme-umschalter-cycle-button',
+    sentence: 'Nie erst entfernen und dann neu setzen',
+  },
+  {
+    id: 'komponenten-buttons-button',
+    sentence: 'Alle vier Bereiche sind über die Modifier-Klasse abgedeckt',
+  },
+  {
     id: 'komponenten-hero-hero-bild',
     sentence: 'Standard auf allen Customer-Pages',
+  },
+  {
+    id: 'komponenten-hero-hero-bild',
+    sentence: '**Wann B statt A?**',
+    additionalSentence: 'fünftes Icon aus dieser Familie, keine Doppelbelegung',
   },
   {
     id: 'komponenten-footer-komplett',
@@ -164,8 +229,70 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Icon-Button, ein Klick wechselt reihum durch die Modi, vorgesehen für den Header',
   },
   {
+    id: 'komponenten-theme-umschalter-cycle-button',
+    sentence: 'Das Anti-Flash-Snippet immer als erstes Skript im `<head>` einbinden, vor dem Stylesheet.',
+  },
+  {
+    id: 'komponenten-chips-badges-pills-chip',
+    sentence: 'Auf Teaser-Cards die Pill nur mit dem Bereichsnamen füllen',
+  },
+  {
+    id: 'komponenten-code-block-code-block',
+    sentence: 'Die Erfolgsmeldung des Copy-Buttons über eine Live-Region melden, die von Anfang an im DOM steht',
+  },
+  {
+    id: 'komponenten-footer-komplett',
+    sentence: 'Den Rechtstext in der Einwilligung als echten Link (`<a class="body-link">`) setzen',
+  },
+  {
     id: 'marke-logo-logo',
     sentence: 'Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.',
+  },
+  {
+    id: 'grundlagen-typografie',
+    sentence: '`--ty-name` | 14 px / 20 px | 600 |',
+    additionalSentence: '`--ty-label-xs-strong`',
+  },
+  {
+    id: 'grundlagen-responsive--übersicht',
+    sentence: 'Die Begründungen aus „Warum diese Bruchpunkte“ lesen, bevor ein Wert „korrigiert“ wird.',
+  },
+  {
+    id: 'grundlagen-spacing-grid--übersicht',
+    sentence: 'jeder Pixel-Wert ohne Token-Referenz erklärungsbedürftig',
+  },
+  {
+    id: 'grundlagen-barrierefreiheit--übersicht',
+    sentence: '`dark-mode.css` steht komplett in `@media screen`',
+  },
+  {
+    id: 'grundlagen-design-tokens--übersicht',
+    sentence: '--e5: 0 4px 4px rgba(0,0,0,.30), 0 8px 12px 6px rgba(0,0,0,.15);',
+  },
+  {
+    id: 'seitenmuster-wissensbeitrag--übersicht',
+    sentence: '`--ki-800`, weil `--ki-700` mit rund 4,4:1 auf Weiß unter der AA-Schwelle',
+  },
+  {
+    id: 'seitenmuster-beitragsübersicht--übersicht',
+    sentence: 'Die Suche läuft 300 ms nach der letzten Eingabe. Filter-Chips wirken sofort, ohne Verzögerung',
+    additionalSentence: 'Bei aktiver Suche ist der gesamte Featured-Abschnitt ausgeblendet.',
+  },
+  {
+    id: 'seitenmuster-veranstaltungsübersicht--übersicht',
+    sentence: 'über 1000 px Bild 60 %, über 900 bis 1000 px Bild 65 % mit zweizeiligem Lead (Tablet-Landscape), bis 900 px gestapelt',
+  },
+  {
+    id: 'seitenmuster-veranstaltung--übersicht',
+    sentence: 'Recruiting-Veranstaltung, Conciso präsentiert sich potenziellen Bewerber:innen',
+  },
+  {
+    id: 'seitenmuster-seminar-·-training--übersicht',
+    sentence: 'sondern indem Preis und primäre Aktion nach oben',
+  },
+  {
+    id: 'seitenmuster-angebots-detailseite--übersicht',
+    sentence: 'Gedankenstriche (Em- und En-Dash) in der Copy setzen',
   },
 ];
 // Siehe docs/adr/0006: der Docgen-Server legt Interna (Template-Getter, CVA-Plumbing,
@@ -397,7 +524,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
  * hier bedeutet entweder ein verlorenes Attachment (Umbau/Refactoring) oder einen geänderten
  * Kernsatz in der MDX-Datei — beides soll den Smoke-Test rot machen, nicht erst ein Eval. */
 async function checkGroupUsageGuidance(client, errors) {
-  for (const { id, sentence, additionalSentence } of GROUP_USAGE_CHECKS) {
+  for (const { id, sentence, additionalSentence, absentSentence } of GROUP_USAGE_CHECKS) {
     const response = await client.request('tools/call', { name: 'docs-show', arguments: { id } });
     if (response.error) {
       errors.push(`docs-show(${id}) fehlgeschlagen: ${JSON.stringify(response.error)}`);
@@ -408,6 +535,9 @@ async function checkGroupUsageGuidance(client, errors) {
       errors.push(
         `docs-show(${id}) enthält nicht den Kernsatz der Verwendungsseite dieser Gruppe („${sentence}“).`,
       );
+    }
+    if (absentSentence && text.includes(absentSentence)) {
+      errors.push(`docs-show(${id}) enthält „${absentSentence}“, das dort nicht stehen darf.`);
     }
     if (additionalSentence && !text.includes(additionalSentence)) {
       errors.push(

@@ -7,12 +7,16 @@ const meta: Meta<LogoCarouselComponent> = {
   component: LogoCarouselComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1470',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Automatischer Wechsler für Kundenlogos: Sets von je fünf Logos wechseln per Crossfade ' +
-          'und lassen sich über Dots gezielt ansteuern. Jede Kachel ist ein `cds-logo` – bevorzugt ' +
+          'und lassen sich über Dots gezielt ansteuern. Jede Kachel ist ein `cds-logo`, bevorzugt ' +
           'ein Bild (`src`), sonst der Text als Platzhalter/Fallback. Die Animation pausiert bei ' +
           'Hover und Tastatur-Fokus, zusätzlich über einen Pause-Button, und ruht bei reduzierter ' +
           'Bewegung. Barrierefrei nach WCAG 2.1 AA.',
@@ -62,16 +66,21 @@ export const Interaktiv: Story = {
   // Frame hängt vom Screenshot-Timing ab → nicht deterministisch. Funktion + a11y
   // sind über den play-Test unten abgedeckt.
   parameters: { snapshot: { skip: true } },
-  // Pause-Button stoppt das Autoplay (Label „Abspielen“) und startet es wieder.
-  // Wichtig: am Ende wieder auf „Pausieren“ (= läuft) und Fokus vom Carousel weg,
+  // Pause-Button stoppt das Autoplay und startet es wieder. Das Label wechselt zwischen
+  // „Logo-Animation pausieren“ und „Logo-Animation fortsetzen“, `aria-pressed` fehlt
+  // bewusst (sonst sagt der Screenreader den Zustand doppelt an).
+  // Wichtig: am Ende wieder auf „pausieren“ (= läuft) und Fokus vom Carousel weg,
   // damit die Default-Story sichtbar autoplayt (Fokus/Hover pausieren sonst transient).
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    const pause = c.getByRole('button', { name: /Pausieren|Abspielen/ });
+    const pause = c.getByRole('button', { name: /Logo-Animation (pausieren|fortsetzen)/ });
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation pausieren');
+    await expect(pause).not.toHaveAttribute('aria-pressed');
     await userEvent.click(pause);
-    await expect(pause).toHaveAttribute('aria-label', 'Abspielen');
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation fortsetzen');
+    await expect(pause).not.toHaveAttribute('aria-pressed');
     await userEvent.click(pause);
-    await expect(pause).toHaveAttribute('aria-label', 'Pausieren');
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation pausieren');
     // Fokus aus dem Carousel nehmen → Fokus-Pause endet, Autoplay läuft sichtbar.
     (pause as HTMLElement).blur();
   },
@@ -99,6 +108,100 @@ export const TastaturDots: Story = {
     await userEvent.keyboard('{Home}');
     await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[0]).toHaveFocus();
+  },
+};
+
+export const RegionMitName: Story = {
+  name: 'Region mit Namen',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Der Wrapper ist eine benannte Region („Kundenlogos“) mit Typ-Hinweis „Logo-Karussell“.
+  play: async ({ canvasElement }) => {
+    const region = within(canvasElement).getByRole('region', { name: 'Kundenlogos' });
+    await expect(region).toHaveAttribute('aria-roledescription', 'Logo-Karussell');
+    await expect(region).toHaveClass('logo-carousel');
+  },
+};
+
+export const DotKlickPausiert: Story = {
+  name: 'Dot-Klick pausiert dauerhaft',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft: der Pause-Button
+  // zeigt „fortsetzen“, das Karussell trägt `.paused`. Erst der Button startet neu.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('tab');
+    const pause = c.getByRole('button', { name: 'Logo-Animation pausieren' });
+    await userEvent.click(dots[1]);
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation fortsetzen');
+    await expect(canvasElement.querySelector('.logo-carousel')).toHaveClass('paused');
+    await userEvent.click(pause);
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation pausieren');
+    await expect(canvasElement.querySelector('.logo-carousel')).not.toHaveClass('paused');
+    (pause as HTMLElement).blur();
+  },
+};
+
+export const TastaturPausiertUndHoch: Story = {
+  name: 'Tastatur pausiert, Auf/Ab wie Links/Rechts',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // ↓ wirkt wie →, ↑ wie ←; jede Dot-Taste (auch Home/End) pausiert dauerhaft.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const dots = c.getAllByRole('tab');
+    const pause = c.getByRole('button', { name: /Logo-Animation/ });
+    dots[0].focus();
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation pausieren');
+
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[1]).toHaveFocus();
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation fortsetzen');
+
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveFocus();
+
+    // Umlauf rückwärts mit ↑ am ersten Dot.
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
+
+    await userEvent.click(pause);
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation pausieren');
+    dots[0].focus();
+    await userEvent.keyboard('{Home}');
+    await expect(pause).toHaveAttribute('aria-label', 'Logo-Animation fortsetzen');
+  },
+};
+
+export const ReduzierteBewegung: Story = {
+  name: 'Reduzierte Bewegung ohne Pause-Button',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Bei `prefers-reduced-motion: reduce` läuft kein Timer, also gibt es nichts zu
+  // pausieren: der Pause-Button ist versteckt, die Dots bleiben bedienbar.
+  beforeEach: () => {
+    const original = window.matchMedia;
+    window.matchMedia = ((query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    })) as typeof window.matchMedia;
+    return () => {
+      window.matchMedia = original;
+    };
+  },
+  play: async ({ canvasElement }) => {
+    const pause = canvasElement.querySelector<HTMLElement>('.logo-carousel-pause');
+    await expect(pause).toHaveAttribute('hidden');
+    await expect(pause).not.toBeVisible();
+    const dots = within(canvasElement).getAllByRole('tab');
+    await userEvent.click(dots[1]);
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
   },
 };
 

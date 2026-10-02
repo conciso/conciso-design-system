@@ -68,6 +68,29 @@ denselben Modus zeigen. Das Docs-Chrome selbst (Überschriften, Tabellen) bleibt
 davon unabhängig immer im Light-Theme (`concisoLight`), weil Storybook Toolbar- und
 Docs-Theme nicht koppelt.
 
+## Theme-Umschalter · Nur CSS-Schicht
+
+Wer nur die CSS-Schicht verwendet, baut den Umschalter aus `.theme-bar` und `.tbtn`. Der aktive Modus trägt `aria-pressed="true"` und zusätzlich `.active`, denn das CSS färbt über `.active`. Im Beispiel steht `position:static`, damit die Vorschau Platz belegt; im Produkt bleibt es bei `position:fixed` aus dem CSS oder einer eigenen Platzierung.
+
+<HtmlBeispiel titel="Theme-Umschalter als reines Markup" interaktiv>
+
+```html
+<div class="theme-bar" role="group" aria-label="Farbthema" style="position:static">
+  <button class="tbtn active" type="button" aria-pressed="true">Hell</button>
+  <button class="tbtn" type="button" aria-pressed="false">Dunkel</button>
+</div>
+```
+
+</HtmlBeispiel>
+
+Jede Umsetzung ergänzt das Verhalten, das das CSS nicht liefert:
+
+- **Zustand:** Genau ein Button der Gruppe trägt `aria-pressed="true"` und `.active`, alle anderen `aria-pressed="false"`. Ein Klick verschiebt beides auf den gewählten Button. Ohne sichtbares Label (Icon-only) braucht jeder Button ein `aria-label` mit dem Namen des Modus.
+- **Anwenden:** Nur das Nötige setzen. Für Dark `data-theme="dark"` am `<html>` setzen, für Light das Attribut entfernen. Nie erst entfernen und dann neu setzen: Das Attribut fehlt dann kurz, die Body-Transition läuft von Dark über Light zurück nach Dark, und die Seite flackert. Setzen auf denselben Wert ist dagegen ein No-Op.
+- **Persistenz:** Der Zugriff auf `localStorage` steht beim Lesen und beim Schreiben in `try/catch`. Ein blockierter Speicher (privater Modus, gesperrte Cookies) darf den Umschalter nicht stilllegen, der Modus gilt dann nur bis zum Neuladen.
+- **Mehrere Umschalter:** Gibt es mehr als einen (Gruppe und Icon-Button im Header), aktualisiert jeder Wechsel alle. Sie lesen den Zustand aus einer gemeinsamen Quelle, damit keiner einen veralteten Modus zeigt.
+- **Beim Laden:** Der gespeicherte Modus setzt `data-theme` vor dem ersten Paint (Anti-Flash-Snippet unten), danach gleicht die Seite den Anzeigezustand der Umschalter an.
+
 ## Dark Mode: der Unterbau aus der CSS-Schicht
 
 Der CSS-Schicht-Vertrag (`docs/GETTING-STARTED.md` § 3) kennt nur ein Attribut:
@@ -92,9 +115,11 @@ if (matchMedia('(prefers-color-scheme: dark)').matches)
   document.documentElement.setAttribute('data-theme', 'dark');
 ```
 
-**Anti-Flash-Snippet.** Als erstes Skript im `<head>`, vor dem CSS-Paint, damit beim
-Reload nicht kurz Light aufblitzt. Liest die gespeicherte Präferenz aus
-`localStorage`:
+**Anti-Flash-Snippet (Pflicht).** Wer den Modus persistiert, setzt dieses Skript immer als
+erstes Skript im `<head>`, vor dem Stylesheet und damit vor dem ersten Paint. Nie am
+Ende des `<body>` oder in einem Bundle, das erst nach dem Rendern läuft: Dann blitzt beim
+Reload kurz Light auf, bevor `data-theme` gesetzt ist. Das Skript liest die gespeicherte
+Präferenz aus `localStorage`:
 
 ```html
 <script>
@@ -111,6 +136,30 @@ Persistenz beim Umschalten: `localStorage.setItem('ds-theme', 'dark' | 'light')`
 Die drei Angular-Umschalter selbst persistieren nicht; das bleibt Aufgabe des
 Consumers, der `themeStore.subscribe(...)` an die eigene Persistenz anschließt.
 
+`subscribe` meldet nur künftige Änderungen und liest den gespeicherten Wert nie. Der
+Store startet immer mit `light`; ohne Hydrierung zeigen die Umschalter nach einem
+Reload Light an, obwohl das Anti-Flash-Snippet `data-theme` schon auf `dark` gesetzt
+hat. Deshalb liest der Consumer beim Start den gespeicherten Wert und setzt ihn mit
+`themeStore.set(...)` in den Store (alternativ `ThemeModeService.set(...)`), bevor die
+Umschalter rendern. Beides ist Teil der öffentlichen API:
+
+```ts
+import { themeStore, type CdsThemeMode } from '@conciso/design-system-angular';
+
+try {
+  const saved = localStorage.getItem('ds-theme') as CdsThemeMode | null;
+  if (saved) themeStore.set(saved);
+} catch {}
+
+themeStore.subscribe((mode) => {
+  try {
+    localStorage.setItem('ds-theme', mode);
+  } catch {}
+});
+```
+
+Beide Zugriffe auf `localStorage` stehen in `try/catch`, weil der Zugriff im privaten Modus oder bei gesperrtem Storage wirft. Das Anti-Flash-Snippet kennt nur `dark` und `light`. Ein gespeichertes `system` greift erst mit der Hydrierung, weil `themeStore` es dann über `matchMedia` auflöst.
+
 **Warum das für jede Komponente gilt (CONTRIBUTING § 5).** `data-theme` ist der
 einzige Schalter im System: Alle Token flippen darüber, keine Komponente wertet
 `prefers-color-scheme` selbst aus oder führt eine eigene dritte Flächen-Stufe ein.
@@ -118,6 +167,23 @@ Weil `themeStore` der einzige Schreiber dieses Attributs ist, bleibt diese Garan
 auch mit drei unterschiedlichen Umschalter-Bauteilen (Cycle-Button, Segment,
 Dropdown) und der Storybook-Toolbar intakt: Es gibt genau eine Quelle der Wahrheit
 für den Modus, unabhängig davon, über welchen Umschalter er gesetzt wurde.
+
+## Dos & Don'ts
+
+**Tun**
+
+- Cycle-Button im Header, Segment als eigenständiges Element, Dropdown ausschließlich in den Einstellungen einsetzen.
+- Alle drei Umschalter über denselben `themeStore` laufen lassen, damit sie und die Storybook-Toolbar synchron bleiben.
+- Das Anti-Flash-Snippet immer als erstes Skript im `<head>` einbinden, vor dem Stylesheet.
+- Die Persistenz im Consumer selbst anschließen (`themeStore.subscribe(...)` schreibt in die eigene Ablage), die Umschalter speichern nichts.
+- Bei einer eigenen Umsetzung ohne diese Komponenten die Betriebssystem-Präferenz genauso oberhalb der CSS-Schicht auflösen und der CSS-Schicht am Ende nur `data-theme="dark"` oder gar kein Attribut übergeben.
+
+**Nicht tun**
+
+- `data-theme` parallel zu diesen Komponenten von einer zweiten Stelle aus setzen: Ein Consumer hat nur eine Quelle der Wahrheit für den Modus, und das ist `themeStore`.
+- Annehmen, dass die Umschalter den Modus über einen Reload hinweg behalten.
+- Einen dritten Flächen-Zustand für `System` in eigenem CSS ergänzen, die ausgelieferte CSS kennt nur Hell und Dunkel.
+- Das Dropdown als dauerhaftes Element auf jeder Seite einsetzen, dafür ist es nicht vorgesehen.
 
 ## Verwandte Seiten
 

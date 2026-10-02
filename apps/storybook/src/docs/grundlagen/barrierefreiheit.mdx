@@ -207,10 +207,10 @@ Jede Funktion ist ohne Maus erreichbar. Vier Kriterien greifen zusammen: 2.1.1 K
 | Bauteil | Tasten | Verhalten |
 |---|---|---|
 | Skip-Link | Enter | setzt den Fokus auf den Hauptinhalt |
-| Topnav-Submenü | Enter, Space, Pfeil ↓/↑, Home, End, Esc | Caret öffnet, Pfeile wandern durch die Einträge, Esc schließt und gibt den Fokus zurück |
+| Topnav-Submenü | Enter, Space, Pfeil ↓/↑, Home, End, Esc | Caret öffnet, Pfeile wandern durch die Einträge, Esc schließt und gibt den Fokus auf den Auslöser zurück, ein Klick außerhalb schließt ebenfalls (Heraustabben schließt ebenfalls) |
 | Custom Select | Enter, Space, Pfeil ↓/↑, Home, End, Esc, Tab, Buchstabe | öffnet und wählt, ein Buchstabe springt zur passenden Option (Puffer 600 ms), Tab schließt und geht weiter |
 | Combobox & Multi-Select | Pfeil ↓/↑, Home, End, Enter, Esc, Backspace | wie Select, Backspace im leeren Feld entfernt die letzte Auswahl |
-| Bild-Carousel | Pfeil ←/→ | eine Slide zurück oder vor |
+| Bild-Carousel | Pfeil ←/→ | eine Folie zurück oder vor, wirkt auf dem gesamten Slider |
 | Logo-Karussell | Pfeil ←/↑/→/↓, Home, End | auf den Pagination-Dots, jede Taste pausiert zusätzlich den Auto-Wechsel |
 | Such-Feld der Beitragsübersicht | `/`, Esc | `/` fokussiert die Suche, Esc leert das Feld |
 
@@ -291,12 +291,15 @@ Textalternativ (WCAG 1.1.1).
 </button>
 ```
 
-**Tab Panels.** Tabs als Tablist mit vollständigen ARIA-Relationen (WCAG 4.1.2).
+**Tab Panels.** Tabs als Tablist mit vollständigen ARIA-Relationen (WCAG 4.1.2). Pfeiltasten, Home/End und Roving-Tabindex gehören dazu, die Umsetzung für Area Tabs steht unter `Marke/Brand Areas/AreaTabs/Verwendung`.
+
+Ein Panel trägt `tabindex="0"` nur, wenn es kein fokussierbares Element enthält (reiner Text). Steckt ein Button, Link oder Formularfeld darin, entfällt das Attribut.
 
 ```html
 <div role="tablist">
   <button role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Tab 1</button>
 </div>
+<!-- Panel mit reinem Text: tabindex="0" -->
 <div role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0">…</div>
 ```
 
@@ -355,7 +358,8 @@ Screenreader nicht (WCAG 1.3.1).
 
 **Visuell versteckt (`.sr-only`).** Text nur für Screenreader, visuell entfernt. Trägt die
 Bedeutung hinter rein grafischen Markern (Häkchen, Minus) in Vergleichstabellen, Glyph
-allein reicht nicht (WCAG 1.1.1, 1.3.1).
+allein reicht nicht (WCAG 1.1.1, 1.3.1). Dieselbe Utility ergänzt auch eine `<caption>`
+der Vergleichstabelle um Text, den nur Screenreader brauchen. Sie steht in `base.css`.
 
 ```html
 <td>
@@ -403,7 +407,17 @@ Umgeschaltet wird ausschließlich über das Attribut `[data-theme="dark"]` am `<
 Einen dritten Modus, der der Betriebssystem-Präferenz folgt, gibt es bewusst nicht,
 `prefers-color-scheme` wird im ausgelieferten CSS nicht ausgewertet, Standard ist Light.
 `color-scheme: dark` ist im Dark-Theme fest gesetzt, damit native Controls (Checkbox,
-Radio, Scrollbar, Select-Popup) dark-thematisiert rendern.
+Radio, Scrollbar, Select-Popup) dark-thematisiert rendern. Ohne diese Deklaration zeigt der
+Browser zum Beispiel eine hell-thematisierte Checkbox auf dunklem Grund, optisch ein
+Fremdkörper.
+
+**Druck.** `dark-mode.css` steht komplett in `@media screen`, Token-Block und
+Komponenten-Regeln. Eine Seite mit gesetztem `data-theme="dark"` druckt deshalb die
+Light-Werte aus `tokens.css` statt der vollen dunklen Fläche, ohne dass diese Werte ein
+zweites Mal gepflegt werden müssen. Die Komponenten-Regeln müssen mit in den Block: Viele
+von ihnen setzen eine helle Tint- oder Festfarbe, die auf dem hellen Druckgrund nur 1,2 bis
+1,9:1 trägt. Neue Dark-Regeln gehören deshalb immer innerhalb des Blocks, sonst drucken sie
+dunkel mit.
 
 **Smooth-Scroll für In-Page-Anker.** Klicks auf In-Page-Anker innerhalb derselben Seite
 animieren das Scrollen statt hart zu springen. Bei `prefers-reduced-motion: reduce` wird

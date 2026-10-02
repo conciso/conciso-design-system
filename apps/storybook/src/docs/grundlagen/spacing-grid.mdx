@@ -386,7 +386,8 @@ eingesetzten Spacing-Token markiert, gestrichelt wie im Original.
 
 Alle Spacing-Werte (`padding`, `margin`, `gap`, `top`/`right`/`bottom`/`left`) nutzen
 ausschließlich Token aus der 8pt-Skala. Hardcodierte Pixel-Werte sind ein Code-Smell, sie
-unterbrechen den 8pt-Rhythmus und erschweren spätere Theme-Anpassungen. Erlaubt sind nur
+unterbrechen den 8pt-Rhythmus und erschweren spätere Theme-Anpassungen. Im Code-Review ist
+jeder Pixel-Wert ohne Token-Referenz erklärungsbedürftig. Erlaubt sind nur
 die folgenden Ausnahmen, jede mit CSS-Kommentar im Code begründet:
 
 | Ausnahme | Wert | Grund |

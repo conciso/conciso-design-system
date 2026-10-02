@@ -1,12 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { CarouselComponent } from '@conciso/design-system-angular';
+import { platzhalterBild } from '../../platzhalter';
+
+const folie = platzhalterBild('Bildfläche · 16:9', 800, 450, 24);
 
 const meta: Meta<CarouselComponent> = {
   title: 'Komponenten/Slider & Carousel/Carousel',
   component: CarouselComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1851',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -14,7 +22,7 @@ const meta: Meta<CarouselComponent> = {
           'Bild-Carousel zur Integration in Seiteninhalt: mehrere Bilder wechseln per ' +
           'Crossfade, gesteuert über Vor-/Zurück-Buttons und Dots, mit optionaler Bildunterschrift. ' +
           'Neben der eingebetteten Standardvariante gibt es eine großformatige Hero-Variante für ' +
-          'den Seitenkopf. Kein Autoplay – der Wechsel erfolgt nur per Nutzeraktion; der ' +
+          'den Seitenkopf. Kein Autoplay, der Wechsel erfolgt nur per Nutzeraktion; der ' +
           'Überblendübergang wird bei `prefers-reduced-motion` abgeschaltet. Barrierefrei nach WCAG 2.1 AA.',
       },
     },
@@ -26,12 +34,21 @@ const meta: Meta<CarouselComponent> = {
     active: 0,
     hero: false,
     slides: [
-      { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
+      {
+        title: 'Strategie-Workshop',
+        text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.',
+        image: folie,
+      },
       {
         title: 'Team-Enablement',
         text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',
+        image: folie,
       },
-      { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
+      {
+        title: 'Go-Live',
+        text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.',
+        image: folie,
+      },
     ],
   },
 };
@@ -57,7 +74,7 @@ export const Interaktiv: Story = {
     await expect(slides[0]).toHaveAttribute('aria-hidden', 'false');
     await expect(slides[1]).toHaveAttribute('aria-hidden', 'true');
 
-    await userEvent.click(c.getByRole('button', { name: 'Nächste Slide' }));
+    await userEvent.click(c.getByRole('button', { name: 'Nächste Folie' }));
     await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[0]).toHaveAttribute('aria-selected', 'false');
     await expect(slides[1]).toHaveAttribute('aria-hidden', 'false');
@@ -102,6 +119,62 @@ export const TastaturDots: Story = {
     await userEvent.keyboard('{End}');
     await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
     await expect(dots[dots.length - 1]).toHaveFocus();
+  },
+};
+
+export const PfeiltastenAmSlider: Story = {
+  name: 'Pfeiltasten am gesamten Slider',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  decorators: [moduleMetadata({ imports: [CarouselComponent] })],
+  // Zwei Instanzen, damit die Eindeutigkeit der Folien-IDs über Instanzen hinweg geprüft wird.
+  render: (args) => ({
+    props: args,
+    template: `
+      <cds-carousel [slides]="slides" label="Projekte"></cds-carousel>
+      <cds-carousel [slides]="slides" label="Referenzen"></cds-carousel>
+    `,
+  }),
+  // ← und → wirken nicht nur auf den Dots, sondern auf dem gesamten Slider (hier mit
+  // Fokus auf den Buttons), mit Umlauf; die Buttons tragen „Folie“ statt „Slide“.
+  play: async ({ canvasElement }) => {
+    const roots = Array.from(canvasElement.querySelectorAll<HTMLElement>('.img-slider'));
+    await expect(roots).toHaveLength(2);
+    // Zwei Bildstrecken auf einer Seite brauchen unterscheidbare Namen (axe: landmark-unique).
+    await expect(roots[0]).toHaveAttribute('aria-label', 'Projekte');
+    await expect(roots[1]).toHaveAttribute('aria-label', 'Referenzen');
+    const c = within(roots[0]);
+    const dots = c.getAllByRole('tab', { name: /^Folie / });
+    const prev = c.getByRole('button', { name: 'Vorherige Folie' });
+    const next = c.getByRole('button', { name: 'Nächste Folie' });
+    await expect(c.queryByRole('button', { name: /Slide/ })).toBeNull();
+
+    next.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[1]).toHaveAttribute('aria-selected', 'true');
+    await expect(next).toHaveFocus();
+
+    prev.focus();
+    await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
+    await expect(dots[dots.length - 1]).toHaveAttribute('aria-selected', 'true');
+    await expect(prev).toHaveFocus();
+
+    // Auf den Dots wandert der Fokus weiterhin mit.
+    dots[dots.length - 1].focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(dots[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(dots[0]).toHaveFocus();
+
+    // Folien-IDs sind über beide Instanzen eindeutig, jeder Dot verweist auf seine eigene Folie.
+    const allIds = Array.from(canvasElement.querySelectorAll('.img-slide')).map((el) => el.id);
+    await expect(new Set(allIds).size).toBe(allIds.length);
+    for (const root of roots) {
+      const ids = Array.from(root.querySelectorAll('.img-slide')).map((el) => el.id);
+      const rootDots = Array.from(root.querySelectorAll('.img-dot'));
+      await expect(rootDots).toHaveLength(ids.length);
+      for (const [i, dot] of rootDots.entries()) {
+        await expect(dot).toHaveAttribute('aria-controls', ids[i]);
+      }
+    }
   },
 };
 

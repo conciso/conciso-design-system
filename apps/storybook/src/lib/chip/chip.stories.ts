@@ -7,6 +7,10 @@ const meta: Meta<ChipComponent> = {
   component: ChipComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-1781',
+    },
     docs: {
       description: {
         component:
@@ -48,7 +52,7 @@ export const LesbarerZustand: Story = {
         story:
           'Die `cds-chip` sind per `[(pressed)]` an ein Filter-Array gebunden; ' +
           'ein Klick togglet `aria-pressed`, emittiert `pressedChange` und ' +
-          'aktualisiert die Liste der aktiven Filter — genau so konsumiert man ' +
+          'aktualisiert die Liste der aktiven Filter, genau so konsumiert man ' +
           'den Status im echten Code.',
       },
     },
@@ -56,9 +60,9 @@ export const LesbarerZustand: Story = {
   render: () => {
     const filters = [
       { label: 'Corporate', area: 'co', pressed: true },
-      { label: 'AI.Applied', area: 'ki', pressed: false },
-      { label: 'Engineering', area: 'es', pressed: false },
-      { label: 'Workplace', area: 'wo', pressed: false },
+      { label: 'Angewandte KI', area: 'ki', pressed: false },
+      { label: 'Effektive Software', area: 'es', pressed: false },
+      { label: 'Wirksame Organisationen', area: 'wo', pressed: false },
     ];
     return {
       moduleMetadata: { imports: [ChipComponent] },
@@ -68,7 +72,7 @@ export const LesbarerZustand: Story = {
           filters
             .filter((f) => f.pressed)
             .map((f) => f.label)
-            .join(', ') || '—',
+            .join(', ') || '(leer)',
       },
       template: `
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
@@ -90,12 +94,12 @@ export const LesbarerZustand: Story = {
       'true',
     );
     await expect(canvasElement).toHaveTextContent('Aktiv: Corporate');
-    // Klick auf „AI.Applied“ → Zustand wird ausgelesen und angezeigt.
-    await userEvent.click(c.getByRole('button', { name: 'AI.Applied' }));
-    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, AI.Applied');
+    // Klick auf „Angewandte KI“ → Zustand wird ausgelesen und angezeigt.
+    await userEvent.click(c.getByRole('button', { name: 'Angewandte KI' }));
+    await expect(canvasElement).toHaveTextContent('Aktiv: Corporate, Angewandte KI');
     // Erneuter Klick auf „Corporate“ → wieder abgewählt.
     await userEvent.click(c.getByRole('button', { name: 'Corporate' }));
-    await expect(canvasElement).toHaveTextContent('Aktiv: AI.Applied');
+    await expect(canvasElement).toHaveTextContent('Aktiv: Angewandte KI');
   },
 };
 
@@ -109,7 +113,7 @@ export const Zustaende: Story = {
         <cds-chip label="Inaktiv"></cds-chip>
         <cds-chip label="Aktiv" [pressed]="true"></cds-chip>
         <cds-chip area="co" label="Corporate"></cds-chip>
-        <cds-chip area="ki" label="AI.Applied" [pressed]="true"></cds-chip>
+        <cds-chip area="ki" label="Angewandte KI" [pressed]="true"></cds-chip>
       </div>
     `,
   }),

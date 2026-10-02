@@ -8,6 +8,10 @@ const meta: Meta<TextFieldComponent> = {
   component: TextFieldComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-1900',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -50,7 +54,12 @@ export const Deaktiviert: Story = {
   parameters: { controls: { disable: true } },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    await expect(c.getByLabelText(/E-Mail/)).toBeDisabled();
+    const control = c.getByLabelText(/E-Mail/);
+    await expect(control).toBeDisabled();
+    // Sichtbar vom aktiven Zustand unterscheidbar: reduzierte Deckkraft, Sperr-Cursor.
+    const stil = getComputedStyle(control);
+    await expect(Number(stil.opacity)).toBeLessThan(1);
+    await expect(stil.cursor).toBe('not-allowed');
   },
 };
 
@@ -64,7 +73,7 @@ export const Formularbindung: Story = {
       description: {
         story:
           'Das Feld ist ein `ControlValueAccessor` und bindet direkt an reactive ' +
-          'forms (`formControl`) — genau so wird die Komponentenbibliothek in echten ' +
+          'forms (`formControl`), genau so wird die Komponentenbibliothek in echten ' +
           'Angular-Projekten konsumiert. Der Wert lässt sich damit auslesen (hier live ' +
           'angezeigt) und validieren. Ohne Formular geht alternativ `[(value)]`.',
       },
@@ -85,7 +94,7 @@ export const Formularbindung: Story = {
             [formControl]="ctrl"
           ></cds-text-field>
           <p style="font:14px/1.4 system-ui,sans-serif;margin:0">
-            Wert: <strong>{{ ctrl.value || '—' }}</strong>
+            Wert: <strong>{{ ctrl.value || '(leer)' }}</strong>
           </p>
         </div>
       `,
@@ -94,10 +103,44 @@ export const Formularbindung: Story = {
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
     const input = c.getByLabelText(/E-Mail/);
-    await expect(canvasElement).toHaveTextContent('Wert: —');
+    await expect(canvasElement).toHaveTextContent('Wert: (leer)');
     // Tippen → CVA schreibt in den FormControl, Anzeige liest den Wert aus.
     await userEvent.type(input, 'maria@firma.de');
     await expect(input).toHaveValue('maria@firma.de');
     await expect(canvasElement).toHaveTextContent('Wert: maria@firma.de');
+  },
+};
+
+export const FehlerzustandRuhig: Story = {
+  name: 'Fehlerzustand · ruhig (Fehlerübersicht sagt an)',
+  args: {
+    error: 'Bitte eine gültige E-Mail-Adresse eingeben.',
+    fieldId: 'demo-email-quiet',
+    quietError: true,
+  },
+  parameters: { controls: { disable: true } },
+  // In langen Formularen trägt die fokussierte Fehlerübersicht das role="alert". Die
+  // Einzelmeldung bleibt sichtbar und über aria-describedby am Feld, sagt sich aber nicht selbst an.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/E-Mail/);
+    await expect(c.queryByRole('alert')).toBeNull();
+    const meldung = c.getByText('Bitte eine gültige E-Mail-Adresse eingeben.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', meldung.id);
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
+export const FehlerzustandMitAlert: Story = {
+  name: 'Fehlerzustand · Vorgabe mit Alert',
+  args: {
+    error: 'Bitte eine gültige E-Mail-Adresse eingeben.',
+    fieldId: 'demo-email-alert',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await expect(c.getByRole('alert')).toHaveTextContent('Bitte eine gültige E-Mail-Adresse');
   },
 };
