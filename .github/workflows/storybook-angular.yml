@@ -40,8 +40,41 @@ permissions:
   contents: read
 
 jobs:
+  # Fast Exit: Berührt ein PR nichts, was dieser Workflow prüft, wird der schwere Job
+  # (Lint, Storybook-Build, Vitest und Kontrast-Gate) übersprungen — GitHub wertet das im Pflicht-Check des Rulesets als bestanden.
+  # Andere Events (push, dispatch, Aufruf aus publish.yml) laufen immer: dort gibt es diesen
+  # Job gar nicht. Die Musterliste hier mit den `paths:` des push-Triggers oben gleich halten.
+  changes:
+    name: Relevante Änderungen erkennen
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      relevant: ${{ steps.diff.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Bei pull_request ist HEAD der Merge-Commit; HEAD^1 (Base) reicht als Diff-Basis.
+          fetch-depth: 2
+      - name: Geänderte Pfade gegen die Muster dieses Workflows prüfen
+        id: diff
+        run: >
+          node tools/ci/changed-paths.mjs
+          'apps/storybook/**'
+          'packages/**'
+          'docs/legacy-site/**'
+          'tools/checks/check-contrast.mjs'
+          'package.json'
+          'package-lock.json'
+          '.github/workflows/storybook-angular.yml'
+
   verify:
     name: Lint, Build, Tests
+    needs: changes
+    # !cancelled() statt Standard-Bedingung: Wo `changes` übersprungen wird (push, dispatch,
+    # workflow_call) oder scheitert, ist `relevant` leer → der Job läuft (fail-safe).
+    if: ${{ !cancelled() && needs.changes.outputs.relevant != 'false' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
