@@ -23,6 +23,12 @@ assertBaselinesMayBeWritten({ argv: process.argv, env: process.env });
  */
 export default defineConfig({
   test: {
+    // Visual-Läufe seriell: `setOuterViewportHeight` (siehe `.storybook/vitest.setup.ts`)
+    // verändert das äußere Playwright-Fenster, das sich alle parallel laufenden
+    // Testdateien (iframes) teilen. Parallel skaliert eine Datei die Fenster der anderen,
+    // die Bildmaße schwanken zwischen Läufen (960 vs. 1200 px Breite) und die Baselines
+    // werden in uneinheitlichem Maßstab erzeugt.
+    fileParallelism: process.env.VISUAL !== '1',
     projects: [
       {
         // `vitest.setup.ts` läuft im Browser (dort, wo die Stories rendern),
