@@ -173,7 +173,7 @@ const GROUP_USAGE_CHECKS = [
     additionalSentence: 'Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft',
   },
   {
-    id: 'marke-brand-areas-areatabs',
+    id: 'marke-brand-areas-area-tabs',
     sentence: 'Tabs als Navigation zwischen Seiten einsetzen',
     additionalSentence: 'Roving-Tabindex',
   },
