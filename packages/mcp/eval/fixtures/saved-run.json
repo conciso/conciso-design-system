@@ -9,7 +9,7 @@
   "truth": {
     "elementSelectors": {
       "cds-button": {
-        "componentId": "komponenten-buttons-button",
+        "componentId": "komponenten-button",
         "inputs": ["area", "label", "variant"],
         "outputs": ["clicked"]
       }
@@ -21,7 +21,7 @@
       "question": {
         "id": "button-einrichten",
         "prompt": "Wie richte ich einen Button ein?",
-        "components": ["komponenten-buttons-button"],
+        "components": ["komponenten-button"],
         "checks": ["no-invented-attributes", "setup-mentions-global-css", "core-claim-keywords"],
         "claimKeywords": [["filled"], ["corporate", "co"]]
       },

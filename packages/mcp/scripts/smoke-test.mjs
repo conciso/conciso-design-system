@@ -17,9 +17,9 @@
 // Prüft:
 //   - initialize erfolgreich
 //   - tools/list enthält genau docs-list, docs-show, docs-show-story
-//   - docs-show(komponenten-buttons-button) enthält jeden dokumentierten Input und Output von
+//   - docs-show(komponenten-button) enthält jeden dokumentierten Input und Output von
 //     Button, aus dem Docgen des installierten Snapshots gelesen (siehe eval/checker.mjs)
-//   - docs-show(komponenten-buttons-button) enthält zusätzlich die Verwendungsguidance
+//   - docs-show(komponenten-button) enthält zusätzlich die Verwendungsguidance
 //     (Überschrift „Dos & Don'ts“ plus ein Kernsatz), angehängt per
 //     <Meta of={ButtonStories}> (ADR-0012)
 //   - docs-show(grundlagen-farben) enthält die Verwendungsguidance der Farben-Seite
@@ -32,7 +32,7 @@
 //   - Stichprobe je Komponentengruppe: docs-show der tragenden Komponente
 //     enthält eine Kernaussage der jeweiligen Verwendungsseite (GROUP_USAGE_CHECKS unten)
 //   - docs-list enthält NICHT mehr die alten, eigenständigen IDs der jetzt angehängten
-//     Verwendungsseiten (Button plus die 16 Gruppen, OLD_STANDALONE_VERWENDUNG_DOC_IDS
+//     Verwendungsseiten (Button plus 11 Gruppen, OLD_STANDALONE_VERWENDUNG_DOC_IDS
 //     unten) — jede Seite kommt nur noch angehängt zurück, nicht doppelt
 //   - docs-list enthält die Seite „Einrichtung“ (grundlagen-einrichtung--übersicht)
 //   - docs-show für JEDE Komponenten- und Doku-id aus dem installierten Snapshot liefert kein
@@ -77,7 +77,10 @@ const BUTTON_SELECTOR = 'cds-button';
 // Vor dem Anhängen per <Meta of={...}> (ADR-0012) hatten diese Verwendungsseiten eine
 // eigenständige ID im Docs-Manifest; keine davon darf nach dem Anhängen in docs-list
 // wieder auftauchen (sonst käme die jeweilige Seite doppelt zurück). Erster Eintrag ist
-// Button (Spike), die übrigen 16 sind der Rollout über alle Gruppen.
+// Button (Spike), die übrigen 11 sind der Rollout über die Gruppen. Fünf weitere IDs
+// (Logo, Code-Block, Sektion, Navigation, Tabelle) stehen hier nicht mehr: Seit der
+// Auflösung der Doppelebenen (CONTRIBUTING § 12) ist die Sektion selbst das Bauteil, und
+// ihre ID (z. B. marke-logo--verwendung) ist wieder die angehängte Seite.
 const OLD_STANDALONE_VERWENDUNG_DOC_IDS = [
   'komponenten-buttons--verwendung',
   'komponenten-chips-badges-pills--verwendung',
@@ -86,16 +89,11 @@ const OLD_STANDALONE_VERWENDUNG_DOC_IDS = [
   'komponenten-feedback--verwendung',
   'komponenten-cards-teaser--verwendung',
   'komponenten-call-to-action--verwendung',
-  'komponenten-tabelle--übersicht',
   'komponenten-zitate-testimonials--verwendung',
-  'komponenten-code-block--verwendung',
   'komponenten-slider-carousel--verwendung',
-  'komponenten-sektion--übersicht',
-  'komponenten-navigation--verwendung',
   'komponenten-hero--übersicht',
   'komponenten-footer--verwendung',
   'komponenten-theme-umschalter--verwendung',
-  'marke-logo--verwendung',
 ];
 // Stichprobe je Komponentengruppe (ADR-0012-Nachtrag): docs-show der tragenden
 // Komponente jeder Gruppe enthält einen Kernsatz aus deren angehängter Verwendungsseite. Button
@@ -153,7 +151,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Bewusst nur EINE Aktion, kein',
   },
   {
-    id: 'komponenten-tabelle-tabelle',
+    id: 'komponenten-tabelle',
     sentence: 'Scroll-Container verwenden statt die Tabelle zu verkleinern, Lesbarkeit hat Vorrang',
   },
   {
@@ -161,7 +159,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Echte Kundenstimmen verwenden, keine KI-generierten Platzhalter in der Produktion',
   },
   {
-    id: 'komponenten-code-block-code-block',
+    id: 'komponenten-code-block',
     sentence:
       'Terminal-Variante für alle Shell-Befehle und Ausgaben, der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt',
   },
@@ -175,32 +173,32 @@ const GROUP_USAGE_CHECKS = [
     additionalSentence: 'Ein Klick auf einen Dot springt zum Set und pausiert dauerhaft',
   },
   {
-    id: 'marke-brand-areas-areatabs',
+    id: 'marke-brand-areas-area-tabs',
     sentence: 'Tabs als Navigation zwischen Seiten einsetzen',
     additionalSentence: 'Roving-Tabindex',
   },
   {
-    id: 'komponenten-sektion-sektion',
+    id: 'komponenten-sektion',
     sentence: 'Die Fläche gehört der Seite, nicht dem Bauteil.',
   },
   {
-    id: 'komponenten-navigation-topnav',
+    id: 'komponenten-navigation',
     sentence: 'Zwei Submenüs gleichzeitig offen lassen, vor jedem Öffnen muss das vorherige schließen',
   },
   {
-    id: 'komponenten-navigation-topnav',
+    id: 'komponenten-navigation',
     sentence: 'Ein Klick auf den Caret bricht beide Timer ab, sonst öffnet ein Rest-Timer ein per Klick geschlossenes Menü wieder.',
   },
   {
-    id: 'komponenten-navigation-topnav',
+    id: 'komponenten-navigation',
     sentence: 'Unter 760 px zeigt das CSS den Hamburger-Button und klappt `.ep-nav-links` unter dem Logo auf',
   },
   {
-    id: 'komponenten-navigation-topnav',
+    id: 'komponenten-navigation',
     sentence: 'Das Such-Popover erscheint, sobald `.is-open` am `.ep-nav-search` steht.',
   },
   {
-    id: 'komponenten-navigation-topnav',
+    id: 'komponenten-navigation',
     sentence: 'Ein Scroll-Listener schaltet `.visible` ab `scrollY > 400`.',
   },
   {
@@ -208,7 +206,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Nie erst entfernen und dann neu setzen',
   },
   {
-    id: 'komponenten-buttons-button',
+    id: 'komponenten-button',
     sentence: 'Alle vier Bereiche sind über die Modifier-Klasse abgedeckt',
   },
   {
@@ -237,7 +235,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Auf Teaser-Cards die Pill nur mit dem Bereichsnamen füllen',
   },
   {
-    id: 'komponenten-code-block-code-block',
+    id: 'komponenten-code-block',
     sentence: 'Die Erfolgsmeldung des Copy-Buttons über eine Live-Region melden, die von Anfang an im DOM steht',
   },
   {
@@ -245,7 +243,7 @@ const GROUP_USAGE_CHECKS = [
     sentence: 'Den Rechtstext in der Einwilligung als echten Link (`<a class="body-link">`) setzen',
   },
   {
-    id: 'marke-logo-logo',
+    id: 'marke-logo',
     sentence: 'Logo proportional skalieren (Höhe als Leitmaß), der Vektor bleibt in jeder Größe scharf.',
   },
   {
@@ -367,7 +365,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
 
   const docsShow = await client.request('tools/call', {
     name: 'docs-show',
-    arguments: { id: 'komponenten-buttons-button' },
+    arguments: { id: 'komponenten-button' },
   });
   if (docsShow.error) {
     errors.push(`docs-show fehlgeschlagen: ${JSON.stringify(docsShow.error)}`);
@@ -383,7 +381,7 @@ async function runProtocolChecks(client, errors, tmpDir) {
       const missing = [...truth.inputs, ...truth.outputs].filter((name) => !text.includes(name));
       if (missing.length > 0) {
         errors.push(
-          `docs-show(komponenten-buttons-button) fehlt ${missing.length} dokumentiertes Input/Output: ` +
+          `docs-show(komponenten-button) fehlt ${missing.length} dokumentiertes Input/Output: ` +
             `${missing.join(', ')}.`,
         );
       }
@@ -392,11 +390,11 @@ async function runProtocolChecks(client, errors, tmpDir) {
     // Button, docs-show liefert sie mit. Prüft Überschrift plus Kernsatz, wie die
     // Einrichtung-Assertion weiter unten.
     if (!/#\s*Dos & Don'ts\b/.test(text)) {
-      errors.push('docs-show(komponenten-buttons-button) enthält nicht die Überschrift „Dos & Don\'ts“.');
+      errors.push('docs-show(komponenten-button) enthält nicht die Überschrift „Dos & Don\'ts“.');
     }
     if (!text.includes('Pro Kontext maximal ein Filled Button')) {
       errors.push(
-        'docs-show(komponenten-buttons-button) enthält nicht den Kernsatz der Verwendungsseite ' +
+        'docs-show(komponenten-button) enthält nicht den Kernsatz der Verwendungsseite ' +
           '(„Pro Kontext maximal ein Filled Button…“ aus den Dos & Don\'ts).',
       );
     }
@@ -555,7 +553,7 @@ function snapshotDir(tmpDir) {
 /** Liest alle Komponenten- und Doku-ids direkt aus den Manifesten des INSTALLIERTEN Pakets (nicht
  * aus dem docs-list-Text geparst — robuster, und dieselbe Form, die der manifestProvider
  * tatsächlich ausliefert). Deckt beide Kategorien ab: components.json (z. B.
- * „komponenten-buttons-button“) und docs.json (die „…--übersicht“-MDX-Seiten, überwiegend mit
+ * „komponenten-button“) und docs.json (die „…--übersicht“-MDX-Seiten, überwiegend mit
  * Nicht-ASCII-Zeichen in der id — genau die Klasse, die der @storybook/mcp-Encoding-Bug traf). */
 function readAllDocsShowIds(tmpDir, errors) {
   const manifestsDir = join(snapshotDir(tmpDir), 'manifests');
@@ -590,7 +588,7 @@ function readAllDocsShowIds(tmpDir, errors) {
  * fehl, sobald irgendein Ergebnis ein Fehler ist — JSON-RPC-error, `isError`, oder leerer Text.
  * Regressionsschutz für den @storybook/mcp-Encoding-Bug (ENOENT traf jede id mit
  * Nicht-ASCII-Zeichen): der Button-Check oben allein hätte das nicht gefangen, weil
- * „komponenten-buttons-button“ rein ASCII ist. ~90 ids bei aktuellem Snapshot-Umfang, mit
+ * „komponenten-button“ rein ASCII ist. ~90 ids bei aktuellem Snapshot-Umfang, mit
  * Einzel-Timeout pro Anfrage (siehe test-support/jsonrpc-client.mjs) — unproblematisch für
  * einen CI-Smoke-Test.
  * @returns {Promise<number>} Anzahl erfolgreich aufgelöster ids.
@@ -638,7 +636,7 @@ async function checkEveryDocsShowId(client, tmpDir, errors) {
  * die Docgen-Dateien direkt vom Dateisystem statt über docs-show pro Komponente zu gehen: ein
  * JSON-RPC-Aufruf pro Komponente wäre bei ~50+ Komponenten unnötig langsam, und die Form von
  * `argTypes[*].table.category` ist dieselbe, die der manifestProvider ausliefert (per Stichprobe
- * an komponenten-buttons-button.json verifiziert). */
+ * an komponenten-button.json verifiziert). */
 function checkInternalLeak(tmpDir, errors) {
   const docgenDir = join(snapshotDir(tmpDir), 'services', 'core', 'docgen');
   if (!existsSync(docgenDir)) {

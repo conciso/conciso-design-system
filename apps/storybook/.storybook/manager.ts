@@ -15,18 +15,18 @@ const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches 
 // fachliche Abschnitt bekommt dasselbe Icon vor seinem Storybook-Sidebar-Knoten.
 // Das ersetzt den früheren Grund,
 // renderLabel wegzulassen (ein Angular-Tag auf 158 von 181 Zeilen
-// unterschied nichts) — der neue Zweck ist gezielt: er trifft genau die 35
+// unterschied nichts) — der neue Zweck ist gezielt: er trifft genau die 40
 // Sektions-Zeilen und dient der Wiedererkennung innerhalb der Sidebar.
 //
 // Die Schlüssel sind Storybooks eigene Knoten-IDs. Sie folgen zwar dem
-// Muster sanitize("Wurzel/Sektion") (z. B. "Komponenten/Buttons" →
-// "komponenten-buttons"), aber NICHT immer: eine Sektion mit nur einem
+// Muster sanitize("Wurzel/Sektion") (z. B. "Komponenten/Button" →
+// "komponenten-button"), aber NICHT immer: eine Sektion mit nur einem
 // einzigen Kind (nur eine MDX-Seite, keine weitere Bauteil-Ebene darunter)
 // verschmilzt Storybook mit diesem Kind zu einer Zeile und hängt dessen
 // Story-Namen an, z. B. "grundlagen-elevation--übersicht" statt
 // "grundlagen-elevation". Deshalb keine Ableitung aus einer Formel, sondern
 // jede ID einzeln aus dem gerenderten Sidebar-DOM (`[data-item-id]`) des
-// laufenden Story-Index abgelesen. Jede der 35 Sektionen trifft
+// laufenden Story-Index abgelesen. Jede der 40 Sektionen trifft
 // genau einen dieser Knoten.
 //
 // Sonderfall Komponenten/Theme-Umschalter: Das Icon liegt als `ui-sun` in
@@ -46,7 +46,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'grundlagen-design-tokens--übersicht': 'ui-cube-transparent',
   'grundlagen-icons--übersicht': 'ui-face-smile',
   'grundlagen-barrierefreiheit--übersicht': 'ui-shield-check-2',
-  'komponenten-buttons': 'ui-cursor-arrow-rays',
+  'komponenten-button': 'ui-cursor-arrow-rays',
   'komponenten-chips-badges-pills': 'ui-tag',
   'komponenten-inputs-forms': 'ui-pencil-square',
   'komponenten-dropdowns': 'ui-chevron-up-down',
@@ -55,6 +55,8 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'komponenten-cards-teaser': 'ui-rectangle-stack',
   'komponenten-call-to-action': 'ui-arrow-down-tray-2',
   'komponenten-tabelle': 'ui-table-cells',
+  'komponenten-vergleichstabelle': 'ui-adjustments-horizontal',
+  'komponenten-fakten-liste': 'ui-list-bullet',
   'komponenten-zitate-testimonials': 'ui-chat-bubble-left-right',
   'komponenten-code-block': 'ui-code-bracket-square',
   'komponenten-slider-carousel': 'ui-square-2-stack',

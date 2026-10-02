@@ -29,11 +29,11 @@ function startClient() {
 
 test('docs-list-Prüfung: scheitert ohne doppelten Anzeigenamen', () => {
   const docsListText = `# Components
-- Button (komponenten-buttons-button)
+- Button (komponenten-button)
 
 # Docs
 - Einrichtung (grundlagen-einrichtung--einrichtung)
-- Verwendung (komponenten-buttons--verwendung)`;
+- Verwendung (komponenten-button--verwendung)`;
 
   assert.throws(
     () => checkDocsListDuplicateNames(docsListText),
@@ -43,7 +43,7 @@ test('docs-list-Prüfung: scheitert ohne doppelten Anzeigenamen', () => {
 
 test('docs-list-Prüfung: scheitert bei einer schemawidrigen Doku-ID', () => {
   const docsListText = `# Docs
-- Verwendung (komponenten-buttons--verwendung)
+- Verwendung (komponenten-button--verwendung)
 - Verwendung (schemawidrige-id)`;
 
   assert.throws(
@@ -54,7 +54,7 @@ test('docs-list-Prüfung: scheitert bei einer schemawidrigen Doku-ID', () => {
 
 test('docs-list-Prüfung: meldet ein unbekanntes Zeilenformat als Parser-Bruch', () => {
   const docsListText = `# Docs
-* Verwendung [komponenten-buttons--verwendung]
+* Verwendung [komponenten-button--verwendung]
 * Verwendung [komponenten-cards--verwendung]`;
 
   assert.throws(() => checkDocsListDuplicateNames(docsListText), /Zeilenformat von docs-list/);
@@ -62,7 +62,7 @@ test('docs-list-Prüfung: meldet ein unbekanntes Zeilenformat als Parser-Bruch',
 
 test('docs-list-Prüfung: meldet angehängte Formate als Parser-Bruch', () => {
   const docsListText = `# Docs
-- Verwendung (komponenten-buttons--verwendung) [neues Format]
+- Verwendung (komponenten-button--verwendung) [neues Format]
 - Verwendung (komponenten-cards--verwendung) [neues Format]`;
 
   assert.throws(() => checkDocsListDuplicateNames(docsListText), /Zeilenformat von docs-list/);
@@ -110,7 +110,7 @@ test('cds-mcp: initialize, drei Werkzeuge, docs-list-IDs und Button-Doku stimmen
 
     const docsShow = await client.request('tools/call', {
       name: 'docs-show',
-      arguments: { id: 'komponenten-buttons-button' },
+      arguments: { id: 'komponenten-button' },
     });
     assert.equal(docsShow.error, undefined, `docs-show-Fehler: ${JSON.stringify(docsShow.error)}`);
     const text = docsShow.result.content[0].text;

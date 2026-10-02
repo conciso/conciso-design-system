@@ -56,7 +56,7 @@ Das Addon-Panel „Design“ (`@storybook/addon-designs`) zeigt den Figma-Frame,
 
 ```ts
 const meta: Meta = {
-  title: 'Komponenten/Buttons/Button',
+  title: 'Komponenten/Button',
   parameters: {
     design: {
       type: 'figma',

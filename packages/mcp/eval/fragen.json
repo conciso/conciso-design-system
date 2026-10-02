@@ -5,13 +5,13 @@
     {
       "id": "button-icon-links",
       "prompt": "Ich nutze cds-button aus @conciso/design-system-angular und will links vom Label ein Icon anzeigen. Zeig mir ein Angular-Template-Beispiel mit allen dafür nötigen Attributen von cds-button.",
-      "components": ["komponenten-buttons-button"],
+      "components": ["komponenten-button"],
       "checks": ["no-invented-attributes"]
     },
     {
       "id": "button-ungestylt",
       "prompt": "Ich habe @conciso/design-system-angular installiert und benutze <cds-button label=\"Speichern\"></cds-button> in meinem Template. Im Browser sieht der Button aber komplett ungestylt aus, ohne Farbe und ohne Form. Woran liegt das, und wie behebe ich es?",
-      "components": ["komponenten-buttons-button"],
+      "components": ["komponenten-button"],
       "checks": ["no-invented-attributes", "setup-mentions-global-css"]
     },
     {
@@ -45,7 +45,7 @@
     {
       "id": "btn-destruktiv-neben-normal",
       "prompt": "Ich baue in meiner Angular-App einen Bestätigungsdialog mit zwei Buttons aus @conciso/design-system-angular: der eine löst eine irreversible Löschaktion aus, der andere ist ein normaler Abbrechen-Button daneben. Wie setze ich cds-button für die beiden ein, und gibt es dabei etwas Besonderes zu beachten?",
-      "components": ["komponenten-buttons-button"],
+      "components": ["komponenten-button"],
       "checks": ["no-invented-attributes", "core-claim-keywords"],
       "claimKeywords": [
         ["btn-err", "tone=\"err\"", "tone='err'", "err-modifier", "err modifier"],

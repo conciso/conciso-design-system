@@ -3,7 +3,7 @@ import { within, userEvent, expect, fn } from 'storybook/test';
 import { DownloadCtaComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<DownloadCtaComponent> = {
-  title: 'Komponenten/Call to Action/DownloadCta',
+  title: 'Komponenten/Call to Action/Download-CTA',
   component: DownloadCtaComponent,
   tags: ['autodocs', 'angular'],
   parameters: {

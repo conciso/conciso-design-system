@@ -6,7 +6,7 @@ import { platzhalterBild } from '../../platzhalter';
 const teamfoto = platzhalterBild('Teamfoto', 600, 450, 24);
 
 const meta: Meta<TeamVoiceComponent> = {
-  title: 'Komponenten/Zitate & Testimonials/TeamVoice',
+  title: 'Komponenten/Zitate & Testimonials/Team-Voice',
   component: TeamVoiceComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
