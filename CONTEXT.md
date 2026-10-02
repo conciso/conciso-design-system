@@ -52,6 +52,14 @@ bleibt als authentifizierte Alternative bestehen (siehe
 [ADR-0004](docs/adr/0004-verteilung-und-versionierung.md)).
 Siehe [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
 
+### PR-Vorschau
+
+Das vollständige [Storybook](#storybook) eines offenen Pull Requests, veröffentlicht
+neben dem Storybook von `main`, damit ein PR ohne lokalen Checkout reviewt werden kann.
+Lebt nur so lange wie der PR. Nicht verwechseln mit dem Storybook selbst, das immer den
+Stand von `main` zeigt.
+Siehe [ADR-0009](docs/adr/0009-storybook-oeffentlich-auf-github-pages.md).
+
 ### Doku-Site
 
 Die eigenständige, statische Doku der [CSS-Schicht](#css-schicht). Existiert neben
