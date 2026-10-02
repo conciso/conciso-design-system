@@ -404,6 +404,12 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .field input::placeholder,.field textarea::placeholder,
 [role="search"] input::placeholder{color:var(--tx-secondary)}
 .field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
+/* Deaktivierte Felder: reduzierte Deckkraft und Sperr-Cursor wie bei Custom Select und Combobox
+   (.ep-select.is-disabled). Ohne diese Regel war ein deaktiviertes Feld vom aktiven nicht zu
+   unterscheiden. Das Label zieht per :has() mit, damit das ganze Feld gedämpft wirkt. Deaktivierte
+   Controls sind von WCAG 1.4.3 und 1.4.11 ausgenommen; bei .5 bleibt der Text lesbar. */
+.field input:disabled,.field textarea:disabled,.field select:disabled{opacity:.5;cursor:not-allowed}
+.field:has(input:disabled,textarea:disabled,select:disabled) label{opacity:.5}
 /* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
    --bg-surface, dort erreicht --tx-muted im Dark Mode nur 4,1:1 und verfehlt AA für Kleintext
    (siehe Kontrast-Tabelle in der Doku). --tx-secondary liegt bei 6,3:1 Light / 4,9:1 Dark. */
