@@ -6,6 +6,10 @@ name: Storybook / Angular
 # packages/css/css/* und staticDirs packages/css/dist/icons/fonts/assets/brand) — so
 # fangen die a11y-/Render-Tests auch CSS-Regressionen, und eine geänderte Wortmarke
 # landet auch ohne weiteren Push auf GitHub Pages.
+#
+# Veröffentlicht wird hier nichts mehr: storybook-pages.yml übernimmt per `workflow_run` den
+# `storybook-static`-Build eines erfolgreichen `verify`-Laufs auf main und deployt ihn
+# zusammen mit den PR-Vorschauen (ADR-0009).
 on:
   push:
     branches: [main]
@@ -24,24 +28,19 @@ on:
       - 'tools/checks/check-contrast.mjs'
       - 'package.json'
       - '.github/workflows/storybook-angular.yml'
-  # Manueller Nachtrigger für einen Pages-Deploy ohne neuen Push auf main
-  # (z. B. nach dem Aktivieren von Pages, oder um einen fehlgeschlagenen
-  # Deploy zu wiederholen).
+  # Manueller Nachtrigger: Ein Lauf auf main stößt über storybook-pages.yml
+  # einen Pages-Deploy mit frischem main-Build an, ohne neuen Push.
   workflow_dispatch: {}
 
 # Abbrechen nur außerhalb von main: Auf PR-Branches ist schnelles Feedback
-# erwünscht, ein neuer Push verwirft den alten Lauf. Auf main dagegen hängt am
-# Ende der Pages-Deploy, und ein Workflow-weiter Abbruch träfe auch einen schon
-# laufenden `deploy`-Job — die Job-Gruppe `pages` unten kann das nicht
-# verhindern, weil der Abbruch auf Workflow-Ebene greift. Auf main läuft der
-# ältere Lauf deshalb zu Ende; ein neuer wartet (GitHub behält dabei nur den
-# jüngsten wartenden Lauf, Zwischenstände fallen weg).
+# erwünscht, ein neuer Push verwirft den alten Lauf. Auf main dagegen läuft der
+# ältere Lauf zu Ende, damit sein geprüfter Build über storybook-pages.yml live
+# geht; ein neuer wartet (GitHub behält dabei nur den jüngsten wartenden Lauf,
+# Zwischenstände fallen weg).
 concurrency:
   group: storybook-angular-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-# Minimalberechtigung auf Workflow-Ebene; der Deploy-Job hebt sie gezielt für
-# sich selbst an (pages: write, id-token: write).
 permissions:
   contents: read
 
@@ -125,35 +124,23 @@ jobs:
         run: PLAYWRIGHT_BROWSERS_PATH=0 npm run check:contrast
       # Unbedingt (nicht nur auf main) hochladen: der mcp-smoke-test-Job unten braucht denselben
       # Storybook-Build bei jedem PR und Push, um manifests/ + services/ in den MCP-Snapshot zu
-      # kopieren (ADR-0012). Der Pages-Artefakt zwei Steps weiter unten eignet sich dafür nicht:
-      # er entsteht nur bedingt (nur auf main, nur bei push/workflow_dispatch), liegt in einem
-      # für actions/deploy-pages reservierten Format und würde den Smoke-Test bei jedem PR ohne
-      # Grundlage dastehen lassen. Kurze Aufbewahrung, weil es ein reines Zwischenartefakt für
-      # denselben Workflow-Lauf ist.
+      # kopieren (ADR-0012). Auf main holt storybook-pages.yml genau dieses Artefakt per
+      # `workflow_run` direkt nach dem Lauf ab und veröffentlicht es. Kurze Aufbewahrung, weil es
+      # ein reines Zwischenartefakt ist.
       - name: Storybook-Build für MCP-Snapshot hochladen
         uses: actions/upload-artifact@v4
         with:
           name: storybook-static
           path: apps/storybook/dist
           retention-days: 1
-      # Nur hochladen, wenn danach auch tatsächlich deployt wird — dieselbe
-      # Bedingung wie im deploy-Job. Sonst läge bei jedem PR ein ungenutztes
-      # Pages-Artefakt herum. Auch der manuelle Trigger zählt nur auf main:
-      # workflow_dispatch nimmt jeden Branch an, und Pages zeigt laut ADR-0009
-      # immer den Stand von main, nie einen ungemergten Branch.
-      - name: Storybook-Build als Pages-Artefakt hochladen
-        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: apps/storybook/dist
 
   # MCP-Server-Tarball-Smoke-Test (ADR-0012): baut aus demselben Storybook-Build wie oben (kein
   # zweiter build-storybook-Lauf) den Snapshot des @conciso/design-system-mcp-Pakets, tarballt es
   # per `npm pack` und installiert genau dieses Tarball in ein frisches Verzeichnis — wie ein
   # Consumer es täte —, um dort über stdio rohes JSON-RPC gegen `cds-mcp` zu sprechen
   # (packages/mcp/scripts/smoke-test.mjs). Läuft bei jedem PR und Push (kein `if:`, folgt also
-  # `verify`s eigenen Trigger-Bedingungen), unabhängig vom Pages-Deploy — deploy bleibt bewusst
-  # nur von `verify` abhängig, nicht zusätzlich hiervon.
+  # `verify`s eigenen Trigger-Bedingungen), unabhängig vom Pages-Deploy — storybook-pages.yml
+  # prüft bewusst nur das Ergebnis von `verify`, nicht zusätzlich hiervon.
   mcp-smoke-test:
     name: MCP-Server — Tarball-Smoke-Test über stdio
     needs: verify
@@ -192,26 +179,3 @@ jobs:
       # danach nicht weiter.
       - name: Tarball packen und Smoke-Test über stdio fahren
         run: node packages/mcp/scripts/smoke-test.mjs
-
-  deploy:
-    name: Auf GitHub Pages veröffentlichen
-    needs: verify
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    # Zusätzlicher, job-scoped Concurrency-Kanal: serialisiert Deploys auch
-    # zwischen Push- und manuellen Läufen, ohne einen laufenden abzubrechen.
-    # Den Schutz vor dem Workflow-weiten Abbruch liefert er NICHT — der kommt
-    # aus der bedingten cancel-in-progress-Regel oben.
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    steps:
-      - name: Auf GitHub Pages deployen
-        id: deployment
-        uses: actions/deploy-pages@v4

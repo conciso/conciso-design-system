@@ -1,0 +1,78 @@
+name: Storybook / Vorschau
+
+# Baut für einen PR das Storybook, das als PR-Vorschau unter
+# https://conciso.github.io/conciso-design-system/pr-preview/pr-<N>/ erscheint (ADR-0009).
+# Veröffentlicht wird hier NICHTS: Dieser Workflow läuft unprivilegiert unter `pull_request`
+# und lädt nur den Build als Artefakt hoch. Den Deploy übernimmt storybook-pages.yml per
+# `workflow_run` im Kontext von main — dort greift die main-only-Regel des
+# github-pages-Environments, und ein PR-Lauf bekommt nie Schreibrecht auf Pages.
+#
+# Eigener Workflow statt eines Jobs in storybook-angular.yml: `workflow_run` wartet auf den
+# GANZEN auslösenden Workflow. Die Vorschau soll aber nach Lint + Typecheck + Build erscheinen,
+# ohne auf Vitest und das Kontrast-Gate zu warten. Storybook wird bei einem PR dadurch zweimal
+# gebaut — bewusst in Kauf genommen.
+#
+# Pfadfilter wie storybook-angular.yml, plus die Dateien der Vorschau-Pipeline selbst.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'apps/storybook/**'
+      - 'packages/**'
+      - 'docs/legacy-site/**'
+      - 'tools/checks/check-contrast.mjs'
+      - 'package.json'
+      - '.github/workflows/storybook-angular.yml'
+      - '.github/workflows/storybook-preview.yml'
+      - '.github/workflows/storybook-pages.yml'
+      - 'tools/ci/pages-site*.mjs'
+
+# Ein neuer Push verwirft den laufenden Build desselben PRs; der abgebrochene Lauf endet
+# als `cancelled` und wird von storybook-pages.yml nicht veröffentlicht.
+concurrency:
+  group: storybook-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Vorschau bauen
+    # Keine Vorschau für Fork-PRs (ADR-0009): fremdes HTML/JS unter conciso.github.io braucht
+    # eine eigene Entscheidung. storybook-pages.yml prüft das zusätzlich selbst.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/storybook
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      # npm-Workspaces → vom Repo-Root aus installieren (wie storybook-angular.yml).
+      - name: Dependencies installieren
+        working-directory: .
+        run: npm ci
+      - name: Lint
+        working-directory: .
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Tests des Site-Zusammenbaus
+        working-directory: .
+        run: npm run test:pages-site
+      - name: Storybook bauen
+        run: npm run build-storybook
+      # Nur Daten: storybook-pages.yml kopiert den Inhalt in den Speicher, führt nichts davon
+      # aus. Die PR-Nummer nimmt der Publish-Workflow aus dem workflow_run-Payload, nicht aus
+      # dem Artefakt.
+      - name: Vorschau-Build hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-preview
+          path: apps/storybook/dist
+          retention-days: 7
