@@ -177,6 +177,29 @@ Jede Umsetzung ergänzt das Verhalten, das der Browser nicht übernimmt:
 | Ansage | Die Meldung trägt `role="alert"`, wird beim Einfügen vorgelesen und braucht keine Fokusverschiebung. Entstehen bei einem langen Formular über ein Dutzend Meldungen gleichzeitig, ergibt das eine unbrauchbare Ansage. Dort sammelt eine fokussierte Fehlerübersicht die Fehler (siehe `Komponenten/Buchungsformular`) und trägt das `role="alert"`, die Einzelmeldungen lassen es weg (Verknüpfung per `aria-describedby` bleibt). In Angular tut das `quietError` an den Feldkomponenten |
 | Fokus | Nach einem gescheiterten Absenden geht der Fokus auf das erste fehlerhafte Feld |
 
+## Deaktivierter Zustand · Nur CSS-Schicht
+
+Ein deaktiviertes Feld braucht in der CSS-Schicht nur das native Attribut `disabled` am Control, eine eigene Klasse gibt es nicht. `.field input:disabled`, `.field textarea:disabled` und `.field select:disabled` setzen Deckkraft `.5` und `cursor: not-allowed`, das Label des Felds wird per `:has()` genauso gedämpft. Das entspricht dem Custom Select und der Combobox (`is-disabled`).
+
+<HtmlBeispiel titel="Deaktiviertes Feld" interaktiv>
+
+```html
+<div class="field">
+  <label for="kunde">Kundennummer</label>
+  <input type="text" id="kunde" value="K-4711" disabled aria-describedby="kunde-hint">
+  <span class="helper" id="kunde-hint">Die Nummer wird vom Support vergeben.</span>
+</div>
+```
+
+</HtmlBeispiel>
+
+Deaktivierte Felder sparsam einsetzen, sie haben zwei Nebenwirkungen:
+
+- Der Browser sendet sie beim Absenden nicht mit. Soll der Wert im Formular ankommen, ist `readonly` oder ein Hidden-Feld die bessere Wahl.
+- Screenreader überspringen sie, sie sind nicht fokussierbar. Der Grund für die Sperre gehört deshalb sichtbar in den Text, nicht nur in den Zustand.
+
+Deaktivierte Controls sind von den Kontrastanforderungen (WCAG 1.4.3 und 1.4.11) ausgenommen, der Text bleibt bei `.5` trotzdem lesbar.
+
 ## Kontaktformular-Validierung · Nur CSS-Schicht
 
 Das Anfrageformular nutzt den Fehlerzustand von oben und ergänzt Pflichtfelder, Einwilligung und Erfolgszustand.
