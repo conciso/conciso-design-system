@@ -377,7 +377,7 @@ Zustand Pflicht sind.
 
 | Regel | Begründung |
 |---|---|
-| `hidden` statt `disabled` | Deaktivierte Felder werden beim Submit nicht mitgesendet und von Screenreadern übersprungen. Ausgeblendete Felder behalten ihren Wert und kommen beim Wiedereinblenden unverändert zurück |
+| `hidden` statt `disabled` | Deaktivierte Felder werden beim Submit nicht mitgesendet und haben keinen Tastaturfokus (Screenreader erreichen sie im Lesemodus weiterhin und sagen sie als deaktiviert an). Ausgeblendete Felder behalten ihren Wert und kommen beim Wiedereinblenden unverändert zurück |
 | `required` mitschalten | Ein unsichtbares Pflichtfeld blockiert die Absendung ohne sichtbare Ursache. `data-required` ist die Merkmarkierung, `required` und `aria-required="true"` werden beim Einblenden gesetzt und beim Ausblenden entfernt |
 | Fehlerzustand beim Ausblenden aufräumen | Sonst bleibt eine `.error-msg` im DOM stehen und wird beim nächsten Einblenden erneut angesagt |
 | Block liegt in der Gruppe seines Auslösers | Ein bedingter Block ist keine eigene Gruppe, sondern eine `.bk-subgroup` innerhalb der Gruppe, die ihn schaltet. Als Geschwister-Gruppe mit eigener Trennlinie wirkt er unabhängig, obwohl er ohne seinen Auslöser gar nicht existiert |

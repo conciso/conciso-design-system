@@ -97,6 +97,21 @@ export const Tastatur: Story = {
   },
 };
 
+export const Fokusring: Story = {
+  name: 'Fokusring',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Tastaturfokus zeigt den Marken-Fokusring (box-shadow) statt des Browser-Standardrings.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.tab();
+    const radio = c.getAllByRole('radio').find((r) => r === document.activeElement);
+    await expect(radio).toBeDefined();
+    const stil = getComputedStyle(radio as HTMLElement);
+    await expect(stil.outlineStyle).toBe('none');
+    await expect(stil.boxShadow).not.toBe('none');
+  },
+};
+
 export const Formularbindung: Story = {
   name: 'Formularbindung',
   parameters: {
