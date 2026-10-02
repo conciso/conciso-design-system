@@ -14,7 +14,7 @@ Schließen, Feature-Symbole) ist im Outline-Stil aus [heroicons.com](https://her
 (MIT-Lizenz), ein kleinerer Teil (zum Beispiel Play/Pause, Download) ist Solid. Die fünf
 Bereichs-Glyphen (Corporate ×2, Angewandte KI, Effektive Software, Wirksame
 Organisationen) sind durchgehend Solid (gefüllte Multi-Path-Symbole). Jeder Schlüssel
-liegt in der Registry als genau eine Variante vor — die Größe wird über `width`/`height`
+liegt in der Registry als genau eine Variante vor, die Größe wird über `width`/`height`
 oder CSS gesetzt, die `viewBox` bleibt dabei erhalten. Alle 99 Icons: siehe Galerie unten.
 
 ## Größen & Stroke-Width
@@ -34,7 +34,7 @@ kräftigere Konturen. Die Werte stehen als CSS Custom Properties (`--icon-stroke
 
 ## Die vier Bereichs-Glyph-Familien
 
-Jede Bereichs-Glyphe ist ein SVG mit `fill="currentColor"` — die Farbe ist nicht
+Jede Bereichs-Glyphe ist ein SVG mit `fill="currentColor"`, die Farbe ist nicht
 eingebrannt, sondern wird vom Consumer über die CSS-Eigenschaft `color` auf dem
 Wrapper-Element gesetzt.
 
@@ -114,7 +114,7 @@ liegt als Tooltip (`title`-Attribut) auf der Kachel.
 ### Bereichs-Glyphen
 
 Die fünf Bereichs-Glyphen, je in ihrer Bereichsfarbe (Hintergrund `--XX-50`, `color` aus
-der Tabelle oben — `currentColor` im SVG übernimmt diese Farbe).
+der Tabelle oben; `currentColor` im SVG übernimmt diese Farbe).
 
 <Unstyled>
   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--s6)' }}>
@@ -197,7 +197,7 @@ umgestellt.
 
 **Tun**
 
-- Größe über `width`/`height` oder CSS setzen — die `viewBox` bleibt dabei unverändert
+- Größe über `width`/`height` oder CSS setzen, die `viewBox` bleibt dabei unverändert
 - Das Hintergrund-`<rect>` vor dem Einbinden entfernen, es dient nur der Designvorschau
 - Bereichsfarbe für Hintergrund und Pfad einhalten, Konsistenz über alle Brand Areas
 - Dekorative Icons mit `aria-hidden="true"` ausblenden, Screenreader überspringen sie
