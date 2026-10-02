@@ -66,6 +66,11 @@ oder geänderte Komponente zu sehen — für Designer:innen eine hohe Hürde. De
     verworfen, keiner überholt einen anderen.
   - Im PR erscheint „View deployment“ über ein Deployment im Environment `pr-preview`,
     das der Publish-Workflow per API auf den Head-Branch des PRs legt.
+  - Pro PR gibt es einen **Sticky-Kommentar** mit dem Vorschau-Link und Deep-Links auf neue
+    und geänderte Stories (`tools/ci/story-links.mjs`, im unprivilegierten Vorschau-Build
+    ermittelt). Ein eigener Job im Publish-Workflow rendert ihn und aktualisiert ihn bei
+    jedem Push. Die Links-Datei ist Fremddaten: `tools/ci/pr-comment.mjs` baut alle URLs
+    aus der eigenen Vorschau-URL und den geprüften Story-IDs und escaped jeden Text.
   - Wird ein PR geschlossen oder gemergt, verschwindet seine Vorschau: Jeder Deploy nimmt
     nur offene PRs auf und räumt den Speicher entsprechend auf; ein nächtlicher Lauf setzt
     die Site auch ohne neuen Build neu zusammen, sodass keine Vorschau länger als bis zum

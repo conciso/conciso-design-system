@@ -26,6 +26,8 @@ on:
       - '.github/workflows/storybook-preview.yml'
       - '.github/workflows/storybook-pages.yml'
       - 'tools/ci/pages-site*.mjs'
+      - 'tools/ci/story-links*.mjs'
+      - 'tools/ci/pr-comment*.mjs'
 
 # Ein neuer Push verwirft den laufenden Build desselben PRs; der abgebrochene Lauf endet
 # als `cancelled` und wird von storybook-pages.yml nicht veröffentlicht.
@@ -47,7 +49,10 @@ jobs:
       run:
         working-directory: apps/storybook
     steps:
+      # Volle Historie: story-links.mjs braucht den Merge-Base mit dem Ziel-Branch.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -62,11 +67,30 @@ jobs:
         run: npm run lint
       - name: Typecheck
         run: npm run typecheck
-      - name: Tests des Site-Zusammenbaus
+      - name: Tests der CI-Werkzeuge
         working-directory: .
-        run: npm run test:pages-site
+        run: npm run test:ci
       - name: Storybook bauen
         run: npm run build-storybook
+      # Neue und geänderte Stories für den PR-Kommentar. Nicht gate-relevant: Scheitert die
+      # Ermittlung, steht im Kommentar nur der Vorschau-Link, und die Vorschau erscheint trotzdem.
+      # Der Checkout ist der Merge-Stand (refs/pull/N/merge), der Merge-Base mit dem Ziel-Branch
+      # also dessen Spitze — der Diff zeigt genau die Änderungen des PRs.
+      - name: Story-Links ermitteln
+        id: story-links
+        continue-on-error: true
+        working-directory: .
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR: ${{ github.event.pull_request.number }}
+          OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          owner="${OWNER,,}"
+          node tools/ci/story-links.mjs --base "origin/$BASE_REF" \
+            --preview-root "https://$owner.github.io/$REPO_NAME/pr-preview/pr-$PR/" \
+            --out "$RUNNER_TEMP/story-links.json"
       # Nur Daten: storybook-pages.yml kopiert den Inhalt in den Speicher, führt nichts davon
       # aus. Die PR-Nummer nimmt der Publish-Workflow aus dem workflow_run-Payload, nicht aus
       # dem Artefakt.
@@ -75,4 +99,13 @@ jobs:
         with:
           name: storybook-preview
           path: apps/storybook/dist
+          retention-days: 7
+      # Eigenes Artefakt, nicht im Build: Der Build-Inhalt wird veröffentlicht, die Links nicht.
+      # Fremddaten für den Publish-Workflow — er prüft sie, bevor er daraus einen Kommentar macht.
+      - name: Story-Links hochladen
+        if: steps.story-links.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-story-links
+          path: ${{ runner.temp }}/story-links.json
           retention-days: 7
