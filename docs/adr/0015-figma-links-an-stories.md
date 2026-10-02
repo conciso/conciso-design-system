@@ -17,4 +17,4 @@ ADR-0006 hat `@storybook/addon-designs` ausgeschlossen, weil das Repo keinen Fig
 
 - Links setzt man per „Copy link“ in Figma; die Node-ID steht in der URL.
 - Baut jemand die Figma-Datei so um, dass Node-IDs wegfallen, zeigt das Panel „Design“ nichts mehr an. Das fällt nur beim Ansehen auf. Gegenmittel: in Figma Komponenten umbenennen und verschieben statt neu anlegen, dann bleiben die IDs stabil.
-- Das Panel rendert den Figma-Embed nur für Personen mit Zugriff auf die Datei, sofern die Datei nicht per Link öffentlich lesbar ist.
+- Die Figma-Datei ist per Link öffentlich lesbar; der Embed im Panel braucht keine Anmeldung bei Figma. Wird die Freigabe zurückgenommen, sehen nur noch Personen mit Zugriff auf die Datei den Embed.
