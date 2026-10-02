@@ -50,6 +50,16 @@ export default defineConfig({
             headless: true,
             provider: playwright(),
             instances: [{ browser: 'chromium' }],
+            // Fenster-Höhe des äußeren Playwright-Fensters für hohe Visual-Aufnahmen
+            // (siehe `fitViewportToHeight` in `.storybook/vitest.setup.ts`).
+            commands: {
+              setOuterViewportHeight: async (ctx, width: number, height: number) => {
+                const outer = (
+                  ctx as unknown as { page: { setViewportSize(s: object): Promise<void> } }
+                ).page;
+                await outer.setViewportSize({ width, height });
+              },
+            },
             // Visual-Regression (Nachfolger von `.storybook/test-runner.ts`, siehe
             // docs/adr/0005-testebene-der-angular-lib.md). `resolveScreenshotPath`/`resolveDiffPath` müssen hier (im
             // Node-Prozess) stehen, nicht im browserseitig laufenden

@@ -1,4 +1,5 @@
 import { afterEach, beforeAll, expect } from 'vitest';
+import { commands, page } from 'vitest/browser';
 import { setProjectAnnotations } from '@storybook/angular-vite';
 // Workaround für einen Bug in @storybook/angular-vite (10.5.x–10.6.0):
 // setProjectAnnotations() registriert als Framework-Default nur render/
@@ -41,6 +42,12 @@ beforeAll(project.beforeAll);
  * Version (10.6.x) geprüft — `storyId` dient wie zuvor `context.id` im
  * Test-Runner als Dateiname.
  */
+declare module 'vitest/browser' {
+  interface BrowserCommands {
+    setOuterViewportHeight(width: number, height: number): Promise<void>;
+  }
+}
+
 declare const __VISUAL__: boolean;
 const VISUAL = __VISUAL__;
 
@@ -93,6 +100,46 @@ function transliterateGerman(id: string): string {
  * Überstand (siehe `extendForOverflow`), damit sie im Bild vollständig sind.
  */
 const CANVAS_PADDING_PX = 16;
+/** Obergrenze für die Aufnahmehöhe; darüber wird abgeschnitten (und gewarnt). */
+const MAX_CAPTURE_HEIGHT_PX = 4000;
+
+const nextFrames = () =>
+  new Promise<void>((resolve) =>
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+  );
+
+/**
+ * Chromium malt nur den sichtbaren Bereich: Ein Element-Screenshot, der höher ist als
+ * das Fenster, hat die richtige Größe, ist unterhalb der Fensterhöhe aber weiß (in der
+ * CI mit dem gepinnten Playwright-Image gemessen). Deshalb wird das Viewport vor der
+ * Aufnahme auf die Höhe des Inhalts gesetzt (Breite unverändert, nie kleiner als das
+ * Standardfenster, höchstens `MAX_CAPTURE_HEIGHT_PX`).
+ */
+async function fitViewportToHeight(canvas: HTMLElement, storyId: string, minHeight: number) {
+  const wanted = Math.ceil(canvas.getBoundingClientRect().height);
+  if (wanted > MAX_CAPTURE_HEIGHT_PX) {
+    console.warn(
+      `[visual] ${storyId}: Inhalt ${wanted}px hoch, Aufnahme auf ${MAX_CAPTURE_HEIGHT_PX}px begrenzt.`,
+    );
+  }
+  const height = Math.min(Math.max(minHeight, wanted), MAX_CAPTURE_HEIGHT_PX);
+  if (height !== window.innerHeight) {
+    await setViewportHeight(height);
+  }
+}
+
+/**
+ * Das Test-Fenster ist ein skaliertes iframe im äußeren Playwright-Fenster (UI-Modus
+ * von @vitest/browser): `page.viewport()` allein ändert nur das iframe, das äußere
+ * Fenster bleibt 720 px hoch, schrumpft das iframe auf diese Höhe herunter und
+ * fotografiert das Ergebnis. Deshalb wird zusätzlich das äußere Fenster gleich hoch
+ * gemacht (Befehl `setOuterViewportHeight`, siehe `vitest.config.mts`).
+ */
+async function setViewportHeight(height: number) {
+  await commands.setOuterViewportHeight(window.top?.innerWidth ?? window.innerWidth, height);
+  await page.viewport(window.innerWidth, height);
+  await nextFrames();
+}
 
 const LAYOUT_CSS: Record<string, string> = {
   // schrumpft auf den Inhalt, wie die zentrierte Story im Storybook-UI
@@ -212,8 +259,12 @@ afterEach(async (context) => {
   );
   await document.fonts?.ready;
 
-  // Überstände erst messen, wenn Layout und Fonts stehen.
+  // Erst das Viewport auf die Inhaltshöhe bringen (fixe Overlays richten sich nach
+  // ihm), dann Überstände messen, dann die Höhe mit dem Überstand nachziehen.
+  const defaultHeight = window.innerHeight;
+  await fitViewportToHeight(canvas, storyId, defaultHeight);
   extendForOverflow(canvas, storyId);
+  await fitViewportToHeight(canvas, storyId, defaultHeight);
 
   const freeze = document.createElement('style');
   freeze.textContent = `*, *::before, *::after {
@@ -232,6 +283,9 @@ afterEach(async (context) => {
   } finally {
     freeze.remove();
     frame.remove();
+    if (window.innerHeight !== defaultHeight) {
+      await setViewportHeight(defaultHeight);
+    }
     if (savedStyle === null) canvas.removeAttribute('style');
     else canvas.setAttribute('style', savedStyle);
   }
