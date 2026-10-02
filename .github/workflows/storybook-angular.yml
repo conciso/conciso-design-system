@@ -21,13 +21,8 @@ on:
       - 'package.json'
       - '.github/workflows/storybook-angular.yml'
   pull_request:
-    paths:
-      - 'apps/storybook/**'
-      - 'packages/**'
-      - 'docs/legacy-site/**'
-      - 'tools/checks/check-contrast.mjs'
-      - 'package.json'
-      - '.github/workflows/storybook-angular.yml'
+  # Kein paths-Filter: „Lint, Build, Tests“ ist Pflicht-Check im Ruleset für main —
+  # ein nie gestarteter Workflow würde PRs ohne Storybook-Änderung dauerhaft blockieren.
   # Manueller Nachtrigger: Ein Lauf auf main stößt über storybook-pages.yml
   # einen Pages-Deploy mit frischem main-Build an, ohne neuen Push.
   workflow_dispatch: {}
