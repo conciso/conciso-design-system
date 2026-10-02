@@ -21,26 +21,48 @@ export default meta;
 
 type Story = StoryObj;
 
-const specimen = (token: string, sample: string): string => `
-  <div style="display:grid;grid-template-columns:200px 1fr;gap:var(--s6);align-items:baseline;padding:var(--s3) 0;border-bottom:var(--bd)">
+const specimen = (token: string, extra = ''): string => `
+  <div style="display:grid;grid-template-columns:260px 1fr;gap:var(--s6);align-items:baseline;padding:var(--s3) 0;border-bottom:var(--bd)">
     <code style="font:var(--ty-body-xs);color:var(--tx-secondary)">var(--ty-${token})</code>
-    <span style="font:var(--ty-${token});color:var(--tx-primary)">${sample}</span>
+    <span style="font:var(--ty-${token});color:var(--tx-primary);${extra}">Beratung, die wirkt</span>
   </div>`;
 
+// label-xs und label-sm teilen die Metriken. label-xs ist die Eyebrow-Variante und
+// bekommt Versalien plus Laufweite an der Verwendungsstelle (siehe tokens.css).
+const eyebrow = 'text-transform:uppercase;letter-spacing:.08em';
+
 export const Skala: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Alle 19 `--ty-*`-Tokens, von Display bis Caption. Die fluiden Größen (Headline und ' +
+          'Display) zeigen hier den Wert, den die aktuelle Fensterbreite per `clamp()` ergibt.',
+      },
+    },
+  },
   render: () => ({
     template: `
       <div style="padding:var(--s8);background:var(--bg-page)">
-        ${specimen('display-md', 'Display Md — Effektive Software')}
-        ${specimen('display-sm', 'Display Sm — Conciso Design System')}
-        ${specimen('headline-md', 'Headline Md — Wirksame Organisationen')}
-        ${specimen('headline-sm', 'Headline Sm — AI.Applied')}
-        ${specimen('serif-lg', 'Serif Lg — ein redaktionelles Zitat')}
-        ${specimen('title-sm', 'Title Sm — Kartentitel')}
-        ${specimen('body-md', 'Body Md — Standard-Fließtext für längere Absätze.')}
-        ${specimen('body-sm', 'Body Sm — Meta-Daten und Sekundärtext.')}
-        ${specimen('label-md', 'Label Md — Button- und Formular-Labels')}
-        ${specimen('caption', 'Caption — Bildunterschriften und Hinweise')}
+        ${specimen('display-lg')}
+        ${specimen('display-md')}
+        ${specimen('display-sm')}
+        ${specimen('headline-md')}
+        ${specimen('headline-sm')}
+        ${specimen('headline-xs')}
+        ${specimen('serif-lg')}
+        ${specimen('serif-md')}
+        ${specimen('serif-sm')}
+        ${specimen('title-sm')}
+        ${specimen('body-md')}
+        ${specimen('body-sm')}
+        ${specimen('body-xs')}
+        ${specimen('label-md')}
+        ${specimen('label-sm')}
+        ${specimen('label-xs', eyebrow)}
+        ${specimen('label-xs-strong', eyebrow)}
+        ${specimen('name')}
+        ${specimen('caption')}
       </div>
     `,
   }),
