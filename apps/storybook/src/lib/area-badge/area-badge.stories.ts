@@ -6,6 +6,10 @@ const meta: Meta<AreaBadgeComponent> = {
   component: AreaBadgeComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2113',
+    },
     docs: {
       description: {
         component:

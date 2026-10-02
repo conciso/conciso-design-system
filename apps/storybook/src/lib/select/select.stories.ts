@@ -15,11 +15,15 @@ const meta: Meta<SelectComponent> = {
   component: SelectComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5453',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Gestylte Einzelauswahl mit Listbox-Popup, Häkchen und Bereichs-Akzent — für Fälle, ' +
+          'Gestylte Einzelauswahl mit Listbox-Popup, Häkchen und Bereichs-Akzent, für Fälle, ' +
           'in denen das native Select optisch zum Bereich gehören soll. Volle Tastatur (↑↓, ' +
           'Pos1/Ende, Type-ahead, Enter wählt, Esc schließt) und WCAG-AA-Verdrahtung ' +
           '(role=listbox/option, aria-haspopup/-expanded/-activedescendant). Für kurze Listen ' +
@@ -138,14 +142,14 @@ export const Formularbindung: Story = {
       template: `
         <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
           <cds-select label="Bereich" [options]="options" [formControl]="ctrl"></cds-select>
-          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '(leer)' }}</strong></p>
         </div>
       `,
     };
   },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    await expect(canvasElement).toHaveTextContent('Wert: —');
+    await expect(canvasElement).toHaveTextContent('Wert: (leer)');
     await userEvent.click(c.getByRole('button'));
     await userEvent.click(c.getByRole('option', { name: 'Effektive Software' }));
     await waitFor(() => expect(canvasElement).toHaveTextContent('Wert: es'));

@@ -15,13 +15,17 @@ const meta: Meta<AuthorCardComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3766',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Avatar-plus-Bio-Strip am Ende eines Wissensbeitrags (`.author-card`, ' +
-          'css/components.css:1602–1606), einzeln oder über `cds-author-card-group` gebündelt ' +
-          '(`.author-card-group`, css/components.css:1547–1563). Attributselektor ' +
+          'css/components.css:1602 bis 1606), einzeln oder über `cds-author-card-group` gebündelt ' +
+          '(`.author-card-group`, css/components.css:1547 bis 1563). Attributselektor ' +
           '`div[cdsAuthorCard]`: gemessen im `.is-grid`-Fall bricht ein Element-Selektor den ' +
           'Höhenausgleich der Reihe (84/204 px statt 204/204 px, siehe Klassendoku), weil der ' +
           'unsichtbare Host gestreckt wird, nicht die sichtbare `.author-card`-Box eine Ebene ' +
@@ -85,7 +89,13 @@ export const Interaktiv: Story = {
 
 export const ZweiAutorinnen: Story = {
   name: 'Zwei Autor:innen',
-  parameters: { controls: { disable: true } },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1036',
+    },
+    controls: { disable: true },
+  },
   // Wortlaut der Artikel-Demo: zwei Bios untereinander, eine
   // Gruppen-Überschrift ersetzt die individuellen Eyebrows, siehe wissensbeitrag.mdx
   // „Eyebrow-Konvention“).
@@ -128,7 +138,13 @@ export const ZweiAutorinnen: Story = {
 
 export const AlsRaster: Story = {
   name: 'Als Raster',
-  parameters: { controls: { disable: true } },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1036',
+    },
+    controls: { disable: true },
+  },
   // Namen und Rollen der Beispielseite Scrum-Training.
   // Tobias Mehnerts Bio ist bewusst auf einen Satz gekürzt (NICHT 1:1 aus dem Mockup), Anja
   // Reuters Bio bleibt wortgleich — der Längenkontrast ist der Regressionsschutz für

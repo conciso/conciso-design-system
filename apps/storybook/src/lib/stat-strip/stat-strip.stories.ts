@@ -6,12 +6,16 @@ const meta: Meta<StatStripComponent> = {
   component: StatStripComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3429',
+    },
     layout: 'fullscreen',
     docs: {
       description: {
         component:
           'Flache Kennzahlen-Leiste, die mehrere zentrierte Werte nebeneinander ' +
-          'als ruhiges Band zusammenfasst — ohne Rahmen oder Schatten. Jede ' +
+          'als ruhiges Band zusammenfasst, ohne Rahmen oder Schatten. Jede ' +
           'Kennzahl ist an ihre Brand Area farblich angepasst.',
       },
     },
