@@ -59,7 +59,8 @@ Test-Runner (Jest) ist entfallen (siehe
 
 **Visual-Regression** läuft in derselben Schiene, aber nur mit `VISUAL=1`
 (siehe `.storybook/vitest.setup.ts`): dann macht ein `afterEach`-Hook je Story
-einen Screenshot (`expect(document.body).toMatchScreenshot(...)`) und
+einen Screenshot des Story-Inhalts (Canvas-Element der Story samt Rand, nicht das
+Fenster; `expect(canvas).toMatchScreenshot(...)`) und
 vergleicht ihn gegen `visual-snapshots/<story-id>.png`. Lokal ist das
 Rendering nicht pixelgleich zum gepinnten CI-Image — der scharfe Vergleich
 läuft in `.github/workflows/visual.yml`. Einzelne Stories mit nicht
