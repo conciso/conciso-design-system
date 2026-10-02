@@ -16,7 +16,7 @@ import {
 
 function makeTruthMap() {
   const button = {
-    componentId: 'komponenten-buttons-button',
+    componentId: 'komponenten-button',
     inputs: new Set(['area', 'disabled', 'full', 'label', 'size', 'type', 'variant']),
     outputs: new Set(['clicked']),
   };
@@ -47,7 +47,7 @@ test('erfundenes Input auf einer dokumentierten Komponente wird gemeldet', () =>
   const { findings } = checkAnswer(answer, makeTruthMap());
   assert.equal(findings.length, 1);
   assert.equal(findings[0].reason, 'undocumented-input');
-  assert.equal(findings[0].componentId, 'komponenten-buttons-button');
+  assert.equal(findings[0].componentId, 'komponenten-button');
   assert.match(findings[0].attribute, /icon/);
 });
 
@@ -55,7 +55,7 @@ test('Antwort mit ausschließlich dokumentierten Inputs/Outputs bleibt ohne Befu
   const answer = '```html\n<cds-button label="Los" variant="filled" area="ki" (clicked)="onClick()"></cds-button>\n```';
   const { findings, checkedComponents } = checkAnswer(answer, makeTruthMap());
   assert.deepEqual(findings, []);
-  assert.deepEqual(checkedComponents, ['komponenten-buttons-button']);
+  assert.deepEqual(checkedComponents, ['komponenten-button']);
 });
 
 test('Standard-HTML/Angular-Attribute werden ignoriert, nicht gemeldet', () => {
