@@ -45,7 +45,7 @@ export const ProBereich: Story = {
     template: `
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
         <cds-testimonial area="co" name="A. Becker" roleLabel="CEO"
-          quote="Ein Auftritt, auf den wir stolz sind — klar, konsistent, professionell."></cds-testimonial>
+          quote="Ein Auftritt, auf den wir stolz sind: klar, konsistent, professionell."></cds-testimonial>
         <cds-testimonial area="ki" name="S. Khan" roleLabel="Head of Data"
           quote="Die KI-Lösung liefert seit Tag eins messbaren Mehrwert."></cds-testimonial>
         <cds-testimonial area="es" name="M. Lang" roleLabel="VP Engineering"
