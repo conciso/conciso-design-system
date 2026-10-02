@@ -6,11 +6,15 @@ const meta: Meta<StatusBadgeComponent> = {
   component: StatusBadgeComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2103',
+    },
     docs: {
       description: {
         component:
           'Passive Zustands-Kennzeichnung: ein kleines, nicht interaktives Label, das den ' +
-          'Status eines Elements über semantische Farben trägt — OK, Warnung, Fehler oder ' +
+          'Status eines Elements über semantische Farben trägt: OK, Warnung, Fehler oder ' +
           'Neutral (z. B. Live, Beta, Deprecated, Draft). Für die Zuordnung zu einer Brand ' +
           'Area die Bereichs-Badge, für interaktive Filter den Chip nutzen.',
       },

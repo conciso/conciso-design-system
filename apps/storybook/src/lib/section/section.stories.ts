@@ -7,6 +7,10 @@ const meta: Meta<SectionComponent> = {
   component: SectionComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3855',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -15,12 +19,12 @@ const meta: Meta<SectionComponent> = {
           'Kopf-Trio aus Kicker (`label`), Überschrift (`heading`) und Lead (`sub`). Alle drei ' +
           'sind Beiwerk, eine Sektion besteht auch nur aus ihrem projizierten Inhalt. ' +
           'Attributselektor `[cdsSection]` statt eigenem Element: `<section cdsSection>` oder ' +
-          '`<div cdsSection>` — der Konsument wählt das Tag und entscheidet damit, ob die ' +
+          '`<div cdsSection>`, der Konsument wählt das Tag und entscheidet damit, ob die ' +
           'Sektion überhaupt eine `<section>`-Landmark werden kann; die Komponente setzt nur ' +
           '`aria-labelledby`, wenn ein zugänglicher Name verfügbar ist. Die Hintergrundfläche ' +
           'einer Sektion ist eine Seiten-Entscheidung (Flächen-Rhythmus zwischen ' +
           'Nachbar-Sektionen) und deshalb kein Input dieser Komponente, sitzt aber direkt am ' +
-          'Host: `<section cdsSection style="background:…">` — kein umschließendes Element ' +
+          'Host: `<section cdsSection style="background:…">`, kein umschließendes Element ' +
           'mehr nötig (siehe „Fläche am Host“).',
       },
     },

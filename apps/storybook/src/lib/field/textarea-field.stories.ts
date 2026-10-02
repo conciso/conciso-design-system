@@ -8,6 +8,10 @@ const meta: Meta<TextareaFieldComponent> = {
   component: TextareaFieldComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2582',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -59,7 +63,7 @@ export const Formularbindung: Story = {
       description: {
         story:
           'Der Textbereich ist ein `ControlValueAccessor` (via FieldBase) und bindet ' +
-          'direkt an reactive forms (`formControl`) — der Wert lässt sich so auslesen ' +
+          'direkt an reactive forms (`formControl`), der Wert lässt sich so auslesen ' +
           '(hier die Zeichenzahl) und validieren. Ohne Formular geht alternativ `[(value)]`.',
       },
     },

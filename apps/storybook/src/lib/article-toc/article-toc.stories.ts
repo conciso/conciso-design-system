@@ -41,14 +41,18 @@ const meta: Meta<ArticleTocComponent> = {
   ],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5001',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Aufklappbares Inhaltsverzeichnis am Anfang eines Wissensbeitrags (`.article-toc*`, ' +
-          'css/components.css:1577–1589). Natives `<details>`/`<summary>`, kein nachgebautes ' +
+          'css/components.css:1577 bis 1589). Natives `<details>`/`<summary>`, kein nachgebautes ' +
           'Disclosure: Tastaturbedienung und Toggle-Zustand kommen vom Browser, das CSS hängt an ' +
-          '`[open]`. Zweites Vorkommen des `<details>`-mit-Caret-Musters neben `cds-compare` — ' +
+          '`[open]`. Zweites Vorkommen des `<details>`-mit-Caret-Musters neben `cds-compare`, ' +
           'bewusst NICHT zusammengezogen (ADR-0007 §5), unter anderem weil dieses Bauteil ' +
           'keinen `toggled`-Output hat. `aria-label` am `<summary>` ' +
           '(„Inhaltsverzeichnis ein- und ausklappen“) ist fest verdrahtet, 1:1 aus beiden realen ' +

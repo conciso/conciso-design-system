@@ -7,11 +7,15 @@ const meta: Meta<TierComponent> = {
   component: TierComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3383',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Stufen-Trenner aus Label und Haarlinie (`.ep-tier`, css/components.css:1381–1384), der ' +
+          'Stufen-Trenner aus Label und Haarlinie (`.ep-tier`, css/components.css:1381 bis 1384), der ' +
           'eine Offene Feature-Liste in Pakete gliedert, z. B. „In jedem Paket enthalten“ vor ' +
           '„Zusätzlich mit Pro“. Element-Selektor `cds-tier` (ADR-0008-Standardfall, siehe ' +
           'Klassendoku): keines der 4 Mockup-Vorkommen sitzt in einem Grid/Flex, das seine Kinder ' +

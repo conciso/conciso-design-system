@@ -8,6 +8,10 @@ const meta: Meta = {
   title: 'Grundlagen/Typografie',
   tags: ['autodocs'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-172',
+    },
     layout: 'fullscreen',
     docs: {
       description: {
@@ -31,16 +35,16 @@ export const Skala: Story = {
   render: () => ({
     template: `
       <div style="padding:var(--s8);background:var(--bg-page)">
-        ${specimen('display-md', 'Display Md — Effektive Software')}
-        ${specimen('display-sm', 'Display Sm — Conciso Design System')}
-        ${specimen('headline-md', 'Headline Md — Wirksame Organisationen')}
-        ${specimen('headline-sm', 'Headline Sm — AI.Applied')}
-        ${specimen('serif-lg', 'Serif Lg — ein redaktionelles Zitat')}
-        ${specimen('title-sm', 'Title Sm — Kartentitel')}
-        ${specimen('body-md', 'Body Md — Standard-Fließtext für längere Absätze.')}
-        ${specimen('body-sm', 'Body Sm — Meta-Daten und Sekundärtext.')}
-        ${specimen('label-md', 'Label Md — Button- und Formular-Labels')}
-        ${specimen('caption', 'Caption — Bildunterschriften und Hinweise')}
+        ${specimen('display-md', 'Display Md · Effektive Software')}
+        ${specimen('display-sm', 'Display Sm · Conciso Design System')}
+        ${specimen('headline-md', 'Headline Md · Wirksame Organisationen')}
+        ${specimen('headline-sm', 'Headline Sm · AI.Applied')}
+        ${specimen('serif-lg', 'Serif Lg · ein redaktionelles Zitat')}
+        ${specimen('title-sm', 'Title Sm · Kartentitel')}
+        ${specimen('body-md', 'Body Md · Standard-Fließtext für längere Absätze.')}
+        ${specimen('body-sm', 'Body Sm · Meta-Daten und Sekundärtext.')}
+        ${specimen('label-md', 'Label Md · Button- und Formular-Labels')}
+        ${specimen('caption', 'Caption · Bildunterschriften und Hinweise')}
       </div>
     `,
   }),

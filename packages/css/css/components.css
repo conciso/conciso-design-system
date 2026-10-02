@@ -347,13 +347,15 @@ a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
 .team-voice-footer{display:flex;flex-direction:column;gap:var(--s1)}
 .team-voice-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
 .team-voice-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
-.team-voice:nth-child(even){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
-.team-voice:nth-child(even) .team-voice-media{grid-column:2;grid-row:1}
-.team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:1}
+/* Alternierung: reines CSS (.team-voice direkt unter .team-voices) und Angular, wo jede
+   .team-voice einziges Kind ihres cds-team-voice-Hosts ist und der Host das Reihenglied stellt. */
+.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:2;grid-row:1}
+.team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:1}
 @media(max-width:768px){
-  .team-voice,.team-voice:nth-child(even){grid-template-columns:1fr}
-  .team-voice:nth-child(even) .team-voice-media{grid-column:1;grid-row:1}
-  .team-voice:nth-child(even) .team-voice-body{grid-column:1;grid-row:2}
+  .team-voice,.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:1fr}
+  .team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:1;grid-row:1}
+  .team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:2}
   /* Gestapelt verbraucht das Quote-Icon eine eigene Zeile + Gaps und frisst viel Höhe.
      Stattdessen Pull-Quote-Stil: 2-Spalten-Grid mit Icon im schmalen linken Gutter, Zitat
      und Footer rechts daneben/darunter ausgerichtet. Icon kleiner, Body-Padding reduziert. */

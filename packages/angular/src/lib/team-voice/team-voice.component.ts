@@ -7,7 +7,7 @@ import { CDS_QUOTE_ICON } from '../icons';
  * TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.
  *
  * Editoriale Zitat-Reihe mit seitlichem Foto (im Grid abwechselnd links/rechts,
- * gesteuert per :nth-child innerhalb von `.team-voices`), bereichsgefärbtem
+ * gesteuert per :nth-child innerhalb von `.team-voices`, bei Angular über den Host), bereichsgefärbtem
  * Akzent (data-area), Quote-Icon (ui-quote), Zitat und Name/Rolle. Mehrere
  * Komponenten in einen `<div class="team-voices">` legen, damit das alternierende
  * Layout greift (siehe Story).

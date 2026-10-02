@@ -7,20 +7,24 @@ const meta: Meta<FactsComponent> = {
   component: FactsComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4889',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Definitionsliste für die Rahmendaten eines Angebots (Termin, Dauer, Ort, Preis) — ' +
-          '`.ep-facts` (css/components.css:1261–1272), einspaltig mit Haarlinie zwischen den Paaren ' +
+          'Definitionsliste für die Rahmendaten eines Angebots (Termin, Dauer, Ort, Preis), ' +
+          '`.ep-facts` (css/components.css:1261 bis 1272), einspaltig mit Haarlinie zwischen den Paaren ' +
           'oder als `.is-grid` zweispaltig für Kästen, die neben Inhalt stehen. Bringt bewusst ' +
           'keinen eigenen Rahmen mit, sie zieht in einen vorhandenen Container ein (Angebots-Box, ' +
           'Sticky-Sidebar). Element-Selektor `cds-facts` (ADR-0008-Standardfall): analog zu ' +
-          '`cds-faq` trägt die INNERE `<dl class="ep-facts">` die CSS-Klasse, nicht der Host — die ' +
+          '`cds-faq` trägt die INNERE `<dl class="ep-facts">` die CSS-Klasse, nicht der Host; die ' +
           'Semantik einer Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element kann es ' +
           'nicht annehmen. Jedes Paar rendert als `<div><dt>…</dt><dd>…</dd></div>`, weil ' +
           '`.ep-facts > div + div` den Trenner ab dem zweiten Paar über den direkten `<div>`-' +
-          'Nachfahren setzt. `area` färbt `.t-{area}` auf jedes `<dt>` — über die ursprüngliche Skizze ' +
+          'Nachfahren setzt. `area` färbt `.t-{area}` auf jedes `<dt>`, über die ursprüngliche Skizze ' +
           'hinaus ergänzt, weil alle 3 realen `.ep-facts`-Vorkommen im Mockup diese Tönung ' +
           'einheitlich einsetzen (siehe Klassendoku).',
       },
