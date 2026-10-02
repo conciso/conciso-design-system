@@ -12,6 +12,8 @@ name: Storybook / Pages
 #   Fehler im MCP-Smoke-Test soll den Doku-Deploy nicht blockieren (wie bisher).
 # - `Storybook / Vorschau` (PR-Build, nur Lint + Typecheck + Build): veröffentlicht die
 #   PR-Vorschau dieses PRs.
+# - Zu jeder PR-Vorschau gehört ein Sticky-Kommentar mit den Links auf neue und geänderte Stories
+#   (Job `kommentieren`, tools/ci/pr-comment.mjs).
 # - manuell und nächtlich: setzt die Site ohne neuen Build aus dem Speicher neu zusammen. Weil
 #   nur offene PRs in die Site kommen, fallen dabei die Vorschauen geschlossener PRs weg —
 #   spätestens am nächsten Morgen, sonst mit dem nächsten Deploy.
@@ -115,6 +117,9 @@ jobs:
     needs: pruefen
     if: needs.pruefen.outputs.modus != ''
     runs-on: ubuntu-latest
+    outputs:
+      bereit: ${{ steps.site.outputs.bereit }}
+      seiten_url: ${{ steps.deployment.outputs.page_url }}
     permissions:
       contents: write # Speicher-Branch pages-storage
       pages: write
@@ -262,3 +267,63 @@ jobs:
             '{state: "success", environment_url: $url, log_url: $log, auto_inactive: false}' \
             | gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" --input - > /dev/null
           echo "PR-Vorschau: $url" | tee -a "$GITHUB_STEP_SUMMARY"
+
+  # Sticky-Kommentar im PR: ein Kommentar, der bei jedem Push aktualisiert wird. Eigener Job statt
+  # eines Schritts in `veroeffentlichen`: Nur dieser Job bekommt Schreibrecht auf PRs, er läuft
+  # nicht in der Warteschlange `pages` und hat weder Pages- noch Branch-Rechte. Die Links kommen
+  # aus dem Artefakt `storybook-story-links` des PR-Laufs — Fremddaten, die pr-comment.mjs prüft
+  # und nie als URL übernimmt.
+  kommentieren:
+    name: PR-Kommentar mit Story-Links
+    needs: [pruefen, veroeffentlichen]
+    if: needs.pruefen.outputs.modus == 'pr' && needs.veroeffentlichen.outputs.bereit == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read # Artefakt des auslösenden Laufs
+      pull-requests: write # Kommentar
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ needs.pruefen.outputs.pr }}
+      HEAD_SHA: ${{ needs.pruefen.outputs.head_sha }}
+      SEITEN_URL: ${{ needs.veroeffentlichen.outputs.seiten_url }}
+    steps:
+      # Default-Branch: gerendert wird mit dem Skript von main.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Fehlt das Artefakt (Ermittlung gescheitert), steht im Kommentar nur der Vorschau-Link.
+      - name: Story-Links des auslösenden Laufs herunterladen
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: storybook-story-links
+          path: ${{ runner.temp }}/links
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      - name: Kommentar rendern
+        run: |
+          set -euo pipefail
+          # PR-Nummer wie in pages-site.mjs streng prüfen; sie landet in einer API-URL.
+          [[ "$PR" =~ ^[1-9][0-9]*$ ]] || { echo "::error::Ungültige PR-Nummer"; exit 1; }
+          args=(--vorschau "${SEITEN_URL%/}/pr-preview/pr-$PR/" --sha "$HEAD_SHA" --out "$RUNNER_TEMP/kommentar.md")
+          [ -f "$RUNNER_TEMP/links/story-links.json" ] && args+=(--links "$RUNNER_TEMP/links/story-links.json")
+          node tools/ci/pr-comment.mjs "${args[@]}"
+      # Der eigene Kommentar ist am Marker in der ersten Zeile und am Bot als Autor erkennbar.
+      - name: Kommentar anlegen oder aktualisieren
+        run: |
+          set -euo pipefail
+          marker='<!-- storybook-pr-preview -->'
+          # Alle Treffer sammeln und den ersten nehmen: `| head -n 1` ließe `gh` bei vielen Seiten
+          # per SIGPIPE scheitern (pipefail).
+          ids=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id")
+          id=${ids%%$'\n'*}
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@"$RUNNER_TEMP/kommentar.md" > /dev/null
+            echo "Kommentar $id aktualisiert"
+          else
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -F body=@"$RUNNER_TEMP/kommentar.md" > /dev/null
+            echo "Kommentar angelegt"
+          fi
