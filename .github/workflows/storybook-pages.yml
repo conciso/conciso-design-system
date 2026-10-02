@@ -1,0 +1,264 @@
+name: Storybook / Pages
+
+# Die einzige Stelle, die GitHub Pages anfasst (ADR-0009). Jeder Lauf trägt einen Build in den
+# Speicher-Branch `pages-storage` ein und deployt danach die GANZE Site neu: der geprüfte
+# main-Build an die Wurzel, die PR-Vorschauen aller offenen PRs unter pr-preview/pr-<N>/
+# (tools/ci/pages-site.mjs). `actions/deploy-pages` ersetzt die Site immer vollständig, deshalb
+# geht es nicht inkrementell — dafür ist jeder Deploy idempotent.
+#
+# Auslöser:
+# - `Storybook / Angular` auf main (Push oder manuell): veröffentlicht den main-Stand, sofern
+#   dessen `verify`-Job erfolgreich war. Bewusst nur `verify`, nicht der ganze Workflow — ein
+#   Fehler im MCP-Smoke-Test soll den Doku-Deploy nicht blockieren (wie bisher).
+# - `Storybook / Vorschau` (PR-Build, nur Lint + Typecheck + Build): veröffentlicht die
+#   PR-Vorschau dieses PRs.
+# - manuell und nächtlich: setzt die Site ohne neuen Build aus dem Speicher neu zusammen. Weil
+#   nur offene PRs in die Site kommen, fallen dabei die Vorschauen geschlossener PRs weg —
+#   spätestens am nächsten Morgen, sonst mit dem nächsten Deploy.
+#
+# Warum `workflow_run`: Es läuft im Kontext des Default-Branches. Damit bleibt die
+# main-only-Regel des github-pages-Environments wirksam, der Workflow-Code kommt immer von main
+# (nie aus dem PR), und es braucht kein Secret. Die Artefakte der auslösenden Läufe sind Daten —
+# sie werden kopiert, nie ausgeführt.
+on:
+  workflow_run:
+    workflows: ['Storybook / Angular', 'Storybook / Vorschau']
+    types: [completed]
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  pruefen:
+    name: Veröffentlichung prüfen
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pull-requests: read
+    outputs:
+      modus: ${{ steps.modus.outputs.modus }}
+      slot: ${{ steps.modus.outputs.slot }}
+      artefakt: ${{ steps.modus.outputs.artefakt }}
+      pr: ${{ steps.modus.outputs.pr }}
+      head_sha: ${{ steps.modus.outputs.head_sha }}
+    steps:
+      # Ergebnis `modus`: main | pr | neu-zusammensetzen | leer (nichts veröffentlichen).
+      # Alle Werte aus dem Event-Payload kommen über env, nie direkt in das Skript.
+      - name: Modus bestimmen
+        id: modus
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_EVENT: ${{ github.event.workflow_run.event }}
+          WF_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          WF_ID: ${{ github.event.workflow_run.id }}
+          WF_HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          WF_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          WF_HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
+          WF_PRS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+        run: |
+          set -euo pipefail
+          ausgabe() { echo "$1=$2" >> "$GITHUB_OUTPUT"; }
+          nichts() { echo "Nichts zu veröffentlichen: $1"; exit 0; }
+
+          if [ "$EVENT_NAME" = workflow_dispatch ] || [ "$EVENT_NAME" = schedule ]; then
+            ausgabe modus neu-zusammensetzen
+            exit 0
+          fi
+          [ "$WF_HEAD_REPO" = "$REPO" ] || nichts "Lauf aus einem Fork ($WF_HEAD_REPO)"
+
+          case "$WF_NAME" in
+            'Storybook / Angular')
+              [ "$WF_HEAD_BRANCH" = main ] || nichts "Lauf auf $WF_HEAD_BRANCH, nicht main"
+              case "$WF_EVENT" in push|workflow_dispatch) ;; *) nichts "Event $WF_EVENT" ;; esac
+              verify=$(gh api "repos/$REPO/actions/runs/$WF_ID/jobs" --paginate \
+                --jq '.jobs[] | select(.name == "Lint, Build, Tests") | .conclusion')
+              # Kein Treffer heißt: der Job wurde umbenannt — dann laut scheitern statt jeden
+              # main-Deploy still zu überspringen.
+              if [ -z "$verify" ]; then
+                echo "::error::Job „Lint, Build, Tests“ im Lauf $WF_ID nicht gefunden (umbenannt?)"
+                exit 1
+              fi
+              [ "$verify" = success ] || nichts "verify-Job endete mit „$verify“"
+              ausgabe modus main
+              ausgabe slot main
+              ausgabe artefakt storybook-static
+              ;;
+            'Storybook / Vorschau')
+              [ "$WF_CONCLUSION" = success ] || nichts "Vorschau-Build endete mit „$WF_CONCLUSION“"
+              pr=$(jq -r --arg sha "$WF_HEAD_SHA" \
+                '[.[] | select(.head.sha == $sha) | .number][0] // empty' <<< "$WF_PRS")
+              [ -n "$pr" ] || nichts "kein PR zum Lauf gefunden"
+              # Nur der aktuelle Stand eines offenen PRs: ein überholter Build (neuerer Push
+              # inzwischen) oder ein schon geschlossener PR wird nicht mehr veröffentlicht.
+              read -r state sha head_repo < <(gh api "repos/$REPO/pulls/$pr" \
+                --jq '[.state, .head.sha, .head.repo.full_name] | @tsv')
+              [ "$state" = open ] || nichts "PR #$pr ist $state"
+              [ "$sha" = "$WF_HEAD_SHA" ] || nichts "PR #$pr hat einen neueren Stand ($sha)"
+              [ "$head_repo" = "$REPO" ] || nichts "PR #$pr kommt aus einem Fork"
+              ausgabe modus pr
+              ausgabe slot "pr-$pr"
+              ausgabe artefakt storybook-preview
+              ausgabe pr "$pr"
+              ausgabe head_sha "$sha"
+              ;;
+            *) nichts "unbekannter Workflow $WF_NAME" ;;
+          esac
+
+  veroeffentlichen:
+    name: Auf GitHub Pages veröffentlichen
+    needs: pruefen
+    if: needs.pruefen.outputs.modus != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Speicher-Branch pages-storage
+      pages: write
+      id-token: write
+      actions: read # Artefakt des auslösenden Laufs
+      pull-requests: read # offene PRs
+      deployments: write # „View deployment“ im PR
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Alle Deploys in eine Warteschlange, keiner wird verworfen: Jeder Lauf trägt den Build
+    # SEINES PRs in den Speicher. Mit dem Default (`queue: single`) fiele bei drei wartenden
+    # Läufen der mittlere weg, und dessen Vorschau fehlte bis zum nächsten Push.
+    concurrency:
+      group: pages
+      queue: max
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SPEICHER_BRANCH: pages-storage
+    steps:
+      # Der runner-Kontext steht in Job-`env` nicht zur Verfügung, deshalb hier.
+      - name: Arbeitsverzeichnisse festlegen
+        run: |
+          {
+            echo "SPEICHER=$RUNNER_TEMP/speicher"
+            echo "SITE=$RUNNER_TEMP/site"
+            echo "BUILD=$RUNNER_TEMP/build"
+          } >> "$GITHUB_ENV"
+      # Default-Branch, nicht der PR-Stand: ausgeführt wird nur Code von main.
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build des auslösenden Laufs herunterladen
+        if: needs.pruefen.outputs.modus != 'neu-zusammensetzen'
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.pruefen.outputs.artefakt }}
+          path: ${{ runner.temp }}/build
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      # Der Speicher-Branch ist nie eine Pages-Quelle und besteht aus genau einem Commit;
+      # `git archive` holt dessen Baum ohne zweiten Checkout. Fehlt der Branch (erster Lauf),
+      # beginnt der Speicher leer.
+      - name: Speicher holen
+        run: |
+          set -euo pipefail
+          mkdir -p "$SPEICHER"
+          if git ls-remote --exit-code --heads origin "$SPEICHER_BRANCH" > /dev/null; then
+            git fetch --depth 1 origin "$SPEICHER_BRANCH"
+            git archive FETCH_HEAD | tar -x -C "$SPEICHER"
+            echo "ALTER_BAUM=$(git rev-parse 'FETCH_HEAD^{tree}')" >> "$GITHUB_ENV"
+          fi
+
+      - name: Offene PRs ermitteln
+        run: |
+          set -euo pipefail
+          offen=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --limit 1000 \
+            --json number,isCrossRepository \
+            --jq '[.[] | select(.isCrossRepository | not) | .number] | join(",")')
+          echo "OFFEN=$offen" >> "$GITHUB_ENV"
+          echo "Offene PRs: ${offen:-keine}"
+
+      - name: Speicher aktualisieren
+        env:
+          SLOT: ${{ needs.pruefen.outputs.slot }}
+          MODUS: ${{ needs.pruefen.outputs.modus }}
+        run: |
+          set -euo pipefail
+          if [ "$MODUS" != neu-zusammensetzen ]; then
+            node tools/ci/pages-site.mjs aktualisieren --speicher "$SPEICHER" --slot "$SLOT" --build "$BUILD"
+          fi
+          node tools/ci/pages-site.mjs bereinigen --speicher "$SPEICHER" --offen "$OFFEN"
+
+      # Ein verwaister Commit mit dem neuen Baum ersetzt den Branch per Force-Push — keine
+      # Historie, die mit jedem Build wächst. Gefahrlos, weil alle Schreiber über die
+      # Concurrency-Gruppe `pages` serialisiert sind. Ein eigener Index hält den Checkout von
+      # main unberührt.
+      - name: Speicher zurückschreiben
+        env:
+          GIT_INDEX_FILE: ${{ runner.temp }}/speicher.index
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          SLOT: ${{ needs.pruefen.outputs.slot }}
+        run: |
+          set -euo pipefail
+          rm -f "$GIT_INDEX_FILE"
+          git -C "$SPEICHER" --git-dir="$GITHUB_WORKSPACE/.git" --work-tree="$SPEICHER" add -A -f .
+          baum=$(git write-tree)
+          if [ "$baum" = "${ALTER_BAUM:-}" ]; then
+            echo "Speicher unverändert"
+            exit 0
+          fi
+          commit=$(git commit-tree "$baum" -m "Pages-Speicher: ${SLOT:-neu zusammengesetzt} (Lauf $GITHUB_RUN_ID)")
+          git push --force origin "$commit:refs/heads/$SPEICHER_BRANCH"
+
+      # Erster Lauf nach der Einführung: Kommt eine Vorschau vor dem ersten main-Build, liegt sie
+      # schon im Speicher, aber ohne main gäbe es keine Wurzel — dann noch nicht deployen. Der
+      # nächste main-Lauf holt das nach.
+      - name: Site zusammensetzen
+        id: site
+        run: |
+          set -euo pipefail
+          if [ ! -f "$SPEICHER/main/index.html" ]; then
+            echo "::warning::Noch kein main-Build im Speicher — Deploy übersprungen."
+            echo "bereit=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          node tools/ci/pages-site.mjs zusammensetzen --speicher "$SPEICHER" --site "$SITE" --offen "$OFFEN"
+          echo "bereit=true" >> "$GITHUB_OUTPUT"
+
+      - name: Site als Pages-Artefakt hochladen
+        if: steps.site.outputs.bereit == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/site
+
+      - name: Auf GitHub Pages deployen
+        if: steps.site.outputs.bereit == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # Ein Job mit `environment:` hinge sein Deployment hier an main (workflow_run-Kontext) —
+      # im PR erschiene kein „View deployment“. Deshalb ein eigenes Deployment im Environment
+      # pr-preview auf genau den Commit, der gebaut wurde. `auto_inactive` bleibt aus: es wirkt pro
+      # Environment, nicht pro PR, und setzte sonst die Vorschauen aller anderen PRs auf inaktiv.
+      - name: Deployment für den PR melden
+        if: needs.pruefen.outputs.modus == 'pr' && steps.site.outputs.bereit == 'true'
+        env:
+          PR: ${{ needs.pruefen.outputs.pr }}
+          HEAD_SHA: ${{ needs.pruefen.outputs.head_sha }}
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -euo pipefail
+          url="${PAGE_URL%/}/pr-preview/pr-$PR/"
+          id=$(jq -n --arg ref "$HEAD_SHA" --arg pr "$PR" '{
+              ref: $ref, environment: "pr-preview", auto_merge: false, required_contexts: [],
+              transient_environment: true, description: ("PR-Vorschau #" + $pr)
+            }' | gh api "repos/$GITHUB_REPOSITORY/deployments" --input - --jq .id)
+          jq -n --arg url "$url" --arg log "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+            '{state: "success", environment_url: $url, log_url: $log, auto_inactive: false}' \
+            | gh api "repos/$GITHUB_REPOSITORY/deployments/$id/statuses" --input - > /dev/null
+          echo "PR-Vorschau: $url" | tee -a "$GITHUB_STEP_SUMMARY"
