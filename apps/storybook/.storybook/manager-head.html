@@ -93,4 +93,44 @@
   #storybook-explorer-tree > div + div {
     margin-top: 16px;
   }
+
+  /*
+    Einrückung je Ebene: Text-x Sektion 56, Bauteil 74, Story/Doku 92 (Stufe
+    18 px). Ohne Eingriff reichen Bauteile (52) und Blätter unter Sektionen
+    (38) links an den Text der Sektion heran, Stories (56) liegen auf deren
+    Höhe. Die Elternzeile einer Zeile ist an data-parent-id erkennbar: ist
+    sie keine der sechs Wurzeln, liegt die Zeile unterhalb der Sektionsebene.
+    Ordner (button) rücken um Icon plus Abstand (16 + 6 = 22 px), Blätter (a)
+    zusätzlich um die 14 px, die text-indent -20px ihnen gegenüber Ordnern
+    abnimmt (22 + 14 = 36 px). Die Zahlen hängen an SECTION_ICON_SIZE in
+    manager.ts und an Storybooks Innenabständen.
+  */
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > button[id] {
+    margin-left: 22px;
+    width: calc(100% - 22px);
+  }
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > a[id] {
+    margin-left: 36px;
+    width: calc(100% - 36px);
+  }
 </style>

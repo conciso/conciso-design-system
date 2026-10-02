@@ -67,7 +67,7 @@ const SECTION_ICON_KEYS: Record<string, string> = {
   'seitenmuster-beitragsübersicht--übersicht': 'ui-newspaper-2',
   'seitenmuster-veranstaltung--übersicht': 'ui-calendar-days',
   'seitenmuster-veranstaltungsübersicht--übersicht': 'ui-newspaper-2',
-  'seitenmuster-seminar-·-training--übersicht': 'ui-academic-cap',
+  'seitenmuster-seminar-·-training': 'ui-academic-cap',
   'seitenmuster-angebots-detailseite--übersicht': 'ui-tag',
   'beispielseiten-übersicht--übersicht': 'ui-window',
   'referenzen-quellen--übersicht': 'ui-book-open',
@@ -122,6 +122,10 @@ function renderSectionIcon(iconKey: string) {
 
 addons.setConfig({
   theme: prefersDark ? concisoDark : concisoLight,
+  // Startbreite der Seitenleiste 320 statt 300 px: die Einrückung je Ebene
+  // (manager-head.html) lässt Story-Namen bei x=92 beginnen, lange Namen
+  // umbrächen sonst früher. Nur der Startwert, die Leiste bleibt ziehbar.
+  layout: { navSize: 320 },
   sidebar: {
     // Startzustand: die drei Wurzeln mit den wenigsten Einträgen (Seitenmuster,
     // Beispielseiten, Referenzen) beginnen zugeklappt, Marke, Grundlagen und
