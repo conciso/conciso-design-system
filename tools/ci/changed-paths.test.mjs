@@ -40,7 +40,7 @@ test('PR mit Änderung unter einem Ordnermuster → relevant', () => {
 });
 
 test('anderes Event als pull_request läuft immer (push, dispatch, workflow_call)', () => {
-  for (const event of ['push', 'workflow_dispatch', 'schedule', undefined]) {
+  for (const event of ['push', 'workflow_dispatch', 'schedule', null]) {
     assert.equal(decide(PATTERNS, { event, changedFiles: () => ['README.md'] }), true, String(event));
   }
 });
