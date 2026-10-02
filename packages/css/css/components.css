@@ -859,7 +859,7 @@ html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
 .field-slider{display:flex;flex-direction:column;gap:var(--s2);--sl-thumb:22px}
 .field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
 .field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
-.field-slider-output{font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
+.field-slider-output{white-space:nowrap;font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
 /* Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb-Mittelpunkt läuft von
    --sl-thumb/2 bis (Breite − --sl-thumb/2). Jeder Tick trägt --tick-p (0..1) als
    Bruchteil des Wertebereichs und wird über seiner Mitte zentriert. (Früher
