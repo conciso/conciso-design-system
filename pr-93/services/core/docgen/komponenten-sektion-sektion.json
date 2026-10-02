@@ -1,0 +1,113 @@
+{
+  "components": {
+    "komponenten-sektion-sektion": {
+      "id": "komponenten-sektion-sektion",
+      "name": "SectionComponent",
+      "path": "./src/lib/section/section.stories.ts",
+      "description": "Section (`[cdsSection]`) — Wrapper um `.ep-section` aus css/components.css\n(css/components.css:1223–1253, mobiler Innenabstand: Zeile 1228) mit dem optionalen\nKopf-Trio `.ep-section-label` (Kicker) / `.ep-section-h2` (Überschrift) /\n`.ep-section-sub` (Lead). Das strukturelle Grundgerüst, in dem auf den\nBeispielseiten praktisch jeder andere Baustein sitzt (133 Vorkommen, 85 davon mit\nKopfzeile).\n\nAlle drei Textteile sind Beiwerk (`input('')`): Eine Sektion besteht auch ganz ohne\nKopf, nur aus ihrem projizierten Inhalt. Der Inhalt selbst\nkommt per `<ng-content>` und ist deshalb kein Input.\n\n**Entscheidung 1 — Attributselektor, der Konsument wählt `<section>` oder `<div>`.**\nErste Fassung war `cds-section` als eigenes Element, das intern selbst entschied:\n`<section aria-labelledby=\"…\">`, wenn ein zugänglicher Name verfügbar war, sonst ein\nnamenloses `<div>`. Das setzte voraus, dass ein `background` auf einem\nUMSCHLIESSENDEN Element sitzen musste (siehe Entscheidung 2) — gemessen im laufenden\nStorybook (siehe `docs/adr/0008-selektortyp-der-wrapper-komponenten.md`, „Fall 2“):\n`getComputedStyle(host).backgroundColor` und `host.getBoundingClientRect()`\nmeldeten beide „passt“, der Screenshot zeigte trotzdem keine gemalte Fläche — ein\nunbekanntes Custom Element ohne eigene Inline-Inhalte, dessen einziges Kind als Block\nherausgebrochen wird, hat keine eigene Box zum Malen.\n\nDie Komponente hängt sich deshalb als Attribut an ein vom Konsumenten geschriebenes\n`<section>` oder `<div>`, analog zu `cds-icon-card`\n(`icon-card/icon-card.component.ts`). Der Konsument entscheidet über das Tag, ob die\nSektion überhaupt eine `<section>`-Landmark werden KANN; die Komponente entscheidet\nnur noch, ob sie `aria-labelledby` setzt (die eigene, gerenderte `.ep-section-h2` hat\nVorrang, sonst — wenn `heading` leer bleibt — die per `labelledBy` übergebene id einer\nÜberschrift außerhalb der Komponente). Schreibt der Konsument `<section cdsSection>`\nohne Namen, bleibt es bei einer `<section>` ohne `aria-labelledby`: HTML-AAM gibt ihr\ndann keine Landmark-Rolle, aber das ist eine Entscheidung des Konsumenten, keine der\nKomponente — sie erzwingt kein Tag mehr.\n\n**Entscheidung 2 — kein `background`-Input, die Fläche darf jetzt aber am Host\nsitzen.** Das Mockup setzt Sektionsflächen inline (`style=\"background:var(--bg-surface)\"`\n/ `--co-50` / …). Das ist der Flächen-Rhythmus zwischen aufeinanderfolgenden\nSektionen einer Seite — eine Entscheidung, die nur die Seite treffen kann, weil\nnur sie ihre Nachbar-Sektionen kennt. Ein Bauteil kennt seinen Kontext nicht\n(CONTRIBUTING.md §7) und bekäme mit einem `background`-Input eine Zuständigkeit, die\nihm nicht zusteht. Der Konsument setzt die Fläche deshalb weiterhin selbst — jetzt\naber direkt auf dem Element, das `cdsSection` trägt (`<section cdsSection\nstyle=\"background:…\">` bzw. `<div cdsSection style=\"…\">`), denn dieses Element IST\n`.ep-section`, kein Host mehr davor. Das umschließende Element aus der ersten Fassung\nist damit nicht mehr nötig (siehe Story „Fläche am Host“).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `.t-{area}` auf dem Label (Mockup: `class=\"ep-section-label t-co\"`).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "heading": {
+          "name": "heading",
+          "description": "Sektions-Überschrift (`.ep-section-h2`, leer = keine Überschrift).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Kicker-Text über der Überschrift (`.ep-section-label`, leer = keine Kopfzeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "labelledBy": {
+          "name": "labelledBy",
+          "description": "Id einer Überschrift AUSSERHALB der Komponente, die als zugänglicher Name dient,\nwenn `heading` leer bleibt (siehe Entscheidung 1 in der Klassendoku).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "sub": {
+          "name": "sub",
+          "description": "Lead-Text unter der Überschrift (`.ep-section-sub`, leer = kein Lead).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type SectionComponentInputs = {\n  /** Markenbereich → `.t-{area}` auf dem Label (Mockup: `class=\"ep-section-label t-co\"`). */\n  area?: CdsArea;\n  /**\n   * Sektions-Überschrift (`.ep-section-h2`, leer = keine Überschrift).\n   *\n   * @default ''\n   */\n  heading?: string;\n  /**\n   * Kicker-Text über der Überschrift (`.ep-section-label`, leer = keine Kopfzeile).\n   *\n   * @default ''\n   */\n  label?: string;\n  /**\n   * Id einer Überschrift AUSSERHALB der Komponente, die als zugänglicher Name dient,\n   * wenn `heading` leer bleibt (siehe Entscheidung 1 in der Klassendoku).\n   *\n   * @default ''\n   */\n  labelledBy?: string;\n  /**\n   * Lead-Text unter der Überschrift (`.ep-section-sub`, leer = kein Lead).\n   *\n   * @default ''\n   */\n  sub?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "SectionComponent",
+        "selector": "section[cdsSection], div[cdsSection]",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "heading",
+          "label",
+          "labelledBy",
+          "sub"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "components": {
+    "komponenten-inputs-forms-skala": {
+      "id": "komponenten-inputs-forms-skala",
+      "name": "ScaleComponent",
+      "path": "./src/lib/scale/scale.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-skala--interaktiv": {
+          "id": "komponenten-inputs-forms-skala--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <cds-scale\n        [label]=\"'Zufriedenheit'\"\n        [labels]=\"['Sehr unzufrieden', 'Unzufrieden', 'Neutral', 'Zufrieden', 'Sehr zufrieden']\"\n        [value]=\"2\"\n        [area]=\"'co'\"\n        [helper]=\"''\"\n        [disabled]=\"false\"\n        [scaleId]=\"'demo-scale'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-skala--deaktiviert": {
+          "id": "komponenten-inputs-forms-skala--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <cds-scale\n        [label]=\"'Zufriedenheit'\"\n        [labels]=\"['Sehr unzufrieden', 'Unzufrieden', 'Neutral', 'Zufrieden', 'Sehr zufrieden']\"\n        [value]=\"2\"\n        [area]=\"'co'\"\n        [helper]=\"''\"\n        [disabled]=\"true\"\n        [scaleId]=\"'demo-scale-disabled'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-skala--stufen": {
+          "id": "komponenten-inputs-forms-skala--stufen",
+          "name": "Verschiedene Skalen",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <div style=\"display:grid;gap:32px;max-width:460px\">\n        <cds-scale\n            scaleId=\"sc-3\"\n            area=\"co\"\n            label=\"Priorität\"\n            [labels]=\"['Niedrig','Mittel','Hoch']\"\n            [value]=\"1\">\n        </cds-scale>\n        <cds-scale\n            scaleId=\"sc-4\"\n            area=\"ki\"\n            label=\"Häufigkeit\"\n            [labels]=\"['nie','selten','oft','immer']\"\n            [value]=\"2\">\n        </cds-scale>\n        <cds-scale\n            scaleId=\"sc-5\"\n            area=\"es\"\n            label=\"Erfahrung\"\n            [labels]=\"['Einsteiger','Fortgeschritten','Erfahren','Experte']\"\n            [value]=\"1\">\n        </cds-scale>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-inputs-forms-skala--label-ueberlappung": {
+          "id": "komponenten-inputs-forms-skala--label-ueberlappung",
+          "name": "Label-Kollision bei schmaler Breite",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <div style=\"width:432px\">\n        <cds-scale\n            scaleId=\"sc-overlap\"\n            area=\"co\"\n            label=\"Zufriedenheit\"\n            [labels]=\"['Sehr unzufrieden','Unzufrieden','Neutral','Zufrieden','Sehr zufrieden']\"\n            [value]=\"2\"\n            helper=\"Pflichtfeld\">\n        </cds-scale>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-inputs-forms-skala--label-ueberlappung-schmal": {
+          "id": "komponenten-inputs-forms-skala--label-ueberlappung-schmal",
+          "name": "Label-Kollision bei sehr schmaler Breite",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <div style=\"width:380px\">\n        <cds-scale\n            scaleId=\"sc-overlap-narrow\"\n            area=\"co\"\n            label=\"Zufriedenheit\"\n            [labels]=\"['Sehr unzufrieden','Unzufrieden','Neutral','Zufrieden','Sehr zufrieden']\"\n            [value]=\"2\"\n            helper=\"Pflichtfeld\">\n        </cds-scale>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-inputs-forms-skala--formularbindung": {
+          "id": "komponenten-inputs-forms-skala--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { ScaleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ScaleComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-scale\n            label=\"Zufriedenheit\"\n            scaleId=\"form-scale\"\n            [labels]=\"labels\"\n            [formControl]=\"ctrl\">\n        </cds-scale>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Index:\n            <strong>{{ ctrl.value }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {\n  labels = ['Sehr unzufrieden', 'Unzufrieden', 'Neutral', 'Zufrieden', 'Sehr zufrieden'];\n}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "components": {
+    "komponenten-inputs-forms-auswahlfeld": {
+      "id": "komponenten-inputs-forms-auswahlfeld",
+      "name": "SelectFieldComponent",
+      "path": "./src/lib/field/select-field.stories.ts",
+      "description": "Auswahlfeld — `<select>` im `.field`-Gerüst. Die Optionen kommen über `options`;\na11y-Verdrahtung wie beim Textfeld (aria-required/-invalid/-describedby).\n\nAls `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare\nanbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "error": {
+          "name": "error",
+          "description": "Gesetzt = Fehlerzustand (.has-error + .error-msg).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "fieldId": {
+          "name": "fieldId",
+          "description": "id für die label/for- und aria-describedby-Verknüpfung. Default eindeutig.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "helper": {
+          "name": "helper",
+          "description": "Optionaler Hilfetext unter dem Feld.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbares Label.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "options": {
+          "name": "options",
+          "description": "Auswahloptionen (erste dient üblicherweise als Platzhalter, z. B. „Bitte wählen“).",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "quietError": {
+          "name": "quietError",
+          "description": "Ruhige Fehlermeldung: lässt `role=\"alert\"` an der Einzelmeldung weg. Gedacht für lange\nFormulare, in denen eine fokussierte Fehlerübersicht (`role=\"alert\"`) die Ansage übernimmt;\nsonst ergeben viele gleichzeitig eingefügte Alerts eine unbrauchbare Ansage-Salve. Die\nMeldung bleibt über `aria-describedby` mit dem Feld verbunden und wird beim Fokussieren\ngelesen. Vorgabe `false`: die Meldung sagt sich selbst an (kurze Formulare).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "required": {
+          "name": "required",
+          "description": "Pflichtfeld → .req-Asterisk + aria-required.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type SelectFieldComponentInputs = {\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /**\n   * Gesetzt = Fehlerzustand (.has-error + .error-msg).\n   *\n   * @default ''\n   */\n  error?: string;\n  /** id für die label/for- und aria-describedby-Verknüpfung. Default eindeutig. */\n  fieldId?: string;\n  /**\n   * Optionaler Hilfetext unter dem Feld.\n   *\n   * @default ''\n   */\n  helper?: string;\n  /**\n   * Sichtbares Label.\n   *\n   * @default ''\n   */\n  label?: string;\n  /**\n   * Auswahloptionen (erste dient üblicherweise als Platzhalter, z. B. „Bitte wählen“).\n   *\n   * @default []\n   */\n  options?: string[];\n  /**\n   * Ruhige Fehlermeldung: lässt `role=\"alert\"` an der Einzelmeldung weg. Gedacht für lange\n   * Formulare, in denen eine fokussierte Fehlerübersicht (`role=\"alert\"`) die Ansage übernimmt;\n   * sonst ergeben viele gleichzeitig eingefügte Alerts eine unbrauchbare Ansage-Salve. Die\n   * Meldung bleibt über `aria-describedby` mit dem Feld verbunden und wird beim Fokussieren\n   * gelesen. Vorgabe `false`: die Meldung sagt sich selbst an (kurze Formulare).\n   *\n   * @default false\n   */\n  quietError?: boolean;\n  /**\n   * Pflichtfeld → .req-Asterisk + aria-required.\n   *\n   * @default false\n   */\n  required?: boolean;\n  /**\n   * Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).\n   *\n   * @default ''\n   */\n  value?: string; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type SelectFieldComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName). */\n  valueChange: (e: string) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "SelectFieldComponent",
+        "selector": "cds-select-field",
+        "standalone": true,
+        "inputs": [
+          "disabled",
+          "error",
+          "fieldId",
+          "helper",
+          "label",
+          "options",
+          "quietError",
+          "required",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

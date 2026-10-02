@@ -1,0 +1,37 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-article-header": {
+      "id": "seitenmuster-wissensbeitrag-article-header",
+      "name": "ArticleHeaderComponent",
+      "path": "./src/lib/article-header/article-header.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-article-header--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-article-header--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleHeaderComponent } from '@conciso/design-system-angular';\nimport { AvatarComponent, AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent],\n  template: `\n    <cds-article-header\n        [title]=\"title\"\n        [lead]=\"lead\"\n        [breadcrumb]=\"breadcrumb\"\n        [pill]=\"pill\"\n        [pillAriaLabel]=\"pillAriaLabel\"\n        [area]=\"area\"\n        [authorName]=\"authorName\"\n        [authorRole]=\"authorRole\"\n        [date]=\"date\"\n        [dateLabel]=\"dateLabel\">\n        <div cdsAvatar name=\"Lukas Brandt\" area=\"ki\"></div>\n    </cds-article-header>`,\n})\nexport class DemoComponent {\n  title = 'Warum 60 % der KI-Piloten nie in Produktion gehen';\n  breadcrumb = [{label: 'Wissen', href: '#'}, {label: 'Angewandte KI'}];\n  pill = '8 min Lesezeit';\n  pillAriaLabel = 'Lesezeit 8 Minuten';\n  area = 'ki';\n  authorName = 'Lukas Brandt';\n  authorRole = 'Senior AI Engineer · Conciso';\n  date = '2026-05-13';\n  dateLabel = '13. Mai 2026';\n}",
+          "warning": "Incomplete snippet: `'Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad ' + 'zur Produktion gelernt haben.'` could not be resolved statically."
+        },
+        "seitenmuster-wissensbeitrag-article-header--ohne-breadcrumb": {
+          "id": "seitenmuster-wissensbeitrag-article-header--ohne-breadcrumb",
+          "name": "Ohne Breadcrumb",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleHeaderComponent } from '@conciso/design-system-angular';\nimport { AvatarComponent, AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent],\n  template: `\n    <cds-article-header\n        [title]=\"title\"\n        [lead]=\"lead\"\n        [pill]=\"pill\"\n        [pillAriaLabel]=\"pillAriaLabel\"\n        [area]=\"area\"\n        [authorName]=\"authorName\"\n        [authorRole]=\"authorRole\"\n        [date]=\"date\"\n        [dateLabel]=\"dateLabel\">\n        <div cdsAvatar name=\"Maria Müller\" area=\"es\"></div>\n    </cds-article-header>`,\n})\nexport class DemoComponent {\n  title = 'Was wir aus 200 Migrationen gelernt haben';\n  lead = 'Eine kollektive Retrospektive aus fünf Conciso-Engineering-Teams.';\n  pill = '18 min Lesezeit';\n  pillAriaLabel = 'Lesezeit 18 Minuten';\n  area = 'es';\n  authorName = 'Maria Müller';\n  authorRole = 'Principal Engineer · Conciso';\n  date = '2026-07-02';\n  dateLabel = '2. Juli 2026';\n}"
+        },
+        "seitenmuster-wissensbeitrag-article-header--mehrere-autorinnen": {
+          "id": "seitenmuster-wissensbeitrag-article-header--mehrere-autorinnen",
+          "name": "Mehrere Autor:innen",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleHeaderComponent } from '@conciso/design-system-angular';\nimport { AvatarComponent, AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent],\n  template: `\n    <cds-article-header\n        [title]=\"title\"\n        [lead]=\"lead\"\n        [pill]=\"pill\"\n        [pillAriaLabel]=\"pillAriaLabel\"\n        [area]=\"area\"\n        [authorName]=\"authorName\"\n        [authorRole]=\"authorRole\"\n        [date]=\"date\"\n        [dateLabel]=\"dateLabel\">\n        <cds-avatar-stack [more]=\"2\">\n            <div cdsAvatar name=\"Paul Meinhardt\" area=\"es\"></div>\n            <div cdsAvatar name=\"Anna Rieth\" area=\"es\"></div>\n            <div cdsAvatar name=\"Daniel Herzog\" area=\"es\"></div>\n        </cds-avatar-stack>\n    </cds-article-header>`,\n})\nexport class DemoComponent {\n  title = 'Was wir aus 200 Migrationen gelernt haben';\n  lead = 'Eine kollektive Retrospektive aus fünf Conciso-Engineering-Teams.';\n  pill = '18 min Lesezeit';\n  pillAriaLabel = 'Lesezeit 18 Minuten';\n  area = 'es';\n  authorName = 'Paul Meinhardt, Anna Rieth & 3 weitere';\n  authorRole = 'Conciso-Engineering';\n  date = '2026-07-02';\n  dateLabel = '2. Juli 2026';\n}"
+        },
+        "seitenmuster-wissensbeitrag-article-header--pille-ohne-bereich": {
+          "id": "seitenmuster-wissensbeitrag-article-header--pille-ohne-bereich",
+          "name": "Pille ohne Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleHeaderComponent } from '@conciso/design-system-angular';\nimport { AvatarComponent, AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent],\n  template: `\n    <cds-article-header [title]=\"title\" [lead]=\"lead\" [pill]=\"pill\">\n        <div cdsAvatar name=\"Lukas Brandt\"></div>\n    </cds-article-header>`,\n})\nexport class DemoComponent {\n  title = 'Warum 60 % der KI-Piloten nie in Produktion gehen';\n  lead = 'Demos überzeugen, Use-Cases scheitern.';\n  pill = '8 min Lesezeit';\n}"
+        },
+        "seitenmuster-wissensbeitrag-article-header--breite-begrenzt": {
+          "id": "seitenmuster-wissensbeitrag-article-header--breite-begrenzt",
+          "name": "Breite begrenzt",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleHeaderComponent } from '@conciso/design-system-angular';\nimport { AvatarComponent, AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleHeaderComponent, AvatarComponent, AvatarStackComponent],\n  template: `\n    <div style=\"width:1200px\">\n        <cds-article-header\n            title=\"Warum 60 % der KI-Piloten nie in Produktion gehen\"\n            lead=\"Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen über den Pfad zur Produktion gelernt haben.\">\n        </cds-article-header>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

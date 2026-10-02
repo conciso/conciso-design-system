@@ -1,0 +1,182 @@
+{
+  "components": {
+    "komponenten-inputs-forms-checkbox": {
+      "id": "komponenten-inputs-forms-checkbox",
+      "name": "CheckboxComponent",
+      "path": "./src/lib/checkbox/checkbox.stories.ts",
+      "description": "Checkbox — Einwilligungs-/Consent-Feld.\n\nBewusst KEIN nachgebautes Kästchen: ein natives `<input type=\"checkbox\">` mit\n`accent-color` in der Bereichsfarbe (genau wie die Doku), umschlossen von einem\n`<label>` mit dem Einwilligungstext und optional verlinktem Datenschutzhinweis.\nDokumentierte Verwendung: Newsletter-/DSGVO-Einwilligung, i. d. R. `required`.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(checked)]` (checkedChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Brand Area → accent-color der Checkbox.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "checked": {
+          "name": "checked",
+          "description": "Gesetzt/aktiv → checked. Two-Way (`[(checked)]`) UND Angular-Forms.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Einwilligungstext neben der Checkbox.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Ich bin einverstanden."
+            }
+          }
+        },
+        "linkHref": {
+          "name": "linkHref",
+          "description": "Ziel des verlinkten Hinweises.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "#"
+            }
+          }
+        },
+        "linkLabel": {
+          "name": "linkLabel",
+          "description": "Optionaler verlinkter Hinweis am Ende des Labels (z. B. „Datenschutzhinweise“).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "required": {
+          "name": "required",
+          "description": "Pflicht-Einwilligung → required + aria-required + .req-Sternchen am Label-Ende.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "checkedChange": {
+          "name": "checkedChange",
+          "description": "Gesetzt/aktiv → checked. Two-Way (`[(checked)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "checkedChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CheckboxComponentInputs = {\n  /**\n   * Brand Area → accent-color der Checkbox.\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Gesetzt/aktiv → checked. Two-Way (`[(checked)]`) UND Angular-Forms.\n   *\n   * @default false\n   */\n  checked?: boolean; // two-way: [(checked)]\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /**\n   * Einwilligungstext neben der Checkbox.\n   *\n   * @default Ich bin einverstanden.\n   */\n  label?: string;\n  /**\n   * Ziel des verlinkten Hinweises.\n   *\n   * @default #\n   */\n  linkHref?: string;\n  /**\n   * Optionaler verlinkter Hinweis am Ende des Labels (z. B. „Datenschutzhinweise“).\n   *\n   * @default ''\n   */\n  linkLabel?: string;\n  /**\n   * Pflicht-Einwilligung → required + aria-required + .req-Sternchen am Label-Ende.\n   *\n   * @default false\n   */\n  required?: boolean;\n}\n```\n\n## Outputs\n\n```\nexport type CheckboxComponentOutputs = {\n  /** Gesetzt/aktiv → checked. Two-Way (`[(checked)]`) UND Angular-Forms. */\n  checkedChange: (e: boolean) => void;\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CheckboxComponent",
+        "selector": "cds-checkbox",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "checked",
+          "disabled",
+          "label",
+          "linkHref",
+          "linkLabel",
+          "required"
+        ],
+        "outputs": [
+          "checkedChange",
+          "disabledChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-faq": {
+      "id": "seitenmuster-wissensbeitrag-faq",
+      "name": "FaqComponent",
+      "path": "./src/lib/faq/faq.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-faq--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-faq--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { FaqComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FaqComponent],\n  template: `\n    <cds-faq\n        [items]=\"[{q: 'Wie läuft die Bewerbung ab?', a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.'}, {q: 'Wo und wie arbeitet ihr?', a: 'Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.'}, {q: 'Welche Technologien nutzt ihr?', a: 'Moderne, langlebige Stacks: die Wahl richtet sich nach dem Problem, nicht nach dem Hype.'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-faq--doppelte-fragen": {
+          "id": "seitenmuster-wissensbeitrag-faq--doppelte-fragen",
+          "name": "Doppelte Fragen",
+          "snippet": "import { Component } from '@angular/core';\nimport { FaqComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FaqComponent],\n  template: `\n    <cds-faq\n        [items]=\"[{q: 'Wie läuft die Bewerbung ab?', a: 'Über das Formular bei der jeweiligen Stelle.'}, {q: 'Wie läuft die Bewerbung ab?', a: 'Initiativ per E-Mail.'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-faq--zustand-folgt-eintrag": {
+          "id": "seitenmuster-wissensbeitrag-faq--zustand-folgt-eintrag",
+          "name": "Zustand folgt dem Eintrag",
+          "snippet": "import { Component } from '@angular/core';\nimport { FaqComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FaqComponent],\n  template: `\n    <button type=\"button\" (click)=\"prepend()\">Frage voranstellen</button>\n    <cds-faq [items]=\"items\"></cds-faq>`,\n})\nexport class DemoComponent {\n  items = [{q: 'Wie läuft die Bewerbung ab?', a: 'Über das Formular bei der jeweiligen Stelle oder initiativ. Du bekommst zeitnah eine Rückmeldung, danach folgt ein Kennenlern-Gespräch.'}, {q: 'Wo und wie arbeitet ihr?', a: 'Unser Büro ist der Workgarden in Dortmund. Du kannst flexibel remote arbeiten, gemeinsame Präsenztage halten das Team zusammen.'}, {q: 'Welche Technologien nutzt ihr?', a: 'Moderne, langlebige Stacks: die Wahl richtet sich nach dem Problem, nicht nach dem Hype.'}];\n}",
+          "warning": "Incomplete snippet: `prepend` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-fakten-liste": {
+      "id": "komponenten-fakten-liste",
+      "name": "FactsComponent",
+      "path": "./src/lib/facts/facts.stories.ts",
+      "stories": {
+        "komponenten-fakten-liste--interaktiv": {
+          "id": "komponenten-fakten-liste--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { FactsComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FactsComponent],\n  template: `<cds-facts [items]=\"items\" [grid]=\"grid\" [area]=\"area\"></cds-facts>`,\n})\nexport class DemoComponent {\n  items = [{term: 'Dauer', value: '2 Tage, 9 bis 17 Uhr'}, {term: 'Format', value: 'Präsenz & Online'}, {term: 'Gruppe', value: 'max. 12 Personen'}, {term: 'Sprache', value: 'Deutsch'}];\n  grid = false;\n  area = 'wo';\n}"
+        },
+        "komponenten-fakten-liste--als-raster": {
+          "id": "komponenten-fakten-liste--als-raster",
+          "name": "Als Raster",
+          "snippet": "import { Component } from '@angular/core';\nimport { FactsComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FactsComponent],\n  template: `\n    <div\n        style=\"background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s6);max-width:420px\">\n        <cds-facts [items]=\"items\" [grid]=\"grid\" [area]=\"area\"></cds-facts>\n    </div>`,\n})\nexport class DemoComponent {\n  items = [{term: 'Dauer', value: '2 Tage, 9 bis 17 Uhr'}, {term: 'Format', value: 'Präsenz & Online'}, {term: 'Gruppe', value: 'max. 12 Personen'}, {term: 'Sprache', value: 'Deutsch'}];\n  grid = true;\n  area = 'wo';\n}"
+        }
+      }
+    }
+  }
+}

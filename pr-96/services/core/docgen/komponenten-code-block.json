@@ -1,0 +1,91 @@
+{
+  "components": {
+    "komponenten-code-block": {
+      "id": "komponenten-code-block",
+      "name": "CodeBlockComponent",
+      "path": "./src/lib/code-block/code-block.stories.ts",
+      "description": "CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block“.\n\nHeader mit Sprach-Label (.cb-lang) und optionalem Kopier-Button (.cb-copy),\ndarunter der Code in `pre.cb-body` (white-space:pre, horizontal scrollbar).\nOptionale Terminal-Variante (.cb-terminal). Syntax-Highlighting-Spans\n(.k/.v/.s/…) werden hier bewusst nicht gesetzt — der Code bleibt Klartext.\n\nA11y (siehe docs/komponenten/code-block-verwendung.mdx, Abschnitt „Barrierefreiheit“):\n- `<code>` im `<pre>` als semantisches Grundgerüst, damit Screenreader den Inhalt\n  als „Code“ ankündigen. `.cb-body code{font:inherit}` in components.css fängt den\n  Browser-Default (`code{font-family:monospace}`) ab, sonst würde das verschachtelte\n  `<code>` eine andere Schrift als der Rest des Blocks zeigen.\n- `tabindex=\"0\"` auf `pre.cb-body`, weil der Block bei langen Zeilen horizontal\n  scrollt und sonst per Tastatur nicht erreichbar wäre.\n- `aria-label=\"Code kopieren\"` auf dem Kopier-Button ist **stabil** und wechselt nach\n  dem Klick nicht mehr. Ein Bedienelement trägt den Namen seiner Funktion, nicht den\n  seines letzten Ereignisses — sonst findet man den Button per Sprachsteuerung danach\n  nicht mehr, und eine Elementliste zeigt einen Button „Code kopiert“, der tatsächlich\n  kopiert. Die Erfolgsmeldung läuft stattdessen über eine eigene, visuell versteckte\n  Live-Region (`.sr-only` + `role=\"status\"`, Muster aus `snackbar.component.ts`), die\n  von Anfang an im DOM steht und nur ihren Textinhalt wechselt: `aria-live` beobachtet\n  Inhalts-, keine Attribut-Änderungen, und eine Region, die erst beim Klick entsteht,\n  kündigt bei vielen Screenreadern nichts an. Zusätzlich verhalten sich Live-Regionen\n  auf dem gerade fokussierten Element (hier: der Button nach dem Klick) uneinheitlich.\n  Der sichtbare Button-Text wechselt weiterhin „Kopieren“ ↔ „Kopiert!“, ist aber durch\n  `aria-label` für die Namensberechnung überschrieben und rein optisches Feedback.",
+      "jsDocTags": {},
+      "argTypes": {
+        "code": {
+          "name": "code",
+          "description": "Anzuzeigender Code (Klartext, `pre`-formatiert).",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "copyable": {
+          "name": "copyable",
+          "description": "Kopier-Button anzeigen (.cb-copy).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "lang": {
+          "name": "lang",
+          "description": "Sprach-Label im Header (.cb-lang), rein informativ, ohne Syntax-Highlighting.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "HTML"
+            }
+          }
+        },
+        "terminal": {
+          "name": "terminal",
+          "description": "Terminal-Optik → .cb-terminal.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CodeBlockComponentInputs = {\n  /** Anzuzeigender Code (Klartext, `pre`-formatiert). */\n  code: string;\n  /**\n   * Kopier-Button anzeigen (.cb-copy).\n   *\n   * @default true\n   */\n  copyable?: boolean;\n  /**\n   * Sprach-Label im Header (.cb-lang), rein informativ, ohne Syntax-Highlighting.\n   *\n   * @default HTML\n   */\n  lang?: string;\n  /**\n   * Terminal-Optik → .cb-terminal.\n   *\n   * @default false\n   */\n  terminal?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CodeBlockComponent",
+        "selector": "cds-code-block",
+        "standalone": true,
+        "inputs": [
+          "code",
+          "copyable",
+          "lang",
+          "terminal"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

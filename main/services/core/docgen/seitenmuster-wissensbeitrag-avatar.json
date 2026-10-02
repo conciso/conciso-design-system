@@ -1,0 +1,100 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-avatar": {
+      "id": "seitenmuster-wissensbeitrag-avatar",
+      "name": "AvatarComponent",
+      "path": "./src/lib/avatar/avatar.stories.ts",
+      "description": "Avatar (`div[cdsAvatar]`) — Wrapper um `.article-avatar` aus css/components.css\n(css/components.css:1520–1536): der Initialen-/Foto-Kreis im Meta-Strip eines\nWissensbeitrags (`.article-meta-author`), in der Author-Card (`-lg`) und im\nTeam-Tile-Grid (`-xl`).\n\n**Attributselektor (ADR-0008), gemessen an der Geschwister-Kette.** Acht der elf\nInstanzen der Grundgröße sitzen als direkte, adjazente\nGeschwister in einer von 3 `.article-avatar-stack`-Kacheln (2 Avatare in Zeilen\n8343–8344, je 3 in Zeilen 8373–8375 und 8404–8406) — genau dort greift\n`.article-avatar-stack .article-avatar + .article-avatar`\n(css/components.css:1540–1541), eine Geschwister-Kette.\nEin Element-Selektor `cds-avatar`, der `.article-avatar` auf einem INNEREN Element\nrendert (wie `cds-facts` es mit `<dl>` tut, weil `<dl>` ein Custom Element nicht\nannehmen kann), würde diese Kette brechen: die beiden `.article-avatar`-Knoten\nlägen dann je eine Ebene UNTER ihrem eigenen `<cds-avatar>`-Host und wären keine\nGeschwister mehr — `+` verlangt denselben Elternknoten, egal wie dicht die Hosts\nselbst nebeneinanderstehen. Eine zweite, ebenfalls tragfähige Variante\n(Element-Selektor MIT `host: { class: 'article-avatar' }`, ohne innere\nWrapper-Ebene) hätte dieselbe Geschwister-Kette ebenso erfüllt — verworfen zugunsten\ndes Attributselektors nur wegen des zweiten, unabhängigen Grundes unten, nicht weil\nsie die Kette nicht gelöst hätte.\n\n**Gemessen, nicht nur hergeleitet.** Story „Avatar-Stapel“ (Play-Funktion) rendert\ndrei `div[cdsAvatar]` in einem `cds-avatar-stack` und misst\n`getBoundingClientRect()` der drei `.article-avatar`-Knoten: bei 40 px Kachelbreite\nund `margin-left:-12px` (css/components.css:1541) überlappen der zweite und dritte\nKreis den jeweils vorherigen um 12 px (Differenz der `left`-Koordinaten = 28 px,\nnicht 40 px) — plus Screenshot-Baseline (`visual-snapshots/…avatar-stapel.png`) als\nvisuelle Bestätigung, nicht nur die Zahl.\n\n**Zweiter, unabhängiger Grund: Wiederverwendung als Projektions-Selektor.**\n`cds-article-header` projiziert den Avatar über\n`<ng-content select=\"[cdsAvatar]\">` (siehe dessen Klassendoku) — dasselbe Attribut,\ndas hier den Host selektiert, dient dem Elternteil zugleich als\nContent-Projection-Selektor. Ein Element-Selektor bräuchte dafür eine zusätzliche,\neigens erfundene Marker-Klasse; der Attributselektor liefert die Zielscheibe für\nbeide Zwecke aus einer Hand, ohne dass der Konsument zwei Attribute schreiben muss.\n\n**Initialen werden aus `name` abgeleitet, kein eigener Input:**\nerstes Zeichen des ersten und des letzten durch Whitespace getrennten Worts, groß\n— ein einzelnes Wort liefert dessen erste zwei Zeichen. Zwei Inputs für dieselbe\nInformation (Name UND Initialen) könnten auseinanderlaufen, sobald nur eines\ngepflegt wird.\n\n**`aria-hidden=\"true\"` fest verdrahtet, kein Input.** Ausgezählt: von 53\n`.article-avatar`-Instanzen (11 Grundgröße + 17 `-lg` + 25 `-xl`) tragen 45 das\nAttribut direkt am Element; die restlichen 8 sind genau die Grundgrößen-Avatare\nINNERHALB von `.article-avatar-stack`, wo bereits der Stack-Container selbst\n`aria-hidden=\"true\"` trägt (siehe `AvatarStackComponent`) — dort wäre ein zweites\n`aria-hidden` am Kind redundant, aber unschädlich: verschachteltes `aria-hidden`\nändert nichts am Ergebnis, der Teilbaum ist so oder so für Assistenztechnologie\nunsichtbar. Der Avatar trägt es deshalb immer: 100 % Deckung mit dem Mockup im\nAlleinstand, harmlose Redundanz im Stapel.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` (Füllfarbe der Initialen-Kachel).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Voller Name — Quelle der Initialen und des Bild-`alt`-Texts.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "size": {
+          "name": "size",
+          "description": "Größe (`.article-avatar` = sm, `-lg`, `-xl`).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "sm",
+              "lg",
+              "xl"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsAvatarSize"
+            },
+            "defaultValue": {
+              "summary": "sm"
+            }
+          }
+        },
+        "src": {
+          "name": "src",
+          "description": "Bildquelle; gesetzt → `<img>` ersetzt die Initialen.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type AvatarComponentInputs = {\n  /** Markenbereich → `data-area` (Füllfarbe der Initialen-Kachel). */\n  area?: CdsArea;\n  /** Voller Name — Quelle der Initialen und des Bild-`alt`-Texts. */\n  name: string;\n  /**\n   * Größe (`.article-avatar` = sm, `-lg`, `-xl`).\n   *\n   * @default sm\n   */\n  size?: CdsAvatarSize;\n  /**\n   * Bildquelle; gesetzt → `<img>` ersetzt die Initialen.\n   *\n   * @default ''\n   */\n  src?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "AvatarComponent",
+        "selector": "div[cdsAvatar]",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "name",
+          "size",
+          "src"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

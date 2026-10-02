@@ -1,0 +1,29 @@
+{
+  "components": {
+    "grundlagen-farben": {
+      "id": "grundlagen-farben",
+      "name": "Farben",
+      "path": "./src/foundations/colors.stories.ts",
+      "stories": {
+        "grundlagen-farben--paletten": {
+          "id": "grundlagen-farben--paletten",
+          "name": "Paletten"
+        },
+        "grundlagen-farben--semantisch": {
+          "id": "grundlagen-farben--semantisch",
+          "name": "Semantisch"
+        },
+        "grundlagen-farben--flaechen-text-rand": {
+          "id": "grundlagen-farben--flaechen-text-rand",
+          "name": "Flächen, Text und Rand",
+          "description": "Flächen-, Text- und Randtokens, die jedes Bauteil über Hell und Dunkel hinweg trägt."
+        },
+        "grundlagen-farben--bereichs-kontext": {
+          "id": "grundlagen-farben--bereichs-kontext",
+          "name": "Bereichs-Kontext der Seite",
+          "description": "Eine Seite gibt ihren Bereich über `data-accent=\"ki|es|wo\"` am umgebenden Container vor\n(`co` ist der Default und braucht kein Attribut). Der CSS-Kern tönt dann die\nDefault-Akzent-Utilities `.t-co` und `.body-link` auf die Bereichsfarbe, hell und dunkel\n(`css/components.css`, `css/dark-mode.css`). Komponenten tönen sich dagegen nicht über den\nSeitenkontext, sondern über ihren eigenen `area`-Input. Das Theme oben in der Toolbar\nschaltet zwischen den Hell- und Dunkel-Werten um."
+        }
+      }
+    }
+  }
+}

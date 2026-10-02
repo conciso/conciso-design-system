@@ -1,0 +1,41 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-faq": {
+      "id": "seitenmuster-wissensbeitrag-faq",
+      "name": "FaqComponent",
+      "path": "./src/lib/faq/faq.stories.ts",
+      "description": "Faq — Wrapper um `.ep-faq` aus css/components.css → „FAQ-Accordion“.\n\nNutzt natives `<details>/<summary>` (kein JS nötig): Auf-/Zuklappen, Tastatur\nund Zugänglichkeit kommen vom Browser. Der Caret (.ep-faq-caret) dreht via\n`details[open]`. Antwort in `.ep-faq-a`.",
+      "jsDocTags": {},
+      "argTypes": {
+        "items": {
+          "name": "items",
+          "description": "Fragen-/Antworten-Liste des Akkordeons.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsFaqItem[]"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FaqComponentInputs = {\n  /** Fragen-/Antworten-Liste des Akkordeons. */\n  items: CdsFaqItem[];\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FaqComponent",
+        "selector": "cds-faq",
+        "standalone": true,
+        "inputs": [
+          "items"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

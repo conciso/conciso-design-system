@@ -1,0 +1,186 @@
+{
+  "components": {
+    "komponenten-navigation-topnav": {
+      "id": "komponenten-navigation-topnav",
+      "name": "TopnavComponent",
+      "path": "./src/lib/topnav/topnav.stories.ts",
+      "description": "Topnav — Wrapper um `.ep-topnav` aus css/components.css → „Topnav“.\n\nCustomer-Navigation: Logo, Top-Level-Links mit optionalem Klapp-Submenü\n(.ep-nav-has-sub / .ep-nav-sub, aria-expanded), rechts gebündelte Aktionen\n(Such-Popover .ep-nav-search + Theme-Cycle-Button) und ein CTA-Button.\nDisclosure-Logik in Angular: nur ein Menü offen; Escape, Außenklick\nund Heraustabben (der Fokus verlässt Item oder Such-Popover) schließen.\n\nTastatur im Submenü: Pfeil runter öffnet ein geschlossenes Item und fokussiert den ersten\nEintrag, Pfeil runter/hoch laufen mit Umlauf durch die Einträge, Home/End springen an Anfang\nund Ende (bei geöffnetem Menü). Auf Geräten mit echtem Hover (`pointer:fine`) öffnet Hover\ndas Submenü (100 ms Verzögerung, Schließen nach 250 ms); ein Klick auf den Caret bricht die\nTimer ab. Escape schließt auch ein per Hover geöffnetes Menü.\n\nSuche: Das Label des Toggles wechselt zwischen „Suche öffnen“ und „Suche schließen“, beim\nÖffnen springt der Fokus ins Suchfeld, Escape schließt und gibt den Fokus zurück.\n\nMobilmenü: Jeder Klick auf einen Link schließt das geöffnete Menü.\n\nDer Theme-Umschalter ist fest der Cycle-Button (cds-theme-cycle); ob er auch\n„System“ anbietet, steuert `showSystemTheme` (durchgereicht an dessen showSystem).",
+      "jsDocTags": {},
+      "argTypes": {
+        "activeHref": {
+          "name": "activeHref",
+          "description": "Href des aktuell aktiven Eintrags (Single Source of Truth). Nur der Eintrag\n — Top-Level ODER Sub — mit passendem href erhält aria-current=\"page\". Dadurch\n kann strukturell höchstens EINER aktiv sein (statt mehrerer current-Flags).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "ctaLabel": {
+          "name": "ctaLabel",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Kontakt"
+            }
+          }
+        },
+        "links": {
+          "name": "links",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsNavItem[]"
+            },
+            "defaultValue": {
+              "summary": "[\n    {\n      label: 'Leistungen',\n      sub: [\n        { label: 'Angewandte KI', href: '#ki' },\n        { label: 'Effektive Software', href: '#software' },\n        { label: 'Wirksame Organisationen', href: '#organisationen' },\n      ],\n    },\n    {\n      label: 'Unternehmen',\n      sub: [\n        { label: 'Über uns', href: '#ueber-uns' },\n        { label: 'Team', href: '#team' },\n        { label: 'Jobs', href: '#jobs' },\n      ],\n    },\n    { label: 'Beiträge', href: '#beitraege' },\n    { label: 'Kontakt', href: '#kontakt' },\n  ]"
+            }
+          }
+        },
+        "logo": {
+          "name": "logo",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "conciso."
+            }
+          }
+        },
+        "logoAlt": {
+          "name": "logoAlt",
+          "description": "Alt-Text des Logo-Bilds (Fallback: der Text aus `logo`).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "logoDarkSrc": {
+          "name": "logoDarkSrc",
+          "description": "Optionale helle Logo-Variante für den Dark Mode (Doku: logo-conciso-light.svg).\n Gesetzt → Theme-Swap via .logo-themed-* (schaltet über [data-theme] um);\n sonst wird logoSrc in beiden Themes gezeigt.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "logoSrc": {
+          "name": "logoSrc",
+          "description": "Optionales Logo-Bild/-Icon (URL oder Data-URI). Gesetzt → statt des Text-Logos.\n Doku: immer SVG (logo-conciso.svg), Default-Variante für helle Hintergründe.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "showCta": {
+          "name": "showCta",
+          "description": "Kontakt-/CTA-Button anzeigen.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "showSearch": {
+          "name": "showSearch",
+          "description": "Suche (Icon + Popover) rechts anzeigen.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "showSystemTheme": {
+          "name": "showSystemTheme",
+          "description": "Bietet der Theme-Cycle-Button im Header auch „System“ an (tri) oder nur Hell/Dunkel?",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TopnavComponentInputs = {\n  /**\n   * Href des aktuell aktiven Eintrags (Single Source of Truth). Nur der Eintrag\n   *  — Top-Level ODER Sub — mit passendem href erhält aria-current=\"page\". Dadurch\n   *  kann strukturell höchstens EINER aktiv sein (statt mehrerer current-Flags).\n   */\n  activeHref?: string;\n  /** @default Kontakt */\n  ctaLabel?: string;\n  /**\n   * @default [\n   *     {\n   *       label: 'Leistungen',\n   *       sub: [\n   *         { label: 'Angewandte KI', href: '#ki' },\n   *         { label: 'Effektive Software', href: '#software' },\n   *         { label: 'Wirksame Organisationen', href: '#organisationen' },\n   *       ],\n   *     },\n   *     {\n   *       label: 'Unternehmen',\n   *       sub: [\n   *         { label: 'Über uns', href: '#ueber-uns' },\n   *         { label: 'Team', href: '#team' },\n   *         { label: 'Jobs', href: '#jobs' },\n   *       ],\n   *     },\n   *     { label: 'Beiträge', href: '#beitraege' },\n   *     { label: 'Kontakt', href: '#kontakt' },\n   *   ]\n   */\n  links?: CdsNavItem[];\n  /** @default conciso. */\n  logo?: string;\n  /**\n   * Alt-Text des Logo-Bilds (Fallback: der Text aus `logo`).\n   *\n   * @default ''\n   */\n  logoAlt?: string;\n  /**\n   * Optionale helle Logo-Variante für den Dark Mode (Doku: logo-conciso-light.svg).\n   *  Gesetzt → Theme-Swap via .logo-themed-* (schaltet über [data-theme] um);\n   *  sonst wird logoSrc in beiden Themes gezeigt.\n   */\n  logoDarkSrc?: string;\n  /**\n   * Optionales Logo-Bild/-Icon (URL oder Data-URI). Gesetzt → statt des Text-Logos.\n   *  Doku: immer SVG (logo-conciso.svg), Default-Variante für helle Hintergründe.\n   */\n  logoSrc?: string;\n  /**\n   * Kontakt-/CTA-Button anzeigen.\n   *\n   * @default true\n   */\n  showCta?: boolean;\n  /**\n   * Suche (Icon + Popover) rechts anzeigen.\n   *\n   * @default true\n   */\n  showSearch?: boolean;\n  /**\n   * Bietet der Theme-Cycle-Button im Header auch „System“ an (tri) oder nur Hell/Dunkel?\n   *\n   * @default true\n   */\n  showSystemTheme?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TopnavComponent",
+        "selector": "cds-topnav",
+        "standalone": true,
+        "inputs": [
+          "activeHref",
+          "ctaLabel",
+          "links",
+          "logo",
+          "logoAlt",
+          "logoDarkSrc",
+          "logoSrc",
+          "showCta",
+          "showSearch",
+          "showSystemTheme"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

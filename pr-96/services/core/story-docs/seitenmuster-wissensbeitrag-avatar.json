@@ -1,0 +1,32 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-avatar": {
+      "id": "seitenmuster-wissensbeitrag-avatar",
+      "name": "AvatarComponent",
+      "path": "./src/lib/avatar/avatar.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-avatar--avatar-groessen": {
+          "id": "seitenmuster-wissensbeitrag-avatar--avatar-groessen",
+          "name": "Avatar-Größen",
+          "snippet": "import { Component } from '@angular/core';\nimport { AvatarComponent } from '@conciso/design-system-angular';\nimport { AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AvatarComponent, AvatarStackComponent],\n  template: `\n    <div style=\"display:flex;align-items:flex-end;gap:24px\">\n        <div cdsAvatar name=\"Lukas Brandt\" area=\"ki\"></div>\n        <div cdsAvatar name=\"Maria Müller\" area=\"es\" size=\"lg\"></div>\n        <div cdsAvatar name=\"Sophie Klein\" area=\"wo\" size=\"xl\"></div>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-avatar--avatar-ohne-bild": {
+          "id": "seitenmuster-wissensbeitrag-avatar--avatar-ohne-bild",
+          "name": "Avatar ohne Bild",
+          "snippet": "import { Component } from '@angular/core';\nimport { AvatarComponent } from '@conciso/design-system-angular';\nimport { AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AvatarComponent, AvatarStackComponent],\n  template: `<div cdsAvatar name=\"Anna Rieth\" area=\"es\"></div>`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-avatar--avatar-mit-bild": {
+          "id": "seitenmuster-wissensbeitrag-avatar--avatar-mit-bild",
+          "name": "Avatar mit Bild",
+          "snippet": "import { Component } from '@angular/core';\nimport { AvatarComponent } from '@conciso/design-system-angular';\nimport { AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AvatarComponent, AvatarStackComponent],\n  template: `<div cdsAvatar name=\"Daniel Herzog\" area=\"wo\" [src]=\"src\"></div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `src` could not be provided, since the story declares no such arg."
+        },
+        "seitenmuster-wissensbeitrag-avatar--avatar-stapel": {
+          "id": "seitenmuster-wissensbeitrag-avatar--avatar-stapel",
+          "name": "Avatar-Stapel",
+          "snippet": "import { Component } from '@angular/core';\nimport { AvatarComponent } from '@conciso/design-system-angular';\nimport { AvatarStackComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AvatarComponent, AvatarStackComponent],\n  template: `\n    <cds-avatar-stack [more]=\"2\">\n        <div cdsAvatar name=\"Paul Meinhardt\" area=\"es\"></div>\n        <div cdsAvatar name=\"Anna Rieth\" area=\"es\"></div>\n        <div cdsAvatar name=\"Daniel Herzog\" area=\"es\"></div>\n    </cds-avatar-stack>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

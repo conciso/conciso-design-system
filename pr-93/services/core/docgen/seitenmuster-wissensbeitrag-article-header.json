@@ -1,0 +1,196 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-article-header": {
+      "id": "seitenmuster-wissensbeitrag-article-header",
+      "name": "ArticleHeaderComponent",
+      "path": "./src/lib/article-header/article-header.stories.ts",
+      "description": "ArticleHeader (`cds-article-header`) — Wrapper um `.article-header` aus\ncss/components.css (css/components.css:1486–1490, 1508–1519): der zentrierte Kopf\neines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip).\nHauptvorlage ist\n`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article\nHeader“ — dort steht das verbindliche Markup samt Begründung.\n\n**Breadcrumb sitzt im Header — abweichend von der allgemeinen Navigationsregel,\nbewusst der Hauptvorlage folgend.** Unterseiten können den Breadcrumb vor dem\nHeader in einer eigenen, linksbündigen `.ep-section` setzen, damit er weder\nmittig ausgerichtet wird noch einen abweichenden Abstand zur Navigation erhält.\nDie Komponente bietet hingegen einen Breadcrumb-Input im Header. Konsumenten,\ndie der allgemeinen Regel folgen wollen, lassen `breadcrumb` leer und setzen die\nLeiste selbst davor\n(siehe Story „Ohne Breadcrumb“).\n\n**Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current=\"page\"`.**\nVereinfachte Beispiele mit zwei verlinkten Einträgen sind kein vollständiges\nBarrierefreiheits-Beispiel. Die Komponente setzt deshalb Trenner dekorativ und\nden letzten Array-Eintrag als `<span aria-current=\"page\">` ohne Link um,\nunabhängig von einem dort eventuell gesetzten `href`.\n\n**Keine bereichsgefärbte Breadcrumb-Verlinkung (`.t-{area}`).** Die\nInline-Beispiele färben ihren zweiten (dort letzten) Eintrag mit `.t-ki`/`.t-es`/\n`.t-wo`; die API sieht dafür aber kein Feld vor (`{label, href?}`, kein\n`area` pro Eintrag), und eine Zuordnung „Bereichsfarbe auf den vorletzten\nEintrag“ wäre geraten, nicht aus der Doku ableitbar — zumal der gefärbte Eintrag\ndort ein Link ist, kein `aria-current`-Element, also nicht deckungsgleich mit dem\noben umgesetzten Muster. Bleibt bewusst außen vor.\n\n**Pill über `cds-pill`, kein direkt komponiertes `<span class=\"pill\">`.** Geprüft\nper `npx storybook tools docs show --id komponenten-chips-badges-pills-pill`:\n`PillComponent`s Host ist `<cds-pill>`, `.pill` sitzt eine Ebene darunter auf\neinem inneren `<span>` (anders als bei `FeaturedCardComponent`, wo genau das wegen\n`.card-featured-body>.pill`-Kindselektoren nicht ginge). `.article-header`/`.pill`\nhaben keinen solchen Kindselektor (css/components.css:1486–1507 geprüft) — die\nzusätzliche Ebene ist hier folgenlos, deshalb bleibt `cds-pill` als echte\nKomponente eingesetzt, keine Klassen-Duplikation nötig.\n\n**Pille rendert nur, wenn `area` UND `pill` gesetzt sind — kein erfundener\nDefault.** `PillComponent.area` ist als `CdsArea` mit einem eigenen Default\n(`'ki'`) typisiert; diese Komponente führt `area` dagegen als `CdsArea | undefined`\n(kein eigener Default vorgegeben). Ein erster Entwurf reichte\n`area()` per `as CdsArea`-Cast durch, damit ein `undefined`-Binding\n`cds-pill`s eigenen Default überschreiben kann — eine Typ-Lüge, um einen Fall\nabzudecken, der beim Nachzählen gar nicht vorkommt: Alle Pille-Vorkommen im\nArticle-Header-Kontext tragen ein `data-area`, keines ohne Bereich. Die Pille rendert\ndeshalb nur innerhalb von `@if (area(); as pillArea)` (narrowt `CdsArea |\nundefined` sauber auf `CdsArea`, ohne Cast) — ist `pill()` gesetzt, `area()`\naber nicht, bleibt die Pille schlicht weg, statt eine geratene Bereichsfarbe zu\nzeigen. Gepinnt in der Story „Pille ohne Bereich“.\n\n**`pillAriaLabel`, wie bei `FeaturedCardComponent`.** `PillComponent`s eigener\nDefault („Bereich `<label>`“) passt nur, wenn die Pille einen Bereichsnamen trägt.\nIm Wissensbeitrag trägt die Pille dagegen die Lesezeit (`wissensbeitrag.mdx`,\nAbschnitt „Pill · Lesezeit“: `aria-label=\"Lesezeit 8 Minuten\"`) — ein Text, den\ndie Komponente nicht zuverlässig aus einem freien `pill`-String wie\n„8 min Lesezeit“ herleiten kann (keine Zahl zu parsen, keine Garantie, dass der\nText überhaupt eine Lesezeit ist). `pillAriaLabel` bleibt deshalb optional, ohne\neigenen Default: ungesetzt geht `undefined` direkt an `cds-pill`s `ariaLabel`\ndurch, das dann auf seinen eigenen Default („Bereich `<pill>`“) zurückfällt —\nkeine Logik-Duplikation nötig, weil hier die echte `PillComponent` verwendet\nwird, keine Klassen-Nachbildung.\n\n**`date`/`dateLabel` getrennt, ANDERS als `cds-stoerer`.** `cds-stoerer`\nformatiert ein reines ISO-Datum selbst nach `de-DE`\n(`stoerer.component.ts:formattedDate`, inkl. manuellem Aufbau der\n`Date`-Komponenten gegen den UTC-Mitternacht-Fallstrick von `new Date(iso)`).\nDiese Komponente tut das NICHT: `date` liefert nur den maschinenlesbaren\n`datetime`-Wert, `dateLabel` die sichtbare Schreibweise — bewusst als zwei\ngetrennte Inputs. Begründung der Abweichung: Erstens deckt\nsich das mit jeder realen Instanz (6 von 6 `.article-meta-date`-Vorkommen tragen\neinen redaktionell gesetzten Text wie „13. Mai 2026“, keinen von\n`Intl.DateTimeFormat` erzeugten) — anders als der Störer, dessen Kacheln NUR ein\nISO-Datum ohne separaten Text führen. Zweitens umgeht die Trennung den\nZeitzonen-Fallstrick vollständig, statt ihn zu beheben: ohne eigene Formatierung\nkonstruiert diese Komponente nie ein `Date`-Objekt aus `date()`, die\nUTC-Mitternacht-Falle kann hier gar nicht erst auftreten. Ist `dateLabel` leer,\nzeigt die Komponente `date()` unverändert als sichtbaren Text (bewusst als\nISO-Form, nicht geraten formatiert) — in der Story „Interaktiv“ als Warnfall extra\nbenannt, damit niemand das versehentlich auf eine Produktionsseite bringt.\n\n**Meta-Strip nur, wenn es etwas zu zeigen gibt.** `authorName`/`date` sind bewusst\nBeiwerk (Default `''`); ausgezählt haben alle 6 realen\n`.article-meta`-Vorkommen sowohl Autor als auch Datum, eine Stellenanzeige\nnutzt `.article-header` dagegen KOMPLETT OHNE\n`.article-meta` (dort ein `<dl>` aus Job-Fakten statt Autor/Datum) — dieser\nabweichenden Verwendung folgt diese Komponente nicht (dafür ist in der API kein\nFeld vorgesehen), sie belegt aber, dass ein leerer Meta-Strip ein realer Fall ist.\n`.article-meta` (und darin `.article-meta-author`/`.article-meta-sep`) rendern\ndeshalb nur, wenn `authorName()` bzw. `date()` tatsächlich etwas liefern; der\nTrenner nur, wenn beide Seiten vorhanden sind.\n\n**Avatar projiziert über `[cdsAvatar]`, PLUS `cds-avatar-stack`.** Der\nursprüngliche Entwurf nennt nur `<ng-content select=\"[cdsAvatar]\">`; ergänzt um den\nTag-Selektor `cds-avatar-stack`, weil `AvatarStackComponent` (siehe dort) ein\nElement-Selektor ist, kein `[cdsAvatar]`-Attribut trägt und sonst nicht in den\nMeta-Strip projiziert werden könnte — nötig für die Story\n„Mehrere Autor:innen“.\n\n**Host als Block.** `.article-header` sitzt am Host und setzt nur\n`max-width:880px;margin:0 auto`. An einem unbekannten, also `display:inline`\ngerenderten Element greift beides nicht, die Block-Kinder liefen über die\n880 px hinaus. `:host{display:block}` wie bei `cds-hero-image` und\n`cds-footer-main`; Story „Breite begrenzt“ pinnt das.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` der Pille; ungesetzt = keine Pille (siehe Klassendoku).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "authorName": {
+          "name": "authorName",
+          "description": "Name im Meta-Strip (`.article-meta-name`), leer = kein Meta-Strip-Autorblock.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "authorRole": {
+          "name": "authorRole",
+          "description": "Rolle im Meta-Strip (`.article-meta-role`), leer = keine Rollenzeile.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "breadcrumb": {
+          "name": "breadcrumb",
+          "description": "Breadcrumb-Pfad; letzter Eintrag rendert ohne Link mit `aria-current=\"page\"`.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArticleBreadcrumbItem[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "date": {
+          "name": "date",
+          "description": "ISO-Datum (`JJJJ-MM-TT`) → `<time datetime>`, leer = kein Datum.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "dateLabel": {
+          "name": "dateLabel",
+          "description": "Sichtbare Schreibweise des Datums; leer = `date` steht unverändert sichtbar.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "lead": {
+          "name": "lead",
+          "description": "Anreißer unter dem Titel (`.article-lead`), leer = kein Lead.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "pill": {
+          "name": "pill",
+          "description": "Pille über dem Titel (`.pill`, via `cds-pill`), leer = keine Pille.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "pillAriaLabel": {
+          "name": "pillAriaLabel",
+          "description": "`aria-label` der Pille überschreiben, siehe Klassendoku.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Titel (`.article-title`, `<h1>`). Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ArticleHeaderComponentInputs = {\n  /** Markenbereich → `data-area` der Pille; ungesetzt = keine Pille (siehe Klassendoku). */\n  area?: CdsArea;\n  /**\n   * Name im Meta-Strip (`.article-meta-name`), leer = kein Meta-Strip-Autorblock.\n   *\n   * @default ''\n   */\n  authorName?: string;\n  /**\n   * Rolle im Meta-Strip (`.article-meta-role`), leer = keine Rollenzeile.\n   *\n   * @default ''\n   */\n  authorRole?: string;\n  /**\n   * Breadcrumb-Pfad; letzter Eintrag rendert ohne Link mit `aria-current=\"page\"`.\n   *\n   * @default []\n   */\n  breadcrumb?: CdsArticleBreadcrumbItem[];\n  /**\n   * ISO-Datum (`JJJJ-MM-TT`) → `<time datetime>`, leer = kein Datum.\n   *\n   * @default ''\n   */\n  date?: string;\n  /**\n   * Sichtbare Schreibweise des Datums; leer = `date` steht unverändert sichtbar.\n   *\n   * @default ''\n   */\n  dateLabel?: string;\n  /**\n   * Anreißer unter dem Titel (`.article-lead`), leer = kein Lead.\n   *\n   * @default ''\n   */\n  lead?: string;\n  /**\n   * Pille über dem Titel (`.pill`, via `cds-pill`), leer = keine Pille.\n   *\n   * @default ''\n   */\n  pill?: string;\n  /** `aria-label` der Pille überschreiben, siehe Klassendoku. */\n  pillAriaLabel?: string;\n  /** Titel (`.article-title`, `<h1>`). Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ArticleHeaderComponent",
+        "selector": "cds-article-header",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "authorName",
+          "authorRole",
+          "breadcrumb",
+          "date",
+          "dateLabel",
+          "lead",
+          "pill",
+          "pillAriaLabel",
+          "title"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

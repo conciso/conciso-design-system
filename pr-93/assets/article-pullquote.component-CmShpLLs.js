@@ -1,0 +1,3 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";import{A as t,H as n,V as r,fn as i,k as a,q as o,sn as s}from"./angular-platform-CAY__VLP.js";var c;function init_article_pullquote_component(){return(init_article_pullquote_component=e((()=>{i(),a(),c=class ArticlePullquoteComponent{quote=t.required();area=t(`co`);static propDecorators={quote:[{type:o,args:[{isSignal:!0,alias:`quote`,required:!0,transform:void 0}]}],area:[{type:o,args:[{isSignal:!0,alias:`area`,required:!1,transform:void 0}]}]}},c=s([n({selector:`cds-article-pullquote`,changeDetection:r.OnPush,template:`<blockquote class="article-pullquote" [attr.data-area]="area() || null">
+    {{ quote() }}
+  </blockquote>`})],c)})))()}export{init_article_pullquote_component as n,c as t};

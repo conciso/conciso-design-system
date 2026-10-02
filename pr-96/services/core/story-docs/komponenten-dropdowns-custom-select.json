@@ -1,0 +1,42 @@
+{
+  "components": {
+    "komponenten-dropdowns-custom-select": {
+      "id": "komponenten-dropdowns-custom-select",
+      "name": "SelectComponent",
+      "path": "./src/lib/select/select.stories.ts",
+      "stories": {
+        "komponenten-dropdowns-custom-select--interaktiv": {
+          "id": "komponenten-dropdowns-custom-select--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <cds-select\n        [label]=\"'Bereich'\"\n        [options]=\"[{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}]\"\n        [placeholder]=\"'Bitte wählen…'\"\n        [area]=\"undefined\"\n        [disabled]=\"false\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-dropdowns-custom-select--geoeffnet": {
+          "id": "komponenten-dropdowns-custom-select--geoeffnet",
+          "name": "Geöffnet · vorausgewählt",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <cds-select\n        [label]=\"'Anwendungsfall'\"\n        [options]=\"[{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}]\"\n        [placeholder]=\"'Bitte wählen…'\"\n        [area]=\"'ki'\"\n        [disabled]=\"false\"\n        [value]=\"'ki'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-dropdowns-custom-select--deaktiviert": {
+          "id": "komponenten-dropdowns-custom-select--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <cds-select\n        [label]=\"'Bereich'\"\n        [options]=\"[{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}]\"\n        [placeholder]=\"'Bitte wählen…'\"\n        [area]=\"undefined\"\n        [disabled]=\"true\"\n        [value]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-dropdowns-custom-select--tastatur": {
+          "id": "komponenten-dropdowns-custom-select--tastatur",
+          "name": "Tastatur",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <cds-select\n        [label]=\"'Bereich'\"\n        [options]=\"[{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}]\"\n        [placeholder]=\"'Bitte wählen…'\"\n        [area]=\"undefined\"\n        [disabled]=\"false\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-dropdowns-custom-select--formularbindung": {
+          "id": "komponenten-dropdowns-custom-select--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-select\n            label=\"Bereich\"\n            [options]=\"options\"\n            [formControl]=\"ctrl\">\n        </cds-select>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Wert:\n            <strong>{{ ctrl.value || '(leer)' }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {\n  options = [{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}];\n}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        },
+        "komponenten-dropdowns-custom-select--typeahead-puffer": {
+          "id": "komponenten-dropdowns-custom-select--typeahead-puffer",
+          "name": "Type-ahead · Puffer 600 ms",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectComponent],\n  template: `\n    <cds-select\n        [label]=\"'Bereich'\"\n        [options]=\"[{value: 'co', label: 'Corporate'}, {value: 'ki', label: 'Angewandte KI'}, {value: 'es', label: 'Effektive Software'}, {value: 'wo', label: 'Wirksame Organisationen'}]\"\n        [placeholder]=\"'Bitte wählen…'\"\n        [area]=\"undefined\"\n        [disabled]=\"false\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        }
+      }
+    }
+  }
+}

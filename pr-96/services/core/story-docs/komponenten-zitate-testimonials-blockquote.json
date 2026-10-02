@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-blockquote": {
+      "id": "komponenten-zitate-testimonials-blockquote",
+      "name": "BlockquoteComponent",
+      "path": "./src/lib/blockquote/blockquote.stories.ts",
+      "stories": {
+        "komponenten-zitate-testimonials-blockquote--interaktiv": {
+          "id": "komponenten-zitate-testimonials-blockquote--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { BlockquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [BlockquoteComponent],\n  template: `\n    <cds-blockquote\n        [quote]=\"'Klare Kommunikation schafft Vertrauen, lange bevor das erste Meeting stattfindet.'\"\n        [name]=\"'Maria Schneider'\"\n        [roleLabel]=\"'Head of Marketing, Musterunternehmen GmbH'\"\n        [area]=\"'co'\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-zitate-testimonials-blockquote--pro-bereich": {
+          "id": "komponenten-zitate-testimonials-blockquote--pro-bereich",
+          "name": "Je Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { BlockquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [BlockquoteComponent],\n  template: `\n    <div style=\"display:grid;gap:24px;max-width:640px\">\n        <cds-blockquote\n            area=\"co\"\n            quote=\"Klare Kommunikation schafft Vertrauen.\"\n            name=\"A. Becker\"\n            roleLabel=\"CEO\">\n        </cds-blockquote>\n        <cds-blockquote\n            area=\"ki\"\n            quote=\"KI liefert ab Tag eins messbaren Mehrwert.\"\n            name=\"S. Khan\"\n            roleLabel=\"Head of Data\">\n        </cds-blockquote>\n        <cds-blockquote\n            area=\"es\"\n            quote=\"Weniger Code, klarere Architektur.\"\n            name=\"M. Lang\"\n            roleLabel=\"VP Engineering\">\n        </cds-blockquote>\n        <cds-blockquote\n            area=\"wo\"\n            quote=\"Teams, die lernen und sich anpassen.\"\n            name=\"P. Adam\"\n            roleLabel=\"COO\">\n        </cds-blockquote>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

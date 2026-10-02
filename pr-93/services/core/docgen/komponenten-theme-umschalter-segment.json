@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-segment": {
+      "id": "komponenten-theme-umschalter-segment",
+      "name": "ThemeSegmentComponent",
+      "path": "./src/lib/theme-switch/segment-tri.stories.ts",
+      "description": "Theme-Segment — Segment-Switch für das Farbthema. Vorgesehener Einsatz: als\neigenständiges Element zum Hovern. Ist daher IMMER responsiv (unter 640px\nIcon-only) und IMMER animiert (Aktiv-Markierung gleitet als Thumb) — beides\nfest, nicht konfigurierbar. Icon + Textlabel stehen immer nebeneinander.\n\nEinzige Konfiguration: `showSystem` (tri Hell/Dunkel/System vs. binär Hell/Dunkel).\n\nBaut auf den CSS-Kern-Klassen `.theme-bar`/`.tbtn` auf. Jeder Button trägt ein\n`aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per\ngetBoundingClientRect an die aktive Zelle gesetzt (ResizeObserver misst bei\nBreakpoint-/Font-Änderungen nach).\n\nVerwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "showSystem": {
+          "name": "showSystem",
+          "description": "true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ThemeSegmentComponentInputs = {\n  /**\n   * true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär).\n   *\n   * @default true\n   */\n  showSystem?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ThemeSegmentComponent",
+        "selector": "cds-theme-segment",
+        "standalone": true,
+        "inputs": [
+          "showSystem"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-pill": {
+      "id": "komponenten-chips-badges-pills-pill",
+      "name": "PillComponent",
+      "path": "./src/lib/pill/pill.stories.ts",
+      "description": "Pill — Wrapper um `.pill` aus css/components.css → „Badges & Chips“ (Pill).\n\nPassive, redaktionelle Bereichs-Markierung, typografisch als Eyebrow (uppercase,\nletter-spacing .09em, label-xs) — sitzt typischerweise oberhalb eines Titels und\nordnet einen Inhalt einer Brand Area zu. Abgrenzung zur Badge: die Pill ist der\nthematische „Was für ein Inhalt ist das?“-Anker im Lesefluss; die Badge die\npunktuelle Status-/Bereichs-Kennzeichnung neben Elementen. Nicht interaktiv.\n\na11y: Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine\nÜberschrift — daher trägt die Pill ein explizites `aria-label` (Default\n„Bereich <label>“, überschreibbar), genau wie in der Doku vorgegeben.\n\nInhalt auf Teaser-Cards: nur der Bereichsname. Meta-Daten wie Lesezeit, Datum oder Format\ngehören dort in eine separate `.card-meta`-Zeile. Auf der Featured-Card und im Artikelkopf\ndarf die Pill die Lesezeit tragen. `.pill` trägt `width:fit-content` selbst, im\nCard-Kontext regelt `.card-body` (bzw. `.card-featured-body`) den Abstand — kein\n`margin-bottom` und kein `align-self` an der Pill.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Brand Area → data-area (Farbton; ohne Angabe greift der Corporate-Default).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "ki"
+            }
+          }
+        },
+        "ariaLabel": {
+          "name": "ariaLabel",
+          "description": "aria-label überschreiben; Default „Bereich <label>“.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbarer Bereichsname.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type PillComponentInputs = {\n  /**\n   * Brand Area → data-area (Farbton; ohne Angabe greift der Corporate-Default).\n   *\n   * @default ki\n   */\n  area?: CdsArea;\n  /** aria-label überschreiben; Default „Bereich <label>“. */\n  ariaLabel?: string;\n  /** Sichtbarer Bereichsname. */\n  label: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "PillComponent",
+        "selector": "cds-pill",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "ariaLabel",
+          "label"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

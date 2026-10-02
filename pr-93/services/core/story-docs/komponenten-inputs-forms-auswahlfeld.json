@@ -1,0 +1,37 @@
+{
+  "components": {
+    "komponenten-inputs-forms-auswahlfeld": {
+      "id": "komponenten-inputs-forms-auswahlfeld",
+      "name": "SelectFieldComponent",
+      "path": "./src/lib/field/select-field.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-auswahlfeld--interaktiv": {
+          "id": "komponenten-inputs-forms-auswahlfeld--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectFieldComponent],\n  template: `\n    <cds-select-field\n        [label]=\"'Bereich'\"\n        [options]=\"['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software']\"\n        [helper]=\"'Worum geht es?'\"\n        [error]=\"''\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-area'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-auswahlfeld--fehlerzustand": {
+          "id": "komponenten-inputs-forms-auswahlfeld--fehlerzustand",
+          "name": "Fehlerzustand",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectFieldComponent],\n  template: `\n    <cds-select-field\n        [label]=\"'Bereich'\"\n        [options]=\"['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software']\"\n        [helper]=\"'Worum geht es?'\"\n        [error]=\"'Bitte wähle eine Option.'\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-area-error'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-auswahlfeld--deaktiviert": {
+          "id": "komponenten-inputs-forms-auswahlfeld--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectFieldComponent],\n  template: `\n    <cds-select-field\n        [label]=\"'Bereich'\"\n        [options]=\"['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software']\"\n        [helper]=\"'Worum geht es?'\"\n        [error]=\"''\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-area-disabled'\"\n        [disabled]=\"true\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-auswahlfeld--leere-optionsliste": {
+          "id": "komponenten-inputs-forms-auswahlfeld--leere-optionsliste",
+          "name": "Leere Optionsliste",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectFieldComponent],\n  template: `\n    <cds-select-field\n        [label]=\"'Bereich'\"\n        [options]=\"[]\"\n        [helper]=\"'Worum geht es?'\"\n        [error]=\"''\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-area-empty'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-auswahlfeld--formularbindung": {
+          "id": "komponenten-inputs-forms-auswahlfeld--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { SelectFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SelectFieldComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-select-field\n            label=\"Bereich\"\n            [options]=\"options\"\n            fieldId=\"form-area\"\n            [formControl]=\"ctrl\">\n        </cds-select-field>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Wert:\n            <strong>{{ ctrl.value || '(leer)' }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {\n  options = ['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software'];\n}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

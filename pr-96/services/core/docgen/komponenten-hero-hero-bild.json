@@ -1,0 +1,162 @@
+{
+  "components": {
+    "komponenten-hero-hero-bild": {
+      "id": "komponenten-hero-hero-bild",
+      "name": "HeroImageComponent",
+      "path": "./src/lib/hero-image/hero-image.stories.ts",
+      "description": "HeroImage (cds-hero-image) — Wrapper um `.hero-image` aus css/components.css\n(css/components.css:851–878) mit optionaler Caption als Gradient-Overlay\n(`-caption`, `-caption-eyebrow`, `-caption-title`, `-caption-text`). Vollbreites,\nrandloses `<figure>` im 21:9-Format, der Standard-Hero auf allen Customer-Pages\n(17 Vorkommen in den Beispielseiten). Semantisch ein figure/figcaption-Pattern:\n`alt` trägt die faktische Bildbeschreibung, die Caption die redaktionelle\nEinordnung (Eyebrow, Titel, Text) — beide sollen sich nicht inhaltlich decken.\n\n**Entscheidung 1 — kein `<figcaption>` ohne Textinhalt.** Bleiben `eyebrow`,\n`heading` und `text` alle leer, entfällt das `<figcaption>`-Element vollständig\nstatt leer zu rendern (Variante „Hero ohne Caption“, siehe\n`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx` Abschnitt „Aufbau“,\nZeile 3: Beitrags-Heros zeigen das visuelle Versprechen ohne Marketing-Overlay).\nEin leeres `<figcaption>` wäre totes Markup ohne Zugänglichkeitsnutzen.\n\n**Entscheidung 2 — `headingLevel` statt fest verdrahtetem `<h1>`.** Der Hero\nrendert `.hero-image-caption-title` häufig als\n`<h1>`, weil der Hero dort das erste Überschriften-Element der Seite ist. Sitzt\nder Hero dagegen unter einem eigenen `<h1>` — der Wissensbeitrag hat seinen\nTitel bereits im Article-Header (`.article-title`, ebenfalls `<h1>`) —, entstünde\nmit einem zweiten `<h1>` eine doppelte Top-Überschrift. `headingLevel` (Default\n`1`) macht die Ebene explizit, `.hero-image-caption-title` ist reine CSS-Klasse\nund trägt keine Heading-Semantik, das Styling bleibt in beiden Fällen identisch.\n\n**Entscheidung 3 — `objectPosition` als Style-Binding, bewusste Ausnahme von\nder Regel, dass Mockup-Inline-Styles nicht in den Wrapper wandern.** Der\nBildausschnitt ist eine Eigenschaft des konkreten\nBildes (Motiv, Kopfposition), nicht der Seite — anders als z. B. eine\nSektionsfläche, die vom Seitenkontext abhängt. Er wird deshalb an jedem Hero\nindividuell direkt am `<img>` gesetzt (z. B. `object-position:center 70%`).\nOhne diesen Input wäre die Komponente für Porträt-lastige\nMotive unbrauchbar: `object-fit:cover` beschneidet das Bild sobald der\n`max-height`-Cap greift (siehe `.hero-image-media`), und ohne Steuerung landet\nder Ausschnitt zufällig in der Bildmitte. Als Style-Binding am `<img>`, nicht als\nKlasse — es gibt in der CSS-Schicht keine Modifier-Klassen dafür, nur den\nInline-Weg, den das Mockup selbst nutzt.\n\n**Entscheidung 4 — `tabindex`/`id` sind nicht Teil der Komponente.** Das Mockup\nsetzt beides am `<figure>` (`id=\"ep-landing-main\" tabindex=\"-1\"`, z. B. Zeile\n9406) als Sprungziel des Skip-Links. Das Sprungziel ist eine Entscheidung der\nSeite (welches Element „Hauptinhalt“ ist, hängt vom Seitenaufbau ab, nicht vom\nHero selbst), deshalb setzt der Konsument beides am `<cds-hero-image>`-Host.\nDamit dieses Sprungziel eine eigene Box hat, ist der Host per\n`:host{display:block}` selbst ein Block (Muster wie `cds-footer-main`): Als\nunbekanntes Element wäre er `display:inline` mit herausgebrochenem Block-Kind\nund hätte keine brauchbare Box für Fokus und Scroll-Position (ADR-0008, Fall 2).",
+      "jsDocTags": {},
+      "argTypes": {
+        "alt": {
+          "name": "alt",
+          "description": "Alternativtext — Pflicht, das Bild trägt Bedeutung (kein dekoratives Hero-Bild).",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "eager": {
+          "name": "eager",
+          "description": "`loading`-Strategie des Bildes: `true` (Standard) rendert `loading=\"eager\"`,\nweil der Hero auf Customer-Pages immer above the fold sitzt. `false` für einen\nzweiten, weiter unten liegenden Hero (z. B. innerhalb einer Bildstrecke).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Eyebrow-Zeile über dem Titel (`.hero-image-caption-eyebrow`, leer = keine Zeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "heading": {
+          "name": "heading",
+          "description": "Titel der Caption (`.hero-image-caption-title`, leer = kein Titel).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "headingLevel": {
+          "name": "headingLevel",
+          "description": "Heading-Ebene des gerenderten Titels: `1`, wenn der Hero die erste Überschrift\nder Seite trägt (Standard auf Customer-Pages), `2`, wenn er unter einem\neigenen `<h1>` sitzt (Beitrags-Hero unter dem Article-Header, siehe\nEntscheidung 2 in der Klassendoku).",
+          "type": {
+            "name": "enum",
+            "value": [
+              1,
+              2
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "1 | 2"
+            },
+            "defaultValue": {
+              "summary": 1
+            }
+          }
+        },
+        "objectPosition": {
+          "name": "objectPosition",
+          "description": "`object-position` direkt am `<img>` (z. B. `'center 70%'`), siehe Entscheidung 3\nin der Klassendoku. Leer = Browser-Default `center center`.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "src": {
+          "name": "src",
+          "description": "Bildquelle.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "text": {
+          "name": "text",
+          "description": "Text unter dem Titel (`.hero-image-caption-text`, leer = kein Text).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type HeroImageComponentInputs = {\n  /** Alternativtext — Pflicht, das Bild trägt Bedeutung (kein dekoratives Hero-Bild). */\n  alt: string;\n  /**\n   * `loading`-Strategie des Bildes: `true` (Standard) rendert `loading=\"eager\"`,\n   * weil der Hero auf Customer-Pages immer above the fold sitzt. `false` für einen\n   * zweiten, weiter unten liegenden Hero (z. B. innerhalb einer Bildstrecke).\n   *\n   * @default true\n   */\n  eager?: boolean;\n  /**\n   * Eyebrow-Zeile über dem Titel (`.hero-image-caption-eyebrow`, leer = keine Zeile).\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n  /**\n   * Titel der Caption (`.hero-image-caption-title`, leer = kein Titel).\n   *\n   * @default ''\n   */\n  heading?: string;\n  /**\n   * Heading-Ebene des gerenderten Titels: `1`, wenn der Hero die erste Überschrift\n   * der Seite trägt (Standard auf Customer-Pages), `2`, wenn er unter einem\n   * eigenen `<h1>` sitzt (Beitrags-Hero unter dem Article-Header, siehe\n   * Entscheidung 2 in der Klassendoku).\n   *\n   * @default 1\n   */\n  headingLevel?: 1 | 2;\n  /**\n   * `object-position` direkt am `<img>` (z. B. `'center 70%'`), siehe Entscheidung 3\n   * in der Klassendoku. Leer = Browser-Default `center center`.\n   *\n   * @default ''\n   */\n  objectPosition?: string;\n  /** Bildquelle. */\n  src: string;\n  /**\n   * Text unter dem Titel (`.hero-image-caption-text`, leer = kein Text).\n   *\n   * @default ''\n   */\n  text?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "HeroImageComponent",
+        "selector": "cds-hero-image",
+        "standalone": true,
+        "inputs": [
+          "alt",
+          "eager",
+          "eyebrow",
+          "heading",
+          "headingLevel",
+          "objectPosition",
+          "src",
+          "text"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

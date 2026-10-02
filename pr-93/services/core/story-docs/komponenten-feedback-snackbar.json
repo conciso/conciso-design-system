@@ -1,0 +1,27 @@
+{
+  "components": {
+    "komponenten-feedback-snackbar": {
+      "id": "komponenten-feedback-snackbar",
+      "name": "SnackbarComponent",
+      "path": "./src/lib/snackbar/snackbar.stories.ts",
+      "stories": {
+        "komponenten-feedback-snackbar--interaktiv": {
+          "id": "komponenten-feedback-snackbar--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { SnackbarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SnackbarComponent],\n  template: `\n    <cds-snackbar\n        [message]=\"'Formular gespeichert, noch nicht abgesendet.'\"\n        [tone]=\"'def'\"\n        [actionLabel]=\"'Jetzt senden'\"\n        (action)=\"action($event)\"\n    />`,\n})\nexport class DemoComponent {\n  action(event: unknown) {}\n}"
+        },
+        "komponenten-feedback-snackbar--aktions-button": {
+          "id": "komponenten-feedback-snackbar--aktions-button",
+          "name": "Aktions-Button",
+          "snippet": "import { Component } from '@angular/core';\nimport { SnackbarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SnackbarComponent],\n  template: `\n    <cds-snackbar\n        [message]=\"'Formular gespeichert, noch nicht abgesendet.'\"\n        [tone]=\"'def'\"\n        [actionLabel]=\"'Jetzt senden'\"\n        (action)=\"action($event)\"\n    />`,\n})\nexport class DemoComponent {\n  action(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        },
+        "komponenten-feedback-snackbar--toene": {
+          "id": "komponenten-feedback-snackbar--toene",
+          "name": "Töne",
+          "snippet": "import { Component } from '@angular/core';\nimport { SnackbarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SnackbarComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:12px;align-items:flex-start\">\n        <cds-snackbar\n            tone=\"def\"\n            message=\"Formular gespeichert, noch nicht abgesendet.\"\n            actionLabel=\"Jetzt senden\">\n        </cds-snackbar>\n        <cds-snackbar\n            tone=\"ok\"\n            message=\"Änderungen erfolgreich gespeichert.\"\n            actionLabel=\"Rückgängig\">\n        </cds-snackbar>\n        <cds-snackbar\n            tone=\"err\"\n            message=\"Speichern fehlgeschlagen.\"\n            actionLabel=\"Erneut versuchen\">\n        </cds-snackbar>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-callout": {
+      "id": "seitenmuster-wissensbeitrag-callout",
+      "name": "ArticleCalloutComponent",
+      "path": "./src/lib/article-callout/article-callout.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-callout--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-callout--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleCalloutComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleCalloutComponent],\n  template: `\n    <cds-article-callout [eyebrow]=\"eyebrow\" [area]=\"area\">\n        <p>\n            Bei einem mittelständischen Versicherer haben wir vor dem Pilot-Start sechs Wochen lang nur Daten und Prozesse aufgeräumt. Das Pilotmodell selbst war anschließend in zwei Wochen produktiv. Ohne Drama, ohne Bypass. Das ist die unspektakuläre Variante des Erfolgs, die selten in Vorträgen vorkommt.\n        </p>\n    </cds-article-callout>`,\n})\nexport class DemoComponent {\n  eyebrow = 'In der Praxis';\n  area = 'ki';\n}"
+        },
+        "seitenmuster-wissensbeitrag-callout--pro-bereich": {
+          "id": "seitenmuster-wissensbeitrag-callout--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleCalloutComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleCalloutComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:24px\">\n        <cds-article-callout area=\"co\" eyebrow=\"Aus dem Markenrad\">\n            <p>\n                Drei Pfeiler, Ruhig, Klar, Energiegeladen, als Prüfstein für jeden Beitrag. Das ist nicht Pflicht, sondern Erleichterung: Wenn der Text gegen alle drei besteht, klingt er nach Conciso.\n            </p>\n        </cds-article-callout>\n        <cds-article-callout area=\"ki\" eyebrow=\"In der Praxis\">\n            <p>\n                Bei einem mittelständischen Versicherer haben wir vor dem Pilot-Start sechs Wochen lang nur Daten und Prozesse aufgeräumt. Das Pilotmodell selbst war anschließend in zwei Wochen produktiv.\n            </p>\n        </cds-article-callout>\n        <cds-article-callout area=\"es\" eyebrow=\"Aus dem Code\">\n            <p>\n                Wenn ein Modul mehr als drei verschiedene Kontexte bedient, ist es kein Modul mehr, sondern eine Sammlung. Refactoring beginnt mit ehrlicher Inventur, nicht mit dem Werkzeugkasten.\n            </p>\n        </cds-article-callout>\n        <cds-article-callout area=\"wo\" eyebrow=\"Beobachtung\">\n            <p>\n                Wenn ein Veränderungsprojekt im Lenkungskreis hängt, liegt es selten an den Argumenten. Häufiger an einer Rolle, die nie geklärt wurde, und an der Schweigespirale, die daraus entsteht.\n            </p>\n        </cds-article-callout>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-callout--ohne-eyebrow": {
+          "id": "seitenmuster-wissensbeitrag-callout--ohne-eyebrow",
+          "name": "Ohne Eyebrow",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleCalloutComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleCalloutComponent],\n  template: `\n    <cds-article-callout area=\"es\">\n        <p>\n            Wenn ein Modul mehr als drei verschiedene Kontexte bedient, ist es kein Modul mehr, sondern eine Sammlung.\n        </p>\n    </cds-article-callout>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

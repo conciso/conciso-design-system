@@ -1,0 +1,7 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";import{A as t,H as n,I as r,V as i,fn as a,k as o,q as s,sn as c}from"./angular-platform-CAY__VLP.js";var l;function init_avatar_component(){return(init_avatar_component=e((()=>{a(),o(),l=class AvatarComponent{name=t.required();size=t(`sm`);area=t();src=t(``);initials=r(()=>{let e=this.name().trim().split(/\s+/).filter(Boolean);return e.length===0?``:e.length===1?e[0].slice(0,2).toUpperCase():(e[0][0]+e[e.length-1][0]).toUpperCase()});static propDecorators={name:[{type:s,args:[{isSignal:!0,alias:`name`,required:!0,transform:void 0}]}],size:[{type:s,args:[{isSignal:!0,alias:`size`,required:!1,transform:void 0}]}],area:[{type:s,args:[{isSignal:!0,alias:`area`,required:!1,transform:void 0}]}],src:[{type:s,args:[{isSignal:!0,alias:`src`,required:!1,transform:void 0}]}]}},l=c([n({selector:`div[cdsAvatar]`,changeDetection:i.OnPush,host:{class:`article-avatar`,"[class.article-avatar-lg]":`size() === 'lg'`,"[class.article-avatar-xl]":`size() === 'xl'`,"[attr.data-area]":`area() || null`,"aria-hidden":`true`},template:`
+    @if (src()) {
+      <img [src]="src()" [alt]="name()" />
+    } @else {
+      {{ initials() }}
+    }
+  `})],l)})))()}export{init_avatar_component as n,l as t};

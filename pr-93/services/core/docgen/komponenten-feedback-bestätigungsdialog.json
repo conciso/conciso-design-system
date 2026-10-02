@@ -1,0 +1,174 @@
+{
+  "components": {
+    "komponenten-feedback-bestätigungsdialog": {
+      "id": "komponenten-feedback-bestätigungsdialog",
+      "name": "ConfirmDialogDemoComponent",
+      "path": "./src/lib/dialog/confirm-dialog.stories.ts",
+      "description": "Nur für die Stories: ein Auslöser, der CdsConfirmDialog aufruft und das Ergebnis anzeigt.\nDie Lib exportiert bewusst keine Komponente, der Service rendert den Dialog selbst unter\n<body>. Deshalb suchen die Play-Functions ihn über `screen`, nicht im canvasElement.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "cancelLabel": {
+          "name": "cancelLabel",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "confirmLabel": {
+          "name": "confirmLabel",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "destructive": {
+          "name": "destructive",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "emphasis": {
+          "name": "emphasis",
+          "type": {
+            "name": "enum",
+            "value": [
+              "confirm",
+              "cancel"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsConfirmDialogEmphasis"
+            },
+            "defaultValue": {
+              "summary": "confirm"
+            }
+          }
+        },
+        "message": {
+          "name": "message",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "openTwice": {
+          "name": "openTwice",
+          "description": "Ruft open() zweimal hintereinander auf, um den doppelt ausgelösten Guard nachzustellen.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "title": {
+          "name": "title",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "triggerLabel": {
+          "name": "triggerLabel",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ConfirmDialogDemoComponentInputs = {\n  /** @default co */\n  area?: CdsArea;\n  cancelLabel: string;\n  confirmLabel: string;\n  /** @default false */\n  destructive?: boolean;\n  /** @default confirm */\n  emphasis?: CdsConfirmDialogEmphasis;\n  message: string;\n  /**\n   * Ruft open() zweimal hintereinander auf, um den doppelt ausgelösten Guard nachzustellen.\n   *\n   * @default false\n   */\n  openTwice?: boolean;\n  title: string;\n  triggerLabel: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ConfirmDialogDemoComponent",
+        "selector": "cds-confirm-dialog-demo",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "cancelLabel",
+          "confirmLabel",
+          "destructive",
+          "emphasis",
+          "message",
+          "openTwice",
+          "title",
+          "triggerLabel"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "components": {
+    "komponenten-slider-carousel-carousel": {
+      "id": "komponenten-slider-carousel-carousel",
+      "name": "CarouselComponent",
+      "path": "./src/lib/carousel/carousel.stories.ts",
+      "stories": {
+        "komponenten-slider-carousel-carousel--interaktiv": {
+          "id": "komponenten-slider-carousel-carousel--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CarouselComponent],\n  template: `\n    <cds-carousel\n        [active]=\"0\"\n        [hero]=\"false\"\n        [slides]=\"[{\n      title: 'Strategie-Workshop',\n      text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.',\n      image: folie,\n    }, {\n      title: 'Team-Enablement',\n      text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',\n      image: folie,\n    }, {\n      title: 'Go-Live',\n      text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.',\n      image: folie,\n    }]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `folie`, `[{ title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.', image: folie }, { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.', image: folie }, { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.', image: folie }]` could not be resolved statically."
+        },
+        "komponenten-slider-carousel-carousel--hero": {
+          "id": "komponenten-slider-carousel-carousel--hero",
+          "name": "Hero",
+          "snippet": "import { Component } from '@angular/core';\nimport { CarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CarouselComponent],\n  template: `\n    <cds-carousel\n        [active]=\"0\"\n        [hero]=\"true\"\n        [slides]=\"[{\n      title: 'Strategie-Workshop',\n      text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.',\n      image: folie,\n    }, {\n      title: 'Team-Enablement',\n      text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',\n      image: folie,\n    }, {\n      title: 'Go-Live',\n      text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.',\n      image: folie,\n    }]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `folie`, `[{ title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.', image: folie }, { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.', image: folie }, { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.', image: folie }]` could not be resolved statically."
+        },
+        "komponenten-slider-carousel-carousel--tastatur-dots": {
+          "id": "komponenten-slider-carousel-carousel--tastatur-dots",
+          "name": "Tastatur (Dots)",
+          "snippet": "import { Component } from '@angular/core';\nimport { CarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CarouselComponent],\n  template: `\n    <cds-carousel\n        [active]=\"0\"\n        [hero]=\"false\"\n        [slides]=\"[{\n      title: 'Strategie-Workshop',\n      text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.',\n      image: folie,\n    }, {\n      title: 'Team-Enablement',\n      text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',\n      image: folie,\n    }, {\n      title: 'Go-Live',\n      text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.',\n      image: folie,\n    }]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `folie`, `[{ title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.', image: folie }, { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.', image: folie }, { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.', image: folie }]` could not be resolved statically."
+        },
+        "komponenten-slider-carousel-carousel--pfeiltasten-am-slider": {
+          "id": "komponenten-slider-carousel-carousel--pfeiltasten-am-slider",
+          "name": "Pfeiltasten am gesamten Slider",
+          "snippet": "import { Component } from '@angular/core';\nimport { CarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CarouselComponent],\n  template: `\n    <cds-carousel [slides]=\"slides\" label=\"Projekte\"></cds-carousel>\n    <cds-carousel [slides]=\"slides\" label=\"Referenzen\"></cds-carousel>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `[{ title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.', image: folie }, { title: 'Team-Enablement', text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.', image: folie }, { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.', image: folie }]` could not be resolved statically."
+        },
+        "komponenten-slider-carousel-carousel--doppelte-titel": {
+          "id": "komponenten-slider-carousel-carousel--doppelte-titel",
+          "name": "Doppelte Titel",
+          "snippet": "import { Component } from '@angular/core';\nimport { CarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CarouselComponent],\n  template: `\n    <cds-carousel\n        [active]=\"0\"\n        [hero]=\"false\"\n        [slides]=\"[{title: 'Workshop', text: 'Erster Termin.'}, {title: 'Workshop', text: 'Zweiter Termin.'}]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        }
+      }
+    }
+  }
+}

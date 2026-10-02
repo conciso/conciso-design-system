@@ -1,0 +1,29 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-teamvoice": {
+      "id": "komponenten-zitate-testimonials-teamvoice",
+      "name": "TeamVoiceComponent",
+      "path": "./src/lib/team-voice/team-voice.stories.ts",
+      "stories": {
+        "komponenten-zitate-testimonials-teamvoice--interaktiv": {
+          "id": "komponenten-zitate-testimonials-teamvoice--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TeamVoiceComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TeamVoiceComponent],\n  template: `\n    <cds-team-voice\n        [quote]=\"'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.'\"\n        [name]=\"'Lena Brandt'\"\n        [roleLabel]=\"'Softwareentwicklerin, seit 2021'\"\n        [area]=\"'co'\"\n        [image]=\"platzhalterBild('Teamfoto', 600, 450, 24)\"\n        [imageAlt]=\"'Teamfoto'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Teamfoto', 600, 450, 24)` could not be resolved statically."
+        },
+        "komponenten-zitate-testimonials-teamvoice--alternierende-reihen": {
+          "id": "komponenten-zitate-testimonials-teamvoice--alternierende-reihen",
+          "name": "Alternierende Reihen",
+          "snippet": "import { Component } from '@angular/core';\nimport { TeamVoiceComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TeamVoiceComponent],\n  template: `\n    <div class=\"team-voices\">\n        <cds-team-voice\n            [image]=\"teamfoto\"\n            area=\"co\"\n            name=\"Lena Brandt\"\n            roleLabel=\"Softwareentwicklerin, seit 2021\"\n            quote=\"Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.\">\n        </cds-team-voice>\n        <cds-team-voice\n            [image]=\"teamfoto\"\n            area=\"wo\"\n            name=\"Tobias Reuter\"\n            roleLabel=\"Lead Developer, seit 2018\"\n            quote=\"Was mich hält, ist die Ehrlichkeit. Wir reden über das, was gut läuft, und genauso über das, was nicht klappt.\">\n        </cds-team-voice>\n        <cds-team-voice\n            [image]=\"teamfoto\"\n            area=\"es\"\n            name=\"Mara Vogt\"\n            roleLabel=\"Platform Engineer, seit 2022\"\n            quote=\"Hier zählt, was funktioniert, nicht, wer am lautesten ist. Das macht die Arbeit ruhig und fokussiert.\">\n        </cds-team-voice>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `teamfoto` could not be provided, since the story declares no such arg."
+        },
+        "komponenten-zitate-testimonials-teamvoice--alternierend-mobil": {
+          "id": "komponenten-zitate-testimonials-teamvoice--alternierend-mobil",
+          "name": "Alternierende Reihen (mobil)",
+          "snippet": "import { Component } from '@angular/core';\nimport { TeamVoiceComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TeamVoiceComponent],\n  template: `\n    <cds-team-voice\n        [quote]=\"'Ich kam als Junior und durfte vom ersten Sprint an mitgestalten. Die Lernkurve war steil, aber nie allein.'\"\n        [name]=\"'Lena Brandt'\"\n        [roleLabel]=\"'Softwareentwicklerin, seit 2021'\"\n        [area]=\"'co'\"\n        [image]=\"platzhalterBild('Teamfoto', 600, 450, 24)\"\n        [imageAlt]=\"'Teamfoto'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `render: AlternierendeReihen.render`, `platzhalterBild('Teamfoto', 600, 450, 24)` could not be resolved statically."
+        }
+      }
+    }
+  }
+}

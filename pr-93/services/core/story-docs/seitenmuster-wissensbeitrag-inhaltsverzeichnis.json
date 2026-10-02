@@ -1,0 +1,27 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-inhaltsverzeichnis": {
+      "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis",
+      "name": "ArticleTocComponent",
+      "path": "./src/lib/article-toc/article-toc.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-inhaltsverzeichnis--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleTocComponent } from '@conciso/design-system-angular';\nimport { ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleTocComponent, ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent],\n  template: `\n    <cds-article-toc\n        [summary]=\"summary\"\n        [open]=\"open\"\n        [items]=\"items\">\n    </cds-article-toc>`,\n})\nexport class DemoComponent {\n  summary = 'Inhalt';\n  open = false;\n  items = [{label: 'Demo-Magie schlägt Produktions-Realität', href: '#wb-ki-demo'}, {label: 'Drei Stolpersteine, die wir immer wieder sehen', href: '#wb-ki-stolpersteine'}, {label: 'Was den Unterschied macht: Readiness statt Begeisterung', href: '#wb-ki-readiness'}, {label: 'Pragmatischer Pfad: Konzept → Validierung → Produktion', href: '#wb-ki-pfad'}, {label: 'Fazit', href: '#wb-ki-fazit'}];\n}"
+        },
+        "seitenmuster-wissensbeitrag-inhaltsverzeichnis--bereits-offen": {
+          "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis--bereits-offen",
+          "name": "Bereits offen",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleTocComponent } from '@conciso/design-system-angular';\nimport { ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleTocComponent, ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent],\n  template: `\n    <cds-article-toc\n        [summary]=\"'Inhalt'\"\n        [open]=\"true\"\n        [items]=\"[{label: 'Demo-Magie schlägt Produktions-Realität', href: '#wb-ki-demo'}, {label: 'Drei Stolpersteine, die wir immer wieder sehen', href: '#wb-ki-stolpersteine'}, {label: 'Was den Unterschied macht: Readiness statt Begeisterung', href: '#wb-ki-readiness'}, {label: 'Pragmatischer Pfad: Konzept → Validierung → Produktion', href: '#wb-ki-pfad'}, {label: 'Fazit', href: '#wb-ki-fazit'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-inhaltsverzeichnis--im-artikel-body": {
+          "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis--im-artikel-body",
+          "name": "Im Artikel-Body",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleTocComponent } from '@conciso/design-system-angular';\nimport { ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleTocComponent, ArticleCalloutComponent, ArticleFigureComponent, ArticlePullquoteComponent],\n  template: `\n    <div class=\"article-body\">\n        <p>\n            Wer in den letzten Jahren mit Vorstand oder Bereichsleitung über KI gesprochen hat, kennt das Bild: Die Demo läuft, alle nicken, das Pilotbudget wird freigegeben.\n        </p>\n        <cds-article-toc summary=\"Inhalt\" [items]=\"items\"></cds-article-toc>\n        <h2>Drei Stolpersteine, die wir immer wieder sehen</h2>\n        <p>\n            Im PoC reichen 200 sauber annotierte Beispiele. In der Produktion braucht es Pipelines, Governance und ein Team, das sich für die Daten verantwortlich fühlt.\n        </p>\n        <cds-article-pullquote\n            area=\"ki\"\n            quote=\"„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“\">\n        </cds-article-pullquote>\n        <cds-article-callout area=\"ki\" eyebrow=\"In der Praxis\">\n            <p>\n                Bei einem mittelständischen Versicherer haben wir vor dem Pilot-Start sechs Wochen lang nur Daten und Prozesse aufgeräumt.\n            </p>\n        </cds-article-callout>\n        <cds-article-figure\n            [src]=\"figurePlaceholder\"\n            alt=\"Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen Beschriftungen, in dunklen Tönen fotografiert\"\n            caption=\"Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware der Engpass, sondern die Datenpipeline drumherum.\">\n        </cds-article-figure>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `items`, `figurePlaceholder` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

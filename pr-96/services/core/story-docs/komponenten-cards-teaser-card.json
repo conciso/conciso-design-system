@@ -1,0 +1,37 @@
+{
+  "components": {
+    "komponenten-cards-teaser-card": {
+      "id": "komponenten-cards-teaser-card",
+      "name": "CardComponent",
+      "path": "./src/lib/card/card.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-card--interaktiv": {
+          "id": "komponenten-cards-teaser-card--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CardComponent],\n  template: `\n    <cds-card\n        [eyebrow]=\"'Insights'\"\n        [title]=\"'Effektive Software für den Mittelstand'\"\n        [text]=\"'Wie schlanke Architektur und klare Prozesse messbar Zeit und Kosten sparen.'\"\n        [area]=\"'es'\"\n        [showMedia]=\"true\"\n        [actionLabel]=\"'Mehr erfahren'\"\n        (actionClick)=\"actionClick($event)\"\n    />`,\n})\nexport class DemoComponent {\n  actionClick(event: unknown) {}\n}"
+        },
+        "komponenten-cards-teaser-card--footer-aktion": {
+          "id": "komponenten-cards-teaser-card--footer-aktion",
+          "name": "Footer-Aktion",
+          "snippet": "import { Component } from '@angular/core';\nimport { CardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CardComponent],\n  template: `\n    <cds-card\n        [eyebrow]=\"'Insights'\"\n        [title]=\"'Effektive Software für den Mittelstand'\"\n        [text]=\"'Wie schlanke Architektur und klare Prozesse messbar Zeit und Kosten sparen.'\"\n        [area]=\"'es'\"\n        [showMedia]=\"true\"\n        [actionLabel]=\"'Mehr erfahren'\"\n        (actionClick)=\"actionClick($event)\"\n    />`,\n})\nexport class DemoComponent {\n  actionClick(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        },
+        "komponenten-cards-teaser-card--pro-bereich": {
+          "id": "komponenten-cards-teaser-card--pro-bereich",
+          "name": "Eine Karte je Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { CardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CardComponent],\n  template: `\n    <div\n        style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px\">\n        <cds-card\n            area=\"co\"\n            eyebrow=\"Corporate\"\n            title=\"Marke & Haltung\"\n            text=\"Ein konsistenter Auftritt über alle Berührungspunkte hinweg.\">\n        </cds-card>\n        <cds-card\n            area=\"ki\"\n            eyebrow=\"AI.Applied\"\n            title=\"KI, die wirkt\"\n            text=\"Angewandte KI-Lösungen mit echtem Geschäftsnutzen.\">\n        </cds-card>\n        <cds-card\n            area=\"es\"\n            eyebrow=\"Eff. Software\"\n            title=\"Schlanke Systeme\"\n            text=\"Weniger Code, klarere Architektur, schnellere Lieferung.\">\n        </cds-card>\n        <cds-card\n            area=\"wo\"\n            eyebrow=\"Wirks. Orga\"\n            title=\"Starke Teams\"\n            text=\"Organisationen, die lernen und sich wirksam anpassen.\">\n        </cds-card>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-card--ohne-medien": {
+          "id": "komponenten-cards-teaser-card--ohne-medien",
+          "name": "Ohne Medienfläche",
+          "snippet": "import { Component } from '@angular/core';\nimport { CardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CardComponent],\n  template: `\n    <cds-card\n        [eyebrow]=\"'Hinweis'\"\n        [title]=\"'Effektive Software für den Mittelstand'\"\n        [text]=\"'Wie schlanke Architektur und klare Prozesse messbar Zeit und Kosten sparen.'\"\n        [area]=\"'co'\"\n        [showMedia]=\"false\"\n        [actionLabel]=\"'Mehr erfahren'\"\n        (actionClick)=\"actionClick($event)\"\n    />`,\n})\nexport class DemoComponent {\n  actionClick(event: unknown) {}\n}"
+        },
+        "komponenten-cards-teaser-card--freier-inhalt": {
+          "id": "komponenten-cards-teaser-card--freier-inhalt",
+          "name": "Freier Inhalt (ng-content)",
+          "snippet": "import { Component } from '@angular/core';\nimport { CardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CardComponent],\n  template: `\n    <cds-card\n        area=\"ki\"\n        title=\"Projektstatus\"\n        [text]=\"''\"\n        [actionLabel]=\"''\"\n        [showMedia]=\"false\"\n        style=\"max-width:320px\">\n        <ul\n            style=\"list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2);font:var(--ty-body-md)\">\n            <li style=\"display:flex;justify-content:space-between\">\n                <span>Offen</span>\n                <strong>12</strong>\n            </li>\n            <li style=\"display:flex;justify-content:space-between\">\n                <span>In Arbeit</span>\n                <strong>5</strong>\n            </li>\n            <li style=\"display:flex;justify-content:space-between\">\n                <span>Erledigt</span>\n                <strong>28</strong>\n            </li>\n        </ul>\n    </cds-card>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

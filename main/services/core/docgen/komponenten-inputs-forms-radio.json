@@ -1,0 +1,181 @@
+{
+  "components": {
+    "komponenten-inputs-forms-radio": {
+      "id": "komponenten-inputs-forms-radio",
+      "name": "RadioGroupComponent",
+      "path": "./src/lib/radio-group/radio-group.stories.ts",
+      "description": "Radio-Gruppe (Optionsfelder).\n\nFür 2–6 sich gegenseitig ausschließende Optionen (mehr → Select, Mehrfachauswahl →\nCheckbox). Bewusst KEIN\nnachgebauter Kreis: native `<input type=\"radio\">` mit `accent-color` in der\nBereichsfarbe, gruppiert in `<fieldset>`/`<legend>` (Gruppen-Label wie ein\nFeld-Label), alle Optionen teilen denselben `name`.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Brand Area → accent-color der Radios.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "legend": {
+          "name": "legend",
+          "description": "Gruppen-Label (die Frage) → <legend>.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Optionen"
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Gemeinsamer name aller Radios der Gruppe. Default eindeutig.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "options": {
+          "name": "options",
+          "description": "Auswahloptionen (Label = Wert).",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "required": {
+          "name": "required",
+          "description": "Pflichtauswahl → required + .req-Asterisk.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Aktuell gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Aktuell gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type RadioGroupComponentInputs = {\n  /**\n   * Brand Area → accent-color der Radios.\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /**\n   * Gruppen-Label (die Frage) → <legend>.\n   *\n   * @default Optionen\n   */\n  legend?: string;\n  /** Gemeinsamer name aller Radios der Gruppe. Default eindeutig. */\n  name?: string;\n  /**\n   * Auswahloptionen (Label = Wert).\n   *\n   * @default []\n   */\n  options?: string[];\n  /**\n   * Pflichtauswahl → required + .req-Asterisk.\n   *\n   * @default false\n   */\n  required?: boolean;\n  /**\n   * Aktuell gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms.\n   *\n   * @default ''\n   */\n  value?: string; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type RadioGroupComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Aktuell gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms. */\n  valueChange: (e: string) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "RadioGroupComponent",
+        "selector": "cds-radio-group",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "legend",
+          "name",
+          "options",
+          "required",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

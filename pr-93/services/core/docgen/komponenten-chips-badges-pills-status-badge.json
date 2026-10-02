@@ -1,0 +1,63 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-status-badge": {
+      "id": "komponenten-chips-badges-pills-status-badge",
+      "name": "StatusBadgeComponent",
+      "path": "./src/lib/status-badge/status-badge.stories.ts",
+      "description": "Status-Badge — passive Zustands-Kennzeichnung auf Basis von `.badge` +\n`.badge-{ok|warn|err|neu}` aus css/components.css.\n\nTrägt einen Zustand über semantische Farben (OK, Warnung, Fehler, Neutral) —\nz. B. „Live“, „Beta“, „Deprecated“, „Draft“. Nicht interaktiv. Für die\nZuordnung zu einer Brand Area die Bereichs-Badge, für einen redaktionellen\nAnker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "label": {
+          "name": "label",
+          "description": "Sichtbarer Text der Badge.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "tone": {
+          "name": "tone",
+          "description": "Status-Ton → semantische Farbe.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "ok",
+              "warn",
+              "err",
+              "neu"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsBadgeTone"
+            },
+            "defaultValue": {
+              "summary": "ok"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type StatusBadgeComponentInputs = {\n  /** Sichtbarer Text der Badge. */\n  label: string;\n  /**\n   * Status-Ton → semantische Farbe.\n   *\n   * @default ok\n   */\n  tone?: CdsBadgeTone;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "StatusBadgeComponent",
+        "selector": "cds-status-badge",
+        "standalone": true,
+        "inputs": [
+          "label",
+          "tone"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}
