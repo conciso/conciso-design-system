@@ -31,13 +31,17 @@
     Zeilen-Elemente (Ordner- und Blatt-Zeilen) tragen ein id-Attribut, die
     Bedienknöpfe (Kontextmenü je Zeile, Auf-/Zuklapp-Knopf der
     Gruppenüberschriften) nicht — obwohl auch sie svg[viewBox="0 0 14 14"]
-    enthalten. [id] trennt beides und lässt die Bedienknöpfe sichtbar.
+    enthalten. [id] trennt das nur bei Gruppenüberschriften: der Kontextmenü-
+    Knopf der Zeilen (aria-label "Open context menu") bekommt von react-aria
+    selbst ein id. Ordner-Zeilen werden deshalb über aria-controls erkannt
+    (setzt nur der Toggle), Blatt-Zeilen über a[id]; Kontextmenü-Knopf und
+    Gruppen-Bedienknöpfe bleiben unberührt (Icon sichtbar, Position unverändert).
     #storybook-explorer-tree ist Storybooks stabiler Anker, Emotion-Hashes
     nicht — kein !important nötig, unsere ID-Spezifität (1,1,1) liegt über
     Storybooks Emotion-Klassen (0,1,0).
   */
   #storybook-explorer-tree a[id] svg[viewBox='0 0 14 14'],
-  #storybook-explorer-tree button[id] svg[viewBox='0 0 14 14'] {
+  #storybook-explorer-tree button[aria-controls] svg[viewBox='0 0 14 14'] {
     display: none;
   }
 
@@ -59,11 +63,28 @@
   }
 
   /*
+    Sektions-Icons (aus manager.ts, aria-hidden, focusable=false): gedämpft
+    statt in voller Textfarbe, Strichstärke in Bildschirm-Pixeln, damit
+    dichte Icons nicht schwerer wirken als lockere. Der aktive Knoten
+    (data-selected am Zeilen-Wrapper; aria-current setzt
+    Storybook hier nicht) zeigt sein Icon in voller Textfarbe.
+  */
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] {
+    opacity: 0.7;
+  }
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] * {
+    vector-effect: non-scaling-stroke;
+  }
+  #storybook-explorer-tree [data-selected='true'] svg[aria-hidden='true'][focusable='false'] {
+    opacity: 1;
+  }
+
+  /*
     Zeilenhöhe 28→32px: lockert eine Liste von 181 Einträgen in vier Ebenen
     auf, die vorher durchgehend gleichförmig war.
   */
   #storybook-explorer-tree a[id],
-  #storybook-explorer-tree button[id] {
+  #storybook-explorer-tree button[aria-controls] {
     min-height: 32px;
     padding-top: 7px;
     padding-bottom: 6px;
@@ -75,5 +96,45 @@
   */
   #storybook-explorer-tree > div + div {
     margin-top: 16px;
+  }
+
+  /*
+    Einrückung je Ebene: Text-x Sektion 56, Bauteil 74, Story/Doku 92 (Stufe
+    18 px). Ohne Eingriff reichen Bauteile (52) und Blätter unter Sektionen
+    (38) links an den Text der Sektion heran, Stories (56) liegen auf deren
+    Höhe. Die Elternzeile einer Zeile ist an data-parent-id erkennbar: ist
+    sie keine der sechs Wurzeln, liegt die Zeile unterhalb der Sektionsebene.
+    Ordner (button) rücken um Icon plus Abstand (16 + 6 = 22 px), Blätter (a)
+    zusätzlich um die 14 px, die text-indent -20px ihnen gegenüber Ordnern
+    abnimmt (22 + 14 = 36 px). Die Zahlen hängen an SECTION_ICON_SIZE in
+    manager.ts und an Storybooks Innenabständen.
+  */
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > button[aria-controls] {
+    margin-left: 22px;
+    width: calc(100% - 22px);
+  }
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > a[id] {
+    margin-left: 36px;
+    width: calc(100% - 36px);
   }
 </style>
