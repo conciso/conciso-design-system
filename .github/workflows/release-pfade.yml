@@ -31,6 +31,10 @@ jobs:
           node-version: 22
       - name: Deckung prüfen
         run: npm run check:relevant-paths
+      # Fast-Exit-Skript der Pflicht-Checks (tools/ci/changed-paths.mjs): dependency-frei wie
+      # der Deckungs-Check, und ein Fehler darin würde die Checks still überspringen lassen.
+      - name: Fast-Exit-Skript testen
+        run: node --test tools/ci/changed-paths.test.mjs
 
   # Die Unit-Tests der Release-Skripte (Pfadfilter, Bump-Regeln, Stempeln, Anbindung an
   # den commit-analyzer). Eigener Job, weil der Plugin-Test @semantic-release/* braucht
