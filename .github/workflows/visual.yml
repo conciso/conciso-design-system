@@ -25,11 +25,8 @@ on:
       - 'packages/css/**'
       - '.github/workflows/visual.yml'
   pull_request:
-    paths:
-      - 'apps/storybook/**'
-      - 'packages/angular/**'
-      - 'packages/css/**'
-      - '.github/workflows/visual.yml'
+  # Kein paths-Filter: „Visual-Regression“ ist Pflicht-Check im Ruleset für main —
+  # ein nie gestarteter Workflow würde PRs ohne Storybook-Änderung dauerhaft blockieren.
 
 concurrency:
   group: visual-${{ github.ref }}

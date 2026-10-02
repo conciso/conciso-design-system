@@ -27,15 +27,8 @@ on:
       - 'package-lock.json'
       - '.github/workflows/consumer-smoke-test.yml'
   pull_request:
-    paths:
-      - 'packages/css/**'
-      - 'packages/angular/**'
-      - 'tools/consumer-fixture/**'
-      - 'tools/checks/consumer-smoke-test.sh'
-      - 'tools/release/stamp-version.mjs'
-      - 'package.json'
-      - 'package-lock.json'
-      - '.github/workflows/consumer-smoke-test.yml'
+  # Kein paths-Filter: der AOT-Build ist Pflicht-Check im Ruleset für main —
+  # ein nie gestarteter Workflow würde PRs ohne Lib-Änderung dauerhaft blockieren.
   workflow_call:
     inputs:
       version:
