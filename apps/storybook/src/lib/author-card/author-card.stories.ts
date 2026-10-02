@@ -24,8 +24,8 @@ const meta: Meta<AuthorCardComponent> = {
       description: {
         component:
           'Avatar-plus-Bio-Strip am Ende eines Wissensbeitrags (`.author-card`, ' +
-          'css/components.css:1602–1606), einzeln oder über `cds-author-card-group` gebündelt ' +
-          '(`.author-card-group`, css/components.css:1547–1563). Attributselektor ' +
+          'css/components.css:1602 bis 1606), einzeln oder über `cds-author-card-group` gebündelt ' +
+          '(`.author-card-group`, css/components.css:1547 bis 1563). Attributselektor ' +
           '`div[cdsAuthorCard]`: gemessen im `.is-grid`-Fall bricht ein Element-Selektor den ' +
           'Höhenausgleich der Reihe (84/204 px statt 204/204 px, siehe Klassendoku), weil der ' +
           'unsichtbare Host gestreckt wird, nicht die sichtbare `.author-card`-Box eine Ebene ' +

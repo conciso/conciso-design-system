@@ -24,17 +24,17 @@ const meta: Meta<CtaBandComponent> = {
           'Das bereichsgefärbte Page-End-CTA-Band (`.ep-cta-band`, css/components.css:1456): ' +
           'letzte Einladung am Ende jeder Customer-Page, direkt vor dem Footer. Attributselektor ' +
           '`[cdsCtaBand]` statt eigenem Element: die Bandfläche sitzt als Inline-Style direkt am ' +
-          '`<div cdsCtaBand style="background:…">`, genau wie im Mockup — ein Element-Selektor ' +
+          '`<div cdsCtaBand style="background:…">`, genau wie im Mockup, ein Element-Selektor ' +
           'würde denselben „Fläche am Host“-Fehler wiederholen, den ADR-0008 für `cds-section` ' +
           'gemessen hat. `area` färbt deshalb nur die Aktion (`.btn-{area}`), nicht das Band ' +
           'selbst. Die Aktion ist ein echter `<a href>`, wenn `primaryHref` gesetzt ist, sonst ' +
-          'ein `<button>` mit `primaryClick` — nie ein `<a>` ohne Ziel. Bewusst nur EINE Aktion: ' +
+          'ein `<button>` mit `primaryClick`, nie ein `<a>` ohne Ziel. Bewusst nur EINE Aktion: ' +
           'keines der 22 Mockup-Vorkommen zeigt eine zweite, und `.btn-on-band` lässt sich mit ' +
           'den vorhandenen CSS-Klassen ohnehin nicht in einer zurückhaltenderen Variante bauen ' +
           '(siehe Klassendoku, Entscheidung 4). ' +
           'Die Aktion komponiert `.btn-filled` + `.btn-on-band` direkt (nicht über `cds-button`, ' +
           'das keinen `href` kennt) und zentriert sich über das ererbte ' +
-          '`.ep-cta-band{text-align:center}` — kein zusätzliches Layout im Wrapper.',
+          '`.ep-cta-band{text-align:center}`, kein zusätzliches Layout im Wrapper.',
       },
     },
   },

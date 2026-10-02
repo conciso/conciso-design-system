@@ -21,7 +21,7 @@ const meta: Meta<FooterBottomComponent> = {
       description: {
         component:
           'Unterer Footer-Teil (`.footer-btm`): dunkler Streifen mit Copyright, Rechts-Links ' +
-          'und Social-Profilen. Social-Links über `socialLinks` — verifizierte Built-in-Icons ' +
+          'und Social-Profilen. Social-Links über `socialLinks`, verifizierte Built-in-Icons ' +
           '(linkedin, youtube) via `platform`, beliebige weitere via eigenem `iconPath`. Wird ' +
           'in `<cds-footer>` unter den oberen Teil projiziert.',
       },

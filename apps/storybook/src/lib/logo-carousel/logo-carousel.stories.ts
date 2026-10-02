@@ -16,7 +16,7 @@ const meta: Meta<LogoCarouselComponent> = {
       description: {
         component:
           'Automatischer Wechsler für Kundenlogos: Sets von je fünf Logos wechseln per Crossfade ' +
-          'und lassen sich über Dots gezielt ansteuern. Jede Kachel ist ein `cds-logo` – bevorzugt ' +
+          'und lassen sich über Dots gezielt ansteuern. Jede Kachel ist ein `cds-logo`, bevorzugt ' +
           'ein Bild (`src`), sonst der Text als Platzhalter/Fallback. Die Animation pausiert bei ' +
           'Hover und Tastatur-Fokus, zusätzlich über einen Pause-Button, und ruht bei reduzierter ' +
           'Bewegung. Barrierefrei nach WCAG 2.1 AA.',

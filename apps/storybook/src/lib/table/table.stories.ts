@@ -16,7 +16,7 @@ const meta: Meta<TableComponent> = {
       description: {
         component:
           'Datentabelle mit horizontalem Scroll-Container (`.tbl`/`.tbl-wrap`, ' +
-          'css/components.css:1462–1480). Ausgezählt: außerhalb der Doku-Sektion `sec-table` ' +
+          'css/components.css:1462 bis 1480). Ausgezählt: außerhalb der Doku-Sektion `sec-table` ' +
           'selbst kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten. ' +
           'Element-Selektor `cds-table` (ADR-0008-Standardfall): Keines der 5 `.tbl-wrap`-' +
           'Vorkommen ist selbst ein direktes Grid-/Flex-Kind. ' +

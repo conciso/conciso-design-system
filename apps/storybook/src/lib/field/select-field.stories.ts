@@ -91,7 +91,7 @@ export const Formularbindung: Story = {
             fieldId="form-area"
             [formControl]="ctrl"
           ></cds-select-field>
-          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '(leer)' }}</strong></p>
         </div>
       `,
     };

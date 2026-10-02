@@ -40,7 +40,7 @@ const meta: Meta<ComboboxComponent> = {
     docs: {
       description: {
         component:
-          'Wie der Custom Select, aber mit Tipp-Filter im Feld — für lange Listen. Substring-' +
+          'Wie der Custom Select, aber mit Tipp-Filter im Feld, für lange Listen. Substring-' +
           'Filter (case-insensitiv), Leerzustand bei keinem Treffer, Lösch-Button bei Texteingabe. ' +
           'Mit `multi` als Mehrfachauswahl: gewählte Werte werden zu entfernbaren Chips, Rücktaste ' +
           'bei leerem Feld entfernt den letzten. Input als role=combobox mit aria-autocomplete/' +
@@ -198,7 +198,7 @@ export const Formularbindung: Story = {
       template: `
         <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
           <cds-combobox label="Thema" [options]="options" [formControl]="ctrl"></cds-combobox>
-          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '—' }}</strong></p>
+          <p style="font:14px/1.4 system-ui,sans-serif;margin:0">Wert: <strong>{{ ctrl.value || '(leer)' }}</strong></p>
         </div>
       `,
     };

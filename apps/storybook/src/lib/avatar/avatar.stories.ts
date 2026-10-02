@@ -17,11 +17,11 @@ const meta: Meta<AvatarComponent> = {
     docs: {
       description: {
         component:
-          'Initialen-/Foto-Kreis (`.article-avatar` + `-lg`/`-xl`, css/components.css:1520–1536). ' +
+          'Initialen-/Foto-Kreis (`.article-avatar` + `-lg`/`-xl`, css/components.css:1520 bis 1536). ' +
           'Attributselektor `div[cdsAvatar]`: der Konsument schreibt `<div cdsAvatar name="…">`, ' +
-          '`.article-avatar` sitzt damit direkt auf dem Host, ohne Wrapper-Element dazwischen — ' +
+          '`.article-avatar` sitzt damit direkt auf dem Host, ohne Wrapper-Element dazwischen, ' +
           'notwendig, damit die Geschwister-Kette `.article-avatar-stack .article-avatar + ' +
-          '.article-avatar` (css/components.css:1540–1541) im Stapel greift (siehe „Avatar-Stapel“), ' +
+          '.article-avatar` (css/components.css:1540 bis 1541) im Stapel greift (siehe „Avatar-Stapel“), ' +
           'und weil derselbe Attributname zugleich als Projektions-Selektor in `cds-article-header` ' +
           'dient. Initialen kommen aus `name` (`computed()`), kein eigener Input. `cds-avatar-stack` ' +
           'bündelt mehrere `div[cdsAvatar]` mit Überlappung und optionalem „+N“-Indikator ' +

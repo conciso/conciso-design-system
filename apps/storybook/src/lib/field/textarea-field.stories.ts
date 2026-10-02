@@ -58,7 +58,7 @@ export const Formularbindung: Story = {
       description: {
         story:
           'Der Textbereich ist ein `ControlValueAccessor` (via FieldBase) und bindet ' +
-          'direkt an reactive forms (`formControl`) — der Wert lässt sich so auslesen ' +
+          'direkt an reactive forms (`formControl`), der Wert lässt sich so auslesen ' +
           '(hier die Zeichenzahl) und validieren. Ohne Formular geht alternativ `[(value)]`.',
       },
     },

@@ -35,11 +35,11 @@ const meta: Meta<IconCardComponent> = {
       description: {
         component:
           'Kompakte Teaser-Kachel mit farbiger Icon-Fläche, Eyebrow, Titel, Text und ' +
-          'optionaler Pfeil-CTA-Zeile (`.ep-card`, css/components.css:1298–1340), die auf ' +
+          'optionaler Pfeil-CTA-Zeile (`.ep-card`, css/components.css:1298 bis 1340), die auf ' +
           'den Beispielseiten Bereichs- und Angebots-Einstiege trägt. Attributselektor ' +
           '`[cdsIconCard]` statt eigenem Element: `<a cdsIconCard href="…">` (ganze Fläche ' +
           'klickbar, `.ep-card-link` wird vom Host-Tag abgeleitet) oder ' +
-          '`<div cdsIconCard>` (statisch, ruht flach mit Rahmen) — der Konsument schreibt ' +
+          '`<div cdsIconCard>` (statisch, ruht flach mit Rahmen), der Konsument schreibt ' +
           'das Tag, kein Wrapper-Element schiebt sich zwischen Grid und Karte. Das Icon ' +
           'kommt als projizierter Inhalt (`<ng-content select="[cdsIcon]">`): ' +
           '`.ep-card-icon` ist ein Container und reicht Maße/Stroke per ' +

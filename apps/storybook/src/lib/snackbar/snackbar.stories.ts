@@ -14,7 +14,7 @@ const meta: Meta<SnackbarComponent> = {
     docs: {
       description: {
         component:
-          'Kurze Statusmeldung als Feedback auf Nutzeraktionen — etwa nach dem ' +
+          'Kurze Statusmeldung als Feedback auf Nutzeraktionen, etwa nach dem ' +
           'Absenden eines Kontaktformulars, der Newsletter-Anmeldung oder bei ' +
           'Validierungsfehlern. Drei Varianten: Default, Erfolg (OK) und Fehler, ' +
           'jeweils mit optionaler Aktion.',

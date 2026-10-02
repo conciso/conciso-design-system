@@ -15,7 +15,7 @@ const meta: Meta<ThemeSegmentComponent> = {
     docs: {
       description: {
         component:
-          'Theme-Umschalter als Segment-Leiste — als eigenständiges Element zum Hovern gedacht. ' +
+          'Theme-Umschalter als Segment-Leiste, als eigenständiges Element zum Hovern gedacht. ' +
           'Immer responsiv (unter 640px Icon-only) und immer animiert (Aktiv-Markierung gleitet ' +
           'als Thumb); beides fest. Einzige Option: `showSystem` (Hell/Dunkel/System vs. binär).',
       },

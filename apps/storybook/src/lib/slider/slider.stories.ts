@@ -87,10 +87,10 @@ export const AutoTicks: Story = {
     template: `
       <div style="display:grid;gap:32px">
         <div style="max-width:520px">
-          <cds-slider sliderId="s-wide" label="Breit — 7 Ticks" [tickCount]="7"></cds-slider>
+          <cds-slider sliderId="s-wide" label="Breit: 7 Ticks" [tickCount]="7"></cds-slider>
         </div>
         <div style="max-width:200px">
-          <cds-slider sliderId="s-narrow" label="Schmal — reduziert" [tickCount]="7"></cds-slider>
+          <cds-slider sliderId="s-narrow" label="Schmal, reduziert" [tickCount]="7"></cds-slider>
         </div>
       </div>
     `,

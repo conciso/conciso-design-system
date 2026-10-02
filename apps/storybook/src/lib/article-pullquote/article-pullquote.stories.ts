@@ -16,11 +16,11 @@ const meta: Meta<ArticlePullquoteComponent> = {
       description: {
         component:
           'Typografische Hervorhebung eines Satzes aus dem eigenen Lauftext eines ' +
-          'Wissensbeitrags (`.article-pullquote`, css/components.css:1608–1612), ohne ' +
+          'Wissensbeitrags (`.article-pullquote`, css/components.css:1608 bis 1612), ohne ' +
           'Attribution. **Nicht `Komponenten/Zitate & Testimonials/Blockquote`** ' +
           '(`cds-blockquote`, `.bq`): der Blockquote zitiert eine dritte, benannte Person mit ' +
           'getönter Box und Quote-Icon, das Pull-Quote zitiert den eigenen Text ohne Box, Icon ' +
-          'oder Namen — volle Abgrenzung in beiden Klassendocs. `quote` enthält die deutschen ' +
+          'oder Namen, volle Abgrenzung in beiden Klassendocs. `quote` enthält die deutschen ' +
           'Anführungszeichen bereits als Teil des Texts (`quotes:none`, keine ' +
           'CSS-generierten Marken); die Komponente ergänzt keine eigenen. `area` hat den ' +
           "verteidigbaren Default `'co'` (Basisregel ohne `[data-area]` entspricht bereits " +

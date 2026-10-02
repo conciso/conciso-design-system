@@ -21,7 +21,7 @@ const meta: Meta<LogoComponent> = {
     },
   },
   argTypes: {
-    label: { description: 'Firmen-/Markenname – Alt-Fallback und Text-Platzhalter.' },
+    label: { description: 'Firmen-/Markenname, Alt-Fallback und Text-Platzhalter.' },
     src: { description: 'Bildquelle (URL/Data-URI). Gesetzt → Bild statt Text.' },
     alt: { description: 'Alt-Text des Bilds (Fallback: `label`).' },
   },

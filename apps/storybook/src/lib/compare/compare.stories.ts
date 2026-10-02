@@ -16,7 +16,7 @@ const meta: Meta<CompareComponent> = {
       description: {
         component:
           'Aufklappbare Vergleichstabelle für den zeilenweisen Direktvergleich mehrerer ' +
-          'Pakete/Tarife (`.ep-compare*`, css/components.css:1275–1294). Natives ' +
+          'Pakete/Tarife (`.ep-compare*`, css/components.css:1275 bis 1294). Natives ' +
           '`<details>`/`<summary>` (standardmäßig zu), Tastaturbedienung und Toggle kommen vom ' +
           'Browser. **Mit Daten-Input, anders als `Komponenten/Tabelle/Tabelle` (`cds-table`)**: ' +
           'ausgezählt sind alle 22 Datenzellen des einzigen realen Vorkommens (11 Zeilen × 2 ' +
@@ -27,7 +27,7 @@ const meta: Meta<CompareComponent> = {
           'Text-Zellen (`string`) rendern die Angabe unverändert. Die empfohlene Spalte wird über ' +
           '`columns[].pro` als `.ep-compare-pro` hervorgehoben (in `thead` UND `tbody`). ' +
           '`caption` ist Pflicht (`.sr-only`, wie in `tabelle.mdx` dokumentiert), `rowsLabel` ' +
-          "(erste Kopfzelle) ist Beiwerk mit Default `''` — beide Abweichungen von der " +
+          "(erste Kopfzelle) ist Beiwerk mit Default `''`; beide Abweichungen von der " +
           'ursprünglichen Skizze sind in der Klassendoku begründet.',
       },
     },

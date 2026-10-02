@@ -176,7 +176,7 @@ export const ReicherInhalt: Story = {
         </cds-area-tab>
         <cds-area-tab area="es" label="Effektive Software">
           <p style="${bodyStyle}">
-            Schlanke Architektur und schnellere Lieferung — inkl.
+            Schlanke Architektur und schnellere Lieferung, inkl.
             <a class="body-link" href="#">Referenzprojekten</a>.
           </p>
         </cds-area-tab>

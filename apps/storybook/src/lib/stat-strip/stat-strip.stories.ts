@@ -15,7 +15,7 @@ const meta: Meta<StatStripComponent> = {
       description: {
         component:
           'Flache Kennzahlen-Leiste, die mehrere zentrierte Werte nebeneinander ' +
-          'als ruhiges Band zusammenfasst — ohne Rahmen oder Schatten. Jede ' +
+          'als ruhiges Band zusammenfasst, ohne Rahmen oder Schatten. Jede ' +
           'Kennzahl ist an ihre Brand Area farblich angepasst.',
       },
     },

@@ -52,7 +52,7 @@ export const LesbarerZustand: Story = {
         story:
           'Die `cds-chip` sind per `[(pressed)]` an ein Filter-Array gebunden; ' +
           'ein Klick togglet `aria-pressed`, emittiert `pressedChange` und ' +
-          'aktualisiert die Liste der aktiven Filter — genau so konsumiert man ' +
+          'aktualisiert die Liste der aktiven Filter, genau so konsumiert man ' +
           'den Status im echten Code.',
       },
     },
@@ -72,7 +72,7 @@ export const LesbarerZustand: Story = {
           filters
             .filter((f) => f.pressed)
             .map((f) => f.label)
-            .join(', ') || '—',
+            .join(', ') || '(leer)',
       },
       template: `
         <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">

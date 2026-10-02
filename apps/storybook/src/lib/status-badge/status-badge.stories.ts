@@ -14,7 +14,7 @@ const meta: Meta<StatusBadgeComponent> = {
       description: {
         component:
           'Passive Zustands-Kennzeichnung: ein kleines, nicht interaktives Label, das den ' +
-          'Status eines Elements über semantische Farben trägt — OK, Warnung, Fehler oder ' +
+          'Status eines Elements über semantische Farben trägt: OK, Warnung, Fehler oder ' +
           'Neutral (z. B. Live, Beta, Deprecated, Draft). Für die Zuordnung zu einer Brand ' +
           'Area die Bereichs-Badge, für interaktive Filter den Chip nutzen.',
       },

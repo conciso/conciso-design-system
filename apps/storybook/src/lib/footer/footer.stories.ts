@@ -28,7 +28,7 @@ const meta: Meta<FooterComponent> = {
           '`<footer>`-Landmark, das die zwei Bänder projiziert. „Website-Footer“ zeigt die ' +
           'volle Marketing-Zusammensetzung (Adresse/Nav/Newsletter im generischen ' +
           '`cds-footer-main` + `cds-footer-bottom`); „App-Footer“ den schlanken Fall für ' +
-          '(interne) SPAs — nur der untere Streifen mit Copyright + Rechtslinks.',
+          '(interne) SPAs: nur der untere Streifen mit Copyright + Rechtslinks.',
       },
     },
   },

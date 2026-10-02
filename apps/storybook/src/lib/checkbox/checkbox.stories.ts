@@ -91,7 +91,7 @@ export const LesbarerZustand: Story = {
           'Die `cds-checkbox` sind per `[(checked)]` an ein State-Objekt gebunden; ' +
           'jede Änderung emittiert `checkedChange` und aktualisiert die Anzeige. ' +
           'Der Absenden-Button liest die Pflicht-Einwilligung aus und ist erst ' +
-          'aktiv, wenn sie gesetzt ist — genau so konsumiert man `checked` im echten Code.',
+          'aktiv, wenn sie gesetzt ist, genau so konsumiert man `checked` im echten Code.',
       },
     },
   },

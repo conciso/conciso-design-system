@@ -25,7 +25,7 @@ const meta: Meta<TestimonialComponent> = {
   },
   args: {
     quote:
-      'Conciso hat unsere Plattform spürbar verschlankt — weniger Code, klarere Prozesse, zufriedenere Teams.',
+      'Conciso hat unsere Plattform spürbar verschlankt: weniger Code, klarere Prozesse, zufriedenere Teams.',
     name: 'Dr. Maria Schmidt',
     roleLabel: 'CTO, Beispiel GmbH',
     area: 'co',
@@ -49,7 +49,7 @@ export const ProBereich: Story = {
         <cds-testimonial area="ki" name="S. Khan" roleLabel="Head of Data"
           quote="Die KI-Lösung liefert seit Tag eins messbaren Mehrwert."></cds-testimonial>
         <cds-testimonial area="es" name="M. Lang" roleLabel="VP Engineering"
-          quote="Weniger technische Schulden, schnellere Releases — genau wie versprochen."></cds-testimonial>
+          quote="Weniger technische Schulden, schnellere Releases, genau wie versprochen."></cds-testimonial>
       </div>
     `,
   }),
