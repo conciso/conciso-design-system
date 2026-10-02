@@ -61,7 +61,12 @@ export const Deaktiviert: Story = {
   parameters: { controls: { disable: true } },
   play: async ({ canvasElement }) => {
     const c = within(canvasElement);
-    await expect(c.getByLabelText(/Nachricht/)).toBeDisabled();
+    const control = c.getByLabelText(/Nachricht/);
+    await expect(control).toBeDisabled();
+    // Sichtbar vom aktiven Zustand unterscheidbar: reduzierte Deckkraft, Sperr-Cursor.
+    const stil = getComputedStyle(control);
+    await expect(Number(stil.opacity)).toBeLessThan(1);
+    await expect(stil.cursor).toBe('not-allowed');
   },
 };
 
