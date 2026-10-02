@@ -5,9 +5,6 @@
 // und den Dateiinhalten. Git und `storybook index` bleiben in der CLI-Hülle.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, relative, sep } from 'node:path';
 import { buildStoryLinks, parseNameStatus, storyUrl, MAX_COMPONENTS } from './story-links.mjs';
 
 const ROOT = 'https://conciso.github.io/conciso-design-system/pr/73/';
@@ -348,82 +345,82 @@ test(`Begrenzung: ab mehr als ${MAX_COMPONENTS} Komponenten nur noch Titel (summ
   assert.equal(result.components.length, MAX_COMPONENTS + 1);
 });
 
-// --- PR #73 (echte Indizes, Diff und Dateiausschnitte) ------------------------------------------
+// --- Szenario wie PR #73 (Bestätigungsdialog) ----------------------------------------------------
 
-const FIXTURE = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'pr-73');
+test('Szenario PR #73: neue Komponente, geänderte angehängte MDX-Seite, neuer Token lokal', () => {
+  const DIALOG = 'Komponenten/Feedback/Bestätigungsdialog';
+  const DIALOG_STORIES = './src/lib/dialog/confirm-dialog.stories.ts';
+  const SNACKBAR = 'Komponenten/Feedback/Snackbar';
+  const verwendung = mdx(SNACKBAR, 'Verwendung', './src/docs/komponenten/feedback-verwendung.mdx', {
+    storiesImports: ['./src/lib/snackbar/snackbar.stories.ts'],
+    tags: ['attached-mdx'],
+  });
+  const dialog = [autodocs(DIALOG, DIALOG_STORIES), story(DIALOG, 'Geöffnet', DIALOG_STORIES)];
 
-function readTree(dir) {
-  const files = {};
-  (function walk(d) {
-    for (const name of readdirSync(d)) {
-      const p = join(d, name);
-      if (statSync(p).isDirectory()) walk(p);
-      else files[relative(dir, p).split(sep).join('/')] = readFileSync(p, 'utf8');
-    }
-  })(dir);
-  return files;
-}
-
-test('PR #73: neuer Bestätigungsdialog, geänderte Feedback-Verwendung, nichts global', () => {
-  const result = buildStoryLinks({
-    base: 'ae0d282e652543b7d39b08a47a91d549edb94bbb',
-    head: 'd14f9c4d5197999468b36ef035e128d0ad0f45bc',
-    previewRoot: ROOT,
-    baseIndex: JSON.parse(readFileSync(join(FIXTURE, 'base-index.json'), 'utf8')),
-    baseIndexSource: 'merge-base',
-    headIndex: JSON.parse(readFileSync(join(FIXTURE, 'head-index.json'), 'utf8')),
-    changes: parseNameStatus(readFileSync(join(FIXTURE, 'name-status.txt'), 'utf8')),
-    headFiles: readTree(join(FIXTURE, 'head')),
-    baseFiles: readTree(join(FIXTURE, 'base')),
+  const result = run({
+    base: index(...BASIS, verwendung),
+    head: index(...BASIS, verwendung, ...dialog),
+    changes: [
+      'M\tCONTEXT.md',
+      'M\tapps/storybook/src/docs/komponenten/feedback-verwendung.mdx',
+      'A\tapps/storybook/src/lib/dialog/confirm-dialog.stories.ts',
+      'A\tapps/storybook/visual-snapshots/komponenten-feedback-bestaetigungsdialog-geoeffnet.png',
+      'A\tpackages/angular/src/lib/dialog/confirm-dialog.component.ts',
+      'M\tpackages/angular/src/public-api.ts',
+      'M\tpackages/css/css/components.css',
+      'M\tpackages/css/css/tokens.css',
+      'M\tpackages/mcp/scripts/smoke-test.mjs',
+    ].join('\n'),
+    baseFiles: {
+      'packages/css/css/components.css': '.snack{a:b}',
+      'packages/css/css/tokens.css': ':root{--bg-surface:#fff}',
+    },
+    headFiles: {
+      'packages/angular/src/lib/dialog/confirm-dialog.component.ts': "template: '<dialog class=\"dialog\"><div class=\"dialog-inner\">'",
+      // Erwähnung in der MDX-Seite zählt für das CSS nicht.
+      'apps/storybook/src/docs/komponenten/feedback-verwendung.mdx': '<dialog class="dialog">',
+      'packages/css/css/components.css':
+        '.snack{a:b}\n.dialog{padding:0}\n.dialog::backdrop{background:var(--bg-scrim)}\n.dialog-inner{padding:1px}\n@container (max-width:400px){.dialog-actions .btn{x:y}}',
+      'packages/css/css/tokens.css': ':root{--bg-surface:#fff;--bg-scrim:rgba(6,15,15,.48)}',
+    },
   });
 
-  const because = [
+  const reasons = [
     'apps/storybook/src/lib/dialog/confirm-dialog.stories.ts',
     'packages/angular/src/lib/dialog/confirm-dialog.component.ts',
-    'packages/angular/src/lib/dialog/confirm-dialog.service.ts',
     'packages/css/css/components.css',
-    'packages/css/css/dark-mode.css',
     'packages/css/css/tokens.css',
   ];
-  const dialog = (slugPart, name) => ({
-    id: `komponenten-feedback-bestätigungsdialog--${slugPart}`,
-    name,
-    status: 'new',
-    url: `${ROOT}?path=/story/komponenten-feedback-best%C3%A4tigungsdialog--${encodeURIComponent(slugPart)}`,
-    because,
-  });
-
   assert.deepEqual(result, {
-    base: 'ae0d282e652543b7d39b08a47a91d549edb94bbb',
-    head: 'd14f9c4d5197999468b36ef035e128d0ad0f45bc',
+    base: 'b'.repeat(40),
+    head: 'h'.repeat(40),
     previewRoot: ROOT,
     baseIndexSource: 'merge-base',
     global: { flag: false, files: [] },
     summaryOnly: false,
     components: [
       {
-        title: 'Komponenten/Feedback/Bestätigungsdialog',
+        title: DIALOG,
         status: 'new',
         docs: {
           id: 'komponenten-feedback-bestätigungsdialog--übersicht',
           url: `${ROOT}?path=/docs/komponenten-feedback-best%C3%A4tigungsdialog--%C3%BCbersicht`,
         },
         stories: [
-          dialog('interaktiv', 'Interaktiv'),
-          dialog('unterbrechung', 'Unterbrechung (ungespeicherte Änderungen)'),
-          dialog('selbst-ausgeloest', 'Selbst ausgelöst (Löschen)'),
-          dialog('nicht-destruktiv', 'Nicht destruktiv'),
-          dialog('textauswahl', 'Textauswahl bis außerhalb'),
-          dialog('doppelt-geoeffnet', 'Doppelt geöffnet'),
-          dialog('aufraeumen-beim-zerstoeren', 'Aufräumen beim Zerstören'),
-          dialog('geoeffnet', 'Geöffnet'),
+          {
+            id: 'komponenten-feedback-bestätigungsdialog--geöffnet',
+            name: 'Geöffnet',
+            status: 'new',
+            url: `${ROOT}?path=/story/komponenten-feedback-best%C3%A4tigungsdialog--ge%C3%B6ffnet`,
+            because: reasons,
+          },
         ],
       },
     ],
     docsPages: [
       {
         id: 'komponenten-feedback-snackbar--verwendung',
-        title: 'Komponenten/Feedback/Snackbar',
+        title: SNACKBAR,
         name: 'Verwendung',
         status: 'changed',
         url: `${ROOT}?path=/docs/komponenten-feedback-snackbar--verwendung`,
