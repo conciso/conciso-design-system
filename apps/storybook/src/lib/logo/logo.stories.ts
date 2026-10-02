@@ -46,7 +46,7 @@ export const TextFallback: Story = {
 
 /**
  * Die drei Wortmarken-Varianten, jeweils auf dem Grund, für den sie gedacht sind:
- * Standard (Vollfarbe) auf heller Platte, Mono dunkel (ohne Punkt) auf festem Hellgrau,
+ * Standard (Vollfarbe) auf heller Platte, Mono dunkel (einfarbig, auch der Punkt in der Wortmarkenfarbe) auf festem Hellgrau,
  * Mono hell (Weiß) auf dunklem Grund. Dateien: `logo-conciso.svg`, `logo-conciso-dark.svg`
  * und `logo-conciso-light.svg`.
  */
