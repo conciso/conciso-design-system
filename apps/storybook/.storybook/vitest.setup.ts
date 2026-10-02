@@ -75,26 +75,75 @@ function transliterateGerman(id: string): string {
  * Storybooks `layout`-Parameter für den Screenshot nachziehen.
  *
  * Im Storybook-UI setzt das Preview-Chrome je nach Parameter `sb-main-centered`,
- * `-padded` oder `-fullscreen` auf `<body>` und erzeugt damit Zentrierung und Rand
- * um die Story. `@storybook/addon-vitest` rendert die Story ohne dieses Chrome:
- * `<body>` bleibt ungestylt, die Story sitzt bündig in der linken oberen Ecke, und
- * was über das Element hinausragt — Fokusring, Schatten, Outline — liegt außerhalb
- * des Screenshots.
+ * `-padded` oder `-fullscreen` Rand und Zentrierung um die Story.
+ * `@storybook/addon-vitest` rendert die Story ohne dieses Chrome: Die Story sitzt
+ * bündig in der linken oberen Ecke, und was über das Element hinausragt — Fokusring,
+ * Schatten, Outline — läge außerhalb des Screenshots.
  *
- * Gemessen an `chip--interaktiv`: im Storybook-UI sitzt der Chip bei (600,339), im
- * Vitest-Lauf bei (0,0), der Fokusring war oben und links abgeschnitten. Die
- * Baselines hielten damit angeschnittene Zustände fest, und gerade die Ränder, auf
- * die es den Interaktions-Stories ankommt, waren im Bildvergleich unsichtbar.
+ * Fotografiert wird deshalb nicht das Fenster, sondern der Story-Inhalt: das
+ * Canvas-Element, in das addon-vitest die Story rendert (anonymes `<div>` als erstes
+ * Kind von `<body>`, gemessen; es hat keine id). Das Bild hat die Größe des Inhalts —
+ * keine Leerfläche bei kleinen Bauteilen, kein Abschneiden langer Stories (Playwright
+ * nimmt Elemente auch dann vollständig auf, wenn sie höher als das Fenster sind).
  *
- * Werte wie im Storybook-Preview: 1rem Rand, `min-height:100vh`, damit jede
- * Aufnahme dieselbe Fläche zeigt und nicht nur den Inhalt umschließt.
+ * Der Rand (1rem, wie im Storybook-Preview) liegt als Padding am Canvas selbst und
+ * gehört damit zum Bild. `display: flow-root` schließt Außenabstände der Kinder ein.
+ * Absolut oder fix positionierte Inhalte, die über das Canvas hinausragen (offene
+ * Menüs, Popover, Tooltips), vergrößern das Padding zusätzlich um genau den
+ * Überstand (siehe `extendForOverflow`), damit sie im Bild vollständig sind.
  */
+const CANVAS_PADDING_PX = 16;
+
 const LAYOUT_CSS: Record<string, string> = {
-  centered:
-    'margin:0;padding:1rem;box-sizing:border-box;min-height:100vh;display:flex;align-items:center;justify-content:center;',
-  padded: 'margin:0;padding:1rem;box-sizing:border-box;min-height:100vh;',
-  fullscreen: 'margin:0;padding:0;box-sizing:border-box;min-height:100vh;',
+  // schrumpft auf den Inhalt, wie die zentrierte Story im Storybook-UI
+  centered: `padding:${CANVAS_PADDING_PX}px;width:fit-content;`,
+  padded: `padding:${CANVAS_PADDING_PX}px;`,
+  fullscreen: 'padding:0;',
 };
+
+/** Das Element, in das die Story gerendert wird (erstes Element-Kind von `<body>`, ohne a11y-Filter-SVG). */
+function findCanvas(): HTMLElement | null {
+  return (
+    Array.from(document.body.children).find(
+      (el): el is HTMLElement => el instanceof HTMLElement && el.tagName !== 'SCRIPT',
+    ) ?? null
+  );
+}
+
+/**
+ * Vergrößert das Padding des Canvas um den Überstand aller Nachfahren (auch
+ * absolut/fix positionierter) sowie um Overlay-Container, die Bibliotheken direkt an
+ * `<body>` hängen. Gemessen wird nach dem Setzen des Basis-Paddings; der Überstand
+ * nach links/oben wird zu Padding, nach rechts/unten ebenfalls.
+ */
+function extendForOverflow(canvas: HTMLElement): void {
+  const box = canvas.getBoundingClientRect();
+  const nodes: Element[] = [
+    ...Array.from(canvas.querySelectorAll('*')),
+    ...Array.from(document.body.children)
+      .filter((el) => el !== canvas && el instanceof HTMLElement)
+      .flatMap((el) => Array.from(el.querySelectorAll('*'))),
+  ];
+  let top = 0;
+  let right = 0;
+  let bottom = 0;
+  let left = 0;
+  for (const el of nodes) {
+    const r = el.getBoundingClientRect();
+    if (r.width === 0 && r.height === 0) continue;
+    top = Math.max(top, box.top - r.top);
+    left = Math.max(left, box.left - r.left);
+    right = Math.max(right, r.right - box.right);
+    bottom = Math.max(bottom, r.bottom - box.bottom);
+  }
+  const style = getComputedStyle(canvas);
+  const pad = (side: string, extra: number) =>
+    extra > 0
+      ? `padding-${side}:${parseFloat(style.getPropertyValue(`padding-${side}`)) + Math.ceil(extra) + CANVAS_PADDING_PX}px;`
+      : '';
+  canvas.style.cssText +=
+    pad('top', top) + pad('right', right) + pad('bottom', bottom) + pad('left', left);
+}
 
 afterEach(async (context) => {
   if (!VISUAL) return;
@@ -108,9 +157,13 @@ afterEach(async (context) => {
 
   // Default `centered` wie in `preview.ts`; ein unbekannter Wert fällt darauf zurück.
   const layout = (story?.parameters?.['layout'] as string | undefined) ?? 'centered';
+  const canvas = findCanvas();
+  if (!canvas) return;
+  const savedStyle = canvas.getAttribute('style');
   const frame = document.createElement('style');
-  frame.textContent = `body{${LAYOUT_CSS[layout] ?? LAYOUT_CSS['centered']}}`;
+  frame.textContent = 'body{margin:0;}';
   document.head.appendChild(frame);
+  canvas.style.cssText += `box-sizing:border-box;display:flow-root;${LAYOUT_CSS[layout] ?? LAYOUT_CSS['centered']}`;
 
   // Layout & Fonts abwarten (zwei rAF-Ticks lassen einen Layout-/Paint-Zyklus
   // durchlaufen — hier zugleich der Umbruch durch das eben gesetzte Body-Layout),
@@ -119,6 +172,9 @@ afterEach(async (context) => {
     requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
   );
   await document.fonts?.ready;
+
+  // Überstände erst messen, wenn Layout und Fonts stehen.
+  extendForOverflow(canvas);
 
   const freeze = document.createElement('style');
   freeze.textContent = `*, *::before, *::after {
@@ -133,9 +189,11 @@ afterEach(async (context) => {
   document.head.appendChild(freeze);
 
   try {
-    await expect(document.body).toMatchScreenshot(transliterateGerman(storyId));
+    await expect(canvas).toMatchScreenshot(transliterateGerman(storyId));
   } finally {
     freeze.remove();
     frame.remove();
+    if (savedStyle === null) canvas.removeAttribute('style');
+    else canvas.setAttribute('style', savedStyle);
   }
 });

@@ -67,10 +67,10 @@ export default defineConfig({
                   // Gegenstück zum bisherigen `failureThreshold: 0.01` mit
                   // `failureThresholdType: 'percent'` (jest-image-snapshot):
                   // Anteil (nicht Zahl) an Pixeln, die abweichen dürfen. Für sich allein ist das
-                  // aber zu locker: Der Screenshot ist `document.body`, und bei `layout: 'centered'`
-                  // (die meisten Stories) ist die Canvas größtenteils leerer Hintergrund — 1 % davon
-                  // ist eine größere Fläche als eine ganze Komponente einnimmt. Ein kompletter
-                  // Bildtausch käme unter dieser Ratio durch (empirisch geprüft).
+                  // aber zu locker: Bei langen Stories (Paletten, Typografie-Skala) sind 1 % schnell
+                  // eine ganze Zeile oder ein Farbfeld. Zur Zeit der Festlegung war der Screenshot
+                  // noch `document.body` mit viel leerer Fläche — dort käme ein kompletter Bildtausch
+                  // unter der Ratio durch (empirisch geprüft); die absolute Grenze bleibt.
                   // Deshalb zusätzlich eine absolute Pixelzahl setzen: Laut Typdefinition
                   // (`@vitest/browser/context.d.ts`, `StandardScreenshotComparators`) gilt bei
                   // gesetzten `allowedMismatchedPixels` UND `allowedMismatchedPixelRatio` jeweils der
