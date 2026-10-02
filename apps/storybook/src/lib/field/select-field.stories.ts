@@ -23,7 +23,7 @@ const meta: Meta<SelectFieldComponent> = {
   },
   args: {
     label: 'Bereich',
-    options: ['Bitte wählen', 'Corporate', 'AI.Applied', 'Eff. Software'],
+    options: ['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software'],
     helper: 'Worum geht es?',
     error: '',
     required: false,
@@ -35,6 +35,22 @@ export default meta;
 type Story = StoryObj<SelectFieldComponent>;
 
 export const Interaktiv: Story = {};
+
+export const Fehlerzustand: Story = {
+  args: {
+    error: 'Bitte wähle eine Option.',
+    fieldId: 'demo-area-error',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/Bereich/);
+    const meldung = c.getByText('Bitte wähle eine Option.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', expect.stringContaining(meldung.id));
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
 
 export const Deaktiviert: Story = {
   args: { fieldId: 'demo-area-disabled', disabled: true },
@@ -78,7 +94,10 @@ export const Formularbindung: Story = {
     const ctrl = new FormControl('');
     return {
       moduleMetadata: { imports: [SelectFieldComponent, ReactiveFormsModule] },
-      props: { ctrl, options: ['Bitte wählen', 'Corporate', 'AI.Applied', 'Eff. Software'] },
+      props: {
+        ctrl,
+        options: ['Bitte wählen', 'Corporate', 'Angewandte KI', 'Effektive Software'],
+      },
       template: `
         <div style="display:flex;flex-direction:column;gap:var(--s3);max-width:28rem">
           <cds-select-field

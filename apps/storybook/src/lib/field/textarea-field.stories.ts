@@ -36,6 +36,22 @@ type Story = StoryObj<TextareaFieldComponent>;
 
 export const Interaktiv: Story = {};
 
+export const Fehlerzustand: Story = {
+  args: {
+    error: 'Bitte gib eine Nachricht ein.',
+    fieldId: 'demo-message-error',
+  },
+  parameters: { controls: { disable: true } },
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const feld = c.getByLabelText(/Nachricht/);
+    const meldung = c.getByText('Bitte gib eine Nachricht ein.');
+    await expect(meldung).toBeVisible();
+    await expect(feld).toHaveAttribute('aria-describedby', expect.stringContaining(meldung.id));
+    await expect(feld).toHaveAttribute('aria-invalid', 'true');
+  },
+};
+
 export const Deaktiviert: Story = {
   args: { fieldId: 'demo-message-disabled', disabled: true },
   parameters: { controls: { disable: true } },
