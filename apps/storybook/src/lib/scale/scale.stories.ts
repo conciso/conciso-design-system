@@ -33,6 +33,10 @@ const meta: Meta<ScaleComponent> = {
   component: ScaleComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1599',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -40,7 +44,7 @@ const meta: Meta<ScaleComponent> = {
           'Stufen-Auswahl für GEORDNETE (ordinale) Kategorien, deren Labels die Werte sind ' +
           '(z. B. Niedrig < Mittel < Hoch). Auf Basis des nativen Range-Inputs; der aktuelle ' +
           'Wert erscheint als Label und wird Screenreadern über aria-valuetext gemeldet. Für ' +
-          'ungeordnete/gleichrangige Optionen ist ein Slider das falsche Element — dafür die ' +
+          'ungeordnete/gleichrangige Optionen ist ein Slider das falsche Element, dafür die ' +
           'Radio-Gruppe oder den Segment-Umschalter (AreaTabs) nutzen.',
       },
     },

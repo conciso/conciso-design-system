@@ -30,6 +30,10 @@ const meta: Meta<HeroImageComponent> = {
   component: HeroImageComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-3978',
+    },
     // Vollbreit und randlos wie Topnav/Footer (layout:'fullscreen'), nicht
     // 'padded': ein Storybook-Rand würde genau die Randlosigkeit verdecken, die
     // den Hero von den content-breiten Akzentbildern (.ep-media-band) unterscheidet.

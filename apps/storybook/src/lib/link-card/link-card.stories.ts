@@ -7,6 +7,10 @@ const meta: Meta<LinkCardComponent> = {
   component: LinkCardComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-2995',
+    },
     layout: 'padded',
     docs: {
       description: {

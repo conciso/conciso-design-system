@@ -7,10 +7,14 @@ const meta: Meta<SnackbarComponent> = {
   component: SnackbarComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5222',
+    },
     docs: {
       description: {
         component:
-          'Kurze Statusmeldung als Feedback auf Nutzeraktionen — etwa nach dem ' +
+          'Kurze Statusmeldung als Feedback auf Nutzeraktionen, etwa nach dem ' +
           'Absenden eines Kontaktformulars, der Newsletter-Anmeldung oder bei ' +
           'Validierungsfehlern. Drei Varianten: Default, Erfolg (OK) und Fehler, ' +
           'jeweils mit optionaler Aktion.',

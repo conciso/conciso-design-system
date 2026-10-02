@@ -7,11 +7,15 @@ const meta: Meta<ThemeSegmentComponent> = {
   component: ThemeSegmentComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5266',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
-          'Theme-Umschalter als Segment-Leiste — als eigenständiges Element zum Hovern gedacht. ' +
+          'Theme-Umschalter als Segment-Leiste, als eigenständiges Element zum Hovern gedacht. ' +
           'Immer responsiv (unter 640px Icon-only) und immer animiert (Aktiv-Markierung gleitet ' +
           'als Thumb); beides fest. Einzige Option: `showSystem` (Hell/Dunkel/System vs. binär).',
       },

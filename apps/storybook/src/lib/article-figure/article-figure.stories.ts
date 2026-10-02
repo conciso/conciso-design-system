@@ -15,17 +15,21 @@ const meta: Meta<ArticleFigureComponent> = {
   component: ArticleFigureComponent,
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-4891',
+    },
     layout: 'padded',
     docs: {
       description: {
         component:
           'Redaktionelles Inline-Bild mit optionaler Bildunterschrift im Lauftext eines ' +
           'Wissensbeitrags (`.article-figure`/`.article-figcaption`, ' +
-          'css/components.css:1573–1575). `loading="lazy"` ist fest verdrahtet: ausgezählt tragen ' +
+          'css/components.css:1573 bis 1575). `loading="lazy"` ist fest verdrahtet: ausgezählt tragen ' +
           '2 der 3 realen Mockup-Vorkommen dieses Attribut (die beiden Bilder MIT Caption, mittig ' +
           'im Lauftext), das dritte ist ein captionsloses Lead-Bild direkt unter dem Article Header, ' +
           'trägt stattdessen `loading="eager" fetchpriority="high"` ' +
-          'und liegt außerhalb dieses Bauteils — die API sieht dafür kein Input vor. `alt` ' +
+          'und liegt außerhalb dieses Bauteils, die API sieht dafür kein Input vor. `alt` ' +
           "ist Pflicht, `caption` Beiwerk mit Default `''` (kein `<figcaption>` ohne Text).",
       },
     },

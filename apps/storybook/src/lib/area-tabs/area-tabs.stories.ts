@@ -9,6 +9,10 @@ const meta: Meta<AreaTabsComponent> = {
   decorators: [moduleMetadata({ imports: [AreaTabsComponent, AreaTabComponent] })],
   tags: ['autodocs', 'angular'],
   parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=4-5774',
+    },
     layout: 'padded',
     docs: {
       description: {
@@ -172,7 +176,7 @@ export const ReicherInhalt: Story = {
         </cds-area-tab>
         <cds-area-tab area="es" label="Effektive Software">
           <p style="${bodyStyle}">
-            Schlanke Architektur und schnellere Lieferung — inkl.
+            Schlanke Architektur und schnellere Lieferung, inkl.
             <a class="body-link" href="#">Referenzprojekten</a>.
           </p>
         </cds-area-tab>

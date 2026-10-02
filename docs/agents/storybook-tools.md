@@ -47,3 +47,27 @@ npx storybook skills stories        # der vorgegebene Ablauf für UI-Änderungen
 Derselbe Werkzeugkasten steht bei laufendem `npm run storybook` unter `http://localhost:6006/mcp`
 bereit (siehe `apps/storybook/README.md`). Die CLI ist der kürzere Weg, wenn kein Server läuft;
 MCP lohnt sich, wenn ein Agent dauerhaft angebunden ist.
+
+## Figma-Links an Stories
+
+Das Addon-Panel „Design“ (`@storybook/addon-designs`) zeigt den Figma-Frame, den
+`parameters.design` nennt. Die Bibliothek „Conciso Design System“ hat den fileKey
+`BQCBQwIDcconnYNpb2w9fn`.
+
+```ts
+const meta: Meta = {
+  title: 'Komponenten/Buttons/Button',
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=3-1658',
+    },
+  },
+};
+```
+
+- **Auf Ebene der Meta setzen**, auf das ComponentSet der Komponente.
+- Die `node-id` kommt aus Figma („Copy link to selection“) und steht in der URL mit Bindestrich.
+- **Overrides an einzelnen Stories sparsam:** nur, wenn es in Figma einen eigenen Frame für genau
+  diese Story gibt. Jeder Link mehr ist einer mehr, der nach einem Umbau der Figma-Datei ins
+  Leere zeigen kann.
