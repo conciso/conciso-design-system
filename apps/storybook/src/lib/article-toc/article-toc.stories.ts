@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
+import { platzhalterBild } from '../../platzhalter';
 import {
   ArticleTocComponent,
   ArticleCalloutComponent,
@@ -13,8 +14,7 @@ import {
 // „Im Artikel-Body“-Kontext-Story dupliziert (kein sinnvoller gemeinsamer Import
 // zwischen zwei Story-Dateien in diesem Repo, siehe dortiger Kommentar zur
 // Static-Dir-Einschränkung von assets/images).
-const figurePlaceholder =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1280'%20height='720'%3E%3Crect%20width='1280'%20height='720'%20fill='%23E8EDED'/%3E%3Ctext%20x='640'%20y='360'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EArticle-Figure%2016%3A9%3C/text%3E%3C/svg%3E";
+const figurePlaceholder = platzhalterBild('Bildfläche · 16:9', 1280, 720);
 
 // Wortlaut und Anker der Beispielseite Wissensbeitrag · KI: 5 Einträge,
 // dort mit Platzhalter-Hrefs.

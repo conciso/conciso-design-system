@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { moduleMetadata } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { CarouselComponent } from '@conciso/design-system-angular';
+import { platzhalterBild } from '../../platzhalter';
+
+const folie = platzhalterBild('Bildfläche · 16:9', 800, 450, 24);
 
 const meta: Meta<CarouselComponent> = {
   title: 'Komponenten/Slider & Carousel/Carousel',
@@ -27,12 +30,21 @@ const meta: Meta<CarouselComponent> = {
     active: 0,
     hero: false,
     slides: [
-      { title: 'Strategie-Workshop', text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.' },
+      {
+        title: 'Strategie-Workshop',
+        text: 'Gemeinsam Ziele schärfen und Prioritäten setzen.',
+        image: folie,
+      },
       {
         title: 'Team-Enablement',
         text: 'Wissen teilen, Verantwortung verteilen, Wirkung erhöhen.',
+        image: folie,
       },
-      { title: 'Go-Live', text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.' },
+      {
+        title: 'Go-Live',
+        text: 'Vom Prototyp zur produktiven Lösung, messbar und stabil.',
+        image: folie,
+      },
     ],
   },
 };

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, userEvent, expect } from 'storybook/test';
 import { FeaturedCardComponent } from '@conciso/design-system-angular';
+import { platzhalterBild } from '../../platzhalter';
 
 // Neutraler Inline-SVG-Platzhalter im 16:9-Format — apps/storybook mountet nur
 // assets/brand als Static-Dir (.storybook/main.ts), assets/images ist dort bewusst
 // nicht eingebunden (siehe hero-image.stories.ts).
-const eventPlaceholder =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='450'%3E%3Crect%20width='800'%20height='450'%20fill='%23E8EDED'/%3E%3Ctext%20x='400'%20y='225'%20font-family='sans-serif'%20font-size='24'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EBildfl%C3%A4che%20%C2%B7%2016%3A9%3C/text%3E%3C/svg%3E";
+const eventPlaceholder = platzhalterBild('Bildfläche · 16:9', 800, 450, 24);
 
 const meta: Meta<FeaturedCardComponent> = {
   title: 'Komponenten/Cards & Teaser/Featured-Karte',
