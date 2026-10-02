@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
 import { within, expect } from 'storybook/test';
 import { HeroImageComponent } from '@conciso/design-system-angular';
+import { platzhalterBild } from '../../platzhalter';
 
 // Neutraler Inline-SVG-Platzhalter im 21:9-Format, analog zum Muster in
 // carousel.component.ts / team-voice.component.ts: apps/storybook mountet nur
 // assets/brand als Static-Dir (siehe .storybook/main.ts), der Demo-Bilderordner
 // assets/images ist dort bewusst nicht eingebunden. Ein Pfad wie
 // `assets/images/team-gruppenbild.jpg` würde deshalb in keiner Story auflösen.
-const heroPlaceholder =
-  "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1600'%20height='686'%3E%3Crect%20width='1600'%20height='686'%20fill='%23E8EDED'/%3E%3Ctext%20x='800'%20y='343'%20font-family='sans-serif'%20font-size='28'%20fill='%236E8585'%20text-anchor='middle'%20dominant-baseline='middle'%3EHero-Bild%2021%3A9%3C/text%3E%3C/svg%3E";
+const heroPlaceholder = platzhalterBild('Bildfläche · 21:9', 1600, 686);
 
 // Zweiter Platzhalter eigens für die Bildausschnitt-Story: hochformatig (2:3) statt
 // 21:9, mit drei farbigen Banden („Kopf“/„Mitte“/„Fuß“). Ein Bild im Hero-Seitenverhältnis

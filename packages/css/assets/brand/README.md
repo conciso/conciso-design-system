@@ -11,7 +11,7 @@ siehe [`LICENSE`](LICENSE) in diesem Verzeichnis.
 |---|---|
 | `logo-conciso.svg` | Default. Wortmarke in `--tx-brand`, Punkt in `--co-500`. Helle Hintergründe |
 | `logo-conciso-light.svg` | Vollständig weiß. Dunkle Hintergründe, Footer, Dark Mode |
-| `logo-conciso-dark.svg` | Monochrom in `--tx-brand`, ohne Punkt. Druck, Stempel, einfarbig |
+| `logo-conciso-dark.svg` | Monochrom in `--tx-brand`, auch der Punkt einfarbig (kein Teal). Druck, Stempel, einfarbig |
 
 ## Einbau
 

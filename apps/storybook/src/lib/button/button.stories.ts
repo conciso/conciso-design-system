@@ -113,9 +113,9 @@ export const Bereichsfarben: Story = {
     template: `
       <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
         <cds-button area="co" label="Corporate"></cds-button>
-        <cds-button area="ki" label="AI.Applied"></cds-button>
-        <cds-button area="es" label="Eff. Software"></cds-button>
-        <cds-button area="wo" label="Wirks. Orga"></cds-button>
+        <cds-button area="ki" label="Angewandte KI"></cds-button>
+        <cds-button area="es" label="Effektive Software"></cds-button>
+        <cds-button area="wo" label="Wirksame Organisationen"></cds-button>
       </div>
     `,
   }),
