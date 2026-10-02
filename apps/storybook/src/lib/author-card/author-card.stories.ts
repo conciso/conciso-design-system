@@ -89,7 +89,13 @@ export const Interaktiv: Story = {
 
 export const ZweiAutorinnen: Story = {
   name: 'Zwei Autor:innen',
-  parameters: { controls: { disable: true } },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1036',
+    },
+    controls: { disable: true },
+  },
   // Wortlaut der Artikel-Demo: zwei Bios untereinander, eine
   // Gruppen-Überschrift ersetzt die individuellen Eyebrows, siehe wissensbeitrag.mdx
   // „Eyebrow-Konvention“).
@@ -132,7 +138,13 @@ export const ZweiAutorinnen: Story = {
 
 export const AlsRaster: Story = {
   name: 'Als Raster',
-  parameters: { controls: { disable: true } },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-1036',
+    },
+    controls: { disable: true },
+  },
   // Namen und Rollen der Beispielseite Scrum-Training.
   // Tobias Mehnerts Bio ist bewusst auf einen Satz gekürzt (NICHT 1:1 aus dem Mockup), Anja
   // Reuters Bio bleibt wortgleich — der Längenkontrast ist der Regressionsschutz für

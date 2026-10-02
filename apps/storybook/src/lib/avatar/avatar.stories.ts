@@ -111,6 +111,12 @@ export const AvatarMitBild: Story = {
 
 export const AvatarStapel: Story = {
   name: 'Avatar-Stapel',
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/BQCBQwIDcconnYNpb2w9fn/Conciso-Design-System?node-id=40-741',
+    },
+  },
   render: () => ({
     template: `
       <cds-avatar-stack [more]="2">
