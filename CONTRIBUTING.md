@@ -207,6 +207,8 @@ Die Sidebar ist ein eigener Index neben der Dokumentationsstruktur (§11) und fo
 
 **Die Dokumentationsseite ist immer das erste Kind der Sektion, wenn die Sektion mehrere Bauteile hat.** Wer Stories direkt an eine Sektion hängt, die weitere Bauteile als Unterordner trägt, bekommt sie von Storybook vor die Unterordner sortiert und schiebt die Dokumentationsseite ans Ende; deshalb steht dort die Seite als eigenes Blatt vorn (Beispiele: `Seitenmuster/Wissensbeitrag`, `Marke/Brand Areas`). Bei einer Sektion mit nur einem Bauteil tritt das Problem nicht auf: Die Seite „Verwendung“ hängt per `<Meta of>` an den Stories des Bauteils, alle Kinder sind Blätter, und `storySort.order` legt ihre Reihenfolge fest. Eine zusätzliche Bauteil-Ebene wäre dort reiner Ballast.
 
+**Bauteilnamen** sind Bindestrich-Komposita, kein PascalCase (`Stat-Card`, `Download-CTA`, `Logo-Carousel`, `Area-Tabs`, `Team-Voice`).
+
 **Vier Eigenheiten der Seitenleiste**, die jede Umstellung trifft (alle in Storybook 10.6 im Browser gemessen, nicht aus der Doku übernommen):
 
 - Blätter stehen immer vor Ordnern desselben Knotens, `storySort.order` sortiert nur innerhalb dieser beiden Klassen.

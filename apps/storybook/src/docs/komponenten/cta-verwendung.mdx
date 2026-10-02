@@ -10,7 +10,7 @@ Einladung am Ende jeder Customer-Page, und vier Download-CTA-Varianten für
 Ressourcen-Downloads. Ergänzend dokumentiert diese Seite den Editorial Split als
 sekundäre Konversionsfläche neben dem primären Page-End-CTA. Das Page-End-CTA-Band hat
 ein eigenes Bauteil (`CtaBand`, Attributselektor
-`[cdsCtaBand]`), ebenso die vier Download-Varianten (`DownloadCta`); der Editorial Split
+`[cdsCtaBand]`), ebenso die vier Download-Varianten (`Download-CTA`); der Editorial Split
 bleibt ein CSS-Rezept ohne Angular-Komponente.
 
 ## Wann welche Variante
@@ -19,10 +19,10 @@ bleibt ein CSS-Rezept ohne Angular-Komponente.
 |---|---|---|
 | Page-End-CTA-Band | `CtaBand` (`[cdsCtaBand]`) | Letzte Einladung am Ende jeder Customer-Page, direkt vor dem Footer, eine Aktion auf der Bereichsfarbe als Hintergrund |
 | Editorial Split | bauteillos (CSS-Rezept `.ep-section` + `.layout-grid`) | Sekundäre oder tertiäre Konversionsfläche neben dem primären Page-End-CTA (zum Beispiel ein Karriere-Block auf der Landing), ohne Card-Chrome |
-| Download · Hero | `DownloadCta` | Hauptressource einer Seite, Landing Pages, Ressourcenseiten, Kampagnen, maximal einmal pro Seite |
-| Download · Mit Vorschaubild | `DownloadCta` | Whitepapers und Reports, deren Deckblatt als Vorschau den Inhalt sofort greifbar macht |
-| Download · Kompakt | `DownloadCta` | Ressourcenlisten mit mehreren Downloads (zum Beispiel eine Mediathek) |
-| Download · Minimal | `DownloadCta` | Quellenangaben, Fließtext-Links oder Nebenbereiche (Footer, Blog, Dokumentation) |
+| Download · Hero | `Download-CTA` | Hauptressource einer Seite, Landing Pages, Ressourcenseiten, Kampagnen, maximal einmal pro Seite |
+| Download · Mit Vorschaubild | `Download-CTA` | Whitepapers und Reports, deren Deckblatt als Vorschau den Inhalt sofort greifbar macht |
+| Download · Kompakt | `Download-CTA` | Ressourcenlisten mit mehreren Downloads (zum Beispiel eine Mediathek) |
+| Download · Minimal | `Download-CTA` | Quellenangaben, Fließtext-Links oder Nebenbereiche (Footer, Blog, Dokumentation) |
 
 ### Page-End-CTA-Band (`CtaBand`)
 
@@ -110,4 +110,4 @@ Card-Chrome, das dem Markenwert „Ruhig“ widerspräche.
 ## Verwandte Seiten
 
 - Komponenten/Call to Action/CTA-Band (Story, deckt `CtaBand` ab)
-- Komponenten/Call to Action/DownloadCta (Story, deckt alle vier Download-Varianten ab)
+- Komponenten/Call to Action/Download-CTA (Story, deckt alle vier Download-Varianten ab)

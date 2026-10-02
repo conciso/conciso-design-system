@@ -4,7 +4,7 @@ import { within, userEvent, expect } from 'storybook/test';
 import { AreaTabComponent, AreaTabsComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<AreaTabsComponent> = {
-  title: 'Marke/Brand Areas/AreaTabs',
+  title: 'Marke/Brand Areas/Area-Tabs',
   component: AreaTabsComponent,
   decorators: [moduleMetadata({ imports: [AreaTabsComponent, AreaTabComponent] })],
   tags: ['autodocs', 'angular'],
