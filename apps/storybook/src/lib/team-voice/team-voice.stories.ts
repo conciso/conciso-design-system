@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { TeamVoiceComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<TeamVoiceComponent> = {
@@ -51,4 +52,18 @@ export const AlternierendeReihen: Story = {
       </div>
     `,
   }),
+  // Akzeptanzkriterium: Jede .team-voice steckt allein in ihrem cds-team-voice-Host, deshalb
+  // zählt die Position des Hosts in .team-voices. Erste und dritte Karte: Bild links vom Text,
+  // zweite Karte: Bild rechts vom Text.
+  play: async ({ canvasElement }) => {
+    const hosts = Array.from(canvasElement.querySelectorAll('.team-voices > cds-team-voice'));
+    await expect(hosts).toHaveLength(3);
+    const media = hosts.map((h) => h.querySelector('.team-voice-media') as HTMLElement);
+    const body = hosts.map((h) => h.querySelector('.team-voice-body') as HTMLElement);
+    const imageLeftOfText = (i: number) =>
+      media[i].getBoundingClientRect().left < body[i].getBoundingClientRect().left;
+    await expect(imageLeftOfText(0)).toBe(true);
+    await expect(imageLeftOfText(1)).toBe(false);
+    await expect(imageLeftOfText(2)).toBe(true);
+  },
 };
