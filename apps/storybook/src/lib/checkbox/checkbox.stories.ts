@@ -75,6 +75,21 @@ export const Tastatur: Story = {
   },
 };
 
+export const Fokusring: Story = {
+  name: 'Fokusring',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Tastaturfokus zeigt den Marken-Fokusring (box-shadow) statt des Browser-Standardrings.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    await userEvent.tab();
+    const control = c.getAllByRole('checkbox')[0];
+    await expect(control).toHaveFocus();
+    const stil = getComputedStyle(control);
+    await expect(stil.outlineStyle).toBe('none');
+    await expect(stil.boxShadow).not.toBe('none');
+  },
+};
+
 export const LesbarerZustand: Story = {
   name: 'Lesbarer Zustand',
   parameters: {
