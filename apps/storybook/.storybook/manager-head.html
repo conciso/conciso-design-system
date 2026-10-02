@@ -31,13 +31,17 @@
     Zeilen-Elemente (Ordner- und Blatt-Zeilen) tragen ein id-Attribut, die
     Bedienknöpfe (Kontextmenü je Zeile, Auf-/Zuklapp-Knopf der
     Gruppenüberschriften) nicht — obwohl auch sie svg[viewBox="0 0 14 14"]
-    enthalten. [id] trennt beides und lässt die Bedienknöpfe sichtbar.
+    enthalten. [id] trennt das nur bei Gruppenüberschriften: der Kontextmenü-
+    Knopf der Zeilen (aria-label "Open context menu") bekommt von react-aria
+    selbst ein id. Ordner-Zeilen werden deshalb über aria-controls erkannt
+    (setzt nur der Toggle), Blatt-Zeilen über a[id]; Kontextmenü-Knopf und
+    Gruppen-Bedienknöpfe bleiben unberührt (Icon sichtbar, Position unverändert).
     #storybook-explorer-tree ist Storybooks stabiler Anker, Emotion-Hashes
     nicht — kein !important nötig, unsere ID-Spezifität (1,1,1) liegt über
     Storybooks Emotion-Klassen (0,1,0).
   */
   #storybook-explorer-tree a[id] svg[viewBox='0 0 14 14'],
-  #storybook-explorer-tree button[id] svg[viewBox='0 0 14 14'] {
+  #storybook-explorer-tree button[aria-controls] svg[viewBox='0 0 14 14'] {
     display: none;
   }
 
@@ -80,7 +84,7 @@
     auf, die vorher durchgehend gleichförmig war.
   */
   #storybook-explorer-tree a[id],
-  #storybook-explorer-tree button[id] {
+  #storybook-explorer-tree button[aria-controls] {
     min-height: 32px;
     padding-top: 7px;
     padding-bottom: 6px;
@@ -115,7 +119,7 @@
       [data-parent-id='beispielseiten'],
       [data-parent-id='referenzen']
     )
-    > button[id] {
+    > button[aria-controls] {
     margin-left: 22px;
     width: calc(100% - 22px);
   }
