@@ -46,3 +46,8 @@ jobs:
       # und findet die Klasse, statt auf Stichproben zu warten. Siehe CONTRIBUTING § 5.
       - name: Dark-Mode-Zustände prüfen
         run: npm run check:dark-states
+      # Diagrammfarben (--dv-*) und Status-Flächen (--c-*-fill) stehen in der Doku nicht als Text und
+      # entgehen deshalb check:contrast. Der Check rechnet 3:1 gegen die Diagrammflächen und den
+      # Abstand der kategorialen Farben auch unter Deuteranopie und Protanopie. Siehe CONTRIBUTING § 3.
+      - name: Datenpalette prüfen
+        run: npm run check:data-palette

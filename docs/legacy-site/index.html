@@ -86,6 +86,7 @@
         </button>
         <div class="nav-subnav" data-for="colors">
           <a class="nav-sub-item" href="#gt-colors-tonal">Tonal-Paletten</a>
+          <a class="nav-sub-item" href="#gt-colors-daten">Datenvisualisierung</a>
           <a class="nav-sub-item" href="#gt-colors-verwendung">Verwendung</a>
         </div>
       </li>
@@ -1392,6 +1393,83 @@
         <div class="pal-thresholds"><span class="thr-badge thr-aa">AA</span> + <span class="thr-badge thr-aa-l">AA Large</span> ab Stufe 400 (4.8:1) &nbsp;·&nbsp; <span class="thr-badge thr-aaa">AAA</span> ab Stufe 500 (7.1:1)</div>
       </div>
 
+      <h2 id="gt-colors-daten" class="group-title">Datenvisualisierung</h2>
+      <p class="sec-sub" style="margin-bottom:var(--s5)">Eigene Farben für Diagramme, getrennt von den Bereichsfarben: Ein Kunde in Grün ist kein Bereich „Wirksame Organisationen“. Die Farbtöne sind an den Bereichen verankert (Teal, Blau, Rosé, Grün), Orange und Violett füllen die Lücken im Farbkreis. Alle Felder hier folgen dem Modus der Seite.</p>
+
+      <div class="pal-group">
+        <div class="pal-label">Kategorial, <code class="token">--dv-cat-1</code> bis <code class="token">--dv-cat-6</code> und <code class="token">--dv-other</code> · für Dinge ohne Reihenfolge, z. B. Kunden</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:var(--dv-cat-1)"><span>1 Teal</span></div>
+          <div class="swatch" style="background:var(--dv-cat-2)"><span>2 Orange</span></div>
+          <div class="swatch" style="background:var(--dv-cat-3)"><span>3 Blau</span></div>
+          <div class="swatch" style="background:var(--dv-cat-4)"><span>4 Grün</span></div>
+          <div class="swatch" style="background:var(--dv-cat-5)"><span>5 Rosé</span></div>
+          <div class="swatch" style="background:var(--dv-cat-6)"><span>6 Violett</span></div>
+          <div class="swatch" style="background:var(--dv-other)"><span>Sonstige</span></div>
+        </div>
+      </div>
+
+      <div class="pal-group">
+        <div class="pal-label">Sequenziell, <code class="token">--dv-seq-1</code> bis <code class="token">--dv-seq-5</code> · für Mengen, 1 = wenig, 5 = viel</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:var(--dv-seq-1)"><span>1</span></div>
+          <div class="swatch" style="background:var(--dv-seq-2)"><span>2</span></div>
+          <div class="swatch" style="background:var(--dv-seq-3)"><span>3</span></div>
+          <div class="swatch" style="background:var(--dv-seq-4)"><span>4</span></div>
+          <div class="swatch" style="background:var(--dv-seq-5)"><span>5</span></div>
+        </div>
+      </div>
+
+      <div class="pal-group">
+        <div class="pal-label">Divergierend, <code class="token">--dv-div-n2</code> bis <code class="token">--dv-div-p2</code> · für Abweichungen um eine Mitte</div>
+        <div class="pal-row">
+          <div class="swatch" style="background:var(--dv-div-n2)"><span>−2</span></div>
+          <div class="swatch" style="background:var(--dv-div-n1)"><span>−1</span></div>
+          <div class="swatch" style="background:var(--dv-div-mid)"><span>Mitte</span></div>
+          <div class="swatch" style="background:var(--dv-div-p1)"><span>+1</span></div>
+          <div class="swatch" style="background:var(--dv-div-p2)"><span>+2</span></div>
+        </div>
+      </div>
+
+      <div class="pal-group">
+        <div class="pal-label">Status als Fläche, <code class="token">--c-success</code> · <code class="token">--c-warning-fill</code> · <code class="token">--c-error</code> · <code class="token">--c-info-fill</code></div>
+        <div class="pal-row">
+          <div class="swatch" style="background:var(--c-success)"><span>Erfolg</span></div>
+          <div class="swatch" style="background:var(--c-warning-fill)"><span>Warnung</span></div>
+          <div class="swatch" style="background:var(--c-error)"><span>Fehler</span></div>
+          <div class="swatch" style="background:var(--c-info-fill)"><span>Info</span></div>
+        </div>
+      </div>
+
+      <div class="ds-card" style="padding:var(--s5) var(--s6);background:var(--n-50);border:none;flex-direction:row;align-items:flex-start;gap:var(--s4);margin-bottom:var(--s6)">
+        <div>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Palette nach Datentyp.</strong> Kategorial für Dinge ohne Reihenfolge (Kunden, Projekte), sequenziell für Mengen (Auslastung, Wahrscheinlichkeit), divergierend für Abweichungen um eine Mitte (Ist gegen Plan). Zustände wie bezahlt, offen oder storniert sind keine Kategorien: sie nehmen die Status-Farben.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Höchstens sechs Kategorien.</strong> Mit einer siebten und achten Farbe lassen sich die Farben bei Farbsehschwäche nicht mehr sicher trennen. Weitere Kategorien werden zu „Sonstige“ (<code class="token">--dv-other</code>) zusammengefasst oder direkt beschriftet. Die Reihenfolge 1 bis 6 ist die Vergabereihenfolge.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0 0 var(--s2)"><strong>Kontrast und Unterscheidbarkeit sind geprüft.</strong> Jede Farbe trägt mindestens 3:1 gegen die Flächen, auf denen Diagramme stehen. Die kategorialen Farben bleiben auch unter Deuteranopie und Protanopie unterscheidbar. <code class="token">npm run check:data-palette</code> hält beides fest.</p>
+          <p style="font:var(--ty-body-md);color:var(--tx-primary);margin:0"><strong>Farbe ist nie das einzige Merkmal.</strong> Legende, Beschriftung am Wert oder Tooltip tragen die Aussage mit (WCAG 1.4.1). Bei sequenziellen Skalen gehören die Werte an die Fläche.</p>
+        </div>
+      </div>
+
+      <div class="doc-eyebrow">Dos &amp; Don'ts</div>
+      <div class="layout-grid" style="align-items:start;margin-bottom:var(--s8)">
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-success);margin-bottom:var(--s3)">✓ Tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Neue Badges oder Diagrammreihen ohne neue Bedeutung über Text, Icon oder Variante unterscheiden</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Gleiche Bedeutung in allen Diagrammen mit derselben Farbe zeigen, z. B. „offen“ immer <code class="token">--c-warning-fill</code></span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-success);font-weight:700;flex-shrink:0">✓</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Ausreißer in einer sequenziellen Skala, z. B. Überlast über 100 %, mit der Fehlerfarbe hervorheben</span></li>
+          </ul>
+        </div>
+        <div class="col-6">
+          <div style="font:var(--ty-name);color:var(--c-error);margin-bottom:var(--s3)">✕ Nicht tun</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:var(--s3)">
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Bereichsfarben (<code class="token">--co-*</code>, <code class="token">--ki-*</code>, <code class="token">--es-*</code>, <code class="token">--wo-*</code>) als Diagrammfarben einsetzen</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Eigene Farbwerte im Produkt anlegen, weil eine Farbe fehlt; eine neue Bedeutung gehört als Token ins Design System</span></li>
+            <li style="display:flex;gap:var(--s3);align-items:flex-start"><span style="color:var(--c-error);font-weight:700;flex-shrink:0">✕</span><span style="font:var(--ty-body-md);color:var(--tx-secondary)">Mengen mit kategorialen Farben abstufen; eine Menge braucht eine Helligkeitsskala</span></li>
+          </ul>
+        </div>
+      </div>
+
       <h2 id="gt-colors-verwendung" class="group-title">Verwendung</h2>
 
       <!-- Stufenregel-Tabelle -->
@@ -1427,6 +1505,7 @@
               <tr><td><code class="token">--c-success</code></td><td>Erfolgreiche Aktionen, OK-Snackbar, Bestätigungs-Badge</td></tr>
               <tr><td><code class="token">--c-warning</code></td><td>Hinweise, Beta-Zustände, nicht-kritische Warnungen</td></tr>
               <tr><td><code class="token">--c-error</code></td><td>Fehler-Snackbar, Validierungsfehler im Formular, Deprecated-Badge</td></tr>
+              <tr><td><code class="token">--c-warning-fill</code> · <code class="token">--c-info-fill</code></td><td>Warnung und Info als <strong>Fläche</strong> in Grafiken (Balken, Segmente, Marker), z. B. „offen“ im Rechnungsvolumen. <code class="token">--c-warning</code> ist eine Textfarbe und wirkt als Fläche braun. Kein Text auf diesen Flächen. Siehe <a class="body-link" href="#gt-colors-daten">Datenvisualisierung</a></td></tr>
               <tr><td><code class="token">--tx-primary</code></td><td>Fließtext, Headlines, UI-Labels, <code class="token">#333E48</code> (10.4:1, AAA)</td></tr>
               <tr><td><code class="token">--tx-secondary</code></td><td>Sekundärer Text: Lead, Sub-Titel, Captions, <code class="token">var(--n-500)</code> #4A6565 (6.3:1, AA)</td></tr>
               <tr><td><code class="token">--tx-muted</code></td><td>Inhaltlich-leise Texte: Eyebrow, Meta, Counter, <code class="token">#5A7171</code> (auf Weiß 5,20:1, auf <code class="token">n-50</code> 4,84:1, auf getönten Hellflächen 4,66:1; der Vorgänger <code class="token">#5E7676</code> trug auf Weiß 4,85:1, auf n-50 aber nur 4,51:1 und auf getönten Gründen 4,35:1); abgedunkelt von <code class="token">--n-400</code>, das selbst nur 3,9:1 erreicht und daher nur für Nicht-Text gilt</td></tr>
