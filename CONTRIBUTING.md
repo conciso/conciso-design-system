@@ -29,7 +29,7 @@ Leitbild (Markenrad): **Gelassenheit** durch *Ruhig · Klar · Energiegeladen*. 
 - Doku-/Site-Meta: `.ds-*`
 
 **Token-Präfixe** (`packages/css/css/tokens.css`)
-- Farbe: `--co-* --ki-* --es-* --wo-* --ro-* --n-*` (Skala `-50 … -900`), semantisch `--c-success/-warning/-error`
+- Farbe: `--co-* --ki-* --es-* --wo-* --ro-* --n-*` (Skala `-50 … -900`), semantisch `--c-success/-warning/-error` (Status-Fläche in Grafiken `--c-*-fill`), Datenvisualisierung `--dv-*`
 - Flächen/Text: `--bg-* --tx-*`
 - Typo: `--ty-*` · `--font` / `--font-display`
 - Maß: `--s1…--s16` (Spacing) · `--r-*` (Radius) · `--e0…--e5` (Elevation) · `--tonal-*`
@@ -59,6 +59,14 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
   - **Genau eine Ausnahme:** Swatches in den Kontrast-Tabellen (`.cswatch`, `.cbadge`), die ein Farbpaar als *Inhalt* zeigen und das gemessene Verhältnis daneben ausschreiben. Alles andere zählt, auch Paletten-Beschriftungen, Code-Blöcke und Specimen. Wer eine zweite Ausnahme braucht, hat sehr wahrscheinlich einen Befund vor sich.
   - **Text über Fotos und Verläufen** wird nur gezählt, nicht gewertet: sein Grund steht nicht in der Elternkette, das braucht eine Pixelmessung (Vorgehen siehe Hero-Scrim im CHANGELOG).
   - **Restliste statt Ausnahmeliste:** Das Gate vergleicht gegen eine Zahl pro Kategorie im Skript und schlägt fehl, wenn sie **steigt** (Regression) und ebenso, wenn sie **sinkt**, ohne nachgezogen zu werden. Der Stand bleibt so ehrlich im Repo sichtbar und kann sich nur nach unten bewegen. Ziel ist überall 0.
+
+**Farbe in Daten und Status-Flächen.** Diagramme bekommen ihre Farben aus der Datenpalette `--dv-*`, nie aus den Bereichsfarben: Ein Kunde in Grün ist kein Bereich „Wirksame Organisationen“, und die Bereichsfarben würden ihre Bedeutung verlieren.
+
+- **Palette nach Datentyp:** kategorial (`--dv-cat-1…6`, `--dv-other`) für Dinge ohne Reihenfolge, sequenziell (`--dv-seq-1…5`) für Mengen, divergierend (`--dv-div-n2…p2`) für Abweichungen um eine Mitte. Zustände (bezahlt, offen, storniert) sind keine Kategorien, sie nehmen die Status-Farben; als Fläche `--c-success`, `--c-warning-fill`, `--c-error`, `--c-info-fill`. `--c-warning` ist Textfarbe und wirkt als Fläche braun.
+- **Höchstens sechs Kategorien.** Mit einer siebten und achten Farbe fällt der Abstand unter Deuteranopie im Dark auf ΔE 0,011, die Farben verschmelzen. Weitere Kategorien werden zu „Sonstige“ oder direkt beschriftet.
+- **Neue Farbe nur bei neuer Bedeutung.** Mehr Badges, Chips oder Reihen ohne neue Bedeutung unterscheiden sich über Text, Icon oder Variante. Eine neue Bedeutung bekommt einen Token-Namen und einen Light- und Dark-Wert im Design System, nie einen Farbwert im Produkt.
+- **`npm run check:data-palette` ist das Gate dafür.** Es liest die gebauten Tokens und prüft 3:1 gegen die Diagrammflächen (Light `bg-surface` und `n-50`, Dark `bg-page` und `bg-surface`), die Helligkeitsfolge und den Stufenabstand der sequenziellen Skala und den Mindestabstand der kategorialen Farben in OKLab (ΔE ≥ 0,06), auch unter Simulation von Deuteranopie und Protanopie. `check:contrast` sieht das nicht, weil Diagrammfarben in der Doku nicht als Text stehen. Läuft in `css-core.yml` nach dem Token-Build.
+- **Farbe ist nie das einzige Merkmal** (WCAG 1.4.1): Legende, Beschriftung am Wert oder Tooltip tragen die Aussage mit.
 
 ---
 
@@ -138,11 +146,11 @@ In „Verwendung“-Sektionen die **positive Variante zuerst** (✓ links/oben),
 
 ## 10. Eine Komponente / ein Token hinzufügen
 
-1. **Token** (falls nötig) in `packages/css/css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `packages/css/css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`. Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
+1. **Token** (falls nötig) in `packages/css/css/tokens.css` ergänzen (Präfix-Schema, Light-Wert), Dark-Abweichung in `packages/css/css/dark-mode.css`. Vorher prüfen, ob die Rolle schon ein Token hat: farbiger Text → `--XX-ink`, Füllung eines textführenden Bauteils → `--XX-fill`, dekorative Fläche → `--XX-50`, Sektionsfläche → `--XX-band`, Rahmenfarbe → `--bd-c` / `--bd-strong-c`, Status als Fläche in Grafiken → `--c-*-fill`, Diagrammfarbe → `--dv-*` (§ 3). Eine neue Rolle braucht einen neuen Namen, eine bekannte Rolle nicht.
 2. **Komponente** als CSS-Klasse in `packages/css/css/components.css` (Namens-Konvention §2, Tokens statt Hardcodes).
 3. **Icon** (falls nötig): normalisiertes SVG als `packages/css/icons/source/{area|ui}-{name}.svg` ablegen — Farben als `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (Größe beim Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, sonst `ui`. Label/Verwendung optional in `packages/css/icons/manifest.json` pflegen. `npm run build:icons` erzeugt daraus `dist/icons/{icons.json,icons.js,icons.d.ts,README.md}`. Der gesamte Ordner `dist/` ist gitignored; Build-Ergebnisse werden weder editiert noch committet.
 4. **Dokumentieren:** neue Sektion/Beispiel in `index.html` (Code-Snippet, „Verwendung“, Do/Don't). Wohin sie gehört, wie sie aufgebaut ist und wie der Nav-Eintrag heißt: §11.
-5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
+5. **Prüfen:** `npm run check:contrast` (misst die gerenderte Doku in beiden Modi, muss 0 melden) und `npm run check:dark-states`, bei Daten- oder Status-Flächen zusätzlich `npm run check:data-palette`. Dazu Tastatur- und Screenreader-Pfad bei interaktiven Komponenten. Eine neue getönte Füllung, die als Fläche lesen muss, gehört in die `FILL_SELECTOR`-Liste des Gates; eine dekorative nicht (die Begründung steht im Skript).
 6. **Commit-Konvention einhalten** (§ 14) — das CHANGELOG wird nicht mehr von Hand gepflegt, das Release entsteht aus dem Commit.
 
 **Verifikation:** Für reine Markup-/CSS-Änderungen genügt visuelle Prüfung in Light+Dark. Bei JS-/Interaktions-/Responsive-Änderungen im Browser testen (z. B. headless via puppeteer-core: Theme setzen, Komponente öffnen, computed styles / Screenshot prüfen). Kontrastwerte mit der WCAG-Formel gegen die konkreten Token-Werte rechnen.
