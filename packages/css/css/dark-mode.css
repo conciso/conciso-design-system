@@ -88,6 +88,21 @@
      tokens.css. (Light: #0d5e39 / #d6f5e8.) */
   --c-success-strong:var(--c-success-bg); --c-success-on-strong:#b0f0d0;
   --c-error-strong:var(--c-error-bg);
+  /* Dark-only: Status-Flächen in Grafiken. #C27A00 trägt auf der Card nur 3,77:1 und wirkt auf
+     dunklem Grund trüb → --c-warning ✓ 7,69:1, die helle Warnfarbe trägt im Dark auch als Fläche.
+     Info co-600 3,96:1 → co-300 ✓ 6,97:1, gleiche Stufe wie die übrigen Dark-Akzente.
+     (Light: #C27A00 / co-600.) */
+  --c-warning-fill:var(--c-warning); --c-info-fill:var(--co-300);
+  /* Dark-only: Datenvisualisierung. Die Light-Werte sind auf der Card zu dunkel (Violett #6F35A2
+     ❌ 1,68:1, Teal #019696 nur 3,60:1), deshalb eigene, hellere Stufen mit denselben Farbtönen.
+     Kontrast gegen Card / Seite: kategorial 4,64 bis 8,85 / 6,25 bis 11,91:1, sequenziell ab
+     4,37 / 5,88:1, divergierend ab 5,42:1 auf der Card. Kleinster Abstand der kategorialen Farben
+     inkl. Deuteranopie und Protanopie ΔE 0,063. --dv-other n-400 ✓ 3,32 / 4,47:1 (n-600 wäre
+     dunkel auf dunkel), Mitte der divergierenden Skala n-300 ✓ 5,78:1. (Light: siehe tokens.css.) */
+  --dv-cat-1:#44D6D6; --dv-cat-2:#DA8757; --dv-cat-3:#9DBDFF; --dv-cat-4:#9EE6A0;
+  --dv-cat-5:#F190A8; --dv-cat-6:#B08ADA; --dv-other:var(--n-400);
+  --dv-seq-1:#31A5A5; --dv-seq-2:#3FC0C0; --dv-seq-3:#6CD9D8; --dv-seq-4:#9AECEB; --dv-seq-5:#C9FAF9;
+  --dv-div-n2:#BBD1FF; --dv-div-n1:#84A9F7; --dv-div-mid:var(--n-300); --dv-div-p1:#E79363; --dv-div-p2:#FDC2A2;
   /* Brand tints (Dark), getrennt nach den zwei Jobs, die --XX-50 im Light in einem Wert erledigt.
      Der Grund: Ein Band muss DUNKLER bleiben als die Karten darauf, eine Badge- oder Kachel-Füllung
      muss HELLER sein als ihr Grund, sonst liest sie nicht als Fläche. Bei einer Basis von 17,51:1
