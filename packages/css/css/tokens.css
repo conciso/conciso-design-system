@@ -101,21 +101,26 @@
      Eigene Palette für Diagramme, getrennt von den Bereichsfarben: Ein Kunde in Grün ist kein
      Bereich „Wirksame Organisationen“. Farbtöne in OKLCH an den Bereichen verankert (Teal = co,
      Blau = es, Rosé = ro, Grün = wo), Orange und Violett füllen die freien Lücken im Farbkreis.
-     Orange ist bewusst vom Status-Amber getrennt. Alle Werte ≥ 3:1 gegen Weiß UND n-50.
+     Orange ist bewusst vom Status-Amber getrennt. Alle Werte ≥ 3:1 gegen Weiß UND n-50, außer den
+     hellen Stufen der sequenziellen Skala (siehe dort).
      Kategorial (--dv-cat-1…6, --dv-other): für Dinge ohne Reihenfolge, Reihenfolge = Vergabe.
        Höchstens sechs Kategorien, der Rest wird zu „Sonstige“. Kleinster Abstand zweier Farben
        (OKLab ΔE), auch unter Simulation von Deuteranopie und Protanopie: Light 0,079, Dark 0,063.
        Mit einer siebten und achten Farbe fiele er im Dark auf 0,011, deshalb gibt es sie nicht.
        Kontrast gegen Weiß 3,58 (Orange) bis 7,76:1 (Violett). --dv-other ist n-600, damit sich
        „Sonstige“ über die Helligkeit absetzt (ΔE 0,100); n-400 lag bei Deuteranopie auf Teal.
-     Sequenziell (--dv-seq-1…5): eine Menge, 1 = wenig, 5 = viel. Ein Farbton, gleichmäßige
-       Helligkeitsstufen (ΔE 0,076 je Stufe), Stufe 1 trägt 3,33 / 3,10:1.
+     Sequenziell (--dv-seq-1…5): eine Menge, 1 = wenig, 5 = viel. Teal mit leichter Tonwanderung
+       (OKLCH 185° → 205°) über eine große Helligkeitsspanne (L 0,86 → 0,34), ΔE 0,13 je Stufe, auch
+       unter Deuteranopie. Mit 3:1 für jede Stufe läge die ganze Skala im Dunklen (L 0,63 → 0,33,
+       ΔE 0,076), wo das Auge Stufen schlecht trennt. Stufe 1 und 2 tragen daher nur 1,48 / 2,28:1
+       gegen Weiß: nur in Diagrammen, deren Werte auch als Beschriftung, Tooltip oder Tabelle
+       lesbar sind (WCAG 1.4.11). Dark unverändert, dort tragen alle Stufen ≥ 3:1.
      Divergierend (--dv-div-n2…p2): Abweichung um eine Mitte, Blau unter, Orange über der Mitte,
        Rot und Grün kommen bewusst nicht vor. Mitte = n-400.
      Farbe ist nie das einzige Merkmal: Legende, Beschriftung oder Tooltip tragen die Aussage mit. */
   --dv-cat-1:#019696; --dv-cat-2:#DD6301; --dv-cat-3:var(--es-500); --dv-cat-4:#036425;
   --dv-cat-5:#E44D7F; --dv-cat-6:#6F35A2; --dv-other:var(--n-600);
-  --dv-seq-1:#119D9D; --dv-seq-2:#048484; --dv-seq-3:#086B6C; --dv-seq-4:#035454; --dv-seq-5:#033E3E;
+  --dv-seq-1:#98E2D7; --dv-seq-2:#46BDB6; --dv-seq-3:#099393; --dv-seq-4:#08686C; --dv-seq-5:#004046;
   --dv-div-n2:#1D4BC0; --dv-div-n1:#547CD3; --dv-div-mid:var(--n-400); --dv-div-p1:#DA7134; --dv-div-p2:#BD4D00;
 
   /* ── Component color tokens (theme-overridable) ── */

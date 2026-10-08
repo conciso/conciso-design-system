@@ -12,6 +12,9 @@
 // WAS ER PRÜFT
 // 1. Jede --dv-* und --c-*-fill trägt ≥ 3:1 gegen die Flächen, auf denen Diagramme stehen
 //    (WCAG 1.4.11): Light gegen bg-surface und n-50, Dark gegen bg-page und bg-surface.
+//    Ausnahme: die sequenzielle Skala braucht eine große Helligkeitsspanne, ihre hellen Stufen
+//    dürfen bis MIN_CONTRAST_SEQUENTIAL heruntergehen. Erlaubt ist das nur, weil Mengen-Diagramme
+//    ihre Werte zusätzlich als Beschriftung, Tooltip oder Tabelle zeigen müssen (CONTRIBUTING).
 // 2. Die kategorialen Farben samt --dv-other haben paarweise einen Mindestabstand in OKLab, normal
 //    und unter Simulation von Deuteranopie und Protanopie (Machado et al. 2009, Schweregrad 1,0).
 // 3. Die sequenzielle Skala ist in der Helligkeit monoton (Light dunkler, Dark heller mit der
@@ -28,6 +31,8 @@ const MIN_DELTA_CATEGORICAL = 0.06;
 /** Kleinster OKLab-Abstand zwischen benachbarten Stufen einer sequenziellen Skala. */
 const MIN_DELTA_STEP = 0.05;
 const MIN_CONTRAST = 3;
+/** Untergrenze für sequenzielle Stufen: darunter verschwindet eine Fläche auf hellem Grund. */
+const MIN_CONTRAST_SEQUENTIAL = 1.3;
 
 const CATEGORICAL = ['dv-cat-1', 'dv-cat-2', 'dv-cat-3', 'dv-cat-4', 'dv-cat-5', 'dv-cat-6', 'dv-other'];
 const SEQUENTIAL = ['dv-seq-1', 'dv-seq-2', 'dv-seq-3', 'dv-seq-4', 'dv-seq-5'];
@@ -101,7 +106,8 @@ for (const mode of ['light', 'dark']) {
       const bg = rgb(surface);
       if (!bg) continue;
       const ratio = contrast(color, bg);
-      if (ratio < MIN_CONTRAST) problems.push(`${mode}: --${name} trägt gegen --${surface} nur ${fmt(ratio)}:1 (Soll ≥ 3:1)`);
+      const min = SEQUENTIAL.includes(name) ? MIN_CONTRAST_SEQUENTIAL : MIN_CONTRAST;
+      if (ratio < min) problems.push(`${mode}: --${name} trägt gegen --${surface} nur ${fmt(ratio)}:1 (Soll ≥ ${fmt(min, 1)}:1)`);
     }
   }
 

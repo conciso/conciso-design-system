@@ -40,7 +40,7 @@ Im Light sind `--XX-50`, `--XX-fill` und `--XX-band` identisch, dort gibt es zwi
 
 ## Datenvisualisierung
 
-Diagramme haben eine eigene Palette, getrennt von den Bereichsfarben: Ein Kunde in Grün ist kein Bereich „Wirksame Organisationen“. Die Farbtöne sind an den Bereichen verankert (Teal, Blau, Rosé, Grün), Orange und Violett füllen die Lücken im Farbkreis. Jede Farbe hat einen Light- und einen Dark-Wert und trägt mindestens 3:1 gegen die Flächen, auf denen Diagramme stehen.
+Diagramme haben eine eigene Palette, getrennt von den Bereichsfarben: Ein Kunde in Grün ist kein Bereich „Wirksame Organisationen“. Die Farbtöne sind an den Bereichen verankert (Teal, Blau, Rosé, Grün), Orange und Violett füllen die Lücken im Farbkreis. Jede Farbe hat einen Light- und einen Dark-Wert und trägt mindestens 3:1 gegen die Flächen, auf denen Diagramme stehen. Ausnahme sind die hellen Stufen der sequenziellen Skala (siehe unten).
 
 | Palette | Tokens | Wofür |
 |---|---|---|
@@ -51,6 +51,7 @@ Diagramme haben eine eigene Palette, getrennt von den Bereichsfarben: Ein Kunde 
 
 - **Höchstens sechs Kategorien.** Mit einer siebten und achten Farbe lassen sich die Farben bei Farbsehschwäche nicht mehr sicher trennen. Weitere Kategorien werden zu „Sonstige“ zusammengefasst oder direkt beschriftet.
 - **Farbe ist nie das einzige Merkmal.** Legende, Beschriftung am Wert oder Tooltip tragen die Aussage mit (WCAG 1.4.1).
+- **Sequenzielle Skala nur mit Werten.** Damit sich die Stufen im Light gut trennen, reicht die Skala bis ins Helle; Stufe 1 und 2 tragen dort weniger als 3:1. Ein Diagramm mit `--dv-seq-*` zeigt seine Werte deshalb zusätzlich als Beschriftung, Tooltip oder Tabelle (WCAG 1.4.11). Bei weniger als fünf Klassen Stufen mit Abstand wählen, z. B. 1, 3 und 5.
 - **Neue Farbe nur bei neuer Bedeutung.** Mehr Badges oder Diagrammreihen ohne neue Bedeutung unterscheiden sich über Text, Icon oder Variante. Eine neue Bedeutung bekommt ein Token im Design System, nie einen Farbwert im Produkt.
 - `npm run check:data-palette` prüft Kontrast, die Stufen der Skalen und die Unterscheidbarkeit der kategorialen Farben, auch unter Deuteranopie und Protanopie.
 

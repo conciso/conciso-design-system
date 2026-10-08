@@ -67,6 +67,7 @@ Wo die Fläche dagegen **selbst** die Aussage ist, gilt die Hausregel: Pill und 
 - **Neue Farbe nur bei neuer Bedeutung.** Mehr Badges, Chips oder Reihen ohne neue Bedeutung unterscheiden sich über Text, Icon oder Variante. Eine neue Bedeutung bekommt einen Token-Namen und einen Light- und Dark-Wert im Design System, nie einen Farbwert im Produkt.
 - **`npm run check:data-palette` ist das Gate dafür.** Es liest die gebauten Tokens und prüft 3:1 gegen die Diagrammflächen (Light `bg-surface` und `n-50`, Dark `bg-page` und `bg-surface`), die Helligkeitsfolge und den Stufenabstand der sequenziellen Skala und den Mindestabstand der kategorialen Farben in OKLab (ΔE ≥ 0,06), auch unter Simulation von Deuteranopie und Protanopie. `check:contrast` sieht das nicht, weil Diagrammfarben in der Doku nicht als Text stehen. Läuft in `css-core.yml` nach dem Token-Build.
 - **Farbe ist nie das einzige Merkmal** (WCAG 1.4.1): Legende, Beschriftung am Wert oder Tooltip tragen die Aussage mit.
+- **Sequenzielle Skala: Spanne vor 3:1.** Die Stufen einer Menge trennt das Auge über die Helligkeit; müsste jede Stufe 3:1 gegen Weiß tragen, läge die ganze Light-Skala im Dunklen (ΔE 0,076 je Stufe, kaum unterscheidbar). `--dv-seq-*` reicht deshalb bis L 0,86 (ΔE 0,13 je Stufe), Stufe 1 und 2 liegen unter 3:1. Das Gate lässt für die sequenziellen Tokens bis 1,3:1 zu; im Gegenzug muss ein Diagramm mit diesen Farben seine Werte als Beschriftung, Tooltip oder Tabelle zeigen (WCAG 1.4.11). Die anderen Paletten bleiben bei 3:1.
 
 ---
 
