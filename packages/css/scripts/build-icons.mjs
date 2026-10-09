@@ -154,7 +154,7 @@ neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` a
 
 - \`dist/icons/icons.json\` — Map \`key → { name, area, style, viewBox, strokeWidth?, body, svg, usage? }\`
 - \`dist/icons/icons.js\` — derselbe Datensatz als ESM: **ein benannter Export pro Icon** (camelCase,
-  z. B. \`uiShieldCheck\`) **plus** das aggregierte \`icons\`-Objekt (Key → Eintrag)
+  z. B. \`uiCaretDown\`) **plus** das aggregierte \`icons\`-Objekt (Key → Eintrag)
 - \`dist/icons/icons.d.ts\` — Typdeklaration zu \`dist/icons/icons.js\` (benannte Exporte + \`icons\`, je \`CdsIconEntry\`)
 - \`icons/source/*.svg\` — die einzelnen normalisierten Quell-SVGs (Dateiname = Key)
 
@@ -162,8 +162,9 @@ neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` a
 
 - **Stil:** \`solid\` (gefüllte Glyphen, \`fill="currentColor"\`) oder \`outline\` (Linien,
   \`stroke="currentColor"\` + inline \`stroke-width\`); \`mixed\` = beides. Das Feld \`style\` sagt pro
-  Icon, was erwartet wird — kein Raten mehr. Die vier **Bereichs-Glyphen** (\`ki-bot\`, \`es-window-check\`,
-  \`wo-network\`, \`co-building\`) sind **solid**; die meisten generischen UI-Icons sind **outline**.
+  Icon, was erwartet wird — kein Raten mehr. Die **Bereichs-Glyphen** (\`co-building\`, \`co-mark\`, \`ki-bot\`,
+  \`es-window-check\`, \`wo-network\`) sind **solid**. Generische UI-Icons liefert das Paket nicht mit
+  (siehe ADR-0016, Lucide); nur \`ui-caret-down\`, \`ui-check\` (outline) und \`ui-quote\` bleiben.
 - **Farbe:** alle Icons nutzen ausschließlich \`currentColor\` → Einfärbung beim Consumer über CSS
   \`color\` (z. B. \`color: var(--ki-800)\` bzw. im Dark \`--ki-200\`). Keine hartkodierten Hex-Werte.
 - **Self-contained:** Outline-Icons tragen ihre \`stroke-width\` inline → \`set:html\` funktioniert ohne
@@ -180,11 +181,11 @@ eigenes \`const\` auf Modulebene ohne Property-Zugriff oder Funktionsaufruf, Bun
 Rollup, esbuild, Angular/Vite) lassen dadurch jedes nicht importierte Icon aus dem Bundle.
 
 \`\`\`js
-import { uiShieldCheck } from '@conciso/design-system/icons';
+import { uiCaretDown } from '@conciso/design-system/icons';
 
-uiShieldCheck.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
-uiShieldCheck.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
-uiShieldCheck.style  // "outline"
+uiCaretDown.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
+uiCaretDown.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
+uiCaretDown.style  // "outline"
 \`\`\`
 
 **Aggregat \`icons\` / \`icons.json\`: nur für Kataloge und Doku.** \`import { icons } from
@@ -198,10 +199,10 @@ Storybook-Icon-Galerie) vorbehalten.
 import { icons } from '@conciso/design-system/icons';
 // oder: import iconsJson from '@conciso/design-system/icons.json' assert { type: 'json' };
 
-const shield = icons['ui-shield-check']; // äquivalent zu uiShieldCheck oben, aber nicht tree-shakable
-shield.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
-shield.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
-shield.style  // "outline"
+const caret = icons['ui-caret-down']; // äquivalent zu uiCaretDown oben, aber nicht tree-shakable
+caret.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
+caret.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
+caret.style  // "outline"
 \`\`\`
 
 **Astro (set:html):**

@@ -43,7 +43,7 @@ import '@conciso/design-system/dist/conciso-ds.css';
 import { tokens } from '@conciso/design-system/tokens';
 // Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor): benannter Import
 // pro Icon, tree-shakable — nur importierte Glyphen landen im Bundle:
-import { uiShieldCheck } from '@conciso/design-system/icons';
+import { uiCaretDown } from '@conciso/design-system/icons';
 // Das aggregierte `icons`-Objekt (oder icons.json) zieht immer alle Icons ins Bundle — nur
 // für Kataloge/Doku, nicht für Apps. Details stehen im Storybook unter Grundlagen → Icons.
 // Brand-Logo (Wortmarke, drei Varianten):
@@ -57,8 +57,8 @@ npmjs nur eine Bootstrap-Platzhalterversion (siehe ADR-0011).
 
 Die Wortmarke liegt als SVG unter [`assets/brand/`](packages/css/assets/brand/README.md) (Default, Light, Dark). Größen, Schutzraum und Verwendung stehen in der Doku unter **Marke → Logo**.
 
-> Das Paket steht unter der [MIT-Lizenz](LICENSE) (Ausnahmen — Brand-Assets, Schriften,
-> Icons — siehe [NOTICE](NOTICE)).
+> Das Paket steht unter der [MIT-Lizenz](LICENSE) (Ausnahmen — Brand-Assets und Schriften —
+> siehe [NOTICE](NOTICE)).
 >
 > **Alternative — GitHub Packages** (weiterhin verfügbar, unverändert, z. B. für
 > Consumer innerhalb der GitHub-Organisation `conciso`): eine `.npmrc`, die den
@@ -131,4 +131,4 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Lizenz & Kontakt
 
-MIT, siehe [LICENSE](LICENSE). Ausnahmen (Brand-Assets unter `assets/brand/`, Schriften, Icons) siehe [NOTICE](NOTICE). Fragen und Beiträge über GitHub Issues im Repo. Maintainer: _Design-System-Team (bitte eintragen)_.
+MIT, siehe [LICENSE](LICENSE). Ausnahmen (Brand-Assets unter `assets/brand/` und Schriften) siehe [NOTICE](NOTICE). Fragen und Beiträge über GitHub Issues im Repo. Maintainer: _Design-System-Team (bitte eintragen)_.
