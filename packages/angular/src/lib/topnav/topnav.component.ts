@@ -11,11 +11,10 @@ import {
 } from '@angular/core';
 import {
   CDS_ICON_STROKE,
-  CdsGlyphComponent,
+  LucideChevronDown,
   LucideMenu,
   LucideSearch,
   LucideX,
-  uiCaretDown,
 } from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
 
@@ -59,7 +58,7 @@ export interface CdsNavItem {
 @Component({
   selector: 'cds-topnav',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ThemeCycleComponent, CdsGlyphComponent, LucideMenu, LucideSearch, LucideX],
+  imports: [ThemeCycleComponent, LucideChevronDown, LucideMenu, LucideSearch, LucideX],
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
@@ -114,7 +113,14 @@ export interface CdsNavItem {
                 [attr.aria-controls]="subId(i)"
                 (click)="toggleSub(i)"
               >
-                <svg class="ep-nav-item-caret" [cdsGlyph]="uiCaretDown" [size]="10"></svg>
+                <!-- Caret: absolute Strichstärke, hält 1,5 px Bildschirmstrich auch bei 10 px Größe. -->
+                <svg
+                  lucideChevronDown
+                  class="ep-nav-item-caret"
+                  [size]="10"
+                  [strokeWidth]="iconStroke"
+                  [absoluteStrokeWidth]="true"
+                ></svg>
               </button>
               <div class="ep-nav-sub" [id]="subId(i)">
                 @for (s of item.sub; track $index) {
@@ -199,8 +205,6 @@ export interface CdsNavItem {
 export class TopnavComponent {
   /** @internal */
   protected readonly iconStroke = CDS_ICON_STROKE;
-  /** @internal */
-  protected readonly uiCaretDown = uiCaretDown;
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
   private readonly document = inject(DOCUMENT);
   private readonly cdr = inject(ChangeDetectorRef);

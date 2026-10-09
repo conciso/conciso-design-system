@@ -10,7 +10,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { CDS_ICON_STROKE, CdsGlyphComponent, LucideChevronDown, uiCheck } from '../icons/cds-icons';
+import { CDS_ICON_STROKE, LucideCheck, LucideChevronDown } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 import { disposableTimeout } from '../shared/disposable-timeout';
 
@@ -42,7 +42,7 @@ const TYPEAHEAD_RESET_MS = 600;
 @Component({
   selector: 'cds-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LucideChevronDown, CdsGlyphComponent],
+  imports: [LucideCheck, LucideChevronDown],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
   ],
@@ -103,7 +103,8 @@ const TYPEAHEAD_RESET_MS = 600;
             (click)="select(i)"
             (mouseenter)="activeIndex.set(i)"
           >
-            <svg class="ep-select-check" [cdsGlyph]="uiCheck" [size]="20"></svg>
+            <!-- Haken: 3,2 in der 24er-Basis bei 20 px ≙ ≈ 2,67 px Bildschirmstrich (Gewicht des bisherigen Glyphs). -->
+            <svg lucideCheck class="ep-select-check" [size]="20" [strokeWidth]="3.2"></svg>
             {{ opt.label }}
           </li>
         }
@@ -117,8 +118,6 @@ const TYPEAHEAD_RESET_MS = 600;
 export class SelectComponent implements ControlValueAccessor {
   /** @internal */
   protected readonly iconStroke = CDS_ICON_STROKE;
-  /** @internal */
-  protected readonly uiCheck = uiCheck;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly trigger = viewChild<ElementRef<HTMLButtonElement>>('trigger');
   private readonly menu = viewChild<ElementRef<HTMLUListElement>>('menu');

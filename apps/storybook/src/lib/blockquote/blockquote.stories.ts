@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { expect } from 'storybook/test';
 import { BlockquoteComponent } from '@conciso/design-system-angular';
 
 const meta: Meta<BlockquoteComponent> = {
@@ -34,7 +35,15 @@ export default meta;
 
 type Story = StoryObj<BlockquoteComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Zitat-Icon: gefülltes Lucide-Quote (ADR-0016) — dekorativ, Füllung per CSS-Klasse (currentColor).
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('svg.bq-icon') as SVGElement;
+    await expect(icon).toHaveClass('lucide-quote');
+    await expect(icon).toHaveAttribute('aria-hidden', 'true');
+    await expect(getComputedStyle(icon).fill).not.toBe('none');
+  },
+};
 
 export const ProBereich: Story = {
   name: 'Je Bereich',
