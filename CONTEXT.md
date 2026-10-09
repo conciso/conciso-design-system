@@ -184,8 +184,9 @@ Bulk umzogen. Beides ist abgeschlossen — alle 37 Komponenten liegen in der
 
 ### DS-Glyphen
 
-Design-System-eigene Icons (`ui*`), die aus `@conciso/design-system/icons`
+Design-System-eigene Icons: die Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*`. Sie stammen aus `@conciso/design-system/icons`
 (generiertes `dist/icons/icons.js`, öffentlicher Importpfad
-`@conciso/design-system/icons`) stammen — nicht aus `@ng-icons`. Die zentrale
+`@conciso/design-system/icons`), alle übrigen UI-Icons kommen aus Lucide (`lucide-static`,
+in Angular `@lucide/angular`, siehe [ADR-0016](docs/adr/0016-icon-quelle-lucide.md)). Die zentrale
 Icon-Registry (`packages/angular/src/lib/icons/cds-icons.ts`) ist die einzige Import-Fläche für
-Komponenten-Icons; Komponenten importieren nie direkt aus `@ng-icons/heroicons`.
+Komponenten-Icons; Komponenten importieren nie direkt aus `@lucide/angular`.

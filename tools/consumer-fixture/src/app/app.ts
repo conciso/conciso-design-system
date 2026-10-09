@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { uiCheck } from '@conciso/design-system/icons';
+import { kiBot } from '@conciso/design-system/icons';
 import tokenExport from '@conciso/design-system/tokens.json';
 import type { CdsArea, CdsButtonVariant } from '@conciso/design-system-angular';
 import {
@@ -25,7 +25,7 @@ import {
  * `@angular/forms` und `@angular/platform-browser` NIE gemeldet (genau so
  * passiert, siehe docs/adr/0004). Daher pro Fremd-Paket mindestens ein Vertreter:
  *
- * - Button, Topnav → `@angular/core`/`common` und `@ng-icons` (Icon-Registrierung)
+ * - Button, Topnav → `@angular/core`/`common` und `@lucide/angular` (Icons)
  * - TextField, Checkbox → `@angular/forms` (NG_VALUE_ACCESSOR, Laufzeit-Token)
  * - Card → `@angular/platform-browser` (DomSanitizer)
  *
@@ -46,7 +46,7 @@ import {
 export class App {
   protected readonly areas: CdsArea[] = ['co', 'ki', 'es', 'wo'];
   protected readonly variants: CdsButtonVariant[] = ['filled', 'tonal', 'outlined'];
-  protected readonly packageExports = `${uiCheck.name} / ${tokenExport.light['font']}`;
+  protected readonly packageExports = `${kiBot.name} / ${tokenExport.light['font']}`;
   protected readonly confirmResult = signal('');
   private readonly confirmDialog = inject(CdsConfirmDialog);
 

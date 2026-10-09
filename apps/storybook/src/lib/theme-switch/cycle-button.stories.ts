@@ -85,3 +85,18 @@ export const KlickZyklusBinaer: Story = {
     }
   },
 };
+
+export const IconStrichstaerke: Story = {
+  name: 'Icon-Strichstärke',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Pinnt die Strichstärke der Chrome-Icons (Lucide, ADR-0016): bisher Heroicons-Outline mit
+  // 1.5 (= --icon-stroke-md), Lucide-Default wäre 2. Die Komponente setzt CDS_ICON_STROKE
+  // explizit; hier wird der WIRKSAME (berechnete) Wert geprüft, damit auch eine CSS-Regel,
+  // die das Attribut überschreibt, auffiele. Dekorative Icons bleiben aria-hidden.
+  play: async ({ canvasElement }) => {
+    const svg = canvasElement.querySelector('button svg') as SVGElement;
+    await expect(svg).not.toBeNull();
+    await expect(svg).toHaveAttribute('aria-hidden', 'true');
+    await expect(parseFloat(getComputedStyle(svg).strokeWidth)).toBe(1.5);
+  },
+};

@@ -70,8 +70,8 @@ Pill-förmiges Such-Feld mit Magnifier-Icon links, zentriert auf Listing-Seiten.
 <div role="search" aria-label="Beiträge durchsuchen" style="max-width:480px;width:100%;position:relative">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--n-400)" stroke-width="1.25"
        aria-hidden="true" focusable="false"
-       style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none">
-    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/>
+       style="position:absolute;left:var(--s4);top:50%;transform:translateY(-50%);pointer-events:none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" />
   </svg>
   <input type="search" aria-label="Beiträge nach Stichwort durchsuchen"
          placeholder="Beitrag suchen" autocomplete="off"
@@ -155,9 +155,8 @@ Wer nur die CSS-Schicht verwendet, setzt den Fehlerzustand mit diesem Markup: de
          aria-invalid="true" aria-describedby="mail-err">
   <span class="error-msg" id="mail-err" role="alert">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="1.25" aria-hidden="true" style="flex-shrink:0">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>
+         stroke-width="1.25" aria-hidden="true" style="flex-shrink:0" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" />
     </svg>
     Bitte eine gültige E-Mail-Adresse eingeben
   </span>
@@ -210,9 +209,8 @@ Das Anfrageformular nutzt den Fehlerzustand von oben und ergänzt Pflichtfelder,
 <!-- Erfolgspanel neben dem Formular: erscheint nach dem Absenden und erhält den Fokus. -->
 <div class="bk-success" id="kontakt-success" role="status" tabindex="-1" hidden>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       stroke-width="1.5" aria-hidden="true" style="flex-shrink:0">
-    <path stroke-linecap="round" stroke-linejoin="round"
-          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+       stroke-width="1.5" aria-hidden="true" style="flex-shrink:0" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" />
   </svg>
   <span><strong>Danke, Deine Anfrage ist raus.</strong><br>
     Wir melden uns innerhalb von zwei Werktagen mit einer ersten Einschätzung.</span>

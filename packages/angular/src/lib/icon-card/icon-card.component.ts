@@ -63,7 +63,7 @@ import type { CdsArea } from '../area';
  *
  * **Entscheidung 2 — Icon als projizierter Inhalt, OHNE dass das SVG eine eigene
  * Größenklasse tragen muss.** Wie bei `cds-stoerer` (siehe dessen Klassendoku) sind
- * die Icons auf den Beispielseiten wechselnde Heroicons, keine DS-Bereichsglyphen aus
+ * die Icons auf den Beispielseiten wechselnde Lucide-Icons, keine DS-Bereichsglyphen aus
  * der Registry `icons/cds-icons.ts` — Inhalt, nicht Chrom. Deshalb Projektion über
  * `<ng-content select="[cdsIcon]">` statt eines `icon`-Strings. Anders als beim Störer
  * ist `.ep-card-icon` hier aber ein echter CONTAINER: css/components.css:1310+1318

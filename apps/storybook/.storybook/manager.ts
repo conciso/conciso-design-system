@@ -1,7 +1,43 @@
 import { addons } from 'storybook/manager-api';
 import { createElement } from 'react';
 import { concisoDark, concisoLight } from './theme';
-import rawIcons from '@conciso/design-system/icons.json';
+import {
+  AlignLeft,
+  AppWindow,
+  BookOpen,
+  Box,
+  Boxes,
+  CalendarDays,
+  ChevronsUpDown,
+  Copy,
+  Download,
+  FileText,
+  Flag,
+  GraduationCap,
+  Grid3x3,
+  Image,
+  Languages,
+  Layers,
+  LayoutGrid,
+  Menu,
+  MessageCircleMore,
+  MessagesSquare,
+  Monitor,
+  MousePointerClick,
+  Newspaper,
+  Scan,
+  ShieldCheck,
+  Smartphone,
+  Smile,
+  Sparkles,
+  SquareCode,
+  SquarePen,
+  Sun,
+  SwatchBook,
+  Table,
+  Tag,
+  Wrench,
+} from 'lucide-static';
 
 // Manager-Theme ist statisch je Ladevorgang; folgt der OS-Einstellung
 // (prefers-color-scheme), nicht Storybooks eigenem Theme-Umschalter. Der
@@ -11,7 +47,7 @@ import rawIcons from '@conciso/design-system/icons.json';
 const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 
 // Sektions-Icons machen die Navigation unterscheidbar: Vor jedem Nav-Eintrag
-// steht ein Icon aus der gemeinsamen Registry (`@conciso/design-system/icons.json`), und jeder
+// steht ein Lucide-Icon (`lucide-static`, siehe ADR 0016), und jeder
 // fachliche Abschnitt bekommt dasselbe Icon vor seinem Storybook-Sidebar-Knoten.
 // Das ersetzt den früheren Grund,
 // renderLabel wegzulassen (ein Angular-Tag auf 158 von 181 Zeilen
@@ -28,57 +64,46 @@ const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches 
 // jede ID einzeln aus dem gerenderten Sidebar-DOM (`[data-item-id]`) des
 // laufenden Story-Index abgelesen. Jede der 35 Sektionen trifft
 // genau einen dieser Knoten.
-//
-// Sonderfall Komponenten/Theme-Umschalter: Das Icon liegt als `ui-sun` in
-// `@conciso/design-system/icons.json`, deshalb bekommt der Knoten unten denselben Eintrag wie
-// jede andere Sektion.
-const SECTION_ICON_KEYS: Record<string, string> = {
-  'marke-markenrad--übersicht': 'ui-sparkles-4',
-  'marke-brand-areas': 'ui-squares-2x2',
-  'marke-logo': 'ui-flag',
-  'marke-bildsprache--übersicht': 'ui-photo',
-  'grundlagen-einrichtung--übersicht': 'ui-wrench-screwdriver',
-  'grundlagen-farben': 'ui-swatch',
-  'grundlagen-typografie': 'ui-language',
-  'grundlagen-spacing-grid--übersicht': 'ui-squares-plus',
-  'grundlagen-responsive--übersicht': 'ui-device-phone-mobile',
-  'grundlagen-elevation--übersicht': 'ui-cube-2',
-  'grundlagen-design-tokens--übersicht': 'ui-cube-transparent',
-  'grundlagen-icons--übersicht': 'ui-face-smile',
-  'grundlagen-barrierefreiheit--übersicht': 'ui-shield-check-2',
-  'komponenten-buttons': 'ui-cursor-arrow-rays',
-  'komponenten-chips-badges-pills': 'ui-tag',
-  'komponenten-inputs-forms': 'ui-pencil-square',
-  'komponenten-dropdowns': 'ui-chevron-up-down',
-  'komponenten-buchungsformular': 'ui-calendar-days',
-  'komponenten-feedback': 'ui-chat-bubble-oval-left-ellipsis',
-  'komponenten-cards-teaser': 'ui-rectangle-stack',
-  'komponenten-call-to-action': 'ui-arrow-down-tray-2',
-  'komponenten-tabelle': 'ui-table-cells',
-  'komponenten-zitate-testimonials': 'ui-chat-bubble-left-right',
-  'komponenten-code-block': 'ui-code-bracket-square',
-  'komponenten-slider-carousel': 'ui-square-2-stack',
-  'komponenten-sektion': 'ui-viewfinder-circle',
-  'komponenten-navigation': 'ui-bars-3',
-  'komponenten-hero': 'ui-computer-desktop',
-  'komponenten-footer': 'ui-bars-3-center-left',
-  'komponenten-theme-umschalter': 'ui-sun',
-  'seitenmuster-wissensbeitrag': 'ui-document-text',
-  'seitenmuster-beitragsübersicht--übersicht': 'ui-newspaper-2',
-  'seitenmuster-veranstaltung--übersicht': 'ui-calendar-days',
-  'seitenmuster-veranstaltungsübersicht--übersicht': 'ui-newspaper-2',
-  'seitenmuster-seminar-·-training--übersicht': 'ui-academic-cap',
-  'seitenmuster-angebots-detailseite--übersicht': 'ui-tag',
-  'beispielseiten-übersicht--übersicht': 'ui-window',
-  'referenzen-quellen--übersicht': 'ui-book-open',
+const SECTION_ICONS: Record<string, string> = {
+  'marke-markenrad--übersicht': Sparkles,
+  'marke-brand-areas': LayoutGrid,
+  'marke-logo': Flag,
+  'marke-bildsprache--übersicht': Image,
+  'grundlagen-einrichtung--übersicht': Wrench,
+  'grundlagen-farben': SwatchBook,
+  'grundlagen-typografie': Languages,
+  'grundlagen-spacing-grid--übersicht': Grid3x3,
+  'grundlagen-responsive--übersicht': Smartphone,
+  'grundlagen-elevation--übersicht': Box,
+  'grundlagen-design-tokens--übersicht': Boxes,
+  'grundlagen-icons--übersicht': Smile,
+  'grundlagen-barrierefreiheit--übersicht': ShieldCheck,
+  'komponenten-buttons': MousePointerClick,
+  'komponenten-chips-badges-pills': Tag,
+  'komponenten-inputs-forms': SquarePen,
+  'komponenten-dropdowns': ChevronsUpDown,
+  'komponenten-buchungsformular': CalendarDays,
+  'komponenten-feedback': MessageCircleMore,
+  'komponenten-cards-teaser': Layers,
+  'komponenten-call-to-action': Download,
+  'komponenten-tabelle': Table,
+  'komponenten-zitate-testimonials': MessagesSquare,
+  'komponenten-code-block': SquareCode,
+  'komponenten-slider-carousel': Copy,
+  'komponenten-sektion': Scan,
+  'komponenten-navigation': Menu,
+  'komponenten-hero': Monitor,
+  'komponenten-footer': AlignLeft,
+  'komponenten-theme-umschalter': Sun,
+  'seitenmuster-wissensbeitrag': FileText,
+  'seitenmuster-beitragsübersicht--übersicht': Newspaper,
+  'seitenmuster-veranstaltung--übersicht': CalendarDays,
+  'seitenmuster-veranstaltungsübersicht--übersicht': Newspaper,
+  'seitenmuster-seminar-·-training--übersicht': GraduationCap,
+  'seitenmuster-angebots-detailseite--übersicht': Tag,
+  'beispielseiten-übersicht--übersicht': AppWindow,
+  'referenzen-quellen--übersicht': BookOpen,
 };
-
-interface IconRegistryEntry {
-  viewBox: string;
-  body: string;
-  style: 'outline' | 'solid';
-}
-const icons = rawIcons as Record<string, IconRegistryEntry>;
 
 // 16 px ist die "Micro"-Stufe der Größentabelle in src/docs/grundlagen/
 // icons.mdx (Zeilenhöhe der Sidebar), dazu gehört Stroke-Width 1
@@ -89,24 +114,31 @@ const icons = rawIcons as Record<string, IconRegistryEntry>;
 const SECTION_ICON_SIZE = 16;
 const SECTION_ICON_STROKE_WIDTH = 1;
 
-function renderSectionIcon(iconKey: string) {
-  const icon = icons[iconKey];
-  if (!icon) return null;
-  const presentation =
-    icon.style === 'solid'
-      ? { fill: 'currentColor' }
-      : { fill: 'none', stroke: 'currentColor', strokeWidth: SECTION_ICON_STROKE_WIDTH };
+// lucide-static liefert jedes Icon als fertigen SVG-String (24er-Raster,
+// Strich-Stil). Nur der Innenteil wird übernommen: Das umgebende <svg> baut
+// die Funktion selbst, damit Größe, currentColor und Strichstärke aus den
+// Konstanten oben kommen. Benannte Importe sind tree-shakable, im
+// Manager-Bundle landen nur die oben importierten Icons.
+function svgInner(svg: string): string {
+  return svg.slice(svg.indexOf('>') + 1, svg.lastIndexOf('</svg>'));
+}
+
+function renderSectionIcon(svg: string) {
   // dekorativ: aria-hidden statt role="img", die Sektionsbezeichnung liefert
   // weiterhin item.name als Text daneben.
   return createElement('svg', {
-    viewBox: icon.viewBox,
+    viewBox: '0 0 24 24',
     width: SECTION_ICON_SIZE,
     height: SECTION_ICON_SIZE,
     'aria-hidden': 'true',
     focusable: 'false',
     style: { flexShrink: 0 },
-    ...presentation,
-    dangerouslySetInnerHTML: { __html: icon.body },
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: SECTION_ICON_STROKE_WIDTH,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    dangerouslySetInnerHTML: { __html: svgInner(svg) },
   });
 }
 
@@ -122,7 +154,7 @@ addons.setConfig({
     // Knoten im localStorage, ein Browser mit bestehender Sitzung zeigt daher
     // keine Änderung.
     collapsedRoots: ['seitenmuster', 'beispielseiten', 'referenzen'],
-    // Icon nur vor Sektionsknoten (item.id steht in SECTION_ICON_KEYS); alle
+    // Icon nur vor Sektionsknoten (item.id steht in SECTION_ICONS); alle
     // anderen Zeilen (Wurzeln, Bauteil-Knoten, restliche Story-/Docs-Blätter)
     // bleiben unverändert bei ihrem Namen. Die Tabelle enthält bei
     // Ein-Kind-Sektionen bewusst die verschmolzene Blatt-ID (z. B.
@@ -131,10 +163,9 @@ addons.setConfig({
     // Icon bekäme, selbst wenn sich die Sidebar-Struktur künftig ändert.
     renderLabel: (item) => {
       if (item.type === 'root') return item.name;
-      const iconKey = SECTION_ICON_KEYS[item.id];
-      if (!iconKey) return item.name;
-      const icon = renderSectionIcon(iconKey);
-      if (!icon) return item.name;
+      const iconSvg = SECTION_ICONS[item.id];
+      if (!iconSvg) return item.name;
+      const icon = renderSectionIcon(iconSvg);
       return createElement(
         'span',
         {

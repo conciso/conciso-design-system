@@ -27,7 +27,7 @@ const GUELTIGE_FILES = {
 test('Inhalt und Build-Eingaben des CSS-Pakets sind relevant', () => {
   assert.equal(isRelevant(['packages/css/css/components.css']), true);
   assert.equal(isRelevant(['packages/css/fonts/inter.woff2']), true);
-  assert.equal(isRelevant(['packages/css/icons/source/heroicons/x.svg']), true);
+  assert.equal(isRelevant(['packages/css/icons/source/ui-check.svg']), true);
   assert.equal(isRelevant(['packages/css/scripts/build-tokens.mjs']), true);
   assert.equal(isRelevant(['packages/css/package.json']), true);
 });

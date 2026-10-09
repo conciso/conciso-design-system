@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroComputerDesktop, heroMoon, heroSun } from '../icons/cds-icons';
+import { CDS_ICON_STROKE, LucideDynamicIcon } from '../icons/cds-icons';
 import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from './theme-mode';
 
 /**
@@ -13,8 +12,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
 @Component({
   selector: 'cds-theme-cycle',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon],
-  viewProviders: [provideIcons({ heroSun, heroMoon, heroComputerDesktop })],
+  imports: [LucideDynamicIcon],
   template: `
     <button
       class="ep-nav-icon-btn"
@@ -22,11 +20,13 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
       [attr.aria-label]="'Farbthema: ' + label() + ', klicken zum Wechseln'"
       (click)="next()"
     >
-      <ng-icon [name]="icon()" size="22px" aria-hidden="true" />
+      <svg [lucideIcon]="icon()" size="22" [strokeWidth]="iconStroke"></svg>
     </button>
   `,
 })
 export class ThemeCycleComponent {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
   /** true → Hell/Dunkel/System, false → nur Hell/Dunkel. */
   readonly showSystem = input(true);
 

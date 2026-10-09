@@ -11,8 +11,7 @@ import {
   viewChild,
   viewChildren,
 } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroComputerDesktop, heroMoon, heroSun } from '../icons/cds-icons';
+import { CDS_ICON_STROKE, LucideDynamicIcon } from '../icons/cds-icons';
 import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from './theme-mode';
 
 /**
@@ -33,8 +32,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
 @Component({
   selector: 'cds-theme-segment',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon],
-  viewProviders: [provideIcons({ heroSun, heroMoon, heroComputerDesktop })],
+  imports: [LucideDynamicIcon],
   template: `
     <div #bar class="theme-bar is-responsive is-animated" role="group" aria-label="Farbthema">
       <span #thumb class="cds-thumb" aria-hidden="true"></span>
@@ -48,7 +46,7 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
           [attr.aria-label]="label[m]"
           (click)="svc.set(m)"
         >
-          <ng-icon [name]="icon[m]" size="14px" aria-hidden="true" />
+          <svg [lucideIcon]="icon[m]" size="14" [strokeWidth]="iconStroke"></svg>
           <span class="tbtn__label">{{ label[m] }}</span>
         </button>
       }
@@ -100,6 +98,8 @@ import { CDS_THEME_ICON, CDS_THEME_LABEL, cdsThemeModes, ThemeModeService } from
   `,
 })
 export class ThemeSegmentComponent {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
   /** true → Hell/Dunkel/System (tri), false → nur Hell/Dunkel (binär). */
   readonly showSystem = input(true);
 

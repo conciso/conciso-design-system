@@ -7,6 +7,7 @@ import {
   input,
   model,
 } from '@angular/core';
+import { CDS_ICON_STROKE, LucideChevronLeft, LucideChevronRight } from '../icons/cds-icons';
 import { nextDotsIndex } from '../shared/dots-keyboard';
 
 export interface CdsSlide {
@@ -33,6 +34,7 @@ let uid = 0;
 @Component({
   selector: 'cds-carousel',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronLeft, LucideChevronRight],
   template: `
     <div
       [class]="wrapClasses()"
@@ -69,17 +71,7 @@ let uid = 0;
         aria-label="Vorherige Folie"
         (click)="prev()"
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 19.5-7.5-7.5 7.5-7.5" />
-        </svg>
+        <svg lucideChevronLeft size="24" [strokeWidth]="iconStroke"></svg>
       </button>
       <button
         class="img-slider-btn img-slider-next"
@@ -87,17 +79,7 @@ let uid = 0;
         aria-label="Nächste Folie"
         (click)="next()"
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-        </svg>
+        <svg lucideChevronRight size="24" [strokeWidth]="iconStroke"></svg>
       </button>
 
       <div class="img-slider-dots" role="tablist" aria-label="Folien-Navigation">
@@ -120,6 +102,9 @@ let uid = 0;
   `,
 })
 export class CarouselComponent {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
+
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly instance = ++uid;
 

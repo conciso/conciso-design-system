@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideCircleAlert } from '../icons/cds-icons';
 
 /**
  * Präsentations-Hülle für alle Field-Komponenten (intern, nicht als eigene Story).
@@ -11,6 +12,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 @Component({
   selector: 'cds-field-shell',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideCircleAlert],
   template: `
     <div class="field" [class.has-error]="!!error()">
       <label [attr.for]="fieldId()">
@@ -27,25 +29,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       }
       @if (error()) {
         <span class="error-msg" [id]="errorId()" [attr.role]="quietError() ? null : 'alert'">
-          <!-- Exclamation-Circle-Icon. Noch inline: Das Icon liegt nicht im Register
-               (@conciso/design-system/icons); die externe Icon-Lib folgt
-               auf feat/theme-switch, dann hier ersetzen. -->
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.25"
-            aria-hidden="true"
-            style="flex-shrink:0"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-            />
-          </svg>
+          <svg lucideCircleAlert size="24" [strokeWidth]="1.25" style="flex-shrink:0"></svg>
           {{ error() }}
         </span>
       }

@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { LucideMonitor, LucideMoon, LucideSun, type CdsIconInput } from '../icons/cds-icons';
 
 /** Drei Theme-Modi. „system“ folgt der OS-Einstellung (prefers-color-scheme). */
 export type CdsThemeMode = 'light' | 'dark' | 'system';
@@ -6,12 +7,12 @@ export type CdsThemeMode = 'light' | 'dark' | 'system';
 /** Reihenfolge (Cycle-Button, Segment, Dropdown). */
 export const CDS_THEME_ORDER: CdsThemeMode[] = ['light', 'dark', 'system'];
 
-/** Icon-Name je Modus. Registriert über die zentrale Icon-Registry (lib/icons/cds-icons);
- *  für diese drei Chrome-Icons hat das DS-Set kein eigenes Glyph → Heroicons. */
-export const CDS_THEME_ICON: Record<CdsThemeMode, string> = {
-  light: 'heroSun',
-  dark: 'heroMoon',
-  system: 'heroComputerDesktop',
+/** Icon je Modus (Eingabe für `<svg [lucideIcon]>`). Kommt über die zentrale Icon-Registry
+ *  (lib/icons/cds-icons); für diese drei Chrome-Icons hat das DS-Set kein eigenes Glyph → Lucide. */
+export const CDS_THEME_ICON: Record<CdsThemeMode, CdsIconInput> = {
+  light: LucideSun,
+  dark: LucideMoon,
+  system: LucideMonitor,
 };
 
 /** Deutsches Label je Modus. */
