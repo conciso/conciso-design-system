@@ -17,7 +17,7 @@ Erwogen: (a) `ui-*` aus Lucide generieren und weiter im Paket ausliefern, (b) `@
 - **Option (c).** Das CSS-Paket liefert keine generischen UI-Icons mehr. Wer UI-Icons braucht, nimmt Lucide direkt.
 - `@conciso/design-system/icons` exportiert nur noch DS-eigene Glyphen: die Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*` sowie `ui-caret-down`, `ui-check` und `ui-quote`, für die es kein gleichwertiges Lucide-Icon gibt (kräftiger Caret, kleiner Haken, gefülltes Zitatzeichen).
 - Die Angular-Lib nutzt `@lucide/angular` als **peerDependency**. `@ng-icons/*` entfällt. `lib/icons/cds-icons.ts` bleibt die einzige Import-Fläche der Komponenten.
-- Strichstärken kommen weiter aus den Tokens `--icon-stroke-*`, nicht aus dem Lucide-Default 2.
+- Strichstärke: nicht der Lucide-Default 2. Die Angular-Komponenten setzen `strokeWidth` explizit auf 1.5 (Konstante `CDS_ICON_STROKE` in `cds-icons.ts`, entspricht `--icon-stroke-md`), weil `@lucide/angular` den Wert als Attribut schreibt. Eine CSS-Regel mit `stroke-width` schlägt dieses Attribut; wo Komponenten-CSS die Tokens setzt, gelten weiter die Tokens.
 - `docs/legacy-site` bleibt als Archiv unverändert.
 
 ## Folgen
