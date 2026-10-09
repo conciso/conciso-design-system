@@ -202,7 +202,7 @@ Das Design System beschreibt **Rollen und Verhältnisse** (Body, Title, Headline
 
 ## 8. Icons nutzen
 
-Das npm-Paket enthält nur die **DS-eigenen Glyphen** (Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*` sowie `ui-caret-down`, `ui-check`, `ui-quote`) als maschinenlesbare Bibliothek. Alle übrigen UI-Icons kommen aus [Lucide](https://lucide.dev) (ISC-Lizenz): CSS- und HTML-Projekte nehmen `lucide-static`, Angular-Projekte `@lucide/angular` (`npm install @lucide/angular`, dann `<svg lucideChevronDown>`). Strichstärke der Chrome-Icons ist 1,5 (`--icon-stroke-md`). Die Details und die Migrationstabelle stehen im Storybook unter „Grundlagen → Icons“. Die öffentlichen
+Das npm-Paket enthält nur die **DS-eigenen Glyphen** (Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*`) als maschinenlesbare Bibliothek. Alle übrigen UI-Icons kommen aus [Lucide](https://lucide.dev) (ISC-Lizenz): CSS- und HTML-Projekte nehmen `lucide-static`, Angular-Projekte `@lucide/angular` (`npm install @lucide/angular`, dann `<svg lucideChevronDown>`). Strichstärke der Chrome-Icons ist 1,5 (`--icon-stroke-md`). Die Details und die Migrationstabelle stehen im Storybook unter „Grundlagen → Icons“. Die öffentlichen
 Importpfade `@conciso/design-system/icons` und `@conciso/design-system/icons.json` liefern
 pro Icon den **kompletten `<svg>`-Body**, eine **Stil-Markierung** (`solid`/`outline`) und
 den `viewBox`. Alle Icons nutzen `currentColor` — die Farbe kommt also aus dem CSS-`color`
@@ -227,7 +227,7 @@ const { svg } = kiBot;   // komplettes <svg>…</svg>
 Für Kataloge, Doku-Seiten oder einen dynamischen Lookup per String-Key bleibt das Aggregat praktisch: `import { icons } from '@conciso/design-system/icons'; icons['ki-bot'].svg`.
 
 Die **Bereichs-Glyphen** (`ki-bot`, `es-window-check`, `wo-network`, `co-building`, `co-mark`) sind
-`solid`, `ui-caret-down` und `ui-check` `outline` (mit inline `stroke-width`), `ui-quote` gefüllt. Das vollständige
+`solid`. Das vollständige
 Key-Mapping steht im generierten `dist/icons/README.md` des npm-Pakets und im Storybook
 unter „Grundlagen → Icons“. Neue Icons werden in `icons/source/*.svg` ergänzt und mit
 `npm run build:icons` exportiert (siehe `CONTRIBUTING.md`).

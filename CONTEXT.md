@@ -184,8 +184,7 @@ Bulk umzogen. Beides ist abgeschlossen — alle 37 Komponenten liegen in der
 
 ### DS-Glyphen
 
-Design-System-eigene Icons: die Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*` sowie
-`ui-caret-down`, `ui-check` und `ui-quote`. Sie stammen aus `@conciso/design-system/icons`
+Design-System-eigene Icons: die Bereichs-Glyphen `co-*`, `ki-*`, `es-*`, `wo-*`. Sie stammen aus `@conciso/design-system/icons`
 (generiertes `dist/icons/icons.js`, öffentlicher Importpfad
 `@conciso/design-system/icons`), alle übrigen UI-Icons kommen aus Lucide (`lucide-static`,
 in Angular `@lucide/angular`, siehe [ADR-0016](docs/adr/0016-icon-quelle-lucide.md)). Die zentrale

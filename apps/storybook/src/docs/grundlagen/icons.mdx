@@ -7,12 +7,11 @@ import icons from '@conciso/design-system/icons.json';
 
 Zwei Quellen, SVG inline, Farbgebung über `currentColor`: Die generischen UI-Icons (Pfeile,
 Hinweise, Schließen, Feature-Symbole) kommen aus [Lucide](https://lucide.dev) (ISC-Lizenz),
-das Paket `@conciso/design-system/icons` enthält nur noch die DS-eigenen Glyphen, für die es
-kein Lucide-Pendant gibt. Die Entscheidung steht in ADR-0016.
+das Paket `@conciso/design-system/icons` enthält nur noch die DS-eigenen Bereichs-Glyphen, für
+die es kein Lucide-Pendant gibt. Die Entscheidung steht in ADR-0016.
 
 Die DS-eigenen Glyphen sind die fünf Bereichs-Glyphen (Corporate ×2, Angewandte KI, Effektive
-Software, Wirksame Organisationen, durchgehend Solid mit gefüllten Multi-Path-Symbolen) und
-die drei UI-Glyphen `ui-caret-down`, `ui-check` und `ui-quote`. Quelle der Wahrheit sind
+Software, Wirksame Organisationen, durchgehend Solid mit gefüllten Multi-Path-Symbolen). Quelle der Wahrheit sind
 `icons/source/*.svg`; der Build erzeugt daraus `dist/icons/icons.json` und die weiteren
 Paketexporte. Jeder Schlüssel liegt in der Registry als genau eine Variante vor, die Größe wird
 über `width`/`height` oder CSS gesetzt, die `viewBox` bleibt dabei erhalten. Welche Glyphen die
@@ -63,8 +62,7 @@ explizit setzen. Die DS-Komponenten registrieren ihre Icons zentral in `cds-icon
 
 ## Migration von den bisherigen `ui-*`-Icons
 
-Bis auf `ui-caret-down`, `ui-check` und `ui-quote` sind alle `ui-*`-Schlüssel aus
-`@conciso/design-system/icons` und `icons.json` entfallen. Wer einen davon importiert hat,
+Alle `ui-*`-Schlüssel sind aus `@conciso/design-system/icons` und `icons.json` entfallen. Wer einen davon importiert hat,
 nimmt das Lucide-Icon mit dem Namen aus der Tabelle (Angular: PascalCase mit Präfix, also
 `chevron-down` → `LucideChevronDown`).
 
@@ -72,6 +70,9 @@ nimmt das Lucide-Icon mit dem Namen aus der Tabelle (Angular: PascalCase mit Pr�
 |---|---|
 | `ui-chevron-down` | `chevron-down` |
 | `ui-chevron-up-down` | `chevrons-up-down` |
+| `ui-check` | `check` |
+| `ui-caret-down` | `chevron-down` |
+| `ui-quote` | `quote` (gefüllt: `fill="currentColor"`, Strichstärke 1,5) |
 | `ui-check-circle` | `circle-check` |
 | `ui-exclamation-circle` | `circle-alert` |
 | `ui-information-circle` | `info` |
@@ -90,6 +91,10 @@ nimmt das Lucide-Icon mit dem Namen aus der Tabelle (Angular: PascalCase mit Pr�
 | `ui-sparkles-4` | `sparkles` |
 | `ui-pause`, `ui-play` | `pause`, `play` |
 | `ui-newspaper`, `ui-megaphone`, `ui-star`, `ui-heart`, `ui-sun`, `ui-link`, `ui-map-pin` | gleicher Name ohne `ui-` |
+
+Um das bisherige Gewicht zu halten, setzt der Topnav-Caret `chevron-down` mit Größe 10,
+Strichstärke 1,5 und `absoluteStrokeWidth` (1,5 px auf dem Bildschirm), der Haken im Select
+`check` mit Größe 20 und Strichstärke 3,2 (≈ 2,67 px).
 
 Die Optik ändert sich leicht: Lucide hat runde Enden und andere Proportionen als die bisherigen
 Heroicons-Pfade. Bei Icons mit festem Platz (Buttons, Felder) das Ergebnis prüfen.
@@ -144,7 +149,6 @@ export const AREA_BG = {
 };
 
 export const areaIcons = Object.entries(icons).filter(([, icon]) => icon.area !== 'ui');
-export const uiIcons = Object.entries(icons).filter(([, icon]) => icon.area === 'ui');
 
 export const IconTile = ({ iconKey, icon, background, color, border }) => {
   const [vbWidth, vbHeight] = icon.viewBox.split(' ').slice(2).map(Number);
@@ -209,34 +213,6 @@ der Tabelle oben; `currentColor` im SVG übernimmt diese Farbe).
   </div>
 </Unstyled>
 
-### UI-Glyphen
-
-Die bereichsneutralen DS-eigenen UI-Glyphen auf neutraler Fläche, Farbe `--tx-primary`. Sie
-bleiben im Paket, weil Lucide dafür kein gleichwertiges Icon hat: `ui-caret-down` (kräftiger
-Caret auf 10er-`viewBox` für Nav-Toggles), `ui-check` (kleiner Haken auf 12er-`viewBox`) und
-`ui-quote` (gefülltes Zitatzeichen).
-
-<Unstyled>
-  <div
-    style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fill, minmax(88px, 1fr))',
-      gap: 'var(--s5)',
-    }}
-  >
-    {uiIcons.map(([key, icon]) => (
-      <IconTile
-        key={key}
-        iconKey={key}
-        icon={icon}
-        background="var(--bg-surface)"
-        color="var(--tx-primary)"
-        border="var(--bd-strong)"
-      />
-    ))}
-  </div>
-</Unstyled>
-
 ## Verwendungsregeln
 
 **Technische Regeln**
@@ -256,9 +232,9 @@ Caret auf 10er-`viewBox` für Nav-Toggles), `ui-check` (kleiner Haken auf 12er-`
 Gilt nur für DS-eigene Glyphen. Bevor ein neues Icon entsteht, prüfen, ob Lucide es hat
 (lucide.dev/icons): Dann kein Eintrag in `icons/source`, sondern Lucide nutzen.
 
-1. Normalisiertes SVG unter `icons/source/{area|ui}-{name}.svg` ablegen. Farben als
+1. Normalisiertes SVG unter `icons/source/{area}-{name}.svg` ablegen. Farben als
    `currentColor`, Outline-Icons mit inline `stroke-width`, `width`/`height` weglassen (die
-   Größe setzt der Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen, `ui` nur für DS-eigene UI-Glyphen.
+   Größe setzt der Consumer). Key-Präfix `co|ki|es|wo` für Bereichs-Glyphen.
 2. `npm run build:icons` ausführen. Das Skript generiert `dist/icons/icons.json`,
    `dist/icons/icons.js`, `dist/icons/icons.d.ts` und `dist/icons/README.md` aus
    `icons/source/`.
@@ -270,7 +246,7 @@ Quelle ist ausschließlich `icons/source/*.svg`, die generierten Dateien unter
 ## DS-Glyphen
 
 DS-Glyphen sind die Design-System-eigenen Icons: die Bereichs-Glyphen `co-*`, `ki-*`, `es-*`,
-`wo-*` sowie `ui-caret-down`, `ui-check` und `ui-quote`. Sie stammen aus
+`wo-*`. Sie stammen aus
 `@conciso/design-system/icons` (generiertes `dist/icons/icons.js`), alle übrigen UI-Icons aus
 Lucide. Die zentrale Icon-Registry `icons/cds-icons.ts` in der Angular-Lib ist die einzige
 Import-Fläche für Komponenten-Icons: Komponenten importieren nie direkt aus `@lucide/angular`.

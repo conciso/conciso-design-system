@@ -29,7 +29,7 @@ const attrOf = (svg, name) => {
 const innerOf = (svg) => { const open = svg.match(/<svg\b[^>]*>/)[0]; return svg.slice(open.length, svg.length - '</svg>'.length); };
 
 // Benannter Export pro Icon (camelCase, tree-shakable): Bindestrich-Segment groß
-// (ui-caret-down → uiCaretDown, co-building → coBuilding). Bricht bei Kollision oder
+// (ki-bot → kiBot, co-building → coBuilding). Bricht bei Kollision oder
 // ungültigem JS-Bezeichner ab, statt eine Fehlform ins generierte icons.js zu schreiben.
 const toCamelCase = (key) => key.replace(/-([a-zA-Z0-9])/g, (_, c) => c.toUpperCase());
 const isValidIdentifier = (name) => /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(name);
@@ -99,7 +99,7 @@ const js =
   `// Generiert von packages/css/scripts/build-icons.mjs — NICHT manuell editieren.\n` +
   `// Quelle: icons/source/*.svg (+ icons/manifest.json). Jede Eintrag: { name, area, style, viewBox, strokeWidth?, body, svg, usage? }.\n` +
   `//\n` +
-  `// Ein benannter Export pro Icon (camelCase, z. B. "ui-caret-down" -> uiCaretDown) ist\n` +
+  `// Ein benannter Export pro Icon (camelCase, z. B. "ki-bot" -> kiBot) ist\n` +
   `// tree-shakable: jeder ist ein eigenes Top-Level-const ohne Property-Zugriff. Das\n` +
   `// aggregierte „icons“-Objekt darunter referenziert dieselben Consts (wieder kein\n` +
   `// Property-Zugriff, kein Funktionsaufruf) und bleibt dadurch ebenfalls tree-shakable,\n` +
@@ -142,7 +142,7 @@ const rows = (area) => Object.entries(icons)
   .filter(([, v]) => v.area === area)
   .map(([k, v]) => `| \`${k}\` | \`${exportNameOf(k)}\` | ${v.name} | ${v.style}${v.strokeWidth ? ` (${v.strokeWidth})` : ''} | ${(v.usage || []).join(', ') || '—'} |`)
   .join('\n');
-const section = (area) => `### ${AREA_LABEL[area]}\n\n| Key | Export | Name | Stil (Stroke-Width) | Verwendung (DS-Kontext) |\n|---|---|---|---|---|\n${rows(area)}\n`;
+const section = (area) => !rows(area) ? '' : `### ${AREA_LABEL[area]}\n\n| Key | Export | Name | Stil (Stroke-Width) | Verwendung (DS-Kontext) |\n|---|---|---|---|---|\n${rows(area)}\n`;
 const n = Object.keys(icons).length;
 const readme = `# Conciso Design System — Icons
 
@@ -154,7 +154,7 @@ neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` a
 
 - \`dist/icons/icons.json\` — Map \`key → { name, area, style, viewBox, strokeWidth?, body, svg, usage? }\`
 - \`dist/icons/icons.js\` — derselbe Datensatz als ESM: **ein benannter Export pro Icon** (camelCase,
-  z. B. \`uiCaretDown\`) **plus** das aggregierte \`icons\`-Objekt (Key → Eintrag)
+  z. B. \`kiBot\`) **plus** das aggregierte \`icons\`-Objekt (Key → Eintrag)
 - \`dist/icons/icons.d.ts\` — Typdeklaration zu \`dist/icons/icons.js\` (benannte Exporte + \`icons\`, je \`CdsIconEntry\`)
 - \`icons/source/*.svg\` — die einzelnen normalisierten Quell-SVGs (Dateiname = Key)
 
@@ -164,14 +164,14 @@ neue/geänderte Icons in \`icons/source/\` ablegen und \`npm run build:icons\` a
   \`stroke="currentColor"\` + inline \`stroke-width\`); \`mixed\` = beides. Das Feld \`style\` sagt pro
   Icon, was erwartet wird — kein Raten mehr. Die **Bereichs-Glyphen** (\`co-building\`, \`co-mark\`, \`ki-bot\`,
   \`es-window-check\`, \`wo-network\`) sind **solid**. Generische UI-Icons liefert das Paket nicht mit
-  (siehe ADR-0016, Lucide); nur \`ui-caret-down\`, \`ui-check\` (outline) und \`ui-quote\` bleiben.
+  (siehe ADR-0016, Lucide).
 - **Farbe:** alle Icons nutzen ausschließlich \`currentColor\` → Einfärbung beim Consumer über CSS
   \`color\` (z. B. \`color: var(--ki-800)\` bzw. im Dark \`--ki-200\`). Keine hartkodierten Hex-Werte.
 - **Self-contained:** Outline-Icons tragen ihre \`stroke-width\` inline → \`set:html\` funktioniert ohne
   Wrapper-Annahmen über den Stil. Größe via \`width\`/\`height\` oder CSS (viewBox bleibt erhalten).
 - **Keys:** \`{area}-{name}\` für die Bereichs-Glyphen (\`co|ki|es|wo\`), \`ui-{name}\` für bereichsneutrale
   Icons. Jeder Key hat einen benannten Export in camelCase (Bindestrich-Segment groß:
-  \`ui-caret-down\` → \`uiCaretDown\`, \`co-building\` → \`coBuilding\`); der Generator bricht bei einer
+  \`ki-bot\` → \`kiBot\`, \`co-building\` → \`coBuilding\`); der Generator bricht bei einer
   Kollision oder einem ungültigen JS-Bezeichner ab.
 
 ## Verwendung
@@ -181,11 +181,11 @@ eigenes \`const\` auf Modulebene ohne Property-Zugriff oder Funktionsaufruf, Bun
 Rollup, esbuild, Angular/Vite) lassen dadurch jedes nicht importierte Icon aus dem Bundle.
 
 \`\`\`js
-import { uiCaretDown } from '@conciso/design-system/icons';
+import { kiBot } from '@conciso/design-system/icons';
 
-uiCaretDown.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
-uiCaretDown.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
-uiCaretDown.style  // "outline"
+kiBot.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
+kiBot.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
+kiBot.style  // "solid"
 \`\`\`
 
 **Aggregat \`icons\` / \`icons.json\`: nur für Kataloge und Doku.** \`import { icons } from
@@ -199,10 +199,10 @@ Storybook-Icon-Galerie) vorbehalten.
 import { icons } from '@conciso/design-system/icons';
 // oder: import iconsJson from '@conciso/design-system/icons.json' assert { type: 'json' };
 
-const caret = icons['ui-caret-down']; // äquivalent zu uiCaretDown oben, aber nicht tree-shakable
-caret.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
-caret.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
-caret.style  // "outline"
+const bot = icons['ki-bot']; // äquivalent zu kiBot oben, aber nicht tree-shakable
+bot.svg    // komplettes <svg>…</svg> (currentColor, self-contained)
+bot.body   // nur das innere Markup (für set:html in ein bestehendes <svg>)
+bot.style  // "solid"
 \`\`\`
 
 **Astro (set:html):**
