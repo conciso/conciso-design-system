@@ -392,3 +392,29 @@ export const SucheBrichtHoverTimerAb: Story = {
     await userEvent.unhover(item);
   },
 };
+
+export const IconStrichstaerke: Story = {
+  name: 'Icon-Strichstärke',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Pinnt die Strichstärke der Chrome-Icons (Lucide, ADR-0016): bisher Heroicons-Outline mit
+  // 1.5 (= --icon-stroke-md), Lucide-Default wäre 2. Die Komponente setzt CDS_ICON_STROKE
+  // explizit; hier wird der WIRKSAME (berechnete) Wert geprüft, damit auch eine CSS-Regel,
+  // die das Attribut überschreibt, auffiele. Dekorative Icons bleiben aria-hidden.
+  // Caret: DS-Glyph ui-caret-down (viewBox 10) mit eigener Strichstärke 1.5 am Pfad.
+  play: async ({ canvasElement }) => {
+    const chrome = canvasElement.querySelectorAll<SVGElement>(
+      '.ep-nav-burger svg, .ep-nav-icon-btn svg',
+    );
+    await expect(chrome.length).toBeGreaterThanOrEqual(3);
+    for (const svg of Array.from(chrome)) {
+      await expect(svg).toHaveAttribute('aria-hidden', 'true');
+      await expect(parseFloat(getComputedStyle(svg).strokeWidth)).toBe(1.5);
+    }
+
+    const caret = canvasElement.querySelector('svg.ep-nav-item-caret') as SVGElement;
+    await expect(caret).toHaveAttribute('viewBox', '0 0 10 10');
+    await expect(caret).toHaveAttribute('aria-hidden', 'true');
+    const path = caret.querySelector('path') as SVGPathElement;
+    await expect(parseFloat(getComputedStyle(path).strokeWidth)).toBe(1.5);
+  },
+};

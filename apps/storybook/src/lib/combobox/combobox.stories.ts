@@ -322,3 +322,24 @@ export const ChevronUmschalten: Story = {
     await expect(input).toHaveAttribute('aria-expanded', 'true');
   },
 };
+
+export const IconStrichstaerke: Story = {
+  name: 'Icon-Strichstärke',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Pinnt die Strichstärke der Chrome-Icons (Lucide, ADR-0016): bisher Heroicons-Outline mit
+  // 1.5 (= --icon-stroke-md), Lucide-Default wäre 2. Die Komponente setzt CDS_ICON_STROKE
+  // explizit; hier wird der WIRKSAME (berechnete) Wert geprüft, damit auch eine CSS-Regel,
+  // die das Attribut überschreibt, auffiele. Dekorative Icons bleiben aria-hidden.
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const caret = canvasElement.querySelector('svg.ep-select-caret') as SVGElement;
+    await expect(caret).toHaveAttribute('aria-hidden', 'true');
+    await expect(parseFloat(getComputedStyle(caret).strokeWidth)).toBe(1.5);
+
+    await userEvent.type(c.getByRole('combobox'), 'Cloud');
+    const clear = await c.findByRole('button', { name: 'Eingabe löschen' });
+    const x = clear.querySelector('svg') as SVGElement;
+    await expect(x).toHaveAttribute('aria-hidden', 'true');
+    await expect(parseFloat(getComputedStyle(x).strokeWidth)).toBe(1.5);
+  },
+};
