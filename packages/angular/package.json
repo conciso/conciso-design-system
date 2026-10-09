@@ -22,11 +22,10 @@
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
-    "@conciso/design-system": "0.0.x"
+    "@conciso/design-system": "0.0.x",
+    "@lucide/angular": "^1.54.0"
   },
   "dependencies": {
-    "@ng-icons/core": "^36.0.0",
-    "@ng-icons/heroicons": "^36.0.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -39,6 +38,7 @@
     "@angular/forms": "^22.1.0",
     "@angular/platform-browser": "^22.1.0",
     "@eslint/js": "^10.0.1",
+    "@lucide/angular": "1.54.0",
     "angular-eslint": "^22.5.0",
     "eslint": "^10.6.0",
     "ng-packagr": "^22.1.1",
