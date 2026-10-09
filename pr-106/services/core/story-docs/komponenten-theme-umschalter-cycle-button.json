@@ -1,0 +1,36 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-cycle-button": {
+      "id": "komponenten-theme-umschalter-cycle-button",
+      "name": "ThemeCycleComponent",
+      "path": "./src/lib/theme-switch/cycle-button.stories.ts",
+      "stories": {
+        "komponenten-theme-umschalter-cycle-button--interaktiv": {
+          "id": "komponenten-theme-umschalter-cycle-button--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeCycleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeCycleComponent],\n  template: `<cds-theme-cycle [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-cycle-button--binaer": {
+          "id": "komponenten-theme-umschalter-cycle-button--binaer",
+          "name": "Binär (nur Hell/Dunkel)",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeCycleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeCycleComponent],\n  template: `<cds-theme-cycle [showSystem]=\"false\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-cycle-button--klick-zyklus": {
+          "id": "komponenten-theme-umschalter-cycle-button--klick-zyklus",
+          "name": "Klick-Zyklus",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeCycleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeCycleComponent],\n  template: `<cds-theme-cycle [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-cycle-button--klick-zyklus-binaer": {
+          "id": "komponenten-theme-umschalter-cycle-button--klick-zyklus-binaer",
+          "name": "Klick-Zyklus · binär",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeCycleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeCycleComponent],\n  template: `<cds-theme-cycle [showSystem]=\"false\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-cycle-button--icon-strichstaerke": {
+          "id": "komponenten-theme-umschalter-cycle-button--icon-strichstaerke",
+          "name": "Icon-Strichstärke",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeCycleComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeCycleComponent],\n  template: `<cds-theme-cycle [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

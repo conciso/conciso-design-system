@@ -1,0 +1,105 @@
+{
+  "components": {
+    "komponenten-footer-unterer-teil": {
+      "id": "komponenten-footer-unterer-teil",
+      "name": "FooterBottomComponent",
+      "path": "./src/lib/footer/footer-bottom.stories.ts",
+      "description": "Footer — unterer Teil (`.footer-btm`): dunkler Streifen mit Copyright, Rechts-Links\nund Social-Profilen. Die Host-Klasse `footer-btm` trägt Hintergrund/Flex-Layout aus\ncss/components.css. Social-Glyphen sind schlanke Inline-SVGs in Weiß; verifizierte\nBuilt-in-Icons (linkedin, youtube) via `platform`, beliebige weitere via `iconPath`.\n\nVerwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "copyright": {
+          "name": "copyright",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "© 2026 Conciso GmbH · Dortmund"
+            }
+          }
+        },
+        "legalLinks": {
+          "name": "legalLinks",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsFooterLink[]"
+            },
+            "defaultValue": {
+              "summary": "[\n    { label: 'Datenschutz', href: '#' },\n    { label: 'Impressum', href: '#' },\n  ]"
+            }
+          }
+        },
+        "socialLinks": {
+          "name": "socialLinks",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsSocialLink[]"
+            },
+            "defaultValue": {
+              "summary": "[\n    { platform: 'linkedin', href: '#' },\n    { platform: 'youtube', href: '#' },\n  ]"
+            }
+          }
+        },
+        "support": {
+          "name": "support",
+          "description": "Optionaler Support-/Hilfe-Link neben den Rechts-Links.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsFooterLink"
+            },
+            "defaultValue": {}
+          }
+        },
+        "version": {
+          "name": "version",
+          "description": "Optionale Versionsangabe (z. B. „Version 1.4.2“), hinter dem Copyright.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FooterBottomComponentInputs = {\n  /** @default © 2026 Conciso GmbH · Dortmund */\n  copyright?: string;\n  /**\n   * @default [\n   *     { label: 'Datenschutz', href: '#' },\n   *     { label: 'Impressum', href: '#' },\n   *   ]\n   */\n  legalLinks?: CdsFooterLink[];\n  /**\n   * @default [\n   *     { platform: 'linkedin', href: '#' },\n   *     { platform: 'youtube', href: '#' },\n   *   ]\n   */\n  socialLinks?: CdsSocialLink[];\n  /** Optionaler Support-/Hilfe-Link neben den Rechts-Links. */\n  support?: CdsFooterLink;\n  /** Optionale Versionsangabe (z. B. „Version 1.4.2“), hinter dem Copyright. */\n  version?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FooterBottomComponent",
+        "selector": "cds-footer-bottom",
+        "standalone": true,
+        "inputs": [
+          "copyright",
+          "legalLinks",
+          "socialLinks",
+          "support",
+          "version"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

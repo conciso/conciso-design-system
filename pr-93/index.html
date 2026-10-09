@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>@storybook/angular-vite - Storybook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    
+    <style>
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-regular.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-italic.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Nunito Sans';
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+        src: url('./sb-common-assets/nunito-sans-bold-italic.woff2') format('woff2');
+      }
+    </style>
+
+    <link href="./sb-manager/runtime.js" rel="modulepreload" />
+
+    
+    <link href="./sb-addons/storybook-core-server-presets-0/common-manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/docs-1/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/a11y-2/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/designs-3/register-panel-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/vitest-4/manager-bundle.js" rel="modulepreload" />
+    
+    <link href="./sb-addons/storybook-5/manager-bundle.js" rel="modulepreload" />
+      <!--
+  Bindet Montserrat in Storybooks Manager-Bundle (Sidebar, Toolbar, Panels) ein.
+  Der Manager ist ein eigenes React-Bundle und sieht preview-head.html nicht,
+  daher hier ein zweiter, unabhängiger Link auf dieselbe Quelle. fonts.css
+  referenziert die woff2-Dateien relativ als ../fonts/* → unter ./conciso/css/
+  serviert löst das korrekt auf ./conciso/fonts/* auf (self-hosted, kein CDN).
+-->
+<link rel="stylesheet" href="./conciso/css/fonts.css" />
+
+<!--
+  noindex: Storybook läuft auf GitHub Pages unter einem Unterpfad
+  (https://conciso.github.io/conciso-design-system/), also der Domain
+  conciso.github.io, die uns nicht gehört — eine robots.txt griffe nur am
+  Domain-Root und ließe sich hier nicht platzieren. Der Meta-Tag ist der
+  einzige Hebel, um Suchmaschinen von der Indizierung dieser Vorschau
+  abzuhalten.
+-->
+<meta name="robots" content="noindex, nofollow" />
+
+<style>
+  /*
+    Keine Icons in der Seitenleiste: Hierarchie soll allein über Einrückung,
+    Gewicht und Gruppenabstand entstehen. Die Typ-Icons sind <svg
+    viewBox="0 0 14 14"> in einem Wrapper-Div, das zugleich den 8×8-Chevron
+    zum Auf-/Zuklappen von Ordnern enthält. :has() auf dem Wrapper (frühere
+    Fassung dieser Regel) blendet daher den Chevron mit aus — gemessen:
+    getBoundingClientRect() liefert 0×0, obwohl getComputedStyle weiterhin
+    8px und visibility:visible meldet, weil ein Vorfahre display:none
+    bekommt. Ergebnis: Zeilen sind nicht mehr als auf-/zuklappbar erkennbar.
+    Deshalb zielt die Regel direkt auf das Icon-svg, nicht auf den Wrapper.
+    Zeilen-Elemente (Ordner- und Blatt-Zeilen) tragen ein id-Attribut, die
+    Bedienknöpfe (Kontextmenü je Zeile, Auf-/Zuklapp-Knopf der
+    Gruppenüberschriften) nicht — obwohl auch sie svg[viewBox="0 0 14 14"]
+    enthalten. [id] trennt das nur bei Gruppenüberschriften: der Kontextmenü-
+    Knopf der Zeilen (aria-label "Open context menu") bekommt von react-aria
+    selbst ein id. Ordner-Zeilen werden deshalb über aria-controls erkannt
+    (setzt nur der Toggle), Blatt-Zeilen über a[id]; Kontextmenü-Knopf und
+    Gruppen-Bedienknöpfe bleiben unberührt (Icon sichtbar, Position unverändert).
+    #storybook-explorer-tree ist Storybooks stabiler Anker, Emotion-Hashes
+    nicht — kein !important nötig, unsere ID-Spezifität (1,1,1) liegt über
+    Storybooks Emotion-Klassen (0,1,0).
+  */
+  #storybook-explorer-tree a[id] svg[viewBox='0 0 14 14'],
+  #storybook-explorer-tree button[aria-controls] svg[viewBox='0 0 14 14'] {
+    display: none;
+  }
+
+  /*
+    Gleicht die Blatt-Zeilen aus. Storybook gibt Blättern mehr
+    Innenabstand links als Ordnern; der Unterschied war bisher vom
+    Typ-Icon verdeckt. Ohne Ausgleich stünden Blätter rechts von den
+    Ordnern derselben Ebene und läsen sich fälschlich als deren Kinder.
+    Gemessen am laufenden Manager, nur mit ausgeblendetem Typ-Icon:
+    Ordner beginnen bei x=20, Blätter bei x=40. Mit text-indent -20px
+    stehen beide bei x=20, ein Blatt der zweiten Ebene bei x=38 — 18px
+    Versatz je Ebene. Ordner brauchen keinen eigenen Ausgleich; eine
+    zusätzliche Regel auf button[id] würde sie nach links aus der Kante
+    schieben. Die Zahl hängt an Storybooks Icon- und Chevron-Breite;
+    ändert die sich, muss sie nachgezogen werden.
+  */
+  #storybook-explorer-tree a[id] {
+    text-indent: -20px;
+  }
+
+  /*
+    Sektions-Icons (aus manager.ts, aria-hidden, focusable=false): gedämpft
+    statt in voller Textfarbe, Strichstärke in Bildschirm-Pixeln, damit
+    dichte Icons nicht schwerer wirken als lockere. Der aktive Knoten
+    (data-selected am Zeilen-Wrapper; aria-current setzt
+    Storybook hier nicht) zeigt sein Icon in voller Textfarbe.
+  */
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] {
+    opacity: 0.7;
+  }
+  #storybook-explorer-tree svg[aria-hidden='true'][focusable='false'] * {
+    vector-effect: non-scaling-stroke;
+  }
+  #storybook-explorer-tree [data-selected='true'] svg[aria-hidden='true'][focusable='false'] {
+    opacity: 1;
+  }
+
+  /*
+    Zeilenhöhe 28→32px: lockert eine Liste von 181 Einträgen in vier Ebenen
+    auf, die vorher durchgehend gleichförmig war.
+  */
+  #storybook-explorer-tree a[id],
+  #storybook-explorer-tree button[aria-controls] {
+    min-height: 32px;
+    padding-top: 7px;
+    padding-bottom: 6px;
+  }
+
+  /*
+    Abstand zwischen den Wurzelgruppen, aus demselben Grund wie die
+    Zeilenhöhe oben.
+  */
+  #storybook-explorer-tree > div + div {
+    margin-top: 16px;
+  }
+
+  /*
+    Einrückung je Ebene: Text-x Sektion 56, Bauteil 74, Story/Doku 92 (Stufe
+    18 px). Ohne Eingriff reichen Bauteile (52) und Blätter unter Sektionen
+    (38) links an den Text der Sektion heran, Stories (56) liegen auf deren
+    Höhe. Die Elternzeile einer Zeile ist an data-parent-id erkennbar: ist
+    sie keine der sechs Wurzeln, liegt die Zeile unterhalb der Sektionsebene.
+    Ordner (button) rücken um Icon plus Abstand (16 + 6 = 22 px), Blätter (a)
+    zusätzlich um die 14 px, die text-indent -20px ihnen gegenüber Ordnern
+    abnimmt (22 + 14 = 36 px). Die Zahlen hängen an SECTION_ICON_SIZE in
+    manager.ts und an Storybooks Innenabständen.
+  */
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > button[aria-controls] {
+    margin-left: 22px;
+    width: calc(100% - 22px);
+  }
+  #storybook-explorer-tree
+    [data-item-id]:not(
+      [data-nodetype='root'],
+      [data-parent-id='marke'],
+      [data-parent-id='grundlagen'],
+      [data-parent-id='komponenten'],
+      [data-parent-id='seitenmuster'],
+      [data-parent-id='beispielseiten'],
+      [data-parent-id='referenzen']
+    )
+    > a[id] {
+    margin-left: 36px;
+    width: calc(100% - 36px);
+  }
+</style>
+ 
+
+    <style>
+      #storybook-root[hidden] {
+        display: none !important;
+      }
+    </style>
+
+    
+  </head>
+  <body>
+    <div id="root"></div>
+
+    
+    <script>
+      
+        
+          window['FEATURES'] = {
+  "actions": true,
+  "argTypeTargetsV7": true,
+  "babelRemoveBugfixes": true,
+  "backgrounds": true,
+  "changeDetection": true,
+  "componentsManifest": true,
+  "controls": true,
+  "disallowImplicitActionsInRenderV8": true,
+  "highlight": true,
+  "interactions": true,
+  "legacyDecoratorFileOrder": false,
+  "measure": true,
+  "outline": true,
+  "menuOnboardingChecklist": false,
+  "sidebarOnboardingChecklist": false,
+  "viewport": true,
+  "experimentalDocgenServer": true,
+  "experimentalReview": true
+};
+        
+      
+        
+          window['REFS'] = {};
+        
+      
+        
+          window['LOGLEVEL'] = "info";
+        
+      
+        
+          window['DOCS_OPTIONS'] = {
+  "defaultName": "Übersicht"
+};
+        
+      
+        
+          window['CONFIG_TYPE'] = "PRODUCTION";
+        
+      
+        
+          window['DOCGEN_STORY_PREPARED'] = false;
+        
+      
+        
+      
+        
+      
+        
+          window['TAGS_OPTIONS'] = {};
+        
+      
+        
+          window['STORYBOOK_BUILDER'] = "vite";
+        
+      
+        
+          window['STORYBOOK_FRAMEWORK'] = "angular-vite";
+        
+      
+        
+          window['STORYBOOK_RENDERER'] = "angular";
+        
+      
+        
+      
+    </script>
+    
+
+    <script type="module">
+      import './sb-manager/globals-runtime.js';
+
+      
+        import './sb-addons/storybook-core-server-presets-0/common-manager-bundle.js';
+      
+        import './sb-addons/docs-1/manager-bundle.js';
+      
+        import './sb-addons/a11y-2/manager-bundle.js';
+      
+        import './sb-addons/designs-3/register-panel-bundle.js';
+      
+        import './sb-addons/vitest-4/manager-bundle.js';
+      
+        import './sb-addons/storybook-5/manager-bundle.js';
+      
+
+      import './sb-manager/runtime.js';
+    </script>
+  </body>
+</html>

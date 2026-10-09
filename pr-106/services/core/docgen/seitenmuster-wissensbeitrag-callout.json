@@ -1,0 +1,64 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-callout": {
+      "id": "seitenmuster-wissensbeitrag-callout",
+      "name": "ArticleCalloutComponent",
+      "path": "./src/lib/article-callout/article-callout.stories.ts",
+      "description": "ArticleCallout (`cds-article-callout`) — Wrapper um `.article-callout*` aus\ncss/components.css (css/components.css:1591–1600): der bereichsgetönte\nAside-Block für Praxis-Beispiele und „In der Realität“-Einschübe im Lauftext\neines Wissensbeitrags. Es kommt in allen vier Bereichen sowie in einem\nWissensbeitrag vor.\n\n**Abgrenzung zum Blockquote:** Der Callout ist eine redaktionelle Anmerkung im\neigenen Stil, der Blockquote ein wörtliches Zitat einer benannten Person. Die\nEyebrow trägt in `co`, `es` und `wo` den 700er-Ton, in `ki` den 800er-Ton\n(`--ki-800`), weil `--ki-700` mit rund 4,4:1 auf Weiß AA unterschreitet.\n\n**Element-Selektor, ADR-0008-Standardfall.** `.article-callout` sitzt in allen 5\nVorkommen als gewöhnlicher Block-Nachfahre — in einem schlichten\n`display:flex;flex-direction:column`-Stapel oder direkt in `.article-body`.\nKeines ist ein Grid-/Flex-Kind mit Streckungsbedarf, keines\nträgt eine `col-*`-Klasse, `.article-callout` kommt in keiner CSS-Regel mit\neinem Geschwister-Kombinator (`+`/`~`) vor, das Tag variiert nicht (immer\n`<aside>`). Keines der drei ADR-0008-Kriterien greift. Die einzige direkte\nKind-Regel von `.article-body` (`.article-body > p`, css/components.css:1566)\nzielt auf `p`, nicht auf `aside` — ein `<cds-article-callout>`-Host zwischen\n`.article-body` und dem `<aside>` bricht deshalb keine Selektorkette.\n\n**Projizierte Absätze bleiben direkte Kinder von `.article-callout`, kein\n`<div>` um `<ng-content>`:** `.article-callout > p` ist ein\nKindselektor, css/components.css:1600. `<ng-content>` selbst fügt kein\nDOM-Element ein — es verschiebt nur die vom Konsumenten geschriebenen\n`<p>`-Elemente an ihre Stelle direkt im `<aside>`, eine Ebene unter dem\n`<cds-article-callout>`-Host, aber ohne zusätzlichen Knoten dazwischen. Geprüft\nim laufenden Storybook (Story „Interaktiv“, Play-Funktion):\n`aside.article-callout > p` liefert sowohl die Eyebrow als auch jeden\nprojizierten Absatz, `:scope > *` zählt keine fremde Zwischenebene.\n\n**`eyebrow` ist Beiwerk (Default `''`), `area` ist Konfiguration mit\nverteidigbarer Vorgabe (`'co'`).** Die Basisregel `.article-callout` selbst\n(ohne `[data-area]`) rendert bereits exakt wie `[data-area=\"co\"]`\n(`background:var(--co-50)`, `border-left-color:var(--co-500)`, beide Werte\nidentisch an beiden Stellen, css/components.css:1591–1592) — `'co'` ist damit\nkeine erfundene Markenfarbe, sondern der reale CSS-Fallback ohne Attribut.\nAnders als bei `cds-pill` (dessen `.pill` ohne `data-area` gar keine Füllfarbe\nhat) gibt es hier keinen sinnvollen „kein Bereich“-Zustand.\n\n**`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum\nMockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle\n`complementary`; ein Wissensbeitrag mit mehr als einem Callout hat damit\nmehrere gleichnamige Landmarks ohne zugänglichen Namen. Gemessen mit\naxe-core an rohem Markup ohne Angular (zwei `<aside class=\"article-callout\">`\nohne Auszeichnung): `landmark-unique` schlägt fehl, unabhängig von dieser\nKomponente — das Mockup selbst kennt diese Auszeichnung nicht.\nDie Eyebrow ist bereits ein prägnanter, vom Redakteur gepflegter Kurztext\ngenau für diesen Zweck (z. B. „In der Praxis“) — sie bekommt deshalb eine\ngenerierte `id`, auf die `aria-labelledby` zeigt, sobald sie existiert. Ohne\nEyebrow bleibt das `<aside>` unbenannt wie im Mockup: ein zugänglicher Name\nließe sich sonst nur aus dem projizierten Absatztext raten, und das wäre eine\nerfundene Bezeichnung, keine reale.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` (Hintergrund + Akzentfarbe), siehe Klassendoku.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Kicker über dem Absatztext (`.article-callout-eyebrow`), leer = keine Eyebrow.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ArticleCalloutComponentInputs = {\n  /**\n   * Markenbereich → `data-area` (Hintergrund + Akzentfarbe), siehe Klassendoku.\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Kicker über dem Absatztext (`.article-callout-eyebrow`), leer = keine Eyebrow.\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ArticleCalloutComponent",
+        "selector": "cds-article-callout",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "eyebrow"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

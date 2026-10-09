@@ -1,0 +1,21 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-pull-quote": {
+      "id": "seitenmuster-wissensbeitrag-pull-quote",
+      "name": "ArticlePullquoteComponent",
+      "path": "./src/lib/article-pullquote/article-pullquote.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-pull-quote--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-pull-quote--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticlePullquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticlePullquoteComponent],\n  template: `<cds-article-pullquote [quote]=\"quote\" [area]=\"area\"></cds-article-pullquote>`,\n})\nexport class DemoComponent {\n  quote = '„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“';\n  area = 'ki';\n}"
+        },
+        "seitenmuster-wissensbeitrag-pull-quote--pro-bereich": {
+          "id": "seitenmuster-wissensbeitrag-pull-quote--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticlePullquoteComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticlePullquoteComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:16px\">\n        <cds-article-pullquote\n            area=\"co\"\n            quote=\"„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“\">\n        </cds-article-pullquote>\n        <cds-article-pullquote\n            area=\"ki\"\n            quote=\"„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“\">\n        </cds-article-pullquote>\n        <cds-article-pullquote\n            area=\"es\"\n            quote=\"„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“\">\n        </cds-article-pullquote>\n        <cds-article-pullquote\n            area=\"wo\"\n            quote=\"„KI scheitert selten an der Technologie. Sie scheitert an der Prozesslandschaft, in die sie hineingeworfen wird.“\">\n        </cds-article-pullquote>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

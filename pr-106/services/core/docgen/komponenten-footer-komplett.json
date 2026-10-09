@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-footer-komplett": {
+      "id": "komponenten-footer-komplett",
+      "name": "FooterComponent",
+      "path": "./src/lib/footer/footer.stories.ts",
+      "description": "Footer — `<footer>`-Landmark (`.footer`, Zwei-Band-Stack) als schlanke Hülle. Die\nbeiden Bänder werden als `<cds-footer-main>` und `<cds-footer-bottom>` projiziert:\n\n```html\n<cds-footer>\n  <cds-footer-main ...></cds-footer-main>\n  <cds-footer-bottom ...></cds-footer-bottom>\n</cds-footer>\n```\n\nSo lassen sich oberer und unterer Teil einzeln betrachten und unabhängig\nkonfigurieren; `.footer` stapelt sie (flex column) im Seitenfuß-Landmark.",
+      "jsDocTags": {},
+      "argTypes": {},
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FooterComponent",
+        "selector": "cds-footer",
+        "standalone": true,
+        "inputs": [],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

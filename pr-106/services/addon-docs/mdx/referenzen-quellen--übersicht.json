@@ -1,0 +1,18 @@
+{
+  "components": {
+    "referenzen-quellen--übersicht": {
+      "id": "referenzen-quellen--übersicht",
+      "name": "referenzen-quellen--übersicht",
+      "docs": {
+        "referenzen-quellen--übersicht": {
+          "id": "referenzen-quellen--übersicht",
+          "name": "Übersicht",
+          "path": "./src/docs/referenzen.mdx",
+          "title": "Referenzen/Quellen",
+          "content": "import { Meta } from '@storybook/addon-docs/blocks';\n\n<Meta title=\"Referenzen/Quellen\" name=\"Übersicht\" />\n\n# Quellen\n\nExterne Referenzen, die als Grundlage für Entscheidungen in diesem Design System dienten,\nsowie die Repo-internen Dokumente, die den Rest des Systems erschließen.\n\n## Externe Referenzen\n\n| Thema | Quelle | Wofür |\n|---|---|---|\n| Komponentensystem | [Material Design](https://m3.material.io) | Grundlage für Komponentenarchitektur, Elevationssystem, Button-Typen, Card-Varianten und Spacing-Prinzipien |\n| Typografie | [Google Fonts](https://fonts.google.com) | Quelle für Libre Baskerville (Display/Headline) und Montserrat (Title/Body/Label), beide frei lizenziert (SIL Open Font License) |\n| Icons | [Lucide](https://lucide.dev) | Quelle für alle UI-Icons im Outline-Stil, frei unter ISC-Lizenz, 24×24-Raster mit runden Enden; `lucide-static` für CSS und HTML, `@lucide/angular` für Angular (ADR-0016) |\n| Barrierefreiheit | [WCAG 2.2 Quickref](https://www.w3.org/WAI/WCAG22/quickref/) | Offizielle Kriterien-Übersicht des W3C, Referenz für alle WCAG-Verweise in `Grundlagen/Barrierefreiheit` (Kontrast, Tastaturnavigation, ARIA, Touch Targets, Reduzierte Bewegung) |\n\n## Repo-Dokumente\n\nWer im Storybook landet und den Rest des Repos nicht kennt, findet hier den Einstieg:\n\n| Dokument | Wofür man es aufschlägt |\n|---|---|\n| `README.md` | Einstieg ins Repo: was das Design System ist und für wen es gedacht ist |\n| `CONTRIBUTING.md` | Die Konventionen, nach denen das System gebaut ist: Namensschema, Farbe und Kontrast, Elevation, Dark Mode, Typografie, Spacing, Doku-Struktur |\n| `CONTEXT.md` | Das Glossar des Repos: CSS-Schicht, Angular-Lib, Wrapper-Komponente, DS-Glyphen und weitere Begriffe genau so verwenden, wie sie dort definiert sind |\n| `docs/GETTING-STARTED.md` | Wie das Design System in ein Projekt eingebunden wird: Einbindereihenfolge der CSS-Dateien, Fonts, Dark Mode, optionales JavaScript, Tokens, Icons, Frameworks |\n| `docs/adr/` | Die Architekturentscheidungen des Repos als einzelne ADRs, etwa zur Angular-Lib als CSS-Wrapper (ADR-0001) oder zu Storybook, Docgen-Server und MCP (ADR-0006) |\n| `docs/agents/` | Die Agenten-Skills dieses Repos: Issue-Tracker, Triage-Labels, Storybook-Werkzeuge und die Domain-Doku-Struktur |\n",
+          "summary": "# Quellen Externe Referenzen, die als Grundlage für Entscheidungen in diesem Design System..."
+        }
+      }
+    }
+  }
+}

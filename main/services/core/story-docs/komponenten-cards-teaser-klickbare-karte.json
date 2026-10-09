@@ -1,0 +1,26 @@
+{
+  "components": {
+    "komponenten-cards-teaser-klickbare-karte": {
+      "id": "komponenten-cards-teaser-klickbare-karte",
+      "name": "LinkCardComponent",
+      "path": "./src/lib/link-card/link-card.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-klickbare-karte--interaktiv": {
+          "id": "komponenten-cards-teaser-klickbare-karte--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { LinkCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LinkCardComponent],\n  template: `\n    <cds-link-card\n        [eyebrow]=\"'Angewandte KI'\"\n        [title]=\"'Warum 60 % der KI-Piloten nie in Produktion gehen'\"\n        [text]=\"'Demos überzeugen, Use-Cases scheitern. Was wir aus 200 Implementierungen gelernt haben.'\"\n        [href]=\"'#wissensbeitrag-ki-piloten'\"\n        [area]=\"'ki'\"\n        [showMedia]=\"true\"\n        [ctaLabel]=\"'Beitrag lesen'\"\n        [ctaPinned]=\"false\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-klickbare-karte--pro-bereich": {
+          "id": "komponenten-cards-teaser-klickbare-karte--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { LinkCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LinkCardComponent],\n  template: `\n    <div\n        style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px\">\n        <cds-link-card\n            area=\"co\"\n            eyebrow=\"Corporate\"\n            title=\"Marke &amp; Haltung\"\n            text=\"Ein konsistenter Auftritt über alle Berührungspunkte hinweg.\"\n            href=\"#leistungen-marke\"\n            ctaLabel=\"Mehr erfahren\">\n        </cds-link-card>\n        <cds-link-card\n            area=\"ki\"\n            eyebrow=\"AI.Applied\"\n            title=\"KI, die wirkt\"\n            text=\"Angewandte KI-Lösungen mit echtem Geschäftsnutzen.\"\n            href=\"#leistungen-ki\"\n            ctaLabel=\"Mehr erfahren\">\n        </cds-link-card>\n        <cds-link-card\n            area=\"es\"\n            eyebrow=\"Effektive Software\"\n            title=\"Schlanke Systeme\"\n            text=\"Weniger Code, klarere Architektur, schnellere Lieferung.\"\n            href=\"#leistungen-es\"\n            ctaLabel=\"Mehr erfahren\">\n        </cds-link-card>\n        <cds-link-card\n            area=\"wo\"\n            eyebrow=\"Wirksame Organisationen\"\n            title=\"Starke Teams\"\n            text=\"Organisationen, die lernen und sich wirksam anpassen.\"\n            href=\"#leistungen-wo\"\n            ctaLabel=\"Mehr erfahren\">\n        </cds-link-card>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-klickbare-karte--im-raster": {
+          "id": "komponenten-cards-teaser-klickbare-karte--im-raster",
+          "name": "Im Raster",
+          "snippet": "import { Component } from '@angular/core';\nimport { LinkCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LinkCardComponent],\n  template: `\n    <div class=\"layout-grid\" style=\"align-items:stretch\">\n        <cds-link-card\n            class=\"col-4\"\n            area=\"ki\"\n            eyebrow=\"Angewandte KI\"\n            title=\"Warum 60 % der KI-Piloten nie in Produktion gehen\"\n            text=\"Demos überzeugen, Use-Cases scheitern.\"\n            href=\"#wissensbeitrag-ki-piloten\"\n            ctaLabel=\"Beitrag lesen\"\n            [ctaPinned]=\"true\">\n        </cds-link-card>\n        <cds-link-card\n            class=\"col-4\"\n            area=\"es\"\n            eyebrow=\"Effektive Software\"\n            title=\"Schlanke Architektur senkt Betriebskosten\"\n            text=\"Ein längerer Anreißer über zwei Zeilen, damit der Höhenunterschied zwischen den Karten sichtbar wird und --pinned trotzdem greift.\"\n            href=\"#wissensbeitrag-architektur\"\n            ctaLabel=\"Beitrag lesen\"\n            [ctaPinned]=\"true\">\n        </cds-link-card>\n        <cds-link-card\n            class=\"col-4\"\n            area=\"wo\"\n            title=\"Teams, die sich selbst organisieren\"\n            text=\"Wie verteilte Verantwortung Entscheidungen beschleunigt.\"\n            href=\"#wissensbeitrag-teams\"\n            ctaLabel=\"Beitrag lesen\"\n            [ctaPinned]=\"true\">\n        </cds-link-card>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

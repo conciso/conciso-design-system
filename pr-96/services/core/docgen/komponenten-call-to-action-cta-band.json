@@ -1,0 +1,131 @@
+{
+  "components": {
+    "komponenten-call-to-action-cta-band": {
+      "id": "komponenten-call-to-action-cta-band",
+      "name": "CtaBandComponent",
+      "path": "./src/lib/cta-band/cta-band.stories.ts",
+      "description": "CtaBand (`[cdsCtaBand]`) — Wrapper um `.ep-cta-band` aus css/components.css\n(css/components.css:1456, Kopf-Duo `.ep-cta-h2`/`.ep-cta-sub` ebenda): das\nbereichsgefärbte Page-End-CTA-Band am Ende jeder Customer-Page direkt vor dem\nFooter — die\n„letzte Einladung“, wenn die Nutzerin die Seite durchgelesen hat. Ausgezählt: 22\nVorkommen auf den Beispielseiten, ausnahmslos als `<div class=\"ep-cta-band\"\nstyle=\"background:…\">` mit genau einer Aktion.\n\n**Entscheidung 1 — Attributselektor, kein eigenes Element (ADR-0008, derselbe\n„Fläche am Host“-Fall wie `cds-section`).** `css/components.css` trägt für\n`.ep-cta-band` KEIN `[data-area]` (per Grep geprüft, keine einzige Regel dieser\nForm existiert). Die Bandfläche kommt in allen 22 Vorkommen als Inline-Style\nDIREKT am `.ep-cta-band`-Element (`style=\"background:var(--co-700);color:#fff\"`),\ndem Bereich der Page folgend, nie aus einem\n`data-area`-Attribut. Ein Element-Selektor würde exakt den in ADR-0008 „Fall 2“\ngemessenen Fehler wiederholen: der `<cds-cta-band>`-Host ist ein unbekanntes\nCustom Element (`display:inline`), sein einziges Kind würde als Block\nherausgebrochen, ein am Host gesetzter Inline-`background` hätte keine eigene Box\nzum Malen. Die Komponente hängt sich deshalb als Attribut an ein vom Konsumenten\ngeschriebenes `<div>` (`<div cdsCtaBand style=\"background:…\">`) — das Element, das\nden Style trägt, und `.ep-cta-band` sind derselbe Knoten. Nur `<div>`, kein\n`<section>`-Zwilling wie bei `cds-section`: alle 22 Vorkommen benutzen\nausnahmslos ein `<div>`, keines variiert das Tag.\n\n**Entscheidung 2 — `area` färbt nur die Aktion, nicht das Band.** Aus demselben\nGrund wie bei `cds-section` (siehe dessen Klassendoku, Entscheidung 2) bleibt die\nBandfläche Sache des Konsumenten: welche Bereichsfarbe ein Band trägt, ist eine\nEntscheidung der Seite (Bereichszugehörigkeit der Customer-Page), keine\nBauteil-Eigenschaft — und das CSS bietet an dieser Klasse ohnehin keinen\n`[data-area]`-Haken an (siehe Entscheidung 1). `area` steuert deshalb\nausschließlich die Button-Farbklasse (`.btn-{area}`), nicht die Füllung des Bands.\n\n**Entscheidung 3 — `.btn-on-band` + `.btn-filled` direkt komponiert, nicht über\n`cds-button` projiziert.** `cds-button` KENNT den Modifier\n(`variant=\"filled-on-band\"`, geprüft über `npx storybook tools docs show --id\nkomponenten-button` — die Story „Auf Bereichs-Band“ existiert dort\nbereits). Trotzdem baut diese Komponente die `.btn`-Klassen direkt zusammen\n(Präzedenzfall `download-cta.component.ts`), aus einem härteren Grund als dort:\n`cds-button` rendert IMMER ein `<button>` — sein Input-Vertrag\n(`ButtonComponentInputs`) kennt kein `href` — und kann die hier nötige\nVerzweigung „`primaryHref` gesetzt → `<a>`“ strukturell gar nicht erfüllen. Ein\nprojiziertes `<cds-button>` brächte hier also kein Custom-Element-Layoutproblem\n(kein Kindselektor an `.ep-cta-band` hängt von der DOM-Tiefe ab), sondern schlicht\ndie falsche Fähigkeit.\n\n**Entscheidung 4 — bewusst nur EINE Aktion, kein `secondaryLabel`.** Eine frühere\nFassung bot `secondaryLabel`/`secondaryHref` an, ungeprüft gegen das Muster. Kein\n`.ep-cta-band`-Vorkommen zeigt eine zweite Aktion — der Zwei-Aktionen-Fall hat\nkeine Vorlage.\nZweitens (der schwerere Grund) lässt sich eine zweite, optisch zurückhaltendere\nAktion mit den vorhandenen Klassen gar nicht bauen: `.btn-{area}.btn-on-band{color:\n…}` (css/components.css:47–51) überschreibt die Textfarbe JEDER Variante auf den\nBereichston — genau den Ton, den die Doku durchgängig als Bandhintergrund nennt.\nNur `.btn-filled` tauscht zusätzlich die Füllung gegen Weiß; `.btn-outlined`,\n`.btn-tonal` und `.btn-text` blieben transparent und zeigten Text in derselben\nFarbe wie das Band darunter — unsichtbar. Eine zweite Aktion hätte deshalb\nzwangsläufig dieselbe Optik wie die erste getragen, keine Hierarchie, nur zwei\ngleich gewichtete Buttons. Das ist eine CSS-Lücke (kein kontrastsicherer\nsekundärer On-Band-Stil) — gemeldet, nicht in diesem Wrapper improvisiert. Solange sie besteht, trägt\n`cds-cta-band` nur eine Aktion; ein Konsument mit echtem Bedarf für eine zweite\nschreibt sie außerhalb der Komponente ins Band hinein (`<ng-content>` gibt es\nhier bewusst nicht, um genau das nicht als unterstützten Pfad zu suggerieren).\nOhne zweite Aktion braucht es auch keinen eigenen Container: die einzelne Aktion\nzentriert sich über das ererbte `.ep-cta-band{text-align:center}` von selbst,\ngenau wie in allen 22 Mockup-Vorkommen — ein zusätzliches Flex-Layout im Wrapper\nhätte eine Darstellung erfunden, die die CSS-Schicht so nicht kennt (ADR-0001;\ndie einzige existierende Deklaration dieser Form ist `.ep-hero-ctas`,\ncss/components.css:1222, eine andere Klasse für einen anderen Bauteiltyp).\n\n**Kein `aria-label` auf der Aktion.** Anders als bei `cds-feature`\n(`ctaAriaLabel`, 11 von 12 Vorkommen mit `aria-label`) zeigt keines der 22\nBand-Vorkommen einen `aria-label` auf seiner Aktion — ausgezählt, nicht\ngeschätzt. Die sichtbaren Texte sind durchgängig konkrete Verben mit Ziel\n(„Termin buchen“, „Gespräch anfragen“, „Offene Stellen ansehen“ …) und stehen je\nSeite nur einmal; anders als bei einer Karten-Liste braucht es hier keine\nDisambiguierung. Kein entsprechender Input.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `.btn-{area}` auf der Aktion (nicht die Bandfläche, siehe Klassendoku).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "heading": {
+          "name": "heading",
+          "description": "Headline (`.ep-cta-h2`) — das konkrete Angebot, keine Marketing-Floskel.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "primaryHref": {
+          "name": "primaryHref",
+          "description": "Ziel der Aktion; gesetzt → `<a href>`, leer → `<button>` mit `primaryClick`.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "primaryLabel": {
+          "name": "primaryLabel",
+          "description": "Beschriftung der (einzigen) Aktion.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "sub": {
+          "name": "sub",
+          "description": "Unterzeile (`.ep-cta-sub`, leer = keine Unterzeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "primaryClick": {
+          "name": "primaryClick",
+          "description": "Klick auf die Aktion (feuert nur, wenn `primaryHref` leer ist).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "primaryClick",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "MouseEvent"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CtaBandComponentInputs = {\n  /**\n   * Markenbereich → `.btn-{area}` auf der Aktion (nicht die Bandfläche, siehe Klassendoku).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** Headline (`.ep-cta-h2`) — das konkrete Angebot, keine Marketing-Floskel. */\n  heading: string;\n  /**\n   * Ziel der Aktion; gesetzt → `<a href>`, leer → `<button>` mit `primaryClick`.\n   *\n   * @default ''\n   */\n  primaryHref?: string;\n  /** Beschriftung der (einzigen) Aktion. */\n  primaryLabel: string;\n  /**\n   * Unterzeile (`.ep-cta-sub`, leer = keine Unterzeile).\n   *\n   * @default ''\n   */\n  sub?: string;\n}\n```\n\n## Outputs\n\n```\nexport type CtaBandComponentOutputs = {\n  /** Klick auf die Aktion (feuert nur, wenn `primaryHref` leer ist). */\n  primaryClick: MouseEvent;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CtaBandComponent",
+        "selector": "div[cdsCtaBand]",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "heading",
+          "primaryHref",
+          "primaryLabel",
+          "sub"
+        ],
+        "outputs": [
+          "primaryClick"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

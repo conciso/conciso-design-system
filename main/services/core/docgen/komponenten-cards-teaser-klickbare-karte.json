@@ -1,0 +1,161 @@
+{
+  "components": {
+    "komponenten-cards-teaser-klickbare-karte": {
+      "id": "komponenten-cards-teaser-klickbare-karte",
+      "name": "LinkCardComponent",
+      "path": "./src/lib/link-card/link-card.stories.ts",
+      "description": "LinkCard (cds-link-card) — Wrapper um `a.card.card-elevated` aus css/components.css\n(css/components.css:147–154) samt `.card-cta-link` (css/components.css:1347–1356).\n\nDie Lücke, die `CardComponent` bewusst offen lässt (siehe deren Klassendoku):\n`.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated` (Riegel aus\n`CONTRIBUTING.md` §4, „Elevation = Interaktivität“) — eine `<article>`/`<div>`-Karte\nbekommt den Schatten auch mit gesetzter Klasse nicht. Diese Komponente rendert\ndeshalb ein echtes `<a>`, die ganze Fläche ist der Link, kein Klick-Handler auf\neinem nicht-interaktiven Element.\n\nStruktur wie `CardComponent`: optionale bereichsgefärbte `.card-media` mit der\nechten Bereichs-Glyphe, `.card-body` mit `.card-eyebrow` / `.card-title` /\n`.card-text`. Neu ist der Fuß `.card-cta-link`, optional unten angeheftet\n(`--pinned`, für gleich hohe Karten im Raster über `.card-body{flex:1}`).\n\n**Entscheidung — Fuß ist ein `<span>`, kein zweites `<a>`.** Die ganze Karte ist\nbereits `a.card-elevated`; ein verschachteltes `<a>` im Fuß wäre ungültiges HTML\n(der Browser schließt es beim Parsen vorzeitig) und würde zwei Klickziele auf\nderselben Fläche erzeugen. Der Fuß nutzt deshalb\n`<span class=\"card-cta-link card-cta-link--pinned\">…</span>` innerhalb von\n`a.card.card-elevated`. `.card-cta-link` selbst ist nicht auf `a.` gescoped (anders\nals `.card-elevated`), der Span trägt Farbe und Typografie also unverändert.\n\n**Entscheidung — Pfeil-Suffix wird von der Komponente ergänzt, nicht Teil von\n`ctaLabel`.** Der Pfeil ist reine visuelle Affordanz, kein Inhalt und wird deshalb\nin ein `aria-hidden`-Span gekapselt. Läge das Zeichen im `ctaLabel`-Text, müsste jeder Aufrufer\nselbst an das `aria-hidden` denken; das wird hier stattdessen einmalig in der\nKomponente erledigt.\n\n**Entscheidung — kein `data-area` auf `.card-cta-link`.** Die CTA-Farbe bleibt in\ngemischten Bereichs-Listen bewusst einheitlich Corporate-Petrol (`--co-700`), unabhängig vom\n`area` der Karte. Der Fuß bleibt deshalb ohne `data-area`-Bindung.\n\n**Entscheidung — Host als Flex-Container.** Im Raster ist der Host das\nGrid-Kind, das `align-items:stretch` auf Zeilenhöhe zieht, nicht `a.card`. Ohne\neigene Regel blieb die Karte auf Inhaltshöhe, und eine Karte ohne Eyebrow endete\nsamt `--pinned`-Fuß höher als ihre Nachbarn. `:host{display:flex}` mit\n`flex:1` an der Karte gibt die gestreckte Höhe an `a.card` weiter; Story\n„Im Raster“ pinnt das.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` (färbt Media-Glyphe + Eyebrow).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "ctaLabel": {
+          "name": "ctaLabel",
+          "description": "Fuß-Link-Text (`.card-cta-link`, leer = kein Fuß).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "ctaPinned": {
+          "name": "ctaPinned",
+          "description": "Fuß unten an die Kartenunterkante anheften (`.card-cta-link--pinned`, für gleich hohe Karten im Raster).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Kicker-Text oberhalb des Titels (`.card-eyebrow`, leer = keine Eyebrow-Zeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "href": {
+          "name": "href",
+          "description": "Linkziel; die ganze Kartenfläche ist klickbar.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "showMedia": {
+          "name": "showMedia",
+          "description": "Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "text": {
+          "name": "text",
+          "description": "Anreißer-/Beschreibungstext der Karte.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Kartentitel. Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type LinkCardComponentInputs = {\n  /** Markenbereich → `data-area` (färbt Media-Glyphe + Eyebrow). */\n  area?: CdsArea;\n  /**\n   * Fuß-Link-Text (`.card-cta-link`, leer = kein Fuß).\n   *\n   * @default ''\n   */\n  ctaLabel?: string;\n  /**\n   * Fuß unten an die Kartenunterkante anheften (`.card-cta-link--pinned`, für gleich hohe Karten im Raster).\n   *\n   * @default false\n   */\n  ctaPinned?: boolean;\n  /**\n   * Kicker-Text oberhalb des Titels (`.card-eyebrow`, leer = keine Eyebrow-Zeile).\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n  /** Linkziel; die ganze Kartenfläche ist klickbar. */\n  href: string;\n  /**\n   * Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen.\n   *\n   * @default true\n   */\n  showMedia?: boolean;\n  /** Anreißer-/Beschreibungstext der Karte. */\n  text: string;\n  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "LinkCardComponent",
+        "selector": "cds-link-card",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "ctaLabel",
+          "ctaPinned",
+          "eyebrow",
+          "href",
+          "showMedia",
+          "text",
+          "title"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

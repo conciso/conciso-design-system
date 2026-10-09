@@ -1,0 +1,25 @@
+{
+  "components": {
+    "grundlagen-typografie": {
+      "id": "grundlagen-typografie",
+      "name": "Typografie",
+      "path": "./src/foundations/typography.stories.ts",
+      "stories": {
+        "grundlagen-typografie--skala": {
+          "id": "grundlagen-typografie--skala",
+          "name": "Skala"
+        },
+        "grundlagen-typografie--ligaturen": {
+          "id": "grundlagen-typografie--ligaturen",
+          "name": "Ligaturen",
+          "description": "Vergleich der OpenType-Ligatur über `font-feature-settings: 'liga' 0|1`, dann das\nMuster-Gitter der Standard-Ligaturen in Libre Baskerville."
+        },
+        "grundlagen-typografie--seitenhierarchie": {
+          "id": "grundlagen-typografie--seitenhierarchie",
+          "name": "Seitenhierarchie",
+          "description": "Verschachtelte Font-Tokens von Eyebrow über Display\nund Body bis zur Karte mit Title, Body und Label-Button."
+        }
+      }
+    }
+  }
+}

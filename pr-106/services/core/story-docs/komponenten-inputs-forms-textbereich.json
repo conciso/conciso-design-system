@@ -1,0 +1,32 @@
+{
+  "components": {
+    "komponenten-inputs-forms-textbereich": {
+      "id": "komponenten-inputs-forms-textbereich",
+      "name": "TextareaFieldComponent",
+      "path": "./src/lib/field/textarea-field.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-textbereich--interaktiv": {
+          "id": "komponenten-inputs-forms-textbereich--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextareaFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextareaFieldComponent],\n  template: `\n    <cds-textarea-field\n        [label]=\"'Nachricht'\"\n        [placeholder]=\"'Ihre Nachricht an uns'\"\n        [helper]=\"'Mind. 20 Zeichen.'\"\n        [error]=\"''\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-message'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textbereich--fehlerzustand": {
+          "id": "komponenten-inputs-forms-textbereich--fehlerzustand",
+          "name": "Fehlerzustand",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextareaFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextareaFieldComponent],\n  template: `\n    <cds-textarea-field\n        [label]=\"'Nachricht'\"\n        [placeholder]=\"'Ihre Nachricht an uns'\"\n        [helper]=\"'Mind. 20 Zeichen.'\"\n        [error]=\"'Bitte gib eine Nachricht ein.'\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-message-error'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textbereich--deaktiviert": {
+          "id": "komponenten-inputs-forms-textbereich--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextareaFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextareaFieldComponent],\n  template: `\n    <cds-textarea-field\n        [label]=\"'Nachricht'\"\n        [placeholder]=\"'Ihre Nachricht an uns'\"\n        [helper]=\"'Mind. 20 Zeichen.'\"\n        [error]=\"''\"\n        [required]=\"false\"\n        [fieldId]=\"'demo-message-disabled'\"\n        [disabled]=\"true\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textbereich--formularbindung": {
+          "id": "komponenten-inputs-forms-textbereich--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextareaFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextareaFieldComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-textarea-field\n            label=\"Nachricht\"\n            placeholder=\"Ihre Nachricht an uns\"\n            fieldId=\"form-message\"\n            [formControl]=\"ctrl\">\n        </cds-textarea-field>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Zeichen:\n            <strong>{{ ctrl.value?.length || 0 }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

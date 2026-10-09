@@ -1,0 +1,79 @@
+{
+  "components": {
+    "seitenmuster-seminar-·-training-fakten-liste": {
+      "id": "seitenmuster-seminar-·-training-fakten-liste",
+      "name": "FactsComponent",
+      "path": "./src/lib/facts/facts.stories.ts",
+      "description": "Facts (`cds-facts`) — Wrapper um `.ep-facts` aus css/components.css\n(css/components.css:1261–1272): die Definitionsliste für die harten Eckdaten\neines Angebots (Termin, Dauer, Ort, Preis), einspaltig mit Haarlinie zwischen\nden Paaren oder als `.is-grid` zweispaltig für Kästen, die neben Inhalt stehen.\nBewusst ohne eigenen Rahmen und ohne Fläche, sie zieht in einen vorhandenen\nContainer ein (Angebots-Box, Sticky-Sidebar).\n\n**Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Ausgezählt: Keines\nder drei `.ep-facts`-Vorkommen sitzt in einem `.layout-grid`\nmit `col-*`, keines wird von einem Grid-/Flex-Elternteil in der Höhe gedehnt\n(der Flex-Fall in Zeile 16290 ist `flex-direction:column`, dort füllen Block-\nElemente die Breite ihres Containers unabhängig von einer zusätzlichen\nWrapper-Ebene — anders als bei `.ep-card`/ADR-0008 Fall 1 geht es dort um Höhe,\ndie durch Block-Layout NICHT automatisch nach unten durchgereicht wird). Das\nTag variiert nicht (immer `<dl>`). Analog zu `cds-faq` (`faq.component.ts`, das\nintern `<details>` in einem `<div class=\"ep-faq\">` rendert) trägt hier die\nINNERE `<dl class=\"ep-facts\">` die CSS-Klasse, nicht der `<cds-facts>`-Host: die\nSemantik einer Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element\nkann dieses Tag nicht annehmen. Da `.ep-facts > div + div` ausschließlich\nNachfahren INNERHALB der eigenen Vorlage anspricht, bricht eine zusätzliche\nHost-Ebene darüber nichts — anders als bei `cds-section` (Fall 2) hängt hier\nkeine von außen gesetzte Fläche oder ein von außen adressierter Nachfahre an\ndieser Tiefe.\n\n**`<dl>`/`<div>`/`<dt>`/`<dd>` exakt wie vom CSS erwartet.** `.ep-facts > div +\ndiv` (css/components.css:1262) setzt Haarlinie und Abstand ab dem ZWEITEN Paar;\nohne das umschließende `<div>` pro Paar griffe der Selektor nicht. Jedes\n`items()`-Element wird deshalb zu genau einem `<div><dt>…</dt><dd>…</dd></div>`.\n\n**`area` färbt `<dt>` über `.t-{area}`, nicht über `data-area`.** Anders als bei\n`cds-feature`/`cds-icon-card` kennt `.ep-facts` selbst kein `[data-area]`; der\nCSS-Kommentar zu dieser Klasse (`css/components.css:1259`) benennt\nstattdessen ausdrücklich „Bereichston der Labels über `.t-XX` im Markup\n(dark-safe), nie als Inline-Farbe“ als sanktionierten Weg. Ausgezählt: Alle drei\n`.ep-facts`-Vorkommen setzen `.t-wo` auf JEDEM `<dt>`\nderselben Liste (nie gemischt, nie eine andere Bereichsfarbe) — ein optionaler\n`area`-Input, der `.t-{area}` einheitlich auf alle `<dt>` der Instanz anwendet,\nbildet dieses Muster nach, ohne einen Farbwert zu erfinden (`.t-XX` ist eine\nbestehende, bereits kontrast- und dark-mode-geprüfte Utility, `css/components.css\n:638–642`). Ungesetzt (Default) bleibt `<dt>` ohne zusätzliche Klasse, erbt also\ndie umgebende Textfarbe — das deckt Kontexte ohne Bereichsbindung ab.\n\n**Über die ursprüngliche API hinaus:** `area` stand nicht in der ursprünglichen\nAPI-Skizze. Ergänzt, weil ohne ihn KEINES der 3 realen\n`.ep-facts`-Vorkommen originalgetreu nachgebaut werden könnte — anders als bei\n`cds-tier`s `area` (dort deckt die Einschränkung eine tatsächliche CSS-Lücke\nab) fehlt hier keine CSS-Regel, nur ein API-Hook auf eine bereits vollständige\nKlasse.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `.t-{area}` auf jedem `<dt>` (siehe Klassendoku). Ungesetzt = neutral.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "grid": {
+          "name": "grid",
+          "description": "Zweispaltige Rasterung ohne Haarlinien (`.is-grid`) statt der einspaltigen Grundform.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "items": {
+          "name": "items",
+          "description": "Fakten-Paare (`<dt>`/`<dd>`), in Darstellungsreihenfolge.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsFactsItem[]"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FactsComponentInputs = {\n  /** Markenbereich → `.t-{area}` auf jedem `<dt>` (siehe Klassendoku). Ungesetzt = neutral. */\n  area?: CdsArea;\n  /**\n   * Zweispaltige Rasterung ohne Haarlinien (`.is-grid`) statt der einspaltigen Grundform.\n   *\n   * @default false\n   */\n  grid?: boolean;\n  /** Fakten-Paare (`<dt>`/`<dd>`), in Darstellungsreihenfolge. */\n  items: CdsFactsItem[];\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FactsComponent",
+        "selector": "cds-facts",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "grid",
+          "items"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

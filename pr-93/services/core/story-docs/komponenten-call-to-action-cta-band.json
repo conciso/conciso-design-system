@@ -1,0 +1,27 @@
+{
+  "components": {
+    "komponenten-call-to-action-cta-band": {
+      "id": "komponenten-call-to-action-cta-band",
+      "name": "CtaBandComponent",
+      "path": "./src/lib/cta-band/cta-band.stories.ts",
+      "stories": {
+        "komponenten-call-to-action-cta-band--interaktiv": {
+          "id": "komponenten-call-to-action-cta-band--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CtaBandComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CtaBandComponent],\n  template: `\n    <div\n        cdsCtaBand\n        [heading]=\"heading\"\n        [sub]=\"sub\"\n        [area]=\"area\"\n        [primaryLabel]=\"primaryLabel\"\n        [primaryHref]=\"primaryHref\"\n        (primaryClick)=\"primaryClick($event)\"\n        [style.background]=\"'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'\"\n        style=\"color:#fff;border-radius:var(--r-lg)\">\n    </div>`,\n})\nexport class DemoComponent {\n  heading = 'Erstgespräch, 30 Minuten, kostenfrei.';\n  sub = 'Du schilderst Dein Vorhaben, wir geben eine erste Einschätzung. Wenn es passt, sprechen wir über konkrete Schritte. Wenn nicht, war es trotzdem nützlich.';\n  area = 'co';\n  primaryLabel = 'Termin buchen';\n  primaryHref = '';\n  primaryClick(event: unknown) {}\n}"
+        },
+        "komponenten-call-to-action-cta-band--pro-bereich": {
+          "id": "komponenten-call-to-action-cta-band--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { CtaBandComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CtaBandComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s6)\">\n        <div\n            cdsCtaBand\n            heading=\"Erstgespräch, 30 Minuten, kostenfrei.\"\n            primaryLabel=\"Termin buchen\"\n            area=\"co\"\n            style=\"background:var(--co-700);color:#fff;border-radius:var(--r-lg)\">\n        </div>\n        <div\n            cdsCtaBand\n            heading=\"Wo steht Ihr KI-Piloten-Portfolio wirklich?\"\n            sub=\"Ein kurzes Gespräch zeigt, welche Anwendungsfälle sich lohnen und welche eher nicht.\"\n            primaryLabel=\"Potenzial einschätzen lassen\"\n            area=\"ki\"\n            style=\"background:var(--ki-800);color:#fff;border-radius:var(--r-lg)\">\n        </div>\n        <div\n            cdsCtaBand\n            heading=\"Lernen wir uns kennen?\"\n            sub=\"Erzähl uns, was Du vorhast.\"\n            primaryLabel=\"Gespräch anfragen\"\n            area=\"es\"\n            style=\"background:var(--es-700);color:#fff;border-radius:var(--r-lg)\">\n        </div>\n        <div\n            cdsCtaBand\n            heading=\"Drei Muster, an denen Veränderung scheitert.\"\n            sub=\"Wir zeigen in einem kurzen Termin, woran es in Ihrer Organisation konkret hakt, und was ein erster wirksamer Schritt wäre.\"\n            primaryLabel=\"Termin vereinbaren\"\n            area=\"wo\"\n            style=\"background:var(--wo-700);color:#fff;border-radius:var(--r-lg)\">\n        </div>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `primaryClick` could not be bound, since CtaBandComponent declares no such input."
+        },
+        "komponenten-call-to-action-cta-band--als-links": {
+          "id": "komponenten-call-to-action-cta-band--als-links",
+          "name": "Als Links",
+          "snippet": "import { Component } from '@angular/core';\nimport { CtaBandComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CtaBandComponent],\n  template: `\n    <div\n        cdsCtaBand\n        [heading]=\"heading\"\n        [sub]=\"sub\"\n        [area]=\"area\"\n        [primaryLabel]=\"primaryLabel\"\n        [primaryHref]=\"primaryHref\"\n        (primaryClick)=\"primaryClick($event)\"\n        [style.background]=\"'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'\"\n        style=\"color:#fff;border-radius:var(--r-lg)\">\n    </div>`,\n})\nexport class DemoComponent {\n  heading = 'Lernen wir uns kennen?';\n  sub = 'Erzähl uns, was Du vorhast, oder komm in Dortmund auf einen Kaffee vorbei.';\n  area = 'co';\n  primaryLabel = 'Gespräch anfragen';\n  primaryHref = '#sec-examples';\n  primaryClick(event: unknown) {}\n}"
+        }
+      }
+    }
+  }
+}

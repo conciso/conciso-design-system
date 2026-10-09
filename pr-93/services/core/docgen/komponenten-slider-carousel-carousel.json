@@ -1,0 +1,109 @@
+{
+  "components": {
+    "komponenten-slider-carousel-carousel": {
+      "id": "komponenten-slider-carousel-carousel",
+      "name": "CarouselComponent",
+      "path": "./src/lib/carousel/carousel.stories.ts",
+      "description": "Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider“.\n\nCrossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt\n`.active` (opacity). Inaktive Slides bekommen zusätzlich `[aria-hidden]`, sonst\nläse ein Screenreader Titel und Text jeder Folie vor, obwohl visuell nur eine\nsichtbar ist (identisches Muster wie beim LogoCarousel). Prev/Next-Buttons\n(.img-slider-btn) und Dots (.img-dot) steuern den Index. Optionale Hero-Variante\n(.img-slider-hero). Ohne Bild-URL wird ein neutraler Platzhalter gezeigt. Der\naktive Index ist über `[(active)]` (model) beobacht-/steuerbar.",
+      "jsDocTags": {},
+      "argTypes": {
+        "active": {
+          "name": "active",
+          "description": "Aktiver Slide-Index. Two-Way (`[(active)]`) via model().",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 0
+            }
+          }
+        },
+        "hero": {
+          "name": "hero",
+          "description": "Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Zugänglicher Name der Region. Bei mehreren Bildstrecken auf einer Seite\nunterscheidbar benennen (sonst doppelte Landmarks).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Bildstrecke"
+            }
+          }
+        },
+        "slides": {
+          "name": "slides",
+          "description": "Anzuzeigende Slides (Bild optional, Titel/Text je Slide Pflicht).",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsSlide[]"
+            },
+            "defaultValue": {}
+          }
+        },
+        "activeChange": {
+          "name": "activeChange",
+          "description": "Aktiver Slide-Index. Two-Way (`[(active)]`) via model().",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "activeChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: number) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CarouselComponentInputs = {\n  /**\n   * Aktiver Slide-Index. Two-Way (`[(active)]`) via model().\n   *\n   * @default 0\n   */\n  active?: number; // two-way: [(active)]\n  /**\n   * Hero-Variante (vollflächig, 21:9, Caption als Overlay) → .img-slider-hero.\n   *\n   * @default false\n   */\n  hero?: boolean;\n  /**\n   * Zugänglicher Name der Region. Bei mehreren Bildstrecken auf einer Seite\n   * unterscheidbar benennen (sonst doppelte Landmarks).\n   *\n   * @default Bildstrecke\n   */\n  label?: string;\n  /** Anzuzeigende Slides (Bild optional, Titel/Text je Slide Pflicht). */\n  slides: CdsSlide[];\n}\n```\n\n## Outputs\n\n```\nexport type CarouselComponentOutputs = {\n  /** Aktiver Slide-Index. Two-Way (`[(active)]`) via model(). */\n  activeChange: (e: number) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CarouselComponent",
+        "selector": "cds-carousel",
+        "standalone": true,
+        "inputs": [
+          "active",
+          "hero",
+          "label",
+          "slides"
+        ],
+        "outputs": [
+          "activeChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

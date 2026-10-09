@@ -1,0 +1,91 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-author-card": {
+      "id": "seitenmuster-wissensbeitrag-author-card",
+      "name": "AuthorCardComponent",
+      "path": "./src/lib/author-card/author-card.stories.ts",
+      "description": "AuthorCard (`div[cdsAuthorCard]`) — Wrapper um `.author-card` aus css/components.css\n(css/components.css:1602–1606): der Avatar-plus-Bio-Strip am Ende eines\nWissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Es gibt vier\neinzelstehende und 13 Karten in fünf Gruppen (siehe `AuthorCardGroupComponent`).\n\n**Attributselektor (ADR-0008), gemessen im `is-grid`-Fall statt nur hergeleitet.**\n`.author-card-group.is-grid` (css/components.css:1555) ist `display:grid` ohne\neigenes `align-items` — der CSS-Default `stretch` gleicht die Kartenhöhen einer\nReihe deshalb NUR aus, wenn `.author-card` selbst das Grid-Kind ist. Spike-Story\n(zwei Karten, 600-px-Raster, kurze gegen deutlich längere Bio, seither wieder\ngelöscht) hat beide Varianten nebeneinander gebaut und mit `getBoundingClientRect()`\ngemessen:\n\n| Variante | Grid-Kind (Tag) | `.author-card`-Höhen | Bio-Rect (kurz / lang) |\n|---|---|---|---|\n| Element-Selektor `<cds-author-card-naive>` | `CDS-AUTHOR-CARD-NAIVE`, 204/204 px (gestreckt) | **84 / 204 px** (ungleich) | 24×73 / 144×200 px |\n| Attributselektor `div[cdsAuthorCardSpike]` | `DIV.author-card`, 204/204 px | **204 / 204 px** (gleich) | — |\n\nBeim Element-Selektor wird der UNSICHTBARE `<cds-author-card-naive>`-Host auf 204 px\ngestreckt, die sichtbare `.author-card`-Box eine Ebene darunter bleibt bei ihrer\nInhaltshöhe (84 px) — exakt der Fehler aus ADR-0008 Fall 1. Mit dem Attributselektor\nIST `.author-card` das Grid-Kind, `align-items:stretch` trifft direkt zu.\n\n**Ehrlicher Zusatz, anders als bei `cds-icon-card`: die Baseline-Screenshots beider\nSpike-Varianten waren byte-identisch** (`sha1` gleich). `.author-card` trägt (anders\nals `.ep-card`) weder Hintergrund noch Rahmen noch Schatten — der zusätzliche,\nunsichtbare Leerraum unter der kurzen Bio malt in keiner der beiden Varianten ein\nPixel. Der Fehler ist damit heute rein strukturell (falsches Boxmodell, `getBoundingClientRect()`\nauf `.author-card` lügt), nicht optisch sichtbar. Er wird real, sobald `.author-card`\nkünftig einen Rahmen/Hintergrund/Hover-Zustand bekommt, und er verfälscht schon\nheute jede Messung/Positionierung, die sich auf die tatsächliche Kartenhöhe verlässt\n(u. a. die Story „Als Raster“ unten, die genau das pinnt). Das ADR-0008-Kriterium\nist strukturell formuliert („die Stelle im DOM einnehmen, die es ohne Angular\neinnähme“), nicht optisch — der Attributselektor bleibt deshalb die richtige Wahl,\nobwohl der Effekt heute unsichtbar ist.\n\n**`area` ist bewusst NICHT Teil der API — CSS-Befund, nicht erfundene Konfiguration.**\nAlle realen `.author-card`-Vorkommen tragen `data-area`; die Dokumentation\nbeschreibt das als Färbung „nur [des] Avatars“. Ausgezählt gibt es aber in\n`css/components.css` (Light UND\nDark) KEINE einzige `.author-card[data-area=\"…\"]`-Regel — weder direkt noch über\neinen Nachfahren-Selektor auf `.article-avatar`, dessen eigene\n`[data-area]`-Färbung (css/components.css:1523–1526) ein Element-Selektor auf dem\nAvatar selbst ist, unabhängig vom Vorfahren. `data-area` auf `.author-card` ist\ndamit, gegen die Doku-Aussage, komplett wirkungslos — die Bereichsfarbe kommt\nausschließlich vom `area`-Input, den der Konsument direkt an das projizierte\n`[cdsAvatar]` bindet (siehe unten). Ein `area`-Input, der hier nur `data-area` ohne\njede CSS-Wirkung setzt, wäre eine erfundene Konfiguration ohne Gegenwert — Befund\ngemeldet, nicht im Wrapper geflickt (ADR-0001).\n\n**Avatar projiziert über `[cdsAvatar]`, wie bei `cds-article-header`.** Der\nKonsument setzt Größe (`size=\"lg\"`, css/components.css:1527) und Bereich\n(`area=\"…\"`) direkt am projizierten `<div cdsAvatar>` — diese Komponente reicht\nnichts durch, exakt die Trennung, die `cds-article-header` bereits etabliert\n(siehe dessen Klassendoku, Abschnitt „Avatar projiziert über `[cdsAvatar]`“).\n\n**Eyebrow als `<h3>`, nur wenn gesetzt** (Beiwerk, Default `''`) — deckungsgleich\nmit allen vier einzelstehenden realen Vorkommen: Zwei tragen\n`<h3 class=\"author-card-eyebrow\">` („Über den Autor“/„Über die Autorin“), eine\nEbene unter dem `<h2>` des Article-Body; die anderen zwei haben ohne\numgebende Artikelstruktur gar keinen. Innerhalb einer Gruppe trägt laut\n`wissensbeitrag.mdx` („Eyebrow-Konvention“) keine einzelne Karte mehr einen eigenen\nEyebrow — die Gruppen-Überschrift ersetzt sie (siehe `AuthorCardGroupComponent`);\nKonsumenten lassen `eyebrow` dafür einfach leer.\n\n**`roleLabel`, NICHT `role` wie in einem ersten Entwurf — gemessene Abweichung, kein\nFreihand-Entscheid.** Der erste Entwurf setzte `role` wörtlich um\n(`role`-Input, mit `role=\"…\"` als schlichtem Attribut in den Stories gesetzt, wie\n`name`/`bio`/`eyebrow`). Storybooks eingebauter a11y-Check (`aria-roles`) schlug\ndarauf für JEDE Story mit echtem Rollentext fehl: `role` ist ein globales\nHTML-/ARIA-Attribut, und ein Angular-Input MIT DIESEM NAMEN wird bei einem\nungebundenen `role=\"Senior AI Engineer …\"` zwar als Startwert an den Input\ndurchgereicht, bleibt aber ZUSÄTZLICH als echtes `role`-Attribut im DOM stehen —\naxe meldete wörtlich „Roles must be one of the valid ARIA roles: Senior, AI,\nEngineer, …“, weil der Freitext als ARIA-Rolle interpretiert wird. Exakt dieselbe\nKollision umgehen `BlockquoteComponent`, `TestimonialComponent` und\n`TeamVoiceComponent` bereits mit `roleLabel` statt `role`\n(`grep -rn \"readonly role\" packages/angular/src/lib/`\nzeigt nur diese drei). Diese Komponente folgt demselben, bereits etablierten\nMuster statt die Kollision ein viertes Mal zu wiederholen — CSS-Klasse bleibt\nunverändert `.author-card-role`, nur der Input-Name weicht vom ursprünglichen Entwurf ab.",
+      "jsDocTags": {},
+      "argTypes": {
+        "bio": {
+          "name": "bio",
+          "description": "Bio-Text (`.author-card-bio`), leer = kein Bio-Absatz.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Kicker über dem Namen (`.author-card-eyebrow`, `<h3>`), leer = keine Eyebrow.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Name (`.author-card-name`).",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "roleLabel": {
+          "name": "roleLabel",
+          "description": "Rolle/Position (`.author-card-role`), leer = keine Rollenzeile. Heißt bewusst\n`roleLabel`, nicht `role` (Kollision mit dem ARIA-Attribut `role`), siehe\nKlassendoku.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type AuthorCardComponentInputs = {\n  /**\n   * Bio-Text (`.author-card-bio`), leer = kein Bio-Absatz.\n   *\n   * @default ''\n   */\n  bio?: string;\n  /**\n   * Kicker über dem Namen (`.author-card-eyebrow`, `<h3>`), leer = keine Eyebrow.\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n  /** Name (`.author-card-name`). */\n  name: string;\n  /**\n   * Rolle/Position (`.author-card-role`), leer = keine Rollenzeile. Heißt bewusst\n   * `roleLabel`, nicht `role` (Kollision mit dem ARIA-Attribut `role`), siehe\n   * Klassendoku.\n   *\n   * @default ''\n   */\n  roleLabel?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "AuthorCardComponent",
+        "selector": "div[cdsAuthorCard]",
+        "standalone": true,
+        "inputs": [
+          "bio",
+          "eyebrow",
+          "name",
+          "roleLabel"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "components": {
+    "komponenten-cards-teaser-tier-trenner": {
+      "id": "komponenten-cards-teaser-tier-trenner",
+      "name": "TierComponent",
+      "path": "./src/lib/tier/tier.stories.ts",
+      "description": "Tier (`cds-tier`) — Wrapper um `.ep-tier` aus css/components.css\n(css/components.css:1381–1384): der Stufen-Trenner (Label + Haarlinie), der eine\nOffene Feature-Liste in Pakete gliedert (z. B. „In jedem Paket enthalten“ /\n„Zusätzlich mit Pro“).\n\n**Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Alle vier\n`.ep-tier`-Vorkommen stehen als eigenständiger `<div>` VOR\neinem `.layout-grid` oder einer Karten-Reihe, nie als deren Kind — keines trägt\neine `col-*`-Spaltenklasse, keines liegt in einem Grid/Flex, das seine Kinder\ndehnt. Das Tag variiert ebenfalls nicht (immer `<div>`). Keines der drei\nADR-0008-Kriterien (Grid-/Flex-Kind, Ziel einer Layout-Klasse, wechselndes Tag)\ntrifft zu, der Element-Selektor bleibt deshalb der Standardfall. `.ep-tier{\ndisplay:flex}` sitzt direkt auf dem Host (`host: { class: 'ep-tier' }`), kein\ninneres Wrapper-Element darunter — anders als bei `cds-section` (ADR-0008 Fall 2)\nist hier nichts von außen auf eine bestimmte DOM-Tiefe angewiesen: kein\nNachfahren-Selektor zielt auf `.ep-tier`, keine Fläche hängt am Host.\n\n**`area` nimmt alle vier Markenbereiche (`CdsArea`).** `.ep-tier-label[data-area]` tönt das\nLabel für `co`, `ki`, `es` und `wo` in der Bereichsfarbe, theme-fähig: `co`/`es`/`wo` über\n`--XX-ink` (flippt im Dark selbst), `ki` über `--ki-800` mit Dark-Override auf `--ki-100`\n(`css/dark-mode.css`). Ohne `area` bleibt das Label neutral (`--tx-secondary`).\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Bereichstönung → `data-area` auf `.ep-tier-label` (`co`, `ki`, `es`, `wo`).\nUngesetzt (Default) bleibt das Label neutral (`--tx-secondary`), siehe Klassendoku.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Beschriftung des Trenners (`.ep-tier-label`), z. B. „In jedem Paket enthalten“.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TierComponentInputs = {\n  /**\n   * Bereichstönung → `data-area` auf `.ep-tier-label` (`co`, `ki`, `es`, `wo`).\n   * Ungesetzt (Default) bleibt das Label neutral (`--tx-secondary`), siehe Klassendoku.\n   */\n  area?: CdsArea;\n  /** Beschriftung des Trenners (`.ep-tier-label`), z. B. „In jedem Paket enthalten“. */\n  label: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TierComponent",
+        "selector": "cds-tier",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "label"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

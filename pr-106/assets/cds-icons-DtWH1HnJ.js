@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";import{m as t}from"./lucide-angular-CTBwqO1y.js";var n;function init_cds_icons(){return(init_cds_icons=e((()=>{t(),n=1.5})))()}export{init_cds_icons as n,n as t};

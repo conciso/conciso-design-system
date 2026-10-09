@@ -1,0 +1,7 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";import{B as t,D as n,G as r,O as i,P as a,Tn as o,bn as s,z as c}from"./angular-platform-BGeCprOl.js";var l;function init_avatar_component(){return(init_avatar_component=e((()=>{o(),n(),l=class AvatarComponent{name=i.required();size=i(`sm`);area=i();src=i(``);initials=a(()=>{let e=this.name().trim().split(/\s+/).filter(Boolean);return e.length===0?``:e.length===1?e[0].slice(0,2).toUpperCase():(e[0][0]+e[e.length-1][0]).toUpperCase()});static propDecorators={name:[{type:r,args:[{isSignal:!0,alias:`name`,required:!0,transform:void 0}]}],size:[{type:r,args:[{isSignal:!0,alias:`size`,required:!1,transform:void 0}]}],area:[{type:r,args:[{isSignal:!0,alias:`area`,required:!1,transform:void 0}]}],src:[{type:r,args:[{isSignal:!0,alias:`src`,required:!1,transform:void 0}]}]}},l=s([t({selector:`div[cdsAvatar]`,changeDetection:c.OnPush,host:{class:`article-avatar`,"[class.article-avatar-lg]":`size() === 'lg'`,"[class.article-avatar-xl]":`size() === 'xl'`,"[attr.data-area]":`area() || null`,"aria-hidden":`true`},template:`
+    @if (src()) {
+      <img [src]="src()" [alt]="name()" />
+    } @else {
+      {{ initials() }}
+    }
+  `})],l)})))()}export{init_avatar_component as n,l as t};

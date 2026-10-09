@@ -1,0 +1,63 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-bereichs-badge": {
+      "id": "komponenten-chips-badges-pills-bereichs-badge",
+      "name": "AreaBadgeComponent",
+      "path": "./src/lib/area-badge/area-badge.stories.ts",
+      "description": "Bereichs-Badge — passive Bereichs-Kennzeichnung auf Basis von `.badge` +\n`[data-area]` aus css/components.css.\n\nOrdnet ein Element einer der vier Brand Areas zu (50er-Grund, 800er-Text).\nNicht interaktiv. Für Zustände die Status-Badge, für einen redaktionellen\nAnker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Brand Area → data-area (bestimmt die Bereichsfarbe).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbarer Text der Badge.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type AreaBadgeComponentInputs = {\n  /**\n   * Brand Area → data-area (bestimmt die Bereichsfarbe).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** Sichtbarer Text der Badge. */\n  label: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "AreaBadgeComponent",
+        "selector": "cds-area-badge",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "label"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

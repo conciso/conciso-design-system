@@ -1,0 +1,128 @@
+{
+  "components": {
+    "komponenten-cards-teaser-feature-liste": {
+      "id": "komponenten-cards-teaser-feature-liste",
+      "name": "FeatureComponent",
+      "path": "./src/lib/feature/feature.stories.ts",
+      "description": "Feature (`[cdsFeature]`) — Wrapper um `.ep-feature` aus css/components.css\n(css/components.css:1363–1379): die flache Feature-Zeile ohne Box und ohne\nSchatten (Icon-Kachel links, Titel/Text rechts) — die „Offene Feature-Liste“ der\nBeispielseiten mit 40 Vorkommen als\n`class=\"ep-feature col-4\"` im `.layout-grid`).\n\n**Attributselektor, kein eigenes Element (ADR-0008).** Das Mockup setzt die\nSpaltenklasse am selben Element wie `.ep-feature` (`class=\"ep-feature col-4\"`).\nDas Bauteil ist damit selbst Grid-Kind UND Ziel einer Layout-Klasse des\nKonsumenten — exakt das Kriterium aus\n[ADR-0008](../../../../../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).\nEin eigenes `<cds-feature>`-Element mit innerem `<div class=\"ep-feature\">` würde\n`.layout-grid>[class*=\"col-\"]` (css/base.css:214) brechen: der `col-*`-Selektor\nträfe den unsichtbaren Host, nicht `.ep-feature`, das `.layout-grid` gibt seinem\nKind (dem Host) dann zwar per `align-items:stretch` (Grid-Default) die volle\nZeilenhöhe, aber `.ep-feature` darunter bliebe auf Inhaltshöhe — derselbe Fehler,\nden ADR-0008 Fall 1 für `.ep-card`/`.ep-cards` gemessen hat (174px/270px statt\n306px/306px). Die Komponente hängt sich deshalb als Attribut an ein vom\nKonsumenten geschriebenes `<div>` (`<div cdsFeature class=\"col-4\">`), analog zu\n`cds-icon-card` (siehe dessen Klassendoku). Gemessen für dieses Bauteil in der\nStory „Dreispalter“ (Play-Funktion): drei `.ep-feature` mit stark\nunterschiedlich langem Text als `col-4`-Geschwister in einem `.layout-grid`\nergeben identische Höhen und deckungsgleiche Unterkanten (Messwerte in der\nStory-Doku dort).\n\n**Icon-Kontrakt: `.ep-feature-icon` ist ein Container, keine Klasse auf dem\nSVG — UND reicht zusätzlich die Farbe durch, anders als `.ep-card-icon`.** Wie\n`.ep-card-icon` (siehe `icon-card.component.ts`, Entscheidung 2) setzt\ncss/components.css:1369 Maße und Stroke über den Nachfahren-Selektor\n`.ep-feature-icon svg{width:26px;height:26px;stroke-width:var(--icon-stroke-md)}`\n— NICHT über eine Klasse auf dem SVG selbst, anders als `.stoerer-icon`\n(`stoerer.component.ts`), das direkt auf dem projizierten `<svg>` sitzt. Der\nKonsument liefert deshalb ein unverändertes\n`<svg cdsIcon viewBox=\"…\" aria-hidden=\"true\" focusable=\"false\">…</svg>` OHNE\nzusätzliche Größenklasse, projiziert über `<ng-content select=\"[cdsIcon]\">`\n(Kontrakt in der Story „Interaktiv“ per `getBoundingClientRect()` gepinnt).\nAnders als `.ep-card-icon` (nur `background`, kein `color`) setzt\n`.ep-feature-icon` UND ihre vier `[data-area]`-Varianten (css/components.css:\n1367–1372) zusätzlich `color` auf dem Container selbst. Das Mockup nutzt das\naktiv aus: Die projizierten SVGs tragen\n`stroke=\"currentColor\"` statt eines hart codierten Bereichstons — die Farbe\nkommt allein aus dem Container, ein Icon-Autor muss den Bereich der Kachel gar\nnicht kennen. Bei `cds-icon-card` ist das nicht möglich (kein `color` am\nContainer), dort trägt jedes Icon seinen Bereichston selbst im `stroke`-Attribut.\nStory „Interaktiv“ demonstriert das mit `stroke=\"currentColor\"` und prüft die\ngeerbte Farbe per `getComputedStyle()`. Die Icon-Kachel selbst ist ein\n`<span aria-hidden=\"true\">`, kein `<div>` —\nrein dekorativ, das SVG trägt bereits sein eigenes `aria-hidden`; die Komponente\nübernimmt beides unverändert.\n\n**CTA: `<a>` mit `href`, sonst `<span>` — nie ein `<a>` ohne `href`.**\ncss/components.css:1376 zielt mit `.ep-feature-body>.card-cta-link` auf den\ndirekten Nachfahren; Angulars `@if`/`@else` fügt dafür kein Wrapper-Element ein\n(kompiliert zu Kommentar-Ankern, kein Element), der Kindselektor bleibt also in\nbeiden Zweigen erhalten. Ausgezählt: Alle 13 Vorkommen von\n`.card-cta-link` innerhalb von `.ep-feature-body` sind entweder ein `<a\nhref=\"…\">` (12×) oder ein `<span>` (1×,\n„Landingpage folgt“ — Platzhalter für ein Ziel, das noch fehlt). Ein `<a>` OHNE\n`href` kommt kein einziges Mal vor — dieselbe Falle, die `cds-icon-card` über\n`isLink()` schließt (ein Link-Tag ohne `href` ist weder fokussierbar noch hat\nes eine Link-Rolle, sieht mit der `.card-cta-link`-Optik aber trotzdem wie ein\nbedienbares Element aus). Hier entscheidet sich das nicht am Host-Tag (der ist\nbei `cdsFeature` immer `<div>`), sondern strukturell im eigenen Template:\n`ctaHref` gesetzt → `<a class=\"card-cta-link\" [href]=\"ctaHref()\">`, leer →\n`<span class=\"card-cta-link\">` mit identischer Optik und identischem Pfeil,\naber ohne Link-Rolle (siehe Story „Ohne Href“). Ein `[attr.href]`-Nullwert wäre\ndieselbe Krücke gewesen wie ein `<a>` ohne `href` zu tolerieren; der\n`@if`/`@else`-Zweig macht den Fall stattdessen unmöglich, statt ihn nur\nabzufedern. `data-area` sitzt auf beiden Zweigen, weil `.card-cta-link[data-area]`\n(css/components.css:1363–1366) ein direkter Attributselektor ist, keine\nNachfahren-Regel wie `.ep-card[data-area] .ep-card-cta` bei der Icon-Karte —\nohne eigenes `data-area` bliebe der Link/Span auf der CSS-Vorgabefarbe, auch bei\ngesetztem `area`.\n\n**`ctaAriaLabel` — der zugängliche Name ist im Mockup die Regel, nicht die\nAusnahme.** Erster Anlauf dieser Komponente hatte keinen solchen Input, mit der\n(falschen) Annahme, das Mockup verzichte meist auf einen zusätzlichen\n`aria-label`. Ausgezählt: von den 12 `<a class=\"card-cta-link\">` in\n`.ep-feature-body` tragen 11 einen `aria-label`, nur einer nicht\n(„Contentletter abonnieren“ — der sichtbare Text ist\ndort bereits eindeutig). Grund: nur 3 verschiedene sichtbare Texte verteilen\nsich auf diese 12 Links, „Zur Landingpage“ allein zehnmal — eine\nScreenreader-Linkliste hörte sonst\nzehnmal denselben Namen ohne Unterscheidung. Das Mockup disambiguiert\ndurchgängig mit der Form `<sichtbarer Text>: <Ziel>`\n(`aria-label=\"Zur Landingpage: KI Kickstart Workshops\"`). `ctaAriaLabel` ist\ndeshalb Beiwerk (Default `''`): leer bleibt der sichtbare `ctaLabel`-Text der\nzugängliche Name (passt für einen eindeutigen CTA-Text wie „Contentletter\nabonnieren“), gesetzt überschreibt er ihn — Konsumenten mit einer Liste\ngleichlautender CTA-Texte (wie den zehn „Zur Landingpage“ im Mockup) setzen ihn\npro Instanz auf `<ctaLabel>: <Ziel>`. Wirkt nur am `<a>`-Zweig: `aria-label` an\neinem `<span>` ohne Rolle hat keinen verlässlichen Effekt im\nAccessibility-Baum, und der `<span>`-Zweig ist ohnehin nicht interaktiv.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` auf Icon-Kachel und CTA-Link.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "ctaAriaLabel": {
+          "name": "ctaAriaLabel",
+          "description": "Zugänglicher Name des CTA-Links, überschreibt den sichtbaren `ctaLabel`-Text.\nNötig, wenn derselbe sichtbare CTA-Text mehrfach auf einer Seite steht (siehe\nKlassendoku); Form aus dem Mockup: `<ctaLabel>: <Ziel>`. Leer (Default) = kein\n`aria-label`, der sichtbare `ctaLabel`-Text bleibt der zugängliche Name. Wirkt\nnur, wenn `ctaHref` gesetzt ist (nur der `<a>`-Zweig hat eine Link-Rolle).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "ctaHref": {
+          "name": "ctaHref",
+          "description": "CTA-Linkziel; gesetzt → `<a href>`, leer → `<span>` ohne Link-Rolle (siehe Klassendoku).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "ctaLabel": {
+          "name": "ctaLabel",
+          "description": "CTA-Linktext (`.card-cta-link` als direktes Kind von `.ep-feature-body`, leer = kein CTA).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "text": {
+          "name": "text",
+          "description": "Beschreibungstext (`.ep-feature-text`).",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Titel (`.ep-feature-title`). Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FeatureComponentInputs = {\n  /** Markenbereich → `data-area` auf Icon-Kachel und CTA-Link. */\n  area?: CdsArea;\n  /**\n   * Zugänglicher Name des CTA-Links, überschreibt den sichtbaren `ctaLabel`-Text.\n   * Nötig, wenn derselbe sichtbare CTA-Text mehrfach auf einer Seite steht (siehe\n   * Klassendoku); Form aus dem Mockup: `<ctaLabel>: <Ziel>`. Leer (Default) = kein\n   * `aria-label`, der sichtbare `ctaLabel`-Text bleibt der zugängliche Name. Wirkt\n   * nur, wenn `ctaHref` gesetzt ist (nur der `<a>`-Zweig hat eine Link-Rolle).\n   *\n   * @default ''\n   */\n  ctaAriaLabel?: string;\n  /**\n   * CTA-Linkziel; gesetzt → `<a href>`, leer → `<span>` ohne Link-Rolle (siehe Klassendoku).\n   *\n   * @default ''\n   */\n  ctaHref?: string;\n  /**\n   * CTA-Linktext (`.card-cta-link` als direktes Kind von `.ep-feature-body`, leer = kein CTA).\n   *\n   * @default ''\n   */\n  ctaLabel?: string;\n  /** Beschreibungstext (`.ep-feature-text`). */\n  text: string;\n  /** Titel (`.ep-feature-title`). Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FeatureComponent",
+        "selector": "div[cdsFeature]",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "ctaAriaLabel",
+          "ctaHref",
+          "ctaLabel",
+          "text",
+          "title"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

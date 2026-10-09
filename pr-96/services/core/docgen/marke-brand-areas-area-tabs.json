@@ -1,0 +1,75 @@
+{
+  "components": {
+    "marke-brand-areas-area-tabs": {
+      "id": "marke-brand-areas-area-tabs",
+      "name": "AreaTabsComponent",
+      "path": "./src/lib/area-tabs/area-tabs.stories.ts",
+      "description": "AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus\ncss/components.css → „Area Tabs“. Bereichsgefärbte Tab-Leiste: der aktive Tab\nsetzt `--atab-color` (Bereichs-700) für Text + Unterstrich, der Punkt nutzt\nBereichs-500. Umschalten per Klick (aria-selected / sichtbares Panel).\n\nTabs werden deklarativ als `<cds-area-tab>`-Kinder projiziert; jeder Tab trägt\n`area` + `label` und BELIEBIGEN Inhalt (Markup/Komponenten), der ins Panel\ngerendert wird. Der aktive Index ist über `[(active)]` steuerbar.\n\nPanels tragen `tabindex=\"0\"`, wenn sie kein fokussierbares Element enthalten (WAI-ARIA-\nTabs-Muster): so erreicht die Tastatur auch reinen Text. Enthält ein Panel Button, Link\noder Formularfeld, entfällt das Attribut.",
+      "jsDocTags": {},
+      "argTypes": {
+        "active": {
+          "name": "active",
+          "description": "Index des aktiven Tabs. Two-Way (`[(active)]`).",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 0
+            }
+          }
+        },
+        "ariaLabel": {
+          "name": "ariaLabel",
+          "description": "Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Bereiche"
+            }
+          }
+        },
+        "activeChange": {
+          "name": "activeChange",
+          "description": "Index des aktiven Tabs. Two-Way (`[(active)]`).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "activeChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: number) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type AreaTabsComponentInputs = {\n  /**\n   * Index des aktiven Tabs. Two-Way (`[(active)]`).\n   *\n   * @default 0\n   */\n  active?: number; // two-way: [(active)]\n  /**\n   * Zugänglicher Name der Tab-Leiste (WAI-ARIA verlangt aria-label/-labelledby).\n   *\n   * @default Bereiche\n   */\n  ariaLabel?: string;\n}\n```\n\n## Outputs\n\n```\nexport type AreaTabsComponentOutputs = {\n  /** Index des aktiven Tabs. Two-Way (`[(active)]`). */\n  activeChange: (e: number) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "AreaTabsComponent",
+        "selector": "cds-area-tabs",
+        "standalone": true,
+        "inputs": [
+          "active",
+          "ariaLabel"
+        ],
+        "outputs": [
+          "activeChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

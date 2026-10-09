@@ -1,0 +1,27 @@
+{
+  "components": {
+    "komponenten-cards-teaser-tier-trenner": {
+      "id": "komponenten-cards-teaser-tier-trenner",
+      "name": "TierComponent",
+      "path": "./src/lib/tier/tier.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-tier-trenner--interaktiv": {
+          "id": "komponenten-cards-teaser-tier-trenner--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TierComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TierComponent],\n  template: `<cds-tier [label]=\"label\" [area]=\"area\"></cds-tier>`,\n})\nexport class DemoComponent {\n  label = 'In jedem Paket enthalten';\n}",
+          "warning": "Incomplete snippet: `area` could not be provided, since the story declares no such arg."
+        },
+        "komponenten-cards-teaser-tier-trenner--pro-bereich": {
+          "id": "komponenten-cards-teaser-tier-trenner--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { TierComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TierComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s6)\">\n        <cds-tier label=\"In jedem Paket enthalten\"></cds-tier>\n        <cds-tier label=\"Zusätzlich mit Pro\" area=\"ki\"></cds-tier>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-tier-trenner--alle-bereiche": {
+          "id": "komponenten-cards-teaser-tier-trenner--alle-bereiche",
+          "name": "Alle Bereiche",
+          "snippet": "import { Component } from '@angular/core';\nimport { TierComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TierComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s6)\">\n        <cds-tier label=\"Neutral\"></cds-tier>\n        <cds-tier label=\"Corporate\" area=\"co\"></cds-tier>\n        <cds-tier label=\"AI.Applied\" area=\"ki\"></cds-tier>\n        <cds-tier label=\"Effektive Software\" area=\"es\"></cds-tier>\n        <cds-tier label=\"Wirksame Organisationen\" area=\"wo\"></cds-tier>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "components": {
+    "komponenten-dropdowns-combobox": {
+      "id": "komponenten-dropdowns-combobox",
+      "name": "ComboboxComponent",
+      "path": "./src/lib/combobox/combobox.stories.ts",
+      "description": "Combobox (cds-combobox) — Tipp-Filter über `.ep-combobox` aus css/components.css\n→ Doku „Dropdowns“. Wie der Custom Select, aber mit Substring-Filter im Feld (für\nlange Listen). Optional Multi-Select mit Chips (`multi`).\n\nVerhalten/a11y selbst getragen: Input mit role=combobox (dort ist\naria-activedescendant erlaubt), aria-expanded/-controls/-autocomplete; Listbox mit\nrole=listbox/option; ↓ öffnet/navigiert, Enter wählt, Esc schließt, Rücktaste bei\nleerem Feld entfernt im Multi-Modus den letzten Chip. Die Listbox trägt bei `multi`\n`aria-multiselectable`, der Leerzustand ist eine `role=status`-Meldung („Keine Treffer“) außerhalb der Listbox, die dann ausgeblendet ist.\nChips heißen „<Label> entfernen“ und geben den Fokus ins Feld zurück; der Lösch-Button hebt\nin der Einzelauswahl die Auswahl auf; der Chevron schaltet das Menü um. Beim Schließen ohne Auswahl\nfällt die Einzelauswahl auf das gewählte Label zurück (kein loser Filtertext).\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); der Formularwert ist im Multi-Modus `string[]`, sonst `string`.\nOhne Formular gehen `[(value)]` / `[(values)]` (valueChange/valuesChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Custom Select (`komponenten-dropdowns-custom-select--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "emptyText": {
+          "name": "emptyText",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Keine Treffer"
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Thema"
+            }
+          }
+        },
+        "multi": {
+          "name": "multi",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "options": {
+          "name": "options",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsSelectOption[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Suchen…"
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Einzelauswahl: gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string | undefined"
+            },
+            "defaultValue": {}
+          }
+        },
+        "values": {
+          "name": "values",
+          "description": "Mehrfachauswahl: gewählte Werte (nur bei multi). Two-Way UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Einzelauswahl: gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string | undefined) => void"
+            }
+          }
+        },
+        "valuesChange": {
+          "name": "valuesChange",
+          "description": "Mehrfachauswahl: gewählte Werte (nur bei multi). Two-Way UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valuesChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string[]) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ComboboxComponentInputs = {\n  area?: CdsArea;\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /** @default Keine Treffer */\n  emptyText?: string;\n  /** @default Thema */\n  label?: string;\n  /** @default false */\n  multi?: boolean;\n  /** @default [] */\n  options?: CdsSelectOption[];\n  /** @default Suchen… */\n  placeholder?: string;\n  /** Einzelauswahl: gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms. */\n  value?: string | undefined; // two-way: [(value)]\n  /**\n   * Mehrfachauswahl: gewählte Werte (nur bei multi). Two-Way UND Angular-Forms.\n   *\n   * @default []\n   */\n  values?: string[]; // two-way: [(values)]\n}\n```\n\n## Outputs\n\n```\nexport type ComboboxComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Einzelauswahl: gewählter Wert. Two-Way (`[(value)]`) UND Angular-Forms. */\n  valueChange: (e: string | undefined) => void;\n  /** Mehrfachauswahl: gewählte Werte (nur bei multi). Two-Way UND Angular-Forms. */\n  valuesChange: (e: string[]) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ComboboxComponent",
+        "selector": "cds-combobox",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "emptyText",
+          "label",
+          "multi",
+          "options",
+          "placeholder",
+          "value",
+          "values"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange",
+          "valuesChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

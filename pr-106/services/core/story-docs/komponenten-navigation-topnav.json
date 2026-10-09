@@ -1,0 +1,71 @@
+{
+  "components": {
+    "komponenten-navigation-topnav": {
+      "id": "komponenten-navigation-topnav",
+      "name": "TopnavComponent",
+      "path": "./src/lib/topnav/topnav.stories.ts",
+      "stories": {
+        "komponenten-navigation-topnav--interaktiv": {
+          "id": "komponenten-navigation-topnav--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--minimal": {
+          "id": "komponenten-navigation-topnav--minimal",
+          "name": "Ohne Suche & Kontakt",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"false\"\n        [showCta]=\"false\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--doppelte-labels": {
+          "id": "komponenten-navigation-topnav--doppelte-labels",
+          "name": "Doppelte Labels",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n        [links]=\"[{label: 'Leistungen', sub: [{label: 'Übersicht', href: '#l'}, {label: 'Beratung', href: '#b'}]}, {label: 'Wissen', sub: [{label: 'Übersicht', href: '#w'}, {label: 'Übersicht', href: '#w2'}]}, {label: 'Wissen', href: '#wissen'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--tastatur-im-submenue": {
+          "id": "komponenten-navigation-topnav--tastatur-im-submenue",
+          "name": "Tastatur im Submenü",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--hover-oeffnen": {
+          "id": "komponenten-navigation-topnav--hover-oeffnen",
+          "name": "Öffnen per Hover",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--suche-label-und-fokus": {
+          "id": "komponenten-navigation-topnav--suche-label-und-fokus",
+          "name": "Suche: Label und Fokus",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--heraustabben-schliesst-submenue": {
+          "id": "komponenten-navigation-topnav--heraustabben-schliesst-submenue",
+          "name": "Heraustabben schließt Submenü",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--heraustabben-schliesst-suche": {
+          "id": "komponenten-navigation-topnav--heraustabben-schliesst-suche",
+          "name": "Heraustabben schließt Suche",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--mobilmenue-link-klick": {
+          "id": "komponenten-navigation-topnav--mobilmenue-link-klick",
+          "name": "Mobilmenü: Link-Klick schließt",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n        [links]=\"[{label: 'Leistungen', href: '#leistungen', sub: [{label: 'Angewandte KI', href: '#ki'}]}, {label: 'Beiträge', href: '#beitraege'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--label-ohne-ziel-schliesst-nichts": {
+          "id": "komponenten-navigation-topnav--label-ohne-ziel-schliesst-nichts",
+          "name": "Label ohne Ziel schließt nichts",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--suche-bricht-hover-timer-ab": {
+          "id": "komponenten-navigation-topnav--suche-bricht-hover-timer-ab",
+          "name": "Suche bricht Hover-Timer ab",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-navigation-topnav--icon-strichstaerke": {
+          "id": "komponenten-navigation-topnav--icon-strichstaerke",
+          "name": "Icon-Strichstärke",
+          "snippet": "import { Component } from '@angular/core';\nimport { TopnavComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TopnavComponent],\n  template: `\n    <cds-topnav\n        [logo]=\"'conciso.'\"\n        [logoSrc]=\"'./conciso/brand/logo-conciso.svg'\"\n        [logoDarkSrc]=\"'./conciso/brand/logo-conciso-light.svg'\"\n        [logoAlt]=\"'Conciso'\"\n        [ctaLabel]=\"'Kontakt'\"\n        [activeHref]=\"'#kontakt'\"\n        [showSearch]=\"true\"\n        [showCta]=\"true\"\n        [showSystemTheme]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

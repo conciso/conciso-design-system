@@ -1,0 +1,26 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-segment": {
+      "id": "komponenten-theme-umschalter-segment",
+      "name": "ThemeSegmentComponent",
+      "path": "./src/lib/theme-switch/segment-tri.stories.ts",
+      "stories": {
+        "komponenten-theme-umschalter-segment--interaktiv": {
+          "id": "komponenten-theme-umschalter-segment--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSegmentComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSegmentComponent],\n  template: `<cds-theme-segment [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-segment--binaer": {
+          "id": "komponenten-theme-umschalter-segment--binaer",
+          "name": "Binär (nur Hell/Dunkel)",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSegmentComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSegmentComponent],\n  template: `<cds-theme-segment [showSystem]=\"false\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-segment--wechsel-dunkel": {
+          "id": "komponenten-theme-umschalter-segment--wechsel-dunkel",
+          "name": "Wechsel · Dunkel",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSegmentComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSegmentComponent],\n  template: `<cds-theme-segment [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

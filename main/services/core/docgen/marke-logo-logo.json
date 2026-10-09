@@ -1,0 +1,71 @@
+{
+  "components": {
+    "marke-logo-logo": {
+      "id": "marke-logo-logo",
+      "name": "LogoComponent",
+      "path": "./src/lib/logo/logo.stories.ts",
+      "description": "Logo — einzelne Logo-Kachel (`.logo-tile` aus css/components.css).\n\nRendert bevorzugt ein **Bild** (`src`); ohne Bild fällt es auf den Text-`label`\nals Platzhalter zurück (`.logo-placeholder`). So lässt es sich sowohl im\nLogo-Carousel als auch eigenständig verwenden (Partner-Leiste, „Bekannt aus“-Reihe,\nFooter). Die Host-Klasse `logo-tile` trägt Flex-Zentrierung/Padding aus der portablen CSS.",
+      "jsDocTags": {},
+      "argTypes": {
+        "alt": {
+          "name": "alt",
+          "description": "Alt-Text des Bilds (Fallback: `label`).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "src": {
+          "name": "src",
+          "description": "Bildquelle; gesetzt → Bild statt Text-Platzhalter.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type LogoComponentInputs = {\n  /**\n   * Alt-Text des Bilds (Fallback: `label`).\n   *\n   * @default ''\n   */\n  alt?: string;\n  label: string;\n  /** Bildquelle; gesetzt → Bild statt Text-Platzhalter. */\n  src?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "LogoComponent",
+        "selector": "cds-logo",
+        "standalone": true,
+        "inputs": [
+          "alt",
+          "label",
+          "src"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

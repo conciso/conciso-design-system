@@ -1,0 +1,58 @@
+{
+  "components": {
+    "komponenten-cards-teaser-statstrip": {
+      "id": "komponenten-cards-teaser-statstrip",
+      "name": "StatStripComponent",
+      "path": "./src/lib/stat-strip/stat-strip.stories.ts",
+      "description": "StatStrip — Wrapper um `.card-stat-strip` + `.card-stat-flat` aus\ncss/components.css → „Stat-Strip“. Flacher Bandstreifen (auto-fit-Grid auf\n--n-50-Grund) mit zentrierten Kennzahlen ohne Rahmen/Schatten; Wert je\nBereich getönt via [data-area].\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "rounded": {
+          "name": "rounded",
+          "description": "Abgerundete Ecken (--r-lg) wie in der Doku-Verwendung.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "stats": {
+          "name": "stats",
+          "description": "Kennzahlen des Streifens.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsFlatStat[]"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type StatStripComponentInputs = {\n  /**\n   * Abgerundete Ecken (--r-lg) wie in der Doku-Verwendung.\n   *\n   * @default true\n   */\n  rounded?: boolean;\n  /** Kennzahlen des Streifens. */\n  stats: CdsFlatStat[];\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "StatStripComponent",
+        "selector": "cds-stat-strip",
+        "standalone": true,
+        "inputs": [
+          "rounded",
+          "stats"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "components": {
+    "komponenten-feedback-snackbar": {
+      "id": "komponenten-feedback-snackbar",
+      "name": "SnackbarComponent",
+      "path": "./src/lib/snackbar/snackbar.stories.ts",
+      "description": "Snackbar — Wrapper um `.snack` aus css/components.css → „Snackbar“.\n\nKurze Statusmeldung in drei Tönen (.snack-def / .snack-ok / .snack-err) mit\nführendem, tonfarbenem Icon (wie die Doku) und optionaler Aktion (.snack-act).\nTon „err“ ist eine echte Fehlermeldung → role=\"alert\" + aria-live=\"assertive\";\ndef/ok bleiben role=\"status\" + aria-live=\"polite\" (wie im Doku-Markup).\nKonsumiert nur bestehende Klassen.",
+      "jsDocTags": {},
+      "argTypes": {
+        "actionLabel": {
+          "name": "actionLabel",
+          "description": "Optionaler Aktions-Button (.snack-act); leer = keiner.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "message": {
+          "name": "message",
+          "description": "Anzuzeigender Statustext.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "tone": {
+          "name": "tone",
+          "description": "Ton → .snack-def / .snack-ok / .snack-err",
+          "type": {
+            "name": "enum",
+            "value": [
+              "def",
+              "ok",
+              "err"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsSnackTone"
+            },
+            "defaultValue": {
+              "summary": "def"
+            }
+          }
+        },
+        "action": {
+          "name": "action",
+          "description": "Klick auf die optionale Aktion.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "action",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "void"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type SnackbarComponentInputs = {\n  /**\n   * Optionaler Aktions-Button (.snack-act); leer = keiner.\n   *\n   * @default ''\n   */\n  actionLabel?: string;\n  /** Anzuzeigender Statustext. */\n  message: string;\n  /**\n   * Ton → .snack-def / .snack-ok / .snack-err\n   *\n   * @default def\n   */\n  tone?: CdsSnackTone;\n}\n```\n\n## Outputs\n\n```\nexport type SnackbarComponentOutputs = {\n  /** Klick auf die optionale Aktion. */\n  action: void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "SnackbarComponent",
+        "selector": "cds-snackbar",
+        "standalone": true,
+        "inputs": [
+          "actionLabel",
+          "message",
+          "tone"
+        ],
+        "outputs": [
+          "action"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

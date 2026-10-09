@@ -1,0 +1,204 @@
+{
+  "components": {
+    "komponenten-buttons-button": {
+      "id": "komponenten-buttons-button",
+      "name": "ButtonComponent",
+      "path": "./src/lib/button/button.stories.ts",
+      "description": "Button — dünner Angular-Wrapper um die bestehende `.btn`-CSS-Familie.\n\nErfindet KEINE Styles: setzt ausschließlich die im Design System vorhandenen\nKlassen (.btn, .btn-filled/.btn-tonal/.btn-elevated/.btn-outlined/.btn-text,\n.btn-sm/.btn-lg, .btn-co/.btn-ki/.btn-es/.btn-wo, .btn-full, .btn-on-band)\nzusammen. Siehe css/components.css → „Buttons“. Der Klick wird als `clicked`\nausgegeben (für Nutzung außerhalb reiner Formular-Submits).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → .btn-co / .btn-ki / .btn-es / .btn-wo. Wirkungslos bei `tone=\"err\"`.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "full": {
+          "name": "full",
+          "description": "Volle Breite → .btn-full (Host wird block, damit 100% greifen).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbarer Text des Buttons.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Button"
+            }
+          }
+        },
+        "size": {
+          "name": "size",
+          "description": "Größe → .btn-sm / (md = Default) / .btn-lg",
+          "type": {
+            "name": "enum",
+            "value": [
+              "sm",
+              "md",
+              "lg"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsButtonSize"
+            },
+            "defaultValue": {
+              "summary": "md"
+            }
+          }
+        },
+        "tone": {
+          "name": "tone",
+          "description": "Ton → `err` setzt .btn-err (destruktive Aktion) statt der Bereichsklasse.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "def",
+              "err"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsButtonTone"
+            },
+            "defaultValue": {
+              "summary": "def"
+            }
+          }
+        },
+        "type": {
+          "name": "type",
+          "type": {
+            "name": "enum",
+            "value": [
+              "button",
+              "submit",
+              "reset"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "\"button\" | \"submit\" | \"reset\""
+            },
+            "defaultValue": {
+              "summary": "button"
+            }
+          }
+        },
+        "variant": {
+          "name": "variant",
+          "description": "Visuelle Variante → .btn-filled / .btn-tonal / .btn-elevated / .btn-outlined /\n .btn-text; `filled-on-band` → .btn-filled + .btn-on-band (invertiert).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "filled",
+              "tonal",
+              "elevated",
+              "outlined",
+              "text",
+              "filled-on-band"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsButtonVariant"
+            },
+            "defaultValue": {
+              "summary": "filled"
+            }
+          }
+        },
+        "clicked": {
+          "name": "clicked",
+          "description": "Klick auf den Button (feuert nicht, wenn `disabled`).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "clicked",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "MouseEvent"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ButtonComponentInputs = {\n  /**\n   * Markenbereich → .btn-co / .btn-ki / .btn-es / .btn-wo. Wirkungslos bei `tone=\"err\"`.\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** @default false */\n  disabled?: boolean;\n  /**\n   * Volle Breite → .btn-full (Host wird block, damit 100% greifen).\n   *\n   * @default false\n   */\n  full?: boolean;\n  /**\n   * Sichtbarer Text des Buttons.\n   *\n   * @default Button\n   */\n  label?: string;\n  /**\n   * Größe → .btn-sm / (md = Default) / .btn-lg\n   *\n   * @default md\n   */\n  size?: CdsButtonSize;\n  /**\n   * Ton → `err` setzt .btn-err (destruktive Aktion) statt der Bereichsklasse.\n   *\n   * @default def\n   */\n  tone?: CdsButtonTone;\n  /** @default button */\n  type?: \"button\" | \"submit\" | \"reset\";\n  /**\n   * Visuelle Variante → .btn-filled / .btn-tonal / .btn-elevated / .btn-outlined /\n   *  .btn-text; `filled-on-band` → .btn-filled + .btn-on-band (invertiert).\n   *\n   * @default filled\n   */\n  variant?: CdsButtonVariant;\n}\n```\n\n## Outputs\n\n```\nexport type ButtonComponentOutputs = {\n  /** Klick auf den Button (feuert nicht, wenn `disabled`). */\n  clicked: MouseEvent;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ButtonComponent",
+        "selector": "cds-button",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "full",
+          "label",
+          "size",
+          "tone",
+          "type",
+          "variant"
+        ],
+        "outputs": [
+          "clicked"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

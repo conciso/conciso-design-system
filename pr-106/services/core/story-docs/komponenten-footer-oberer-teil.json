@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-footer-oberer-teil": {
+      "id": "komponenten-footer-oberer-teil",
+      "name": "FooterMainComponent",
+      "path": "./src/lib/footer/footer-main.stories.ts",
+      "stories": {
+        "komponenten-footer-oberer-teil--interaktiv": {
+          "id": "komponenten-footer-oberer-teil--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterMainComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterMainComponent],\n  template: `\n    <cds-footer-main [columns]=\"columns\">\n        <div>\n            <h3 class=\"footer-htitle\">Produkt</h3>\n            <ul class=\"footer-nav-list\">\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Funktionen</a>\n                </li>\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Preise</a>\n                </li>\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Roadmap</a>\n                </li>\n            </ul>\n        </div>\n        <div>\n            <h3 class=\"footer-htitle\">Ressourcen</h3>\n            <ul class=\"footer-nav-list\">\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Dokumentation</a>\n                </li>\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Beiträge</a>\n                </li>\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Status</a>\n                </li>\n            </ul>\n        </div>\n        <div>\n            <h3 class=\"footer-htitle\">Kontakt</h3>\n            <address class=\"footer-address\">\n                <p>\n                    Pariser Bogen 7\n                    <br />\n                    44269 Dortmund\n                </p>\n                <p>\n                    E-Mail:\n                    <a\n                        class=\"footer-link\"\n                        href=\"mailto:info@conciso.de\">\n                        info&#64;conciso.de\n                    </a>\n                </p>\n            </address>\n        </div>\n    </cds-footer-main>`,\n})\nexport class DemoComponent {\n  columns = undefined;\n}"
+        },
+        "komponenten-footer-oberer-teil--vier-spalten": {
+          "id": "komponenten-footer-oberer-teil--vier-spalten",
+          "name": "Vier Spalten (columns)",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterMainComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterMainComponent],\n  template: `\n    <cds-footer-main columns=\"repeat(4, 1fr)\">\n        @for (col of ['Produkt', 'Lösungen', 'Ressourcen', 'Unternehmen']; track col) {\n        <div>\n            <h3 class=\"footer-htitle\">{{ col }}</h3>\n            <ul class=\"footer-nav-list\">\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Link A</a>\n                </li>\n                <li>\n                    <a class=\"footer-link\" href=\"#\">Link B</a>\n                </li>\n            </ul>\n        </div>\n        }\n    </cds-footer-main>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

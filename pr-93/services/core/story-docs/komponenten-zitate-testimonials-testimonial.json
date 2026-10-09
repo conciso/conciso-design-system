@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-testimonial": {
+      "id": "komponenten-zitate-testimonials-testimonial",
+      "name": "TestimonialComponent",
+      "path": "./src/lib/testimonial/testimonial.stories.ts",
+      "stories": {
+        "komponenten-zitate-testimonials-testimonial--interaktiv": {
+          "id": "komponenten-zitate-testimonials-testimonial--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TestimonialComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TestimonialComponent],\n  template: `\n    <cds-testimonial\n        [quote]=\"'Conciso hat unsere Plattform spürbar verschlankt: weniger Code, klarere Prozesse, zufriedenere Teams.'\"\n        [name]=\"'Dr. Maria Schmidt'\"\n        [roleLabel]=\"'CTO, Beispiel GmbH'\"\n        [area]=\"'co'\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-zitate-testimonials-testimonial--pro-bereich": {
+          "id": "komponenten-zitate-testimonials-testimonial--pro-bereich",
+          "name": "Je Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { TestimonialComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TestimonialComponent],\n  template: `\n    <div\n        style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px\">\n        <cds-testimonial\n            area=\"co\"\n            name=\"A. Becker\"\n            roleLabel=\"CEO\"\n            quote=\"Ein Auftritt, auf den wir stolz sind: klar, konsistent, professionell.\">\n        </cds-testimonial>\n        <cds-testimonial\n            area=\"ki\"\n            name=\"S. Khan\"\n            roleLabel=\"Head of Data\"\n            quote=\"Die KI-Lösung liefert seit Tag eins messbaren Mehrwert.\">\n        </cds-testimonial>\n        <cds-testimonial\n            area=\"es\"\n            name=\"M. Lang\"\n            roleLabel=\"VP Engineering\"\n            quote=\"Weniger technische Schulden, schnellere Releases, genau wie versprochen.\">\n        </cds-testimonial>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

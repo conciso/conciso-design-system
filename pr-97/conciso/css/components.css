@@ -1,0 +1,1710 @@
+/* ── Components ── */
+
+/* ── Brand Wheel ── */
+.bw-wrap{display:flex;justify-content:center;padding:var(--s8) 0}
+.bw-svg{width:100%;max-width:480px;display:block}
+.bw-outer{fill:var(--co-50)}
+.bw-middle{fill:var(--co-200)}
+/* #fff on co-400 (#26C2C2) = 2.19:1 ❌. co-800 (#004F4F) = 9.42:1 ✓ AAA in beiden Modi.
+   Inhaltlich getrieben (GELASSENHEIT muss lesbar sein); visuell wird das Rad damit dunkler im Zentrum. */
+.bw-inner{fill:var(--co-800)}
+.bw-divider{stroke:#fff;stroke-width:2;fill:none}
+.bw-ring-outline{fill:none;stroke:#fff;stroke-width:2}
+/* SVG-Text bleibt in px (Ausnahme von der rem-Konvention): skaliert über das viewBox
+   der SVG mit, rem in SVG ist Browser-abhängig unzuverlässig. */
+.bw-label-core{fill:#fff;font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:2px}
+.bw-label-segment{fill:var(--co-800);font-family:var(--font);font-size:13px;font-weight:700;letter-spacing:1px}
+.bw-label-attr{fill:var(--co-700);font-family:var(--font);font-size:12px;font-weight:600;letter-spacing:.8px}
+.bw-pillar-card{flex:1;min-width:180px;padding:var(--s5);border-radius:var(--r-lg);background:var(--n-0);border:var(--bd-strong)}
+.bw-pillar-title{font-size:0.875rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:var(--s2);color:var(--co-700)}
+.bw-pillar-attrs{font-size:0.875rem;color:var(--tx-secondary);line-height:1.6}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;padding:10px 24px;border-radius:var(--r-full);border:none;cursor:pointer;transition:box-shadow var(--m-fast),transform var(--m-fast),filter var(--m-fast);min-height:44px;text-decoration:none}
+.btn:hover,.btn:focus,.btn:active{text-decoration:none}
+.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.38;cursor:not-allowed;pointer-events:none}
+.btn-sm{padding:6px 16px;font-size:0.75rem;line-height:1rem;min-height:36px}
+.btn-lg{padding:14px 32px;font-size:1rem;line-height:1.5rem;min-height:52px}
+.btn-filled{background:var(--c500);color:#fff;box-shadow:var(--e1)}
+.btn-filled:hover{filter:brightness(.92);box-shadow:var(--e2)}
+.btn-tonal{background:var(--c50);color:var(--c500);border:1.5px solid rgba(0,0,0,.12)}
+.btn-tonal:hover{filter:brightness(.96);box-shadow:var(--e1)}
+.btn-elevated{background:var(--bg-surface);color:var(--c500);box-shadow:var(--e1)}
+.btn-elevated:hover{box-shadow:var(--e2)}
+.btn-outlined{background:transparent;color:var(--c500);border:2px solid var(--c500)}
+.btn-outlined:hover{background:var(--c50)}
+.btn-text{background:transparent;color:var(--c500);padding:10px 12px}
+.btn-text:hover{background:var(--c50)}
+
+/* ── Button brand-area color variants ── */
+.btn-co   {--c500:var(--co-700);--c50:var(--co-50)}
+.btn-ki   {--c500:var(--ki-800);--c50:var(--ki-50)}
+.btn-es   {--c500:var(--es-700);--c50:var(--es-50)}
+.btn-wo   {--c500:var(--wo-700);--c50:var(--wo-50)}
+/* Ton-Modifier: destruktive Aktion, die sich nicht rückgängig machen lässt (Löschen, Verwerfen).
+   Setzt dieselben zwei Tokens wie die Bereichsklassen und steht deshalb hinter ihnen: Trägt ein
+   Button beide Klassen, gewinnt der Ton. Kombinierbar mit jeder Stil-Variante, gedacht für Filled,
+   Outlined und Text. Light: Weiß auf --c-error 8,01:1, --c-error auf bg-page 8,01:1, Tonal-Text auf
+   --c-error-bg 4,99:1. Dark-Werte in dark-mode.css. */
+.btn-err  {--c500:var(--c-error);--c50:var(--c-error-bg)}
+/* Modifier: invertiert auf dunklem Bereichs-Band (z. B. .ep-cta-band) — kombiniert mit .btn-co/.btn-ki/.btn-es/.btn-wo. Background wird weiß, Text trägt die Bereichsfarbe. */
+.btn-on-band{--c500:#fff;--c50:rgba(255,255,255,.1)}
+.btn-co.btn-on-band{color:var(--co-700)}
+.btn-ki.btn-on-band{color:var(--ki-800)}
+.btn-es.btn-on-band{color:var(--es-700)}
+.btn-wo.btn-on-band{color:var(--wo-700)}
+/* Full-width centered submit button */
+.btn-full {width:100%;justify-content:center}
+
+/* ── Showcase containers ── */
+.ds-card   {border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;flex:1}
+.ds-surface{border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface)}
+.ds-inner  {padding:var(--s6);background:var(--bg-surface);flex:1}
+/* Formular-Karten in gleich hohen Grid-Spalten: das Textarea-Feld füllt den Leerraum, damit der
+   Submit-Button unten bündig zur Nachbar-Karte sitzt. flex-basis:auto (natürliche Höhe) + grow,
+   kein Schrumpfen unter die natürliche Größe; min-height als Boden. Nur .field mit Textarea wächst. */
+.ds-inner-fill{display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea){flex:1 1 auto;display:flex;flex-direction:column}
+.ds-inner-fill .field:has(textarea) textarea{flex:1 1 auto;min-height:96px}
+.clip-card {border-radius:var(--r-md);overflow:hidden;border:var(--bd-strong)}
+
+/* ── Badges & Chips ── */
+.badge{display:inline-flex;align-items:center;gap:var(--s1);padding:3px 10px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em}
+.badge-ok{background:var(--c-success-bg);color:var(--badge-ok-text)}
+.badge-warn{background:var(--c-warning-bg);color:var(--badge-warn-text)}
+.badge-err{background:var(--c-error-bg);color:var(--badge-err-text)}
+.badge-neu{background:var(--badge-neu-bg);color:var(--badge-neu-text)}
+/* Bereichs-Badges: --XX-50-Grund + --XX-800-Text. Dark-Overrides (dark-mode.css) heben den Text auf -200/-100, Grund bleibt die dunkle -50-Kachel. */
+/* Füllung über --XX-fill, nicht --XX-50: die Füllung muss als Fläche lesen (1,3:1 gegen jeden
+   Grund), --XX-50 trug im Light nur 1,06 bis 1,14:1. Siehe Token-Kommentar in tokens.css. */
+.badge[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.badge[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.badge[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.badge[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
+/* text-decoration:none, damit der Chip auch als <a> trägt (Tag-Link, Sprungmarke, externer Verweis)
+   und nicht unterstrichen rendert. Auf <button> ohne Wirkung. */
+.chip{display:inline-flex;align-items:center;gap:var(--s1);padding:6px var(--s4);border-radius:var(--r-sm);font:var(--ty-label-md);border:1.5px solid var(--n-200);cursor:pointer;background:var(--bg-surface);color:var(--tx-primary);min-height:32px;text-decoration:none;transition:background var(--m-fast),border-color var(--m-fast),color var(--m-fast)}
+.chip:hover{background:var(--bg-overlay);border-color:var(--n-400)}
+.chip:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.chip[aria-pressed="true"]{background:var(--n-700);border-color:var(--n-700);color:#fff}
+.chip[aria-pressed="true"]:hover{background:var(--n-800);border-color:var(--n-800)}
+/* Area-aware Chips: Outline + Bereichs-Textfarbe (inaktiv) für ruhige Filter-Leiste, dezenter Tonal-Hint beim Hover, gefüllte dunklere Variante mit weißer Schrift (aktiv, AA-konform) */
+/* Rahmen = hellerer Ton als Text (Nicht-Text 3:1 vs. Text 4,5:1) — bei co jedoch co-600 statt co-500,
+   da co-500 #00BEBE nur 2,3:1 auf Weiß erreicht (WCAG 1.4.11); co-600 #009E9E = 3,28:1, bleibt < co-700-Text */
+.chip[data-area="co"]{border-color:var(--co-600);color:var(--co-700)}
+.chip[data-area="ki"]{border-color:var(--ki-700);color:var(--ki-800)}
+.chip[data-area="es"]{border-color:var(--es-500);color:var(--es-700)}
+.chip[data-area="wo"]{border-color:var(--wo-500);color:var(--wo-700)}
+.chip[data-area="co"]:hover{background:var(--co-50);border-color:var(--co-600)}
+.chip[data-area="ki"]:hover{background:var(--ki-50);border-color:var(--ki-700)}
+.chip[data-area="es"]:hover{background:var(--es-50);border-color:var(--es-500)}
+.chip[data-area="wo"]:hover{background:var(--wo-50);border-color:var(--wo-500)}
+.chip[data-area="co"][aria-pressed="true"]{background:var(--co-700);border-color:var(--co-700);color:#fff}
+.chip[data-area="ki"][aria-pressed="true"]{background:var(--ki-800);border-color:var(--ki-800);color:#fff}
+.chip[data-area="es"][aria-pressed="true"]{background:var(--es-700);border-color:var(--es-700);color:#fff}
+.chip[data-area="wo"][aria-pressed="true"]{background:var(--wo-700);border-color:var(--wo-700);color:#fff}
+.chip[data-area][aria-pressed="true"]:hover{filter:brightness(.92)}
+
+/* ── Segmented Control ──
+   Native <input type="radio"> als verbundene Button-Gruppe (2–4 kurze Optionen).
+   Der :checked-Zustand ist nur per Selektor stylbar (nicht inline), daher als echte
+   Komponente. Das native Input bleibt fokussierbar (visuell versteckt), Auswahl per
+   Klick aufs Label und per Pfeiltasten. Aktives Segment = solide Bereichsfüllung
+   (Light co-700/weiß, Dark co-300/co-900) — AA in beiden Modi. overflow:hidden
+   clippt die Füllung sauber zur Rundung; der Fokusring liegt daher per :has() auf
+   dem Container (dessen eigener outset-Schatten wird vom overflow NICHT geclippt). */
+/* Bereichs-Varianten wie bei .btn: Default ist Corporate, .seg-ki/-es/-wo überschreiben die
+   Füllung des gewählten Segments. Ohne diese Varianten trägt ein Bereichsformular mitten in
+   seinen Feldern einen Corporate-Akzent, was der Regel „ein Formular, eine Brand Area“
+   widerspricht. Der Fokusring bleibt bewusst Corporate (siehe Don'ts unter Dropdowns). */
+/* Rahmen über --field-border: n-200 trug als Bedienelement-Grenze nur 1,53:1 und verfehlte die
+   3:1-Schwelle aus WCAG 1.4.11. --field-border ist genau dafür da (Light n-400, 3,92:1). */
+.seg{display:inline-flex;border:1.5px solid var(--field-border);border-radius:var(--r-sm);overflow:hidden;background:var(--bg-surface);--seg-fill:var(--co-700);--seg-on:#fff}
+.seg-ki{--seg-fill:var(--ki-800)}
+.seg-es{--seg-fill:var(--es-700)}
+.seg-wo{--seg-fill:var(--wo-700)}
+.seg:has(input:focus-visible){box-shadow:var(--focus-aa)}
+.seg-option:not(:last-child){border-right:1.5px solid var(--n-200)}
+.seg-option input{position:absolute;width:1px;height:1px;opacity:0}
+.seg-option label{display:flex;align-items:center;min-height:40px;padding:var(--s2) var(--s5);font:var(--ty-label-md);color:var(--tx-secondary);white-space:nowrap;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.seg-option label:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.seg-option input:checked + label{background:var(--seg-fill);color:var(--seg-on)}
+
+/* ── Area Tabs ── */
+.area-tabs{display:flex;gap:2px;border-bottom:var(--bd);margin-bottom:var(--s6)}
+.atab{padding:var(--s2) var(--s4);font:var(--ty-label-md);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;color:var(--tx-secondary);transition:color var(--m-fast),border-color var(--m-fast);min-height:40px;display:flex;align-items:center;gap:var(--s2);background:none;border-top:none;border-left:none;border-right:none}
+.atab:hover{color:var(--tx-primary)}
+.atab:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.atab.active{color:var(--atab-color);border-bottom-color:var(--atab-color)}
+.atab-content{display:none}
+.atab-content.visible{display:block}
+
+/* ── Cards ── */
+/* Die Karte ist eine vertikale Spalte: Bild, Body, optionaler Footer. Das steht hier und nicht im
+   style-Attribut, weil das dokumentierte Rezept es voraussetzt: .card-body{flex:1} kann die
+   Resthöhe nur in einem Flex-Container einnehmen, und ohne diese Resthöhe hat
+   .card-cta-link--pinned kein margin-top:auto, an dem es sich ausrichten könnte. Die Karten in
+   einem .layout-grid werden von außen auf gleiche Höhe gezogen; der Body nimmt den Überschuss
+   auf, damit die CTA-Zeilen nebeneinanderliegender Karten auf einer Linie sitzen.
+   .card-featured bleibt display:block (weiter unten, spätere Regel gewinnt): dort liegt der Body
+   absolut, eine Flex-Spalte hätte da nichts zu verteilen. */
+.card{background:var(--bg-surface);border-radius:var(--r-lg);border:var(--bd-strong);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow var(--m-std),transform var(--m-std)}
+/* Card-Varianten */
+/* Elevation = Interaktivität, und zwar an der FLÄCHE: Schatten trägt eine Karte nur, wenn die Karte
+   selbst der klickbare Bereich ist. Buttons im .card-footer machen die Fläche nicht klickbar, die
+   Interaktion liegt dann in den Buttons; so eine Karte ruht flach mit dem --bd-Rahmen aus .card.
+   Deshalb hängt die ganze Variante an a.*: eine <article>/<div>-Karte bekommt den Schatten auch
+   dann nicht, wenn die Klasse gesetzt ist. Das ist der Riegel, nicht nur eine Empfehlung. */
+/* Ohne data-area erbt eine <article>/<div>-Karte die Seiten-Textfarbe automatisch, weil Eyebrow
+   und Media-Icon keine eigene Farbe setzen. Ein <a> bringt aber die UA-Linkfarbe UND -Unterstreichung
+   mit: ohne dieses Reset läuft die Unterstreichung durch alle Block-Kinder (Eyebrow, Titel, Text,
+   Meta), weil text-decoration nicht vererbt, sondern über in-flow-Nachfahren PROPAGIERT wird — ein
+   text-decoration:none auf dem Kind allein stoppt das nicht, nur der Reset am <a> selbst.
+   color:inherit + text-decoration:none gleichen beides an: Link-Card ohne Bereich = Card ohne
+   Bereich, Bereichs-Regeln (oben) bleiben unberührt, weil sie spezifischer sind (Befund 01).
+   .card-cta-link bleibt unberührt: als <span> im Card-Footer hatte es nie UA-Unterstreichung, als
+   eigenständiges a.card-cta-link (css/components.css ~1377) sitzt es nie verschachtelt in a.card
+   (ungültiges HTML, siehe LinkCardComponent-Klassendoku) und behält seinen eigenen Hover-Unterstrich. */
+a.card{color:inherit;text-decoration:none}
+a.card-elevated{box-shadow:var(--e1);border:none;background:var(--bg-surface)}
+a.card-elevated:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+
+.card-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+/* Der Body ordnet seine Kinder, also gehört ihm auch der Abstand zwischen ihnen: eine Flex-Spalte
+   mit gap:var(--s3) als einziger vertikaler Rhythmus der Karte. Vorher trug jedes Kind seine
+   eigene Außenmarge, und wer den Body flexte, bekam Marge PLUS Gap (im Flex-Layout kollabieren
+   sie nicht). Darum haben .card-eyebrow und .card-cta-link hier keine Marge mehr, und die Pill
+   bekommt ihre unten zurückgenommen.
+   flex:1 lässt den Body die Resthöhe der Karte einnehmen. Nötig für .card-cta-link--pinned
+   (margin-top:auto braucht freien Raum im Container) und für gleich hohe Karten im Grid: ohne das
+   sammelt sich der Überschuss unter dem Body, statt in ihm. Auf einer nicht-flexen Karte ist die
+   Deklaration wirkungslos, nicht schädlich. */
+.card-body{padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);flex:1}
+.card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase}
+/* Area-branded card media + eyebrow (token-driven, dark-mode overridable) */
+.card[data-area="co"] .card-media{background:var(--co-50);color:var(--co-700)}
+.card[data-area="ki"] .card-media{background:var(--ki-50);color:var(--ki-700)}
+.card[data-area="es"] .card-media{background:var(--es-50);color:var(--es-600)}
+.card[data-area="wo"] .card-media{background:var(--wo-50);color:var(--wo-700)}
+.card[data-area="co"] .card-eyebrow{color:var(--co-700)}
+.card[data-area="ki"] .card-eyebrow{color:var(--ki-800)}
+.card[data-area="es"] .card-eyebrow{color:var(--es-700)}
+.card[data-area="wo"] .card-eyebrow{color:var(--wo-700)}
+/* card-title und card-text: line-clamp + min-height halten Karten in Grids visuell ausgerichtet,
+   unabhängig davon ob Titel/Anreißer im aktuellen CMS-Stand 1, 2 oder 3 Zeilen lang sind.
+   line-clamp kappt zu lange Inhalte; min-height (in lh-Units, skaliert mit Typografie-Tokens)
+   reserviert die Maximum-Höhe, damit Karten in einer Row nicht durch Längen-Varianz „springen“.
+   Trade-Off: bei aktuell kurzem Content sieht das wie ein Hohlraum aus, ist aber gewollt — das Layout
+   muss morgen mit einer 2-zeiligen Headline umgehen, ohne dass jemand CSS-Klassen umtauschen muss. */
+/* Äußerer Container: reserviert min. 2-Zeilen-Höhe und zentriert den Inhalt vertikal mittig.
+   Inneres <span> trägt das Line-Clamping (kappt zu lange Titel auf 2 Zeilen). */
+/* Title Small (18px Sans 500) gibt eine klare Hierarchie-Stufe zur Section-H2 (Headline-md, 28px Serif)
+   und vermeidet, dass die Card-Titel mit den Sektion-Überschriften um Aufmerksamkeit konkurrieren. */
+.card-title{font:var(--ty-title-sm);color:var(--tx-primary);min-height:2lh;display:grid;align-content:center}
+.card-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+/* Hero-Variante: Editorial-Treatment für Featured-Cards (genau ein Termin oder ein Beitrag hervorgehoben).
+   Headline-Sm (24px Serif) als Mid-Tier zwischen Section-H2 (28px) und Standard-Card-Title (20px Sans),
+   saubere 4-px-Treppe in der Hierarchie. Kein min-height (kein Nachbar zum Abgleichen). */
+.card-title-hero{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0;text-wrap:balance}
+.card-text{font:var(--ty-body-md);color:var(--tx-secondary);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;min-height:3lh}
+/* Mobile (≤ 768px): .layout-grid wird einspaltig, die Cards stehen ohne Nachbarn full-width.
+   Dann sind die min-height-Reservierungen (Titel 2lh, Text 3lh) — die nur die Gleichhöhe
+   nebeneinanderstehender Cards sichern — leerer Raum und erzeugen große Lücken. Aufheben.
+   Das line-clamp (Titel 2, Text 3 Zeilen) bleibt, lange Inhalte kürzen also weiterhin.
+   .ep-cards (auto-fit) bleibt bewusst unberührt: dort stehen Cards auch mobil noch mehrspaltig. */
+@media(max-width:768px){
+  .layout-grid .card-title,.layout-grid .card-text{min-height:0}
+}
+/* Wie im Featured-Body: die Eigenmarge der Pill (--s5, gedacht für den normalen Fluss) würde sich
+   zum gap des Bodys addieren, statt zu kollabieren. Der Abstand kommt aus dem Container. Nur
+   direkte Kinder, eine Pill tiefer im Body steht in einem eigenen Layout. */
+.card-body>.pill{margin-bottom:0}
+/* Kompakter Meta-Block (Datum + Ort) — kleinerer Gap zwischen den Zeilen, damit das Paar als eine Einheit gelesen wird,
+   nicht als zwei unabhängige Items. Sitzt selbst im Card-Body und nutzt dessen Gap (--s3) zur Pill darüber und zum Titel darunter. */
+.card-meta{display:flex;flex-direction:column;gap:var(--s1)}
+.card-footer{padding:var(--s3) var(--s5);border-top:var(--bd);display:flex;align-items:center;justify-content:flex-end;gap:var(--s2)}
+
+/* ── Featured-Card: horizontale Großkarte ──
+   Genau ein Beitrag oder Termin auf der Bühne: Bild links, Content rechts.
+   Die Bildspalte trägt .card-media und damit dasselbe aspect-ratio:16/9 wie die Cards im
+   Listing-Grid. Das ist der Zweck der Klasse: Redaktion pflegt EIN Bild in EINEM Zuschnitt
+   für Featured UND Grid, statt je Slot einen eigenen.
+
+   Das BILD bestimmt die Kartenhöhe, nicht der Text. Darum liegt .card-featured-body absolut:
+   als normale Spalte zieht seine Inhaltshöhe die Zeile auf und streckt das Bild mit — genau
+   daran driftete das Verhältnis vorher auf 1,62. Ein aspect-ratio auf der Karte genügt dafür
+   nicht, es ist eine Wunschgröße und verliert gegen die Inhaltshöhe (gemessen 1,50). Absolut
+   positioniert trägt der Body nichts zur Höhe bei, das 16/9 gilt unabhängig von der Textlänge.
+
+   Zu viel Text wird gekappt, statt das Verhältnis zu brechen: .card-text bringt sein
+   line-clamp mit, und als schrumpfendes Flex-Item gibt der Lead nach, bevor Pill, Meta,
+   Titel oder CTA wegfallen. 60/40 statt 50/50, weil ein 16/9-Bild auf halber Kartenbreite
+   zu flach für den Content-Block ist: bei 60 % bleiben rund 26 px Reserve und drei
+   Lead-Zeilen, bei 50 % schrumpft der Lead auf null. Beide Prozentwerte gehören zusammen
+   und müssen 100 % ergeben, sonst klafft eine Lücke. */
+.card-featured{display:block;position:relative;overflow:hidden;container-type:inline-size}
+.card-featured>.card-media{width:60%}
+.card-featured>.card-media>img{width:100%;height:100%;object-fit:cover}
+.card-featured-body{position:absolute;top:0;right:0;bottom:0;width:40%;padding:var(--s6) var(--s8);display:flex;flex-direction:column;justify-content:center;gap:var(--s4);overflow:hidden}
+/* Die Pill bringt eine Eigenmarge von --s5 mit, gedacht für den normalen Fluss (Pill über der H1
+   im Article-Header). Hier trägt der Body den Abstand als gap:var(--s4), und beide addieren sich:
+   im Flex-Layout kollabieren Marge und Gap nicht. Ergebnis wären 36 px unter der Pill statt 16 px,
+   und der Meta-Block löst sich vom Bereichs-Signal, mit dem er als Meta-Header zusammengehört. Der
+   Abstand gehört dem Container, nicht der Pill, also wird ihre Marge hier zurückgenommen. Nur für
+   direkte Kinder: eine Pill tiefer im Body (etwa in einer Zeile neben einem Titel) steht in einem
+   eigenen Layout und regelt ihren Abstand dort selbst. */
+.card-featured-body>.pill{margin-bottom:0}
+/* min-height:3lh reserviert im Grid Platz für den Gleichhöhen-Abgleich. Die Featured-Card
+   steht allein, hat keinen Nachbarn, und der reservierte Platz ginge zulasten des Bildes. */
+.card-featured-body>.card-text{min-height:0}
+/* Auch der Titel braucht einen Riegel, sonst frisst ein langer Titel die Höhe, die der Lead
+   braucht, und danach die von Pill und CTA (gemessen mit einem 18-Wort-Titel: Lead auf null
+   Zeilen, Pill und CTA aus der Karte geschoben). Drei Zeilen sind für eine Hero-Card reichlich.
+   Nur hier, nicht global: .card-title-hero bleibt außerhalb der Featured-Card unbeschnitten. */
+.card-featured-body>.card-title-hero{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+/* Drei Stufen, alle an der KARTENBREITE per @container, nicht am Viewport: die Kartenbreite
+   hängt am Platz im Layout (Sidebar, Section-Padding, Spaltenbreite). Im Doku-Mockup ist die
+   Karte bei 1180 px Viewport nur 814 px breit, bei 1024 px dagegen 958 px — eine
+   Viewport-Regel träfe dort das Falsche.
+
+   Die Stufen greifen über die Reihenfolge: die 1000er-Regel gilt ab hier abwärts, die
+   900er-Regel überschreibt sie darunter wieder. Gleiche Spezifität, die spätere gewinnt.
+
+   1000 px abwärts (Tablet-Landscape): nebeneinander BLEIBEN, aber verdichtet. Das Bild auf
+   65 % statt 60 %, denn breiteres Bild heißt bei 16/9 auch höheres Bild und damit mehr Platz
+   für den Content-Block; dazu kleineres Padding. Ohne das schrumpft der Lead hier auf eine
+   oder null Zeilen. Gemessen bei 958 px Kartenbreite: Karte 350 px hoch, drei Lead-Zeilen,
+   rund 22 px Reserve (Veranstaltungs-Karte mit dreizeiligem Meta-Strip: 30 px). */
+@container (max-width:1000px){
+  .card-featured>.card-media{width:65%}
+  .card-featured-body{width:35%;padding:var(--s4) var(--s6)}
+  /* Lead auf zwei Zeilen: drei passen hier nicht mehr vollständig, und ein Lead, der als
+     Flex-Item unter seine line-clamp-Höhe gedrückt wird, endet mitten in der Zeile statt mit
+     Auslassungspunkten. Mit zwei Zeilen bleibt die Kante bei üblichen Titellängen sauber.
+     Rest-Fall: bei einem Titel, der den 3-Zeilen-Riegel voll ausschöpft, wird auch die zweite
+     Lead-Zeile angeschnitten. Das ist bewusst so gelassen — irgendetwas muss dann nachgeben,
+     und eine halbe Lead-Zeile ist der geringste Schaden. Titel kürzen behebt es an der
+     Quelle. Die Karte bleibt in jedem Fall geschlossen: Pill und CTA werden nicht mehr
+     hinausgeschoben, dafür sorgt der Titel-Riegel. */
+  .card-featured-body>.card-text{-webkit-line-clamp:2;line-clamp:2}
+}
+/* 900 px abwärts (Portrait, Smartphone, schmale Container): gestapelt wie die Grid-Cards.
+   Bild full-width im 16/9 obenauf, Body zurück in den Fluss, nichts mehr zu kappen. Tiefer
+   als 900 px nebeneinander zu bleiben lohnt nicht: die Textspalte wäre unter 250 px breit,
+   rund 30 Zeichen pro Zeile. */
+@container (max-width:900px){
+  .card-featured>.card-media{width:100%}
+  .card-featured-body{position:static;width:auto;padding:var(--s6)}
+  /* Lead zurück auf drei Zeilen: das Kürzen auf zwei gilt nur der knappen Höhe der
+     Tablet-Stufe. Gestapelt gibt es keine feste Höhe zu halten, also auch keinen Grund,
+     eine Zeile zu opfern. Ohne diese Rücknahme wirkt die 1000er-Regel bis aufs Handy durch. */
+  .card-featured-body>.card-text{-webkit-line-clamp:3;line-clamp:3}
+}
+
+/* ── Blockquote ── */
+.bq{padding:var(--s5) var(--s6);border-left:4px solid var(--bq-accent,var(--co-500));background:var(--bq-bg,var(--co-50));border-radius:var(--r-md);margin:0}
+.bq[data-area="co"]{--bq-accent:var(--co-500);--bq-bg:var(--co-50)}
+.bq[data-area="ki"]{--bq-accent:var(--ki-500);--bq-bg:var(--ki-50)}
+.bq[data-area="es"]{--bq-accent:var(--es-500);--bq-bg:var(--es-50)}
+.bq[data-area="wo"]{--bq-accent:var(--wo-500);--bq-bg:var(--wo-50)}
+/* fill:currentColor ist nötig, damit color (Bereichsakzent) den Glyph färbt — sonst SVG-Default schwarz. */
+.bq-icon{display:block;width:20px;height:20px;color:var(--bq-accent,var(--co-500));fill:currentColor;opacity:.35;margin-bottom:var(--s3)}
+.bq blockquote{font:var(--ty-serif-lg);color:var(--tx-primary);margin:0 0 var(--s3);quotes:none}
+.bq-caption{display:flex;flex-direction:column;gap:2px}
+.bq-name{font:var(--ty-name);color:var(--tx-primary)}
+.bq-role{font:var(--ty-body-xs);color:var(--tx-secondary);font-style:normal}
+
+/* ── Testimonial Card ── */
+/* Statisch (Konvention „Elevation = Interaktivität“): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.testimonial{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--t-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6);margin:0;display:flex;flex-direction:column;gap:var(--s4)}
+.testimonial[data-area="co"]{--t-accent:var(--co-500)}
+.testimonial[data-area="ki"]{--t-accent:var(--ki-500)}
+.testimonial[data-area="es"]{--t-accent:var(--es-500)}
+.testimonial[data-area="wo"]{--t-accent:var(--wo-500)}
+.testimonial-icon{width:32px;height:32px;color:var(--t-accent,var(--co-500));fill:currentColor;opacity:.2;flex-shrink:0}
+.testimonial blockquote{font:var(--ty-serif-sm);color:var(--tx-primary);margin:0;quotes:none;flex:1}
+.testimonial-footer{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:var(--bd);margin-top:auto}.testimonial-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
+.testimonial-role{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0;font-style:normal}
+/* Team-Stimmen: editoriale Reihen, Foto seitlich (abwechselnd L/R), fotostark für Repräsentation. Eigene Variante, lässt .testimonial unberührt. */
+.team-voices{display:flex;flex-direction:column;gap:var(--s6)}
+.team-voice{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
+/* Bereichs-Rahmen: dieselben Stufen wie beim Bereichs-Chip, weil sie dort schon auf die
+   3:1-Schwelle für grafische Objekte ausgelegt sind. Vorher -200 für alle vier, das trug auf Weiß
+   nur 1,27:1 (ki) bis 2,03:1 (es), der Rahmen war als Bereichssignal nicht wahrnehmbar. Jetzt
+   3,29:1 (co) bis 5,66:1 (es). Das Quote-Icon bleibt dekorativ (opacity .25), der Rahmen ist damit
+   das tragende Farbsignal. Dark-Werte in dark-mode.css. */
+.team-voice[data-area="co"]{--t-accent:var(--co-500);border-color:var(--co-600)}
+.team-voice[data-area="ki"]{--t-accent:var(--ki-500);border-color:var(--ki-700)}
+.team-voice[data-area="es"]{--t-accent:var(--es-500);border-color:var(--es-500)}
+.team-voice[data-area="wo"]{--t-accent:var(--wo-500);border-color:var(--wo-500)}
+.team-voice-media{margin:0}
+.team-voice-media img{display:block;width:100%;height:100%;min-height:300px;object-fit:cover}
+.team-voice-body{padding:var(--s8);display:flex;flex-direction:column;gap:var(--s5);justify-content:center}
+.team-voice-icon{width:36px;height:36px;color:var(--t-accent,var(--co-500));fill:currentColor;opacity:.25;flex-shrink:0}
+.team-voice-quote{font:var(--ty-serif-md);color:var(--tx-primary);margin:0;quotes:none}
+.team-voice-footer{display:flex;flex-direction:column;gap:var(--s1)}
+.team-voice-name{font:var(--ty-name);color:var(--tx-primary);margin:0}
+.team-voice-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
+/* Alternierung: reines CSS (.team-voice direkt unter .team-voices) und Angular, wo jede
+   .team-voice einziges Kind ihres cds-team-voice-Hosts ist und der Host das Reihenglied stellt. */
+.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:2;grid-row:1}
+.team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:1}
+@media(max-width:768px){
+  .team-voice,.team-voice:nth-child(even),.team-voices>:nth-child(even)>.team-voice{grid-template-columns:1fr}
+  .team-voice:nth-child(even) .team-voice-media,.team-voices>:nth-child(even)>.team-voice .team-voice-media{grid-column:1;grid-row:1}
+  .team-voice:nth-child(even) .team-voice-body,.team-voices>:nth-child(even)>.team-voice .team-voice-body{grid-column:1;grid-row:2}
+  /* Gestapelt verbraucht das Quote-Icon eine eigene Zeile + Gaps und frisst viel Höhe.
+     Stattdessen Pull-Quote-Stil: 2-Spalten-Grid mit Icon im schmalen linken Gutter, Zitat
+     und Footer rechts daneben/darunter ausgerichtet. Icon kleiner, Body-Padding reduziert. */
+  .team-voice-body{display:grid;grid-template-columns:auto 1fr;align-items:start;column-gap:var(--s2);row-gap:var(--s3);padding:var(--s6)}
+  .team-voice-icon{width:26px;height:26px;grid-column:1;grid-row:1;margin-top:2px}
+  .team-voice-quote{grid-column:2;grid-row:1}
+  .team-voice-footer{grid-column:2;grid-row:2}
+}
+/* Stat Card */
+/* Statisch (Konvention „Elevation = Interaktivität“): flach mit --bd-strong-Rahmen + Top-Akzent, kein Schatten. */
+.card-stat{background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--st-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
+.card-stat[data-area="co"]{--st-accent:var(--co-500)}
+.card-stat[data-area="ki"]{--st-accent:var(--ki-500)}
+.card-stat[data-area="es"]{--st-accent:var(--es-500)}
+.card-stat[data-area="wo"]{--st-accent:var(--wo-500)}
+.card-stat-value{font:var(--ty-display-md);color:var(--tx-primary);margin:0}
+.card-stat[data-area="co"] .card-stat-value{color:var(--co-700)}
+.card-stat[data-area="ki"] .card-stat-value{color:var(--ki-700)}
+.card-stat[data-area="es"] .card-stat-value{color:var(--es-700)}
+.card-stat[data-area="wo"] .card-stat-value{color:var(--wo-700)}
+.card-stat-label{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+.card-stat-trend{display:inline-flex;align-items:center;gap:var(--s1);font:600 0.75rem/1rem var(--font);border-radius:var(--r-full);padding:2px var(--s2);margin-top:var(--s1)}
+.card-stat-trend.up{background:var(--c-success-bg);color:var(--badge-ok-text)}
+.card-stat-trend.down{background:var(--c-error-bg);color:var(--badge-err-text)}
+/* Stat-Strip — flache Bandstreifen-Variante (ohne Border, ohne Shadow) */
+.card-stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s6);padding:var(--s10) var(--s8);background:var(--n-50);text-align:center}
+.card-stat-flat{display:flex;flex-direction:column;gap:var(--s1);align-items:center}
+.card-stat-flat-value{font:var(--ty-display-sm);color:var(--tx-primary);margin:0}
+.card-stat-flat[data-area="co"] .card-stat-flat-value{color:var(--co-700)}
+.card-stat-flat[data-area="ki"] .card-stat-flat-value{color:var(--ki-700)}
+.card-stat-flat[data-area="es"] .card-stat-flat-value{color:var(--es-700)}
+.card-stat-flat[data-area="wo"] .card-stat-flat-value{color:var(--wo-700)}
+.card-stat-flat-label{font:var(--ty-body-xs);color:var(--tx-secondary);margin:0}
+
+/* ── Forms ── */
+.field{margin-bottom:var(--s6)}
+.field label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+.req{color:var(--c-error);font-size:0.875rem}
+.field input,.field textarea,.field select{width:100%;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast);min-height:44px}
+.field select{appearance:none;-webkit-appearance:none;height:52px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234A6565' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--s4) center;padding-right:var(--s10)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.field textarea{resize:vertical;max-width:100%}
+/* Placeholder explizit auf tx-secondary statt UA-Default. Chrome zeichnet Placeholder sonst mit
+   rgb(117,117,117): im Dark sind das auf der Feldfüllung 2,8:1 und damit ein AA-Verstoß, im Light
+   4,6:1 und damit knapp bestanden, aber ohne Reserve und vom Browser abhängig. Suchfeld,
+   Footer-Newsletter, Combobox und Nav-Suche setzten das bereits, die Standard-Felder waren der
+   Ausreißer. tx-secondary ist theme-aware und gemessen: Light 6,3:1, Dark 7,1:1. */
+.field input::placeholder,.field textarea::placeholder,
+[role="search"] input::placeholder{color:var(--tx-secondary)}
+.field.has-error input,.field.has-error select,.field.has-error textarea{border-color:var(--c-error)}
+/* Deaktivierte Felder: reduzierte Deckkraft und Sperr-Cursor wie bei Custom Select und Combobox
+   (.ep-select.is-disabled). Ohne diese Regel war ein deaktiviertes Feld vom aktiven nicht zu
+   unterscheiden. Das Label zieht per :has() mit, damit das ganze Feld gedämpft wirkt. Deaktivierte
+   Controls sind von WCAG 1.4.3 und 1.4.11 ausgenommen; bei .5 bleibt der Text lesbar. */
+.field input:disabled,.field textarea:disabled,.field select:disabled{opacity:.5;cursor:not-allowed}
+.field:has(input:disabled,textarea:disabled,select:disabled) label{opacity:.5}
+/* Checkbox und Radio (nativ, Angular cds-checkbox und cds-radio-group): Marken-Fokusring statt
+   Browser-Standard. Die Ringe sind zugleich die Fokusanzeige für Tastatur, nicht für Mausklick. */
+input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+input[type="radio"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+/* Hilfetext unter einem Feld. --tx-secondary statt --tx-muted: Helper sitzt immer auf
+   --bg-surface, dort erreicht --tx-muted im Dark Mode nur 4,1:1 und verfehlt AA für Kleintext
+   (siehe Kontrast-Tabelle in der Doku). --tx-secondary liegt bei 6,3:1 Light / 4,9:1 Dark. */
+.helper{font:var(--ty-body-xs);color:var(--tx-secondary);margin-top:var(--s1)}
+.error-msg{font:var(--ty-label-sm);color:var(--c-error);margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1)}
+
+/* ── Buchungsformular ──
+   Komposition aus .field-Feldern für verbindliche Buchungen (Seminartermin, Platzkontingent).
+   Neu gegenüber der Standard-Form: Fieldset-Gliederung, bedingte Blöcke (hidden-Attribut, kein
+   disabled), ein Teilnehmenden-Repeater und eine Live-Preiszeile. Bereichsfarbe kommt von außen
+   (.btn-wo, accent-color), die Klassen selbst bleiben bereichsneutral. */
+.bk-fieldset{border:0;padding:0;margin:0 0 var(--s8);min-inline-size:0}
+/* Trennlinie nur zwischen den Gruppen oberster Ebene, nicht vor der ersten. Der Kindselektor ist
+   wichtig: Untergruppen liegen innerhalb einer Gruppe und dürfen keine Linie bekommen, sonst
+   trennt sie die Linie von der Entscheidung, zu der sie gehören. */
+[data-booking] > .bk-fieldset + .bk-fieldset{border-top:var(--bd);padding-top:var(--s8)}
+/* Untergruppe: gliedert innerhalb einer Gruppe (Radio-Gruppe, bedingter Block) und trägt deshalb
+   ein Label auf Feldebene statt einer Überschrift. Kein Rahmen, keine Linie, nur Abstand. */
+.bk-subgroup{border:0;padding:0;margin:0 0 var(--s6);min-inline-size:0}
+.bk-subgroup[hidden]{display:none}
+.bk-subgroup:last-child{margin-bottom:0}
+/* Mittlere Stufe: 14 px halbfett, gemischte Schreibweise, --tx-primary. Damit sind drei Ebenen
+   unterscheidbar (20 px Gruppe / 14 px Untergruppe / 12 px Versal-Feldlabel). Dieselben Versalien
+   wie beim Feldlabel zu nehmen wäre derselbe Fehler wie vorher, nur eine Ebene tiefer. */
+.bk-sublegend{display:block;font:var(--ty-name);color:var(--tx-primary);padding:0;margin-bottom:var(--s3)}
+.bk-fieldset::after{content:"";display:block;clear:both}
+/* Gruppenüberschrift eine echte Stufe über dem Feldlabel: 20 px, gemischte Schreibweise,
+   --tx-primary gegen 12 px Versalien in --tx-secondary. Vorher waren beide typografisch
+   identisch, dadurch war die Fieldset-Gliederung semantisch da, aber optisch unsichtbar.
+   float statt display:block, weil ein gefloatetes <legend> nicht mehr in die obere Rahmenkante
+   gerendert wird und die Trennlinie deshalb durchgehend bleibt. */
+.bk-legend{float:left;width:100%;font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s4);padding:0}
+/* Ohne clear würde das erste Element der Gruppe neben dem 100 % breiten Float landen und sein
+   Label auf null Breite gequetscht. Alle Geschwister, nicht nur das erste: der absolut positionierte Entfernen-Button steht
+   dazwischen und nimmt kein clear an. */
+.bk-legend ~ *{clear:both}
+.bk-intro{font:var(--ty-body-sm);color:var(--tx-secondary);margin:calc(-1 * var(--s2)) 0 var(--s4)}
+/* Zweispalter, die auf Mobile einspaltig werden (der Inline-Zweispalter älterer Formulare tut das nicht). */
+.bk-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s4)}
+.bk-grid-plz{display:grid;grid-template-columns:minmax(96px,1fr) 2fr;gap:0 var(--s4)}
+/* Nur das Eingabefeld ist schmal, nicht der ganze .field-Wrapper: sonst würde die
+   Fehlermeldung darunter in eine 140-px-Spalte gequetscht. */
+.bk-count input{max-width:140px}
+/* Teilnehmenden-Block: <fieldset> mit <legend>, damit Screenreader beim Betreten „Teilnehmende 3“
+   ansagen und „Vorname“ nicht dreimal gleich klingt. Nur Rahmen, bewusst ohne eigene Fläche,
+   sonst entsteht im Dark Mode eine dritte Flächenstufe über .bg-page < .bg-surface. */
+.bk-person{position:relative;border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s4);min-inline-size:0}
+.bk-person > .field:last-of-type{margin-bottom:0}
+.bk-person::after{content:"";display:block;clear:both}
+/* Wie .bk-legend gefloatet, damit die Legende in den Innenabstand rutscht statt in die
+   Rahmenkante. Nur so liegt der Entfernen-Button auf einer Linie mit „Teilnehmende N“ und
+   nicht neben dem ersten Feldlabel, wo er wie dessen Aktion aussieht. */
+.bk-person-title{float:left;width:100%;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:0;margin-bottom:var(--s4)}
+.bk-person-title ~ *{clear:both}
+/* Absolut positioniert, weil <legend> das erste Kind des Fieldsets bleiben muss und sich
+   deshalb nicht mit dem Button in eine Flex-Zeile setzen lässt.
+   Achtung: jede Autorenregel mit display schlägt das hidden-Attribut (hier .btn{display:inline-flex}),
+   deshalb muss [hidden] explizit zurückgenommen werden. Gilt genauso für .bk-person-hint und
+   .bk-success. Wer im DS mit hidden arbeitet, braucht diese Zeile. */
+.bk-person-remove{position:absolute;top:var(--s3);right:var(--s4)}
+.bk-person-remove[hidden]{display:none}
+.bk-person-hint{display:block;margin:0 0 var(--s4)}
+.bk-person-hint[hidden]{display:none}
+/* Fehlerübersicht am Formularkopf: Sprungliste statt einer Salve gleichzeitiger Alerts. */
+.bk-errors{border:2px solid var(--c-error);border-radius:var(--r-md);padding:var(--s5);margin-bottom:var(--s6)}
+.bk-errors[hidden]{display:none}
+.bk-errors:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.bk-errors-title{font:var(--ty-title-sm);color:var(--c-error);margin:0 0 var(--s3)}
+.bk-errors ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-errors a{font:var(--ty-body-md);color:var(--c-error);text-decoration:underline}
+.bk-errors a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.bk-summary{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s2);background:var(--bg-overlay);border-radius:var(--r-md);padding:var(--s4);margin-bottom:var(--s5);font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-summary-total{font:var(--ty-title-sm);color:var(--tx-primary)}
+/* Bestellübersicht unmittelbar vor dem zahlungspflichtigen Button: was gebucht wird, für wen,
+   wie viele Plätze, Gesamtbetrag. Der bloße Betrag reicht hier nicht, die gebuchte Leistung steht
+   sonst über tausend Pixel weiter oben verstreut. */
+/* Oben --s8: die Übersicht ist ein eigener Block und darf nicht am letzten Häkchen kleben.
+   Das Bestätigungs-Häkchen darüber gibt nur --s4 mit, das reicht als Abstand nicht. */
+.bk-order{border:var(--bd-strong);border-radius:var(--r-md);background:var(--bg-overlay);padding:var(--s5);margin:var(--s8) 0 var(--s5)}
+.bk-order-title{font:var(--ty-name);color:var(--tx-primary);margin:0 0 var(--s4)}
+.bk-order-list{margin:0;display:flex;flex-direction:column;gap:var(--s2)}
+.bk-order-list > div{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s2)}
+.bk-order-list dt{font:var(--ty-body-sm);color:var(--tx-secondary)}
+.bk-order-list dd{margin:0;font:var(--ty-body-md);color:var(--tx-primary);text-align:right}
+/* Noch nicht ausgefüllte Zeile bleibt lesbar, tritt aber zurück. */
+.bk-order-list dd[data-empty]{color:var(--tx-secondary)}
+.bk-order-total{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2);margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.bk-order-total-label{font:var(--ty-body-md);color:var(--tx-secondary)}
+.bk-order-total-value{font:var(--ty-title-sm);color:var(--tx-primary)}
+.bk-order-note{font:var(--ty-body-xs);color:var(--tx-secondary);margin:var(--s1) 0 0;text-align:right}
+.bk-consent{display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s4)}
+.bk-consent label{font:var(--ty-body-md);color:var(--tx-secondary);cursor:pointer}
+/* Freiwilliges Opt-in vom rechtlich erforderlichen Teil absetzen. Gleiche Optik direkt unter
+   zwei Pflicht-Häkchen liest sich sonst wie ein Dark Pattern, auch wenn keines gemeint ist. */
+.bk-consent-optional{border-top:var(--bd);padding-top:var(--s4);margin-top:var(--s5)}
+.bk-success{display:flex;align-items:flex-start;gap:var(--s3);background:var(--c-success-bg);color:var(--c-success);border-radius:var(--r-md);padding:var(--s5)}
+/* display:flex würde das hidden-Attribut aushebeln, deshalb explizit zurücknehmen. */
+.bk-success[hidden]{display:none}
+.bk-success:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+@media (max-width:768px){
+  .bk-grid-2,.bk-grid-plz{grid-template-columns:1fr}
+}
+
+/* ── Dropdowns: Custom Select & Combobox ──
+   Zwei Auswahl-Komponenten über das native <select> hinaus:
+   .ep-select   — gestylte Einzelauswahl mit Listbox-Popup, Häkchen, Bereichs-Akzent.
+   .ep-combobox — Tipp-Filter über langen Listen; .is-multi ergänzt entfernbare Chips.
+   Trigger spiegelt .field select (52 px, 2 px --field-border, --r-md); Popup spiegelt .ep-nav-sub
+   (bg-surface, --e3, --bd, --r-md). Bereichs-Akzent über --sel-500/--sel-50 (Default = Corporate),
+   per [data-area] auf ki/es/wo umschaltbar — wie Buttons/Chips. Der Akzent erscheint NUR im
+   gewählten Eintrag (Häkchen + Tönung); Fokusring/Fokusrahmen bleiben neutral-Teal wie bei .field. */
+.ep-select,.ep-combobox{position:relative;margin-bottom:var(--s6);--sel-500:var(--co-700);--sel-50:var(--co-50)}
+.ep-select[data-area="ki"],.ep-combobox[data-area="ki"]{--sel-500:var(--ki-800);--sel-50:var(--ki-50)}
+.ep-select[data-area="es"],.ep-combobox[data-area="es"]{--sel-500:var(--es-700);--sel-50:var(--es-50)}
+.ep-select[data-area="wo"],.ep-combobox[data-area="wo"]{--sel-500:var(--wo-700);--sel-50:var(--wo-50)}
+
+/* Label — identische Metriken wie .field label */
+.ep-select-label{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+
+/* Trigger (Select) / Control (Combobox) — spiegeln .field select */
+.ep-select-trigger,.ep-combobox-control{display:flex;align-items:center;gap:var(--s2);width:100%;min-height:52px;padding:var(--s3) var(--s4);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);transition:border-color var(--m-fast),box-shadow var(--m-fast);text-align:left}
+.ep-select-trigger{justify-content:space-between;cursor:pointer}
+.ep-select-value{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Platzhalter (noch keine Auswahl): gedämpft wie .field-Placeholder, AA in beiden Modi */
+.ep-select-trigger.is-placeholder .ep-select-value{color:var(--tx-secondary)}
+.ep-select-caret{flex-shrink:0;width:24px;height:24px;color:var(--n-500);stroke:var(--n-500);transition:transform var(--m-fast)}
+.ep-select.is-open .ep-select-caret,.ep-combobox.is-open .ep-select-caret{transform:rotate(180deg)}
+
+/* Combobox: textbares Feld im Control, ohne eigenen Rahmen. Chevron + Lösch-Button sind absolut
+   und vertikal zentriert (s. u.), daher Platz rechts reservieren (--cb-pad-r). Bei Multi-Select
+   umbricht das Control mehrzeilig — die absolute Position hält Chevron/Button trotzdem mittig. */
+.ep-combobox-control{position:relative;cursor:text;padding-right:var(--cb-pad-r,var(--s10))}
+.ep-combobox-control.has-clear{--cb-pad-r:calc(var(--s10) + var(--s8))} /* zusätzlich Platz für den Lösch-Button */
+.ep-combobox-input{flex:1;min-width:0;border:none;outline:none;background:none;font:var(--ty-body-md);color:var(--tx-primary);padding:0}
+.ep-combobox-input::placeholder{color:var(--tx-secondary)}
+/* Chevron absolut, vertikal zentriert über die volle Control-Höhe (Multi umbricht mehrzeilig) */
+.ep-combobox .ep-select-caret{position:absolute;right:var(--s4);top:50%;margin:0;transform:translateY(-50%);cursor:pointer}
+.ep-combobox.is-open .ep-select-caret{transform:translateY(-50%) rotate(180deg)}
+/* Lösch-Button: erscheint (per JS, [hidden] entfernt) sobald Text im Feld steht, leert es mit einem Klick.
+   Ebenfalls absolut + vertikal zentriert, links vom Chevron. display:inline-flex (Autor-Regel) schlägt
+   das UA-[hidden] → Ausblenden explizit wiederherstellen. */
+.ep-combobox-clear{position:absolute;right:var(--s10);top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:none;background:none;color:var(--tx-secondary);border-radius:var(--r-full);cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.ep-combobox-clear:hover{background:var(--bg-overlay);color:var(--tx-primary)}
+.ep-combobox-clear:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-combobox-clear[hidden]{display:none}
+
+/* Fokus — neutral-Teal wie .field (Bereichsfarbe trägt nur der gewählte Eintrag) */
+.ep-select-trigger:focus-visible{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.ep-combobox-control:focus-within{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+
+/* Popup — gemeinsame Fläche für beide Komponenten, spiegelt .ep-nav-sub */
+.ep-select-menu,.ep-combobox-menu{position:absolute;top:calc(100% + var(--s1));left:0;right:0;z-index:20;display:none;flex-direction:column;gap:2px;max-height:288px;overflow-y:auto;margin:0;padding:var(--s2);list-style:none;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-select.is-open .ep-select-menu,.ep-combobox.is-open .ep-combobox-menu{display:flex}
+.ep-select-menu:focus,.ep-combobox-menu:focus{outline:none}
+
+/* Option — Hover/Tastaturcursor + gewählter Zustand tragen den Bereichs-Akzent (wie .ep-nav-sub-btn) */
+.ep-select-option{display:flex;align-items:center;gap:var(--s2);padding:var(--s2) var(--s3);border-radius:var(--r-sm);font:var(--ty-body-md);color:var(--tx-primary);cursor:pointer;white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
+/* display:flex (Autor-Regel) schlägt das UA-[hidden]{display:none} — daher das Ausblenden gefilterter
+   bzw. bereits gewählter Optionen explizit wiederherstellen (Attribut-Selektor, höhere Spezifität). */
+.ep-select-option[hidden]{display:none}
+.ep-select-option:hover,.ep-select-option.is-active{background:var(--sel-50);color:var(--sel-500)}
+.ep-select-option[aria-selected="true"]{background:var(--sel-50);color:var(--sel-500);font-weight:600}
+/* Häkchen hält immer seinen Platz (Textbündigkeit), sichtbar nur im gewählten Eintrag */
+.ep-select-check{flex-shrink:0;width:20px;height:20px;color:var(--sel-500);stroke:var(--sel-500);opacity:0}
+.ep-select-option[aria-selected="true"] .ep-select-check{opacity:1}
+.ep-combobox-empty{padding:var(--s2) var(--s3);font:var(--ty-body-sm);color:var(--tx-muted)}
+
+/* Multi-Select: gewählte Werte als entfernbare Chips im Control */
+.ep-combobox.is-multi .ep-combobox-control{flex-wrap:wrap;gap:var(--s1);padding:6px var(--cb-pad-r,var(--s10)) 6px var(--s3)}
+.ep-combobox.is-multi .ep-combobox-input{flex:1 0 80px;min-height:28px}
+.ep-combobox-token{display:inline-flex;align-items:center;gap:2px;padding:2px 2px 2px 10px;border-radius:var(--r-full);background:var(--sel-50);color:var(--sel-500);font:var(--ty-label-sm);max-width:100%}
+.ep-combobox-token-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-combobox-token-remove{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex-shrink:0;border:none;background:none;color:inherit;border-radius:var(--r-full);cursor:pointer;transition:background var(--m-fast)}
+.ep-combobox-token-remove:hover{background:color-mix(in srgb,var(--sel-500) 22%,transparent)}
+.ep-combobox-token-remove:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+
+/* Disabled */
+.ep-select.is-disabled .ep-select-trigger,.ep-combobox.is-disabled .ep-combobox-control{opacity:.5;cursor:not-allowed;pointer-events:none}
+
+/* ── Typography specimens ── */
+.type-row{display:flex;align-items:baseline;gap:var(--s6);padding:var(--s4) 0;border-bottom:var(--bd)}
+.type-row:last-child{border-bottom:none}
+.type-meta{width:200px;flex-shrink:0;display:flex;flex-direction:column;gap:3px}
+.type-name{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted)}
+.type-spec{font:var(--ty-label-xs);color:var(--tx-muted);margin-top:2px}
+/* --co-ink statt co-600: co-600 trug auf Weiß nur 3,29:1 (Normaltext braucht 4,5:1). Das Ink-Token
+   flippt mit dem Theme (Light co-700 5,52:1, Dark co-200 11,19:1); ein festes co-700 wäre im Dark
+   mit 3,17:1 dunkel-auf-dunkel. */
+.type-rem{font:var(--ty-body-xs);color:var(--co-ink);margin-top:1px}
+.type-token{font:400 0.75rem/1rem var(--font-mono);color:var(--tx-muted);margin-top:2px;letter-spacing:-.01em}
+.type-sample{flex:1;color:var(--tx-primary)}
+
+/* ── Spacing ── */
+.sp-item{display:flex;align-items:center;gap:var(--s4);padding:var(--s2) 0}
+.sp-bar{height:20px;background:var(--co-50);border:1px solid var(--co-500);border-radius:2px;flex-shrink:0}
+
+/* ── Elevation ── */
+.el-card{background:var(--bg-surface);border-radius:var(--r-lg);padding:var(--s6);width:100%;text-align:center;font:var(--ty-body-md);color:var(--tx-secondary)}
+.el-lbl{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.07em;color:var(--tx-muted);margin-bottom:var(--s2);display:block}
+
+/* ── Nav demo ── */
+.nav-demo{background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e1)}
+.doc-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s3)}
+
+/* ── Snackbar ── */
+.snack{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-md);font:var(--ty-body-md);max-width:480px;box-shadow:var(--e3);margin-bottom:var(--s3);min-height:48px}
+.snack-def{background:var(--n-700);color:var(--n-0)}
+/* Tokens statt Hardcodes (Befund 04): Werte und Kontraste stehen bei --c-success-strong/
+   --c-error-strong in tokens.css. Die Fläche flippt im Dark über den Token, kein eigenes
+   Dark-Overwrite hier nötig. */
+.snack-ok{background:var(--c-success-strong);color:var(--c-success-on-strong)}
+.snack-err{background:var(--c-error-strong);color:var(--c-error-on-strong)}
+.snack-act{margin-left:auto;background:none;border:none;color:inherit;opacity:.8;font:var(--ty-label-sm);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;padding:0}
+
+/* ── Dialog ──
+   Modale Rückfrage auf dem nativen <dialog> (showModal): Fokus-Falle, Escape und die inerte Seite
+   kommen vom Browser. Aufbau: <dialog class="dialog" role="alertdialog"> > .dialog-inner >
+   h2.dialog-title + p.dialog-body + .dialog-actions. Fläche wie schwebende Panels (Menüs,
+   Snackbar): --bg-surface, --bd-strong in beiden Modi, --e3.
+   .dialog selbst hat keinen Innenabstand. So ist ein Klick, dessen Ziel das <dialog> selbst ist,
+   eindeutig ein Klick auf den Hintergrund; der Abstand sitzt in .dialog-inner.
+   Keine Einblend-Animation: nichts, was prefers-reduced-motion abfangen müsste, und stabile
+   Visual-Snapshots. */
+.dialog{padding:0;margin:auto;border:var(--bd-strong);border-radius:var(--r-md);background:var(--bg-surface);color:var(--tx-primary);box-shadow:var(--e3);width:min(480px,calc(100% - 2 * var(--s4)));max-width:none;max-height:calc(100% - 2 * var(--s4));overflow:hidden}
+.dialog[open]{display:flex;flex-direction:column}
+.dialog::backdrop{background:var(--bg-scrim)}
+.dialog-inner{display:flex;flex-direction:column;min-height:0;padding:var(--s6);overflow-y:auto;container-type:inline-size}
+.dialog-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
+/* Wird es eng, scrollt zuerst der Text, Titel und Aktionen bleiben stehen. Er behält aber immer
+   zwei Zeilen: auf null geschrumpft wäre die Folge der Aktion unsichtbar. Reicht auch das nicht
+   (400 % Zoom, 320 × 256 px), scrollt .dialog-inner als Ganzes, der autofocus holt die sichere
+   Aktion dabei ins Bild (WCAG 1.4.10). */
+.dialog-body{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s6);overflow-y:auto;min-height:2lh}
+/* DOM-Reihenfolge = sichtbare Reihenfolge (Abbrechen, dann Bestätigen), nie *-reverse, sonst
+   springt der Tab-Fokus scheinbar rückwärts (WCAG 2.4.3). wrap fängt ungewöhnlich lange Labels ab. */
+.dialog-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:var(--s3);flex-shrink:0}
+/* Unter 400 px Innenbreite untereinander, Bestätigen unten am Daumen. Gemessen: die längsten
+   üblichen Paare („Weiter bearbeiten“ + „Verwerfen“, „Abbrechen“ + „Anfrage absenden“) brauchen
+   378 bis 380 px, der Dialog bietet bei 480 px Breite 430 px, auf einem 360-px-Gerät 278 px. */
+@container (max-width: 400px){
+  .dialog-actions{flex-direction:column;align-items:stretch}
+  .dialog-actions .btn{justify-content:center}
+}
+/* Wenig Höhe (Querformat, starker Zoom): Innenabstand eine Stufe kleiner, mehr Platz für Inhalt. */
+@media (max-height: 480px){
+  .dialog-inner{padding:var(--s4)}
+  .dialog-body{margin-bottom:var(--s4)}
+}
+/* Seite hinter einem offenen Dialog scrollt nicht mit; stable hält die Scrollbar-Spur frei,
+   damit der Inhalt beim Öffnen nicht springt. */
+html:has(dialog.dialog:modal){overflow:hidden;scrollbar-gutter:stable}
+
+/* ── Footer ──
+   Zwei-Band-Layout: heller Main-Bereich (.footer-main) + dunkler Bottom-Streifen (.footer-btm).
+   Beide Bänder voll-breit; Inhalt jeweils auf 1280 px gedeckelt + zentriert
+   (analog zum oberen Inhaltsbereich in .ep-page, components.css:454). */
+.footer{display:flex;flex-direction:column}
+
+/* Main-Band: neutrales Hellgrau mit dunklem Text. --n-50 #F5F7F7 grenzt sich subtil von der weißen Page-bg ab. */
+.footer-main{background:var(--n-50);color:var(--tx-primary);padding-block:var(--s10);padding-inline:max(var(--s8), calc(50% - 640px))}
+
+/* 3-Spalten-Grid: Brand+Kontakt | Wichtige Inhalte | Contentletter (etwas breiter für das Formular) */
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1.3fr;gap:var(--s10)}
+
+/* Section-Headlines im Display-Serif. Gleicher Style für Brand, Nav-Header und Contentletter-Header. */
+/* Footer-Headlines auf Title Medium (sans 500, 18/26 px) — der Footer rückt damit visuell in den Hintergrund:
+   keine editoriale Serifen-Prominenz mehr, sondern eine ruhige Utility-Typografie. */
+.footer-brand{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4)}
+.footer-htitle{font:var(--ty-title-sm);color:var(--tx-primary);margin:0 0 var(--s4);text-transform:none;letter-spacing:0}
+
+.footer-nav-list{list-style:none;padding:0;margin:0}
+/* Inline-Links auf hellem Footer-bg. --tx-primary auf --n-50 ≈ 9.8:1 ✓ AAA. */
+.footer-link{font:var(--ty-body-md);color:var(--tx-primary);text-decoration:underline;text-underline-offset:3px;padding:0}
+.footer-link:hover{color:var(--co-700)}
+.footer-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* In Nav-Listen: Block-Layout + vertikale Tap-Area. padding 6px 0 ≈ 32 px Tap-Area. */
+.footer-nav-list .footer-link{display:block;padding:6px 0}
+
+/* Address-Block: semantisch <address>, Stack aus Adresse / Maps-Links / Telefon-Block. */
+.footer-address{font-style:normal;color:var(--tx-primary);margin:0}
+.footer-address p{font:var(--ty-body-md);margin:0 0 var(--s3)}
+.footer-address-maps{font:var(--ty-body-sm)}
+
+/* Body-Link: Inline-Link im Fließtext (Querverweise zwischen Doku-Abschnitten).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css → --co-200. */
+.body-link{color:var(--co-700);text-decoration:underline;text-underline-offset:2px}
+.body-link:hover{color:var(--co-800)}
+.body-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* Utility: Corporate-Brand-Text mit Dark-Override. */
+.t-co{color:var(--co-700)}
+/* Bereichs-Text-Utilities analog .t-co (Eyebrows, Labels, inline-Akzenttext); ki nutzt -800 (700 verfehlt AA). Dark-Overrides in dark-mode.css heben auf -200/-100. */
+.t-ki{color:var(--ki-800)}
+.t-es{color:var(--es-700)}
+.t-wo{color:var(--wo-700)}
+/* Bereichsgebundene Seiten und Blöcke können den co-Default-Akzent (.t-co an Icons, Bullets, Eyebrows)
+   auf ihre Bereichsfarbe umstellen: data-accent am Seiten- oder Bereichs-Container. Nicht an .ep-page
+   gebunden, damit auch ein einzelner Block (z.B. ein Buchungsformular in einer Sektion) den Scope
+   aufspannen kann. ki nutzt -800 (700 verfehlt AA). */
+[data-accent="ki"] .t-co{color:var(--ki-800)}
+[data-accent="es"] .t-co{color:var(--es-700)}
+[data-accent="wo"] .t-co{color:var(--wo-700)}
+[data-accent="ki"] .body-link{color:var(--ki-800)}
+[data-accent="es"] .body-link{color:var(--es-700)}
+[data-accent="wo"] .body-link{color:var(--wo-700)}
+[data-accent="ki"] .body-link:hover{color:var(--ki-800)}
+[data-accent="es"] .body-link:hover{color:var(--es-800)}
+[data-accent="wo"] .body-link:hover{color:var(--wo-800)}
+/* Footer + Topnav bleiben Chrome (co), auch auf area-getönten Seiten: data-accent tönt nur den
+   Seiteninhalt um, nicht die Navigation. Sonst wäre die aktive Sektion (.t-co am Nav-Toggle) z.B. auf
+   einer wo-Seite grün statt Petrol — inkonsistent zur Nav aller anderen Seiten.
+   Gleiche Spezifität wie die Akzent-Regeln darüber, gewinnen per Quellreihenfolge. */
+[data-accent] .footer .body-link{color:var(--co-700)}
+[data-accent] .footer .body-link:hover{color:var(--co-800)}
+[data-accent] .ep-topnav .t-co{color:var(--co-700)}
+
+/* Bottom-Band: dunkler Streifen mit Copyright + Legal links und Social rechts. */
+.footer-btm{background:var(--n-700);color:var(--n-300);padding-block:var(--s4);padding-inline:max(var(--s8), calc(50% - 640px));display:flex;align-items:center;font:var(--ty-body-xs);flex-wrap:wrap;gap:var(--s2) var(--s5)}
+.footer-btm-link{color:var(--n-300);text-decoration:none;padding:6px 0}
+.footer-btm-link:hover{color:var(--n-200);text-decoration:underline}
+.footer-btm-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Social-Icons rechtsbündig in der Bottom-Bar. Klick-Target 40x40 (WCAG 2.5.8 AAA), Icon 22x22 px. */
+.footer-social{display:flex;align-items:center;gap:var(--s2)}
+.footer-btm .footer-social{margin-left:auto}
+.footer-social a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--r-sm);transition:background var(--m-fast)}
+.footer-social a:hover{background:rgba(255,255,255,.08)}
+.footer-social a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-sm)}
+.footer-social img{max-width:22px;max-height:22px;object-fit:contain;display:block}
+
+/* Contentletter-Form (3. Spalte). Sichtbare Labels über jedem Input (Ihr Name / Ihre E-Mail-Adresse).
+   Consent vor Submit (DSGVO). Inputs auf weißem Background für ruhigen Kontrast im hellen Main-Band. */
+.footer-newsletter-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s5)}
+.footer-newsletter-form{display:flex;flex-direction:column}
+/* In flex-direction:column streckt der Default align-items:stretch jeden Block auf die volle Spaltenbreite.
+   Inputs sollen das (width:100%), aber der Submit-Button soll auf seine natürliche Pill-Breite zurückfallen. */
+.footer-newsletter-form button[type="submit"]{align-self:flex-start}
+.footer-field{display:block;margin-bottom:var(--s4)}
+/* Label folgt der Form-Komponente: uppercase + letter-spacing, --ty-label-sm, --tx-secondary.
+   So liest der Footer-Form identisch zu den Kontaktformularen (.field label) und unterscheidet
+   sich klar von den Mixed-Case-Headlines (.footer-htitle), die in Title-sm sitzen. */
+.footer-field-label{display:block;font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);margin-bottom:var(--s2)}
+.footer-newsletter-form input[type="text"],
+.footer-newsletter-form input[type="email"]{display:block;width:100%;border:1px solid var(--field-border);background:var(--bg-surface);padding:0 var(--s3);height:44px;border-radius:var(--r-md);font:var(--ty-body-sm);color:var(--tx-primary)}
+/* tx-secondary auf bg-surface = 6,28:1 ✓ AA (Light). tx-muted wäre 3,92:1, knapp unter AA. */
+.footer-newsletter-form input::placeholder{color:var(--tx-secondary)}
+/* Focus-Ring auf Token: var(--focus-ring) ist Dual-Shadow (--co-50 außen, --co-500 innen) und
+   AA-konsistent mit allen anderen Form-Komponenten (.field, .footer-link, .footer-btm-link). */
+.footer-newsletter-form input:focus{outline:none;border-color:var(--co-500);box-shadow:var(--focus-ring)}
+/* Error-State, analog zu .field.has-error: --c-error-Border + Inline-Fehlertext mit Icon. */
+.footer-field.has-error input{border-color:var(--c-error)}
+.footer-field .error-msg{display:flex;gap:var(--s2);align-items:center;font:var(--ty-body-sm);color:var(--c-error);margin-top:var(--s2)}
+/* Consent als <label> mit Checkbox + Text — implizite Verknüpfung, keine IDs nötig (Footer in 10 Tabpanels). */
+.footer-newsletter-consent{display:flex;align-items:flex-start;gap:var(--s2);font:var(--ty-body-sm);color:var(--tx-secondary);cursor:pointer;margin-bottom:var(--s4)}
+.footer-newsletter-consent input[type="checkbox"]{width:16px;height:16px;margin-top:2px;accent-color:var(--co-500);flex-shrink:0;cursor:pointer}
+/* Konsistenter Focus-Ring (Cutout-Effekt) statt Browser-Default — passt zu Footer-Links und Submit-Button. */
+.footer-newsletter-consent input[type="checkbox"]:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* Mobile (< 768px): Footer-Grid stapelt einspaltig, Bottom-Bar bleibt Flex-Wrap.
+   Padding-block etwas reduziert für kompakte Höhe auf Mobile. */
+@media (max-width: 768px) {
+  .footer-grid{grid-template-columns:1fr;gap:var(--s8)}
+  .footer-main{padding-block:var(--s8)}
+  .footer-btm .footer-social{margin-left:0}
+}
+/* Tablet (769–1024px): Zwischenstufe für fix-spaltige Layouts, damit sie nicht direkt
+   von voller Desktop-Breite auf 1-spaltig springen. Die auto-fit-Grids (.ep-cards,
+   .a11y-grid, .card-stat-strip, .ep-tabs) regeln diesen Bereich bereits selbst — daher
+   hier nur der 3-spaltige Footer auf 2 Spalten. */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .footer-grid{grid-template-columns:1fr 1fr;gap:var(--s8) var(--s10)}
+}
+
+/* ── A11y ── */
+.a11y-card{background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s4)}
+.a11y-card h3{font:var(--ty-title-sm);margin-bottom:var(--s2)}
+.a11y-card p{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s3)}
+.a11y-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--s4);margin-bottom:var(--s4)}
+.a11y-grid .a11y-card{margin-bottom:0}
+.a11y-kbd{display:inline-block;background:var(--n-100);border:1px solid var(--n-300);border-radius:4px;padding:2px 7px;font-family:var(--font-mono);font-size:0.75rem;color:var(--tx-primary);box-shadow:0 1px 0 var(--n-300)}
+.a11y-table{width:100%;border-collapse:collapse;font:var(--ty-body-md);margin:var(--s3) 0}
+.a11y-table th{text-align:left;padding:var(--s2) var(--s3);background:var(--n-50);border-bottom:2px solid var(--n-200);font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
+.a11y-table td{padding:var(--s2) var(--s3);border-bottom:var(--bd);vertical-align:top;line-height:1.5}
+.a11y-table tr:last-child td{border-bottom:none}
+.a11y-rule{display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3) 0;border-bottom:var(--bd)}
+.a11y-rule:last-child{border-bottom:none}
+.a11y-rule-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.875rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.a11y-ok .a11y-rule-icon{background:#E6F9F1;color:#0a5c38}
+.a11y-fail .a11y-rule-icon{background:#FDEAEA;color:#9b2020}
+.code-block{background:var(--bg-code);color:#c4e8b8;border-radius:var(--r-md);padding:var(--s4);font-family:var(--font-mono);font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:var(--s3) 0}
+.code-block .k{color:#79b8ff}.code-block .v{color:#00BEBE}.code-block .s{color:#f0c070}.code-block .c{color:#739373}/* Kommentarfarbe: #6a8a6a trug auf --bg-code nur 4,43:1 und verfehlte AA knapp. Farbton und Saettigung bleiben, nur heller: Light 4,99:1, Dark 5,84:1. */
+/* ── Code-Block Komponente (Wissensbeitrag) ── */
+.cb-wrap{border-radius:var(--r-sm);overflow:hidden;border:1px solid var(--n-200);margin:var(--s3) 0}
+.cb-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s5);background:var(--n-100);border-bottom:1px solid var(--n-200)}
+.cb-lang{font:var(--ty-label-xs-strong);text-transform:uppercase;letter-spacing:.08em;color:var(--co-700)}
+.cb-copy{background:none;border:1px solid var(--n-200);border-radius:var(--r-xs);color:var(--n-500);font:var(--ty-label-xs);font-family:var(--font);padding:3px 10px;cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.cb-copy:hover{background:var(--n-200);color:var(--n-600)}
+.cb-copy:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.cb-body{background:var(--n-50);padding:var(--s5) var(--s6);overflow-x:auto;font-family:var(--font-mono);font-size:0.8125rem;line-height:1.7;color:var(--n-700);margin:0;white-space:pre}
+/* Semantisches <code> im <pre> (a11y): der Browser-Default (code{font-family:monospace})
+   würde sonst eine andere Schrift als der Rest des Blocks zeigen, obwohl .cb-body die
+   Schrift schon per var(--font-mono) setzt. font:inherit gleicht das exakt an. */
+.cb-body code{font:inherit}
+/* .cb-body ist jetzt per tabindex="0" fokussierbar (horizontales Scrollen per Tastatur).
+   Der Ring sitzt auf .cb-wrap statt auf .cb-body selbst: .cb-wrap clippt per overflow:hidden
+   die Ecken, ein box-shadow-Ring direkt auf .cb-body würde dort abgeschnitten. Gleiches
+   :has()-Muster wie bei .seg weiter oben in dieser Datei. */
+.cb-body:focus-visible{outline:none}
+.cb-wrap:has(.cb-body:focus-visible){box-shadow:var(--focus-ring)}
+/* .c = Kommentar. Vorher n-400 (#6E8585), das auf dem n-50-Grund der Blöcke nur 3,65:1 trug.
+   --tx-muted ist theme-aware und semantisch die gedämpfte Stufe: Light 4,51:1, Dark 8,9:1.
+   Wer --tx-muted oder --n-50 anfasst, prüft diesen Wert mit, die Reserve ist knapp. */
+.cb-body .k{color:var(--es-600)}.cb-body .v{color:var(--co-700)}.cb-body .s{color:var(--wo-600)}.cb-body .c{color:var(--tx-muted)}.cb-body .fn{color:var(--ro-600)}
+/* Zeilennummern */
+.cb-body.cb-numbered{line-height:0}
+.cb-numbered .cb-ln{display:flex;gap:var(--s3);line-height:1.6}
+.cb-numbered .cb-ln::before{content:attr(data-n);color:var(--n-300);font-size:0.75rem;min-width:20px;text-align:right;flex-shrink:0;user-select:none}
+/* Terminal */
+.cb-terminal .cb-header{background:#080f08}
+.cb-terminal .cb-lang{color:#5CE8A0}
+.cb-terminal .cb-body{background:#0b110b;color:#b8d8b8}
+/* Die Terminal-Variante hat einen fest dunklen Grund in BEIDEN Modi. Der theme-aware --tx-muted
+   der Standard-Blöcke liegt hier im Light bei 3,94:1 und verfehlt AA. Deshalb der nicht flippende
+   n-400 (4,87:1 in beiden Modi). Heute steht in keinem Terminal-Block ein Kommentar, die Regel
+   verhindert, dass die Kombination später still durchfällt. */
+.cb-terminal .cb-body .c{color:var(--n-400)}
+.cb-terminal .cb-prompt{color:#5CE8A0;user-select:none}
+/* Deckkraft .65, nicht .55: auf dem Terminal-Grund trug .55 nur 4,20:1, .65 gibt 5,07:1.
+   Die Ausgabe bleibt damit sichtbar gedämpft gegenüber dem Prompt, erfüllt aber AA. */
+.cb-terminal .cb-out{color:rgba(180,210,180,.65)}
+/* Kopier-Button im Terminal: der neutrale n-500 der hellen Variante trägt auf dem dunklen
+   Terminal-Header nur 3,09:1. n-200 gibt 12,70:1 und passt zur hellen Schrift daneben. */
+.cb-terminal .cb-copy{color:var(--n-200)}
+/* Inline code in Fließtext */
+.cb-prose code{font-family:var(--font-mono);font-size:.875em;background:var(--co-50);color:var(--co-700);padding:2px 6px;border-radius:var(--r-xs);border:1px solid var(--co-100)}
+.contrast-row{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:var(--bd);flex-wrap:wrap}
+.contrast-row:last-child{border-bottom:none}
+/* Keine Doppellinie: folgt direkt eine Gruppen-Überschrift (mit eigenem border-top als Trenner),
+   lässt die letzte Zeile ihre Unterlinie weg — sonst stehen zwei parallele Linien untereinander. */
+.contrast-row:has(+ .group-title){border-bottom:none}
+.cswatch{width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.875rem}
+.cinfo{flex:1;min-width:160px}
+.cname{font:var(--ty-label-md)}
+.cratio{font-size:0.8125rem;color:var(--tx-secondary);font-family:var(--font-mono)}
+.cbadge{display:inline-flex;align-items:center;padding:3px var(--s2);border-radius:var(--r-full);font:var(--ty-label-xs)}
+.c-aa{background:var(--cbadge-aa-bg);color:var(--cbadge-aa-text)}
+.c-aaa{background:var(--cbadge-aaa-bg);color:var(--cbadge-aaa-text)}
+.c-fail-badge{background:var(--cbadge-fail-bg);color:var(--cbadge-fail-text)}
+/* Modus-Pill für Kontrast-Zeilen. Macht explizit, ob ein Kontrast-Wert sich auf Light, Dark oder beide Themes bezieht.
+   Neutral gestaltet (Border statt Fill), damit das WCAG-Badge daneben optisch dominiert. */
+.a11y-mode{display:inline-flex;align-items:center;padding:1px 7px;border-radius:var(--r-full);font:var(--ty-label-xs);letter-spacing:.04em;border:var(--bd);background:transparent;color:var(--tx-secondary);margin-right:var(--s2);vertical-align:middle;white-space:nowrap}
+
+/* ── Slider ── */
+.field-slider{display:flex;flex-direction:column;gap:var(--s2);--sl-thumb:22px}
+.field-slider-header{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s2)}
+.field-slider-label{font:var(--ty-label-sm);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary)}
+.field-slider-output{white-space:nowrap;font:600 0.875rem/1.25rem var(--font);color:var(--sl-text,var(--co-700));min-width:56px;text-align:right}
+/* Ticks exakt auf die Thumb-Position ausgerichtet: der Thumb-Mittelpunkt läuft von
+   --sl-thumb/2 bis (Breite − --sl-thumb/2). Jeder Tick trägt --tick-p (0..1) als
+   Bruchteil des Wertebereichs und wird über seiner Mitte zentriert. (Früher
+   justify-content:space-between → Label-Mitten trafen die Positionen nicht.) */
+.field-slider-ticks{position:relative;height:16px;font:var(--ty-caption);color:var(--tx-muted)}
+.field-slider-ticks>*{position:absolute;transform:translateX(-50%);white-space:nowrap;left:calc(var(--sl-thumb) / 2 + var(--tick-p, 0) * (100% - var(--sl-thumb)))}
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-full);background:var(--n-200);outline:none;cursor:pointer;display:block;margin:var(--s3) 0 var(--s1)}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast)}
+.slider::-moz-range-thumb{width:var(--sl-thumb);height:var(--sl-thumb);border-radius:50%;background:var(--sl-color,var(--co-500));border:3px solid var(--bg-surface);box-shadow:var(--e2);cursor:pointer;transition:transform var(--m-fast),box-shadow var(--m-fast);box-sizing:border-box}
+.slider:hover:not(:disabled)::-webkit-slider-thumb{transform:scale(1.2);box-shadow:var(--e3)}
+.slider:hover:not(:disabled)::-moz-range-thumb{transform:scale(1.2);box-shadow:var(--e3)}
+.slider:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.slider:disabled{opacity:.38;cursor:not-allowed}
+/* --sl-color = Thumb (helle Markenfarbe, grafisch: 3:1 genügt) · --sl-text = Wert-Anzeige
+   (Normaltext 14px/600 → 4,5:1 nötig, daher dunklere Töne; -500 fiel bis 2,3:1 durch, WCAG 1.4.3) */
+.slider-co{--sl-color:var(--co-500);--sl-text:var(--co-700)}   /* co-700 #007575 = 5,5:1 */
+.slider-ki{--sl-color:var(--ki-700);--sl-text:var(--ki-800)}   /* ki-800 #475705 = 8,0:1 (ki-700 nur 4,35:1) */
+.slider-es{--sl-color:var(--es-500);--sl-text:var(--es-700)}   /* es-700 #1B3D9A = 9,6:1 */
+.slider-wo{--sl-color:var(--wo-500);--sl-text:var(--wo-700)}   /* wo-700 #285E1A = 7,8:1 (wo-500 nur 3,3:1) */
+
+/* ── Bild-Slider (Carousel) ── */
+/* Basis: Crossfade — alle Slides als Grid-Items in derselben Zelle übereinander gestapelt; aktive Slide trägt .active und ist sichtbar */
+.img-slider{position:relative;border-radius:var(--r-lg);overflow:hidden;user-select:none}
+.img-slider-track{display:grid;grid-template-columns:1fr;grid-template-rows:1fr}
+.img-slide{grid-column:1/-1;grid-row:1/-1;opacity:0;transition:opacity 600ms ease;pointer-events:none}
+.img-slide.active{opacity:1;pointer-events:auto}
+.img-slide-media{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--n-100)}
+.img-slide-media img{width:100%;height:100%;object-fit:cover;display:block}
+.img-slide-caption{padding:var(--s4) var(--s6);background:var(--bg-surface);border-top:var(--bd);min-height:112px;overflow:hidden}
+.img-slide-caption-title{font:var(--ty-serif-md);color:var(--tx-primary);margin:0 0 var(--s1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-slide-caption-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.img-slider-btn{position:absolute;top:calc(50% - 28px);transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(4px);border:none;box-shadow:var(--e2);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;transition:background var(--m-fast),box-shadow var(--m-fast);color:#333E48}/* Kreis ist in beiden Modi fest weiß → Chevron fest dunkel (nicht tx-primary, das im Dark auf hell flippt → hell-auf-weiß) */
+.img-slider-btn:hover{background:#fff;box-shadow:var(--e3)}
+.img-slider-btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.img-slider-prev{left:var(--s4)}
+.img-slider-next{right:var(--s4)}
+.img-slider-dots{display:flex;justify-content:center;padding:var(--s4) 0;background:var(--bg-surface);position:relative;z-index:2}
+/* Dot-Pattern: 24×24 Hit-Area (WCAG 2.5.5 AA) + 12×12 sichtbarer Punkt via ::before, gap:0 */
+.img-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.img-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.img-dot:hover::before{background:var(--n-400)}
+.img-dot.active::before{background:var(--co-500);transform:scale(1.25)}
+.img-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+/* Hero-Variante — vollflächig, 21:9-Format, Caption als Overlay über dem Bild */
+.img-slider-hero{border-radius:0}
+.img-slider-hero .img-slider-track{aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px)}
+.img-slider-hero .img-slide-media{height:100%;aspect-ratio:auto;min-height:0}
+.img-slider-hero .img-slide-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,transparent 100%);border-top:none;padding:var(--s10) var(--s8) var(--s10);height:auto;overflow:visible}
+.img-slider-hero .img-slide-caption-title{color:#fff;font-size:clamp(1.25rem, 0.943rem + 1.36vw, 2rem);line-height:1.25}
+.img-slider-hero .img-slide-caption-text{color:rgba(255,255,255,.8);height:auto;overflow:visible}
+.img-slider-hero .img-slider-btn{top:50%}
+.img-slider-hero .img-slider-dots{position:absolute;bottom:var(--s4);left:0;right:0;background:none;border:none;padding:0}
+.img-slider-hero .img-dot::before{background:rgba(255,255,255,.35)}
+.img-slider-hero .img-dot.active::before{background:#fff}
+
+/* ── Hero-Image (statische Variante der Slider-Hero, ohne Track/Buttons/Dots) ── */
+.hero-image{position:relative;overflow:hidden;margin:0}
+.hero-image-media{width:100%;aspect-ratio:21/9;min-height:300px;max-height:clamp(480px,75vh,900px);overflow:hidden;background:var(--n-100);display:flex;align-items:center;justify-content:center}
+.hero-image-media img{width:100%;height:100%;object-fit:cover;display:block}
+/* Scrim über dem Hero-Foto. Zwei Anforderungen, die sich gegenseitig begrenzen:
+
+   (1) KONTRAST. Der Eyebrow ist das erste Kind und sitzt damit im obersten, schwächsten Abschnitt
+   des Verlaufs. Mit dem früheren Verlauf (.85 / .65 bei 50% / transparent) stand er dort auf Alpha
+   0,30: über einer ausgebrannt hellen Bildstelle sind das 1,90:1, gemessen lagen bis zu 63% der
+   Eyebrow-Fläche unter 4,5:1. Der text-shadow hilft optisch, zählt für WCAG nicht.
+
+   (2) KEINE SICHTBARE KANTE. Ein Verlauf wird nicht dort auffällig, wo er steil ist, sondern dort,
+   wo seine Steilheit springt. Entscheidend ist die Rate, mit der die Deckkraft an der OBERKANTE
+   einsetzt. Gemessen am gerenderten Bild (zweite Ableitung der Zeilenhelligkeit, über die Breite
+   gemittelt): früherer Verlauf 7,9. Ein Zwischenstand, der die Deckkraft auf kurzer Strecke aufbaute,
+   kam auf 21 bis 25 und zeichnete eine sichtbare Linie quer durchs Bild, unabhängig davon, wie viele
+   Stützstellen er hatte. Mehr Stops helfen also nicht.
+
+   Was hilft, ist eine längere Auslaufstrecke: die Deckkraft muss über genügend Pixel von 0 auf ihren
+   Wert kommen. Der Text endet 132px über der Unterkante; mit 96px Polsterung darüber ist der Kasten
+   228px hoch, der Eyebrow sitzt bei 58%, und der Auslauf läuft mit 0,0066 pro Pixel, also etwas
+   sanfter als beim früheren Verlauf (0,0076). Gemessene Kantigkeit 9,2 gegenüber 7,9. Deckkraft am
+   Eyebrow 0,63 statt 0,30.
+
+   Die Polsterung ist fluide, weil 96px auf einem 300px hohen Mobil-Hero zu viel wären. */
+.hero-image-caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.63) 58%,transparent 100%);padding:clamp(var(--s10), 6.7vw, calc(var(--s16) + var(--s8))) var(--s8) var(--s10);margin:0}
+.hero-image-caption-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);margin:0 0 var(--s2);text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.hero-image-caption-title{font:var(--ty-serif-md);color:#fff;font-size:clamp(1.25rem, 0.943rem + 1.36vw, 2rem);line-height:1.25;margin:0 0 var(--s1);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.hero-image-caption-text{font:var(--ty-body-md);color:rgba(255,255,255,.92);margin:0;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+/* ── Störer (Hero-Overlay, Startseite) ──
+   Kompakte Verweiskacheln auf je einen aktuellen Inhalt: nächste Veranstaltung, neuer
+   Wissensbeitrag, Pressemitteilung, Info (neue Seminar-Landingpage, neues Produkt). Ein bis
+   drei Kacheln als Set oben rechts über dem Hero-Bild, Default sind zwei. Der Wrapper
+   .stoerer-hero umschließt Hero + Set und spannt den Positionsrahmen auf; .hero-image bleibt
+   unangetastet und funktioniert weiter ohne Störer.
+
+   VIER ENTSCHEIDUNGEN, DIE ABSICHT SIND
+
+   (1) EINE FARBE FÜR ALLE VIER TYPEN. Der Inhaltstyp steht im Label und im Icon, nicht in der
+   Fläche. Vier Bereichsfarben nebeneinander würden gegeneinander und gegen die Hero-Headline
+   arbeiten; die Kacheln sind ein Set und müssen als eines lesen. Der Akzent ist deshalb
+   durchgehend Corporate (--co-ink), wie bei der Topnav: der Störer ist Chrome über dem Bild,
+   kein Bereichsinhalt. Aus demselben Grund gibt es hier kein data-area.
+
+   (2) DECKENDE FLÄCHE, KEIN GLAS. Über einem Foto ist der Grund unbekannt: eine
+   halbtransparente Kachel trägt je nach Bildstelle 2:1 oder 12:1, und keine Regel kann das
+   absichern (der Grund steht nicht in der Elternkette, `npm run check:contrast` zählt solchen
+   Text nur, statt ihn zu werten). Auf --bg-surface steht der Text dagegen auf einer bekannten
+   Fläche: Light 5,52 bis 10,90:1, Dark 8,32 bis 10,48:1. Das Bild bleibt sichtbar, weil die
+   Kacheln klein sind, nicht weil sie durchscheinen.
+
+   (3) RAHMEN IN BEIDEN MODI. Karten im DS verlassen sich im Light auf --e1 und bekommen erst
+   im Dark einen Rahmen (CONTRIBUTING §5). Hier liegt die Kachel aber auf einem Foto statt auf
+   einer bekannten Fläche: auf einer ausgebrannt hellen Bildstelle trägt der schwarze Schatten
+   nichts mehr, und die weiße Kachel hat dort keine Kante. Deshalb --bd-strong schon im Light.
+
+   (4) OVERLAY NACH HERO-BREITE, NICHT NACH VIEWPORT-BREITE. Bei 21:9 gilt Hero-Höhe = Breite
+   × 9/21 (der max-height-Deckel liegt bei mindestens 480px und greift hier nie). Eine Kachel ist
+   126px hoch (12px Polsterung, 100px Inhalt, 1px Rand je Seite), drei Kacheln plus zwei Abstände
+   und 24px Rand oben brauchen 426px Hero-Höhe, also 994px Hero-Breite. Ob die vorhanden ist, sagt
+   die Breite des Heros und nicht die des Fensters: mit einer Media Query auf 1025px ragte ein
+   Dreier-Set in der Doku-Vorschau (Hero 898px im 1200px-Fenster) 41px in die Sub-Sektion. Die
+   Entscheidung hängt deshalb an einer Container-Query auf .stoerer-hero. Darunter steht das Set
+   als normaler Block unter dem Hero; eine Kachel, die halb in die Sub-Sektion ragt, ist kein
+   Overlay mehr, sondern ein Unfall. Die Schwelle liegt bei 1025px, dem Desktop-Tier der
+   Responsive-Strategie, und damit über dem Rechenwert von 994px. Ohne Container-Query-Support
+   greift die Regel nicht und das Set bleibt in jeder Breite ein Block unter dem Hero, also der
+   funktionierende Fall.
+
+   MASSE IN REM, NICHT PX (WCAG 1.4.4). Die Schwelle stand zuerst als 1025px da und skalierte damit
+   nicht mit der Browser-Standardschriftgröße: bei 200% Textgröße wuchs die Kachel von 126 auf 290px,
+   das Overlay blieb aber an und ragte gemessen 96px in die Sub-Sektion. In rem (64,0625rem = 1025px
+   bei Default-Wurzel) wandert die Schwelle mit: bei 200% verlangt sie 2050px Hero-Breite, das Set
+   fällt also in den Block-Zweig, statt kaputt zu überlappen. Dieselbe Rechnung gilt für die
+   Kachelbreite (22,5rem) und das Grid-Minimum (16,25rem). */
+.stoerer-hero{position:relative;container-type:inline-size;--stoerer-w:22.5rem}
+.stoerer-set{padding:var(--s8)}
+.ep-page .stoerer-set{padding-inline:max(var(--s8),calc(50% - 640px))}
+/* Mobil derselbe Innenabstand wie .ep-section: 32 → 24px. Im Block-Zweig steht das Set in der
+   Sektionslogik der Seite, nicht mehr als Overlay, und folgt deshalb deren Rhythmus. */
+@media(max-width:768px){
+  .stoerer-set,.ep-page .stoerer-set{padding-inline:var(--s6)}
+}
+/* min(16.25rem,100%) statt 16.25rem als Boden: bei 320px Viewport (WCAG 1.4.10 Reflow) ist der
+   Grund nur 256px breit, ein starrer 260px-Boden ragte dort in die Polsterung. Mit min() weicht die
+   Spalte auf 100% aus, statt den Grund zu sprengen. */
+.stoerer-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(16.25rem,100%),1fr));gap:var(--s3)}
+/* Die Kachel IST der klickbare Bereich, trägt also Elevation (CONTRIBUTING §4). Eine Spalte:
+   Thema, Titel, Meta. Das Typ-Glyph sitzt IM Thema-Label, nicht in einer eigenen Spalte rechts.
+
+   WARUM NICHT RECHTS, MIT TRENNER
+   Material trennt die Slots einer Listenzeile nach Aufgabe: das Leading-Element „represents the
+   item's subject or category“, das Trailing-Element trägt „secondary information, actions, or status
+   indicators“. Unser Glyph ist ein reiner Typ-Marker, also eine Kategorie, und gehört damit nach
+   vorn. Rechts hinter einer Trennlinie stand es im Slot für Aktionen und Status, auf einer
+   vollständig klickbaren Kachel also doppeldeutig: es kann als Button lesen.
+   NN/g ergänzt die andere Richtung: „a text label must be present alongside an icon to clarify its
+   meaning“. Die Bedeutung trägt das Label, das Glyph ist Wiedererkennungshilfe, und die wirkt am
+   besten direkt neben dem Wort, das sie doppelt.
+   Messbarer Nebengewinn: ohne Icon-Spalte (24px Glyph + 16px Polsterung + 1px Trenner + 16px
+   Spaltenabstand = 57px) wächst die Textspalte von 269 auf 326px, also um 21%. Damit klammern die
+   realistischen Titel der Startseite nicht mehr. Die Kachelhöhe bleibt bei 126px, weil das 16px-Glyph
+   in die 16px hohe Label-Zeile passt.
+   Preis: das Glyph wird stiller (16px statt 24px, Stroke micro statt sm). Das ist vertretbar, weil es
+   aria-hidden ist und nichts trägt, was das Label nicht schon sagt. Wer einen kräftigen Typ-Marker
+   braucht, setzt ihn ins Leading, oben auf Label-Höhe, nicht zurück nach rechts. */
+.stoerer{display:flex;flex-direction:column;gap:var(--s1);padding:var(--s3) var(--s4);border-radius:var(--r-md);background:var(--bg-surface);border:var(--bd-strong);box-shadow:var(--e1);text-decoration:none;color:inherit;transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
+.stoerer:hover{background:var(--bg-surface-hover);box-shadow:var(--e3);transform:translateY(-2px)}
+/* Zweites Hover-Signal, das nicht an Farbe oder Schatten hängt: über einem Foto ist der
+   Schatten-Zuwachs je nach Bildstelle kaum zu sehen, die Unterstreichung immer. */
+.stoerer:hover .stoerer-title>*{text-decoration:underline;text-underline-offset:2px}
+.stoerer:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
+/* Thema-Zeile trägt das Glyph als Leading-Element. align-items:center stimmt optisch, solange das
+   Label einzeilig bleibt, und das ist die Regel (ein bis drei Wörter). */
+.stoerer-topic{display:flex;align-items:center;gap:var(--s2);font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-ink)}
+/* Zwei Zeilen fest: min-height reserviert die Höhe, das innere Element kappt längere Titel per
+   line-clamp mit Auslassungszeichen. Beides zusammen hält alle Kacheln eines Sets auf gleicher
+   Höhe, unabhängig von der Titellänge im CMS (dieselbe Mechanik wie .card-title). */
+.stoerer-title{font:var(--ty-title-sm);color:var(--tx-primary);min-height:2lh}
+.stoerer-title>*{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.stoerer-meta{font:var(--ty-body-sm);color:var(--tx-secondary)}
+/* 16px = Micro auf der Icon-Skala, dort gehört Stroke 1 dazu (24px trüge 1.25). Farbe erbt das
+   Glyph vom Thema-Label über currentColor, es braucht keine eigene. */
+.stoerer-icon{width:16px;height:16px;flex-shrink:0;stroke-width:var(--icon-stroke-micro)}
+
+@container (min-width:64.0625rem){
+  /* Overlay oben rechts: die Caption liegt unten links, die Sub-Sektion darunter, oben rechts
+     ist die freie Zone. Der Abstand liegt in top/right statt im Padding, sonst wächst die
+     absolut positionierte Box über die Kachelbreite hinaus. */
+  .stoerer-set,.ep-page .stoerer-set{position:absolute;top:var(--s6);right:var(--s8);padding:0}
+  .ep-page .stoerer-set{right:max(var(--s8),calc(50% - 640px))}
+  .stoerer-list{display:flex;flex-direction:column;width:var(--stoerer-w)}
+  /* Die Caption-Spalte endet vor den Kacheln, sonst läuft eine lange Headline darunter.
+     max-width auf die Kinder, nicht Padding auf die Caption: der Gradient bleibt vollbreit.
+     Der .stoerer-hero-Präfix bleibt stehen, obwohl derzeit nur .stoerer-hero ein Container ist:
+     sonst greift die Regel auf jeden Hero, sobald irgendein Vorfahre ein Container wird. */
+  .stoerer-hero .hero-image-caption>*{max-width:calc(100% - var(--stoerer-w) - var(--s6))}
+}
+
+@media(prefers-reduced-motion:reduce){.img-slide{transition:none}}
+
+/* ── Logo-Tiles (geteilt vom Logo-Karussell) ── */
+/* Logos sitzen randlos auf der weißen Platte (.logo-carousel) — keine Einzel-Box, kein Hover-Lift:
+   Logos sind nicht klickbar, ein Lift wäre falsche Interaktions-Andeutung („Elevation = Interaktivität“).
+   Einheitliche, großzügige Logo-Höhe (100px) statt der alten 72px-Kachel mit nur ~48px nutzbarer Höhe. */
+.logo-tile{flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:var(--s2) var(--s4)}
+.logo-tile img{max-height:100px;max-width:100%;width:auto;height:auto;object-fit:contain}
+.logo-placeholder{font:700 1rem/1.2 var(--font);letter-spacing:.04em;color:var(--n-500);text-align:center;user-select:none}
+
+/* ── Logo-Carousel: diskrete Sets von 5 Logos, automatischer Crossfade, pausierbar ── */
+/* Helle Platte in BEIDEN Modi: Kundenlogos liegen oft farbig oder dunkel vor und haben keine
+   Dark-Variante, auf theme-reaktivem Grund würden sie im Dark unsichtbar. Die Platte bleibt also
+   hell, wird im Dark aber über --bg-plate gedämpft (#E8EDED statt #FFFFFF): eine reinweiße Fläche
+   dieser Größe stünde mit 17,51:1 gegen die Seite und blendet. Dunkle Logos darauf 14,73:1. */
+.logo-carousel{position:relative;background:var(--bg-plate);border:var(--bd-strong);border-radius:var(--r-lg);padding:var(--s8) var(--s6)}
+.logo-carousel-track{position:relative;display:grid;align-items:center;min-height:124px}
+.logo-carousel-slide{grid-row:1;grid-column:1;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s5);opacity:0;transition:opacity .5s ease;pointer-events:none}
+.logo-carousel-slide[aria-hidden="false"]{opacity:1;pointer-events:auto}
+.logo-carousel .logo-tile{width:auto;min-width:0}
+.logo-carousel-dots{display:flex;justify-content:center;margin-top:var(--s5)}
+/* Identischer Pattern wie .img-dot: 24×24 Hit-Area + 12×12 sichtbarer Punkt, gap:0 */
+.logo-carousel-dot{width:24px;height:24px;border-radius:50%;border:none;background:transparent;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.logo-carousel-dot::before{content:'';width:12px;height:12px;border-radius:50%;background:var(--n-200);transition:background var(--m-fast),transform var(--m-fast)}
+.logo-carousel-dot:hover::before{background:var(--n-400)}
+.logo-carousel-dot[aria-selected="true"]::before{background:var(--co-500);transform:scale(1.25)}
+.logo-carousel-dot:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:50%}
+.logo-carousel-pause{position:absolute;top:var(--s2);right:var(--s2);z-index:2;background:var(--bg-surface);border:var(--bd);border-radius:var(--r-full);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--e1);transition:box-shadow var(--m-fast),opacity var(--m-fast);opacity:0;color:var(--n-500)}
+.logo-carousel:hover .logo-carousel-pause,.logo-carousel:focus-within .logo-carousel-pause{opacity:1}
+.logo-carousel.paused .logo-carousel-pause{opacity:1}
+.logo-carousel-pause:hover{color:var(--n-700);box-shadow:var(--e2)}
+.logo-carousel-pause:focus-visible{outline:none;box-shadow:var(--focus-ring);opacity:1}
+.logo-carousel-pause[hidden]{display:none}
+.logo-carousel-pause .icon-play{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-pause{display:none}
+.logo-carousel.paused .logo-carousel-pause .icon-play{display:block}
+/* Reduced Motion: Transition aus, Autoplay wird per JS deaktiviert */
+@media(prefers-reduced-motion:reduce){.logo-carousel-slide{transition:none}}
+
+/* ── Grid ── */
+.grid-vis{border:var(--bd-strong);border-radius:var(--r-md);overflow:hidden}
+.grid-12{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s3);padding:var(--s3);background:var(--bg-overlay)}
+.gcol{border-radius:var(--r-xs);padding:var(--s3);background:var(--co-50);border:1px solid var(--co-500);font:var(--ty-label-xs);color:var(--co-700);text-align:center}
+
+/* ── Token ── */
+/* Die Token-Blöcke tragen ihre Überschrift als .group-title wie jede andere Doku-Sektion,
+   damit sie in der Sub-Navigation erscheinen und die Heading-Ebene nicht überspringen. */
+.token-section{margin-bottom:var(--s8)}
+.ico-48{width:48px;height:48px}
+
+/* ── Example Pages ── */
+/* Beispielseiten-Auswahl: nach IA gruppiert (Allgemein/Leistungen/Wissen/Unternehmen/Veranstaltungen),
+   je Gruppe eine dezente Label-Zeile über den Pills. Gekürzte Pill-Labels (voller Name via aria-label). */
+/* Alle Gruppen als Spalten nebeneinander (füllt die Breite, hält die Leiste flach);
+   klappt auf schmalen Screens automatisch auf weniger Spalten um. */
+.ep-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6) var(--s8);align-items:start;margin-bottom:var(--s8)}
+.ep-tab-group{display:flex;flex-direction:column;gap:var(--s3)}
+.ep-tab-group-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary)}
+.ep-tab-group-row{display:flex;gap:var(--s2);flex-wrap:wrap}
+/* min-height 44px = Touch-Target AAA (WCAG 2.5.5), analog zu .btn; border via --field-border
+   (modusabhängig, ≥ 3:1 für die Bedienelement-Kontur nach WCAG 1.4.11: light #6E8585 = 3,9:1,
+   dark #C9D3D3 = 5,8:1 — das feste --n-200 fiel im Light-Mode auf 1,5:1 durch). */
+.ep-tab{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:7px var(--s4);border-radius:var(--r-full);border:1px solid var(--field-border);font:var(--ty-label-sm);cursor:pointer;background:var(--bg-surface);color:var(--tx-secondary);transition:all var(--m-fast)}
+.ep-tab:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--field-border)}
+.ep-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+/* Aktiv: gefüllt mit co-700 (nicht co-500), damit weißer Text AA erreicht (#fff auf
+   co-700 = 5,52:1; auf dem hellen co-500 wären es nur 2,3:1). Spiegelt .btn-filled/.btn-co. */
+.ep-tab.active{background:var(--co-700);color:#fff;border-color:var(--co-700);box-shadow:var(--e1)}
+.ep-tab.active:hover{background:var(--co-700);color:#fff;border-color:var(--co-700)}
+/* Hierarchie in einer Gruppe (Leistungen, Unternehmen): Oberpunkte stapeln untereinander,
+   Unterpunkte eingerückt mit dezenter Leitlinie (wie ein Nav-Baum). */
+.ep-tab-group-row.is-tree{flex-direction:column;align-items:flex-start}
+.ep-tab-node{display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2)}
+.ep-tab-parent{display:flex;align-items:center;gap:var(--s2)}
+.ep-tab-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;flex-shrink:0;border-radius:var(--r-full);border:1px solid var(--field-border);background:var(--bg-surface);color:var(--tx-secondary);cursor:pointer;padding:0;transition:all var(--m-fast)}
+.ep-tab-toggle:hover{background:var(--bg-overlay);color:var(--tx-primary);border-color:var(--field-border)}
+.ep-tab-toggle:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-tab-toggle-caret{width:14px;height:14px;transition:transform var(--m-fast)}
+.ep-tab-node.is-open .ep-tab-toggle-caret{transform:rotate(180deg)}
+/* Unterpunkte standardmäßig eingeklappt, per Toggle (.is-open) aufklappbar */
+.ep-tab-children{display:none;flex-wrap:wrap;gap:var(--s2);margin-left:var(--s4);padding-left:var(--s4);border-left:1px solid var(--n-200)}
+.ep-tab-node.is-open > .ep-tab-children{display:flex}
+/* position:relative, damit .skip-link (position:absolute) sich am ep-Page-Frame orientiert
+   und nicht außerhalb der Preview-Karte erscheint. overflow:hidden clipped die negative
+   top-Position im Default — Skip-Link ist also unsichtbar bis Focus, dann poppt er rein. */
+.ep-page{display:none;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--e3);border:var(--bd-strong);position:relative}
+.ep-page.visible{display:block}
+/* Beispielseiten nutzen die volle verfügbare Breite bis zum rechten Fensterrand (kein 1280/1500-Deckel):
+   .ds-content ist flex:1 und füllt Fensterbreite − Sidebar. Der Karten-Rahmen (.ep-page: Radius/Schatten)
+   und der Außenabstand (.ds-content padding --s6) bleiben; der Seiteninhalt bleibt über das Content-Gutter
+   (padding-inline: max(--s8, calc(50% − 640px)), s.u.) in einer zentrierten 1280-Lesespalte, Hero/Bänder
+   laufen full-bleed über die Kartenbreite. */
+/* Breite an data-section (vom Inline-Head-Script vor dem Paint gesetzt) — verhindert den Layout-Sprung,
+   den :has() allein verursacht (greift erst, wenn JS die Sektion nach dem Paint sichtbar macht).
+   :has bleibt als Laufzeit-Backup für Wechsel, die nicht über activateSection laufen. */
+html[data-section="examples"] .ds-content,
+.ds-content:has(#sec-examples.visible){max-width:none}
+/* Inhalt der Sektionen folgt aber dem 1280px-Spec — Hintergründe bleiben volle Panel-Breite,
+   Content wird über fluides Inline-Padding zentriert (kein zusätzlicher Wrapper nötig). */
+.ep-page .ep-topnav,
+.ep-page .ep-section,
+.ep-page .card-stat-strip,
+.ep-page .ep-cta-band,
+.ep-page .ep-media-band,
+.ep-page .hero-image-caption{padding-inline:max(var(--s8), calc(50% - 640px))}
+/* Akzent-Bänder: gerundete Ecken wie Karten & übrige Bilder (r-lg). Radius aufs <img>, da das
+   <figure> durch das Content-Gutter-Padding breiter ist als das sichtbare Bild. */
+.ep-page .ep-media-band img{border-radius:var(--r-lg)}
+/* .footer hat eigene Bänder (.footer-main/.footer-btm) mit eigenem padding-inline.
+   Auf .footer hier kein Padding setzen — sonst doppelte Einrückung und der Background-Streifen
+   reicht nicht bis zur .ep-page-Kante. */
+.ep-topnav{display:flex;align-items:center;padding:var(--s4) var(--s8);background:var(--bg-surface);border-bottom:var(--bd);gap:var(--s8);flex-wrap:wrap}
+/* Kontakt-Button (letztes Direct-Child) wird nach rechts gedrückt; Nav hängt direkt am Logo */
+.ep-topnav > :last-child{margin-left:auto}
+.ep-logo{font:500 1.5rem/2rem var(--font);letter-spacing:.03em;flex-shrink:0;display:flex;align-items:center;color:inherit;text-decoration:none;border-radius:var(--r-xs)}
+a.ep-logo{cursor:pointer}
+a.ep-logo:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-logo img{display:block;height:24px;width:auto}
+/* Theme-aware logo swap: default für hellen, light für dunklen Hintergrund.
+   img.-Präfix (Element+Klasse, 0,1,1) ist nötig: .ep-logo img{display:block} (0,1,1) schlägt sonst
+   die reine .logo-themed-light-Klasse (0,1,0) → im Light bliebe das WEISSE Logo sichtbar (weiß-auf-weiß
+   unsichtbar, belegte aber ~Logobreite und schob .ep-nav-links nach rechts). Dark-Regeln (0,2,1) gewinnen. */
+img.logo-themed-light{display:none}
+[data-theme="dark"] img.logo-themed-default{display:none}
+[data-theme="dark"] img.logo-themed-light{display:block}
+.ep-nav-links{display:flex;gap:var(--s6);font:var(--ty-label-md);align-items:center}
+/* Top-Level-Links: Akzent-Unterstrich bei Hover/aktiv (statt Opacity-Fade). Der aktive Zustand
+   ist nicht nur farbig (co-700), sondern zusätzlich durch den Unterstrich markiert (kein
+   reiner Farb-Indikator → WCAG 1.4.1). */
+.ep-nav-btn{position:relative;background:none;border:none;cursor:pointer;font:inherit;color:inherit;padding:0;text-decoration:none;transition:color var(--m-fast)}
+.ep-nav-btn:link,.ep-nav-btn:visited{color:inherit;text-decoration:none}
+/* Aktiv-Unterstrich: co-700 statt co-500 → 5,52:1 auf weiß (WCAG 1.4.11 ≥3:1; co-500 lag bei 2,31:1).
+   Dark-Override auf co-200 in dark-mode.css. Farbe spiegelt die Aktiv-Textfarbe. */
+.ep-nav-btn::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:1px;background:var(--co-700);opacity:0;transition:opacity var(--m-fast)}
+/* Unterstrich (::after) = ausschließlich Aktiv-Indikator (aria-current). Hover/Öffnen markieren nur
+   über Petrol-Farbe (+ Caret-Dreh beim Toggle), damit das Aufklapp-Menü nicht an der Linie klebt. */
+.ep-nav-btn:hover{color:var(--co-700)}
+.ep-nav-btn:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.ep-nav-btn[aria-current="page"]{color:var(--co-700)}
+.ep-nav-btn[aria-current="page"]::after{opacity:1}
+/* Aktive Sektion: trägt das Submenü die aktive Seite, bekommt der Parent-LINK denselben Unterstrich —
+   nicht-farblicher Indikator (WCAG 1.4.1), damit die aktive Sektion nicht nur über Petrol-Farbe hängt.
+   (Der Unterstrich sitzt am .ep-nav-btn-Link, nicht am Caret-Button — dieser hat kein ::after.) */
+.ep-nav-has-sub:has(.ep-nav-sub-btn[aria-current="page"]) .ep-nav-btn::after{opacity:1}
+/* Submenü unter "Leistungen"/"Unternehmen" — Hover/Focus-Within zeigt die Einträge */
+.ep-nav-item{position:relative;display:inline-flex;align-items:center;gap:var(--s1)}
+/* Caret-Disclosure-Button: nur der Pfeil (das Label ist der separate .ep-nav-btn-Link daneben).
+   Eigene Hit-Area ≥24×24 (WCAG 2.5.8) + eigener Fokus-Ring, da nicht mehr Teil des Link-Buttons. */
+.ep-nav-item-toggle{font:inherit;color:inherit;background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-width:24px;min-height:24px;padding:0 4px;border-radius:var(--r-sm);line-height:1}
+.ep-nav-item-toggle:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-item-caret{width:10px;height:10px;display:inline-block;color:currentColor;opacity:.6;transition:transform var(--m-fast)}
+/* Disclosure-Menü (.is-open ↔ aria-expanded, via main.js): Öffnen schließt offene Geschwister
+   (closeAllNavItems), Escape/Außenklick schließen. Reveal keift ausschließlich an .is-open (nie an
+   reinem CSS-:hover), damit aria-expanded mitläuft und nie zwei Menüs gleichzeitig offen sind.
+   Geöffnet wird per Klick/Tap, Tastatur ODER — nur auf pointer:fine — per Hover (JS-gesteuert, mit
+   Intent-Delay). Beim Öffnen färbt sich der Toggle Petrol und der Caret dreht; Hover gibt schon vorab
+   die Petrol-Färbung als Affordanz. KEIN Unterstrich (bleibt der aktiven Seite vorbehalten). */
+.ep-nav-has-sub:hover .ep-nav-item-toggle,.ep-nav-has-sub.is-open .ep-nav-item-toggle{color:var(--co-700)}
+.ep-nav-has-sub.is-open .ep-nav-item-caret{transform:rotate(180deg)}
+.ep-nav-sub{display:none;position:absolute;top:calc(100% + var(--s4));left:0;background:var(--bg-surface);box-shadow:var(--e3);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s2);min-width:240px;flex-direction:column;gap:2px;z-index:10}
+.ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+/* Unsichtbare Hover-Brücke über den Gap (top:100% + s4): hält den Zeiger beim Weg vom Caret ins
+   Flyout im Item, damit mouseleave nicht zu früh feuert (WCAG 1.4.13 „hoverable“). Nur pointer:fine
+   und nur solange offen — mobil ist .ep-nav-sub statisch, dort keine Brücke. */
+@media (hover:hover) and (pointer:fine){
+  .ep-nav-has-sub.is-open .ep-nav-sub::before{content:"";position:absolute;left:0;right:0;top:calc(-1*var(--s4));height:var(--s4)}
+}
+/* Sub-Items: gleiche Größe wie Top-Level (label-md), kein Umbruch, markenfarbiger Hover.
+   Aktiver Eintrag mit Tönungsfläche + co-700 + Fettung (Fläche/Fettung = nicht-farbige Indikatoren). */
+.ep-nav-sub-btn{padding:var(--s2) var(--s4);border-radius:var(--r-sm);text-decoration:none;color:var(--tx-primary);font:var(--ty-label-md);white-space:nowrap;transition:background var(--m-fast),color var(--m-fast)}
+.ep-nav-sub-btn:hover{background:var(--co-50);color:var(--co-700)}
+.ep-nav-sub-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-sub-btn[aria-current="page"]{background:var(--co-50);color:var(--co-700);font-weight:600}
+/* Hamburger (per JS injiziert) — nur unter dem Mobile-Breakpoint sichtbar */
+.ep-nav-burger{display:none;align-items:center;justify-content:center;width:48px;height:48px;flex-shrink:0;border:1px solid var(--n-200);border-radius:var(--r-sm);background:var(--bg-surface);color:var(--tx-primary);cursor:pointer;padding:0}
+.ep-nav-burger:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-nav-burger .icon-close{display:none}
+.ep-topnav.nav-open .ep-nav-burger .icon-menu{display:none}
+.ep-topnav.nav-open .ep-nav-burger .icon-close{display:inline}
+
+/* ── Topnav-Aktionen: Suche + Theme-Umschalter ──
+   Per JS in jede .ep-topnav injiziert (wie der Hamburger). Rechts gebündelt, direkt vor dem CTA.
+   Bleibt Corporate-Chrome (co) auch auf data-accent-Seiten, analog zu den Nav-Links. */
+.ep-nav-actions{display:inline-flex;align-items:center;gap:var(--s1);margin-left:auto}
+/* CTA (letztes Child) trägt sonst selbst margin-left:auto → würde den rechten Cluster auseinanderreißen.
+   Wenn die Aktionen das Schieben übernehmen, bekommt der CTA nur noch einen kleinen Abstand.
+   :not(.ep-nav-actions) → greift nur, wenn NACH den Aktionen noch ein CTA folgt; fehlt der CTA
+   (Aktionen sind selbst letztes Child), behält .ep-nav-actions sein margin-left:auto und bleibt rechts. */
+.ep-topnav:has(.ep-nav-actions) > :last-child:not(.ep-nav-actions){margin-left:var(--s3)}
+.ep-nav-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex-shrink:0;border:1px solid transparent;border-radius:var(--r-full);background:none;color:var(--tx-secondary);cursor:pointer;transition:background var(--m-fast),color var(--m-fast)}
+.ep-nav-icon-btn:hover{background:var(--co-50);color:var(--co-700)}
+.ep-nav-icon-btn:focus-visible{outline:none;box-shadow:var(--focus-aa)}
+.ep-nav-icon-btn svg{width:22px;height:22px}
+/* Theme-Umschalter: Mond im Light (Klick → Dark), Sonne im Dark (Klick → Light) */
+.ep-nav-theme-toggle .ep-nav-icon-sun{display:none}
+[data-theme="dark"] .ep-nav-theme-toggle .ep-nav-icon-sun{display:block}
+[data-theme="dark"] .ep-nav-theme-toggle .ep-nav-icon-moon{display:none}
+/* Such-Popover: Disclosure unter dem Such-Button, spiegelt .ep-nav-sub (bg-surface, --e3, --bd) */
+.ep-nav-search{position:relative;display:inline-flex}
+.ep-nav-search.is-open .ep-nav-search-toggle{background:var(--co-50);color:var(--co-700)}
+.ep-nav-search-pop{display:none;position:absolute;top:calc(100% + var(--s3));right:0;z-index:10;width:320px;max-width:90vw;padding:var(--s4);background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);box-shadow:var(--e3)}
+.ep-nav-search.is-open .ep-nav-search-pop{display:block}
+.ep-nav-search-form{display:flex;gap:var(--s2);align-items:center}
+.ep-nav-search-input{flex:1;min-width:0;height:44px;padding:0 var(--s3);font:var(--ty-body-md);color:var(--tx-primary);background:var(--bg-surface);border:2px solid var(--field-border);border-radius:var(--r-md);outline:none;transition:border-color var(--m-fast),box-shadow var(--m-fast)}
+.ep-nav-search-input:focus{border-color:var(--co-500);box-shadow:var(--focus-ring)}
+.ep-nav-search-input::placeholder{color:var(--tx-secondary)}
+@media(max-width:760px){
+  /* Erste Zeile: Logo links, dann Aktionen (Suche/Theme) + Kontakt + Burger rechtsaußen.
+     Der Burger ist bewusst das äußerste rechte Element: So bleibt der Toggle beim Öffnen
+     (Burger → X) an Ort und Stelle, statt seine Position mit dem Kontakt-Button zu tauschen.
+     Nav-Links klappen darunter auf. */
+  .ep-logo{order:1}
+  .ep-nav-actions{order:2;margin-left:auto}
+  .ep-topnav > .btn{order:3;margin-left:var(--s3)}
+  .ep-nav-burger{display:inline-flex;order:4;margin-left:var(--s2)}
+  /* Popover am rechten Rand statt rechtsbündig, damit es auf schmalen Screens nicht abgeschnitten wird */
+  .ep-nav-search-pop{right:auto;left:0;width:min(320px,calc(100vw - var(--s8)))}
+  .ep-nav-links{display:none;order:5;flex-basis:100%;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-top:var(--s3);padding-top:var(--s3);border-top:var(--bd)}
+  .ep-topnav.nav-open .ep-nav-links{display:flex}
+  /* Dropdown-Parent: Label-Link + Caret in EINER Zeile (Label nimmt Restbreite, Caret ≥44px Tap-Target
+     rechts), Submenü klappt in eigener Zeile darunter auf. Einfache Top-Level-Links bleiben full-width. */
+  .ep-nav-item{display:flex;flex-wrap:wrap;align-items:center;width:100%;gap:0}
+  .ep-nav-btn{width:100%;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-btn{flex:1 1 auto;width:auto}
+  .ep-nav-item-toggle{flex:0 0 auto;width:44px;min-height:44px;padding:var(--s3) 0}
+  .ep-nav-item .ep-nav-sub{flex-basis:100%}
+  .ep-nav-btn::after{display:none}
+  /* Untermenü inline aufklappen statt als schwebendes Overlay */
+  .ep-nav-sub{position:static;display:none;box-shadow:none;border:none;background:none;padding:0 0 var(--s2) var(--s4);min-width:0}
+  .ep-nav-has-sub.is-open .ep-nav-sub{display:flex}
+  .ep-nav-sub-btn{padding:var(--s2) var(--s3);white-space:normal}
+}
+.ep-hero-eyebrow{font:var(--ty-label-xs);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin-bottom:var(--s3)}
+.ep-hero-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
+.ep-section{padding:var(--s12) var(--s8);text-align:left}
+/* Mobile (≤ 768px): horizontaler Section-Innenabstand 32 → 24 px (--s6), im Rhythmus
+   mit dem Card-Padding; vertikaler Abstand bleibt. Greift nicht auf Sektionen mit
+   inline gesetztem padding-inline / padding-Shorthand (bewusste Einzelfälle). */
+@media(max-width:768px){
+  .ep-section{padding-inline:var(--s6)}
+}
+/* Phone (≤ 520px): Hero-CTAs stapeln full-width für große Tap-Flächen. Erst hier, nicht
+   schon ab 768px: Auf Phablet/kleinem Tablet (521–768px) liefen die Buttons sonst viel
+   breiter als der (auf 520px gekappte) Intro-Text und wirkten überdehnt. Dort behalten sie
+   ihre natürliche Breite + Wrap und folgen der Hero-Ausrichtung (justify-content). */
+@media(max-width:520px){
+  .ep-hero-ctas{flex-direction:column;align-items:stretch}
+  .ep-hero-ctas .btn{width:100%;justify-content:center}
+}
+/* Auszeichnungs-/Badge-Liste (z. B. „Ausgezeichnet als Arbeitgeber“): Desktop als zentrierte
+   Reihe. Auf Mobile (≤ 768px) als 2×2-Grid statt flex-wrap: zentriertes Wrappen richtet jede
+   Zeile einzeln aus, sodass die unterschiedlich breiten Einträge versetzt erscheinen; das Grid
+   fluchtet sie in zwei saubere Spalten (minmax(0,1fr) lässt lange Labels umbrechen). */
+.ep-award-list{list-style:none;margin:var(--s5) 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s4) var(--s8)}
+@media(max-width:768px){
+  .ep-award-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch;gap:var(--s5)}
+  .ep-award-list>li{justify-self:start}
+}
+.ep-section-label{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin-bottom:var(--s2)}
+.ep-section-h2{font:var(--ty-headline-md);color:var(--tx-primary);margin-bottom:var(--s2)}
+/* margin-bottom --s8 (32 px): Sub-Cards-Gap (32) ist bewusst kleiner als section-padding-bottom (48),
+   damit das Auge die Card-Reihe als „optisch mittig“ wahrnimmt (psychologische Mitte liegt über der
+   geometrischen). Verhältnis card-padding (24) : sub-cards-gap (32) : section-edge (48) = 1 : 1.33 : 2.
+   Color tx-secondary als Lead-Default; macht Inline-Overrides im Markup überflüssig. */
+.ep-section-sub{font:var(--ty-body-md);color:var(--tx-secondary);margin-bottom:var(--s8)}
+/* Fakten-Liste: die Rahmendaten eines Angebots (Dauer, Format, Gruppe, Preis …) als Label/Wert-Paare
+   untereinander. Bewusst OHNE eigenen Rahmen und ohne Fläche: die Liste zieht in einen vorhandenen
+   Container ein (Angebots-Box, Sticky-Sidebar), ein eigener Rahmen ergäbe dort Kasten-im-Kasten.
+   Einspaltig auf allen Breiten, deshalb keine Media-Query nötig — und lange Werte wie „Schriftliche
+   Handlungsempfehlungen“ brechen innerhalb ihres Paares um, statt wie im früheren mehrspaltigen
+   Streifen die Nachbarspalten zu verziehen. Bereichston der Labels über .t-XX im Markup (dark-safe),
+   nie als Inline-Farbe. */
+.ep-facts{margin:0}
+.ep-facts > div + div{margin-top:var(--s4);padding-top:var(--s4);border-top:var(--bd)}
+.ep-facts dt{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;margin:0 0 var(--s1)}
+.ep-facts dd{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Zwei-Spalten-Variante für Kästen, die neben Inhalt stehen: Einspaltig macht der Kasten dort mehr
+   Höhe als der Inhalt daneben (gemessen 470 gegen 256 px, also 214 px Leerraum). Zweispaltig halbiert
+   die Liste. auto-fit statt fixer Spaltenzahl, damit sie in schmalen Kästen und mobil von selbst
+   einspaltig wird. Die Haarlinien entfallen dabei: Bei zwei Spalten trennen sie keine Zeilen mehr
+   eindeutig, und der Abstand gliedert bereits. Nur für kurze Werte gedacht — lange wie „Schriftliche
+   Handlungsempfehlungen“ brauchen die einspaltige Grundform. */
+.ep-facts.is-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s4) var(--s5)}
+.ep-facts.is-grid > div + div{margin-top:0;padding-top:0;border-top:0}
+/* Funktions-Vergleich: aufklappbar via native <details>/<summary>, default zugeklappt.
+   Mirror des .article-toc-Musters; Marker entfernt, Caret rotiert im [open]-Zustand. */
+.ep-compare{margin-top:var(--s8);border-top:var(--bd);padding-top:var(--s5)}
+.ep-compare-summary{display:inline-flex;align-items:center;gap:var(--s2);padding:var(--s2) 0;font:var(--ty-label-md);letter-spacing:.05em;text-transform:uppercase;color:var(--ki-800);cursor:pointer;list-style:none}
+.ep-compare-summary::-webkit-details-marker{display:none}
+.ep-compare-summary:hover{color:var(--ki-900)}
+.ep-compare-summary:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.ep-compare-caret{width:16px;height:16px;flex-shrink:0;transition:transform var(--m-fast)}
+.ep-compare[open] .ep-compare-caret{transform:rotate(180deg)}
+.ep-compare-table-wrap{overflow-x:auto;margin-top:var(--s5)}
+.ep-compare-table{width:100%;border-collapse:collapse;font:var(--ty-body-sm)}
+.ep-compare-table th,.ep-compare-table td{padding:var(--s3);border-bottom:var(--bd)}
+.ep-compare-table thead th{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--tx-secondary);text-align:center}
+.ep-compare-table thead th:first-child{text-align:left}
+.ep-compare-table thead th:not(:first-child){width:8rem}
+.ep-compare-table tbody th{text-align:left;font:var(--ty-body-sm);font-weight:400;color:var(--tx-secondary)}
+.ep-compare-table tbody td{text-align:center;color:var(--tx-secondary)}
+.ep-compare-table tbody tr:last-child th,.ep-compare-table tbody tr:last-child td{border-bottom:none}
+.ep-compare-table .ep-compare-pro{background:var(--ki-50)}
+.ep-compare-table thead .ep-compare-pro{color:var(--ki-800);border-bottom:2px solid var(--ki-500)}
+.ep-compare-yes{color:var(--ki-800);font-weight:700}
+.ep-compare-no{color:var(--tx-muted)}
+/* Gap --s6 (24 px) statt --s4 (16 px), damit der Card-Rhythmus konsistent zu .layout-grid bleibt
+   (Wissensbeiträge, Veranstaltungen, Team nutzen ebenfalls --s6). Border-Radius und Box-Shadow
+   der Cards tragen das Container-Gefühl, auch wenn padding ≈ gap ist. */
+.ep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s6)}
+/* Padding 24 (--s6) statt 20 (--s5), damit Innen-Atem ≥ 1,5× Außen-Gap (--s4 = 16 px).
+   Sonst lösen sich die Cards visuell auf — Innen- und Außenabstand wären zu nah beieinander. */
+/* Konvention „Elevation = Interaktivität“: statische Cards ruhen flach mit Rahmen (--bd-strong),
+   kein Schatten. Schatten ist interaktiven Cards (.ep-card-link) vorbehalten → eindeutiges Affordanz-Signal. */
+.ep-card{display:flex;flex-direction:column;border-radius:var(--r-lg);padding:var(--s6);background:var(--bg-surface);border:var(--bd-strong)}
+/* Icon-Container 48×48 (war 40), SVG 32×32 (war 24). Substantiellere Präsenz im Verhältnis zum
+   Card-Padding (24 px). Sizes folgen Icon-Sizing-System (siehe sec-icons/Größen). */
+/* Kachel-Fläche über --XX-50, den ruhigen Bereichston, und ohne Rand. Sie muss nicht als Fläche
+   lesen: WCAG verlangt für eine dekorative Fläche nichts, das Glyph ist aria-hidden und wiederholt
+   nur das Eyebrow daneben. Darüber entscheidet das Markenrad, und 48 px gesättigte Farbe sind das
+   Gegenteil von „Ruhig“. Das Glyph trägt die Erkennbarkeit: -700/-800 auf dem Tint 7,5 bis 11,4:1,
+   im Dark hebt dark-mode.css es auf -100 (6,9 bis 8,6:1). Die Farbe kommt aus der Komponente, nicht
+   aus 76 inline gesetzten style-Attributen. */
+.ep-card-icon{width:48px;height:48px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--s4);background:var(--co-50)}
+.ep-card-icon[data-area="co"]{background:var(--co-50)}
+.ep-card-icon[data-area="ki"]{background:var(--ki-50)}
+.ep-card-icon[data-area="es"]{background:var(--es-50)}
+.ep-card-icon[data-area="wo"]{background:var(--wo-50)}
+/* stroke-sm (1.25) = wie die Outline-Icons inline gezeichnet sind; md (1.5) ueberschrieb das und
+   wirkte auf dem 32px-Render (24er-viewBox, hochskaliert) zu fett. Gefuellte Brand-Icons ohne stroke
+   sind unberuehrt. */
+.ep-card-icon svg{width:32px;height:32px;stroke-width:var(--icon-stroke-sm)}
+/* Area-aware Eyebrow, spiegelbildlich zu .card-eyebrow (700er-Token) */
+.ep-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;color:var(--co-700);margin-bottom:var(--s2)}
+.ep-card-eyebrow[data-area="co"]{color:var(--co-700)}
+.ep-card-eyebrow[data-area="ki"]{color:var(--ki-800)}
+.ep-card-eyebrow[data-area="es"]{color:var(--es-700)}
+.ep-card-eyebrow[data-area="wo"]{color:var(--wo-700)}
+.ep-card-title{font:var(--ty-title-sm);color:var(--tx-primary);margin-bottom:var(--s2)}
+.ep-card-text{font:var(--ty-body-md);color:var(--tx-secondary)}
+/* Klickbare Karten-Variante: gesamte Karte ist Link, mit Hover-Elevation */
+/* Interaktive Karte: ruht auf --e1 (statt Rahmen), hebt auf Hover/Focus auf --e3 + translateY.
+   border-color:transparent neutralisiert den statischen --bd-strong-Rahmen; ein inline border-top-Akzent bleibt erhalten. */
+.ep-card-link{text-decoration:none;color:inherit;cursor:pointer;border-color:transparent;box-shadow:var(--e1);transition:box-shadow var(--m-fast),transform var(--m-fast),background var(--m-fast)}
+.ep-card-link:hover{box-shadow:var(--e3);transform:translateY(-2px)}
+.ep-card-link:focus-visible{outline:none;box-shadow:var(--focus-ring),var(--e3)}
+/* CTA-Zeile: per margin-top:auto an Karten-Unterkante gepinnt, area-aware Farbe via [data-area] auf .ep-card */
+.ep-card-cta{font:var(--ty-label-md);color:var(--co-700);margin-top:auto;padding-top:var(--s4);display:inline-flex;align-items:center;gap:var(--s1)}
+.ep-card[data-area="co"] .ep-card-cta{color:var(--co-700)}
+.ep-card[data-area="ki"] .ep-card-cta{color:var(--ki-800)}
+.ep-card[data-area="es"] .ep-card-cta{color:var(--es-700)}
+.ep-card[data-area="wo"] .ep-card-cta{color:var(--wo-700)}
+/* Card-CTA-Link (z.B. „Beitrag lesen →“ am Karten-Fuß).
+   Light: --co-700 #007575 auf #fff = 5.53:1 ✓ AA. Dark-Override in dark-mode.css.
+   --pinned-Modifier für Flex-Karten, in denen der CTA an die Unterkante gepinnt werden soll. */
+/* Kein margin-top: den Abstand zur Zeile darüber trägt der gap des .card-body. Die --pinned-
+   Variante setzt margin-top:auto und schiebt den CTA an die Unterkante, dort ersetzt das auto
+   jeden festen Wert ohnehin. */
+.card-cta-link{font:var(--ty-label-md);color:var(--co-700)}
+/* Bereichsvariante (optional): trägt die Akzentfarbe statt Corporate-Teal, wenn der CTA in einer
+   Bereichs-Sektion sitzt. Shades wie .ep-card-cta; Dark-Overrides (→ -200/-100) in dark-mode.css. */
+.card-cta-link[data-area="co"]{color:var(--co-700)}
+.card-cta-link[data-area="ki"]{color:var(--ki-800)}
+.card-cta-link[data-area="es"]{color:var(--es-700)}
+.card-cta-link[data-area="wo"]{color:var(--wo-700)}
+/* Pinned-Variante: margin-top:auto schiebt den Link an die Karten-Unterkante.
+   padding-top:var(--s4) trennt die Action-Zone (CTA) sichtbar vom Info-Block (Meta + Anreißer) darüber. */
+.card-cta-link--pinned{margin-top:auto;padding-top:var(--s4)}
+/* Als echter Link (a.card-cta-link) verwendbar: kein Default-Underline, Underline erst bei Hover, sichtbarer
+   Fokus-Ring. Gescoped auf a[…], damit die <span>-Nutzung in klickbaren .ep-card-link-Karten (kein Fremd-Hover) unberührt bleibt. */
+a.card-cta-link{display:inline-block;text-decoration:none}
+a.card-cta-link:hover{text-decoration:underline;text-underline-offset:2px}
+a.card-cta-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+/* ── Offene Feature-Liste (flaches Icon-Layout, gruppiert nach Tier; Alternative zu Bild-Cards) ── */
+.ep-feature{display:flex;gap:var(--s4)}
+/* Icon-Kachel: Glyph hat AA-Kontrast zur Kachel — Core tx-secondary/n-100 5.3:1, Pro ki-800/ki-50 7.5:1.
+   tx-secondary + n-100 sind theme-aware, Core flippt also automatisch (Dark 6.0:1).
+   Pro braucht einen Dark-Override, weil --ki-800 dunkel bleibt, --ki-50 aber dunkel wird → dark-mode.css. */
+.ep-feature-icon{flex:0 0 48px;width:48px;height:48px;border-radius:var(--r-sm);display:inline-flex;align-items:center;justify-content:center;background:var(--n-100);color:var(--tx-secondary)}
+.ep-feature-icon svg{width:26px;height:26px;stroke-width:var(--icon-stroke-md)}
+.ep-feature-icon[data-area="ki"]{background:var(--ki-50);color:var(--ki-800)}
+.ep-feature-icon[data-area="co"]{background:var(--co-50);color:var(--co-800)}
+.ep-feature-icon[data-area="es"]{background:var(--es-50);color:var(--es-800)}
+.ep-feature-icon[data-area="wo"]{background:var(--wo-50);color:var(--wo-800)}
+.ep-feature-body{display:flex;flex-direction:column;gap:var(--s1)}
+/* Ausnahme, und sie gehört dem Container: der Gap ist hier absichtlich winzig (--s1), damit Titel
+   und Text als eine Einheit gelesen werden. Für den CTA ist das zu eng, er soll sich vom Text
+   lösen. Der Card-Body braucht das nicht, sein gap:var(--s3) trägt den Abstand schon. */
+.ep-feature-body>.card-cta-link{margin-top:var(--s2)}
+.ep-feature-title{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
+.ep-feature-text{font:var(--ty-body-md);color:var(--tx-secondary);margin:0}
+/* Tier-Trenner: Label + Hairline. Label area-aware: ki = ki-800 (Dark-Override → ki-100), co/es/wo über --XX-ink (flippt im Dark selbst). Linie = --bd-strong-Ton (n-200). */
+.ep-tier{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s6)}
+.ep-tier-label{font:var(--ty-label-md);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary);white-space:nowrap}
+.ep-tier-label[data-area="co"]{color:var(--co-ink)}
+.ep-tier-label[data-area="ki"]{color:var(--ki-800)}
+.ep-tier-label[data-area="es"]{color:var(--es-ink)}
+.ep-tier-label[data-area="wo"]{color:var(--wo-ink)}
+.ep-tier-rule{flex:1;height:1px;background:var(--n-200)}
+/* Timeline-Marker (Conciso-Story): heller Bereichston + dunkles Icon (ruhiger als gefüllter Punkt), auf der Schiene sitzend. Dark-Override (helles Icon auf dunklem Tile) in dark-mode.css. */
+/* Dekorative Fläche wie .ep-card-icon: ruhiger Tint, das Glyph trägt. */
+.ep-tl-icon{position:absolute;right:-20px;top:0;width:38px;height:38px;border-radius:var(--r-full);background:var(--co-50);color:var(--co-800);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--bg-surface)}
+.ep-tl-icon svg{width:24px;height:24px;stroke-width:var(--icon-stroke-sm)}
+/* ── FAQ-Accordion (native details/summary) ── */
+.ep-faq{max-width:none}
+.ep-faq details{border-top:var(--bd)}
+.ep-faq details:last-of-type{border-bottom:var(--bd)}
+.ep-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s4) 0;font:var(--ty-title-sm);color:var(--tx-primary)}
+.ep-faq summary::-webkit-details-marker{display:none}
+.ep-faq summary:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ep-faq-caret{flex:0 0 auto;color:var(--tx-secondary);transition:transform var(--m-fast)}
+.ep-faq details[open] .ep-faq-caret{transform:rotate(180deg)}
+.ep-faq-a{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s4);max-width:680px}
+/* ── Download CTA ── */
+/* Kein Schatten: der Block ist statisch, die Interaktion liegt in den Buttons darin
+   (Elevation = Interaktivität). Rahmen plus 4-px-Akzent oben tragen die Kartenform. */
+.cta-dl{display:flex;align-items:center;gap:var(--s6);background:var(--bg-surface);border:var(--bd-strong);border-top:4px solid var(--cta-accent,var(--co-500));border-radius:var(--r-lg);padding:var(--s6) var(--s8)}
+.cta-dl[data-area="co"]{--cta-accent:var(--co-500)}
+.cta-dl[data-area="ki"]{--cta-accent:var(--ki-500)}
+.cta-dl[data-area="es"]{--cta-accent:var(--es-500)}
+.cta-dl[data-area="wo"]{--cta-accent:var(--wo-500)}
+.cta-dl-icon{width:64px;height:64px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-dl[data-area="co"] .cta-dl-icon{background:var(--co-50);color:var(--co-700)}
+.cta-dl[data-area="ki"] .cta-dl-icon{background:var(--ki-50);color:var(--ki-700)}
+.cta-dl[data-area="es"] .cta-dl-icon{background:var(--es-50);color:var(--es-700)}
+.cta-dl[data-area="wo"] .cta-dl-icon{background:var(--wo-50);color:var(--wo-700)}
+.cta-dl-body{flex:1}
+.cta-dl-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
+.cta-dl[data-area="co"] .cta-dl-eyebrow{color:var(--co-700)}   /* co-600 war nur 3,28:1 (Uppercase-Label < AA) → co-700 = 5,5:1; jetzt konsistent mit ki-800/es-700/wo-700 */
+.cta-dl[data-area="ki"] .cta-dl-eyebrow{color:var(--ki-800)}
+.cta-dl[data-area="es"] .cta-dl-eyebrow{color:var(--es-700)}
+.cta-dl[data-area="wo"] .cta-dl-eyebrow{color:var(--wo-700)}
+.cta-dl-title{font:var(--ty-headline-sm);color:var(--tx-primary);margin:0 0 var(--s2)}
+.cta-dl-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0 0 var(--s3)}
+.cta-dl-meta{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center}
+.cta-dl-actions{display:flex;flex-direction:column;gap:var(--s2);align-items:stretch;flex-shrink:0;min-width:152px}
+/* Compact strip */
+.cta-strip{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s4);background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-md);padding:var(--s4) var(--s5)}
+.cta-strip-icon{width:40px;height:40px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-strip[data-area="co"] .cta-strip-icon{background:var(--co-50);color:var(--co-700)}
+.cta-strip[data-area="ki"] .cta-strip-icon{background:var(--ki-50);color:var(--ki-700)}
+.cta-strip[data-area="es"] .cta-strip-icon{background:var(--es-50);color:var(--es-700)}
+.cta-strip[data-area="wo"] .cta-strip-icon{background:var(--wo-50);color:var(--wo-700)}
+.cta-strip-body{flex:1;display:flex;flex-direction:column;gap:2px}
+.cta-strip-title{font:var(--ty-label-md);color:var(--tx-primary)}
+.cta-strip-meta{font:var(--ty-body-xs);color:var(--tx-muted)}
+/* Minimal link */
+.cta-link{display:inline-flex;align-items:center;gap:var(--s2);font:var(--ty-label-md);text-decoration:none;padding:var(--s2) 0;border-bottom:1px solid transparent;transition:border-color var(--m-fast)}
+.cta-link[data-area="co"]{color:var(--co-700)}
+.cta-link[data-area="ki"]{color:var(--ki-800)}
+.cta-link[data-area="es"]{color:var(--es-700)}
+.cta-link[data-area="wo"]{color:var(--wo-700)}
+.cta-link:hover{border-bottom-color:currentColor}
+.cta-link-meta{font:var(--ty-body-xs);color:var(--tx-muted);margin-left:var(--s1)}
+/* Mit Vorschaubild */
+/* Kein Schatten, gleiche Begründung wie .cta-dl: statischer Block mit Button darin. */
+.cta-visual{display:flex;align-items:stretch;background:var(--bg-surface);border:var(--bd-strong);border-radius:var(--r-lg);overflow:hidden}
+.cta-visual-cover{width:180px;flex-shrink:0;overflow:hidden;background:var(--n-100);position:relative}
+.cta-visual-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cta-visual-content{flex:1;padding:var(--s6);display:flex;flex-direction:column;border-left:var(--bd)}
+.cta-visual-eyebrow{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;margin:0 0 var(--s1)}
+/* Alle vier auf --XX-ink: co lag auf co-600 und trug damit nur 3,29:1 auf Weiß. Das Ink-Token
+   flippt im Dark auf den hellen Ton, ein festes -700/-800 wäre dort dunkel-auf-dunkel. */
+.cta-visual[data-area="co"] .cta-visual-eyebrow{color:var(--co-ink)}
+.cta-visual[data-area="ki"] .cta-visual-eyebrow{color:var(--ki-ink)}
+.cta-visual[data-area="es"] .cta-visual-eyebrow{color:var(--es-700)}
+.cta-visual[data-area="wo"] .cta-visual-eyebrow{color:var(--wo-700)}
+.cta-visual-title{font:var(--ty-headline-xs);color:var(--tx-primary);margin:0 0 var(--s2)}
+.cta-visual-desc{font:var(--ty-body-md);color:var(--tx-secondary);margin:0;flex:1}
+.cta-visual-footer{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;margin-top:auto;padding-top:var(--s4);border-top:var(--bd)}
+.ep-cta-band{padding:var(--s12) var(--s8);text-align:center}
+.ep-cta-h2{font:var(--ty-headline-md);margin-bottom:var(--s2)}
+.ep-cta-sub{font:var(--ty-body-md);opacity:.85;margin-bottom:var(--s6)}
+/* Beispielseiten: iframes der Prototypen (volle Breite, kein Border) */
+
+/* ── Tabelle ── */
+.tbl-wrap{overflow-x:auto}
+.tbl-wrap:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.tbl{width:100%;border-collapse:collapse;font:var(--ty-body-md);color:var(--tx-primary)}
+.tbl caption{font:var(--ty-title-sm);color:var(--tx-primary);padding:0 0 var(--s5);text-align:left}
+.tbl thead th{font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--tx-secondary);padding:var(--s3) var(--s5);background:var(--n-50);border-bottom:2px solid var(--n-200);border-top:var(--bd);text-align:left;white-space:nowrap}
+.tbl tbody td,.tbl tbody th{padding:var(--s4) var(--s5);border-bottom:var(--bd);vertical-align:top}
+.tbl tbody tr:last-child td,.tbl tbody tr:last-child th{border-bottom:none}
+.tbl tbody tr:hover td,.tbl tbody tr:hover th{background:var(--bg-overlay)}
+.tbl tbody th{font:var(--ty-label-md);color:var(--tx-primary);text-align:left}
+.tbl tfoot td,.tbl tfoot th{padding:var(--s4) var(--s5) 0;font:var(--ty-label-sm);color:var(--tx-primary);border-top:2px solid var(--n-200);text-align:left}
+.tbl td[data-num],.tbl th[data-num]{text-align:right;font-variant-numeric:tabular-nums}
+/* Striped variant */
+.tbl--striped tbody tr:nth-child(even) td,.tbl--striped tbody tr:nth-child(even) th{background:var(--n-50)}
+.tbl--striped tbody tr:hover td,.tbl--striped tbody tr:hover th{background:var(--bg-overlay)}
+/* Sortierbare Spalten */
+.tbl-sort{display:inline-flex;align-items:center;gap:var(--s1);background:none;border:none;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;padding:0}
+.tbl-sort:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-xs)}
+.tbl-sort svg{opacity:.3;transition:opacity var(--m-fast)}
+.tbl-sort:hover svg{opacity:.7}
+thead th[aria-sort="ascending"] .tbl-sort svg,
+thead th[aria-sort="descending"] .tbl-sort svg{opacity:1;color:var(--co-600)}
+
+/* ── Wissensbeitrag (Article) ── */
+/* Header: zentrierter Block mit Breadcrumb · Pill · Titel · Lead · Meta */
+.article-header{max-width:880px;margin:0 auto;text-align:center}
+.article-breadcrumb{font:var(--ty-body-sm);color:var(--tx-muted);margin-bottom:var(--s5)}
+.article-breadcrumb a{color:inherit;text-decoration:none}
+.article-breadcrumb [aria-current="page"]{color:var(--tx-primary);font-weight:500}
+.article-breadcrumb-sep{margin:0 var(--s2)}
+/* Pill: Kategorie · Format · Lesezeit, area-aware */
+/* Füllung über --XX-fill, gleiche Begründung wie beim Badge (siehe tokens.css). ES-Text auf -800
+   statt -700: auf der kräftigeren Füllung trägt -700 nur noch 4,74:1, -800 gibt Reserve und ist
+   derselbe Ton, den das ES-Badge längst nutzt. */
+/* width:fit-content hält die Pille eine Pille, auch als Flex- oder Grid-Item. Ein inline-block
+   wird als Flex-Item zu block blockifiziert, und ein Kind mit auto-Cross-Size wird von
+   align-items:stretch auf die volle Spaltenbreite gezogen: aus der Pille wird ein Balken
+   (gemessen im Featured-Body bei 1280 px Kartenbreite: 448 px statt 146 px). Im normalen Fluss
+   ist die Zeile ein No-Op, ein inline-block schrumpft dort ohnehin auf seinen Inhalt. Darum hier
+   an der Komponente und nicht als align-self je Container: die Pille bringt ihre Form selbst mit,
+   statt sie von jedem Layout einzeln zugewiesen zu bekommen. Deckt Flex und Grid in einem ab,
+   denn eine definierte Cross-Size schlägt stretch in beiden. */
+.pill{display:inline-block;width:fit-content;font:var(--ty-label-xs);letter-spacing:.09em;text-transform:uppercase;padding:var(--s1) var(--s3);border-radius:var(--r-full);margin-bottom:var(--s5);background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="co"]{background:var(--co-fill);color:var(--co-800)}
+.pill[data-area="ki"]{background:var(--ki-fill);color:var(--ki-800)}
+.pill[data-area="es"]{background:var(--es-fill);color:var(--es-800)}
+.pill[data-area="wo"]{background:var(--wo-fill);color:var(--wo-800)}
+.article-title{font:var(--ty-display-md);color:var(--tx-primary);margin:0 0 var(--s4);text-wrap:balance}
+/* Lead-Paragraph für Artikel-Header: 18 px, eine Stufe über Body-Md (16) und unter Title-Sm (20).
+   Bewusst hardcoded statt eigenes Token, weil Lead nur in einer Komponente vorkommt. */
+.article-lead{font:400 1.125rem/1.75rem var(--font);color:var(--tx-secondary);margin:0 auto;max-width:680px;text-wrap:pretty}
+/* Meta-Strip: Avatar · Name/Rolle · Trenner · Datum */
+.article-meta{display:flex;align-items:center;justify-content:center;gap:var(--s4);margin-top:var(--s8);flex-wrap:wrap}
+.article-meta-author{display:flex;align-items:center;gap:var(--s3)}
+.article-meta-text{text-align:left}
+.article-meta-name{font:var(--ty-label-md);color:var(--tx-primary);margin:0}
+.article-meta-role{font:var(--ty-body-xs);color:var(--tx-muted);margin:0}
+.article-meta-sep{display:inline-block;width:1px;height:24px;background:var(--n-200)}
+.article-meta-date{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0}
+/* Avatar (Initialen-Kreis), area-aware; .article-avatar-lg für Author-Card-Größe; <img> als Kind ersetzt die Initialen */
+.article-avatar{width:40px;height:40px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;font:600 0.875rem/1 var(--font);letter-spacing:.04em;flex-shrink:0;background:var(--co-100);color:var(--co-800);position:relative;overflow:hidden}
+.article-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.article-avatar[data-area="co"]{background:var(--co-100);color:var(--co-800)}
+.article-avatar[data-area="ki"]{background:var(--ki-100);color:var(--ki-800)}
+.article-avatar[data-area="es"]{background:var(--es-100);color:var(--es-700)}
+.article-avatar[data-area="wo"]{background:var(--wo-100);color:var(--wo-800)}
+.article-avatar-lg{width:64px;height:64px;font-size:1.25rem}
+/* XL für Team-Tile-Grid auf Landing/Über-uns: 160 px (war 112 px). Mit 4 Tiles pro Reihe (col-3)
+   füllt das Foto die Tile-Breite sinnvoll aus, statt verloren in der Whitespace zu wirken.
+   Author-Card-Bios bleiben bei -lg (64 px), weil sie horizontal neben Bio-Text sitzen. */
+.article-avatar-xl{width:160px;height:160px;font-size:3rem}
+/* Mobile: spaltenrelativ, damit der Avatar (160px fix, flex-shrink:0) in den schmalen Spalten der
+   2-/3-spaltigen Team- und Roster-Grids nicht überläuft. 72 % der Tile-Breite, gedeckelt bei 112px;
+   aspect-ratio:1 hält ihn quadratisch (height:auto statt der fixen 160px). Bei 3-Spalten/375px
+   (~93px Spalte) → ~67px, bei breiteren Spalten bis max. 112px. Desktop bleibt bei 160px. */
+@media(max-width:768px){.article-avatar-xl{width:min(112px,72%);height:auto;aspect-ratio:1;font-size:1.875rem}}
+/* Multi-Author: Avatare gestapelt mit weißem Border-Halo zur visuellen Überlappung */
+.article-avatar-stack{display:inline-flex;align-items:center;flex-shrink:0}
+.article-avatar-stack .article-avatar{border:2px solid var(--bg-surface)}
+.article-avatar-stack .article-avatar + .article-avatar,
+.article-avatar-stack .article-avatar + .article-avatar-more{margin-left:-12px}
+.article-avatar-stack .article-avatar-lg + .article-avatar-lg,
+.article-avatar-stack .article-avatar-lg + .article-avatar-more{margin-left:-16px}
+/* "+N"-Indikator für 4+ Autor:innen */
+.article-avatar-more{width:40px;height:40px;border-radius:var(--r-full);background:var(--n-100);color:var(--tx-secondary);display:flex;align-items:center;justify-content:center;font:600 0.75rem/1 var(--font);letter-spacing:.02em;flex-shrink:0;border:2px solid var(--bg-surface)}
+/* Author-Card-Group: mehrere Author-Cards untereinander am Artikelende */
+.author-card-group{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:var(--s6)}
+.author-card-group .author-card{margin:0;max-width:none}
+/* Zwei-Spalten-Variante der Gruppe: für Personen mit Kurz-Bio, wo die gestapelte Liste zu lang
+   würde, typisch Trainer:innen auf einer Seminar-/Training-Landing (2 bis 4 Personen). Die Bio
+   ist dort das Vertrauenselement und darf nicht wegfallen, deshalb Raster statt Tile-Grid
+   (.article-avatar-xl ohne Bio, siehe #gt-article-team-tiles). 960 statt 720 px Container, weil
+   zwei Karten nebeneinander sonst je ~340 px hätten und der 64-px-Avatar den Text auf ~260 px
+   drückt. minmax(0,1fr) verhindert Grid-Blowout durch lange Namen. */
+.author-card-group.is-grid{max-width:960px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s8)}
+/* Mobil einspaltig, konsistent mit dem Kollaps der .layout-grid bei 768px. Engerer Abstand,
+   weil untereinander kein Spaltenabstand mehr trennt und --s8 dort als Loch wirken würde. */
+@media(max-width:768px){.author-card-group.is-grid{grid-template-columns:1fr;gap:var(--s6)}}
+/* Eine gemeinsame Gruppen-Überschrift („Über die Autor:innen“), ersetzt die Eyebrows der einzelnen Cards */
+.author-card-group-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s2);max-width:720px;margin-left:auto;margin-right:auto}
+/* Die Überschrift steht als Geschwister VOR der Gruppe und muss deren Container-Breite mitgehen,
+   sonst sitzt sie bei der Raster-Variante 120 px links neben der ersten Karte. */
+.author-card-group-eyebrow:has(+ .author-card-group.is-grid){max-width:960px}
+/* Body: 720px-Spalte mit Article-Typo, H2/Listen automatisch gestylt */
+.article-body{max-width:720px;margin:0 auto;font:var(--ty-body-md);color:var(--tx-primary);line-height:1.7}
+.article-body > p{margin:0 0 var(--s5)}
+.article-body > p:last-child{margin-bottom:0}
+.article-body h2{font:var(--ty-headline-sm);color:var(--tx-primary);margin:var(--s10) 0 var(--s4);text-wrap:balance}
+.article-body ul,.article-body ol{padding-left:var(--s5);margin:0 0 var(--s5)}
+.article-body ul li{margin-bottom:var(--s4)}
+.article-body ol li{margin-bottom:var(--s3)}
+/* In-Article Figure: redaktionelles Inline-Bild mit Bildunterschrift; alt beschreibt, figcaption ordnet ein */
+.article-figure{margin:var(--s8) 0}
+.article-figure img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r-lg);display:block;background:var(--n-100)}
+.article-figcaption{font:var(--ty-body-md);color:var(--tx-secondary);text-align:center;margin:var(--s3) 0 0;text-wrap:balance}
+/* Inhaltsverzeichnis: aufklappbar via native <details>/<summary>, default zugeklappt; minimaler Stil — kein Container, nur dünne Trennlinien oben/unten */
+.article-toc{max-width:720px;margin:var(--s6) auto var(--s8);border-block:var(--bd)}
+.article-toc-summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);padding:var(--s3) 0;font:var(--ty-label-md);color:var(--tx-primary);cursor:pointer;list-style:none}
+.article-toc-summary::-webkit-details-marker{display:none}
+.article-toc-summary:hover{color:var(--co-700)}
+.article-toc-summary:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+.article-toc-caret{width:16px;height:16px;flex-shrink:0;color:var(--tx-secondary);transition:transform var(--m-fast)}
+.article-toc[open] .article-toc-caret{transform:rotate(180deg)}
+.article-toc-list{list-style:none;counter-reset:toc;padding:var(--s2) 0 var(--s4);margin:0}
+.article-toc-list li{display:flex;gap:var(--s3);align-items:baseline;padding:3px 0}
+.article-toc-list li::before{content:counter(toc);counter-increment:toc;color:var(--tx-secondary);font:var(--ty-label-sm);font-variant-numeric:tabular-nums;flex-shrink:0;min-width:1.25em}
+.article-toc-list a{color:var(--tx-primary);text-decoration:none;font:var(--ty-body-md);line-height:1.5}
+.article-toc-list a:hover{text-decoration:underline;text-underline-offset:3px;color:var(--co-700)}
+.article-toc-list a:focus-visible{outline:none;box-shadow:var(--focus-aa);border-radius:2px}
+/* Callout: Aside im Body, area-aware. Border-Akzent in 500 (wie .bq), Eyebrow in 700 (wie .cta-dl-eyebrow) */
+.article-callout{background:var(--co-50);border-left:4px solid var(--co-500);border-radius:var(--r-md);padding:var(--s5) var(--s6);margin:var(--s8) 0}
+.article-callout[data-area="co"]{background:var(--co-50);border-left-color:var(--co-500)}
+.article-callout[data-area="ki"]{background:var(--ki-50);border-left-color:var(--ki-500)}
+.article-callout[data-area="es"]{background:var(--es-50);border-left-color:var(--es-500)}
+.article-callout[data-area="wo"]{background:var(--wo-50);border-left-color:var(--wo-500)}
+/* Direktkind-Selektor statt reiner Klasse: die Eyebrow ist selbst ein <p>, also schlägt
+   .article-callout > p (0,1,1) unten sonst diese Regel (0,1,0). Mit
+   .article-callout > .article-callout-eyebrow (0,2,0) gewinnt die Eyebrow (Befund 02). */
+.article-callout > .article-callout-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--co-700);margin:0 0 var(--s1)}
+.article-callout[data-area="ki"] .article-callout-eyebrow{color:var(--ki-800)}
+.article-callout[data-area="es"] .article-callout-eyebrow{color:var(--es-700)}
+.article-callout[data-area="wo"] .article-callout-eyebrow{color:var(--wo-700)}
+.article-callout > p{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Author-Card: Avatar + Bio am Ende des Artikels, area-aware */
+.author-card{max-width:720px;margin:0 auto;display:flex;gap:var(--s5);align-items:flex-start}
+.author-card-eyebrow{font:var(--ty-label-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--tx-muted);margin:0 0 var(--s1)}
+.author-card-name{font:var(--ty-title-sm);color:var(--tx-primary);margin:0}
+.author-card-role{font:var(--ty-body-sm);color:var(--tx-secondary);margin:0 0 var(--s3)}
+.author-card-bio{font:var(--ty-body-md);color:var(--tx-primary);margin:0}
+/* Pull-Quote: typografische Hervorhebung autoreigener Sätze im Body — area-aware Linksakzent in 500 (analog .bq), aber ohne Background und ohne Quote-Icon */
+.article-pullquote{margin:var(--s10) 0;padding:var(--s4) var(--s6);border-left:4px solid var(--co-500);font-family:var(--font-display);font-style:italic;font-size:clamp(1.375rem, 1.222rem + 0.68vw, 1.75rem);line-height:1.4;color:var(--tx-primary);quotes:none}
+.article-pullquote[data-area="co"]{border-left-color:var(--co-500)}
+.article-pullquote[data-area="ki"]{border-left-color:var(--ki-500)}
+.article-pullquote[data-area="es"]{border-left-color:var(--es-500)}
+.article-pullquote[data-area="wo"]{border-left-color:var(--wo-500)}
+
+/* ── Documentation tables (Verwendung, Barrierefreiheit, etc.) ── */
+.doc-table{width:100%;border-collapse:collapse;font:var(--ty-body-md)}
+.doc-table thead tr{border-bottom:var(--bd-strong)}
+.doc-table th{text-align:left;padding:var(--s2) var(--s3) var(--s2) 0;font:500 0.75rem/1rem var(--font);letter-spacing:.06em;text-transform:uppercase;color:var(--tx-secondary)}
+.doc-table th:last-child{padding-left:var(--s3)}
+.doc-table tbody tr{border-bottom:var(--bd)}
+.doc-table tbody tr:last-child{border-bottom:none}
+.doc-table td{padding:var(--s3) var(--s3) var(--s3) 0;color:var(--tx-secondary);vertical-align:top}
+.doc-table td:first-child{color:var(--tx-primary);font-weight:500}
+.doc-table td:last-child{padding-left:var(--s3)}
