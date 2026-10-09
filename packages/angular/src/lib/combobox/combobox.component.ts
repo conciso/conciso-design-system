@@ -12,8 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronDown, heroXMark } from '../icons/cds-icons';
+import { CDS_ICON_STROKE, LucideChevronDown, LucideX } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 import type { CdsSelectOption } from '../select/select.component';
 import { disposableTimeout } from '../shared/disposable-timeout';
@@ -43,8 +42,7 @@ let uid = 0;
 @Component({
   selector: 'cds-combobox',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon],
-  viewProviders: [provideIcons({ heroChevronDown, heroXMark })],
+  imports: [LucideChevronDown, LucideX],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ComboboxComponent), multi: true },
   ],
@@ -78,7 +76,7 @@ let uid = 0;
                 [attr.aria-label]="opt.label + ' entfernen'"
                 (click)="removeValue(opt.value, $event)"
               >
-                <ng-icon name="heroXMark" size="14px" aria-hidden="true" />
+                <svg lucideX size="14" [strokeWidth]="iconStroke"></svg>
               </button>
             </span>
           }
@@ -113,19 +111,19 @@ let uid = 0;
             aria-label="Eingabe löschen"
             (click)="clear($event)"
           >
-            <ng-icon name="heroXMark" size="16px" aria-hidden="true" />
+            <svg lucideX size="16" [strokeWidth]="iconStroke"></svg>
           </button>
         }
         <!-- Chevron ist kein fokussierbares Element, sondern Maus-Komfort; die Tastatur
              öffnet und schließt über das Input (↓ / Esc). -->
         <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-        <ng-icon
+        <svg
+          lucideChevronDown
           class="ep-select-caret"
-          name="heroChevronDown"
-          size="24px"
-          aria-hidden="true"
+          size="24"
+          [strokeWidth]="iconStroke"
           (click)="toggleMenu($event)"
-        />
+        ></svg>
       </div>
       <ul
         class="ep-combobox-menu"
@@ -171,6 +169,8 @@ let uid = 0;
   `,
 })
 export class ComboboxComponent implements ControlValueAccessor {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 

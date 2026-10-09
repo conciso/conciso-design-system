@@ -31,7 +31,7 @@ import {
  *
  * **Entscheidung — Icon als projizierter Inhalt.** Wie bei `cds-icon-card` sind die
  * Störer-Icons im Mockup wechselnde
- * Heroicons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
+ * Lucide-Icons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
  * Projektion über `<ng-content select="[cdsIcon]">` statt eines `icon`-Inputs.
  * Abweichend von `cds-icon-card` trägt das projizierte `<svg>` die Klasse `stoerer-icon`
  * selbst (zusätzlich zu `cdsIcon`, `viewBox`, `aria-hidden="true"`,

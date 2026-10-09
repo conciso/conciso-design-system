@@ -10,8 +10,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroChevronDown, uiCheck } from '../icons/cds-icons';
+import { CDS_ICON_STROKE, CdsGlyphComponent, LucideChevronDown, uiCheck } from '../icons/cds-icons';
 import type { CdsArea } from '../area';
 import { disposableTimeout } from '../shared/disposable-timeout';
 
@@ -43,8 +42,7 @@ const TYPEAHEAD_RESET_MS = 600;
 @Component({
   selector: 'cds-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIcon],
-  viewProviders: [provideIcons({ heroChevronDown, uiCheck })],
+  imports: [LucideChevronDown, CdsGlyphComponent],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
   ],
@@ -76,7 +74,7 @@ const TYPEAHEAD_RESET_MS = 600;
         <span class="ep-select-value" [id]="ids.value" [attr.data-placeholder]="placeholder()">{{
           selectedOption()?.label ?? placeholder()
         }}</span>
-        <ng-icon class="ep-select-caret" name="heroChevronDown" size="24px" aria-hidden="true" />
+        <svg lucideChevronDown class="ep-select-caret" size="24" [strokeWidth]="iconStroke"></svg>
       </button>
       <ul
         #menu
@@ -105,7 +103,7 @@ const TYPEAHEAD_RESET_MS = 600;
             (click)="select(i)"
             (mouseenter)="activeIndex.set(i)"
           >
-            <ng-icon class="ep-select-check" name="uiCheck" size="20px" aria-hidden="true" />
+            <svg class="ep-select-check" [cdsGlyph]="uiCheck" [size]="20"></svg>
             {{ opt.label }}
           </li>
         }
@@ -117,6 +115,10 @@ const TYPEAHEAD_RESET_MS = 600;
   `,
 })
 export class SelectComponent implements ControlValueAccessor {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
+  /** @internal */
+  protected readonly uiCheck = uiCheck;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly trigger = viewChild<ElementRef<HTMLButtonElement>>('trigger');
   private readonly menu = viewChild<ElementRef<HTMLUListElement>>('menu');
