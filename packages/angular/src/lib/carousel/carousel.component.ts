@@ -102,6 +102,7 @@ let uid = 0;
   `,
 })
 export class CarouselComponent {
+  /** @internal */
   protected readonly iconStroke = CDS_ICON_STROKE;
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
