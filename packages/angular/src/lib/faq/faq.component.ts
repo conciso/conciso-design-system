@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideChevronDown } from '../icons/cds-icons';
 
 /** Ein FAQ-Eintrag. */
 export interface CdsFaqItem {
@@ -18,6 +19,7 @@ export interface CdsFaqItem {
 @Component({
   selector: 'cds-faq',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronDown],
   template: `
     <div class="ep-faq">
       @for (item of items(); track item) {
@@ -27,18 +29,7 @@ export interface CdsFaqItem {
         <details>
           <summary>
             {{ item.q }}
-            <svg
-              class="ep-faq-caret"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.25"
-              aria-hidden="true"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
+            <svg lucideChevronDown class="ep-faq-caret" size="24" [strokeWidth]="1.25"></svg>
           </summary>
           <p class="ep-faq-a">{{ item.a }}</p>
         </details>

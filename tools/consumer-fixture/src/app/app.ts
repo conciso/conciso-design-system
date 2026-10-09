@@ -25,7 +25,7 @@ import {
  * `@angular/forms` und `@angular/platform-browser` NIE gemeldet (genau so
  * passiert, siehe docs/adr/0004). Daher pro Fremd-Paket mindestens ein Vertreter:
  *
- * - Button, Topnav → `@angular/core`/`common` und `@ng-icons` (Icon-Registrierung)
+ * - Button, Topnav → `@angular/core`/`common` und `@lucide/angular` (Icons)
  * - TextField, Checkbox → `@angular/forms` (NG_VALUE_ACCESSOR, Laufzeit-Token)
  * - Card → `@angular/platform-browser` (DomSanitizer)
  *

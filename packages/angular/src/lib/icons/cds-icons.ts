@@ -26,6 +26,9 @@
 export {
   LucideCheck,
   LucideChevronDown,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideCircleAlert,
   LucideDynamicIcon,
   LucideMenu,
   LucideMonitor,
