@@ -41,8 +41,9 @@ npm install @conciso/design-system
 import '@conciso/design-system/dist/conciso-ds.css';
 // Tokens (optional, für JS/Framework):
 import { tokens } from '@conciso/design-system/tokens';
-// Icons (optional, maschinenlesbar — komplette <svg>-Bodies, currentColor): benannter Import
-// pro Icon, tree-shakable — nur importierte Glyphen landen im Bundle:
+// DS-eigene Glyphen (Bereichs-Glyphen co/ki/es/wo, ui-caret-down, ui-check, ui-quote; komplette
+// <svg>-Bodies, currentColor): benannter Import pro Icon, tree-shakable. Alle übrigen UI-Icons
+// kommen aus Lucide (`lucide-static`, in Angular `@lucide/angular`):
 import { uiCaretDown } from '@conciso/design-system/icons';
 // Das aggregierte `icons`-Objekt (oder icons.json) zieht immer alle Icons ins Bundle — nur
 // für Kataloge/Doku, nicht für Apps. Details stehen im Storybook unter Grundlagen → Icons.
