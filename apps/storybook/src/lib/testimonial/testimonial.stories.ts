@@ -43,6 +43,8 @@ export const Interaktiv: Story = {
     await expect(icon).toHaveClass('lucide-quote');
     await expect(icon).toHaveAttribute('aria-hidden', 'true');
     await expect(getComputedStyle(icon).fill).not.toBe('none');
+    // Optische Größe: per transform auf 60 % skaliert, Layoutmaße bleiben.
+    await expect(getComputedStyle(icon).transform).toBe('matrix(0.6, 0, 0, 0.6, 0, 0)');
   },
 };
 
