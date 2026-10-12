@@ -1,0 +1,130 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-team-voice": {
+      "id": "komponenten-zitate-testimonials-team-voice",
+      "name": "TeamVoiceComponent",
+      "path": "./src/lib/team-voice/team-voice.stories.ts",
+      "description": "TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.\n\nEditoriale Zitat-Reihe mit seitlichem Foto (im Grid abwechselnd links/rechts,\ngesteuert per :nth-child innerhalb von `.team-voices`, bei Angular über den Host), bereichsgefärbtem\nAkzent (data-area), Quote-Icon (ui-quote), Zitat und Name/Rolle. Mehrere\nKomponenten in einen `<div class=\"team-voices\">` legen, damit das alternierende\nLayout greift (siehe Story).\n\nVerwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (Akzentfarbe + Rahmen).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "image": {
+          "name": "image",
+          "description": "Bild-URL; leer = neutraler Platzhalter (Doku-Assets sind hier nicht eingebunden).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "imageAlt": {
+          "name": "imageAlt",
+          "description": "Alternativtext des Fotos.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Teamfoto"
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Name der zitierten Person.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "quote": {
+          "name": "quote",
+          "description": "Zitattext.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "roleLabel": {
+          "name": "roleLabel",
+          "description": "Rolle/Funktion der zitierten Person (leer = keine Rollenzeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TeamVoiceComponentInputs = {\n  /**\n   * Markenbereich → data-area (Akzentfarbe + Rahmen).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Bild-URL; leer = neutraler Platzhalter (Doku-Assets sind hier nicht eingebunden).\n   *\n   * @default ''\n   */\n  image?: string;\n  /**\n   * Alternativtext des Fotos.\n   *\n   * @default Teamfoto\n   */\n  imageAlt?: string;\n  /** Name der zitierten Person. */\n  name: string;\n  /** Zitattext. */\n  quote: string;\n  /**\n   * Rolle/Funktion der zitierten Person (leer = keine Rollenzeile).\n   *\n   * @default ''\n   */\n  roleLabel?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TeamVoiceComponent",
+        "selector": "cds-team-voice",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "image",
+          "imageAlt",
+          "name",
+          "quote",
+          "roleLabel"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

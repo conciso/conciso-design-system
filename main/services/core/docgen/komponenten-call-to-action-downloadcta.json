@@ -1,0 +1,182 @@
+{
+  "components": {
+    "komponenten-call-to-action-downloadcta": {
+      "id": "komponenten-call-to-action-downloadcta",
+      "name": "DownloadCtaComponent",
+      "path": "./src/lib/download-cta/download-cta.stories.ts",
+      "description": "DownloadCta — Wrapper um `.cta-dl` aus css/components.css → „Download CTA“.\n\nAufmerksamkeitsstarker Download-Block mit bereichsgefärbtem Top-Akzent + Icon\n(data-area), Eyebrow/Titel/Beschreibung/Meta und zwei Aktionen (primär/sekundär,\nüber die bestehenden `.btn`-Klassen). Konsumiert nur vorhandene Styles.\n\nVerwendungsguidance dieser Gruppe: siehe CTA-Band (`komponenten-call-to-action-cta-band--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (Top-Akzent, Icon-Tönung, Button-Farbe).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "desc": {
+          "name": "desc",
+          "description": "Beschreibungstext unterhalb des Titels (leer = keine Beschreibung).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "meta": {
+          "name": "meta",
+          "description": "Zusatzinfo unterhalb der Beschreibung, z. B. Dateiformat/-größe (leer = keine Meta-Zeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "primaryLabel": {
+          "name": "primaryLabel",
+          "description": "Beschriftung der primären Aktion.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "secondaryLabel": {
+          "name": "secondaryLabel",
+          "description": "Beschriftung der sekundären Aktion (leer = ausgeblendet).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Titel des Download-Angebots. Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "primaryClick": {
+          "name": "primaryClick",
+          "description": "Klick auf die primäre Aktion (Haupt-CTA).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "primaryClick",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "MouseEvent"
+            },
+            "defaultValue": {}
+          }
+        },
+        "secondaryClick": {
+          "name": "secondaryClick",
+          "description": "Klick auf die sekundäre Aktion (nur wenn `secondaryLabel` gesetzt ist).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "secondaryClick",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "MouseEvent"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type DownloadCtaComponentInputs = {\n  /**\n   * Markenbereich → data-area (Top-Akzent, Icon-Tönung, Button-Farbe).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Beschreibungstext unterhalb des Titels (leer = keine Beschreibung).\n   *\n   * @default ''\n   */\n  desc?: string;\n  /**\n   * Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile).\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n  /**\n   * Zusatzinfo unterhalb der Beschreibung, z. B. Dateiformat/-größe (leer = keine Meta-Zeile).\n   *\n   * @default ''\n   */\n  meta?: string;\n  /** Beschriftung der primären Aktion. */\n  primaryLabel: string;\n  /**\n   * Beschriftung der sekundären Aktion (leer = ausgeblendet).\n   *\n   * @default ''\n   */\n  secondaryLabel?: string;\n  /** Titel des Download-Angebots. Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```\n\n## Outputs\n\n```\nexport type DownloadCtaComponentOutputs = {\n  /** Klick auf die primäre Aktion (Haupt-CTA). */\n  primaryClick: MouseEvent;\n  /** Klick auf die sekundäre Aktion (nur wenn `secondaryLabel` gesetzt ist). */\n  secondaryClick: MouseEvent;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "DownloadCtaComponent",
+        "selector": "cds-download-cta",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "desc",
+          "eyebrow",
+          "meta",
+          "primaryLabel",
+          "secondaryLabel",
+          "title"
+        ],
+        "outputs": [
+          "primaryClick",
+          "secondaryClick"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

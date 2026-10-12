@@ -1,0 +1,37 @@
+{
+  "components": {
+    "komponenten-inputs-forms-checkbox": {
+      "id": "komponenten-inputs-forms-checkbox",
+      "name": "CheckboxComponent",
+      "path": "./src/lib/checkbox/checkbox.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-checkbox--interaktiv": {
+          "id": "komponenten-inputs-forms-checkbox--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CheckboxComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CheckboxComponent],\n  template: `\n    <cds-checkbox\n        [label]=\"'Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird.'\"\n        [linkLabel]=\"'Datenschutzhinweise'\"\n        [linkHref]=\"'#'\"\n        [required]=\"true\"\n        [checked]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (checkedChange)=\"checkedChange($event)\"\n        (disabledChange)=\"disabledChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  checkedChange(event: unknown) {}\n  disabledChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-checkbox--deaktiviert": {
+          "id": "komponenten-inputs-forms-checkbox--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { CheckboxComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CheckboxComponent],\n  template: `\n    <cds-checkbox\n        [label]=\"'Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird.'\"\n        [linkLabel]=\"'Datenschutzhinweise'\"\n        [linkHref]=\"'#'\"\n        [required]=\"true\"\n        [checked]=\"false\"\n        [disabled]=\"true\"\n        [area]=\"'co'\"\n        (checkedChange)=\"checkedChange($event)\"\n        (disabledChange)=\"disabledChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  checkedChange(event: unknown) {}\n  disabledChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-checkbox--tastatur": {
+          "id": "komponenten-inputs-forms-checkbox--tastatur",
+          "name": "Tastatur",
+          "snippet": "import { Component } from '@angular/core';\nimport { CheckboxComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CheckboxComponent],\n  template: `\n    <cds-checkbox\n        [label]=\"'Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird.'\"\n        [linkLabel]=\"'Datenschutzhinweise'\"\n        [linkHref]=\"'#'\"\n        [required]=\"true\"\n        [checked]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (checkedChange)=\"checkedChange($event)\"\n        (disabledChange)=\"disabledChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  checkedChange(event: unknown) {}\n  disabledChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-checkbox--fokusring": {
+          "id": "komponenten-inputs-forms-checkbox--fokusring",
+          "name": "Fokusring",
+          "snippet": "import { Component } from '@angular/core';\nimport { CheckboxComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CheckboxComponent],\n  template: `\n    <cds-checkbox\n        [label]=\"'Ich bin einverstanden, dass meine E-Mail-Adresse für den Versand des Newsletters verwendet wird.'\"\n        [linkLabel]=\"'Datenschutzhinweise'\"\n        [linkHref]=\"'#'\"\n        [required]=\"true\"\n        [checked]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (checkedChange)=\"checkedChange($event)\"\n        (disabledChange)=\"disabledChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  checkedChange(event: unknown) {}\n  disabledChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-checkbox--lesbarer-zustand": {
+          "id": "komponenten-inputs-forms-checkbox--lesbarer-zustand",
+          "name": "Lesbarer Zustand",
+          "snippet": "import { Component } from '@angular/core';\nimport { CheckboxComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CheckboxComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:34rem\">\n        <cds-checkbox\n            label=\"Ich stimme der Datenverarbeitung zu.\"\n            [required]=\"true\"\n            [(checked)]=\"state.consent\">\n        </cds-checkbox>\n        <cds-checkbox\n            label=\"Newsletter abonnieren (optional).\"\n            [(checked)]=\"state.newsletter\">\n        </cds-checkbox>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Zustand:\n            <strong>{{ zustand() }}</strong>\n        </p>\n        <button\n            type=\"button\"\n            class=\"btn btn-primary\"\n            [disabled]=\"!state.consent\">\n            Absenden\n        </button>\n    </div>`,\n})\nexport class DemoComponent {\n  checkedChange(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `state`, `zustand` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

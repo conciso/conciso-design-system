@@ -1,0 +1,47 @@
+{
+  "components": {
+    "komponenten-slider-carousel-logocarousel": {
+      "id": "komponenten-slider-carousel-logocarousel",
+      "name": "LogoCarouselComponent",
+      "path": "./src/lib/logo-carousel/logo-carousel.stories.ts",
+      "stories": {
+        "komponenten-slider-carousel-logocarousel--interaktiv": {
+          "id": "komponenten-slider-carousel-logocarousel--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--tastatur-dots": {
+          "id": "komponenten-slider-carousel-logocarousel--tastatur-dots",
+          "name": "Tastatur (Dots)",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--region-mit-name": {
+          "id": "komponenten-slider-carousel-logocarousel--region-mit-name",
+          "name": "Region mit Namen",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--dot-klick-pausiert": {
+          "id": "komponenten-slider-carousel-logocarousel--dot-klick-pausiert",
+          "name": "Dot-Klick pausiert dauerhaft",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--tastatur-pausiert-und-hoch": {
+          "id": "komponenten-slider-carousel-logocarousel--tastatur-pausiert-und-hoch",
+          "name": "Tastatur pausiert, Auf/Ab wie Links/Rechts",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--reduzierte-bewegung": {
+          "id": "komponenten-slider-carousel-logocarousel--reduzierte-bewegung",
+          "name": "Reduzierte Bewegung ohne Pause-Button",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'NORDWIND'}, {label: 'MERIDIAN'}, {label: 'AVERA'}, {label: 'KONTUR'}, {label: 'STELLA'}], [{label: 'VOLTAIC'}, {label: 'HEXAGON'}, {label: 'LUMEN'}, {label: 'PRAXIS'}, {label: 'ORBIT'}], [{label: 'CASCADE'}, {label: 'VERTEX'}, {label: 'NIMBUS'}, {label: 'FORGE'}, {label: 'ATLAS'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}"
+        },
+        "komponenten-slider-carousel-logocarousel--mit-bildern": {
+          "id": "komponenten-slider-carousel-logocarousel--mit-bildern",
+          "name": "Mit Bildern",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoCarouselComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoCarouselComponent],\n  template: `\n    <cds-logo-carousel\n        [interval]=\"6000\"\n        [active]=\"0\"\n        [sets]=\"[[{label: 'Conciso', src: './conciso/brand/logo-conciso.svg'}, {label: 'Conciso', src: './conciso/brand/logo-conciso.svg'}, {label: 'NORDWIND'}, {label: 'Conciso', src: './conciso/brand/logo-conciso.svg'}, {label: 'MERIDIAN'}], [{label: 'AVERA'}, {label: 'Conciso', src: './conciso/brand/logo-conciso.svg'}, {label: 'KONTUR'}, {label: 'Conciso', src: './conciso/brand/logo-conciso.svg'}, {label: 'STELLA'}]]\"\n        (activeChange)=\"activeChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  activeChange(event: unknown) {}\n}",
+          "description": "Reale Logos sind Bilder (`src`). Kacheln ohne Bild fallen auf den Text-`label`\nals Platzhalter zurück – so bleibt das Set auch bei fehlendem Asset vollständig.\n(Hier das Conciso-Logo als Stellvertreter; echte Anwendungen übergeben Kundenlogos.)"
+        }
+      }
+    }
+  }
+}

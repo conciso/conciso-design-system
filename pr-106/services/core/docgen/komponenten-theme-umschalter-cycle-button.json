@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-cycle-button": {
+      "id": "komponenten-theme-umschalter-cycle-button",
+      "name": "ThemeCycleComponent",
+      "path": "./src/lib/theme-switch/cycle-button.stories.ts",
+      "description": "Theme-Cycle-Button — ein einzelner Icon-Button (Stil `.ep-nav-icon-btn` aus der\nTopnav), der bei Klick durch die Modi zyklt. Das Icon zeigt den aktuellen Modus.\nVorgesehener Einsatz: im Header. Icons über die zentrale Registry (lib/icons/cds-icons).\n\n`showSystem` schaltet zwischen tri (Hell→Dunkel→System) und binär (Hell→Dunkel).",
+      "jsDocTags": {},
+      "argTypes": {
+        "showSystem": {
+          "name": "showSystem",
+          "description": "true → Hell/Dunkel/System, false → nur Hell/Dunkel.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ThemeCycleComponentInputs = {\n  /**\n   * true → Hell/Dunkel/System, false → nur Hell/Dunkel.\n   *\n   * @default true\n   */\n  showSystem?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ThemeCycleComponent",
+        "selector": "cds-theme-cycle",
+        "standalone": true,
+        "inputs": [
+          "showSystem"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

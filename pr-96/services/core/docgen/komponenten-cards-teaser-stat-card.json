@@ -1,0 +1,115 @@
+{
+  "components": {
+    "komponenten-cards-teaser-stat-card": {
+      "id": "komponenten-cards-teaser-stat-card",
+      "name": "StatCardComponent",
+      "path": "./src/lib/stat-card/stat-card.stories.ts",
+      "description": "StatCard — Wrapper um `.card-stat` aus css/components.css → „Stat Card“.\n\nFlache, statische Kennzahlen-Karte mit bereichsgefärbtem Top-Akzent (data-area),\ngroßem Wert (.card-stat-value), Label (.card-stat-label) und optionalem\nTrend-Pill (.card-stat-trend.up/.down) inkl. Richtungs-Pfeil.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (Top-Akzent + Wertfarbe).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Beschriftung der Kennzahl.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "trend": {
+          "name": "trend",
+          "description": "Trendrichtung → .card-stat-trend.up / .down (leer = kein Pill).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "up",
+              "down"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "\"up\" | \"down\""
+            },
+            "defaultValue": {}
+          }
+        },
+        "trendText": {
+          "name": "trendText",
+          "description": "Text neben dem Trend-Pfeil (nur sichtbar, wenn `trend` gesetzt ist).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Anzeigewert der Kennzahl.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type StatCardComponentInputs = {\n  /**\n   * Markenbereich → data-area (Top-Akzent + Wertfarbe).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** Beschriftung der Kennzahl. */\n  label: string;\n  /** Trendrichtung → .card-stat-trend.up / .down (leer = kein Pill). */\n  trend?: \"up\" | \"down\";\n  /**\n   * Text neben dem Trend-Pfeil (nur sichtbar, wenn `trend` gesetzt ist).\n   *\n   * @default ''\n   */\n  trendText?: string;\n  /** Anzeigewert der Kennzahl. */\n  value: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "StatCardComponent",
+        "selector": "cds-stat-card",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "label",
+          "trend",
+          "trendText",
+          "value"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

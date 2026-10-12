@@ -1,0 +1,95 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-chip": {
+      "id": "komponenten-chips-badges-pills-chip",
+      "name": "ChipComponent",
+      "path": "./src/lib/chip/chip.stories.ts",
+      "description": "Chip — Wrapper um `.chip` aus css/components.css → „Badges & Chips“.\n\nInteraktiver Filter-Chip auf Basis von `aria-pressed` (.chip[aria-pressed],\noptional area-aware über [data-area]). Klick schaltet den Zustand um.\n\nChips sind interaktive Elemente (Filter/Einstellungen), KEINE statischen Tags.\nFür nicht-interaktive Bereichs-Labels die Badge- bzw. Pill-Komponente nutzen.",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (area-aware Outline).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbarer Text des Chips.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "pressed": {
+          "name": "pressed",
+          "description": "Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model().",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "pressedChange": {
+          "name": "pressedChange",
+          "description": "Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model().",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "pressedChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ChipComponentInputs = {\n  /** Markenbereich → data-area (area-aware Outline). */\n  area?: CdsArea;\n  /** Sichtbarer Text des Chips. */\n  label: string;\n  /**\n   * Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model().\n   *\n   * @default false\n   */\n  pressed?: boolean; // two-way: [(pressed)]\n}\n```\n\n## Outputs\n\n```\nexport type ChipComponentOutputs = {\n  /** Gedrückt/aktiv → aria-pressed. Two-Way (`[(pressed)]`) + pressedChange via model(). */\n  pressedChange: (e: boolean) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ChipComponent",
+        "selector": "cds-chip",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "label",
+          "pressed"
+        ],
+        "outputs": [
+          "pressedChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

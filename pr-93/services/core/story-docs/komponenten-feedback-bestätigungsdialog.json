@@ -1,0 +1,59 @@
+{
+  "components": {
+    "komponenten-feedback-bestätigungsdialog": {
+      "id": "komponenten-feedback-bestätigungsdialog",
+      "name": "ConfirmDialogDemoComponent",
+      "path": "./src/lib/dialog/confirm-dialog.stories.ts",
+      "stories": {
+        "komponenten-feedback-bestätigungsdialog--interaktiv": {
+          "id": "komponenten-feedback-bestätigungsdialog--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil verlassen'\"\n        [title]=\"'Änderungen verwerfen?'\"\n        [message]=\"'Deine Änderungen am Profil gehen verloren.'\"\n        [confirmLabel]=\"'Verwerfen'\"\n        [cancelLabel]=\"'Weiter bearbeiten'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'cancel'\"\n        [area]=\"'co'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--unterbrechung": {
+          "id": "komponenten-feedback-bestätigungsdialog--unterbrechung",
+          "name": "Unterbrechung (ungespeicherte Änderungen)",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil verlassen'\"\n        [title]=\"'Änderungen verwerfen?'\"\n        [message]=\"'Deine Änderungen am Profil gehen verloren.'\"\n        [confirmLabel]=\"'Verwerfen'\"\n        [cancelLabel]=\"'Weiter bearbeiten'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'cancel'\"\n        [area]=\"'co'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--selbst-ausgeloest": {
+          "id": "komponenten-feedback-bestätigungsdialog--selbst-ausgeloest",
+          "name": "Selbst ausgelöst (Löschen)",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil löschen'\"\n        [title]=\"'Profil löschen?'\"\n        [message]=\"'Dein Profil und alle Einträge darin werden dauerhaft gelöscht.'\"\n        [confirmLabel]=\"'Profil löschen'\"\n        [cancelLabel]=\"'Abbrechen'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'confirm'\"\n        [area]=\"'co'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--nicht-destruktiv": {
+          "id": "komponenten-feedback-bestätigungsdialog--nicht-destruktiv",
+          "name": "Nicht destruktiv",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Anfrage senden'\"\n        [title]=\"'Anfrage absenden?'\"\n        [message]=\"'Wir melden uns innerhalb eines Werktags bei Dir.'\"\n        [confirmLabel]=\"'Anfrage absenden'\"\n        [cancelLabel]=\"'Abbrechen'\"\n        [destructive]=\"false\"\n        [emphasis]=\"'confirm'\"\n        [area]=\"'ki'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--textauswahl": {
+          "id": "komponenten-feedback-bestätigungsdialog--textauswahl",
+          "name": "Textauswahl bis außerhalb",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil verlassen'\"\n        [title]=\"'Änderungen verwerfen?'\"\n        [message]=\"'Deine Änderungen am Profil gehen verloren.'\"\n        [confirmLabel]=\"'Verwerfen'\"\n        [cancelLabel]=\"'Weiter bearbeiten'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'cancel'\"\n        [area]=\"'co'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--doppelt-geoeffnet": {
+          "id": "komponenten-feedback-bestätigungsdialog--doppelt-geoeffnet",
+          "name": "Doppelt geöffnet",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil verlassen'\"\n        [title]=\"'Änderungen verwerfen?'\"\n        [message]=\"'Deine Änderungen am Profil gehen verloren.'\"\n        [confirmLabel]=\"'Verwerfen'\"\n        [cancelLabel]=\"'Weiter bearbeiten'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'cancel'\"\n        [area]=\"'co'\"\n        [openTwice]=\"true\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--aufraeumen-beim-zerstoeren": {
+          "id": "komponenten-feedback-bestätigungsdialog--aufraeumen-beim-zerstoeren",
+          "name": "Aufräumen beim Zerstören",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `<cds-confirm-dialog-destroy-demo />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        },
+        "komponenten-feedback-bestätigungsdialog--geoeffnet": {
+          "id": "komponenten-feedback-bestätigungsdialog--geoeffnet",
+          "name": "Geöffnet",
+          "snippet": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ConfirmDialogDemoComponent],\n  template: `\n    <cds-confirm-dialog-demo\n        [triggerLabel]=\"'Profil verlassen'\"\n        [title]=\"'Änderungen verwerfen?'\"\n        [message]=\"'Deine Änderungen am Profil gehen verloren.'\"\n        [confirmLabel]=\"'Verwerfen'\"\n        [cancelLabel]=\"'Weiter bearbeiten'\"\n        [destructive]=\"true\"\n        [emphasis]=\"'cancel'\"\n        [area]=\"'co'\"\n        [openTwice]=\"false\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "ConfirmDialogDemoComponent is declared in the story file, so the snippet references it without importing it."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "components": {
+    "komponenten-inputs-forms-slider": {
+      "id": "komponenten-inputs-forms-slider",
+      "name": "SliderComponent",
+      "path": "./src/lib/slider/slider.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-slider--interaktiv": {
+          "id": "komponenten-inputs-forms-slider--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { SliderComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SliderComponent],\n  template: `\n    <cds-slider\n        [label]=\"'Budget-Rahmen'\"\n        [area]=\"'co'\"\n        [min]=\"10000\"\n        [max]=\"100000\"\n        [step]=\"5000\"\n        [value]=\"50000\"\n        [unit]=\"' €'\"\n        [tickCount]=\"5\"\n        [minTickSpacing]=\"56\"\n        [helper]=\"'Schritte: 5.000 €'\"\n        [disabled]=\"false\"\n        [sliderId]=\"'demo-slider'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-slider--deaktiviert": {
+          "id": "komponenten-inputs-forms-slider--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { SliderComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SliderComponent],\n  template: `\n    <cds-slider\n        [label]=\"'Budget-Rahmen'\"\n        [area]=\"'co'\"\n        [min]=\"10000\"\n        [max]=\"100000\"\n        [step]=\"5000\"\n        [value]=\"50000\"\n        [unit]=\"' €'\"\n        [tickCount]=\"5\"\n        [minTickSpacing]=\"56\"\n        [helper]=\"'Schritte: 5.000 €'\"\n        [disabled]=\"true\"\n        [sliderId]=\"'demo-slider-disabled'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-slider--auto-ticks": {
+          "id": "komponenten-inputs-forms-slider--auto-ticks",
+          "name": "Ticks (auto-reduziert)",
+          "snippet": "import { Component } from '@angular/core';\nimport { SliderComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SliderComponent],\n  template: `\n    <div style=\"display:grid;gap:32px\">\n        <div style=\"max-width:520px\">\n            <cds-slider\n                sliderId=\"s-wide\"\n                label=\"Breit: 7 Ticks\"\n                [tickCount]=\"7\">\n            </cds-slider>\n        </div>\n        <div style=\"max-width:200px\">\n            <cds-slider\n                sliderId=\"s-narrow\"\n                label=\"Schmal, reduziert\"\n                [tickCount]=\"7\">\n            </cds-slider>\n        </div>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-inputs-forms-slider--pro-bereich": {
+          "id": "komponenten-inputs-forms-slider--pro-bereich",
+          "name": "Je Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { SliderComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SliderComponent],\n  template: `\n    <div style=\"display:grid;gap:24px;max-width:420px\">\n        <cds-slider area=\"co\" sliderId=\"s-co\" label=\"Corporate\"></cds-slider>\n        <cds-slider area=\"ki\" sliderId=\"s-ki\" label=\"Angewandte KI\"></cds-slider>\n        <cds-slider\n            area=\"es\"\n            sliderId=\"s-es\"\n            label=\"Effektive Software\">\n        </cds-slider>\n        <cds-slider\n            area=\"wo\"\n            sliderId=\"s-wo\"\n            label=\"Wirksame Organisationen\">\n        </cds-slider>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-inputs-forms-slider--formularbindung": {
+          "id": "komponenten-inputs-forms-slider--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { SliderComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SliderComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-slider\n            label=\"Budget-Rahmen\"\n            sliderId=\"form-slider\"\n            [formControl]=\"ctrl\">\n        </cds-slider>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Wert:\n            <strong>{{ ctrl.value }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

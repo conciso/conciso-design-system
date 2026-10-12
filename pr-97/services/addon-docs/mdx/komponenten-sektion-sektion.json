@@ -1,0 +1,18 @@
+{
+  "components": {
+    "komponenten-sektion-sektion": {
+      "id": "komponenten-sektion-sektion",
+      "name": "komponenten-sektion-sektion",
+      "docs": {
+        "komponenten-sektion-sektion--verwendung": {
+          "id": "komponenten-sektion-sektion--verwendung",
+          "name": "Verwendung",
+          "path": "./src/docs/komponenten/sektion.mdx",
+          "title": "Komponenten/Sektion/Sektion",
+          "content": "import { Meta } from '@storybook/addon-docs/blocks';\nimport * as SektionStories from '../../lib/section/section.stories';\n\n<Meta of={SektionStories} name=\"Verwendung\" />\n\n# Sektion\n\nDas strukturelle Gerüst, in dem auf den Beispielseiten praktisch jeder andere\nBaustein sitzt: `.ep-section` mit dem optionalen Kopf-Trio aus Kicker, Überschrift\nund Lead. 133 Vorkommen in den Beispielseiten, 85 davon mit Kopfzeile. Das\nAngular-Bauteil ist `Komponenten/Sektion/Sektion` (`[cdsSection]`).\n\n## Aufbau\n\nDrei Klassen bilden den Kopf: `.ep-section-label` (Kicker, bereichsfärbbar über\n`.t-co` / `.t-ki` / `.t-es` / `.t-wo`), `.ep-section-h2` (Überschrift) und\n`.ep-section-sub` (Lead). Alle drei sind Beiwerk: Eine Sektion besteht auch ganz\nohne Kopf, nur aus ihrem Inhalt darunter.\n\n<HtmlBeispiel titel=\"Sektion mit Label und Überschrift\">\n\n```html\n<div class=\"ep-section\" style=\"background:var(--n-50)\">\n  <div class=\"ep-section-label t-co\">Was wir tun</div>\n  <h2 class=\"ep-section-h2\">So ist eine Sektion aufgebaut.</h2>\n  <p class=\"ep-section-sub\">Kicker, Überschrift und Lead sind Beiwerk, der Inhalt darunter ist frei.</p>\n  <!-- beliebiger Inhalt -->\n</div>\n```\n\n</HtmlBeispiel>\n\n## Angular-Wrapper\n\n`[cdsSection]` ist ein Attributselektor statt eines eigenen Elements\n(`docs/adr/0008-selektortyp-der-wrapper-komponenten.md`). Der\nKonsument wählt das Tag: `<section cdsSection>` oder `<div cdsSection>`. Die\nKomponente setzt `aria-labelledby`, wenn ein zugänglicher Name verfügbar ist:\nentweder die eigene Überschrift oder eine per `labelledBy` übergebene id einer\nÜberschrift außerhalb der Komponente. Fehlt beides, setzt sie kein\n`aria-labelledby`.\n\n## Verwendung\n\nDie Fläche gehört der Seite, nicht dem Bauteil. Sektionen wechseln im Rhythmus\nzwischen `--bg-surface` und `--n-50`, auf einzelnen Sektionsflächen kommt\nzusätzlich eine Bereichstönung als Akzent vor. Welche Fläche eine Sektion trägt,\nhängt von ihren Nachbarn ab, und nur die Seite kennt diese Nachbarn. Deshalb setzt\n`.ep-section` selbst keinen Hintergrund, und `[cdsSection]` hat keinen\n`background`-Input: Die Fläche kommt per Klasse oder Inline-Style direkt an das\nElement, das `cdsSection` trägt (`<section cdsSection style=\"background:…\">`).\n\n## Dos & Don'ts\n\n**Tun**\n\n- Die Hintergrundfläche als Klasse oder Style auf dem Element setzen, das `cdsSection` trägt, im Wechsel mit den Nachbar-Sektionen.\n- Kicker, Überschrift und Lead weglassen, wenn eine Sektion keinen eigenen Kopf braucht.\n- Ohne eigene Überschrift `labelledBy` auf eine vorhandene Überschrift setzen, damit die Sektion einen zugänglichen Namen behält.\n\n**Nicht tun**\n\n- Eine Hintergrundfarbe fest in die Komponente einbauen, sie kennt ihre Nachbar-Sektionen nicht.\n- Mehrere getönte Sektionen direkt hintereinander setzen, das wirkt schnell bunt statt ruhig.\n- Im Angular-Wrapper `<section cdsSection>` ohne Überschrift und ohne `labelledBy` schreiben, wenn `<div cdsSection>` genügt: die Sektion bliebe für Screenreader ohnehin namenlos, das Tag verspricht aber eine Landmark, die nie entsteht.\n",
+          "summary": "# Sektion Das strukturelle Gerüst, in dem auf den Beispielseiten praktisch jeder andere Ba..."
+        }
+      }
+    }
+  }
+}

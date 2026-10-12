@@ -1,0 +1,1 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";var t;function init__virtual_angular_jit_style_inline_20c71c1acac87d0e(){return(init__virtual_angular_jit_style_inline_20c71c1acac87d0e=e((()=>{t=`:host{display:block}`})))()}export{init__virtual_angular_jit_style_inline_20c71c1acac87d0e as n,t};

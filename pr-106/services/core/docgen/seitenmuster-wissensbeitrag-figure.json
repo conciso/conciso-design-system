@@ -1,0 +1,73 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-figure": {
+      "id": "seitenmuster-wissensbeitrag-figure",
+      "name": "ArticleFigureComponent",
+      "path": "./src/lib/article-figure/article-figure.stories.ts",
+      "description": "ArticleFigure (`cds-article-figure`) — Wrapper um `.article-figure`/\n`.article-figcaption` aus css/components.css (css/components.css:1573–1575):\ndas redaktionelle Inline-Bild mit optionaler Bildunterschrift im Lauftext eines\nWissensbeitrags. Es gibt zwei In-Article-Fälle mit Caption sowie einen\ncaptionslosen Sonderfall direkt unter dem Article Header.\n\n**Element-Selektor, ADR-0008-Standardfall.** In allen 3 Vorkommen sitzt\n`.article-figure` als gewöhnlicher Block-Nachfahre (zwei in `.article-body`,\neines direkt in einer eigenen `.ep-section`) — kein Grid-/Flex-Kind, keine\n`col-*`-Klasse vom Konsumenten, kein Tag-Wechsel (immer `<figure>`), kein\nVorkommen von `.article-figure` mit einem Geschwister-Kombinator in\ncss/components.css. Die einzige direkte Kind-Regel von `.article-body`\n(`.article-body > p`, css/components.css:1566) zielt auf `p`, nicht auf\n`figure` — ein `<cds-article-figure>`-Host zwischen `.article-body` und dem\n`<figure>` bricht deshalb keine Selektorkette.\n\n**`loading=\"lazy\"` ist fest verdrahtet, kein Input — bewusst NUR der\nIn-Article-Fall, nicht der dritte Mockup-Beleg.** Ausgezählt tragen 2 der 3\nVorkommen `loading=\"lazy\"` (die beiden Bilder MIT Caption, mittig im\nLauftext, „below the fold“ — genau der in `wissensbeitrag.mdx`, Abschnitt\n„In-Article Figure“, dokumentierte Dos-Punkt). Der dritte Fall\nträgt stattdessen `loading=\"eager\"\nfetchpriority=\"high\"` UND hat keine Caption — es ist das erste Bild direkt\nunter dem Article Header (Kommentar im Mockup: „Hero-Bild auf Body-Breite …\nidentisches Bild wie Vorschaubild für Wiedererkennung“), sitzt außerhalb von\n`.article-body` und bekommt seine 720-px-Breite über ein\nInline-`style=\"max-width:720px;margin:0 auto\"` am Konsumenten, nicht über die\nKomponente (Mockup-Inline-Styles wandern bewusst nicht in den Wrapper). Die\nAPI sieht dafür kein `loading`/`fetchpriority`-Input\nvor; dieses Bauteil deckt deshalb den (häufigeren, dokumentierten) In-Body-Fall\nab. Für den Lead-Bild-Sonderfall bleibt `<figure class=\"article-figure\">` roh\nschreibbar oder — sofern die Semantik passt — `cds-hero-image` zu\nprüfen.\n\n**`alt` und `caption` sind bewusst getrennte Pflicht-/Beiwerk-Inputs, keine\nPrüfung auf inhaltliche Überschneidung.** `wissensbeitrag.mdx` dokumentiert die\nbeiden Rollen ausdrücklich als unterschiedliche Jobs\n(Dont: „Alt-Text und Caption inhaltlich identisch, Screenreader liest\ndoppelt“) — Vorgabe an den Konsumenten, nicht etwas, das eine Wrapper-Komponente\nzur Laufzeit sinnvoll erzwingen könnte.",
+      "jsDocTags": {},
+      "argTypes": {
+        "alt": {
+          "name": "alt",
+          "description": "Faktische Bildbeschreibung für Screenreader, siehe Klassendoku.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "caption": {
+          "name": "caption",
+          "description": "Redaktionelle Bildunterschrift (`.article-figcaption`), leer = keine Caption.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "src": {
+          "name": "src",
+          "description": "Bildquelle.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ArticleFigureComponentInputs = {\n  /** Faktische Bildbeschreibung für Screenreader, siehe Klassendoku. */\n  alt: string;\n  /**\n   * Redaktionelle Bildunterschrift (`.article-figcaption`), leer = keine Caption.\n   *\n   * @default ''\n   */\n  caption?: string;\n  /** Bildquelle. */\n  src: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ArticleFigureComponent",
+        "selector": "cds-article-figure",
+        "standalone": true,
+        "inputs": [
+          "alt",
+          "caption",
+          "src"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

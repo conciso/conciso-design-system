@@ -1,0 +1,179 @@
+{
+  "components": {
+    "komponenten-inputs-forms-skala": {
+      "id": "komponenten-inputs-forms-skala",
+      "name": "ScaleComponent",
+      "path": "./src/lib/scale/scale.stories.ts",
+      "description": "Skala (cds-scale) — Slider für GEORDNETE (ordinale) Kategorien, deren Labels die\nWerte SIND (z. B. Niedrig < Mittel < Hoch, nie < selten < oft < immer).\n\nBasiert auf dem nativen <input type=\"range\">; min=0, max=labels.length-1, step=1\nwerden intern abgeleitet und NICHT exponiert. Der aktuelle Wert erscheint als\nLABEL im <output> und wird Screenreadern über `aria-valuetext` als Text gemeldet\n(nicht als Zahl) — das anerkannte APG-Muster für ordinale Slider. Die Skalenpunkte\nzeigen alle Labels, exakt auf ihre Position ausgerichtet und bewusst OHNE\nReduktion (jedes Label ist eine wählbare Stufe).\n\nNUR für geordnete Kategorien. Ungeordnete/gleichrangige Optionen (ohne natürliche\nReihenfolge) gehören NICHT auf einen Slider → cds-radio-group oder cds-area-tabs.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); der Formularwert ist der Stufen-INDEX. Ohne Formular geht\n`[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → Thumb-/Output-Farbe.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "helper": {
+          "name": "helper",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Feld-Label (die Frage), z. B. „Zufriedenheit“.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Bewertung"
+            }
+          }
+        },
+        "labels": {
+          "name": "labels",
+          "description": "Geordnete Skalen-Labels; sie sind zugleich die Werte.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string[]"
+            },
+            "defaultValue": {
+              "summary": "['Niedrig', 'Mittel', 'Hoch']"
+            }
+          }
+        },
+        "scaleId": {
+          "name": "scaleId",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Gewählte Stufe als Index (0-basiert). Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 1
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Gewählte Stufe als Index (0-basiert). Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: number) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ScaleComponentInputs = {\n  /**\n   * Markenbereich → Thumb-/Output-Farbe.\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /** @default '' */\n  helper?: string;\n  /**\n   * Feld-Label (die Frage), z. B. „Zufriedenheit“.\n   *\n   * @default Bewertung\n   */\n  label?: string;\n  /**\n   * Geordnete Skalen-Labels; sie sind zugleich die Werte.\n   *\n   * @default ['Niedrig', 'Mittel', 'Hoch']\n   */\n  labels?: string[];\n  scaleId?: string;\n  /**\n   * Gewählte Stufe als Index (0-basiert). Two-Way (`[(value)]`) UND Angular-Forms.\n   *\n   * @default 1\n   */\n  value?: number; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type ScaleComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Gewählte Stufe als Index (0-basiert). Two-Way (`[(value)]`) UND Angular-Forms. */\n  valueChange: (e: number) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ScaleComponent",
+        "selector": "cds-scale",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "helper",
+          "label",
+          "labels",
+          "scaleId",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-dropdown": {
+      "id": "komponenten-theme-umschalter-dropdown",
+      "name": "ThemeSelectComponent",
+      "path": "./src/lib/theme-switch/select.stories.ts",
+      "description": "Theme-Dropdown — Theme-Umschalter auf Basis unseres Custom Select (cds-select):\ngestylte Einzelauswahl mit Listbox-Popup und Häkchen. Vorgesehener Einsatz: nur in\nden Einstellungen (Settings), NICHT als persistentes Element auf allen Seiten.\n\n`showSystem` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.\n\nVerwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "showSystem": {
+          "name": "showSystem",
+          "description": "true → Hell/Dunkel/System, false → nur Hell/Dunkel.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ThemeSelectComponentInputs = {\n  /**\n   * true → Hell/Dunkel/System, false → nur Hell/Dunkel.\n   *\n   * @default true\n   */\n  showSystem?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ThemeSelectComponent",
+        "selector": "cds-theme-select",
+        "standalone": true,
+        "inputs": [
+          "showSystem"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "components": {
+    "komponenten-dropdowns-custom-select": {
+      "id": "komponenten-dropdowns-custom-select",
+      "name": "SelectComponent",
+      "path": "./src/lib/select/select.stories.ts",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Bereich"
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Optionaler Feldname → verstecktes Input für den Formular-Submit.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "options": {
+          "name": "options",
+          "type": {
+            "name": "other",
+            "value": "empty-enum"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsSelectOption[]"
+            },
+            "defaultValue": {
+              "summary": "[]"
+            }
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Bitte wählen…"
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Aktuell gewählter Wert (value der Option). Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string | undefined"
+            },
+            "defaultValue": {}
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Aktuell gewählter Wert (value der Option). Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string | undefined) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type SelectComponentInputs = {\n  area?: CdsArea;\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /** @default Bereich */\n  label?: string;\n  /** Optionaler Feldname → verstecktes Input für den Formular-Submit. */\n  name?: string;\n  /** @default [] */\n  options?: CdsSelectOption[];\n  /** @default Bitte wählen… */\n  placeholder?: string;\n  /** Aktuell gewählter Wert (value der Option). Two-Way (`[(value)]`) UND Angular-Forms. */\n  value?: string | undefined; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type SelectComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Aktuell gewählter Wert (value der Option). Two-Way (`[(value)]`) UND Angular-Forms. */\n  valueChange: (e: string | undefined) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "SelectComponent",
+        "selector": "cds-select",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "label",
+          "name",
+          "options",
+          "placeholder",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

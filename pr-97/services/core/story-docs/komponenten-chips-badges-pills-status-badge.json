@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-status-badge": {
+      "id": "komponenten-chips-badges-pills-status-badge",
+      "name": "StatusBadgeComponent",
+      "path": "./src/lib/status-badge/status-badge.stories.ts",
+      "stories": {
+        "komponenten-chips-badges-pills-status-badge--interaktiv": {
+          "id": "komponenten-chips-badges-pills-status-badge--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatusBadgeComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatusBadgeComponent],\n  template: `<cds-status-badge [label]=\"'Live'\" [tone]=\"'ok'\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-chips-badges-pills-status-badge--toene": {
+          "id": "komponenten-chips-badges-pills-status-badge--toene",
+          "name": "Alle Töne",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatusBadgeComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatusBadgeComponent],\n  template: `\n    <div style=\"display:flex;gap:12px;flex-wrap:wrap;align-items:center\">\n        <cds-status-badge tone=\"ok\" label=\"Live\"></cds-status-badge>\n        <cds-status-badge tone=\"warn\" label=\"Beta\"></cds-status-badge>\n        <cds-status-badge tone=\"err\" label=\"Deprecated\"></cds-status-badge>\n        <cds-status-badge tone=\"neu\" label=\"Draft\"></cds-status-badge>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

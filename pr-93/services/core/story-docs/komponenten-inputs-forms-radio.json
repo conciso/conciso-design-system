@@ -1,0 +1,42 @@
+{
+  "components": {
+    "komponenten-inputs-forms-radio": {
+      "id": "komponenten-inputs-forms-radio",
+      "name": "RadioGroupComponent",
+      "path": "./src/lib/radio-group/radio-group.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-radio--interaktiv": {
+          "id": "komponenten-inputs-forms-radio--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <cds-radio-group\n        [legend]=\"'Bevorzugter Kontaktweg'\"\n        [options]=\"['E-Mail', 'Telefon', 'Beides']\"\n        [value]=\"'E-Mail'\"\n        [required]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-radio--deaktiviert": {
+          "id": "komponenten-inputs-forms-radio--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <cds-radio-group\n        [legend]=\"'Bevorzugter Kontaktweg'\"\n        [options]=\"['E-Mail', 'Telefon', 'Beides']\"\n        [value]=\"'E-Mail'\"\n        [required]=\"false\"\n        [disabled]=\"true\"\n        [area]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-radio--pflichtfeld": {
+          "id": "komponenten-inputs-forms-radio--pflichtfeld",
+          "name": "Pflichtfeld",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <cds-radio-group\n        [legend]=\"'Bevorzugter Kontaktweg'\"\n        [options]=\"['E-Mail', 'Telefon', 'Beides']\"\n        [value]=\"'E-Mail'\"\n        [required]=\"true\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-radio--tastatur": {
+          "id": "komponenten-inputs-forms-radio--tastatur",
+          "name": "Tastatur",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <cds-radio-group\n        [legend]=\"'Bevorzugter Kontaktweg'\"\n        [options]=\"['E-Mail', 'Telefon', 'Beides']\"\n        [value]=\"'E-Mail'\"\n        [required]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-radio--fokusring": {
+          "id": "komponenten-inputs-forms-radio--fokusring",
+          "name": "Fokusring",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <cds-radio-group\n        [legend]=\"'Bevorzugter Kontaktweg'\"\n        [options]=\"['E-Mail', 'Telefon', 'Beides']\"\n        [value]=\"'E-Mail'\"\n        [required]=\"false\"\n        [disabled]=\"false\"\n        [area]=\"'co'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-radio--formularbindung": {
+          "id": "komponenten-inputs-forms-radio--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { RadioGroupComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [RadioGroupComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-radio-group\n            legend=\"Bevorzugter Kontaktweg\"\n            [options]=\"options\"\n            [formControl]=\"ctrl\">\n        </cds-radio-group>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Wert:\n            <strong>{{ ctrl.value || '(leer)' }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {\n  options = ['E-Mail', 'Telefon', 'Beides'];\n}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        }
+      }
+    }
+  }
+}

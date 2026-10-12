@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-hero-störer": {
+      "id": "komponenten-hero-störer",
+      "name": "StoererSetComponent",
+      "path": "./src/lib/stoerer/stoerer.stories.ts",
+      "description": "StoererSet (cds-stoerer-set) — Wrapper um `.stoerer-set` / `.stoerer-list` aus\ncss/components.css (css/components.css:926–974): das Set aus ein bis drei\n`<cds-stoerer>`-Kacheln, das auf der Startseite oben rechts über dem Hero-Bild\nliegt. Der Positionsrahmen `.stoerer-hero` (umschließt Hero-Bild UND Set,\n`container-type:inline-size` für die Container-Query-Schwelle) ist bewusst NICHT\nTeil dieser Komponente, sondern bleibt beim Konsumenten: er umschließt Hero UND\nSet gemeinsam, das könnte diese Komponente als internes Detail nicht leisten, ohne\ndas Hero-Bild selbst zu kennen.\n\n**Entscheidung — `<li>` ohne strukturelles Wrapper-Element.** `.stoerer-list` ist\nein `<ul>`; nach HTML-AAM bekommt ein `<li>` die implizite Rolle `listitem` nur als\ndirektes Kind eines `<ul>`/`<ol>`/`<menu>` — Screenreader kündigen die Liste sonst\nnicht mit Anzahl an. Ein einfaches `<ng-content>` hätte `<cds-stoerer>` selbst\nzwischen `<ul>` und `<li>` geschoben (kein direktes Kind mehr), und ein\n`display:contents`-Wrapper verbietet sich als neues CSS (ADR-0001). Gelöst über\ndasselbe Muster, das `cds-area-tabs`/`cds-area-tab` bereits für „projizierte\nKind-Komponente, deren Markup an einer selbst bestimmten Stelle im eigenen Template\nlandet“ etabliert (`area-tabs/area-tabs.component.ts`): `cds-stoerer` rendert nicht\nin sich selbst, sondern in ein `<ng-template>` und liefert es als `TemplateRef`\n(`stoerer.component.ts`). Diese Komponente liest die projizierten `<cds-stoerer>`\nüber `contentChildren()` und setzt ihr Template per `ngTemplateOutlet` direkt in\nein selbst gerendertes `<li>` ein. Im laufenden Storybook geprüft (`Komponenten/Hero/\nStörer` → Story „Interaktiv“, DOM live im Browser per `querySelector` abgefragt,\nzusätzlich in der Play-Funktion der Story gepinnt): `<ul class=\"stoerer-list\">`\nhat ausschließlich `<li>` als direkte Kinder (`ul.stoerer-list > *` → `[\"LI\",\"LI\"]`),\n`<cds-stoerer>` selbst taucht im gerenderten DOM nirgends auf — Angular hängt\nunprojizierten Content ohne passendes `<ng-content>`-Ziel gar nicht erst ein, exakt\nwie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die\nerwogene Alternative) hätte denselben DOM-Baum ergeben, aber den\nKonsumenten gezwungen, das projizierte Icon jeder Kachel in ein Datenobjekt\numzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API\nerhalten.\n\nRedaktionell gilt: höchstens drei Kacheln, kein Typ doppelt, und die Reihenfolge\nwechselt nicht pro Seitenaufruf (eine springende Reihenfolge liest sich als Fehler,\nnicht als Frische).\n\nVerwendungsguidance dieser Gruppe: siehe Hero-Bild (`komponenten-hero-hero-bild--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "label": {
+          "name": "label",
+          "description": "Zugänglicher Name des Sets (`<aside aria-label>`); „Aktuelles“ wie im Mockup.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Aktuelles"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type StoererSetComponentInputs = {\n  /**\n   * Zugänglicher Name des Sets (`<aside aria-label>`); „Aktuelles“ wie im Mockup.\n   *\n   * @default Aktuelles\n   */\n  label?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "StoererSetComponent",
+        "selector": "cds-stoerer-set",
+        "standalone": true,
+        "inputs": [
+          "label"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

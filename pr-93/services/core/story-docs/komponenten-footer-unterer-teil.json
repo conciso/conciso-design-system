@@ -1,0 +1,32 @@
+{
+  "components": {
+    "komponenten-footer-unterer-teil": {
+      "id": "komponenten-footer-unterer-teil",
+      "name": "FooterBottomComponent",
+      "path": "./src/lib/footer/footer-bottom.stories.ts",
+      "stories": {
+        "komponenten-footer-unterer-teil--interaktiv": {
+          "id": "komponenten-footer-unterer-teil--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterBottomComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterBottomComponent],\n  template: `\n    <cds-footer-bottom\n        [copyright]=\"'© 2026 Conciso GmbH · Dortmund'\"\n        [legalLinks]=\"[{label: 'Datenschutz', href: '#'}, {label: 'Impressum', href: '#'}]\"\n        [socialLinks]=\"[{platform: 'linkedin', href: '#'}, {platform: 'youtube', href: '#'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-footer-unterer-teil--mit-version-support": {
+          "id": "komponenten-footer-unterer-teil--mit-version-support",
+          "name": "Mit Version & Support",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterBottomComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterBottomComponent],\n  template: `\n    <cds-footer-bottom\n        [copyright]=\"'© 2026 Conciso GmbH'\"\n        [legalLinks]=\"[{label: 'Datenschutz', href: '#'}, {label: 'Impressum', href: '#'}]\"\n        [socialLinks]=\"[]\"\n        [version]=\"'Version 1.4.2'\"\n        [support]=\"{label: 'Support', href: '#'}\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-footer-unterer-teil--eigene-social-links": {
+          "id": "komponenten-footer-unterer-teil--eigene-social-links",
+          "name": "Eigene Social-Links",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterBottomComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterBottomComponent],\n  template: `\n    <cds-footer-bottom\n        [copyright]=\"'© 2026 Conciso GmbH · Dortmund'\"\n        [legalLinks]=\"[{label: 'Datenschutz', href: '#'}, {label: 'Impressum', href: '#'}]\"\n        [socialLinks]=\"[{\n      platform: 'linkedin',\n      href: 'https://www.linkedin.com/company/conciso',\n    }, {\n      label: 'GitHub',\n      href: 'https://github.com/conciso',\n      iconPath: GITHUB_ICON,\n    }]\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `GITHUB_ICON`, `[{ platform: 'linkedin', href: 'https://www.linkedin.com/company/conciso' }, { label: 'GitHub', href: 'https://github.com/conciso', iconPath: GITHUB_ICON }]` could not be resolved statically."
+        },
+        "komponenten-footer-unterer-teil--doppelte-labels": {
+          "id": "komponenten-footer-unterer-teil--doppelte-labels",
+          "name": "Doppelte Labels",
+          "snippet": "import { Component } from '@angular/core';\nimport { FooterBottomComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FooterBottomComponent],\n  template: `\n    <cds-footer-bottom\n        [copyright]=\"'© 2026 Conciso GmbH · Dortmund'\"\n        [legalLinks]=\"[{label: 'Datenschutz', href: '#datenschutz-website'}, {label: 'Datenschutz', href: '#datenschutz-bewerbung'}]\"\n        [socialLinks]=\"[{platform: 'linkedin', href: '#'}, {platform: 'youtube', href: '#'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

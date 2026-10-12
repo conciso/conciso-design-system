@@ -1,0 +1,259 @@
+/* ── Design Tokens ── */
+:root {
+  /* ── Corporate (Global Brand) ── */
+  --co-500:#00BEBE; --co-50:#E0F7F7; --co-100:#B3ECEC; --co-200:#80DEDE;
+  --co-300:#4DD0D0; --co-400:#26C2C2; --co-600:#009E9E; --co-700:#007575;
+  --co-800:#004F4F; --co-900:#002B2B; --co-ink:var(--co-700);
+
+  /* ── AI.Applied ── */
+  --ki-500:#B5E61C; --ki-50:#F4FCD5; --ki-100:#E6F8A0; --ki-200:#D6F06D;
+  --ki-300:#C8EA42; --ki-400:#BEE82D; --ki-600:#8FAF0E; --ki-700:#6B8208;
+  --ki-800:#475705; --ki-900:#242C02; --ki-ink:var(--ki-800); /* farbiger ki-Text/Icons; flippt im Dark auf --ki-200 (dark-mode.css), da ki-800 dunkel-auf-dunkel wäre */
+
+  /* ── Wirksame Organisationen ── */
+  --wo-500:#44A030; --wo-50:#EBF5E6; --wo-100:#CEEAC3; --wo-200:#A3D48E;
+  --wo-300:#72BD58; --wo-400:#55AD3F; --wo-600:#347A22; --wo-700:#285E1A;
+  --wo-800:#183A0E; --wo-900:#0A1F05; --wo-ink:var(--wo-700);
+
+  /* ── Effektive Software ── */
+  --es-500:#2F5FD4; --es-50:#EAF0FB; --es-100:#C8D9F5; --es-200:#98B7EE;
+  --es-300:#6593E5; --es-400:#4677DC; --es-600:#2249B2; --es-700:#1B3D9A;
+  --es-800:#112568; --es-900:#071035; --es-ink:var(--es-700);
+
+  /* ── Bereichs-Akzenttext ──
+     --XX-ink ist farbiger Text und farbige Icons, die in BEIDEN Modi lesbar bleiben müssen:
+     Light der dunkle Ton (-700, ki -800 weil ki-700 nur 4,36:1 trägt), Dark der helle (-200,
+     es -100). Bisher gab es das nur für ki, und genau deshalb ist bei jeder Korrektur die Gefahr,
+     eine Light-Farbe zu setzen, die im Dark dunkel-auf-dunkel läuft: co-700 trägt auf Weiß 5,52:1
+     und auf der dunklen Seite nur 3,17:1. Wer farbigen Text setzt, nimmt --XX-ink. */
+
+  /* ── Rosé ── */
+  --ro-500:#C23060; --ro-50:#FDEDF2; --ro-100:#F9CEDD; --ro-200:#F0A0BE;
+  --ro-300:#E06898; --ro-400:#CF4478; --ro-600:#A02050; --ro-700:#7E1639;
+  --ro-800:#560E26; --ro-900:#2E0513;
+
+  /* ── Bereichs-Bänder ──
+     --XX-band ist die Fläche großer getönter Sektionen (Hero, CTA-Band). Im Light identisch mit
+     --XX-50, es gibt also nichts zu unterscheiden. Getrennt wird es erst im Dark: dort muss ein
+     Band dunkler bleiben als die Karten, die darauf sitzen, während eine Badge- oder Kachel-Füllung
+     umgekehrt heller als ihr Grund sein muss, um überhaupt als Fläche zu lesen. Ein Wert kann
+     beides nicht leisten, deshalb zwei Token. */
+  --co-band:var(--co-50); --ki-band:var(--ki-50); --es-band:var(--es-50); --wo-band:var(--wo-50);
+
+  /* ── Bauteil-Füllungen ──
+     --XX-fill ist die Füllung von Pill und Bereichs-Badge. Im Light ist das der ruhige Tint, also
+     dasselbe Rezept wie bei den Icon-Kacheln: zarte Fläche, kräftige dunkle Schrift darauf
+     (7,5 bis 11,4:1). WCAG verlangt für diese Fläche nichts, das Label trägt die Aussage, und
+     darüber entscheidet das Markenrad: „Ruhig“. Die Schrift wirkt auf dem zarten Grund kräftiger,
+     weil sie nicht mit der Fläche konkurriert.
+     Getrennt wird es erst im Dark: dort liegt helle Schrift auf dunklem Tint, und wenn der Tint
+     fast die Helligkeit der Karte hat, hält nichts mehr die Pill zusammen. Deshalb dort eigene,
+     gehobene Werte (siehe dark-mode.css). Gleiche Rolle, zwei Werte, wie bei --XX-band.
+     Kein --ro-fill: Rosé ist Akzent- und Statusfarbe, es gibt weder ro-Pill noch ro-Badge.
+
+     Abgrenzung nach oben und unten: --XX-50 bleibt der RUHIGE Tint, in beiden Modi. Er trägt
+     dekorative Flächen (Icon-Kachel, Timeline-Marker, Hover-Füllung des Chips, Inline-Code), die
+     nicht als Fläche lesen müssen: WCAG verlangt dort nichts, und das Markenrad sagt „Ruhig“.
+     --XX-band ist die große Sektionsfläche. Drei Rollen, drei Namen. */
+  --co-fill:var(--co-50); --ki-fill:var(--ki-50); --es-fill:var(--es-50); --wo-fill:var(--wo-50);
+
+
+  /* ── Neutrals ── */
+  --n-0:#FFFFFF; --n-50:#F5F7F7; --n-100:#E8EDED; --n-200:#C9D3D3;
+  --n-300:#A0B0B0; --n-400:#6E8585; --n-500:#4A6565; --n-600:#2E4545;
+  --n-700:#1A2E2E; --n-800:#0D1F1F; --n-900:#060F0F;
+
+  /* ── Semantic ──
+     --c-* sind Text-Farben (Required-Asterisk, Inline-Fehlertext, Do/Don't-Marker).
+     Werte sind in beiden Modi auf AA-Lesbarkeit auf der jeweiligen page-bg ausgelegt.
+     Light: dunklere/gedeckte Sättigung für Kontrast auf weiß. Dark-Overrides in dark-mode.css.
+     --c-*-bg sind Tint-Hintergründe für Callouts; Text darauf via --badge-*-text. */
+  /* Die -bg-Tints sind Bauteil-Füllungen (Callout, Status-Badge, Trend-Chip) und müssen als FLÄCHE
+     lesen: 1,3:1 gegen Weiß UND gegen n-50 (CONTRIBUTING § 3). Die alten Werte lagen bei 1,02 bis
+     1,16:1, das Element las nur noch als farbiger Text. Neu gemessen Fläche Weiß / n-50 und Text
+     darauf: success 1,43 / 1,33 mit 4,91:1 · warning 1,47 / 1,37 mit 4,84:1 · error 1,60 / 1,49
+     mit 4,99:1. Beim Warnton musste der Text mitwandern (--badge-warn-text), auf der kräftigeren
+     Füllung trug #8A5E0A nur 3,87:1. */
+  --c-success:#0E6644; --c-success-bg:#A9E5C8;  /* Text auf #fff: 6.99:1 ✓ AAA */
+  --c-warning:#785008; --c-warning-bg:#F5D08C;  /* Text auf #fff 7,12:1, auf dem eigenen Tint 4,84:1 (vorher #8A5E0A: 5,70 bzw. nur 3,87:1) */
+  --c-error:#9B2020;   --c-error-bg:#F5BFBF;    /* Text auf #fff 8,01:1, auf dem eigenen Tint 4,99:1 (vorher #B22020: 6,73 bzw. nur 4,19:1) */
+
+  /* --c-*-strong sind die satte Snackbar-Fläche (.snack-ok/.snack-err) plus Text-/Icon-Farbe darauf
+     (Befund 04): eigene Tokens statt --c-success/-error, weil das dort der Tint-Text ist, hier aber
+     eine volle Fläche. Werte = bisheriger hartkodierter Render, keine optische Änderung. Dark-Werte
+     in dark-mode.css (Fläche flippt auf --c-success-bg/--c-error-bg, Icon/Text meist unverändert).
+     Kontrast Text/Fläche und Icon/Fläche gemessen (Formel wie tools/checks/check-contrast.mjs):
+     Light: ok Text 6,76:1, ok Icon 5,72:1 · err Text 9,19:1, err Icon 5,75:1
+     Dark:  ok Text 6,53:1, ok Icon 6,16:1 · err Text 7,57:1, err Icon 4,74:1
+     (Soll ≥ 4,5:1 Text, ≥ 3:1 Icon — alle acht Paare ✓) */
+  --c-success-strong:#0d5e39; --c-success-on-strong:#d6f5e8; --c-success-strong-icon:#88f0c4;
+  --c-error-strong:#7a1515; --c-error-on-strong:#fde8e8; --c-error-strong-icon:#f9a8a8;
+
+  /* --c-*-fill sind Status als FLÄCHE in Grafiken (Balken, Segmente, Marker), z. B. „offen“ im
+     Rechnungsvolumen. --c-warning ist eine Textfarbe und wirkt als Fläche braun; --c-warning-bg ist
+     ein Tint, der als Grafik keine 3:1 trägt. Fläche gegen Weiß / n-50: warning 3,46 / 3,21:1 ·
+     info 3,29 / 3,06:1 (Soll ≥ 3:1 für Grafik, die Bedeutung trägt). Kein Text auf diesen Flächen.
+     Erfolg und Fehler brauchen kein eigenes -fill: --c-success und --c-error tragen als Fläche
+     6,99 bzw. 8,01:1 und wirken satt. */
+  --c-warning-fill:#C27A00; --c-info-fill:var(--co-600);
+
+  /* ── Datenvisualisierung ──
+     Eigene Palette für Diagramme, getrennt von den Bereichsfarben: Ein Kunde in Grün ist kein
+     Bereich „Wirksame Organisationen“. Farbtöne in OKLCH an den Bereichen verankert (Teal = co,
+     Blau = es, Rosé = ro, Grün = wo), Orange und Violett füllen die freien Lücken im Farbkreis.
+     Orange ist bewusst vom Status-Amber getrennt. Alle Werte ≥ 3:1 gegen Weiß UND n-50, außer den
+     hellen Stufen der sequenziellen Skala (siehe dort).
+     Kategorial (--dv-cat-1…6, --dv-other): für Dinge ohne Reihenfolge, Reihenfolge = Vergabe.
+       Höchstens sechs Kategorien, der Rest wird zu „Sonstige“. Kleinster Abstand zweier Farben
+       (OKLab ΔE), auch unter Simulation von Deuteranopie und Protanopie: Light 0,079, Dark 0,063.
+       Mit einer siebten und achten Farbe fiele er im Dark auf 0,011, deshalb gibt es sie nicht.
+       Kontrast gegen Weiß 3,58 (Orange) bis 7,76:1 (Violett). --dv-other ist n-600, damit sich
+       „Sonstige“ über die Helligkeit absetzt (ΔE 0,100); n-400 lag bei Deuteranopie auf Teal.
+     Sequenziell (--dv-seq-1…5): eine Menge, 1 = wenig, 5 = viel. Teal mit leichter Tonwanderung
+       (OKLCH 185° → 205°) über eine große Helligkeitsspanne (L 0,86 → 0,34), ΔE 0,13 je Stufe, auch
+       unter Deuteranopie. Mit 3:1 für jede Stufe läge die ganze Skala im Dunklen (L 0,63 → 0,33,
+       ΔE 0,076), wo das Auge Stufen schlecht trennt. Stufe 1 und 2 tragen daher nur 1,48 / 2,28:1
+       gegen Weiß: nur in Diagrammen, deren Werte auch als Beschriftung, Tooltip oder Tabelle
+       lesbar sind (WCAG 1.4.11). Dark unverändert, dort tragen alle Stufen ≥ 3:1.
+     Divergierend (--dv-div-n2…p2): Abweichung um eine Mitte, Blau unter, Orange über der Mitte,
+       Rot und Grün kommen bewusst nicht vor. Mitte = n-400.
+     Farbe ist nie das einzige Merkmal: Legende, Beschriftung oder Tooltip tragen die Aussage mit. */
+  --dv-cat-1:#019696; --dv-cat-2:#DD6301; --dv-cat-3:var(--es-500); --dv-cat-4:#036425;
+  --dv-cat-5:#E44D7F; --dv-cat-6:#6F35A2; --dv-other:var(--n-600);
+  --dv-seq-1:#98E2D7; --dv-seq-2:#46BDB6; --dv-seq-3:#099393; --dv-seq-4:#08686C; --dv-seq-5:#004046;
+  --dv-div-n2:#1D4BC0; --dv-div-n1:#547CD3; --dv-div-mid:var(--n-400); --dv-div-p1:#DA7134; --dv-div-p2:#BD4D00;
+
+  /* ── Component color tokens (theme-overridable) ── */
+  --badge-ok-text:var(--c-success); --badge-warn-text:var(--c-warning); --badge-err-text:var(--c-error); /* dieselben Töne wie die semantischen Textfarben: sie stehen auf denselben Tints, zwei Werte dafür wären zwei Quellen der Wahrheit */
+  --badge-neu-bg:var(--n-200); --badge-neu-text:var(--n-600); /* n-200 statt n-100: als Füllung trug n-100 nur 1,18:1 gegen Weiß und 1,10:1 gegen n-50, n-200 gibt 1,53 / 1,42:1. Text darauf 6,69:1 */
+  --cbadge-aa-bg:#E6F9F1; --cbadge-aa-text:#0a5c38;
+  --cbadge-aaa-bg:#D0F0FF; --cbadge-aaa-text:#004466;
+  --cbadge-fail-bg:#FDEAEA; --cbadge-fail-text:#9b2020;
+
+  /* ── Surfaces & Text ── */
+  --bg-page:#FFFFFF; --bg-surface:var(--n-0); --bg-overlay:rgba(0,94,94,.06); --bg-code:var(--n-800);
+  /* --bg-scrim: Abdunklung hinter modalen Ebenen (.dialog::backdrop). Keine Flächen-Stufe, sondern
+     eine Schicht über der Seite: sie nimmt dem Inhalt dahinter das Gewicht, damit die modale Fläche
+     (--bg-surface + --bd-strong) allein trägt. n-900 zu 48 %: Weiß darunter wird zu #878C8C, die
+     Dialogfläche hebt sich mit 3,4:1 ab. */
+  --bg-scrim:rgba(6,15,15,.48);
+  /* --bg-surface-hover: gehobene Fläche interaktiver Elemente im Hover. Light bewusst gleich
+     --bg-surface: auf weißem Grund trägt die Tiefe der Schatten (--e3), eine Aufhellung gäbe es
+     nicht. Im Dark trägt der Schatten weniger, dort hebt der Zustand zusätzlich die Fläche.
+     Es ist ein Zustand, keine dritte statische Flächen-Stufe. */
+  --bg-surface-hover:var(--bg-surface);
+  /* --bg-plate: helle Platte unter Fremd-Assets, die nur in einer dunklen Fassung vorliegen
+     (Kundenlogos). Im Dark gedämpft statt reinweiß, weil eine reinweiße Fläche dieser Größe
+     auf dunklem Grund blendet. */
+  --bg-plate:#FFFFFF;
+  --tx-brand:#333E48; --tx-primary:#333E48; --tx-secondary:var(--n-500); --tx-muted:#5A7171; /* Auf Weiß 5,20:1, auf n-50 4,84:1, auf getönten Hellflächen 4,66 bis 4,73:1.
+     Vorher #5E7676: auf Weiß 4,85:1 ✓, aber auf n-50 und getönten Gründen nur 4,35 bis 4,51:1, also
+     genau dort unter AA, wo gedämpfter Text meist sitzt (Meta-Zeilen, Annotationen, Specimen-Labels).
+     Bleibt klar heller als --tx-secondary (#4A6565, 5,63 bis 6,29:1), die Hierarchie bleibt also. */
+
+  /* ── Typography ── */
+  --font:'Montserrat','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-display:'Libre Baskerville','Georgia',serif;
+  /* --font-mono: dritte Schriftrolle des Systems (Code/Werte), bisher zehnmal hart im CSS.
+     Wert unverändert übernommen, reiner Struktur-Schritt, keine gerenderte Änderung. */
+  --font-mono:'Courier New',monospace;
+
+  /* ── Typography Scale ──
+     Einheiten rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): 1rem = 16px bei Default-Root
+     (body: font-size:16px). Umrechnung px→rem = px/16. rem respektiert die vom Nutzer im Browser
+     eingestellte Standardschriftgröße; px täte das nicht.
+     Minimum-Font-Size systemweit: 12 px = 0.75rem. Das Minimum gilt bei Default-Root und skaliert
+     bei größerer Nutzereinstellung nach oben. Tokens darunter wurden eliminiert oder angehoben,
+     damit Inhalte unter allen Bedingungen gut lesbar bleiben (Bildschirm, Mobile, Print). */
+  /* Sans-serif (Montserrat)
+     Body-Skala (Mai 2026): 16 / 14 / 12 px. Body Md ist Standard-Fließtext (war 14, jetzt 16
+     für bessere Lesbarkeit auf C-Level-Mittelstand-Zielgruppe und iOS-Auto-Zoom-Fix bei Form-Inputs).
+     Body Sm = 14 px für Meta-Daten/Card-Meta. Body Xs = 12 px für Captions. */
+  --ty-caption:      400 0.75rem/1rem var(--font);
+  --ty-body-xs:      400 0.75rem/1rem var(--font);
+  --ty-body-sm:      400 0.875rem/1.25rem var(--font);
+  --ty-body-md:      400 1rem/1.5rem var(--font);
+  /* label-xs und label-sm haben dieselben Metriken — label-xs ist die "Eyebrow"-Variante,
+     mit text-transform:uppercase + letter-spacing am Use-Site. label-sm ist für Mixed-Case-Labels. */
+  --ty-label-xs:     500 0.75rem/1rem var(--font);
+  --ty-label-sm:     500 0.75rem/1rem var(--font);
+  --ty-label-md:     500 0.875rem/1.25rem var(--font);
+  /* Title-Sm (Mai 2026): 20 px statt 18 px, damit Card-Titel mit klarer 4-px-Stufe über
+     dem neuen 16-px-Body-Md sitzen. Title-Lg ist entfallen, das Logo nutzt jetzt eine eigene
+     Klasse .nav-logo-text mit fest verdrahteten Metriken. */
+  --ty-title-sm:     500 1.25rem/1.75rem var(--font);
+  --ty-label-xs-strong: 600 0.75rem/1rem var(--font);
+  --ty-name:         600 0.875rem/1.25rem var(--font);
+  /* Display / serif (Libre Baskerville) */
+  --ty-serif-sm:     400 1.0625rem/1.75rem var(--font-display);
+  --ty-serif-md:     400 1.25rem/1.75rem var(--font-display);
+  --ty-serif-lg:     400 1.25rem/2rem var(--font-display);
+  /* Headline/Display fluid: font-size via clamp(), Zeilenhöhe als unitless Ratio
+     (skaliert proportional zur gerechneten Größe, nie < 1 — siehe line-height-Konvention).
+     rem-basiert (Juli 2026, WCAG 1.4.4 "Resize Text"): Min/Max in rem, Mittel-Term als
+     rem + vw, damit die Schrift auch die Browser-Standardschriftgröße respektiert (px+vw
+     reagierte nur auf Seiten-Zoom). Mittel-Term = Zwei-Anker-Fluid-Kurve (Anker 360 px → Min,
+     1240 px → Max); rem-Anteil trägt die Basis (resize-fähig), vw fügt fluides Wachstum hinzu.
+     Max = bisheriger Fixwert → Desktop unverändert; Min greift am Phone (alle ≥ 1.25rem =
+     20 px @ Default, also ≥ Font-Size-Minimum). Mirror von --ty-display-lg. */
+  --ty-headline-xs:   400 clamp(1.25rem, 1.2rem + 0.23vw, 1.375rem)/1.35 var(--font-display);
+  --ty-headline-sm:   400 clamp(1.3125rem, 1.236rem + 0.34vw, 1.5rem)/1.33 var(--font-display);
+  --ty-headline-md:   400 clamp(1.4375rem, 1.31rem + 0.57vw, 1.75rem)/1.3 var(--font-display);
+  --ty-display-sm:   400 clamp(1.75rem, 1.546rem + 0.91vw, 2.25rem)/1.22 var(--font-display);
+  --ty-display-md:   400 clamp(1.875rem, 1.619rem + 1.14vw, 2.5rem)/1.2 var(--font-display);
+  --ty-display-lg:   400 clamp(1.75rem, 1.29rem + 2.05vw, 2.875rem)/1.15 var(--font-display);
+
+  /* ── Spacing ── */
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;--s10:40px;--s12:48px;--s16:64px;
+
+  /* ── Shape (5 Stufen) ── */
+  --r-xs:4px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:28px; --r-full:9999px;
+
+  /* ── Elevation (Shadow + Tonal Overlay) ── */
+  --e0:none;
+  --e1:0 1px 2px rgba(0,0,0,.30),0 1px 3px 1px rgba(0,0,0,.15);
+  --e2:0 1px 2px rgba(0,0,0,.30),0 2px 6px 2px rgba(0,0,0,.15);
+  --e3:0 1px 3px rgba(0,0,0,.30),0 4px 8px 3px rgba(0,0,0,.15);
+  --e4:0 2px 3px rgba(0,0,0,.30),0 6px 10px 4px rgba(0,0,0,.15);
+  --e5:0 4px 4px rgba(0,0,0,.30),0 8px 12px 6px rgba(0,0,0,.15);
+  /* Tonal overlay: primärfarbe auf Oberfläche aufgebracht */
+  --tonal-1:rgba(0,190,190,.05); --tonal-2:rgba(0,190,190,.08);
+  --tonal-3:rgba(0,190,190,.11); --tonal-4:rgba(0,190,190,.12);
+  --tonal-5:rgba(0,190,190,.14);
+
+  /* ── Motion ── */
+  --m-fast:150ms cubic-bezier(.4,0,.2,1); --m-std:250ms cubic-bezier(.4,0,.2,1);
+
+  /* ── Icon Stroke-Width ── */
+  --icon-stroke-micro:1;
+  --icon-stroke-sm:1.25;
+  --icon-stroke-md:1.5;
+  --icon-stroke-lg:2;
+  --icon-stroke-xl:2.5;
+
+  /* ── Borders ──
+     Zwei Rollen, nicht zwei Stärken: --bd ist die Trennlinie INNERHALB eines Bauteils
+     (Card-Footer, Tabellenzeile, Caption-Kante), --bd-strong die AUSSENKANTE einer Fläche
+     (Karte, Kasten, schwebendes Panel). Beide sind 1px; die Kante muss nur mehr tragen, weil sie
+     eine Fläche gegen ihren Grund abgrenzt, während die Trennlinie innerhalb einer schon
+     abgegrenzten Fläche liegt.
+     --bd-strong-c war n-200 und trug im Light nur 1,53:1 gegen Weiß und 1,42:1 gegen eine
+     n-50-Sektion; eine weiße Karte auf weißem Grund war damit praktisch randlos, obwohl genau
+     dieser Rand sie laut Konvention zur Fläche macht. n-300 gibt 2,25:1 bzw. 2,09:1 und bleibt
+     ruhig. Der Dark-Wert (#8694A5, 4,21:1) war nie das Problem und ändert sich nicht.
+     --bd-c / --bd-strong-c halten die reine Farbe. --bd und --bd-strong sind Shorthand-Werte und
+     lassen sich nicht in border-color einsetzen; Regeln, die nur die Farbe brauchen (z. B. der
+     verstärkte Rand schwebender Panels im Dark), greifen deshalb auf die -c-Variante zu, statt den
+     Hexwert ein zweites Mal zu führen. */
+  --bd-c:var(--n-100); --bd-strong-c:var(--n-300);
+  --bd:1px solid var(--bd-c); --bd-strong:1px solid var(--bd-strong-c);
+  --field-border:var(--n-400); /* Formularfeld-Rahmen: 4.13:1 auf bg-surface (#fff) → WCAG 1.4.11 ✓. n-200 (#C9D3D3) verfehlte mit 1.5:1. */
+
+  /* ── Focus ── */
+  /* Sichtbarer Ring co-700 (nicht co-500): co-500 #00BEBE erreicht auf Weiß nur 2,3:1 und verfehlt
+     die 3:1-Schwelle für Fokus-Indikatoren (WCAG 2.4.11). co-700 #007575 = 5,5:1. Gilt global (alle
+     :focus-visible-Ringe im DS nutzen diese Tokens). Dark bleibt co-500 (dort 4,7:1 auf dunklem Grund,
+     co-700 wäre dunkel-auf-dunkel) — s. dark-mode.css. */
+  --focus-ring:0 0 0 3px var(--co-50),0 0 0 5px var(--co-700);
+  --focus-aa:0 0 0 2px var(--bg-surface),0 0 0 4px var(--co-700);
+}

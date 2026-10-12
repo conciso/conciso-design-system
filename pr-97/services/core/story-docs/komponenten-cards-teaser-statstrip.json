@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-cards-teaser-statstrip": {
+      "id": "komponenten-cards-teaser-statstrip",
+      "name": "StatStripComponent",
+      "path": "./src/lib/stat-strip/stat-strip.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-statstrip--interaktiv": {
+          "id": "komponenten-cards-teaser-statstrip--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatStripComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatStripComponent],\n  template: `\n    <cds-stat-strip\n        [rounded]=\"true\"\n        [stats]=\"[{area: 'co', value: '94 %', label: 'Kundenzufriedenheit'}, {area: 'ki', value: '3×', label: 'Schnellere Prozesse durch KI'}, {area: 'es', value: '99,9 %', label: 'System-Uptime'}, {area: 'wo', value: '280+', label: 'Transformationsprojekte'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-statstrip--drei-kennzahlen": {
+          "id": "komponenten-cards-teaser-statstrip--drei-kennzahlen",
+          "name": "Drei Kennzahlen",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatStripComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatStripComponent],\n  template: `\n    <cds-stat-strip\n        [rounded]=\"true\"\n        [stats]=\"[{area: 'co', value: '120+', label: 'Projekte'}, {area: 'es', value: '−34 %', label: 'Time-to-Market'}, {area: 'wo', value: '15 J.', label: 'Erfahrung'}]\"\n    />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

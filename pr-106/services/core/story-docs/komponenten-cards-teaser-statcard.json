@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-cards-teaser-statcard": {
+      "id": "komponenten-cards-teaser-statcard",
+      "name": "StatCardComponent",
+      "path": "./src/lib/stat-card/stat-card.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-statcard--interaktiv": {
+          "id": "komponenten-cards-teaser-statcard--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatCardComponent],\n  template: `\n    <cds-stat-card\n        [value]=\"'98 %'\"\n        [label]=\"'Kundenzufriedenheit'\"\n        [area]=\"'co'\"\n        [trend]=\"'up'\"\n        [trendText]=\"'+12 %'\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-cards-teaser-statcard--kennzahlen": {
+          "id": "komponenten-cards-teaser-statcard--kennzahlen",
+          "name": "Kennzahlen",
+          "snippet": "import { Component } from '@angular/core';\nimport { StatCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [StatCardComponent],\n  template: `\n    <div\n        style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px\">\n        <cds-stat-card\n            area=\"co\"\n            value=\"120+\"\n            label=\"Projekte\"\n            trend=\"up\"\n            trendText=\"+8\">\n        </cds-stat-card>\n        <cds-stat-card\n            area=\"ki\"\n            value=\"98 %\"\n            label=\"Zufriedenheit\"\n            trend=\"up\"\n            trendText=\"+12 %\">\n        </cds-stat-card>\n        <cds-stat-card\n            area=\"es\"\n            value=\"−34 %\"\n            label=\"Time-to-Market\"\n            trend=\"down\"\n            trendText=\"schneller\">\n        </cds-stat-card>\n        <cds-stat-card area=\"wo\" value=\"15 J.\" label=\"Erfahrung\"></cds-stat-card>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

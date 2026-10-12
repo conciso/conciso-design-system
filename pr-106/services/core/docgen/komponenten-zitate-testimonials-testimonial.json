@@ -1,0 +1,96 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-testimonial": {
+      "id": "komponenten-zitate-testimonials-testimonial",
+      "name": "TestimonialComponent",
+      "path": "./src/lib/testimonial/testimonial.stories.ts",
+      "description": "Testimonial — Wrapper um `.testimonial` aus css/components.css → „Testimonial Card“.\n\nStatische Zitat-Karte mit bereichsgefärbtem Top-Akzent (data-area), Quote-Icon\n(.testimonial-icon, fill:currentColor), Zitat (blockquote) und Footer mit Name/Rolle.\nNur bestehende Klassen — kein eigenes CSS.\n\nVerwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (Top-Akzent + Icon-Farbe).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Name der zitierten Person.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "quote": {
+          "name": "quote",
+          "description": "Zitattext.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "roleLabel": {
+          "name": "roleLabel",
+          "description": "Rolle/Funktion der zitierten Person (leer = keine Rollenzeile im Footer).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TestimonialComponentInputs = {\n  /**\n   * Markenbereich → data-area (Top-Akzent + Icon-Farbe).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** Name der zitierten Person. */\n  name: string;\n  /** Zitattext. */\n  quote: string;\n  /**\n   * Rolle/Funktion der zitierten Person (leer = keine Rollenzeile im Footer).\n   *\n   * @default ''\n   */\n  roleLabel?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TestimonialComponent",
+        "selector": "cds-testimonial",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "name",
+          "quote",
+          "roleLabel"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-bereichs-badge": {
+      "id": "komponenten-chips-badges-pills-bereichs-badge",
+      "name": "AreaBadgeComponent",
+      "path": "./src/lib/area-badge/area-badge.stories.ts",
+      "stories": {
+        "komponenten-chips-badges-pills-bereichs-badge--interaktiv": {
+          "id": "komponenten-chips-badges-pills-bereichs-badge--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { AreaBadgeComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AreaBadgeComponent],\n  template: `<cds-area-badge [label]=\"'Corporate'\" [area]=\"'co'\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-chips-badges-pills-bereichs-badge--bereiche": {
+          "id": "komponenten-chips-badges-pills-bereichs-badge--bereiche",
+          "name": "Bereiche",
+          "snippet": "import { Component } from '@angular/core';\nimport { AreaBadgeComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AreaBadgeComponent],\n  template: `\n    <div style=\"display:flex;gap:12px;flex-wrap:wrap;align-items:center\">\n        <cds-area-badge area=\"co\" label=\"Corporate\"></cds-area-badge>\n        <cds-area-badge area=\"ki\" label=\"Angewandte KI\"></cds-area-badge>\n        <cds-area-badge area=\"es\" label=\"Effektive Software\"></cds-area-badge>\n        <cds-area-badge area=\"wo\" label=\"Wirksame Organisationen\"></cds-area-badge>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

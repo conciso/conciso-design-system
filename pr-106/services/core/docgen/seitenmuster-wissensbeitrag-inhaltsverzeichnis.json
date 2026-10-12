@@ -1,0 +1,75 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-inhaltsverzeichnis": {
+      "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis",
+      "name": "ArticleTocComponent",
+      "path": "./src/lib/article-toc/article-toc.stories.ts",
+      "description": "ArticleToc (`cds-article-toc`) — Wrapper um `.article-toc*` aus css/components.css\n(css/components.css:1577–1589): das aufklappbare Inhaltsverzeichnis am Anfang eines\nWissensbeitrags. Beide Vorkommen haben fünf Einträge, den sichtbaren Text\n„Inhalt“ und dasselbe `aria-label`; eines nutzt Platzhalter-Hrefs, das andere\nechte Abschnittsanker.\n\n**Element-Selektor, ADR-0008-Standardfall.** `.article-toc` sitzt in beiden\nVorkommen als gewöhnlicher Block-Nachfahre direkt in `.article-body`, eine Ebene\nüber dem `<details>` — kein\nGrid-/Flex-Kind, keine Layout-Klasse (`col-*`) vom Konsumenten, kein\nGeschwister-Kombinator (`.article-toc` kommt in keiner CSS-Regel mit `+`/`~`\nvor), kein Tag-Wechsel (immer `<details>`). Keines der drei ADR-0008-Kriterien\ngreift; ein Attributselektor brächte hier nichts. Die einzige direkte\nKind-Regel von `.article-body` (`.article-body > p`, css/components.css:1566)\nzielt auf `p`, nicht auf `details` — ein `<cds-article-toc>`-Host zwischen\n`.article-body` und dem `<details>` bricht deshalb keine Selektorkette.\n\n**Natives `<details>`/`<summary>`, kein nachgebautes Disclosure:** Tastaturbedienung\n(Enter/Space auf `<summary>`) und\nToggle-Zustand kommen vollständig vom Browser, das CSS hängt direkt an `[open]`\n(`.article-toc[open] .article-toc-caret`, css/components.css:1583). `<details\nclass=\"article-toc\">` sitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund\nwie bei `cds-compare`s `<details class=\"ep-compare\">` (`compare.component.ts`):\nein `<cds-article-toc>`-Host ist ein unbekanntes Custom Element und kann native\nDisclosure-Semantik nicht annehmen.\n\n**Zweites Vorkommen des `<details>`-mit-drehendem-Caret-Musters, nicht\nzusammengezogen mit `cds-compare` (ADR-0007 §5).** Beide Bauteile teilen die\nForm (natives `<details>`, SVG-Caret, `[open]`-Rotation über\n`transition:transform`), aber nicht die Aufgabe: `cds-compare` trägt eine\nVergleichstabelle mit `columns`/`rows`/`toggled`-Output, dieses Bauteil trägt\neine reine Link-Liste ohne Output (die API sieht für dieses\nBauteil bewusst keinen `toggled` vor). Zwei gleiche Stellen sind ein\nZufall, kein Muster — eine gemeinsame Basisklasse für zwei Vorkommen hätte nur\ndas `<details>`+Caret-Skelett gebündelt und dabei entweder Verhalten\nvereinheitlicht (ein erzwungener `toggled`-Output ohne Zweck hier) oder so viel\nparametrisiert, dass nichts gewonnen wäre.\n\n**`aria-label` am `<summary>` ist fest verdrahtet, kein Input.** Ausgezählt:\nbeide realen Vorkommen tragen wortgleich\n`aria-label=\"Inhaltsverzeichnis ein- und ausklappen\"` — der sichtbare Text\n„Inhalt“ (`summary`-Input) allein wäre außerhalb des Beitragskontexts nicht\neindeutig, das `aria-label` schreibt deshalb aus, was das Element tut. Genau\ndieser Wortlaut aus dem Mockup übernommen, kein erfundener zugänglicher Name.\n\n**Keine Nummerierung im Markup.** Die sichtbaren Ziffern vor jedem Eintrag\nkommen aus `counter(toc)` auf `.article-toc-list li::before`\n(css/components.css:1586), nicht aus dem `<ol>`-Default (`list-style:none` setzt\nihn zurück) — die Komponente muss dafür nichts weiter tun als `<ol\nclass=\"article-toc-list\">` zu rendern.",
+      "jsDocTags": {},
+      "argTypes": {
+        "items": {
+          "name": "items",
+          "description": "Abschnitte des Beitrags, in Anzeige-Reihenfolge.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArticleTocItem[]"
+            },
+            "defaultValue": {}
+          }
+        },
+        "open": {
+          "name": "open",
+          "description": "Anfangszustand des `<details>` — reine Vorbelegung, kein Zwei-Wege-Zustand.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "summary": {
+          "name": "summary",
+          "description": "Sichtbarer Text im `<summary>`, z. B. „Inhalt“.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Inhalt"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type ArticleTocComponentInputs = {\n  /** Abschnitte des Beitrags, in Anzeige-Reihenfolge. */\n  items: CdsArticleTocItem[];\n  /**\n   * Anfangszustand des `<details>` — reine Vorbelegung, kein Zwei-Wege-Zustand.\n   *\n   * @default false\n   */\n  open?: boolean;\n  /**\n   * Sichtbarer Text im `<summary>`, z. B. „Inhalt“.\n   *\n   * @default Inhalt\n   */\n  summary?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "ArticleTocComponent",
+        "selector": "cds-article-toc",
+        "standalone": true,
+        "inputs": [
+          "items",
+          "open",
+          "summary"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

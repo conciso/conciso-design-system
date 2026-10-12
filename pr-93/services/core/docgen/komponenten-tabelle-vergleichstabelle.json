@@ -1,0 +1,142 @@
+{
+  "components": {
+    "komponenten-tabelle-vergleichstabelle": {
+      "id": "komponenten-tabelle-vergleichstabelle",
+      "name": "CompareComponent",
+      "path": "./src/lib/compare/compare.stories.ts",
+      "description": "Compare (`cds-compare`) — Wrapper um `.ep-compare*` aus css/components.css\n(css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den zeilenweisen\nDirektvergleich mehrerer Pakete/Tarife, nach `cds-table`.\n\n**Mit Daten-Input, anders als `cds-table`.** `cds-table` projiziert `<thead>`/`<tbody>`\nunverändert per `<ng-content>`, weil seine Zellen Badges, Links und `data-num` tragen können\n(siehe dessen Klassendoku). Hier ist der Zellinhalt strukturell auf Ja/Nein oder eine kurze\nAngabe begrenzt — ausgezählt: alle 22 Datenzellen des einzigen realen Vorkommens\n(11 Zeilen × 2 Spalten, ohne die Zeilenüberschriften) sind\nentweder ein `.ep-compare-yes`/`-no`-Marker (18×, davon 14× „Ja“, 4× „Nein“) oder ein kurzer\nText wie „bis 70 Mrd. Param.“ bzw. „30 Min.“ (4×) — nie ein Badge, Link oder anderes Markup.\nWeil Spaltenzahl, `pro`-Spalte und Zellinhalt damit vollständig aus zwei Arrays (`columns`,\n`rows`) hervorgehen, würde `<ng-content>` beim Konsumenten nur denselben `@for`-Code\nduplizieren, ohne eine Freiheit zu gewinnen, die die Zell-Typisierung (`boolean | string`)\nohnehin ausschließt.\n\n**Ja/Nein-Zellen tragen einen Screenreader-Text, übernommen statt erfunden.** Im einzigen\nrealen Vorkommen steht hinter jeder Glyphe ein `.sr-only`-Text, ausnahmslos:\n`<span class=\"ep-compare-yes\" aria-hidden=\"true\">✓</span><span class=\"sr-only\">Enthalten</span>`\n(14×) bzw. `<span class=\"ep-compare-no\" aria-hidden=\"true\">−</span><span class=\"sr-only\">Nicht\nenthalten</span>` (4×, „−“ ist U+2212 Minus, kein Bindestrich). Genau diese Zeichen und dieser\nWortlaut, keine eigene Formulierung — Farbe und Glyphe allein tragen keine Bedeutung\n(WCAG 1.4.1), der `.sr-only`-Text ist deshalb kein optionaler Zusatz, sondern fest verdrahtet,\nnicht per Input überschreibbar.\n\n**`caption` ist Pflicht (`input.required<string>()`), abweichend von der ursprünglichen Skizze (dort\nkein Input dafür vorgesehen) — dieselbe Begründung wie bei `cds-table`.** Die eigene Doku\n(`apps/storybook/src/docs/komponenten/tabelle.mdx:91`) nennt `<caption class=\"sr-only\">`\nausdrücklich als Teil des Bauteils, und das einzige reale Vorkommen hat eine. Anders als bei\n`cds-table` ist sie hier `.sr-only`, nicht sichtbar: der Klartext steht schon im `<summary>`\n(`summary`-Input), die `<caption>` wiederholt ihn nur für Screenreader, die nach dem Aufklappen\ndirekt in die Tabelle springen, ohne den Summary-Text erneut vorgelesen zu bekommen.\n\n**`rowsLabel` (erste Kopfzelle, `<th scope=\"col\">Funktion</th>` im Mockup) ist dagegen Beiwerk,\noptional mit Default `''`.** Auch dafür sieht die ursprüngliche Skizze keinen Input vor. Den Text fest\nim Template zu verdrahten hieße, AI.Box-Copy in einen wiederverwendbaren Wrapper zu backen\n(ADR-0007 §2); ihn ganz wegzulassen wich ohne CSS-Befund vom einzigen Beleg ab, ohne dass die\nDoku das verlangt. Anders als `caption` ist die Kopfzelle nicht barrierefreiheitsrelevant\nPflicht: ein leeres `<th scope=\"col\">` bleibt eine gültige, in Vergleichsmatrizen verbreitete\nEcke ohne eigenen Namen. Deshalb Beiwerk, kein Inhalt — das Beispielwort „Funktion“ steht in\nder Story, nicht in der Klasse.\n\n**Natives `<details>`/`<summary>` bleibt erhalten, kein nachgebautes Disclosure**\n(analog `cds-faq`): Tastaturbedienung und Toggle-Verhalten kommen vom Browser, das CSS\nhängt direkt an `[open]` (`.ep-compare[open] .ep-compare-caret`). `<details class=\"ep-compare\">`\nsitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund wie bei `cds-table`s\n`.tbl-wrap`/`.tbl`: ein `<cds-compare>`-Host ist ein unbekanntes Custom Element, kein echtes\n`<details>`, und kann dessen native Disclosure-Semantik nicht annehmen.\n\n**Element-Selektor (ADR-0008-Standardfall).** `.ep-compare` sitzt im einzigen realen Vorkommen\nals gewöhnlicher Block-Nachfahre in `.ep-section` — kein Grid-/\nFlex-Kind, keine `col-*`-Klasse vom Konsumenten, kein Tag-Wechsel (immer `<details>`). Keines\nder drei ADR-0008-Kriterien greift, ein Attributselektor brächte hier nichts.\n\n**`open` ist ein reiner Anfangszustand, keine Zwei-Wege-Bindung.** Gebunden über\n`[attr.open]=\"open() ? '' : null\"`: Angular schreibt das Attribut nur, wenn sich der GEPRÜFTE\nAusdruckswert seit dem letzten Change-Detection-Lauf ändert. `open()` bleibt nach dem ersten\nRendern konstant (die Komponente schreibt nie in dieses Signal zurück), ein nachfolgender\nnativer Toggle wird deshalb nicht rückgängig gemacht — geprüft in der Story „Interaktiv“\n(Play-Funktion: Klick öffnet, `toggled` feuert `true`, ein zweiter, vom Toggle unabhängiger\nInteraktionsschritt lässt die Tabelle weiterhin offen).\n\nVerwendungsguidance dieser Gruppe: siehe Tabelle (`komponenten-tabelle-tabelle--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "caption": {
+          "name": "caption",
+          "description": "`<caption class=\"sr-only\">` der Tabelle — Pflicht, siehe Klassendoku.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "columns": {
+          "name": "columns",
+          "description": "Vergleichsspalten (Pakete/Tarife), in Render-Reihenfolge.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsCompareColumn[]"
+            },
+            "defaultValue": {}
+          }
+        },
+        "open": {
+          "name": "open",
+          "description": "Anfangszustand des `<details>` — reine Vorbelegung, siehe Klassendoku.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "rows": {
+          "name": "rows",
+          "description": "Vergleichszeilen; `cells` hat je Zeile genau einen Eintrag pro Spalte in `columns`.",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsCompareRow[]"
+            },
+            "defaultValue": {}
+          }
+        },
+        "rowsLabel": {
+          "name": "rowsLabel",
+          "description": "Überschrift der ersten Spalte (Zeilentitel, z. B. „Funktion“) — Beiwerk, siehe Klassendoku.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "summary": {
+          "name": "summary",
+          "description": "Text im `<summary>`, z. B. „Alle Funktionen vergleichen“.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "toggled": {
+          "name": "toggled",
+          "description": "Feuert bei jedem Auf- oder Zuklappen mit dem neuen Zustand.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "toggled",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CompareComponentInputs = {\n  /** `<caption class=\"sr-only\">` der Tabelle — Pflicht, siehe Klassendoku. */\n  caption: string;\n  /** Vergleichsspalten (Pakete/Tarife), in Render-Reihenfolge. */\n  columns: CdsCompareColumn[];\n  /**\n   * Anfangszustand des `<details>` — reine Vorbelegung, siehe Klassendoku.\n   *\n   * @default false\n   */\n  open?: boolean;\n  /** Vergleichszeilen; `cells` hat je Zeile genau einen Eintrag pro Spalte in `columns`. */\n  rows: CdsCompareRow[];\n  /**\n   * Überschrift der ersten Spalte (Zeilentitel, z. B. „Funktion“) — Beiwerk, siehe Klassendoku.\n   *\n   * @default ''\n   */\n  rowsLabel?: string;\n  /** Text im `<summary>`, z. B. „Alle Funktionen vergleichen“. */\n  summary: string;\n}\n```\n\n## Outputs\n\n```\nexport type CompareComponentOutputs = {\n  /** Feuert bei jedem Auf- oder Zuklappen mit dem neuen Zustand. */\n  toggled: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CompareComponent",
+        "selector": "cds-compare",
+        "standalone": true,
+        "inputs": [
+          "caption",
+          "columns",
+          "open",
+          "rows",
+          "rowsLabel",
+          "summary"
+        ],
+        "outputs": [
+          "toggled"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "components": {
+    "komponenten-vergleichstabelle": {
+      "id": "komponenten-vergleichstabelle",
+      "name": "CompareComponent",
+      "path": "./src/lib/compare/compare.stories.ts",
+      "stories": {
+        "komponenten-vergleichstabelle--interaktiv": {
+          "id": "komponenten-vergleichstabelle--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CompareComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CompareComponent],\n  template: `\n    <cds-compare\n        [summary]=\"'Alle Funktionen vergleichen'\"\n        [caption]=\"'Funktionsvergleich der Pakete AI.Box Core und AI.Box Pro'\"\n        [rowsLabel]=\"'Funktion'\"\n        [open]=\"false\"\n        [columns]=\"[{label: 'Core'}, {label: 'Pro', pro: true}]\"\n        [rows]=\"[{label: 'Hosting in Deutschland', cells: [true, true]}, {label: 'SSO, Nutzer- und Rechtemanagement', cells: [true, true]}, {label: 'Lokale Modelle', cells: ['bis 24 Mrd. Param.', 'bis 70 Mrd. Param.']}, {label: 'OpenAI-Modelle über API-Key', cells: [true, true]}, {label: 'Chatbots mit Modellvergleich', cells: [true, true]}, {label: 'Websuche', cells: [true, true]}, {label: 'LLM-Gateway für externe Cloud-Modelle', cells: [false, true]}, {label: 'Eigene KI-Assistenten', cells: [false, true]}, {label: 'Memory: Wissen über Chats hinweg', cells: [false, true]}, {label: 'Anbindung an Confluence und SharePoint', cells: [false, true]}, {label: 'Support pro Monat', cells: ['30 Min.', '2,5 Std.']}]\"\n        (toggled)=\"toggled($event)\"\n    />`,\n})\nexport class DemoComponent {\n  toggled(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        },
+        "komponenten-vergleichstabelle--bereits-offen": {
+          "id": "komponenten-vergleichstabelle--bereits-offen",
+          "name": "Bereits offen",
+          "snippet": "import { Component } from '@angular/core';\nimport { CompareComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CompareComponent],\n  template: `\n    <cds-compare\n        [summary]=\"'Alle Funktionen vergleichen'\"\n        [caption]=\"'Funktionsvergleich der Pakete AI.Box Core und AI.Box Pro'\"\n        [rowsLabel]=\"'Funktion'\"\n        [open]=\"true\"\n        [columns]=\"[{label: 'Core'}, {label: 'Pro', pro: true}]\"\n        [rows]=\"[{label: 'Hosting in Deutschland', cells: [true, true]}, {label: 'SSO, Nutzer- und Rechtemanagement', cells: [true, true]}, {label: 'Lokale Modelle', cells: ['bis 24 Mrd. Param.', 'bis 70 Mrd. Param.']}, {label: 'OpenAI-Modelle über API-Key', cells: [true, true]}, {label: 'Chatbots mit Modellvergleich', cells: [true, true]}, {label: 'Websuche', cells: [true, true]}, {label: 'LLM-Gateway für externe Cloud-Modelle', cells: [false, true]}, {label: 'Eigene KI-Assistenten', cells: [false, true]}, {label: 'Memory: Wissen über Chats hinweg', cells: [false, true]}, {label: 'Anbindung an Confluence und SharePoint', cells: [false, true]}, {label: 'Support pro Monat', cells: ['30 Min.', '2,5 Std.']}]\"\n        (toggled)=\"toggled($event)\"\n    />`,\n})\nexport class DemoComponent {\n  toggled(event: unknown) {}\n}"
+        },
+        "komponenten-vergleichstabelle--mit-text-zellen": {
+          "id": "komponenten-vergleichstabelle--mit-text-zellen",
+          "name": "Mit Text-Zellen",
+          "snippet": "import { Component } from '@angular/core';\nimport { CompareComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CompareComponent],\n  template: `\n    <cds-compare\n        [summary]=\"'Alle Funktionen vergleichen'\"\n        [caption]=\"'Funktionsvergleich der Pakete AI.Box Core und AI.Box Pro'\"\n        [rowsLabel]=\"'Funktion'\"\n        [open]=\"true\"\n        [columns]=\"[{label: 'Core'}, {label: 'Pro', pro: true}]\"\n        [rows]=\"[{label: 'Hosting in Deutschland', cells: [true, true]}, {label: 'Lokale Modelle', cells: ['bis 24 Mrd. Param.', 'bis 70 Mrd. Param.']}, {label: 'Support pro Monat', cells: ['30 Min.', '2,5 Std.']}]\"\n        (toggled)=\"toggled($event)\"\n    />`,\n})\nexport class DemoComponent {\n  toggled(event: unknown) {}\n}"
+        },
+        "komponenten-vergleichstabelle--hervorgehobene-spalte": {
+          "id": "komponenten-vergleichstabelle--hervorgehobene-spalte",
+          "name": "Hervorgehobene Spalte",
+          "snippet": "import { Component } from '@angular/core';\nimport { CompareComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CompareComponent],\n  template: `\n    <cds-compare\n        [summary]=\"'Alle Funktionen vergleichen'\"\n        [caption]=\"'Funktionsvergleich der Pakete AI.Box Core und AI.Box Pro'\"\n        [rowsLabel]=\"'Funktion'\"\n        [open]=\"true\"\n        [columns]=\"[{label: 'Core'}, {label: 'Pro', pro: true}]\"\n        [rows]=\"[{label: 'Hosting in Deutschland', cells: [true, true]}, {label: 'SSO, Nutzer- und Rechtemanagement', cells: [true, true]}, {label: 'Lokale Modelle', cells: ['bis 24 Mrd. Param.', 'bis 70 Mrd. Param.']}, {label: 'OpenAI-Modelle über API-Key', cells: [true, true]}, {label: 'Chatbots mit Modellvergleich', cells: [true, true]}, {label: 'Websuche', cells: [true, true]}, {label: 'LLM-Gateway für externe Cloud-Modelle', cells: [false, true]}, {label: 'Eigene KI-Assistenten', cells: [false, true]}, {label: 'Memory: Wissen über Chats hinweg', cells: [false, true]}, {label: 'Anbindung an Confluence und SharePoint', cells: [false, true]}, {label: 'Support pro Monat', cells: ['30 Min.', '2,5 Std.']}]\"\n        (toggled)=\"toggled($event)\"\n    />`,\n})\nexport class DemoComponent {\n  toggled(event: unknown) {}\n}"
+        }
+      }
+    }
+  }
+}

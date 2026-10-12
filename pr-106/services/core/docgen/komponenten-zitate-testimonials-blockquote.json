@@ -1,0 +1,96 @@
+{
+  "components": {
+    "komponenten-zitate-testimonials-blockquote": {
+      "id": "komponenten-zitate-testimonials-blockquote",
+      "name": "BlockquoteComponent",
+      "path": "./src/lib/blockquote/blockquote.stories.ts",
+      "description": "Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.\n\nBereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),\ngefülltes Lucide-Quote-Icon, Zitat und\nCaption (Name/Rolle). Nur bestehende Klassen.\n\n**Nicht `cds-article-pullquote` (`.article-pullquote`).** Dieses Bauteil ist\nein eigenständiges Zitat: eine dritte, benannte Person (`name`/`roleLabel` sind\nPflicht), mit getönter Akzent-Box und Quote-Icon. `cds-article-pullquote` ist\ndagegen ein typografischer Akzent im eigenen Lauftext eines Wissensbeitrags,\nohne Attribution, ohne Box, ohne Icon — der Autor zitiert dort einen Satz aus\ndem eigenen Text, nicht eine dritte Stimme. Volle Abgrenzung samt Tabelle in\ndessen Klassendoku (`article-pullquote.component.ts`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (Akzentleiste + getönter Grund).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "name": {
+          "name": "name",
+          "description": "Name der zitierten Person.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "quote": {
+          "name": "quote",
+          "description": "Zitattext.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "roleLabel": {
+          "name": "roleLabel",
+          "description": "Rolle/Funktion der zitierten Person (leer = keine Caption-Zeile dafür).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type BlockquoteComponentInputs = {\n  /**\n   * Markenbereich → data-area (Akzentleiste + getönter Grund).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /** Name der zitierten Person. */\n  name: string;\n  /** Zitattext. */\n  quote: string;\n  /**\n   * Rolle/Funktion der zitierten Person (leer = keine Caption-Zeile dafür).\n   *\n   * @default ''\n   */\n  roleLabel?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "BlockquoteComponent",
+        "selector": "cds-blockquote",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "name",
+          "quote",
+          "roleLabel"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

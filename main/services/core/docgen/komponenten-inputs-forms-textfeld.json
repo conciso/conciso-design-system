@@ -1,0 +1,224 @@
+{
+  "components": {
+    "komponenten-inputs-forms-textfeld": {
+      "id": "komponenten-inputs-forms-textfeld",
+      "name": "TextFieldComponent",
+      "path": "./src/lib/field/text-field.stories.ts",
+      "description": "Textfeld — einzeiliges `<input>` im `.field`-Gerüst (E-Mail, Text, Tel, … über\n`type`). Pflichtfelder tragen aria-required; im Fehlerzustand wird die Meldung\nüber aria-describedby/aria-invalid verknüpft.\n\nAls `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare\nanbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.",
+      "jsDocTags": {},
+      "argTypes": {
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "error": {
+          "name": "error",
+          "description": "Gesetzt = Fehlerzustand (.has-error + .error-msg).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "fieldId": {
+          "name": "fieldId",
+          "description": "id für die label/for- und aria-describedby-Verknüpfung. Default eindeutig.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "helper": {
+          "name": "helper",
+          "description": "Optionaler Hilfetext unter dem Feld.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Sichtbares Label.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "placeholder": {
+          "name": "placeholder",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "quietError": {
+          "name": "quietError",
+          "description": "Ruhige Fehlermeldung: lässt `role=\"alert\"` an der Einzelmeldung weg. Gedacht für lange\nFormulare, in denen eine fokussierte Fehlerübersicht (`role=\"alert\"`) die Ansage übernimmt;\nsonst ergeben viele gleichzeitig eingefügte Alerts eine unbrauchbare Ansage-Salve. Die\nMeldung bleibt über `aria-describedby` mit dem Feld verbunden und wird beim Fokussieren\ngelesen. Vorgabe `false`: die Meldung sagt sich selbst an (kurze Formulare).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "required": {
+          "name": "required",
+          "description": "Pflichtfeld → .req-Asterisk + aria-required.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "type": {
+          "name": "type",
+          "description": "input[type] (text, email, tel, …).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "text"
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: string) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TextFieldComponentInputs = {\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /**\n   * Gesetzt = Fehlerzustand (.has-error + .error-msg).\n   *\n   * @default ''\n   */\n  error?: string;\n  /** id für die label/for- und aria-describedby-Verknüpfung. Default eindeutig. */\n  fieldId?: string;\n  /**\n   * Optionaler Hilfetext unter dem Feld.\n   *\n   * @default ''\n   */\n  helper?: string;\n  /**\n   * Sichtbares Label.\n   *\n   * @default ''\n   */\n  label?: string;\n  /** @default '' */\n  placeholder?: string;\n  /**\n   * Ruhige Fehlermeldung: lässt `role=\"alert\"` an der Einzelmeldung weg. Gedacht für lange\n   * Formulare, in denen eine fokussierte Fehlerübersicht (`role=\"alert\"`) die Ansage übernimmt;\n   * sonst ergeben viele gleichzeitig eingefügte Alerts eine unbrauchbare Ansage-Salve. Die\n   * Meldung bleibt über `aria-describedby` mit dem Feld verbunden und wird beim Fokussieren\n   * gelesen. Vorgabe `false`: die Meldung sagt sich selbst an (kurze Formulare).\n   *\n   * @default false\n   */\n  quietError?: boolean;\n  /**\n   * Pflichtfeld → .req-Asterisk + aria-required.\n   *\n   * @default false\n   */\n  required?: boolean;\n  /**\n   * input[type] (text, email, tel, …).\n   *\n   * @default text\n   */\n  type?: string;\n  /**\n   * Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName).\n   *\n   * @default ''\n   */\n  value?: string; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type TextFieldComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Feldwert — Two-Way (`[(value)]`) UND Angular-Forms (ngModel/formControlName). */\n  valueChange: (e: string) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TextFieldComponent",
+        "selector": "cds-text-field",
+        "standalone": true,
+        "inputs": [
+          "disabled",
+          "error",
+          "fieldId",
+          "helper",
+          "label",
+          "placeholder",
+          "quietError",
+          "required",
+          "type",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

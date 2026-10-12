@@ -1,0 +1,259 @@
+{
+  "components": {
+    "komponenten-inputs-forms-slider": {
+      "id": "komponenten-inputs-forms-slider",
+      "name": "SliderComponent",
+      "path": "./src/lib/slider/slider.stories.ts",
+      "description": "Slider — Wrapper um `.field-slider` / `.slider` aus css/components.css → „Slider“.\n\nRange-Eingabe mit Label + Live-Ausgabe, bereichsgefärbtem Thumb/Output\n(.slider-<area> setzt --sl-color), automatisch berechneten Ticks und Helper-Text.\n\nTicks: Es wird nur eine gewünschte ANZAHL (`tickCount`) angegeben; die Positionen/\nLabels werden gleichmäßig aus [min, max] berechnet (space-between wie das CSS-\nLayout). Wird der Slider zu schmal, reduziert die Komponente die Tick-Zahl reaktiv\n(ResizeObserver), sodass die Labels nicht überlappen — Endpunkte bleiben erhalten.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → .slider-<area> (Thumb- + Output-Farbe).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {
+              "summary": "co"
+            }
+          }
+        },
+        "disabled": {
+          "name": "disabled",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        },
+        "helper": {
+          "name": "helper",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Schritte: 5.000 €"
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Budget-Rahmen"
+            }
+          }
+        },
+        "max": {
+          "name": "max",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 100000
+            }
+          }
+        },
+        "min": {
+          "name": "min",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 10000
+            }
+          }
+        },
+        "minTickSpacing": {
+          "name": "minTickSpacing",
+          "description": "Mindestbreite (px) pro Tick-Label, ab der reduziert wird.",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 56
+            }
+          }
+        },
+        "sliderId": {
+          "name": "sliderId",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "step": {
+          "name": "step",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 5000
+            }
+          }
+        },
+        "tickCount": {
+          "name": "tickCount",
+          "description": "Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem\n Slider automatisch reduziert.",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 3
+            }
+          }
+        },
+        "unit": {
+          "name": "unit",
+          "description": "Einheit, an den formatierten Wert angehängt (z. B. ' €').",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": " €"
+            }
+          }
+        },
+        "value": {
+          "name": "value",
+          "description": "Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 50000
+            }
+          }
+        },
+        "disabledChange": {
+          "name": "disabledChange",
+          "description": "Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "disabledChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: boolean) => void"
+            }
+          }
+        },
+        "valueChange": {
+          "name": "valueChange",
+          "description": "Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "valueChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: number) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type SliderComponentInputs = {\n  /**\n   * Markenbereich → .slider-<area> (Thumb- + Output-Farbe).\n   *\n   * @default co\n   */\n  area?: CdsArea;\n  /**\n   * Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar.\n   *\n   * @default false\n   */\n  disabled?: boolean; // two-way: [(disabled)]\n  /** @default Schritte: 5.000 € */\n  helper?: string;\n  /** @default Budget-Rahmen */\n  label?: string;\n  /** @default 100000 */\n  max?: number;\n  /** @default 10000 */\n  min?: number;\n  /**\n   * Mindestbreite (px) pro Tick-Label, ab der reduziert wird.\n   *\n   * @default 56\n   */\n  minTickSpacing?: number;\n  sliderId?: string;\n  /** @default 5000 */\n  step?: number;\n  /**\n   * Gewünschte Anzahl Ticks (inkl. Endpunkte). 0 = keine. Wird bei zu schmalem\n   *  Slider automatisch reduziert.\n   *\n   * @default 3\n   */\n  tickCount?: number;\n  /**\n   * Einheit, an den formatierten Wert angehängt (z. B. ' €').\n   *\n   * @default  €\n   */\n  unit?: string;\n  /**\n   * Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms.\n   *\n   * @default 50000\n   */\n  value?: number; // two-way: [(value)]\n}\n```\n\n## Outputs\n\n```\nexport type SliderComponentOutputs = {\n  /** Deaktiviert; auch über Angular-Forms (setDisabledState) steuerbar. */\n  disabledChange: (e: boolean) => void;\n  /** Aktueller Wert. Two-Way (`[(value)]`) UND Angular-Forms. */\n  valueChange: (e: number) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "SliderComponent",
+        "selector": "cds-slider",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "disabled",
+          "helper",
+          "label",
+          "max",
+          "min",
+          "minTickSpacing",
+          "sliderId",
+          "step",
+          "tickCount",
+          "unit",
+          "value"
+        ],
+        "outputs": [
+          "disabledChange",
+          "valueChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

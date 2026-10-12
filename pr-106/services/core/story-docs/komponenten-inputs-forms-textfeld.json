@@ -1,0 +1,42 @@
+{
+  "components": {
+    "komponenten-inputs-forms-textfeld": {
+      "id": "komponenten-inputs-forms-textfeld",
+      "name": "TextFieldComponent",
+      "path": "./src/lib/field/text-field.stories.ts",
+      "stories": {
+        "komponenten-inputs-forms-textfeld--interaktiv": {
+          "id": "komponenten-inputs-forms-textfeld--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <cds-text-field\n        [label]=\"'E-Mail'\"\n        [type]=\"'email'\"\n        [placeholder]=\"'name@firma.de'\"\n        [helper]=\"'Wir nutzen die Adresse ausschließlich für die Antwort.'\"\n        [error]=\"''\"\n        [required]=\"true\"\n        [fieldId]=\"'demo-email'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textfeld--fehlerzustand": {
+          "id": "komponenten-inputs-forms-textfeld--fehlerzustand",
+          "name": "Fehlerzustand",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <cds-text-field\n        [label]=\"'E-Mail'\"\n        [type]=\"'email'\"\n        [placeholder]=\"'name@firma.de'\"\n        [helper]=\"'Wir nutzen die Adresse ausschließlich für die Antwort.'\"\n        [error]=\"'Bitte eine gültige E-Mail-Adresse eingeben.'\"\n        [required]=\"true\"\n        [fieldId]=\"'demo-email-error'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textfeld--deaktiviert": {
+          "id": "komponenten-inputs-forms-textfeld--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <cds-text-field\n        [label]=\"'E-Mail'\"\n        [type]=\"'email'\"\n        [placeholder]=\"'name@firma.de'\"\n        [helper]=\"'Wir nutzen die Adresse ausschließlich für die Antwort.'\"\n        [error]=\"''\"\n        [required]=\"true\"\n        [fieldId]=\"'demo-email-disabled'\"\n        [disabled]=\"true\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textfeld--formularbindung": {
+          "id": "komponenten-inputs-forms-textfeld--formularbindung",
+          "name": "Formularbindung",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s3);max-width:28rem\">\n        <cds-text-field\n            label=\"E-Mail\"\n            type=\"email\"\n            placeholder=\"name@firma.de\"\n            fieldId=\"demo-email-form\"\n            [formControl]=\"ctrl\">\n        </cds-text-field>\n        <p style=\"font:14px/1.4 system-ui,sans-serif;margin:0\">\n            Wert:\n            <strong>{{ ctrl.value || '(leer)' }}</strong>\n        </p>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `ctrl` could not be provided, since the story declares no such arg."
+        },
+        "komponenten-inputs-forms-textfeld--fehlerzustand-ruhig": {
+          "id": "komponenten-inputs-forms-textfeld--fehlerzustand-ruhig",
+          "name": "Fehlerzustand · ruhig (Fehlerübersicht sagt an)",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <cds-text-field\n        [label]=\"'E-Mail'\"\n        [type]=\"'email'\"\n        [placeholder]=\"'name@firma.de'\"\n        [helper]=\"'Wir nutzen die Adresse ausschließlich für die Antwort.'\"\n        [error]=\"'Bitte eine gültige E-Mail-Adresse eingeben.'\"\n        [required]=\"true\"\n        [fieldId]=\"'demo-email-quiet'\"\n        [quietError]=\"true\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        },
+        "komponenten-inputs-forms-textfeld--fehlerzustand-mit-alert": {
+          "id": "komponenten-inputs-forms-textfeld--fehlerzustand-mit-alert",
+          "name": "Fehlerzustand · Vorgabe mit Alert",
+          "snippet": "import { Component } from '@angular/core';\nimport { TextFieldComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [TextFieldComponent],\n  template: `\n    <cds-text-field\n        [label]=\"'E-Mail'\"\n        [type]=\"'email'\"\n        [placeholder]=\"'name@firma.de'\"\n        [helper]=\"'Wir nutzen die Adresse ausschließlich für die Antwort.'\"\n        [error]=\"'Bitte eine gültige E-Mail-Adresse eingeben.'\"\n        [required]=\"true\"\n        [fieldId]=\"'demo-email-alert'\"\n        (disabledChange)=\"disabledChange($event)\"\n        (valueChange)=\"valueChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  disabledChange(event: unknown) {}\n  valueChange(event: unknown) {}\n}"
+        }
+      }
+    }
+  }
+}

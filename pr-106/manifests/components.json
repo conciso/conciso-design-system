@@ -1,0 +1,834 @@
+{
+  "v": 1,
+  "components": {
+    "marke-brand-areas-areatabs": {
+      "id": "marke-brand-areas-areatabs",
+      "name": "AreaTabsComponent",
+      "description": "AreaTabs — Wrapper um `.area-tabs` / `.atab` / `.atab-content` aus\ncss/components.css → „Area Tabs“. Bereichsgefärbte Tab-Leiste: der aktive Tab\nsetzt `--atab-color` (Bereichs-700) für Text + Unterstrich, der Punkt nutzt\nBereichs-500. Umschalten per Klick (aria-selected / sichtbares Panel).\n\nTabs werden deklarativ als `<cds-area-tab>`-Kinder projiziert; jeder Tab trägt\n`area` + `label` und BELIEBIGEN Inhalt (Markup/Komponenten), der ins Panel\ngerendert wird. Der aktive Index ist über `[(active)]` steuerbar.\n\nPanels tragen `tabindex=\"0\"`, wenn sie kein fokussierbares Element enthalten (WAI-ARIA-\nTabs-Muster): so erreicht die Tastatur auch reinen Text. Enthält ein Panel Button, Link\noder Formularfeld, entfällt das Attribut.",
+      "docgen": {
+        "$ref": "../services/core/docgen/marke-brand-areas-areatabs.json#/components/marke-brand-areas-areatabs"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/marke-brand-areas-areatabs.json#/components/marke-brand-areas-areatabs"
+      },
+      "docs": {
+        "marke-brand-areas-areatabs--verwendung": {
+          "id": "marke-brand-areas-areatabs--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/marke-brand-areas-areatabs.json#/components/marke-brand-areas-areatabs/docs/marke-brand-areas-areatabs--verwendung"
+          },
+          "summary": "# Verwendung Area Tabs schalten zwischen den vier Unternehmensbereichen um, zum Beispiel i..."
+        }
+      }
+    },
+    "marke-logo-logo": {
+      "id": "marke-logo-logo",
+      "name": "LogoComponent",
+      "description": "Logo — einzelne Logo-Kachel (`.logo-tile` aus css/components.css).\n\nRendert bevorzugt ein **Bild** (`src`); ohne Bild fällt es auf den Text-`label`\nals Platzhalter zurück (`.logo-placeholder`). So lässt es sich sowohl im\nLogo-Carousel als auch eigenständig verwenden (Partner-Leiste, „Bekannt aus“-Reihe,\nFooter). Die Host-Klasse `logo-tile` trägt Flex-Zentrierung/Padding aus der portablen CSS.",
+      "docgen": {
+        "$ref": "../services/core/docgen/marke-logo-logo.json#/components/marke-logo-logo"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/marke-logo-logo.json#/components/marke-logo-logo"
+      },
+      "docs": {
+        "marke-logo-logo--verwendung": {
+          "id": "marke-logo-logo--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/marke-logo-logo.json#/components/marke-logo-logo/docs/marke-logo-logo--verwendung"
+          },
+          "summary": "# Verwendung Verwendungsregeln zum Logo: Größen, Schutzraum, Einsatz nach Hintergrund, Bar..."
+        }
+      }
+    },
+    "grundlagen-farben": {
+      "id": "grundlagen-farben",
+      "name": "grundlagen-farben",
+      "stories": {
+        "$ref": "../services/core/story-docs/grundlagen-farben.json#/components/grundlagen-farben"
+      },
+      "docs": {
+        "grundlagen-farben--verwendung": {
+          "id": "grundlagen-farben--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/grundlagen-farben.json#/components/grundlagen-farben/docs/grundlagen-farben--verwendung"
+          },
+          "summary": "# Verwendung Vier Bereichspaletten (Corporate, Angewandte KI, Effektive Software, Wirksame..."
+        }
+      }
+    },
+    "grundlagen-typografie": {
+      "id": "grundlagen-typografie",
+      "name": "grundlagen-typografie",
+      "stories": {
+        "$ref": "../services/core/story-docs/grundlagen-typografie.json#/components/grundlagen-typografie"
+      },
+      "docs": {
+        "grundlagen-typografie--verwendung": {
+          "id": "grundlagen-typografie--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/grundlagen-typografie.json#/components/grundlagen-typografie/docs/grundlagen-typografie--verwendung"
+          },
+          "summary": "# Verwendung Zwei Schriften tragen zwei unterschiedliche Aufgaben. Libre Baskerville (Seri..."
+        }
+      }
+    },
+    "komponenten-buttons-button": {
+      "id": "komponenten-buttons-button",
+      "name": "ButtonComponent",
+      "description": "Button — dünner Angular-Wrapper um die bestehende `.btn`-CSS-Familie.\n\nErfindet KEINE Styles: setzt ausschließlich die im Design System vorhandenen\nKlassen (.btn, .btn-filled/.btn-tonal/.btn-elevated/.btn-outlined/.btn-text,\n.btn-sm/.btn-lg, .btn-co/.btn-ki/.btn-es/.btn-wo, .btn-full, .btn-on-band)\nzusammen. Siehe css/components.css → „Buttons“. Der Klick wird als `clicked`\nausgegeben (für Nutzung außerhalb reiner Formular-Submits).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-buttons-button.json#/components/komponenten-buttons-button"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-buttons-button.json#/components/komponenten-buttons-button"
+      },
+      "docs": {
+        "komponenten-buttons-button--verwendung": {
+          "id": "komponenten-buttons-button--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-buttons-button.json#/components/komponenten-buttons-button/docs/komponenten-buttons-button--verwendung"
+          },
+          "summary": "# Verwendung Buttons sind die primäre Aktions-Komponente des Systems: fünf Stilvarianten (..."
+        }
+      }
+    },
+    "komponenten-chips-badges-pills-chip": {
+      "id": "komponenten-chips-badges-pills-chip",
+      "name": "ChipComponent",
+      "description": "Chip — Wrapper um `.chip` aus css/components.css → „Badges & Chips“.\n\nInteraktiver Filter-Chip auf Basis von `aria-pressed` (.chip[aria-pressed],\noptional area-aware über [data-area]). Klick schaltet den Zustand um.\n\nChips sind interaktive Elemente (Filter/Einstellungen), KEINE statischen Tags.\nFür nicht-interaktive Bereichs-Labels die Badge- bzw. Pill-Komponente nutzen.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-chips-badges-pills-chip.json#/components/komponenten-chips-badges-pills-chip"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-chips-badges-pills-chip.json#/components/komponenten-chips-badges-pills-chip"
+      },
+      "docs": {
+        "komponenten-chips-badges-pills-chip--verwendung": {
+          "id": "komponenten-chips-badges-pills-chip--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-chips-badges-pills-chip.json#/components/komponenten-chips-badges-pills-chip/docs/komponenten-chips-badges-pills-chip--verwendung"
+          },
+          "summary": "# Verwendung Drei Formen, die leicht verwechselt werden: interaktive Filter-Chips (Toggle)..."
+        }
+      }
+    },
+    "komponenten-chips-badges-pills-status-badge": {
+      "id": "komponenten-chips-badges-pills-status-badge",
+      "name": "StatusBadgeComponent",
+      "description": "Status-Badge — passive Zustands-Kennzeichnung auf Basis von `.badge` +\n`.badge-{ok|warn|err|neu}` aus css/components.css.\n\nTrägt einen Zustand über semantische Farben (OK, Warnung, Fehler, Neutral) —\nz. B. „Live“, „Beta“, „Deprecated“, „Draft“. Nicht interaktiv. Für die\nZuordnung zu einer Brand Area die Bereichs-Badge, für einen redaktionellen\nAnker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-chips-badges-pills-status-badge.json#/components/komponenten-chips-badges-pills-status-badge"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-chips-badges-pills-status-badge.json#/components/komponenten-chips-badges-pills-status-badge"
+      }
+    },
+    "komponenten-chips-badges-pills-bereichs-badge": {
+      "id": "komponenten-chips-badges-pills-bereichs-badge",
+      "name": "AreaBadgeComponent",
+      "description": "Bereichs-Badge — passive Bereichs-Kennzeichnung auf Basis von `.badge` +\n`[data-area]` aus css/components.css.\n\nOrdnet ein Element einer der vier Brand Areas zu (50er-Grund, 800er-Text).\nNicht interaktiv. Für Zustände die Status-Badge, für einen redaktionellen\nAnker im Lesefluss die Pill nutzen; für interaktive Filter den Chip.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-chips-badges-pills-bereichs-badge.json#/components/komponenten-chips-badges-pills-bereichs-badge"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-chips-badges-pills-bereichs-badge.json#/components/komponenten-chips-badges-pills-bereichs-badge"
+      }
+    },
+    "komponenten-chips-badges-pills-pill": {
+      "id": "komponenten-chips-badges-pills-pill",
+      "name": "PillComponent",
+      "description": "Pill — Wrapper um `.pill` aus css/components.css → „Badges & Chips“ (Pill).\n\nPassive, redaktionelle Bereichs-Markierung, typografisch als Eyebrow (uppercase,\nletter-spacing .09em, label-xs) — sitzt typischerweise oberhalb eines Titels und\nordnet einen Inhalt einer Brand Area zu. Abgrenzung zur Badge: die Pill ist der\nthematische „Was für ein Inhalt ist das?“-Anker im Lesefluss; die Badge die\npunktuelle Status-/Bereichs-Kennzeichnung neben Elementen. Nicht interaktiv.\n\na11y: Der reine Bereichsname klingt im Screenreader-Fluss leicht wie eine\nÜberschrift — daher trägt die Pill ein explizites `aria-label` (Default\n„Bereich <label>“, überschreibbar), genau wie in der Doku vorgegeben.\n\nInhalt auf Teaser-Cards: nur der Bereichsname. Meta-Daten wie Lesezeit, Datum oder Format\ngehören dort in eine separate `.card-meta`-Zeile. Auf der Featured-Card und im Artikelkopf\ndarf die Pill die Lesezeit tragen. `.pill` trägt `width:fit-content` selbst, im\nCard-Kontext regelt `.card-body` (bzw. `.card-featured-body`) den Abstand — kein\n`margin-bottom` und kein `align-self` an der Pill.\n\nVerwendungsguidance dieser Gruppe: siehe Chip (`komponenten-chips-badges-pills-chip--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-chips-badges-pills-pill.json#/components/komponenten-chips-badges-pills-pill"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-chips-badges-pills-pill.json#/components/komponenten-chips-badges-pills-pill"
+      }
+    },
+    "komponenten-inputs-forms-textfeld": {
+      "id": "komponenten-inputs-forms-textfeld",
+      "name": "TextFieldComponent",
+      "description": "Textfeld — einzeiliges `<input>` im `.field`-Gerüst (E-Mail, Text, Tel, … über\n`type`). Pflichtfelder tragen aria-required; im Fehlerzustand wird die Meldung\nüber aria-describedby/aria-invalid verknüpft.\n\nAls `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare\nanbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-textfeld.json#/components/komponenten-inputs-forms-textfeld"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-textfeld.json#/components/komponenten-inputs-forms-textfeld"
+      },
+      "docs": {
+        "komponenten-inputs-forms-textfeld--verwendung": {
+          "id": "komponenten-inputs-forms-textfeld--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-inputs-forms-textfeld.json#/components/komponenten-inputs-forms-textfeld/docs/komponenten-inputs-forms-textfeld--verwendung"
+          },
+          "summary": "# Verwendung Feldkomponenten (Text · E-Mail · Select · Textarea · Checkbox · Radio), berei..."
+        }
+      }
+    },
+    "komponenten-inputs-forms-textbereich": {
+      "id": "komponenten-inputs-forms-textbereich",
+      "name": "TextareaFieldComponent",
+      "description": "Textbereich — mehrzeiliges `<textarea>` im `.field`-Gerüst. Gleiche a11y-\nVerdrahtung wie das Textfeld (aria-required/-invalid/-describedby).\n\nNur vertikal vergrößerbar (`resize: vertical` plus `max-width: 100%`), damit der\nAnfasser das Feld nicht horizontal über den Container-Rahmen hinauszieht.\n\nAls `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare\nanbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-textbereich.json#/components/komponenten-inputs-forms-textbereich"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-textbereich.json#/components/komponenten-inputs-forms-textbereich"
+      }
+    },
+    "komponenten-inputs-forms-auswahlfeld": {
+      "id": "komponenten-inputs-forms-auswahlfeld",
+      "name": "SelectFieldComponent",
+      "description": "Auswahlfeld — `<select>` im `.field`-Gerüst. Die Optionen kommen über `options`;\na11y-Verdrahtung wie beim Textfeld (aria-required/-invalid/-describedby).\n\nAls `ControlValueAccessor` (siehe FieldBase) direkt an Angular-Formulare\nanbindbar (`[(ngModel)]`, `formControlName`) bzw. ohne Formular per `[(value)]`.\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-auswahlfeld.json#/components/komponenten-inputs-forms-auswahlfeld"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-auswahlfeld.json#/components/komponenten-inputs-forms-auswahlfeld"
+      }
+    },
+    "komponenten-inputs-forms-radio": {
+      "id": "komponenten-inputs-forms-radio",
+      "name": "RadioGroupComponent",
+      "description": "Radio-Gruppe (Optionsfelder).\n\nFür 2–6 sich gegenseitig ausschließende Optionen (mehr → Select, Mehrfachauswahl →\nCheckbox). Bewusst KEIN\nnachgebauter Kreis: native `<input type=\"radio\">` mit `accent-color` in der\nBereichsfarbe, gruppiert in `<fieldset>`/`<legend>` (Gruppen-Label wie ein\nFeld-Label), alle Optionen teilen denselben `name`.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-radio.json#/components/komponenten-inputs-forms-radio"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-radio.json#/components/komponenten-inputs-forms-radio"
+      }
+    },
+    "komponenten-inputs-forms-checkbox": {
+      "id": "komponenten-inputs-forms-checkbox",
+      "name": "CheckboxComponent",
+      "description": "Checkbox — Einwilligungs-/Consent-Feld.\n\nBewusst KEIN nachgebautes Kästchen: ein natives `<input type=\"checkbox\">` mit\n`accent-color` in der Bereichsfarbe (genau wie die Doku), umschlossen von einem\n`<label>` mit dem Einwilligungstext und optional verlinktem Datenschutzhinweis.\nDokumentierte Verwendung: Newsletter-/DSGVO-Einwilligung, i. d. R. `required`.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(checked)]` (checkedChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-checkbox.json#/components/komponenten-inputs-forms-checkbox"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-checkbox.json#/components/komponenten-inputs-forms-checkbox"
+      }
+    },
+    "komponenten-inputs-forms-slider": {
+      "id": "komponenten-inputs-forms-slider",
+      "name": "SliderComponent",
+      "description": "Slider — Wrapper um `.field-slider` / `.slider` aus css/components.css → „Slider“.\n\nRange-Eingabe mit Label + Live-Ausgabe, bereichsgefärbtem Thumb/Output\n(.slider-<area> setzt --sl-color), automatisch berechneten Ticks und Helper-Text.\n\nTicks: Es wird nur eine gewünschte ANZAHL (`tickCount`) angegeben; die Positionen/\nLabels werden gleichmäßig aus [min, max] berechnet (space-between wie das CSS-\nLayout). Wird der Slider zu schmal, reduziert die Komponente die Tick-Zahl reaktiv\n(ResizeObserver), sodass die Labels nicht überlappen — Endpunkte bleiben erhalten.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); ohne Formular geht `[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-slider.json#/components/komponenten-inputs-forms-slider"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-slider.json#/components/komponenten-inputs-forms-slider"
+      }
+    },
+    "komponenten-inputs-forms-skala": {
+      "id": "komponenten-inputs-forms-skala",
+      "name": "ScaleComponent",
+      "description": "Skala (cds-scale) — Slider für GEORDNETE (ordinale) Kategorien, deren Labels die\nWerte SIND (z. B. Niedrig < Mittel < Hoch, nie < selten < oft < immer).\n\nBasiert auf dem nativen <input type=\"range\">; min=0, max=labels.length-1, step=1\nwerden intern abgeleitet und NICHT exponiert. Der aktuelle Wert erscheint als\nLABEL im <output> und wird Screenreadern über `aria-valuetext` als Text gemeldet\n(nicht als Zahl) — das anerkannte APG-Muster für ordinale Slider. Die Skalenpunkte\nzeigen alle Labels, exakt auf ihre Position ausgerichtet und bewusst OHNE\nReduktion (jedes Label ist eine wählbare Stufe).\n\nNUR für geordnete Kategorien. Ungeordnete/gleichrangige Optionen (ohne natürliche\nReihenfolge) gehören NICHT auf einen Slider → cds-radio-group oder cds-area-tabs.\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); der Formularwert ist der Stufen-INDEX. Ohne Formular geht\n`[(value)]` (valueChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Textfeld (`komponenten-inputs-forms-textfeld--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-inputs-forms-skala.json#/components/komponenten-inputs-forms-skala"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-inputs-forms-skala.json#/components/komponenten-inputs-forms-skala"
+      }
+    },
+    "komponenten-dropdowns-custom-select": {
+      "id": "komponenten-dropdowns-custom-select",
+      "name": "SelectComponent",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-dropdowns-custom-select.json#/components/komponenten-dropdowns-custom-select"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-dropdowns-custom-select.json#/components/komponenten-dropdowns-custom-select"
+      },
+      "docs": {
+        "komponenten-dropdowns-custom-select--verwendung": {
+          "id": "komponenten-dropdowns-custom-select--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-dropdowns-custom-select.json#/components/komponenten-dropdowns-custom-select/docs/komponenten-dropdowns-custom-select--verwendung"
+          },
+          "summary": "# Verwendung Auswahl-Komponenten über das native `` hinaus: Custom Select (gestylte Einzel..."
+        }
+      }
+    },
+    "komponenten-dropdowns-combobox": {
+      "id": "komponenten-dropdowns-combobox",
+      "name": "ComboboxComponent",
+      "description": "Combobox (cds-combobox) — Tipp-Filter über `.ep-combobox` aus css/components.css\n→ Doku „Dropdowns“. Wie der Custom Select, aber mit Substring-Filter im Feld (für\nlange Listen). Optional Multi-Select mit Chips (`multi`).\n\nVerhalten/a11y selbst getragen: Input mit role=combobox (dort ist\naria-activedescendant erlaubt), aria-expanded/-controls/-autocomplete; Listbox mit\nrole=listbox/option; ↓ öffnet/navigiert, Enter wählt, Esc schließt, Rücktaste bei\nleerem Feld entfernt im Multi-Modus den letzten Chip. Die Listbox trägt bei `multi`\n`aria-multiselectable`, der Leerzustand ist eine `role=status`-Meldung („Keine Treffer“) außerhalb der Listbox, die dann ausgeblendet ist.\nChips heißen „<Label> entfernen“ und geben den Fokus ins Feld zurück; der Lösch-Button hebt\nin der Einzelauswahl die Auswahl auf; der Chevron schaltet das Menü um. Beim Schließen ohne Auswahl\nfällt die Einzelauswahl auf das gewählte Label zurück (kein loser Filtertext).\n\nAls `ControlValueAccessor` direkt an Angular-Formulare anbindbar (`[(ngModel)]`,\n`formControlName`); der Formularwert ist im Multi-Modus `string[]`, sonst `string`.\nOhne Formular gehen `[(value)]` / `[(values)]` (valueChange/valuesChange via model()).\n\nVerwendungsguidance dieser Gruppe: siehe Custom Select (`komponenten-dropdowns-custom-select--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-dropdowns-combobox.json#/components/komponenten-dropdowns-combobox"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-dropdowns-combobox.json#/components/komponenten-dropdowns-combobox"
+      }
+    },
+    "komponenten-buchungsformular": {
+      "id": "komponenten-buchungsformular",
+      "name": "komponenten-buchungsformular",
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-buchungsformular.json#/components/komponenten-buchungsformular"
+      }
+    },
+    "komponenten-feedback-snackbar": {
+      "id": "komponenten-feedback-snackbar",
+      "name": "SnackbarComponent",
+      "description": "Snackbar — Wrapper um `.snack` aus css/components.css → „Snackbar“.\n\nKurze Statusmeldung in drei Tönen (.snack-def / .snack-ok / .snack-err) mit\nführendem, tonfarbenem Icon (wie die Doku) und optionaler Aktion (.snack-act).\nTon „err“ ist eine echte Fehlermeldung → role=\"alert\" + aria-live=\"assertive\";\ndef/ok bleiben role=\"status\" + aria-live=\"polite\" (wie im Doku-Markup).\nKonsumiert nur bestehende Klassen.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-feedback-snackbar.json#/components/komponenten-feedback-snackbar"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-feedback-snackbar.json#/components/komponenten-feedback-snackbar"
+      },
+      "docs": {
+        "komponenten-feedback-snackbar--verwendung": {
+          "id": "komponenten-feedback-snackbar--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-feedback-snackbar.json#/components/komponenten-feedback-snackbar/docs/komponenten-feedback-snackbar--verwendung"
+          },
+          "summary": "# Verwendung Snackbars melden, was passiert ist: drei Varianten (Default, OK, Fehler) für ..."
+        }
+      }
+    },
+    "komponenten-feedback-bestätigungsdialog": {
+      "id": "komponenten-feedback-bestätigungsdialog",
+      "name": "ConfirmDialogDemoComponent",
+      "description": "Nur für die Stories: ein Auslöser, der CdsConfirmDialog aufruft und das Ergebnis anzeigt.\nDie Lib exportiert bewusst keine Komponente, der Service rendert den Dialog selbst unter\n<body>. Deshalb suchen die Play-Functions ihn über `screen`, nicht im canvasElement.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-feedback-bestätigungsdialog.json#/components/komponenten-feedback-bestätigungsdialog"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-feedback-bestätigungsdialog.json#/components/komponenten-feedback-bestätigungsdialog"
+      }
+    },
+    "komponenten-cards-teaser-card": {
+      "id": "komponenten-cards-teaser-card",
+      "name": "CardComponent",
+      "description": "Card — Wrapper um `.card` aus css/components.css → „Cards“.\n\nDie Karte rendert `<article class=\"card\">` und ruht damit flach mit Rahmen. Das folgt der\nKonvention „Elevation = Interaktivität“: Schatten trägt eine Karte nur, wenn die Karte selbst\nder klickbare Bereich ist. Hier liegt die Interaktion in der Footer-Aktion, nicht in der Fläche.\n`.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated`; eine Link-Karten-Variante\n(`<a>` mit Ziel statt `<article>` mit Button) ist deshalb eine eigene Komponente/Variante.\n\nBildet die im CSS vorgesehene Struktur ab: .card-media (bereichsgefärbt via\n[data-area]) mit der echten Bereichs-Glyphe, .card-body mit .card-eyebrow /\n.card-title / .card-text und ein optionales .card-footer mit einer Text-Aktion.\n\nAlle Textteile sind optional (leer = ausgeblendet); zusätzlich nimmt `.card-body`\nbeliebigen projizierten Inhalt via `<ng-content>` auf — so eignet sich die Karte\nauch für freie Listen-/Detail-Inhalte in SPAs, nicht nur die Marketing-Struktur.\nDie Footer-Aktion meldet Klicks über `actionClick`.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-card.json#/components/komponenten-cards-teaser-card"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-card.json#/components/komponenten-cards-teaser-card"
+      },
+      "docs": {
+        "komponenten-cards-teaser-card--verwendung": {
+          "id": "komponenten-cards-teaser-card--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-cards-teaser-card.json#/components/komponenten-cards-teaser-card/docs/komponenten-cards-teaser-card--verwendung"
+          },
+          "summary": "# Verwendung Generische Karten (statisch, Link-Karte) und Inhaltskarten (Stat), alle Brand..."
+        }
+      }
+    },
+    "komponenten-cards-teaser-klickbare-karte": {
+      "id": "komponenten-cards-teaser-klickbare-karte",
+      "name": "LinkCardComponent",
+      "description": "LinkCard (cds-link-card) — Wrapper um `a.card.card-elevated` aus css/components.css\n(css/components.css:147–154) samt `.card-cta-link` (css/components.css:1347–1356).\n\nDie Lücke, die `CardComponent` bewusst offen lässt (siehe deren Klassendoku):\n`.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated` (Riegel aus\n`CONTRIBUTING.md` §4, „Elevation = Interaktivität“) — eine `<article>`/`<div>`-Karte\nbekommt den Schatten auch mit gesetzter Klasse nicht. Diese Komponente rendert\ndeshalb ein echtes `<a>`, die ganze Fläche ist der Link, kein Klick-Handler auf\neinem nicht-interaktiven Element.\n\nStruktur wie `CardComponent`: optionale bereichsgefärbte `.card-media` mit der\nechten Bereichs-Glyphe, `.card-body` mit `.card-eyebrow` / `.card-title` /\n`.card-text`. Neu ist der Fuß `.card-cta-link`, optional unten angeheftet\n(`--pinned`, für gleich hohe Karten im Raster über `.card-body{flex:1}`).\n\n**Entscheidung — Fuß ist ein `<span>`, kein zweites `<a>`.** Die ganze Karte ist\nbereits `a.card-elevated`; ein verschachteltes `<a>` im Fuß wäre ungültiges HTML\n(der Browser schließt es beim Parsen vorzeitig) und würde zwei Klickziele auf\nderselben Fläche erzeugen. Der Fuß nutzt deshalb\n`<span class=\"card-cta-link card-cta-link--pinned\">…</span>` innerhalb von\n`a.card.card-elevated`. `.card-cta-link` selbst ist nicht auf `a.` gescoped (anders\nals `.card-elevated`), der Span trägt Farbe und Typografie also unverändert.\n\n**Entscheidung — Pfeil-Suffix wird von der Komponente ergänzt, nicht Teil von\n`ctaLabel`.** Der Pfeil ist reine visuelle Affordanz, kein Inhalt und wird deshalb\nin ein `aria-hidden`-Span gekapselt. Läge das Zeichen im `ctaLabel`-Text, müsste jeder Aufrufer\nselbst an das `aria-hidden` denken; das wird hier stattdessen einmalig in der\nKomponente erledigt.\n\n**Entscheidung — kein `data-area` auf `.card-cta-link`.** Die CTA-Farbe bleibt in\ngemischten Bereichs-Listen bewusst einheitlich Corporate-Petrol (`--co-700`), unabhängig vom\n`area` der Karte. Der Fuß bleibt deshalb ohne `data-area`-Bindung.\n\n**Entscheidung — Host als Flex-Container.** Im Raster ist der Host das\nGrid-Kind, das `align-items:stretch` auf Zeilenhöhe zieht, nicht `a.card`. Ohne\neigene Regel blieb die Karte auf Inhaltshöhe, und eine Karte ohne Eyebrow endete\nsamt `--pinned`-Fuß höher als ihre Nachbarn. `:host{display:flex}` mit\n`flex:1` an der Karte gibt die gestreckte Höhe an `a.card` weiter; Story\n„Im Raster“ pinnt das.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-klickbare-karte.json#/components/komponenten-cards-teaser-klickbare-karte"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-klickbare-karte.json#/components/komponenten-cards-teaser-klickbare-karte"
+      }
+    },
+    "komponenten-cards-teaser-featured-karte": {
+      "id": "komponenten-cards-teaser-featured-karte",
+      "name": "FeaturedCardComponent",
+      "description": "FeaturedCard (cds-featured-card) — Wrapper um `.card-featured` aus\ncss/components.css (css/components.css:230–249): die horizontale Großkarte für\n**genau einen** hervorgehobenen Beitrag oder Termin (Bild links 60 %, Textspalte\nrechts 40 % als absolut positioniertes Overlay).\n\n**Entscheidung 1 — `href` entscheidet zwischen `<a>` und `<article>`.** Die\nDoku-Beispiele zeigen die Featured-Card ausschließlich als Link\n(`a.card.card-elevated.card-featured`), diese Komponente unterstützt aber ausdrücklich eine\nVariante ohne `<a>`. `.card-elevated` ist nach `CONTRIBUTING.md` §4 („Elevation =\nInteraktivität“) im CSS auf `a.card-elevated` gescoped — eine `<article>` bekäme\nden Schatten mit gesetzter Klasse ohnehin nicht. Die Komponente führt die Klasse\ndeshalb nur mit, wenn sie auch wirkt: mit `href` ein `<a class=\"card card-elevated\ncard-featured\">`, ohne `href` ein `<article class=\"card card-featured\">` (ruht\nflach mit dem `--bd-strong`-Rahmen aus `.card`, wie jede statische Fläche). Media\nund Body stehen dafür einmal in einem gemeinsamen `<ng-template>` und werden in\nbeiden Zweigen per `<ng-container [ngTemplateOutlet]>` eingesetzt — dasselbe\nMuster wie `SectionComponent` (`section.component.ts`) für „zwei Wurzelelemente,\nein Körper“. `<ng-container>` rendert selbst kein Element, die Kindselektoren aus\nEntscheidung 2 bleiben also unberührt: im laufenden Storybook erneut per\n`querySelector`/`getBoundingClientRect` gemessen (siehe Play-Funktionen), Ergebnis\nunverändert zur vorherigen, noch duplizierten Fassung.\n\n**Entscheidung 2 — die Pill ist direkt komponiertes Markup, kein `<cds-pill>`.**\nDas CSS arbeitet mit direkten Kindselektoren: `.card-featured>.card-media`,\n`.card-featured-body>.pill`, `.card-featured-body>.card-text`,\n`.card-featured-body>.card-title-hero` (jeweils mit `margin`/`min-height`/\n`line-clamp`-Übernahmen, siehe CSS-Kommentare dort). `<cds-pill>` rendert sein\n`.pill`-`<span>` nicht auf dem eigenen Host-Element, sondern eine Ebene tiefer\n(`pill.component.ts`: Host ist `<cds-pill>`, `.pill` sitzt im Template darunter) —\nprojiziert als `<cds-pill class=\"pill\">` stünde die Pille damit als\n`.card-featured-body>cds-pill>.pill`, zwei Ebenen statt einer, und die\nKindselektoren griffen nicht mehr (leise: kein Fehler, nur falsches Layout).\nDieselbe Abwägung wie in `download-cta.component.ts` (Kommentar über den\nButtons): dort verhindert `.cta-dl-actions`, das seine Kinder per Flex streckt,\ndass ein `<cds-button>`-Host mitstreckt; hier verhindert ein Kindselektor, dass\nirgendein zusätzliches Host-Element dazwischentritt. In beiden Fällen werden die\nKlassen direkt komponiert statt eine Wrapper-Komponente zu verwenden. Geprüft im\nlaufenden Storybook (`Komponenten/Cards & Teaser/Featured-Karte`): die gerenderte\nKette ist `.card-featured>.card-media` und `.card-featured-body` mit `.pill`,\n`.card-text`, `.card-title-hero` als direkten Kindern, kein zusätzliches Element\ndazwischen (siehe Play-Funktionen der Stories).\n\nWeil die Pille direkt komponiert wird, übernimmt diese Komponente auch die\n`aria-label`-Regel von `PillComponent` (`pill.component.ts`) von Hand nach:\nDefault „Bereich `<pill>`“, überschreibbar über `pillAriaLabel` — nötig, weil die\nPille nicht immer einen Bereich benennt (siehe `pillAriaLabel`-Doku unten).\n\n**Entscheidung 3 — kein separates `data-area` für die Pille.** Karte und Pille\ntragen immer denselben Bereich. Die Komponente bindet deshalb `area`\nauf beide, statt einen zweiten Bereichs-Input zu erfinden.\n\n**Entscheidung 4 — kein CTA- und kein Meta-Input.** Die Doku-Vorlage zeigt\nzusätzlich einen Meta-Strip (Datum/Ort/Format) und einen `.card-cta-link`-Fuß;\ndiese Komponente benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/\n`pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne zusätzliche Inputs zu\nerfinden — ein Meta-Strip oder ein CTA-Fuß wären\neine spätere, eigene Erweiterung.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-featured-karte.json#/components/komponenten-cards-teaser-featured-karte"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-featured-karte.json#/components/komponenten-cards-teaser-featured-karte"
+      }
+    },
+    "komponenten-cards-teaser-icon-karte": {
+      "id": "komponenten-cards-teaser-icon-karte",
+      "name": "IconCardComponent",
+      "description": "IconCard (`[cdsIconCard]`) — Wrapper um `.ep-card` aus css/components.css\n(css/components.css:1298–1340): die Icon-Kachel mit farbiger Icon-Fläche, Eyebrow,\nTitel, Text und optionaler Pfeil-CTA-Zeile, die auf den Beispielseiten Bereichs-\nund Angebots-Einstiege trägt (81 Vorkommen).\n\n**Entscheidung 1 — Attributselektor, kein Element-Selektor.** Erste Fassung dieser\nKomponente war `cds-icon-card` als eigenes Element mit `href`-Input, das intern\nzwischen `<a class=\"ep-card ep-card-link\">` und `<div class=\"ep-card\">` wählte\n(`@if`/`@else` + `<ng-template>`). Gemessen im laufenden Storybook: zwei Karten mit\nunterschiedlich langem Text ergaben im `.ep-cards`-Grid ungleiche `.ep-card`-Höhen\n(174px/270px), weil `align-items:stretch` nur den unsichtbaren `<cds-icon-card>`-Host\nstreckt, nicht das `.ep-card`-Element eine Ebene darunter. Dieselbe Messung mit\n`.ep-card` OHNE Host-Wrapper (rohes Markup direkt in `.ep-cards`) ergab 306px/306px,\nCTA-Unterkanten auf identischer Y-Koordinate — das CSS gleicht die Höhen korrekt aus,\nsobald `.ep-card` selbst das Grid-Kind ist. Der Fehler saß also im Wrapper-Element,\nnicht in der CSS-Schicht (siehe „Im Raster“-Story, dort dieselbe Messung als\nPlay-Funktion gepinnt).\n\nDie Lösung, analog zu Angular Materials `a[mat-button], button[mat-button]`: die\nKomponente hängt sich als Attribut an ein vom Konsumenten geschriebenes `<a>` oder\n`<div>`, statt ein eigenes Element zu sein. Dadurch trägt **derselbe** native Knoten,\nden der Konsument in sein Grid schreibt, sowohl die Komponentenlogik als auch die\n`.ep-card`-Klasse — kein Host-Element dazwischen, `align-items:stretch` trifft direkt\nauf `.ep-card`.\n\n**`href` ist deshalb kein Input mehr.** Ob die Karte ein Link ist, entscheidet der\nKonsument über das gewählte Tag (`<a cdsIconCard href=\"…\">` vs. `<div cdsIconCard>`)\nund setzt `href` als natives Attribut direkt am `<a>` — Angular muss dafür nichts\nverwalten. `.ep-card-link` (nur auf `a.ep-card-link` wirksam, `CONTRIBUTING.md` §4)\nwird deshalb vom Host-Tag abgeleitet, nicht mehr per Verzweigung im Template\ngerendert.\n\n**`.ep-card-link` hängt an `<a>` UND `href`, nicht am Tag allein.** Ein `<a\ncdsIconCard>` ohne `href` ist weder fokussierbar noch hat es eine Link-Rolle —\n`.ep-card-link` (Schatten, Hover-Anhebung, Cursor) nur am Tag festzumachen hätte\neine Karte erzeugt, die aussieht wie ein Link, aber keiner ist, und genau die\nGarantie aufgegeben, die die frühere `href`-Input-Fassung strukturell hatte (leerer\nString → zwingend der `<div>`-Zweig). `isLink()` prüft deshalb beides.\n\n**`isLink()` ist eine Methode im Host-Binding, kein einmalig berechnetes Feld.**\n`href` kann nach dem Erstellen zur Laufzeit gesetzt/entfernt werden (z. B.\n`<a cdsIconCard [attr.href]=\"urlSignal()\">`). Ein Host-Binding-Ausdruck\n(`'[class.ep-card-link]': 'isLink()'`) wird bei JEDEM Refresh der DECLARING VIEW\nneu ausgewertet — also der Elternvorlage, die `<a cdsIconCard>` schreibt —, nicht\nnur bei einem Refresh der eigenen (OnPush-gesteuerten) Kindvorlage dieser\nKomponente. Das ist kein Sonderfall wie bei einem in ADR-0007 §3 verworfenen\nGetter (dort ging es um einen Getter in einer INTERPOLATION der eigenen\nKindvorlage, die unter OnPush nur bei eigenen Signal-Änderungen neu läuft):\nHost-Bindings werden unabhängig vom OnPush-Status der Komponente selbst\nmitgeführt, wenn die Elternansicht aktualisiert wird — reagiert also auf\n`[attr.href]`/`[href]`-Bindungen des Konsumenten, ob Signal- oder\nZone.js-getrieben, ohne `effect()` (ADR-0007 §4) und ohne `MutationObserver`.\nEmpirisch geprüft (Spike-Story mit `[attr.href]=\"signal()\"`-Toggle zur Laufzeit,\nseither wieder gelöscht): Setzen des Signals nach Erstrender schaltet\n`.ep-card-link` zuverlässig um. Einzige Grenze: eine Änderung, die AUSSERHALB von\nAngular direkt am nativen Element vorgenommen wird (z. B. `el.setAttribute\n('href', …)` von Fremdcode), löst keinen Refresh aus — das gilt aber für jede\nAngular-Bindung gleichermaßen und ist kein Sonderfall dieser Komponente.\n\n**Entscheidung 2 — Icon als projizierter Inhalt, OHNE dass das SVG eine eigene\nGrößenklasse tragen muss.** Wie bei `cds-stoerer` (siehe dessen Klassendoku) sind\ndie Icons auf den Beispielseiten wechselnde Lucide-Icons, keine DS-Bereichsglyphen aus\nder Registry `icons/cds-icons.ts` — Inhalt, nicht Chrom. Deshalb Projektion über\n`<ng-content select=\"[cdsIcon]\">` statt eines `icon`-Strings. Anders als beim Störer\nist `.ep-card-icon` hier aber ein echter CONTAINER: css/components.css:1310+1318\nsetzt Maße und Stroke über den Nachfahren-Selektor `.ep-card-icon svg{width:32px;\nheight:32px;stroke-width:var(--icon-stroke-sm)}`, nicht über eine Klasse auf dem\nSVG selbst. Der Konsument liefert deshalb ein unverändertes `<svg cdsIcon\nviewBox=\"…\" aria-hidden=\"true\" focusable=\"false\">…</svg>` OHNE zusätzliche Klasse —\ndas Verhältnis Größe/Stroke kommt allein aus dem Container. Geprüft an\ncss/components.css:1298–1318 (Kommentar dort: „Farbe kommt aus der Komponente,\nnicht aus … inline gesetzten style-Attributen“) und in der Story „Interaktiv“\ngepinnt (Play-Funktion misst die gerenderte SVG-Breite).\n\n**`data-area` sitzt auf drei Elementen** (`.ep-card` (Host), `.ep-card-icon`,\n`.ep-card-eyebrow`): Die CTA-Farbe\nbraucht dagegen KEIN eigenes `data-area`, sie kommt über den Nachfahren-Selektor\n`.ep-card[data-area=\"…\"] .ep-card-cta` (css/components.css:1336–1339) vom\n`data-area` der Karte selbst.\n\n**Kein erfundener `aria-label`.** Der Pfeil-Suffix der CTA-Zeile ist reine visuelle\nAffordanz und steht deshalb `aria-hidden` — kein zusätzlicher, selbst\nausgedachter zugänglicher Name.\n\n**Entscheidung 3 — kein `cdsIconCards`-Raster.** `.ep-cards` ist ein reines\n`display:grid` ohne Struktur oder Verhalten (dieselbe Begründung wie beim Verzicht\nauf einen `layout-grid`-Wrapper). Konsumenten schreiben\n`<div class=\"ep-cards\">` von Hand (siehe Story „Im Raster“).\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-icon-karte.json#/components/komponenten-cards-teaser-icon-karte"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-icon-karte.json#/components/komponenten-cards-teaser-icon-karte"
+      }
+    },
+    "komponenten-cards-teaser-feature-liste": {
+      "id": "komponenten-cards-teaser-feature-liste",
+      "name": "FeatureComponent",
+      "description": "Feature (`[cdsFeature]`) — Wrapper um `.ep-feature` aus css/components.css\n(css/components.css:1363–1379): die flache Feature-Zeile ohne Box und ohne\nSchatten (Icon-Kachel links, Titel/Text rechts) — die „Offene Feature-Liste“ der\nBeispielseiten mit 40 Vorkommen als\n`class=\"ep-feature col-4\"` im `.layout-grid`).\n\n**Attributselektor, kein eigenes Element (ADR-0008).** Das Mockup setzt die\nSpaltenklasse am selben Element wie `.ep-feature` (`class=\"ep-feature col-4\"`).\nDas Bauteil ist damit selbst Grid-Kind UND Ziel einer Layout-Klasse des\nKonsumenten — exakt das Kriterium aus\n[ADR-0008](../../../../../../docs/adr/0008-selektortyp-der-wrapper-komponenten.md).\nEin eigenes `<cds-feature>`-Element mit innerem `<div class=\"ep-feature\">` würde\n`.layout-grid>[class*=\"col-\"]` (css/base.css:214) brechen: der `col-*`-Selektor\nträfe den unsichtbaren Host, nicht `.ep-feature`, das `.layout-grid` gibt seinem\nKind (dem Host) dann zwar per `align-items:stretch` (Grid-Default) die volle\nZeilenhöhe, aber `.ep-feature` darunter bliebe auf Inhaltshöhe — derselbe Fehler,\nden ADR-0008 Fall 1 für `.ep-card`/`.ep-cards` gemessen hat (174px/270px statt\n306px/306px). Die Komponente hängt sich deshalb als Attribut an ein vom\nKonsumenten geschriebenes `<div>` (`<div cdsFeature class=\"col-4\">`), analog zu\n`cds-icon-card` (siehe dessen Klassendoku). Gemessen für dieses Bauteil in der\nStory „Dreispalter“ (Play-Funktion): drei `.ep-feature` mit stark\nunterschiedlich langem Text als `col-4`-Geschwister in einem `.layout-grid`\nergeben identische Höhen und deckungsgleiche Unterkanten (Messwerte in der\nStory-Doku dort).\n\n**Icon-Kontrakt: `.ep-feature-icon` ist ein Container, keine Klasse auf dem\nSVG — UND reicht zusätzlich die Farbe durch, anders als `.ep-card-icon`.** Wie\n`.ep-card-icon` (siehe `icon-card.component.ts`, Entscheidung 2) setzt\ncss/components.css:1369 Maße und Stroke über den Nachfahren-Selektor\n`.ep-feature-icon svg{width:26px;height:26px;stroke-width:var(--icon-stroke-md)}`\n— NICHT über eine Klasse auf dem SVG selbst, anders als `.stoerer-icon`\n(`stoerer.component.ts`), das direkt auf dem projizierten `<svg>` sitzt. Der\nKonsument liefert deshalb ein unverändertes\n`<svg cdsIcon viewBox=\"…\" aria-hidden=\"true\" focusable=\"false\">…</svg>` OHNE\nzusätzliche Größenklasse, projiziert über `<ng-content select=\"[cdsIcon]\">`\n(Kontrakt in der Story „Interaktiv“ per `getBoundingClientRect()` gepinnt).\nAnders als `.ep-card-icon` (nur `background`, kein `color`) setzt\n`.ep-feature-icon` UND ihre vier `[data-area]`-Varianten (css/components.css:\n1367–1372) zusätzlich `color` auf dem Container selbst. Das Mockup nutzt das\naktiv aus: Die projizierten SVGs tragen\n`stroke=\"currentColor\"` statt eines hart codierten Bereichstons — die Farbe\nkommt allein aus dem Container, ein Icon-Autor muss den Bereich der Kachel gar\nnicht kennen. Bei `cds-icon-card` ist das nicht möglich (kein `color` am\nContainer), dort trägt jedes Icon seinen Bereichston selbst im `stroke`-Attribut.\nStory „Interaktiv“ demonstriert das mit `stroke=\"currentColor\"` und prüft die\ngeerbte Farbe per `getComputedStyle()`. Die Icon-Kachel selbst ist ein\n`<span aria-hidden=\"true\">`, kein `<div>` —\nrein dekorativ, das SVG trägt bereits sein eigenes `aria-hidden`; die Komponente\nübernimmt beides unverändert.\n\n**CTA: `<a>` mit `href`, sonst `<span>` — nie ein `<a>` ohne `href`.**\ncss/components.css:1376 zielt mit `.ep-feature-body>.card-cta-link` auf den\ndirekten Nachfahren; Angulars `@if`/`@else` fügt dafür kein Wrapper-Element ein\n(kompiliert zu Kommentar-Ankern, kein Element), der Kindselektor bleibt also in\nbeiden Zweigen erhalten. Ausgezählt: Alle 13 Vorkommen von\n`.card-cta-link` innerhalb von `.ep-feature-body` sind entweder ein `<a\nhref=\"…\">` (12×) oder ein `<span>` (1×,\n„Landingpage folgt“ — Platzhalter für ein Ziel, das noch fehlt). Ein `<a>` OHNE\n`href` kommt kein einziges Mal vor — dieselbe Falle, die `cds-icon-card` über\n`isLink()` schließt (ein Link-Tag ohne `href` ist weder fokussierbar noch hat\nes eine Link-Rolle, sieht mit der `.card-cta-link`-Optik aber trotzdem wie ein\nbedienbares Element aus). Hier entscheidet sich das nicht am Host-Tag (der ist\nbei `cdsFeature` immer `<div>`), sondern strukturell im eigenen Template:\n`ctaHref` gesetzt → `<a class=\"card-cta-link\" [href]=\"ctaHref()\">`, leer →\n`<span class=\"card-cta-link\">` mit identischer Optik und identischem Pfeil,\naber ohne Link-Rolle (siehe Story „Ohne Href“). Ein `[attr.href]`-Nullwert wäre\ndieselbe Krücke gewesen wie ein `<a>` ohne `href` zu tolerieren; der\n`@if`/`@else`-Zweig macht den Fall stattdessen unmöglich, statt ihn nur\nabzufedern. `data-area` sitzt auf beiden Zweigen, weil `.card-cta-link[data-area]`\n(css/components.css:1363–1366) ein direkter Attributselektor ist, keine\nNachfahren-Regel wie `.ep-card[data-area] .ep-card-cta` bei der Icon-Karte —\nohne eigenes `data-area` bliebe der Link/Span auf der CSS-Vorgabefarbe, auch bei\ngesetztem `area`.\n\n**`ctaAriaLabel` — der zugängliche Name ist im Mockup die Regel, nicht die\nAusnahme.** Erster Anlauf dieser Komponente hatte keinen solchen Input, mit der\n(falschen) Annahme, das Mockup verzichte meist auf einen zusätzlichen\n`aria-label`. Ausgezählt: von den 12 `<a class=\"card-cta-link\">` in\n`.ep-feature-body` tragen 11 einen `aria-label`, nur einer nicht\n(„Contentletter abonnieren“ — der sichtbare Text ist\ndort bereits eindeutig). Grund: nur 3 verschiedene sichtbare Texte verteilen\nsich auf diese 12 Links, „Zur Landingpage“ allein zehnmal — eine\nScreenreader-Linkliste hörte sonst\nzehnmal denselben Namen ohne Unterscheidung. Das Mockup disambiguiert\ndurchgängig mit der Form `<sichtbarer Text>: <Ziel>`\n(`aria-label=\"Zur Landingpage: KI Kickstart Workshops\"`). `ctaAriaLabel` ist\ndeshalb Beiwerk (Default `''`): leer bleibt der sichtbare `ctaLabel`-Text der\nzugängliche Name (passt für einen eindeutigen CTA-Text wie „Contentletter\nabonnieren“), gesetzt überschreibt er ihn — Konsumenten mit einer Liste\ngleichlautender CTA-Texte (wie den zehn „Zur Landingpage“ im Mockup) setzen ihn\npro Instanz auf `<ctaLabel>: <Ziel>`. Wirkt nur am `<a>`-Zweig: `aria-label` an\neinem `<span>` ohne Rolle hat keinen verlässlichen Effekt im\nAccessibility-Baum, und der `<span>`-Zweig ist ohnehin nicht interaktiv.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-feature-liste.json#/components/komponenten-cards-teaser-feature-liste"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-feature-liste.json#/components/komponenten-cards-teaser-feature-liste"
+      }
+    },
+    "komponenten-cards-teaser-tier-trenner": {
+      "id": "komponenten-cards-teaser-tier-trenner",
+      "name": "TierComponent",
+      "description": "Tier (`cds-tier`) — Wrapper um `.ep-tier` aus css/components.css\n(css/components.css:1381–1384): der Stufen-Trenner (Label + Haarlinie), der eine\nOffene Feature-Liste in Pakete gliedert (z. B. „In jedem Paket enthalten“ /\n„Zusätzlich mit Pro“).\n\n**Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Alle vier\n`.ep-tier`-Vorkommen stehen als eigenständiger `<div>` VOR\neinem `.layout-grid` oder einer Karten-Reihe, nie als deren Kind — keines trägt\neine `col-*`-Spaltenklasse, keines liegt in einem Grid/Flex, das seine Kinder\ndehnt. Das Tag variiert ebenfalls nicht (immer `<div>`). Keines der drei\nADR-0008-Kriterien (Grid-/Flex-Kind, Ziel einer Layout-Klasse, wechselndes Tag)\ntrifft zu, der Element-Selektor bleibt deshalb der Standardfall. `.ep-tier{\ndisplay:flex}` sitzt direkt auf dem Host (`host: { class: 'ep-tier' }`), kein\ninneres Wrapper-Element darunter — anders als bei `cds-section` (ADR-0008 Fall 2)\nist hier nichts von außen auf eine bestimmte DOM-Tiefe angewiesen: kein\nNachfahren-Selektor zielt auf `.ep-tier`, keine Fläche hängt am Host.\n\n**`area` nimmt alle vier Markenbereiche (`CdsArea`).** `.ep-tier-label[data-area]` tönt das\nLabel für `co`, `ki`, `es` und `wo` in der Bereichsfarbe, theme-fähig: `co`/`es`/`wo` über\n`--XX-ink` (flippt im Dark selbst), `ki` über `--ki-800` mit Dark-Override auf `--ki-100`\n(`css/dark-mode.css`). Ohne `area` bleibt das Label neutral (`--tx-secondary`).\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-tier-trenner.json#/components/komponenten-cards-teaser-tier-trenner"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-tier-trenner.json#/components/komponenten-cards-teaser-tier-trenner"
+      }
+    },
+    "komponenten-cards-teaser-statcard": {
+      "id": "komponenten-cards-teaser-statcard",
+      "name": "StatCardComponent",
+      "description": "StatCard — Wrapper um `.card-stat` aus css/components.css → „Stat Card“.\n\nFlache, statische Kennzahlen-Karte mit bereichsgefärbtem Top-Akzent (data-area),\ngroßem Wert (.card-stat-value), Label (.card-stat-label) und optionalem\nTrend-Pill (.card-stat-trend.up/.down) inkl. Richtungs-Pfeil.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-statcard.json#/components/komponenten-cards-teaser-statcard"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-statcard.json#/components/komponenten-cards-teaser-statcard"
+      }
+    },
+    "komponenten-cards-teaser-statstrip": {
+      "id": "komponenten-cards-teaser-statstrip",
+      "name": "StatStripComponent",
+      "description": "StatStrip — Wrapper um `.card-stat-strip` + `.card-stat-flat` aus\ncss/components.css → „Stat-Strip“. Flacher Bandstreifen (auto-fit-Grid auf\n--n-50-Grund) mit zentrierten Kennzahlen ohne Rahmen/Schatten; Wert je\nBereich getönt via [data-area].\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-cards-teaser-statstrip.json#/components/komponenten-cards-teaser-statstrip"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-cards-teaser-statstrip.json#/components/komponenten-cards-teaser-statstrip"
+      }
+    },
+    "komponenten-call-to-action-cta-band": {
+      "id": "komponenten-call-to-action-cta-band",
+      "name": "CtaBandComponent",
+      "description": "CtaBand (`[cdsCtaBand]`) — Wrapper um `.ep-cta-band` aus css/components.css\n(css/components.css:1456, Kopf-Duo `.ep-cta-h2`/`.ep-cta-sub` ebenda): das\nbereichsgefärbte Page-End-CTA-Band am Ende jeder Customer-Page direkt vor dem\nFooter — die\n„letzte Einladung“, wenn die Nutzerin die Seite durchgelesen hat. Ausgezählt: 22\nVorkommen auf den Beispielseiten, ausnahmslos als `<div class=\"ep-cta-band\"\nstyle=\"background:…\">` mit genau einer Aktion.\n\n**Entscheidung 1 — Attributselektor, kein eigenes Element (ADR-0008, derselbe\n„Fläche am Host“-Fall wie `cds-section`).** `css/components.css` trägt für\n`.ep-cta-band` KEIN `[data-area]` (per Grep geprüft, keine einzige Regel dieser\nForm existiert). Die Bandfläche kommt in allen 22 Vorkommen als Inline-Style\nDIREKT am `.ep-cta-band`-Element (`style=\"background:var(--co-700);color:#fff\"`),\ndem Bereich der Page folgend, nie aus einem\n`data-area`-Attribut. Ein Element-Selektor würde exakt den in ADR-0008 „Fall 2“\ngemessenen Fehler wiederholen: der `<cds-cta-band>`-Host ist ein unbekanntes\nCustom Element (`display:inline`), sein einziges Kind würde als Block\nherausgebrochen, ein am Host gesetzter Inline-`background` hätte keine eigene Box\nzum Malen. Die Komponente hängt sich deshalb als Attribut an ein vom Konsumenten\ngeschriebenes `<div>` (`<div cdsCtaBand style=\"background:…\">`) — das Element, das\nden Style trägt, und `.ep-cta-band` sind derselbe Knoten. Nur `<div>`, kein\n`<section>`-Zwilling wie bei `cds-section`: alle 22 Vorkommen benutzen\nausnahmslos ein `<div>`, keines variiert das Tag.\n\n**Entscheidung 2 — `area` färbt nur die Aktion, nicht das Band.** Aus demselben\nGrund wie bei `cds-section` (siehe dessen Klassendoku, Entscheidung 2) bleibt die\nBandfläche Sache des Konsumenten: welche Bereichsfarbe ein Band trägt, ist eine\nEntscheidung der Seite (Bereichszugehörigkeit der Customer-Page), keine\nBauteil-Eigenschaft — und das CSS bietet an dieser Klasse ohnehin keinen\n`[data-area]`-Haken an (siehe Entscheidung 1). `area` steuert deshalb\nausschließlich die Button-Farbklasse (`.btn-{area}`), nicht die Füllung des Bands.\n\n**Entscheidung 3 — `.btn-on-band` + `.btn-filled` direkt komponiert, nicht über\n`cds-button` projiziert.** `cds-button` KENNT den Modifier\n(`variant=\"filled-on-band\"`, geprüft über `npx storybook tools docs show --id\nkomponenten-buttons-button` — die Story „Auf Bereichs-Band“ existiert dort\nbereits). Trotzdem baut diese Komponente die `.btn`-Klassen direkt zusammen\n(Präzedenzfall `download-cta.component.ts`), aus einem härteren Grund als dort:\n`cds-button` rendert IMMER ein `<button>` — sein Input-Vertrag\n(`ButtonComponentInputs`) kennt kein `href` — und kann die hier nötige\nVerzweigung „`primaryHref` gesetzt → `<a>`“ strukturell gar nicht erfüllen. Ein\nprojiziertes `<cds-button>` brächte hier also kein Custom-Element-Layoutproblem\n(kein Kindselektor an `.ep-cta-band` hängt von der DOM-Tiefe ab), sondern schlicht\ndie falsche Fähigkeit.\n\n**Entscheidung 4 — bewusst nur EINE Aktion, kein `secondaryLabel`.** Eine frühere\nFassung bot `secondaryLabel`/`secondaryHref` an, ungeprüft gegen das Muster. Kein\n`.ep-cta-band`-Vorkommen zeigt eine zweite Aktion — der Zwei-Aktionen-Fall hat\nkeine Vorlage.\nZweitens (der schwerere Grund) lässt sich eine zweite, optisch zurückhaltendere\nAktion mit den vorhandenen Klassen gar nicht bauen: `.btn-{area}.btn-on-band{color:\n…}` (css/components.css:47–51) überschreibt die Textfarbe JEDER Variante auf den\nBereichston — genau den Ton, den die Doku durchgängig als Bandhintergrund nennt.\nNur `.btn-filled` tauscht zusätzlich die Füllung gegen Weiß; `.btn-outlined`,\n`.btn-tonal` und `.btn-text` blieben transparent und zeigten Text in derselben\nFarbe wie das Band darunter — unsichtbar. Eine zweite Aktion hätte deshalb\nzwangsläufig dieselbe Optik wie die erste getragen, keine Hierarchie, nur zwei\ngleich gewichtete Buttons. Das ist eine CSS-Lücke (kein kontrastsicherer\nsekundärer On-Band-Stil) — gemeldet, nicht in diesem Wrapper improvisiert. Solange sie besteht, trägt\n`cds-cta-band` nur eine Aktion; ein Konsument mit echtem Bedarf für eine zweite\nschreibt sie außerhalb der Komponente ins Band hinein (`<ng-content>` gibt es\nhier bewusst nicht, um genau das nicht als unterstützten Pfad zu suggerieren).\nOhne zweite Aktion braucht es auch keinen eigenen Container: die einzelne Aktion\nzentriert sich über das ererbte `.ep-cta-band{text-align:center}` von selbst,\ngenau wie in allen 22 Mockup-Vorkommen — ein zusätzliches Flex-Layout im Wrapper\nhätte eine Darstellung erfunden, die die CSS-Schicht so nicht kennt (ADR-0001;\ndie einzige existierende Deklaration dieser Form ist `.ep-hero-ctas`,\ncss/components.css:1222, eine andere Klasse für einen anderen Bauteiltyp).\n\n**Kein `aria-label` auf der Aktion.** Anders als bei `cds-feature`\n(`ctaAriaLabel`, 11 von 12 Vorkommen mit `aria-label`) zeigt keines der 22\nBand-Vorkommen einen `aria-label` auf seiner Aktion — ausgezählt, nicht\ngeschätzt. Die sichtbaren Texte sind durchgängig konkrete Verben mit Ziel\n(„Termin buchen“, „Gespräch anfragen“, „Offene Stellen ansehen“ …) und stehen je\nSeite nur einmal; anders als bei einer Karten-Liste braucht es hier keine\nDisambiguierung. Kein entsprechender Input.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-call-to-action-cta-band.json#/components/komponenten-call-to-action-cta-band"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-call-to-action-cta-band.json#/components/komponenten-call-to-action-cta-band"
+      },
+      "docs": {
+        "komponenten-call-to-action-cta-band--verwendung": {
+          "id": "komponenten-call-to-action-cta-band--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-call-to-action-cta-band.json#/components/komponenten-call-to-action-cta-band/docs/komponenten-call-to-action-cta-band--verwendung"
+          },
+          "summary": "# Verwendung Call to Action deckt zwei Pattern-Familien ab: das Page-End-CTA-Band als letz..."
+        }
+      }
+    },
+    "komponenten-call-to-action-downloadcta": {
+      "id": "komponenten-call-to-action-downloadcta",
+      "name": "DownloadCtaComponent",
+      "description": "DownloadCta — Wrapper um `.cta-dl` aus css/components.css → „Download CTA“.\n\nAufmerksamkeitsstarker Download-Block mit bereichsgefärbtem Top-Akzent + Icon\n(data-area), Eyebrow/Titel/Beschreibung/Meta und zwei Aktionen (primär/sekundär,\nüber die bestehenden `.btn`-Klassen). Konsumiert nur vorhandene Styles.\n\nVerwendungsguidance dieser Gruppe: siehe CTA-Band (`komponenten-call-to-action-cta-band--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-call-to-action-downloadcta.json#/components/komponenten-call-to-action-downloadcta"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-call-to-action-downloadcta.json#/components/komponenten-call-to-action-downloadcta"
+      }
+    },
+    "komponenten-tabelle-tabelle": {
+      "id": "komponenten-tabelle-tabelle",
+      "name": "TableComponent",
+      "description": "Table (`cds-table`) — Wrapper um `.tbl`/`.tbl-wrap` aus css/components.css\n(css/components.css:1462–1480): die Datentabelle. Ausgezählt: Außerhalb von\n`sec-table` kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten — keine\nder 24 Beispielseiten außerhalb von\nWissensbeiträgen setzt aktuell eine Tabelle ein.\n\n**Kein Daten-Input.** Eine `columns`/`rows`-API würde Zellinhalte auf Strings\nfestlegen; die Beispielseiten setzen darin Badges, Links und `data-num`.\nDer Konsument projiziert `<thead>`/`<tbody>`/\n`<tfoot>` unverändert per `<ng-content>`, die Komponente liefert nur die\nHülle: `.tbl-wrap`, `.tbl`, `<caption>` und die Striped-Klasse.\n\n**`caption` ist Pflicht (`input.required<string>()`), abweichend von der\nursprünglichen Skizze (dort `caption? = ''`).** Die eigene Doku dieser Komponente\n(`apps/storybook/src/docs/komponenten/tabelle.mdx:137`) nennt `<caption>`\nausdrücklich „Pflicht, Screenreader lesen den Titel vor, bevor die Zellen\nvorgelesen werden“ und wiederholt das in den Dos (`tabelle.mdx:147`:\n„`<caption>` und `scope`-Attribute immer setzen, auch bei einfachen\nTabellen“). Ausgezählt: Alle fünf realen `.tbl`-Vorkommen haben eine\n`<caption>`, ausnahmslos. Ein optionaler Input mit Default `''`\nhätte genau den Fall erlaubt, den die eigene Doku verbietet — nach\nADR-0007 §2 ist `caption` damit Inhalt, nicht Beiwerk: ohne sie ist eine\n`cds-table` eine Tabelle, die die eigenen Barrierefreiheitsregeln bricht,\nalso sinnlos. Ein vergessenes Binding wirft jetzt `NG0950`, statt eine\nunbeschriftete Tabelle still auszuliefern.\n\n**Element-Selektor, `.tbl-wrap`/`.tbl` sitzen im eigenen Template, nicht am\nHost (ADR-0008-Standardfall, analog zu `cds-facts`/`cds-faq`).** Ausgezählt:\nAlle fünf `.tbl-wrap`-Vorkommen sind keine direkten Grid-/Flex-Kinder. Das einzige\nVorkommen in einem `.layout-grid` sitzt eine Ebene tiefer in\neinem `.col-8`, das seinerseits der Grid-Child ist; `.tbl-wrap` ist dort ein\ngewöhnlicher Block-Nachfahre, dessen Breite vom umschließenden `.col-8`\nkommt, nicht von `align-items:stretch` auf einer bestimmten DOM-Tiefe (kein\n`.ep-card`-Fall). Keines trägt eine `col-*`-Klasse selbst, keines variiert\ndas Tag (immer `<div class=\"tbl-wrap\">`). Ein `<cds-table>`-Host ohne eigene\nKlasse und ohne eigenes `background` gerät deshalb nicht in den „Fläche am\nHost“-Fall aus ADR-0008 Fall 2: die Komponente setzt nichts auf dem Host,\ndas eine eigene Box bräuchte, `.tbl-wrap` bleibt ein normaler Block-Nachfahre\nunabhängig vom `display` des `<cds-table>`-Hosts (derselbe Grund, warum\n`cds-facts`/`cds-faq` als Element-Selektor funktionieren).\n\nEine Attributselektor-Variante direkt am `<table>` (`table[cdsTable]`, analog\nzu `cdsSection`) wurde erwogen und verworfen: `<table>` ist als Tag ohnehin\nfix (kein Tag-Wechsel wie bei `cdsIconCard`), aber `.tbl-wrap` bräuchte dann\nein ZWEITES Element, das der Konsument von Hand um die Tabelle schreiben\nmüsste (`<div class=\"tbl-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"…\">\n<table cdsTable>…`) — genau die beiden Aufgaben, die am ehesten\nvergessen werden (fokussierbarer, benannter Scroll-Container), blieben dann\nbeim Konsumenten statt bei der Komponente. Der Element-Selektor hält Wrap und\nTabelle zusammen in einem Template.\n\n**Geprüft im laufenden Storybook (Story „Interaktiv“, Play-Funktion):**\n`<table class=\"tbl\">` liegt direkt unter `<div class=\"tbl-wrap\">`, `<caption>`\nist ihr erstes Kind, danach folgen ohne zusätzlichen Knoten dazwischen genau\ndie projizierten `<thead>`/`<tbody>`-Elemente — `<ng-content>` fügt selbst\nkein DOM-Element ein, es verschiebt nur die vom Konsumenten geschriebenen\nnativen Elemente an ihre Stelle. Damit bleibt die Tabellenstruktur (`<table>`\n→ `<caption>` + `<thead>` + `<tbody>` + optional `<tfoot>`, keine fremde\nEbene dazwischen) exakt so gültig wie im rohen Markup.\n\n**`.tbl-wrap` ist immer fokussierbar UND immer benannt.** Das CSS gibt dem\nScroll-Container einen eigenen `:focus-visible`-Ring\n(css/components.css:1463) — ein scrollbarer Bereich muss per Tastatur\nerreichbar sein (WCAG 2.1.1), `tabindex=\"0\"` steht deshalb fest im Template.\n`role=\"region\"` braucht laut HTML-AAM einen zugänglichen Namen, sonst bekäme\nder Bereich keine Landmark-Rolle — weil `caption` jetzt Pflicht ist, kann\n`accessibleName()` (`scrollLabel() || caption()`) nicht mehr leer werden,\n`role`/`aria-label` sind deshalb unbedingt gesetzt, kein Nullfall mehr zu\nbehandeln. `scrollLabel` bleibt eine optionale Überschreibung (Vorrang vor\n`caption`) für Fälle, in denen der sichtbare Tabellentitel für den\nScroll-Container zu lang oder zu unspezifisch wäre.\n\n**`.tbl-sort` bleibt außen vor.** Die Klasse existiert\n(css/components.css:1477–1482), die Sortierlogik aber nicht. Ein Wrapper, der nur den\nButton-Look lieferte, täuschte Funktion vor, die es nicht gibt.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-tabelle-tabelle.json#/components/komponenten-tabelle-tabelle"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-tabelle-tabelle.json#/components/komponenten-tabelle-tabelle"
+      },
+      "docs": {
+        "komponenten-tabelle-tabelle--verwendung": {
+          "id": "komponenten-tabelle-tabelle--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-tabelle-tabelle.json#/components/komponenten-tabelle-tabelle/docs/komponenten-tabelle-tabelle--verwendung"
+          },
+          "summary": "# Tabelle Barrierefreie Datentabellen mit ``, `scope`-Attributen und Tastaturnavigation, i..."
+        }
+      }
+    },
+    "komponenten-tabelle-vergleichstabelle": {
+      "id": "komponenten-tabelle-vergleichstabelle",
+      "name": "CompareComponent",
+      "description": "Compare (`cds-compare`) — Wrapper um `.ep-compare*` aus css/components.css\n(css/components.css:1275–1294): die aufklappbare Vergleichstabelle für den zeilenweisen\nDirektvergleich mehrerer Pakete/Tarife, nach `cds-table`.\n\n**Mit Daten-Input, anders als `cds-table`.** `cds-table` projiziert `<thead>`/`<tbody>`\nunverändert per `<ng-content>`, weil seine Zellen Badges, Links und `data-num` tragen können\n(siehe dessen Klassendoku). Hier ist der Zellinhalt strukturell auf Ja/Nein oder eine kurze\nAngabe begrenzt — ausgezählt: alle 22 Datenzellen des einzigen realen Vorkommens\n(11 Zeilen × 2 Spalten, ohne die Zeilenüberschriften) sind\nentweder ein `.ep-compare-yes`/`-no`-Marker (18×, davon 14× „Ja“, 4× „Nein“) oder ein kurzer\nText wie „bis 70 Mrd. Param.“ bzw. „30 Min.“ (4×) — nie ein Badge, Link oder anderes Markup.\nWeil Spaltenzahl, `pro`-Spalte und Zellinhalt damit vollständig aus zwei Arrays (`columns`,\n`rows`) hervorgehen, würde `<ng-content>` beim Konsumenten nur denselben `@for`-Code\nduplizieren, ohne eine Freiheit zu gewinnen, die die Zell-Typisierung (`boolean | string`)\nohnehin ausschließt.\n\n**Ja/Nein-Zellen tragen einen Screenreader-Text, übernommen statt erfunden.** Im einzigen\nrealen Vorkommen steht hinter jeder Glyphe ein `.sr-only`-Text, ausnahmslos:\n`<span class=\"ep-compare-yes\" aria-hidden=\"true\">✓</span><span class=\"sr-only\">Enthalten</span>`\n(14×) bzw. `<span class=\"ep-compare-no\" aria-hidden=\"true\">−</span><span class=\"sr-only\">Nicht\nenthalten</span>` (4×, „−“ ist U+2212 Minus, kein Bindestrich). Genau diese Zeichen und dieser\nWortlaut, keine eigene Formulierung — Farbe und Glyphe allein tragen keine Bedeutung\n(WCAG 1.4.1), der `.sr-only`-Text ist deshalb kein optionaler Zusatz, sondern fest verdrahtet,\nnicht per Input überschreibbar.\n\n**`caption` ist Pflicht (`input.required<string>()`), abweichend von der ursprünglichen Skizze (dort\nkein Input dafür vorgesehen) — dieselbe Begründung wie bei `cds-table`.** Die eigene Doku\n(`apps/storybook/src/docs/komponenten/tabelle.mdx:91`) nennt `<caption class=\"sr-only\">`\nausdrücklich als Teil des Bauteils, und das einzige reale Vorkommen hat eine. Anders als bei\n`cds-table` ist sie hier `.sr-only`, nicht sichtbar: der Klartext steht schon im `<summary>`\n(`summary`-Input), die `<caption>` wiederholt ihn nur für Screenreader, die nach dem Aufklappen\ndirekt in die Tabelle springen, ohne den Summary-Text erneut vorgelesen zu bekommen.\n\n**`rowsLabel` (erste Kopfzelle, `<th scope=\"col\">Funktion</th>` im Mockup) ist dagegen Beiwerk,\noptional mit Default `''`.** Auch dafür sieht die ursprüngliche Skizze keinen Input vor. Den Text fest\nim Template zu verdrahten hieße, AI.Box-Copy in einen wiederverwendbaren Wrapper zu backen\n(ADR-0007 §2); ihn ganz wegzulassen wich ohne CSS-Befund vom einzigen Beleg ab, ohne dass die\nDoku das verlangt. Anders als `caption` ist die Kopfzelle nicht barrierefreiheitsrelevant\nPflicht: ein leeres `<th scope=\"col\">` bleibt eine gültige, in Vergleichsmatrizen verbreitete\nEcke ohne eigenen Namen. Deshalb Beiwerk, kein Inhalt — das Beispielwort „Funktion“ steht in\nder Story, nicht in der Klasse.\n\n**Natives `<details>`/`<summary>` bleibt erhalten, kein nachgebautes Disclosure**\n(analog `cds-faq`): Tastaturbedienung und Toggle-Verhalten kommen vom Browser, das CSS\nhängt direkt an `[open]` (`.ep-compare[open] .ep-compare-caret`). `<details class=\"ep-compare\">`\nsitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund wie bei `cds-table`s\n`.tbl-wrap`/`.tbl`: ein `<cds-compare>`-Host ist ein unbekanntes Custom Element, kein echtes\n`<details>`, und kann dessen native Disclosure-Semantik nicht annehmen.\n\n**Element-Selektor (ADR-0008-Standardfall).** `.ep-compare` sitzt im einzigen realen Vorkommen\nals gewöhnlicher Block-Nachfahre in `.ep-section` — kein Grid-/\nFlex-Kind, keine `col-*`-Klasse vom Konsumenten, kein Tag-Wechsel (immer `<details>`). Keines\nder drei ADR-0008-Kriterien greift, ein Attributselektor brächte hier nichts.\n\n**`open` ist ein reiner Anfangszustand, keine Zwei-Wege-Bindung.** Gebunden über\n`[attr.open]=\"open() ? '' : null\"`: Angular schreibt das Attribut nur, wenn sich der GEPRÜFTE\nAusdruckswert seit dem letzten Change-Detection-Lauf ändert. `open()` bleibt nach dem ersten\nRendern konstant (die Komponente schreibt nie in dieses Signal zurück), ein nachfolgender\nnativer Toggle wird deshalb nicht rückgängig gemacht — geprüft in der Story „Interaktiv“\n(Play-Funktion: Klick öffnet, `toggled` feuert `true`, ein zweiter, vom Toggle unabhängiger\nInteraktionsschritt lässt die Tabelle weiterhin offen).\n\nVerwendungsguidance dieser Gruppe: siehe Tabelle (`komponenten-tabelle-tabelle--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-tabelle-vergleichstabelle.json#/components/komponenten-tabelle-vergleichstabelle"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-tabelle-vergleichstabelle.json#/components/komponenten-tabelle-vergleichstabelle"
+      }
+    },
+    "komponenten-zitate-testimonials-blockquote": {
+      "id": "komponenten-zitate-testimonials-blockquote",
+      "name": "BlockquoteComponent",
+      "description": "Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.\n\nBereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),\ngefülltes Lucide-Quote-Icon, Zitat und\nCaption (Name/Rolle). Nur bestehende Klassen.\n\n**Nicht `cds-article-pullquote` (`.article-pullquote`).** Dieses Bauteil ist\nein eigenständiges Zitat: eine dritte, benannte Person (`name`/`roleLabel` sind\nPflicht), mit getönter Akzent-Box und Quote-Icon. `cds-article-pullquote` ist\ndagegen ein typografischer Akzent im eigenen Lauftext eines Wissensbeitrags,\nohne Attribution, ohne Box, ohne Icon — der Autor zitiert dort einen Satz aus\ndem eigenen Text, nicht eine dritte Stimme. Volle Abgrenzung samt Tabelle in\ndessen Klassendoku (`article-pullquote.component.ts`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-zitate-testimonials-blockquote.json#/components/komponenten-zitate-testimonials-blockquote"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-zitate-testimonials-blockquote.json#/components/komponenten-zitate-testimonials-blockquote"
+      },
+      "docs": {
+        "komponenten-zitate-testimonials-blockquote--verwendung": {
+          "id": "komponenten-zitate-testimonials-blockquote--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-zitate-testimonials-blockquote.json#/components/komponenten-zitate-testimonials-blockquote/docs/komponenten-zitate-testimonials-blockquote--verwendung"
+          },
+          "summary": "# Verwendung Zitate & Testimonials führt vier Formen: Blockquote, Testimonial-Card, Team-S..."
+        }
+      }
+    },
+    "komponenten-zitate-testimonials-testimonial": {
+      "id": "komponenten-zitate-testimonials-testimonial",
+      "name": "TestimonialComponent",
+      "description": "Testimonial — Wrapper um `.testimonial` aus css/components.css → „Testimonial Card“.\n\nStatische Zitat-Karte mit bereichsgefärbtem Top-Akzent (data-area), Quote-Icon\n(.testimonial-icon, fill:currentColor), Zitat (blockquote) und Footer mit Name/Rolle.\nNur bestehende Klassen — kein eigenes CSS.\n\nVerwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-zitate-testimonials-testimonial.json#/components/komponenten-zitate-testimonials-testimonial"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-zitate-testimonials-testimonial.json#/components/komponenten-zitate-testimonials-testimonial"
+      }
+    },
+    "komponenten-zitate-testimonials-teamvoice": {
+      "id": "komponenten-zitate-testimonials-teamvoice",
+      "name": "TeamVoiceComponent",
+      "description": "TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.\n\nEditoriale Zitat-Reihe mit seitlichem Foto (im Grid abwechselnd links/rechts,\ngesteuert per :nth-child innerhalb von `.team-voices`, bei Angular über den Host), bereichsgefärbtem\nAkzent (data-area), gefülltes Lucide-Quote-Icon, Zitat und Name/Rolle. Mehrere\nKomponenten in einen `<div class=\"team-voices\">` legen, damit das alternierende\nLayout greift (siehe Story).\n\nVerwendungsguidance dieser Gruppe: siehe Blockquote (`komponenten-zitate-testimonials-blockquote--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-zitate-testimonials-teamvoice.json#/components/komponenten-zitate-testimonials-teamvoice"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-zitate-testimonials-teamvoice.json#/components/komponenten-zitate-testimonials-teamvoice"
+      }
+    },
+    "komponenten-code-block-code-block": {
+      "id": "komponenten-code-block-code-block",
+      "name": "CodeBlockComponent",
+      "description": "CodeBlock — Wrapper um `.cb-wrap` aus css/components.css → „Code-Block“.\n\nHeader mit Sprach-Label (.cb-lang) und optionalem Kopier-Button (.cb-copy),\ndarunter der Code in `pre.cb-body` (white-space:pre, horizontal scrollbar).\nOptionale Terminal-Variante (.cb-terminal). Syntax-Highlighting-Spans\n(.k/.v/.s/…) werden hier bewusst nicht gesetzt — der Code bleibt Klartext.\n\nA11y (siehe docs/komponenten/code-block-verwendung.mdx, Abschnitt „Barrierefreiheit“):\n- `<code>` im `<pre>` als semantisches Grundgerüst, damit Screenreader den Inhalt\n  als „Code“ ankündigen. `.cb-body code{font:inherit}` in components.css fängt den\n  Browser-Default (`code{font-family:monospace}`) ab, sonst würde das verschachtelte\n  `<code>` eine andere Schrift als der Rest des Blocks zeigen.\n- `tabindex=\"0\"` auf `pre.cb-body`, weil der Block bei langen Zeilen horizontal\n  scrollt und sonst per Tastatur nicht erreichbar wäre.\n- `aria-label=\"Code kopieren\"` auf dem Kopier-Button ist **stabil** und wechselt nach\n  dem Klick nicht mehr. Ein Bedienelement trägt den Namen seiner Funktion, nicht den\n  seines letzten Ereignisses — sonst findet man den Button per Sprachsteuerung danach\n  nicht mehr, und eine Elementliste zeigt einen Button „Code kopiert“, der tatsächlich\n  kopiert. Die Erfolgsmeldung läuft stattdessen über eine eigene, visuell versteckte\n  Live-Region (`.sr-only` + `role=\"status\"`, Muster aus `snackbar.component.ts`), die\n  von Anfang an im DOM steht und nur ihren Textinhalt wechselt: `aria-live` beobachtet\n  Inhalts-, keine Attribut-Änderungen, und eine Region, die erst beim Klick entsteht,\n  kündigt bei vielen Screenreadern nichts an. Zusätzlich verhalten sich Live-Regionen\n  auf dem gerade fokussierten Element (hier: der Button nach dem Klick) uneinheitlich.\n  Der sichtbare Button-Text wechselt weiterhin „Kopieren“ ↔ „Kopiert!“, ist aber durch\n  `aria-label` für die Namensberechnung überschrieben und rein optisches Feedback.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-code-block-code-block.json#/components/komponenten-code-block-code-block"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-code-block-code-block.json#/components/komponenten-code-block-code-block"
+      },
+      "docs": {
+        "komponenten-code-block-code-block--verwendung": {
+          "id": "komponenten-code-block-code-block--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-code-block-code-block.json#/components/komponenten-code-block-code-block/docs/komponenten-code-block-code-block--verwendung"
+          },
+          "summary": "# Verwendung Code-Block stellt Quellcode und Terminal-Ausgaben für Wissens- und Technikbei..."
+        }
+      }
+    },
+    "komponenten-slider-carousel-carousel": {
+      "id": "komponenten-slider-carousel-carousel",
+      "name": "CarouselComponent",
+      "description": "Carousel — Wrapper um `.img-slider` aus css/components.css → „Bild-Slider“.\n\nCrossfade-Carousel: alle Slides liegen gestapelt im Grid, die aktive trägt\n`.active` (opacity). Inaktive Slides bekommen zusätzlich `[aria-hidden]`, sonst\nläse ein Screenreader Titel und Text jeder Folie vor, obwohl visuell nur eine\nsichtbar ist (identisches Muster wie beim LogoCarousel). Prev/Next-Buttons\n(.img-slider-btn) und Dots (.img-dot) steuern den Index. Optionale Hero-Variante\n(.img-slider-hero). Ohne Bild-URL wird ein neutraler Platzhalter gezeigt. Der\naktive Index ist über `[(active)]` (model) beobacht-/steuerbar.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-slider-carousel-carousel.json#/components/komponenten-slider-carousel-carousel"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-slider-carousel-carousel.json#/components/komponenten-slider-carousel-carousel"
+      },
+      "docs": {
+        "komponenten-slider-carousel-carousel--verwendung": {
+          "id": "komponenten-slider-carousel-carousel--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-slider-carousel-carousel.json#/components/komponenten-slider-carousel-carousel/docs/komponenten-slider-carousel-carousel--verwendung"
+          },
+          "summary": "# Verwendung Slider & Carousel führt zwei getrennte Formen: das Bild-Carousel zur Seiten-I..."
+        }
+      }
+    },
+    "komponenten-slider-carousel-logocarousel": {
+      "id": "komponenten-slider-carousel-logocarousel",
+      "name": "LogoCarouselComponent",
+      "description": "LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel“.\n\nDiskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln\n(`[aria-hidden]` je Slide). Das Autoplay pausiert bei Maus-Hover und Tastatur-Fokus\n(damit Nutzer in Ruhe lesen/bedienen können), zusätzlich dauerhaft über den\nPause-Button (.logo-carousel-pause, sichtbar bei Hover/Fokus bzw. im .paused-Zustand;\nsein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation\nfortsetzen“, ohne `aria-pressed`). Dots wählen ein Set direkt; Dot-Klick und jede\nTastenbedienung der Dots (←/↑/→/↓, Home, End) pausieren dauerhaft. Autoplay respektiert prefers-reduced-motion\n(dann läuft kein Timer und der Pause-Button ist versteckt).\n\nDer Timer wird zentral über ein `effect` gesteuert: er läuft nur, wenn NICHT\npausiert, NICHT gehovert, NICHT fokussiert und reduzierte Bewegung nicht gewünscht\nist. Eine Änderung des `interval` startet ihn automatisch neu.\n\nJede Kachel ist ein `cds-logo`: bevorzugt ein Bild (`src`), sonst der Text als\nPlatzhalter/Fallback. Standardmäßig sind reine Text-Platzhalter gesetzt – reale\nAnwendungen übergeben ihre Kundenlogos als Bilder.\n\nVerwendungsguidance dieser Gruppe: siehe Carousel (`komponenten-slider-carousel-carousel--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-slider-carousel-logocarousel.json#/components/komponenten-slider-carousel-logocarousel"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-slider-carousel-logocarousel.json#/components/komponenten-slider-carousel-logocarousel"
+      }
+    },
+    "komponenten-sektion-sektion": {
+      "id": "komponenten-sektion-sektion",
+      "name": "SectionComponent",
+      "description": "Section (`[cdsSection]`) — Wrapper um `.ep-section` aus css/components.css\n(css/components.css:1223–1253, mobiler Innenabstand: Zeile 1228) mit dem optionalen\nKopf-Trio `.ep-section-label` (Kicker) / `.ep-section-h2` (Überschrift) /\n`.ep-section-sub` (Lead). Das strukturelle Grundgerüst, in dem auf den\nBeispielseiten praktisch jeder andere Baustein sitzt (133 Vorkommen, 85 davon mit\nKopfzeile).\n\nAlle drei Textteile sind Beiwerk (`input('')`): Eine Sektion besteht auch ganz ohne\nKopf, nur aus ihrem projizierten Inhalt. Der Inhalt selbst\nkommt per `<ng-content>` und ist deshalb kein Input.\n\n**Entscheidung 1 — Attributselektor, der Konsument wählt `<section>` oder `<div>`.**\nErste Fassung war `cds-section` als eigenes Element, das intern selbst entschied:\n`<section aria-labelledby=\"…\">`, wenn ein zugänglicher Name verfügbar war, sonst ein\nnamenloses `<div>`. Das setzte voraus, dass ein `background` auf einem\nUMSCHLIESSENDEN Element sitzen musste (siehe Entscheidung 2) — gemessen im laufenden\nStorybook (siehe `docs/adr/0008-selektortyp-der-wrapper-komponenten.md`, „Fall 2“):\n`getComputedStyle(host).backgroundColor` und `host.getBoundingClientRect()`\nmeldeten beide „passt“, der Screenshot zeigte trotzdem keine gemalte Fläche — ein\nunbekanntes Custom Element ohne eigene Inline-Inhalte, dessen einziges Kind als Block\nherausgebrochen wird, hat keine eigene Box zum Malen.\n\nDie Komponente hängt sich deshalb als Attribut an ein vom Konsumenten geschriebenes\n`<section>` oder `<div>`, analog zu `cds-icon-card`\n(`icon-card/icon-card.component.ts`). Der Konsument entscheidet über das Tag, ob die\nSektion überhaupt eine `<section>`-Landmark werden KANN; die Komponente entscheidet\nnur noch, ob sie `aria-labelledby` setzt (die eigene, gerenderte `.ep-section-h2` hat\nVorrang, sonst — wenn `heading` leer bleibt — die per `labelledBy` übergebene id einer\nÜberschrift außerhalb der Komponente). Schreibt der Konsument `<section cdsSection>`\nohne Namen, bleibt es bei einer `<section>` ohne `aria-labelledby`: HTML-AAM gibt ihr\ndann keine Landmark-Rolle, aber das ist eine Entscheidung des Konsumenten, keine der\nKomponente — sie erzwingt kein Tag mehr.\n\n**Entscheidung 2 — kein `background`-Input, die Fläche darf jetzt aber am Host\nsitzen.** Das Mockup setzt Sektionsflächen inline (`style=\"background:var(--bg-surface)\"`\n/ `--co-50` / …). Das ist der Flächen-Rhythmus zwischen aufeinanderfolgenden\nSektionen einer Seite — eine Entscheidung, die nur die Seite treffen kann, weil\nnur sie ihre Nachbar-Sektionen kennt. Ein Bauteil kennt seinen Kontext nicht\n(CONTRIBUTING.md §7) und bekäme mit einem `background`-Input eine Zuständigkeit, die\nihm nicht zusteht. Der Konsument setzt die Fläche deshalb weiterhin selbst — jetzt\naber direkt auf dem Element, das `cdsSection` trägt (`<section cdsSection\nstyle=\"background:…\">` bzw. `<div cdsSection style=\"…\">`), denn dieses Element IST\n`.ep-section`, kein Host mehr davor. Das umschließende Element aus der ersten Fassung\nist damit nicht mehr nötig (siehe Story „Fläche am Host“).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-sektion-sektion.json#/components/komponenten-sektion-sektion"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-sektion-sektion.json#/components/komponenten-sektion-sektion"
+      },
+      "docs": {
+        "komponenten-sektion-sektion--verwendung": {
+          "id": "komponenten-sektion-sektion--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-sektion-sektion.json#/components/komponenten-sektion-sektion/docs/komponenten-sektion-sektion--verwendung"
+          },
+          "summary": "# Sektion Das strukturelle Gerüst, in dem auf den Beispielseiten praktisch jeder andere Ba..."
+        }
+      }
+    },
+    "komponenten-navigation-topnav": {
+      "id": "komponenten-navigation-topnav",
+      "name": "TopnavComponent",
+      "description": "Topnav — Wrapper um `.ep-topnav` aus css/components.css → „Topnav“.\n\nCustomer-Navigation: Logo, Top-Level-Links mit optionalem Klapp-Submenü\n(.ep-nav-has-sub / .ep-nav-sub, aria-expanded), rechts gebündelte Aktionen\n(Such-Popover .ep-nav-search + Theme-Cycle-Button) und ein CTA-Button.\nDisclosure-Logik in Angular: nur ein Menü offen; Escape, Außenklick\nund Heraustabben (der Fokus verlässt Item oder Such-Popover) schließen.\n\nTastatur im Submenü: Pfeil runter öffnet ein geschlossenes Item und fokussiert den ersten\nEintrag, Pfeil runter/hoch laufen mit Umlauf durch die Einträge, Home/End springen an Anfang\nund Ende (bei geöffnetem Menü). Auf Geräten mit echtem Hover (`pointer:fine`) öffnet Hover\ndas Submenü (100 ms Verzögerung, Schließen nach 250 ms); ein Klick auf den Caret bricht die\nTimer ab. Escape schließt auch ein per Hover geöffnetes Menü.\n\nSuche: Das Label des Toggles wechselt zwischen „Suche öffnen“ und „Suche schließen“, beim\nÖffnen springt der Fokus ins Suchfeld, Escape schließt und gibt den Fokus zurück.\n\nMobilmenü: Jeder Klick auf einen Link schließt das geöffnete Menü.\n\nDer Theme-Umschalter ist fest der Cycle-Button (cds-theme-cycle); ob er auch\n„System“ anbietet, steuert `showSystemTheme` (durchgereicht an dessen showSystem).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-navigation-topnav.json#/components/komponenten-navigation-topnav"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-navigation-topnav.json#/components/komponenten-navigation-topnav"
+      },
+      "docs": {
+        "komponenten-navigation-topnav--verwendung": {
+          "id": "komponenten-navigation-topnav--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-navigation-topnav.json#/components/komponenten-navigation-topnav/docs/komponenten-navigation-topnav--verwendung"
+          },
+          "summary": "# Verwendung Navigation führt drei Elemente: Topnav, Breadcrumb und Back-to-Top-Button. Nu..."
+        }
+      }
+    },
+    "komponenten-hero-hero-bild": {
+      "id": "komponenten-hero-hero-bild",
+      "name": "HeroImageComponent",
+      "description": "HeroImage (cds-hero-image) — Wrapper um `.hero-image` aus css/components.css\n(css/components.css:851–878) mit optionaler Caption als Gradient-Overlay\n(`-caption`, `-caption-eyebrow`, `-caption-title`, `-caption-text`). Vollbreites,\nrandloses `<figure>` im 21:9-Format, der Standard-Hero auf allen Customer-Pages\n(17 Vorkommen in den Beispielseiten). Semantisch ein figure/figcaption-Pattern:\n`alt` trägt die faktische Bildbeschreibung, die Caption die redaktionelle\nEinordnung (Eyebrow, Titel, Text) — beide sollen sich nicht inhaltlich decken.\n\n**Entscheidung 1 — kein `<figcaption>` ohne Textinhalt.** Bleiben `eyebrow`,\n`heading` und `text` alle leer, entfällt das `<figcaption>`-Element vollständig\nstatt leer zu rendern (Variante „Hero ohne Caption“, siehe\n`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx` Abschnitt „Aufbau“,\nZeile 3: Beitrags-Heros zeigen das visuelle Versprechen ohne Marketing-Overlay).\nEin leeres `<figcaption>` wäre totes Markup ohne Zugänglichkeitsnutzen.\n\n**Entscheidung 2 — `headingLevel` statt fest verdrahtetem `<h1>`.** Der Hero\nrendert `.hero-image-caption-title` häufig als\n`<h1>`, weil der Hero dort das erste Überschriften-Element der Seite ist. Sitzt\nder Hero dagegen unter einem eigenen `<h1>` — der Wissensbeitrag hat seinen\nTitel bereits im Article-Header (`.article-title`, ebenfalls `<h1>`) —, entstünde\nmit einem zweiten `<h1>` eine doppelte Top-Überschrift. `headingLevel` (Default\n`1`) macht die Ebene explizit, `.hero-image-caption-title` ist reine CSS-Klasse\nund trägt keine Heading-Semantik, das Styling bleibt in beiden Fällen identisch.\n\n**Entscheidung 3 — `objectPosition` als Style-Binding, bewusste Ausnahme von\nder Regel, dass Mockup-Inline-Styles nicht in den Wrapper wandern.** Der\nBildausschnitt ist eine Eigenschaft des konkreten\nBildes (Motiv, Kopfposition), nicht der Seite — anders als z. B. eine\nSektionsfläche, die vom Seitenkontext abhängt. Er wird deshalb an jedem Hero\nindividuell direkt am `<img>` gesetzt (z. B. `object-position:center 70%`).\nOhne diesen Input wäre die Komponente für Porträt-lastige\nMotive unbrauchbar: `object-fit:cover` beschneidet das Bild sobald der\n`max-height`-Cap greift (siehe `.hero-image-media`), und ohne Steuerung landet\nder Ausschnitt zufällig in der Bildmitte. Als Style-Binding am `<img>`, nicht als\nKlasse — es gibt in der CSS-Schicht keine Modifier-Klassen dafür, nur den\nInline-Weg, den das Mockup selbst nutzt.\n\n**Entscheidung 4 — `tabindex`/`id` sind nicht Teil der Komponente.** Das Mockup\nsetzt beides am `<figure>` (`id=\"ep-landing-main\" tabindex=\"-1\"`, z. B. Zeile\n9406) als Sprungziel des Skip-Links. Das Sprungziel ist eine Entscheidung der\nSeite (welches Element „Hauptinhalt“ ist, hängt vom Seitenaufbau ab, nicht vom\nHero selbst), deshalb setzt der Konsument beides am `<cds-hero-image>`-Host.\nDamit dieses Sprungziel eine eigene Box hat, ist der Host per\n`:host{display:block}` selbst ein Block (Muster wie `cds-footer-main`): Als\nunbekanntes Element wäre er `display:inline` mit herausgebrochenem Block-Kind\nund hätte keine brauchbare Box für Fokus und Scroll-Position (ADR-0008, Fall 2).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-hero-hero-bild.json#/components/komponenten-hero-hero-bild"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-hero-hero-bild.json#/components/komponenten-hero-hero-bild"
+      },
+      "docs": {
+        "komponenten-hero-hero-bild--verwendung": {
+          "id": "komponenten-hero-hero-bild--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-hero-hero-bild.json#/components/komponenten-hero-hero-bild/docs/komponenten-hero-hero-bild--verwendung"
+          },
+          "summary": "# Hero Drei Hero-Varianten für den Seitenkopf: Hero-Image mit Caption-Overlay (21:9, Stand..."
+        }
+      }
+    },
+    "komponenten-hero-störer": {
+      "id": "komponenten-hero-störer",
+      "name": "StoererSetComponent",
+      "description": "StoererSet (cds-stoerer-set) — Wrapper um `.stoerer-set` / `.stoerer-list` aus\ncss/components.css (css/components.css:926–974): das Set aus ein bis drei\n`<cds-stoerer>`-Kacheln, das auf der Startseite oben rechts über dem Hero-Bild\nliegt. Der Positionsrahmen `.stoerer-hero` (umschließt Hero-Bild UND Set,\n`container-type:inline-size` für die Container-Query-Schwelle) ist bewusst NICHT\nTeil dieser Komponente, sondern bleibt beim Konsumenten: er umschließt Hero UND\nSet gemeinsam, das könnte diese Komponente als internes Detail nicht leisten, ohne\ndas Hero-Bild selbst zu kennen.\n\n**Entscheidung — `<li>` ohne strukturelles Wrapper-Element.** `.stoerer-list` ist\nein `<ul>`; nach HTML-AAM bekommt ein `<li>` die implizite Rolle `listitem` nur als\ndirektes Kind eines `<ul>`/`<ol>`/`<menu>` — Screenreader kündigen die Liste sonst\nnicht mit Anzahl an. Ein einfaches `<ng-content>` hätte `<cds-stoerer>` selbst\nzwischen `<ul>` und `<li>` geschoben (kein direktes Kind mehr), und ein\n`display:contents`-Wrapper verbietet sich als neues CSS (ADR-0001). Gelöst über\ndasselbe Muster, das `cds-area-tabs`/`cds-area-tab` bereits für „projizierte\nKind-Komponente, deren Markup an einer selbst bestimmten Stelle im eigenen Template\nlandet“ etabliert (`area-tabs/area-tabs.component.ts`): `cds-stoerer` rendert nicht\nin sich selbst, sondern in ein `<ng-template>` und liefert es als `TemplateRef`\n(`stoerer.component.ts`). Diese Komponente liest die projizierten `<cds-stoerer>`\nüber `contentChildren()` und setzt ihr Template per `ngTemplateOutlet` direkt in\nein selbst gerendertes `<li>` ein. Im laufenden Storybook geprüft (`Komponenten/Hero/\nStörer` → Story „Interaktiv“, DOM live im Browser per `querySelector` abgefragt,\nzusätzlich in der Play-Funktion der Story gepinnt): `<ul class=\"stoerer-list\">`\nhat ausschließlich `<li>` als direkte Kinder (`ul.stoerer-list > *` → `[\"LI\",\"LI\"]`),\n`<cds-stoerer>` selbst taucht im gerenderten DOM nirgends auf — Angular hängt\nunprojizierten Content ohne passendes `<ng-content>`-Ziel gar nicht erst ein, exakt\nwie bei `<cds-area-tab>` innerhalb von `<cds-area-tabs>`. Ein `items`-Array (die\nerwogene Alternative) hätte denselben DOM-Baum ergeben, aber den\nKonsumenten gezwungen, das projizierte Icon jeder Kachel in ein Datenobjekt\numzuziehen; mit dieser Lösung bleibt die deklarative, Content-projizierende API\nerhalten.\n\nRedaktionell gilt: höchstens drei Kacheln, kein Typ doppelt, und die Reihenfolge\nwechselt nicht pro Seitenaufruf (eine springende Reihenfolge liest sich als Fehler,\nnicht als Frische).\n\nVerwendungsguidance dieser Gruppe: siehe Hero-Bild (`komponenten-hero-hero-bild--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-hero-störer.json#/components/komponenten-hero-störer"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-hero-störer.json#/components/komponenten-hero-störer"
+      }
+    },
+    "komponenten-footer-komplett": {
+      "id": "komponenten-footer-komplett",
+      "name": "FooterComponent",
+      "description": "Footer — `<footer>`-Landmark (`.footer`, Zwei-Band-Stack) als schlanke Hülle. Die\nbeiden Bänder werden als `<cds-footer-main>` und `<cds-footer-bottom>` projiziert:\n\n```html\n<cds-footer>\n  <cds-footer-main ...></cds-footer-main>\n  <cds-footer-bottom ...></cds-footer-bottom>\n</cds-footer>\n```\n\nSo lassen sich oberer und unterer Teil einzeln betrachten und unabhängig\nkonfigurieren; `.footer` stapelt sie (flex column) im Seitenfuß-Landmark.",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-footer-komplett.json#/components/komponenten-footer-komplett"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-footer-komplett.json#/components/komponenten-footer-komplett"
+      },
+      "docs": {
+        "komponenten-footer-komplett--verwendung": {
+          "id": "komponenten-footer-komplett--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-footer-komplett.json#/components/komponenten-footer-komplett/docs/komponenten-footer-komplett--verwendung"
+          },
+          "summary": "# Verwendung Footer ist ein Zwei-Band-Layout: heller Main-Bereich mit Spalten-Grid (Brand ..."
+        }
+      }
+    },
+    "komponenten-footer-oberer-teil": {
+      "id": "komponenten-footer-oberer-teil",
+      "name": "FooterMainComponent",
+      "description": "Footer — oberer Teil (`.footer-main`): helles Band als **generisches Spalten-Layout**.\nDer Inhalt wird als beliebige Spalten projiziert (jedes Top-Level-Kind = eine\nGrid-Spalte), statt fester Adresse/Nav/Newsletter-Struktur — so eignet es sich für\nWebsite- UND App-Footer ohne Marketing-Lock-in.\n\n```html\n<cds-footer-main>\n  <div>…Spalte 1…</div>\n  <div>…Spalte 2…</div>\n</cds-footer-main>\n```\n\nDie Host-Klasse `footer-main` trägt Hintergrund/Padding aus css/components.css;\n`:host{display:block}` macht das Band auch standalone zum Block. Spaltenanzahl/-breiten\nüber `columns` (grid-template-columns); ohne Angabe gilt das 3-Spalten-Default.\n\nVerwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-footer-oberer-teil.json#/components/komponenten-footer-oberer-teil"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-footer-oberer-teil.json#/components/komponenten-footer-oberer-teil"
+      }
+    },
+    "komponenten-footer-unterer-teil": {
+      "id": "komponenten-footer-unterer-teil",
+      "name": "FooterBottomComponent",
+      "description": "Footer — unterer Teil (`.footer-btm`): dunkler Streifen mit Copyright, Rechts-Links\nund Social-Profilen. Die Host-Klasse `footer-btm` trägt Hintergrund/Flex-Layout aus\ncss/components.css. Social-Glyphen sind schlanke Inline-SVGs in Weiß; verifizierte\nBuilt-in-Icons (linkedin, youtube) via `platform`, beliebige weitere via `iconPath`.\n\nVerwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-footer-unterer-teil.json#/components/komponenten-footer-unterer-teil"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-footer-unterer-teil.json#/components/komponenten-footer-unterer-teil"
+      }
+    },
+    "komponenten-theme-umschalter-cycle-button": {
+      "id": "komponenten-theme-umschalter-cycle-button",
+      "name": "ThemeCycleComponent",
+      "description": "Theme-Cycle-Button — ein einzelner Icon-Button (Stil `.ep-nav-icon-btn` aus der\nTopnav), der bei Klick durch die Modi zyklt. Das Icon zeigt den aktuellen Modus.\nVorgesehener Einsatz: im Header. Icons über die zentrale Registry (lib/icons/cds-icons).\n\n`showSystem` schaltet zwischen tri (Hell→Dunkel→System) und binär (Hell→Dunkel).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-theme-umschalter-cycle-button.json#/components/komponenten-theme-umschalter-cycle-button"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-theme-umschalter-cycle-button.json#/components/komponenten-theme-umschalter-cycle-button"
+      },
+      "docs": {
+        "komponenten-theme-umschalter-cycle-button--verwendung": {
+          "id": "komponenten-theme-umschalter-cycle-button--verwendung",
+          "name": "Verwendung",
+          "mdx": {
+            "$ref": "../services/addon-docs/mdx/komponenten-theme-umschalter-cycle-button.json#/components/komponenten-theme-umschalter-cycle-button/docs/komponenten-theme-umschalter-cycle-button--verwendung"
+          },
+          "summary": "# Theme-Umschalter · Verwendung Diese Seite hält die Platzierungsregeln fest und beschreib..."
+        }
+      }
+    },
+    "komponenten-theme-umschalter-segment": {
+      "id": "komponenten-theme-umschalter-segment",
+      "name": "ThemeSegmentComponent",
+      "description": "Theme-Segment — Segment-Switch für das Farbthema. Vorgesehener Einsatz: als\neigenständiges Element zum Hovern. Ist daher IMMER responsiv (unter 640px\nIcon-only) und IMMER animiert (Aktiv-Markierung gleitet als Thumb) — beides\nfest, nicht konfigurierbar. Icon + Textlabel stehen immer nebeneinander.\n\nEinzige Konfiguration: `showSystem` (tri Hell/Dunkel/System vs. binär Hell/Dunkel).\n\nBaut auf den CSS-Kern-Klassen `.theme-bar`/`.tbtn` auf. Jeder Button trägt ein\n`aria-label`, ist also auch im Icon-only-Modus benannt. Der Thumb wird per\ngetBoundingClientRect an die aktive Zelle gesetzt (ResizeObserver misst bei\nBreakpoint-/Font-Änderungen nach).\n\nVerwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-theme-umschalter-segment.json#/components/komponenten-theme-umschalter-segment"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-theme-umschalter-segment.json#/components/komponenten-theme-umschalter-segment"
+      }
+    },
+    "komponenten-theme-umschalter-dropdown": {
+      "id": "komponenten-theme-umschalter-dropdown",
+      "name": "ThemeSelectComponent",
+      "description": "Theme-Dropdown — Theme-Umschalter auf Basis unseres Custom Select (cds-select):\ngestylte Einzelauswahl mit Listbox-Popup und Häkchen. Vorgesehener Einsatz: nur in\nden Einstellungen (Settings), NICHT als persistentes Element auf allen Seiten.\n\n`showSystem` schaltet zwischen Hell/Dunkel/System und binär Hell/Dunkel.\n\nVerwendungsguidance dieser Gruppe: siehe Cycle-Button (`komponenten-theme-umschalter-cycle-button--verwendung`).",
+      "docgen": {
+        "$ref": "../services/core/docgen/komponenten-theme-umschalter-dropdown.json#/components/komponenten-theme-umschalter-dropdown"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/komponenten-theme-umschalter-dropdown.json#/components/komponenten-theme-umschalter-dropdown"
+      }
+    },
+    "seitenmuster-wissensbeitrag-article-header": {
+      "id": "seitenmuster-wissensbeitrag-article-header",
+      "name": "ArticleHeaderComponent",
+      "description": "ArticleHeader (`cds-article-header`) — Wrapper um `.article-header` aus\ncss/components.css (css/components.css:1486–1490, 1508–1519): der zentrierte Kopf\neines Wissensbeitrags (Breadcrumb, optionale Pill, H1, Lead, Meta-Strip).\nHauptvorlage ist\n`apps/storybook/src/docs/seitenmuster/wissensbeitrag.mdx`, Abschnitt „Article\nHeader“ — dort steht das verbindliche Markup samt Begründung.\n\n**Breadcrumb sitzt im Header — abweichend von der allgemeinen Navigationsregel,\nbewusst der Hauptvorlage folgend.** Unterseiten können den Breadcrumb vor dem\nHeader in einer eigenen, linksbündigen `.ep-section` setzen, damit er weder\nmittig ausgerichtet wird noch einen abweichenden Abstand zur Navigation erhält.\nDie Komponente bietet hingegen einen Breadcrumb-Input im Header. Konsumenten,\ndie der allgemeinen Regel folgen wollen, lassen `breadcrumb` leer und setzen die\nLeiste selbst davor\n(siehe Story „Ohne Breadcrumb“).\n\n**Letzter Breadcrumb-Eintrag immer ohne Link, mit `aria-current=\"page\"`.**\nVereinfachte Beispiele mit zwei verlinkten Einträgen sind kein vollständiges\nBarrierefreiheits-Beispiel. Die Komponente setzt deshalb Trenner dekorativ und\nden letzten Array-Eintrag als `<span aria-current=\"page\">` ohne Link um,\nunabhängig von einem dort eventuell gesetzten `href`.\n\n**Keine bereichsgefärbte Breadcrumb-Verlinkung (`.t-{area}`).** Die\nInline-Beispiele färben ihren zweiten (dort letzten) Eintrag mit `.t-ki`/`.t-es`/\n`.t-wo`; die API sieht dafür aber kein Feld vor (`{label, href?}`, kein\n`area` pro Eintrag), und eine Zuordnung „Bereichsfarbe auf den vorletzten\nEintrag“ wäre geraten, nicht aus der Doku ableitbar — zumal der gefärbte Eintrag\ndort ein Link ist, kein `aria-current`-Element, also nicht deckungsgleich mit dem\noben umgesetzten Muster. Bleibt bewusst außen vor.\n\n**Pill über `cds-pill`, kein direkt komponiertes `<span class=\"pill\">`.** Geprüft\nper `npx storybook tools docs show --id komponenten-chips-badges-pills-pill`:\n`PillComponent`s Host ist `<cds-pill>`, `.pill` sitzt eine Ebene darunter auf\neinem inneren `<span>` (anders als bei `FeaturedCardComponent`, wo genau das wegen\n`.card-featured-body>.pill`-Kindselektoren nicht ginge). `.article-header`/`.pill`\nhaben keinen solchen Kindselektor (css/components.css:1486–1507 geprüft) — die\nzusätzliche Ebene ist hier folgenlos, deshalb bleibt `cds-pill` als echte\nKomponente eingesetzt, keine Klassen-Duplikation nötig.\n\n**Pille rendert nur, wenn `area` UND `pill` gesetzt sind — kein erfundener\nDefault.** `PillComponent.area` ist als `CdsArea` mit einem eigenen Default\n(`'ki'`) typisiert; diese Komponente führt `area` dagegen als `CdsArea | undefined`\n(kein eigener Default vorgegeben). Ein erster Entwurf reichte\n`area()` per `as CdsArea`-Cast durch, damit ein `undefined`-Binding\n`cds-pill`s eigenen Default überschreiben kann — eine Typ-Lüge, um einen Fall\nabzudecken, der beim Nachzählen gar nicht vorkommt: Alle Pille-Vorkommen im\nArticle-Header-Kontext tragen ein `data-area`, keines ohne Bereich. Die Pille rendert\ndeshalb nur innerhalb von `@if (area(); as pillArea)` (narrowt `CdsArea |\nundefined` sauber auf `CdsArea`, ohne Cast) — ist `pill()` gesetzt, `area()`\naber nicht, bleibt die Pille schlicht weg, statt eine geratene Bereichsfarbe zu\nzeigen. Gepinnt in der Story „Pille ohne Bereich“.\n\n**`pillAriaLabel`, wie bei `FeaturedCardComponent`.** `PillComponent`s eigener\nDefault („Bereich `<label>`“) passt nur, wenn die Pille einen Bereichsnamen trägt.\nIm Wissensbeitrag trägt die Pille dagegen die Lesezeit (`wissensbeitrag.mdx`,\nAbschnitt „Pill · Lesezeit“: `aria-label=\"Lesezeit 8 Minuten\"`) — ein Text, den\ndie Komponente nicht zuverlässig aus einem freien `pill`-String wie\n„8 min Lesezeit“ herleiten kann (keine Zahl zu parsen, keine Garantie, dass der\nText überhaupt eine Lesezeit ist). `pillAriaLabel` bleibt deshalb optional, ohne\neigenen Default: ungesetzt geht `undefined` direkt an `cds-pill`s `ariaLabel`\ndurch, das dann auf seinen eigenen Default („Bereich `<pill>`“) zurückfällt —\nkeine Logik-Duplikation nötig, weil hier die echte `PillComponent` verwendet\nwird, keine Klassen-Nachbildung.\n\n**`date`/`dateLabel` getrennt, ANDERS als `cds-stoerer`.** `cds-stoerer`\nformatiert ein reines ISO-Datum selbst nach `de-DE`\n(`stoerer.component.ts:formattedDate`, inkl. manuellem Aufbau der\n`Date`-Komponenten gegen den UTC-Mitternacht-Fallstrick von `new Date(iso)`).\nDiese Komponente tut das NICHT: `date` liefert nur den maschinenlesbaren\n`datetime`-Wert, `dateLabel` die sichtbare Schreibweise — bewusst als zwei\ngetrennte Inputs. Begründung der Abweichung: Erstens deckt\nsich das mit jeder realen Instanz (6 von 6 `.article-meta-date`-Vorkommen tragen\neinen redaktionell gesetzten Text wie „13. Mai 2026“, keinen von\n`Intl.DateTimeFormat` erzeugten) — anders als der Störer, dessen Kacheln NUR ein\nISO-Datum ohne separaten Text führen. Zweitens umgeht die Trennung den\nZeitzonen-Fallstrick vollständig, statt ihn zu beheben: ohne eigene Formatierung\nkonstruiert diese Komponente nie ein `Date`-Objekt aus `date()`, die\nUTC-Mitternacht-Falle kann hier gar nicht erst auftreten. Ist `dateLabel` leer,\nzeigt die Komponente `date()` unverändert als sichtbaren Text (bewusst als\nISO-Form, nicht geraten formatiert) — in der Story „Interaktiv“ als Warnfall extra\nbenannt, damit niemand das versehentlich auf eine Produktionsseite bringt.\n\n**Meta-Strip nur, wenn es etwas zu zeigen gibt.** `authorName`/`date` sind bewusst\nBeiwerk (Default `''`); ausgezählt haben alle 6 realen\n`.article-meta`-Vorkommen sowohl Autor als auch Datum, eine Stellenanzeige\nnutzt `.article-header` dagegen KOMPLETT OHNE\n`.article-meta` (dort ein `<dl>` aus Job-Fakten statt Autor/Datum) — dieser\nabweichenden Verwendung folgt diese Komponente nicht (dafür ist in der API kein\nFeld vorgesehen), sie belegt aber, dass ein leerer Meta-Strip ein realer Fall ist.\n`.article-meta` (und darin `.article-meta-author`/`.article-meta-sep`) rendern\ndeshalb nur, wenn `authorName()` bzw. `date()` tatsächlich etwas liefern; der\nTrenner nur, wenn beide Seiten vorhanden sind.\n\n**Avatar projiziert über `[cdsAvatar]`, PLUS `cds-avatar-stack`.** Der\nursprüngliche Entwurf nennt nur `<ng-content select=\"[cdsAvatar]\">`; ergänzt um den\nTag-Selektor `cds-avatar-stack`, weil `AvatarStackComponent` (siehe dort) ein\nElement-Selektor ist, kein `[cdsAvatar]`-Attribut trägt und sonst nicht in den\nMeta-Strip projiziert werden könnte — nötig für die Story\n„Mehrere Autor:innen“.\n\n**Host als Block.** `.article-header` sitzt am Host und setzt nur\n`max-width:880px;margin:0 auto`. An einem unbekannten, also `display:inline`\ngerenderten Element greift beides nicht, die Block-Kinder liefen über die\n880 px hinaus. `:host{display:block}` wie bei `cds-hero-image` und\n`cds-footer-main`; Story „Breite begrenzt“ pinnt das.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-article-header.json#/components/seitenmuster-wissensbeitrag-article-header"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-article-header.json#/components/seitenmuster-wissensbeitrag-article-header"
+      }
+    },
+    "seitenmuster-wissensbeitrag-avatar": {
+      "id": "seitenmuster-wissensbeitrag-avatar",
+      "name": "AvatarComponent",
+      "description": "Avatar (`div[cdsAvatar]`) — Wrapper um `.article-avatar` aus css/components.css\n(css/components.css:1520–1536): der Initialen-/Foto-Kreis im Meta-Strip eines\nWissensbeitrags (`.article-meta-author`), in der Author-Card (`-lg`) und im\nTeam-Tile-Grid (`-xl`).\n\n**Attributselektor (ADR-0008), gemessen an der Geschwister-Kette.** Acht der elf\nInstanzen der Grundgröße sitzen als direkte, adjazente\nGeschwister in einer von 3 `.article-avatar-stack`-Kacheln (2 Avatare in Zeilen\n8343–8344, je 3 in Zeilen 8373–8375 und 8404–8406) — genau dort greift\n`.article-avatar-stack .article-avatar + .article-avatar`\n(css/components.css:1540–1541), eine Geschwister-Kette.\nEin Element-Selektor `cds-avatar`, der `.article-avatar` auf einem INNEREN Element\nrendert (wie `cds-facts` es mit `<dl>` tut, weil `<dl>` ein Custom Element nicht\nannehmen kann), würde diese Kette brechen: die beiden `.article-avatar`-Knoten\nlägen dann je eine Ebene UNTER ihrem eigenen `<cds-avatar>`-Host und wären keine\nGeschwister mehr — `+` verlangt denselben Elternknoten, egal wie dicht die Hosts\nselbst nebeneinanderstehen. Eine zweite, ebenfalls tragfähige Variante\n(Element-Selektor MIT `host: { class: 'article-avatar' }`, ohne innere\nWrapper-Ebene) hätte dieselbe Geschwister-Kette ebenso erfüllt — verworfen zugunsten\ndes Attributselektors nur wegen des zweiten, unabhängigen Grundes unten, nicht weil\nsie die Kette nicht gelöst hätte.\n\n**Gemessen, nicht nur hergeleitet.** Story „Avatar-Stapel“ (Play-Funktion) rendert\ndrei `div[cdsAvatar]` in einem `cds-avatar-stack` und misst\n`getBoundingClientRect()` der drei `.article-avatar`-Knoten: bei 40 px Kachelbreite\nund `margin-left:-12px` (css/components.css:1541) überlappen der zweite und dritte\nKreis den jeweils vorherigen um 12 px (Differenz der `left`-Koordinaten = 28 px,\nnicht 40 px) — plus Screenshot-Baseline (`visual-snapshots/…avatar-stapel.png`) als\nvisuelle Bestätigung, nicht nur die Zahl.\n\n**Zweiter, unabhängiger Grund: Wiederverwendung als Projektions-Selektor.**\n`cds-article-header` projiziert den Avatar über\n`<ng-content select=\"[cdsAvatar]\">` (siehe dessen Klassendoku) — dasselbe Attribut,\ndas hier den Host selektiert, dient dem Elternteil zugleich als\nContent-Projection-Selektor. Ein Element-Selektor bräuchte dafür eine zusätzliche,\neigens erfundene Marker-Klasse; der Attributselektor liefert die Zielscheibe für\nbeide Zwecke aus einer Hand, ohne dass der Konsument zwei Attribute schreiben muss.\n\n**Initialen werden aus `name` abgeleitet, kein eigener Input:**\nerstes Zeichen des ersten und des letzten durch Whitespace getrennten Worts, groß\n— ein einzelnes Wort liefert dessen erste zwei Zeichen. Zwei Inputs für dieselbe\nInformation (Name UND Initialen) könnten auseinanderlaufen, sobald nur eines\ngepflegt wird.\n\n**`aria-hidden=\"true\"` fest verdrahtet, kein Input.** Ausgezählt: von 53\n`.article-avatar`-Instanzen (11 Grundgröße + 17 `-lg` + 25 `-xl`) tragen 45 das\nAttribut direkt am Element; die restlichen 8 sind genau die Grundgrößen-Avatare\nINNERHALB von `.article-avatar-stack`, wo bereits der Stack-Container selbst\n`aria-hidden=\"true\"` trägt (siehe `AvatarStackComponent`) — dort wäre ein zweites\n`aria-hidden` am Kind redundant, aber unschädlich: verschachteltes `aria-hidden`\nändert nichts am Ergebnis, der Teilbaum ist so oder so für Assistenztechnologie\nunsichtbar. Der Avatar trägt es deshalb immer: 100 % Deckung mit dem Mockup im\nAlleinstand, harmlose Redundanz im Stapel.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-avatar.json#/components/seitenmuster-wissensbeitrag-avatar"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-avatar.json#/components/seitenmuster-wissensbeitrag-avatar"
+      }
+    },
+    "seitenmuster-wissensbeitrag-inhaltsverzeichnis": {
+      "id": "seitenmuster-wissensbeitrag-inhaltsverzeichnis",
+      "name": "ArticleTocComponent",
+      "description": "ArticleToc (`cds-article-toc`) — Wrapper um `.article-toc*` aus css/components.css\n(css/components.css:1577–1589): das aufklappbare Inhaltsverzeichnis am Anfang eines\nWissensbeitrags. Beide Vorkommen haben fünf Einträge, den sichtbaren Text\n„Inhalt“ und dasselbe `aria-label`; eines nutzt Platzhalter-Hrefs, das andere\nechte Abschnittsanker.\n\n**Element-Selektor, ADR-0008-Standardfall.** `.article-toc` sitzt in beiden\nVorkommen als gewöhnlicher Block-Nachfahre direkt in `.article-body`, eine Ebene\nüber dem `<details>` — kein\nGrid-/Flex-Kind, keine Layout-Klasse (`col-*`) vom Konsumenten, kein\nGeschwister-Kombinator (`.article-toc` kommt in keiner CSS-Regel mit `+`/`~`\nvor), kein Tag-Wechsel (immer `<details>`). Keines der drei ADR-0008-Kriterien\ngreift; ein Attributselektor brächte hier nichts. Die einzige direkte\nKind-Regel von `.article-body` (`.article-body > p`, css/components.css:1566)\nzielt auf `p`, nicht auf `details` — ein `<cds-article-toc>`-Host zwischen\n`.article-body` und dem `<details>` bricht deshalb keine Selektorkette.\n\n**Natives `<details>`/`<summary>`, kein nachgebautes Disclosure:** Tastaturbedienung\n(Enter/Space auf `<summary>`) und\nToggle-Zustand kommen vollständig vom Browser, das CSS hängt direkt an `[open]`\n(`.article-toc[open] .article-toc-caret`, css/components.css:1583). `<details\nclass=\"article-toc\">` sitzt deshalb im TEMPLATE, nicht am Host — derselbe Grund\nwie bei `cds-compare`s `<details class=\"ep-compare\">` (`compare.component.ts`):\nein `<cds-article-toc>`-Host ist ein unbekanntes Custom Element und kann native\nDisclosure-Semantik nicht annehmen.\n\n**Zweites Vorkommen des `<details>`-mit-drehendem-Caret-Musters, nicht\nzusammengezogen mit `cds-compare` (ADR-0007 §5).** Beide Bauteile teilen die\nForm (natives `<details>`, SVG-Caret, `[open]`-Rotation über\n`transition:transform`), aber nicht die Aufgabe: `cds-compare` trägt eine\nVergleichstabelle mit `columns`/`rows`/`toggled`-Output, dieses Bauteil trägt\neine reine Link-Liste ohne Output (die API sieht für dieses\nBauteil bewusst keinen `toggled` vor). Zwei gleiche Stellen sind ein\nZufall, kein Muster — eine gemeinsame Basisklasse für zwei Vorkommen hätte nur\ndas `<details>`+Caret-Skelett gebündelt und dabei entweder Verhalten\nvereinheitlicht (ein erzwungener `toggled`-Output ohne Zweck hier) oder so viel\nparametrisiert, dass nichts gewonnen wäre.\n\n**`aria-label` am `<summary>` ist fest verdrahtet, kein Input.** Ausgezählt:\nbeide realen Vorkommen tragen wortgleich\n`aria-label=\"Inhaltsverzeichnis ein- und ausklappen\"` — der sichtbare Text\n„Inhalt“ (`summary`-Input) allein wäre außerhalb des Beitragskontexts nicht\neindeutig, das `aria-label` schreibt deshalb aus, was das Element tut. Genau\ndieser Wortlaut aus dem Mockup übernommen, kein erfundener zugänglicher Name.\n\n**Keine Nummerierung im Markup.** Die sichtbaren Ziffern vor jedem Eintrag\nkommen aus `counter(toc)` auf `.article-toc-list li::before`\n(css/components.css:1586), nicht aus dem `<ol>`-Default (`list-style:none` setzt\nihn zurück) — die Komponente muss dafür nichts weiter tun als `<ol\nclass=\"article-toc-list\">` zu rendern.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-inhaltsverzeichnis.json#/components/seitenmuster-wissensbeitrag-inhaltsverzeichnis"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-inhaltsverzeichnis.json#/components/seitenmuster-wissensbeitrag-inhaltsverzeichnis"
+      }
+    },
+    "seitenmuster-wissensbeitrag-callout": {
+      "id": "seitenmuster-wissensbeitrag-callout",
+      "name": "ArticleCalloutComponent",
+      "description": "ArticleCallout (`cds-article-callout`) — Wrapper um `.article-callout*` aus\ncss/components.css (css/components.css:1591–1600): der bereichsgetönte\nAside-Block für Praxis-Beispiele und „In der Realität“-Einschübe im Lauftext\neines Wissensbeitrags. Es kommt in allen vier Bereichen sowie in einem\nWissensbeitrag vor.\n\n**Abgrenzung zum Blockquote:** Der Callout ist eine redaktionelle Anmerkung im\neigenen Stil, der Blockquote ein wörtliches Zitat einer benannten Person. Die\nEyebrow trägt in `co`, `es` und `wo` den 700er-Ton, in `ki` den 800er-Ton\n(`--ki-800`), weil `--ki-700` mit rund 4,4:1 auf Weiß AA unterschreitet.\n\n**Element-Selektor, ADR-0008-Standardfall.** `.article-callout` sitzt in allen 5\nVorkommen als gewöhnlicher Block-Nachfahre — in einem schlichten\n`display:flex;flex-direction:column`-Stapel oder direkt in `.article-body`.\nKeines ist ein Grid-/Flex-Kind mit Streckungsbedarf, keines\nträgt eine `col-*`-Klasse, `.article-callout` kommt in keiner CSS-Regel mit\neinem Geschwister-Kombinator (`+`/`~`) vor, das Tag variiert nicht (immer\n`<aside>`). Keines der drei ADR-0008-Kriterien greift. Die einzige direkte\nKind-Regel von `.article-body` (`.article-body > p`, css/components.css:1566)\nzielt auf `p`, nicht auf `aside` — ein `<cds-article-callout>`-Host zwischen\n`.article-body` und dem `<aside>` bricht deshalb keine Selektorkette.\n\n**Projizierte Absätze bleiben direkte Kinder von `.article-callout`, kein\n`<div>` um `<ng-content>`:** `.article-callout > p` ist ein\nKindselektor, css/components.css:1600. `<ng-content>` selbst fügt kein\nDOM-Element ein — es verschiebt nur die vom Konsumenten geschriebenen\n`<p>`-Elemente an ihre Stelle direkt im `<aside>`, eine Ebene unter dem\n`<cds-article-callout>`-Host, aber ohne zusätzlichen Knoten dazwischen. Geprüft\nim laufenden Storybook (Story „Interaktiv“, Play-Funktion):\n`aside.article-callout > p` liefert sowohl die Eyebrow als auch jeden\nprojizierten Absatz, `:scope > *` zählt keine fremde Zwischenebene.\n\n**`eyebrow` ist Beiwerk (Default `''`), `area` ist Konfiguration mit\nverteidigbarer Vorgabe (`'co'`).** Die Basisregel `.article-callout` selbst\n(ohne `[data-area]`) rendert bereits exakt wie `[data-area=\"co\"]`\n(`background:var(--co-50)`, `border-left-color:var(--co-500)`, beide Werte\nidentisch an beiden Stellen, css/components.css:1591–1592) — `'co'` ist damit\nkeine erfundene Markenfarbe, sondern der reale CSS-Fallback ohne Attribut.\nAnders als bei `cds-pill` (dessen `.pill` ohne `data-area` gar keine Füllfarbe\nhat) gibt es hier keinen sinnvollen „kein Bereich“-Zustand.\n\n**`aria-labelledby` auf `<aside>`, sobald `eyebrow` gesetzt ist — Zusatz zum\nMockup, keine CSS-Änderung.** `<aside>` hat implizit die Landmark-Rolle\n`complementary`; ein Wissensbeitrag mit mehr als einem Callout hat damit\nmehrere gleichnamige Landmarks ohne zugänglichen Namen. Gemessen mit\naxe-core an rohem Markup ohne Angular (zwei `<aside class=\"article-callout\">`\nohne Auszeichnung): `landmark-unique` schlägt fehl, unabhängig von dieser\nKomponente — das Mockup selbst kennt diese Auszeichnung nicht.\nDie Eyebrow ist bereits ein prägnanter, vom Redakteur gepflegter Kurztext\ngenau für diesen Zweck (z. B. „In der Praxis“) — sie bekommt deshalb eine\ngenerierte `id`, auf die `aria-labelledby` zeigt, sobald sie existiert. Ohne\nEyebrow bleibt das `<aside>` unbenannt wie im Mockup: ein zugänglicher Name\nließe sich sonst nur aus dem projizierten Absatztext raten, und das wäre eine\nerfundene Bezeichnung, keine reale.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-callout.json#/components/seitenmuster-wissensbeitrag-callout"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-callout.json#/components/seitenmuster-wissensbeitrag-callout"
+      }
+    },
+    "seitenmuster-wissensbeitrag-figure": {
+      "id": "seitenmuster-wissensbeitrag-figure",
+      "name": "ArticleFigureComponent",
+      "description": "ArticleFigure (`cds-article-figure`) — Wrapper um `.article-figure`/\n`.article-figcaption` aus css/components.css (css/components.css:1573–1575):\ndas redaktionelle Inline-Bild mit optionaler Bildunterschrift im Lauftext eines\nWissensbeitrags. Es gibt zwei In-Article-Fälle mit Caption sowie einen\ncaptionslosen Sonderfall direkt unter dem Article Header.\n\n**Element-Selektor, ADR-0008-Standardfall.** In allen 3 Vorkommen sitzt\n`.article-figure` als gewöhnlicher Block-Nachfahre (zwei in `.article-body`,\neines direkt in einer eigenen `.ep-section`) — kein Grid-/Flex-Kind, keine\n`col-*`-Klasse vom Konsumenten, kein Tag-Wechsel (immer `<figure>`), kein\nVorkommen von `.article-figure` mit einem Geschwister-Kombinator in\ncss/components.css. Die einzige direkte Kind-Regel von `.article-body`\n(`.article-body > p`, css/components.css:1566) zielt auf `p`, nicht auf\n`figure` — ein `<cds-article-figure>`-Host zwischen `.article-body` und dem\n`<figure>` bricht deshalb keine Selektorkette.\n\n**`loading=\"lazy\"` ist fest verdrahtet, kein Input — bewusst NUR der\nIn-Article-Fall, nicht der dritte Mockup-Beleg.** Ausgezählt tragen 2 der 3\nVorkommen `loading=\"lazy\"` (die beiden Bilder MIT Caption, mittig im\nLauftext, „below the fold“ — genau der in `wissensbeitrag.mdx`, Abschnitt\n„In-Article Figure“, dokumentierte Dos-Punkt). Der dritte Fall\nträgt stattdessen `loading=\"eager\"\nfetchpriority=\"high\"` UND hat keine Caption — es ist das erste Bild direkt\nunter dem Article Header (Kommentar im Mockup: „Hero-Bild auf Body-Breite …\nidentisches Bild wie Vorschaubild für Wiedererkennung“), sitzt außerhalb von\n`.article-body` und bekommt seine 720-px-Breite über ein\nInline-`style=\"max-width:720px;margin:0 auto\"` am Konsumenten, nicht über die\nKomponente (Mockup-Inline-Styles wandern bewusst nicht in den Wrapper). Die\nAPI sieht dafür kein `loading`/`fetchpriority`-Input\nvor; dieses Bauteil deckt deshalb den (häufigeren, dokumentierten) In-Body-Fall\nab. Für den Lead-Bild-Sonderfall bleibt `<figure class=\"article-figure\">` roh\nschreibbar oder — sofern die Semantik passt — `cds-hero-image` zu\nprüfen.\n\n**`alt` und `caption` sind bewusst getrennte Pflicht-/Beiwerk-Inputs, keine\nPrüfung auf inhaltliche Überschneidung.** `wissensbeitrag.mdx` dokumentiert die\nbeiden Rollen ausdrücklich als unterschiedliche Jobs\n(Dont: „Alt-Text und Caption inhaltlich identisch, Screenreader liest\ndoppelt“) — Vorgabe an den Konsumenten, nicht etwas, das eine Wrapper-Komponente\nzur Laufzeit sinnvoll erzwingen könnte.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-figure.json#/components/seitenmuster-wissensbeitrag-figure"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-figure.json#/components/seitenmuster-wissensbeitrag-figure"
+      }
+    },
+    "seitenmuster-wissensbeitrag-pull-quote": {
+      "id": "seitenmuster-wissensbeitrag-pull-quote",
+      "name": "ArticlePullquoteComponent",
+      "description": "ArticlePullquote (`cds-article-pullquote`) — Wrapper um `.article-pullquote` aus\ncss/components.css (css/components.css:1608–1612): die typografische\nHervorhebung eines Satzes aus dem eigenen Lauftext eines Wissensbeitrags.\nBeide Vorkommen sind wortgleich und tragen `data-area=\"ki\"`.\n\n**Nicht `cds-blockquote` (`BlockquoteComponent`, `.bq`) — im\nJSDoc beider Bauteile wechselseitig abgegrenzt.** Pull-Quote und Blockquote\nteilen die typografische Familie (Serif, bereichsgefärbter Linksakzent in\n`{area}-500`), aber nicht den Zweck, dokumentiert in `wissensbeitrag.mdx`,\nAbschnitt „Pull-Quote gegen Blockquote“:\n\n| | Pull-Quote (dieses Bauteil) | Blockquote (`cds-blockquote`) |\n|---|---|---|\n| Wessen Stimme? | Der Beitrag zitiert sich selbst — ein Schlüsselsatz aus dem eigenen Lauftext | Eine dritte, benannte Person (Kund:in, Forschungsstimme, Branchen-Statement) |\n| Attribution | Keine (`quote` ist der einzige Input) | Pflicht (`name`, `roleLabel`) |\n| Hintergrund/Icon | Keiner — `quotes:none`, kein Quote-Icon, bewusst „offen“ statt umrahmt | Getönte Akzent-Box (`--bq-bg`) mit Quote-Icon (`.bq-icon`) |\n| Tag | `<blockquote class=\"article-pullquote\">` direkt, kein umschließendes `<figure>` | `<figure class=\"bq\">` außen, `<blockquote>` (ohne eigene Klasse) innen für den Zitattext |\n\nEin Self-Quote im eigenen Beitrag (Blockquote-Optik auf einem Satz des\nAutors) wirkt sonst absurd — der Autor zitiert die Person, die den Beitrag\nschreibt. Wer eine externe Stimme mit Namen und Rolle zeigen will, verwendet\n`cds-blockquote`.\n\n**`quote` enthält die deutschen Anführungszeichen bereits als Teil des Texts,\ndie Komponente ergänzt keine.** `.article-pullquote{quotes:none}`\n(css/components.css:1608) — es gibt keine `content:open-quote`/`close-quote`-Regel\nin der CSS-Schicht, weder hier noch bei `.bq blockquote` oder\n`.testimonial blockquote`. Ausgezählt stehen die Anführungszeichen in BEIDEN\nrealen Vorkommen als literale Zeichen im Text\n(„KI scheitert selten an der Technologie. …“), nicht CSS-generiert. Wie bei\n`cds-compare`/`cds-table` ist Copy-Text Sache des Konsumenten (ADR-0007 §2) —\ndie Story liefert deshalb `quote` bereits mit „…“ (CONTRIBUTING.md §6), die\nKomponente rendert den String unverändert, ohne eigene Anführungszeichen zu\nerfinden.\n\n**Element-Selektor, ADR-0008-Standardfall.** `.article-pullquote` sitzt in\nbeiden Vorkommen als gewöhnlicher Block-Nachfahre in `.article-body` — kein\nGrid-/Flex-Kind, keine `col-*`-Klasse vom Konsumenten, kein\nGeschwister-Kombinator in css/components.css, kein Tag-Wechsel (immer\n`<blockquote>`). Die einzige direkte Kind-Regel von `.article-body`\n(`.article-body > p`, css/components.css:1566) zielt auf `p`, nicht auf\n`blockquote` — ein `<cds-article-pullquote>`-Host zwischen `.article-body` und\ndem `<blockquote>` bricht deshalb keine Selektorkette.\n\n**`area` ist Konfiguration mit verteidigbarer Vorgabe (`'co'`), keine\nerfundene Bereichsfarbe.** Die Basisregel `.article-pullquote` selbst (ohne\n`[data-area]`) setzt bereits exakt denselben Wert wie `[data-area=\"co\"]`\n(`border-left-color:var(--co-500)`, css/components.css:1608–1609) — `'co'` ist\ndamit der reale CSS-Fallback ohne Attribut, nicht geraten.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-pull-quote.json#/components/seitenmuster-wissensbeitrag-pull-quote"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-pull-quote.json#/components/seitenmuster-wissensbeitrag-pull-quote"
+      }
+    },
+    "seitenmuster-wissensbeitrag-faq": {
+      "id": "seitenmuster-wissensbeitrag-faq",
+      "name": "FaqComponent",
+      "description": "Faq — Wrapper um `.ep-faq` aus css/components.css → „FAQ-Accordion“.\n\nNutzt natives `<details>/<summary>` (kein JS nötig): Auf-/Zuklappen, Tastatur\nund Zugänglichkeit kommen vom Browser. Der Caret (.ep-faq-caret) dreht via\n`details[open]`. Antwort in `.ep-faq-a`.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-faq.json#/components/seitenmuster-wissensbeitrag-faq"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-faq.json#/components/seitenmuster-wissensbeitrag-faq"
+      }
+    },
+    "seitenmuster-wissensbeitrag-author-card": {
+      "id": "seitenmuster-wissensbeitrag-author-card",
+      "name": "AuthorCardComponent",
+      "description": "AuthorCard (`div[cdsAuthorCard]`) — Wrapper um `.author-card` aus css/components.css\n(css/components.css:1602–1606): der Avatar-plus-Bio-Strip am Ende eines\nWissensbeitrags, einzeln oder mehrfach in `cds-author-card-group`. Es gibt vier\neinzelstehende und 13 Karten in fünf Gruppen (siehe `AuthorCardGroupComponent`).\n\n**Attributselektor (ADR-0008), gemessen im `is-grid`-Fall statt nur hergeleitet.**\n`.author-card-group.is-grid` (css/components.css:1555) ist `display:grid` ohne\neigenes `align-items` — der CSS-Default `stretch` gleicht die Kartenhöhen einer\nReihe deshalb NUR aus, wenn `.author-card` selbst das Grid-Kind ist. Spike-Story\n(zwei Karten, 600-px-Raster, kurze gegen deutlich längere Bio, seither wieder\ngelöscht) hat beide Varianten nebeneinander gebaut und mit `getBoundingClientRect()`\ngemessen:\n\n| Variante | Grid-Kind (Tag) | `.author-card`-Höhen | Bio-Rect (kurz / lang) |\n|---|---|---|---|\n| Element-Selektor `<cds-author-card-naive>` | `CDS-AUTHOR-CARD-NAIVE`, 204/204 px (gestreckt) | **84 / 204 px** (ungleich) | 24×73 / 144×200 px |\n| Attributselektor `div[cdsAuthorCardSpike]` | `DIV.author-card`, 204/204 px | **204 / 204 px** (gleich) | — |\n\nBeim Element-Selektor wird der UNSICHTBARE `<cds-author-card-naive>`-Host auf 204 px\ngestreckt, die sichtbare `.author-card`-Box eine Ebene darunter bleibt bei ihrer\nInhaltshöhe (84 px) — exakt der Fehler aus ADR-0008 Fall 1. Mit dem Attributselektor\nIST `.author-card` das Grid-Kind, `align-items:stretch` trifft direkt zu.\n\n**Ehrlicher Zusatz, anders als bei `cds-icon-card`: die Baseline-Screenshots beider\nSpike-Varianten waren byte-identisch** (`sha1` gleich). `.author-card` trägt (anders\nals `.ep-card`) weder Hintergrund noch Rahmen noch Schatten — der zusätzliche,\nunsichtbare Leerraum unter der kurzen Bio malt in keiner der beiden Varianten ein\nPixel. Der Fehler ist damit heute rein strukturell (falsches Boxmodell, `getBoundingClientRect()`\nauf `.author-card` lügt), nicht optisch sichtbar. Er wird real, sobald `.author-card`\nkünftig einen Rahmen/Hintergrund/Hover-Zustand bekommt, und er verfälscht schon\nheute jede Messung/Positionierung, die sich auf die tatsächliche Kartenhöhe verlässt\n(u. a. die Story „Als Raster“ unten, die genau das pinnt). Das ADR-0008-Kriterium\nist strukturell formuliert („die Stelle im DOM einnehmen, die es ohne Angular\neinnähme“), nicht optisch — der Attributselektor bleibt deshalb die richtige Wahl,\nobwohl der Effekt heute unsichtbar ist.\n\n**`area` ist bewusst NICHT Teil der API — CSS-Befund, nicht erfundene Konfiguration.**\nAlle realen `.author-card`-Vorkommen tragen `data-area`; die Dokumentation\nbeschreibt das als Färbung „nur [des] Avatars“. Ausgezählt gibt es aber in\n`css/components.css` (Light UND\nDark) KEINE einzige `.author-card[data-area=\"…\"]`-Regel — weder direkt noch über\neinen Nachfahren-Selektor auf `.article-avatar`, dessen eigene\n`[data-area]`-Färbung (css/components.css:1523–1526) ein Element-Selektor auf dem\nAvatar selbst ist, unabhängig vom Vorfahren. `data-area` auf `.author-card` ist\ndamit, gegen die Doku-Aussage, komplett wirkungslos — die Bereichsfarbe kommt\nausschließlich vom `area`-Input, den der Konsument direkt an das projizierte\n`[cdsAvatar]` bindet (siehe unten). Ein `area`-Input, der hier nur `data-area` ohne\njede CSS-Wirkung setzt, wäre eine erfundene Konfiguration ohne Gegenwert — Befund\ngemeldet, nicht im Wrapper geflickt (ADR-0001).\n\n**Avatar projiziert über `[cdsAvatar]`, wie bei `cds-article-header`.** Der\nKonsument setzt Größe (`size=\"lg\"`, css/components.css:1527) und Bereich\n(`area=\"…\"`) direkt am projizierten `<div cdsAvatar>` — diese Komponente reicht\nnichts durch, exakt die Trennung, die `cds-article-header` bereits etabliert\n(siehe dessen Klassendoku, Abschnitt „Avatar projiziert über `[cdsAvatar]`“).\n\n**Eyebrow als `<h3>`, nur wenn gesetzt** (Beiwerk, Default `''`) — deckungsgleich\nmit allen vier einzelstehenden realen Vorkommen: Zwei tragen\n`<h3 class=\"author-card-eyebrow\">` („Über den Autor“/„Über die Autorin“), eine\nEbene unter dem `<h2>` des Article-Body; die anderen zwei haben ohne\numgebende Artikelstruktur gar keinen. Innerhalb einer Gruppe trägt laut\n`wissensbeitrag.mdx` („Eyebrow-Konvention“) keine einzelne Karte mehr einen eigenen\nEyebrow — die Gruppen-Überschrift ersetzt sie (siehe `AuthorCardGroupComponent`);\nKonsumenten lassen `eyebrow` dafür einfach leer.\n\n**`roleLabel`, NICHT `role` wie in einem ersten Entwurf — gemessene Abweichung, kein\nFreihand-Entscheid.** Der erste Entwurf setzte `role` wörtlich um\n(`role`-Input, mit `role=\"…\"` als schlichtem Attribut in den Stories gesetzt, wie\n`name`/`bio`/`eyebrow`). Storybooks eingebauter a11y-Check (`aria-roles`) schlug\ndarauf für JEDE Story mit echtem Rollentext fehl: `role` ist ein globales\nHTML-/ARIA-Attribut, und ein Angular-Input MIT DIESEM NAMEN wird bei einem\nungebundenen `role=\"Senior AI Engineer …\"` zwar als Startwert an den Input\ndurchgereicht, bleibt aber ZUSÄTZLICH als echtes `role`-Attribut im DOM stehen —\naxe meldete wörtlich „Roles must be one of the valid ARIA roles: Senior, AI,\nEngineer, …“, weil der Freitext als ARIA-Rolle interpretiert wird. Exakt dieselbe\nKollision umgehen `BlockquoteComponent`, `TestimonialComponent` und\n`TeamVoiceComponent` bereits mit `roleLabel` statt `role`\n(`grep -rn \"readonly role\" packages/angular/src/lib/`\nzeigt nur diese drei). Diese Komponente folgt demselben, bereits etablierten\nMuster statt die Kollision ein viertes Mal zu wiederholen — CSS-Klasse bleibt\nunverändert `.author-card-role`, nur der Input-Name weicht vom ursprünglichen Entwurf ab.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-wissensbeitrag-author-card.json#/components/seitenmuster-wissensbeitrag-author-card"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-wissensbeitrag-author-card.json#/components/seitenmuster-wissensbeitrag-author-card"
+      }
+    },
+    "seitenmuster-seminar-·-training-fakten-liste": {
+      "id": "seitenmuster-seminar-·-training-fakten-liste",
+      "name": "FactsComponent",
+      "description": "Facts (`cds-facts`) — Wrapper um `.ep-facts` aus css/components.css\n(css/components.css:1261–1272): die Definitionsliste für die harten Eckdaten\neines Angebots (Termin, Dauer, Ort, Preis), einspaltig mit Haarlinie zwischen\nden Paaren oder als `.is-grid` zweispaltig für Kästen, die neben Inhalt stehen.\nBewusst ohne eigenen Rahmen und ohne Fläche, sie zieht in einen vorhandenen\nContainer ein (Angebots-Box, Sticky-Sidebar).\n\n**Element-Selektor, kein Attribut (ADR-0008-Standardfall).** Ausgezählt: Keines\nder drei `.ep-facts`-Vorkommen sitzt in einem `.layout-grid`\nmit `col-*`, keines wird von einem Grid-/Flex-Elternteil in der Höhe gedehnt\n(der Flex-Fall in Zeile 16290 ist `flex-direction:column`, dort füllen Block-\nElemente die Breite ihres Containers unabhängig von einer zusätzlichen\nWrapper-Ebene — anders als bei `.ep-card`/ADR-0008 Fall 1 geht es dort um Höhe,\ndie durch Block-Layout NICHT automatisch nach unten durchgereicht wird). Das\nTag variiert nicht (immer `<dl>`). Analog zu `cds-faq` (`faq.component.ts`, das\nintern `<details>` in einem `<div class=\"ep-faq\">` rendert) trägt hier die\nINNERE `<dl class=\"ep-facts\">` die CSS-Klasse, nicht der `<cds-facts>`-Host: die\nSemantik einer Definitionsliste hängt am `<dl>`-Tag selbst, ein Custom-Element\nkann dieses Tag nicht annehmen. Da `.ep-facts > div + div` ausschließlich\nNachfahren INNERHALB der eigenen Vorlage anspricht, bricht eine zusätzliche\nHost-Ebene darüber nichts — anders als bei `cds-section` (Fall 2) hängt hier\nkeine von außen gesetzte Fläche oder ein von außen adressierter Nachfahre an\ndieser Tiefe.\n\n**`<dl>`/`<div>`/`<dt>`/`<dd>` exakt wie vom CSS erwartet.** `.ep-facts > div +\ndiv` (css/components.css:1262) setzt Haarlinie und Abstand ab dem ZWEITEN Paar;\nohne das umschließende `<div>` pro Paar griffe der Selektor nicht. Jedes\n`items()`-Element wird deshalb zu genau einem `<div><dt>…</dt><dd>…</dd></div>`.\n\n**`area` färbt `<dt>` über `.t-{area}`, nicht über `data-area`.** Anders als bei\n`cds-feature`/`cds-icon-card` kennt `.ep-facts` selbst kein `[data-area]`; der\nCSS-Kommentar zu dieser Klasse (`css/components.css:1259`) benennt\nstattdessen ausdrücklich „Bereichston der Labels über `.t-XX` im Markup\n(dark-safe), nie als Inline-Farbe“ als sanktionierten Weg. Ausgezählt: Alle drei\n`.ep-facts`-Vorkommen setzen `.t-wo` auf JEDEM `<dt>`\nderselben Liste (nie gemischt, nie eine andere Bereichsfarbe) — ein optionaler\n`area`-Input, der `.t-{area}` einheitlich auf alle `<dt>` der Instanz anwendet,\nbildet dieses Muster nach, ohne einen Farbwert zu erfinden (`.t-XX` ist eine\nbestehende, bereits kontrast- und dark-mode-geprüfte Utility, `css/components.css\n:638–642`). Ungesetzt (Default) bleibt `<dt>` ohne zusätzliche Klasse, erbt also\ndie umgebende Textfarbe — das deckt Kontexte ohne Bereichsbindung ab.\n\n**Über die ursprüngliche API hinaus:** `area` stand nicht in der ursprünglichen\nAPI-Skizze. Ergänzt, weil ohne ihn KEINES der 3 realen\n`.ep-facts`-Vorkommen originalgetreu nachgebaut werden könnte — anders als bei\n`cds-tier`s `area` (dort deckt die Einschränkung eine tatsächliche CSS-Lücke\nab) fehlt hier keine CSS-Regel, nur ein API-Hook auf eine bereits vollständige\nKlasse.",
+      "docgen": {
+        "$ref": "../services/core/docgen/seitenmuster-seminar-·-training-fakten-liste.json#/components/seitenmuster-seminar-·-training-fakten-liste"
+      },
+      "stories": {
+        "$ref": "../services/core/story-docs/seitenmuster-seminar-·-training-fakten-liste.json#/components/seitenmuster-seminar-·-training-fakten-liste"
+      }
+    }
+  },
+  "meta": {
+    "docgen": "angular-component-meta",
+    "durationMs": 0
+  }
+}

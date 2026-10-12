@@ -1,0 +1,23 @@
+{
+  "components": {
+    "komponenten-call-to-action-download-cta": {
+      "id": "komponenten-call-to-action-download-cta",
+      "name": "DownloadCtaComponent",
+      "path": "./src/lib/download-cta/download-cta.stories.ts",
+      "stories": {
+        "komponenten-call-to-action-download-cta--interaktiv": {
+          "id": "komponenten-call-to-action-download-cta--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { DownloadCtaComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [DownloadCtaComponent],\n  template: `\n    <cds-download-cta\n        [area]=\"'co'\"\n        [eyebrow]=\"'Conciso Design System'\"\n        [title]=\"'Figma-Bibliothek herunterladen'\"\n        [desc]=\"'Alle Komponenten, Tokens, Icons und Brand Assets, direkt einsatzbereit als Figma-Bibliothek.'\"\n        [meta]=\"'Figma · Version 1.0 · 48 MB'\"\n        [primaryLabel]=\"'Herunterladen'\"\n        [secondaryLabel]=\"'Vorschau ansehen'\"\n        (primaryClick)=\"primaryClick($event)\"\n        (secondaryClick)=\"secondaryClick($event)\"\n    />`,\n})\nexport class DemoComponent {\n  primaryClick(event: unknown) {}\n  secondaryClick(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        },
+        "komponenten-call-to-action-download-cta--host-attribut": {
+          "id": "komponenten-call-to-action-download-cta--host-attribut",
+          "name": "Host-Attribut",
+          "snippet": "import { Component } from '@angular/core';\nimport { DownloadCtaComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [DownloadCtaComponent],\n  template: `\n    <cds-download-cta\n        title=\"Figma-Bibliothek herunterladen\"\n        primaryLabel=\"Herunterladen\">\n    </cds-download-cta>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `primaryClick`, `secondaryClick` could not be bound, since DownloadCtaComponent declares no such input."
+        }
+      }
+    }
+  }
+}

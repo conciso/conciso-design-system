@@ -1,0 +1,146 @@
+{
+  "components": {
+    "komponenten-cards-teaser-card": {
+      "id": "komponenten-cards-teaser-card",
+      "name": "CardComponent",
+      "path": "./src/lib/card/card.stories.ts",
+      "description": "Card — Wrapper um `.card` aus css/components.css → „Cards“.\n\nDie Karte rendert `<article class=\"card\">` und ruht damit flach mit Rahmen. Das folgt der\nKonvention „Elevation = Interaktivität“: Schatten trägt eine Karte nur, wenn die Karte selbst\nder klickbare Bereich ist. Hier liegt die Interaktion in der Footer-Aktion, nicht in der Fläche.\n`.card-elevated` wirkt im CSS ausschließlich auf `a.card-elevated`; eine Link-Karten-Variante\n(`<a>` mit Ziel statt `<article>` mit Button) ist deshalb eine eigene Komponente/Variante.\n\nBildet die im CSS vorgesehene Struktur ab: .card-media (bereichsgefärbt via\n[data-area]) mit der echten Bereichs-Glyphe, .card-body mit .card-eyebrow /\n.card-title / .card-text und ein optionales .card-footer mit einer Text-Aktion.\n\nAlle Textteile sind optional (leer = ausgeblendet); zusätzlich nimmt `.card-body`\nbeliebigen projizierten Inhalt via `<ng-content>` auf — so eignet sich die Karte\nauch für freie Listen-/Detail-Inhalte in SPAs, nicht nur die Marketing-Struktur.\nDie Footer-Aktion meldet Klicks über `actionClick`.",
+      "jsDocTags": {},
+      "argTypes": {
+        "actionLabel": {
+          "name": "actionLabel",
+          "description": "Kompakte Text-Aktion im Footer (leer = kein Footer).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → data-area (färbt Media-Glyphe + Eyebrow).",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "eyebrow": {
+          "name": "eyebrow",
+          "description": "Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "showMedia": {
+          "name": "showMedia",
+          "description": "Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen.",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": true
+            }
+          }
+        },
+        "text": {
+          "name": "text",
+          "description": "Anreißer-/Beschreibungstext der Karte.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Kartentitel. Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "actionClick": {
+          "name": "actionClick",
+          "description": "Klick auf die Footer-Aktion.",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "actionClick",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "void"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type CardComponentInputs = {\n  /**\n   * Kompakte Text-Aktion im Footer (leer = kein Footer).\n   *\n   * @default ''\n   */\n  actionLabel?: string;\n  /** Markenbereich → data-area (färbt Media-Glyphe + Eyebrow). */\n  area?: CdsArea;\n  /**\n   * Kicker-Text oberhalb des Titels (leer = keine Eyebrow-Zeile).\n   *\n   * @default ''\n   */\n  eyebrow?: string;\n  /**\n   * Bereichsgefärbte Medienfläche mit Bereichs-Glyphe anzeigen.\n   *\n   * @default true\n   */\n  showMedia?: boolean;\n  /** Anreißer-/Beschreibungstext der Karte. */\n  text: string;\n  /** Kartentitel. Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```\n\n## Outputs\n\n```\nexport type CardComponentOutputs = {\n  /** Klick auf die Footer-Aktion. */\n  actionClick: void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "CardComponent",
+        "selector": "cds-card",
+        "standalone": true,
+        "inputs": [
+          "actionLabel",
+          "area",
+          "eyebrow",
+          "showMedia",
+          "text",
+          "title"
+        ],
+        "outputs": [
+          "actionClick"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

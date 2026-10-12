@@ -1,0 +1,24 @@
+{
+  "components": {
+    "grundlagen-farben": {
+      "id": "grundlagen-farben",
+      "name": "Farben",
+      "path": "./src/foundations/colors.stories.ts",
+      "stories": {
+        "grundlagen-farben--paletten": {
+          "id": "grundlagen-farben--paletten",
+          "name": "Paletten"
+        },
+        "grundlagen-farben--semantisch": {
+          "id": "grundlagen-farben--semantisch",
+          "name": "Semantisch"
+        },
+        "grundlagen-farben--flaechen-text-rand": {
+          "id": "grundlagen-farben--flaechen-text-rand",
+          "name": "Flächen, Text und Rand",
+          "description": "Flächen-, Text- und Randtokens, die jedes Bauteil über Hell und Dunkel hinweg trägt."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "components": {
+    "komponenten-slider-carousel-logocarousel": {
+      "id": "komponenten-slider-carousel-logocarousel",
+      "name": "LogoCarouselComponent",
+      "path": "./src/lib/logo-carousel/logo-carousel.stories.ts",
+      "description": "LogoCarousel — Wrapper um `.logo-carousel` aus css/components.css → „Logo-Carousel“.\n\nDiskrete Sets von je fünf Logos, die automatisch per Crossfade wechseln\n(`[aria-hidden]` je Slide). Das Autoplay pausiert bei Maus-Hover und Tastatur-Fokus\n(damit Nutzer in Ruhe lesen/bedienen können), zusätzlich dauerhaft über den\nPause-Button (.logo-carousel-pause, sichtbar bei Hover/Fokus bzw. im .paused-Zustand;\nsein Label wechselt zwischen „Logo-Animation pausieren“ und „Logo-Animation\nfortsetzen“, ohne `aria-pressed`). Dots wählen ein Set direkt; Dot-Klick und jede\nTastenbedienung der Dots (←/↑/→/↓, Home, End) pausieren dauerhaft. Autoplay respektiert prefers-reduced-motion\n(dann läuft kein Timer und der Pause-Button ist versteckt).\n\nDer Timer wird zentral über ein `effect` gesteuert: er läuft nur, wenn NICHT\npausiert, NICHT gehovert, NICHT fokussiert und reduzierte Bewegung nicht gewünscht\nist. Eine Änderung des `interval` startet ihn automatisch neu.\n\nJede Kachel ist ein `cds-logo`: bevorzugt ein Bild (`src`), sonst der Text als\nPlatzhalter/Fallback. Standardmäßig sind reine Text-Platzhalter gesetzt – reale\nAnwendungen übergeben ihre Kundenlogos als Bilder.\n\nVerwendungsguidance dieser Gruppe: siehe Carousel (`komponenten-slider-carousel-carousel--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "active": {
+          "name": "active",
+          "description": "Aktives Set. Two-Way (`[(active)]`) via model().",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 0
+            }
+          }
+        },
+        "interval": {
+          "name": "interval",
+          "description": "Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s).",
+          "type": {
+            "name": "number"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "number"
+            },
+            "defaultValue": {
+              "summary": 6000
+            }
+          }
+        },
+        "label": {
+          "name": "label",
+          "description": "Zugänglicher Name der Region. Bei mehreren Logo-Karussells auf einer Seite\nunterscheidbar benennen (sonst doppelte Landmarks).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": "Kundenlogos"
+            }
+          }
+        },
+        "sets": {
+          "name": "sets",
+          "description": "Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set).",
+          "type": {
+            "name": "other",
+            "value": "empty-enum",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsLogo[][]"
+            },
+            "defaultValue": {}
+          }
+        },
+        "activeChange": {
+          "name": "activeChange",
+          "description": "Aktives Set. Two-Way (`[(active)]`) via model().",
+          "type": {
+            "name": "other",
+            "value": "void"
+          },
+          "action": "activeChange",
+          "table": {
+            "category": "outputs",
+            "type": {
+              "summary": "(e: number) => void"
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type LogoCarouselComponentInputs = {\n  /**\n   * Aktives Set. Two-Way (`[(active)]`) via model().\n   *\n   * @default 0\n   */\n  active?: number; // two-way: [(active)]\n  /**\n   * Autoplay-Intervall in **Millisekunden** (Standard 6000 = 6 s).\n   *\n   * @default 6000\n   */\n  interval?: number;\n  /**\n   * Zugänglicher Name der Region. Bei mehreren Logo-Karussells auf einer Seite\n   * unterscheidbar benennen (sonst doppelte Landmarks).\n   *\n   * @default Kundenlogos\n   */\n  label?: string;\n  /** Logo-Sets, die im Wechsel angezeigt werden (mind. ein Eintrag je Set). */\n  sets: CdsLogo[][];\n}\n```\n\n## Outputs\n\n```\nexport type LogoCarouselComponentOutputs = {\n  /** Aktives Set. Two-Way (`[(active)]`) via model(). */\n  activeChange: (e: number) => void;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "LogoCarouselComponent",
+        "selector": "cds-logo-carousel",
+        "standalone": true,
+        "inputs": [
+          "active",
+          "interval",
+          "label",
+          "sets"
+        ],
+        "outputs": [
+          "activeChange"
+        ],
+        "enums": []
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "components": {
+    "komponenten-chips-badges-pills-chip": {
+      "id": "komponenten-chips-badges-pills-chip",
+      "name": "ChipComponent",
+      "path": "./src/lib/chip/chip.stories.ts",
+      "stories": {
+        "komponenten-chips-badges-pills-chip--interaktiv": {
+          "id": "komponenten-chips-badges-pills-chip--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ChipComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ChipComponent],\n  template: `\n    <cds-chip\n        [label]=\"'Filter'\"\n        [area]=\"undefined\"\n        [pressed]=\"false\"\n        (pressedChange)=\"pressedChange($event)\"\n    />`,\n})\nexport class DemoComponent {\n  pressedChange(event: unknown) {}\n}"
+        },
+        "komponenten-chips-badges-pills-chip--lesbarer-zustand": {
+          "id": "komponenten-chips-badges-pills-chip--lesbarer-zustand",
+          "name": "Lesbarer Zustand",
+          "snippet": "import { Component } from '@angular/core';\nimport { ChipComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ChipComponent],\n  template: `\n    <div style=\"display:flex;gap:12px;flex-wrap:wrap;align-items:center\">\n        @for (f of filters; track f.label) {\n        <cds-chip\n            [label]=\"f.label\"\n            [area]=\"f.area\"\n            [(pressed)]=\"f.pressed\">\n        </cds-chip>\n        }\n    </div>\n    <p style=\"margin-top:16px;font:14px/1.4 system-ui,sans-serif\">\n        Aktiv:\n        <strong>{{ aktiveLabels() }}</strong>\n    </p>`,\n})\nexport class DemoComponent {\n  pressedChange(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `filters`, `aktiveLabels` could not be provided, since the story declares no such arg."
+        },
+        "komponenten-chips-badges-pills-chip--zustaende": {
+          "id": "komponenten-chips-badges-pills-chip--zustaende",
+          "name": "Zustände",
+          "snippet": "import { Component } from '@angular/core';\nimport { ChipComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ChipComponent],\n  template: `\n    <div style=\"display:flex;gap:12px;flex-wrap:wrap;align-items:center\">\n        <cds-chip label=\"Inaktiv\"></cds-chip>\n        <cds-chip label=\"Aktiv\" [pressed]=\"true\"></cds-chip>\n        <cds-chip area=\"co\" label=\"Corporate\"></cds-chip>\n        <cds-chip area=\"ki\" label=\"Angewandte KI\" [pressed]=\"true\"></cds-chip>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

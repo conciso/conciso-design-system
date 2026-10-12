@@ -1,0 +1,158 @@
+{
+  "components": {
+    "komponenten-cards-teaser-featured-karte": {
+      "id": "komponenten-cards-teaser-featured-karte",
+      "name": "FeaturedCardComponent",
+      "path": "./src/lib/featured-card/featured-card.stories.ts",
+      "description": "FeaturedCard (cds-featured-card) — Wrapper um `.card-featured` aus\ncss/components.css (css/components.css:230–249): die horizontale Großkarte für\n**genau einen** hervorgehobenen Beitrag oder Termin (Bild links 60 %, Textspalte\nrechts 40 % als absolut positioniertes Overlay).\n\n**Entscheidung 1 — `href` entscheidet zwischen `<a>` und `<article>`.** Die\nDoku-Beispiele zeigen die Featured-Card ausschließlich als Link\n(`a.card.card-elevated.card-featured`), diese Komponente unterstützt aber ausdrücklich eine\nVariante ohne `<a>`. `.card-elevated` ist nach `CONTRIBUTING.md` §4 („Elevation =\nInteraktivität“) im CSS auf `a.card-elevated` gescoped — eine `<article>` bekäme\nden Schatten mit gesetzter Klasse ohnehin nicht. Die Komponente führt die Klasse\ndeshalb nur mit, wenn sie auch wirkt: mit `href` ein `<a class=\"card card-elevated\ncard-featured\">`, ohne `href` ein `<article class=\"card card-featured\">` (ruht\nflach mit dem `--bd-strong`-Rahmen aus `.card`, wie jede statische Fläche). Media\nund Body stehen dafür einmal in einem gemeinsamen `<ng-template>` und werden in\nbeiden Zweigen per `<ng-container [ngTemplateOutlet]>` eingesetzt — dasselbe\nMuster wie `SectionComponent` (`section.component.ts`) für „zwei Wurzelelemente,\nein Körper“. `<ng-container>` rendert selbst kein Element, die Kindselektoren aus\nEntscheidung 2 bleiben also unberührt: im laufenden Storybook erneut per\n`querySelector`/`getBoundingClientRect` gemessen (siehe Play-Funktionen), Ergebnis\nunverändert zur vorherigen, noch duplizierten Fassung.\n\n**Entscheidung 2 — die Pill ist direkt komponiertes Markup, kein `<cds-pill>`.**\nDas CSS arbeitet mit direkten Kindselektoren: `.card-featured>.card-media`,\n`.card-featured-body>.pill`, `.card-featured-body>.card-text`,\n`.card-featured-body>.card-title-hero` (jeweils mit `margin`/`min-height`/\n`line-clamp`-Übernahmen, siehe CSS-Kommentare dort). `<cds-pill>` rendert sein\n`.pill`-`<span>` nicht auf dem eigenen Host-Element, sondern eine Ebene tiefer\n(`pill.component.ts`: Host ist `<cds-pill>`, `.pill` sitzt im Template darunter) —\nprojiziert als `<cds-pill class=\"pill\">` stünde die Pille damit als\n`.card-featured-body>cds-pill>.pill`, zwei Ebenen statt einer, und die\nKindselektoren griffen nicht mehr (leise: kein Fehler, nur falsches Layout).\nDieselbe Abwägung wie in `download-cta.component.ts` (Kommentar über den\nButtons): dort verhindert `.cta-dl-actions`, das seine Kinder per Flex streckt,\ndass ein `<cds-button>`-Host mitstreckt; hier verhindert ein Kindselektor, dass\nirgendein zusätzliches Host-Element dazwischentritt. In beiden Fällen werden die\nKlassen direkt komponiert statt eine Wrapper-Komponente zu verwenden. Geprüft im\nlaufenden Storybook (`Komponenten/Cards & Teaser/Featured-Karte`): die gerenderte\nKette ist `.card-featured>.card-media` und `.card-featured-body` mit `.pill`,\n`.card-text`, `.card-title-hero` als direkten Kindern, kein zusätzliches Element\ndazwischen (siehe Play-Funktionen der Stories).\n\nWeil die Pille direkt komponiert wird, übernimmt diese Komponente auch die\n`aria-label`-Regel von `PillComponent` (`pill.component.ts`) von Hand nach:\nDefault „Bereich `<pill>`“, überschreibbar über `pillAriaLabel` — nötig, weil die\nPille nicht immer einen Bereich benennt (siehe `pillAriaLabel`-Doku unten).\n\n**Entscheidung 3 — kein separates `data-area` für die Pille.** Karte und Pille\ntragen immer denselben Bereich. Die Komponente bindet deshalb `area`\nauf beide, statt einen zweiten Bereichs-Input zu erfinden.\n\n**Entscheidung 4 — kein CTA- und kein Meta-Input.** Die Doku-Vorlage zeigt\nzusätzlich einen Meta-Strip (Datum/Ort/Format) und einen `.card-cta-link`-Fuß;\ndiese Komponente benennt als API aber nur `title`/`text`/`imageSrc`/`imageAlt`/`href`/\n`pill`/`area`. Diese Komponente bildet exakt diese Fläche ab, ohne zusätzliche Inputs zu\nerfinden — ein Meta-Strip oder ein CTA-Fuß wären\neine spätere, eigene Erweiterung.\n\nVerwendungsguidance dieser Gruppe: siehe Card (`komponenten-cards-teaser-card--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "area": {
+          "name": "area",
+          "description": "Markenbereich → `data-area` auf Karte und Pille.",
+          "type": {
+            "name": "enum",
+            "value": [
+              "co",
+              "ki",
+              "es",
+              "wo"
+            ]
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "CdsArea"
+            },
+            "defaultValue": {}
+          }
+        },
+        "href": {
+          "name": "href",
+          "description": "Linkziel; gesetzt → `<a>` (ganze Fläche klickbar), leer → `<article>` (statisch, kein Schatten).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "imageAlt": {
+          "name": "imageAlt",
+          "description": "Alternativtext des Bildes — Pflicht, das Bild trägt Bedeutung.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "imageSrc": {
+          "name": "imageSrc",
+          "description": "Bildquelle der 16:9-Medienfläche.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "pill": {
+          "name": "pill",
+          "description": "Bereichs-Pille über dem Titel (`.pill`, leer = keine Pille).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "pillAriaLabel": {
+          "name": "pillAriaLabel",
+          "description": "`aria-label` der Pille überschreiben; Default „Bereich `<pill>`“, wie\n`PillComponent` (`pill.component.ts`). Nötig, weil `pill` nicht immer einen\nBereich benennt — das Mockup zeigt neben `aria-label=\"Bereich Corporate\"` auch\n`aria-label=\"Lesezeit 12 Minuten\"` für dieselbe Klasse.",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "text": {
+          "name": "text",
+          "description": "Anreißer-/Beschreibungstext (`.card-text`).",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "title": {
+          "name": "title",
+          "description": "Titel (`.card-title-hero`). Am Host verbleibt kein natives `title`-Attribut.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FeaturedCardComponentInputs = {\n  /** Markenbereich → `data-area` auf Karte und Pille. */\n  area?: CdsArea;\n  /**\n   * Linkziel; gesetzt → `<a>` (ganze Fläche klickbar), leer → `<article>` (statisch, kein Schatten).\n   *\n   * @default ''\n   */\n  href?: string;\n  /** Alternativtext des Bildes — Pflicht, das Bild trägt Bedeutung. */\n  imageAlt: string;\n  /** Bildquelle der 16:9-Medienfläche. */\n  imageSrc: string;\n  /**\n   * Bereichs-Pille über dem Titel (`.pill`, leer = keine Pille).\n   *\n   * @default ''\n   */\n  pill?: string;\n  /**\n   * `aria-label` der Pille überschreiben; Default „Bereich `<pill>`“, wie\n   * `PillComponent` (`pill.component.ts`). Nötig, weil `pill` nicht immer einen\n   * Bereich benennt — das Mockup zeigt neben `aria-label=\"Bereich Corporate\"` auch\n   * `aria-label=\"Lesezeit 12 Minuten\"` für dieselbe Klasse.\n   */\n  pillAriaLabel?: string;\n  /** Anreißer-/Beschreibungstext (`.card-text`). */\n  text: string;\n  /** Titel (`.card-title-hero`). Am Host verbleibt kein natives `title`-Attribut. */\n  title: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FeaturedCardComponent",
+        "selector": "cds-featured-card",
+        "standalone": true,
+        "inputs": [
+          "area",
+          "href",
+          "imageAlt",
+          "imageSrc",
+          "pill",
+          "pillAriaLabel",
+          "text",
+          "title"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

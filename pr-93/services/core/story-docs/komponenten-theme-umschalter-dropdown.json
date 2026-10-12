@@ -1,0 +1,26 @@
+{
+  "components": {
+    "komponenten-theme-umschalter-dropdown": {
+      "id": "komponenten-theme-umschalter-dropdown",
+      "name": "ThemeSelectComponent",
+      "path": "./src/lib/theme-switch/select.stories.ts",
+      "stories": {
+        "komponenten-theme-umschalter-dropdown--interaktiv": {
+          "id": "komponenten-theme-umschalter-dropdown--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSelectComponent],\n  template: `<cds-theme-select [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-dropdown--binaer": {
+          "id": "komponenten-theme-umschalter-dropdown--binaer",
+          "name": "Binär (nur Hell/Dunkel)",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSelectComponent],\n  template: `<cds-theme-select [showSystem]=\"false\" />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-theme-umschalter-dropdown--option-waehlen": {
+          "id": "komponenten-theme-umschalter-dropdown--option-waehlen",
+          "name": "Option wählen",
+          "snippet": "import { Component } from '@angular/core';\nimport { ThemeSelectComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ThemeSelectComponent],\n  template: `<cds-theme-select [showSystem]=\"true\" />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

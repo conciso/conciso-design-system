@@ -1,0 +1,37 @@
+import{n as e}from"./rolldown-runtime-D_-wTCJc.js";import{s as t}from"./chunk-W22LQPXL-CIjuTlSF.js";import{i as n,r}from"./react-C77DJ2jK.js";import{c as i,o as a}from"./blocks-MIQYy-EB.js";import{n as o,t as s}from"./code-block.stories-BJVdiQOl.js";function _createMdxContent(e){let t={code:`code`,h1:`h1`,h2:`h2`,li:`li`,p:`p`,strong:`strong`,table:`table`,tbody:`tbody`,td:`td`,th:`th`,thead:`thead`,tr:`tr`,ul:`ul`,...n(),...e.components};return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(a,{of:s,name:`Verwendung`}),`
+`,(0,c.jsx)(t.h1,{id:`verwendung`,children:`Verwendung`}),`
+`,(0,c.jsxs)(t.p,{children:[`Code-Block stellt Quellcode und Terminal-Ausgaben für Wissens- und Technikbeiträge dar:
+Standard, mit Zeilennummern, Terminal und Inline-Code. Alle vier sind Varianten
+derselben Story `,(0,c.jsx)(t.code,{children:`Komponenten/Code-Block/Code-Block`}),` (gesteuert über die Property `,(0,c.jsx)(t.code,{children:`terminal`}),` sowie
+die Klassen `,(0,c.jsx)(t.code,{children:`.cb-numbered`}),` und `,(0,c.jsx)(t.code,{children:`.cb-prose`}),`), kein eigenes Bauteil je Variante.`]}),`
+`,(0,c.jsx)(t.h2,{id:`wann-welche-variante`,children:`Wann welche Variante`}),`
+`,(0,c.jsxs)(t.table,{children:[(0,c.jsx)(t.thead,{children:(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.th,{children:`Variante`}),(0,c.jsx)(t.th,{children:`Wann einsetzen`}),(0,c.jsx)(t.th,{children:`Nicht geeignet für`})]})}),(0,c.jsxs)(t.tbody,{children:[(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Standard`}),(0,c.jsx)(t.td,{children:`Einzelne Funktionen, Konfigurationen, kurze Snippets`}),(0,c.jsx)(t.td,{children:`Shell-Befehle, langen Fließtext-Kontext`})]}),(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Mit Zeilennummern`}),(0,c.jsx)(t.td,{children:`Wenn im Begleittext auf bestimmte Zeilen verwiesen wird (ab etwa 10 Zeilen)`}),(0,c.jsx)(t.td,{children:`Snippets unter 5 Zeilen, Terminal-Ausgaben`})]}),(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Terminal`}),(0,c.jsx)(t.td,{children:`Installations- und Setup-Befehle, CLI-Workflows`}),(0,c.jsx)(t.td,{children:`Programm-Code mit Syntax-Highlighting`})]}),(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Inline-Code`}),(0,c.jsx)(t.td,{children:`Bezeichner, Tokens, Klassen im Fließtext, maximal eine Zeile`}),(0,c.jsx)(t.td,{children:`Mehrzeilige Snippets, vollständige Statements`})]})]})]}),`
+`,(0,c.jsx)(t.h2,{id:`barrierefreiheit`,children:`Barrierefreiheit`}),`
+`,(0,c.jsxs)(t.table,{children:[(0,c.jsx)(t.thead,{children:(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.th,{children:`Aspekt`}),(0,c.jsx)(t.th,{children:`Regel`})]})}),(0,c.jsxs)(t.tbody,{children:[(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Semantik`}),(0,c.jsxs)(t.td,{children:[(0,c.jsx)(t.code,{children:`<pre><code>`}),` als Grundgerüst, Screenreader kündigen den Inhalt als „Code“ an; `,(0,c.jsx)(t.code,{children:`<pre>`}),` allein reicht nicht`]})]}),(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Scrollbarkeit`}),(0,c.jsxs)(t.td,{children:[`Scrollbare `,(0,c.jsx)(t.code,{children:`<pre>`}),`-Blöcke mit `,(0,c.jsx)(t.code,{children:`tabindex="0"`}),` versehen, sonst per Tastatur nicht erreichbar`]})]}),(0,c.jsxs)(t.tr,{children:[(0,c.jsx)(t.td,{children:`Copy-Button`}),(0,c.jsxs)(t.td,{children:[(0,c.jsx)(t.code,{children:`aria-label="Code kopieren"`}),` auf dem Copy-Button, der Text „Kopieren“ allein nennt kein Ziel. Das Label bleibt nach dem Kopieren `,(0,c.jsx)(t.strong,{children:`stabil`}),`: ein Bedienelement trägt den Namen seiner Funktion, nicht den seines letzten Ereignisses. Die Erfolgsmeldung läuft stattdessen über eine eigene, von Anfang an im DOM stehende Live-Region (`,(0,c.jsx)(t.code,{children:`role="status"`}),`, `,(0,c.jsx)(t.code,{children:`.sr-only`}),`) neben dem Button; eine Region, die erst beim Klick entsteht, kündigt bei vielen Screenreadern nichts an`]})]})]})]}),`
+`,(0,c.jsx)(t.h2,{id:`dos--donts`,children:`Dos & Don'ts`}),`
+`,(0,c.jsx)(t.p,{children:(0,c.jsx)(t.strong,{children:`Tun`})}),`
+`,(0,c.jsxs)(t.ul,{children:[`
+`,(0,c.jsx)(t.li,{children:`Sprache beziehungsweise Programmiersprache immer sichtbar im Header angeben, erleichtert das Lesen und ermöglicht Syntax-Highlighting`}),`
+`,(0,c.jsx)(t.li,{children:`Zeilennummern nur ab etwa 10 Zeilen beziehungsweise wenn der Begleittext explizit auf Zeilen verweist (zum Beispiel „Zeile 8 setzt den Radius“)`}),`
+`,(0,c.jsx)(t.li,{children:`Terminal-Variante für alle Shell-Befehle und Ausgaben, der grüne Prompt signalisiert sofort: hier wird etwas ausgeführt`}),`
+`,(0,c.jsxs)(t.li,{children:[`Copy-Button immer einbauen mit `,(0,c.jsx)(t.code,{children:`aria-label`}),`, Leser kopieren Code häufiger als sie ihn abtippen`]}),`
+`,(0,c.jsxs)(t.li,{children:[`Die Erfolgsmeldung des Copy-Buttons über eine Live-Region melden, die von Anfang an im DOM steht (`,(0,c.jsx)(t.code,{children:`role="status"`}),`, `,(0,c.jsx)(t.code,{children:`.sr-only`}),`), und nur deren Text wechseln, das `,(0,c.jsx)(t.code,{children:`aria-label`}),` des Buttons bleibt unverändert`]}),`
+`,(0,c.jsxs)(t.li,{children:[(0,c.jsx)(t.code,{children:`<pre><code>`}),` als semantisches Grundgerüst verwenden`]}),`
+`,(0,c.jsx)(t.li,{children:`Code-Block immer mit einer kurzen Einleitung im Fließtext versehen, Kontext vor dem Block, nicht danach`}),`
+`]}),`
+`,(0,c.jsx)(t.p,{children:(0,c.jsx)(t.strong,{children:`Nicht tun`})}),`
+`,(0,c.jsxs)(t.ul,{children:[`
+`,(0,c.jsx)(t.li,{children:`Inline-Code für mehrzeilige Snippets oder Beispiele, ab 2 Zeilen gehört der Inhalt in einen Block`}),`
+`,(0,c.jsx)(t.li,{children:`Screenshots von Code statt echtem Text, nicht kopierbar und nicht zugänglich für Screenreader`}),`
+`,(0,c.jsxs)(t.li,{children:[`Highlight-Klassen (`,(0,c.jsx)(t.code,{children:`.k`}),`, `,(0,c.jsx)(t.code,{children:`.s`}),` …) für rein dekorative Farben zweckentfremden, sie tragen Bedeutung und sollten semantisch korrekt eingesetzt werden`]}),`
+`,(0,c.jsx)(t.li,{children:`Terminal und Code-Block mischen, Shell-Befehle und Programm-Code gehören in getrennte Blöcke`}),`
+`,(0,c.jsx)(t.li,{children:`Eigene Hintergrundfarben außerhalb der Token setzen, bricht Konsistenz und Dark-Mode-Kompatibilität`}),`
+`,(0,c.jsx)(t.li,{children:`Code ohne Sprachkennzeichnung ausliefern, Syntax-Highlighting und Screenreader-Kontext fehlen dann`}),`
+`,(0,c.jsx)(t.li,{children:`Zu lange Zeilen ohne Umbruch, lieber aufteilen als horizontal scrollen lassen`}),`
+`,(0,c.jsxs)(t.li,{children:[`Block-Code direkt im Fließtext ohne visuellen Abstand setzen, der Block hält `,(0,c.jsx)(t.code,{children:`margin: var(--s3) 0`}),` ein (`,(0,c.jsx)(t.code,{children:`.cb-wrap`}),` bringt ihn mit, ein eigenes `,(0,c.jsx)(t.code,{children:`margin: 0`}),` am Block hebt ihn auf)`]}),`
+`,(0,c.jsxs)(t.li,{children:[`Das `,(0,c.jsx)(t.code,{children:`aria-label`}),` des Copy-Buttons nach dem Kopieren austauschen oder die Live-Region erst beim Klick erzeugen, viele Screenreader kündigen eine nachträglich entstandene Region nicht an`]}),`
+`]}),`
+`,(0,c.jsx)(t.h2,{id:`verwandte-seiten`,children:`Verwandte Seiten`}),`
+`,(0,c.jsxs)(t.ul,{children:[`
+`,(0,c.jsx)(t.li,{children:`Komponenten/Code-Block/Code-Block (Story, alle vier Varianten)`}),`
+`]})]})}function MDXContent(e={}){let{wrapper:t}={...n(),...e.components};return t?(0,c.jsx)(t,{...e,children:(0,c.jsx)(_createMdxContent,{...e})}):_createMdxContent(e)}var c;function init_code_block_verwendung(){return(init_code_block_verwendung=e((()=>{c=t(),r(),i(),o()})))()}init_code_block_verwendung();export{MDXContent as default};

@@ -1,0 +1,26 @@
+{
+  "components": {
+    "komponenten-code-block-code-block": {
+      "id": "komponenten-code-block-code-block",
+      "name": "CodeBlockComponent",
+      "path": "./src/lib/code-block/code-block.stories.ts",
+      "stories": {
+        "komponenten-code-block-code-block--interaktiv": {
+          "id": "komponenten-code-block-code-block--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { CodeBlockComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CodeBlockComponent],\n  template: `\n    <cds-code-block\n        [lang]=\"'HTML'\"\n        [code]=\"'<button class=&quot;btn btn-filled btn-co&quot;>Kontakt</button>'\"\n        [terminal]=\"false\"\n        [copyable]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-code-block-code-block--terminal": {
+          "id": "komponenten-code-block-code-block--terminal",
+          "name": "Terminal",
+          "snippet": "import { Component } from '@angular/core';\nimport { CodeBlockComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CodeBlockComponent],\n  template: `\n    <cds-code-block\n        [lang]=\"'bash'\"\n        [code]=\"'npm install\\\\nnpm run storybook'\"\n        [terminal]=\"true\"\n        [copyable]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-code-block-code-block--kopier-button": {
+          "id": "komponenten-code-block-code-block--kopier-button",
+          "name": "Kopier-Button",
+          "snippet": "import { Component } from '@angular/core';\nimport { CodeBlockComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [CodeBlockComponent],\n  template: `\n    <cds-code-block\n        [lang]=\"'HTML'\"\n        [code]=\"'<button class=&quot;btn btn-filled btn-co&quot;>Kontakt</button>'\"\n        [terminal]=\"false\"\n        [copyable]=\"true\"\n    />`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

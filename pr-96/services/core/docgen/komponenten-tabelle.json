@@ -1,0 +1,74 @@
+{
+  "components": {
+    "komponenten-tabelle": {
+      "id": "komponenten-tabelle",
+      "name": "TableComponent",
+      "path": "./src/lib/table/table.stories.ts",
+      "description": "Table (`cds-table`) — Wrapper um `.tbl`/`.tbl-wrap` aus css/components.css\n(css/components.css:1462–1480): die Datentabelle. Ausgezählt: Außerhalb von\n`sec-table` kommt `.tbl-wrap` nur zweimal vor, beide auf Beitragsseiten — keine\nder 24 Beispielseiten außerhalb von\nWissensbeiträgen setzt aktuell eine Tabelle ein.\n\n**Kein Daten-Input.** Eine `columns`/`rows`-API würde Zellinhalte auf Strings\nfestlegen; die Beispielseiten setzen darin Badges, Links und `data-num`.\nDer Konsument projiziert `<thead>`/`<tbody>`/\n`<tfoot>` unverändert per `<ng-content>`, die Komponente liefert nur die\nHülle: `.tbl-wrap`, `.tbl`, `<caption>` und die Striped-Klasse.\n\n**`caption` ist Pflicht (`input.required<string>()`), abweichend von der\nursprünglichen Skizze (dort `caption? = ''`).** Die eigene Doku dieser Komponente\n(`apps/storybook/src/docs/komponenten/tabelle.mdx:137`) nennt `<caption>`\nausdrücklich „Pflicht, Screenreader lesen den Titel vor, bevor die Zellen\nvorgelesen werden“ und wiederholt das in den Dos (`tabelle.mdx:147`:\n„`<caption>` und `scope`-Attribute immer setzen, auch bei einfachen\nTabellen“). Ausgezählt: Alle fünf realen `.tbl`-Vorkommen haben eine\n`<caption>`, ausnahmslos. Ein optionaler Input mit Default `''`\nhätte genau den Fall erlaubt, den die eigene Doku verbietet — nach\nADR-0007 §2 ist `caption` damit Inhalt, nicht Beiwerk: ohne sie ist eine\n`cds-table` eine Tabelle, die die eigenen Barrierefreiheitsregeln bricht,\nalso sinnlos. Ein vergessenes Binding wirft jetzt `NG0950`, statt eine\nunbeschriftete Tabelle still auszuliefern.\n\n**Element-Selektor, `.tbl-wrap`/`.tbl` sitzen im eigenen Template, nicht am\nHost (ADR-0008-Standardfall, analog zu `cds-facts`/`cds-faq`).** Ausgezählt:\nAlle fünf `.tbl-wrap`-Vorkommen sind keine direkten Grid-/Flex-Kinder. Das einzige\nVorkommen in einem `.layout-grid` sitzt eine Ebene tiefer in\neinem `.col-8`, das seinerseits der Grid-Child ist; `.tbl-wrap` ist dort ein\ngewöhnlicher Block-Nachfahre, dessen Breite vom umschließenden `.col-8`\nkommt, nicht von `align-items:stretch` auf einer bestimmten DOM-Tiefe (kein\n`.ep-card`-Fall). Keines trägt eine `col-*`-Klasse selbst, keines variiert\ndas Tag (immer `<div class=\"tbl-wrap\">`). Ein `<cds-table>`-Host ohne eigene\nKlasse und ohne eigenes `background` gerät deshalb nicht in den „Fläche am\nHost“-Fall aus ADR-0008 Fall 2: die Komponente setzt nichts auf dem Host,\ndas eine eigene Box bräuchte, `.tbl-wrap` bleibt ein normaler Block-Nachfahre\nunabhängig vom `display` des `<cds-table>`-Hosts (derselbe Grund, warum\n`cds-facts`/`cds-faq` als Element-Selektor funktionieren).\n\nEine Attributselektor-Variante direkt am `<table>` (`table[cdsTable]`, analog\nzu `cdsSection`) wurde erwogen und verworfen: `<table>` ist als Tag ohnehin\nfix (kein Tag-Wechsel wie bei `cdsIconCard`), aber `.tbl-wrap` bräuchte dann\nein ZWEITES Element, das der Konsument von Hand um die Tabelle schreiben\nmüsste (`<div class=\"tbl-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"…\">\n<table cdsTable>…`) — genau die beiden Aufgaben, die am ehesten\nvergessen werden (fokussierbarer, benannter Scroll-Container), blieben dann\nbeim Konsumenten statt bei der Komponente. Der Element-Selektor hält Wrap und\nTabelle zusammen in einem Template.\n\n**Geprüft im laufenden Storybook (Story „Interaktiv“, Play-Funktion):**\n`<table class=\"tbl\">` liegt direkt unter `<div class=\"tbl-wrap\">`, `<caption>`\nist ihr erstes Kind, danach folgen ohne zusätzlichen Knoten dazwischen genau\ndie projizierten `<thead>`/`<tbody>`-Elemente — `<ng-content>` fügt selbst\nkein DOM-Element ein, es verschiebt nur die vom Konsumenten geschriebenen\nnativen Elemente an ihre Stelle. Damit bleibt die Tabellenstruktur (`<table>`\n→ `<caption>` + `<thead>` + `<tbody>` + optional `<tfoot>`, keine fremde\nEbene dazwischen) exakt so gültig wie im rohen Markup.\n\n**`.tbl-wrap` ist immer fokussierbar UND immer benannt.** Das CSS gibt dem\nScroll-Container einen eigenen `:focus-visible`-Ring\n(css/components.css:1463) — ein scrollbarer Bereich muss per Tastatur\nerreichbar sein (WCAG 2.1.1), `tabindex=\"0\"` steht deshalb fest im Template.\n`role=\"region\"` braucht laut HTML-AAM einen zugänglichen Namen, sonst bekäme\nder Bereich keine Landmark-Rolle — weil `caption` jetzt Pflicht ist, kann\n`accessibleName()` (`scrollLabel() || caption()`) nicht mehr leer werden,\n`role`/`aria-label` sind deshalb unbedingt gesetzt, kein Nullfall mehr zu\nbehandeln. `scrollLabel` bleibt eine optionale Überschreibung (Vorrang vor\n`caption`) für Fälle, in denen der sichtbare Tabellentitel für den\nScroll-Container zu lang oder zu unspezifisch wäre.\n\n**`.tbl-sort` bleibt außen vor.** Die Klasse existiert\n(css/components.css:1477–1482), die Sortierlogik aber nicht. Ein Wrapper, der nur den\nButton-Look lieferte, täuschte Funktion vor, die es nicht gibt.",
+      "jsDocTags": {},
+      "argTypes": {
+        "caption": {
+          "name": "caption",
+          "description": "Überschrift der Tabelle (`<caption>`, erstes Kind) — Pflicht, siehe Klassendoku.",
+          "type": {
+            "name": "string",
+            "required": true
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        },
+        "scrollLabel": {
+          "name": "scrollLabel",
+          "description": "Zugänglicher Name des Scroll-Containers (`aria-label` auf `.tbl-wrap`), hat\nVorrang vor `caption`. Leer = `caption` wird zum Namen (siehe Klassendoku).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {
+              "summary": ""
+            }
+          }
+        },
+        "striped": {
+          "name": "striped",
+          "description": "Alternierende Zeilenfarbe für Tabellen mit vielen Zeilen (`.tbl--striped`).",
+          "type": {
+            "name": "boolean"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "boolean"
+            },
+            "defaultValue": {
+              "summary": false
+            }
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type TableComponentInputs = {\n  /** Überschrift der Tabelle (`<caption>`, erstes Kind) — Pflicht, siehe Klassendoku. */\n  caption: string;\n  /**\n   * Zugänglicher Name des Scroll-Containers (`aria-label` auf `.tbl-wrap`), hat\n   * Vorrang vor `caption`. Leer = `caption` wird zum Namen (siehe Klassendoku).\n   *\n   * @default ''\n   */\n  scrollLabel?: string;\n  /**\n   * Alternierende Zeilenfarbe für Tabellen mit vielen Zeilen (`.tbl--striped`).\n   *\n   * @default false\n   */\n  striped?: boolean;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "TableComponent",
+        "selector": "cds-table",
+        "standalone": true,
+        "inputs": [
+          "caption",
+          "scrollLabel",
+          "striped"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

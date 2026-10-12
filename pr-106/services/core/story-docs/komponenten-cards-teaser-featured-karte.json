@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-cards-teaser-featured-karte": {
+      "id": "komponenten-cards-teaser-featured-karte",
+      "name": "FeaturedCardComponent",
+      "path": "./src/lib/featured-card/featured-card.stories.ts",
+      "stories": {
+        "komponenten-cards-teaser-featured-karte--interaktiv": {
+          "id": "komponenten-cards-teaser-featured-karte--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { FeaturedCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FeaturedCardComponent],\n  template: `\n    <cds-featured-card\n        [title]=\"'Effizienz durch n8n.'\"\n        [text]=\"'Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.'\"\n        [imageSrc]=\"platzhalterBild('Bildfläche · 16:9', 800, 450, 24)\"\n        [imageAlt]=\"'Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm'\"\n        [href]=\"'#veranstaltung-n8n'\"\n        [pill]=\"'Effektive Software'\"\n        [area]=\"'es'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 800, 450, 24)` could not be resolved statically."
+        },
+        "komponenten-cards-teaser-featured-karte--pro-bereich": {
+          "id": "komponenten-cards-teaser-featured-karte--pro-bereich",
+          "name": "Pro Bereich",
+          "snippet": "import { Component } from '@angular/core';\nimport { FeaturedCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FeaturedCardComponent],\n  template: `\n    <cds-featured-card\n        [title]=\"'Effizienz durch n8n.'\"\n        [text]=\"'Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.'\"\n        [imageSrc]=\"platzhalterBild('Bildfläche · 16:9', 800, 450, 24)\"\n        [imageAlt]=\"'Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm'\"\n        [href]=\"'#veranstaltung-n8n'\"\n        [pill]=\"'Effektive Software'\"\n        [area]=\"'es'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: ``\n      <div style=\"display:flex;flex-direction:column;gap:24px\">\n        <cds-featured-card area=\"co\" pill=\"Corporate\" title=\"Zehn Jahre Conciso.\"\n          text=\"Wie aus einer Zwei-Personen-Idee ein Team wurde, das Mittelstand und KI zusammendenkt.\"\n          imageSrc=\"${eventPlaceholder}\" imageAlt=\"Conciso-Team bei einem Firmenjubiläum\"\n          href=\"#beitrag-jubilaeum\"></cds-featured-card>\n        <cds-featured-card area=\"ki\" pill=\"Angewandte KI\" title=\"Effizienz durch n8n.\"\n          text=\"Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.\"\n          imageSrc=\"${eventPlaceholder}\" imageAlt=\"Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm\"\n          href=\"#veranstaltung-n8n\"></cds-featured-card>\n        <cds-featured-card area=\"es\" pill=\"Effektive Software\" title=\"Schlanke Architektur senkt Betriebskosten.\"\n          text=\"Was 40 Migrationsprojekte über den Zusammenhang von Komplexität und Wartungsaufwand zeigen.\"\n          imageSrc=\"${eventPlaceholder}\" imageAlt=\"Whiteboard mit einer Architekturskizze\"\n          href=\"#beitrag-architektur\"></cds-featured-card>\n        <cds-featured-card area=\"wo\" pill=\"Wirksame Organisationen\" title=\"Teams, die sich selbst organisieren.\"\n          text=\"Wie verteilte Verantwortung Entscheidungen beschleunigt, ohne Führung zu verlieren.\"\n          imageSrc=\"${eventPlaceholder}\" imageAlt=\"Team im Kreis bei einem Workshop\"\n          href=\"#beitrag-teams\"></cds-featured-card>\n      </div>\n    ``, `platzhalterBild('Bildfläche · 16:9', 800, 450, 24)` could not be resolved statically."
+        },
+        "komponenten-cards-teaser-featured-karte--pille-als-lesezeit": {
+          "id": "komponenten-cards-teaser-featured-karte--pille-als-lesezeit",
+          "name": "Pille als Lesezeit",
+          "snippet": "import { Component } from '@angular/core';\nimport { FeaturedCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FeaturedCardComponent],\n  template: `\n    <cds-featured-card\n        [title]=\"'Effizienz durch n8n.'\"\n        [text]=\"'Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.'\"\n        [imageSrc]=\"platzhalterBild('Bildfläche · 16:9', 800, 450, 24)\"\n        [imageAlt]=\"'Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm'\"\n        [href]=\"'#veranstaltung-n8n'\"\n        [pill]=\"'12 min Lesezeit'\"\n        [area]=\"'es'\"\n        [pillAriaLabel]=\"'Lesezeit 12 Minuten'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 800, 450, 24)` could not be resolved statically."
+        },
+        "komponenten-cards-teaser-featured-karte--ohne-pill": {
+          "id": "komponenten-cards-teaser-featured-karte--ohne-pill",
+          "name": "Ohne Pill",
+          "snippet": "import { Component } from '@angular/core';\nimport { FeaturedCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FeaturedCardComponent],\n  template: `\n    <cds-featured-card\n        [title]=\"'Effizienz durch n8n.'\"\n        [text]=\"'Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.'\"\n        [imageSrc]=\"platzhalterBild('Bildfläche · 16:9', 800, 450, 24)\"\n        [imageAlt]=\"'Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm'\"\n        [href]=\"'#veranstaltung-n8n'\"\n        [pill]=\"''\"\n        [area]=\"'es'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 800, 450, 24)` could not be resolved statically."
+        },
+        "komponenten-cards-teaser-featured-karte--ohne-link": {
+          "id": "komponenten-cards-teaser-featured-karte--ohne-link",
+          "name": "Ohne Link",
+          "snippet": "import { Component } from '@angular/core';\nimport { FeaturedCardComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [FeaturedCardComponent],\n  template: `\n    <cds-featured-card\n        [title]=\"'Effizienz durch n8n.'\"\n        [text]=\"'Drei kurze Inputs, ein Workflow, spürbar weniger Klickarbeit im Tagesgeschäft.'\"\n        [imageSrc]=\"platzhalterBild('Bildfläche · 16:9', 800, 450, 24)\"\n        [imageAlt]=\"'Laptop mit einem n8n-Workflow-Diagramm auf dem Bildschirm'\"\n        [href]=\"''\"\n        [pill]=\"'Effektive Software'\"\n        [area]=\"'es'\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 800, 450, 24)` could not be resolved statically."
+        }
+      }
+    }
+  }
+}

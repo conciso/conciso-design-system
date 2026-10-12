@@ -1,0 +1,39 @@
+{
+  "components": {
+    "komponenten-footer-oberer-teil": {
+      "id": "komponenten-footer-oberer-teil",
+      "name": "FooterMainComponent",
+      "path": "./src/lib/footer/footer-main.stories.ts",
+      "description": "Footer — oberer Teil (`.footer-main`): helles Band als **generisches Spalten-Layout**.\nDer Inhalt wird als beliebige Spalten projiziert (jedes Top-Level-Kind = eine\nGrid-Spalte), statt fester Adresse/Nav/Newsletter-Struktur — so eignet es sich für\nWebsite- UND App-Footer ohne Marketing-Lock-in.\n\n```html\n<cds-footer-main>\n  <div>…Spalte 1…</div>\n  <div>…Spalte 2…</div>\n</cds-footer-main>\n```\n\nDie Host-Klasse `footer-main` trägt Hintergrund/Padding aus css/components.css;\n`:host{display:block}` macht das Band auch standalone zum Block. Spaltenanzahl/-breiten\nüber `columns` (grid-template-columns); ohne Angabe gilt das 3-Spalten-Default.\n\nVerwendungsguidance dieser Gruppe: siehe Footer, Komplett (`komponenten-footer-komplett--verwendung`).",
+      "jsDocTags": {},
+      "argTypes": {
+        "columns": {
+          "name": "columns",
+          "description": "Optionale `grid-template-columns` (z. B. `'repeat(4, 1fr)'` oder `'2fr 1fr'`).\nOhne Angabe gilt das Default aus `.footer-grid` (1.2fr 1fr 1.3fr, 3 Spalten).",
+          "type": {
+            "name": "string"
+          },
+          "table": {
+            "category": "inputs",
+            "type": {
+              "summary": "string"
+            },
+            "defaultValue": {}
+          }
+        }
+      },
+      "apiDescription": "## Inputs\n\n```\nexport type FooterMainComponentInputs = {\n  /**\n   * Optionale `grid-template-columns` (z. B. `'repeat(4, 1fr)'` oder `'2fr 1fr'`).\n   * Ohne Angabe gilt das Default aus `.footer-grid` (1.2fr 1fr 1.3fr, 3 Spalten).\n   */\n  columns?: string;\n}\n```",
+      "renderer": "angular",
+      "angularComponentMeta": {
+        "name": "FooterMainComponent",
+        "selector": "cds-footer-main",
+        "standalone": true,
+        "inputs": [
+          "columns"
+        ],
+        "outputs": [],
+        "enums": []
+      }
+    }
+  }
+}

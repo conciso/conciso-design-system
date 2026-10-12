@@ -1,0 +1,53 @@
+{
+  "components": {
+    "komponenten-button": {
+      "id": "komponenten-button",
+      "name": "ButtonComponent",
+      "path": "./src/lib/button/button.stories.ts",
+      "stories": {
+        "komponenten-button--interaktiv": {
+          "id": "komponenten-button--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    @if (variant === 'filled-on-band') {\n    <div\n        [style.background]=\"'var(--' + area + (area === 'ki' ? '-800' : '-700') + ')'\"\n        style=\"padding:24px;border-radius:var(--r-md)\">\n        <cds-button\n            [label]=\"label\"\n            [variant]=\"variant\"\n            [area]=\"area\"\n            [tone]=\"tone\"\n            [size]=\"size\"\n            [full]=\"full\"\n            [disabled]=\"disabled\" />\n    </div>\n    } @else {\n    <cds-button\n        [label]=\"label\"\n        [variant]=\"variant\"\n        [area]=\"area\"\n        [tone]=\"tone\"\n        [size]=\"size\"\n        [full]=\"full\"\n        [disabled]=\"disabled\" />\n    }`,\n})\nexport class DemoComponent {\n  label = 'Kontakt aufnehmen';\n  variant = 'filled';\n  area = 'co';\n  tone = 'def';\n  size = 'md';\n  full = false;\n  disabled = false;\n}"
+        },
+        "komponenten-button--varianten": {
+          "id": "komponenten-button--varianten",
+          "name": "Alle Varianten",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <div style=\"display:flex;gap:16px;flex-wrap:wrap;align-items:center\">\n        <cds-button variant=\"filled\" label=\"Filled\"></cds-button>\n        <cds-button variant=\"tonal\" label=\"Tonal\"></cds-button>\n        <cds-button variant=\"elevated\" label=\"Elevated\"></cds-button>\n        <cds-button variant=\"outlined\" label=\"Outlined\"></cds-button>\n        <cds-button variant=\"text\" label=\"Text\"></cds-button>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-button--bereichsfarben": {
+          "id": "komponenten-button--bereichsfarben",
+          "name": "Bereichsfarben",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <div style=\"display:flex;gap:16px;flex-wrap:wrap;align-items:center\">\n        <cds-button area=\"co\" label=\"Corporate\"></cds-button>\n        <cds-button area=\"ki\" label=\"Angewandte KI\"></cds-button>\n        <cds-button area=\"es\" label=\"Effektive Software\"></cds-button>\n        <cds-button area=\"wo\" label=\"Wirksame Organisationen\"></cds-button>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-button--destruktiv": {
+          "id": "komponenten-button--destruktiv",
+          "name": "Destruktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <div style=\"display:flex;gap:16px;flex-wrap:wrap;align-items:center\">\n        <cds-button tone=\"err\" label=\"Löschen\"></cds-button>\n        <cds-button tone=\"err\" variant=\"outlined\" label=\"Verwerfen\"></cds-button>\n        <cds-button tone=\"err\" variant=\"text\" label=\"Entfernen\"></cds-button>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-button--groessen": {
+          "id": "komponenten-button--groessen",
+          "name": "Größen",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <div style=\"display:flex;gap:16px;flex-wrap:wrap;align-items:center\">\n        <cds-button size=\"sm\" label=\"Small\"></cds-button>\n        <cds-button size=\"md\" label=\"Medium\"></cds-button>\n        <cds-button size=\"lg\" label=\"Large\"></cds-button>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-button--auf-band": {
+          "id": "komponenten-button--auf-band",
+          "name": "Auf Bereichs-Band",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:12px\">\n        <div\n            style=\"background:var(--co-700);padding:20px;border-radius:var(--r-md)\">\n            <cds-button\n                variant=\"filled-on-band\"\n                area=\"co\"\n                label=\"Termin buchen\">\n            </cds-button>\n        </div>\n        <div\n            style=\"background:var(--ki-800);padding:20px;border-radius:var(--r-md)\">\n            <cds-button\n                variant=\"filled-on-band\"\n                area=\"ki\"\n                label=\"KI-Potenzial analysieren\">\n            </cds-button>\n        </div>\n        <div\n            style=\"background:var(--es-700);padding:20px;border-radius:var(--r-md)\">\n            <cds-button\n                variant=\"filled-on-band\"\n                area=\"es\"\n                label=\"Assessment anfragen\">\n            </cds-button>\n        </div>\n        <div\n            style=\"background:var(--wo-700);padding:20px;border-radius:var(--r-md)\">\n            <cds-button\n                variant=\"filled-on-band\"\n                area=\"wo\"\n                label=\"Erstgespräch anfragen\">\n            </cds-button>\n        </div>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-button--deaktiviert": {
+          "id": "komponenten-button--deaktiviert",
+          "name": "Deaktiviert",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <cds-button\n        [label]=\"'Nicht verfügbar'\"\n        [variant]=\"'filled'\"\n        [area]=\"'co'\"\n        [tone]=\"'def'\"\n        [size]=\"'md'\"\n        [full]=\"false\"\n        [disabled]=\"true\"\n        (clicked)=\"clicked($event)\"\n    />`,\n})\nexport class DemoComponent {\n  clicked(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        },
+        "komponenten-button--klick-verhalten": {
+          "id": "komponenten-button--klick-verhalten",
+          "name": "Klick-Verhalten",
+          "snippet": "import { Component } from '@angular/core';\nimport { ButtonComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ButtonComponent],\n  template: `\n    <cds-button\n        [label]=\"'Kontakt aufnehmen'\"\n        [variant]=\"'filled'\"\n        [area]=\"'co'\"\n        [tone]=\"'def'\"\n        [size]=\"'md'\"\n        [full]=\"false\"\n        [disabled]=\"false\"\n        (clicked)=\"clicked($event)\"\n    />`,\n})\nexport class DemoComponent {\n  clicked(event: unknown) {}\n}",
+          "warning": "Incomplete snippet: `fn()` could not be resolved statically."
+        }
+      }
+    }
+  }
+}

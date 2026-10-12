@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-hero-hero-bild": {
+      "id": "komponenten-hero-hero-bild",
+      "name": "HeroImageComponent",
+      "path": "./src/lib/hero-image/hero-image.stories.ts",
+      "stories": {
+        "komponenten-hero-hero-bild--interaktiv": {
+          "id": "komponenten-hero-hero-bild--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { HeroImageComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [HeroImageComponent],\n  template: `\n    <cds-hero-image\n        [src]=\"src\"\n        [alt]=\"alt\"\n        [eyebrow]=\"eyebrow\"\n        [heading]=\"heading\"\n        [text]=\"text\"\n        [headingLevel]=\"headingLevel\"\n        [eager]=\"eager\"\n        [objectPosition]=\"objectPosition\">\n    </cds-hero-image>`,\n})\nexport class DemoComponent {\n  alt = 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände';\n  eyebrow = 'Seit 2016 · Dortmund';\n  heading = 'Klare Köpfe. Ruhige Energie.';\n  text = 'KI, Software und Organisationsentwicklung aus Dortmund.';\n  headingLevel = 1;\n  eager = true;\n  objectPosition = '';\n}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 21:9', 1600, 686)` could not be resolved statically."
+        },
+        "komponenten-hero-hero-bild--ohne-caption": {
+          "id": "komponenten-hero-hero-bild--ohne-caption",
+          "name": "Ohne Caption",
+          "snippet": "import { Component } from '@angular/core';\nimport { HeroImageComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [HeroImageComponent],\n  template: `<cds-hero-image [src]=\"src\" [alt]=\"alt\"></cds-hero-image>`,\n})\nexport class DemoComponent {\n  alt = 'Conciso-Team geht gemeinsam über ein sonniges Industriegelände';\n}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 21:9', 1600, 686)` could not be resolved statically."
+        },
+        "komponenten-hero-hero-bild--beitrags-hero": {
+          "id": "komponenten-hero-hero-bild--beitrags-hero",
+          "name": "Beitrags-Hero (h2)",
+          "snippet": "import { Component } from '@angular/core';\nimport { HeroImageComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [HeroImageComponent],\n  template: `\n    <cds-hero-image\n        [src]=\"platzhalterBild('Bildfläche · 21:9', 1600, 686)\"\n        [alt]=\"'Conciso-Team geht gemeinsam über ein sonniges Industriegelände'\"\n        [eyebrow]=\"'Seit 2016 · Dortmund'\"\n        [heading]=\"'Klare Köpfe. Ruhige Energie.'\"\n        [text]=\"'KI, Software und Organisationsentwicklung aus Dortmund.'\"\n        [headingLevel]=\"1\"\n        [eager]=\"true\"\n        [objectPosition]=\"''\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: ``\n      <h1 style=\"font:var(--ty-headline-md);margin:0 0 var(--s4)\">Warum 60 % der KI-Piloten nie in Produktion gehen</h1>\n      <cds-hero-image\n        src=\"${heroPlaceholder}\"\n        alt=\"Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness\"\n        eyebrow=\"8 min Lesezeit\"\n        heading=\"Readiness statt Begeisterung\"\n        text=\"Was 200 KI-Implementierungen über den Weg in die Produktion zeigen.\"\n        [headingLevel]=\"2\"\n      ></cds-hero-image>\n    ``, `platzhalterBild('Bildfläche · 21:9', 1600, 686)` could not be resolved statically."
+        },
+        "komponenten-hero-hero-bild--bildausschnitt": {
+          "id": "komponenten-hero-hero-bild--bildausschnitt",
+          "name": "Bildausschnitt",
+          "snippet": "import { Component } from '@angular/core';\nimport { HeroImageComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [HeroImageComponent],\n  template: `\n    <cds-hero-image\n        [src]=\"platzhalterBild('Bildfläche · 21:9', 1600, 686)\"\n        [alt]=\"'Conciso-Team geht gemeinsam über ein sonniges Industriegelände'\"\n        [eyebrow]=\"'Seit 2016 · Dortmund'\"\n        [heading]=\"'Klare Köpfe. Ruhige Energie.'\"\n        [text]=\"'KI, Software und Organisationsentwicklung aus Dortmund.'\"\n        [headingLevel]=\"1\"\n        [eager]=\"true\"\n        [objectPosition]=\"''\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: ``\n      <p style=\"font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--tx-muted);margin:var(--s4) var(--s6) var(--s1)\">Ohne objectPosition (Default: center center)</p>\n      <cds-hero-image\n        src=\"${portraitPlaceholder}\"\n        alt=\"Testbild mit drei Banden Kopf, Mitte, Fuß, ohne gesetzten Bildausschnitt\"\n      ></cds-hero-image>\n      <p style=\"font:var(--ty-label-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--tx-muted);margin:var(--s6) var(--s6) var(--s1)\">Mit objectPosition=\"center 10%\"</p>\n      <cds-hero-image\n        src=\"${portraitPlaceholder}\"\n        alt=\"Dasselbe Testbild mit Bildausschnitt auf die obere Bande\"\n        objectPosition=\"center 10%\"\n      ></cds-hero-image>\n    ``, `platzhalterBild('Bildfläche · 21:9', 1600, 686)` could not be resolved statically."
+        },
+        "komponenten-hero-hero-bild--als-sprungziel": {
+          "id": "komponenten-hero-hero-bild--als-sprungziel",
+          "name": "Als Sprungziel",
+          "snippet": "import { Component } from '@angular/core';\nimport { HeroImageComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [HeroImageComponent],\n  template: `\n    <cds-hero-image\n        [src]=\"platzhalterBild('Bildfläche · 21:9', 1600, 686)\"\n        [alt]=\"'Conciso-Team geht gemeinsam über ein sonniges Industriegelände'\"\n        [eyebrow]=\"'Seit 2016 · Dortmund'\"\n        [heading]=\"'Klare Köpfe. Ruhige Energie.'\"\n        [text]=\"'KI, Software und Organisationsentwicklung aus Dortmund.'\"\n        [headingLevel]=\"1\"\n        [eager]=\"true\"\n        [objectPosition]=\"''\"\n    />`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: ``\n      <a href=\"#hauptinhalt\">Zum Inhalt springen</a>\n      <cds-hero-image\n        id=\"hauptinhalt\"\n        tabindex=\"-1\"\n        src=\"${heroPlaceholder}\"\n        alt=\"Conciso-Team geht gemeinsam über ein sonniges Industriegelände\"\n      ></cds-hero-image>\n    ``, `platzhalterBild('Bildfläche · 21:9', 1600, 686)` could not be resolved statically."
+        }
+      }
+    }
+  }
+}

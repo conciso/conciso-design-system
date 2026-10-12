@@ -1,0 +1,41 @@
+{
+  "components": {
+    "komponenten-sektion": {
+      "id": "komponenten-sektion",
+      "name": "SectionComponent",
+      "path": "./src/lib/section/section.stories.ts",
+      "stories": {
+        "komponenten-sektion--interaktiv": {
+          "id": "komponenten-sektion--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <section\n        cdsSection\n        [label]=\"label\"\n        [heading]=\"heading\"\n        [sub]=\"sub\"\n        [area]=\"area\">\n        <p\n            style=\"font:var(--ty-body-md);color:var(--tx-secondary);margin:0\">\n            Beliebiger Inhalt unterhalb des Kopfes, hier ein einfacher Absatz als Platzhalter.\n        </p>\n    </section>`,\n})\nexport class DemoComponent {\n  label = 'Was wir tun';\n  heading = 'Drei Bereiche. Ein Maßstab.';\n  sub = 'Sie stärken sich gegenseitig. Wir denken sie zusammen, nicht nebeneinander.';\n  area = 'co';\n}"
+        },
+        "komponenten-sektion--ohne-kopf": {
+          "id": "komponenten-sektion--ohne-kopf",
+          "name": "Ohne Kopf",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <div cdsSection>\n        <p\n            style=\"font:var(--ty-body-md);color:var(--tx-secondary);margin:0\">\n            Eine Sektion besteht auch ganz ohne Kopf, nur aus ihrem projizierten Inhalt.\n        </p>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-sektion--benannt-von-aussen": {
+          "id": "komponenten-sektion--benannt-von-aussen",
+          "name": "Benannt von außen",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <h2\n        id=\"story-section-externe-ueberschrift\"\n        style=\"font:var(--ty-headline-md);margin:0 0 var(--s4)\">\n        Externe Überschrift oberhalb der Sektion\n    </h2>\n    <section cdsSection labelledBy=\"story-section-externe-ueberschrift\">\n        <p\n            style=\"font:var(--ty-body-md);color:var(--tx-secondary);margin:0\">\n            Kein eigener Kopf, der zugängliche Name kommt von der Überschrift darüber.\n        </p>\n    </section>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-sektion--nur-ueberschrift": {
+          "id": "komponenten-sektion--nur-ueberschrift",
+          "name": "Nur Überschrift",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <section cdsSection [heading]=\"heading\">\n        <p\n            style=\"font:var(--ty-body-md);color:var(--tx-secondary);margin:0\">\n            Kicker und Lead bleiben hier leer, nur die Überschrift ist gesetzt.\n        </p>\n    </section>`,\n})\nexport class DemoComponent {\n  heading = 'Drei Bereiche. Ein Maßstab.';\n}"
+        },
+        "komponenten-sektion--bereichsgefaerbtes-label": {
+          "id": "komponenten-sektion--bereichsgefaerbtes-label",
+          "name": "Bereichsgefärbtes Label",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <div style=\"display:flex;flex-direction:column;gap:var(--s6)\">\n        <section\n            cdsSection\n            label=\"Corporate\"\n            area=\"co\"\n            heading=\"Marke &amp; Haltung\">\n        </section>\n        <section\n            cdsSection\n            label=\"AI.Applied\"\n            area=\"ki\"\n            heading=\"Angewandte KI\">\n        </section>\n        <section\n            cdsSection\n            label=\"Effektive Software\"\n            area=\"es\"\n            heading=\"Schlanke Systeme\">\n        </section>\n        <section\n            cdsSection\n            label=\"Wirksame Organisationen\"\n            area=\"wo\"\n            heading=\"Starke Teams\">\n        </section>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "komponenten-sektion--flaeche-am-host": {
+          "id": "komponenten-sektion--flaeche-am-host",
+          "name": "Fläche am Host",
+          "snippet": "import { Component } from '@angular/core';\nimport { SectionComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [SectionComponent],\n  template: `\n    <section\n        cdsSection\n        heading=\"Getönte Fläche direkt am Host\"\n        style=\"background:var(--n-50);border-radius:var(--r-lg)\">\n        <p\n            style=\"font:var(--ty-body-md);color:var(--tx-secondary);margin:0\">\n            Kein umschließendes Element mehr nötig: style sitzt direkt auf dem Element, das cdsSection trägt.\n        </p>\n    </section>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}

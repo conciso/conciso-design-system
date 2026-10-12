@@ -1,0 +1,29 @@
+{
+  "components": {
+    "marke-logo-logo": {
+      "id": "marke-logo-logo",
+      "name": "LogoComponent",
+      "path": "./src/lib/logo/logo.stories.ts",
+      "stories": {
+        "marke-logo-logo--mit-bild": {
+          "id": "marke-logo-logo--mit-bild",
+          "name": "Mit Bild",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoComponent],\n  template: `<cds-logo [label]=\"'Conciso'\" [src]=\"'./conciso/brand/logo-conciso.svg'\" />`,\n})\nexport class DemoComponent {}",
+          "description": "Mit Bild: das Conciso-Logo als Stellvertreter (Kacheln liegen randlos auf weißer Platte)."
+        },
+        "marke-logo-logo--text-fallback": {
+          "id": "marke-logo-logo--text-fallback",
+          "name": "Text Fallback",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoComponent],\n  template: `<cds-logo [label]=\"'NORDWIND'\" />`,\n})\nexport class DemoComponent {}",
+          "description": "Ohne Bild: Text-Platzhalter als Fallback."
+        },
+        "marke-logo-logo--wortmarken": {
+          "id": "marke-logo-logo--wortmarken",
+          "name": "Wortmarken",
+          "snippet": "import { Component } from '@angular/core';\nimport { LogoComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [LogoComponent],\n  template: `\n    <div\n        style=\"display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px\">\n        <figure style=\"margin:0\">\n            <div\n                style=\"background:var(--bg-plate);border:var(--bd-strong);border-radius:var(--r-lg);padding:32px 24px\">\n                <cds-logo\n                    label=\"Conciso\"\n                    alt=\"Conciso, Standard\"\n                    src=\"./conciso/brand/logo-conciso.svg\">\n                </cds-logo>\n            </div>\n            <figcaption\n                style=\"font:var(--ty-label-sm);color:var(--tx-secondary);margin-top:8px\">\n                Standard\n            </figcaption>\n        </figure>\n        <figure style=\"margin:0\">\n            <div\n                style=\"background:#F5F7F7;border:var(--bd-strong);border-radius:var(--r-lg);padding:32px 24px\">\n                <cds-logo\n                    label=\"Conciso\"\n                    alt=\"Conciso, Mono dunkel\"\n                    src=\"./conciso/brand/logo-conciso-dark.svg\">\n                </cds-logo>\n            </div>\n            <figcaption\n                style=\"font:var(--ty-label-sm);color:var(--tx-secondary);margin-top:8px\">\n                Mono dunkel\n            </figcaption>\n        </figure>\n        <figure style=\"margin:0\">\n            <div\n                style=\"background:var(--n-700);border-radius:var(--r-lg);padding:32px 24px\">\n                <cds-logo\n                    label=\"Conciso\"\n                    alt=\"Conciso, Mono hell\"\n                    src=\"./conciso/brand/logo-conciso-light.svg\">\n                </cds-logo>\n            </div>\n            <figcaption\n                style=\"font:var(--ty-label-sm);color:var(--tx-secondary);margin-top:8px\">\n                Mono hell auf dunklem Grund\n            </figcaption>\n        </figure>\n    </div>`,\n})\nexport class DemoComponent {}",
+          "description": "Die drei Wortmarken-Varianten, jeweils auf dem Grund, für den sie gedacht sind:\nStandard (Vollfarbe) auf heller Platte, Mono dunkel (einfarbig, auch der Punkt in der Wortmarkenfarbe) auf festem Hellgrau,\nMono hell (Weiß) auf dunklem Grund. Dateien: `logo-conciso.svg`, `logo-conciso-dark.svg`\nund `logo-conciso-light.svg`."
+        }
+      }
+    }
+  }
+}

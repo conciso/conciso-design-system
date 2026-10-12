@@ -1,0 +1,23 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-figure": {
+      "id": "seitenmuster-wissensbeitrag-figure",
+      "name": "ArticleFigureComponent",
+      "path": "./src/lib/article-figure/article-figure.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-figure--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-figure--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleFigureComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleFigureComponent],\n  template: `\n    <cds-article-figure\n        [src]=\"src\"\n        [alt]=\"alt\"\n        [caption]=\"caption\">\n    </cds-article-figure>`,\n})\nexport class DemoComponent {}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 1280, 720)`, `'Nahaufnahme einer Hauptplatine mit Mikrochips, Speicherbausteinen und feinen ' + 'Beschriftungen, in dunklen Tönen fotografiert'`, `'Detailaufnahme einer Hauptplatine. Wo KI-Pilotmodelle scheitern, ist selten die Hardware ' + 'der Engpass, sondern die Datenpipeline drumherum.'` could not be resolved statically."
+        },
+        "seitenmuster-wissensbeitrag-figure--ohne-caption": {
+          "id": "seitenmuster-wissensbeitrag-figure--ohne-caption",
+          "name": "Ohne Caption",
+          "snippet": "import { Component } from '@angular/core';\nimport { ArticleFigureComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [ArticleFigureComponent],\n  template: `\n    <cds-article-figure\n        [src]=\"src\"\n        [alt]=\"alt\"\n        [caption]=\"caption\">\n    </cds-article-figure>`,\n})\nexport class DemoComponent {\n  alt = 'Whiteboard mit handgezeichneter Matrix der Achsen AI Value und AI Readiness, mit eingezeichneten Use-Case-Punkten';\n  caption = '';\n}",
+          "warning": "Incomplete snippet: `platzhalterBild('Bildfläche · 16:9', 1280, 720)` could not be resolved statically."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "components": {
+    "seitenmuster-wissensbeitrag-author-card": {
+      "id": "seitenmuster-wissensbeitrag-author-card",
+      "name": "AuthorCardComponent",
+      "path": "./src/lib/author-card/author-card.stories.ts",
+      "stories": {
+        "seitenmuster-wissensbeitrag-author-card--interaktiv": {
+          "id": "seitenmuster-wissensbeitrag-author-card--interaktiv",
+          "name": "Interaktiv",
+          "snippet": "import { Component } from '@angular/core';\nimport { AuthorCardComponent } from '@conciso/design-system-angular';\nimport { AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent],\n  template: `\n    <div style=\"background:var(--n-50);border-block:var(--bd);padding:32px 24px\">\n        <div\n            cdsAuthorCard\n            [name]=\"name\"\n            [roleLabel]=\"roleLabel\"\n            [bio]=\"bio\"\n            [eyebrow]=\"eyebrow\">\n            <div cdsAvatar name=\"Lukas Brandt\" area=\"ki\" size=\"lg\"></div>\n        </div>\n    </div>`,\n})\nexport class DemoComponent {\n  name = 'Lukas Brandt';\n  roleLabel = 'Senior AI Engineer · bei Conciso seit 2019';\n  bio = 'Begleitet KI-Projekte von der Strategie bis in die Produktion. Schwerpunkt: RAG-Systeme und LLM-Integration in regulierten Branchen.';\n  eyebrow = 'Über den Autor';\n}"
+        },
+        "seitenmuster-wissensbeitrag-author-card--zwei-autorinnen": {
+          "id": "seitenmuster-wissensbeitrag-author-card--zwei-autorinnen",
+          "name": "Zwei Autor:innen",
+          "snippet": "import { Component } from '@angular/core';\nimport { AuthorCardComponent } from '@conciso/design-system-angular';\nimport { AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent],\n  template: `\n    <div style=\"background:var(--n-50);border-block:var(--bd);padding:32px 24px\">\n        <cds-author-card-group eyebrow=\"Über die Autor:innen\">\n            <div\n                cdsAuthorCard\n                name=\"Lukas Brandt\"\n                roleLabel=\"Senior AI Engineer · bei Conciso seit 2019\"\n                bio=\"Begleitet KI-Projekte von der Strategie bis in die Produktion. Schwerpunkt: RAG-Systeme und LLM-Integration in regulierten Branchen.\">\n                <div cdsAvatar name=\"Lukas Brandt\" area=\"ki\" size=\"lg\"></div>\n            </div>\n            <div\n                cdsAuthorCard\n                name=\"Maria Müller\"\n                roleLabel=\"UX Lead · bei Conciso seit 2020\"\n                bio=\"Verbindet Anwender:innen-Forschung mit AI-Produkt-Design. Sorgt dafür, dass technische Möglichkeiten und reale Bedürfnisse zueinander finden.\">\n                <div cdsAvatar name=\"Maria Müller\" area=\"ki\" size=\"lg\"></div>\n            </div>\n        </cds-author-card-group>\n    </div>`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-author-card--als-raster": {
+          "id": "seitenmuster-wissensbeitrag-author-card--als-raster",
+          "name": "Als Raster",
+          "snippet": "import { Component } from '@angular/core';\nimport { AuthorCardComponent } from '@conciso/design-system-angular';\nimport { AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent],\n  template: `\n    <cds-author-card-group [grid]=\"true\">\n        <div\n            cdsAuthorCard\n            name=\"Tobias Mehnert\"\n            roleLabel=\"Senior-Berater Organisationsentwicklung\"\n            bio=\"Seit über 15 Jahren in Veränderungsprojekten.\">\n            <div cdsAvatar name=\"Tobias Mehnert\" area=\"wo\" size=\"lg\"></div>\n        </div>\n        <div\n            cdsAuthorCard\n            name=\"Anja Reuter\"\n            roleLabel=\"Lead Organisationsentwicklung · TÜV SÜD zertifiziert\"\n            bio=\"Kommt aus der Produktentwicklung und kennt Scrum aus der Rolle der Product Ownerin. Schwerpunkt: Priorisierung, wenn alle Anforderungen dringend sind.\">\n            <div cdsAvatar name=\"Anja Reuter\" area=\"wo\" size=\"lg\"></div>\n        </div>\n    </cds-author-card-group>`,\n})\nexport class DemoComponent {}"
+        },
+        "seitenmuster-wissensbeitrag-author-card--ohne-bio": {
+          "id": "seitenmuster-wissensbeitrag-author-card--ohne-bio",
+          "name": "Ohne Bio",
+          "snippet": "import { Component } from '@angular/core';\nimport { AuthorCardComponent } from '@conciso/design-system-angular';\nimport { AuthorCardGroupComponent, AvatarComponent } from '@conciso/design-system-angular';\n\n@Component({\n  selector: 'app-demo',\n  imports: [AuthorCardComponent, AuthorCardGroupComponent, AvatarComponent],\n  template: `\n    <div style=\"background:var(--n-50);border-block:var(--bd);padding:32px 24px\">\n        <div\n            cdsAuthorCard\n            name=\"Daniel Herzog\"\n            roleLabel=\"Head of Delivery · bei Conciso seit 2017\">\n            <div cdsAvatar name=\"Daniel Herzog\" area=\"wo\" size=\"lg\"></div>\n        </div>\n    </div>`,\n})\nexport class DemoComponent {}"
+        }
+      }
+    }
+  }
+}
