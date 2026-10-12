@@ -184,3 +184,28 @@ export const TypeaheadPuffer: Story = {
     await expect(listbox).toHaveAttribute('aria-activedescendant', options[2].id);
   },
 };
+
+export const IconStrichstaerke: Story = {
+  name: 'Icon-Strichstärke',
+  parameters: { snapshot: { skip: true }, controls: { disable: true } },
+  // Pinnt die Strichstärke der Chrome-Icons (Lucide, ADR-0016): bisher Heroicons-Outline mit
+  // 1.5 (= --icon-stroke-md), Lucide-Default wäre 2. Die Komponente setzt CDS_ICON_STROKE
+  // explizit; hier wird der WIRKSAME (berechnete) Wert geprüft, damit auch eine CSS-Regel,
+  // die das Attribut überschreibt, auffiele. Dekorative Icons bleiben aria-hidden.
+  // Caret: Lucide-Chevron mit 1.5. Haken: Lucide-Check mit 3.2 in der 24er-viewBox bei 20 px
+  // (≙ 3.2 * 20 / 24 ≈ 2.67 px Bildschirmstrich, das Gewicht des früheren DS-Glyphs ui-check).
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const caret = canvasElement.querySelector('svg.ep-select-caret') as SVGElement;
+    await expect(caret).toHaveAttribute('aria-hidden', 'true');
+    await expect(parseFloat(getComputedStyle(caret).strokeWidth)).toBe(1.5);
+
+    await userEvent.click(c.getByRole('button'));
+    const check = canvasElement.querySelector('svg.ep-select-check') as SVGElement;
+    await expect(check).toHaveAttribute('aria-hidden', 'true');
+    await expect(check).toHaveAttribute('viewBox', '0 0 24 24');
+    const stroke = parseFloat(getComputedStyle(check).strokeWidth);
+    await expect(stroke).toBeCloseTo(3.2, 5);
+    await expect((stroke * 20) / 24).toBeCloseTo(2.67, 2);
+  },
+};

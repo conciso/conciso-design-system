@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
-import { CDS_QUOTE_ICON } from '../icons';
+import { CDS_ICON_STROKE, LucideQuote } from '../icons/cds-icons';
 
 /**
  * Blockquote — Wrapper um `.bq` aus css/components.css → „Blockquote“.
  *
  * Bereichsgefärbtes Zitat mit linker Akzentleiste und getöntem Grund (data-area),
- * Quote-Icon (ui-quote), Zitat und
+ * gefülltes Lucide-Quote-Icon, Zitat und
  * Caption (Name/Rolle). Nur bestehende Klassen.
  *
  * **Nicht `cds-article-pullquote` (`.article-pullquote`).** Dieses Bauteil ist
@@ -21,15 +20,10 @@ import { CDS_QUOTE_ICON } from '../icons';
 @Component({
   selector: 'cds-blockquote',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideQuote],
   template: `
     <figure class="bq" [attr.data-area]="area() || null">
-      <svg
-        class="bq-icon"
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        focusable="false"
-        [innerHTML]="quoteIcon()"
-      ></svg>
+      <svg lucideQuote class="bq-icon" [size]="24" [strokeWidth]="iconStroke"></svg>
       <blockquote>{{ quote() }}</blockquote>
       @if (name() || roleLabel()) {
         <figcaption class="bq-caption">
@@ -45,8 +39,6 @@ import { CDS_QUOTE_ICON } from '../icons';
   `,
 })
 export class BlockquoteComponent {
-  private readonly sanitizer = inject(DomSanitizer);
-
   /** Zitattext. */
   readonly quote = input.required<string>();
   /** Name der zitierten Person. */
@@ -56,13 +48,6 @@ export class BlockquoteComponent {
   /** Markenbereich → data-area (Akzentleiste + getönter Grund). */
   readonly area = input<CdsArea>('co');
 
-  /**
-   * Zitat-Icon aus der zentralen Icon-Registry (icons.ts) statt dreifach
-   * dupliziertem SVG-Pfad in Blockquote/Testimonial/TeamVoice.
-   *
-   * @internal
-   */
-  protected readonly quoteIcon = computed<SafeHtml>(() =>
-    this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body),
-  );
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
 }

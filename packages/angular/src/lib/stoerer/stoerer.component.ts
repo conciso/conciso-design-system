@@ -17,9 +17,9 @@ import {
  * Zustände: Hover setzt `--bg-surface-hover` und `--e3`, hebt die Kachel um 2 px und
  * unterstreicht den Titel; Fokus zeigt `--focus-ring` plus `--e3`. Das Thema-Label
  * benennt den Inhaltstyp und übernimmt das Wort der zugehörigen Sektion. Icon je Typ:
- * `ui-calendar-days` (Veranstaltung), `ui-newspaper` (Wissensbeitrag), `ui-megaphone`
- * (Pressemitteilung), `ui-information-circle` (Info); ein fünfter Typ braucht ein
- * fünftes Icon aus dieser Familie, keine Doppelbelegung.
+ * Lucide `calendar-days` (Veranstaltung), `newspaper` (Wissensbeitrag), `megaphone`
+ * (Pressemitteilung), `info` (Info); ein fünfter Typ braucht ein fünftes Lucide-Icon,
+ * keine Doppelbelegung.
  *
  * **Nur innerhalb von `<cds-stoerer-set>` verwendbar.** Diese Komponente rendert ihr
  * Markup nicht in sich selbst, sondern in ein internes `<ng-template>` und stellt es
@@ -31,7 +31,7 @@ import {
  *
  * **Entscheidung — Icon als projizierter Inhalt.** Wie bei `cds-icon-card` sind die
  * Störer-Icons im Mockup wechselnde
- * Heroicons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
+ * Lucide-Icons, keine DS-Bereichsglyphen aus der Registry — Inhalt, nicht Chrom. Deshalb
  * Projektion über `<ng-content select="[cdsIcon]">` statt eines `icon`-Inputs.
  * Abweichend von `cds-icon-card` trägt das projizierte `<svg>` die Klasse `stoerer-icon`
  * selbst (zusätzlich zu `cdsIcon`, `viewBox`, `aria-hidden="true"`,

@@ -18,7 +18,7 @@ Zwei Rollen in einer App:
 2. **Lebendes Konsum-Beispiel** — zeigt, wie ein echtes Angular-Projekt Komponenten der Lib
    importiert und die CSS-Schicht + Fonts einbindet. Welche Komponenten das sind, ist nicht
    beliebig: pro Fremd-Paket der Lib mindestens ein Vertreter (Button + Topnav für
-   `@angular/core`/`common` und `@ng-icons`, TextField + Checkbox für `@angular/forms`, Card für
+   `@angular/core`/`common` und `@lucide/angular`, TextField + Checkbox für `@angular/forms`, Card für
    `@angular/platform-browser`), damit der Smoke-Test jede dieser Abhängigkeiten auflöst. Die
    Regel steht im Kommentar von [`src/app/app.ts`](src/app/app.ts). Der `angular.json`-Schnipsel ist im
    [README der Lib](../../packages/angular/README.md#css--fonts-einbinden)

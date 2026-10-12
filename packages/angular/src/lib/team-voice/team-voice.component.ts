@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
-import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import type { CdsArea } from '../area';
-import { CDS_QUOTE_ICON } from '../icons';
+import { CDS_ICON_STROKE, LucideQuote } from '../icons/cds-icons';
 
 /**
  * TeamVoice — Wrapper um `.team-voice` aus css/components.css → „Team-Stimmen“.
  *
  * Editoriale Zitat-Reihe mit seitlichem Foto (im Grid abwechselnd links/rechts,
  * gesteuert per :nth-child innerhalb von `.team-voices`, bei Angular über den Host), bereichsgefärbtem
- * Akzent (data-area), Quote-Icon (ui-quote), Zitat und Name/Rolle. Mehrere
+ * Akzent (data-area), gefülltes Lucide-Quote-Icon, Zitat und Name/Rolle. Mehrere
  * Komponenten in einen `<div class="team-voices">` legen, damit das alternierende
  * Layout greift (siehe Story).
  *
@@ -17,20 +16,14 @@ import { CDS_QUOTE_ICON } from '../icons';
 @Component({
   selector: 'cds-team-voice',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideQuote],
   template: `
     <figure class="team-voice" [attr.data-area]="area() || null">
       <div class="team-voice-media">
         <img [src]="image() || placeholder" [alt]="imageAlt()" loading="lazy" />
       </div>
       <figcaption class="team-voice-body">
-        <!-- ui-quote aus @conciso/design-system/icons. -->
-        <svg
-          class="team-voice-icon"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-          focusable="false"
-          [innerHTML]="quoteIcon()"
-        ></svg>
+        <svg lucideQuote class="team-voice-icon" [size]="24" [strokeWidth]="iconStroke"></svg>
         <blockquote class="team-voice-quote">{{ quote() }}</blockquote>
         <div class="team-voice-footer">
           <p class="team-voice-name">{{ name() }}</p>
@@ -41,8 +34,6 @@ import { CDS_QUOTE_ICON } from '../icons';
   `,
 })
 export class TeamVoiceComponent {
-  private readonly sanitizer = inject(DomSanitizer);
-
   /** Zitattext. */
   readonly quote = input.required<string>();
   /** Name der zitierten Person. */
@@ -56,15 +47,8 @@ export class TeamVoiceComponent {
   /** Alternativtext des Fotos. */
   readonly imageAlt = input('Teamfoto');
 
-  /**
-   * Zitat-Icon aus der zentralen Icon-Registry (icons.ts) statt dreifach
-   * dupliziertem SVG-Pfad in Blockquote/Testimonial/TeamVoice.
-   *
-   * @internal
-   */
-  protected readonly quoteIcon = computed<SafeHtml>(() =>
-    this.sanitizer.bypassSecurityTrustHtml(CDS_QUOTE_ICON.body),
-  );
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
 
   /**
    * Neutraler Inline-SVG-Platzhalter, damit Stories ohne externe Assets rendern.

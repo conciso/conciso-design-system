@@ -1,41 +1,37 @@
 /**
- * Zentrale Icon-Registry des Storybooks — die EINZIGE Import-Fläche für
- * Komponenten-Icons. Zwei bewusst getrennte Quellen:
+ * Zentrale Icon-Registry der Angular-Lib — die EINZIGE Import-Fläche für
+ * Komponenten-Icons. Komponenten importieren Icons nie direkt aus `@lucide/angular`,
+ * sondern ausschließlich aus dieser Datei (Quelle der UI-Icons:
+ * docs/adr/0016-icon-quelle-lucide.md).
  *
- * 1. **DS-eigene Glyphen** (`ui*`): aus dem generierten DS-Icon-Export
- *    (Paket `@conciso/design-system/icons`, Single Source of Truth). Nur dort, wo das
- *    DS ein eigenes Glyph definiert, das KEIN bzw. ein abweichendes Heroicon-Pendant hat:
- *      · `ui-caret-down` — kräftiger Caret (10er-viewBox), kein Heroicon-Pendant.
- *      · `ui-check`      — eigener Haken (12er-viewBox), weicht vom heroCheck (24er) ab.
+ * Einzige Quelle ist **Lucide** (`@lucide/angular`, peerDependency): alle Chrome-Icons
+ * (Menü, Schließen, Chevron, Haken, Suche, Theme-Symbole, Zitat). Pro Icon eine
+ * Standalone-Komponente, im Template als `<svg lucideChevronDown>`; dynamisch über
+ * `<svg [lucideIcon]="…">` (`LucideDynamicIcon`, Eingabetyp `CdsIconInput`). Das Zitat-Icon
+ * wird gefüllt dargestellt (CSS-Klassen setzen `fill: currentColor`).
  *
- *    Importiert werden ausschließlich die BENANNTEN Exporte der beiden gebrauchten Glyphen
- *    (`uiCaretDown`, `uiCheck`), nie das aggregierte `icons`-Objekt — ein Property-Zugriff
- *    darauf (`icons['ui-caret-down']`) ist für Bundler nicht tree-shakable und zöge alle
- *    alle DS-Icons in jedes Consumer-Bundle (siehe Storybook „Grundlagen → Icons“).
- *
- * 2. **Heroicons**: für Glyphen, die im DS mit dem Heroicon glyph-identisch sind
- *    (chevron-down, magnifying-glass — gleicher Pfad, das DS setzt nur einen dünneren
- *    Stroke) sowie für die im DS-Set (noch) fehlenden Chrome-Icons (bars-3, x-mark,
- *    moon, sun, computer-desktop).
- *
- * Bekommt ein Heroicon später ein DS-Pendant, wird es HIER umgestellt — die
- * Komponenten importieren ausschließlich aus dieser Datei, nie direkt aus
- * `@ng-icons/heroicons`.
+ * Die Bereichs-Glyphen (co/ki/es/wo) liegen davon getrennt in `../icons.ts` (`CDS_AREA_ICONS`).
  */
-import { uiCaretDown as dsUiCaretDown, uiCheck as dsUiCheck } from '@conciso/design-system/icons';
-
-// Heroicons: glyph-identische (chevron/magnifying) + im DS fehlende Chrome-Icons.
 export {
-  heroBars3,
-  heroChevronDown,
-  heroComputerDesktop,
-  heroMagnifyingGlass,
-  heroMoon,
-  heroSun,
-  heroXMark,
-} from '@ng-icons/heroicons/outline';
+  LucideCheck,
+  LucideChevronDown,
+  LucideChevronLeft,
+  LucideChevronRight,
+  LucideCircleAlert,
+  LucideDynamicIcon,
+  LucideMenu,
+  LucideMonitor,
+  LucideMoon,
+  LucideQuote,
+  LucideSearch,
+  LucideSun,
+  LucideX,
+} from '@lucide/angular';
+export type { LucideIconInput as CdsIconInput } from '@lucide/angular';
 
-// DS-eigene Glyphen aus dem generierten, benannten Export (kein Duplizieren des SVG-Markups).
-// Als @ng-icons-Custom-Icons registrierbar: der Wert ist das komplette <svg>-Markup.
-export const uiCaretDown = dsUiCaretDown.svg;
-export const uiCheck = dsUiCheck.svg;
+/**
+ * Strichstärke aller Chrome-Icons. Entspricht `--icon-stroke-md` (1.5) und der bisherigen
+ * Heroicons-Outline-Vorgabe; Lucide würde ohne Angabe mit 2 zeichnen. Als Zahl, weil
+ * `@lucide/angular` die Strichstärke als Attribut setzt und kein CSS-Token lesen kann.
+ */
+export const CDS_ICON_STROKE = 1.5;

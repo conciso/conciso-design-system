@@ -9,8 +9,13 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown } from '../icons/cds-icons';
+import {
+  CDS_ICON_STROKE,
+  LucideChevronDown,
+  LucideMenu,
+  LucideSearch,
+  LucideX,
+} from '../icons/cds-icons';
 import { ThemeCycleComponent } from '../theme-switch/cycle-button.component';
 
 /** Eindeutige IDs je Topnav-Instanz (Such-Feld ↔ sr-only-Label). */
@@ -53,18 +58,7 @@ export interface CdsNavItem {
 @Component({
   selector: 'cds-topnav',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ThemeCycleComponent, NgIcon],
-  viewProviders: [provideIcons({ heroBars3, heroMagnifyingGlass, heroXMark, uiCaretDown })],
-  // ng-icon rendert sein <svg> inline (vertical-align:baseline) → im 24px-Toggle säße der
-  // 10px-Caret zu tief. Host auf Flex stellen zentriert das SVG unabhängig von der Baseline.
-  // Wirkt nur hier (emulated); die portable .ep-nav-item-caret aus components.css bleibt unberührt.
-  styles: `
-    .ep-nav-item-caret {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-  `,
+  imports: [ThemeCycleComponent, LucideChevronDown, LucideMenu, LucideSearch, LucideX],
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
@@ -119,12 +113,14 @@ export interface CdsNavItem {
                 [attr.aria-controls]="subId(i)"
                 (click)="toggleSub(i)"
               >
-                <ng-icon
+                <!-- Caret: absolute Strichstärke, hält 1,5 px Bildschirmstrich auch bei 10 px Größe. -->
+                <svg
+                  lucideChevronDown
                   class="ep-nav-item-caret"
-                  name="uiCaretDown"
-                  size="10px"
-                  aria-hidden="true"
-                />
+                  [size]="10"
+                  [strokeWidth]="iconStroke"
+                  [absoluteStrokeWidth]="true"
+                ></svg>
               </button>
               <div class="ep-nav-sub" [id]="subId(i)">
                 @for (s of item.sub; track $index) {
@@ -163,7 +159,7 @@ export interface CdsNavItem {
               [attr.aria-controls]="searchPopId"
               (click)="toggleSearch()"
             >
-              <ng-icon name="heroMagnifyingGlass" size="22px" aria-hidden="true" />
+              <svg lucideSearch size="22" [strokeWidth]="iconStroke"></svg>
             </button>
             <div class="ep-nav-search-pop" [id]="searchPopId">
               <form class="ep-nav-search-form" role="search" (submit)="$event.preventDefault()">
@@ -194,8 +190,8 @@ export interface CdsNavItem {
         [attr.aria-controls]="navId"
         (click)="toggleNav()"
       >
-        <ng-icon class="icon-menu" name="heroBars3" size="24px" aria-hidden="true" />
-        <ng-icon class="icon-close" name="heroXMark" size="24px" aria-hidden="true" />
+        <svg lucideMenu class="icon-menu" size="24" [strokeWidth]="iconStroke"></svg>
+        <svg lucideX class="icon-close" size="24" [strokeWidth]="iconStroke"></svg>
       </button>
 
       @if (showCta()) {
@@ -207,6 +203,8 @@ export interface CdsNavItem {
   `,
 })
 export class TopnavComponent {
+  /** @internal */
+  protected readonly iconStroke = CDS_ICON_STROKE;
   private readonly host: ElementRef<HTMLElement> = inject(ElementRef);
   private readonly document = inject(DOCUMENT);
   private readonly cdr = inject(ChangeDetectorRef);

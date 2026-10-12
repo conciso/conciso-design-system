@@ -338,7 +338,7 @@ test('Icon-Quelle → Icon-Übersicht der Grundlagen', () => {
   const result = run({
     base: index(...BASIS, icons),
     head: index(...BASIS, icons),
-    changes: 'A\tpackages/css/icons/source/heroicons/x.svg',
+    changes: 'A\tpackages/css/icons/source/ui-check.svg',
   });
   assert.deepEqual(ids(result).docsPages, ['grundlagen-icons--übersicht:changed']);
 });

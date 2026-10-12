@@ -41,7 +41,17 @@ export default meta;
 
 type Story = StoryObj<TeamVoiceComponent>;
 
-export const Interaktiv: Story = {};
+export const Interaktiv: Story = {
+  // Zitat-Icon: gefülltes Lucide-Quote (ADR-0016) — dekorativ, Füllung per CSS-Klasse (currentColor).
+  play: async ({ canvasElement }) => {
+    const icon = canvasElement.querySelector('svg.team-voice-icon') as SVGElement;
+    await expect(icon).toHaveClass('lucide-quote');
+    await expect(icon).toHaveAttribute('aria-hidden', 'true');
+    await expect(getComputedStyle(icon).fill).not.toBe('none');
+    // Optische Größe: per transform auf 60 % skaliert, Layoutmaße bleiben.
+    await expect(getComputedStyle(icon).transform).toBe('matrix(0.6, 0, 0, 0.6, 0, 0)');
+  },
+};
 
 export const AlternierendeReihen: Story = {
   name: 'Alternierende Reihen',

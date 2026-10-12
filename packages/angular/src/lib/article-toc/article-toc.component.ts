@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideChevronDown } from '../icons/cds-icons';
 
 /** Ein Eintrag des Inhaltsverzeichnisses (`.article-toc-list li`). */
 export interface CdsArticleTocItem {
@@ -63,20 +64,12 @@ export interface CdsArticleTocItem {
 @Component({
   selector: 'cds-article-toc',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronDown],
   template: `
     <details class="article-toc" [attr.open]="open() ? '' : null">
       <summary class="article-toc-summary" aria-label="Inhaltsverzeichnis ein- und ausklappen">
         <span>{{ summary() }}</span>
-        <svg
-          class="article-toc-caret"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.25"
-          aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+        <svg lucideChevronDown class="article-toc-caret" [strokeWidth]="1.25"></svg>
       </summary>
       <ol class="article-toc-list">
         @for (item of items(); track $index) {

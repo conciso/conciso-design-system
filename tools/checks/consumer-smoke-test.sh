@@ -9,9 +9,9 @@
 # AOT-`ng build` dort. Testet exakt das gebaute Artefakt, das ein Konsument
 # tatsächlich bekommt: APF-Metadaten, Vollständigkeit der Re-Exports in
 # public-api.ts, peer-Dep-Auflösung, AOT-Template-Typfehler, Icon-Registrierung
-# UND Tree-Shaking der DS-Icons (src/lib/icons/cds-icons.ts importiert nur benannte Exporte,
-# nie das aggregierte `icons`-Objekt — ein Fund von „co-building“, einem Bereichs-
-# Glyph, den die Fixture nirgends nutzt, im gebauten main.js beweist eine Regression).
+# UND Tree-Shaking der DS-Icons (die Fixture importiert nur das benannte Bereichs-Glyph
+# `kiBot`, nie das aggregierte `icons`-Objekt — ein Fund von „co-building“, einem Bereichs-
+# Glyph, das die Fixture nirgends nutzt, im gebauten main.js beweist eine Regression).
 #
 # WARUM AUSSERHALB DES REPOS GEBAUT WIRD: Node löst Module über die
 # Elternverzeichnisse auf. Solange die Fixture unter tools/ im Repo gebaut wird,
@@ -134,7 +134,7 @@ if [ -z "$MAIN_JS" ]; then
   exit 1
 fi
 if grep -q 'co-building' "$MAIN_JS"; then
-  echo "DS-Icons nicht tree-shakable: das Bereichs-Glyph co-building (von der Fixture nirgends genutzt) steckt in $MAIN_JS. packages/angular/src/lib/icons/cds-icons.ts importiert vermutlich wieder das aggregierte icons-Objekt statt der benannten Exporte (siehe packages/css/icons/README.md, Abschnitt Verwendung)." >&2
+  echo "DS-Icons nicht tree-shakable: das Bereichs-Glyph co-building (von der Fixture nirgends genutzt) steckt in $MAIN_JS. die Angular-Lib oder die Fixture importiert vermutlich das aggregierte icons-Objekt statt benannter Exporte (siehe packages/css/icons/README.md, Abschnitt Verwendung)." >&2
   exit 1
 fi
 echo "  main.js: $(basename "$MAIN_JS"), $(wc -c < "$MAIN_JS" | tr -d ' ') Bytes (raw)"

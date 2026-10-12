@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { LucideChevronDown } from '../icons/cds-icons';
 
 /** Eine Vergleichsspalte (Paket/Tarif) der Vergleichstabelle. */
 export interface CdsCompareColumn {
@@ -88,21 +89,17 @@ export interface CdsCompareRow {
 @Component({
   selector: 'cds-compare',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronDown],
   template: `
     <details class="ep-compare" [attr.open]="open() ? '' : null" (toggle)="onToggle($event)">
       <summary class="ep-compare-summary">
         {{ summary() }}
         <svg
+          lucideChevronDown
           class="ep-compare-caret"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.25"
-          aria-hidden="true"
           focusable="false"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+          [strokeWidth]="1.25"
+        ></svg>
       </summary>
       <div class="ep-compare-table-wrap">
         <table class="ep-compare-table">
