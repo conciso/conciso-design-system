@@ -8,7 +8,9 @@ export type CdsThemeMode = 'light' | 'dark' | 'system';
 export const CDS_THEME_ORDER: CdsThemeMode[] = ['light', 'dark', 'system'];
 
 /** Icon je Modus (Eingabe für `<svg [lucideIcon]>`). Kommt über die zentrale Icon-Registry
- *  (lib/icons/cds-icons); für diese drei Chrome-Icons hat das DS-Set kein eigenes Glyph → Lucide. */
+ *  (lib/icons/cds-icons); für diese drei Chrome-Icons hat das DS-Set kein eigenes Glyph → Lucide.
+ *  Seit der Lucide-Umstellung sind die Werte Lucide-Icon-Komponenten (für `<svg [lucideIcon]>`),
+ *  keine ng-icons-Namensstrings (z. B. „heroSun“) mehr. */
 export const CDS_THEME_ICON: Record<CdsThemeMode, CdsIconInput> = {
   light: LucideSun,
   dark: LucideMoon,
