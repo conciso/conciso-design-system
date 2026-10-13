@@ -131,4 +131,10 @@ npm run check:contrast    # Kontrast der gerenderten Doku in Light UND Dark
 
 ## Lizenz & Kontakt
 
-MIT, siehe [LICENSE](LICENSE). Ausnahmen (Brand-Assets unter `assets/brand/`, Schriften, Icons) siehe [NOTICE](NOTICE). Fragen und Beiträge über GitHub Issues im Repo. Maintainer: _Design-System-Team (bitte eintragen)_.
+MIT, siehe [LICENSE](LICENSE). Ausnahmen (Brand-Assets unter `assets/brand/`, Schriften, Icons) siehe [NOTICE](NOTICE). Fragen und Beiträge über GitHub Issues im Repo.
+
+**Alle in diesem Repository enthaltenen Firmennamen, Marken, Dienstleistungsmarken, Logos und sonstigen Markenbestandteile sind von der MIT-Lizenz ausgenommen.**
+
+Diese Bestandteile verbleiben im Eigentum der jeweiligen Rechteinhaber. Durch die MIT-Lizenz werden weder Markenrechte noch sonstige Rechte zur Nutzung dieser Markenbestandteile eingeräumt.
+
+Jede Nutzung dieser Bestandteile bedarf einer gesonderten Genehmigung durch den jeweiligen Rechteinhaber, sofern nicht nach geltendem Recht anderweitig zulässig.
